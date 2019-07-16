@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>es.limit.cecogest</groupId>
+	<artifactId>cecocloud</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.4.RELEASE</version>
+		<relativePath/>
+	</parent>
+	<properties>
+		<orika.starter.version>1.8.0</orika.starter.version>
+		<reflections.version>0.9.11</reflections.version>
+		<commons-lang.version>2.5</commons-lang.version>
+		<swagger.version>2.9.2</swagger.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.test.skip>true</maven.test.skip>
+		<skip.npm>false</skip.npm>
+	</properties>
+	<modules>
+		<module>cecocloud-front</module>
+		<module>cecocloud-back</module>
+		<module>cecocloud-logic</module>
+		<module>cecocloud-logic-api</module>
+		<module>cecocloud-persist</module>
+	</modules>
+</project>
