@@ -48,7 +48,7 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> implements InitializingBean {
+public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> implements InitializingBean {
 
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
@@ -57,7 +57,8 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 	@Autowired
 	private List<BaseRepository<?, ?>> repositories;
 
-	private Class<P> parentClass;
+	private Class<P1> parent1Class;
+	private Class<P2> parent2Class;
 	private Class<E> entityClass;
 	private Class<D> dtoClass;
 	private Map<Class<? extends Identificable<?>>, BaseRepository<?, ?>> referencedRepositoriesMap;
@@ -94,28 +95,49 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 		builderReturnType.getMethod("build");
 		builderReturnType.getMethod("embedded", getDtoClass());
 		if (isChildService()) {
-			builderReturnType.getMethod("parent", getParentClass());
+			builderReturnType.getMethod("parent", getParent1Class());
+		}
+		if (isChildChildService()) {
+			builderReturnType.getMethod("parent1", getParent1Class());
+			builderReturnType.getMethod("parent2", getParent2Class());
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	protected E buildNewEntity(P parent, D dto) {
+	protected E buildNewEntity(P1 parent1, P2 parent2, D dto) {
 		try {
 			Method builderMethod = getEntityClass().getMethod("builder");
 			Class<?> builderReturnType = builderMethod.getReturnType();
 			Method embeddedMethod = builderReturnType.getMethod("embedded", getDtoClass());
 			Object builderInstance = builderMethod.invoke(null);
+			// Es crida el mètode que guarda els valors del DTO a dins embedded
 			embeddedMethod.invoke(builderInstance, dto);
-			Method parentMethod = null;
+			Method parent1Method = null;
+			Method parent2Method = null;
 			if (isChildService()) {
-				parentMethod = builderReturnType.getMethod("parent", getParentClass());
-				parentMethod.invoke(builderInstance, parent);
+				parent1Method = builderReturnType.getMethod("parent", getParent1Class());
+				// Es crida el mètode que configura el pare
+				parent1Method.invoke(builderInstance, parent1);
+			}
+			if (isChildChildService()) {
+				parent2Method = builderReturnType.getMethod("parent1", getParent1Class());
+				// Es crida el mètode que configura el primer pare
+				parent2Method.invoke(builderInstance, parent1);
+				parent2Method = builderReturnType.getMethod("parent2", getParent1Class());
+				// Es crida el mètode que configura el segon pare
+				parent2Method.invoke(builderInstance, parent2);
 			}
 			if (referencedRepositoriesMap != null) {
+				// Es criden els mètodes del builder per a les entitats referenciades en el DTO
 				for (Method builderCallableMethod: builderReturnType.getDeclaredMethods()) {
+					// Només es criden els mètodes amb un argument
 					if (builderCallableMethod.getParameterTypes().length == 1) {
-						boolean callableMethod = !(embeddedMethod.equals(builderCallableMethod) || (parentMethod != null && parentMethod.equals(builderCallableMethod)));
-						if (callableMethod) {
+						// Només es criden els métodes que no son "embedded" i que no corresponen a un parent 
+						boolean forbiddenMethod =
+								embeddedMethod.equals(builderCallableMethod) ||
+								(parent1Method != null && parent1Method.equals(builderCallableMethod)) ||
+								(parent2Method != null && parent2Method.equals(builderCallableMethod));
+						if (!forbiddenMethod) {
 							Object id = null;
 							for (Field field: getDtoClass().getDeclaredFields()) {
 								if (field.getName().equals(builderCallableMethod.getName())) {
@@ -140,6 +162,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 					}
 				}
 			}
+			// Es crida el mètode build per a crear la instància de l'entitat
 			Method buildMethod = builderReturnType.getMethod("build");
 			return (E)buildMethod.invoke(builderInstance);
 		} catch (Exception ex) {
@@ -227,17 +250,26 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<P> getParentClass() {
-		if (parentClass == null && isChildService()) {
-			parentClass = (Class<P>)getClassFromGenericType(1);
+	protected Class<P1> getParent1Class() {
+		if (parent1Class == null && (isChildService() || isChildChildService())) {
+			parent1Class = (Class<P1>)getClassFromGenericType(1);
 		}
-		return (Class<P>)parentClass;
+		return (Class<P1>)parent1Class;
+	}
+	@SuppressWarnings("unchecked")
+	protected Class<P2> getParent2Class() {
+		if (parent2Class == null && isChildChildService()) {
+			parent2Class = (Class<P2>)getClassFromGenericType(2);
+		}
+		return (Class<P2>)parent2Class;
 	}
 
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		if (entityClass == null) {
-			if (isChildService()) {
+			if (isChildChildService()) {
+				entityClass = (Class<E>)getClassFromGenericType(3);
+			} else if (isChildService()) {
 				entityClass = (Class<E>)getClassFromGenericType(2);
 			} else {
 				entityClass = (Class<E>)getClassFromGenericType(1);
@@ -256,6 +288,9 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 
 	protected boolean isChildService() {
 		return AbstractGenericChildServiceImpl.class.isAssignableFrom(getClass());
+	}
+	protected boolean isChildChildService() {
+		return AbstractGenericChildChildServiceImpl.class.isAssignableFrom(getClass());
 	}
 
 	private Class<?> getClassFromGenericType(int index) {

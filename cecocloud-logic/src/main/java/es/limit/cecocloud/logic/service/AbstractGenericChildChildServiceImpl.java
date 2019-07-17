@@ -13,10 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.limit.cecocloud.logic.api.dto.util.IdentificableChild;
+import es.limit.cecocloud.logic.api.dto.util.IdentificableChildChild;
 import es.limit.cecocloud.logic.api.exception.WrongParentException;
-import es.limit.cecocloud.logic.api.service.GenericChildService;
-import es.limit.cecocloud.persist.entity.AbstractChildEntity;
+import es.limit.cecocloud.logic.api.service.GenericChildChildService;
+import es.limit.cecocloud.persist.entity.AbstractChildChildEntity;
 import es.limit.cecocloud.persist.entity.AbstractEntity;
 import es.limit.cecocloud.persist.repository.BaseRepository;
 import ma.glasnost.orika.MapperFacade;
@@ -27,24 +27,28 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChild<PID, ID>, P extends AbstractEntity<?, PID>, E extends AbstractChildEntity<P, D, ID>, PID extends Serializable, ID extends Serializable> extends AbstractServiceImpl<D, P, AbstractEntity<?, ?>, E, ID> implements GenericChildService<D, PID, ID> {
+public abstract class AbstractGenericChildChildServiceImpl<D extends IdentificableChildChild<PID1, PID2, ID>, P1 extends AbstractEntity<?, PID1>, P2 extends AbstractEntity<?, PID2>, E extends AbstractChildChildEntity<P1, P2, D, ID>, PID1 extends Serializable, PID2 extends Serializable, ID extends Serializable> extends AbstractServiceImpl<D, P1, P2, E, ID> implements GenericChildChildService<D, PID1, PID2, ID> {
 
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
 	@Autowired
-	private BaseRepository<P, PID> parentRepository;
+	private BaseRepository<P1, PID1> parent1Repository;
+	@Autowired
+	private BaseRepository<P2, PID2> parent2Repository;
 
 	@Override
 	@Transactional
 	public D create(
-			PID parentId,
+			PID1 parentId1,
+			PID2 parentId2,
 			D dto) {
 		logger.debug("Creant entitat (" +
-				"parentId=" + parentId + ", " +
+				"parentId1=" + parentId1 + ", " +
+				"parentId2=" + parentId2 + ", " +
 				"dto=" + dto + ")");
 		E entity = buildNewEntity(
-				getParentRepository().getOne(parentId),
-				null, 
+				getParent1Repository().getOne(parentId1),
+				getParent2Repository().getOne(parentId2),
 				dto);
 		beforeCreate(entity, dto);
 		E saved = getRepository().save(entity);
@@ -55,14 +59,16 @@ public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChi
 	@Override
 	@Transactional
 	public D update(
-			PID parentId,
+			PID1 parentId1,
+			PID2 parentId2,
 			ID id,
 			D dto) {
 		logger.debug("Modificant entitat (" +
-				"parentId=" + parentId + ", " +
+				"parentId1=" + parentId1 + ", " +
+				"parentId2=" + parentId2 + ", " +
 				"id=" + id + ", " +
 				"dto=" + dto + ")");
-		E entity = getEntity(parentId, id);
+		E entity = getEntity(parentId1, parentId2, id);
 		beforeUpdate(entity, dto);
 		entity.update(dto);
 		E saved = getRepository().save(entity);
@@ -73,12 +79,14 @@ public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChi
 	@Override
 	@Transactional
 	public void delete(
-			PID parentId,
+			PID1 parentId1,
+			PID2 parentId2,
 			ID id) {
 		logger.debug("Esborrant entitat (" +
-				"parentId=" + parentId + ", " +
+				"parentId1=" + parentId1 + ", " +
+				"parentId2=" + parentId2 + ", " +
 				"id=" + id + ")");
-		E entity = getEntity(parentId, id);
+		E entity = getEntity(parentId1, parentId2, id);
 		beforeDelete(entity);
 		getRepository().delete(entity);
 		afterDelete(entity);
@@ -87,26 +95,30 @@ public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChi
 	@Override
 	@Transactional(readOnly = true)
 	public D getOne(
-			PID parentId,
+			PID1 parentId1,
+			PID2 parentId2,
 			ID id) {
 		logger.debug("Obtenint entitat (" +
-				"parentId=" + parentId + ", " +
+				"parentId1=" + parentId1 + ", " +
+				"parentId2=" + parentId2 + ", " +
 				"id=" + id + ")");
-		return toDto(getEntity(parentId, id));
+		return toDto(getEntity(parentId1, parentId2, id));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<D> findPageByRsqlQuery(
-			PID parentId,
+			PID1 parentId1,
+			PID2 parentId2,
 			String rsqlQuery,
 			Pageable pageable) {
 		logger.debug("Consulta d'entitats amb filtre i paginació (" +
-				"parentId=" + parentId + ", " +
+				"parentId1=" + parentId1 + ", " +
+				"parentId2=" + parentId2 + ", " +
 				"rsqlQuery=" + rsqlQuery + ", " +
 				"pageable=" + pageable + ")");
 		return findPageByRsqlQuery(
-				getParentRepository().getOne(parentId),
+				getParent1Repository().getOne(parentId1),
 				rsqlQuery,
 				pageable);
 	}
@@ -114,13 +126,15 @@ public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChi
 	@Override
 	@Transactional(readOnly = true)
 	public D findOneByRsqlQuery(
-			PID parentId,
+			PID1 parentId1,
+			PID2 parentId2,
 			String rsqlQuery) {
 		logger.debug("Consulta d'una única entitat amb filtre (" +
-				"parentId=" + parentId + ", " +
+				"parentId1=" + parentId1 + ", " +
+				"parentId2=" + parentId2 + ", " +
 				"rsqlQuery=" + rsqlQuery + ")");
 		Page<D> page = findPageByRsqlQuery(
-				getParentRepository().getOne(parentId),
+				getParent1Repository().getOne(parentId1),
 				rsqlQuery,
 				PageRequest.of(0, 1));
 		if (!page.isEmpty()) {
@@ -136,22 +150,27 @@ public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChi
 	}
 
 	protected E getEntity(
-			PID parentId,
+			PID1 parentId1,
+			PID2 parentId2,
 			ID id) {
 		E entity = getRepository().getOne(id);
-		if (!parentId.equals(entity.getParent().getId())) {
+		if (!parentId1.equals(entity.getParent1().getId()) || !parentId2.equals(entity.getParent2().getId())) {
 			throw new WrongParentException(
-					parentId,
+					parentId1 + "," + parentId2,
 					id,
 					getDtoClass());
 		}
 		return entity;
 	}
 
-	protected BaseRepository<P, PID> getParentRepository() {
-		return parentRepository;
+	protected BaseRepository<P1, PID1> getParent1Repository() {
+		return parent1Repository;
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(AbstractGenericChildServiceImpl.class);
+	protected BaseRepository<P2, PID2> getParent2Repository() {
+		return parent2Repository;
+	}
+
+	private static final Logger logger = LoggerFactory.getLogger(AbstractGenericChildChildServiceImpl.class);
 
 }

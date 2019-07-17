@@ -26,7 +26,7 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E extends AbstractEntity<D, ID>, ID extends Serializable> extends AbstractServiceImpl<D, AbstractEntity<?, ?>, E, ID> implements GenericService<D, ID> {
+public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E extends AbstractEntity<D, ID>, ID extends Serializable> extends AbstractServiceImpl<D, AbstractEntity<?, ?>, AbstractEntity<?, ?>, E, ID> implements GenericService<D, ID> {
 
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
@@ -35,7 +35,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	@Transactional
 	public D create(D dto) {
 		logger.debug("Creant entitat (" + "dto=" + dto + ")");
-		E entity = buildNewEntity(null, dto);
+		E entity = buildNewEntity(null, null, dto);
 		beforeCreate(entity, dto);
 		E saved = getRepository().save(entity);
 		afterCreate(entity, dto);
