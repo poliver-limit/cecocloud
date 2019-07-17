@@ -6,6 +6,7 @@ import {
 } from '@angular/router';
 
 import { AuthService } from './shared/auth/auth.service';
+import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 
 @Component( {
     selector: 'app-root',
@@ -15,6 +16,7 @@ import { AuthService } from './shared/auth/auth.service';
 export class AppComponent {
 
     private topbarVisible: boolean = false;
+    private usuariNom: String;
 
     onMenuSortirClick() {
         this.authService.logout();
@@ -22,12 +24,20 @@ export class AppComponent {
     }
 
     constructor(
-            private authService: AuthService,
-            private router: Router ) {
+        private authService: AuthService,
+        private router: Router ) {
+        // Manten actualitzat el nom d'usuari
+        let payload = authService.getAuthTokenPayload();
+        if (payload) {
+            this.usuariNom = payload.name;
+        }
+        authService.authTokenChangeEvent.subscribe(( payload: AuthTokenPayload ) => {
+            this.usuariNom = payload.name;
+        } );
         // Oculta la barra superior en la pàgina de login
         router.events.subscribe(( event: Event ) => {
             if ( event instanceof NavigationEnd ) {
-                this.topbarVisible = (event.url !== '/login');
+                this.topbarVisible = ( event.url !== '/login' );
             }
         } );
     }

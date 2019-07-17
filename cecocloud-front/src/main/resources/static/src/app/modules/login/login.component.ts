@@ -8,21 +8,22 @@ import { AuthResponse } from '../../shared/auth/auth-response';
     template: `
 <div id="mant-header" mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em">
     <div mdcHeadline3>Cecocloud</div>
+    <br/>
     <form (submit)="onSubmit($event)">
         <mdc-form-field fluid>
-            <mdc-text-field label="Usuari" [valid]="valid" (input)="onUserFieldInput($event)"></mdc-text-field>
-            <!--mdc-helper-text validation>
-                <span>Usuari o contrasenya incorrectes</span>
-            </mdc-helper-text-->
+            <mdc-text-field label="Usuari" outlined [valid]="valid" (input)="onUserFieldInput($event)"></mdc-text-field>
         </mdc-form-field>
         <br/>
         <mdc-form-field fluid>
-            <mdc-text-field label="Contrasenya" [valid]="valid" (input)="onPassFieldInput($event)"></mdc-text-field>
+            <mdc-text-field label="Contrasenya" type="password" outlined [valid]="valid" (input)="onPassFieldInput($event)"></mdc-text-field>
             <mdc-helper-text validation>
                 <span>Usuari o contrasenya incorrectes</span>
             </mdc-helper-text>
         </mdc-form-field>
-        <div style="text-align: right">
+        <button mdc-button (click)="onPasswordRecoveryButtonClick($event)" style="text-transform: none">Has oblidat la contrasenya?</button>
+        <br/>
+        <div style="display: flex; justify-content: space-between">
+            <button mdc-button (click)="onCreateButtonClick($event)" style="text-transform: none">Crear nou usuari</button>
             <button mdc-button primary (click)="onEntrarButtonClick($event)">Entrar</button>
         </div>
     </form>
@@ -64,7 +65,17 @@ export class LoginComponent {
             } );
     }
 
-    onSubmit(event) {
+    onCreateButtonClick() {
+        event.preventDefault();
+        alert('Funcionalitat pendent de desenvolupar');
+    }
+
+    onPasswordRecoveryButtonClick() {
+        event.preventDefault();
+        alert('Funcionalitat pendent de desenvolupar');
+    }
+
+    onSubmit( event ) {
         event.preventDefault();
         this.onEntrarButtonClick();
     }

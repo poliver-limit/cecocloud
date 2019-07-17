@@ -3,12 +3,21 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,9 +45,18 @@ import lombok.Setter;
 })
 public class UsuariEntity extends AbstractEntity<Usuari, Long> {
 
+	@ElementCollection
+    @CollectionTable(name = "usuari_rols", joinColumns = @JoinColumn(name = "usuari_id"))
+    @Column(name = "rol", length = 10)
+	@Enumerated(EnumType.STRING)
+    private Set<Rol> rols = new HashSet<>();
+
 	@Builder
     public UsuariEntity(Usuari embedded) {
         this.embedded = embedded;
+        if (embedded.getRols() != null) {
+        	this.rols = embedded.getRols();
+        }
     }
 
 }

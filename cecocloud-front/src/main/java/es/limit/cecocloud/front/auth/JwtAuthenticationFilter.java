@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.limit.cecocloud.front.config.WebSecurityConfig.UserWithName;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -68,17 +69,31 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		List<String> roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 		byte[] signingKey = JwtAuthConstants.JWT_SECRET.getBytes();
 		long expiration = System.currentTimeMillis() + EXPIRATION;
-		String token = Jwts.builder().signWith(
-				Keys.hmacShaKeyFor(signingKey),
-				SignatureAlgorithm.HS512).
-				setHeaderParam("typ", TOKEN_TYPE).
-				setIssuer(TOKEN_ISSUER).
-				setAudience(TOKEN_AUDIENCE).
-				setSubject(user.getUsername()).
-				setExpiration(new Date(expiration)).
-				claim("rol", roles).
-				claim("name", "Usuari Pepet").
-				compact();
+		String token;
+		if (user instanceof UserWithName) {
+			token = Jwts.builder().signWith(
+					Keys.hmacShaKeyFor(signingKey),
+					SignatureAlgorithm.HS512).
+					setHeaderParam("typ", TOKEN_TYPE).
+					setIssuer(TOKEN_ISSUER).
+					setAudience(TOKEN_AUDIENCE).
+					setSubject(user.getUsername()).
+					setExpiration(new Date(expiration)).
+					claim("rol", roles).
+					claim("name", ((UserWithName)user).getName()).
+					compact();
+		} else {
+			token = Jwts.builder().signWith(
+					Keys.hmacShaKeyFor(signingKey),
+					SignatureAlgorithm.HS512).
+					setHeaderParam("typ", TOKEN_TYPE).
+					setIssuer(TOKEN_ISSUER).
+					setAudience(TOKEN_AUDIENCE).
+					setSubject(user.getUsername()).
+					setExpiration(new Date(expiration)).
+					claim("rol", roles).
+					compact();
+		}
 		response.getWriter().write(jsonMapper.writeValueAsString(
 				new JwtAuthResponse(
 						token,

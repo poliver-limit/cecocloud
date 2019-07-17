@@ -190,6 +190,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 
 	protected D toDto(E entity) {
 		removeGenericReferences(entity.getEmbedded());
+		mapEntityPropertiesToEmbeddedProperties(entity);
 		D dto = orikaMapperFacade.map(
 				entity.getEmbedded(),
 				getDtoClass());
@@ -203,6 +204,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 		if (entities != null) {
 			List<D> embeddedEntities = entities.stream().map(entity -> entity.getEmbedded()).collect(Collectors.toList());
 			embeddedEntities.stream().forEach(this::removeGenericReferences);
+			entities.stream().forEach(this::mapEntityPropertiesToEmbeddedProperties);
 			List<D> dtos = orikaMapperFacade.mapAsList(
 					embeddedEntities,
 					getDtoClass());
@@ -365,6 +367,11 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>,  P extend
 		}
 	}
 
+	private void mapEntityPropertiesToEmbeddedProperties(E entity) {
+		orikaMapperFacade.map(
+				entity,
+				entity.getEmbedded());
+	}
 	/*@SuppressWarnings("unchecked")
 	protected void saveAndRefresh(E entity, JpaRepository<E, ?> repository) {
 		repository.saveAndFlush(entity);

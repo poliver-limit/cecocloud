@@ -25,6 +25,9 @@ public class UsuariServiceImpl extends AbstractGenericServiceImpl<Usuari, Usuari
 	protected void beforeCreate(
 			UsuariEntity entity,
 			Usuari dto) {
+		/*if (dto.getRols() != null) {
+			entity.updateRols(dto.getRols());
+		}*/
 		// Si l'usuari a crear te contrasenya la codifica abans de guardar-la a la base de dades
 		if (entity.getEmbedded().getContrasenya() != null) {
 			entity.getEmbedded().setContrasenya(

@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import java.util.Set;
+
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,5 +36,7 @@ public class Usuari extends AbstractIdentificable<Long> {
 	private String proveidorAuth;
 	@Size(max = 255)
 	private String contrasenya;
-	
+	@Transient
+	private Set<Rol> rols;
+
 }

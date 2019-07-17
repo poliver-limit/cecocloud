@@ -1,27 +1,12 @@
-<mdc-top-app-bar fixed dense *ngIf="topbarVisible">
+<mdc-top-app-bar fixed *ngIf="topbarVisible">
 	<mdc-top-app-bar-row>
 		<mdc-top-app-bar-section align="start" title="Cecocloud">
 			<button mdcTopAppBarNavIcon>
 				<mdc-icon>menu</mdc-icon>
 			</button>
 		</mdc-top-app-bar-section>
-		<!--mdc-top-app-bar-section align="start">
-			<mdc-tab-bar useAutomaticActivation class="mdc-tab-bar-top">
-				<mdc-tab-scroller>
-					<mdc-tab label="Overview"></mdc-tab>
-					<mdc-tab label="Customers"></mdc-tab>
-					<mdc-tab label="Vendors"></mdc-tab>
-					<mdc-tab label="Accounting"></mdc-tab>
-					<mdc-tab label="Reporting"></mdc-tab>
-					<mdc-tab label="Configuration"></mdc-tab>
-				</mdc-tab-scroller>
-			</mdc-tab-bar>
-		</mdc-top-app-bar-section-->
 		<mdc-top-app-bar-section align="end">
-			<mdc-icon mdcTopAppBarActionItem>schedule</mdc-icon>
-			<mdc-icon mdcTopAppBarActionItem>question_answer</mdc-icon>
-			<mdc-icon mdcTopAppBarActionItem>settings</mdc-icon>
-			<div mdcMenuSurfaceAnchor #userAnchor>
+			<div mdcMenuSurfaceAnchor #userAnchor [title]="usuariNom">
 				<mdc-icon #userIcon mdcTopAppBarActionItem (click)="userMenu.open = !userMenu.open">person</mdc-icon>
 				<mdc-menu anchorCorner="bottomStart" #userMenu [anchorElement]="userAnchor">
 					<mdc-list>
@@ -33,38 +18,5 @@
 	</mdc-top-app-bar-row>
 </mdc-top-app-bar>
 <div #container id="container" [ngClass]="{'topbarMargin': topbarVisible}">
-	<!--div id="mant-header" mdcBody1 mdcElevation="5">
-		<div class="mant-first">
-			<div class="mant-headline" mdcHeadline6>
-				<span class="main">Invoices</span><span class="current"> / FAC-123/2017</span>
-			</div>
-			<div class="mant-filter">
-				<mdc-text-field label="Filter" outlined>
-					<mdc-icon mdcTextFieldIcon trailing>search</mdc-icon>
-				</mdc-text-field>
-			</div>
-		</div>
-		<div class="mant-second">
-			<div class="mant-action">
-				<button mdc-button dense secondary>Edit</button>&nbsp;
-				<button mdc-button dense>Create</button>
-			</div>
-			<div class="mant-menu">
-				<button mdc-button dense>
-					<span mdcButtonLabel>Print</span>
-					<mdc-icon>arrow_drop_down</mdc-icon>
-				</button>
-				<button mdc-button dense>
-					<span mdcButtonLabel>Actions</span>
-					<mdc-icon>arrow_drop_down</mdc-icon>
-				</button>
-			</div>
-			<div class="mant-page">
-				<span class="mant-page-info">1 / 4</span>
-				<button mdc-icon-button icon="keyboard_arrow_left"></button>
-				<button mdc-icon-button icon="keyboard_arrow_right"></button>
-			</div>
-		</div>
-	</div-->
 	<router-outlet></router-outlet>
 </div>

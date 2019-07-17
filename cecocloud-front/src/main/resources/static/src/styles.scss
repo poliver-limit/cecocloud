@@ -1,15 +1,8 @@
-$mdc-theme-primary: #875a7b;
+/*$mdc-theme-primary: #875a7b;
 $mdc-theme-secondary: #008784;
 $mdc-theme-on-primary: #feeae6;
 $mdc-theme-on-secondary: red;
-$mdc-theme-on-surface: #666;
-
-/*$mdc-theme-secondary: #388e3c;*/
-/*$mdc-theme-primary: #fcb8ab;
-$mdc-theme-secondary: #feeae6;
-$mdc-theme-on-primary: #442b2d;
-$mdc-theme-on-secondary: #442b2d;
-$mdc-theme-on-surface: #442b2d;*/
+$mdc-theme-on-surface: #666;*/
 
 @import "~@angular-mdc/theme/material";
 
@@ -23,49 +16,8 @@ $mdc-theme-on-surface: #442b2d;*/
 
 .topbarMargin {
 	position: relative;
-	top: 48px;
-}
-#mant-header .mant-first {
-	display: flex;
-}
-#mant-header .mant-headline {
-	flex-grow: 1;
-	padding-left: 16px;
-	padding-top: 8px;
-	color: #999 !important;
-}
-#mant-header .mant-headline span.main {
-	color: $mdc-theme-secondary;
-}
-#mant-header .mant-headline span.current {
-	color: $mdc-theme-on-surface;
-}
-#mant-header .mant-filter {
-	flex-grow: 1;
-	margin-top: 8px;
-	margin-right: 16px;
-}
-
-#mant-header .mant-second {
-	display: flex;
-}
-#mant-header .mant-second .mant-action {
-	flex-grow: 1;
-	text-align: left;
-	padding-left: 16px;
-}
-#mant-header .mant-second .mant-menu {
-	flex-grow: 1;
-	text-align: center;
-}
-#mant-header .mant-second .mant-page {
-	flex-grow: 1;
-	text-align: right;
-	padding-right: 16px;
-}
-#mant-header .mant-second .mant-page-info {
-	position: relative;
-	top: -6px;
+	/*top: 48px;*/
+	top: 64px;
 }
 
 * {
