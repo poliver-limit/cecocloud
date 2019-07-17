@@ -1,5 +1,5 @@
 $ curl -X POST -d '{"codi": "test", "nom": "test", "email": "test@limit.es", "contrasenya": "test", "rols": ["ADMIN"]}' -H "Content-Type: application/json" http://localhost:8080/cecocloud/api/usuaris
 
-$ curl http://localhost:8080/cecocloud/api/usuaris
+$ curl -H "Authorization: Bearer TOKEN" http://localhost:8080/cecocloud/api/usuaris
 
 $ curl -i -H "Content-Type: application/x-www-form-urlencoded" -d "user=test&pass=test" http://localhost:8080/cecocloud/api/auth
