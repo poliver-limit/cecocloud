@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.rest.webmvc.json.patch.JsonPatchPatchConverter;
@@ -35,6 +33,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import com.fasterxml.jackson.databind.JsonNode;
 
 import es.limit.cecocloud.logic.api.dto.util.IdentificableChild;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Mètodes bàsics per als controladors REST que gestionen entitats
@@ -42,6 +41,7 @@ import es.limit.cecocloud.logic.api.dto.util.IdentificableChild;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @RestController
 public abstract class AbstractIdentificableChildApiController<D extends IdentificableChild<PID, ID>, PID extends Serializable, ID extends Serializable> extends AbstractIdentificableChildReadOnlyApiController<D, PID, ID> {
 
@@ -54,7 +54,7 @@ public abstract class AbstractIdentificableChildApiController<D extends Identifi
 			HttpServletRequest request,
 			@RequestParam(value = "parentId") final PID parentId,
 			@RequestBody @Valid final D dto) {
-		logger.debug("Creant entitat (" +
+		log.debug("Creant entitat (" +
 				"parentId=" + parentId + ", " +
 				"dto=" + dto + ")");
 		D creat = getService().create(
@@ -78,7 +78,7 @@ public abstract class AbstractIdentificableChildApiController<D extends Identifi
 			@RequestBody @Valid final D dto,
 			@RequestParam(required = false) boolean validate) {
 		if (!validate) {
-			logger.debug("Modificant entitat (" +
+			log.debug("Modificant entitat (" +
 					"parentId=" + parentId + ", " +
 					"resourceId=" + resourceId + ", " +
 					"dto=" + dto + ")");
@@ -88,7 +88,7 @@ public abstract class AbstractIdentificableChildApiController<D extends Identifi
 					dto);
 			return ResponseEntity.ok(toResource(modificat));
 		} else {
-			logger.debug("Validant entitat per modificació (" +
+			log.debug("Validant entitat per modificació (" +
 					"resourceId=" + resourceId + ", " +
 					"dto=" + dto + ")");
 			return ResponseEntity.ok(null);
@@ -104,7 +104,7 @@ public abstract class AbstractIdentificableChildApiController<D extends Identifi
 			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
 			@RequestBody final JsonNode jsonNode,
 			BindingResult bindingResult) throws MethodArgumentNotValidException {
-		logger.debug("Pedaçant entitat (" +
+		log.debug("Pedaçant entitat (" +
 				"resourceId=" + resourceId + ", " +
 				"jsonNode=" + jsonNode + ")");
 		Patch patch = new JsonPatchPatchConverter(objectMapper).convert(jsonNode);
@@ -138,14 +138,12 @@ public abstract class AbstractIdentificableChildApiController<D extends Identifi
 			HttpServletRequest request,
 			@RequestParam(value = "parentId") final PID parentId,
 			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
-		logger.debug("Esborrant entitat (" +
+		log.debug("Esborrant entitat (" +
 				"resourceId=" + resourceId + ")");
 		getService().delete(
 				parentId,
 				resourceId);
 		return ResponseEntity.ok().build();
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(AbstractIdentificableChildApiController.class);
 
 }

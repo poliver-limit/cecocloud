@@ -3,23 +3,19 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
-import java.util.Set;
-
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'un usuari.
+ * Informació per a registrar un usuari.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class Usuari extends AbstractIdentificable<Long> {
+public class RegistreUsuari {
 
 	@NotNull
 	@Size(max = 100)
@@ -30,14 +26,5 @@ public class Usuari extends AbstractIdentificable<Long> {
 	@NotNull
 	@Size(max = 100)
 	private String email;
-	@Size(max = 255)
-	private String imatgeUrl;
-	@Size(max = 10)
-	private String proveidorAuth;
-	@Size(max = 105)
-	private String contrasenya;
-	private boolean validat;
-	@Transient
-	private Set<Rol> rols;
 
 }

@@ -59,4 +59,9 @@ public class UsuariEntity extends AbstractEntity<Usuari, Long> {
         }
     }
 
+	public void updateContrasenya(String contrasenya) {
+		this.embedded.setContrasenya(contrasenya);
+		this.embedded.setValidat(true);
+	}
+
 }

@@ -3,3 +3,5 @@ $ curl -X POST -d '{"codi": "test", "nom": "test", "email": "test@limit.es", "co
 $ curl -H "Authorization: Bearer TOKEN" http://localhost:8080/cecocloud/api/usuaris
 
 $ curl -i -H "Content-Type: application/x-www-form-urlencoded" -d "user=test&pass=test" http://localhost:8080/cecocloud/api/auth
+
+$ curl -X POST http://localhost:8080/cecocloud/api/registres/admin@limit.es/reset

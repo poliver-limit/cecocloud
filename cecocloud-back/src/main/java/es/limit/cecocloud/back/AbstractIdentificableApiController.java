@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.rest.webmvc.json.patch.JsonPatchPatchConverter;
@@ -35,6 +33,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import com.fasterxml.jackson.databind.JsonNode;
 
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Mètodes bàsics per als controladors REST que gestionen entitats
@@ -42,6 +41,7 @@ import es.limit.cecocloud.logic.api.dto.util.Identificable;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @RestController
 public abstract class AbstractIdentificableApiController<D extends Identificable<ID>, ID extends Serializable> extends AbstractIdentificableReadOnlyApiController<D, ID> {
 
@@ -53,7 +53,7 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 	public ResponseEntity<Resource<D>> create(
 			HttpServletRequest request,
 			@RequestBody @Valid final D dto) {
-		logger.debug("Creant entitat (" +
+		log.debug("Creant entitat (" +
 				"dto=" + dto + ")");
 		D creat = getService().create(dto);
 		final URI uri = MvcUriComponentsBuilder.fromController(getClass()).
@@ -73,7 +73,7 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 			@RequestBody @Valid final D dto,
 			@RequestParam(required = false) boolean validate) {
 		if (!validate) {
-			logger.debug("Modificant entitat (" +
+			log.debug("Modificant entitat (" +
 					"resourceId=" + resourceId + ", " +
 					"dto=" + dto + ")");
 			D modificat = getService().update(
@@ -81,7 +81,7 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 					dto);
 			return ResponseEntity.ok(toResource(modificat));
 		} else {
-			logger.debug("Validant entitat per modificació (" +
+			log.debug("Validant entitat per modificació (" +
 					"resourceId=" + resourceId + ", " +
 					"dto=" + dto + ")");
 			return ResponseEntity.ok(null);
@@ -96,7 +96,7 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
 			@RequestBody final JsonNode jsonNode,
 			BindingResult bindingResult) throws MethodArgumentNotValidException {
-		logger.debug("Pedaçant entitat (" +
+		log.debug("Pedaçant entitat (" +
 				"resourceId=" + resourceId + ", " +
 				"jsonNode=" + jsonNode + ")");
 		Patch patch = new JsonPatchPatchConverter(objectMapper).convert(jsonNode);
@@ -124,12 +124,10 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 	public ResponseEntity<?> delete(
 			HttpServletRequest request,
 			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
-		logger.debug("Esborrant entitat (" +
+		log.debug("Esborrant entitat (" +
 				"resourceId=" + resourceId + ")");
 		getService().delete(resourceId);
 		return ResponseEntity.ok().build();
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(AbstractIdentificableApiController.class);
 
 }

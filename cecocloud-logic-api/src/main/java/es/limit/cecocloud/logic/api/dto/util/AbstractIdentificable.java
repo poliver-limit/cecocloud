@@ -5,6 +5,8 @@ package es.limit.cecocloud.logic.api.dto.util;
 
 import java.io.Serializable;
 
+import javax.persistence.Embeddable;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
@@ -12,6 +14,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Embeddable
 public abstract class AbstractIdentificable<ID extends Serializable> implements Identificable<ID> {
 
 	protected ID id;

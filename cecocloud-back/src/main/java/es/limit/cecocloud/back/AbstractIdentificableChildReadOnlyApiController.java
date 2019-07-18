@@ -11,8 +11,6 @@ import java.io.Serializable;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import es.limit.cecocloud.logic.api.dto.util.IdentificableChild;
 import es.limit.cecocloud.logic.api.service.GenericChildService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Mètodes bàsics per als controladors REST de només lectura que
@@ -35,6 +34,7 @@ import es.limit.cecocloud.logic.api.service.GenericChildService;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @RestController
 public abstract class AbstractIdentificableChildReadOnlyApiController<D extends IdentificableChild<PID, ID>, PID extends Serializable, ID extends Serializable> extends AbstractApiController<D> {
 
@@ -45,7 +45,7 @@ public abstract class AbstractIdentificableChildReadOnlyApiController<D extends 
 			HttpServletRequest request,
 			@RequestParam(value = "parentId") final PID parentId,
 			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
-		logger.debug("Obtenint entitat (" +
+		log.debug("Obtenint entitat (" +
 				"parentId=" + parentId + ", " +
 				"resourceId=" + resourceId + ")");
 		try  {
@@ -69,7 +69,7 @@ public abstract class AbstractIdentificableChildReadOnlyApiController<D extends 
 			@RequestParam(value = "parentId") final PID parentId,
 			@RequestParam(value = "query", required = false) final String query,
 			final Pageable pageable) {
-		logger.debug("Consulta d'entitats amb filtre i paginació (" +
+		log.debug("Consulta d'entitats amb filtre i paginació (" +
 				"parentId=" + parentId + ", " +
 				"query=" + query + ", " +
 				"pageable=" + pageable + ")");
@@ -107,7 +107,5 @@ public abstract class AbstractIdentificableChildReadOnlyApiController<D extends 
 	}
 
 	protected abstract GenericChildService<D, PID, ID> getService();
-
-	private static final Logger logger = LoggerFactory.getLogger(AbstractIdentificableChildReadOnlyApiController.class);
 
 }
