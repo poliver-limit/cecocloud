@@ -6,7 +6,7 @@ import { AuthResponse } from '../../shared/auth/auth-response';
 
 @Component( {
     template: `
-<div id="mant-header" mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em">
+<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
     <div mdcHeadline3>Cecocloud</div>
     <br/>
     <form (submit)="onSubmit($event)">
