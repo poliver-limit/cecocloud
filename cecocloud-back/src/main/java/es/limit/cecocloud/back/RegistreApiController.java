@@ -48,7 +48,7 @@ public class RegistreApiController {
 	@PostMapping(
 			path = "/{email}/reset",
 			produces = "application/json")
-	public ResponseEntity<?> contrasenyaRecover(
+	public ResponseEntity<?> reset(
 			HttpServletRequest request,
 			@PathVariable final String email) {
 		log.debug("Iniciant recuperació de contrasenya (" +

@@ -30,7 +30,7 @@ export class AppComponent {
         private router: Router ) {
         // Manten actualitzat el nom d'usuari
         let payload = authService.getAuthTokenPayload();
-        if (payload) {
+        if ( payload ) {
             this.usuariNom = payload.name;
         }
         authService.authTokenChangeEvent.subscribe(( payload: AuthTokenPayload ) => {
@@ -43,7 +43,7 @@ export class AppComponent {
         // Oculta la barra superior en la pàgina de login
         router.events.subscribe(( event: Event ) => {
             if ( event instanceof NavigationEnd ) {
-                this.topbarVisible = ( event.url !== '/login' );
+                this.topbarVisible = ( event.url !== '/login' ) && ( !event.url.startsWith( '/registre' ) );
             }
         } );
     }

@@ -8,10 +8,10 @@ import { HomeComponent } from './home.component';
 @NgModule( {
     imports: [
         CommonModule,
+        MaterialModule,
         RouterModule.forChild( [
             { path: '', component: HomeComponent }
-        ] ),
-        MaterialModule],
+        ] )],
     declarations: [
         HomeComponent]
 } )

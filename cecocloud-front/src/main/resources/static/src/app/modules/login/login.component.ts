@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 import { AuthService } from '../../shared/auth/auth.service';
 import { AuthResponse } from '../../shared/auth/auth-response';
@@ -67,12 +66,12 @@ export class LoginComponent {
 
     onCreateButtonClick() {
         event.preventDefault();
-        this.router.navigate(['usuariNou']);
+        this.router.navigate(['registre/create']);
     }
 
     onPasswordRecoveryButtonClick() {
         event.preventDefault();
-        this.router.navigate(['recuperarContrasenya']);
+        this.router.navigate(['registre/recover']);
     }
 
     onSubmit( event ) {

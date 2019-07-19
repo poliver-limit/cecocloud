@@ -9,11 +9,11 @@ import { LoginComponent } from './login.component';
 @NgModule( {
     imports: [
         CommonModule,
+        MaterialModule,
+        TranslateModule,
         RouterModule.forChild( [
             { path: '', component: LoginComponent }
-        ] ),
-        MaterialModule,
-        TranslateModule],
+        ] )],
     declarations: [
         LoginComponent]
 } )

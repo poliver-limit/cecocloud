@@ -6,11 +6,14 @@ import { AuthGuard } from './shared/auth/auth-guard';
 export const routes: Routes = [{
     path: '',
     loadChildren: './modules/home/home.module#HomeModule',
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
 }, {
     path: 'login',
     loadChildren: './modules/login/login.module#LoginModule'
 }, {
+    path: 'registre',
+    loadChildren: './modules/registre/registre.module#RegistreModule'
+/*}, {
     path: 'recuperarContrasenya',
     loadChildren: './modules/recuperarContrasenya/recuperarContrasenya.module#RecuperarContrasenyaModule'
 }, {
@@ -18,17 +21,17 @@ export const routes: Routes = [{
     loadChildren: './modules/usuariNou/usuariNou.module#UsuariNouModule'
 }, {
     path: 'validarUsuari',
-    loadChildren: './modules/validarUsuari/validarUsuari.module#ValidarUsuariModule'
+    loadChildren: './modules/validarUsuari/validarUsuari.module#ValidarUsuariModule'*/
 }, {
     path: '**',
     redirectTo: ''
 }];
 
-@NgModule({
+@NgModule( {
     imports: [
-        RouterModule.forRoot(routes)],
+        RouterModule.forRoot( routes )],
     declarations: [],
     exports: [
         RouterModule]
-})
+} )
 export class AppRoutingModule { }
