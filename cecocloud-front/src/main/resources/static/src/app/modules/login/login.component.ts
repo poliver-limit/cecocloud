@@ -67,12 +67,12 @@ export class LoginComponent {
 
     onCreateButtonClick() {
         event.preventDefault();
-        alert('Funcionalitat pendent de desenvolupar');
+        this.router.navigate(['usuariNou']);
     }
 
     onPasswordRecoveryButtonClick() {
         event.preventDefault();
-        alert('Funcionalitat pendent de desenvolupar');
+        this.router.navigate(['recuperarContrasenya']);
     }
 
     onSubmit( event ) {
