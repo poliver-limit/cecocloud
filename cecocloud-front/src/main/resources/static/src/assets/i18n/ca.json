@@ -1,0 +1,10 @@
+{
+	"app.titol": "Cecocloud",
+
+	"login.field.usuari": "Usuari",
+	"login.field.contrasenya": "Contrasenya",
+	"login.msg.login.error": "Usuari o contrasenya incorrectes",
+	"login.msg.contrasenya.recover": "Has oblidat la contrasenya?",
+	"login.msg.usuari.create": "Crear nou usuari",
+	"login.button.entrar": "Entrar"
+}
