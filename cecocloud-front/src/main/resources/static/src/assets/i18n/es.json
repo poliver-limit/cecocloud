@@ -23,6 +23,20 @@
 	"recover.msg.recover.error":"Correo-e incorrecto",
 	"recover.button.cancel":"Cancelar",
 	"recover.button.recuperar":"Recuperar",
+	"recover.notify.recover":"Correcto",
+
+	"validate.titol.validar":"Validar usuario",
+	"validate.titol.recuperarContrasenya":"Recuperar contraseña",
+
+	"validate.label.usuari":"Usuario",
+	"validate.label.nom":"Nombre",
+	"validate.field.constrasenya":"Contraseña",
+	"validate.field.repConstrasenya":"Repetir contraseña",
+	"validate.msg.validate.error":"La contraseña no coincide",
+	"validate.button.cancel":"Cancelar",
+	"validate.button.validate":"Validar",
+	"validate.notify.validate":"Correcto"
+=======
 	"recover.notify.recover":"",
 
 	"validate.titol.validar":"Validar usuario",
@@ -36,4 +50,5 @@
 	"validate.button.cancel":"Cancelar",
 	"validate.button.validate":"Validar",
 	"validate.notify.validate":"Usuario validado"
+>>>>>>> branch 'master' of http://10.35.3.11/limit/cecocloud.git
 }
