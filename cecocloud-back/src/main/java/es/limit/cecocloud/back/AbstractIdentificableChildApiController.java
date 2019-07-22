@@ -108,11 +108,12 @@ public abstract class AbstractIdentificableChildApiController<D extends Identifi
 				"resourceId=" + resourceId + ", " +
 				"jsonNode=" + jsonNode + ")");
 		Patch patch = new JsonPatchPatchConverter(objectMapper).convert(jsonNode);
+		@SuppressWarnings("unchecked")
 		D patchedDto = patch.apply(
 				getService().getOne(
 						parentId,
 						resourceId),
-				getDtoClass());
+				(Class<D>)getDtoClass());
 		validator.validate(
 				patchedDto,
 				bindingResult,

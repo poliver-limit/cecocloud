@@ -27,7 +27,7 @@ import es.limit.cecocloud.logic.api.dto.util.Identificable;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-public abstract class AbstractApiController<D extends Identificable<?>> {
+public abstract class AbstractApiController {
 
 	protected static final String API_PATH = "/api";
 	protected static final String PATHVARIABLE_DATEFORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
@@ -37,20 +37,20 @@ public abstract class AbstractApiController<D extends Identificable<?>> {
 	@Autowired
 	protected ObjectMapper objectMapper;
 
-	protected Resource<D> toResource(
+	protected <D> Resource<D> toResource(
 			D dto,
 			Link... links) {
 		return new Resource<D>(
 				dto,
 				links);
 	}
-	protected Resources<Resource<D>> toResources(
+	protected <D> Resources<Resource<D>> toResources(
 			List<D> dtos,
 			Link... links) {
 		return new Resources<Resource<D>>(
 				dtos.stream().map(dto -> toResource(dto, links)).collect(Collectors.toList()));
 	}
-	protected PagedResources<Resource<D>> toPagedResources(
+	protected <D> PagedResources<Resource<D>> toPagedResources(
 			Page<D> page,
 			Link... links) {
 		PageMetadata pageMetadata = new PageMetadata(
@@ -65,7 +65,7 @@ public abstract class AbstractApiController<D extends Identificable<?>> {
 	}
 
 	@SuppressWarnings("unchecked" )
-	protected Class<D> getDtoClass() {
+	protected Class<?> getDtoClass() {
 		if (dtoClass == null) {
 			Type genericSuperClass = getClass().getGenericSuperclass();
 			while (genericSuperClass != null && !(genericSuperClass instanceof ParameterizedType)) {
@@ -74,7 +74,7 @@ public abstract class AbstractApiController<D extends Identificable<?>> {
 			ParameterizedType parameterizedType = (ParameterizedType)genericSuperClass;
 			dtoClass = (Class<? extends Identificable<?>>)parameterizedType.getActualTypeArguments()[0];
 		}
-		return (Class<D>)dtoClass;
+		return dtoClass;
 	}
 
 	@SuppressWarnings("unchecked")

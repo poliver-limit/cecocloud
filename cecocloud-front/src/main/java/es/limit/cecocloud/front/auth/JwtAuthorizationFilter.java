@@ -18,7 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
-import es.limit.cecocloud.logic.api.service.TokenService;
+import es.limit.cecocloud.logic.api.service.AuthService;
 
 /**
  * Filtre Spring Security per a l'autorització emprant tokens JWT.
@@ -28,7 +28,7 @@ import es.limit.cecocloud.logic.api.service.TokenService;
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	@Autowired
-	private TokenService tokenService;
+	private AuthService authService;
 
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
@@ -50,7 +50,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		String token = request.getHeader(JwtAuthConstants.TOKEN_HEADER);
 		if (StringUtils.isNotEmpty(token) && token.startsWith(JwtAuthConstants.TOKEN_PREFIX)) {
 			try {
-				return tokenService.getAuthentication(token.replace("Bearer ", ""));
+				return authService.get(token.replace("Bearer ", ""));
 			} catch (InvalidTokenException ex) {
 			}
 		}

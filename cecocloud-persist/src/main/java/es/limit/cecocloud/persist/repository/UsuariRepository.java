@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.persist.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -18,11 +20,12 @@ public interface UsuariRepository extends BaseRepository<UsuariEntity, Long> {
 			"    UsuariEntity u " +
 			"where " +
 			"    u.embedded.codi = :codi")
-	UsuariEntity findByEmbeddedCodi(@Param("codi") String codi);
+	Optional<UsuariEntity> findByEmbeddedCodi(@Param("codi") String codi);
+
 	@Query(	"from" +
 			"    UsuariEntity u " +
 			"where " +
 			"    u.embedded.email = :email")
-	UsuariEntity findByEmbeddedEmail(@Param("email") String email);
+	Optional<UsuariEntity> findByEmbeddedEmail(@Param("email") String email);
 
 }

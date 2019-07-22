@@ -54,7 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		authorizeRequests().
 		antMatchers("/api/auth").permitAll().
 		antMatchers("/api/registres/**/*").permitAll().
-		antMatchers("/api/**").authenticated().
+		antMatchers("/api/mobile/marcatge/**/*").hasAuthority("MARCA").
+		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
+		antMatchers("/api/**").hasAuthority("ADMIN").
 		anyRequest().permitAll().
 		and().
 		addFilter(new JwtAuthenticationFilter(authenticationManager(), mapper)).

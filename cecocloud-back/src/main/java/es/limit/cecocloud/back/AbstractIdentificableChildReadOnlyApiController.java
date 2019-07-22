@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-public abstract class AbstractIdentificableChildReadOnlyApiController<D extends IdentificableChild<PID, ID>, PID extends Serializable, ID extends Serializable> extends AbstractApiController<D> {
+public abstract class AbstractIdentificableChildReadOnlyApiController<D extends IdentificableChild<PID, ID>, PID extends Serializable, ID extends Serializable> extends AbstractApiController {
 
 	@GetMapping(
 			value = "/{resourceId}",

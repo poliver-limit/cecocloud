@@ -36,12 +36,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "usuari")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 64, nullable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 64, nullable = false, unique = true)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 100, nullable = false)),
-	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 100, nullable = false)),
+	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 100, nullable = false, unique = true)),
 	@AttributeOverride(name = "embedded.imatgeUrl", column = @Column(name = "imatgeUrl", length = 255)),
-	@AttributeOverride(name = "embedded.proveidorAuth", column = @Column(name = "proveidorAuth", length = 50)),
-	@AttributeOverride(name = "embedded.contrasenya", column = @Column(name = "contrasenya", length = 255))
+	@AttributeOverride(name = "embedded.contrasenya", column = @Column(name = "contrasenya", length = 255)),
+	@AttributeOverride(name = "embedded.validat", column = @Column(name = "validat"))
 })
 public class UsuariEntity extends AbstractEntity<Usuari, Long> {
 

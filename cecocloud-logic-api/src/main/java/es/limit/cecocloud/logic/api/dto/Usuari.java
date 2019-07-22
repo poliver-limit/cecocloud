@@ -32,8 +32,6 @@ public class Usuari extends AbstractIdentificable<Long> {
 	private String email;
 	@Size(max = 255)
 	private String imatgeUrl;
-	@Size(max = 10)
-	private String proveidorAuth;
 	@Size(max = 105)
 	private String contrasenya;
 	private boolean validat;

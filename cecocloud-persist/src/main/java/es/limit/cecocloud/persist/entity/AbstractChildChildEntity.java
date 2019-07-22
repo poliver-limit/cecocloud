@@ -20,12 +20,12 @@ import lombok.Getter;
 @MappedSuperclass
 public abstract class AbstractChildChildEntity<P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E, PK extends Serializable> extends AbstractEntity<E, PK> {
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	/*@JoinColumn(
 			name = "parent_id",
 			foreignKey = @ForeignKey(name = "child_parent_fk"))*/
 	protected P1 parent1;
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	/*@JoinColumn(
 			name = "parent_id",
 			foreignKey = @ForeignKey(name = "child_parent_fk"))*/

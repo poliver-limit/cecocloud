@@ -5,8 +5,7 @@ package es.limit.cecocloud.logic.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
-
-import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,12 +58,8 @@ public class RegistreServiceImpl implements RegistreService {
 	@Override
 	@Transactional(readOnly = true)
 	public void contrasenyaRecover(String email) {
-		UsuariEntity usuari = usuariRepository.findByEmbeddedEmail(email);
-		if (usuari != null) {
-			enviarEmailRecuperacio(usuari.getEmbedded());
-		} else {
-			throw new EntityNotFoundException("Usuari amb adreça de correu " + email);
-		}
+		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedEmail(email);
+		enviarEmailRecuperacio(usuari.get().getEmbedded());
 	}
 
 	@Override
@@ -73,12 +68,8 @@ public class RegistreServiceImpl implements RegistreService {
 		String token = dto.getToken();
 		Jws<Claims> parsedToken = tokenHelper.validate(token);
 		String codi = parsedToken.getBody().getSubject();
-		UsuariEntity usuari = usuariRepository.findByEmbeddedCodi(codi);
-		if (usuari != null) {
-			usuari.updateContrasenya(dto.getContrasenya());
-		} else {
-			throw new EntityNotFoundException("Usuari amb codi " + codi);
-		}
+		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(codi);
+		usuari.get().updateContrasenya(dto.getContrasenya());
 	}
 
 	private void enviarEmailValidacio(

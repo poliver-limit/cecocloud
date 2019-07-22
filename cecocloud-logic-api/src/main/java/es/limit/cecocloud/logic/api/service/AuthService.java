@@ -12,7 +12,7 @@ import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface TokenService {
+public interface AuthService {
 
 	/**
 	 * Crea un nou token per autenticació.
@@ -21,7 +21,7 @@ public interface TokenService {
 	 *            codi d'usuari.
 	 * @return el token d'autenticació generat.
 	 */
-	public String authCreate(String usuariCodi);
+	public String create(String usuariCodi);
 
 	/**
 	 * Retorna l'objecte d'autenticació pel token. Si el token no és
@@ -33,6 +33,6 @@ public interface TokenService {
 	 * @throws InvalidTokenException
 	 *             si el token no és vàlid.
 	 */
-	public Authentication getAuthentication(String token) throws InvalidTokenException;
+	public Authentication get(String token) throws InvalidTokenException;
 
 }

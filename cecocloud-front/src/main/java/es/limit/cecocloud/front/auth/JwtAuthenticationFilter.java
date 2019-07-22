@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.limit.cecocloud.logic.api.service.TokenService;
+import es.limit.cecocloud.logic.api.service.AuthService;
 
 /**
  * Filtre Spring Security per a l'autenticació emprant tokens JWT.
@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	private static final String AUTH_LOGIN_URL= "/api/auth";
 
 	@Autowired
-	private TokenService tokenService;
+	private AuthService authService;
 
 	private final AuthenticationManager authenticationManager;
 	private ObjectMapper jsonMapper;
@@ -59,7 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			FilterChain filterChain,
 			Authentication authentication) throws JsonProcessingException, IOException {
 		User user = ((User)authentication.getPrincipal());
-		String token = tokenService.authCreate(user.getUsername());
+		String token = authService.create(user.getUsername());
 		response.getWriter().write(jsonMapper.writeValueAsString(
 				new JwtAuthResponse(
 						token,

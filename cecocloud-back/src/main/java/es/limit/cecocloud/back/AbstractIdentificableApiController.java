@@ -100,7 +100,10 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 				"resourceId=" + resourceId + ", " +
 				"jsonNode=" + jsonNode + ")");
 		Patch patch = new JsonPatchPatchConverter(objectMapper).convert(jsonNode);
-		D patchedDto = patch.apply(getService().getOne(resourceId), getDtoClass());
+		@SuppressWarnings("unchecked")
+		D patchedDto = patch.apply(
+				getService().getOne(resourceId),
+				(Class<D>)getDtoClass());
 		validator.validate(
 				patchedDto,
 				bindingResult,
