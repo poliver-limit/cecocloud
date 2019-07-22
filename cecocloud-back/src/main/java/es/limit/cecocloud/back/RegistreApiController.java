@@ -35,6 +35,7 @@ public class RegistreApiController {
 	private RegistreService registreService;
 
 	@PostMapping(
+			path = "/create",
 			produces = "application/json")
 	public ResponseEntity<?> create(
 			HttpServletRequest request,

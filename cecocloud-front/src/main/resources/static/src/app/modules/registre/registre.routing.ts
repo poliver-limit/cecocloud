@@ -9,7 +9,7 @@ const routes: Routes = [{
     path: 'create',
     component: CreateComponent
 }, {
-    path: 'validate',
+    path: 'validate/:token',
     component: ValidateComponent
 }, {
     path: 'recover',

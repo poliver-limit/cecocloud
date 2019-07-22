@@ -6,5 +6,34 @@
 	"login.msg.login.error": "Usuario o contraseña incorrectos",
 	"login.msg.contrasenya.recover": "¿Has olvidado la contraseña?",
 	"login.msg.usuari.create": "Crear nuevo usuario",
-	"login.button.entrar": "Entrar"
+	"login.button.entrar": "Entrar",
+
+	"create.titol":"Crear nuevo usuario",
+
+	"create.field.nom": "Nombre",
+	"create.field.correu":"Correo-e",
+	"create.msg.create.error":"Usuario o correo-e incorrectos",
+	"create.button.cancel":"Cancelar",
+	"create.button.crear":"Crear",
+	"create.notify.create":"Usuario creado correctamente",
+
+	"recover.titol":"Recuperar contraseña",
+
+	"recover.field.correu":"Correo-e",
+	"recover.msg.recover.error":"Correo-e incorrecto",
+	"recover.button.cancel":"Cancelar",
+	"recover.button.recuperar":"Recuperar",
+	"recover.notify.recover":"",
+
+	"validate.titol.validar":"Validar usuario",
+	"validate.titol.recuperarContrasenya":"Recuperar contraseña",
+
+	"validate.label.usuari":"Usuario",
+	"validate.label.nom":"Nombre",
+	"validate.field.constrasenya":"Contraseña",
+	"validate.field.repConstrasenya":"Repetir contraseña",
+	"validate.msg.validate.error":"La contraseña no coincide",
+	"validate.button.cancel":"Cancelar",
+	"validate.button.validate":"Validar",
+	"validate.notify.validate":"Usuario validado"
 }

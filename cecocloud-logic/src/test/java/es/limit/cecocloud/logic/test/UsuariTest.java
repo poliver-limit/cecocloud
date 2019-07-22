@@ -28,7 +28,6 @@ public class UsuariTest extends AbstractGenericCrudTest<UsuariService, Usuari, L
 		dto.setEmail("test@test.com");
 		dto.setContrasenya("test");
 		dto.setImatgeUrl("http://test.com/test");
-		dto.setProveidorAuth("test");
 		return dto;
 	}
 
@@ -39,7 +38,6 @@ public class UsuariTest extends AbstractGenericCrudTest<UsuariService, Usuari, L
 		dto.setEmail("test2@test.com");
 		dto.setContrasenya("test2");
 		dto.setImatgeUrl("http://test.com/test2");
-		dto.setProveidorAuth("test2");
 	}
 
 	@Override
@@ -49,7 +47,6 @@ public class UsuariTest extends AbstractGenericCrudTest<UsuariService, Usuari, L
 		assertEquals(expected.getEmail(), actual.getEmail());
 		assertEquals(expected.getContrasenya(), actual.getContrasenya());
 		assertEquals(expected.getImatgeUrl(), actual.getImatgeUrl());
-		assertEquals(expected.getProveidorAuth(), actual.getProveidorAuth());
 	}
 
 	@Override
