@@ -18,6 +18,5 @@ public final class JwtAuthResponse {
 
 	private String token;
 	private String tokenType;
-	private long expiresIn;
 
 }

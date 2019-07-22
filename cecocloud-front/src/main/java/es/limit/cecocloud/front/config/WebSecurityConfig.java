@@ -4,7 +4,6 @@
 package es.limit.cecocloud.front.config;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,8 +32,6 @@ import es.limit.cecocloud.front.auth.JwtAuthorizationFilter;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.service.UsuariService;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Configuració per a l'autenticació dels usuaris.
@@ -82,12 +78,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				    		for (Rol rol: usuari.getRols()) {
 				    			authorities.add(new SimpleGrantedAuthority(rol.toString()));
 				    		}
-				    		UserWithName user = new UserWithName(
+				    		return new User(
+					    			usuari.getCodi(),
+					    			usuari.getContrasenya(),
+					    			authorities);
+				    		/*UserWithName user = new UserWithName(
 					    			usuari.getCodi(),
 					    			usuari.getContrasenya(),
 					    			authorities);
 				    		user.setName(usuari.getNom());
-				    		return user;
+				    		return user;*/
 				    	} else {
 				    		throw new UsernameNotFoundException("Usuari " + username + " no trobat");
 				    	}
@@ -107,7 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return source;
 	}
 
-	@Getter
+	/*@Getter
 	@Setter
 	public static class UserWithName extends User {
 		protected String name;
@@ -128,6 +128,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		}
 		private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
-	}
+	}*/
 
 }

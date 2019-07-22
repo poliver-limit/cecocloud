@@ -9,15 +9,22 @@ import java.util.HashSet;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.cecocloud.logic.api.dto.RegistreUsuari;
 import es.limit.cecocloud.logic.api.dto.RegistreValidate;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.service.RegistreService;
+import es.limit.cecocloud.logic.helper.TokenHelper;
 import es.limit.cecocloud.persist.entity.UsuariEntity;
 import es.limit.cecocloud.persist.repository.UsuariRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 
 /**
  * Implementació del servei encarregat de gestionar usuaris.
@@ -28,9 +35,16 @@ import es.limit.cecocloud.persist.repository.UsuariRepository;
 public class RegistreServiceImpl implements RegistreService {
 
 	@Autowired
+	private TokenHelper tokenHelper;
+	@Autowired
 	private UsuariRepository usuariRepository;
+	@Autowired
+	private JavaMailSender javaMailSender;
+	@Value("${spring.mail.properties.mail.smtp.from}")
+	private String mailSmtpFrom;
 
 	@Override
+	@Transactional
 	public void create(RegistreUsuari dto) {
 		Usuari usuari = new Usuari();
 		usuari.setCodi(dto.getCodi());
@@ -39,29 +53,54 @@ public class RegistreServiceImpl implements RegistreService {
 		usuari.setRols(new HashSet<Rol>(Arrays.asList(Rol.MARCA)));
 		UsuariEntity entity = UsuariEntity.builder().embedded(usuari).build();
 		usuariRepository.save(entity);
-		// TODO enviar correu de validació
+		enviarEmailValidacio(usuari);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public void contrasenyaRecover(String email) {
 		UsuariEntity usuari = usuariRepository.findByEmbeddedEmail(email);
 		if (usuari != null) {
-			// TODO enviar correu de recuperació de contrasenya
+			enviarEmailRecuperacio(usuari.getEmbedded());
 		} else {
 			throw new EntityNotFoundException("Usuari amb adreça de correu " + email);
 		}
 	}
 
 	@Override
+	@Transactional
 	public void validate(RegistreValidate dto) {
-		String codi = dto.getToken();
-		// TODO decodificar i comprovar token JWT
+		String token = dto.getToken();
+		Jws<Claims> parsedToken = tokenHelper.validate(token);
+		String codi = parsedToken.getBody().getSubject();
 		UsuariEntity usuari = usuariRepository.findByEmbeddedCodi(codi);
 		if (usuari != null) {
 			usuari.updateContrasenya(dto.getContrasenya());
 		} else {
 			throw new EntityNotFoundException("Usuari amb codi " + codi);
 		}
+	}
+
+	private void enviarEmailValidacio(
+			Usuari usuari) {
+		String token = tokenHelper.buildValidate(usuari);
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setFrom(mailSmtpFrom);
+        msg.setTo(usuari.getEmail());
+        msg.setSubject("CECOCLOUD: registre d'usuari");
+        msg.setText("Per a completar el registre haurà d'accedir a la pàgina de validació utilitzant el següent enllaç: http://localhost:8080/cecocloud/registre/validate/" + token);
+        javaMailSender.send(msg);
+	}
+
+	private void enviarEmailRecuperacio(
+			Usuari usuari) {
+		String token = tokenHelper.buildRecover(usuari);
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setFrom(mailSmtpFrom);
+        msg.setTo(usuari.getEmail());
+        msg.setSubject("CECOCLOUD: recuperació de contrasenya");
+        msg.setText("Per a canviar la contrasenya d'usuari haurà d'accedir a la pàgina de validació utilitzant el següent enllaç: http://localhost:8080/cecocloud/registre/validate/" + token);
+        javaMailSender.send(msg);
 	}
 
 }
