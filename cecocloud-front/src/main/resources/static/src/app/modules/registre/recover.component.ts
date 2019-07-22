@@ -41,7 +41,6 @@ export class RecoverComponent {
         this.email = value;
     }
 
-
     onRecuperarButtonClick() {
         this.valid = true;
         this.registreService.contrasenyaRecover(
@@ -68,7 +67,6 @@ export class RecoverComponent {
 
     onSubmit( event ) {
         event.preventDefault();
-       // this.onRecuperarButtonClick();
     }
 
     constructor( 
@@ -76,7 +74,5 @@ export class RecoverComponent {
         private snackbar: MdcSnackbar,
         private registreService: RegistreService,
         private translate: TranslateService) {
-
     }
-
 }

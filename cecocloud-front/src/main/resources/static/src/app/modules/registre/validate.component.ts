@@ -16,10 +16,12 @@ import { TranslateService } from '@ngx-translate/core';
         <br/>
         <br/>
         <mdc-form-field fluid>
+            <mdc-text-field type="password" label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
             <mdc-text-field label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
         </mdc-form-field>
         <br/>
         <mdc-form-field fluid>
+            <mdc-text-field type="password" label="{{'validate.field.repConstrasenya'|translate}}" outlined [valid]="valid" (input)="onRepContrasenyaFieldInput($event)"></mdc-text-field>
             <mdc-text-field label="{{'validate.field.repConstrasenya'|translate}}" outlined [valid]="valid" (input)="onRepContrasenyaFieldInput($event)"></mdc-text-field>
             <mdc-helper-text validation>
                 <span>{{'validate.msg.validate.error'|translate}}</span>

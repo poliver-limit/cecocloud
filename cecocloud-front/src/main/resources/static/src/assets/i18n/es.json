@@ -23,7 +23,7 @@
 	"recover.msg.recover.error":"Correo-e incorrecto",
 	"recover.button.cancel":"Cancelar",
 	"recover.button.recuperar":"Recuperar",
-	"recover.notify.recover":"",
+	"recover.notify.recover":"Correcto",
 
 	"validate.titol.validar":"Validar usuario",
 	"validate.titol.recuperarContrasenya":"Recuperar contraseña",
@@ -35,5 +35,5 @@
 	"validate.msg.validate.error":"La contraseña no coincide",
 	"validate.button.cancel":"Cancelar",
 	"validate.button.validate":"Validar",
-	"validate.notify.validate":"Usuario validado"
+	"validate.notify.validate":"Correcto"	
 }

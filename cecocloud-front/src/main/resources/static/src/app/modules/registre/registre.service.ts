@@ -22,13 +22,11 @@ export class RegistreService {
         const params = new HttpParams().
             append('email', email);
 
-       // const jsn = { 'email': email };
-
-        return this.http.post('api/registres/email/reset', params);
+        return this.http.post('api/registres/' + email + '/reset', params);
     }
 
     validate(contrasenya: string, contrasenya2: string, token: string): Observable<any> {
-        
+
         const params = new HttpParams().
             append('contrasenya', contrasenya).
             append('repeticio', contrasenya2).
