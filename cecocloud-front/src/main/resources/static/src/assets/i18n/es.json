@@ -32,6 +32,5 @@
 	"validate.msg.validate.error":"La contraseña no coincide",
 	"validate.button.cancel":"Cancelar",
 	"validate.button.validate":"Validar",
-	"validate.notify.validate":"El usuario se ha validado correctamente"
-
+	"validate.notify.validate":"Correcto"	
 }
