@@ -14,7 +14,11 @@ import { TranslateService } from '@ngx-translate/core';
         <p>{{'validate.label.usuari'|translate}} : {{tokenPayload.sub}}</p>   
         <p>{{'validate.label.nom'|translate}} : {{tokenPayload.name}}</p>         
         <br/>
+<<<<<<< HEAD
         <br/>
+=======
+        <br/>
+>>>>>>> branch 'master' of http://10.35.3.11/limit/cecocloud.git
         <mdc-form-field fluid>            
 			<mdc-text-field type="password" label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
             <mdc-text-field label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
