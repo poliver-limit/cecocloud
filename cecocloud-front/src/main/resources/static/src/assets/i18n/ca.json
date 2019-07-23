@@ -9,7 +9,6 @@
 	"login.button.entrar": "Entrar",
 
 	"create.titol":"Crear nou usuari",
-
 	"create.field.nom": "Nom",
 	"create.field.correu":"Correu-e",
 	"create.msg.create.error":"Usuari o correu-e incorrecte",
@@ -18,21 +17,21 @@
 	"create.notify.create":"L'usuari s'ha creat correctament",
 
 	"recover.titol":"Recuperar contrasenya",
-
 	"recover.field.correu":"Correu-e",
 	"recover.msg.recover.error":"Correu-e incorrecte",
 	"recover.button.cancel":"Cancel·lar",
 	"recover.button.recuperar":"Recuperar",
-	"recover.notify.recover":"",
+	"recover.notify.recover":"Correcte",
 
 	"validate.titol.validar":"Validar nou usuari",
 	"validate.titol.recuperarContrasenya":"Recuperar contrasenya",
 	"validate.label.usuari":"Usuari",
 	"validate.label.nom":"Nom",
-	"validate.field.constrasenya":"Contrasenya",
-	"validate.field.repConstrasenya":"Repetir contrasenya",
+	"validate.field.contrasenya":"Contrasenya",
+	"validate.field.repContrasenya":"Repetir contrasenya",
 	"validate.msg.validate.error":"La contrasenya no coincideix",
 	"validate.button.cancel":"Cancel·lar",
 	"validate.button.validate":"Validar",
 	"validate.notify.validate":"L'usuari s'ha validat correctament"
+
 }

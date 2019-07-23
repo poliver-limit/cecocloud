@@ -9,31 +9,29 @@
 	"login.button.entrar": "Entrar",
 
 	"create.titol":"Crear nuevo usuario",
-
 	"create.field.nom": "Nombre",
 	"create.field.correu":"Correo-e",
 	"create.msg.create.error":"Usuario o correo-e incorrectos",
 	"create.button.cancel":"Cancelar",
 	"create.button.crear":"Crear",
-	"create.notify.create":"Usuario creado correctamente",
+	"create.notify.create":"El usuario se ha creado correctamente",
 
 	"recover.titol":"Recuperar contraseña",
-
 	"recover.field.correu":"Correo-e",
 	"recover.msg.recover.error":"Correo-e incorrecto",
 	"recover.button.cancel":"Cancelar",
 	"recover.button.recuperar":"Recuperar",
-	"recover.notify.recover":"",
+	"recover.notify.recover":"Correcto",
 
-	"validate.titol.validar":"Validar usuario",
+	"validate.titol.validar":"Validar nuevo usuario",
 	"validate.titol.recuperarContrasenya":"Recuperar contraseña",
-
 	"validate.label.usuari":"Usuario",
 	"validate.label.nom":"Nombre",
-	"validate.field.constrasenya":"Contraseña",
-	"validate.field.repConstrasenya":"Repetir contraseña",
+	"validate.field.contrasenya":"Contraseña",
+	"validate.field.repContrasenya":"Repetir contraseña",
 	"validate.msg.validate.error":"La contraseña no coincide",
 	"validate.button.cancel":"Cancelar",
 	"validate.button.validate":"Validar",
-	"validate.notify.validate":"Usuario validado"
+	"validate.notify.validate":"El usuario se ha validado correctamente"
+
 }
