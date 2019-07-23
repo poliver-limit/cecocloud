@@ -32,6 +32,10 @@
 	"validate.msg.validate.error":"La contraseña no coincide",
 	"validate.button.cancel":"Cancelar",
 	"validate.button.validate":"Validar",
+<<<<<<< HEAD
+	"validate.notify.validate":"Correcto"	
+=======
 	"validate.notify.validate":"El usuario se ha validado correctamente"
 
+>>>>>>> branch 'master' of http://10.35.3.11/limit/cecocloud.git
 }

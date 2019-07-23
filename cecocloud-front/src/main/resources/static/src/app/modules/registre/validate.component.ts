@@ -15,12 +15,14 @@ import { TranslateService } from '@ngx-translate/core';
         <p>{{'validate.label.nom'|translate}} : {{tokenPayload.name}}</p>         
         <br/>
         <br/>
-        <mdc-form-field fluid>
-            <mdc-text-field type="password" label="{{'validate.field.contrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
+        <mdc-form-field fluid>            
+			<mdc-text-field type="password" label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
+            <mdc-text-field label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
         </mdc-form-field>
         <br/>
         <mdc-form-field fluid>
-            <mdc-text-field type="password" label="{{'validate.field.repContrasenya'|translate}}" outlined [valid]="valid" (input)="onRepContrasenyaFieldInput($event)"></mdc-text-field>
+            <mdc-text-field type="password" label="{{'validate.field.repConstrasenya'|translate}}" outlined [valid]="valid" (input)="onRepContrasenyaFieldInput($event)"></mdc-text-field>
+            <mdc-text-field label="{{'validate.field.repConstrasenya'|translate}}" outlined [valid]="valid" (input)="onRepContrasenyaFieldInput($event)"></mdc-text-field>
             <mdc-helper-text validation>
                 <span>{{'validate.msg.validate.error'|translate}}</span>
             </mdc-helper-text>
@@ -48,6 +50,8 @@ export class ValidateComponent {
     private contrasenya2: string;
 
     private valid: boolean = true;
+
+
 
     onContrasenyaFieldInput(value) {
         this.contrasenya = value;
@@ -81,7 +85,6 @@ export class ValidateComponent {
 
     onSubmit(event) {
         event.preventDefault();
-        this.onValidarButtonClick();
     }
 
     constructor(
@@ -95,7 +98,9 @@ export class ValidateComponent {
             let base64Url = this.token.split('.')[1];
             let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
             this.tokenPayload = JSON.parse(atob(base64));
+            console.log('>>> tokenPayload', this.tokenPayload)
         });
+
     }
 
 }

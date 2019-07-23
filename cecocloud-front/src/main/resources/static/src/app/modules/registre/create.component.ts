@@ -54,16 +54,16 @@ export class CreateComponent {
     onCrearButtonClick() {
         this.valid = true;
         this.registreService.create(
-            this.codi, 
-            this.email, 
+            this.codi,
+            this.email,
             this.nom).subscribe(
-            (response) => {
-                this.notify_simple();
-                this.router.navigate(['login']);
-            },
-            err => {
-                this.valid = false;
-            });
+                (response) => {
+                    this.notify_simple();
+                    this.router.navigate(['login']);
+                },
+                err => {
+                    this.valid = false;
+                });
     }
 
     notify_simple() {
