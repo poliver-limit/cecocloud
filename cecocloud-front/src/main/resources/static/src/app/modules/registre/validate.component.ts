@@ -15,8 +15,8 @@ import { TranslateService } from '@ngx-translate/core';
         <p>{{'validate.label.nom'|translate}} : {{tokenPayload.name}}</p>         
         <br/>
         <br/>
-        <mdc-form-field fluid>
-            <mdc-text-field type="password" label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
+        <mdc-form-field fluid>            
+			<mdc-text-field type="password" label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
             <mdc-text-field label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>
         </mdc-form-field>
         <br/>
