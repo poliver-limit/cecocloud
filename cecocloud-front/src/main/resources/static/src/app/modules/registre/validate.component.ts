@@ -59,7 +59,6 @@ export class ValidateComponent {
     }
 
     onValidarButtonClick() {
-
         this.valid = true;
         this.registreService.validate(this.contrasenya, this.contrasenya2, this.token).subscribe(
             (response) => {
@@ -69,14 +68,12 @@ export class ValidateComponent {
             (error) => {
                 this.valid = false;
             });
-
     }
 
     notify_simple() {
-
         const snackbarRef = this.snackbar.open(this.translate.instant('validate.notify.validate'));
         snackbarRef.afterDismiss().subscribe(reason => {
-            console.log(reason);
+            // console.log(reason);
         });
     }
 
@@ -100,7 +97,7 @@ export class ValidateComponent {
             let base64Url = this.token.split('.')[1];
             let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
             this.tokenPayload = JSON.parse(atob(base64));
-            console.log('>>> tokenPayload', this.tokenPayload)
+            console.log('>>> tokenPayload', this.tokenPayload);
         });
 
     }

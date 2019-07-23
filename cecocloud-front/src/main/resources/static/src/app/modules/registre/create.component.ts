@@ -69,7 +69,7 @@ export class CreateComponent {
     notify_simple() {
         const snackbarRef = this.snackbar.open(this.translate.instant('create.notify.create'));
         snackbarRef.afterDismiss().subscribe(reason => {
-            console.log(reason);
+            // console.log(reason);
         });
     }
 

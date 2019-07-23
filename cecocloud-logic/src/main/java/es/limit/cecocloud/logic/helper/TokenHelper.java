@@ -92,6 +92,7 @@ public class TokenHelper {
 			String issuer,
 			String audience,
 			long expiration) {
+		System.out.println(">>> Generant token JWT " + usuari.getCodi() + ", " + usuari.getNom());
 		return Jwts.builder().signWith(
 				Keys.hmacShaKeyFor(JWT_SECRET.getBytes()),
 				SignatureAlgorithm.HS512).
