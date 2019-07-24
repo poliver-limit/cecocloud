@@ -75,11 +75,11 @@ export class AuthService {
         if (storageContent) {
             let authResponse: AuthResponse = JSON.parse( storageContent );
             let currentTime = new Date().getTime();
-            if ( currentTime < authResponse.expiresIn ) {
+            //if ( currentTime < authResponse.expiresIn ) {
                 return authResponse;
-            } else {
-                localStorage.removeItem( AuthService.LOCAL_STORAGE_AUTH_KEY );
-            }
+            //} else {
+               // localStorage.removeItem( AuthService.LOCAL_STORAGE_AUTH_KEY );
+            //}
         }
     }
 

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth/auth.service';
 import { AuthResponse } from '../../shared/auth/auth-response';
 
-@Component( {
+@Component({
     template: `
 <div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
     <div mdcHeadline3>{{'app.titol'|translate}}</div>
@@ -59,7 +59,7 @@ export class LoginComponent {
                 if ( response.error ) {
                     this.valid = false;
                 } else {
-                    this.router.navigate( ['/'] );
+                    this.router.navigate(['/home']);
                 }                
             } );
     }
@@ -74,11 +74,10 @@ export class LoginComponent {
         this.router.navigate(['registre/recover']);
     }
 
-    onSubmit( event ) {
+    onSubmit(event) {
         event.preventDefault();
-        this.onEntrarButtonClick();
     }
 
-    constructor( private authService: AuthService, private router: Router ) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
 }
