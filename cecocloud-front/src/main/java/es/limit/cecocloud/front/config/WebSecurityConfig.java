@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		antMatchers("/api/**").hasAuthority("ADMIN").
 		anyRequest().permitAll().
 		and().
-		addFilter(new JwtAuthenticationFilter(authenticationManager(), mapper)).
+		addFilter(new JwtAuthenticationFilter(authenticationManager(), mapper, getApplicationContext())). //modificado
 		addFilter(new JwtAuthorizationFilter(authenticationManager())).
 		sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}

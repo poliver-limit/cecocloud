@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,9 @@ import io.jsonwebtoken.Jws;
  */
 @Service
 public class RegistreServiceImpl implements RegistreService {
-
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private TokenHelper tokenHelper;
 	@Autowired
@@ -69,7 +72,7 @@ public class RegistreServiceImpl implements RegistreService {
 		Jws<Claims> parsedToken = tokenHelper.validate(token);
 		String codi = parsedToken.getBody().getSubject();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(codi);
-		usuari.get().updateContrasenya(dto.getContrasenya());
+		usuari.get().updateContrasenya(passwordEncoder.encode(dto.getContrasenya())); //modificado
 	}
 
 	private void enviarEmailValidacio(

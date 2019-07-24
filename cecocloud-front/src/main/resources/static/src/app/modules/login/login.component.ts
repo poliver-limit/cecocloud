@@ -60,7 +60,7 @@ export class LoginComponent {
                     this.valid = false;
                 } else {
                     this.router.navigate( ['/'] );
-                }
+                }                
             } );
     }
 
