@@ -8,34 +8,23 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
     template: `
 <div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white">
-    <div mdcHeadline5>{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</div>
-    <br/>
-    <form (submit)="onSubmit($event)"> 
-        <p>{{'validate.label.usuari'|translate}} : {{tokenPayload.sub}}</p>   
-        <p>{{'validate.label.nom'|translate}} : {{tokenPayload.name}}</p>         
-        <br/>
-        <br/>
-        <mdc-form-field fluid>            
-<<<<<<< HEAD
+    <div mdcHeadline4>{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</div>
+    <form (submit)="onSubmit($event)">
+        <p>{{'validate.label.nom'|translate}} : {{tokenPayload.name}}</p>
+        <p>{{'validate.label.usuari'|translate}} : {{tokenPayload.sub}}</p>
+        <mdc-form-field fluid>
 			<mdc-text-field type="password" label="{{'validate.field.contrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>            
-=======
-			<mdc-text-field type="password" label="{{'validate.field.constrasenya'|translate}}" outlined [valid]="valid" (input)="onContrasenyaFieldInput($event)"></mdc-text-field>            
->>>>>>> branch 'master' of http://10.35.3.11/limit/cecocloud.git
         </mdc-form-field>
         <br/>
         <mdc-form-field fluid>
-<<<<<<< HEAD
             <mdc-text-field type="password" label="{{'validate.field.repContrasenya'|translate}}" outlined [valid]="valid" (input)="onRepContrasenyaFieldInput($event)"></mdc-text-field>            
-=======
-            <mdc-text-field type="password" label="{{'validate.field.repConstrasenya'|translate}}" outlined [valid]="valid" (input)="onRepContrasenyaFieldInput($event)"></mdc-text-field>            
->>>>>>> branch 'master' of http://10.35.3.11/limit/cecocloud.git
             <mdc-helper-text validation>
                 <span>{{'validate.msg.validate.error'|translate}}</span>
             </mdc-helper-text>
-        </mdc-form-field>        
+        </mdc-form-field>
         <br/>
-        <div style="display: flex; justify-content: space-between"> 
-        <button mdc-button (click)="onCancelButtonClick($event)" style="text-transform: none">{{'validate.button.cancel'|translate}}</button>            
+        <div style="display: flex; justify-content: space-between">
+        <button mdc-button (click)="onCancelButtonClick($event)" style="text-transform: none">{{'validate.button.cancel'|translate}}</button>
             <button mdc-button primary (click)="onValidarButtonClick($event)">{{'validate.button.validate'|translate}}</button>
         </div>
     </form>

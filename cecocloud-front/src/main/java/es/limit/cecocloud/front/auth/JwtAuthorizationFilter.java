@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,11 +26,13 @@ import es.limit.cecocloud.logic.api.service.AuthService;
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-	@Autowired
 	private AuthService authService;
 
-	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
+	public JwtAuthorizationFilter(
+			AuthenticationManager authenticationManager,
+			AuthService authService) {
 		super(authenticationManager);
+		this.authService = authService;
 	}
 
 	@Override

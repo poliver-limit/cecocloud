@@ -72,7 +72,7 @@ public class RegistreServiceImpl implements RegistreService {
 		Jws<Claims> parsedToken = tokenHelper.validate(token);
 		String codi = parsedToken.getBody().getSubject();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(codi);
-		usuari.get().updateContrasenya(passwordEncoder.encode(dto.getContrasenya())); //modificado
+		usuari.get().updateContrasenya(passwordEncoder.encode(dto.getContrasenya()));
 	}
 
 	private void enviarEmailValidacio(

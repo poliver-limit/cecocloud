@@ -31,6 +31,7 @@ import es.limit.cecocloud.front.auth.JwtAuthenticationFilter;
 import es.limit.cecocloud.front.auth.JwtAuthorizationFilter;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
+import es.limit.cecocloud.logic.api.service.AuthService;
 import es.limit.cecocloud.logic.api.service.UsuariService;
 
 /**
@@ -46,6 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UsuariService usuariService;
+	@Autowired
+	private AuthService authService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -59,8 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		antMatchers("/api/**").hasAuthority("ADMIN").
 		anyRequest().permitAll().
 		and().
-		addFilter(new JwtAuthenticationFilter(authenticationManager(), mapper, getApplicationContext())). //modificado
-		addFilter(new JwtAuthorizationFilter(authenticationManager())).
+		addFilter(new JwtAuthenticationFilter(authenticationManager(), authService, mapper)).
+		addFilter(new JwtAuthorizationFilter(authenticationManager(), authService)).
 		sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
@@ -84,12 +87,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					    			usuari.getCodi(),
 					    			usuari.getContrasenya(),
 					    			authorities);
-				    		/*UserWithName user = new UserWithName(
-					    			usuari.getCodi(),
-					    			usuari.getContrasenya(),
-					    			authorities);
-				    		user.setName(usuari.getNom());
-				    		return user;*/
 				    	} else {
 				    		throw new UsernameNotFoundException("Usuari " + username + " no trobat");
 				    	}
@@ -108,28 +105,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
-
-	/*@Getter
-	@Setter
-	public static class UserWithName extends User {
-		protected String name;
-		public UserWithName(
-				String username,
-				String password,
-				Collection<? extends GrantedAuthority> authorities) {
-			super(username, password, authorities);
-		}
-		public UserWithName(
-				String username,
-				String password,
-				boolean enabled,
-				boolean accountNonExpired,
-				boolean credentialsNonExpired,
-				boolean accountNonLocked,
-				Collection<? extends GrantedAuthority> authorities) {
-			super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-		}
-		private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
-	}*/
 
 }

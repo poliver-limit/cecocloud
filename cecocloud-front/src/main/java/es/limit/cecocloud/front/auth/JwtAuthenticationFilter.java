@@ -9,8 +9,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,7 +29,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	private static final String AUTH_LOGIN_URL= "/api/auth";
 
-	@Autowired
 	private AuthService authService;
 
 	private final AuthenticationManager authenticationManager;
@@ -39,11 +36,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	public JwtAuthenticationFilter(
 			AuthenticationManager authenticationManager,
-			ObjectMapper jsonMapper,
-			ApplicationContext ctx) { //añadido
+			AuthService authService,
+			ObjectMapper jsonMapper) {
 		this.authenticationManager = authenticationManager;
+		this.authService = authService;
 		this.jsonMapper = jsonMapper;
-		this.authService= ctx.getBean(AuthService.class); //añadido
 		setFilterProcessesUrl(AUTH_LOGIN_URL);
 	}
 

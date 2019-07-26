@@ -44,7 +44,10 @@ public class AuthServiceImpl implements AuthService {
 	public Authentication get(String token) {
 		Jws<Claims> parsedToken = tokenHelper.validate(token);
 		String username = parsedToken.getBody().getSubject();
-		List<GrantedAuthority> authorities = ((List<?>)parsedToken.getBody().get("rol")).stream().map(authority -> new SimpleGrantedAuthority((String) authority)).collect(Collectors.toList());
+		List<GrantedAuthority> authorities = null;
+		if (parsedToken.getBody().get("rol") != null) {
+			authorities = ((List<?>)parsedToken.getBody().get("rol")).stream().map(authority -> new SimpleGrantedAuthority((String) authority)).collect(Collectors.toList());
+		}
 		return new UsernamePasswordAuthenticationToken(username, null, authorities);
 	}
 
