@@ -29,10 +29,12 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "companyia")
+@Table(name = "empresa")
 @AttributeOverrides({
+	@AttributeOverride(name = "embedded.identificadorCodi", column = @Column(name = "identificador_codi", length = 4, nullable = false)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.nif", column = @Column(name = "nif", length = 12, nullable = false)),
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false))
 })
 @AssociationOverrides({
 	@AssociationOverride(

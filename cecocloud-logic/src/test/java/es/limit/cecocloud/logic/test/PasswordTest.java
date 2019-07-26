@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 public class PasswordTest {
 
-	private static final String PASSWORD = "admin";
+	private static final String PASSWORD = "test";
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

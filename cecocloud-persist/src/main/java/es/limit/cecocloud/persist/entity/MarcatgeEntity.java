@@ -29,7 +29,7 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "companyia")
+@Table(name = "marcatge")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "data", nullable = false)),
 	@AttributeOverride(name = "embedded.dataActual", column = @Column(name = "data_actual", nullable = false)),

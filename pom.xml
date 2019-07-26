@@ -17,6 +17,7 @@
 		<reflections.version>0.9.11</reflections.version>
 		<commons-lang.version>2.5</commons-lang.version>
 		<swagger.version>2.9.2</swagger.version>
+		<ojdbc8.version>12.2.0.1</ojdbc8.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
