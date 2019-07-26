@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.cecocloud.logic.api.service.AuthService;
 import es.limit.cecocloud.logic.helper.TokenHelper;
@@ -35,9 +36,12 @@ public class AuthServiceImpl implements AuthService {
 	private UsuariRepository usuariRepository;
 
 	@Override
+	@Transactional(readOnly = true)
 	public String create(String usuariCodi) {
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariCodi);
-		return tokenHelper.buildCreate(usuari.get().getEmbedded());
+		return tokenHelper.buildCreate(
+				usuari.get().getEmbedded(),
+				usuari.get().getRols());
 	}
 
 	@Override

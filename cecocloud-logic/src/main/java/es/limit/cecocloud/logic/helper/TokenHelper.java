@@ -3,15 +3,18 @@
  */
 package es.limit.cecocloud.logic.helper;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -42,13 +45,16 @@ public class TokenHelper {
 	private static final String TOKEN_AUDIENCE_RECOVERY = "recovery";
 	private static final long EXPIRATION_RECOVERY = 24 * 60 * 60 * 1000; // 1 dia
 
-	public String buildCreate(Usuari usuari) {
+	public String buildCreate(
+			Usuari usuari,
+			Collection<Rol> rols) {
 		return createNewToken(
 				usuari,
 				TOKEN_TYPE,
 				TOKEN_ISSUER,
 				TOKEN_AUDIENCE_AUTH,
-				EXPIRATION_AUTH);
+				EXPIRATION_AUTH,
+				rols);
 	}
 
 	public String buildValidate(Usuari usuari) {
@@ -57,7 +63,8 @@ public class TokenHelper {
 				TOKEN_TYPE,
 				TOKEN_ISSUER,
 				TOKEN_AUDIENCE_VALIDATION,
-				EXPIRATION_VALIDATION);
+				EXPIRATION_VALIDATION,
+				null);
 	}
 
 	public String buildRecover(Usuari usuari) {
@@ -66,7 +73,8 @@ public class TokenHelper {
 				TOKEN_TYPE,
 				TOKEN_ISSUER,
 				TOKEN_AUDIENCE_RECOVERY,
-				EXPIRATION_RECOVERY);
+				EXPIRATION_RECOVERY,
+				null);
 	}
 
 	public Jws<Claims> validate(String token) {
@@ -91,19 +99,27 @@ public class TokenHelper {
 			String type,
 			String issuer,
 			String audience,
-			long expiration) {
-		System.out.println(">>> Generant token JWT " + usuari.getCodi() + ", " + usuari.getNom());
-		return Jwts.builder().signWith(
+			long expiration,
+			Collection<Rol> rols) {
+		Date expirationDate = new Date(System.currentTimeMillis() + expiration);
+		log.debug("Generant token JWT (" +
+				"usuariCodi=" + usuari.getCodi() + ", " +
+				"usuariNom=" + usuari.getNom() + ", " +
+				"rols=" + rols + ", " +
+				"expiration=" + expirationDate + ")");
+		JwtBuilder builder =  Jwts.builder().signWith(
 				Keys.hmacShaKeyFor(JWT_SECRET.getBytes()),
 				SignatureAlgorithm.HS512).
 				setHeaderParam("typ", type).
 				setIssuer(issuer).
 				setAudience(audience).
 				setSubject(usuari.getCodi()).
-				setExpiration(new Date(System.currentTimeMillis() + expiration)).
-				claim("rol", usuari.getRols()).
-				claim("name", usuari.getNom()).
-				compact();
+				setExpiration(expirationDate).
+				claim("name", usuari.getNom());
+		if (rols != null) {
+			builder.claim("rol", rols);
+		}
+		return builder.compact();
 	}
 
 }
