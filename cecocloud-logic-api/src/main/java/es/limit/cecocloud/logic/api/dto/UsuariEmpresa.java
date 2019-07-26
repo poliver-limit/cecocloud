@@ -25,7 +25,6 @@ public class UsuariEmpresa extends AbstractIdentificableChildChild<Long, Long, L
 	private String operariCodi;
 	@NotNull
 	private Date dataInici;
-	@NotNull
 	private Date dataFi;
 
 }
