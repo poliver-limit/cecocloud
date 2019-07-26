@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.Specification;
@@ -48,7 +46,7 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> implements InitializingBean {
+public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> extends AbstractDtoConverter<D, E, ID> implements InitializingBean {
 
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
@@ -211,7 +209,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		return repository;
 	}
 
-	protected D toDto(E entity) {
+	/*protected D toDto(E entity) {
 		removeGenericReferences(entity.getEmbedded());
 		mapEntityPropertiesToEmbeddedProperties(entity);
 		D dto = orikaMapperFacade.map(
@@ -232,6 +230,8 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 					embeddedEntities,
 					getDtoClass());
 			for (int i = 0; i < dtos.size(); i++) {
+				System.out.println(">>> id: " + entities.get(i).getId());
+				dtos.get(i).setId(entities.get(i).getId());
 				addGenericReferences(entities.get(i), dtos.get(i));
 				addGenericReferences(entities.get(i), entities.get(i).getEmbedded());
 			}
@@ -247,7 +247,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 				pageable,
 				entityPage.getTotalElements());
 		return page;
-	}
+	}*/
 
 	@SuppressWarnings("unchecked")
 	protected Class<P1> getParent1Class() {
@@ -264,6 +264,16 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		return (Class<P2>)parent2Class;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	protected Class<D> getDtoClass() {
+		if (dtoClass == null) {
+			dtoClass = (Class<D>)getClassFromGenericType(0);
+		}
+		return (Class<D>)dtoClass;
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		if (entityClass == null) {
@@ -276,14 +286,6 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 			}
 		}
 		return (Class<E>)entityClass;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected Class<D> getDtoClass() {
-		if (dtoClass == null) {
-			dtoClass = (Class<D>)getClassFromGenericType(0);
-		}
-		return (Class<D>)dtoClass;
 	}
 
 	protected boolean isChildService() {
@@ -341,7 +343,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		return (AbstractEntity<?, ?>)getOneMethod.invoke(referenceRepository, id);
 	}
 
-	private void removeGenericReferences(D dto) {
+	/*private void removeGenericReferences(D dto) {
 		for (Field field: getDtoClass().getDeclaredFields()) {
 			if (field.getType().isAssignableFrom(GenericReference.class)) {
 				try {
@@ -406,7 +408,8 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		orikaMapperFacade.map(
 				entity,
 				entity.getEmbedded());
-	}
+	}*/
+
 	/*@SuppressWarnings("unchecked")
 	protected void saveAndRefresh(E entity, JpaRepository<E, ?> repository) {
 		repository.saveAndFlush(entity);

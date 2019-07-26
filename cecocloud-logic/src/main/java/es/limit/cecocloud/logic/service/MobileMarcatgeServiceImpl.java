@@ -33,7 +33,7 @@ import es.limit.cecocloud.persist.repository.UsuariRepository;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
+public class MobileMarcatgeServiceImpl extends AbstractDtoConverter<Empresa, EmpresaEntity, Long> implements MobileMarcatgeService {
 
 	@Autowired
 	private UsuariRepository usuariRepository;
@@ -61,7 +61,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		String currentUserName = auth.getName();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
 		List<UsuariEmpresaEntity> usuariEmpreses = usuariEmpresaRepository.findByParent1(usuari.get());
-		return usuariEmpreses.stream().map(UsuariEmpresaEntity::getParent2).map(EmpresaEntity::getEmbedded).collect(Collectors.toList());
+		return this.toDto(usuariEmpreses.stream().map(UsuariEmpresaEntity::getParent2).collect(Collectors.toList()));
 	}
 
 	private UsuariEmpresaEntity getUsuariEmpresaPerMarcatge(MarcatgeMobil marcatgeMobil) {
@@ -86,6 +86,16 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		} else {
 			throw new IllegalArgumentException("S'ha enviat un marcatge sense empresa");
 		}
+	}
+
+	@Override
+	protected Class<Empresa> getDtoClass() {
+		return Empresa.class;
+	}
+
+	@Override
+	protected Class<EmpresaEntity> getEntityClass() {
+		return EmpresaEntity.class;
 	}
 
 }
