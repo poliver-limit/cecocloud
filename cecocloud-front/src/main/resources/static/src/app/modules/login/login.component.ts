@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth/auth.service';
 import { AuthResponse } from '../../shared/auth/auth-response';
 
-@Component({
+@Component( {
     template: `
 <div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
     <div mdcHeadline3>{{'app.titol'|translate}}</div>
@@ -20,10 +20,10 @@ import { AuthResponse } from '../../shared/auth/auth-response';
                 <span>{{'login.msg.login.error'|translate}}</span>
             </mdc-helper-text>
         </mdc-form-field>
-        <button mdc-button (click)="onPasswordRecoveryButtonClick($event)" style="text-transform: none">{{'login.msg.contrasenya.recover'|translate}}</button>
+        <a mdc-button routerLink="/registre/recover" style="text-transform: none">{{'login.msg.contrasenya.recover'|translate}}</a>
         <br/>
         <div style="display: flex; justify-content: space-between">
-            <button mdc-button (click)="onCreateButtonClick($event)" style="text-transform: none">{{'login.msg.usuari.create'|translate}}</button>
+            <a mdc-button routerLink="/registre/create" style="text-transform: none">{{'login.msg.usuari.create'|translate}}</a>
             <button mdc-button primary (click)="onEntrarButtonClick($event)">{{'login.button.entrar'|translate}}</button>
         </div>
     </form>
@@ -42,7 +42,6 @@ export class LoginComponent {
 
     private user: string;
     private pass: string;
-
     private valid: boolean = true;
 
     onUserFieldInput( value ) {
@@ -59,25 +58,18 @@ export class LoginComponent {
                 if ( response.error ) {
                     this.valid = false;
                 } else {
-                    this.router.navigate(['/home']);
-                }                
+                    this.router.navigate( ['/home'] );
+                }
             } );
     }
 
-    onCreateButtonClick() {
+    onSubmit( event ) {
         event.preventDefault();
-        this.router.navigate(['registre/create']);
+        this.onEntrarButtonClick();
     }
 
-    onPasswordRecoveryButtonClick() {
-        event.preventDefault();
-        this.router.navigate(['registre/recover']);
-    }
-
-    onSubmit(event) {
-        event.preventDefault();
-    }
-
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(
+        private authService: AuthService,
+        private router: Router ) { }
 
 }

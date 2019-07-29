@@ -74,7 +74,7 @@ export class AuthService {
         let storageContent = localStorage.getItem( AuthService.LOCAL_STORAGE_AUTH_KEY );
         if (storageContent) {
             let authResponse: AuthResponse = JSON.parse( storageContent );
-            let currentTime = new Date().getTime();
+            //let currentTime = new Date().getTime();
             //if ( currentTime < authResponse.expiresIn ) {
                 return authResponse;
             //} else {

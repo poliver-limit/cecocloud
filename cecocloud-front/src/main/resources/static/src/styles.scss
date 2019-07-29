@@ -20,6 +20,12 @@ $mdc-theme-on-surface: #666;*/
 	top: 64px;
 }
 
+.logout-button-ink-color {
+  @include mdc-button-ink-color(grey);
+  @include mdc-button-outline-color(grey);
+  @include mdc-states(lightgrey);
+}
+
 * {
   font-family: 'Roboto', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -51,7 +51,10 @@ public class MobileMarcatgeServiceImpl extends AbstractDtoConverter<Empresa, Emp
 		marcatge.setParentId(usuariEmpresa.getId());
 		marcatge.setData(marcatgeMobil.getData());
 		marcatge.setDataActual(new Date());
-		MarcatgeEntity entity = MarcatgeEntity.builder().embedded(marcatge).build();
+		MarcatgeEntity entity = MarcatgeEntity.builder().
+				parent(usuariEmpresa).
+				embedded(marcatge).
+				build();
 		marcatgeRepository.save(entity);
 	}
 
@@ -77,6 +80,7 @@ public class MobileMarcatgeServiceImpl extends AbstractDtoConverter<Empresa, Emp
 			UsuariEmpresaEntity trobat = null;
 			for (UsuariEmpresaEntity usuariEmpresa: usuariEmpreses) {
 				UsuariEmpresa embedded = usuariEmpresa.getEmbedded();
+				System.out.println(">>> Embedded dataInici: " + embedded.getDataInici());
 				if (ara.after(embedded.getDataInici()) && (embedded.getDataFi() == null || ara.before(embedded.getDataFi()))) {
 					trobat = usuariEmpresa;
 					break;

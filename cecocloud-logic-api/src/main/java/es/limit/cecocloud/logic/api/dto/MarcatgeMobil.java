@@ -21,7 +21,6 @@ public class MarcatgeMobil {
 
 	@NotNull
 	private Date data;
-	@NotNull
 	private Date dataActual;
 	@NotNull
 	private GenericReference<Empresa, Long> empresa;

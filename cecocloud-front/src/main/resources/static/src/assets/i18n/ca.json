@@ -1,5 +1,7 @@
 {
 	"app.titol": "Cecocloud",
+	"app.action.logout": "Sortir",
+	"app.action.logout.confirm": "Estau segur que voleu sortir de l'aplicació?",
 
 	"login.field.usuari": "Usuari",
 	"login.field.contrasenya": "Contrasenya",

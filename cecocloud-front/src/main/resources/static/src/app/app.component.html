@@ -6,12 +6,26 @@
 			</button>
 		</mdc-top-app-bar-section>
 		<mdc-top-app-bar-section align="end">
-			<div mdcMenuSurfaceAnchor #userAnchor [title]="usuariNom">
+			<div mdcMenuSurfaceAnchor #userAnchor>
 				<mdc-icon #userIcon mdcTopAppBarActionItem (click)="userMenu.open = !userMenu.open">person</mdc-icon>
 				<mdc-menu anchorCorner="bottomStart" #userMenu [anchorElement]="userAnchor">
-					<mdc-list>
-						<mdc-list-item (click)="onMenuSortirClick($event)">Sortir</mdc-list-item>
-					</mdc-list>
+					<mdc-list-group>
+						<mdc-list twoLine interactive="false">
+							<mdc-list-item>
+								<a mdc-fab mini style="margin-right: 1em">A</a>
+								<mdc-list-item-text secondaryText="usuari@mail.com">Usuari Nom</mdc-list-item-text>
+							</mdc-list-item>
+						</mdc-list>
+						<mdc-list-divider></mdc-list-divider>
+						<div style="text-align: center; margin-bottom: 6px">
+							<button mdc-button outlined (click)="onMenuSortirClick($event)" class="logout-button-ink-color">{{'app.action.logout'|translate}}</button>
+						</div>
+						<!--mdc-list avatar>
+							<mdc-list-item (click)="onMenuSortirClick($event)">
+								<mdc-icon mdcListItemGraphic>exit_to_app</mdc-icon>Sortir
+							</mdc-list-item>
+						</mdc-list-->
+					</mdc-list-group>
 				</mdc-menu>
 			</div>
 		</mdc-top-app-bar-section>
