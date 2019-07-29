@@ -6,6 +6,7 @@
 			</button>
 		</mdc-top-app-bar-section>
 		<mdc-top-app-bar-section align="end">
+			<a href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
 			<div mdcMenuSurfaceAnchor #userAnchor>
 				<mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload.name}}" (click)="userMenu.open = !userMenu.open">person</mdc-icon>
 				<mdc-menu anchorCorner="bottomStart" #userMenu [anchorElement]="userAnchor">

@@ -32,7 +32,7 @@ import lombok.Setter;
 @Table(name = "marcatge")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "data", nullable = false)),
-	@AttributeOverride(name = "embedded.dataActual", column = @Column(name = "data_actual", nullable = false)),
+	@AttributeOverride(name = "embedded.dataCreacio", column = @Column(name = "data_actual", nullable = false)),
 })
 @AssociationOverrides({
 	@AssociationOverride(

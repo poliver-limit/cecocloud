@@ -6,19 +6,16 @@ package es.limit.cecocloud.logic.api.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificableChild;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'una empresa.
+ * Informació per a sincronitzar una empresa de CECOGEST.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class Empresa extends AbstractIdentificableChild<Long, Long> {
+public class SincronitzacioEmpresa {
 
 	@NotNull
 	@Size(max = 4)
@@ -32,7 +29,5 @@ public class Empresa extends AbstractIdentificableChild<Long, Long> {
 	@NotNull
 	@Size(max = 40)
 	private String nom;
-	@JsonIgnore
-	private boolean activa;
 
 }

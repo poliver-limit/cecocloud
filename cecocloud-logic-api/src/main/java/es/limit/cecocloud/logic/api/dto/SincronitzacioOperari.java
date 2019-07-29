@@ -3,25 +3,25 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificableChild;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'un marcatge.
+ * Informació per a sincronitzar un operari de CECOGEST.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class Marcatge extends AbstractIdentificableChild<Long, Long> {
+public class SincronitzacioOperari {
 
 	@NotNull
-	private Date data;
+	@Size(max = 6)
+	private String codi;
 	@NotNull
-	private Date dataCreacio;
+	@Size(max = 100)
+	private String usuariCodi;
 
 }

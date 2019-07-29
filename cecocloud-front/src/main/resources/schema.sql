@@ -15,6 +15,7 @@ create table empresa (
     identificador_codi varchar2(255 char),
     nif varchar2(255 char),
     nom varchar2(30 char) not null,
+    activa number(1,0) not null,
     version number(19,0) not null,
     companyia_id number(19,0) not null,
     primary key (id)

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,7 +70,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		Marcatge marcatge = new Marcatge();
 		marcatge.setParentId(usuariEmpresa.getId());
 		marcatge.setData(marcatgeMobil.getData());
-		marcatge.setDataActual(new Date());
+		marcatge.setDataCreacio(new Date());
 		MarcatgeEntity entity = MarcatgeEntity.builder().
 				parent(usuariEmpresa).
 				embedded(marcatge).
@@ -77,7 +79,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				marcatgeRepository.save(entity));
 		MarcatgeMobil creat = new MarcatgeMobil();
 		creat.setData(dtoCreat.getData());
-		creat.setDataActual(dtoCreat.getDataActual());
+		creat.setDataCreacio(dtoCreat.getDataCreacio());
 		creat.setEmpresa(
 				new GenericReference<Empresa, Long>(
 						usuariEmpresa.getParent2().getId(),
@@ -90,7 +92,9 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = auth.getName();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
-		List<UsuariEmpresaEntity> usuariEmpreses = usuariEmpresaRepository.findByParent1(usuari.get());
+		List<UsuariEmpresaEntity> usuariEmpreses = usuariEmpresaRepository.findByParent1AndEmpresaActiva(
+				usuari.get(),
+				true);
 		return empresaDtoConverter.toDto(
 				usuariEmpreses.stream().map(UsuariEmpresaEntity::getParent2).collect(Collectors.toList()));
 	}
@@ -102,18 +106,22 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			String currentUserName = auth.getName();
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
 			Optional<EmpresaEntity> empresa = empresaRepository.findById(marcatgeMobil.getEmpresa().getId());
-			List<UsuariEmpresaEntity> usuariEmpreses = usuariEmpresaRepository.findByParent1AndParent2(
-					usuari.get(),
-					empresa.get());
-			UsuariEmpresaEntity trobat = null;
-			for (UsuariEmpresaEntity usuariEmpresa: usuariEmpreses) {
-				UsuariEmpresa embedded = usuariEmpresa.getEmbedded();
-				if (ara.after(embedded.getDataInici()) && (embedded.getDataFi() == null || ara.before(embedded.getDataFi()))) {
-					trobat = usuariEmpresa;
-					break;
+			if (empresa.get().getEmbedded().isActiva()) {
+				List<UsuariEmpresaEntity> usuariEmpreses = usuariEmpresaRepository.findByParent1AndParent2(
+						usuari.get(),
+						empresa.get());
+				UsuariEmpresaEntity trobat = null;
+				for (UsuariEmpresaEntity usuariEmpresa: usuariEmpreses) {
+					UsuariEmpresa embedded = usuariEmpresa.getEmbedded();
+					if (ara.after(embedded.getDataInici()) && (embedded.getDataFi() == null || ara.before(embedded.getDataFi()))) {
+						trobat = usuariEmpresa;
+						break;
+					}
 				}
+				return trobat;
+			} else {
+				throw new EntityNotFoundException("Empresa activa amb id " + marcatgeMobil.getEmpresa().getId());
 			}
-			return trobat;
 		} else {
 			throw new IllegalArgumentException("S'ha enviat un marcatge sense empresa");
 		}
