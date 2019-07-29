@@ -5,4 +5,5 @@ export class AuthTokenPayload {
     exp: string;
     rol: string[];
     name: string;
+    email: string;
 }

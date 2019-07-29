@@ -46,7 +46,7 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> extends AbstractDtoConverter<D, E, ID> implements InitializingBean {
+public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> /*extends AbstractDtoConverter<D, E, ID>*/ implements InitializingBean {
 
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
@@ -60,6 +60,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	private Class<E> entityClass;
 	private Class<D> dtoClass;
 	private Map<Class<? extends Identificable<?>>, BaseRepository<?, ?>> referencedRepositoriesMap;
+	private DtoConverter<D, E, ID> dtoConverter;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -202,11 +203,31 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 				resultat = getRepository().findAll(parentSpec, pageable);
 			}
 		}
-		return toPaginaDto(resultat, pageable);
+		return getDtoConverter().toDto(resultat, pageable);
 	}
 
 	protected BaseRepository<E, ID> getRepository() {
 		return repository;
+	}
+
+	protected D toDto(E entity) {
+		return getDtoConverter().toDto(entity);
+	}
+	protected List<D> toDto(List<E> entities) {
+		return getDtoConverter().toDto(entities);
+	}
+	protected Page<D> toDto(Page<E> entityPage, Pageable pageable) {
+		return getDtoConverter().toDto(entityPage, pageable);
+	}
+
+	protected DtoConverter<D, E, ID> getDtoConverter() {
+		if (dtoConverter == null) {
+			dtoConverter = new DtoConverter<D, E, ID>(
+					getDtoClass(),
+					getEntityClass(),
+					orikaMapperFacade);
+		}
+		return dtoConverter;
 	}
 
 	/*protected D toDto(E entity) {
@@ -264,7 +285,6 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		return (Class<P2>)parent2Class;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	protected Class<D> getDtoClass() {
 		if (dtoClass == null) {
@@ -273,7 +293,6 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		return (Class<D>)dtoClass;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		if (entityClass == null) {

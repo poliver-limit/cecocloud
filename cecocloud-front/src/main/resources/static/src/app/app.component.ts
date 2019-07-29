@@ -17,7 +17,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 export class AppComponent {
 
     private topbarVisible: boolean = false;
-    private usuariNom: String;
+    private tokenPayload: AuthTokenPayload;
 
     onMenuSortirClick() {
         if ( confirm( this.translate.instant( 'app.action.logout.confirm' ) ) ) {
@@ -30,13 +30,10 @@ export class AppComponent {
         private authService: AuthService,
         private translate: TranslateService,
         private router: Router ) {
-        // Manten actualitzat el nom d'usuari
-        let payload = authService.getAuthTokenPayload();
-        if ( payload ) {
-            this.usuariNom = payload.name;
-        }
-        authService.authTokenChangeEvent.subscribe(( payload: AuthTokenPayload ) => {
-            this.usuariNom = payload.name;
+        // Manten actualitzada la informació de l'usuari autenticat
+        this.tokenPayload = authService.getAuthTokenPayload();
+        authService.authTokenChangeEvent.subscribe(( tokenPayload: AuthTokenPayload ) => {
+            this.tokenPayload = tokenPayload;
         } );
         // Configura l'idioma per defecte
         var userLang = navigator.language;

@@ -39,13 +39,13 @@ public class MobileMarcatgeApiController extends AbstractApiController {
 	@PostMapping(
 			path = "/marcatges",
 			produces = "application/json")
-	public ResponseEntity<?> marcatgeCreate(
+	public ResponseEntity<MarcatgeMobil> marcatgeCreate(
 			HttpServletRequest request,
 			@RequestBody @Valid final MarcatgeMobil dto) {
 		log.debug("Creant marcatge(" +
 				"dto=" + dto + ")");
-		mobileMarcatgeService.marcatgeCreate(dto);
-		return ResponseEntity.ok().build();
+		MarcatgeMobil creat = mobileMarcatgeService.marcatgeCreate(dto);
+		return ResponseEntity.ok(creat);
 	}
 
 	@GetMapping(

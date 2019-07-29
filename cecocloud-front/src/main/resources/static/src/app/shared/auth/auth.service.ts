@@ -45,7 +45,7 @@ export class AuthService {
         }
     }
 
-    getAuthTokenPayload(): any {
+    getAuthTokenPayload(): AuthTokenPayload {
         let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
         if (authResponse) {
             let base64Url = authResponse.token.split( '.' )[1];

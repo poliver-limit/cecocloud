@@ -115,7 +115,8 @@ public class TokenHelper {
 				setAudience(audience).
 				setSubject(usuari.getCodi()).
 				setExpiration(expirationDate).
-				claim("name", usuari.getNom());
+				claim("name", usuari.getNom()).
+				claim("email", usuari.getEmail());
 		if (rols != null) {
 			builder.claim("rol", rols);
 		}

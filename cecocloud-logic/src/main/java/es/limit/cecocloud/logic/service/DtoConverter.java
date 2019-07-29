@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -20,15 +19,26 @@ import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
 /**
- * Mètodes comuns pels serveis genèrics.
+ * Conversor de entitats a DTOs.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
-public abstract class AbstractDtoConverter<D extends Identificable<ID>, E extends AbstractEntity<D, ID>, ID extends Serializable> {
+public class DtoConverter<D extends Identificable<ID>, E extends AbstractEntity<D, ID>, ID extends Serializable> {
 
-	@Autowired
-	protected MapperFacade orikaMapperFacade;
+	private Class<D> dtoClass;
+	private Class<E> entityClass;
+	private MapperFacade orikaMapperFacade;
+
+	public DtoConverter(
+			Class<D> dtoClass,
+			Class<E> entityClass,
+			MapperFacade orikaMapperFacade) {
+		super();
+		this.dtoClass = dtoClass;
+		this.entityClass = entityClass;
+		this.orikaMapperFacade = orikaMapperFacade;
+	}
 
 	protected D toDto(E entity) {
 		removeGenericReferences(entity.getEmbedded());
@@ -61,16 +71,13 @@ public abstract class AbstractDtoConverter<D extends Identificable<ID>, E extend
 		}
 	}
 
-	protected Page<D> toPaginaDto(Page<E> entityPage, Pageable pageable) {
+	protected Page<D> toDto(Page<E> entityPage, Pageable pageable) {
 		Page<D> page = new PageImpl<D>(
 				toDto(entityPage.getContent()),
 				pageable,
 				entityPage.getTotalElements());
 		return page;
 	}
-
-	protected abstract Class<D> getDtoClass();
-	protected abstract Class<E> getEntityClass();
 
 	private void removeGenericReferences(D dto) {
 		for (Field field: getDtoClass().getDeclaredFields()) {
@@ -137,6 +144,13 @@ public abstract class AbstractDtoConverter<D extends Identificable<ID>, E extend
 		orikaMapperFacade.map(
 				entity,
 				entity.getEmbedded());
+	}
+
+	private Class<D> getDtoClass() {
+		return dtoClass;
+	}
+	private Class<E> getEntityClass() {
+		return entityClass;
 	}
 
 }

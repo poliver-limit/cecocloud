@@ -20,8 +20,10 @@ public interface MobileMarcatgeService {
 	 * 
 	 * @param marcatgeMobil
 	 *            informació del marcatge.
+	 * 
+	 * @return el marcatge creat.
 	 */
-	public void marcatgeCreate(MarcatgeMobil marcatgeMobil);
+	public MarcatgeMobil marcatgeCreate(MarcatgeMobil marcatgeMobil);
 
 	/**
 	 * Retorna la llista d'empreses disponibles per a que l'usuari
