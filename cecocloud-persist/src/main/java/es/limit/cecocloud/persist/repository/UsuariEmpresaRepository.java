@@ -31,7 +31,7 @@ public interface UsuariEmpresaRepository extends BaseRepository<UsuariEmpresaEnt
 			"    UsuariEmpresaEntity ue " +
 			"where " +
 			"    ue.parent2 = :empresa " +
-			"and ue.dataFi is null")
+			"and ue.embedded.dataFi is null")
 	List<UsuariEmpresaEntity> findByParent2AndDataFiNull(
 			@Param("empresa") EmpresaEntity empresa);
 

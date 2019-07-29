@@ -57,7 +57,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		// TODO Revisar si l'usuari te permisos
 		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
 				sincronitzacioCompanyia.getCodi());
-		List<EmpresaEntity> empreses = empresaRepository.findByParent1(companyia.get());
+		List<EmpresaEntity> empreses = empresaRepository.findByParent(companyia.get());
 		int createCount = 0;
 		int updateCount = 0;
 		int deleteCount = 0;
@@ -124,7 +124,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		// TODO Revisar si l'usuari te permisos
 		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
 				consulta.getCompanyiaCodi());
-		List<EmpresaEntity> empreses = empresaRepository.findByParent1(companyia.get());
+		List<EmpresaEntity> empreses = empresaRepository.findByParent(companyia.get());
 		List<EmpresaEntity> empresesConsulta = new ArrayList<EmpresaEntity>();
 		for (EmpresaEntity empresa: empreses) {
 			for (SincronitzacioEmpresa empresaSync: consulta.getEmpreses()) {

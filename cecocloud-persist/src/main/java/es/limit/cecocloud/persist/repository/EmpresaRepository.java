@@ -14,6 +14,6 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
  */
 public interface EmpresaRepository extends BaseRepository<EmpresaEntity, Long> {
 
-	List<EmpresaEntity> findByParent1(CompanyiaEntity companyia);
+	List<EmpresaEntity> findByParent(CompanyiaEntity companyia);
 
 }
