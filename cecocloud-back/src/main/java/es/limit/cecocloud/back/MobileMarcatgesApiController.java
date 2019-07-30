@@ -28,16 +28,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + MobileMarcatgeApiController.API_CONTROLLER_PATH)
-public class MobileMarcatgeApiController extends AbstractApiController {
+@RequestMapping(value = AbstractApiController.API_PATH + MobileMarcatgesApiController.API_CONTROLLER_PATH)
+public class MobileMarcatgesApiController extends AbstractApiController {
 
-	public static final String API_CONTROLLER_PATH = "/mobile/marcatge";
+	public static final String API_CONTROLLER_PATH = "/mobile/marcatges";
 
 	@Autowired
 	private MobileMarcatgeService mobileMarcatgeService;
 
 	@PostMapping(
-			path = "/marcatges",
 			produces = "application/json")
 	public ResponseEntity<MarcatgeMobil> marcatgeCreate(
 			HttpServletRequest request,

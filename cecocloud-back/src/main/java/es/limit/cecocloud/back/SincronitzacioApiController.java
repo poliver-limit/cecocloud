@@ -35,12 +35,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = AbstractApiController.API_PATH + SincronitzacioApiController.API_CONTROLLER_PATH)
 public class SincronitzacioApiController extends AbstractApiController {
 
-	public static final String API_CONTROLLER_PATH = "/sincronitzacio";
+	public static final String API_CONTROLLER_PATH = "/sync";
 
 	@Autowired
 	private SincronitzacioService sincronitzacioService;
 
 	@PostMapping(
+			path = "/empreses_operaris",
 			produces = "application/json")
 	public ResponseEntity<SincronitzacioResposta> sincronitzar(
 			HttpServletRequest request,

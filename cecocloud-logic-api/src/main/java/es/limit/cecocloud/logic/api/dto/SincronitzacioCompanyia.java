@@ -21,7 +21,7 @@ public class SincronitzacioCompanyia {
 
 	@NotNull
 	@Size(max = 30)
-	private String codi;
+	private String companyiaCodi;
 	@NotNull
 	private List<SincronitzacioEmpresaAmbOperaris> empreses;
 

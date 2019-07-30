@@ -9,6 +9,8 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +28,9 @@ public class SincronitzacioMarcatgeConsulta {
 	@NotNull
 	private List<SincronitzacioEmpresa> empreses;
 	@NotNull
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date dataInici;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date dataFi;
 
 }

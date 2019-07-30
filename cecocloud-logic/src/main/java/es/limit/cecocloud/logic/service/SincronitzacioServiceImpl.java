@@ -41,6 +41,7 @@ import es.limit.cecocloud.persist.repository.UsuariRepository;
 @Service
 public class SincronitzacioServiceImpl implements SincronitzacioService {
 
+	@Autowired
 	private CompanyiaRepository companyiaRepository;
 	@Autowired
 	private EmpresaRepository empresaRepository;
@@ -56,7 +57,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	public SincronitzacioResposta sincronitzar(SincronitzacioCompanyia sincronitzacioCompanyia) {
 		// TODO Revisar si l'usuari te permisos
 		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
-				sincronitzacioCompanyia.getCodi());
+				sincronitzacioCompanyia.getCompanyiaCodi());
 		List<EmpresaEntity> empreses = empresaRepository.findByParent(companyia.get());
 		int createCount = 0;
 		int updateCount = 0;
