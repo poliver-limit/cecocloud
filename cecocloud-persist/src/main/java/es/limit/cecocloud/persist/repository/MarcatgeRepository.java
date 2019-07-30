@@ -28,7 +28,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"    m.parent.parent2.embedded.identificadorCodi asc, " +
 			"    m.parent.parent2.embedded.codi asc, " +
 			"    m.embedded.data asc")
-	List<MarcatgeEntity> findByEmpresaIn(
+	List<MarcatgeEntity> findByEmpresaInAndBetweenDates(
 			@Param("empreses") List<EmpresaEntity> empreses,
 			@Param("dataInici") Date dataInici,
 			@Param("esNullDataFi") boolean esNullDataFi,

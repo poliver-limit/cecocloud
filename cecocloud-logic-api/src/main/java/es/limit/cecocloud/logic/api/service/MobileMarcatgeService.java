@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobil;
+import es.limit.cecocloud.logic.api.dto.MarcatgeMobilConsulta;
 
 /**
  * Servei encarregat de gestionar els registres d'usuaris.
@@ -18,12 +19,20 @@ public interface MobileMarcatgeService {
 	/**
 	 * Crea un nou marcatge associat a l'usuari.
 	 * 
-	 * @param marcatgeMobil
+	 * @param marcatge
 	 *            informació del marcatge.
-	 * 
 	 * @return el marcatge creat.
 	 */
-	public MarcatgeMobil marcatgeCreate(MarcatgeMobil marcatgeMobil);
+	public MarcatgeMobil create(MarcatgeMobil marcatge);
+
+	/**
+	 * Consulta els marcatges en una data concreta.
+	 * 
+	 * @param consulta
+	 *            paràmetres de la consulta.
+	 * @return la llista de marcatges.
+	 */
+	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta);
 
 	/**
 	 * Retorna la llista d'empreses disponibles per a que l'usuari
@@ -31,6 +40,6 @@ public interface MobileMarcatgeService {
 	 * 
 	 * @return la llista d'empreses.
 	 */
-	public List<Empresa> empresaFindAll();
+	public List<Empresa> empresesFindAll();
 
 }

@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping(value = AbstractApiController.API_PATH + SincronitzacioApiController.API_CONTROLLER_PATH)
-public class SincronitzacioApiController extends AbstractApiController {
+public class SincronitzacioApiController {
 
 	public static final String API_CONTROLLER_PATH = "/sync";
 
@@ -55,14 +53,13 @@ public class SincronitzacioApiController extends AbstractApiController {
 	@GetMapping(
 			path = "/marcatges",
 			produces = "application/json")
-	public ResponseEntity<Resources<Resource<SincronitzacioMarcatge>>> marcatgeFind(
+	public ResponseEntity<List<SincronitzacioMarcatge>> marcatgeFind(
 			HttpServletRequest request,
 			@Valid final SincronitzacioMarcatgeConsulta consulta) {
 		log.debug("Consulta de marcatges (" +
 				"consulta=" + consulta + ")");
 		List<SincronitzacioMarcatge> marcatges = sincronitzacioService.marcatgeFind(consulta);
-		return ResponseEntity.ok(
-				toResources(marcatges));
+		return ResponseEntity.ok(marcatges);
 	}
 
 }

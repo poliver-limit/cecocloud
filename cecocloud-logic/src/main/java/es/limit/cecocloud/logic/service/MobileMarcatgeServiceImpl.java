@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobil;
+import es.limit.cecocloud.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.MobileMarcatgeService;
@@ -48,16 +51,16 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
 
-	private DtoConverter<Marcatge, MarcatgeEntity, Long> marcatgeDtoConverter;
+	/*private DtoConverter<Marcatge, MarcatgeEntity, Long> marcatgeDtoConverter;*/
 	private DtoConverter<Empresa, EmpresaEntity, Long> empresaDtoConverter;
 
 	@Autowired
 	public MobileMarcatgeServiceImpl(MapperFacade orikaMapperFacade) {
 		super();
-		this.marcatgeDtoConverter = new DtoConverter<Marcatge, MarcatgeEntity, Long>(
+		/*this.marcatgeDtoConverter = new DtoConverter<Marcatge, MarcatgeEntity, Long>(
 				Marcatge.class,
 				MarcatgeEntity.class,
-				orikaMapperFacade);
+				orikaMapperFacade);*/
 		this.empresaDtoConverter = new DtoConverter<Empresa, EmpresaEntity, Long>(
 				Empresa.class,
 				EmpresaEntity.class,
@@ -65,7 +68,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	}
 
 	@Override
-	public MarcatgeMobil marcatgeCreate(MarcatgeMobil marcatgeMobil) {
+	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
 		UsuariEmpresaEntity usuariEmpresa = getUsuariEmpresaPerMarcatge(marcatgeMobil);
 		Marcatge marcatge = new Marcatge();
 		marcatge.setParentId(usuariEmpresa.getId());
@@ -75,26 +78,41 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				parent(usuariEmpresa).
 				embedded(marcatge).
 				build();
-		Marcatge dtoCreat = marcatgeDtoConverter.toDto(
-				marcatgeRepository.save(entity));
-		MarcatgeMobil creat = new MarcatgeMobil();
-		creat.setData(dtoCreat.getData());
-		creat.setDataCreacio(dtoCreat.getDataCreacio());
-		creat.setEmpresa(
-				new GenericReference<Empresa, Long>(
-						usuariEmpresa.getParent2().getId(),
-						null));
-		return creat;
+		// Marcatge dtoCreat = marcatgeDtoConverter.toDto(marcatgeRepository.save(entity));
+		return toMarcatgeMobil(marcatgeRepository.save(entity));
 	}
 
 	@Override
-	public List<Empresa> empresaFindAll() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String currentUserName = auth.getName();
-		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
-		List<UsuariEmpresaEntity> usuariEmpreses = usuariEmpresaRepository.findByParent1AndEmpresaActiva(
-				usuari.get(),
-				true);
+	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
+		List<UsuariEmpresaEntity> usuariEmpreses = findUsuarisEmpresesActius();
+		EmpresaEntity empresa = null;
+		for (UsuariEmpresaEntity usuariEmpresa: usuariEmpreses) {
+			if (usuariEmpresa.getParent2().getId().equals(consulta.getEmpresaId())) {
+				empresa = usuariEmpresa.getParent2();
+				break;
+			}
+		}
+		if (empresa != null) {
+			Calendar dataFi = Calendar.getInstance();
+			dataFi.setTime(consulta.getData());
+			dataFi.set(Calendar.HOUR_OF_DAY, 23);
+			dataFi.set(Calendar.MINUTE, 59);
+			dataFi.set(Calendar.SECOND, 59);
+			dataFi.set(Calendar.MILLISECOND, 999);
+			List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDates(
+					Arrays.asList(empresa),
+					consulta.getData(),
+					false,
+					dataFi.getTime());
+			return marcatges.stream().map(marcatge -> toMarcatgeMobil(marcatge)).collect(Collectors.toList());
+		} else {
+			throw new EntityNotFoundException("Empresa autoritzada amb id " + consulta.getEmpresaId());
+		}
+	}
+
+	@Override
+	public List<Empresa> empresesFindAll() {
+		List<UsuariEmpresaEntity> usuariEmpreses = findUsuarisEmpresesActius();
 		return empresaDtoConverter.toDto(
 				usuariEmpreses.stream().map(UsuariEmpresaEntity::getParent2).collect(Collectors.toList()));
 	}
@@ -120,11 +138,32 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				}
 				return trobat;
 			} else {
-				throw new EntityNotFoundException("Empresa activa amb id " + marcatgeMobil.getEmpresa().getId());
+				throw new EntityNotFoundException("Empresa autoritzada amb id " + marcatgeMobil.getEmpresa().getId());
 			}
 		} else {
 			throw new IllegalArgumentException("S'ha enviat un marcatge sense empresa");
 		}
+	}
+
+	private List<UsuariEmpresaEntity> findUsuarisEmpresesActius() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentUserName = auth.getName();
+		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
+		return usuariEmpresaRepository.findByParent1AndDataFiNullAndEmpresaActiva(
+				usuari.get(),
+				new Date(),
+				true);
+	}
+
+	private MarcatgeMobil toMarcatgeMobil(MarcatgeEntity marcatge) {
+		MarcatgeMobil marcatgeMobil = new MarcatgeMobil();
+		marcatgeMobil.setData(marcatge.getEmbedded().getData());
+		marcatgeMobil.setDataCreacio(marcatge.getEmbedded().getDataCreacio());
+		marcatgeMobil.setEmpresa(
+				new GenericReference<Empresa, Long>(
+						marcatge.getParent().getParent2().getId(),
+						null));
+		return marcatgeMobil;
 	}
 
 }

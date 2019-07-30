@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.persist.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -22,9 +23,12 @@ public interface UsuariEmpresaRepository extends BaseRepository<UsuariEmpresaEnt
 			"    UsuariEmpresaEntity ue " +
 			"where " +
 			"    ue.parent1 = :usuari " +
+			"and ue.embedded.dataInici <= :dataInicial " +
+			"and ue.embedded.dataFi is null " +
 			"and ue.parent2.embedded.activa = :activa")
-	List<UsuariEmpresaEntity> findByParent1AndEmpresaActiva(
+	List<UsuariEmpresaEntity> findByParent1AndDataFiNullAndEmpresaActiva(
 			@Param("usuari") UsuariEntity usuari,
+			@Param("dataInicial") Date dataInicial,
 			@Param("activa") boolean activa);
 
 	@Query(	"from" +
