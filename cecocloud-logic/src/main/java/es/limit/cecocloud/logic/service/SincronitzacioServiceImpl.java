@@ -106,7 +106,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				EmpresaEntity empresaCreada = empresaRepository.save(
 						EmpresaEntity.builder().
 						parent(companyia.get()).
-						embedded(null).
+						embedded(empresa).
 						build());
 				// Actualitza els operaris
 				updateOperaris(empresaCreada, empresaSync);
@@ -170,18 +170,15 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				}
 			}
 			if (usuariEmpresaTrobat != null) {
-				// Si l'operari ja és a la base de dades no fa res
+				// Si l'operari ja és a la base de dades
+				if (!usuariEmpresaTrobat.getParent1().getEmbedded().getCodi().equals(operari.getUsuariCodi())) {
+					// Si l'usuari és diferent del que hi ha a la BBDD l'actualitza
+					usuariEmpresaTrobat.getEmbedded().setDataFi(new Date());
+					createUsuariEmpresa(empresa, operari);
+				}
 			} else {
 				// Si l'operari no existeix el crea
-				UsuariEmpresa perCrear = new UsuariEmpresa();
-				perCrear.setOperariCodi(operari.getCodi());
-				perCrear.setDataInici(new Date());
-				usuariEmpresaRepository.save(
-						UsuariEmpresaEntity.builder().
-						parent1(usuariRepository.findByEmbeddedCodi(operari.getUsuariCodi()).get()).
-						parent2(empresa).
-						embedded(perCrear).
-						build());
+				createUsuariEmpresa(empresa, operari);
 			}
 		}
 		// Desactiva els operaris existents a la BBDD que no es troben a l'empresa enviada des de CECOGEST
@@ -197,6 +194,20 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				usuariEmpresa.getEmbedded().setDataFi(new Date());
 			}
 		}
+	}
+
+	private UsuariEmpresaEntity createUsuariEmpresa(
+			EmpresaEntity empresa,
+			SincronitzacioOperari operari) {
+		UsuariEmpresa perCrear = new UsuariEmpresa();
+		perCrear.setOperariCodi(operari.getCodi());
+		perCrear.setDataInici(new Date());
+		return usuariEmpresaRepository.save(
+				UsuariEmpresaEntity.builder().
+				parent1(usuariRepository.findByEmbeddedCodi(operari.getUsuariCodi()).get()).
+				parent2(empresa).
+				embedded(perCrear).
+				build());
 	}
 
 	private boolean empresaDbEqualsEmpresaSync(

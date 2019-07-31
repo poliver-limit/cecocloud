@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
-import { RegistreService } from '../registre/registre.service';
 import { TranslateService } from '@ngx-translate/core';
+
+import { RegistreService } from '../registre/registre.service';
 
 @Component({
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
+<div mdcBody1 mdcElevation="5" class="centered" style="width: calc(100% - 4em); max-width: 400px; padding: 1em; background-color: white;">
     <div mdcHeadline5>{{'create.titol'|translate}}</div>
     <br/>
     <form (submit)="onSubmit($event)">
