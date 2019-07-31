@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.limit.cecogest</groupId>
 	<artifactId>cecocloud</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -17,9 +17,7 @@
 		<reflections.version>0.9.11</reflections.version>
 		<commons-lang.version>2.5</commons-lang.version>
 		<swagger.version>2.9.2</swagger.version>
-		<ojdbc8.version>12.2.0.1</ojdbc8.version>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<ojdbc6.version>11.2.0.4</ojdbc6.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.test.skip>true</maven.test.skip>
 		<skip.npm>false</skip.npm>

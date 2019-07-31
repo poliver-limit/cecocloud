@@ -41,7 +41,6 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 		final List<Object> args = castArguments(root);
 		final Object argument = args.get(0);
 		Path<?> path = ("id".equals(property)) ? root.get(property) : root.get("embedded").get(property);
-		//Path<String> path = root.<String>get(property);
 		switch (RsqlSearchOperation.getSimpleOperator(operator)) {
 		case EQUAL:
 			if (argument instanceof String) {
