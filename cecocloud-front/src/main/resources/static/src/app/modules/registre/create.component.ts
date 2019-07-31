@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
-import { RegistreService } from '../registre/registre.service';
 import { TranslateService } from '@ngx-translate/core';
+
+import { RegistreService } from '../registre/registre.service';
 
 @Component({
     template: `
