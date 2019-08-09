@@ -46,14 +46,19 @@ export class ValidateComponent {
 
     private valid: boolean = true;
 
-
+    //---------------------------------------------------------- 
 
     onContrasenyaFieldInput(value) {
         this.contrasenya = value;
     }
+
+    //---------------------------------------------------------- 
+
     onRepContrasenyaFieldInput(value) {
         this.contrasenya2 = value;
     }
+
+    //---------------------------------------------------------- 
 
     onValidarButtonClick() {
         this.valid = true;
@@ -67,19 +72,27 @@ export class ValidateComponent {
             });
     }
 
+    //---------------------------------------------------------- 
+
     notify_simple() {
         const snackbarRef = this.snackbar.open(this.translate.instant('validate.notify.validate'));
         snackbarRef.afterDismiss().subscribe(reason => {
         });
     }
 
+    //---------------------------------------------------------- 
+
     onCancelButtonClick() {
         this.router.navigate(['login'])
     }
 
+    //---------------------------------------------------------- 
+
     onSubmit(event) {
         event.preventDefault();
     }
+
+    //---------------------------------------------------------- 
 
     constructor(
         private registreService: RegistreService,

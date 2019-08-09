@@ -22,6 +22,7 @@ export class AppComponent {
     onMenuSortirClick() {
         if ( confirm( this.translate.instant( 'app.action.logout.confirm' ) ) ) {
             this.authService.logout();
+            localStorage.clear();
             this.router.navigate( ['/login'] );
         }
     }

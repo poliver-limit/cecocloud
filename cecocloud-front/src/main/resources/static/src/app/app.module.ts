@@ -16,6 +16,8 @@ import { DefaultErrorDialog } from './shared/default-error-handler';
 //import { ExternalConfigurationService } from './shared/restapi/hal-external-config'
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 export function createTranslateLoader( http: HttpClient ) {
     return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
@@ -27,6 +29,8 @@ export function createTranslateLoader( http: HttpClient ) {
         ReactiveFormsModule,
         HttpClientModule,
         MaterialModule,
+       BrowserAnimationsModule,
+       
         TranslateModule.forRoot( {
             loader: {
                 provide: TranslateLoader,
@@ -34,6 +38,7 @@ export function createTranslateLoader( http: HttpClient ) {
                 deps: [HttpClient]
             }
         } ),
+        //NgxMaterialTimepickerModule,
         //AngularHalModule.forRoot(),
         AppRoutingModule
     ],

@@ -34,5 +34,7 @@
 	"validate.msg.validate.error":"La contrasenya no coincideix",
 	"validate.button.cancel":"Cancel·lar",
 	"validate.button.validate":"Validar",
-	"validate.notify.validate":"Correcte"	
+	"validate.notify.validate":"Correcte"
+
+	
 }

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth/auth.service';
 import { AuthResponse } from '../../shared/auth/auth-response';
 
-@Component( {
+@Component({
     template: `
 <div mdcBody1 mdcElevation="5" class="centered" style="width: calc(100% - 4em); max-width: 400px; padding: 1em; background-color: white;">
     <div mdcHeadline3>{{'app.titol'|translate}}</div>
@@ -37,39 +37,42 @@ import { AuthResponse } from '../../shared/auth/auth-response';
     transform: translate(-50%, -50%);
 }
         `]
-} )
+})
 export class LoginComponent {
 
     private user: string;
     private pass: string;
     private valid: boolean = true;
+    private token: string;
 
-    onUserFieldInput( value ) {
+    onUserFieldInput(value) {
         this.user = value;
     }
-    onPassFieldInput( value ) {
+    onPassFieldInput(value) {
         this.pass = value;
     }
 
     onEntrarButtonClick() {
         this.valid = true;
-        this.authService.authenticate( this.user, this.pass ).subscribe(
-            ( response ) => {
-                if ( response.error ) {
+        this.authService.authenticate(this.user, this.pass).subscribe(
+            (response) => {
+                if (response.error) {
                     this.valid = false;
                 } else {
-                    this.router.navigate( ['/home'] );
+                    this.token = response.token;
+                    localStorage.setItem("token",this.token);
+                    console.log(">>>>>>TOKEN JWT>>>>>>>>>",this.token);
+                    this.router.navigate(['/marcatge']);
                 }
-            } );
+            });
     }
 
-    onSubmit( event ) {
-        event.preventDefault();
-        this.onEntrarButtonClick();
+    onSubmit(event) {
+        event.preventDefault();       
     }
 
     constructor(
         private authService: AuthService,
-        private router: Router ) { }
+        private router: Router) { }
 
 }

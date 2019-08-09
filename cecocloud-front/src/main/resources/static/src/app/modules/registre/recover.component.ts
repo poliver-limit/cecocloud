@@ -37,9 +37,13 @@ export class RecoverComponent {
 
     private valid: boolean = true;
 
+    //---------------------------------------------------------- 
+
     onEmailFieldInput(value) {
         this.email = value;
     }
+
+    //---------------------------------------------------------- 
 
     onRecuperarButtonClick() {
         this.valid = true;
@@ -54,6 +58,8 @@ export class RecoverComponent {
                 });
     }
 
+    //---------------------------------------------------------- 
+
     notify_simple() {
         const snackbarRef = this.snackbar.open(this.translate.instant('recover.notify.recover'));
         snackbarRef.afterDismiss().subscribe(reason => {
@@ -61,13 +67,19 @@ export class RecoverComponent {
         });
     }
 
+    //---------------------------------------------------------- 
+
     onCancelButtonClick() {
         this.router.navigate(['login'])
     }
 
+    //---------------------------------------------------------- 
+
     onSubmit(event) {
         event.preventDefault();
     }
+
+    //---------------------------------------------------------- 
 
     constructor(
         private router: Router,

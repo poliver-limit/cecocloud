@@ -44,13 +44,20 @@ export class CreateComponent {
 
     private valid: boolean = true;
 
+    //---------------------------------------------------------- 
+
     onNomFieldInput(value) {
         this.nom = value;
     }
+
+    //---------------------------------------------------------- 
+
     onEmailFieldInput(value) {
         this.email = value;
         this.codi = value;
     }
+
+    //---------------------------------------------------------- 
 
     onCrearButtonClick() {
         this.valid = true;
@@ -67,19 +74,27 @@ export class CreateComponent {
                 });
     }
 
+    //---------------------------------------------------------- 
+
     notify_simple() {
         const snackbarRef = this.snackbar.open(this.translate.instant('create.notify.create'));
         snackbarRef.afterDismiss().subscribe(reason => {
         });
     }
 
+    //---------------------------------------------------------- 
+
     onCancelButtonClick() {
         this.router.navigate(['login']);
     }
 
+    //---------------------------------------------------------- 
+
     onSubmit(event) {
         event.preventDefault();
     }
+
+    //---------------------------------------------------------- 
 
     constructor(
         private registreService: RegistreService,

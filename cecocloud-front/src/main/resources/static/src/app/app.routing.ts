@@ -10,28 +10,22 @@ export const routes: Routes = [{
 }, {
     path: 'login',
     loadChildren: './modules/login/login.module#LoginModule'
+},{
+    path: 'marcatge',
+    loadChildren: './modules/marcatge/marcatge.module#MarcatgeModule'
 }, {
     path: 'registre',
     loadChildren: './modules/registre/registre.module#RegistreModule'
-/*}, {
-    path: 'recuperarContrasenya',
-    loadChildren: './modules/recuperarContrasenya/recuperarContrasenya.module#RecuperarContrasenyaModule'
-}, {
-    path: 'usuariNou',
-    loadChildren: './modules/usuariNou/usuariNou.module#UsuariNouModule'
-}, {
-    path: 'validarUsuari',
-    loadChildren: './modules/validarUsuari/validarUsuari.module#ValidarUsuariModule'*/
 }, {
     path: '**',
     redirectTo: ''
 }];
 
-@NgModule( {
+@NgModule({
     imports: [
-        RouterModule.forRoot( routes )],
+        RouterModule.forRoot(routes)],
     declarations: [],
     exports: [
         RouterModule]
-} )
+})
 export class AppRoutingModule { }
