@@ -4,16 +4,9 @@ $mdc-theme-on-primary: #feeae6;
 $mdc-theme-on-secondary: red;
 $mdc-theme-on-surface: #666;*/
 
-
-// Import a pre-built theme
-////@import '~@angular/material/core/theming/prebuilt/deeppurple-amber';
-// Import your custom input theme file so you can call the custom-input-theme function
-////@import '~angular-material-datepicker/src/datepicker/calendar.component.scss';
-
-// Using the $theme variable from the pre-built theme you can call the theming function
-////@include calendar-theme($theme);
-
 @import "~@angular-mdc/theme/material";
+@import "~ag-grid-community/src/styles/ag-grid.scss";
+@import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
 
 .mdc-tab-bar-top {
   @include mdc-tab-text-label-color($mdc-theme-on-primary);
@@ -23,25 +16,60 @@ $mdc-theme-on-surface: #666;*/
   @include mdc-tab-indicator-underline-color($mdc-theme-on-primary);
 }
 
-.topbarMargin {
+#container {
+    min-height: 100vh;
+}
+#container.topbarMargin {
 	position: relative;
-	/*top: 48px;*/
+    background-color: white;
 	top: 64px;
+	min-height: calc(100vh - 64px)
+}
+#container.topbarSmallScreenMargin {
+	position: relative;
+    background-color: white;
+	top: 56px;
+	min-height: calc(100vh - 56px)
+}
+#container .contentWithStaticDrawer {
+	margin-left: 256px;
+}
+
+.centered {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -40%);
+    transform: translate(-50%, -40%);
+    text-align: center;
 }
 
 .logout-button-ink-color {
-  @include mdc-button-ink-color(grey);
-  @include mdc-button-outline-color(grey);
-  @include mdc-states(lightgrey);
+    @include mdc-button-ink-color(grey);
+    @include mdc-button-outline-color(grey);
+    @include mdc-states(lightgrey);
+}
+
+.header-button-small {
+	@include mdc-icon-button-size(20px, 20px, 6px);
+}
+
+mdc-dialog.restapi-lov-dialog {
+    @include mdc-dialog-min-width(600px);
+    @include mdc-dialog-max-width(1200px, 16px);
+}
+mdc-dialog.default-error-dialog {
+    @include mdc-dialog-min-width(400px);
+    @include mdc-dialog-max-width(800px, 16px);
 }
 
 * {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: Lato, 'Roboto', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
-  background: rgba(0, 0, 0, 0) url("assets/background.png") repeat scroll 0% 0%
+  background: rgba(0, 0, 0, 0) url("assets/background.png") repeat scroll 0% 0%;
 }

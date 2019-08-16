@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import es.limit.cecocloud.logic.api.dto.ProfileField.RestapiFieldType;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 
 /**
  * Anotació per a configurar el comportament del camp al grid i al formulari.

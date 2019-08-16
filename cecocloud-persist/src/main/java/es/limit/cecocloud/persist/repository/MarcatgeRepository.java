@@ -21,12 +21,12 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 	@Query(	"from" +
 			"    MarcatgeEntity m " +
 			"where " +
-			"    m.parent.parent2 in (:empreses) " +
+			"    m.operari.empresa in (:empreses) " +
 			"and m.embedded.data >= :dataInici " +
 			"and (:esNullDataFi = true or m.embedded.data <= :dataFi) " +
 			"order by " +
-			"    m.parent.parent2.embedded.identificadorCodi asc, " +
-			"    m.parent.parent2.embedded.codi asc, " +
+			"    m.operari.empresa.embedded.identificadorCodi asc, " +
+			"    m.operari.empresa.embedded.codi asc, " +
 			"    m.embedded.data asc")
 	List<MarcatgeEntity> findByEmpresaInAndBetweenDates(
 			@Param("empreses") List<EmpresaEntity> empreses,

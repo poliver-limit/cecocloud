@@ -11,6 +11,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -45,6 +46,9 @@ import lombok.Setter;
 })
 public class UsuariEntity extends AbstractEntity<Usuari, Long> {
 
+	@Embedded
+	protected Usuari embedded;
+
 	@ElementCollection
     @CollectionTable(name = "usuari_rols", joinColumns = @JoinColumn(name = "usuari_id"))
     @Column(name = "rol", length = 10)
@@ -58,6 +62,11 @@ public class UsuariEntity extends AbstractEntity<Usuari, Long> {
         	this.rols = embedded.getRols();
         }
     }
+
+	@Override
+	public void update(Usuari embedded) {
+		this.embedded = embedded;
+	}
 
 	public void updateContrasenya(String contrasenya) {
 		this.embedded.setContrasenya(contrasenya);

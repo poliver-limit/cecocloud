@@ -11,7 +11,7 @@ import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.service.UsuariService;
 
 /**
- * Test CRUD pels objectes de tipus Parent.
+ * Test CRUD pels objectes de tipus Usuari.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

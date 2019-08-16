@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -28,10 +29,12 @@ import es.limit.cecocloud.logic.api.annotations.RestapiField;
 import es.limit.cecocloud.logic.api.annotations.RestapiGrid;
 import es.limit.cecocloud.logic.api.annotations.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.Profile;
-import es.limit.cecocloud.logic.api.dto.ProfileField;
-import es.limit.cecocloud.logic.api.dto.ProfileField.RestapiFieldType;
-import es.limit.cecocloud.logic.api.dto.ProfileForm;
-import es.limit.cecocloud.logic.api.dto.ProfileGrid;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceGrid;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceInfo;
+import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
+import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.ProfileService;
 
 /**
@@ -50,10 +53,9 @@ public class ProfileServiceImpl implements ProfileService {
 			String resourceName,
 			String profileHref) {
 		try {
-			ProfileForm resourceForm = new ProfileForm();
+			ProfileResourceInfo resourceForm = new ProfileResourceInfo();
 			Class<?> dtoClass = getDtoClassForName(resourceName);
-			resourceForm.setName(
-					Character.toLowerCase(dtoClass.getSimpleName().charAt(0)) + dtoClass.getSimpleName().substring(1));
+			resourceForm.setName(getResourceNameFromDtoClass(dtoClass));
 			Class<?> controllerClass = getControllerClassForDto(dtoClass);
 			if (controllerClass != null) {
 				resourceForm.setApiUrl(
@@ -65,7 +67,8 @@ public class ProfileServiceImpl implements ProfileService {
 					TRANSLATE_KEY_PREFIX + resourceForm.getName());
 			resourceForm.setTranslateKeyPlural(
 					TRANSLATE_KEY_PREFIX + resourceForm.getName() + ".plural");
-			resourceForm.setFields(getFields(dtoClass, resourceForm));
+			resourceForm.setFields(getFields(dtoClass));
+			resourceForm.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
 			fillLovFields(
 					resourceForm.getFields(),
 					dtoClass);
@@ -75,9 +78,9 @@ public class ProfileServiceImpl implements ProfileService {
 					resourceForm.setDescriptionField(resourceAnnotation.descriptionField());
 				}
 				if (resourceAnnotation.grids().length > 0) {
-					List<ProfileGrid> grids = new ArrayList<ProfileGrid>();
+					List<ProfileResourceGrid> grids = new ArrayList<ProfileResourceGrid>();
 					for (RestapiGrid grid: resourceAnnotation.grids()) {
-						ProfileGrid gridConfig = new ProfileGrid();
+						ProfileResourceGrid gridConfig = new ProfileResourceGrid();
 						gridConfig.setResourceName(grid.value());
 						if (!grid.name().isEmpty()) {
 							gridConfig.setName(grid.name());
@@ -93,7 +96,7 @@ public class ProfileServiceImpl implements ProfileService {
 			}
 			Profile profile = new Profile();
 			List<Descriptor> fieldDescriptors = new ArrayList<Descriptor>();
-			for (ProfileField resourceField: resourceForm.getFields()) {
+			for (ProfileResourceField resourceField: resourceForm.getFields()) {
 				fieldDescriptors.add(
 						Alps.descriptor().
 						name(resourceField.getName()).
@@ -109,7 +112,7 @@ public class ProfileServiceImpl implements ProfileService {
 					build());
 			Alps alps = Alps.alps().descriptors(descriptors).build();
 			profile.setAlps(alps);
-			profile.setForm(resourceForm);
+			profile.setResourceInfo(resourceForm);
 			return profile;
 		} catch (ClassNotFoundException ex) {
 			throw new EntityNotFoundException();
@@ -179,18 +182,17 @@ public class ProfileServiceImpl implements ProfileService {
 		return null;
 	}
 
-	public static List<ProfileField> getFields(
-			Class<?> dtoClass,
-			ProfileForm resource) {
-		List<ProfileField> fields = new ArrayList<ProfileField>();
+	public static List<ProfileResourceField> getFields(
+			Class<?> dtoClass) {
+		String resourceName = getResourceNameFromDtoClass(dtoClass);
+		List<ProfileResourceField> fields = new ArrayList<ProfileResourceField>();
 		for (Field field: dtoClass.getDeclaredFields()) {
-			ProfileField fieldConfig = new ProfileField();
+			ProfileResourceField fieldConfig = new ProfileResourceField();
 			fieldConfig.setName(field.getName());
 			fieldConfig.setType(getFieldType(field));
-			if (resource != null) {
-				fieldConfig.setTranslateKey(
-						TRANSLATE_KEY_PREFIX + resource.getName() + ".field." + field.getName());
-			}
+			fieldConfig.setMultiple(Collection.class.isAssignableFrom(field.getType()));
+			fieldConfig.setTranslateKey(
+					TRANSLATE_KEY_PREFIX + resourceName + ".field." + field.getName());
 			if (field.getAnnotation(NotEmpty.class) != null) {
 				fieldConfig.setRequired(true);
 			}
@@ -244,53 +246,70 @@ public class ProfileServiceImpl implements ProfileService {
 						restapiField.toUpperCase());
 			}
 			if (fieldConfig.getType() == RestapiFieldType.ENUM) {
-				if (restapiField == null) {
-					if (field.getType().isEnum()) {
-						fieldConfig.setEnumValues(
-								field.getType().getEnumConstants());
-					}
+				Class<?> enumType = field.getType();
+				if (Collection.class.isAssignableFrom(field.getType())) {
+					ParameterizedType collectionGenericType = (ParameterizedType)field.getGenericType();
+					enumType = (Class<?>)collectionGenericType.getActualTypeArguments()[0];
+				}
+				if (enumType.isEnum()) {
+					fieldConfig.setEnumValues(
+							enumType.getEnumConstants());
 				}
 			}
 			if (restapiField != null) {
 				fieldConfig.setIncludeInQuickFilter(restapiField.includeInQuickFilter());
 			}
+			if (field.getName().equals("id") || field.getName().startsWith("parentId")) {
+				fieldConfig.setHiddenInGrid(true);
+				fieldConfig.setHiddenInForm(true);
+				fieldConfig.setHiddenInLov(true);
+			}
 			fields.add(fieldConfig);
 		}
 		if (dtoClass.getSuperclass() != null && !dtoClass.getSuperclass().getSimpleName().contains("Auditable")) {
 			fields.addAll(
-					getFields(dtoClass.getSuperclass(), resource));
+					getFields(dtoClass.getSuperclass()));
 		}
 		return fields;
 	}
 
 	public static RestapiFieldType getFieldType(Field field) {
-		Class<?> resourceType = field.getType();
-		String simpleName = resourceType.getSimpleName();
-		if (resourceType.isEnum()) {
+		Class<?> type = field.getType();
+		if (Collection.class.isAssignableFrom(type)) {
+			ParameterizedType collectionGenericType = (ParameterizedType)field.getGenericType();
+			type = (Class<?>)collectionGenericType.getActualTypeArguments()[0];
+		}
+		if (type.isEnum()) {
 			return RestapiFieldType.ENUM;
-		} else if ("int".equals(simpleName) || "Integer".equals(simpleName)) {
-			return RestapiFieldType.INTEGER;
-		} else if ("long".equals(simpleName) || "Long".equals(simpleName)) {
-			return RestapiFieldType.INTEGER;
-		} else if ("float".equals(simpleName) || "Float".equals(simpleName)) {
-			return RestapiFieldType.FLOAT;
-		} else if ("double".equals(simpleName) || "Double".equals(simpleName)) {
-			return RestapiFieldType.FLOAT;
-		} else if ("boolean".equals(simpleName) || "Boolean".equals(simpleName)) {
-			return RestapiFieldType.BOOLEAN;
-		} else if ("Date".equals(simpleName)) {
-			return RestapiFieldType.DATE;
-		} else if ("BigDecimal".equals(simpleName)) {
-			return RestapiFieldType.BIGDECIMAL;
 		} else {
+			String simpleName = type.getSimpleName();
+			if ("String".equals(simpleName)) {
+				return RestapiFieldType.STRING;
+			} else if ("int".equals(simpleName) || "Integer".equals(simpleName)) {
+				return RestapiFieldType.INTEGER;
+			} else if ("long".equals(simpleName) || "Long".equals(simpleName)) {
+				return RestapiFieldType.INTEGER;
+			} else if ("float".equals(simpleName) || "Float".equals(simpleName)) {
+				return RestapiFieldType.FLOAT;
+			} else if ("double".equals(simpleName) || "Double".equals(simpleName)) {
+				return RestapiFieldType.FLOAT;
+			} else if ("boolean".equals(simpleName) || "Boolean".equals(simpleName)) {
+				return RestapiFieldType.BOOLEAN;
+			} else if ("Date".equals(simpleName)) {
+				return RestapiFieldType.DATE;
+			} else if ("BigDecimal".equals(simpleName)) {
+				return RestapiFieldType.BIGDECIMAL;
+			} else if (AbstractIdentificable.class.isAssignableFrom(type) || GenericReference.class.isAssignableFrom(type)) {
+				return RestapiFieldType.LOV;
+			}
 			return RestapiFieldType.STRING;
 		}
 	}
 
-	private void fillLovFields(
-			List<ProfileField> fields,
+	private static void fillLovFields(
+			List<ProfileResourceField> resourceFields,
 			Class<?> dtoClass) {
-		for (ProfileField fieldConfig: fields) {
+		for (ProfileResourceField fieldConfig: resourceFields) {
 			if (fieldConfig.getType() == RestapiFieldType.LOV) {
 				Field found = null;
 				for (Field field: dtoClass.getDeclaredFields()) {
@@ -300,24 +319,44 @@ public class ProfileServiceImpl implements ProfileService {
 					}
 				}
 				if (found != null) {
-					Class<?> lovResourceClass = found.getType();
+					Class<?> referencedResourceClass;
+					if (GenericReference.class.isAssignableFrom(found.getType())) {
+						ParameterizedType collectionType = (ParameterizedType)found.getGenericType();
+						referencedResourceClass = (Class<?>)collectionType.getActualTypeArguments()[0];
+						fieldConfig.setLovDescriptionField("description");
+					} else {
+						referencedResourceClass = found.getType();
+						RestapiResource resourceAnnotation = referencedResourceClass.getAnnotation(RestapiResource.class);
+						if (resourceAnnotation != null && !resourceAnnotation.descriptionField().isEmpty()) {
+							fieldConfig.setLovDescriptionField(resourceAnnotation.descriptionField());
+						}
+					}
+					fieldConfig.setLovResourceName(
+							Character.toLowerCase(referencedResourceClass.getSimpleName().charAt(0)) + referencedResourceClass.getSimpleName().substring(1));
 					RestapiField restapiField = found.getAnnotation(RestapiField.class);
-					fieldConfig.setLovResource(
-							Character.toLowerCase(lovResourceClass.getSimpleName().charAt(0)) + lovResourceClass.getSimpleName().substring(1));
-					fieldConfig.setLovWithDescriptionInput(restapiField.lovWithDescriptionInput());
-					if (!restapiField.lovModule().isEmpty()) {
-						fieldConfig.setLovModule(restapiField.lovModule());
-					}
-					if (!restapiField.lovParentField().isEmpty()) {
-						fieldConfig.setLovParentField(restapiField.lovParentField());
-					}
-					RestapiResource resourceAnnotation = lovResourceClass.getAnnotation(RestapiResource.class);
-					if (resourceAnnotation != null && !resourceAnnotation.descriptionField().isEmpty()) {
-						fieldConfig.setLovDescriptionField(resourceAnnotation.descriptionField());
+					if (restapiField != null) {
+						fieldConfig.setLovWithDescriptionInput(restapiField.lovWithDescriptionInput());
+						if (!restapiField.lovParentField().isEmpty()) {
+							fieldConfig.setLovParentField(restapiField.lovParentField());
+						}
 					}
 				}
 			}
 		}
+	}
+
+	private static String getResourceNameFromDtoClass(Class<?> dtoClass) {
+		return Character.toLowerCase(dtoClass.getSimpleName().charAt(0)) + dtoClass.getSimpleName().substring(1);
+	}
+
+	private boolean isQuickFilterAvailable(Class<?> dtoClass) {
+		for (Field field: dtoClass.getDeclaredFields()) {
+			RestapiField restapiField = field.getAnnotation(RestapiField.class);
+			if (restapiField != null && restapiField.includeInQuickFilter()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -7,7 +7,7 @@ import { RegistreService } from '../registre/registre.service';
 
 @Component({
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: calc(100% - 4em); max-width: 400px; padding: 1em; background-color: white;">
+<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
     <div mdcHeadline5>{{'create.titol'|translate}}</div>
     <br/>
     <form (submit)="onSubmit($event)">
@@ -44,20 +44,13 @@ export class CreateComponent {
 
     private valid: boolean = true;
 
-    //---------------------------------------------------------- 
-
     onNomFieldInput(value) {
         this.nom = value;
     }
-
-    //---------------------------------------------------------- 
-
     onEmailFieldInput(value) {
         this.email = value;
         this.codi = value;
     }
-
-    //---------------------------------------------------------- 
 
     onCrearButtonClick() {
         this.valid = true;
@@ -74,27 +67,19 @@ export class CreateComponent {
                 });
     }
 
-    //---------------------------------------------------------- 
-
     notify_simple() {
         const snackbarRef = this.snackbar.open(this.translate.instant('create.notify.create'));
         snackbarRef.afterDismiss().subscribe(reason => {
         });
     }
 
-    //---------------------------------------------------------- 
-
     onCancelButtonClick() {
         this.router.navigate(['login']);
     }
 
-    //---------------------------------------------------------- 
-
     onSubmit(event) {
         event.preventDefault();
     }
-
-    //---------------------------------------------------------- 
 
     constructor(
         private registreService: RegistreService,

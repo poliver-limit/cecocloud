@@ -5,7 +5,6 @@ package es.limit.cecocloud.persist.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Embedded;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
@@ -23,15 +22,11 @@ import lombok.Getter;
 @MappedSuperclass
 public abstract class AbstractEntity<E, PK extends Serializable> extends AbstractPersistable<PK> {
 
-	@Embedded
-	protected E embedded;
-
 	@Version
 	@Getter(AccessLevel.NONE)
 	private long version;
 
-	public void update(E embedded) {
-		this.embedded = embedded;
-	}
+	public abstract void update(E embedded);
+	public abstract E getEmbedded();
 
 }

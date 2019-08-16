@@ -14,10 +14,12 @@ import { ValidateComponent } from './validate.component';
         CommonModule,
         MaterialModule,
         TranslateModule,
-        RegistreRoutingModule],
+        RegistreRoutingModule
+    ],
     declarations: [
         CreateComponent,
         RecoverComponent,
-        ValidateComponent]
+        ValidateComponent
+    ]
 } )
 export class RegistreModule {}

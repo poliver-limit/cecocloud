@@ -48,7 +48,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 		logger.debug("Modificant entitat (" + "id=" + id + ", " + "dto=" + dto + ")");
 		E entity = getEntity(id);
 		beforeUpdate(entity, dto);
-		entity.update(dto);
+		updateEntity(entity, dto);
 		E saved = getRepository().save(entity);
 		afterUpdate(entity, dto);
 		return toDto(saved);
@@ -73,14 +73,17 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<D> findPageByRsqlQuery(
+	public Page<D> findPageByQuickFilterAndRsqlQuery(
+			String quickFilter,
 			String rsqlQuery,
 			Pageable pageable) {
 		logger.debug("Consulta d'entitats amb filtre i paginació (" +
+				"quickFilter=" + quickFilter + ", " +
 				"rsqlQuery=" + rsqlQuery + ", " +
 				"pageable=" + pageable + ")");
-		return findPageByRsqlQuery(
+		return findPageByQuickFilterAndRsqlQuery(
 				null,
+				quickFilter,
 				rsqlQuery,
 				pageable);
 	}
@@ -91,7 +94,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 			String rsqlQuery) {
 		logger.debug("Consulta d'una única entitat amb filtre (" +
 				"rsqlQuery=" + rsqlQuery + ")");
-		Page<D> page = findPageByRsqlQuery(
+		Page<D> page = findPageByQuickFilterAndRsqlQuery(
 				null,
 				rsqlQuery,
 				PageRequest.of(0, 1));

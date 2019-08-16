@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth/auth.service';
 import { AuthResponse } from '../../shared/auth/auth-response';
 
-@Component({
+@Component( {
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: calc(100% - 4em); max-width: 400px; padding: 1em; background-color: white;">
+<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
     <div mdcHeadline3>{{'app.titol'|translate}}</div>
     <br/>
     <form (submit)="onSubmit($event)">
@@ -27,52 +27,40 @@ import { AuthResponse } from '../../shared/auth/auth-response';
             <button mdc-button primary (click)="onEntrarButtonClick($event)">{{'login.button.entrar'|translate}}</button>
         </div>
     </form>
-</div>`,
-    styles: [`
-.centered {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-        `]
-})
+</div>`
+} )
 export class LoginComponent {
 
     private user: string;
     private pass: string;
     private valid: boolean = true;
-    private token: string;
 
-    onUserFieldInput(value) {
+    onUserFieldInput( value ) {
         this.user = value;
     }
-    onPassFieldInput(value) {
+    onPassFieldInput( value ) {
         this.pass = value;
     }
 
     onEntrarButtonClick() {
         this.valid = true;
-        this.authService.authenticate(this.user, this.pass).subscribe(
-            (response) => {
-                if (response.error) {
+        this.authService.authenticate( this.user, this.pass ).subscribe(
+            ( response ) => {
+                if ( response.error ) {
                     this.valid = false;
                 } else {
-                    this.token = response.token;
-                    localStorage.setItem("token",this.token);
-                    console.log(">>>>>>TOKEN JWT>>>>>>>>>",this.token);
-                    this.router.navigate(['/marcatge']);
+                    this.router.navigate( ['/home'] );
                 }
-            });
+            } );
     }
 
-    onSubmit(event) {
-        event.preventDefault();       
+    onSubmit( event ) {
+        event.preventDefault();
+        this.onEntrarButtonClick();
     }
 
     constructor(
         private authService: AuthService,
-        private router: Router) { }
+        private router: Router ) { }
 
 }

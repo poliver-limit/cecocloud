@@ -117,8 +117,9 @@ public abstract class AbstractGenericChildChildServiceImpl<D extends Identificab
 				"parentId2=" + parentId2 + ", " +
 				"rsqlQuery=" + rsqlQuery + ", " +
 				"pageable=" + pageable + ")");
-		return findPageByRsqlQuery(
+		return findPageByQuickFilterAndRsqlQuery(
 				getParent1Repository().getOne(parentId1),
+				null,
 				rsqlQuery,
 				pageable);
 	}
@@ -133,8 +134,9 @@ public abstract class AbstractGenericChildChildServiceImpl<D extends Identificab
 				"parentId1=" + parentId1 + ", " +
 				"parentId2=" + parentId2 + ", " +
 				"rsqlQuery=" + rsqlQuery + ")");
-		Page<D> page = findPageByRsqlQuery(
+		Page<D> page = findPageByQuickFilterAndRsqlQuery(
 				getParent1Repository().getOne(parentId1),
+				null,
 				rsqlQuery,
 				PageRequest.of(0, 1));
 		if (!page.isEmpty()) {

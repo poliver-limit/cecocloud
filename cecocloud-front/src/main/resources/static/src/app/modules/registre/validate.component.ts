@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: calc(100% - 4em); max-width: 400px; padding: 1em; background-color: white">
+<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white">
     <div mdcHeadline4>{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</div>
     <form (submit)="onSubmit($event)">
         <p>{{'validate.label.nom'|translate}} : {{tokenPayload.name}}</p>
@@ -46,19 +46,14 @@ export class ValidateComponent {
 
     private valid: boolean = true;
 
-    //---------------------------------------------------------- 
+
 
     onContrasenyaFieldInput(value) {
         this.contrasenya = value;
     }
-
-    //---------------------------------------------------------- 
-
     onRepContrasenyaFieldInput(value) {
         this.contrasenya2 = value;
     }
-
-    //---------------------------------------------------------- 
 
     onValidarButtonClick() {
         this.valid = true;
@@ -72,27 +67,19 @@ export class ValidateComponent {
             });
     }
 
-    //---------------------------------------------------------- 
-
     notify_simple() {
         const snackbarRef = this.snackbar.open(this.translate.instant('validate.notify.validate'));
         snackbarRef.afterDismiss().subscribe(reason => {
         });
     }
 
-    //---------------------------------------------------------- 
-
     onCancelButtonClick() {
         this.router.navigate(['login'])
     }
 
-    //---------------------------------------------------------- 
-
     onSubmit(event) {
         event.preventDefault();
     }
-
-    //---------------------------------------------------------- 
 
     constructor(
         private registreService: RegistreService,
