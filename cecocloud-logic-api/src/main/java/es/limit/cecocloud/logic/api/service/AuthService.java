@@ -5,6 +5,7 @@ package es.limit.cecocloud.logic.api.service;
 
 import org.springframework.security.core.Authentication;
 
+import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
 
 /**
@@ -15,13 +16,44 @@ import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
 public interface AuthService {
 
 	/**
+	 * Obté un usuari per a realitzar l'autenticació.
+	 * 
+	 * @param usuariCodi
+	 *            codi d'usuari.
+	 * @return l'usuari o null si l'usuari no existeix o no és autenticable.
+	 */
+	public Usuari getUsuariForAuthentication(String usuariCodi);
+
+	/**
 	 * Crea un nou token per autenticació.
 	 * 
 	 * @param usuariCodi
 	 *            codi d'usuari.
 	 * @return el token d'autenticació generat.
 	 */
-	public String create(String usuariCodi);
+	public String tokenCreate(String usuariCodi);
+
+	/**
+	 * Retorna un nou token a partir d'un token JWT vàlid o expirat. El
+	 * nou token tendrà una nova data d'expiració basada en la data
+	 * actual. Si el token no és pot refrescar es llença una excepció.
+	 * 
+	 * @param token
+	 *            el token a refrescar.
+	 * @return el token d'autenticació generat.
+	 * @throws InvalidTokenException
+	 *             si el token no és vàlid per a ser refrescat.
+	 */
+	public String tokenRefresh(String token) throws InvalidTokenException;
+
+	/**
+	 * Valida un token JWT.
+	 * 
+	 * @param token
+	 *            el token a validar.
+	 * @return true si el token és vàlid o false en cas contrari.
+	 */
+	public boolean tokenCheck(String token);
 
 	/**
 	 * Retorna l'objecte d'autenticació pel token. Si el token no és
@@ -33,6 +65,6 @@ public interface AuthService {
 	 * @throws InvalidTokenException
 	 *             si el token no és vàlid.
 	 */
-	public Authentication get(String token) throws InvalidTokenException;
+	public Authentication tokenToAuthentication(String token) throws InvalidTokenException;
 
 }

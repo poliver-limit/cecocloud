@@ -108,7 +108,6 @@ export class DefaultErrorDialog {
     constructor(
         @Inject( MDC_DIALOG_DATA ) private data: any ) {
         this.data = data;
-        console.log('>>> data', data);
     }
 
 }

@@ -45,6 +45,7 @@ public class Usuari extends AbstractIdentificable<Long> {
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String contrasenya;
 	private boolean validat;
+	private boolean actiu;
 	@Transient
 	private Set<Rol> rols;
 

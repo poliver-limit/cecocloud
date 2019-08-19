@@ -13,7 +13,8 @@ export class MarcatgesGridComponent implements OnInit {
 
     private datagridConfig = {
         editable: true,
-        pagination: false
+        pagination: false,
+        filterInEachColumn: true
     };
 
     ngOnInit() {

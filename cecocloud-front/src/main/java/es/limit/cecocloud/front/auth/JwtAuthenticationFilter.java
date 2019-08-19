@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.limit.cecocloud.logic.api.dto.AuthResponse;
 import es.limit.cecocloud.logic.api.service.AuthService;
 
 /**
@@ -59,9 +60,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			FilterChain filterChain,
 			Authentication authentication) throws JsonProcessingException, IOException {
 		User user = ((User)authentication.getPrincipal());
-		String token = authService.create(user.getUsername());
+		String token = authService.tokenCreate(user.getUsername());
 		response.getWriter().write(jsonMapper.writeValueAsString(
-				new JwtAuthResponse(
+				new AuthResponse(
 						token,
 						"Bearer")));
 		response.addHeader(JwtAuthConstants.TOKEN_HEADER, JwtAuthConstants.TOKEN_PREFIX + token);

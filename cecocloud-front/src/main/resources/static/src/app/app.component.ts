@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { MdcDrawer, MdcList } from '@angular-mdc/web';
+import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { MdcDrawer, MdcList, MdcIconButton } from '@angular-mdc/web';
 import {
     Router,
     Event,
@@ -17,7 +17,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 <mdc-top-app-bar #topbar fixed *ngIf="topbarVisible">
     <mdc-top-app-bar-row>
         <mdc-top-app-bar-section align="start">
-            <button mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="smallScreen">
+            <button #menuButton mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="smallScreen">
                 <mdc-icon>menu</mdc-icon>
             </button>
             <a routerLink="/" mdcTopAppBarTitle style="color: white;">Cecocloud</a>
@@ -45,7 +45,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
     </mdc-top-app-bar-row>
 </mdc-top-app-bar>
 <div #container id="container" [ngClass]="{'topbarMargin': topbarVisible && !smallScreen, 'topbarSmallScreenMargin': topbarVisible && smallScreen}">
-    <mdc-drawer #drawer [drawer]="smallScreen ? 'modal' : 'fixed'" fixedAdjustElement="drawerContent" *ngIf="topbarVisible">
+    <mdc-drawer #drawer [drawer]="smallScreen ? 'modal' : 'fixed'" fixedAdjustElement="drawerContent" *ngIf="topbarVisible" (closed)="onDrawerClosed()">
         <mdc-drawer-content>
             <mdc-list #menuList>
                 <a mdc-list-item [routerLink]="item.route" *ngFor="let item of menuItems; let i = index">
@@ -62,6 +62,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 export class AppComponent implements OnInit {
 
     @ViewChild( 'drawer', { static: false } ) drawer: MdcDrawer;
+    @ViewChild( 'menuButton', { static: false } ) menuButton: ElementRef;
     @ViewChild( 'menuList', { static: false } ) menulist: MdcList;
 
     private topbarVisible: boolean = false;
@@ -87,13 +88,17 @@ export class AppComponent implements OnInit {
         }
     }
 
+    onDrawerClosed() {
+        this.menuButton.nativeElement.blur();
+    }
+
     @HostListener( 'window:resize', ['$event'] )
     onWindowResize( event ) {
         this.checkSmallScreen( event.target.innerWidth );
     }
 
     private checkSmallScreen( windowWidth: number ) {
-        // Si la pantalla es fa més petita de 600px l'alçade del topbar es redueix.
+        // Si la pantalla es fa mes petita de 600px l'alçada del topbar es redueix.
         this.smallScreen = windowWidth < 600;
     }
 
@@ -122,10 +127,11 @@ export class AppComponent implements OnInit {
                         break;
                     }
                 }
-                if (this.menuSelectedIndex && this.menulist) {
-                    this.menulist.setSelectedIndex(this.menuSelectedIndex);
+                if ( this.menuSelectedIndex && this.menulist ) {
+                    this.menulist.setSelectedIndex( this.menuSelectedIndex );
+                    this.drawer.open = false;
                 }
-            });
+            } );
         } );
     }
 

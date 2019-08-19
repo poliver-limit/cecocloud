@@ -39,20 +39,19 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
 		Authentication authentication = getAuthentication(request);
-		if (authentication == null) {
-			filterChain.doFilter(request, response);
-			return;
+		if (authentication != null) {
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
-		SecurityContextHolder.getContext().setAuthentication(authentication);
 		filterChain.doFilter(request, response);
 	}
 
 	private Authentication getAuthentication(HttpServletRequest request) {
-		String token = request.getHeader(JwtAuthConstants.TOKEN_HEADER);
-		if (StringUtils.isNotEmpty(token) && token.startsWith(JwtAuthConstants.TOKEN_PREFIX)) {
+		String authHeader = request.getHeader(JwtAuthConstants.TOKEN_HEADER);
+		if (StringUtils.isNotEmpty(authHeader) && authHeader.startsWith(JwtAuthConstants.TOKEN_PREFIX)) {
 			try {
-				return authService.get(token.replace("Bearer ", ""));
+				return authService.tokenToAuthentication(authHeader.replace(JwtAuthConstants.TOKEN_PREFIX, ""));
 			} catch (InvalidTokenException ex) {
+				// Si es llança una excepció de token invàlid es retorna null
 			}
 		}
 		return null;
