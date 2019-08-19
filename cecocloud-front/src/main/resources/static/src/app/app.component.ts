@@ -27,6 +27,10 @@ export class AppComponent {
         }
     }
 
+    consultarMarcatges(){
+        this.router.navigate(['/']);
+    }
+
     constructor(
         private authService: AuthService,
         private translate: TranslateService,

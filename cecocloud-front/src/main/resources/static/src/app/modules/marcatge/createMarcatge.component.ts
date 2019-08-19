@@ -7,27 +7,30 @@ import { Locale } from 'ngx-bootstrap/chronos/locale/locale.class';
 
 @Component({
     template: `  
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-12 offset-md-3">
     <form (submit)="onSubmit($event)">
-        <div class="row col-8">
-            <label style="font-size:1em;">Seleccione una empresa</label>
-            <select outlined *ngIf="empresas !== undefined" class="col-12" [(ngModel)]="empresaSeleccionada"
+        <div class="row col-6">
+            <label class="labels">Seleccione una empresa</label>
+            <select outlined *ngIf="empresas !== undefined" class="col-6" [(ngModel)]="empresaSeleccionada"
                 name="empresaSelect" (change)="onEmpresaChange()">
                 <option *ngFor="let empresa of empresas" [ngValue]="empresa">
                     {{empresa.nom}}
                 </option>
             </select>
-            <br />
-            <br />
-            <label>Seleccione una fecha</label>
-            <div class="row col-12">
-                <input type="text" class="col-12" #dp="bsDatepicker" bsDatepicker name="fecha" [bsValue]="fecha_actual"
+        </div>     
+        <br />  
+        <div class="row col-6">  
+            <label class="labels">Seleccione una fecha</label>            
+                <input type="text" class="col-6" #dp="bsDatepicker" bsDatepicker name="fecha" [bsValue]="fecha_actual"
                     [(ngModel)]="fechaSelect">
-                <label>Seleccione una hora</label>
+                    
+                    <div >
+                <label class="labels">Seleccione una hora</label>
                 <ngx-material-timepicker #picker></ngx-material-timepicker>
-                <input class="col-12" [ngxTimepicker]="picker" [format]="24" [(ngModel)]="horaSelect" name="hora">
+                <input class="col-6" [ngxTimepicker]="picker" [format]="24" [(ngModel)]="horaSelect" name="hora">
             </div>
-            <div>
+            <br/><br/>
+            <div class="row">
                 <button mdc-button primary (click)="marcar($event)">Registrar marcaje</button>
             </div>
             <div class="row">
@@ -54,8 +57,8 @@ import { Locale } from 'ngx-bootstrap/chronos/locale/locale.class';
 
 `,
     styles: [`
-        .contenedor{
-          
+        .labels{
+            font-size:20pt;
         }
       `]
 })

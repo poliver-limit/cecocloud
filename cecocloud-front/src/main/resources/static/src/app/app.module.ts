@@ -37,9 +37,7 @@ export function createTranslateLoader( http: HttpClient ) {
                 useFactory: ( createTranslateLoader ),
                 deps: [HttpClient]
             }
-        } ),
-        //NgxMaterialTimepickerModule,
-        //AngularHalModule.forRoot(),
+        } ),        
         AppRoutingModule
     ],
     declarations: [
