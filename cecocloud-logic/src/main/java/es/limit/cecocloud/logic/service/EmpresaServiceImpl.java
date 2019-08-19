@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
-import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 
 /**
@@ -16,6 +15,6 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class EmpresaServiceImpl extends AbstractGenericChildServiceImpl<Empresa, CompanyiaEntity, EmpresaEntity, Long, Long> implements EmpresaService {
+public class EmpresaServiceImpl extends AbstractGenericServiceImpl<Empresa, EmpresaEntity, Long> implements EmpresaService {
 
 }

@@ -6,6 +6,7 @@ package es.limit.cecocloud.persist.entity;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -32,9 +33,17 @@ import lombok.Setter;
 })
 public class CompanyiaEntity extends AbstractEntity<Companyia, Long> {
 
+	@Embedded
+	protected Companyia embedded;
+
 	@Builder
     public CompanyiaEntity(Companyia embedded) {
         this.embedded = embedded;
     }
+
+	@Override
+	public void update(Companyia embedded) {
+		this.embedded = embedded;
+	}
 
 }

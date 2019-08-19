@@ -21,16 +21,16 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobilConsulta;
-import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
+import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.MobileMarcatgeService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
-import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEntity;
 import es.limit.cecocloud.persist.entity.UsuariEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.MarcatgeRepository;
-import es.limit.cecocloud.persist.repository.UsuariEmpresaRepository;
+import es.limit.cecocloud.persist.repository.OperariRepository;
 import es.limit.cecocloud.persist.repository.UsuariRepository;
 import ma.glasnost.orika.MapperFacade;
 
@@ -45,7 +45,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	@Autowired
 	private UsuariRepository usuariRepository;
 	@Autowired
-	private UsuariEmpresaRepository usuariEmpresaRepository;
+	private OperariRepository operariRepository;
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	@Autowired
@@ -69,13 +69,13 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Override
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
-		UsuariEmpresaEntity usuariEmpresa = getUsuariEmpresaPerMarcatge(marcatgeMobil);
+		OperariEntity operari = getOperariPerMarcatge(marcatgeMobil);
 		Marcatge marcatge = new Marcatge();
-		marcatge.setParentId(usuariEmpresa.getId());
+		marcatge.setParentId(operari.getId());
 		marcatge.setData(marcatgeMobil.getData());
 		marcatge.setDataCreacio(new Date());
 		MarcatgeEntity entity = MarcatgeEntity.builder().
-				parent(usuariEmpresa).
+				operari(operari).
 				embedded(marcatge).
 				build();
 		// Marcatge dtoCreat = marcatgeDtoConverter.toDto(marcatgeRepository.save(entity));
@@ -84,11 +84,11 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Override
 	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
-		List<UsuariEmpresaEntity> usuariEmpreses = findUsuarisEmpresesActius();
+		List<OperariEntity> usuariEmpreses = findUsuarisEmpresesActius();
 		EmpresaEntity empresa = null;
-		for (UsuariEmpresaEntity usuariEmpresa: usuariEmpreses) {
-			if (usuariEmpresa.getParent2().getId().equals(consulta.getEmpresaId())) {
-				empresa = usuariEmpresa.getParent2();
+		for (OperariEntity usuariEmpresa: usuariEmpreses) {
+			if (usuariEmpresa.getEmpresa().getId().equals(consulta.getEmpresaId())) {
+				empresa = usuariEmpresa.getEmpresa();
 				break;
 			}
 		}
@@ -112,12 +112,12 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Override
 	public List<Empresa> empresesFindAll() {
-		List<UsuariEmpresaEntity> usuariEmpreses = findUsuarisEmpresesActius();
+		List<OperariEntity> usuariEmpreses = findUsuarisEmpresesActius();
 		return empresaDtoConverter.toDto(
-				usuariEmpreses.stream().map(UsuariEmpresaEntity::getParent2).collect(Collectors.toList()));
+				usuariEmpreses.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()));
 	}
 
-	private UsuariEmpresaEntity getUsuariEmpresaPerMarcatge(MarcatgeMobil marcatgeMobil) {
+	private OperariEntity getOperariPerMarcatge(MarcatgeMobil marcatgeMobil) {
 		if (marcatgeMobil.getEmpresa() != null) {
 			Date ara = new Date();
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -125,14 +125,14 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
 			Optional<EmpresaEntity> empresa = empresaRepository.findById(marcatgeMobil.getEmpresa().getId());
 			if (empresa.get().getEmbedded().isActiva()) {
-				List<UsuariEmpresaEntity> usuariEmpreses = usuariEmpresaRepository.findByParent1AndParent2(
+				List<OperariEntity> operaris = operariRepository.findByUsuariAndEmpresa(
 						usuari.get(),
 						empresa.get());
-				UsuariEmpresaEntity trobat = null;
-				for (UsuariEmpresaEntity usuariEmpresa: usuariEmpreses) {
-					UsuariEmpresa embedded = usuariEmpresa.getEmbedded();
+				OperariEntity trobat = null;
+				for (OperariEntity operari: operaris) {
+					Operari embedded = operari.getEmbedded();
 					if (ara.after(embedded.getDataInici()) && (embedded.getDataFi() == null || ara.before(embedded.getDataFi()))) {
-						trobat = usuariEmpresa;
+						trobat = operari;
 						break;
 					}
 				}
@@ -145,11 +145,11 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		}
 	}
 
-	private List<UsuariEmpresaEntity> findUsuarisEmpresesActius() {
+	private List<OperariEntity> findUsuarisEmpresesActius() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = auth.getName();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
-		return usuariEmpresaRepository.findByParent1AndDataFiNullAndEmpresaActiva(
+		return operariRepository.findByUsuariAndDataFiNullAndEmpresaActiva(
 				usuari.get(),
 				new Date(),
 				true);
@@ -160,9 +160,8 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		marcatgeMobil.setData(marcatge.getEmbedded().getData());
 		marcatgeMobil.setDataCreacio(marcatge.getEmbedded().getDataCreacio());
 		marcatgeMobil.setEmpresa(
-				new GenericReference<Empresa, Long>(
-						marcatge.getParent().getParent2().getId(),
-						null));
+				GenericReference.toGenericReference(
+						marcatge.getOperari().getEmpresa().getId()));
 		return marcatgeMobil;
 	}
 

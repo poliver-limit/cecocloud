@@ -9,6 +9,10 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import es.limit.cecocloud.logic.api.annotations.RestapiField;
+import es.limit.cecocloud.logic.api.annotations.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +23,8 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@RestapiResource(descriptionField = "nom")
+//@Embeddable
 public class Usuari extends AbstractIdentificable<Long> {
 
 	@NotNull
@@ -29,10 +35,14 @@ public class Usuari extends AbstractIdentificable<Long> {
 	private String nom;
 	@NotNull
 	@Size(max = 100)
+	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String email;
 	@Size(max = 255)
+	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String imatgeUrl;
 	@Size(max = 105)
+	@JsonIgnore
+	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String contrasenya;
 	private boolean validat;
 	@Transient

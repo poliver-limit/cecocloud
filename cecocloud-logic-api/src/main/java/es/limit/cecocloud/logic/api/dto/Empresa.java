@@ -3,12 +3,13 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificableChild;
+import es.limit.cecocloud.logic.api.annotations.RestapiResource;
+import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
+import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +19,12 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class Empresa extends AbstractIdentificableChild<Long, Long> {
+@RestapiResource(descriptionField = "nom")
+public class Empresa extends AbstractIdentificable<Long> {
 
+	@NotNull
+	@Transient
+	private GenericReference<Companyia, Long> companyia;
 	@NotNull
 	@Size(max = 4)
 	private String identificadorCodi;
@@ -27,12 +32,11 @@ public class Empresa extends AbstractIdentificableChild<Long, Long> {
 	@Size(max = 4)
 	private String codi;
 	@NotNull
-	@Size(max = 12)
-	private String nif;
-	@NotNull
 	@Size(max = 40)
 	private String nom;
-	@JsonIgnore
+	@NotNull
+	@Size(max = 12)
+	private String nif;
 	private boolean activa;
 
 }

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { MarcatgeService } from '../marcatge/marcatge.service';
-import { Locale } from 'ngx-bootstrap/chronos/locale/locale.class';
+//import { Locale } from 'ngx-bootstrap/chronos/locale/locale.class';
 
 @Component({
     template: `  

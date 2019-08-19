@@ -10,6 +10,6 @@ import es.limit.cecocloud.logic.api.dto.Marcatge;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface MarcatgeService extends GenericChildService<Marcatge, Long, Long> {
+public interface MarcatgeService extends GenericService<Marcatge, Long> {
 
 }

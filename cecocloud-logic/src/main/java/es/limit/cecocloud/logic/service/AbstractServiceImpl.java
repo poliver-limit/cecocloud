@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +26,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.rsql.CustomRsqlVisitor;
@@ -137,24 +143,11 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 								(parent1Method != null && parent1Method.equals(builderCallableMethod)) ||
 								(parent2Method != null && parent2Method.equals(builderCallableMethod));
 						if (!forbiddenMethod) {
-							Object id = null;
-							for (Field field: getDtoClass().getDeclaredFields()) {
-								if (field.getName().equals(builderCallableMethod.getName())) {
-									field.setAccessible(true);
-									if (field.getType().isAssignableFrom(GenericReference.class)) {
-										GenericReference<?, ?> fieldValue = (GenericReference<?, ?>)field.get(dto);
-										id = fieldValue.getId();
-									} else if (Identificable.class.isAssignableFrom(field.getType())) {
-										Identificable<?> fieldValue = (Identificable<?>)field.get(dto);
-										id = fieldValue.getId();
-									}
-								}
-								
-							}
-							if (id != null) {
-								AbstractEntity<?, ?> referencedEntity = getEntityFromReferencedRepository(
-										builderCallableMethod.getParameterTypes()[0],
-										id);
+							AbstractEntity<?, ?> referencedEntity = getReferencedEntityForDtoField(
+									builderCallableMethod.getParameterTypes()[0],
+									dto,
+									builderCallableMethod.getName());
+							if (referencedEntity != null) {
 								builderCallableMethod.invoke(builderInstance, referencedEntity);
 							}
 						}
@@ -169,18 +162,67 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		}
 	}
 
-	protected Page<D> findPageByRsqlQuery(
+	protected void updateEntity(E entity, D dto) {
+		entity.update(dto);
+		for (Field field: getEntityClass().getDeclaredFields()) {
+			if (!field.getName().equals("embedded") && AbstractPersistable.class.isAssignableFrom(field.getType())) {
+				try {
+					AbstractEntity<?, ?> referencedEntity = getReferencedEntityForDtoField(
+							field.getType(),
+							dto,
+							field.getName());
+					if (referencedEntity != null) {
+						String updateMethodName = "update" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+						getEntityClass().getMethod(updateMethodName, field.getType()).invoke(entity, referencedEntity);
+					}
+				} catch (Exception ex) {
+					throw new RuntimeException("No s'ha pogut actualitzar el camp " + field.getName() + " de l'entitat " + entity, ex);
+				}
+			}
+		}
+	}
+
+	protected Page<D> findPageByQuickFilterAndRsqlQuery(
 			Persistable<?> parent,
+			String quickFilter,
 			String rsqlQuery,
 			Pageable pageable) {
 		Page<E> resultat;
+		StringBuilder rsqlQueryWithQuickFilter = null;
+		if (quickFilter != null) {
+			rsqlQueryWithQuickFilter = new StringBuilder();
+			for (ProfileResourceField field: ProfileServiceImpl.getFields(getDtoClass())) {
+				if (field.isIncludeInQuickFilter()) {
+					if (rsqlQueryWithQuickFilter.length() == 0) {
+						rsqlQueryWithQuickFilter.append("(");
+					} else {
+						rsqlQueryWithQuickFilter.append(",");
+					}
+					rsqlQueryWithQuickFilter.append(field.getName());
+					rsqlQueryWithQuickFilter.append("==*");
+					rsqlQueryWithQuickFilter.append(quickFilter);
+					rsqlQueryWithQuickFilter.append("*");
+				}
+			}
+			if (rsqlQueryWithQuickFilter.length() > 0) {
+				rsqlQueryWithQuickFilter.append(")");
+			}
+		}
 		if (rsqlQuery != null) {
+			if (rsqlQueryWithQuickFilter == null) {
+				rsqlQueryWithQuickFilter = new StringBuilder();
+			} else if (rsqlQueryWithQuickFilter.length() > 0) {
+				rsqlQueryWithQuickFilter.append(";");
+			}
+			rsqlQueryWithQuickFilter.append(rsqlQuery);
+		}
+		if (rsqlQueryWithQuickFilter != null && rsqlQueryWithQuickFilter.length() > 0) {
 			Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
 			operators.add(RsqlSearchOperation.EQUAL_IGNORE_CASE.getOperator());
-			Node rootNode = new RSQLParser(operators).parse(rsqlQuery);
+			Node rootNode = new RSQLParser(operators).parse(rsqlQueryWithQuickFilter.toString());
 			Specification<E> spec = rootNode.accept(new CustomRsqlVisitor<E>());
 			if (parent == null) {
-				resultat = getRepository().findAll(spec, pageable);
+				resultat = getRepository().findAll(spec, processPageable(pageable));
 			} else {
 				@SuppressWarnings("serial")
 				Specification<E> parentSpec = new Specification<E>() {
@@ -188,11 +230,11 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 						return cb.equal(root.get("parent"), parent);
 					}
 				};
-				resultat = getRepository().findAll(spec.and(parentSpec), pageable);
+				resultat = getRepository().findAll(spec.and(parentSpec), processPageable(pageable));
 			}
 		} else {
 			if (parent == null) {
-				resultat = getRepository().findAll(pageable);
+				resultat = getRepository().findAll(processPageable(pageable));
 			} else {
 				@SuppressWarnings("serial")
 				Specification<E> parentSpec = new Specification<E>() {
@@ -200,10 +242,10 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 						return cb.equal(root.get("parent"), parent);
 					}
 				};
-				resultat = getRepository().findAll(parentSpec, pageable);
+				resultat = getRepository().findAll(parentSpec, processPageable(pageable));
 			}
 		}
-		return getDtoConverter().toDto(resultat, pageable);
+		return getDtoConverter().toDto(resultat, processPageable(pageable));
 	}
 
 	protected BaseRepository<E, ID> getRepository() {
@@ -351,6 +393,33 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		return null;
 	}
 
+	private AbstractEntity<?, ?> getReferencedEntityForDtoField(
+			Class<?> entityClass,
+			D dto,
+			String fieldName) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Object id = null;
+		for (Field field: getDtoClass().getDeclaredFields()) {
+			if (field.getName().equals(fieldName)) {
+				field.setAccessible(true);
+				if (field.getType().isAssignableFrom(GenericReference.class)) {
+					GenericReference<?, ?> fieldValue = (GenericReference<?, ?>)field.get(dto);
+					id = fieldValue.getId();
+				} else if (Identificable.class.isAssignableFrom(field.getType())) {
+					Identificable<?> fieldValue = (Identificable<?>)field.get(dto);
+					id = fieldValue.getId();
+				}
+			}
+			
+		}
+		if (id != null) {
+			AbstractEntity<?, ?> referencedEntity = getEntityFromReferencedRepository(
+					entityClass,
+					id);
+			return referencedEntity;
+		}
+		return null;
+	}
+
 	private AbstractEntity<?, ?> getEntityFromReferencedRepository(
 			Class<?> entityClass,
 			Object id) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -360,6 +429,21 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 				"getOne",
 				Object.class);
 		return (AbstractEntity<?, ?>)getOneMethod.invoke(referenceRepository, id);
+	}
+
+	private Pageable processPageable(Pageable pageable) {
+		List<Order> orders = new ArrayList<Order>();
+		for (Order order: pageable.getSort()) {
+			if (order.isAscending()) {
+				orders.add(Order.asc("embedded_" + order.getProperty()));
+			} else {
+				orders.add(Order.desc("embedded_" + order.getProperty()));
+			}
+		}
+		return PageRequest.of(
+				pageable.getPageNumber(),
+				pageable.getPageSize(),
+				Sort.by(orders));
 	}
 
 	/*private void removeGenericReferences(D dto) {

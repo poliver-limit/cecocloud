@@ -56,25 +56,59 @@ export class DefaultErrorHandler implements ErrorHandler {
 
 @Component( {
     template: `
-<mdc-dialog>
-  <mdc-dialog-container>
-    <mdc-dialog-surface>
-      <mdc-dialog-title>[{{data.code}}] {{data.title}}</mdc-dialog-title>
-      <mdc-dialog-content>
-        <p>{{data.message}}</p>
-      </mdc-dialog-content>
-      <mdc-dialog-actions>
-        <button mdcDialogButton mdcDialogAction="close">Tancar</button>
-      </mdc-dialog-actions>
-    </mdc-dialog-surface>
-  </mdc-dialog-container>
-</mdc-dialog>`
+<mdc-dialog class="default-error-dialog">
+    <mdc-dialog-container>
+        <mdc-dialog-surface>
+            <mdc-dialog-title><mdc-icon class="text-icon error">warning</mdc-icon> [{{data.code}}] {{data.title}}</mdc-dialog-title>
+            <mdc-dialog-content>
+                <mdc-tab-bar (activated)="onActivatedTab($event)" [activeTabIndex]="0" useAutomaticActivation>
+                    <mdc-tab-scroller>
+                        <mdc-tab id="message" *ngIf="data.message" label="Informació"></mdc-tab>
+                        <mdc-tab id="trace" *ngIf="data.stack" label="Traça"></mdc-tab>
+                        <mdc-tab id="fields" *ngIf="data.error.error.errors" label="Camps"></mdc-tab>
+                    </mdc-tab-scroller>
+                </mdc-tab-bar>
+                <p *ngIf="activeTabId == 'message'">{{data.message}}</p>
+                <p *ngIf="activeTabId == 'message'"><mdc-icon class="text-icon">access_time</mdc-icon> {{data.timestamp}}</p>
+                <mdc-textarea *ngIf="activeTabId == 'trace'" fullwidth rows="8" [value]="data.stack"></mdc-textarea>
+                <mdc-list *ngIf="activeTabId == 'fields'" twoLine>
+                    <mdc-list-item *ngFor="let fieldError of data.error.error.errors">
+                        <mdc-list-item-text secondaryText="{{fieldError.defaultMessage}}">{{fieldError.field}} ({{fieldError.code}})</mdc-list-item-text>
+                    </mdc-list-item>
+                </mdc-list>
+            </mdc-dialog-content>
+            <mdc-dialog-actions>
+                <button mdcDialogButton mdcDialogAction="close">Tancar</button>
+            </mdc-dialog-actions>
+        </mdc-dialog-surface>
+    </mdc-dialog-container>
+</mdc-dialog>`,
+    styles: [`
+mdc-icon.text-icon {
+    position: relative;
+    top: 6px;
+}
+mdc-icon.error {
+    color: #de442c
+}
+mdc-textarea {
+    margin-top: 16px;
+    width: 752px;
+}
+`]
 } )
 export class DefaultErrorDialog {
+
+    private activeTabId: string;
+
+    onActivatedTab( event ) {
+        this.activeTabId = event.tab.id;
+    }
 
     constructor(
         @Inject( MDC_DIALOG_DATA ) private data: any ) {
         this.data = data;
+        console.log('>>> data', data);
     }
 
 }

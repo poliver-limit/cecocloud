@@ -4,9 +4,9 @@ import { MdcSnackbar } from '@angular-mdc/web';
 import { RegistreService } from '../registre/registre.service';
 import { TranslateService } from '@ngx-translate/core';
 
-@Component({
+@Component( {
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: calc(100% - 4em); max-width: 400px; padding: 1em;background-color: white">
+<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white">
     <div mdcHeadline5>{{'recover.titol'|translate}}</div>
     <br/>
     <br/>
@@ -30,35 +30,29 @@ import { TranslateService } from '@ngx-translate/core';
     margin: 10% auto;
 }
         `]
-})
+} )
 export class RecoverComponent {
 
     private email: string;
 
     private valid: boolean = true;
 
-    //---------------------------------------------------------- 
-
-    onEmailFieldInput(value) {
+    onEmailFieldInput( value ) {
         this.email = value;
     }
-
-    //---------------------------------------------------------- 
 
     onRecuperarButtonClick() {
         this.valid = true;
         this.registreService.contrasenyaRecover(
             this.email).subscribe(
-                (response) => {
-                    this.notify_simple();
-                    this.router.navigate(['login']);
-                },
-                err => {
-                    this.valid = false;
-                });
+            (response) => {
+                this.notify_simple();
+                this.router.navigate(['login']);
+            },
+            err => {
+                this.valid = false;
+            });
     }
-
-    //---------------------------------------------------------- 
 
     notify_simple() {
         const snackbarRef = this.snackbar.open(this.translate.instant('recover.notify.recover'));
@@ -67,22 +61,16 @@ export class RecoverComponent {
         });
     }
 
-    //---------------------------------------------------------- 
-
     onCancelButtonClick() {
-        this.router.navigate(['login'])
+        this.router.navigate( ['login'] )
     }
 
-    //---------------------------------------------------------- 
-
-    onSubmit(event) {
+    onSubmit( event ) {
         event.preventDefault();
     }
 
-    //---------------------------------------------------------- 
-
-    constructor(
-        private router: Router,
+    constructor( 
+        private router: Router ,
         private snackbar: MdcSnackbar,
         private registreService: RegistreService,
         private translate: TranslateService) {

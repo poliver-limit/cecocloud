@@ -13,8 +13,10 @@ import { LoginComponent } from './login.component';
         TranslateModule,
         RouterModule.forChild( [
             { path: '', component: LoginComponent }
-        ] )],
+        ] )
+    ],
     declarations: [
-        LoginComponent]
+        LoginComponent
+    ]
 } )
 export class LoginModule {}

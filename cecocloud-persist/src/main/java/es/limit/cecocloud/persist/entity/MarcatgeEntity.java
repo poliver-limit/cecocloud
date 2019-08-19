@@ -8,9 +8,12 @@ import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.logic.api.dto.Marcatge;
@@ -40,14 +43,30 @@ import lombok.Setter;
 			joinColumns = {@JoinColumn(name = "usuemp_id")},
 			foreignKey = @ForeignKey(name = "marcatge_usuemp_fk"))
 })
-public class MarcatgeEntity extends AbstractChildEntity<UsuariEmpresaEntity, Marcatge, Long> {
+public class MarcatgeEntity extends AbstractEntity<Marcatge, Long> {
+
+	@Embedded
+	protected Marcatge embedded;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "usuemp_id",
+			foreignKey = @ForeignKey(name = "marcatge_usuemp_fk"))
+	protected OperariEntity operari;
 
 	@Builder
     public MarcatgeEntity(
-    		UsuariEmpresaEntity parent,
-    		Marcatge embedded) {
-		this.parent = parent;
+    		Marcatge embedded,
+    		OperariEntity operari) {
         this.embedded = embedded;
+		this.operari = operari;
     }
+
+	@Override
+	public void update(Marcatge embedded) {
+		this.embedded = embedded;
+	}
+	public void updateOperari(OperariEntity operari) {
+		this.operari = operari;
+	}
 
 }

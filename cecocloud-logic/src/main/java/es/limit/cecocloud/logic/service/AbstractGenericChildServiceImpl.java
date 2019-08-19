@@ -105,8 +105,9 @@ public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChi
 				"parentId=" + parentId + ", " +
 				"rsqlQuery=" + rsqlQuery + ", " +
 				"pageable=" + pageable + ")");
-		return findPageByRsqlQuery(
+		return findPageByQuickFilterAndRsqlQuery(
 				getParentRepository().getOne(parentId),
+				null,
 				rsqlQuery,
 				pageable);
 	}
@@ -119,8 +120,9 @@ public abstract class AbstractGenericChildServiceImpl<D extends IdentificableChi
 		logger.debug("Consulta d'una única entitat amb filtre (" +
 				"parentId=" + parentId + ", " +
 				"rsqlQuery=" + rsqlQuery + ")");
-		Page<D> page = findPageByRsqlQuery(
+		Page<D> page = findPageByQuickFilterAndRsqlQuery(
 				getParentRepository().getOne(parentId),
+				null,
 				rsqlQuery,
 				PageRequest.of(0, 1));
 		if (!page.isEmpty()) {

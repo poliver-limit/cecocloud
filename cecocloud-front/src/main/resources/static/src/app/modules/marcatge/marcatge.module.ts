@@ -7,9 +7,9 @@ import { MaterialModule } from '../../shared/material.module';
 import { MarcatgeRoutingModule } from './marcatge.routing';
 
 import { CreateMarcatgeComponent } from './createMarcatge.component';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+//import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+//import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
     imports: [
@@ -17,9 +17,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         TranslateModule,
        FormsModule,
         MarcatgeRoutingModule,
-        NgxMaterialTimepickerModule,
+        //NgxMaterialTimepickerModule,
         MaterialModule,
-        BsDatepickerModule.forRoot()
+        //BsDatepickerModule.forRoot()
         ],
     declarations: [
         CreateMarcatgeComponent]

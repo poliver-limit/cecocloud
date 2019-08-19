@@ -26,8 +26,8 @@ public class DdlScriptGenerator {
 
 	public static void main(String[] args) {
 		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().
-				applySetting("hibernate.dialect", "org.hibernate.dialect.Oracle9iDialect").
-				//applySetting("hibernate.dialect", "org.hibernate.dialect.HSQLDialect").
+				//applySetting("hibernate.dialect", "org.hibernate.dialect.Oracle9iDialect").
+				applySetting("hibernate.dialect", "org.hibernate.dialect.HSQLDialect").
 				build();
 		MetadataSources metadataSources = new MetadataSources(serviceRegistry);
 		addEntitiesInPackages(

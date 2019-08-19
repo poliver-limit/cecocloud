@@ -20,16 +20,16 @@ import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgeConsulta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
-import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
+import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
-import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEntity;
 import es.limit.cecocloud.persist.repository.CompanyiaRepository;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.MarcatgeRepository;
-import es.limit.cecocloud.persist.repository.UsuariEmpresaRepository;
+import es.limit.cecocloud.persist.repository.OperariRepository;
 import es.limit.cecocloud.persist.repository.UsuariRepository;
 
 /**
@@ -46,7 +46,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	@Autowired
-	private UsuariEmpresaRepository usuariEmpresaRepository;
+	private OperariRepository operariRepository;
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
 	@Autowired
@@ -58,7 +58,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		// TODO Revisar si l'usuari te permisos
 		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
 				sincronitzacioCompanyia.getCompanyiaCodi());
-		List<EmpresaEntity> empreses = empresaRepository.findByParent(companyia.get());
+		List<EmpresaEntity> empreses = empresaRepository.findByCompanyia(companyia.get());
 		int createCount = 0;
 		int updateCount = 0;
 		int deleteCount = 0;
@@ -105,8 +105,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				empresa.setActiva(true);
 				EmpresaEntity empresaCreada = empresaRepository.save(
 						EmpresaEntity.builder().
-						parent(companyia.get()).
 						embedded(empresa).
+						companyia(companyia.get()).
 						build());
 				// Actualitza els operaris
 				updateOperaris(empresaCreada, empresaSync);
@@ -125,7 +125,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		// TODO Revisar si l'usuari te permisos
 		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
 				consulta.getCompanyiaCodi());
-		List<EmpresaEntity> empreses = empresaRepository.findByParent(companyia.get());
+		List<EmpresaEntity> empreses = empresaRepository.findByCompanyia(companyia.get());
 		List<EmpresaEntity> empresesConsulta = new ArrayList<EmpresaEntity>();
 		for (EmpresaEntity empresa: empreses) {
 			for (SincronitzacioEmpresa empresaSync: consulta.getEmpreses()) {
@@ -144,11 +144,11 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 					consulta.getDataFi());
 			for (MarcatgeEntity marcatge: marcatges) {
 				SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
-				UsuariEmpresa smUsuariEmpresa = marcatge.getParent().getEmbedded();
-				Empresa smEmpresa = marcatge.getParent().getParent2().getEmbedded();
+				Operari smUsuariEmpresa = marcatge.getOperari().getEmbedded();
+				Empresa smEmpresa = marcatge.getOperari().getEmpresa().getEmbedded();
 				sm.setEmpresaIdentificadorCodi(smEmpresa.getIdentificadorCodi());
 				sm.setEmpresaCodi(smEmpresa.getCodi());
-				sm.setOperariCodi(smUsuariEmpresa.getOperariCodi());
+				sm.setOperariCodi(smUsuariEmpresa.getCodi());
 				sm.setData(marcatge.getEmbedded().getData());
 				sm.setDataCreacio(marcatge.getEmbedded().getDataCreacio());
 				resposta.add(sm);
@@ -160,18 +160,18 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private void updateOperaris(
 			EmpresaEntity empresa,
 			SincronitzacioEmpresaAmbOperaris syncEmpresa) {
-		List<UsuariEmpresaEntity> usuarisEmpreses = usuariEmpresaRepository.findByParent2AndDataFiNull(empresa);
+		List<OperariEntity> usuarisEmpreses = operariRepository.findByEmpresaAndDataFiNull(empresa);
 		for (SincronitzacioOperari operari: syncEmpresa.getOperaris()) {
-			UsuariEmpresaEntity usuariEmpresaTrobat = null;
-			for (UsuariEmpresaEntity usuariEmpresa: usuarisEmpreses) {
-				if (usuariEmpresa.getEmbedded().getOperariCodi().equals(operari.getCodi())) {
+			OperariEntity usuariEmpresaTrobat = null;
+			for (OperariEntity usuariEmpresa: usuarisEmpreses) {
+				if (usuariEmpresa.getEmbedded().getCodi().equals(operari.getCodi())) {
 					usuariEmpresaTrobat = usuariEmpresa;
 					break;
 				}
 			}
 			if (usuariEmpresaTrobat != null) {
 				// Si l'operari ja és a la base de dades
-				if (!usuariEmpresaTrobat.getParent1().getEmbedded().getCodi().equals(operari.getUsuariCodi())) {
+				if (!usuariEmpresaTrobat.getUsuari().getEmbedded().getCodi().equals(operari.getUsuariCodi())) {
 					// Si l'usuari és diferent del que hi ha a la BBDD l'actualitza
 					usuariEmpresaTrobat.getEmbedded().setDataFi(new Date());
 					createUsuariEmpresa(empresa, operari);
@@ -182,10 +182,10 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			}
 		}
 		// Desactiva els operaris existents a la BBDD que no es troben a l'empresa enviada des de CECOGEST
-		for (UsuariEmpresaEntity usuariEmpresa: usuarisEmpreses) {
+		for (OperariEntity usuariEmpresa: usuarisEmpreses) {
 			boolean trobat = false;
 			for (SincronitzacioOperari operari: syncEmpresa.getOperaris()) {
-				if (usuariEmpresa.getEmbedded().getOperariCodi().equals(operari.getCodi())) {
+				if (usuariEmpresa.getEmbedded().getCodi().equals(operari.getCodi())) {
 					trobat = true;
 					break;
 				}
@@ -196,16 +196,16 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		}
 	}
 
-	private UsuariEmpresaEntity createUsuariEmpresa(
+	private OperariEntity createUsuariEmpresa(
 			EmpresaEntity empresa,
 			SincronitzacioOperari operari) {
-		UsuariEmpresa perCrear = new UsuariEmpresa();
-		perCrear.setOperariCodi(operari.getCodi());
+		Operari perCrear = new Operari();
+		perCrear.setCodi(operari.getCodi());
 		perCrear.setDataInici(new Date());
-		return usuariEmpresaRepository.save(
-				UsuariEmpresaEntity.builder().
-				parent1(usuariRepository.findByEmbeddedCodi(operari.getUsuariCodi()).get()).
-				parent2(empresa).
+		return operariRepository.save(
+				OperariEntity.builder().
+				usuari(usuariRepository.findByEmbeddedCodi(operari.getUsuariCodi()).get()).
+				empresa(empresa).
 				embedded(perCrear).
 				build());
 	}

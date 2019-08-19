@@ -89,3 +89,95 @@ alter table usuari_rols
    foreign key (usuari_id) 
    references usuari;
 */
+
+/*
+create sequence hibernate_sequence start with 1 increment by 1;
+
+create table companyia (
+   id bigint not null,
+    codi varchar(30) not null,
+    nom varchar(30) not null,
+    version bigint not null,
+    primary key (id)
+);
+
+create table empresa (
+   id bigint not null,
+    activa boolean not null,
+    codi varchar(30) not null,
+    identificador_codi varchar(4) not null,
+    nif varchar(12) not null,
+    nom varchar(30) not null,
+    version bigint not null,
+    companyia_id bigint not null,
+    primary key (id)
+);
+
+create table marcatge (
+   id bigint not null,
+    data timestamp not null,
+    data_actual timestamp not null,
+    version bigint not null,
+    usuemp_id bigint not null,
+    primary key (id)
+);
+
+create table usuari (
+   id bigint not null,
+    codi varchar(64) not null,
+    contrasenya varchar(255),
+    email varchar(100) not null,
+    imatge_url varchar(255),
+    nom varchar(100) not null,
+    validat boolean,
+    version bigint not null,
+    primary key (id)
+);
+
+create table usuari_empresa (
+   id bigint not null,
+    data_fi timestamp,
+    data_inici timestamp not null,
+    operari_codi varchar(6) not null,
+    version bigint not null,
+    usuari_id bigint not null,
+    empresa_id bigint not null,
+    primary key (id)
+);
+
+create table usuari_rols (
+   usuari_id bigint not null,
+    rol varchar(10)
+);
+
+alter table usuari 
+   add constraint usuari_codi_uk unique (codi);
+
+alter table usuari 
+   add constraint usuari_email_uk unique (email);
+
+alter table empresa 
+   add constraint empresa_companyia_fk 
+   foreign key (companyia_id) 
+   references companyia;
+
+alter table marcatge 
+   add constraint marcatge_usuemp_fk 
+   foreign key (usuemp_id) 
+   references usuari_empresa;
+
+alter table usuari_empresa 
+   add constraint usuemp_usuari_fk 
+   foreign key (usuari_id) 
+   references usuari;
+
+alter table usuari_empresa 
+   add constraint usuemp_empresa_fk 
+   foreign key (empresa_id) 
+   references empresa;
+
+alter table usuari_rols 
+   add constraint usurol_usuari_fk 
+   foreign key (usuari_id) 
+   references usuari;
+*/

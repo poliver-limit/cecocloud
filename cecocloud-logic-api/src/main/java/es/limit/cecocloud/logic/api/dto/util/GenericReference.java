@@ -9,45 +9,28 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Referència genèrica cap a un altre element del model.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Getter @Setter
 public class GenericReference<D extends Identificable<ID>, ID extends Serializable> implements Identificable<ID> {
 
 	@NotNull
 	protected ID id;
 	protected String description;
 
-	public GenericReference() {
-		super();
-	}
-	public GenericReference(ID id, String description) {
-		super();
-		this.id = id;
-		this.description = description;
-	}
-
-	@Override
-	public ID getId() {
-		return id;
-	}
-	@Override
-	public void setId(ID id) {
-		this.id = id;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public static <D extends Identificable<ID>, ID extends Serializable> GenericReference<D, ID> toGenericReference(D dto) {
-		return new GenericReference<D, ID>(
-				dto.getId(),
-				"");
+		return toGenericReference(dto.getId());
+	}
+	public static <D extends Identificable<ID>, ID extends Serializable> GenericReference<D, ID> toGenericReference(ID id) {
+		GenericReference<D, ID> genericReference = new GenericReference<D, ID>();
+		genericReference.setId(id);
+		return genericReference;
 	}
 
 	@Override

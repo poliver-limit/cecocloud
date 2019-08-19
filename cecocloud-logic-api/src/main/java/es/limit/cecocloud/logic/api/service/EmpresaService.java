@@ -10,6 +10,6 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface EmpresaService extends GenericChildService<Empresa, Long, Long> {
+public interface EmpresaService extends GenericService<Empresa, Long> {
 
 }

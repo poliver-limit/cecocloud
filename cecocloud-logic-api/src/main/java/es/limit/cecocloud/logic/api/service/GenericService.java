@@ -77,15 +77,18 @@ public interface GenericService<D extends Identificable<ID>, ID extends Serializ
 			ID id) throws EntityNotFoundException;
 
 	/**
-	 * Consulta paginada d'entitats amb consulta en format RSQL.
+	 * Consulta paginada d'entitats amb filtre i consulta en format RSQL.
 	 * 
+	 * @param quickFilter
+	 *            Filtre ràpid en format text.
 	 * @param rsqlQuery
 	 *            consulta en format RSQL.
 	 * @param pageable
 	 *            paràmetres per a paginar i ordenar el llistat.
 	 * @return la llista d'entitats.
 	 */
-	public Page<D> findPageByRsqlQuery(
+	public Page<D> findPageByQuickFilterAndRsqlQuery(
+			String quickFilter,
 			String rsqlQuery,
 			Pageable pageable);
 
