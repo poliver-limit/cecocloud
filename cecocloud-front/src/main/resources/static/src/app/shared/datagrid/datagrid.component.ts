@@ -810,8 +810,8 @@ export class DatagridComponent implements OnInit {
             }
         } else if ( field.type === 'LOV' ) {
             if ( value ) {
-                if ( field.lovDescriptionField && value[field.lovDescriptionField] ) {
-                    return value[field.lovDescriptionField];
+                if ( field.lovDescriptionFieldInFront && value[field.lovDescriptionFieldInFront] ) {
+                    return value[field.lovDescriptionFieldInFront];
                 } else {
                     return field.lovResourceName + "_" + value.id;
                 }

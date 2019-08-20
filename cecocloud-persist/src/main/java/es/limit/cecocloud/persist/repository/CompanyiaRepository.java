@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
+
 /**
  * Repository per a gestionar les entitats de tipus companyia.
  * 

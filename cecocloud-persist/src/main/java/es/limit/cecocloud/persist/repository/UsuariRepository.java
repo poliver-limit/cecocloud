@@ -5,10 +5,8 @@ package es.limit.cecocloud.persist.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import es.limit.cecocloud.persist.entity.UsuariEntity;
+
 /**
  * Repository per a gestionar les entitats de tipus usuari.
  * 
@@ -16,16 +14,16 @@ import es.limit.cecocloud.persist.entity.UsuariEntity;
  */
 public interface UsuariRepository extends BaseRepository<UsuariEntity, Long> {
 
-	@Query(	"from" +
+	/*@Query(	"from" +
 			"    UsuariEntity u " +
 			"where " +
-			"    u.embedded.codi = :codi")
-	Optional<UsuariEntity> findByEmbeddedCodi(@Param("codi") String codi);
+			"    u.embedded.codi = :codi")*/
+	Optional<UsuariEntity> findByEmbeddedCodi(/*@Param("codi") */String codi);
 
-	@Query(	"from" +
+	/*@Query(	"from" +
 			"    UsuariEntity u " +
 			"where " +
-			"    u.embedded.email = :email")
-	Optional<UsuariEntity> findByEmbeddedEmail(@Param("email") String email);
+			"    u.embedded.email = :email")*/
+	Optional<UsuariEntity> findByEmbeddedEmail(/*@Param("email") */String email);
 
 }

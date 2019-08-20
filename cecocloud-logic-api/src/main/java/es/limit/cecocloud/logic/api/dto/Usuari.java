@@ -47,6 +47,7 @@ public class Usuari extends AbstractIdentificable<Long> {
 	private boolean validat;
 	private boolean actiu;
 	@Transient
+	@RestapiField(hiddenInLov = true)
 	private Set<Rol> rols;
 
 }

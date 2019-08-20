@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
+
 /**
  * Repository per a gestionar les entitats de tipus marcatge.
  * 

@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+
 /**
  * Repository per a gestionar les entitats de tipus empresa.
  * 

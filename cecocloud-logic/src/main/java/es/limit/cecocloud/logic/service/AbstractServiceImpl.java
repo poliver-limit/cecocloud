@@ -21,8 +21,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,12 +37,14 @@ import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.rsql.CustomRsqlVisitor;
 import es.limit.cecocloud.logic.rsql.RsqlSearchOperation;
 import es.limit.cecocloud.persist.entity.AbstractEntity;
 import es.limit.cecocloud.persist.repository.BaseRepository;
+import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
 /**
@@ -52,6 +52,7 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> /*extends AbstractDtoConverter<D, E, ID>*/ implements InitializingBean {
 
 	@Autowired
@@ -81,7 +82,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 			}
 			if (referencedClass != null) {
 				BaseRepository<?, ?> referencedRepository = getRepositoryForReferencedClass(referencedClass);
-				logger.debug("Afegint repository per referència " + field.getName() + " al servei " + getClass().getName());
+				log.debug("Afegint repository per referència " + field.getName() + " al servei " + getClass().getName());
 				if (referencedRepository != null) {
 					if (referencedRepositoriesMap == null) {
 						referencedRepositoriesMap = new HashMap<Class<? extends Identificable<?>>, BaseRepository<?, ?>>();
@@ -190,23 +191,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		Page<E> resultat;
 		StringBuilder rsqlQueryWithQuickFilter = null;
 		if (quickFilter != null) {
-			rsqlQueryWithQuickFilter = new StringBuilder();
-			for (ProfileResourceField field: ProfileServiceImpl.getFields(getDtoClass())) {
-				if (field.isIncludeInQuickFilter()) {
-					if (rsqlQueryWithQuickFilter.length() == 0) {
-						rsqlQueryWithQuickFilter.append("(");
-					} else {
-						rsqlQueryWithQuickFilter.append(",");
-					}
-					rsqlQueryWithQuickFilter.append(field.getName());
-					rsqlQueryWithQuickFilter.append("==*");
-					rsqlQueryWithQuickFilter.append(quickFilter);
-					rsqlQueryWithQuickFilter.append("*");
-				}
-			}
-			if (rsqlQueryWithQuickFilter.length() > 0) {
-				rsqlQueryWithQuickFilter.append(")");
-			}
+			rsqlQueryWithQuickFilter = buildRsqlQueryWithQuickFilter(quickFilter);
 		}
 		if (rsqlQuery != null) {
 			if (rsqlQueryWithQuickFilter == null) {
@@ -217,6 +202,9 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 			rsqlQueryWithQuickFilter.append(rsqlQuery);
 		}
 		if (rsqlQueryWithQuickFilter != null && rsqlQueryWithQuickFilter.length() > 0) {
+			log.debug("Consulta amb filtre RSQL (" +
+					"rsqlQuery=" + rsqlQueryWithQuickFilter + ", " +
+					"parent=" + parent + ")");
 			Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
 			operators.add(RsqlSearchOperation.EQUAL_IGNORE_CASE.getOperator());
 			Node rootNode = new RSQLParser(operators).parse(rsqlQueryWithQuickFilter.toString());
@@ -233,6 +221,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 				resultat = getRepository().findAll(spec.and(parentSpec), processPageable(pageable));
 			}
 		} else {
+			log.debug("Consulta sense filtre RSQL (parent=" + parent + ")");
 			if (parent == null) {
 				resultat = getRepository().findAll(processPageable(pageable));
 			} else {
@@ -271,46 +260,6 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		}
 		return dtoConverter;
 	}
-
-	/*protected D toDto(E entity) {
-		removeGenericReferences(entity.getEmbedded());
-		mapEntityPropertiesToEmbeddedProperties(entity);
-		D dto = orikaMapperFacade.map(
-				entity.getEmbedded(),
-				getDtoClass());
-		dto.setId(entity.getId());
-		addGenericReferences(entity, dto);
-		addGenericReferences(entity, entity.getEmbedded());
-		return dto;
-	}
-
-	protected List<D> toDto(List<E> entities) {
-		if (entities != null) {
-			List<D> embeddedEntities = entities.stream().map(entity -> entity.getEmbedded()).collect(Collectors.toList());
-			embeddedEntities.stream().forEach(this::removeGenericReferences);
-			entities.stream().forEach(this::mapEntityPropertiesToEmbeddedProperties);
-			List<D> dtos = orikaMapperFacade.mapAsList(
-					embeddedEntities,
-					getDtoClass());
-			for (int i = 0; i < dtos.size(); i++) {
-				System.out.println(">>> id: " + entities.get(i).getId());
-				dtos.get(i).setId(entities.get(i).getId());
-				addGenericReferences(entities.get(i), dtos.get(i));
-				addGenericReferences(entities.get(i), entities.get(i).getEmbedded());
-			}
-			return dtos;
-		} else {
-			return null;
-		}
-	}
-
-	protected Page<D> toPaginaDto(Page<E> entityPage, Pageable pageable) {
-		Page<D> page = new PageImpl<D>(
-				toDto(entityPage.getContent()),
-				pageable,
-				entityPage.getTotalElements());
-		return page;
-	}*/
 
 	@SuppressWarnings("unchecked")
 	protected Class<P1> getParent1Class() {
@@ -446,80 +395,38 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 				Sort.by(orders));
 	}
 
-	/*private void removeGenericReferences(D dto) {
-		for (Field field: getDtoClass().getDeclaredFields()) {
-			if (field.getType().isAssignableFrom(GenericReference.class)) {
-				try {
-					field.setAccessible(true);
-					field.set(dto, null);
-				} catch (IllegalAccessException ignored) {
+	private StringBuilder buildRsqlQueryWithQuickFilter(String quickFilter) {
+		StringBuilder rsqlQuery = new StringBuilder();
+		for (ProfileResourceField field: ProfileServiceImpl.getFields(getDtoClass())) {
+			boolean includeField = field.isIncludeInQuickFilter();
+			if (includeField) {
+				if (RestapiFieldType.LOV.equals(field.getType()) && field.getLovDescriptionField() == null) {
+					includeField = false;
 				}
 			}
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private void addGenericReferences(E entity, D dto) {
-		for (Field dtoField: getDtoClass().getDeclaredFields()) {
-			boolean isGenericField = dtoField.getType().isAssignableFrom(GenericReference.class) || Identificable.class.isAssignableFrom(dtoField.getType());
-			if (isGenericField) {
-				for (Field entityField: getEntityClass().getDeclaredFields()) {
-					if (entityField.getName().equals(dtoField.getName())) {
-						String getMethodName = "get" + entityField.getName().substring(0, 1).toUpperCase() + entityField.getName().substring(1);
-						AbstractEntity<?, ?> referencedEntity = null;
-						try {
-							referencedEntity = (AbstractEntity<?, ?>)(getEntityClass().getMethod(getMethodName).invoke(entity));
-						} catch (Exception ex) {
-							logger.error("Error al obtenir la referencia " + entityField.getName() + " de l'entitat " + entity, ex);
-						}
-						if (referencedEntity != null) {
-							String setMethodName = "set" + entityField.getName().substring(0, 1).toUpperCase() + entityField.getName().substring(1);
-							if (dtoField.getType().isAssignableFrom(GenericReference.class)) {
-								@SuppressWarnings("rawtypes")
-								GenericReference reference = new GenericReference(referencedEntity.getId(), null);
-								try {
-									getDtoClass().getMethod(setMethodName, GenericReference.class).invoke(dto, reference);
-								} catch (Exception ex) {
-									logger.error("Error al modificar el camp al dto (" +
-											"fieldName=" + entityField.getName() + ", " +
-											"value=" + reference + ", " +
-											"dto=" + dto + ")", ex);
-								}
-							} else if (Identificable.class.isAssignableFrom(dtoField.getType())) {
-								@SuppressWarnings("rawtypes")
-								Identificable reference = (Identificable)orikaMapperFacade.map(
-										entity.getEmbedded(),
-										dtoField.getType());
-								reference.setId(referencedEntity.getId());
-								try {
-									getDtoClass().getMethod(setMethodName, dtoField.getType()).invoke(dto, reference);
-								} catch (Exception ex) {
-									logger.error("Error al modificar el camp al dto (" +
-											"fieldName=" + entityField.getName() + ", " +
-											"value=" + reference + ", " +
-											"dto=" + dto + ")", ex);
-								}
-							}
-						}
+			if (includeField) {
+				if (rsqlQuery.length() == 0) {
+					rsqlQuery.append("(");
+				} else {
+					rsqlQuery.append(",");
+				}
+				rsqlQuery.append(field.getName());
+				if (RestapiFieldType.LOV.equals(field.getType())) {
+					rsqlQuery.append(".");
+					if (field.getLovDescriptionField() != null) {
+						rsqlQuery.append(field.getLovDescriptionField());
 					}
 				}
+				rsqlQuery.append("=eic=*");
+				rsqlQuery.append(quickFilter);
+				rsqlQuery.append("*");
 			}
 		}
-	}
-
-	private void mapEntityPropertiesToEmbeddedProperties(E entity) {
-		orikaMapperFacade.map(
-				entity,
-				entity.getEmbedded());
-	}*/
-
-	/*@SuppressWarnings("unchecked")
-	protected void saveAndRefresh(E entity, JpaRepository<E, ?> repository) {
-		repository.saveAndFlush(entity);
-		if (repository instanceof RefreshableRepository) {
-			((RefreshableRepository<E>)repository).refresh(entity);
+		if (rsqlQuery.length() > 0) {
+			rsqlQuery.append(")");
 		}
-	}*/
+		return rsqlQuery;
+	}
 
 	protected void beforeCreate(E entity, D dto) {}
 	protected void afterCreate(E entity, D dto) {}
@@ -527,7 +434,5 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	protected void afterUpdate(E entity, D dto) {}
 	protected void beforeDelete(E entity) {}
 	protected void afterDelete(E entity) {}
-
-	private static final Logger logger = LoggerFactory.getLogger(AbstractServiceImpl.class);
 
 }

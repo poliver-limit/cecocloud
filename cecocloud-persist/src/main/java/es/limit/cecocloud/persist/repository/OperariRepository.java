@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
 import es.limit.cecocloud.persist.entity.UsuariEntity;
+
 /**
  * Repository per a gestionar les entitats de tipus operari.
  * 

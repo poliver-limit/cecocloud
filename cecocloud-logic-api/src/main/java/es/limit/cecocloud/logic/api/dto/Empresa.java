@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import es.limit.cecocloud.logic.api.annotations.RestapiField;
 import es.limit.cecocloud.logic.api.annotations.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
@@ -27,9 +28,11 @@ public class Empresa extends AbstractIdentificable<Long> {
 	private GenericReference<Companyia, Long> companyia;
 	@NotNull
 	@Size(max = 4)
+	@RestapiField(hiddenInLov = true)
 	private String identificadorCodi;
 	@NotNull
 	@Size(max = 4)
+	@RestapiField(hiddenInLov = true)
 	private String codi;
 	@NotNull
 	@Size(max = 40)
@@ -37,6 +40,7 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@NotNull
 	@Size(max = 12)
 	private String nif;
+	@RestapiField(hiddenInLov = true)
 	private boolean activa;
 
 }

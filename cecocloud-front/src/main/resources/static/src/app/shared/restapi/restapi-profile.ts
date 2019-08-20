@@ -43,6 +43,7 @@ export class RestapiResourceField {
     enumTranslateKeyPrefix?: string;
     lovResourceName?: string;
     lovDescriptionField?: string;
+    lovDescriptionFieldInFront?: string;
     lovParentField?: string;
     lovWithDescriptionInput?: boolean;
     width?: number;

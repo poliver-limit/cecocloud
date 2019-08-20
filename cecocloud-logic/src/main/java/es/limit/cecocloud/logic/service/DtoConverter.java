@@ -44,14 +44,12 @@ public class DtoConverter<D extends Identificable<ID>, E extends AbstractEntity<
 
 	protected D toDto(E entity) {
 		removeGenericReferences(entity.getEmbedded());
-		//mapEntityPropertiesToEmbeddedProperties(entity);
 		D dto = orikaMapperFacade.map(
 				entity.getEmbedded(),
 				getDtoClass());
 		orikaMapperFacade.map(
 				entity,
 				dto);
-		//dto.setId(entity.getId());
 		addGenericReferences(entity, dto);
 		addGenericReferences(entity, entity.getEmbedded());
 		return dto;
@@ -61,7 +59,6 @@ public class DtoConverter<D extends Identificable<ID>, E extends AbstractEntity<
 		if (entities != null) {
 			List<D> embeddedEntities = entities.stream().map(entity -> entity.getEmbedded()).collect(Collectors.toList());
 			embeddedEntities.stream().forEach(this::removeGenericReferences);
-			//entities.stream().forEach(this::mapEntityPropertiesToEmbeddedProperties);
 			List<D> dtos = orikaMapperFacade.mapAsList(
 					embeddedEntities,
 					getDtoClass());
@@ -73,7 +70,6 @@ public class DtoConverter<D extends Identificable<ID>, E extends AbstractEntity<
 			for (int i = 0; i < dtos.size(); i++) {
 				addGenericReferences(entities.get(i), dtos.get(i));
 				addGenericReferences(entities.get(i), entities.get(i).getEmbedded());
-				//dtos.get(i).setId(entities.get(i).getId());
 			}
 			return dtos;
 		} else {
@@ -103,8 +99,6 @@ public class DtoConverter<D extends Identificable<ID>, E extends AbstractEntity<
 
 	@SuppressWarnings("unchecked")
 	private void addGenericReferences(E entity, D dto) {
-		/*Class<E> entityClass = (Class<E>)entity.getClass();
-		Class<D> dtoClass = (Class<D>)dto.getClass();*/
 		Class<D> dtoClass = getDtoClass();
 		Class<E> entityClass = getEntityClass();
 		for (Field dtoField: dtoClass.getDeclaredFields()) {
@@ -170,12 +164,6 @@ public class DtoConverter<D extends Identificable<ID>, E extends AbstractEntity<
 			}
 		}
 	}
-
-	/*private void mapEntityPropertiesToEmbeddedProperties(E entity) {
-		orikaMapperFacade.map(
-				entity,
-				entity.getEmbedded());
-	}*/
 
 	private Class<D> getDtoClass() {
 		return dtoClass;

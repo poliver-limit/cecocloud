@@ -69,9 +69,6 @@ public class ProfileServiceImpl implements ProfileService {
 					TRANSLATE_KEY_PREFIX + resourceForm.getName() + ".plural");
 			resourceForm.setFields(getFields(dtoClass));
 			resourceForm.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
-			fillLovFields(
-					resourceForm.getFields(),
-					dtoClass);
 			RestapiResource resourceAnnotation = dtoClass.getAnnotation(RestapiResource.class);
 			if (resourceAnnotation != null) {
 				if (!resourceAnnotation.descriptionField().isEmpty()) {
@@ -264,6 +261,9 @@ public class ProfileServiceImpl implements ProfileService {
 				fieldConfig.setHiddenInForm(true);
 				fieldConfig.setHiddenInLov(true);
 			}
+			if (fieldConfig.getType() == RestapiFieldType.LOV) {
+				fillLovField(fieldConfig, dtoClass);
+			}
 			fields.add(fieldConfig);
 		}
 		if (dtoClass.getSuperclass() != null && !dtoClass.getSuperclass().getSimpleName().contains("Auditable")) {
@@ -306,40 +306,41 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 	}
 
-	private static void fillLovFields(
-			List<ProfileResourceField> resourceFields,
+	private static void fillLovField(
+			ProfileResourceField lovField,
 			Class<?> dtoClass) {
-		for (ProfileResourceField fieldConfig: resourceFields) {
-			if (fieldConfig.getType() == RestapiFieldType.LOV) {
-				Field found = null;
-				for (Field field: dtoClass.getDeclaredFields()) {
-					if (field.getName().equals(fieldConfig.getName())) {
-						found = field;
-						break;
-					}
-				}
-				if (found != null) {
-					Class<?> referencedResourceClass;
-					if (GenericReference.class.isAssignableFrom(found.getType())) {
-						ParameterizedType collectionType = (ParameterizedType)found.getGenericType();
-						referencedResourceClass = (Class<?>)collectionType.getActualTypeArguments()[0];
-						fieldConfig.setLovDescriptionField("description");
-					} else {
-						referencedResourceClass = found.getType();
-						RestapiResource resourceAnnotation = referencedResourceClass.getAnnotation(RestapiResource.class);
-						if (resourceAnnotation != null && !resourceAnnotation.descriptionField().isEmpty()) {
-							fieldConfig.setLovDescriptionField(resourceAnnotation.descriptionField());
-						}
-					}
-					fieldConfig.setLovResourceName(
-							Character.toLowerCase(referencedResourceClass.getSimpleName().charAt(0)) + referencedResourceClass.getSimpleName().substring(1));
-					RestapiField restapiField = found.getAnnotation(RestapiField.class);
-					if (restapiField != null) {
-						fieldConfig.setLovWithDescriptionInput(restapiField.lovWithDescriptionInput());
-						if (!restapiField.lovParentField().isEmpty()) {
-							fieldConfig.setLovParentField(restapiField.lovParentField());
-						}
-					}
+		Field found = null;
+		for (Field field: dtoClass.getDeclaredFields()) {
+			if (field.getName().equals(lovField.getName())) {
+				found = field;
+				break;
+			}
+		}
+		if (found != null) {
+			Class<?> referencedResourceClass;
+			if (GenericReference.class.isAssignableFrom(found.getType())) {
+				ParameterizedType collectionType = (ParameterizedType)found.getGenericType();
+				referencedResourceClass = (Class<?>)collectionType.getActualTypeArguments()[0];
+				lovField.setLovDescriptionField("description");
+			} else {
+				referencedResourceClass = found.getType();
+			}
+			RestapiResource resourceAnnotation = referencedResourceClass.getAnnotation(RestapiResource.class);
+			if (resourceAnnotation != null && !resourceAnnotation.descriptionField().isEmpty()) {
+				lovField.setLovDescriptionField(resourceAnnotation.descriptionField());
+			}
+			if (GenericReference.class.isAssignableFrom(found.getType())) {
+				lovField.setLovDescriptionFieldInFront("description");
+			} else {
+				lovField.setLovDescriptionFieldInFront(lovField.getLovDescriptionField());
+			}
+			lovField.setLovResourceName(
+					Character.toLowerCase(referencedResourceClass.getSimpleName().charAt(0)) + referencedResourceClass.getSimpleName().substring(1));
+			RestapiField restapiField = found.getAnnotation(RestapiField.class);
+			if (restapiField != null) {
+				lovField.setLovWithDescriptionInput(restapiField.lovWithDescriptionInput());
+				if (!restapiField.lovParentField().isEmpty()) {
+					lovField.setLovParentField(restapiField.lovParentField());
 				}
 			}
 		}

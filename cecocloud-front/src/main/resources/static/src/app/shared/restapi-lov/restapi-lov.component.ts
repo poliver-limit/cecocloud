@@ -60,7 +60,7 @@ export class RestapiLovComponent {
                 }
             } );
             this.formControlDisabled = this.formGroup.controls[field.name].disabled;
-            this.updateLovInputValues( this.formGroup.value[field.name], field.lovDescriptionField );
+            this.updateLovInputValues( this.formGroup.value[field.name], field.lovDescriptionFieldInFront );
         } );
         this.required = field.required;
     }
