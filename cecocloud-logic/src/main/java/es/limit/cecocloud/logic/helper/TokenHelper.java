@@ -41,7 +41,7 @@ public class TokenHelper {
 	private static final String TOKEN_TYPE = "JWT";
 	private static final String TOKEN_ISSUER = "cecocloud";
 	private static final String TOKEN_AUDIENCE_AUTH = "auth";
-	private static final long EXPIRATION_AUTH = 60 * 1000; // 1 hora
+	private static final long EXPIRATION_AUTH = 60 * 60 * 1000; // 1 hora
 	private static final long EXPIRATION_REFRESH = 30 * 24 * 60 * 60 * 1000L; // 30 dies
 	private static final String TOKEN_AUDIENCE_VALIDATION = "validation";
 	private static final long EXPIRATION_VALIDATION = 24 * 60 * 60 * 1000; // 1 dia

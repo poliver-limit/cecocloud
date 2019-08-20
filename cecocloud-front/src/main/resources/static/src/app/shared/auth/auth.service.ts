@@ -41,7 +41,7 @@ export class AuthService {
     private validateAndRefresh() {
         let validationSession: AuthValidationSession = this.getValidationFromSessionStorage();
         if ( !validationSession ) {
-            console.info( 'Informació de validació de token no trobada' );
+            console.info( 'Validació de token no trobada' );
             let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
             if ( authResponse !== undefined ) {
                 //console.debug( 'Validant token d\'autenticació' );
@@ -62,7 +62,7 @@ export class AuthService {
                         } );
                     } else {
                         this.propagateAuthResponseToSessionStorage( authResponse );
-                        console.info( 'Informació de validació de token guardada' );
+                        console.info( 'Validació de token guardada' );
                         //console.debug( 'Token vàlid' );
                     }
                 } );
