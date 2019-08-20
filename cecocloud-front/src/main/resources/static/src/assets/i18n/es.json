@@ -75,7 +75,7 @@
 
 	"resource.empresa": "Empresa",
 	"resource.empresa.plural": "Empresas",
-	"resource.empresa.field.identificadorCodi": "Idf.",
+	"resource.empresa.field.identificadorCodi": "Código idf.",
 	"resource.empresa.field.codi": "Código",
 	"resource.empresa.field.nif": "NIF",
 	"resource.empresa.field.nom": "Nombre",

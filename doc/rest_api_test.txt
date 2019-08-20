@@ -5,3 +5,5 @@ $ curl -H "Authorization: Bearer TOKEN" http://localhost:8080/cecocloud/api/usua
 $ curl -i -H "Content-Type: application/x-www-form-urlencoded" -d "user=test&pass=test" http://localhost:8080/cecocloud/api/auth
 
 $ curl -X POST http://localhost:8080/cecocloud/api/registres/admin@limit.es/reset
+
+Expired token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjZWNvY2xvdWQiLCJhdWQiOiJhdXRoIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1NjYwMjIzMTUsIm5hbWUiOiJBZG1pbmlzdHJhZG9yIiwiZW1haWwiOiJhZG1pbkBsaW1pdC5lcyIsInJvbCI6WyJBRE1JTiJdfQ.crW1uMF6lyJRD4Lco0YPgvcfI3nx09BsDrBkKVoimSBee6yRX4Gmd9SvDEZ_oya0VqLw3JzkTX0oJrFz2i5ijw

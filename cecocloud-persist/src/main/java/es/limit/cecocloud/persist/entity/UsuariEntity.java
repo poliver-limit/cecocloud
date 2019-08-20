@@ -42,7 +42,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 100, nullable = false, unique = true)),
 	@AttributeOverride(name = "embedded.imatgeUrl", column = @Column(name = "imatge_url", length = 255)),
 	@AttributeOverride(name = "embedded.contrasenya", column = @Column(name = "contrasenya", length = 255)),
-	@AttributeOverride(name = "embedded.validat", column = @Column(name = "validat"))
+	@AttributeOverride(name = "embedded.validat", column = @Column(name = "validat")),
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "actiu"))
 })
 public class UsuariEntity extends AbstractEntity<Usuari, Long> {
 
@@ -53,7 +54,7 @@ public class UsuariEntity extends AbstractEntity<Usuari, Long> {
     @CollectionTable(name = "usuari_rols", joinColumns = @JoinColumn(name = "usuari_id"))
     @Column(name = "rol", length = 10)
 	@Enumerated(EnumType.STRING)
-    private Set<Rol> rols = new HashSet<>();
+    private Set<Rol> rols = new HashSet<Rol>();
 
 	@Builder
     public UsuariEntity(Usuari embedded) {

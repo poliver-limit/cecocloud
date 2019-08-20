@@ -59,69 +59,18 @@ export interface FormGridConfig {
     selector: 'restapi-form',
     template: `
     <ng-container>
-        <!--mdc-top-app-bar
-            class="context-app-bar"
-            fixed="true"
-            prominent="false"
-            dense="false">
-            <mdc-top-app-bar-row>
-                <mdc-top-app-bar-section
-                    align="start"
-                    title="{{ id ? 'Modificar' : 'Crear' }} {{ restapiResource?.translateKey | translate }}">
-                    <mdc-icon mdcTopAppBarActionItem (click)="onButtonCancelClick()">arrow_back</mdc-icon>
-                </mdc-top-app-bar-section>
-                <mdc-top-app-bar-section align="end">
-                    <mdc-icon mdcTopAppBarActionItem (click)="onButtonSaveClick()">save</mdc-icon>
-                </mdc-top-app-bar-section>
-            </mdc-top-app-bar-row>
-        </mdc-top-app-bar-->
-        <div class="page-header">
-            <div class="header-first-row">
-                <div class="mant-headline" mdcHeadline6>
-                    <span class="main">{{ restapiResource?.translateKeyPlural | translate }}</span><span class="current"> / {{description ? description : ('component.restapi.form.header.title.crear' | translate)}}</span>
-                </div>
-                <div class="mant-error">
-                    <button mdc-icon-button *ngIf="restapiError" (click)="onErrorIconClick()" icon="error" class="header-button-small" style="color: #de442c"></button>
-                </div>
-            </div>
-            <div class="header-second-row">
-                <div class="mant-actions">
-                    <div class="mant-actions-main">
-                        <a mdc-button dense secondary (click)="onButtonSaveClick()">
-                            <mdc-icon>save_alt</mdc-icon>
-                            {{'component.restapi.form.header.button.guardar'|translate}}
-                        </a>&nbsp;
-                        <a mdc-button dense (click)="onButtonCancelClick()">
-                            {{'component.restapi.form.header.button.descartar'|translate}}
-                        </a>
-                    </div>
-                    <div class="mant-actions-selection">
-                        <div *ngIf="id" mdcMenuSurfaceAnchor #actionsButton>
-                            <button mdc-button dense (click)="actionsMenu.open = !actionsMenu.open">
-                                <mdc-icon>settings</mdc-icon>
-                                <span mdcButtonLabel>{{'component.restapi.form.header.button.actions'|translate}}</span>
-                                <mdc-icon>arrow_drop_down</mdc-icon>
-                            </button>
-                            <mdc-menu #actionsMenu anchorCorner="bottomStart" quickOpen [anchorElement]="actionsButton" (selected)="onActionSelect($event)">
-                                <mdc-list>
-                                    <mdc-list-item>{{'component.restapi.form.header.action.delete'|translate}}</mdc-list-item>
-                                </mdc-list>
-                            </mdc-menu>
-                        </div>
-                    </div>
-                </div>
-                <div class="mant-controls">
-                    <!--span class="mant-page-info">1 / 100</span>
-                    &nbsp;
-                    <button mdc-icon-button (click)="onItemDownClick()" [disabled]="hasPrevious" class="header-button-small"><mdc-icon>chevron_left</mdc-icon></button>
-                    <button mdc-icon-button (click)="onItemUpClick()" [disabled]="hasNext" class="header-button-small"><mdc-icon>chevron_right</mdc-icon></button-->
-                </div>
-            </div>
-        </div>
+        <restapi-form-header
+            [id]="id"
+            [description]="description"
+            [restapiResource]="restapiResource"
+            [restapiError]="restapiError"
+            (actionSave)="onHeaderActionSave()"
+            (actionCancel)="onHeaderActionCancel()"
+            (actionDelete)="onHeaderActionDelete()"></restapi-form-header>
         <ng-container *ngTemplateOutlet="formTemplate"></ng-container>
     </ng-container>    
     <ng-template #formTemplate>
-        <form [mdcElevation]="5" [formGroup]="formGroup">
+        <form [formGroup]="formGroup">
             <mdc-tab-bar
                 #formTabs
                 *ngIf="showTabs"
@@ -159,8 +108,7 @@ mdc-top-app-bar {
     display: block;
 }
 form {
-    padding: 1em;
-    margin: 1em;
+    padding: 24px;
 }
 #form-content {
     margin-top: 1em;
@@ -168,66 +116,6 @@ form {
 #actions {
     display: flex;
     flex-direction: row-reverse;
-}
-`, `
-.page-header {
-    padding: 9px 24px 7px 24px;
-    border-bottom: 1px solid #e2e2e2;
-    color: rgba(0, 0, 0, 0.54);
-    font-weight: 700;
-    font-size: 12px;
-}
-.header-first-row {
-    display: flex;
-    padding-top: 8px;
-}
-.header-first-row .mant-headline {
-    flex-basis: 50%;
-    color: #999 !important;
-}
-.header-first-row .mant-headline span.main {
-    color: $mdc-theme-secondary;
-}
-.header-first-row .mant-headline span.current {
-    color: $mdc-theme-on-surface;
-}
-.header-first-row .mant-error {
-    flex-basis: 50%;
-    text-align: right;
-}
-.header-second-row {
-    display: flex;
-    padding-top: 6px;
-}
-.header-second-row .mant-actions {
-    flex-basis: 50%;
-    display: flex;
-    justify-content: space-between;
-}
-.header-second-row .mant-actions-main {
-    flex-grow: 1;
-    text-align: left;
-}
-.header-second-row .mant-actions-selection {
-    flex-grow: 1;
-    text-align: right;
-}
-.header-second-row .mant-controls {
-    flex-basis: 50%;
-    text-align: right;
-    position: relative;
-    top: -5px;
-}
-.header-second-row .mant-page-info {
-    /*padding: 0 1em;*/
-}
-.header-button-small {
-    position: relative;
-    top: 6px;
-}
-.header-button-small mdc-icon {
-    position: relative;
-    left: -2px;
 }
 `]
 } )
@@ -243,8 +131,8 @@ export class RestapiFormComponent implements OnInit {
     }
 
     @Output() actionSave: EventEmitter<any> = new EventEmitter();
-    @Output() actionDelete: EventEmitter<any> = new EventEmitter();
     @Output() actionCancel: EventEmitter<any> = new EventEmitter();
+    @Output() actionDelete: EventEmitter<any> = new EventEmitter();
     @Output() resourceChange: EventEmitter<any> = new EventEmitter();
 
     @ViewChild( 'fieldsContainer', { read: ViewContainerRef, static: false } ) fieldsContainer: ViewContainerRef;
@@ -275,7 +163,7 @@ export class RestapiFormComponent implements OnInit {
         this.refreshFields();
     }
 
-    onButtonSaveClick() {
+    onHeaderActionSave() {
         this.resetFieldsValidation();
         let values = {};
         if ( this.resourceInstance ) {
@@ -297,7 +185,7 @@ export class RestapiFormComponent implements OnInit {
                 if ( timezoneOffsetNegative ) {
                     offsetInHours = -offsetInHours;
                 }
-                let timezoneOffsetStr = ( timezoneOffsetNegative ? '-' : '+' ) + (( offsetInHours < 10 ) ? '0' + offsetInHours : '' + offsetInHours) + ':00';
+                let timezoneOffsetStr = ( timezoneOffsetNegative ? '-' : '+' ) + ( ( offsetInHours < 10 ) ? '0' + offsetInHours : '' + offsetInHours ) + ':00';
                 values[field.name] = values[field.name] + timezoneOffsetStr;
             } else if ( field.type === 'LOV' ) {
                 if ( !values[field.name] || !values[field.name].id ) {
@@ -323,43 +211,24 @@ export class RestapiFormComponent implements OnInit {
         }
     }
 
-    onButtonCancelClick() {
+    onHeaderActionCancel() {
         this.actionCancel.emit();
     }
 
-    onActionSelect( event ) {
-        if ( event.index == 0 ) {
-            let resourceName = this.restapiResource.name;
-            let rowData = this.resourceInstance;
-            let rowDescription = ( this.restapiResource.descriptionField ) ? rowData[this.restapiResource.descriptionField] : '[id:' + rowData.id + ']';
-            let confirmTranslated = this.translateKey(
-                'component.restapi.form.delete.confirm',
-                { description: resourceName + ' ' + rowDescription } );
-            if ( confirm( confirmTranslated ) ) {
-                this.restapiService.delete( this.resourceInstance ).subscribe(( resource: Resource ) => {
-                    this.actionDelete.emit( resource );
-                }/*, errorResponse => {
-                    this.processSaveErrors( errorResponse );
-                }*/ );
-            }
+    onHeaderActionDelete() {
+        let resourceName = this.restapiResource.name;
+        let rowData = this.resourceInstance;
+        let rowDescription = ( this.restapiResource.descriptionField ) ? rowData[this.restapiResource.descriptionField] : '[id:' + rowData.id + ']';
+        let confirmTranslated = this.translateKey(
+            'component.restapi.form.delete.confirm',
+            { description: resourceName + ' ' + rowDescription } );
+        if ( confirm( confirmTranslated ) ) {
+            this.restapiService.delete( this.resourceInstance ).subscribe(( resource: Resource ) => {
+                this.actionDelete.emit( resource );
+            }/*, errorResponse => {
+                this.processSaveErrors( errorResponse );
+            }*/ );
         }
-    }
-
-    onErrorIconClick() {
-        this.dialog.open( RestapiFormErrorsDialogComponent, {
-            escapeToClose: true,
-            clickOutsideToClose: true,
-            data: {
-                error: this.restapiError
-            }
-        } );
-    }
-
-    onItemDownClick() {
-        console.log( '>>> onItemDownClick' )
-    }
-    onItemUpClick() {
-        console.log( '>>> onItemUpClick' )
     }
 
     refreshFields() {
@@ -384,7 +253,7 @@ export class RestapiFormComponent implements OnInit {
                     ( resourceInstance: Resource ) => {
                         this.refrescarFormGroup( resourceInstance );
                         this.createInputs( this.restapiResource.fields );
-                        this.description = ( this.restapiResource.descriptionField ) ? resourceInstance[this.restapiResource.descriptionField] : '[id:' + this.id + ']';
+                        this.description = ( this.restapiResource.descriptionField ) ? resourceInstance[this.restapiResource.descriptionField] : this.restapiResource.name + '_' + this.id;
                     } );
             }
         } );
@@ -522,8 +391,7 @@ export class RestapiFormComponent implements OnInit {
         private formBuilder: FormBuilder,
         private injector: Injector,
         private http: HttpClient,
-        private translate: TranslateService,
-        private dialog: MdcDialog ) {
+        private translate: TranslateService ) {
         this.inputComponentFactory = this.factoryResolver.resolveComponentFactory(
             RestapiFieldComponent
         );

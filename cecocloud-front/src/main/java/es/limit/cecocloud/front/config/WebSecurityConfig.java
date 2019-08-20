@@ -32,7 +32,6 @@ import es.limit.cecocloud.front.auth.JwtAuthorizationFilter;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.service.AuthService;
-import es.limit.cecocloud.logic.api.service.UsuariService;
 
 /**
  * Configuració per a l'autenticació dels usuaris.
@@ -46,8 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private ObjectMapper mapper;
 
 	@Autowired
-	private UsuariService usuariService;
-	@Autowired
 	private AuthService authService;
 
 	@Override
@@ -56,11 +53,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		cors().and().csrf().disable().
 		authorizeRequests().
 		antMatchers("/api/auth").permitAll().
+		antMatchers("/api/auth/**/*").permitAll().
 		antMatchers("/api/registres/**/*").permitAll().
 		antMatchers("/api/mobile/marcatges").hasAuthority("MARCA").
 		antMatchers("/api/mobile/marcatges/**/*").hasAuthority("MARCA").
 		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
-		//antMatchers("/api/**/*").authenticated().
+		antMatchers("/api/**/*").authenticated().
 		anyRequest().permitAll().
 		and().
 		addFilter(new JwtAuthenticationFilter(authenticationManager(), authService, mapper)).
@@ -78,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				new UserDetailsService() {
 					@Override
 				    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-				    	Usuari usuari = usuariService.findOneByRsqlQuery("codi==" + username);
+				    	Usuari usuari = authService.getUsuariForAuthentication(username);
 				    	if (usuari != null) {
 				    		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 				    		for (Rol rol: usuari.getRols()) {
@@ -89,7 +87,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					    			usuari.getContrasenya(),
 					    			authorities);
 				    	} else {
-				    		throw new UsernameNotFoundException("Usuari " + username + " no trobat");
+				    		throw new UsernameNotFoundException("User " + username + " not found or not eligible for authentication");
 				    	}
 				    }
 				}).passwordEncoder(passwordEncoder());

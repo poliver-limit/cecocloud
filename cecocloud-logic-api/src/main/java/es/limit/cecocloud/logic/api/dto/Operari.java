@@ -28,17 +28,24 @@ public class Operari extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Transient
+	@RestapiField(includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
 	@NotNull
 	@Transient
+	@RestapiField(includeInQuickFilter = true)
 	private GenericReference<Empresa, Long> empresa;
 	@NotNull
 	@Size(max = 6)
+	@RestapiField(includeInQuickFilter = true)
 	private String codi;
 	@NotNull
-	@RestapiField(type = RestapiFieldType.DATE)
+	@RestapiField(
+			type = RestapiFieldType.DATE,
+			hiddenInLov = true)
 	private Date dataInici;
-	@RestapiField(type = RestapiFieldType.DATE)
+	@RestapiField(
+			type = RestapiFieldType.DATE,
+			hiddenInLov = true)
 	private Date dataFi;
 
 }

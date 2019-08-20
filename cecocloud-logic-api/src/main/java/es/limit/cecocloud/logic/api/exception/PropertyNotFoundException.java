@@ -15,7 +15,7 @@ public class PropertyNotFoundException extends RuntimeException {
 
 	public PropertyNotFoundException(
 			String propertyKey) {
-		super(crearMessage(propertyKey));
+		super(getExceptionMessage(propertyKey));
 		this.propertyKey = propertyKey;
 	}
 
@@ -23,7 +23,7 @@ public class PropertyNotFoundException extends RuntimeException {
 		return propertyKey;
 	}
 
-	private static String crearMessage(String propertyKey) {
+	private static String getExceptionMessage(String propertyKey) {
 		return "La propietat \"" + propertyKey + "\" no està definida o no te valor";
 	}
 

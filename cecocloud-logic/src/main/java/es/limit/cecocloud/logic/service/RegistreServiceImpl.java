@@ -52,6 +52,7 @@ public class RegistreServiceImpl implements RegistreService {
 		usuari.setCodi(dto.getCodi());
 		usuari.setNom(dto.getNom());
 		usuari.setEmail(dto.getEmail());
+		usuari.setActiu(true);
 		usuari.setRols(new HashSet<Rol>(Arrays.asList(Rol.MARCA)));
 		UsuariEntity entity = UsuariEntity.builder().embedded(usuari).build();
 		usuariRepository.save(entity);
@@ -69,7 +70,7 @@ public class RegistreServiceImpl implements RegistreService {
 	@Transactional
 	public void validate(RegistreValidate dto) {
 		String token = dto.getToken();
-		Jws<Claims> parsedToken = tokenHelper.validate(token);
+		Jws<Claims> parsedToken = tokenHelper.validate(token, false);
 		String codi = parsedToken.getBody().getSubject();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(codi);
 		usuari.get().updateContrasenya(passwordEncoder.encode(dto.getContrasenya()));

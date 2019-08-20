@@ -38,6 +38,7 @@ create table usuari (
     imatge_url varchar2(255 char),
     nom varchar2(100 char) not null,
     validat number(1,0),
+    actiu number(1,0),
     version number(19,0) not null,
     primary key (id)
 );
@@ -130,6 +131,7 @@ create table usuari (
     imatge_url varchar(255),
     nom varchar(100) not null,
     validat boolean,
+    actiu boolean,
     version bigint not null,
     primary key (id)
 );

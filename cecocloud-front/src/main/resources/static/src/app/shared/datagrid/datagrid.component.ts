@@ -226,9 +226,6 @@ export class DatagridComponent implements OnInit {
             if ( context.datasourceParentPk ) {
                 delete context.datasourceParentPk;
             }
-            if ( !context.config.detailConfig ) {
-                context.gridComponent.sendPaginationInfo( event.api );
-            }
             event.api.sizeColumnsToFit();
             if ( event.api.getModel().getRowCount() != 0 && !showOverlayLoading ) {
                 event.api.hideOverlay();
@@ -241,7 +238,6 @@ export class DatagridComponent implements OnInit {
         }
         gridOptions.onFirstDataRendered = function( event ) {
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
-            context.gridComponent.sendPaginationInfo( event.api );
             let parentGridApi = context.gridComponent.getFromApiContext( event.api, 'parentGridApi' );
             if ( parentGridApi ) {
                 let refreshDetailHeights = context.gridComponent.getFromApiContext( parentGridApi, 'refreshDetailHeights' );
@@ -500,8 +496,9 @@ export class DatagridComponent implements OnInit {
                 let floatingFilterComponentParams = {
                     suppressFilterButton: gridColumn.suppressFilterButton
                 };
-                /*if ( datagridConfig.filterInEachColumn ) {
-                    if ( restapiField ) {
+                if ( datagridConfig.filterInEachColumn ) {
+                    filter = 'agTextColumnFilter';
+                    /*if ( restapiField ) {
                         switch ( columnFieldType ) {
                             case 'STRING':
                                 filter = 'agTextColumnFilter';
@@ -552,8 +549,8 @@ export class DatagridComponent implements OnInit {
                         }
                     } else {
                         filter = 'agTextColumnFilter';
-                    }
-                }*/
+                    }*/
+                }
                 if ( gridColumn.filterable ) {
                     filter = false;
                 }
@@ -966,18 +963,6 @@ export class DatagridComponent implements OnInit {
         if ( parentGridApi ) {
             context.gridComponent.refreshDetailRowsHeight( parentGridApi );
         }
-    }
-
-    sendPaginationInfo( gridApi: GridApi ) {
-        /*let rowCount = gridApi.getModel().getRowCount();
-        let firstRow = gridApi.getFirstDisplayedRow();
-        let lastRow = gridApi.getLastDisplayedRow();
-        this.messageService.sendPaginationInfo( {
-            api: gridApi,
-            rowCount: rowCount,
-            firstRow: firstRow,
-            lastRow: lastRow,
-        } );*/
     }
 
     getParentPk( api: GridApi ): any {
