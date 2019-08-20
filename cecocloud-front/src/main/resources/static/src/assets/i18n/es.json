@@ -66,6 +66,7 @@
 	"resource.usuari.field.nom": "Nombre",
 	"resource.usuari.field.email": "Correo-e",
 	"resource.usuari.field.validat": "Validado",
+	"resource.usuari.field.actiu": "Activo",
 	"resource.usuari.field.rols": "Roles",
 
 	"resource.companyia": "Compañia",

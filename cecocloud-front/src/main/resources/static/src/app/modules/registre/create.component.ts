@@ -28,12 +28,7 @@ import { RegistreService } from '../registre/registre.service';
         </div>
     </form>
 </div>
-`,
-    styles: [`
-.centered {
-    margin: 10% auto;
-}
-      `]
+`
 })
 
 export class CreateComponent {

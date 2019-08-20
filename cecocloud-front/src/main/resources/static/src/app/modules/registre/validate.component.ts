@@ -29,13 +29,7 @@ import { TranslateService } from '@ngx-translate/core';
         </div>
     </form>
 </div>
-`,
-    styles: [`
-.centered {
-    margin: 10% auto;
-}
-
-      `]
+`
 })
 export class ValidateComponent {
 

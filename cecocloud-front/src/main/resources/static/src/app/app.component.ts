@@ -8,6 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { filter, startWith, tap, delay } from 'rxjs/operators';
 
+import { ScreenSizeService, ScreenSizeChangeEvent } from './shared/screen-size.service';
 import { AuthService } from './shared/auth/auth.service';
 import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 
@@ -78,7 +79,7 @@ export class AppComponent implements OnInit {
     private menuSelectedIndex: number;
 
     ngOnInit() {
-        this.checkSmallScreen( window.innerWidth );
+        this.screenSizeService.onWindowResize( window.innerWidth );
     }
 
     onActionSortirClick() {
@@ -94,18 +95,14 @@ export class AppComponent implements OnInit {
 
     @HostListener( 'window:resize', ['$event'] )
     onWindowResize( event ) {
-        this.checkSmallScreen( event.target.innerWidth );
-    }
-
-    private checkSmallScreen( windowWidth: number ) {
-        // Si la pantalla es fa mes petita de 600px l'alçada del topbar es redueix.
-        this.smallScreen = windowWidth < 600;
+        this.screenSizeService.onWindowResize( event.target.innerWidth );
     }
 
     constructor(
         private authService: AuthService,
         private translate: TranslateService,
-        private router: Router ) {
+        private router: Router,
+        private screenSizeService: ScreenSizeService ) {
         // Manten actualitzada la informació de l'usuari autenticat
         this.tokenPayload = authService.getAuthTokenPayload();
         authService.authTokenChangeEvent.subscribe(( tokenPayload: AuthTokenPayload ) => {
@@ -132,6 +129,10 @@ export class AppComponent implements OnInit {
                     this.drawer.open = false;
                 }
             } );
+        } );
+        // Es subscriu al subject de canvi de tamany de la pantalla
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.smallScreen = event.small
         } );
     }
 

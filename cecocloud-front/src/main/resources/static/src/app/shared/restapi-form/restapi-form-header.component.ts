@@ -37,6 +37,7 @@ import {
 import { RestapiFieldComponent } from './restapi-field.component';
 import { RestapiCustomComponent } from './restapi-custom.component';
 import { RestapiFormErrorsDialogComponent } from './restapi-form-errors-dialog.component';
+import { ScreenSizeService, ScreenSizeChangeEvent } from '../screen-size.service';
 
 export interface FormConfig {
     parent?: any;
@@ -75,6 +76,9 @@ export interface FormGridConfig {
 </mdc-top-app-bar-->
 <div class="page-header">
     <div class="header-first-row">
+        <div class="mant-goback" *ngIf="smallScreen">
+            <button mdc-icon-button (click)="onButtonCancelClick()" class="header-button-small"><mdc-icon>arrow_back</mdc-icon></button>
+        </div>
         <div class="mant-headline" mdcHeadline6>
             <span class="main">{{ title }}</span><span class="current"> / {{description ? description : ('component.restapi.form.header.title.crear' | translate)}}</span>
         </div>
@@ -89,7 +93,7 @@ export interface FormGridConfig {
                     <mdc-icon>save_alt</mdc-icon>
                     <span mdcButtonLabel>{{'component.restapi.form.header.button.guardar'|translate}}</span>
                 </a>&nbsp;
-                <a mdc-button dense (click)="onButtonCancelClick()">
+                <a mdc-button dense *ngIf="!smallScreen" (click)="onButtonCancelClick()">
                     <mdc-icon>arrow_back</mdc-icon>
                     <span mdcButtonLabel>{{'component.restapi.form.header.button.descartar'|translate}}</span>
                 </a>
@@ -129,6 +133,12 @@ export interface FormGridConfig {
 .page-header .header-first-row {
     display: flex;
     padding-top: 8px;
+}
+.page-header .header-first-row .mant-goback {
+    flex-grow: 0;
+    margin-right: 6px;
+    position: relative;
+    top: -6px;
 }
 .page-header .header-first-row .mant-headline {
     flex-grow: 1;
@@ -195,6 +205,7 @@ export class RestapiFormHeaderComponent {
     @Output() actionDelete: EventEmitter<any> = new EventEmitter();
 
     private title: string;
+    private smallScreen: boolean = false;
 
     onButtonSaveClick() {
         this.actionSave.emit();
@@ -238,6 +249,12 @@ export class RestapiFormHeaderComponent {
 
     constructor(
         private translate: TranslateService,
-        private dialog: MdcDialog ) { }
+        private dialog: MdcDialog,
+        private screenSizeService: ScreenSizeService ) {
+        this.smallScreen = this.screenSizeService.isSmall();
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.smallScreen = event.small
+        } );
+    }
 
 }

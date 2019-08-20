@@ -39,11 +39,11 @@ export class AuthService {
     }
 
     private validateAndRefresh() {
-        let validationSession: AuthValidationSession = this.getValidationFromSessionStorage();
-        if ( !validationSession ) {
-            console.info( 'Validació de token no trobada' );
-            let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-            if ( authResponse !== undefined ) {
+        let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
+        if ( authResponse !== undefined ) {
+            let validationSession: AuthValidationSession = this.getValidationFromSessionStorage();
+            if ( !validationSession ) {
+                console.info( 'Validació de token no trobada' );
                 //console.debug( 'Validant token d\'autenticació' );
                 let checkUrl = 'api/auth/check/' + authResponse.token;
                 this.http.get( checkUrl ).subscribe(( validated: boolean ) => {
@@ -66,9 +66,9 @@ export class AuthService {
                         //console.debug( 'Token vàlid' );
                     }
                 } );
-            } else {
-                // console.debug( 'Informacio d\'autenticació inexistent' );
             }
+        } else {
+            // console.debug( 'Informacio d\'autenticació inexistent' );
         }
     }
 
