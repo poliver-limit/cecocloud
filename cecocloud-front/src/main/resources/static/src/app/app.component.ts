@@ -126,7 +126,6 @@ export class AppComponent implements OnInit {
                 }
                 if ( this.menuSelectedIndex && this.menulist ) {
                     this.menulist.setSelectedIndex( this.menuSelectedIndex );
-                    this.drawer.open = false;
                 }
             } );
         } );
