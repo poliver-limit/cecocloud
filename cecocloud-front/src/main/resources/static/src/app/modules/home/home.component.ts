@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component( {
     template: `
-    <div class="centered">
+    <div class="centered" style="text-align: center">
         <div><mdc-icon style="font-size:200px">cloud_queue</mdc-icon></div>
         <div mdcHeadline2>Benvinguts a Cecocloud</div>
     </div>
