@@ -17,6 +17,6 @@ import lombok.Setter;
 public class Profile {
 
 	private Alps alps;
-	private ProfileResourceInfo resourceInfo;
+	private ProfileResource resource;
 
 }

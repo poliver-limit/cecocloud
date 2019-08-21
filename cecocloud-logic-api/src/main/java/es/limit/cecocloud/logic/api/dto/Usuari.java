@@ -24,7 +24,6 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(descriptionField = "nom")
-//@Embeddable
 public class Usuari extends AbstractIdentificable<Long> {
 
 	@NotNull
@@ -47,7 +46,7 @@ public class Usuari extends AbstractIdentificable<Long> {
 	private boolean validat;
 	private boolean actiu;
 	@Transient
-	@RestapiField(hiddenInLov = true)
+	@RestapiField(hiddenInLov = true, hiddenInForm = true)
 	private Set<Rol> rols;
 
 }

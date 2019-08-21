@@ -14,7 +14,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class ProfileResourceInfo {
+public class ProfileResource {
 
 	private String name;
 	private String translateKey;

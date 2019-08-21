@@ -30,7 +30,7 @@ import { GenericResource } from '../restapi/restapi-generic.service';
 import { RestapiService } from '../restapi/restapi.service';
 import {
     RestapiProfile,
-    RestapiResourceInfo,
+    RestapiResource,
     RestapiResourceField,
     RestapiResourceGrid
 } from '../restapi/restapi-profile';
@@ -191,12 +191,12 @@ export class RestapiFormHeaderComponent {
     @Input() id: any;
     @Input() description: string;
     @Input()
-    set restapiResource( restapiResource: RestapiResourceInfo ) {
+    set restapiResource( restapiResource: RestapiResource ) {
         if ( restapiResource ) {
             this.title = this.translateKey( restapiResource.translateKeyPlural );
         }
     }
-    @Input() restapiError: RestapiResourceInfo;
+    @Input() restapiError: RestapiResource;
 
     @Output() actionSave: EventEmitter<any> = new EventEmitter();
     @Output() actionCancel: EventEmitter<any> = new EventEmitter();

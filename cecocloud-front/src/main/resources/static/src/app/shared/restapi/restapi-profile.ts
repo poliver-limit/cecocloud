@@ -1,7 +1,7 @@
 
 export class RestapiProfile {
     alps: any;
-    resourceInfo: any;
+    resource: any;
     _links: {
         self: {
             href: string;
@@ -12,7 +12,7 @@ export class RestapiProfile {
     };
 }
 
-export class RestapiResourceInfo {
+export class RestapiResource {
     name: string;
     translateKey?: string;
     translateKeyPlural?: string;

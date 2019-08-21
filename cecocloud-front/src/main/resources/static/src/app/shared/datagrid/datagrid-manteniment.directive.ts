@@ -25,9 +25,9 @@ export class DatagridMantenimentDirective {
         this.navigateWithParent( targetRoute, params.parentPk );
     }
     onDatagridActionDelete( params: any ) {
-        let resourceName = params.resourceInfo.name;
+        let resourceName = params.resource.name;
         let rowData = params.selectedRows[0];
-        let rowDescription = ( params.resourceInfo.descriptionField ) ? rowData[params.resourceInfo.descriptionField] : '[id:' + rowData.id + ']';
+        let rowDescription = ( params.resource.descriptionField ) ? rowData[params.resource.descriptionField] : '[id:' + rowData.id + ']';
         let confirmTranslated = this.translateKey(
             'component.datagrid.manteniment.delete.confirm',
             { description: resourceName + ' ' + rowDescription } );

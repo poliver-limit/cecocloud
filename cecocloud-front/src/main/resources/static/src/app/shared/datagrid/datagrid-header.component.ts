@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 import {
     RestapiProfile,
-    RestapiResourceInfo,
+    RestapiResource,
     RestapiResourceField
 } from '../restapi/restapi-profile';
 import { DatagridConfig } from './datagrid.component';
@@ -188,15 +188,15 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
         this.lovMode = params.context.config.lovMode;
         this.restapiProfile = params.context.restapiProfile;
         // Calcula del titol
-        this.title = this.restapiProfile.resourceInfo.name;
-        if ( this.restapiProfile && this.restapiProfile.resourceInfo && this.restapiProfile.resourceInfo.translateKeyPlural ) {
-            let translatedKey = this.translate.instant( this.restapiProfile.resourceInfo.translateKeyPlural );
-            if ( translatedKey !== this.restapiProfile.resourceInfo.translateKeyPlural ) {
+        this.title = this.restapiProfile.resource.name;
+        if ( this.restapiProfile && this.restapiProfile.resource && this.restapiProfile.resource.translateKeyPlural ) {
+            let translatedKey = this.translate.instant( this.restapiProfile.resource.translateKeyPlural );
+            if ( translatedKey !== this.restapiProfile.resource.translateKeyPlural ) {
                 this.title = translatedKey;
             }
         }
         // Consulta si el quickFilter està disponible
-        this.quickFilterAvailable = this.restapiProfile.resourceInfo.quickFilterAvailable
+        this.quickFilterAvailable = this.restapiProfile.resource.quickFilterAvailable
         // Actualitza la selecció actual
         this.anyRowSelected = params.api.getSelectedRows().length > 0;
         this.selectionSubscription = params.context.gridComponent.selectionSubject.subscribe( event => {
@@ -236,7 +236,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     onActionSelect( event ) {
         if ( event.index == 0 ) {
             this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.headerActionDelete.emit( {
-                resourceInfo: this.restapiProfile.resourceInfo,
+                resource: this.restapiProfile.resource,
                 selectedRows: this.params.api.getSelectedRows()
             } );
         }

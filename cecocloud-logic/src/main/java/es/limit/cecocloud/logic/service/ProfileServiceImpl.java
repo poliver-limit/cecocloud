@@ -32,7 +32,7 @@ import es.limit.cecocloud.logic.api.dto.Profile;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceGrid;
-import es.limit.cecocloud.logic.api.dto.ProfileResourceInfo;
+import es.limit.cecocloud.logic.api.dto.ProfileResource;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.ProfileService;
@@ -53,26 +53,26 @@ public class ProfileServiceImpl implements ProfileService {
 			String resourceName,
 			String profileHref) {
 		try {
-			ProfileResourceInfo resourceForm = new ProfileResourceInfo();
+			ProfileResource resource = new ProfileResource();
 			Class<?> dtoClass = getDtoClassForName(resourceName);
-			resourceForm.setName(getResourceNameFromDtoClass(dtoClass));
+			resource.setName(getResourceNameFromDtoClass(dtoClass));
 			Class<?> controllerClass = getControllerClassForDto(dtoClass);
 			if (controllerClass != null) {
-				resourceForm.setApiUrl(
+				resource.setApiUrl(
 						getApiUrl(
 								dtoClass,
 								controllerClass));
 			}
-			resourceForm.setTranslateKey(
-					TRANSLATE_KEY_PREFIX + resourceForm.getName());
-			resourceForm.setTranslateKeyPlural(
-					TRANSLATE_KEY_PREFIX + resourceForm.getName() + ".plural");
-			resourceForm.setFields(getFields(dtoClass));
-			resourceForm.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
+			resource.setTranslateKey(
+					TRANSLATE_KEY_PREFIX + resource.getName());
+			resource.setTranslateKeyPlural(
+					TRANSLATE_KEY_PREFIX + resource.getName() + ".plural");
+			resource.setFields(getFields(dtoClass));
+			resource.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
 			RestapiResource resourceAnnotation = dtoClass.getAnnotation(RestapiResource.class);
 			if (resourceAnnotation != null) {
 				if (!resourceAnnotation.descriptionField().isEmpty()) {
-					resourceForm.setDescriptionField(resourceAnnotation.descriptionField());
+					resource.setDescriptionField(resourceAnnotation.descriptionField());
 				}
 				if (resourceAnnotation.grids().length > 0) {
 					List<ProfileResourceGrid> grids = new ArrayList<ProfileResourceGrid>();
@@ -85,15 +85,15 @@ public class ProfileServiceImpl implements ProfileService {
 							gridConfig.setName(grid.value());
 						}
 						gridConfig.setTranslateKey(
-								TRANSLATE_KEY_PREFIX + resourceForm.getName() + ".grid." + grid.value());
+								TRANSLATE_KEY_PREFIX + resource.getName() + ".grid." + grid.value());
 						grids.add(gridConfig);
 					}
-					resourceForm.setGrids(grids);
+					resource.setGrids(grids);
 				}
 			}
 			Profile profile = new Profile();
 			List<Descriptor> fieldDescriptors = new ArrayList<Descriptor>();
-			for (ProfileResourceField resourceField: resourceForm.getFields()) {
+			for (ProfileResourceField resourceField: resource.getFields()) {
 				fieldDescriptors.add(
 						Alps.descriptor().
 						name(resourceField.getName()).
@@ -103,13 +103,13 @@ public class ProfileServiceImpl implements ProfileService {
 			List<Descriptor> descriptors = new ArrayList<Descriptor>();
 			descriptors.add(
 					Alps.descriptor().
-					id(resourceForm.getName() + "-representation").
+					id(resource.getName() + "-representation").
 					href(profileHref).
 					descriptors(fieldDescriptors).
 					build());
 			Alps alps = Alps.alps().descriptors(descriptors).build();
 			profile.setAlps(alps);
-			profile.setResourceInfo(resourceForm);
+			profile.setResource(resource);
 			return profile;
 		} catch (ClassNotFoundException ex) {
 			throw new EntityNotFoundException();

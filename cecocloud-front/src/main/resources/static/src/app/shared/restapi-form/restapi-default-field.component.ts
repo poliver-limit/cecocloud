@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MdcTextField, MdcTextarea, MdcSelect } from '@angular-mdc/web';
 
 import {
-    RestapiResourceInfo,
+    RestapiResource,
     RestapiResourceField
 } from '../restapi/restapi-profile';
 import { RestapiBaseFieldComponent } from './restapi-base-field.component';
@@ -111,7 +111,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
 } )
 export class RestapiDefaultFieldComponent implements OnInit, RestapiBaseFieldComponent {
 
-    @Input() resource: RestapiResourceInfo;
+    @Input() resource: RestapiResource;
     @Input() field: RestapiResourceField;
     @Input() formGroup: FormGroup;
     @Input() label: string;

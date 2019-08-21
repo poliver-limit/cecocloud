@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RestapiGenericService } from '../restapi/restapi-generic.service';
 import {
     RestapiProfile,
-    RestapiResourceInfo,
+    RestapiResource,
     RestapiResourceField
 } from '../restapi/restapi-profile';
 import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
@@ -41,7 +41,7 @@ export class RestapiLovComponent {
 
     @Input() label;
     @Input() formGroup: FormGroup;
-    @Input() resource: RestapiResourceInfo;
+    @Input() resource: RestapiResource;
     @Input()
     set field( field: RestapiResourceField ) {
         this.formGroupName = field.name;
@@ -49,9 +49,9 @@ export class RestapiLovComponent {
         this.lovParentField = field.lovParentField;
         this.restapiService.configureWithResourceName( this.lovResourceName );
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
-            this.lovResourceTranslateKey = restapiProfile.resourceInfo.translateKey;
-            this.descriptionField = restapiProfile.resourceInfo.descriptionField;
-            restapiProfile.resourceInfo.fields.forEach(( field: RestapiResourceField ) => {
+            this.lovResourceTranslateKey = restapiProfile.resource.translateKey;
+            this.descriptionField = restapiProfile.resource.descriptionField;
+            restapiProfile.resource.fields.forEach(( field: RestapiResourceField ) => {
                 if ( !field.hiddenInLov ) {
                     this.dialogColumns.push( {
                         field: field.name,

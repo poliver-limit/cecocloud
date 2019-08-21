@@ -33,7 +33,7 @@ import { finalize } from 'rxjs/operators';
 import { RestapiService } from '../restapi/restapi.service';
 import {
     RestapiProfile,
-    RestapiResourceInfo,
+    RestapiResource,
     RestapiResourceField
 } from '../restapi/restapi-profile';
 import { DatagridHeaderComponent } from './datagrid-header.component';
@@ -420,7 +420,7 @@ export class DatagridComponent implements OnInit {
         let gridColumns = datagridConfig.columns;
         if ( !gridColumns && restapiProfile ) {
             gridColumns = [];
-            restapiProfile.resourceInfo.fields.forEach( field => {
+            restapiProfile.resource.fields.forEach( field => {
                 let hidden = ( this.config.lovMode ) ? field.hiddenInLov : field.hiddenInGrid;
                 if ( !hidden ) {
                     gridColumns.push( {
@@ -433,7 +433,7 @@ export class DatagridComponent implements OnInit {
             gridColumns.forEach(( gridColumn: DatagridColumn, index: number ) => {
                 let restapiField;
                 if ( restapiProfile ) {
-                    restapiProfile.resourceInfo.fields.forEach( field => {
+                    restapiProfile.resource.fields.forEach( field => {
                         if ( gridColumn.field === field.name ) {
                             restapiField = field;
                         }
@@ -762,7 +762,7 @@ export class DatagridComponent implements OnInit {
     }
     valueFormatter( params: ValueFormatterParams ) {
         let field: RestapiResourceField = params.context.gridComponent.getRestapiFieldForColumn(
-            params.context.restapiProfile.resourceInfo,
+            params.context.restapiProfile.resource,
             params.column.getColId() );
         if ( field ) {
             if ( field.multiple ) {
@@ -884,10 +884,10 @@ export class DatagridComponent implements OnInit {
         }
     }
 
-    getRestapiFieldForColumn( restapiResourceInfo: RestapiResourceInfo, colId: string ): RestapiResourceField {
+    getRestapiFieldForColumn( restapiResource: RestapiResource, colId: string ): RestapiResourceField {
         let restapiField;
-        if ( restapiResourceInfo ) {
-            restapiResourceInfo.fields.forEach( field => {
+        if ( restapiResource ) {
+            restapiResource.fields.forEach( field => {
                 if ( colId === field.name ) {
                     restapiField = field;
                 }

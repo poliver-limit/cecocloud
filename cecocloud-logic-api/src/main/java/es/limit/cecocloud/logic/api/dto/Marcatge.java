@@ -30,7 +30,10 @@ public class Marcatge extends AbstractIdentificableChild<Long, Long> {
 	@RestapiField(type = RestapiFieldType.DATETIME)
 	private Date data;
 	@NotNull
-	@RestapiField(type = RestapiFieldType.DATETIME)
+	@RestapiField(
+			type = RestapiFieldType.DATETIME,
+			disabledForCreate = true,
+			disabledForUpdate = true)
 	private Date dataCreacio;
 
 }

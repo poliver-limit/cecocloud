@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { MdcTextField } from '@angular-mdc/web';
 
 import { RestapiBaseFieldComponent } from '../../shared/restapi-form/restapi-base-field.component';
-import { RestapiResourceInfo, RestapiResourceField } from '../../shared/restapi/restapi-profile';
+import { RestapiResource, RestapiResourceField } from '../../shared/restapi/restapi-profile';
 
 @Component( {
     selector: 'companyia-nom',
@@ -26,7 +26,7 @@ import { RestapiResourceInfo, RestapiResourceField } from '../../shared/restapi/
 export class CompanyiesNomFieldComponent implements RestapiBaseFieldComponent {
 
     @Input() label: string;
-    @Input() resource: RestapiResourceInfo;
+    @Input() resource: RestapiResource;
     @Input() field: RestapiResourceField;
     @Input() formGroup: FormGroup;
 

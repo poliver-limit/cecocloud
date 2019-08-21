@@ -31,7 +31,7 @@ import { GenericResource } from '../restapi/restapi-generic.service';
 import { RestapiService } from '../restapi/restapi.service';
 import {
     RestapiProfile,
-    RestapiResourceInfo,
+    RestapiResource,
     RestapiResourceField,
     RestapiResourceGrid
 } from '../restapi/restapi-profile';
@@ -143,7 +143,7 @@ export class RestapiFormComponent implements OnInit {
     private description: string;
     private resourceInstance: any;
     private resourceInstancePk: any;
-    private restapiResource: RestapiResourceInfo;
+    private restapiResource: RestapiResource;
     private formGroup: FormGroup;
     private defaultFieldComponentFactory: ComponentFactory<RestapiDefaultFieldComponent>;
     private inputFields: RestapiBaseFieldComponent[];
@@ -234,7 +234,7 @@ export class RestapiFormComponent implements OnInit {
 
     refreshFields() {
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
-            this.restapiResource = restapiProfile.resourceInfo;
+            this.restapiResource = restapiProfile.resource;
             if ( this.restapiResource.grids && this.id ) {
                 this.showTabs = true;
                 this.grids = this.restapiResource.grids;

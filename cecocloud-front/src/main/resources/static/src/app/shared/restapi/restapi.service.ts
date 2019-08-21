@@ -5,7 +5,7 @@ import { Observable, EMPTY, of } from 'rxjs';
 import { RestService, Resource, HalParam } from 'angular4-hal';
 
 import { RestapiConfigService } from './restapi-config.service';
-import { RestapiProfile, RestapiResourceInfo } from './restapi-profile';
+import { RestapiProfile, RestapiResource } from './restapi-profile';
 
 @Injectable()
 export class RestapiService<T extends Resource> extends RestService<T> {
@@ -41,9 +41,9 @@ export class RestapiService<T extends Resource> extends RestService<T> {
         return halParams;
     }
 
-    public createFormGroup( resourceInstance: any, resourceInfo: RestapiResourceInfo, isCreate: boolean ): FormGroup {
+    public createFormGroup( resourceInstance: any, resource: RestapiResource, isCreate: boolean ): FormGroup {
         let formControls = {};
-        for ( let field of resourceInfo.fields ) {
+        for ( let field of resource.fields ) {
             let value;
             if ( resourceInstance ) {
                 value = resourceInstance[field.name];
