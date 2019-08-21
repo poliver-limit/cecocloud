@@ -34,8 +34,6 @@ import {
     RestapiResourceField,
     RestapiResourceGrid
 } from '../restapi/restapi-profile';
-import { RestapiFieldComponent } from './restapi-field.component';
-import { RestapiCustomComponent } from './restapi-custom.component';
 import { RestapiFormErrorsDialogComponent } from './restapi-form-errors-dialog.component';
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../screen-size.service';
 

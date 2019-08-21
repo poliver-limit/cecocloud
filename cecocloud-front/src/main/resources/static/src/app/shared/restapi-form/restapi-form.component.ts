@@ -35,8 +35,9 @@ import {
     RestapiResourceField,
     RestapiResourceGrid
 } from '../restapi/restapi-profile';
-import { RestapiFieldComponent } from './restapi-field.component';
-import { RestapiCustomComponent } from './restapi-custom.component';
+import { RestapiBaseFieldComponent } from './restapi-base-field.component';
+import { RestapiDefaultFieldComponent } from './restapi-default-field.component';
+import { RestapiCustomFieldComponent } from './restapi-custom-field.component';
 import { RestapiFormErrorsDialogComponent } from './restapi-form-errors-dialog.component';
 
 export interface FormConfig {
@@ -136,7 +137,7 @@ export class RestapiFormComponent implements OnInit {
     @Output() resourceChange: EventEmitter<any> = new EventEmitter();
 
     @ViewChild( 'fieldsContainer', { read: ViewContainerRef, static: false } ) fieldsContainer: ViewContainerRef;
-    @ContentChildren( RestapiCustomComponent ) customInputs: QueryList<RestapiCustomComponent>;
+    @ContentChildren( RestapiCustomFieldComponent ) customInputs: QueryList<RestapiCustomFieldComponent>;
     @ViewChild( 'formTabs', { static: false } ) formTabs: MdcTabBar;
 
     private description: string;
@@ -144,8 +145,8 @@ export class RestapiFormComponent implements OnInit {
     private resourceInstancePk: any;
     private restapiResource: RestapiResourceInfo;
     private formGroup: FormGroup;
-    private inputComponentFactory: ComponentFactory<RestapiFieldComponent>;
-    private inputFields: RestapiFieldComponent[];
+    private defaultFieldComponentFactory: ComponentFactory<RestapiDefaultFieldComponent>;
+    private inputFields: RestapiBaseFieldComponent[];
     private parentFromRoute: any;
 
     private showTabs: boolean = false;
@@ -261,42 +262,39 @@ export class RestapiFormComponent implements OnInit {
     createInputs( fields: RestapiResourceField[] ) {
         this.inputFields = [];
         if ( fields && fields.length ) {
-            fields.forEach( field => {
+            fields.forEach(( field: RestapiResourceField ) => {
                 if ( !field.hiddenInForm ) {
-                    let inputRef: ComponentRef<RestapiFieldComponent>;
+                    let inputRef: ComponentRef<RestapiBaseFieldComponent>;
                     if ( this.customInputs && this.customInputs.length ) {
-                        let customInput = this.customInputs
+                        let customInput: RestapiCustomFieldComponent = this.customInputs
                             .toArray()
-                            .find( function( customInput ) {
-                                return customInput.fieldName === field.name;
+                            .find( function( customInput: RestapiCustomFieldComponent ) {
+                                return customInput.name === field.name;
                             } );
                         if ( customInput ) {
-                            inputRef = this.inputComponentFactory.create( this.injector );
-                            customInput.contentRef.clear();
-                            customInput.contentRef.insert( inputRef.hostView );
-                            inputRef.instance.change.subscribe( newValue => {
-                                customInput.fieldChange.emit( newValue );
-                            } );
-                            inputRef.instance.click.subscribe( event => {
-                                customInput.fieldClick.emit( event );
-                            } );
+                            let customField: RestapiBaseFieldComponent = customInput.getContentField()
+                            if ( !customField ) {
+                                inputRef = this.defaultFieldComponentFactory.create( this.injector );
+                                customInput.contentRef.clear();
+                                customInput.contentRef.insert( inputRef.hostView );
+                                inputRef.instance.change.subscribe( newValue => {
+                                    customInput.fieldChange.emit( newValue );
+                                } );
+                                inputRef.instance.click.subscribe( event => {
+                                    customInput.fieldClick.emit( event );
+                                } );
+                            } else {
+                                this.configureBaseFieldComponent(customField, field);
+                                this.inputFields.push( customField );
+                            }
                         }
                     } else {
                         inputRef = this.fieldsContainer.createComponent(
-                            this.inputComponentFactory
+                            this.defaultFieldComponentFactory
                         );
                     }
                     if ( inputRef ) {
-                        inputRef.instance.field = field;
-                        inputRef.instance.resource = this.restapiResource;
-                        inputRef.instance.formGroup = this.formGroup;
-                        if ( this.config.fields ) {
-                            this.config.fields.forEach( fieldConfig => {
-                                if ( fieldConfig.name === field.name ) {
-                                    inputRef.instance.label = fieldConfig.label;
-                                }
-                            } );
-                        }
+                        this.configureBaseFieldComponent(inputRef.instance, field);
                         this.inputFields.push( inputRef.instance );
                     }
                 }
@@ -319,17 +317,30 @@ export class RestapiFormComponent implements OnInit {
         );
     }
 
+    configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField ) {
+        fieldComponent.field = field;
+        fieldComponent.resource = this.restapiResource;
+        fieldComponent.formGroup = this.formGroup;
+        if ( this.config.fields ) {
+            this.config.fields.forEach(( fieldConfig: FormFieldConfig ) => {
+                if ( fieldConfig.name === field.name ) {
+                    fieldComponent.label = fieldConfig.label;
+                }
+            } );
+        }
+    }
+
     processErrors( errorResponse: HttpErrorResponse ) {
         if ( errorResponse.error.errors ) {
             for ( let error of errorResponse.error.errors ) {
-                this.inputFields.forEach( inputField => {
+                this.inputFields.forEach(( inputField: RestapiBaseFieldComponent ) => {
                     if ( inputField.field.name === error.field ) {
                         inputField.setValid( false, error.defaultMessage );
                     }
                 } );
             }
             let isFirst = true;
-            this.inputFields.forEach( inputField => {
+            this.inputFields.forEach(( inputField: RestapiBaseFieldComponent ) => {
                 if ( isFirst ) {
                     inputField.focus();
                     isFirst = false;
@@ -341,8 +352,9 @@ export class RestapiFormComponent implements OnInit {
         }
     }
     resetFieldsValidation() {
-        this.inputFields.forEach( inputField => {
-            inputField.resetValidation();
+        this.inputFields.forEach(( inputField: RestapiBaseFieldComponent ) => {
+            //inputField.resetValidation();
+            inputField.setValid( true );
         } );
     }
 
@@ -392,8 +404,8 @@ export class RestapiFormComponent implements OnInit {
         private injector: Injector,
         private http: HttpClient,
         private translate: TranslateService ) {
-        this.inputComponentFactory = this.factoryResolver.resolveComponentFactory(
-            RestapiFieldComponent
+        this.defaultFieldComponentFactory = this.factoryResolver.resolveComponentFactory(
+            RestapiDefaultFieldComponent
         );
         this.formGroup = this.formBuilder.group( {} );
     }

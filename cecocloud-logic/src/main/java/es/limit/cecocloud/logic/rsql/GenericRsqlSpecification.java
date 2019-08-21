@@ -95,7 +95,7 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 			return builder.not(path.in(args));
 		case EQUAL_IGNORE_CASE:
 			if (argument instanceof String) {
-				return builder.like(builder.lower((Path<String>)path), argument.toString().replace('*', '%'));
+				return builder.like(builder.lower((Path<String>)path), argument.toString().toLowerCase().replace('*', '%'));
 			} else if (argument == null) {
 				return builder.isNull(path);
 			} else {

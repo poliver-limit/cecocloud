@@ -79,7 +79,6 @@ public class AuthServiceImpl implements AuthService {
 					"rexp=" + rexp + "): " +
 					"invalid rexp field");
 		}
-		System.out.println(">>> refreshExpirationDate: " + rexp + ", " + rexp * 1000L + ", " + System.currentTimeMillis());
 		if (System.currentTimeMillis() > rexp * 1000L) {
 			throw new InvalidTokenException(
 					token,

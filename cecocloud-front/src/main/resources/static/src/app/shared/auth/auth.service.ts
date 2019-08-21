@@ -43,8 +43,7 @@ export class AuthService {
         if ( authResponse !== undefined ) {
             let validationSession: AuthValidationSession = this.getValidationFromSessionStorage();
             if ( !validationSession ) {
-                console.info( 'Validació de token no trobada' );
-                //console.debug( 'Validant token d\'autenticació' );
+                //console.info( 'Validació de token no trobada' );
                 let checkUrl = 'api/auth/check/' + authResponse.token;
                 this.http.get( checkUrl ).subscribe(( validated: boolean ) => {
                     if ( !validated ) {
@@ -62,7 +61,7 @@ export class AuthService {
                         } );
                     } else {
                         this.propagateAuthResponseToSessionStorage( authResponse );
-                        console.info( 'Validació de token guardada' );
+                        //console.info( 'Validació de token guardada' );
                         //console.debug( 'Token vàlid' );
                     }
                 } );

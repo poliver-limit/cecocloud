@@ -14,7 +14,8 @@ import { RestapiFormComponent } from './restapi-form/restapi-form.component';
 import { RestapiFormHeaderComponent } from './restapi-form/restapi-form-header.component';
 import { RestapiFormMantenimentDirective } from './restapi-form/restapi-form-manteniment.directive';
 import { RestapiFormErrorsDialogComponent } from './restapi-form/restapi-form-errors-dialog.component';
-import { RestapiFieldComponent } from './restapi-form/restapi-field.component';
+import { RestapiDefaultFieldComponent } from './restapi-form/restapi-default-field.component';
+import { RestapiCustomFieldComponent } from './restapi-form/restapi-custom-field.component';
 import { RestapiLovComponent } from './restapi-lov/restapi-lov.component';
 import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.component';
 
@@ -40,7 +41,8 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RestapiFormHeaderComponent,
         RestapiFormMantenimentDirective,
         RestapiFormErrorsDialogComponent,
-        RestapiFieldComponent,
+        RestapiDefaultFieldComponent,
+        RestapiCustomFieldComponent,
         RestapiLovComponent,
         RestapiLovDialogComponent
     ],
@@ -48,10 +50,11 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         DatagridComponent,
         DatagridMantenimentDirective,
         RestapiFormComponent,
-        RestapiFormMantenimentDirective
+        RestapiCustomFieldComponent,
+        RestapiFormMantenimentDirective,
     ],
     entryComponents: [
-        RestapiFieldComponent,
+        RestapiDefaultFieldComponent,
         RestapiFormErrorsDialogComponent,
         RestapiLovDialogComponent
     ]

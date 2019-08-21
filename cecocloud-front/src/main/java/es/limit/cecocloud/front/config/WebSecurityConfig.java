@@ -52,12 +52,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.
 		cors().and().csrf().disable().
 		authorizeRequests().
-		antMatchers("/api/auth").permitAll().
-		antMatchers("/api/auth/**/*").permitAll().
+		antMatchers("/api/auth", "/api/auth/**/*").permitAll().
 		antMatchers("/api/registres/**/*").permitAll().
-		antMatchers("/api/mobile/marcatges").hasAuthority("MARCA").
-		antMatchers("/api/mobile/marcatges/**/*").hasAuthority("MARCA").
+		antMatchers("/api/usuaris", "/api/usuaris/**/*").hasAuthority("ADMIN").
+		antMatchers("/api/companyies", "/api/companyies/**/*").hasAuthority("ADMIN").
+		antMatchers("/api/empreses", "/api/empreses/**/*").hasAuthority("ADMIN").
+		antMatchers("/api/operaris", "/api/operaris/**/*").hasAuthority("ADMIN").
+		antMatchers("/api/marcatges", "/api/marcatges/**/*").hasAuthority("ADMIN").
 		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
+		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority("MARCA").
 		antMatchers("/api/**/*").authenticated().
 		anyRequest().permitAll().
 		and().
@@ -68,10 +71,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		/*auth.inMemoryAuthentication().
-		withUser("user").
-		password(passwordEncoder().encode("password")).
-		authorities("ROLE_USER");*/
 		auth.userDetailsService(
 				new UserDetailsService() {
 					@Override

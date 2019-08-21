@@ -7,7 +7,7 @@ import { AuthResponse } from '../../shared/auth/auth-response';
 @Component( {
     template: `
 <div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
-    <div mdcHeadline3>{{'app.titol'|translate}}</div>
+    <div mdcHeadline3><mdc-icon style="font-size:40px">cloud_queue</mdc-icon> {{'app.titol'|translate}}</div>
     <br/>
     <form (submit)="onSubmit($event)">
         <mdc-form-field fluid>

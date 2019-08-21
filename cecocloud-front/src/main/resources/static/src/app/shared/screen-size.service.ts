@@ -11,7 +11,7 @@ export class ScreenSizeChangeEvent {
 } )
 export class ScreenSizeService {
 
-    private static readonly SMALL_SCREEN_WIDTH: number = 600;
+    private static readonly SMALL_SCREEN_WIDTH: number = 900;
     private screenSizeChangeSubject = new Subject<ScreenSizeChangeEvent>();
     public small: boolean = false;
 
@@ -20,7 +20,7 @@ export class ScreenSizeService {
     }
 
     public onWindowResize( windowWidth: number ) {
-        this.small = windowWidth <= 600;
+        this.small = windowWidth <= ScreenSizeService.SMALL_SCREEN_WIDTH;
         this.screenSizeChangeSubject.next( {
             width: windowWidth,
             small: this.small

@@ -45,11 +45,11 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
         </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
 </mdc-top-app-bar>
-<div #container id="container" [ngClass]="{'topbarMargin': topbarVisible && !smallScreen, 'topbarSmallScreenMargin': topbarVisible && smallScreen}">
+<div #container id="container" [ngClass]="{'topbarMargin': topbarVisible && !smallToolbar, 'topbarSmallScreenMargin': topbarVisible && smallToolbar}">
     <mdc-drawer #drawer [drawer]="smallScreen ? 'modal' : 'fixed'" fixedAdjustElement="drawerContent" *ngIf="topbarVisible" (closed)="onDrawerClosed()">
         <mdc-drawer-content>
             <mdc-list #menuList>
-                <a mdc-list-item [routerLink]="item.route" *ngFor="let item of menuItems; let i = index">
+                <a mdc-list-item [routerLink]="item.route" *ngFor="let item of allowedMenuItems; let i = index">
                     <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
                 </a>
             </mdc-list>
@@ -68,17 +68,21 @@ export class AppComponent implements OnInit {
 
     private topbarVisible: boolean = false;
     private smallScreen: boolean = false;
+    private smallToolbar: boolean = false;
     private tokenPayload: AuthTokenPayload;
     private menuItems = [
-        { icon: 'people', label: 'Usuaris', route: '/usuaris' },
-        { icon: 'domain', label: 'Companyies', route: '/companyies' },
-        { icon: 'business_center', label: 'Empreses', route: '/empreses' },
-        { icon: 'people', label: 'Operaris', route: '/operaris' },
-        { icon: 'timer', label: 'Marcatges', route: '/marcatges' }
+        { icon: 'people', label: 'Usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
+        { icon: 'domain', label: 'Companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
+        { icon: 'business_center', label: 'Empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
+        { icon: 'people', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
+        { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN'] }
     ];
+    private allowedMenuItems = [];
     private menuSelectedIndex: number;
 
     ngOnInit() {
+        this.refreshAllowedMenuItems();
+        this.refreshSmallToolbar( window.innerWidth );
         this.screenSizeService.onWindowResize( window.innerWidth );
     }
 
@@ -95,7 +99,32 @@ export class AppComponent implements OnInit {
 
     @HostListener( 'window:resize', ['$event'] )
     onWindowResize( event ) {
+        this.refreshSmallToolbar( event.target.innerWidth );
         this.screenSizeService.onWindowResize( event.target.innerWidth );
+    }
+
+    refreshSmallToolbar(windowWidth: number) {
+        this.smallToolbar = windowWidth < 600;
+    }
+
+    refreshAllowedMenuItems() {
+        let roles = [];
+        if ( this.tokenPayload && this.tokenPayload.rol ) {
+            roles = this.tokenPayload.rol;
+        }
+        this.allowedMenuItems.splice( 0, this.allowedMenuItems.length );
+        this.menuItems.forEach( menuItem => {
+            if ( menuItem.onlyForRoles ) {
+                let allowed = menuItem.onlyForRoles.some( menuItemRole => {
+                    return roles.includes(menuItemRole);
+                } );
+                if (allowed) {
+                    this.allowedMenuItems.push( menuItem );
+                }
+            } else {
+                this.allowedMenuItems.push( menuItem );
+            }
+        } );
     }
 
     constructor(
@@ -106,6 +135,7 @@ export class AppComponent implements OnInit {
         // Manten actualitzada la informació de l'usuari autenticat
         this.tokenPayload = authService.getAuthTokenPayload();
         authService.authTokenChangeEvent.subscribe(( tokenPayload: AuthTokenPayload ) => {
+            this.refreshAllowedMenuItems();
             this.tokenPayload = tokenPayload;
         } );
         // Configura l'idioma per defecte
@@ -127,6 +157,7 @@ export class AppComponent implements OnInit {
                 if ( this.menuSelectedIndex && this.menulist ) {
                     this.menulist.setSelectedIndex( this.menuSelectedIndex );
                 }
+                this.drawer.open = false;
             } );
         } );
         // Es subscriu al subject de canvi de tamany de la pantalla

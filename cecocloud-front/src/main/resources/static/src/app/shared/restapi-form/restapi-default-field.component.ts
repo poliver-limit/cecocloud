@@ -7,6 +7,7 @@ import {
     RestapiResourceInfo,
     RestapiResourceField
 } from '../restapi/restapi-profile';
+import { RestapiBaseFieldComponent } from './restapi-base-field.component';
 import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
 
 @Component( {
@@ -108,7 +109,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
 </mdc-form-field>
 `
 } )
-export class RestapiFieldComponent implements OnInit {
+export class RestapiDefaultFieldComponent implements OnInit, RestapiBaseFieldComponent {
 
     @Input() resource: RestapiResourceInfo;
     @Input() field: RestapiResourceField;
@@ -147,27 +148,7 @@ export class RestapiFieldComponent implements OnInit {
         this.click.emit( event );
     }
 
-    getMask(): string {
-        this.field.decimalMaxLength = 15;
-        let integerMask = ( this.field.hasOwnProperty( 'maxLength' ) ) ? '9'.repeat( this.field.decimalMaxLength ) : '9*';
-        /*if (integerMask.length > 3) {
-            integerMask = integerMask.slice(0, integerMask.length - 3) + ',' + integerMask.slice(integerMask.length - 3);
-        }*/
-        let decimalMask = ( this.field.hasOwnProperty( 'decimalMaxLength' ) ) ? '.' + ( '0'.repeat( this.field.decimalMaxLength ) ) : '.0*';
-        let mask;
-        switch ( this.field.type ) {
-            case 'INTEGER':
-                mask = integerMask;
-                break;
-            case 'FLOAT':
-            case 'BIGDECIMAL':
-                mask = integerMask + decimalMask;
-                break;
-        }
-        return mask;
-    }
-
-    public setValid( valid: boolean, errorMessage: string = null ) {
+    public setValid( valid: boolean, errorMessage?: string ) {
         if ( this.mdcTextField ) {
             this.mdcTextField.valid = valid;
         } else if ( this.mdcTextarea ) {
@@ -205,8 +186,24 @@ export class RestapiFieldComponent implements OnInit {
         }
     }
 
-    public resetValidation() {
-        this.setValid( true );
+    getMask(): string {
+        this.field.decimalMaxLength = 15;
+        let integerMask = ( this.field.hasOwnProperty( 'maxLength' ) ) ? '9'.repeat( this.field.decimalMaxLength ) : '9*';
+        /*if (integerMask.length > 3) {
+            integerMask = integerMask.slice(0, integerMask.length - 3) + ',' + integerMask.slice(integerMask.length - 3);
+        }*/
+        let decimalMask = ( this.field.hasOwnProperty( 'decimalMaxLength' ) ) ? '.' + ( '0'.repeat( this.field.decimalMaxLength ) ) : '.0*';
+        let mask;
+        switch ( this.field.type ) {
+            case 'INTEGER':
+                mask = integerMask;
+                break;
+            case 'FLOAT':
+            case 'BIGDECIMAL':
+                mask = integerMask + decimalMask;
+                break;
+        }
+        return mask;
     }
 
     setFieldValid( field: ElementRef, valid: boolean ) {

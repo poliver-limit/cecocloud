@@ -57,7 +57,6 @@ export class RestapiFormErrorsDialogComponent {
 
     onActivatedTab( event ) {
         this.tabIndex = event.index;
-        console.log( '>>> onActivatedTab', event )
     }
 
     constructor( @Inject( MDC_DIALOG_DATA ) public data ) {
