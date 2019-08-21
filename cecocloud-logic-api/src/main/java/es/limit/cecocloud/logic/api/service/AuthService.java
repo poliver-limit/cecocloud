@@ -5,6 +5,7 @@ package es.limit.cecocloud.logic.api.service;
 
 import org.springframework.security.core.Authentication;
 
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
 
@@ -40,11 +41,15 @@ public interface AuthService {
 	 * 
 	 * @param token
 	 *            el token a refrescar.
+	 * @param session
+	 *            la sessió d'usuari per a ficar a dins el token.
 	 * @return el token d'autenticació generat.
 	 * @throws InvalidTokenException
 	 *             si el token no és vàlid per a ser refrescat.
 	 */
-	public String tokenRefresh(String token) throws InvalidTokenException;
+	public String tokenRefresh(
+			String token,
+			UserSession session) throws InvalidTokenException;
 
 	/**
 	 * Valida un token JWT.

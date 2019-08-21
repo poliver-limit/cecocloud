@@ -9,6 +9,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import es.limit.cecocloud.logic.api.dto.Rol;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
@@ -50,7 +51,8 @@ public class TokenHelper {
 
 	public String buildAuth(
 			Usuari usuari,
-			Collection<Rol> rols) {
+			Collection<Rol> rols,
+			UserSession session) {
 		return createNewToken(
 				usuari,
 				TOKEN_TYPE,
@@ -58,7 +60,8 @@ public class TokenHelper {
 				TOKEN_AUDIENCE_AUTH,
 				EXPIRATION_AUTH,
 				EXPIRATION_REFRESH,
-				rols);
+				rols,
+				session);
 	}
 
 	public String buildValidate(Usuari usuari) {
@@ -68,6 +71,7 @@ public class TokenHelper {
 				TOKEN_ISSUER,
 				TOKEN_AUDIENCE_VALIDATION,
 				EXPIRATION_VALIDATION,
+				null,
 				null,
 				null);
 	}
@@ -79,6 +83,7 @@ public class TokenHelper {
 				TOKEN_ISSUER,
 				TOKEN_AUDIENCE_RECOVERY,
 				EXPIRATION_RECOVERY,
+				null,
 				null,
 				null);
 	}
@@ -138,7 +143,8 @@ public class TokenHelper {
 			String audience,
 			long expiration,
 			Long refreshExpiration,
-			Collection<Rol> rols) {
+			Collection<Rol> rols,
+			UserSession session) {
 		Date expirationDate = new Date(System.currentTimeMillis() + expiration);
 		log.debug("Generant token JWT (" +
 				"usuariCodi=" + usuari.getCodi() + ", " +
@@ -160,6 +166,9 @@ public class TokenHelper {
 		}
 		if (rols != null) {
 			builder.claim("rol", rols);
+		}
+		if (session != null) {
+			builder.claim("session", session);
 		}
 		return builder.compact();
 	}

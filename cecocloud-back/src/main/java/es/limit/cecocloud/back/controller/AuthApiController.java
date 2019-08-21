@@ -3,17 +3,23 @@
  */
 package es.limit.cecocloud.back.controller;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.logic.api.dto.AuthResponse;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.AuthService;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -45,13 +51,23 @@ public class AuthApiController {
 			path = "/refresh",
 			produces = "application/json")
 	public ResponseEntity<AuthResponse> refresh(
-			@RequestParam(value = "token") final String token) {
+			@RequestBody @Valid final RefreshTokenMessage message) {
 		log.debug("Refrescant token JWT (" +
-				"token=" + token + ")");
+				"token=" + message.getToken() + "," +
+				"session=" + message.getSession() + ")");
 		return ResponseEntity.ok(
 				new AuthResponse(
-						authService.tokenRefresh(token),
+						authService.tokenRefresh(
+								message.getToken(),
+								message.getSession()),
 						"Bearer"));
+	}
+
+	@Getter @Setter
+	private static class RefreshTokenMessage {
+		@NotNull
+		private String token;
+		private UserSession session;
 	}
 
 }

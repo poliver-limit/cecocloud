@@ -42,7 +42,7 @@ public class JwtTokenTest {
 		System.out.println(">>> Token creat: " + token);
 		authService.tokenCheck(token);
 		System.out.println(">>> Token validat");
-		String refrescat = authService.tokenRefresh(token);
+		String refrescat = authService.tokenRefresh(token, null);
 		System.out.println(">>> Token refrescat: " + refrescat);
 	}
 
@@ -51,6 +51,6 @@ public class JwtTokenTest {
 		usuari.setCodi("admin");
 		usuari.setNom("Administrador");
 		usuari.setEmail("admin@limit.es");
-		return tokenHelper.buildAuth(usuari, Arrays.asList(Rol.ADMIN));
+		return tokenHelper.buildAuth(usuari, Arrays.asList(Rol.ADMIN), null);
 	}
 }

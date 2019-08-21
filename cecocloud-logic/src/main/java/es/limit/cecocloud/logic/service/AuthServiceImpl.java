@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.Usuari;
 import es.limit.cecocloud.logic.api.exception.InvalidTokenException;
 import es.limit.cecocloud.logic.api.service.AuthService;
@@ -60,15 +61,14 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	@Transactional(readOnly = true)
 	public String tokenCreate(String usuariCodi) {
-		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariCodi);
-		return tokenHelper.buildAuth(
-				usuari.get().getEmbedded(),
-				usuari.get().getRols());
+		return buildToken(usuariCodi, null);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public String tokenRefresh(String token) throws InvalidTokenException {
+	public String tokenRefresh(
+			String token,
+			UserSession session) throws InvalidTokenException {
 		Jws<Claims> parsedToken = tokenHelper.validate(token, true);
 		Integer rexp = (Integer)parsedToken.getBody().get("rexp");
 		if (rexp == null) {
@@ -91,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
 		String usuariCodi = parsedToken.getBody().getSubject();
 		Usuari usuari = getUsuariForAuthentication(usuariCodi);
 		if (usuari != null) {
-			return tokenCreate(usuariCodi);
+			return buildToken(usuariCodi, session);
 		} else {
 			throw new InvalidTokenException(token, "Request to refresh token failed (token=" + token + ", user=" + usuariCodi + "): user not eligible for authentication");
 		}
@@ -126,6 +126,16 @@ public class AuthServiceImpl implements AuthService {
 					orikaMapperFacade);
 		}
 		return dtoConverter;
+	}
+
+	private String buildToken(
+			String usuariCodi,
+			UserSession session) {
+		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariCodi);
+		return tokenHelper.buildAuth(
+				usuari.get().getEmbedded(),
+				usuari.get().getRols(),
+				session);
 	}
 
 }
