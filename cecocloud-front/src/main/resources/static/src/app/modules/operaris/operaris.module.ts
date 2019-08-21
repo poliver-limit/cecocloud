@@ -11,8 +11,8 @@ import { OperarisService } from './operaris.service';
 @NgModule( {
     imports: [
         CommonModule,
-        MantenimentModule,
         MaterialModule,
+        MantenimentModule,
         RouterModule.forChild( [
             { path: '', component: OperarisGridComponent },
             { path: 'create', component: OperarisFormComponent },

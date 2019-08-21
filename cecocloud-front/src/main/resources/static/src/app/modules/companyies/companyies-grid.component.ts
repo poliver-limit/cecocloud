@@ -12,8 +12,7 @@ import { CompanyiesService } from './companyies.service';
 export class CompanyiesGridComponent {
 
     private datagridConfig = {
-        editable: true,
-        pagination: false
+        editable: true
     };
 
     constructor(

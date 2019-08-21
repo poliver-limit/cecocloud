@@ -11,8 +11,8 @@ import { MarcatgesService } from './marcatges.service';
 @NgModule( {
     imports: [
         CommonModule,
-        MantenimentModule,
         MaterialModule,
+        MantenimentModule,
         RouterModule.forChild( [
             { path: '', component: MarcatgesGridComponent },
             { path: 'create', component: MarcatgesFormComponent },

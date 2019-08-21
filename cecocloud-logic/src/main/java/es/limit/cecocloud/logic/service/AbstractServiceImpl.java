@@ -382,11 +382,41 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 
 	private Pageable processPageable(Pageable pageable) {
 		List<Order> orders = new ArrayList<Order>();
+		Field[] dtoFields = getDtoClass().getDeclaredFields();
+		List<ProfileResourceField> fields = ProfileServiceImpl.getFields(getDtoClass());
 		for (Order order: pageable.getSort()) {
-			if (order.isAscending()) {
-				orders.add(Order.asc("embedded_" + order.getProperty()));
+			boolean isEmbedded = true;
+			for (Field field: dtoFields) {
+				if (field.getName().equals(order.getProperty())) {
+					if (field.getType().isAssignableFrom(GenericReference.class) || Identificable.class.isAssignableFrom(field.getType())) {
+						isEmbedded = false;
+					}
+					break;
+				}
+			}
+			String property;
+			if (isEmbedded) {
+				property = "embedded_" + order.getProperty();
 			} else {
-				orders.add(Order.desc("embedded_" + order.getProperty()));
+				String descriptionField = null;
+				for (ProfileResourceField field: fields) {
+					if (field.getName().equals(order.getProperty())) {
+						if (RestapiFieldType.LOV.equals(field.getType())) {
+							descriptionField = field.getLovDescriptionField();
+						}
+						break;
+					}
+				}
+				if (descriptionField != null) {
+					property = order.getProperty() + "_embedded_" + descriptionField;
+				} else {
+					property = order.getProperty();
+				}
+			}
+			if (order.isAscending()) {
+				orders.add(Order.asc(property));
+			} else {
+				orders.add(Order.desc(property));
 			}
 		}
 		return PageRequest.of(

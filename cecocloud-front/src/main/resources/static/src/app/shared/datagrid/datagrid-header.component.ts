@@ -203,8 +203,9 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
             this.anyRowSelected = event.api.getSelectedRows().length > 0;
         } );
         // Actualitza la informacio de paginació
-        this.paginationActive = params.context.config.pagination;
+        this.paginationActive = params.context.gridComponent.gridOptions.pagination;
         this.paginationSubscription = params.context.gridComponent.paginationSubject.subscribe( event => {
+            this.paginationActive = params.context.gridComponent.gridOptions.pagination;
             let currentPage = event.api.paginationGetCurrentPage();
             let pageSize = event.api.paginationGetPageSize();
             this.paginationFirstRow = currentPage * pageSize + 1;
@@ -267,7 +268,6 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     }
 
     constructor(
-        private translate: TranslateService ) {
-    }
+        private translate: TranslateService ) { }
 
 }

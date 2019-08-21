@@ -7,21 +7,17 @@ import { MaterialModule } from '../../shared/material.module';
 import { MarcatgeRoutingModule } from './marcatge.routing';
 
 import { CreateMarcatgeComponent } from './createMarcatge.component';
-//import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule } from '@angular/forms';
-//import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
-@NgModule({
+@NgModule( {
     imports: [
         CommonModule,
         TranslateModule,
-       FormsModule,
-        MarcatgeRoutingModule,
-        //NgxMaterialTimepickerModule,
         MaterialModule,
-        //BsDatepickerModule.forRoot()
-        ],
+        FormsModule,
+        MarcatgeRoutingModule
+    ],
     declarations: [
         CreateMarcatgeComponent]
-})
+} )
 export class MarcatgeModule { }

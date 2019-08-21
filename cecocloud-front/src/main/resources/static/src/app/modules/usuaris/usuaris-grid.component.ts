@@ -12,8 +12,7 @@ import { UsuarisService, Usuari } from './usuaris.service';
 export class UsuarisGridComponent implements OnInit {
 
     private datagridConfig = {
-        editable: true,
-        pagination: false
+        editable: true
     };
 
     ngOnInit() {

@@ -11,8 +11,8 @@ import { UsuarisService } from './usuaris.service';
 @NgModule( {
     imports: [
         CommonModule,
-        MantenimentModule,
         MaterialModule,
+        MantenimentModule,
         RouterModule.forChild( [
             { path: '', component: UsuarisGridComponent },
             { path: 'create', component: UsuarisFormComponent },

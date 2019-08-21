@@ -118,6 +118,12 @@ public class AuthServiceImpl implements AuthService {
 		return new UsernamePasswordAuthenticationToken(usuariCodi, null, authorities);
 	}
 
+	@Override
+	public UserSession getUserSession(String token) {
+		Jws<Claims> parsedToken = tokenHelper.validate(token, false);
+		return (UserSession)parsedToken.getBody().get("session");
+	}
+
 	protected DtoConverter<Usuari, UsuariEntity, Long> getDtoConverter() {
 		if (dtoConverter == null) {
 			dtoConverter = new DtoConverter<Usuari, UsuariEntity, Long>(

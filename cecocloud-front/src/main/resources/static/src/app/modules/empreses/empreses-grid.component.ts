@@ -12,8 +12,6 @@ import { EmpresesService } from './empreses.service';
 export class EmpresesGridComponent {
 
     private datagridConfig = {
-        editable: true,
-        pagination: false
     };
 
     constructor(

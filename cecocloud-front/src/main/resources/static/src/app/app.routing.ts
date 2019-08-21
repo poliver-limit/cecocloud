@@ -15,19 +15,24 @@ export const routes: Routes = [{
     loadChildren: './modules/registre/registre.module#RegistreModule'
 }, {
     path: 'usuaris',
-    loadChildren: './modules/usuaris/usuaris.module#UsuarisModule'
+    loadChildren: './modules/usuaris/usuaris.module#UsuarisModule',
+    canActivate: [AuthGuard]
 }, {
     path: 'companyies',
-    loadChildren: './modules/companyies/companyies.module#CompanyiesModule'
+    loadChildren: './modules/companyies/companyies.module#CompanyiesModule',
+    canActivate: [AuthGuard]
 }, {
     path: 'empreses',
-    loadChildren: './modules/empreses/empreses.module#EmpresesModule'
+    loadChildren: './modules/empreses/empreses.module#EmpresesModule',
+    canActivate: [AuthGuard]
 }, {
     path: 'operaris',
-    loadChildren: './modules/operaris/operaris.module#OperarisModule'
+    loadChildren: './modules/operaris/operaris.module#OperarisModule',
+    canActivate: [AuthGuard]
 }, {
     path: 'marcatges',
-    loadChildren: './modules/marcatges/marcatges.module#MarcatgesModule'
+    loadChildren: './modules/marcatges/marcatges.module#MarcatgesModule',
+    canActivate: [AuthGuard]
 }, {
     path: '**',
     redirectTo: ''

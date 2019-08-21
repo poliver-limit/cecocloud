@@ -9,8 +9,8 @@ import { LoginComponent } from './login.component';
 @NgModule( {
     imports: [
         CommonModule,
-        MaterialModule,
         TranslateModule,
+        MaterialModule,
         RouterModule.forChild( [
             { path: '', component: LoginComponent }
         ] )

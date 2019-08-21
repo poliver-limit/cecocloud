@@ -12,8 +12,8 @@ import { ValidateComponent } from './validate.component';
 @NgModule( {
     imports: [
         CommonModule,
-        MaterialModule,
         TranslateModule,
+        MaterialModule,
         RegistreRoutingModule
     ],
     declarations: [

@@ -60,6 +60,8 @@
 	"validate.button.validate": "Validar",
 	"validate.notify.validate": "Correcte",
 
+	"home.salutacio": "Benvingut",
+
 	"resource.usuari": "Usuari",
 	"resource.usuari.plural": "Usuaris",
 	"resource.usuari.field.codi": "Codi",

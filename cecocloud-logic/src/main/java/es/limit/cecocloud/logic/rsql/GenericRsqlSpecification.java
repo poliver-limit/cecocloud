@@ -67,7 +67,11 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 		switch (RsqlSearchOperation.getSimpleOperator(operator)) {
 		case EQUAL:
 			if (argument instanceof String) {
-				return builder.like((Path<String>)path, argument.toString().replace('*', '%'));
+				if (argument.toString().contains("*")) {
+					return builder.like((Path<String>)path, argument.toString().replace('*', '%'));
+				} else {
+					return builder.equal((Path<String>)path, argument.toString());
+				}
 			} else if (argument == null) {
 				return builder.isNull(path);
 			} else {
@@ -75,7 +79,11 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 			}
 		case NOT_EQUAL:
 			if (argument instanceof String) {
-				return builder.notLike((Path<String>)path, argument.toString().replace('*', '%'));
+				if (argument.toString().contains("*")) {
+					return builder.notLike((Path<String>)path, argument.toString().replace('*', '%'));
+				} else {
+					return builder.notEqual((Path<String>)path, argument.toString());
+				}
 			} else if (argument == null) {
 				return builder.isNotNull(path);
 			} else {
@@ -95,7 +103,11 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 			return builder.not(path.in(args));
 		case EQUAL_IGNORE_CASE:
 			if (argument instanceof String) {
-				return builder.like(builder.lower((Path<String>)path), argument.toString().toLowerCase().replace('*', '%'));
+				if (argument.toString().contains("*")) {
+					return builder.like(builder.lower((Path<String>)path), argument.toString().toLowerCase().replace('*', '%'));
+				} else {
+					return builder.equal(builder.lower((Path<String>)path), argument.toString().toLowerCase());
+				}
 			} else if (argument == null) {
 				return builder.isNull(path);
 			} else {

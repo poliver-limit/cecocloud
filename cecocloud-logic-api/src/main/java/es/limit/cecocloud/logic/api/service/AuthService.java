@@ -72,4 +72,15 @@ public interface AuthService {
 	 */
 	public Authentication tokenToAuthentication(String token) throws InvalidTokenException;
 
+	/**
+	 * Retorna la informació de sessió continguda a dins el token JWT.
+	 * 
+	 * @param token
+	 *            el token a comprovar.
+	 * @return la informació de sessió.
+	 * @throws InvalidTokenException
+	 *             si el token no és vàlid.
+	 */
+	public UserSession getUserSession(String token) throws InvalidTokenException;
+
 }

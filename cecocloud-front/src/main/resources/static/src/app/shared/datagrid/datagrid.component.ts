@@ -36,6 +36,7 @@ import {
     RestapiResource,
     RestapiResourceField
 } from '../restapi/restapi-profile';
+import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 import { DatagridHeaderComponent } from './datagrid-header.component';
 import { DatagridLinkCellRenderer } from './datagrid-link-cell-renderer.component';
 
@@ -98,9 +99,6 @@ export class DatagridComponent implements OnInit {
     private paginationSubject = new Subject<any>();
     private scrollSubject = new Subject<any>();
 
-    private gridOptions: GridOptions;
-    private hasMantenimentDirective: boolean;
-    private quickFilterValue: string;
     // Aparença
     private toolbarShown = false;
     private theme = 'ag-theme-material'; // 'ag-theme-balham' o 'ag-theme-material'
@@ -113,6 +111,12 @@ export class DatagridComponent implements OnInit {
     private marginBottom = 0;
     private styleMarginBottom = this.marginBottom + 'px';
     private rowDetailPadding = 20;
+
+    // Altres
+    private gridOptions: GridOptions;
+    private hasMantenimentDirective: boolean;
+    private quickFilterValue: string;
+    private mobileScreen: boolean;
 
     ngOnInit() {
         this.createGridOptions( this.config ).subscribe(( gridOptions: GridOptions ) => {
@@ -132,14 +136,14 @@ export class DatagridComponent implements OnInit {
             let refreshContext = refreshApi['gridOptionsWrapper'].gridOptions.context;
             let refreshConfig = refreshContext.config;
             let parentPk = refreshContext.gridComponent.getParentPk( refreshApi );
+            refreshContext.gridComponent.configPagination( refreshConfig, refreshContext.gridComponent.gridOptions );
             if ( refreshConfig.detailConfig && refreshContext.isRoot ) {
                 refreshContext.gridComponent.refreshDetailRowData( refreshContext.restapiService, parentPk ).subscribe( resources => {
                     refreshApi.setRowData( resources );
                 } );
             } else {
                 refreshContext.datasourceParentPk = parentPk;
-                refreshApi.setDatasource(
-                    refreshContext.gridComponent.createDataSource( refreshContext.restapiService ) );
+                refreshApi.setDatasource(refreshContext.gridComponent.createDataSource( refreshContext.restapiService ) );
             }
             //this.messageService.sendRowEditError( { api: refreshApi } );
         }
@@ -398,12 +402,7 @@ export class DatagridComponent implements OnInit {
                     }
                 } else {
                     gridOptions.rowModelType = 'infinite';
-                    if ( gridConfig.pagination ) {
-                        gridOptions.pagination = true;
-                        //gridOptions.paginationPageSize = 100;
-                        gridOptions.paginationAutoPageSize = true;
-                        gridOptions.suppressPaginationPanel = true;
-                    }
+                    this.configPagination( gridConfig, gridOptions );
                     gridOptions.context.datasourceParentPk = gridConfig.parent;
                     gridOptions.datasource = this.createDataSource( restapiService );
                 }
@@ -757,6 +756,24 @@ export class DatagridComponent implements OnInit {
         }
     }
 
+    configPagination(
+        gridConfig: DatagridConfig,
+        gridOptions: GridOptions ) {
+        let paginationEnabled: boolean;
+        if ( gridConfig.pagination === undefined ) {
+            paginationEnabled = !this.mobileScreen;
+        } else {
+            paginationEnabled = gridConfig.pagination;
+        }
+        if ( paginationEnabled ) {
+            gridOptions.pagination = true;
+            gridOptions.paginationAutoPageSize = true;
+            gridOptions.suppressPaginationPanel = true;
+        } else {
+            gridOptions.pagination = false;
+        }
+    }
+
     valueGetter( params: ValueGetterParams ) {
         return ( params.data ) ? params.data[params.column.getColId()] : undefined;
     }
@@ -787,7 +804,7 @@ export class DatagridComponent implements OnInit {
     valueFormatterSingle( field: RestapiResourceField, value: any ) {
         if ( field.type === 'DATE' || field.type === 'DATETIME' ) {
             if ( value ) {
-                return this.formatDate( value, (field.type === 'DATETIME') );
+                return this.formatDate( value, ( field.type === 'DATETIME' ) );
             } else {
                 return undefined;
             }
@@ -1069,35 +1086,12 @@ export class DatagridComponent implements OnInit {
 
     constructor(
         private injector: Injector,
-        //private messageService: DatagridMessageService,
         private translate: TranslateService,
-        private sanitizer: DomSanitizer ) {
-        /*this.filtreSubscription = this.messageService.getFilter().subscribe(
-            ( message: FilterMessage ) => {
-                let context = message.api['gridOptionsWrapper'].gridOptions.context;
-                context.filter = message.filter;
-                this.refreshInternal();
-            } );
-        this.rowErrorSubscription = this.messageService.getRowEditError().subscribe(
-            rowEditError => {
-                if ( rowEditError && rowEditError.error ) {
-                    this.gridOptions.suppressClickEdit = true;
-                } else {
-                    this.gridOptions.suppressClickEdit = false;
-                }
-            } );
-        this.messageService.getCellValueChange().subscribe(
-            cellValueChange => {
-                const parentPk = cellValueChange.context.gridComponent.getParentPk( cellValueChange.api );
-                const rowData = cellValueChange.api.getDisplayedRowAtIndex( cellValueChange.rowIndex ).data;
-                cellValueChange.context.gridComponent.cellValueChanged.emit( {
-                    fieldName: cellValueChange.fieldName,
-                    value: cellValueChange.value,
-                    rowData: rowData,
-                    formGroup: cellValueChange.formGroup,
-                    resourceName: cellValueChange.context.config.resourceName,
-                    parentPk: parentPk
-                } );
-            } );*/
+        private sanitizer: DomSanitizer,
+        private screenSizeService: ScreenSizeService ) {
+        this.mobileScreen = this.screenSizeService.isMobile();
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.mobileScreen = event.mobile
+        } );
     }
 }
