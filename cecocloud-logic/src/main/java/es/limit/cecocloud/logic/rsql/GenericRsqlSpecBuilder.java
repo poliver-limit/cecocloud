@@ -17,7 +17,7 @@ import cz.jirutka.rsql.parser.ast.Node;
 /**
  * 
  * 
- * @author josepg
+ * @author Limit Tecnologies <limit@limit.es>
  */
 public class GenericRsqlSpecBuilder<T> {
 

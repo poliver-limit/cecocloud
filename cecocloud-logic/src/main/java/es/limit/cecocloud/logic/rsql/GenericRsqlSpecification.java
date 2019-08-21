@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 
  * 
- * @author josepg
+ * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
 @SuppressWarnings("serial")

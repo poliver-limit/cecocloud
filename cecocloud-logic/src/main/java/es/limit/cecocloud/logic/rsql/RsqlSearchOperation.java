@@ -11,7 +11,7 @@ import cz.jirutka.rsql.parser.ast.RSQLOperators;
 /**
  * 
  * 
- * @author josepg
+ * @author Limit Tecnologies <limit@limit.es>
  */
 public enum RsqlSearchOperation {
 

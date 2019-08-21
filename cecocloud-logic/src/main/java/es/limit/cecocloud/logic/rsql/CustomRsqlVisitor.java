@@ -13,7 +13,7 @@ import cz.jirutka.rsql.parser.ast.RSQLVisitor;
 /**
  * 
  * 
- * @author josepg
+ * @author Limit Tecnologies <limit@limit.es>
  */
 public class CustomRsqlVisitor<T> implements RSQLVisitor<Specification<T>, Void> {
 
