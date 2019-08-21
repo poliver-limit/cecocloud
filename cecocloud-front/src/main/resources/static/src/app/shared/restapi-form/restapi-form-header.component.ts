@@ -74,7 +74,7 @@ export interface FormGridConfig {
 </mdc-top-app-bar-->
 <div class="page-header">
     <div class="header-first-row">
-        <div class="mant-goback" *ngIf="smallScreen">
+        <div class="mant-goback" *ngIf="mobileScreen">
             <button mdc-icon-button (click)="onButtonCancelClick()" class="header-button-small"><mdc-icon>arrow_back</mdc-icon></button>
         </div>
         <div class="mant-headline" mdcHeadline6>
@@ -91,7 +91,7 @@ export interface FormGridConfig {
                     <mdc-icon>save_alt</mdc-icon>
                     <span mdcButtonLabel>{{'component.restapi.form.header.button.guardar'|translate}}</span>
                 </a>&nbsp;
-                <a mdc-button dense *ngIf="!smallScreen" (click)="onButtonCancelClick()">
+                <a mdc-button dense *ngIf="!mobileScreen" (click)="onButtonCancelClick()">
                     <mdc-icon>arrow_back</mdc-icon>
                     <span mdcButtonLabel>{{'component.restapi.form.header.button.descartar'|translate}}</span>
                 </a>
@@ -203,7 +203,7 @@ export class RestapiFormHeaderComponent {
     @Output() actionDelete: EventEmitter<any> = new EventEmitter();
 
     private title: string;
-    private smallScreen: boolean = false;
+    private mobileScreen;
 
     onButtonSaveClick() {
         this.actionSave.emit();
@@ -249,9 +249,9 @@ export class RestapiFormHeaderComponent {
         private translate: TranslateService,
         private dialog: MdcDialog,
         private screenSizeService: ScreenSizeService ) {
-        this.smallScreen = this.screenSizeService.isSmall();
+        this.mobileScreen = this.screenSizeService.isMobile();
         this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
-            this.smallScreen = event.small
+            this.mobileScreen = event.mobile
         } );
     }
 

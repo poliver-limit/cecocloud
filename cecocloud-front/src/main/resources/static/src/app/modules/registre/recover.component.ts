@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
-import { RegistreService } from '../registre/registre.service';
 import { TranslateService } from '@ngx-translate/core';
+
+import { RegistreService } from '../registre/registre.service';
+import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white">
+<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
     <div mdcHeadline5>{{'recover.titol'|translate}}</div>
-    <br/>
     <br/>
     <form (submit)="onSubmit($event)">
         <mdc-form-field fluid>
@@ -24,13 +25,29 @@ import { TranslateService } from '@ngx-translate/core';
         </div>
     </form>
 </div>
-`
+`,
+    styles: [`
+.formContentDesktop {
+    padding: 2em;
+    background-color: white;
+    width: 450px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+}
+.formContentMobile {
+    padding: 2em;
+    background-color: white;
+}
+.formTitle {
+    text-align: center;
+}
+`]
 } )
 export class RecoverComponent {
 
     private email: string;
-
     private valid: boolean = true;
+    private mobileScreen: boolean;
 
     onEmailFieldInput( value ) {
         this.email = value;
@@ -39,21 +56,19 @@ export class RecoverComponent {
     onRecuperarButtonClick() {
         this.valid = true;
         this.registreService.contrasenyaRecover(
-            this.email).subscribe(
-            (response) => {
+            this.email ).subscribe(( response ) => {
                 this.notify_simple();
-                this.router.navigate(['login']);
-            },
-            err => {
+                this.router.navigate( ['login'] );
+            }, err => {
                 this.valid = false;
-            });
+            } );
     }
 
     notify_simple() {
-        const snackbarRef = this.snackbar.open(this.translate.instant('recover.notify.recover'));
-        snackbarRef.afterDismiss().subscribe(reason => {
-            console.log(reason);
-        });
+        const snackbarRef = this.snackbar.open( this.translate.instant( 'recover.notify.recover' ) );
+        snackbarRef.afterDismiss().subscribe( reason => {
+            console.log( reason );
+        } );
     }
 
     onCancelButtonClick() {
@@ -64,12 +79,16 @@ export class RecoverComponent {
         event.preventDefault();
     }
 
-    constructor( 
-        private router: Router ,
+    constructor(
+        private router: Router,
         private snackbar: MdcSnackbar,
         private registreService: RegistreService,
-        private translate: TranslateService) {
-
+        private translate: TranslateService,
+        private screenSizeService: ScreenSizeService ) {
+        this.mobileScreen = this.screenSizeService.isMobile();
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.mobileScreen = event.mobile
+        } );
     }
 
 }

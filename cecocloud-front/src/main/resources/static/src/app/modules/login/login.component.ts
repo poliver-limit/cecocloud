@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../shared/auth/auth.service';
 import { AuthResponse } from '../../shared/auth/auth-response';
+import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
-    <div mdcHeadline3><mdc-icon style="font-size:40px">cloud_queue</mdc-icon> {{'app.titol'|translate}}</div>
+<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
+    <div class="formTitle" mdcHeadline3><mdc-icon style="font-size:40px">cloud_queue</mdc-icon>&nbsp;{{'app.titol'|translate}}</div>
     <br/>
     <form (submit)="onSubmit($event)">
         <mdc-form-field fluid>
@@ -27,13 +28,30 @@ import { AuthResponse } from '../../shared/auth/auth-response';
             <button mdc-button primary (click)="onEntrarButtonClick($event)">{{'login.button.entrar'|translate}}</button>
         </div>
     </form>
-</div>`
+</div>`,
+    styles: [`
+.formContentDesktop {
+    padding: 2em;
+    background-color: white;
+    width: 450px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+}
+.formContentMobile {
+    padding: 2em;
+    background-color: white;
+}
+.formTitle {
+    text-align: center;
+}
+`]
 } )
 export class LoginComponent {
 
     private user: string;
     private pass: string;
     private valid: boolean = true;
+    private mobileScreen: boolean;
 
     onUserFieldInput( value ) {
         this.user = value;
@@ -61,6 +79,12 @@ export class LoginComponent {
 
     constructor(
         private authService: AuthService,
-        private router: Router ) { }
+        private router: Router,
+        private screenSizeService: ScreenSizeService ) {
+        this.mobileScreen = this.screenSizeService.isMobile();
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.mobileScreen = event.mobile
+        } );
+    }
 
 }

@@ -4,10 +4,11 @@ import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 
 import { RegistreService } from '../registre/registre.service';
+import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
-@Component({
+@Component( {
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white;">
+<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
     <div mdcHeadline5>{{'create.titol'|translate}}</div>
     <br/>
     <form (submit)="onSubmit($event)">
@@ -28,21 +29,36 @@ import { RegistreService } from '../registre/registre.service';
         </div>
     </form>
 </div>
-`
-})
-
+`,
+    styles: [`
+.formContentDesktop {
+    padding: 2em;
+    background-color: white;
+    width: 450px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+}
+.formContentMobile {
+    padding: 2em;
+    background-color: white;
+}
+.formTitle {
+    text-align: center;
+}
+`]
+} )
 export class CreateComponent {
 
     private nom: string;
     private email: string;
     private codi: string;
-
     private valid: boolean = true;
+    private mobileScreen: boolean;
 
-    onNomFieldInput(value) {
+    onNomFieldInput( value ) {
         this.nom = value;
     }
-    onEmailFieldInput(value) {
+    onEmailFieldInput( value ) {
         this.email = value;
         this.codi = value;
     }
@@ -52,27 +68,25 @@ export class CreateComponent {
         this.registreService.create(
             this.codi,
             this.email,
-            this.nom).subscribe(
-                (response) => {
-                    this.notify_simple();
-                    this.router.navigate(['login']);
-                },
-                err => {
-                    this.valid = false;
-                });
+            this.nom ).subscribe(( response ) => {
+                this.notify_simple();
+                this.router.navigate( ['login'] );
+            }, err => {
+                this.valid = false;
+            } );
     }
 
     notify_simple() {
-        const snackbarRef = this.snackbar.open(this.translate.instant('create.notify.create'));
-        snackbarRef.afterDismiss().subscribe(reason => {
-        });
+        const snackbarRef = this.snackbar.open( this.translate.instant( 'create.notify.create' ) );
+        snackbarRef.afterDismiss().subscribe( reason => {
+        } );
     }
 
     onCancelButtonClick() {
-        this.router.navigate(['login']);
+        this.router.navigate( ['login'] );
     }
 
-    onSubmit(event) {
+    onSubmit( event ) {
         event.preventDefault();
     }
 
@@ -80,6 +94,12 @@ export class CreateComponent {
         private registreService: RegistreService,
         private router: Router,
         private snackbar: MdcSnackbar,
-        private translate: TranslateService) { }
+        private translate: TranslateService,
+        private screenSizeService: ScreenSizeService ) {
+        this.mobileScreen = this.screenSizeService.isMobile();
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.mobileScreen = event.mobile
+        } );
+    }
 
 }

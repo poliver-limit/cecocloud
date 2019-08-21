@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { MdcSnackbar } from '@angular-mdc/web';
-import { RegistreService } from '../registre/registre.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MdcSnackbar } from '@angular-mdc/web';
 
-@Component({
+import { RegistreService } from '../registre/registre.service';
+import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
+
+@Component( {
     template: `
-<div mdcBody1 mdcElevation="5" class="centered" style="width: 400px; padding: 2em; background-color: white">
-    <div mdcHeadline4>{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</div>
+<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
+    <div mdcHeadline5>{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</div>
     <form (submit)="onSubmit($event)">
         <p>{{'validate.label.nom'|translate}} : {{tokenPayload.name}}</p>
         <p>{{'validate.label.usuari'|translate}} : {{tokenPayload.sub}}</p>
@@ -29,49 +30,64 @@ import { TranslateService } from '@ngx-translate/core';
         </div>
     </form>
 </div>
-`
-})
+`,
+    styles: [`
+.formContentDesktop {
+    padding: 2em;
+    background-color: white;
+    width: 450px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+}
+.formContentMobile {
+    padding: 2em;
+    background-color: white;
+}
+.formTitle {
+    text-align: center;
+}
+`]
+} )
 export class ValidateComponent {
 
     private token: string;
     private tokenPayload: any;
     private contrasenya: string;
     private contrasenya2: string;
-
     private valid: boolean = true;
+    private mobileScreen: boolean;
 
-
-
-    onContrasenyaFieldInput(value) {
+    onContrasenyaFieldInput( value ) {
         this.contrasenya = value;
     }
-    onRepContrasenyaFieldInput(value) {
+
+    onRepContrasenyaFieldInput( value ) {
         this.contrasenya2 = value;
     }
 
     onValidarButtonClick() {
         this.valid = true;
-        this.registreService.validate(this.contrasenya, this.contrasenya2, this.token).subscribe(
-            (response) => {
-                this.notify_simple();
-                this.router.navigate(['login']);
+        this.registreService.validate( this.contrasenya, this.contrasenya2, this.token ).subscribe(
+            ( response ) => {
+                this.notifiy();
+                this.router.navigate( ['login'] );
             },
-            (error) => {
+            ( error ) => {
                 this.valid = false;
-            });
+            } );
     }
 
-    notify_simple() {
-        const snackbarRef = this.snackbar.open(this.translate.instant('validate.notify.validate'));
-        snackbarRef.afterDismiss().subscribe(reason => {
-        });
+    notifiy() {
+        const snackbarRef = this.snackbar.open( this.translate.instant( 'validate.notify.validate' ) );
+        snackbarRef.afterDismiss().subscribe( reason => {
+        } );
     }
 
     onCancelButtonClick() {
-        this.router.navigate(['login'])
+        this.router.navigate( ['login'] )
     }
 
-    onSubmit(event) {
+    onSubmit( event ) {
         event.preventDefault();
     }
 
@@ -80,15 +96,18 @@ export class ValidateComponent {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private snackbar: MdcSnackbar,
-        private translate: TranslateService) {
-        this.activatedRoute.params.subscribe(params => {
+        private translate: TranslateService,
+        private screenSizeService: ScreenSizeService ) {
+        this.activatedRoute.params.subscribe( params => {
             this.token = params['token'];
-            let base64Url = this.token.split('.')[1];
-            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            this.tokenPayload = JSON.parse(atob(base64));
-            console.log('>>> tokenPayload', this.tokenPayload)
-        });
-
+            let base64Url = this.token.split( '.' )[1];
+            let base64 = base64Url.replace( /-/g, '+' ).replace( /_/g, '/' );
+            this.tokenPayload = JSON.parse( atob( base64 ) );
+        } );
+        this.mobileScreen = this.screenSizeService.isMobile();
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.mobileScreen = event.mobile
+        } );
     }
 
 }

@@ -18,7 +18,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 <mdc-top-app-bar #topbar fixed *ngIf="topbarVisible">
     <mdc-top-app-bar-row>
         <mdc-top-app-bar-section align="start">
-            <button #menuButton mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="smallScreen">
+            <button #menuButton mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="mobileScreen">
                 <mdc-icon>menu</mdc-icon>
             </button>
             <a routerLink="/" mdcTopAppBarTitle style="color: white;">Cecocloud</a>
@@ -46,7 +46,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
     </mdc-top-app-bar-row>
 </mdc-top-app-bar>
 <div #container id="container" [ngClass]="{'topbarMargin': topbarVisible && !smallToolbar, 'topbarSmallScreenMargin': topbarVisible && smallToolbar}">
-    <mdc-drawer #drawer [drawer]="smallScreen ? 'modal' : 'fixed'" fixedAdjustElement="drawerContent" *ngIf="topbarVisible" (closed)="onDrawerClosed()">
+    <mdc-drawer #drawer [drawer]="mobileScreen ? 'modal' : 'fixed'" fixedAdjustElement="drawerContent" *ngIf="topbarVisible" (closed)="onDrawerClosed()">
         <mdc-drawer-content>
             <mdc-list #menuList>
                 <a mdc-list-item [routerLink]="item.route" *ngFor="let item of allowedMenuItems; let i = index">
@@ -55,7 +55,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
             </mdc-list>
         </mdc-drawer-content>
     </mdc-drawer>
-    <div id="drawerContent" #drawerContent [ngClass]="{'contentWithStaticDrawer': !smallScreen}">
+    <div id="drawerContent" #drawerContent [ngClass]="{'contentWithStaticDrawer': !mobileScreen}">
         <router-outlet></router-outlet>
     </div>
 </div>`
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
     @ViewChild( 'menuList', { static: false } ) menulist: MdcList;
 
     private topbarVisible: boolean = false;
-    private smallScreen: boolean = false;
+    private mobileScreen: boolean = false;
     private smallToolbar: boolean = false;
     private tokenPayload: AuthTokenPayload;
     private menuItems = [
@@ -164,7 +164,7 @@ export class AppComponent implements OnInit {
         } );
         // Es subscriu al subject de canvi de tamany de la pantalla
         this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
-            this.smallScreen = event.small
+            this.mobileScreen = event.mobile
         } );
     }
 
