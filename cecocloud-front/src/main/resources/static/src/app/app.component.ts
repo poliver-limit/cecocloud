@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
         this.screenSizeService.onWindowResize( event.target.innerWidth );
     }
 
-    refreshSmallToolbar(windowWidth: number) {
+    refreshSmallToolbar( windowWidth: number ) {
         this.smallToolbar = windowWidth < 600;
     }
 
@@ -116,9 +116,9 @@ export class AppComponent implements OnInit {
         this.menuItems.forEach( menuItem => {
             if ( menuItem.onlyForRoles ) {
                 let allowed = menuItem.onlyForRoles.some( menuItemRole => {
-                    return roles.includes(menuItemRole);
+                    return roles.includes( menuItemRole );
                 } );
-                if (allowed) {
+                if ( allowed ) {
                     this.allowedMenuItems.push( menuItem );
                 }
             } else {
@@ -157,7 +157,9 @@ export class AppComponent implements OnInit {
                 if ( this.menuSelectedIndex && this.menulist ) {
                     this.menulist.setSelectedIndex( this.menuSelectedIndex );
                 }
-                this.drawer.open = false;
+                if ( this.drawer ) {
+                    this.drawer.open = false;
+                }
             } );
         } );
         // Es subscriu al subject de canvi de tamany de la pantalla
