@@ -142,7 +142,6 @@ export class RestapiFormComponent implements OnInit {
 
     private description: string;
     private resourceInstance: any;
-    private resourceInstancePk: any;
     private restapiResource: RestapiResource;
     private formGroup: FormGroup;
     private defaultFieldComponentFactory: ComponentFactory<RestapiDefaultFieldComponent>;
@@ -305,7 +304,6 @@ export class RestapiFormComponent implements OnInit {
     refrescarFormGroup( resourceInstance?: any ) {
         if ( resourceInstance ) {
             this.resourceInstance = resourceInstance;
-            this.resourceInstancePk = resourceInstance.pk;
         } else {
             this.resourceInstance = {};
         }
@@ -321,13 +319,7 @@ export class RestapiFormComponent implements OnInit {
         fieldComponent.field = field;
         fieldComponent.resource = this.restapiResource;
         fieldComponent.formGroup = this.formGroup;
-        if ( this.config.fields ) {
-            this.config.fields.forEach(( fieldConfig: FormFieldConfig ) => {
-                if ( fieldConfig.name === field.name ) {
-                    fieldComponent.label = fieldConfig.label;
-                }
-            } );
-        }
+        fieldComponent.label = (field.translateKey) ? this.translateKey(field.translateKey) : field.name;
     }
 
     processErrors( errorResponse: HttpErrorResponse ) {

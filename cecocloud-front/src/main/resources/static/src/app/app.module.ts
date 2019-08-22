@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -7,7 +8,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularHalModule } from 'angular4-hal';
 
-import { MaterialModule } from './shared/material.module';
+import { MdcWebMaterialModule } from './shared/mdc-web-material.module';
 import { AuthGuard } from './shared/auth/auth-guard';
 import { AuthService } from './shared/auth/auth.service';
 import { JwtInterceptor } from './shared/auth/jwt.interceptor';
@@ -24,15 +25,16 @@ export function createTranslateLoader( http: HttpClient ) {
 @NgModule( {
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        MaterialModule,
+        MdcWebMaterialModule,
         TranslateModule.forRoot( {
             loader: {
                 provide: TranslateLoader,
                 useFactory: ( createTranslateLoader ),
                 deps: [HttpClient]
-            }              
+            }
         } ),
         AngularHalModule.forRoot(),
         AppRoutingModule

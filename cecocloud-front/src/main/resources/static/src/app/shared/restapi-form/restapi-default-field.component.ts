@@ -132,12 +132,6 @@ export class RestapiDefaultFieldComponent implements OnInit, RestapiBaseFieldCom
     private mask: string;
 
     ngOnInit() {
-        if ( !this.label && this.field.translateKey ) {
-            let translatedKey = this.translate.instant( this.field.translateKey );
-            if ( translatedKey !== this.field.translateKey ) {
-                this.label = translatedKey;
-            }
-        }
         this.mask = this.getMask();
     }
 

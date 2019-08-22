@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MaterialModule } from './material.module';
+import { MdcWebMaterialModule } from './mdc-web-material.module';
 import { DatagridComponent } from './datagrid/datagrid.component';
 import { DatagridHeaderComponent } from './datagrid/datagrid-header.component';
 import { DatagridMantenimentDirective } from './datagrid/datagrid-manteniment.directive';
@@ -25,7 +25,7 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
-        MaterialModule,
+        MdcWebMaterialModule,
         AgGridModule.withComponents( [
             DatagridHeaderComponent,
             DatagridLinkCellRenderer

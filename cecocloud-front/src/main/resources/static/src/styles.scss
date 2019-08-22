@@ -5,6 +5,7 @@ $mdc-theme-on-secondary: red;
 $mdc-theme-on-surface: #666;*/
 
 @import "~@angular-mdc/theme/material";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~ag-grid-community/src/styles/ag-grid.scss";
 @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
 

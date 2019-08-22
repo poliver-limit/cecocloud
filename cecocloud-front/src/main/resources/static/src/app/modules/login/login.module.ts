@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MaterialModule } from '../../shared/material.module';
+import { MdcWebMaterialModule } from '../../shared/mdc-web-material.module';
 import { LoginComponent } from './login.component';
 
 @NgModule( {
     imports: [
         CommonModule,
         TranslateModule,
-        MaterialModule,
+        MdcWebMaterialModule,
         RouterModule.forChild( [
             { path: '', component: LoginComponent }
         ] )
