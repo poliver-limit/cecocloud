@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.rsql;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,9 +13,11 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
+import es.limit.cecocloud.persist.entity.AbstractEntity;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -118,11 +121,30 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 	}
 
 	private List<Object> castArguments(Path<?> path) {
-		final Class<? extends Object> type = path.getJavaType();
+		final Class<?> attributeType;
+		final String attributeName = ((javax.persistence.metamodel.SingularAttribute<?, ?>)path.getModel()).getName();
+		if ("id".equals(attributeName)) {
+			@SuppressWarnings("unchecked")
+			Class<? extends AbstractPersistable<?>> parentType = ((Path<? extends AbstractPersistable<?>>)path.getParentPath()).getJavaType();
+			ParameterizedType parameterizedType = (ParameterizedType)parentType.getGenericSuperclass();
+			if (parameterizedType != null) {
+				if (parameterizedType.getRawType().equals(AbstractEntity.class)) {
+					attributeType = (Class<?>)parameterizedType.getActualTypeArguments()[1];
+				} else if (parameterizedType.getRawType().equals(AbstractPersistable.class)) {
+					attributeType = (Class<?>)parameterizedType.getActualTypeArguments()[0];
+				} else {
+					attributeType = path.getJavaType();
+				}
+			} else {
+				attributeType = path.getJavaType();
+			}
+		} else {
+			attributeType = path.getJavaType();
+		}
 		final List<Object> args = arguments.stream().map(arg -> {
-			if (type.equals(Integer.class)) {
+			if (attributeType.equals(Integer.class)) {
 				return Integer.parseInt(arg);
-			} else if (type.equals(Long.class)) {
+			} else if (attributeType.equals(Long.class)) {
 				return Long.parseLong(arg);
 			} else {
 				return arg;

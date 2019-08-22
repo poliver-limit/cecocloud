@@ -23,7 +23,7 @@ public enum RsqlSearchOperation {
 	LESS_THAN_OR_EQUAL(RSQLOperators.LESS_THAN_OR_EQUAL),
 	IN(RSQLOperators.IN),
 	NOT_IN(RSQLOperators.NOT_IN),
-	EQUAL_IGNORE_CASE(new ComparisonOperator("=ic="));
+	EQUAL_IGNORE_CASE(new ComparisonOperator("=ic=", false));
 
 	private ComparisonOperator operator;
 

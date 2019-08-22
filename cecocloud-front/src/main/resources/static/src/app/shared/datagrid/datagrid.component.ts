@@ -53,6 +53,7 @@ export interface DatagridConfig {
     rowStyle?: any;
     rowClass?: any;
     resizable?: boolean;
+    additionalFilter?: any;
     filterInEachColumn?: boolean;
     pagination?: boolean;
 }
@@ -124,9 +125,9 @@ export class DatagridComponent implements OnInit {
         } );
     }
 
-    public refresh( parent?: any ) {
-        if ( parent ) {
-            this.config.parent = parent;
+    public refresh( additionalFilter?: any ) {
+        if ( additionalFilter ) {
+            this.config.additionalFilter = additionalFilter;
         }
         this.refreshInternal();
     }
@@ -145,7 +146,6 @@ export class DatagridComponent implements OnInit {
                 refreshContext.datasourceParentPk = parentPk;
                 refreshApi.setDatasource(refreshContext.gridComponent.createDataSource( refreshContext.restapiService ) );
             }
-            //this.messageService.sendRowEditError( { api: refreshApi } );
         }
     }
 
@@ -608,9 +608,9 @@ export class DatagridComponent implements OnInit {
                         value: sortModel.colId + ',' + sortModel.sort
                     } );
                 } );
-                let parentPk = ( params.context.datasourceParentPk ) ? params.context.datasourceParentPk : params.context.config.parent;
-                if ( parentPk ) {
-                    RestapiService.transformToHalParams( parentPk ).forEach( function( halParam: HalParam ) {
+                let additionalFilter = params.context.config.additionalFilter;
+                if ( additionalFilter ) {
+                    RestapiService.transformToHalParams( additionalFilter ).forEach( function( halParam: HalParam ) {
                         requestParams.push( halParam );
                     } );
                 }

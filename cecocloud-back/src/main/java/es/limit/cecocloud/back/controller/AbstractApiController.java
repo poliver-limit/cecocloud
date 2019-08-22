@@ -5,6 +5,7 @@ package es.limit.cecocloud.back.controller;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.limit.cecocloud.logic.api.dto.Profile;
+import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.AuthService;
+import es.limit.cecocloud.logic.api.service.ProfileService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Mètodes bàsics per als controladors REST de l'API.
@@ -31,6 +36,7 @@ import es.limit.cecocloud.logic.api.service.AuthService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
+@Slf4j
 public abstract class AbstractApiController {
 
 	protected static final String API_PATH = "/api";
@@ -43,6 +49,8 @@ public abstract class AbstractApiController {
 	protected ObjectMapper objectMapper;
 	@Autowired
 	private AuthService authService;
+	@Autowired
+	private ProfileService profileService;
 
 	protected <D> Resource<D> toResource(
 			D dto,
@@ -106,6 +114,48 @@ public abstract class AbstractApiController {
 			return authService.getUserSession(token);
 		}
 		return null;
+	}
+
+	protected String buildRsqlQueryWithRequestParams(
+			HttpServletRequest request,
+			String query) {
+		try {
+			Profile profile = profileService.getProfile(getDtoClass(), null);
+			Enumeration<String> paramNames = request.getParameterNames();
+			StringBuilder rsqlQuery = new StringBuilder();
+			while (paramNames.hasMoreElements()) {
+				String paramName = paramNames.nextElement();
+				for (ProfileResourceField field: profile.getResource().getFields()) {
+					if (paramName.startsWith(field.getName())) {
+						if (rsqlQuery.length() == 0) {
+							rsqlQuery.append("(");
+						} else {
+							rsqlQuery.append(";");
+						}
+						rsqlQuery.append(paramName);
+						rsqlQuery.append("==");
+						rsqlQuery.append(request.getParameter(paramName));
+					}
+				}
+			}
+			// TODO add filter from user session
+			if (rsqlQuery.length() > 0) {
+				rsqlQuery.append(")");
+			}
+			if (query != null) {
+				if (rsqlQuery.length() > 0) {
+					rsqlQuery.append(";(");
+					rsqlQuery.append(query);
+					rsqlQuery.append(")");
+				} else {
+					rsqlQuery.append(query);
+				}
+			}
+			return (rsqlQuery.length() > 0) ? rsqlQuery.toString() : null;
+		} catch (ClassNotFoundException ex) {
+			log.warn("No s'ha pogut obtenir el filtre addicional per a la classe " + getDtoClass(), ex);
+			return null;
+		}
 	}
 
 }

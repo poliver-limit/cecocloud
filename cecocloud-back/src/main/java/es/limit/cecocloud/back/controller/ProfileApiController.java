@@ -44,23 +44,27 @@ public class ProfileApiController extends AbstractProfileController {
 	public ResponseEntity<Resource<Profile>> getOne(
 			HttpServletRequest request,
 			@PathVariable final String resourceName) {
-		linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref();
-		Profile profile = profileService.getProfile(
-				resourceName,
-				linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref());
-		Link selfLink = linkTo(methodOn(getClass()).getOne(null, resourceName)).withSelfRel();
-		Link apiLink = getApiLink(resourceName);
-		if (apiLink != null) {
-			return ResponseEntity.ok(
-					new Resource<Profile>(
-							profile,
-							selfLink,
-							apiLink));
-		} else {
-			return ResponseEntity.ok(
-					new Resource<Profile>(
-							profile,
-							selfLink));
+		try {
+			linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref();
+			Profile profile = profileService.getProfile(
+					resourceName,
+					linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref());
+			Link selfLink = linkTo(methodOn(getClass()).getOne(null, resourceName)).withSelfRel();
+			Link apiLink = getApiLink(resourceName);
+			if (apiLink != null) {
+				return ResponseEntity.ok(
+						new Resource<Profile>(
+								profile,
+								selfLink,
+								apiLink));
+			} else {
+				return ResponseEntity.ok(
+						new Resource<Profile>(
+								profile,
+								selfLink));
+			}
+		} catch (ClassNotFoundException ex) {
+			return ResponseEntity.notFound().build();
 		}
 	}
 

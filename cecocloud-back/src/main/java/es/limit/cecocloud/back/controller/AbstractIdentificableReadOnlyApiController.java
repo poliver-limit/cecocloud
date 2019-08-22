@@ -69,9 +69,10 @@ public abstract class AbstractIdentificableReadOnlyApiController<D extends Ident
 				"quickFilter=" + quickFilter + ", " +
 				"query=" + query + ", " +
 				"pageable=" + pageable + ")");
+		String rsqlQuery = buildRsqlQueryWithRequestParams(request, query);
 		Page<D> pagina = getService().findPageByQuickFilterAndRsqlQuery(
 				quickFilter,
-				query,
+				rsqlQuery,
 				pageable);
 		return ResponseEntity.ok(
 				toPagedResources(

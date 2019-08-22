@@ -12,6 +12,10 @@ import { EmpresesService } from './empreses.service';
 export class EmpresesGridComponent {
 
     private datagridConfig = {
+        /*additionalFilter: {
+            "companyia.id": 1,
+            nom: "*Lím*"
+        }*/
     };
 
     constructor(

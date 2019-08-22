@@ -447,7 +447,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 						rsqlQuery.append(field.getLovDescriptionField());
 					}
 				}
-				rsqlQuery.append("=eic=*");
+				rsqlQuery.append(RsqlSearchOperation.EQUAL_IGNORE_CASE.getOperator().getSymbol());
 				rsqlQuery.append(quickFilter);
 				rsqlQuery.append("*");
 			}

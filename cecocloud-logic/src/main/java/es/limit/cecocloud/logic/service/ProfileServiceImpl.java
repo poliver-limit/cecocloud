@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -29,10 +28,10 @@ import es.limit.cecocloud.logic.api.annotations.RestapiField;
 import es.limit.cecocloud.logic.api.annotations.RestapiGrid;
 import es.limit.cecocloud.logic.api.annotations.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.Profile;
+import es.limit.cecocloud.logic.api.dto.ProfileResource;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceGrid;
-import es.limit.cecocloud.logic.api.dto.ProfileResource;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.ProfileService;
@@ -51,88 +50,91 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public Profile getProfile(
 			String resourceName,
-			String profileHref) {
-		try {
-			ProfileResource resource = new ProfileResource();
-			Class<?> dtoClass = getDtoClassForName(resourceName);
-			resource.setName(getResourceNameFromDtoClass(dtoClass));
-			Class<?> controllerClass = getControllerClassForDto(dtoClass);
-			if (controllerClass != null) {
-				resource.setApiUrl(
-						getApiUrl(
-								dtoClass,
-								controllerClass));
-			}
-			resource.setTranslateKey(
-					TRANSLATE_KEY_PREFIX + resource.getName());
-			resource.setTranslateKeyPlural(
-					TRANSLATE_KEY_PREFIX + resource.getName() + ".plural");
-			resource.setFields(getFields(dtoClass));
-			resource.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
-			RestapiResource resourceAnnotation = dtoClass.getAnnotation(RestapiResource.class);
-			if (resourceAnnotation != null) {
-				if (!resourceAnnotation.descriptionField().isEmpty()) {
-					resource.setDescriptionField(resourceAnnotation.descriptionField());
-				}
-				if (resourceAnnotation.grids().length > 0) {
-					List<ProfileResourceGrid> grids = new ArrayList<ProfileResourceGrid>();
-					for (RestapiGrid grid: resourceAnnotation.grids()) {
-						ProfileResourceGrid gridConfig = new ProfileResourceGrid();
-						gridConfig.setResourceName(grid.value());
-						if (!grid.name().isEmpty()) {
-							gridConfig.setName(grid.name());
-						} else {
-							gridConfig.setName(grid.value());
-						}
-						gridConfig.setTranslateKey(
-								TRANSLATE_KEY_PREFIX + resource.getName() + ".grid." + grid.value());
-						grids.add(gridConfig);
-					}
-					resource.setGrids(grids);
-				}
-			}
-			Profile profile = new Profile();
-			List<Descriptor> fieldDescriptors = new ArrayList<Descriptor>();
-			for (ProfileResourceField resourceField: resource.getFields()) {
-				fieldDescriptors.add(
-						Alps.descriptor().
-						name(resourceField.getName()).
-						type(org.springframework.hateoas.alps.Type.SEMANTIC).
-						build());
-			}
-			List<Descriptor> descriptors = new ArrayList<Descriptor>();
-			descriptors.add(
-					Alps.descriptor().
-					id(resource.getName() + "-representation").
-					href(profileHref).
-					descriptors(fieldDescriptors).
-					build());
-			Alps alps = Alps.alps().descriptors(descriptors).build();
-			profile.setAlps(alps);
-			profile.setResource(resource);
-			return profile;
-		} catch (ClassNotFoundException ex) {
-			throw new EntityNotFoundException();
+			String profileHref) throws ClassNotFoundException {
+		Class<?> dtoClass = getDtoClassForName(resourceName);
+		if (dtoClass != null) {
+			return getProfile(dtoClass, profileHref);
+		} else {
+			throw new ClassNotFoundException("Classe pel recurs " + resourceName + " no trobada");
 		}
 	}
 
+	@Override
+	public Profile getProfile(
+			Class<?> dtoClass,
+			String profileHref) throws ClassNotFoundException {
+		ProfileResource resource = new ProfileResource();
+		resource.setName(getResourceNameFromDtoClass(dtoClass));
+		Class<?> controllerClass = getControllerClassForDto(dtoClass);
+		if (controllerClass != null) {
+			resource.setApiUrl(
+					getApiUrl(
+							dtoClass,
+							controllerClass));
+		}
+		resource.setTranslateKey(
+				TRANSLATE_KEY_PREFIX + resource.getName());
+		resource.setTranslateKeyPlural(
+				TRANSLATE_KEY_PREFIX + resource.getName() + ".plural");
+		resource.setFields(getFields(dtoClass));
+		resource.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
+		RestapiResource resourceAnnotation = dtoClass.getAnnotation(RestapiResource.class);
+		if (resourceAnnotation != null) {
+			if (!resourceAnnotation.descriptionField().isEmpty()) {
+				resource.setDescriptionField(resourceAnnotation.descriptionField());
+			}
+			if (resourceAnnotation.grids().length > 0) {
+				List<ProfileResourceGrid> grids = new ArrayList<ProfileResourceGrid>();
+				for (RestapiGrid grid: resourceAnnotation.grids()) {
+					ProfileResourceGrid gridConfig = new ProfileResourceGrid();
+					gridConfig.setResourceName(grid.value());
+					if (!grid.name().isEmpty()) {
+						gridConfig.setName(grid.name());
+					} else {
+						gridConfig.setName(grid.value());
+					}
+					gridConfig.setTranslateKey(
+							TRANSLATE_KEY_PREFIX + resource.getName() + ".grid." + grid.value());
+					grids.add(gridConfig);
+				}
+				resource.setGrids(grids);
+			}
+		}
+		Profile profile = new Profile();
+		List<Descriptor> fieldDescriptors = new ArrayList<Descriptor>();
+		for (ProfileResourceField resourceField: resource.getFields()) {
+			fieldDescriptors.add(
+					Alps.descriptor().
+					name(resourceField.getName()).
+					type(org.springframework.hateoas.alps.Type.SEMANTIC).
+					build());
+		}
+		List<Descriptor> descriptors = new ArrayList<Descriptor>();
+		descriptors.add(
+				Alps.descriptor().
+				id(resource.getName() + "-representation").
+				href(profileHref).
+				descriptors(fieldDescriptors).
+				build());
+		Alps alps = Alps.alps().descriptors(descriptors).build();
+		profile.setAlps(alps);
+		profile.setResource(resource);
+		return profile;
+	}
+
 	private Class<?> getDtoClassForName(
-			String resourceClassName) throws ClassNotFoundException {
+			String resourceName) {
 		Class<?> dtoClass = null;
 		for (String packageToScan: new String [] {Profile.class.getPackage().getName()}) {
-			dtoClass = getClassForName(packageToScan + "." + StringUtils.capitalize(resourceClassName));
+			dtoClass = getClassForName(packageToScan + "." + StringUtils.capitalize(resourceName));
 			if (dtoClass == null) {
-				dtoClass = getClassForName(packageToScan + "." + resourceClassName);
+				dtoClass = getClassForName(packageToScan + "." + resourceName);
 			}
 			if (dtoClass != null) {
 				break;
 			}
 		}
-		if (dtoClass != null) {
-			return dtoClass;
-		} else {
-			throw new ClassNotFoundException("Classe pel recurs " + resourceClassName + " no trobada");
-		}
+		return dtoClass;
 	}
 
 	private Class<?> getClassForName(String className) {
