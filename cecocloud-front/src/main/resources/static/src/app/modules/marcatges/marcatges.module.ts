@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebMaterialModule } from '../../shared/mdc-web-material.module';
+import { MdcWebModule } from '../../shared/mdc-web.module';
 import { MarcatgesGridComponent } from './marcatges-grid.component';
 import { MarcatgesFormComponent } from './marcatges-form.component';
 import { MarcatgesService } from './marcatges.service';
@@ -11,7 +11,7 @@ import { MarcatgesService } from './marcatges.service';
 @NgModule( {
     imports: [
         CommonModule,
-        MdcWebMaterialModule,
+        MdcWebModule,
         MantenimentModule,
         RouterModule.forChild( [
             { path: '', component: MarcatgesGridComponent },

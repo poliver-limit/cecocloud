@@ -25,7 +25,7 @@ import { RestapiResource, RestapiResourceField } from '../../shared/restapi/rest
 <mat-form-field *ngIf="formControl" style="width:100%">
     <input
         matInput type="text"
-        #input 
+        #input
         [placeholder]="label"
         [minlength]="field.minLength"
         [maxlength]="field.maxLength"
@@ -34,39 +34,30 @@ import { RestapiResource, RestapiResourceField } from '../../shared/restapi/rest
     <mat-error *ngIf="formControl.invalid">{{errorMessage}}</mat-error>
     <mat-hint *ngIf="field.minLength || field.maxLength" align="end">{{input.value?.length || 0}}/{{field.maxLength}}</mat-hint>
 </mat-form-field>
-        
-
 `
 } )
-export class CompanyiesNomFieldComponent implements RestapiBaseFieldComponent {
+export class CompanyiesNomFieldComponent extends RestapiBaseFieldComponent {
 
-    @Input() label: string;
-    @Input() resource: RestapiResource;
-    @Input() field: RestapiResourceField;
-    @Input()
-    set formGroup( formGroup: FormGroup ) {
-        this.formControl = <FormControl>formGroup.get(this.field.name);
-        console.log('>>> formControl', this.formControl)
-    }
-
-    @Output() change: EventEmitter<any> = new EventEmitter();
-    @Output() click: EventEmitter<any> = new EventEmitter();
-    
     @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
 
-    private formControl: FormControl;
     private valid: boolean;
     private errorMessage: string;
 
-    public setValid( valid: boolean, errorMessage?: string ) {
-        console.log('>>> setValid', valid, errorMessage, this.formGroup);
-        this.formControl.setErrors({});
+    public setErrors( errors?: any ) {
+        /*console.log('>>> setValid', valid, errorMessage, this.formGroup);
+        if (!valid) {
+            this.formControl.markAsTouched();
+            this.formControl.setErrors({});
+        } else {
+            this.formControl.setErrors(null);
+        }
         console.log('>>> matInputField', this.matInputField);
         this.valid = valid;
-        this.errorMessage = errorMessage;
+        this.errorMessage = errorMessage;*/
     }
-    public focus() {
-        this.matInputField.focus();
+
+    getFieldComponent() {
+        return this.matInputField;
     }
 
 }

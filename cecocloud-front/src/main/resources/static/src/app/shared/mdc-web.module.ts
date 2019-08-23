@@ -54,4 +54,4 @@ import {
         MdcTypographyModule
     ]
 } )
-export class MdcWebMaterialModule { }
+export class MdcWebModule { }

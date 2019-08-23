@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, OnInit, Renderer2 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcTextField, MdcTextarea, MdcSelect } from '@angular-mdc/web';
 
@@ -8,15 +8,15 @@ import {
     RestapiResourceField
 } from '../restapi/restapi-profile';
 import { RestapiBaseFieldComponent } from './restapi-base-field.component';
-import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
+import { RestapiLovMdcwebComponent } from '../restapi-lov/restapi-lov-mdcweb.component';
 
 @Component( {
     selector: 'restapi-field',
     template: `
-<mdc-form-field fluid [formGroup]="formGroup">
-    <ng-container *ngIf="field.type === 'STRING' || field.type === 'PASSWORD'">
+<mdc-form-field fluid *ngIf="field.type != 'BOOLEAN' && field.type != 'LOV'" [formGroup]="formGroup">
+    <ng-container *ngIf="field.type == 'STRING' || field.type == 'PASSWORD'">
         <mdc-text-field
-            [type]="field.type === 'PASSWORD' ? 'password' : 'text'"
+            [type]="field.type == 'PASSWORD' ? 'password' : 'text'"
             [label]="label ? label : field.name"
             outlined dense
             [minlength]="field.minLength"
@@ -26,7 +26,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
             [required]="field.required"
             [helperText]="helperText"></mdc-text-field>
     </ng-container>
-    <ng-container *ngIf="field.type === 'TEXTAREA'">
+    <ng-container *ngIf="field.type == 'TEXTAREA'">
         <mdc-textarea
             [label]="label ? label : field.name"
             outlined dense fullwidth rows="4"
@@ -37,7 +37,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
             [required]="field.required"
             [helperText]="helperText"></mdc-textarea>
     </ng-container>
-    <ng-container *ngIf="field.type === 'INTEGER'">
+    <ng-container *ngIf="field.type == 'INTEGER'">
         <mdc-text-field
             type="number"
             [label]="label ? label : field.name"
@@ -46,7 +46,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
             [required]="field.required"
             [helperText]="helperText"></mdc-text-field>
     </ng-container>
-    <ng-container *ngIf="field.type ==='FLOAT' || field.type === 'BIGDECIMAL' || field.type === 'PREU' || field.type === 'IMPORT'">
+    <ng-container *ngIf="field.type =='FLOAT' || field.type == 'BIGDECIMAL' || field.type == 'PREU' || field.type == 'IMPORT'">
         <mdc-text-field
             type="number"
             [label]="label ? label : field.name"
@@ -56,7 +56,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
             [required]="field.required"
             [helperText]="helperText"></mdc-text-field>
     </ng-container>
-    <ng-container *ngIf="field.type === 'DATE'">
+    <ng-container *ngIf="field.type == 'DATE'">
         <mdc-text-field
             type="date"
             [label]="label ? label : field.name"
@@ -67,7 +67,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
             <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
         </mdc-text-field>
     </ng-container>
-    <ng-container *ngIf="field.type === 'DATETIME'">
+    <ng-container *ngIf="field.type == 'DATETIME'">
         <mdc-text-field
             type="datetime-local"
             [label]="label ? label : field.name"
@@ -78,14 +78,7 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
             <mdc-icon mdcTextFieldIcon trailing>event</mdc-icon>
         </mdc-text-field>
     </ng-container>
-    <ng-container *ngIf="field.type === 'BOOLEAN'">
-        <mdc-form-field>
-            <mdc-checkbox
-                [formControlName]="field.name"></mdc-checkbox>
-            <label>{{label ? label : field.name}}</label>
-        </mdc-form-field>
-    </ng-container>
-    <ng-container *ngIf="field.type === 'ENUM'">
+    <ng-container *ngIf="field.type == 'ENUM'">
         <mdc-select
             [placeholder]="label ? label : field.name"
             outlined dense
@@ -97,41 +90,35 @@ import { RestapiLovComponent } from '../restapi-lov/restapi-lov.component';
             <option *ngFor="let enumValue of field.enumValues" [value]="enumValue">{{enumValue}}</option>
         </mdc-select>
     </ng-container>
-    <ng-container *ngIf="field.type === 'LOV'">
-        <restapi-lov
-            [label]="label ? label : field.name"
-            [formGroup]="formGroup"
-            [resource]="resource"
-            [field]="field"
-            [helperText]="helperText"></restapi-lov>
-    </ng-container>
     <mdc-helper-text #helperText validation>{{errorMessage}}</mdc-helper-text>
 </mdc-form-field>
+<mdc-form-field *ngIf="field.type == 'BOOLEAN'" [formGroup]="formGroup" style="width:100%">
+    <mdc-checkbox
+        [formControlName]="field.name"></mdc-checkbox>
+    <label>{{label ? label : field.name}}</label>
+</mdc-form-field>
+<ng-container *ngIf="field.type == 'LOV'">
+    <restapi-lov-mdcweb
+        [label]="label"
+        [fieldName]="fieldName"
+        [formGroup]="formGroup"
+        [restapiResource]="restapiResource"
+        [resourceInstance]="resourceInstance"></restapi-lov-mdcweb>
+</ng-container>
 `
 } )
-export class RestapiDefaultFieldComponent implements OnInit, RestapiBaseFieldComponent {
-
-    @Input() resource: RestapiResource;
-    @Input() field: RestapiResourceField;
-    @Input() formGroup: FormGroup;
-    @Input() label: string;
-
-    @Output() change: EventEmitter<any> = new EventEmitter();
-    @Output() click: EventEmitter<any> = new EventEmitter();
+export class RestapiDefaultFieldMdcwebComponent extends RestapiBaseFieldComponent implements OnInit {
 
     @ViewChild( MdcTextField, { static: false } ) mdcTextField: MdcTextField;
     @ViewChild( MdcTextarea, { static: false } ) mdcTextarea: MdcTextarea;
     @ViewChild( MdcSelect, { static: false } ) mdcSelect: MdcSelect;
-    @ViewChild( 'inputField', { static: false } ) inputField: ElementRef;
-    @ViewChild( 'textareaField', { static: false } ) textareaField: ElementRef;
-    @ViewChild( 'selectField', { static: false } ) selectField: ElementRef;
-    @ViewChild( RestapiLovComponent, { static: false } ) lovComponent: RestapiLovComponent;
+    @ViewChild( RestapiLovMdcwebComponent, { static: false } ) lovComponent: RestapiLovMdcwebComponent;
 
-    private valid: boolean = true;
     private errorMessage: string;
     private mask: string;
 
     ngOnInit() {
+        this.baseOnInit(this.fieldName, this.formGroup, this.restapiResource);
         this.mask = this.getMask();
     }
 
@@ -142,7 +129,8 @@ export class RestapiDefaultFieldComponent implements OnInit, RestapiBaseFieldCom
         this.click.emit( event );
     }
 
-    public setValid( valid: boolean, errorMessage?: string ) {
+    public setErrors( errors?: any ) {
+        let valid = !( errors && Object.keys( errors ).length > 0 );
         if ( this.mdcTextField ) {
             this.mdcTextField.valid = valid;
         } else if ( this.mdcTextarea ) {
@@ -150,33 +138,20 @@ export class RestapiDefaultFieldComponent implements OnInit, RestapiBaseFieldCom
         } else if ( this.mdcSelect ) {
             this.mdcSelect.valid = valid;
         } else if ( this.lovComponent ) {
-            this.lovComponent.setValid( valid );
-        } else if ( this.inputField ) {
-            this.setFieldValid( this.inputField, valid );
-        } else if ( this.textareaField ) {
-            this.setFieldValid( this.textareaField, valid );
-        } else if ( this.selectField ) {
-            this.setFieldValid( this.selectField, valid );
+            this.lovComponent.setErrors( errors );
         }
-        this.errorMessage = errorMessage;
-        this.valid = valid;
+        this.errorMessage = valid ? undefined : errors[Object.keys( errors )[0]];
     }
 
-    public focus() {
+    getFieldComponent() {
         if ( this.mdcTextField ) {
-            this.mdcTextField.focus();
+            return this.mdcTextField;;
         } else if ( this.mdcTextarea ) {
-            this.mdcTextarea.focus();
+            return this.mdcTextarea;
         } else if ( this.mdcSelect ) {
-            this.mdcSelect.focus();
-        } else if ( this.inputField ) {
-            this.inputField.nativeElement.focus();
-        } else if ( this.textareaField ) {
-            this.textareaField.nativeElement.focus();
-        } else if ( this.selectField ) {
-            this.selectField.nativeElement.focus();
+            return this.mdcSelect;
         } else if ( this.lovComponent ) {
-            this.lovComponent.focus();
+            return this.lovComponent;
         }
     }
 
@@ -226,6 +201,8 @@ export class RestapiDefaultFieldComponent implements OnInit, RestapiBaseFieldCom
 
     constructor(
         private translate: TranslateService,
-        private renderer: Renderer2 ) { }
+        private renderer: Renderer2 ) {
+        super();
+    }
 
 }

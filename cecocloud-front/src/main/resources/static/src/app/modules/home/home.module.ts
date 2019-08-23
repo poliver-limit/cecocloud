@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebMaterialModule } from '../../shared/mdc-web-material.module';
+import { MdcWebModule } from '../../shared/mdc-web.module';
 import { HomeComponent } from './home.component';
 
 @NgModule( {
     imports: [
         CommonModule,
         TranslateModule,
-        MdcWebMaterialModule,
+        MdcWebModule,
         RouterModule.forChild( [
             { path: '', component: HomeComponent }
         ] )

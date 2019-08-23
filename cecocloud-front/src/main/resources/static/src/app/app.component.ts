@@ -89,6 +89,8 @@ export class AppComponent implements OnInit {
     onActionSortirClick() {
         if ( confirm( this.translate.instant( 'app.action.logout.confirm' ) ) ) {
             this.authService.logout();
+            this.tokenPayload = undefined;
+            this.allowedMenuItems = [];
             this.router.navigate( ['/login'] );
         }
     }
@@ -135,8 +137,8 @@ export class AppComponent implements OnInit {
         // Manten actualitzada la informació de l'usuari autenticat
         this.tokenPayload = authService.getAuthTokenPayload();
         authService.authTokenChangeEvent.subscribe(( tokenPayload: AuthTokenPayload ) => {
-            this.refreshAllowedMenuItems();
             this.tokenPayload = tokenPayload;
+            this.refreshAllowedMenuItems();
         } );
         // Configura l'idioma per defecte
         var userLang = navigator.language;

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebMaterialModule } from '../../shared/mdc-web-material.module';
+import { MdcWebModule } from '../../shared/mdc-web.module';
 import { EmpresesGridComponent } from './empreses-grid.component';
 import { EmpresesFormComponent } from './empreses-form.component';
 import { EmpresesService } from './empreses.service';
@@ -12,7 +12,7 @@ import { EmpresesService } from './empreses.service';
     imports: [
         CommonModule,
         MantenimentModule,
-        MdcWebMaterialModule,
+        MdcWebModule,
         RouterModule.forChild( [
             { path: '', component: EmpresesGridComponent },
             { path: 'create', component: EmpresesFormComponent },

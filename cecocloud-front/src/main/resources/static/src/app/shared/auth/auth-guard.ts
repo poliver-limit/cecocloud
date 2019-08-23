@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
-        if ( this.authService.isAuthenticated() ) {
+        if ( this.authService.getAuthToken() ) {
             return true;
         } else {
             this.router.navigate( ['/login'] );

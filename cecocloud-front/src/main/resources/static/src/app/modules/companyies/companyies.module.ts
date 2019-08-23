@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebMaterialModule } from '../../shared/mdc-web-material.module';
+import { MdcWebModule } from '../../shared/mdc-web.module';
 import { AngularMaterialModule } from '../../shared/angular-material.module';
 import { CompanyiesGridComponent } from './companyies-grid.component';
 import { CompanyiesFormComponent } from './companyies-form.component';
@@ -16,7 +16,7 @@ import { CompanyiesService } from './companyies.service';
         CommonModule,
         ReactiveFormsModule,
         MantenimentModule,
-        MdcWebMaterialModule,
+        MdcWebModule,
         AngularMaterialModule,
         RouterModule.forChild( [
             { path: '', component: CompanyiesGridComponent },

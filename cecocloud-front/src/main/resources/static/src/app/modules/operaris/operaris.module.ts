@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebMaterialModule } from '../../shared/mdc-web-material.module';
+import { MdcWebModule } from '../../shared/mdc-web.module';
 import { OperarisGridComponent } from './operaris-grid.component';
 import { OperarisFormComponent } from './operaris-form.component';
 import { OperarisService } from './operaris.service';
@@ -11,7 +11,7 @@ import { OperarisService } from './operaris.service';
 @NgModule( {
     imports: [
         CommonModule,
-        MdcWebMaterialModule,
+        MdcWebModule,
         MantenimentModule,
         RouterModule.forChild( [
             { path: '', component: OperarisGridComponent },

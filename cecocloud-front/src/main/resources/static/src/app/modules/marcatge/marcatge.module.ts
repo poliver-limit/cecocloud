@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MdcWebMaterialModule } from '../../shared/mdc-web-material.module';
+import { MdcWebModule } from '../../shared/mdc-web.module';
 import { MarcatgeRoutingModule } from './marcatge.routing';
 
 import { CreateMarcatgeComponent } from './createMarcatge.component';
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     imports: [
         CommonModule,
         TranslateModule,
-        MdcWebMaterialModule,
+        MdcWebModule,
         FormsModule,
         MarcatgeRoutingModule
     ],

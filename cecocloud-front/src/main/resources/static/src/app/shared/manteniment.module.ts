@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MdcWebMaterialModule } from './mdc-web-material.module';
+import { MdcWebModule } from './mdc-web.module';
+import { AngularMaterialModule } from './angular-material.module';
 import { DatagridComponent } from './datagrid/datagrid.component';
 import { DatagridHeaderComponent } from './datagrid/datagrid-header.component';
 import { DatagridMantenimentDirective } from './datagrid/datagrid-manteniment.directive';
@@ -14,9 +15,11 @@ import { RestapiFormComponent } from './restapi-form/restapi-form.component';
 import { RestapiFormHeaderComponent } from './restapi-form/restapi-form-header.component';
 import { RestapiFormMantenimentDirective } from './restapi-form/restapi-form-manteniment.directive';
 import { RestapiFormErrorsDialogComponent } from './restapi-form/restapi-form-errors-dialog.component';
-import { RestapiDefaultFieldComponent } from './restapi-form/restapi-default-field.component';
+import { RestapiDefaultFieldMdcwebComponent } from './restapi-form/restapi-default-field-mdcweb.component';
+import { RestapiDefaultFieldMaterialComponent } from './restapi-form/restapi-default-field-material.component';
 import { RestapiCustomFieldComponent } from './restapi-form/restapi-custom-field.component';
-import { RestapiLovComponent } from './restapi-lov/restapi-lov.component';
+import { RestapiLovMdcwebComponent } from './restapi-lov/restapi-lov-mdcweb.component';
+import { RestapiLovMaterialComponent } from './restapi-lov/restapi-lov-material.component';
 import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.component';
 
 @NgModule( {
@@ -25,7 +28,8 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
-        MdcWebMaterialModule,
+        MdcWebModule,
+        AngularMaterialModule,
         AgGridModule.withComponents( [
             DatagridHeaderComponent,
             DatagridLinkCellRenderer
@@ -41,9 +45,11 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RestapiFormHeaderComponent,
         RestapiFormMantenimentDirective,
         RestapiFormErrorsDialogComponent,
-        RestapiDefaultFieldComponent,
+        RestapiDefaultFieldMdcwebComponent,
+        RestapiDefaultFieldMaterialComponent,
         RestapiCustomFieldComponent,
-        RestapiLovComponent,
+        RestapiLovMdcwebComponent,
+        RestapiLovMaterialComponent,
         RestapiLovDialogComponent
     ],
     exports: [
@@ -54,7 +60,8 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RestapiFormMantenimentDirective,
     ],
     entryComponents: [
-        RestapiDefaultFieldComponent,
+        RestapiDefaultFieldMdcwebComponent,
+        RestapiDefaultFieldMaterialComponent,
         RestapiFormErrorsDialogComponent,
         RestapiLovDialogComponent
     ]

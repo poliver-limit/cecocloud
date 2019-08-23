@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, Inject }
 import { MdcDialog, MdcDialogComponent, MdcDialogRef, MDC_DIALOG_DATA, MdcTextField } from '@angular-mdc/web';
 
 import { RestapiGenericService } from '../restapi/restapi-generic.service';
+import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
 import { DatagridConfig } from '../datagrid/datagrid.component';
 
 @Component( {
@@ -9,7 +10,7 @@ import { DatagridConfig } from '../datagrid/datagrid.component';
 <mdc-dialog class="restapi-lov-dialog">
     <mdc-dialog-container>
         <mdc-dialog-surface>
-            <mdc-dialog-title>{{ 'component.restapi.lov.title' | translate }} {{ resourceTranslateKey | translate | lowercase }}</mdc-dialog-title>
+            <mdc-dialog-title>{{ 'component.restapi.lov.title' | translate }} {{ lovResource.translateKey | translate | lowercase }}</mdc-dialog-title>
             <mdc-dialog-content>
                 <datagrid
                     [config]="datagridConfig"
@@ -34,7 +35,7 @@ import { DatagridConfig } from '../datagrid/datagrid.component';
 export class RestapiLovDialogComponent {
 
     private restapiService: RestapiGenericService;
-    private resourceTranslateKey: string;
+    private lovResource: RestapiResource;
     private datagridConfig: DatagridConfig;
     private selectedRowData: any;
 
@@ -59,10 +60,18 @@ export class RestapiLovDialogComponent {
         public dialogRef: MdcDialogRef<RestapiLovDialogComponent>,
         @Inject( MDC_DIALOG_DATA ) public data ) {
         this.restapiService = data.restapiService;
-        this.resourceTranslateKey = data.resourceTranslateKey;
+        this.lovResource = data.lovResource;
+        let dialogColumns: any[] = [];
+        data.lovResource.fields.forEach(( field: RestapiResourceField ) => {
+            if ( !field.hiddenInLov ) {
+                dialogColumns.push( {
+                    field: field.name,
+                    editable: false
+                } );
+            }
+        } );
         this.datagridConfig = {
-            columns: data.columns,
-            parent: data.parent,
+            columns: dialogColumns,
             lovMode: true
         }
     }

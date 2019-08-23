@@ -22,7 +22,7 @@ import {
     HttpParams,
     HttpErrorResponse
 } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcTabBar, MdcTabActivatedEvent, MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
 import { Resource, ResourceHelper } from 'angular4-hal';
@@ -36,7 +36,8 @@ import {
     RestapiResourceGrid
 } from '../restapi/restapi-profile';
 import { RestapiBaseFieldComponent } from './restapi-base-field.component';
-import { RestapiDefaultFieldComponent } from './restapi-default-field.component';
+import { RestapiDefaultFieldMdcwebComponent } from './restapi-default-field-mdcweb.component';
+import { RestapiDefaultFieldMaterialComponent } from './restapi-default-field-material.component';
 import { RestapiCustomFieldComponent } from './restapi-custom-field.component';
 import { RestapiFormErrorsDialogComponent } from './restapi-form-errors-dialog.component';
 
@@ -144,7 +145,7 @@ export class RestapiFormComponent implements OnInit {
     private resourceInstance: any;
     private restapiResource: RestapiResource;
     private formGroup: FormGroup;
-    private defaultFieldComponentFactory: ComponentFactory<RestapiDefaultFieldComponent>;
+    private defaultFieldComponentFactory: ComponentFactory<any>;
     private inputFields: RestapiBaseFieldComponent[];
     private parentFromRoute: any;
 
@@ -283,7 +284,7 @@ export class RestapiFormComponent implements OnInit {
                                     customInput.fieldClick.emit( event );
                                 } );
                             } else {
-                                this.configureBaseFieldComponent(customField, field);
+                                this.configureBaseFieldComponent( customField, field );
                                 this.inputFields.push( customField );
                             }
                         }
@@ -293,7 +294,7 @@ export class RestapiFormComponent implements OnInit {
                         );
                     }
                     if ( inputRef ) {
-                        this.configureBaseFieldComponent(inputRef.instance, field);
+                        this.configureBaseFieldComponent( inputRef.instance, field );
                         this.inputFields.push( inputRef.instance );
                     }
                 }
@@ -316,18 +317,21 @@ export class RestapiFormComponent implements OnInit {
     }
 
     configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField ) {
-        fieldComponent.field = field;
-        fieldComponent.resource = this.restapiResource;
+        fieldComponent.label = ( field.translateKey ) ? this.translateKey( field.translateKey, {}, field.name ) : field.name;
+        fieldComponent.fieldName = field.name;
         fieldComponent.formGroup = this.formGroup;
-        fieldComponent.label = (field.translateKey) ? this.translateKey(field.translateKey) : field.name;
+        fieldComponent.restapiResource = this.restapiResource;
+        fieldComponent.resourceInstance = this.resourceInstance;
     }
 
     processErrors( errorResponse: HttpErrorResponse ) {
         if ( errorResponse.error.errors ) {
             for ( let error of errorResponse.error.errors ) {
                 this.inputFields.forEach(( inputField: RestapiBaseFieldComponent ) => {
-                    if ( inputField.field.name === error.field ) {
-                        inputField.setValid( false, error.defaultMessage );
+                    if ( inputField.fieldName === error.field ) {
+                        let fieldErrors = {};
+                        fieldErrors[error.code] = error.defaultMessage;
+                        inputField.setErrors( fieldErrors );
                     }
                 } );
             }
@@ -345,8 +349,7 @@ export class RestapiFormComponent implements OnInit {
     }
     resetFieldsValidation() {
         this.inputFields.forEach(( inputField: RestapiBaseFieldComponent ) => {
-            //inputField.resetValidation();
-            inputField.setValid( true );
+            inputField.setErrors( {} );
         } );
     }
 
@@ -397,7 +400,8 @@ export class RestapiFormComponent implements OnInit {
         private http: HttpClient,
         private translate: TranslateService ) {
         this.defaultFieldComponentFactory = this.factoryResolver.resolveComponentFactory(
-            RestapiDefaultFieldComponent
+            //RestapiDefaultFieldMdcwebComponent
+            RestapiDefaultFieldMaterialComponent
         );
         this.formGroup = this.formBuilder.group( {} );
     }

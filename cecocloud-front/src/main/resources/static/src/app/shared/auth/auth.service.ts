@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, timer } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { Promise } from 'es6-promise';
@@ -16,12 +15,11 @@ export class AuthService {
 
     private static readonly LOCAL_STORAGE_AUTH_KEY = 'authResponse';
     private static readonly SESSION_STORAGE_VALIDATION_KEY = 'authValidation';
-    private static readonly TIME_FIRST_TIMER_CALL = 1000;
-    private static readonly TIME_BETWEEN_TIMER_CALLS = 10000;
+    private static readonly EXPIRATION_OFFSET = 10000;
 
     authTokenChangeEvent: Subject<AuthTokenPayload> = new Subject<AuthTokenPayload>();
 
-    authenticate( user: string, pass: string ): Observable<any> {
+    public authenticate( user: string, pass: string ): Observable<any> {
         const params = new HttpParams().
             append( 'user', user ).
             append( 'pass', pass );
@@ -38,61 +36,100 @@ export class AuthService {
         } );
     }
 
-    private validateAndRefresh() {
-        let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-        if ( authResponse !== undefined ) {
-            let validationSession: AuthValidationSession = this.getValidationFromSessionStorage();
-            if ( !validationSession ) {
-                //console.info( 'Validació de token no trobada' );
-                let checkUrl = 'api/auth/check/' + authResponse.token;
-                this.http.get( checkUrl ).subscribe(( validated: boolean ) => {
-                    if ( !validated ) {
-                        console.info( 'Detectat token d\'autenticació invàlid, refrescant...' );
-                        const params = new HttpParams().set( 'token', authResponse.token );
-                        const headers = new HttpHeaders().set( 'Content-Type', 'application/x-www-form-urlencoded' );
-                        this.http.post( 'api/auth/refresh', params, { headers: headers } ).subscribe(( response: AuthResponse ) => {
-                            this.saveAuthResponseToLocalStorage( response );
-                            this.authTokenChangeEvent.next( this.getAuthTokenPayload() );
-                            console.info( 'Token refrescat correctament' );
-                        }, error => {
-                            console.info( 'No s\'ha pogut refrescar el token' );
-                            //console.debug( 'Error de refresc del token', error );
-                            this.removeAuthResponseFromLocalStorage();
-                        } );
-                    } else {
-                        this.propagateAuthResponseToSessionStorage( authResponse );
-                        //console.info( 'Validació de token guardada' );
-                        //console.debug( 'Token vàlid' );
-                    }
-                } );
+    /*public isAuthenticated(): Observable<boolean> {
+        return new Observable(( observer ) => {
+            let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
+            if ( authResponse ) {
+                let validationSession: AuthValidationSession = this.getValidationFromSessionStorage();
+                if ( validationSession ) {
+                    // Validacio en sessio disponible
+                    observer.next( true );
+                    observer.complete();
+                } else {
+                    // Això vol dir que la cache de validació ha expirat o be que
+                    // s'està fent una nova petició des d'una pipella diferent o des
+                    // d'una nova instància del navegador.
+                    // En aquest cas s'ha de validar el token i s'ha de refrescar si
+                    // no és vàlid o si està proxim a expirar.
+                    let checkUrl = 'api/auth/check/' + authResponse.token;
+                    this.http.get( checkUrl ).subscribe(( validated: boolean ) => {
+                        let faltaPocPerExpirar = false;
+                        if ( validated ) {
+                            let tokenPayload = this.tokenToObject( authResponse );
+                            faltaPocPerExpirar = Date.now() > tokenPayload.exp * 1000 - AuthService.EXPIRATION_OFFSET;
+                        }
+                        if ( !validated || faltaPocPerExpirar ) {
+                            const params = new HttpParams().set( 'token', authResponse.token );
+                            const headers = new HttpHeaders().set( 'Content-Type', 'application/x-www-form-urlencoded' );
+                            this.http.post( 'api/auth/refresh', params, { headers: headers } ).subscribe(( response: AuthResponse ) => {
+                                this.saveAuthResponseToLocalStorage( response );
+                                this.propagateAuthResponseToSessionStorage( response );
+                                this.authTokenChangeEvent.next( this.getAuthTokenPayload() );
+                                // Token refrescat correctament
+                                observer.next( true );
+                                observer.complete();
+                            }, error => {
+                                // Token refrescat amb error
+                                this.removeAuthResponseFromLocalStorage();
+                                observer.next( false );
+                                observer.complete();
+                            } );
+                        } else {
+                            // Token validat i encara falta per expirar
+                            observer.next( true );
+                            observer.complete();
+                        }
+                    } );
+                }
+            } else {
+                // Token no disponible
+                observer.next( false );
+                observer.complete();
             }
-        } else {
-            // console.debug( 'Informacio d\'autenticació inexistent' );
-        }
+        } );
+    }*/
+
+    public refreshToken(): Observable<string> {
+        return new Observable(( observer ) => {
+            let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
+            if ( authResponse ) {
+                const params = new HttpParams().set( 'token', authResponse.token );
+                const headers = new HttpHeaders().set( 'Content-Type', 'application/x-www-form-urlencoded' );
+                this.http.post( 'api/auth/refresh', params, { headers: headers } ).subscribe(( response: AuthResponse ) => {
+                    this.saveAuthResponseToLocalStorage( response );
+                    this.authTokenChangeEvent.next( this.getAuthTokenPayload() );
+                    // Token refrescat correctament
+                    observer.next( response.token );
+                    observer.complete();
+                }, ( error: HttpErrorResponse ) => {
+                    // Token refrescat amb error
+                    this.logout();
+                    throw error;
+                } );
+            } else {
+                // No hi ha token per a refrescar
+                observer.next();
+                observer.complete();
+            }
+        } );
     }
 
-    isAuthenticated(): boolean {
-        let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-        return authResponse !== undefined;
-    }
-
-    getAuthToken(): any {
+    public getAuthToken(): string {
         let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
         if ( authResponse ) {
             return authResponse.token;
         }
     }
 
-    getAuthTokenPayload(): AuthTokenPayload {
+    public getAuthTokenPayload(): AuthTokenPayload {
         let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
         if ( authResponse ) {
             return this.tokenToObject( authResponse );
         }
     }
 
-    logout() {
+    public logout() {
         this.removeAuthResponseFromLocalStorage();
-        this.removeValidationFromSessionStorage();
     }
 
     private saveAuthResponseToLocalStorage( authResponse: AuthResponse ) {
@@ -106,34 +143,15 @@ export class AuthService {
     private getAuthResponseFromLocalStorage(): AuthResponse {
         let storageContent = localStorage.getItem( AuthService.LOCAL_STORAGE_AUTH_KEY );
         if ( storageContent ) {
-            return <AuthResponse>JSON.parse( storageContent );
-        }
-    }
-
-    private propagateAuthResponseToSessionStorage( authResponse: AuthResponse ) {
-        let tokenPayload = this.tokenToObject( authResponse );
-        let validation = {
-            token: authResponse.token,
-            exp: tokenPayload.exp * 1000 - AuthService.TIME_BETWEEN_TIMER_CALLS
-        };
-        sessionStorage.setItem(
-            AuthService.SESSION_STORAGE_VALIDATION_KEY,
-            JSON.stringify( validation ) );
-    }
-    private removeValidationFromSessionStorage() {
-        sessionStorage.removeItem( AuthService.SESSION_STORAGE_VALIDATION_KEY );
-    }
-    private getValidationFromSessionStorage(): AuthValidationSession {
-        let storageContent = sessionStorage.getItem( AuthService.SESSION_STORAGE_VALIDATION_KEY );
-        if ( storageContent ) {
-            let validation: AuthValidationSession = <AuthValidationSession>JSON.parse( storageContent );
-            if ( validation.exp > Date.now() ) {
-                return validation;
+            let authResponse: AuthResponse = <AuthResponse>JSON.parse( storageContent );
+            let tokenPayload = this.tokenToObject( authResponse );
+            let isExpired = Date.now() > tokenPayload.exp * 1000;
+            if ( !isExpired ) {
+                return authResponse;
             } else {
-                this.removeValidationFromSessionStorage();
+                this.removeAuthResponseFromLocalStorage();
             }
         }
-        return undefined;
     }
 
     private tokenToObject( authResponse: AuthResponse ): any {
@@ -149,15 +167,14 @@ export class AuthService {
     }
 
     constructor(
-        private http: HttpClient,
-        private router: Router ) {
+        private http: HttpClient ) {
         // Metode periodic per revisar autenticació
-        const authTimer = timer(
+        /*const authTimer = timer(
             AuthService.TIME_FIRST_TIMER_CALL, // Temps d'espera fins a la primera cridada (ms)
             AuthService.TIME_BETWEEN_TIMER_CALLS ); // Interval entre cridades (ms)
         const authTimerSubscribe = authTimer.subscribe( numCalls => {
             this.validateAndRefresh();
-        } );
+        } );*/
     }
 
 }
