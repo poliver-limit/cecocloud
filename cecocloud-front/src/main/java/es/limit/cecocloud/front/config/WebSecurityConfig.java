@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		antMatchers("/api/companyies", "/api/companyies/**/*").hasAuthority("ADMIN").
 		antMatchers("/api/empreses", "/api/empreses/**/*").hasAuthority("ADMIN").
 		antMatchers("/api/operaris", "/api/operaris/**/*").hasAuthority("ADMIN").
-		antMatchers("/api/marcatges", "/api/marcatges/**/*").hasAuthority("ADMIN").
+		antMatchers("/api/marcatges", "/api/marcatges/**/*").hasAnyAuthority("ADMIN", "MARCA").
 		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
 		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority("MARCA").
 		antMatchers("/api/**/*").authenticated().

@@ -26,13 +26,13 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
         <mdc-top-app-bar-section align="end">
             <a href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
             <div mdcMenuSurfaceAnchor #userAnchor>
-                <mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload.name}}" (click)="userMenu.open = !userMenu.open">account_circle</mdc-icon>
+                <mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload?.name}}" (click)="userMenu.open = !userMenu.open">account_circle</mdc-icon>
                 <mdc-menu anchorCorner="bottomStart" quickOpen #userMenu [anchorElement]="userAnchor">
                     <mdc-list-group>
                         <mdc-list twoLine interactive="false">
                             <mdc-list-item>
-                                <a mdc-fab mini style="margin-right: 1em">{{tokenPayload.name?.charAt(0).toUpperCase()}}</a>
-                                <mdc-list-item-text secondaryText="{{tokenPayload.email}}">{{tokenPayload.name}}</mdc-list-item-text>
+                                <a mdc-fab mini style="margin-right: 1em">{{tokenPayload?.name.charAt(0).toUpperCase()}}</a>
+                                <mdc-list-item-text secondaryText="{{tokenPayload?.email}}">{{tokenPayload?.name}}</mdc-list-item-text>
                             </mdc-list-item>
                         </mdc-list>
                         <mdc-list-divider></mdc-list-divider>
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
         { icon: 'domain', label: 'Companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
         { icon: 'business_center', label: 'Empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
         { icon: 'people', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
-        { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN'] }
+        { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
     ];
     private allowedMenuItems = [];
     private menuSelectedIndex: number;
