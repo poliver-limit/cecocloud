@@ -168,13 +168,6 @@ export class AuthService {
 
     constructor(
         private http: HttpClient ) {
-        // Metode periodic per revisar autenticació
-        /*const authTimer = timer(
-            AuthService.TIME_FIRST_TIMER_CALL, // Temps d'espera fins a la primera cridada (ms)
-            AuthService.TIME_BETWEEN_TIMER_CALLS ); // Interval entre cridades (ms)
-        const authTimerSubscribe = authTimer.subscribe( numCalls => {
-            this.validateAndRefresh();
-        } );*/
     }
 
 }

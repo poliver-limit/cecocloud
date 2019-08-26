@@ -39,7 +39,6 @@ import { RestapiBaseFieldComponent } from './restapi-base-field.component';
 import { RestapiDefaultFieldMdcwebComponent } from './restapi-default-field-mdcweb.component';
 import { RestapiDefaultFieldMaterialComponent } from './restapi-default-field-material.component';
 import { RestapiCustomFieldComponent } from './restapi-custom-field.component';
-import { RestapiFormErrorsDialogComponent } from './restapi-form-errors-dialog.component';
 
 export interface FormConfig {
     parent?: any;
@@ -110,10 +109,7 @@ mdc-top-app-bar {
     display: block;
 }
 form {
-    padding: 24px;
-}
-#form-content {
-    margin-top: 1em;
+    padding: 1em 2em;
 }
 #actions {
     display: flex;
@@ -180,15 +176,7 @@ export class RestapiFormComponent implements OnInit {
             }
         }
         this.restapiResource.fields.forEach( field => {
-            if ( field.type === 'DATETIME' ) {
-                let offsetInHours = -( new Date().getTimezoneOffset() / 60 );
-                let timezoneOffsetNegative = offsetInHours < 0;
-                if ( timezoneOffsetNegative ) {
-                    offsetInHours = -offsetInHours;
-                }
-                let timezoneOffsetStr = ( timezoneOffsetNegative ? '-' : '+' ) + ( ( offsetInHours < 10 ) ? '0' + offsetInHours : '' + offsetInHours ) + ':00';
-                values[field.name] = values[field.name] + timezoneOffsetStr;
-            } else if ( field.type === 'LOV' ) {
+            if ( field.type === 'LOV' ) {
                 if ( !values[field.name] || !values[field.name].id ) {
                     delete values[field.name];
                 }
@@ -342,7 +330,7 @@ export class RestapiFormComponent implements OnInit {
                     isFirst = false;
                 }
             } );
-            this.restapiError = errorResponse.error;
+            this.restapiError = errorResponse;
         } else {
             throw errorResponse;
         }

@@ -73,7 +73,6 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		Marcatge marcatge = new Marcatge();
 		marcatge.setParentId(operari.getId());
 		marcatge.setData(marcatgeMobil.getData());
-		marcatge.setDataCreacio(new Date());
 		MarcatgeEntity entity = MarcatgeEntity.builder().
 				operari(operari).
 				embedded(marcatge).
@@ -158,7 +157,6 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	private MarcatgeMobil toMarcatgeMobil(MarcatgeEntity marcatge) {
 		MarcatgeMobil marcatgeMobil = new MarcatgeMobil();
 		marcatgeMobil.setData(marcatge.getEmbedded().getData());
-		marcatgeMobil.setDataCreacio(marcatge.getEmbedded().getDataCreacio());
 		marcatgeMobil.setEmpresa(
 				GenericReference.toGenericReference(
 						marcatge.getOperari().getEmpresa().getId()));

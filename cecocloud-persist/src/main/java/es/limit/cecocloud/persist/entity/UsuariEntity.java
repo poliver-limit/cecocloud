@@ -46,7 +46,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "actiu"))
 })
 public class UsuariEntity extends AbstractEntity<Usuari, Long> {
-
+	
 	@Embedded
 	protected Usuari embedded;
 
@@ -72,6 +72,10 @@ public class UsuariEntity extends AbstractEntity<Usuari, Long> {
 	public void updateContrasenya(String contrasenya) {
 		this.embedded.setContrasenya(contrasenya);
 		this.embedded.setValidat(true);
+	}
+
+	public void updateRols(Set<Rol> rols) {
+		this.rols = rols;
 	}
 
 }

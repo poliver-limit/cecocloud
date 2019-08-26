@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
@@ -15,6 +16,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     exports: [
         MatFormFieldModule,
         MatInputModule,
+        MatSelectModule,
         MatCheckboxModule,
         MatButtonModule,
         MatIconModule,

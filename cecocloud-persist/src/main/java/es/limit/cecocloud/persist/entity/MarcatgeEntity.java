@@ -43,7 +43,7 @@ import lombok.Setter;
 			joinColumns = {@JoinColumn(name = "usuemp_id")},
 			foreignKey = @ForeignKey(name = "marcatge_usuemp_fk"))
 })
-public class MarcatgeEntity extends AbstractEntity<Marcatge, Long> {
+public class MarcatgeEntity extends AbstractAuditableEntity<Marcatge, Long> {
 
 	@Embedded
 	protected Marcatge embedded;

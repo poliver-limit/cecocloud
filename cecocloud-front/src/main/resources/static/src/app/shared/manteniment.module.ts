@@ -14,7 +14,6 @@ import { DatagridLinkCellRenderer } from './datagrid/datagrid-link-cell-renderer
 import { RestapiFormComponent } from './restapi-form/restapi-form.component';
 import { RestapiFormHeaderComponent } from './restapi-form/restapi-form-header.component';
 import { RestapiFormMantenimentDirective } from './restapi-form/restapi-form-manteniment.directive';
-import { RestapiFormErrorsDialogComponent } from './restapi-form/restapi-form-errors-dialog.component';
 import { RestapiDefaultFieldMdcwebComponent } from './restapi-form/restapi-default-field-mdcweb.component';
 import { RestapiDefaultFieldMaterialComponent } from './restapi-form/restapi-default-field-material.component';
 import { RestapiCustomFieldComponent } from './restapi-form/restapi-custom-field.component';
@@ -44,7 +43,6 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RestapiFormComponent,
         RestapiFormHeaderComponent,
         RestapiFormMantenimentDirective,
-        RestapiFormErrorsDialogComponent,
         RestapiDefaultFieldMdcwebComponent,
         RestapiDefaultFieldMaterialComponent,
         RestapiCustomFieldComponent,
@@ -62,7 +60,6 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
     entryComponents: [
         RestapiDefaultFieldMdcwebComponent,
         RestapiDefaultFieldMaterialComponent,
-        RestapiFormErrorsDialogComponent,
         RestapiLovDialogComponent
     ]
 } )

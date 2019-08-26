@@ -20,7 +20,7 @@ export class DefaultErrorHandler implements ErrorHandler {
             let message = error.error ? error.error.message : undefined;
             let timestamp = error.error ? error.error.timestamp : undefined;
             let trace = error.error ? error.error.trace : undefined;
-            this.showError( code, title, error, message, timestamp, trace );
+            this.showDialogError( code, title, error, message, timestamp, trace );
         } else {
             // Handle Client Error (Angular Error, ReferenceError...)
             if ( !navigator.onLine ) {
@@ -28,12 +28,12 @@ export class DefaultErrorHandler implements ErrorHandler {
             } else {
                 title = error.message ? error.message : error.toString();
             }
-            this.showError( error.name, title, error, null, null, error.stack );
+            this.showDialogError( error.name, title, error, null, null, error.stack );
             throw error;
         }
     }
 
-    showError( code: string, title: string, error: Error, message?: string, timestamp?: string, stack?: string ) {
+    showDialogError( code: string, title: string, error: Error, message?: string, timestamp?: string, stack?: string ) {
         const dialog = this.injector.get( MdcDialog );
         const dialogRef = dialog.open( DefaultErrorDialog, {
             data: {
@@ -63,13 +63,19 @@ export class DefaultErrorHandler implements ErrorHandler {
             <mdc-dialog-content>
                 <mdc-tab-bar (activated)="onActivatedTab($event)" [activeTabIndex]="0" useAutomaticActivation>
                     <mdc-tab-scroller>
-                        <mdc-tab id="message" *ngIf="data.message" label="Informació"></mdc-tab>
-                        <mdc-tab id="trace" *ngIf="data.stack" label="Traça"></mdc-tab>
-                        <mdc-tab id="fields" *ngIf="data.error.error.errors" label="Camps"></mdc-tab>
+                        <mdc-tab id="message" *ngIf="data.message" label="{{'error.dialog.tab.info'|translate}}"></mdc-tab>
+                        <mdc-tab id="fields" *ngIf="data.error.error.errors" label="{{'error.dialog.tab.fields'|translate}}"></mdc-tab>
+                        <mdc-tab id="trace" *ngIf="data.stack" label="{{'error.dialog.tab.trace'|translate}}"></mdc-tab>
                     </mdc-tab-scroller>
                 </mdc-tab-bar>
-                <p *ngIf="activeTabId == 'message'">{{data.message}}</p>
-                <p *ngIf="activeTabId == 'message'"><mdc-icon class="text-icon">access_time</mdc-icon> {{data.timestamp}}</p>
+                <mdc-list *ngIf="activeTabId == 'message'" twoLine>
+                    <mdc-list-item>
+                        <mdc-list-item-text [secondaryText]="data.message">{{'error.dialog.field.message'|translate}}</mdc-list-item-text>
+                    </mdc-list-item>
+                    <mdc-list-item>
+                        <mdc-list-item-text [secondaryText]="data.timestamp">{{'error.dialog.field.timestamp'|translate}}</mdc-list-item-text>
+                    </mdc-list-item>
+                </mdc-list>
                 <mdc-textarea *ngIf="activeTabId == 'trace'" fullwidth rows="8" [value]="data.stack"></mdc-textarea>
                 <mdc-list *ngIf="activeTabId == 'fields'" twoLine>
                     <mdc-list-item *ngFor="let fieldError of data.error.error.errors">
@@ -78,7 +84,7 @@ export class DefaultErrorHandler implements ErrorHandler {
                 </mdc-list>
             </mdc-dialog-content>
             <mdc-dialog-actions>
-                <button mdcDialogButton mdcDialogAction="close">Tancar</button>
+                <button mdcDialogButton mdcDialogAction="close">{{'error.dialog.button.close'|translate}}</button>
             </mdc-dialog-actions>
         </mdc-dialog-surface>
     </mdc-dialog-container>

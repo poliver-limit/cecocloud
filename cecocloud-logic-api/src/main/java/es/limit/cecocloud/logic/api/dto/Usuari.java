@@ -43,10 +43,10 @@ public class Usuari extends AbstractIdentificable<Long> {
 	@JsonIgnore
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String contrasenya;
+	@Transient
+	@RestapiField(hiddenInLov = true)
+	private Set<Rol> rols;
 	private boolean validat;
 	private boolean actiu;
-	@Transient
-	@RestapiField(hiddenInLov = true, hiddenInForm = true)
-	private Set<Rol> rols;
 
 }

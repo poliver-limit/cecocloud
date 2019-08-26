@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MatInput } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Resource } from 'angular4-hal';
+import * as moment from 'moment';
 
 import {
     RestapiResource,
@@ -15,7 +16,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
 @Component( {
     selector: 'restapi-field',
     template: `
-<mat-form-field *ngIf="!isDate && !isCheckbox && !isLov" style="width:100%">
+<mat-form-field *ngIf="isText || isTextarea" style="width:100%">
     <mat-label>{{label}}</mat-label>
     <input
         *ngIf="isText"
@@ -36,16 +37,8 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         [required]="field.required"
         (click)="onFieldClick($event)"
         (change)="onFieldChange($event)"></textarea>
-    <input
-        *ngIf="isDatetime"
-        matInput
-        type="datetime-local"
-        [formControl]="formControl"
-        [required]="field.required"
-        (click)="onFieldClick($event)"
-        (change)="onFieldChange($event)"/>
+    <mat-hint align="end" *ngIf="showCharCount">{{formControl.value?.length || 0}}/{{field.maxLength}}</mat-hint>
     <mat-error>{{errorMessage}}</mat-error>
-    <!--mat-hint align="end">{{formControl.value?.length || 0}}/{{field.maxLength}}</mat-hint-->
 </mat-form-field>
 <ng-container *ngIf="isDate">
     <mat-form-field style="width:100%">
@@ -59,6 +52,60 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             (change)="onFieldChange($event)"/>
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
+        <mat-error>{{errorMessage}}</mat-error>
+    </mat-form-field>
+</ng-container>
+<ng-container *ngIf="isDatetime" [formGroup]="datetimeFormGroup">
+    <mat-form-field style="width:50%; margin-right: 6px">
+        <mat-label>{{label}}</mat-label>
+        <input
+            matInput
+            [matDatepicker]="datePicker"
+            formControlName="date"
+            [required]="field.required"
+            [readonly]="datetimeLinkedWithCurrentTime"
+            (click)="onFieldClick($event)"
+            (change)="onFieldChange($event)"/>
+        <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="datetimeLinkedWithCurrentTime"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
+        <mat-error>{{errorMessage}}</mat-error>
+    </mat-form-field>
+    <mat-form-field [ngStyle]="{'width': datetimeLinkButtonActive ? 'calc(50% - 6px - 40px - 6px)' : 'calc(50% - 6px)'}">
+        <input
+            matInput
+            type="time"
+            step="1"
+            formControlName="time"
+            [required]="field.required"
+            [readonly]="datetimeLinkedWithCurrentTime"
+            (click)="onFieldClick($event)"
+            (change)="onFieldChange($event)"/>
+        <button mat-icon-button matSuffix>
+            <mat-icon>schedule</mat-icon>
+        </button>
+    </mat-form-field>
+    <button
+        *ngIf="datetimeLinkButtonActive"
+        mat-icon-button
+        (click)="onDatetimeLinkButtonClick($event)"
+        aria-label="Link with current time"
+        style="margin-left: 6px">
+        <mat-icon *ngIf="datetimeLinkedWithCurrentTime">link</mat-icon>
+        <mat-icon *ngIf="!datetimeLinkedWithCurrentTime">link_off</mat-icon>
+    </button>
+</ng-container>
+<ng-container *ngIf="isSelect">
+    <mat-form-field style="width:100%">
+        <mat-label>{{label}}</mat-label>
+        <mat-select
+            [formControl]="formControl"
+            multiple
+            [required]="field.required"
+            (click)="onFieldClick($event)"
+            (change)="onFieldChange($event)">
+            <mat-option *ngFor="let enumValue of field.enumValues" [value]="enumValue">{{enumValue}}</mat-option>
+        </mat-select>
+        <mat-error>{{errorMessage}}</mat-error>
     </mat-form-field>
 </ng-container>
 <div *ngIf="isCheckbox" style="width:100%">
@@ -91,6 +138,10 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
     private isCheckbox: boolean = false;
     private isSelect: boolean = false;
     private isLov: boolean = false;
+    private datetimeFormGroup: FormGroup;
+    private datetimeLinkButtonActive: boolean = true;
+    private datetimeLinkedWithCurrentTime: boolean = false;
+    private showCharCount: boolean;
     private errorMessage: string;
 
     ngOnInit() {
@@ -103,6 +154,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
                 this.isDate = true;
                 break;
             case 'DATETIME':
+                this.buildDatetimeFormGroup();
                 this.isDatetime = true;
                 break;
             case 'BOOLEAN':
@@ -132,7 +184,14 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         if ( event.target && event.target.value === '' ) {
             this.formControl.reset();
         }
+        if ( this.isDatetime ) {
+            this.datetimePropagateToFormControl();
+        }
         super.onFieldChange( event );
+    }
+
+    onFieldInput( event ) {
+        console.log( '>>> onFieldInput', event )
     }
 
     public setErrors( errors?: any ) {
@@ -141,10 +200,22 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         } else {
             let valid = !( errors && Object.keys( errors ).length > 0 );
             if ( !valid ) {
-                this.formControl.markAsTouched();
-                this.formControl.setErrors( errors );
+                if ( this.datetimeFormGroup ) {
+                    this.datetimeFormGroup.get( 'date' ).markAsTouched();
+                    this.datetimeFormGroup.get( 'date' ).setErrors( errors );
+                    this.datetimeFormGroup.get( 'time' ).markAsTouched();
+                    this.datetimeFormGroup.get( 'time' ).setErrors( errors );
+                } else {
+                    this.formControl.markAsTouched();
+                    this.formControl.setErrors( errors );
+                }
             } else {
-                this.formControl.setErrors( null );
+                if ( this.datetimeFormGroup ) {
+                    this.datetimeFormGroup.get( 'date' ).setErrors( null );
+                    this.datetimeFormGroup.get( 'time' ).setErrors( null );
+                } else {
+                    this.formControl.setErrors( null );
+                }
             }
             this.errorMessage = valid ? undefined : errors[Object.keys( errors )[0]];
         }
@@ -153,21 +224,70 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
     getFieldComponent() {
         return this.matInputField;
     }
-    /*getEnumDescription( index: number, value: string ) {
-        if ( this.field ) {
-            if ( this.field.enumDescriptions ) {
-                return this.field.enumDescriptions[index];
-            } else if ( this.field.enumTranslateKeyPrefix ) {
-                return this.translate.instant( this.field.enumTranslateKeyPrefix + value );
-            } else {
-                return value;
-            }
+
+    private getEnumDescription( index: number, value: string ) {
+        if ( this.field.enumDescriptions ) {
+            return this.field.enumDescriptions[index];
+        } else if ( this.field.enumTranslateKeyPrefix ) {
+            return this.translate.instant( this.field.enumTranslateKeyPrefix + value );
+        } else {
+            return value;
         }
-    }*/
+    }
+
+    private buildDatetimeFormGroup() {
+        let fieldValue = this.formGroup.get( this.fieldName ).value;
+        let dateValue;
+        let timeValue;
+        let fieldMoment;
+        if ( fieldValue ) {
+            fieldMoment = moment( fieldValue );
+            this.datetimeLinkedWithCurrentTime = false;
+        } else if ( this.datetimeLinkedWithCurrentTime ) {
+            fieldMoment = moment();
+        }
+        if ( fieldMoment ) {
+            dateValue = fieldMoment;
+            timeValue = fieldMoment.format( 'HH:mm:ss' );
+        }
+        let lovControls = {};
+        lovControls['date'] = { value: dateValue, disabled: this.formControl.disabled || this.datetimeLinkedWithCurrentTime };
+        lovControls['time'] = { value: timeValue, disabled: this.formControl.disabled || this.datetimeLinkedWithCurrentTime };
+        this.datetimeFormGroup = this.formBuilder.group( lovControls );
+    }
+
+
+    private onDatetimeLinkButtonClick() {
+        this.datetimeLinkedWithCurrentTime = !this.datetimeLinkedWithCurrentTime;
+        if ( !this.datetimeLinkedWithCurrentTime ) {
+            this.doEachSecond();
+        }
+    }
+
+    private doEachSecond() {
+        if ( this.datetimeFormGroup && this.datetimeLinkedWithCurrentTime ) {
+            let currentMoment = moment();
+            this.datetimeFormGroup.get( 'date' ).setValue( currentMoment );
+            this.datetimeFormGroup.get( 'time' ).setValue( currentMoment.format( 'HH:mm:ss' ) );
+            this.datetimePropagateToFormControl();
+        }
+    }
+
+    private datetimePropagateToFormControl() {
+        let dateValue = this.datetimeFormGroup.get( 'date' ).value;
+        let timeValue = this.datetimeFormGroup.get( 'time' ).value;
+        let m = moment( dateValue.format( 'YYYY-MM-DD' ) + ' ' + timeValue, 'YYYY-MM-DD HH:mm:ss' );
+        let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + m.format( 'Z' );
+        this.formGroup.get( this.fieldName ).setValue( apiValue );
+    }
 
     constructor(
-        private translate: TranslateService) {
+        private formBuilder: FormBuilder,
+        private translate: TranslateService ) {
         super();
+        setInterval(() => {
+            this.doEachSecond();
+        }, 1000 );
     }
 
 }

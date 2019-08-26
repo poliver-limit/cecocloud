@@ -62,6 +62,13 @@
 
 	"home.salutacio": "Bienvenido",
 
+	"error.dialog.tab.info": "Información",
+	"error.dialog.tab.fields": "Campos",
+	"error.dialog.tab.trace": "Traza",
+	"error.dialog.field.message": "Mensaje",
+	"error.dialog.field.timestamp": "Fecha y hora",
+	"error.dialog.button.close": "Cerrar",
+
 	"resource.usuari": "Usuario",
 	"resource.usuari.plural": "Usuarios",
 	"resource.usuari.field.codi": "Código",

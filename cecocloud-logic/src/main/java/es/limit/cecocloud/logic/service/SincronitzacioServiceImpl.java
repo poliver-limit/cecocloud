@@ -150,7 +150,6 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				sm.setEmpresaCodi(smEmpresa.getCodi());
 				sm.setOperariCodi(smUsuariEmpresa.getCodi());
 				sm.setData(marcatge.getEmbedded().getData());
-				sm.setDataCreacio(marcatge.getEmbedded().getDataCreacio());
 				resposta.add(sm);
 			}
 		}

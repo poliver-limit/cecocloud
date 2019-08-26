@@ -84,7 +84,7 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 			produces = "application/json")
 	public ResponseEntity<Resource<D>> update(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
+			@PathVariable /*@DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN)*/ final ID resourceId,
 			@RequestBody @Valid final D dto,
 			@RequestParam(required = false) boolean validate) {
 		if (!validate) {
@@ -108,7 +108,7 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 			produces = "application/json")
 	public ResponseEntity<Resource<D>> patch(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
+			@PathVariable /*@DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN)*/ final ID resourceId,
 			@RequestBody final JsonNode jsonNode,
 			BindingResult bindingResult) throws MethodArgumentNotValidException {
 		log.debug("Pedaçant entitat (" +
@@ -141,7 +141,7 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 	@DeleteMapping(value = "/{resourceId}")
 	public ResponseEntity<?> delete(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
+			@PathVariable /*@DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN)*/ final ID resourceId) {
 		log.debug("Esborrant entitat (" +
 				"resourceId=" + resourceId + ")");
 		getService().delete(resourceId);

@@ -34,7 +34,7 @@ import {
     RestapiResourceField,
     RestapiResourceGrid
 } from '../restapi/restapi-profile';
-import { RestapiFormErrorsDialogComponent } from './restapi-form-errors-dialog.component';
+import { DefaultErrorHandler } from '../default-error-handler';
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../screen-size.service';
 
 export interface FormConfig {
@@ -196,7 +196,7 @@ export class RestapiFormHeaderComponent {
             this.title = this.translateKey( restapiResource.translateKeyPlural );
         }
     }
-    @Input() restapiError: RestapiResource;
+    @Input() restapiError: Error;
 
     @Output() actionSave: EventEmitter<any> = new EventEmitter();
     @Output() actionCancel: EventEmitter<any> = new EventEmitter();
@@ -220,13 +220,7 @@ export class RestapiFormHeaderComponent {
     }
 
     onErrorIconClick() {
-        this.dialog.open( RestapiFormErrorsDialogComponent, {
-            escapeToClose: true,
-            clickOutsideToClose: true,
-            data: {
-                error: this.restapiError
-            }
-        } );
+        this.defaultErrorHandler.handleError( this.restapiError );
     }
 
     onItemDownClick() {
@@ -248,7 +242,8 @@ export class RestapiFormHeaderComponent {
     constructor(
         private translate: TranslateService,
         private dialog: MdcDialog,
-        private screenSizeService: ScreenSizeService ) {
+        private screenSizeService: ScreenSizeService,
+        private defaultErrorHandler: DefaultErrorHandler ) {
         this.mobileScreen = this.screenSizeService.isMobile();
         this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
             this.mobileScreen = event.mobile

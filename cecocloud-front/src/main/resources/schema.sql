@@ -24,9 +24,12 @@ create table empresa (
 create table marcatge (
    id number(19,0) not null,
     data timestamp not null,
-    data_actual timestamp not null,
-    version number(19,0) not null,
     usuemp_id number(19,0) not null,
+    created_by varchar2(64 char) not null,
+    created_date timestamp not null,
+    lastmod_by varchar2(64 char),
+    lastmod_date timestamp,
+    version number(19,0) not null,
     primary key (id)
 );
 
@@ -104,20 +107,23 @@ create table companyia (
 
 create table empresa (
    id bigint not null,
+    version bigint not null,
     activa boolean not null,
     codi varchar(30) not null,
     identificador_codi varchar(4) not null,
     nif varchar(12) not null,
     nom varchar(30) not null,
-    version bigint not null,
-    companyia_id bigint not null,
+    companyia_id bigint,
     primary key (id)
 );
 
 create table marcatge (
    id bigint not null,
     data timestamp not null,
-    data_actual timestamp not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version bigint not null,
     usuemp_id bigint not null,
     primary key (id)

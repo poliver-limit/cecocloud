@@ -62,6 +62,13 @@
 
 	"home.salutacio": "Benvingut",
 
+	"error.dialog.tab.info": "Informació",
+	"error.dialog.tab.fields": "Camps",
+	"error.dialog.tab.trace": "Traça",
+	"error.dialog.field.message": "Missatge",
+	"error.dialog.field.timestamp": "Data i hora",
+	"error.dialog.button.close": "Tancar",
+
 	"resource.usuari": "Usuari",
 	"resource.usuari.plural": "Usuaris",
 	"resource.usuari.field.codi": "Codi",
