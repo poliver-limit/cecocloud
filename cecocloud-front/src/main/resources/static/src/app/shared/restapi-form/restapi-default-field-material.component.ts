@@ -256,7 +256,6 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         this.datetimeFormGroup = this.formBuilder.group( lovControls );
     }
 
-
     private onDatetimeLinkButtonClick() {
         this.datetimeLinkedWithCurrentTime = !this.datetimeLinkedWithCurrentTime;
         if ( !this.datetimeLinkedWithCurrentTime ) {
@@ -277,8 +276,18 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         let dateValue = this.datetimeFormGroup.get( 'date' ).value;
         let timeValue = this.datetimeFormGroup.get( 'time' ).value;
         let m = moment( dateValue.format( 'YYYY-MM-DD' ) + ' ' + timeValue, 'YYYY-MM-DD HH:mm:ss' );
-        let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + m.format( 'Z' );
+        let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + this.getTimeZoneOffset();
         this.formGroup.get( this.fieldName ).setValue( apiValue );
+    }
+
+    private getTimeZoneOffset() {
+        let offsetInHours = -( new Date().getTimezoneOffset() / 60 );
+        let timezoneOffsetNegative = offsetInHours < 0;
+        if ( timezoneOffsetNegative ) {
+            offsetInHours = -offsetInHours;
+        }
+        let timezoneOffsetStr = ( timezoneOffsetNegative ? '-' : '+' ) + (( offsetInHours < 10 ) ? '0' + offsetInHours : '' + offsetInHours) + ':00';
+        return timezoneOffsetStr;
     }
 
     constructor(

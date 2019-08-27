@@ -32,6 +32,7 @@ import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.repository.OperariRepository;
 import es.limit.cecocloud.persist.repository.UsuariRepository;
+import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
 /**
@@ -39,6 +40,7 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Service
 public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
@@ -74,6 +76,10 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
 		OperariEntity operari = getOperariPerMarcatge(marcatgeMobil);
 		Marcatge marcatge = new Marcatge();
+		log.info("Rebut marcatge de l'app mòbil (" +
+				"operari=" + operari.getEmbedded().getDescripcio() + ", " +
+				"data=" + marcatgeMobil.getData() + ", " +
+				"dataActual=" + new Date() + ")");
 		marcatge.setData(marcatgeMobil.getData());
 		MarcatgeEntity entity = MarcatgeEntity.builder().
 				operari(operari).
