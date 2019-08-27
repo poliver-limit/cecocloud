@@ -123,7 +123,6 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	private OperariEntity getOperariPerMarcatge(MarcatgeMobil marcatgeMobil) {
 		if (marcatgeMobil.getEmpresa() != null) {
-			Date ara = new Date();
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String currentUserName = auth.getName();
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
@@ -135,7 +134,8 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				OperariEntity trobat = null;
 				for (OperariEntity operari: operaris) {
 					Operari embedded = operari.getEmbedded();
-					if (ara.after(embedded.getDataInici()) && (embedded.getDataFi() == null || ara.before(embedded.getDataFi()))) {
+					Date marcatgeData = marcatgeMobil.getData();
+					if (marcatgeData.after(embedded.getDataInici()) && (embedded.getDataFi() == null || marcatgeData.before(embedded.getDataFi()))) {
 						trobat = operari;
 						break;
 					}

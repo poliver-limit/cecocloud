@@ -50,7 +50,7 @@ create table usuari_empresa (
    id number(19,0) not null,
     data_fi timestamp not null,
     data_inici timestamp not null,
-    operari_codi varchar2(6 char) not null,
+    codi varchar2(6 char) not null,
     version number(19,0) not null,
     usuari_id number(19,0) not null,
     empresa_id number(19,0) not null,

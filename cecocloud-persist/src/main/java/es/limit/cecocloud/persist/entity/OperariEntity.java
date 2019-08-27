@@ -32,7 +32,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "usuari_empresa")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "operari_codi", length = 6, nullable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 6, nullable = false)),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "data_inici", nullable = false)),
 	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi"))
 })

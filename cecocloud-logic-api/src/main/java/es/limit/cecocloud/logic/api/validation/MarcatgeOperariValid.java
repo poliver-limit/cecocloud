@@ -3,8 +3,7 @@
  */
 package es.limit.cecocloud.logic.api.validation;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -21,12 +20,14 @@ import javax.validation.Payload;
  */
 @Documented
 @Constraint(validatedBy = MarcatgeOperariValidValidator.class)
-@Target({ METHOD, FIELD })
+@Target(TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MarcatgeOperariValidConstraint {
-	String message() default "Invalid operari";
+public @interface MarcatgeOperariValid {
+
+	String message() default "{cecocloud.validation.constraints.MarcatgeOperariValid}";
 
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};
+
 }

@@ -69,6 +69,9 @@
 	"error.dialog.field.timestamp": "Fecha y hora",
 	"error.dialog.button.close": "Cerrar",
 
+	"error.validation.contraint.NotNull": "Este campo es obligatorio",
+	"error.validation.contraint.MarcatgeOperariValid": "Operario inválido",
+
 	"resource.usuari": "Usuario",
 	"resource.usuari.plural": "Usuarios",
 	"resource.usuari.field.codi": "Código",
@@ -99,6 +102,7 @@
 	"resource.operari.field.codi": "Código",
 	"resource.operari.field.dataInici": "Fecha inicio",
 	"resource.operari.field.dataFi": "Fecha fin",
+	"resource.operari.field.descripcio": "Código + empresa",
 
 	"resource.marcatge": "Marcaje",
 	"resource.marcatge.plural": "Marcajes",

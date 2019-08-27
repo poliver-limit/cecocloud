@@ -9,6 +9,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.logic.api.annotation.RestapiField;
 import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
@@ -23,21 +25,24 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-@RestapiResource(descriptionField = "codi")
+@RestapiResource(descriptionField = "descripcio")
 public class Operari extends AbstractIdentificable<Long> {
 
+	@NotNull
+	@Size(max = 6)
+	@RestapiField(includeInQuickFilter = true, hiddenInLov = true)
+	private String codi;
+	@NotNull
+	@Transient
+	@RestapiField(includeInQuickFilter = true, hiddenInLov = true)
+	private GenericReference<Empresa, Long> empresa;
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	@Formula("'('||codi||') '|| (select emp.nom from empresa emp where emp.id=empresa_id)")
+	private String descripcio;
 	@NotNull
 	@Transient
 	@RestapiField(includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
-	@NotNull
-	@Transient
-	@RestapiField(includeInQuickFilter = true)
-	private GenericReference<Empresa, Long> empresa;
-	@NotNull
-	@Size(max = 6)
-	@RestapiField(includeInQuickFilter = true)
-	private String codi;
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.DATE,

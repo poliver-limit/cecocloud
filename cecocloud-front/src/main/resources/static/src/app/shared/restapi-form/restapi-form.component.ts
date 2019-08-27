@@ -318,7 +318,8 @@ export class RestapiFormComponent implements OnInit {
                 this.inputFields.forEach(( inputField: RestapiBaseFieldComponent ) => {
                     if ( inputField.fieldName === error.field ) {
                         let fieldErrors = {};
-                        fieldErrors[error.code] = error.defaultMessage;
+                        let defaultErrorMessage = error.defaultMessage ? error.defaultMessage : error.code;
+                        fieldErrors[error.code] = this.translateKey('error.validation.contraint.' + error.code, undefined, defaultErrorMessage);
                         inputField.setErrors( fieldErrors );
                     }
                 } );

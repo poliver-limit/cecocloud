@@ -69,6 +69,9 @@
 	"error.dialog.field.timestamp": "Data i hora",
 	"error.dialog.button.close": "Tancar",
 
+	"error.validation.contraint.NotNull": "Aquest camp és obligatori",
+	"error.validation.contraint.MarcatgeOperariValid": "Operari invàlid",
+
 	"resource.usuari": "Usuari",
 	"resource.usuari.plural": "Usuaris",
 	"resource.usuari.field.codi": "Codi",
@@ -99,6 +102,7 @@
 	"resource.operari.field.codi": "Codi",
 	"resource.operari.field.dataInici": "Data inici",
 	"resource.operari.field.dataFi": "Data fi",
+	"resource.operari.field.descripcio": "Codi + empresa",
 
 	"resource.marcatge": "Marcatge",
 	"resource.marcatge.plural": "Marcatges",

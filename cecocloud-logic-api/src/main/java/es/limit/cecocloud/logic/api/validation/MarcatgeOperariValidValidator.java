@@ -18,13 +18,13 @@ import es.limit.cecocloud.logic.api.service.OperariService;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class MarcatgeOperariValidValidator implements ConstraintValidator<MarcatgeOperariValidConstraint, Marcatge> {
+public class MarcatgeOperariValidValidator implements ConstraintValidator<MarcatgeOperariValid, Marcatge> {
 
 	@Autowired
 	private OperariService operariService;
 
 	@Override
-	public void initialize(MarcatgeOperariValidConstraint constraintAnnotation) {
+	public void initialize(MarcatgeOperariValid constraintAnnotation) {
 	}
 
 	@Override
@@ -39,16 +39,18 @@ public class MarcatgeOperariValidValidator implements ConstraintValidator<Marcat
 				if (!actiu) {
 					context.disableDefaultConstraintViolation();
 					context.buildConstraintViolationWithTemplate(
-			                "{marcarge.operari.not.active}").
+			                "{cecocloud.validation.constraints.MarcatgeOperariValid.not.active}").
 			        addPropertyNode("operari").
 					addConstraintViolation();
+					return false;
 				}
 			} catch (Exception ex) {
 				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate(
-		                "{marcarge.operari.permission.denied}").
+		                "{cecocloud.validation.constraints.MarcatgeOperariValid.permission.denied}").
 		        addPropertyNode("operari").
 				addConstraintViolation();
+				return false;
 			}
 		}
 		return true;
