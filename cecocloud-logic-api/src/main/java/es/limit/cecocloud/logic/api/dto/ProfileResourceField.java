@@ -32,10 +32,10 @@ public class ProfileResourceField {
 	private Object[] enumValues;
 	private String[] enumDescriptions;
 	private String lovResourceName;
-	private String lovParentField;
-	private boolean lovWithDescriptionInput;
 	private String lovDescriptionField;
-	private String lovDescriptionFieldInFront;
+	private boolean lovGenericResource;
+	/*private String lovParentField;
+	private boolean lovWithDescriptionInput;*/
 	private boolean includeInQuickFilter;
 
 	public static enum RestapiFieldType {

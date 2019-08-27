@@ -35,7 +35,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	@Transactional
 	public D create(D dto) {
 		logger.debug("Creant entitat (" + "dto=" + dto + ")");
-		E entity = buildNewEntity(null, null, dto);
+		E entity = buildNewEntity(dto);
 		beforeCreate(entity, dto);
 		E saved = getRepository().save(entity);
 		afterCreate(entity, dto);
@@ -81,8 +81,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 				"quickFilter=" + quickFilter + ", " +
 				"rsqlQuery=" + rsqlQuery + ", " +
 				"pageable=" + pageable + ")");
-		return findPageByQuickFilterAndRsqlQuery(
-				null,
+		return super.findPageByQuickFilterAndRsqlQuery(
 				quickFilter,
 				rsqlQuery,
 				pageable);

@@ -50,9 +50,12 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	private EmpresaRepository empresaRepository;
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
+	
+	@Autowired
+	protected MapperFacade orikaMapperFacade;
 
 	/*private DtoConverter<Marcatge, MarcatgeEntity, Long> marcatgeDtoConverter;*/
-	private DtoConverter<Empresa, EmpresaEntity, Long> empresaDtoConverter;
+	//private DtoConverter<Empresa, EmpresaEntity, Long> empresaDtoConverter;
 
 	@Autowired
 	public MobileMarcatgeServiceImpl(MapperFacade orikaMapperFacade) {
@@ -61,17 +64,16 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				Marcatge.class,
 				MarcatgeEntity.class,
 				orikaMapperFacade);*/
-		this.empresaDtoConverter = new DtoConverter<Empresa, EmpresaEntity, Long>(
+		/*this.empresaDtoConverter = new DtoConverter<Empresa, EmpresaEntity, Long>(
 				Empresa.class,
 				EmpresaEntity.class,
-				orikaMapperFacade);
+				orikaMapperFacade);*/
 	}
 
 	@Override
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
 		OperariEntity operari = getOperariPerMarcatge(marcatgeMobil);
 		Marcatge marcatge = new Marcatge();
-		marcatge.setParentId(operari.getId());
 		marcatge.setData(marcatgeMobil.getData());
 		MarcatgeEntity entity = MarcatgeEntity.builder().
 				operari(operari).
@@ -112,8 +114,11 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	@Override
 	public List<Empresa> empresesFindAll() {
 		List<OperariEntity> usuariEmpreses = findUsuarisEmpresesActius();
-		return empresaDtoConverter.toDto(
-				usuariEmpreses.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()));
+		return orikaMapperFacade.mapAsList(
+				usuariEmpreses.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()),
+				Empresa.class);
+		/*return empresaDtoConverter.toDto(
+				usuariEmpreses.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()));*/
 	}
 
 	private OperariEntity getOperariPerMarcatge(MarcatgeMobil marcatgeMobil) {

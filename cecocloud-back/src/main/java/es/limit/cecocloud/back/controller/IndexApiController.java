@@ -43,21 +43,13 @@ public class IndexApiController extends AbstractProfileController {
 		return ResponseEntity.ok(resources);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("rawtypes")
 	private Link[] getApiControllerLinks() {
 		List<Link> links = new ArrayList<Link>();
 		links.add(linkTo(methodOn(getClass()).findAll(null)).withSelfRel());
 		Reflections reflections = new Reflections(getClass().getPackage().getName());
 		Set<Class<? extends AbstractIdentificableReadOnlyApiController>> identificableApiControllerClasses = reflections.getSubTypesOf(AbstractIdentificableReadOnlyApiController.class);
 		for (Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass: identificableApiControllerClasses) {
-			if (!apiControllerClass.isInterface() && !Modifier.isAbstract(apiControllerClass.getModifiers())) {
-				Class<? extends Identificable<?>> dtoClass = getDtoClassFromApiController(apiControllerClass);
-				String resourceName = getResourceNameFromClass(dtoClass);
-				links.add(linkTo(methodOn(apiControllerClass).find(null, null, null, null)).withRel(resourceName));
-			}
-		}
-		Set<Class<? extends AbstractIdentificableChildReadOnlyApiController>> identificableChildApiControllerClasses = reflections.getSubTypesOf(AbstractIdentificableChildReadOnlyApiController.class);
-		for (Class<? extends AbstractIdentificableChildReadOnlyApiController> apiControllerClass: identificableChildApiControllerClasses) {
 			if (!apiControllerClass.isInterface() && !Modifier.isAbstract(apiControllerClass.getModifiers())) {
 				Class<? extends Identificable<?>> dtoClass = getDtoClassFromApiController(apiControllerClass);
 				String resourceName = getResourceNameFromClass(dtoClass);

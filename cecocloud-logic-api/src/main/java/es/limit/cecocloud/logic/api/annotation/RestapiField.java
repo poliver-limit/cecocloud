@@ -1,4 +1,4 @@
-package es.limit.cecocloud.logic.api.annotations;
+package es.limit.cecocloud.logic.api.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

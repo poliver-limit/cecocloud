@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import es.limit.cecocloud.logic.api.annotations.RestapiField;
-import es.limit.cecocloud.logic.api.annotations.RestapiResource;
+import es.limit.cecocloud.logic.api.annotation.RestapiField;
+import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;

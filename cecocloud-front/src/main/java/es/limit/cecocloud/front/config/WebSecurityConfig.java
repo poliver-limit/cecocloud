@@ -78,8 +78,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				    	Usuari usuari = authService.getUsuariForAuthentication(username);
 				    	if (usuari != null) {
 				    		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-				    		for (Rol rol: usuari.getRols()) {
-				    			authorities.add(new SimpleGrantedAuthority(rol.toString()));
+				    		if (usuari.getRols() != null) {
+					    		for (Rol rol: usuari.getRols()) {
+					    			authorities.add(new SimpleGrantedAuthority(rol.toString()));
+					    		}
 				    		}
 				    		return new User(
 					    			usuari.getCodi(),

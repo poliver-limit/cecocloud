@@ -24,9 +24,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.cecocloud.logic.api.annotations.RestapiField;
-import es.limit.cecocloud.logic.api.annotations.RestapiGrid;
-import es.limit.cecocloud.logic.api.annotations.RestapiResource;
+import es.limit.cecocloud.logic.api.annotation.RestapiField;
+import es.limit.cecocloud.logic.api.annotation.RestapiGrid;
+import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.Profile;
 import es.limit.cecocloud.logic.api.dto.ProfileResource;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
@@ -331,20 +331,16 @@ public class ProfileServiceImpl implements ProfileService {
 			if (resourceAnnotation != null && !resourceAnnotation.descriptionField().isEmpty()) {
 				lovField.setLovDescriptionField(resourceAnnotation.descriptionField());
 			}
-			if (GenericReference.class.isAssignableFrom(found.getType())) {
-				lovField.setLovDescriptionFieldInFront("description");
-			} else {
-				lovField.setLovDescriptionFieldInFront(lovField.getLovDescriptionField());
-			}
+			lovField.setLovGenericResource(GenericReference.class.isAssignableFrom(found.getType()));
 			lovField.setLovResourceName(
 					Character.toLowerCase(referencedResourceClass.getSimpleName().charAt(0)) + referencedResourceClass.getSimpleName().substring(1));
-			RestapiField restapiField = found.getAnnotation(RestapiField.class);
+			/*RestapiField restapiField = found.getAnnotation(RestapiField.class);
 			if (restapiField != null) {
 				lovField.setLovWithDescriptionInput(restapiField.lovWithDescriptionInput());
 				if (!restapiField.lovParentField().isEmpty()) {
 					lovField.setLovParentField(restapiField.lovParentField());
 				}
-			}
+			}*/
 		}
 	}
 

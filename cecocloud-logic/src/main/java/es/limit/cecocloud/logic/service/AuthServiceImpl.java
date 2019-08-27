@@ -42,8 +42,6 @@ public class AuthServiceImpl implements AuthService {
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
 
-	private DtoConverter<Usuari, UsuariEntity, Long> dtoConverter;
-
 	@Override
 	@Transactional(readOnly = true)
 	public Usuari getUsuariForAuthentication(String usuariCodi) {
@@ -51,7 +49,9 @@ public class AuthServiceImpl implements AuthService {
 		try {
 			Usuari usuari = usuariEntity.get().getEmbedded();
 			if (usuari.isValidat() && usuari.isActiu()) {
-				return getDtoConverter().toDto(usuariEntity.get());
+				return orikaMapperFacade.map(
+						usuariEntity.get(),
+						Usuari.class);
 			}
 		} catch (NoSuchElementException ex) {
 		}
@@ -122,16 +122,6 @@ public class AuthServiceImpl implements AuthService {
 	public UserSession getUserSession(String token) {
 		Jws<Claims> parsedToken = tokenHelper.validate(token, false);
 		return (UserSession)parsedToken.getBody().get("session");
-	}
-
-	protected DtoConverter<Usuari, UsuariEntity, Long> getDtoConverter() {
-		if (dtoConverter == null) {
-			dtoConverter = new DtoConverter<Usuari, UsuariEntity, Long>(
-					Usuari.class,
-					UsuariEntity.class,
-					orikaMapperFacade);
-		}
-		return dtoConverter;
 	}
 
 	private String buildToken(

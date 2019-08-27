@@ -46,11 +46,10 @@ export class RestapiLovComponent {
     set field( field: RestapiResourceField ) {
         this.formGroupName = field.name;
         this.lovResourceName = field.lovResourceName;
-        this.lovParentField = field.lovParentField;
         this.restapiService.configureWithResourceName( this.lovResourceName );
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
             this.lovResourceTranslateKey = restapiProfile.resource.translateKey;
-            this.descriptionField = restapiProfile.resource.descriptionField;
+            this.lovDescriptionField = restapiProfile.resource.descriptionField;
             restapiProfile.resource.fields.forEach(( field: RestapiResourceField ) => {
                 if ( !field.hiddenInLov ) {
                     this.dialogColumns.push( {
@@ -60,7 +59,7 @@ export class RestapiLovComponent {
                 }
             } );
             this.formControlDisabled = this.formGroup.controls[field.name].disabled;
-            this.updateLovInputValues( this.formGroup.value[field.name], field.lovDescriptionFieldInFront );
+            this.updateLovInputValues( this.formGroup.value[field.name], field.lovDescriptionField, field.lovGenericResource );
         } );
         this.required = field.required;
     }
@@ -76,8 +75,7 @@ export class RestapiLovComponent {
     private formControlDisabled: boolean;
     private lovResourceName: string;
     private lovResourceTranslateKey: string;
-    private lovParentField: string;
-    private descriptionField: string;
+    private lovDescriptionField: string;
     private hasValue: boolean = false;
     private dialogColumns: any[] = [];
     private required: boolean;
@@ -108,27 +106,24 @@ export class RestapiLovComponent {
         if ( event ) {
             event.stopPropagation();
         }
-        if ( !this.lovParentField || ( this.lovParentField && this.getParent() ) ) {
-            let dialogRef = this.dialog.open( RestapiLovDialogComponent, {
-                escapeToClose: true,
-                clickOutsideToClose: true,
-                data: {
-                    restapiService: this.restapiService,
-                    resourceTranslateKey: this.lovResourceTranslateKey,
-                    columns: this.dialogColumns,
-                    parent: this.getParent(),
-                }
-            } );
-            dialogRef.afterClosed().subscribe( data => {
-                if ( data !== 'close' ) {
-                    this.processLovChange( data );
-                }
-            } );
-        }
+        let dialogRef = this.dialog.open( RestapiLovDialogComponent, {
+            escapeToClose: true,
+            clickOutsideToClose: true,
+            data: {
+                restapiService: this.restapiService,
+                resourceTranslateKey: this.lovResourceTranslateKey,
+                columns: this.dialogColumns,
+            }
+        } );
+        dialogRef.afterClosed().subscribe( data => {
+            if ( data !== 'close' ) {
+                this.processLovChange( data );
+            }
+        } );
     }
 
     processLovChange( data?: any ) {
-        let childField;
+        /*let childField;
         this.resource.fields.forEach(( formField: RestapiResourceField ) => {
             if ( formField.lovParentField === this.formGroupName ) {
                 childField = formField;
@@ -146,20 +141,26 @@ export class RestapiLovComponent {
             let patchValue = {};
             patchValue[childField.name] = emptyLovValue;
             this.formGroup.patchValue( patchValue )
-        }
+        }*/
         this.updateLovInputValues( data );
         this.change.emit( data );
     }
 
-    updateLovInputValues( data?: any, descriptionField?: string ) {
+    updateLovInputValues( data?: any, descriptionField?: string, isGenericResource?: boolean ) {
         if ( !descriptionField ) {
-            descriptionField = this.descriptionField;
+            descriptionField = this.lovDescriptionField;
         }
         let valueId = ( data ) ? data['id'] : null;
         let valuePk = ( data ) ? data['pk'] : null;
         let valueDescription = '';
         if ( data ) {
-            valueDescription = ( descriptionField ) ? data[descriptionField] : this.lovResourceName + "_" + valueId;
+            if ( isGenericResource ) {
+                valueDescription = data['description'];
+            } else if ( descriptionField ) {
+                valueDescription = data[descriptionField];
+            } else {
+                valueDescription = this.lovResourceName + "_" + valueId;
+            }
         }
         let lovControls = {};
         lovControls['id'] = { value: valueId, disabled: this.formControlDisabled };
@@ -183,17 +184,6 @@ export class RestapiLovComponent {
         } );
         this.hasValue = valueId !== null;
         this.formGroupConfigured = true;
-    }
-
-    getParent(): any {
-        let parent = {};
-        if ( this.lovParentField ) {
-            let parentFieldValue = this.formGroup.controls[this.lovParentField].value;
-            if ( parentFieldValue ) {
-                parent = parentFieldValue.pk;
-            }
-        }
-        return parent;
     }
 
     constructor(

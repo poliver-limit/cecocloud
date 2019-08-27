@@ -6,8 +6,8 @@ package es.limit.cecocloud.logic.api.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import es.limit.cecocloud.logic.api.annotations.RestapiField;
-import es.limit.cecocloud.logic.api.annotations.RestapiResource;
+import es.limit.cecocloud.logic.api.annotation.RestapiField;
+import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import lombok.Getter;
 import lombok.Setter;

@@ -16,17 +16,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -62,12 +57,9 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	@Autowired
 	private List<BaseRepository<?, ?>> repositories;
 
-	private Class<P1> parent1Class;
-	private Class<P2> parent2Class;
 	private Class<E> entityClass;
 	private Class<D> dtoClass;
 	private Map<Class<? extends Identificable<?>>, BaseRepository<?, ?>> referencedRepositoriesMap;
-	private DtoConverter<D, E, ID> dtoConverter;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -100,17 +92,10 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		Class<?> builderReturnType = builderMethod.getReturnType();
 		builderReturnType.getMethod("build");
 		builderReturnType.getMethod("embedded", getDtoClass());
-		if (isChildService()) {
-			builderReturnType.getMethod("parent", getParent1Class());
-		}
-		if (isChildChildService()) {
-			builderReturnType.getMethod("parent1", getParent1Class());
-			builderReturnType.getMethod("parent2", getParent2Class());
-		}
 	}
 
 	@SuppressWarnings("unchecked")
-	protected E buildNewEntity(P1 parent1, P2 parent2, D dto) {
+	protected E buildNewEntity(D dto) {
 		try {
 			Method builderMethod = getEntityClass().getMethod("builder");
 			Class<?> builderReturnType = builderMethod.getReturnType();
@@ -118,31 +103,13 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 			Object builderInstance = builderMethod.invoke(null);
 			// Es crida el mètode que guarda els valors del DTO a dins embedded
 			embeddedMethod.invoke(builderInstance, dto);
-			Method parent1Method = null;
-			Method parent2Method = null;
-			if (isChildService()) {
-				parent1Method = builderReturnType.getMethod("parent", getParent1Class());
-				// Es crida el mètode que configura el pare
-				parent1Method.invoke(builderInstance, parent1);
-			}
-			if (isChildChildService()) {
-				parent2Method = builderReturnType.getMethod("parent1", getParent1Class());
-				// Es crida el mètode que configura el primer pare
-				parent2Method.invoke(builderInstance, parent1);
-				parent2Method = builderReturnType.getMethod("parent2", getParent1Class());
-				// Es crida el mètode que configura el segon pare
-				parent2Method.invoke(builderInstance, parent2);
-			}
 			if (referencedRepositoriesMap != null) {
 				// Es criden els mètodes del builder per a les entitats referenciades en el DTO
 				for (Method builderCallableMethod: builderReturnType.getDeclaredMethods()) {
 					// Només es criden els mètodes amb un argument
 					if (builderCallableMethod.getParameterTypes().length == 1) {
 						// Només es criden els métodes que no son "embedded" i que no corresponen a un parent 
-						boolean forbiddenMethod =
-								embeddedMethod.equals(builderCallableMethod) ||
-								(parent1Method != null && parent1Method.equals(builderCallableMethod)) ||
-								(parent2Method != null && parent2Method.equals(builderCallableMethod));
+						boolean forbiddenMethod = embeddedMethod.equals(builderCallableMethod);
 						if (!forbiddenMethod) {
 							AbstractEntity<?, ?> referencedEntity = getReferencedEntityForDtoField(
 									builderCallableMethod.getParameterTypes()[0],
@@ -184,7 +151,6 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	}
 
 	protected Page<D> findPageByQuickFilterAndRsqlQuery(
-			Persistable<?> parent,
 			String quickFilter,
 			String rsqlQuery,
 			Pageable pageable) {
@@ -203,38 +169,17 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		}
 		if (rsqlQueryWithQuickFilter != null && rsqlQueryWithQuickFilter.length() > 0) {
 			log.debug("Consulta amb filtre RSQL (" +
-					"rsqlQuery=" + rsqlQueryWithQuickFilter + ", " +
-					"parent=" + parent + ")");
+					"rsqlQuery=" + rsqlQueryWithQuickFilter + ")");
 			Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
 			operators.add(RsqlSearchOperation.EQUAL_IGNORE_CASE.getOperator());
 			Node rootNode = new RSQLParser(operators).parse(rsqlQueryWithQuickFilter.toString());
 			Specification<E> spec = rootNode.accept(new CustomRsqlVisitor<E>());
-			if (parent == null) {
-				resultat = getRepository().findAll(spec, processPageable(pageable));
-			} else {
-				@SuppressWarnings("serial")
-				Specification<E> parentSpec = new Specification<E>() {
-					public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-						return cb.equal(root.get("parent"), parent);
-					}
-				};
-				resultat = getRepository().findAll(spec.and(parentSpec), processPageable(pageable));
-			}
+			resultat = getRepository().findAll(spec, processPageable(pageable));
 		} else {
-			log.debug("Consulta sense filtre RSQL (parent=" + parent + ")");
-			if (parent == null) {
-				resultat = getRepository().findAll(processPageable(pageable));
-			} else {
-				@SuppressWarnings("serial")
-				Specification<E> parentSpec = new Specification<E>() {
-					public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-						return cb.equal(root.get("parent"), parent);
-					}
-				};
-				resultat = getRepository().findAll(parentSpec, processPageable(pageable));
-			}
+			log.debug("Consulta sense filtre RSQL");
+			resultat = getRepository().findAll(processPageable(pageable));
 		}
-		return getDtoConverter().toDto(resultat, processPageable(pageable));
+		return toDto(resultat, processPageable(pageable));
 	}
 
 	protected BaseRepository<E, ID> getRepository() {
@@ -242,38 +187,20 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	}
 
 	protected D toDto(E entity) {
-		return getDtoConverter().toDto(entity);
+		return orikaMapperFacade.map(
+				entity,
+				getDtoClass());
 	}
 	protected List<D> toDto(List<E> entities) {
-		return getDtoConverter().toDto(entities);
+		return orikaMapperFacade.mapAsList(
+				entities,
+				getDtoClass());
 	}
 	protected Page<D> toDto(Page<E> entityPage, Pageable pageable) {
-		return getDtoConverter().toDto(entityPage, pageable);
-	}
-
-	protected DtoConverter<D, E, ID> getDtoConverter() {
-		if (dtoConverter == null) {
-			dtoConverter = new DtoConverter<D, E, ID>(
-					getDtoClass(),
-					getEntityClass(),
-					orikaMapperFacade);
-		}
-		return dtoConverter;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected Class<P1> getParent1Class() {
-		if (parent1Class == null && (isChildService() || isChildChildService())) {
-			parent1Class = (Class<P1>)getClassFromGenericType(1);
-		}
-		return (Class<P1>)parent1Class;
-	}
-	@SuppressWarnings("unchecked")
-	protected Class<P2> getParent2Class() {
-		if (parent2Class == null && isChildChildService()) {
-			parent2Class = (Class<P2>)getClassFromGenericType(2);
-		}
-		return (Class<P2>)parent2Class;
+		return new PageImpl<D>(
+				toDto(entityPage.getContent()),
+				pageable,
+				entityPage.getTotalElements());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -287,22 +214,9 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		if (entityClass == null) {
-			if (isChildChildService()) {
-				entityClass = (Class<E>)getClassFromGenericType(3);
-			} else if (isChildService()) {
-				entityClass = (Class<E>)getClassFromGenericType(2);
-			} else {
-				entityClass = (Class<E>)getClassFromGenericType(1);
-			}
+			entityClass = (Class<E>)getClassFromGenericType(1);
 		}
 		return (Class<E>)entityClass;
-	}
-
-	protected boolean isChildService() {
-		return AbstractGenericChildServiceImpl.class.isAssignableFrom(getClass());
-	}
-	protected boolean isChildChildService() {
-		return AbstractGenericChildChildServiceImpl.class.isAssignableFrom(getClass());
 	}
 
 	private Class<?> getClassFromGenericType(int index) {

@@ -105,9 +105,6 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
             let formControlValue = {
                 id: data.id
             };
-            if ( this.field.lovDescriptionFieldInFront ) {
-                formControlValue[this.field.lovDescriptionFieldInFront] = lovValueDescription;
-            }
             this.formControl.setValue( formControlValue );
         } else {
             this.lovFormGroup.get( 'id' ).setValue( undefined );
@@ -120,7 +117,13 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
         let lovValueId = this.formControl.value ? this.formControl.value.id : undefined;
         let lovValueDescription;
         if ( lovValueId ) {
-            lovValueDescription = ( field.lovDescriptionFieldInFront ) ? this.formControl.value[field.lovDescriptionFieldInFront] : this.lovResource.name + "_" + lovValueId;
+            if ( field.lovGenericResource ) {
+                lovValueDescription = this.formControl.value['description'];
+            } else if ( field.lovDescriptionField ) {
+                lovValueDescription = this.formControl.value[field.lovDescriptionField];
+            } else {
+                lovValueDescription = field.lovResourceName + "_" + lovValueId;
+            }
         }
         let lovControls = {};
         lovControls['id'] = { value: lovValueId, disabled: this.formControl.disabled };

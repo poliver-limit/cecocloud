@@ -54,7 +54,7 @@ export interface DatagridConfig {
     rowClass?: any;
     resizable?: boolean;
     additionalFilter?: any;
-    filterInEachColumn?: boolean;
+    columnFiltersEnabled?: boolean;
     pagination?: boolean;
 }
 export interface DatagridColumn {
@@ -144,7 +144,7 @@ export class DatagridComponent implements OnInit {
                 } );
             } else {
                 refreshContext.datasourceParentPk = parentPk;
-                refreshApi.setDatasource(refreshContext.gridComponent.createDataSource( refreshContext.restapiService ) );
+                refreshApi.setDatasource( refreshContext.gridComponent.createDataSource( refreshContext.restapiService ) );
             }
         }
     }
@@ -194,6 +194,7 @@ export class DatagridComponent implements OnInit {
             suppressContextMenu: true,
             stopEditingWhenGridLosesFocus: true,
             enableBrowserTooltips: true,
+            floatingFilter: gridConfig.columnFiltersEnabled,
             overlayLoadingTemplate: '<span class="ag-overlay-loading-center" style="padding-top: 1.5em"><i class="fa fa-cog fa-spin fa-2x fa-fw"></i></span>',
             overlayNoRowsTemplate: '&nbsp;', //'<span style="padding: 10px; border: 2px solid #444; background: #efefef;">' + this.translate.instant( 'datatable.sense.resultats' ) + '</span>',
         }
@@ -495,8 +496,8 @@ export class DatagridComponent implements OnInit {
                 let floatingFilterComponentParams = {
                     suppressFilterButton: gridColumn.suppressFilterButton
                 };
-                if ( datagridConfig.filterInEachColumn ) {
-                    filter = 'agTextColumnFilter';
+                if ( datagridConfig.columnFiltersEnabled ) {
+                    filter = true;
                     /*if ( restapiField ) {
                         switch ( columnFieldType ) {
                             case 'STRING':
@@ -550,9 +551,9 @@ export class DatagridComponent implements OnInit {
                         filter = 'agTextColumnFilter';
                     }*/
                 }
-                if ( gridColumn.filterable ) {
+                /*if ( gridColumn.filterable ) {
                     filter = false;
-                }
+                }*/
                 columnDefs.push( {
                     field: columnField,
                     headerName: headerName,
@@ -573,10 +574,10 @@ export class DatagridComponent implements OnInit {
                     //headerCheckboxSelection: ( !this.config.lovMode ) ? checkboxSelection : false,
                     suppressMenu: true,
                     filter: ( filter ) ? filter : false,
-                    filterFramework: filterFramework,
+                    /*filterFramework: filterFramework,
                     filterParams: filterParams,
                     floatingFilterComponentFramework: floatingFilterComponentFramework,
-                    floatingFilterComponentParams: floatingFilterComponentParams,
+                    floatingFilterComponentParams: floatingFilterComponentParams,*/
                     tooltipField: tooltipField,
                     tooltip: tooltip,
                     width: ( gridColumn.width ) ? gridColumn.width : null
@@ -827,8 +828,10 @@ export class DatagridComponent implements OnInit {
             }
         } else if ( field.type === 'LOV' ) {
             if ( value ) {
-                if ( field.lovDescriptionFieldInFront && value[field.lovDescriptionFieldInFront] ) {
-                    return value[field.lovDescriptionFieldInFront];
+                if ( field.lovGenericResource ) {
+                    return value['description'];
+                } else if ( field.lovDescriptionField ) {
+                    return value[field.lovDescriptionField];
                 } else {
                     return field.lovResourceName + "_" + value.id;
                 }

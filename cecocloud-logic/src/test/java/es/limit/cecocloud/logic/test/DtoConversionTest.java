@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import org.junit.Test;
 
-import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificableChild;
+import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import lombok.Getter;
@@ -40,7 +40,7 @@ public class DtoConversionTest {
 	}
 
 	@Getter @Setter
-	public static class Exemple extends AbstractIdentificableChild<Long, Long> {
+	public static class Exemple extends AbstractIdentificable<Long> {
 		@Transient
 		private GenericReference<Exemple, Long> reference;
 		@Transient
@@ -48,6 +48,7 @@ public class DtoConversionTest {
 		private String codi;
 		private String nom;
 	}
+
 	@Getter @Setter
 	public static class GenRef<ID extends Serializable> implements Identificable<ID> {
 		@NotNull
@@ -62,4 +63,5 @@ public class DtoConversionTest {
 			return genref;
 		}
 	}
+
 }

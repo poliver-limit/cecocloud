@@ -68,21 +68,11 @@ public class ProfileApiController extends AbstractProfileController {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("rawtypes")
 	private Link getApiLink(String resourceName) {
 		Reflections reflections = new Reflections(getClass().getPackage().getName());
 		Set<Class<? extends AbstractIdentificableReadOnlyApiController>> apiControllerClasses = reflections.getSubTypesOf(AbstractIdentificableReadOnlyApiController.class);
 		for (Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass: apiControllerClasses) {
-			if (!apiControllerClass.isInterface() && !Modifier.isAbstract(apiControllerClass.getModifiers())) {
-				Class<? extends Identificable<?>> dtoClass = getDtoClassFromApiController(apiControllerClass);
-				String controllerResourceName = getResourceNameFromClass(dtoClass);
-				if (controllerResourceName.equalsIgnoreCase(resourceName)) {
-					return linkTo(methodOn(apiControllerClass).find(null, null, null, null)).withRel("api");
-				}
-			}
-		}
-		Set<Class<? extends AbstractIdentificableChildReadOnlyApiController>> apiControllerChildClasses = reflections.getSubTypesOf(AbstractIdentificableChildReadOnlyApiController.class);
-		for (Class<? extends AbstractIdentificableChildReadOnlyApiController> apiControllerClass: apiControllerChildClasses) {
 			if (!apiControllerClass.isInterface() && !Modifier.isAbstract(apiControllerClass.getModifiers())) {
 				Class<? extends Identificable<?>> dtoClass = getDtoClassFromApiController(apiControllerClass);
 				String controllerResourceName = getResourceNameFromClass(dtoClass);
