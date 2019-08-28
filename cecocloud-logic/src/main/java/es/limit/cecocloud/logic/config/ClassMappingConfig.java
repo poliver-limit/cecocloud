@@ -39,18 +39,12 @@ public class ClassMappingConfig implements OrikaMapperFactoryConfigurer {
 
 	@Override
 	public void configure(MapperFactory orikaMapperFactory) {
-		orikaMapperFactory.getConverterFactory().registerConverter(new UsuariToDtoConverter());
-		orikaMapperFactory.getConverterFactory().registerConverter(new CompanyiaToDtoConverter());
-		orikaMapperFactory.getConverterFactory().registerConverter(new EmpresaToDtoConverter());
-		orikaMapperFactory.getConverterFactory().registerConverter(new OperariToDtoConverter());
-		orikaMapperFactory.getConverterFactory().registerConverter(new MarcatgeToDtoConverter());
+		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<UsuariEntity, Usuari>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<CompanyiaEntity, Companyia>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<EmpresaEntity, Empresa>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<OperariEntity, Operari>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<MarcatgeEntity, Marcatge>() {});
 	}
-
-	public static class UsuariToDtoConverter extends EntityToDtoConverter<UsuariEntity, Usuari> {}
-	public static class CompanyiaToDtoConverter extends EntityToDtoConverter<CompanyiaEntity, Companyia> {}
-	public static class EmpresaToDtoConverter extends EntityToDtoConverter<EmpresaEntity, Empresa> {}
-	public static class OperariToDtoConverter extends EntityToDtoConverter<OperariEntity, Operari> {}
-	public static class MarcatgeToDtoConverter extends EntityToDtoConverter<MarcatgeEntity, Marcatge> {}
 
 	@Slf4j
 	public static class EntityToDtoConverter<E extends AbstractEntity<D, ?>, D extends Identificable<?>> extends CustomConverter<E, D> {
