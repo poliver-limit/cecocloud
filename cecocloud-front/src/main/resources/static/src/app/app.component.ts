@@ -88,10 +88,9 @@ export class AppComponent implements OnInit {
 
     onActionSortirClick() {
         if ( confirm( this.translate.instant( 'app.action.logout.confirm' ) ) ) {
-            this.authService.logout();
             this.tokenPayload = undefined;
             this.allowedMenuItems = [];
-            this.router.navigate( ['/login'] );
+            this.authService.logout();
         }
     }
 

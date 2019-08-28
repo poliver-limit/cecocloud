@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
@@ -15,10 +14,10 @@ export class JwtInterceptor implements HttpInterceptor {
                 return event;
             }, catchError(( error: HttpErrorResponse ) => {
                 if ( error.status == 401 ) {
-                    this.authService.refreshToken().subscribe(( newToken: string ) => {
-                        return next.handle( this.requestWithAuthToken( request ) );
-                    }, ( error: HttpErrorResponse ) => {
-                        this.router.navigate( ['login'] );
+                    this.authService.checkAutenticationWithTokenRefresh( true ).subscribe(( authenticated: boolean ) => {
+                        if ( authenticated ) {
+                            return next.handle( this.requestWithAuthToken( request ) );
+                        }
                     } );
                 } else {
                     return throwError( error );
@@ -41,7 +40,6 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     constructor(
-        private authService: AuthService,
-        private router: Router ) { }
+        private authService: AuthService ) { }
 
 }

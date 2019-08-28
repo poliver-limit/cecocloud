@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subject, timer } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-import { Promise } from 'es6-promise';
+import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { AuthResponse } from './auth-response';
 import { AuthValidationSession } from './auth-validation-session';
@@ -14,8 +13,6 @@ import { AuthTokenPayload } from './auth-token-payload';
 export class AuthService {
 
     private static readonly LOCAL_STORAGE_AUTH_KEY = 'authResponse';
-    private static readonly SESSION_STORAGE_VALIDATION_KEY = 'authValidation';
-    private static readonly EXPIRATION_OFFSET = 10000;
 
     authTokenChangeEvent: Subject<AuthTokenPayload> = new Subject<AuthTokenPayload>();
 
@@ -36,79 +33,32 @@ export class AuthService {
         } );
     }
 
-    /*public isAuthenticated(): Observable<boolean> {
+    public checkAutenticationWithTokenRefresh( throwError: boolean ): Observable<boolean> {
         return new Observable(( observer ) => {
             let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-            if ( authResponse ) {
-                let validationSession: AuthValidationSession = this.getValidationFromSessionStorage();
-                if ( validationSession ) {
-                    // Validacio en sessio disponible
-                    observer.next( true );
-                    observer.complete();
-                } else {
-                    // Això vol dir que la cache de validació ha expirat o be que
-                    // s'està fent una nova petició des d'una pipella diferent o des
-                    // d'una nova instància del navegador.
-                    // En aquest cas s'ha de validar el token i s'ha de refrescar si
-                    // no és vàlid o si està proxim a expirar.
-                    let checkUrl = 'api/auth/check/' + authResponse.token;
-                    this.http.get( checkUrl ).subscribe(( validated: boolean ) => {
-                        let faltaPocPerExpirar = false;
-                        if ( validated ) {
-                            let tokenPayload = this.tokenToObject( authResponse );
-                            faltaPocPerExpirar = Date.now() > tokenPayload.exp * 1000 - AuthService.EXPIRATION_OFFSET;
-                        }
-                        if ( !validated || faltaPocPerExpirar ) {
-                            const params = new HttpParams().set( 'token', authResponse.token );
-                            const headers = new HttpHeaders().set( 'Content-Type', 'application/x-www-form-urlencoded' );
-                            this.http.post( 'api/auth/refresh', params, { headers: headers } ).subscribe(( response: AuthResponse ) => {
-                                this.saveAuthResponseToLocalStorage( response );
-                                this.propagateAuthResponseToSessionStorage( response );
-                                this.authTokenChangeEvent.next( this.getAuthTokenPayload() );
-                                // Token refrescat correctament
-                                observer.next( true );
-                                observer.complete();
-                            }, error => {
-                                // Token refrescat amb error
-                                this.removeAuthResponseFromLocalStorage();
-                                observer.next( false );
-                                observer.complete();
-                            } );
-                        } else {
-                            // Token validat i encara falta per expirar
-                            observer.next( true );
-                            observer.complete();
-                        }
-                    } );
-                }
-            } else {
-                // Token no disponible
-                observer.next( false );
+            if ( authResponse && !this.isTokenExpired( authResponse.token ) ) {
+                observer.next( true );
                 observer.complete();
-            }
-        } );
-    }*/
-
-    public refreshToken(): Observable<string> {
-        return new Observable(( observer ) => {
-            let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-            if ( authResponse ) {
-                const params = new HttpParams().set( 'token', authResponse.token );
-                const headers = new HttpHeaders().set( 'Content-Type', 'application/x-www-form-urlencoded' );
-                this.http.post( 'api/auth/refresh', params, { headers: headers } ).subscribe(( response: AuthResponse ) => {
+            } else if ( authResponse ) {
+                console.info( 'Refrescant token expirat', authResponse.token );
+                const headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
+                this.http.post( 'api/auth/refresh', { tokena: authResponse.token }, { headers: headers } ).subscribe(( response: AuthResponse ) => {
+                    console.info( 'Token refrescat amb èxit', response.token );
                     this.saveAuthResponseToLocalStorage( response );
                     this.authTokenChangeEvent.next( this.getAuthTokenPayload() );
                     // Token refrescat correctament
-                    observer.next( response.token );
+                    observer.next( true );
                     observer.complete();
                 }, ( error: HttpErrorResponse ) => {
+                    console.info( 'Error al refrescar el token', error );
                     // Token refrescat amb error
                     this.logout();
-                    throw error;
+                    observer.next( false );
+                    observer.complete();
                 } );
             } else {
-                // No hi ha token per a refrescar
-                observer.next();
+                this.logout();
+                observer.next( false );
                 observer.complete();
             }
         } );
@@ -116,7 +66,7 @@ export class AuthService {
 
     public getAuthToken(): string {
         let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-        if ( authResponse ) {
+        if ( authResponse && !this.isTokenExpired( authResponse.token ) ) {
             return authResponse.token;
         }
     }
@@ -124,12 +74,13 @@ export class AuthService {
     public getAuthTokenPayload(): AuthTokenPayload {
         let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
         if ( authResponse ) {
-            return this.tokenToObject( authResponse );
+            return this.tokenToObject( authResponse.token );
         }
     }
 
     public logout() {
         this.removeAuthResponseFromLocalStorage();
+        this.router.navigate( ['/login'] );
     }
 
     private saveAuthResponseToLocalStorage( authResponse: AuthResponse ) {
@@ -143,19 +94,18 @@ export class AuthService {
     private getAuthResponseFromLocalStorage(): AuthResponse {
         let storageContent = localStorage.getItem( AuthService.LOCAL_STORAGE_AUTH_KEY );
         if ( storageContent ) {
-            let authResponse: AuthResponse = <AuthResponse>JSON.parse( storageContent );
-            let tokenPayload = this.tokenToObject( authResponse );
-            let isExpired = Date.now() > tokenPayload.exp * 1000;
-            if ( !isExpired ) {
-                return authResponse;
-            } else {
-                this.removeAuthResponseFromLocalStorage();
-            }
+            return <AuthResponse>JSON.parse( storageContent );
         }
+        return undefined;
     }
 
-    private tokenToObject( authResponse: AuthResponse ): any {
-        let base64Url = authResponse.token.split( '.' )[1];
+    private isTokenExpired( token: string ): boolean {
+        let tokenPayload = this.tokenToObject( token );
+        return Date.now() > tokenPayload.exp * 1000;
+    }
+
+    private tokenToObject( token: string ): any {
+        let base64Url = token.split( '.' )[1];
         let base64 = base64Url.replace( /-/g, '+' ).replace( /_/g, '/' );
         return JSON.parse( atob( base64 ) );
         /*aud: "secure-app"
@@ -167,7 +117,8 @@ export class AuthService {
     }
 
     constructor(
-        private http: HttpClient ) {
+        private http: HttpClient,
+        private router: Router ) {
     }
 
 }
