@@ -362,6 +362,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 					}
 				}
 				rsqlQuery.append(RsqlSearchOperation.EQUAL_IGNORE_CASE.getOperator().getSymbol());
+				rsqlQuery.append("*");
 				rsqlQuery.append(quickFilter);
 				rsqlQuery.append("*");
 			}

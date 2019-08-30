@@ -13,6 +13,63 @@ import { DatagridConfig } from './datagrid.component';
 @Component( {
     selector: 'datagrid-header',
     template: `
+<div class="datagrid-header">
+    <mdc-top-app-bar-row *ngIf="!lovMode">
+        <mdc-top-app-bar-section align="start" [title]="title">
+        </mdc-top-app-bar-section>
+        <mdc-top-app-bar-section align="end">
+            <button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.crear'|translate}}"(click)="onButtonCreateClick()">
+                <mdc-icon>add</mdc-icon>
+            </button>
+            <!--button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.importar'|translate}}" (click)="onButtonImportClick()">
+                <mdc-icon>get_app</mdc-icon>
+            </button-->
+            <button mdc-icon-button class="mdc-icon-button-sm" [disabled]="!anyRowSelected" title="{{'component.datagrid.header.action.delete'|translate}}" (click)="onButtonDeleteClick()">
+                <mdc-icon>delete</mdc-icon>
+            </button>
+            <!--button mdc-icon-button class="mdc-icon-button-sm">
+                <mdc-icon>build</mdc-icon>
+            </button-->
+            <mat-form-field *ngIf="quickFilterAvailable" appearance="outline" class="mat-form-field-sm" style="margin-left: 1em">
+                <input matInput type="text" (input)="onQuickFilterChange($event)"/>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+    <mdc-top-app-bar-row *ngIf="lovMode && quickFilterAvailable" style="border-top: 1px solid #e2e2e2">
+        <mdc-top-app-bar-section>
+            <mat-form-field *ngIf="quickFilterAvailable" appearance="outline" class="mat-form-field-sm" style="width:100%">
+                <input matInput type="text" (input)="onQuickFilterChange($event)"/>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row>
+    <!--mdc-top-app-bar-row>
+        <mdc-top-app-bar-section align="start">
+            <ng-container *ngIf="paginationActive">
+                <button mdc-icon-button (click)="onPageFirstClick()" [disabled]="paginationFirstPage" class="mdc-icon-button-xs"><mdc-icon>first_page</mdc-icon></button>
+                <button mdc-icon-button (click)="onPageDownClick()" [disabled]="paginationFirstPage" class="mdc-icon-button-xs"><mdc-icon>chevron_left</mdc-icon></button>
+                &nbsp;{{paginationCurrentPage}}&nbsp;
+                <button mdc-icon-button (click)="onPageUpClick()" [disabled]="paginationLastPage" class="mdc-icon-button-xs"><mdc-icon>chevron_right</mdc-icon></button>
+                <button mdc-icon-button (click)="onPageLastClick()" [disabled]="paginationLastPage" class="mdc-icon-button-xs"><mdc-icon>last_page</mdc-icon></button>
+            </ng-container>
+        </mdc-top-app-bar-section>
+    </mdc-top-app-bar-row-->
+</div>
+`,
+    styles: [`
+.datagrid-header {
+    /*background-color: grey;
+    color: white;*/
+    background-color: #f2f2f2;
+    color: rgba(0, 0, 0, 0.54);
+    border-bottom: 1px solid #e2e2e2;
+}
+.datagrid-header-lov {
+    border-top: 1px solid #e2e2e2;
+}
+`],
+/*    template: `
 <div class="page-header">
     <div class="header-first-row">
         <div class="mant-headline" mdcHeadline6 *ngIf="!lovMode">
@@ -20,6 +77,11 @@ import { DatagridConfig } from './datagrid.component';
             <span class="main">{{title}}</span>
         </div>
         <div *ngIf="quickFilterAvailable" [ngClass]="{'mant-filter': !lovMode, 'mant-filter-lov': lovMode}">
+            <!--mat-form-field style="width:100%">
+                <mat-label>Filtre</mat-label>
+                <input matInput type="text" (input)="onQuickFilterChange($event)"/>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field-->
             <div class="ag-input-wrapper">
                 <input class="ag-cell-edit-input" type="text" (input)="onQuickFilterChange($event)"/>
                 <mdc-icon>search</mdc-icon>
@@ -146,7 +208,6 @@ import { DatagridConfig } from './datagrid.component';
     padding-top: 18px;
 }
 .header-second-row .mant-page-info {
-    /*padding: 0 1em;*/
 }
 .header-button-small {
     position: relative;
@@ -156,7 +217,7 @@ import { DatagridConfig } from './datagrid.component';
     position: relative;
     left: -2px;
 }
-`]
+`]*/
 } )
 export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
 
@@ -233,6 +294,12 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     }
     onButtonImportClick() {
         console.log( '>>> onButtonImportClick' )
+    }
+    onButtonDeleteClick() {
+        this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.headerActionDelete.emit( {
+            resource: this.restapiProfile.resource,
+            selectedRows: this.params.api.getSelectedRows()
+        } );
     }
     onActionSelect( event ) {
         if ( event.index == 0 ) {

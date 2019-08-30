@@ -15,38 +15,40 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 @Component( {
     selector: 'app-root',
     template: `
-<mdc-top-app-bar #topbar fixed *ngIf="topbarVisible">
-    <mdc-top-app-bar-row>
-        <mdc-top-app-bar-section align="start">
-            <button #menuButton mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="mobileScreen">
-                <mdc-icon>menu</mdc-icon>
-            </button>
-            <a routerLink="/" mdcTopAppBarTitle style="color: white;">Cecocloud</a>
-        </mdc-top-app-bar-section>
-        <mdc-top-app-bar-section align="end">
-            <a href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
-            <div mdcMenuSurfaceAnchor #userAnchor>
-                <mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload?.name}}" (click)="userMenu.open = !userMenu.open">account_circle</mdc-icon>
-                <mdc-menu anchorCorner="bottomStart" quickOpen #userMenu [anchorElement]="userAnchor">
-                    <mdc-list-group>
-                        <mdc-list twoLine interactive="false">
-                            <mdc-list-item>
-                                <a mdc-fab mini style="margin-right: 1em">{{tokenPayload?.name.charAt(0).toUpperCase()}}</a>
-                                <mdc-list-item-text secondaryText="{{tokenPayload?.email}}">{{tokenPayload?.name}}</mdc-list-item-text>
-                            </mdc-list-item>
-                        </mdc-list>
-                        <mdc-list-divider></mdc-list-divider>
-                        <div style="text-align: center; margin-bottom: 6px">
-                            <button mdc-button outlined (click)="onActionSortirClick()" class="logout-button-ink-color">{{'app.action.logout'|translate}}</button>
-                        </div>
-                    </mdc-list-group>
-                </mdc-menu>
-            </div>
-        </mdc-top-app-bar-section>
-    </mdc-top-app-bar-row>
-</mdc-top-app-bar>
-<div #container id="container" [ngClass]="{'topbarMargin': topbarVisible && !smallToolbar, 'topbarSmallScreenMargin': topbarVisible && smallToolbar}">
-    <mdc-drawer #drawer [drawer]="mobileScreen ? 'modal' : 'fixed'" fixedAdjustElement="drawerContent" *ngIf="topbarVisible" (closed)="onDrawerClosed()">
+<header>
+    <mdc-top-app-bar *ngIf="topbarVisible" fixed [fixedAdjustElement]="content">
+        <mdc-top-app-bar-row>
+            <mdc-top-app-bar-section align="start">
+                <button #menuButton mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="mobileScreen">
+                    <mdc-icon>menu</mdc-icon>
+                </button>
+                <a routerLink="/" mdcTopAppBarTitle style="color: white;">Cecocloud</a>
+            </mdc-top-app-bar-section>
+            <mdc-top-app-bar-section align="end">
+                <a href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
+                <div mdcMenuSurfaceAnchor #userAnchor>
+                    <mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload?.name}}" (click)="userMenu.open = !userMenu.open">account_circle</mdc-icon>
+                    <mdc-menu anchorCorner="bottomStart" quickOpen #userMenu [anchorElement]="userAnchor">
+                        <mdc-list-group>
+                            <mdc-list twoLine interactive="false">
+                                <mdc-list-item>
+                                    <a mdc-fab mini style="margin-right: 1em">{{tokenPayload?.name.charAt(0).toUpperCase()}}</a>
+                                    <mdc-list-item-text secondaryText="{{tokenPayload?.email}}">{{tokenPayload?.name}}</mdc-list-item-text>
+                                </mdc-list-item>
+                            </mdc-list>
+                            <mdc-list-divider></mdc-list-divider>
+                            <div style="text-align: center; margin-bottom: 6px">
+                                <button mdc-button outlined (click)="onActionSortirClick()" class="logout-button-ink-color">{{'app.action.logout'|translate}}</button>
+                            </div>
+                        </mdc-list-group>
+                    </mdc-menu>
+                </div>
+            </mdc-top-app-bar-section>
+        </mdc-top-app-bar-row>
+    </mdc-top-app-bar>
+</header>
+<nav>
+    <mdc-drawer #drawer *ngIf="topbarVisible && mobileScreen" drawer="modal" (closed)="onDrawerClosed()">
         <mdc-drawer-content>
             <mdc-list #menuList>
                 <a mdc-list-item [routerLink]="item.route" *ngFor="let item of allowedMenuItems; let i = index">
@@ -55,10 +57,32 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
             </mdc-list>
         </mdc-drawer-content>
     </mdc-drawer>
-    <div id="drawerContent" #drawerContent [ngClass]="{'contentWithStaticDrawer': !mobileScreen}">
+</nav>
+<div #content id="content">
+    <nav>
+        <mdc-drawer *ngIf="topbarVisible && !mobileScreen" drawer="fixed" [fixedAdjustElement]="content" (closed)="onDrawerClosed()">
+            <mdc-drawer-content>
+                <mdc-list #menuList>
+                    <a mdc-list-item [routerLink]="item.route" *ngFor="let item of allowedMenuItems; let i = index">
+                        <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
+                    </a>
+                </mdc-list>
+            </mdc-drawer-content>
+        </mdc-drawer>
+    </nav>
+    <main [ngClass]="{'staticDrawerContent': !mobileScreen}">
         <router-outlet></router-outlet>
-    </div>
-</div>`
+    </main>
+</div>
+`,
+    styles: [`
+#content {
+    min-height: 100vh;
+}
+main.staticDrawerContent {
+    margin-left: 256px;
+}
+`]
 } )
 export class AppComponent implements OnInit {
 
@@ -74,7 +98,7 @@ export class AppComponent implements OnInit {
         { icon: 'people', label: 'Usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
         { icon: 'domain', label: 'Companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
         { icon: 'business_center', label: 'Empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
-        { icon: 'people', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
+        { icon: 'people_alt', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
         { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
     ];
     private allowedMenuItems = [];

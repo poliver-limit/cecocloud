@@ -17,23 +17,33 @@ $mdc-theme-on-surface: #666;*/
   @include mdc-tab-indicator-underline-color($mdc-theme-on-primary);
 }
 
-#container {
-    min-height: 100vh;
+mat-form-field.mat-form-field-sm {
+	top: 8px;
 }
-#container.topbarMargin {
-	position: relative;
-    background-color: white;
-	top: 64px;
-	min-height: calc(100vh - 64px)
+mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix  {
+	padding: 0.2em 0px .6em 0;
 }
-#container.topbarSmallScreenMargin {
-	position: relative;
-    background-color: white;
-	top: 56px;
-	min-height: calc(100vh - 56px)
+mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix > span.mat-form-field-label-wrapper { top: -1.5em; }
+.mat-form-field-sm.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
 }
-#container .contentWithStaticDrawer {
-	margin-left: 256px;
+
+.mdc-icon-button-sm {
+    @include mdc-icon-button-size(20px);
+}
+.mdc-icon-button-sm mdc-icon {
+    position: relative;
+    top: -2px;
+    left: -2px
+}
+.mdc-icon-button-xs {
+    @include mdc-icon-button-size(16px);
+}
+.mdc-icon-button-xs mdc-icon {
+    position: relative;
+    top: -3.5px;
+    left: -3.5px
 }
 
 .centered {

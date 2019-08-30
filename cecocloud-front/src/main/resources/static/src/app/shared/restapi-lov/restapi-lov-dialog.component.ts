@@ -11,7 +11,7 @@ import { DatagridConfig } from '../datagrid/datagrid.component';
     <mdc-dialog-container>
         <mdc-dialog-surface>
             <mdc-dialog-title>{{ 'component.restapi.lov.title' | translate }} {{ lovResource.translateKey | translate | lowercase }}</mdc-dialog-title>
-            <mdc-dialog-content>
+            <mdc-dialog-content style="padding:0">
                 <datagrid
                     [config]="datagridConfig"
                     [restapiService]="restapiService"

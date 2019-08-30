@@ -56,135 +56,170 @@ export interface FormGridConfig {
 @Component( {
     selector: 'restapi-form-header',
     template: `
-<!--mdc-top-app-bar
-    class="context-app-bar"
-    fixed="true"
-    prominent="false"
-    dense="false">
+<div class="form-header">
     <mdc-top-app-bar-row>
-        <mdc-top-app-bar-section
-            align="start"
-            title="{{title}}">
-            <mdc-icon mdcTopAppBarActionItem (click)="onButtonCancelClick()">arrow_back</mdc-icon>
+        <mdc-top-app-bar-section align="start" >
+            <button mdcTopAppBarNavIcon (click)="onButtonCancelClick()">
+                <mdc-icon>arrow_back</mdc-icon>
+            </button>
+            <button mdc-icon-button *ngIf="restapiError" class="mdc-icon-button-sm" (click)="onErrorIconClick()" style="color:#de442c">
+                <mdc-icon>warning</mdc-icon>
+            </button>
+            <span class="header-title">{{title}}: {{description ? description : ('component.restapi.form.header.title.crear' | translate)}}</span>
         </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
-            <mdc-icon mdcTopAppBarActionItem (click)="onButtonSaveClick()">save</mdc-icon>
+            <button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.restapi.form.header.button.guardar'|translate}}" (click)="onButtonSaveClick()">
+                <mdc-icon>save_alt</mdc-icon>
+            </button>
+            <button mdc-icon-button class="mdc-icon-button-sm" *ngIf="id" title="{{'component.restapi.form.header.action.delete'|translate}}" (click)="onButtonDeleteClick()">
+                <mdc-icon>delete</mdc-icon>
+            </button>
         </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
-</mdc-top-app-bar-->
-<div class="page-header">
-    <div class="header-first-row">
-        <div class="mant-goback" *ngIf="mobileScreen">
-            <button mdc-icon-button (click)="onButtonCancelClick()" class="header-button-small"><mdc-icon>arrow_back</mdc-icon></button>
-        </div>
-        <div class="mant-headline" mdcHeadline6>
-            <span class="main">{{ title }}</span><span class="current"> / {{description ? description : ('component.restapi.form.header.title.crear' | translate)}}</span>
-        </div>
-        <div class="mant-error">
-            <button mdc-icon-button *ngIf="restapiError" (click)="onErrorIconClick()" icon="error" class="header-button-small" style="color: #de442c"></button>
-        </div>
-    </div>
-    <div class="header-second-row">
-        <div class="mant-actions">
-            <div class="mant-actions-main">
-                <a mdc-button dense secondary (click)="onButtonSaveClick()">
-                    <mdc-icon>save_alt</mdc-icon>
-                    <span mdcButtonLabel>{{'component.restapi.form.header.button.guardar'|translate}}</span>
-                </a>&nbsp;
-                <a mdc-button dense *ngIf="!mobileScreen" (click)="onButtonCancelClick()">
-                    <mdc-icon>arrow_back</mdc-icon>
-                    <span mdcButtonLabel>{{'component.restapi.form.header.button.descartar'|translate}}</span>
-                </a>
-            </div>
-            <div class="mant-actions-selection">
-                <div *ngIf="id" mdcMenuSurfaceAnchor #actionsButton>
-                    <button mdc-button dense (click)="actionsMenu.open = !actionsMenu.open">
-                        <mdc-icon>settings</mdc-icon>
-                        <span mdcButtonLabel>{{'component.restapi.form.header.button.actions'|translate}}</span>
-                        <mdc-icon>arrow_drop_down</mdc-icon>
-                    </button>
-                    <mdc-menu #actionsMenu anchorCorner="bottomStart" quickOpen [anchorElement]="actionsButton" (selected)="onActionSelect($event)">
-                        <mdc-list>
-                            <mdc-list-item>{{'component.restapi.form.header.action.delete'|translate}}</mdc-list-item>
-                        </mdc-list>
-                    </mdc-menu>
-                </div>
-            </div>
-        </div>
-        <!--div class="mant-controls">
-            <span class="mant-page-info">1 / 100</span>
-            &nbsp;
-            <button mdc-icon-button (click)="onItemDownClick()" [disabled]="hasPrevious" class="header-button-small"><mdc-icon>chevron_left</mdc-icon></button>
-            <button mdc-icon-button (click)="onItemUpClick()" [disabled]="hasNext" class="header-button-small"><mdc-icon>chevron_right</mdc-icon></button>
-        </div-->
-    </div>
 </div>
 `,
     styles: [`
-.page-header {
-    padding: 9px 24px 7px 24px;
-    border-bottom: 1px solid #e2e2e2;
+.form-header {
+    background-color: #f2f2f2;
     color: rgba(0, 0, 0, 0.54);
-    font-weight: 700;
-    font-size: 12px;
+    border-bottom: 1px solid #e2e2e2;
 }
-.page-header .header-first-row {
-    display: flex;
-    padding-top: 8px;
-}
-.page-header .header-first-row .mant-goback {
-    flex-grow: 0;
-    margin-right: 6px;
-    position: relative;
-    top: -6px;
-}
-.page-header .header-first-row .mant-headline {
-    flex-grow: 1;
-    color: #999 !important;
-}
-.page-header .header-first-row .mant-headline span.main {
-    color: $mdc-theme-secondary;
-}
-.page-header .header-first-row .mant-headline span.current {
-    color: $mdc-theme-on-surface;
-}
-.page-header .header-first-row .mant-error {
-    text-align: right;
-}
-.page-header .header-second-row {
-    display: flex;
-    padding-top: 6px;
-}
-.page-header .header-second-row .mant-actions {
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-between;
-}
-.page-header .header-second-row .mant-actions-main {
-    flex-grow: 1;
-    text-align: left;
-}
-.page-header .header-second-row .mant-actions-selection {
-    flex-grow: 1;
-    text-align: right;
-}
-.page-header .header-second-row .mant-controls {
-    flex-grow: 1;
-    position: relative;
-    top: -5px;
-}
-.page-header .header-second-row .mant-page-info {
-    /*padding: 0 1em;*/
-}
-.page-header .header-button-small {
-    position: relative;
-    top: 6px;
-}
-.page-header .header-button-small mdc-icon {
-    position: relative;
-    left: -2px;
+.header-title {
+    font-size: 1.25rem;
+    line-height: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.0125em;
 }
 `]
+    /*    template: `
+    <!--mdc-top-app-bar
+        class="context-app-bar"
+        fixed="true"
+        prominent="false"
+        dense="false">
+        <mdc-top-app-bar-row>
+            <mdc-top-app-bar-section
+                align="start"
+                title="{{title}}">
+                <mdc-icon mdcTopAppBarActionItem (click)="onButtonCancelClick()">arrow_back</mdc-icon>
+            </mdc-top-app-bar-section>
+            <mdc-top-app-bar-section align="end">
+                <mdc-icon mdcTopAppBarActionItem (click)="onButtonSaveClick()">save</mdc-icon>
+            </mdc-top-app-bar-section>
+        </mdc-top-app-bar-row>
+    </mdc-top-app-bar-->
+    <div class="page-header">
+        <div class="header-first-row">
+            <div class="mant-goback" *ngIf="mobileScreen">
+                <button mdc-icon-button (click)="onButtonCancelClick()" class="header-button-small"><mdc-icon>arrow_back</mdc-icon></button>
+            </div>
+            <div class="mant-headline" mdcHeadline6>
+                <span class="main">{{ title }}</span><span class="current"> / {{description ? description : ('component.restapi.form.header.title.crear' | translate)}}</span>
+            </div>
+            <div class="mant-error">
+                <button mdc-icon-button *ngIf="restapiError" (click)="onErrorIconClick()" icon="error" class="header-button-small" style="color: #de442c"></button>
+            </div>
+        </div>
+        <div class="header-second-row">
+            <div class="mant-actions">
+                <div class="mant-actions-main">
+                    <a mdc-button dense secondary (click)="onButtonSaveClick()">
+                        <mdc-icon>save_alt</mdc-icon>
+                        <span mdcButtonLabel>{{'component.restapi.form.header.button.guardar'|translate}}</span>
+                    </a>&nbsp;
+                    <a mdc-button dense *ngIf="!mobileScreen" (click)="onButtonCancelClick()">
+                        <mdc-icon>arrow_back</mdc-icon>
+                        <span mdcButtonLabel>{{'component.restapi.form.header.button.descartar'|translate}}</span>
+                    </a>
+                </div>
+                <div class="mant-actions-selection">
+                    <div *ngIf="id" mdcMenuSurfaceAnchor #actionsButton>
+                        <button mdc-button dense (click)="actionsMenu.open = !actionsMenu.open">
+                            <mdc-icon>settings</mdc-icon>
+                            <span mdcButtonLabel>{{'component.restapi.form.header.button.actions'|translate}}</span>
+                            <mdc-icon>arrow_drop_down</mdc-icon>
+                        </button>
+                        <mdc-menu #actionsMenu anchorCorner="bottomStart" quickOpen [anchorElement]="actionsButton" (selected)="onActionSelect($event)">
+                            <mdc-list>
+                                <mdc-list-item>{{'component.restapi.form.header.action.delete'|translate}}</mdc-list-item>
+                            </mdc-list>
+                        </mdc-menu>
+                    </div>
+                </div>
+            </div>
+            <!--div class="mant-controls">
+                <span class="mant-page-info">1 / 100</span>
+                &nbsp;
+                <button mdc-icon-button (click)="onItemDownClick()" [disabled]="hasPrevious" class="header-button-small"><mdc-icon>chevron_left</mdc-icon></button>
+                <button mdc-icon-button (click)="onItemUpClick()" [disabled]="hasNext" class="header-button-small"><mdc-icon>chevron_right</mdc-icon></button>
+            </div-->
+        </div>
+    </div>
+    `,
+        styles: [`
+    .page-header {
+        padding: 9px 24px 7px 24px;
+        border-bottom: 1px solid #e2e2e2;
+        color: rgba(0, 0, 0, 0.54);
+        font-weight: 700;
+        font-size: 12px;
+    }
+    .page-header .header-first-row {
+        display: flex;
+        padding-top: 8px;
+    }
+    .page-header .header-first-row .mant-goback {
+        flex-grow: 0;
+        margin-right: 6px;
+        position: relative;
+        top: -6px;
+    }
+    .page-header .header-first-row .mant-headline {
+        flex-grow: 1;
+        color: #999 !important;
+    }
+    .page-header .header-first-row .mant-headline span.main {
+        color: $mdc-theme-secondary;
+    }
+    .page-header .header-first-row .mant-headline span.current {
+        color: $mdc-theme-on-surface;
+    }
+    .page-header .header-first-row .mant-error {
+        text-align: right;
+    }
+    .page-header .header-second-row {
+        display: flex;
+        padding-top: 6px;
+    }
+    .page-header .header-second-row .mant-actions {
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-between;
+    }
+    .page-header .header-second-row .mant-actions-main {
+        flex-grow: 1;
+        text-align: left;
+    }
+    .page-header .header-second-row .mant-actions-selection {
+        flex-grow: 1;
+        text-align: right;
+    }
+    .page-header .header-second-row .mant-controls {
+        flex-grow: 1;
+        position: relative;
+        top: -5px;
+    }
+    .page-header .header-second-row .mant-page-info {
+    }
+    .page-header .header-button-small {
+        position: relative;
+        top: 6px;
+    }
+    .page-header .header-button-small mdc-icon {
+        position: relative;
+        left: -2px;
+    }
+    `]*/
 } )
 export class RestapiFormHeaderComponent {
 
@@ -193,7 +228,7 @@ export class RestapiFormHeaderComponent {
     @Input()
     set restapiResource( restapiResource: RestapiResource ) {
         if ( restapiResource ) {
-            this.title = this.translateKey( restapiResource.translateKeyPlural );
+            this.title = this.translateKey( restapiResource.translateKey );
         }
     }
     @Input() restapiError: Error;
@@ -211,6 +246,10 @@ export class RestapiFormHeaderComponent {
 
     onButtonCancelClick() {
         this.actionCancel.emit();
+    }
+
+    onButtonDeleteClick() {
+        this.actionDelete.emit();
     }
 
     onActionSelect( event ) {

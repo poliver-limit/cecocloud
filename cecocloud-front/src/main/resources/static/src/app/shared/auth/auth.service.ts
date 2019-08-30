@@ -42,7 +42,7 @@ export class AuthService {
             } else if ( authResponse ) {
                 console.info( 'Refrescant token expirat', authResponse.token );
                 const headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
-                this.http.post( 'api/auth/refresh', { tokena: authResponse.token }, { headers: headers } ).subscribe(( response: AuthResponse ) => {
+                this.http.post( 'api/auth/refresh', { token: authResponse.token }, { headers: headers } ).subscribe(( response: AuthResponse ) => {
                     console.info( 'Token refrescat amb èxit', response.token );
                     this.saveAuthResponseToLocalStorage( response );
                     this.authTokenChangeEvent.next( this.getAuthTokenPayload() );

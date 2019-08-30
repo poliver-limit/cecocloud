@@ -762,17 +762,16 @@ export class DatagridComponent implements OnInit {
         gridOptions: GridOptions ) {
         let paginationEnabled: boolean;
         if ( gridConfig.pagination === undefined ) {
-            paginationEnabled = !this.mobileScreen;
+            paginationEnabled = !this.mobileScreen && !gridConfig.lovMode;
         } else {
             paginationEnabled = gridConfig.pagination;
         }
         if ( paginationEnabled ) {
-            gridOptions.pagination = true;
             gridOptions.paginationAutoPageSize = true;
-            gridOptions.suppressPaginationPanel = true;
         } else {
-            gridOptions.pagination = false;
+            gridOptions.suppressPaginationPanel = true;
         }
+        gridOptions.pagination = paginationEnabled;
     }
 
     valueGetter( params: ValueGetterParams ) {
