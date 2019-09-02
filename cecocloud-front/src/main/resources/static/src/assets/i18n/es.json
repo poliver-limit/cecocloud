@@ -9,7 +9,7 @@
 	"component.datagrid.header.button.actions": "Acciones",
 	"component.datagrid.header.action.delete": "Borrar",
 	"component.datagrid.manteniment.action.close": "Cerrar",
-	"component.datagrid.manteniment.delete.confirm": "¿Está seguro de que desea borrar el/la {{description}}?",
+	"component.datagrid.manteniment.delete.single.confirm": "¿Está seguro de que desea borrar el/la {{description}}?",
 	"component.datagrid.manteniment.deleted": "El registro se ha borrado correctamente",
 
 	"component.restapi.form.header.title.crear": "crear",

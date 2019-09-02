@@ -47,8 +47,8 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
         </mdc-top-app-bar-row>
     </mdc-top-app-bar>
 </header>
-<nav>
-    <mdc-drawer #drawer *ngIf="topbarVisible && mobileScreen" drawer="modal" (closed)="onDrawerClosed()">
+<nav *ngIf="topbarVisible && mobileScreen">
+    <mdc-drawer #drawer drawer="modal" (closed)="onDrawerClosed()">
         <mdc-drawer-content>
             <mdc-list #menuList>
                 <a mdc-list-item [routerLink]="item.route" *ngFor="let item of allowedMenuItems; let i = index">
@@ -77,7 +77,13 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
 `,
     styles: [`
 #content {
-    min-height: 100vh;
+    min-height: calc(100vh - 64px);
+}
+#content mdc-drawer {
+    min-height: calc(100vh - 64px);
+    height: calc(100% - 64px);
+    position: fixed;
+    z-index: 2;
 }
 main.staticDrawerContent {
     margin-left: 256px;

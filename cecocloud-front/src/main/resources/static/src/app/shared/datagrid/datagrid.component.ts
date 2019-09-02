@@ -104,7 +104,7 @@ export class DatagridComponent implements OnInit {
     private toolbarShown = false;
     private theme = 'ag-theme-material'; // 'ag-theme-balham' o 'ag-theme-material'
     private appHeaderHeight = 64;
-    private componentHeaderHeight = 96;
+    private componentHeaderHeight = 65;
     private lovFixedHeight = 220;
     private headerHeight = 46;
     private rowHeight = 32;
@@ -203,7 +203,7 @@ export class DatagridComponent implements OnInit {
         gridOptions.getRowClass = gridConfig.rowClass;
         gridOptions.enableColResize = gridConfig.resizable;
         gridOptions.suppressRowClickSelection = !gridConfig.lovMode;
-        gridOptions.rowSelection = 'single'; // 'multiple';
+        gridOptions.rowSelection = 'single'; // 'single' o 'multiple'; 
         gridOptions.rowDeselection = gridConfig.lovMode;
         gridOptions.editType = 'fullRow';
         gridOptions.rowHeight = this.rowHeight;

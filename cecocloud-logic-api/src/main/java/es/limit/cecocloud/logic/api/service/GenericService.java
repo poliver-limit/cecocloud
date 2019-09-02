@@ -52,10 +52,10 @@ public interface GenericService<D extends Identificable<ID>, ID extends Serializ
 			D dto) throws EntityNotFoundException, PermissionDeniedException;
 
 	/**
-	 * Esborra l'entitat donada la seva identificació.
+	 * Esborra una entitat donat el seu identificador.
 	 * 
 	 * @param id
-	 *            identificació de l'entitat.
+	 *            identificador de l'entitats.
 	 * @throws EntityNotFoundException
 	 *             si no s'ha trobat l'entitat especificada.
 	 * @throws PermissionDeniedException

@@ -9,12 +9,13 @@ import {
     RestapiResourceField
 } from '../restapi/restapi-profile';
 import { DatagridConfig } from './datagrid.component';
+import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
     selector: 'datagrid-header',
     template: `
 <div class="datagrid-header">
-    <mdc-top-app-bar-row *ngIf="!lovMode">
+    <mdc-top-app-bar-row *ngIf="!fullWidthFilter">
         <mdc-top-app-bar-section align="start" [title]="title">
         </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
@@ -30,16 +31,19 @@ import { DatagridConfig } from './datagrid.component';
             <!--button mdc-icon-button class="mdc-icon-button-sm">
                 <mdc-icon>build</mdc-icon>
             </button-->
-            <mat-form-field *ngIf="quickFilterAvailable" appearance="outline" class="mat-form-field-sm" style="margin-left: 1em">
+            <button mdc-icon-button *ngIf="quickFilterAvailable && mobileScreen" class="mdc-icon-button-sm" (click)="onFilterIconClick()">
+                <mdc-icon>search</mdc-icon>
+            </button>
+            <mat-form-field *ngIf="quickFilterAvailable && !mobileScreen" appearance="outline" class="mat-form-field-sm" style="margin-left: 1em; width: 50%">
                 <input matInput type="text" (input)="onQuickFilterChange($event)"/>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
-    <mdc-top-app-bar-row *ngIf="lovMode && quickFilterAvailable" style="border-top: 1px solid #e2e2e2">
+    <mdc-top-app-bar-row *ngIf="fullWidthFilter" style="border-top: 1px solid #e2e2e2">
         <mdc-top-app-bar-section>
-            <mat-form-field *ngIf="quickFilterAvailable" appearance="outline" class="mat-form-field-sm" style="width:100%">
-                <input matInput type="text" (input)="onQuickFilterChange($event)"/>
+            <mat-form-field #fullWidthFilterField appearance="outline" class="mat-form-field-sm" style="width:100%">
+                <input #fullWidthFilterInput matInput type="text" (input)="onQuickFilterChange($event)" (blur)="onFilterInputBlur()"/>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </mdc-top-app-bar-section>
@@ -59,8 +63,6 @@ import { DatagridConfig } from './datagrid.component';
 `,
     styles: [`
 .datagrid-header {
-    /*background-color: grey;
-    color: white;*/
     background-color: #f2f2f2;
     color: rgba(0, 0, 0, 0.54);
     border-bottom: 1px solid #e2e2e2;
@@ -68,163 +70,23 @@ import { DatagridConfig } from './datagrid.component';
 .datagrid-header-lov {
     border-top: 1px solid #e2e2e2;
 }
-`],
-/*    template: `
-<div class="page-header">
-    <div class="header-first-row">
-        <div class="mant-headline" mdcHeadline6 *ngIf="!lovMode">
-            <!--span class="main">Invoices</span><span class="current"> / FAC-123/2017</span-->
-            <span class="main">{{title}}</span>
-        </div>
-        <div *ngIf="quickFilterAvailable" [ngClass]="{'mant-filter': !lovMode, 'mant-filter-lov': lovMode}">
-            <!--mat-form-field style="width:100%">
-                <mat-label>Filtre</mat-label>
-                <input matInput type="text" (input)="onQuickFilterChange($event)"/>
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field-->
-            <div class="ag-input-wrapper">
-                <input class="ag-cell-edit-input" type="text" (input)="onQuickFilterChange($event)"/>
-                <mdc-icon>search</mdc-icon>
-            </div>
-        </div>
-    </div>
-    <div class="header-second-row" *ngIf="!lovMode">
-        <div class="mant-actions">
-            <div class="mant-actions-main">
-                <a mdc-button dense secondary (click)="onButtonCreateClick()">
-                    <mdc-icon>add</mdc-icon>
-                    {{'component.datagrid.header.button.crear'|translate}}
-                </a>&nbsp;
-                <!--a mdc-button dense (click)="onButtonImportClick()">
-                    <mdc-icon>get_app</mdc-icon>
-                    {{'component.datagrid.header.button.importar'|translate}}
-                </a-->
-            </div>
-            <div class="mant-actions-selection" *ngIf="anyRowSelected">
-                <!--a mdc-button dense>
-                    <span mdcButtonLabel>Print</span>
-                    <mdc-icon>arrow_drop_down</mdc-icon>
-                </a-->
-                <div mdcMenuSurfaceAnchor #actionsButton>
-                    <button mdc-button dense (click)="actionsMenu.open = !actionsMenu.open">
-                        <mdc-icon>settings</mdc-icon>
-                        <span mdcButtonLabel>{{'component.datagrid.header.button.actions'|translate}}</span>
-                        <mdc-icon>arrow_drop_down</mdc-icon>
-                    </button>
-                    <mdc-menu #actionsMenu anchorCorner="bottomStart" quickOpen [anchorElement]="actionsButton" (selected)="onActionSelect($event)">
-                        <mdc-list>
-                            <mdc-list-item>{{'component.datagrid.header.action.delete'|translate}}</mdc-list-item>
-                        </mdc-list>
-                    </mdc-menu>
-                </div>
-            </div>
-        </div>
-        <div class="mant-controls mant-controls-pagination" *ngIf="paginationActive">
-            <span class="mant-page-info">{{paginationFirstRow}} - {{paginationLastRow}} / {{scrollRowCount}}</span>
-            &nbsp;
-            <button mdc-icon-button (click)="onPageFirstClick()" [disabled]="paginationFirstPage" class="header-button-small"><mdc-icon>first_page</mdc-icon></button>
-            <button mdc-icon-button (click)="onPageDownClick()" [disabled]="paginationFirstPage" class="header-button-small"><mdc-icon>chevron_left</mdc-icon></button>
-            &nbsp;{{paginationCurrentPage}}&nbsp;
-            <button mdc-icon-button (click)="onPageUpClick()" [disabled]="paginationLastPage" class="header-button-small"><mdc-icon>chevron_right</mdc-icon></button>
-            <button mdc-icon-button (click)="onPageLastClick()" [disabled]="paginationLastPage" class="header-button-small"><mdc-icon>last_page</mdc-icon></button>
-            <!-- &nbsp;
-            <button mdc-icon-button disabled class="header-button-small"><mdc-icon>view_list</mdc-icon></button>
-            <button mdc-icon-button disabled class="header-button-small"><mdc-icon>view_module</mdc-icon></button-->
-        </div>
-        <div class="mant-controls mant-controls-infinite-scroll" *ngIf="!paginationActive">
-            <span class="mant-page-info">{{scrollFirstRow}} - {{scrollLastRow}} / {{paginationRowCount}}</span>
-            <!-- &nbsp;
-            <button mdc-icon-button disabled class="header-button-small"><mdc-icon>view_list</mdc-icon></button>
-            <button mdc-icon-button disabled class="header-button-small"><mdc-icon>view_module</mdc-icon></button-->
-        </div>
-    </div>
-</div>
-`,
-    styles: [`
-.page-header {
-    padding: 9px 24px 7px 24px;
-    border-bottom: 1px solid #e2e2e2;
-    color: rgba(0, 0, 0, 0.54);
-    font-weight: 700;
-    font-size: 12px;
-}
-.header-first-row {
-    display: flex;
-    padding-top: 8px;
-}
-.header-first-row .mant-headline {
-    flex-basis: 50%;
-    color: #999 !important;
-}
-.header-first-row .mant-headline span.main {
-    color: $mdc-theme-secondary;
-}
-.header-first-row .mant-headline span.current {
-    color: $mdc-theme-on-surface;
-}
-.header-first-row .mant-filter {
-    flex-basis: 50%;
-}
-.header-first-row .mant-filter-lov {
-    flex-basis: 100%;
-}
-.header-first-row .ag-cell-edit-input {
-    color: rgba(0, 0, 0, 0.87);
-    height: 40px;
-    border-width: 0;
-    border-bottom: 2px solid #e2e2e2;
-    font-size: 12px;
-    width: 100%;
-    height: 26px;
-}
-.header-first-row .ag-cell-edit-input:focus {
-    border-bottom-color: #3f51b5;
-    outline: none;
-}
-.header-second-row {
-    display: flex;
-    padding-top: 6px;
-}
-.header-second-row .mant-actions {
-    flex-basis: 50%;
-    display: flex;
-    justify-content: space-between;
-}
-.header-second-row .mant-actions-main {
-    flex-grow: 1;
-    text-align: left;
-}
-.header-second-row .mant-actions-selection {
-    flex-grow: 1;
-    text-align: right;
-}
-.header-second-row .mant-controls {
-    flex-basis: 50%;
-    text-align: right;
-    position: relative;
-    top: -5px;
-}
-.header-second-row .mant-controls-infinite-scroll {
-    padding-top: 18px;
-}
-.header-second-row .mant-page-info {
-}
-.header-button-small {
-    position: relative;
-    top: 6px;
-}
-.header-button-small mdc-icon {
-    position: relative;
-    left: -2px;
-}
-`]*/
+`]
 } )
 export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
 
     @Output() quickFilterChange: EventEmitter<any> = new EventEmitter();
 
+    @ViewChild( 'fullWidthFilterInput', { static: false } ) set setFullWidthFilterInput( fullWidthFilterInput: ElementRef ) {
+        this.fullWidthFilterInput = fullWidthFilterInput;
+        if ( fullWidthFilterInput ) {
+            setTimeout(() => {
+                fullWidthFilterInput.nativeElement.focus();
+            });
+        }
+    }
+
     private params: any;
-    private lovMode: boolean = true;
+    private lovMode: boolean;
     private selectionSubscription: Subscription;
     private paginationSubscription: Subscription;
     private restapiProfile: RestapiProfile;
@@ -243,10 +105,14 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     private scrollFirstRow: number;
     private scrollLastRow: number;
     private scrollRowCount: number;
+    private mobileScreen: boolean;
+    private fullWidthFilter: boolean;
+    private fullWidthFilterInput: ElementRef;
 
     agInit( params ): void {
         this.params = params;
         this.lovMode = params.context.config.lovMode;
+        this.fullWidthFilter = params.context.config.lovMode;
         this.restapiProfile = params.context.restapiProfile;
         // Calcula del titol
         this.title = this.restapiProfile.resource.name;
@@ -301,12 +167,12 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
             selectedRows: this.params.api.getSelectedRows()
         } );
     }
-    onActionSelect( event ) {
-        if ( event.index == 0 ) {
-            this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.headerActionDelete.emit( {
-                resource: this.restapiProfile.resource,
-                selectedRows: this.params.api.getSelectedRows()
-            } );
+    onFilterIconClick() {
+        this.fullWidthFilter = true;
+    }
+    onFilterInputBlur() {
+        if ( !this.lovMode ) {
+            this.fullWidthFilter = false;
         }
     }
     onPageFirstClick() {
@@ -335,6 +201,12 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     }
 
     constructor(
-        private translate: TranslateService ) { }
+        private translate: TranslateService,
+        private screenSizeService: ScreenSizeService ) {
+        this.mobileScreen = this.screenSizeService.isMobile();
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+            this.mobileScreen = event.mobile
+        } );
+    }
 
 }

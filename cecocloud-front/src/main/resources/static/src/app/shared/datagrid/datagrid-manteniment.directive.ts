@@ -26,12 +26,16 @@ export class DatagridMantenimentDirective {
     }
     onDatagridActionDelete( params: any ) {
         let resourceName = params.resource.name;
-        let rowData = params.selectedRows[0];
-        let rowDescription = ( params.resource.descriptionField ) ? rowData[params.resource.descriptionField] : '[id:' + rowData.id + ']';
-        let confirmTranslated = this.translateKey(
-            'component.datagrid.manteniment.delete.confirm',
-            { description: resourceName + ' ' + rowDescription } );
-        if ( confirm( confirmTranslated ) ) {
+        let confirmMessageTranslated;
+        if (params.selectedRows && params.selectedRows.length > 0) {
+            let rowData = params.selectedRows[0];
+            let rowDescription = ( params.resource.descriptionField ) ? rowData[params.resource.descriptionField] : '[id:' + rowData.id + ']';
+            confirmMessageTranslated = this.translateKey(
+                'component.datagrid.manteniment.delete.single.confirm',
+                { description: resourceName + ' ' + rowDescription } );
+        }
+        if ( confirmMessageTranslated && confirm( confirmMessageTranslated ) ) {
+            let rowData = params.selectedRows[0];
             this.getResourceDataWithLinks( rowData ).subscribe( dataWithLinks => {
                 let linkSelfHref = dataWithLinks._links.self.href;
                 this.http.delete( dataWithLinks._links.self.href/*, { params: params.pk }*/ ).subscribe(( resource: Resource ) => {
