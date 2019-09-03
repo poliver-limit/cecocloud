@@ -30,22 +30,12 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "usuari_empresa")
+@Table(name = "operari")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 6, nullable = false)),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "data_inici", nullable = false)),
 	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi"))
 })
-/*@AssociationOverrides({
-	@AssociationOverride(
-			name = "parent1",
-			joinColumns = {@JoinColumn(name = "usuari_id")},
-			foreignKey = @ForeignKey(name = "usuemp_usuari_fk")),
-	@AssociationOverride(
-			name = "parent2",
-			joinColumns = {@JoinColumn(name = "empresa_id")},
-			foreignKey = @ForeignKey(name = "usuemp_empresa_fk"))
-})*/
 public class OperariEntity extends AbstractEntity<Operari, Long> {
 
 	@Embedded
@@ -54,12 +44,12 @@ public class OperariEntity extends AbstractEntity<Operari, Long> {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "usuari_id",
-			foreignKey = @ForeignKey(name = "usuemp_usuari_fk"))
+			foreignKey = @ForeignKey(name = "operari_usuari_fk"))
 	protected UsuariEntity usuari;
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "empresa_id",
-			foreignKey = @ForeignKey(name = "usuemp_empresa_fk"))
+			foreignKey = @ForeignKey(name = "operari_empresa_fk"))
 	protected EmpresaEntity empresa;
 
 	@Builder

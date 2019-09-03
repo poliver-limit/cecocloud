@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.persist.entity;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -36,12 +34,6 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "data", nullable = false)),
 	@AttributeOverride(name = "embedded.dataCreacio", column = @Column(name = "data_actual", nullable = false)),
-})
-@AssociationOverrides({
-	@AssociationOverride(
-			name = "parent",
-			joinColumns = {@JoinColumn(name = "usuemp_id")},
-			foreignKey = @ForeignKey(name = "marcatge_usuemp_fk"))
 })
 public class MarcatgeEntity extends AbstractAuditableEntity<Marcatge, Long> {
 
