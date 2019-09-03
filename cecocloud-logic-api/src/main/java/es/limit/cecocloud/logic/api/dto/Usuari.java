@@ -23,7 +23,12 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-@RestapiResource(descriptionField = "nom")
+@RestapiResource(
+		descriptionField = "nom",
+		authoritiesWithCreatePermission = { Rol.ADMIN },
+		authoritiesWithReadPermission = { Rol.ADMIN },
+		authoritiesWithUpdatePermission = { Rol.ADMIN },
+		authoritiesWithDeletePermission = { Rol.ADMIN })
 public class Usuari extends AbstractIdentificable<Long> {
 
 	@NotNull

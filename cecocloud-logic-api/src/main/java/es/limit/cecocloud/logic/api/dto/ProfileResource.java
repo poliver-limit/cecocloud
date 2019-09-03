@@ -25,5 +25,9 @@ public class ProfileResource {
 	private boolean quickFilterAvailable;
 	List<ProfileResourceField> fields;
 	List<ProfileResourceGrid> grids;
+	private boolean hasCreatePermission;
+	private boolean hasReadPermission;
+	private boolean hasUpdatePermission;
+	private boolean hasDeletePermission;
 
 }

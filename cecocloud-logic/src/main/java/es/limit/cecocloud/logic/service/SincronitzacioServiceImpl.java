@@ -137,7 +137,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		}
 		List<SincronitzacioMarcatge> resposta = new ArrayList<SincronitzacioMarcatge>();
 		if (!empresesConsulta.isEmpty()) {
-			List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDates(
+			List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDatesSync(
 					empresesConsulta,
 					consulta.getDataInici(),
 					consulta.getDataFi() == null,

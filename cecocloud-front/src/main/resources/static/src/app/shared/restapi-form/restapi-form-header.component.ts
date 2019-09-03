@@ -68,10 +68,10 @@ export interface FormGridConfig {
             <span class="header-title">{{title}}: {{description ? description : ('component.restapi.form.header.title.crear' | translate)}}</span>
         </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
-            <button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.restapi.form.header.button.guardar'|translate}}" (click)="onButtonSaveClick()">
+            <button mdc-icon-button *ngIf="hasSavePermission" class="mdc-icon-button-sm" title="{{'component.restapi.form.header.button.guardar'|translate}}" (click)="onButtonSaveClick()">
                 <mdc-icon>save_alt</mdc-icon>
             </button>
-            <button mdc-icon-button class="mdc-icon-button-sm" *ngIf="id" title="{{'component.restapi.form.header.action.delete'|translate}}" (click)="onButtonDeleteClick()">
+            <button mdc-icon-button *ngIf="id && hasDeletePermission" class="mdc-icon-button-sm" title="{{'component.restapi.form.header.action.delete'|translate}}" (click)="onButtonDeleteClick()">
                 <mdc-icon>delete</mdc-icon>
             </button>
         </mdc-top-app-bar-section>
@@ -100,6 +100,11 @@ export class RestapiFormHeaderComponent {
     set restapiResource( restapiResource: RestapiResource ) {
         if ( restapiResource ) {
             this.title = this.translateKey( restapiResource.translateKey );
+            this.hasCreatePermission = restapiResource.hasCreatePermission;
+            this.hasReadPermission = restapiResource.hasReadPermission;
+            this.hasUpdatePermission = restapiResource.hasUpdatePermission;
+            this.hasDeletePermission = restapiResource.hasDeletePermission;
+            this.hasSavePermission = ( this.id ) ? restapiResource.hasUpdatePermission : restapiResource.hasCreatePermission;
         }
     }
     @Input() restapiError: Error;
@@ -109,6 +114,11 @@ export class RestapiFormHeaderComponent {
     @Output() actionDelete: EventEmitter<any> = new EventEmitter();
 
     private title: string;
+    private hasCreatePermission: boolean;
+    private hasReadPermission: boolean;
+    private hasUpdatePermission: boolean;
+    private hasDeletePermission: boolean;
+    private hasSavePermission: boolean;
     private mobileScreen;
 
     onButtonSaveClick() {

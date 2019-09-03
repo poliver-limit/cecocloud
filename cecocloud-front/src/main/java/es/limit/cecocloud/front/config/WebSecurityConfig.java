@@ -4,14 +4,17 @@
 package es.limit.cecocloud.front.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,10 +30,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.limit.cecocloud.back.controller.AbstractIdentificableReadOnlyApiController;
+import es.limit.cecocloud.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.front.auth.JwtAuthenticationFilter;
 import es.limit.cecocloud.front.auth.JwtAuthorizationFilter;
+import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
+import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.AuthService;
 
 /**
@@ -49,17 +56,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.
-		cors().and().csrf().disable().
-		authorizeRequests().
-		antMatchers("/api/auth", "/api/auth/**/*").permitAll().
-		antMatchers("/api/registres/**/*").permitAll().
-		antMatchers("/api/usuaris", "/api/usuaris/**/*").hasAuthority("ADMIN").
-		antMatchers("/api/companyies", "/api/companyies/**/*").hasAuthority("ADMIN").
-		antMatchers("/api/empreses", "/api/empreses/**/*").hasAuthority("ADMIN").
-		antMatchers("/api/operaris", "/api/operaris/**/*").hasAuthority("ADMIN").
-		antMatchers("/api/marcatges", "/api/marcatges/**/*").hasAnyAuthority("ADMIN", "MARCA").
-		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
+		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizationRegistry = http.
+				cors().and().csrf().disable().
+				authorizeRequests().
+				antMatchers("/api/auth", "/api/auth/**/*").permitAll().
+				antMatchers("/api/registres/**/*").permitAll();
+		addAntMatchersFromApiControllers(authorizationRegistry);
+//		authorizationRegistry.
+//		antMatchers("/api/usuaris", "/api/usuaris/**/*").hasAuthority("ADMIN").
+//		antMatchers("/api/companyies", "/api/companyies/**/*").hasAuthority("ADMIN").
+//		antMatchers("/api/empreses", "/api/empreses/**/*").hasAuthority("ADMIN").
+//		antMatchers("/api/operaris", "/api/operaris/**/*").hasAnyAuthority("ADMIN", "MARCA").
+//		antMatchers("/api/marcatges", "/api/marcatges/**/*").hasAnyAuthority("ADMIN", "MARCA").
+		authorizationRegistry.antMatchers("/api/sync/**/*").hasAuthority("SYNC").
 		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority("MARCA").
 		antMatchers("/api/**/*").authenticated().
 		anyRequest().permitAll().
@@ -67,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		addFilter(new JwtAuthenticationFilter(authenticationManager(), authService, mapper)).
 		addFilter(new JwtAuthorizationFilter(authenticationManager(), authService)).
 		sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
 	}
 
 	@Override
@@ -104,6 +114,59 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
+	}
+
+	private void addAntMatchersFromApiControllers(
+			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizationRegistry) throws ClassNotFoundException {
+		for (@SuppressWarnings("rawtypes") Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass: ApiControllerHelper.getApiControllerClasses()) {
+			String[] apiUrls = ApiControllerHelper.getApiUrlsFromApiController(apiControllerClass);
+			Class<? extends Identificable<?>> dtoClass = ApiControllerHelper.getDtoClassFromApiController(apiControllerClass);
+			RestapiResource restapiResource = dtoClass.getAnnotation(RestapiResource.class);
+			if (restapiResource != null) {
+				addAntMatcher(
+						authorizationRegistry,
+						HttpMethod.POST,
+						apiUrls,
+						restapiResource.authoritiesWithCreatePermission());
+				addAntMatcher(
+						authorizationRegistry,
+						HttpMethod.GET,
+						apiUrls,
+						restapiResource.authoritiesWithReadPermission());
+				addAntMatcher(
+						authorizationRegistry,
+						HttpMethod.PUT,
+						apiUrls,
+						restapiResource.authoritiesWithUpdatePermission());
+				addAntMatcher(
+						authorizationRegistry,
+						HttpMethod.PATCH,
+						apiUrls,
+						restapiResource.authoritiesWithUpdatePermission());
+				addAntMatcher(
+						authorizationRegistry,
+						HttpMethod.DELETE,
+						apiUrls,
+						restapiResource.authoritiesWithDeletePermission());
+			}
+		}
+	}
+
+	private void addAntMatcher(
+			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizationRegistry,
+			HttpMethod httpMethod,
+			String apiUrls[],
+			Rol[] authorities) {
+		for (String apiUrl: apiUrls) {
+			if (authorities != null && authorities.length > 0) {
+				authorizationRegistry.antMatchers(httpMethod, apiUrl, apiUrl + "/**/*").hasAnyAuthority(
+						Arrays.stream(authorities).map(authority -> authority.name()).toArray(String[]::new));
+				//System.out.println(">>>    antMatchers(HttpMethod." + httpMethod + ", \"" + apiUrl + "\", \"" + apiUrl + "/**/*\").hasAnyAuthority(" + authorities + ").");
+			} else {
+				authorizationRegistry.antMatchers(httpMethod, apiUrl, apiUrl + "/**/*").authenticated();
+				//System.out.println(">>>    antMatchers(HttpMethod." + httpMethod + ", \"" + apiUrl + "\", \"" + apiUrl + "/**/*\").authenticated().");
+			}
+		}
 	}
 
 }

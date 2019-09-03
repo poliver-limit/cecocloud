@@ -9,6 +9,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import es.limit.cecocloud.logic.api.annotation.RestapiField;
+import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.validation.MarcatgeOperariValid;
@@ -22,6 +23,11 @@ import lombok.Setter;
  */
 @Getter @Setter
 @MarcatgeOperariValid
+@RestapiResource(
+		authoritiesWithCreatePermission = { Rol.ADMIN, Rol.MARCA },
+		authoritiesWithReadPermission = { Rol.ADMIN, Rol.MARCA },
+		authoritiesWithUpdatePermission = { Rol.ADMIN, Rol.MARCA },
+		authoritiesWithDeletePermission = { Rol.ADMIN, Rol.MARCA })
 public class Marcatge extends AbstractIdentificable<Long> {
 
 	@NotNull

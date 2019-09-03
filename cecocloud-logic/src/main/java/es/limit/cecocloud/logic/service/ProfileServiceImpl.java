@@ -17,8 +17,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.reflections.Reflections;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.alps.Alps;
 import org.springframework.hateoas.alps.Descriptor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +35,9 @@ import es.limit.cecocloud.logic.api.dto.ProfileResource;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceGrid;
+import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
+import es.limit.cecocloud.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.ProfileService;
 
@@ -46,6 +51,9 @@ public class ProfileServiceImpl implements ProfileService {
 
 	private static final String CONTROLLER_PACKAGE = "com.josepgaya.temprj.back.controller";
 	private static final String TRANSLATE_KEY_PREFIX = "resource.";
+
+	@Autowired
+	private AuthenticationFacade authenticationFacade;
 
 	@Override
 	public Profile getProfile(
@@ -78,6 +86,10 @@ public class ProfileServiceImpl implements ProfileService {
 				TRANSLATE_KEY_PREFIX + resource.getName() + ".plural");
 		resource.setFields(getFields(dtoClass));
 		resource.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
+		resource.setHasCreatePermission(true);
+		resource.setHasReadPermission(true);
+		resource.setHasUpdatePermission(true);
+		resource.setHasDeletePermission(true);
 		RestapiResource resourceAnnotation = dtoClass.getAnnotation(RestapiResource.class);
 		if (resourceAnnotation != null) {
 			if (!resourceAnnotation.descriptionField().isEmpty()) {
@@ -99,6 +111,14 @@ public class ProfileServiceImpl implements ProfileService {
 				}
 				resource.setGrids(grids);
 			}
+			resource.setHasCreatePermission(
+					checkPermission(resourceAnnotation.authoritiesWithCreatePermission()));
+			resource.setHasReadPermission(
+					checkPermission(resourceAnnotation.authoritiesWithReadPermission()));
+			resource.setHasUpdatePermission(
+					checkPermission(resourceAnnotation.authoritiesWithUpdatePermission()));
+			resource.setHasDeletePermission(
+					checkPermission(resourceAnnotation.authoritiesWithDeletePermission()));
 		}
 		Profile profile = new Profile();
 		List<Descriptor> fieldDescriptors = new ArrayList<Descriptor>();
@@ -356,6 +376,33 @@ public class ProfileServiceImpl implements ProfileService {
 			}
 		}
 		return false;
+	}
+
+	private boolean checkPermission(Rol[] restrictedToAuthorities) {
+		if (restrictedToAuthorities == null || restrictedToAuthorities.length == 0) {
+			return true;
+		} else {
+			return hasAnyAuthority(
+					authenticationFacade.getAuthentication(),
+					restrictedToAuthorities);
+		}
+	}
+
+	private boolean hasAnyAuthority(
+			Authentication authentication,
+			Rol... roles) {
+		if (roles == null || roles.length == 0) {
+			return false;
+		} else {
+			for (GrantedAuthority authority: authentication.getAuthorities()) {
+				for (Rol role: roles) {
+					if (role.name().equals(authority.getAuthority())) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 	}
 
 }

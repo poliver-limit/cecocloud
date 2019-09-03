@@ -33,6 +33,8 @@ import io.jsonwebtoken.Jws;
  */
 @Service
 public class RegistreServiceImpl implements RegistreService {
+
+	private static final String CECOCLOUD_BASE_URL = "http://oficinal.limit.es/cecocloud";
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -83,7 +85,7 @@ public class RegistreServiceImpl implements RegistreService {
 		msg.setFrom(mailSmtpFrom);
         msg.setTo(usuari.getEmail());
         msg.setSubject("CECOCLOUD: registre d'usuari");
-        msg.setText("Per a completar el registre haurà d'accedir a la pàgina de validació utilitzant el següent enllaç: http://localhost:8080/cecocloud/registre/validate/" + token);
+        msg.setText("Per a completar el registre haurà d'accedir a la pàgina de validació utilitzant el següent enllaç: " + CECOCLOUD_BASE_URL + "/registre/validate/" + token);
         javaMailSender.send(msg);
 	}
 
@@ -94,7 +96,7 @@ public class RegistreServiceImpl implements RegistreService {
 		msg.setFrom(mailSmtpFrom);
         msg.setTo(usuari.getEmail());
         msg.setSubject("CECOCLOUD: recuperació de contrasenya");
-        msg.setText("Per a canviar la contrasenya d'usuari haurà d'accedir a la pàgina de validació utilitzant el següent enllaç: http://localhost:8080/cecocloud/registre/validate/" + token);
+        msg.setText("Per a canviar la contrasenya d'usuari haurà d'accedir a la pàgina de validació utilitzant el següent enllaç: " + CECOCLOUD_BASE_URL + "/registre/validate/" + token);
         javaMailSender.send(msg);
 	}
 

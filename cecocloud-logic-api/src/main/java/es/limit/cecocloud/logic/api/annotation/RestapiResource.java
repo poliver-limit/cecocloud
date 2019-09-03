@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import es.limit.cecocloud.logic.api.dto.Rol;
+
 /**
  * Anotació per a configurar el comportament del camp al grid i al formulari.
  * 
@@ -17,5 +19,9 @@ public @interface RestapiResource {
 
 	public String descriptionField() default "";
 	public RestapiGrid[] grids() default {};
+	public Rol[] authoritiesWithCreatePermission() default {};
+	public Rol[] authoritiesWithReadPermission() default {};
+	public Rol[] authoritiesWithUpdatePermission() default {};
+	public Rol[] authoritiesWithDeletePermission() default {};
 
 }

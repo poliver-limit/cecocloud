@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
         { icon: 'people', label: 'Usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
         { icon: 'domain', label: 'Companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
         { icon: 'business_center', label: 'Empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
-        { icon: 'people_alt', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
+        { icon: 'people_alt', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN', 'MARCA'] },
         { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
     ];
     private allowedMenuItems = [];

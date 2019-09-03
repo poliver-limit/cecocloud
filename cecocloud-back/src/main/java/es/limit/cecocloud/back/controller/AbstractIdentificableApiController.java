@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +46,8 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public abstract class AbstractIdentificableApiController<D extends Identificable<ID>, ID extends Serializable> extends AbstractIdentificableReadOnlyApiController<D, ID> {
 
+	@Autowired
+	protected ObjectMapper objectMapper;
 	@Autowired
 	private SmartValidator validator;
 

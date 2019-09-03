@@ -6,12 +6,11 @@ package es.limit.cecocloud.back.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import java.lang.reflect.Modifier;
-import java.util.Set;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
@@ -33,7 +32,7 @@ import es.limit.cecocloud.logic.api.service.ProfileService;
  */
 @RestController
 @RequestMapping(value = AbstractApiController.API_PATH + ProfileApiController.API_CONTROLLER_PATH)
-public class ProfileApiController extends AbstractProfileController {
+public class ProfileApiController {
 
 	public static final String API_CONTROLLER_PATH = "/profiles";
 
@@ -50,7 +49,15 @@ public class ProfileApiController extends AbstractProfileController {
 					resourceName,
 					linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref());
 			Link selfLink = linkTo(methodOn(getClass()).getOne(null, resourceName)).withSelfRel();
-			Link apiLink = getApiLink(resourceName);
+			@SuppressWarnings("rawtypes")
+			Optional<Class<? extends AbstractIdentificableReadOnlyApiController>> matchingControllerClass = ApiControllerHelper.getApiControllerClasses().stream().
+					filter(apiControllerClass -> apiControllerHasResourceName(apiControllerClass, resourceName)).
+					findFirst();
+			Link apiLink = null;
+			try {
+				apiLink = ApiControllerHelper.getLinkFromApiControllerClass(matchingControllerClass.get(), "api");
+			} catch (NoSuchElementException ex) {
+			}
 			if (apiLink != null) {
 				return ResponseEntity.ok(
 						new Resource<Profile>(
@@ -69,19 +76,12 @@ public class ProfileApiController extends AbstractProfileController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private Link getApiLink(String resourceName) {
-		Reflections reflections = new Reflections(getClass().getPackage().getName());
-		Set<Class<? extends AbstractIdentificableReadOnlyApiController>> apiControllerClasses = reflections.getSubTypesOf(AbstractIdentificableReadOnlyApiController.class);
-		for (Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass: apiControllerClasses) {
-			if (!apiControllerClass.isInterface() && !Modifier.isAbstract(apiControllerClass.getModifiers())) {
-				Class<? extends Identificable<?>> dtoClass = getDtoClassFromApiController(apiControllerClass);
-				String controllerResourceName = getResourceNameFromClass(dtoClass);
-				if (controllerResourceName.equalsIgnoreCase(resourceName)) {
-					return linkTo(methodOn(apiControllerClass).find(null, null, null, null)).withRel("api");
-				}
-			}
-		}
-		return null;
+	private boolean apiControllerHasResourceName(
+			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			String resourceName) {
+		Class<? extends Identificable<?>> dtoClass = ApiControllerHelper.getDtoClassFromApiController(apiControllerClass);
+		String controllerResourceName = ApiControllerHelper.getResourceNameFromClass(dtoClass);
+		return controllerResourceName.equalsIgnoreCase(resourceName);
 	}
 
 }

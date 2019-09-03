@@ -34,8 +34,6 @@ public class ProfileResourceField {
 	private String lovResourceName;
 	private String lovDescriptionField;
 	private boolean lovGenericResource;
-	/*private String lovParentField;
-	private boolean lovWithDescriptionInput;*/
 	private boolean includeInQuickFilter;
 
 	public static enum RestapiFieldType {

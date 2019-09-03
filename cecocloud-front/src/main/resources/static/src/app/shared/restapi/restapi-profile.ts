@@ -20,6 +20,10 @@ export class RestapiResource {
     quickFilterAvailable?: boolean;
     fields: RestapiResourceField[];
     grids?: RestapiResourceGrid[];
+    hasCreatePermission?: boolean;
+    hasReadPermission?: boolean;
+    hasUpdatePermission?: boolean;
+    hasDeletePermission?: boolean;
 }
 
 export class RestapiResourceField {

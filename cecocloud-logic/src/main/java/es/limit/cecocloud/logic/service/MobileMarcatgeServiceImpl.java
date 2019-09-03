@@ -106,7 +106,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			dataFi.set(Calendar.MINUTE, 59);
 			dataFi.set(Calendar.SECOND, 59);
 			dataFi.set(Calendar.MILLISECOND, 999);
-			List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDates(
+			List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDatesMobile(
 					Arrays.asList(empresa),
 					consulta.getData(),
 					false,

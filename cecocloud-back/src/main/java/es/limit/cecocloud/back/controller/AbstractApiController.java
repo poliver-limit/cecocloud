@@ -18,12 +18,13 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.PagedResources.PageMetadata;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.limit.cecocloud.logic.api.dto.Profile;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
+import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.AuthService;
@@ -45,8 +46,6 @@ public abstract class AbstractApiController {
 
 	private static Class<?> dtoClass;
 
-	@Autowired
-	protected ObjectMapper objectMapper;
 	@Autowired
 	private AuthService authService;
 	@Autowired
@@ -116,9 +115,41 @@ public abstract class AbstractApiController {
 		return null;
 	}
 
-	protected String buildRsqlQueryWithRequestParams(
+	protected boolean hasAnyAuthority(
+			Authentication authentication,
+			Rol... roles) {
+		if (roles == null || roles.length == 0) {
+			return false;
+		} else {
+			for (GrantedAuthority authority: authentication.getAuthorities()) {
+				for (Rol role: roles) {
+					if (role.name().equals(authority.getAuthority())) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	}
+
+	protected String buildServiceRsqlQuery(
 			HttpServletRequest request,
-			String query) {
+			String rsqlQuery) {
+		StringBuilder finalRsqlQuery = new StringBuilder();
+		appendRsqlQuery(finalRsqlQuery, rsqlQuery);
+		appendRsqlQuery(
+				finalRsqlQuery,
+				buildRsqlQueryFromRequestParams(request));
+		appendRsqlQuery(
+				finalRsqlQuery,
+				buildAdditionalRsqlQuery(request));
+		return (finalRsqlQuery.length() > 0) ? finalRsqlQuery.toString() : null;
+	}
+	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
+		return null;
+	}
+
+	private String buildRsqlQueryFromRequestParams(HttpServletRequest request) {
 		try {
 			Profile profile = profileService.getProfile(getDtoClass(), null);
 			Enumeration<String> paramNames = request.getParameterNames();
@@ -138,23 +169,21 @@ public abstract class AbstractApiController {
 					}
 				}
 			}
-			// TODO add filter from user session
-			if (rsqlQuery.length() > 0) {
-				rsqlQuery.append(")");
-			}
-			if (query != null) {
-				if (rsqlQuery.length() > 0) {
-					rsqlQuery.append(";(");
-					rsqlQuery.append(query);
-					rsqlQuery.append(")");
-				} else {
-					rsqlQuery.append(query);
-				}
-			}
 			return (rsqlQuery.length() > 0) ? rsqlQuery.toString() : null;
 		} catch (ClassNotFoundException ex) {
-			log.warn("No s'ha pogut obtenir el filtre addicional per a la classe " + getDtoClass(), ex);
+			log.error("No s'ha pogut obtenir el filtre addicional per a la classe " + getDtoClass(), ex);
 			return null;
+		}
+	}
+
+	private void appendRsqlQuery(StringBuilder sb, String rsqlQuery) {
+		if (rsqlQuery != null && !rsqlQuery.isEmpty()) {
+			if (sb.length() > 0) {
+				sb.append(";");
+			}
+			sb.append("(");
+			sb.append(rsqlQuery);
+			sb.append(")");
 		}
 	}
 
