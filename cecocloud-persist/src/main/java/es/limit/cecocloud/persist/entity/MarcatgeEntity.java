@@ -42,7 +42,7 @@ public class MarcatgeEntity extends AbstractAuditableEntity<Marcatge, Long> {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "usuemp_id",
-			foreignKey = @ForeignKey(name = "marcatge_usuemp_fk"))
+			foreignKey = @ForeignKey(name = "marcatge_operari_fk"))
 	protected OperariEntity operari;
 
 	@Builder

@@ -46,7 +46,7 @@ create table usuari (
     primary key (id)
 );
 
-create table usuari_empresa (
+create table operari (
    id number(19,0) not null,
     data_fi timestamp not null,
     data_inici timestamp not null,
@@ -74,17 +74,17 @@ alter table empresa
    references companyia;
 
 alter table marcatge 
-   add constraint marcatge_usuemp_fk 
+   add constraint marcatge_operari_fk 
    foreign key (usuemp_id) 
-   references usuari_empresa;
+   references operari;
 
-alter table usuari_empresa 
-   add constraint usuemp_usuari_fk 
+alter table operari 
+   add constraint operari_usuari_fk 
    foreign key (usuari_id) 
    references usuari;
 
-alter table usuari_empresa 
-   add constraint usuemp_empresa_fk 
+alter table operari 
+   add constraint operari_empresa_fk 
    foreign key (empresa_id) 
    references empresa;
 
@@ -142,7 +142,7 @@ create table usuari (
     primary key (id)
 );
 
-create table usuari_empresa (
+create table operari (
    id bigint not null,
     data_fi timestamp,
     data_inici timestamp not null,
@@ -170,17 +170,17 @@ alter table empresa
    references companyia;
 
 alter table marcatge 
-   add constraint marcatge_usuemp_fk 
+   add constraint marcatge_operari_fk 
    foreign key (usuemp_id) 
-   references usuari_empresa;
+   references operari;
 
-alter table usuari_empresa 
-   add constraint usuemp_usuari_fk 
+alter table operari 
+   add constraint operari_usuari_fk 
    foreign key (usuari_id) 
    references usuari;
 
-alter table usuari_empresa 
-   add constraint usuemp_empresa_fk 
+alter table operari 
+   add constraint operari_empresa_fk 
    foreign key (empresa_id) 
    references empresa;
 
