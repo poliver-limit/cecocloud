@@ -75,6 +75,7 @@ export interface DatagridColumn {
 @Component( {
     selector: 'datagrid',
     template: `
+<mat-spinner *ngIf="showLoading" diameter="50" style="position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);z-index:1"></mat-spinner>
 <datagrid-header #header (quickFilterChange)="onQuickFilterChange($event)"></datagrid-header>
 <ag-grid-angular
     *ngIf="gridOptions"
@@ -107,7 +108,7 @@ export class DatagridComponent implements OnInit {
     private componentHeaderHeight = 65;
     private lovFixedHeight = 220;
     private headerHeight = 46;
-    private rowHeight = 32;
+    private rowHeight = 36; // balham=32;
     private styleHeight;
     private marginBottom = 0;
     private styleMarginBottom = this.marginBottom + 'px';
@@ -116,6 +117,7 @@ export class DatagridComponent implements OnInit {
     // Altres
     private gridOptions: GridOptions;
     private hasMantenimentDirective: boolean;
+    private showLoading: boolean;
     private quickFilterValue: string;
     private mobileScreen: boolean;
 
@@ -144,6 +146,7 @@ export class DatagridComponent implements OnInit {
                 } );
             } else {
                 refreshContext.datasourceParentPk = parentPk;
+                refreshContext.gridComponent.showLoading = true;
                 refreshApi.setDatasource( refreshContext.gridComponent.createDataSource( refreshContext.restapiService ) );
             }
         }
@@ -195,10 +198,8 @@ export class DatagridComponent implements OnInit {
             stopEditingWhenGridLosesFocus: true,
             enableBrowserTooltips: true,
             floatingFilter: gridConfig.columnFiltersEnabled,
-            overlayLoadingTemplate: '<span class="ag-overlay-loading-center" style="padding-top: 1.5em"><i class="fa fa-cog fa-spin fa-2x fa-fw"></i></span>',
             overlayNoRowsTemplate: '&nbsp;', //'<span style="padding: 10px; border: 2px solid #444; background: #efefef;">' + this.translate.instant( 'datatable.sense.resultats' ) + '</span>',
         }
-        let showOverlayLoading = false;
         gridOptions.getRowStyle = gridConfig.rowStyle;
         gridOptions.getRowClass = gridConfig.rowClass;
         gridOptions.enableColResize = gridConfig.resizable;
@@ -209,13 +210,8 @@ export class DatagridComponent implements OnInit {
         gridOptions.rowHeight = this.rowHeight;
         gridOptions.headerHeight = this.headerHeight;
         gridOptions.onGridReady = function( event ) {
-            /*if ( !gridConfig.staticData ) {
-                event.api.showLoadingOverlay();
-                if ( event.api.getModel().getRowCount() == 0 ) {
-                    showOverlayLoading = true;
-                }
-            }*/
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
+            context.gridComponent.showLoading = true;
             context.gridComponent.header.agInit( {
                 api: event.api,
                 context: context
@@ -224,22 +220,12 @@ export class DatagridComponent implements OnInit {
             event.api.sizeColumnsToFit();
         }
         gridOptions.onModelUpdated = function( event ) {
-            event.api.showLoadingOverlay();
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
-            /*context.gridComponent.messageService.sendSelection(
-                event.api.getSelectedRows() );*/
             if ( context.datasourceParentPk ) {
                 delete context.datasourceParentPk;
             }
             event.api.sizeColumnsToFit();
-            if ( event.api.getModel().getRowCount() != 0 && !showOverlayLoading ) {
-                event.api.hideOverlay();
-            } else if ( !showOverlayLoading ) {
-                event.api.showNoRowsOverlay();
-            }
-            if ( showOverlayLoading ) {
-                showOverlayLoading = false;
-            }
+            context.gridComponent.showLoading = false;
         }
         gridOptions.onFirstDataRendered = function( event ) {
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
@@ -253,10 +239,19 @@ export class DatagridComponent implements OnInit {
             }
         }
         gridOptions.onRowDataChanged = function( event ) {
-            event.api.hideOverlay();
+            let context = event.api['gridOptionsWrapper'].gridOptions.context;
+            context.gridComponent.showLoading = false;
         }
         gridOptions.onGridSizeChanged = function( event ) {
             event.api.sizeColumnsToFit();
+        }
+        gridOptions.onSortChanged = function( event ) {
+            let context = event.api['gridOptionsWrapper'].gridOptions.context;
+            context.gridComponent.showLoading = true;
+        }
+        gridOptions.onFilterChanged = function( event ) {
+            let context = event.api['gridOptionsWrapper'].gridOptions.context;
+            context.gridComponent.showLoading = true;
         }
         gridOptions.getRowHeight = function( params ) {
             let context = params.api['gridOptionsWrapper'].gridOptions.context;

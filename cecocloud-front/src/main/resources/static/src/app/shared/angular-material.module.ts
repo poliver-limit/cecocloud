@@ -7,6 +7,7 @@ import {
     MatButtonModule,
     MatIconModule,
     MatDatepickerModule,
+    MatProgressSpinnerModule,
     MAT_DATE_FORMATS
 } from '@angular/material';
 
@@ -21,6 +22,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         MatButtonModule,
         MatIconModule,
         MatDatepickerModule,
+        MatProgressSpinnerModule,
         MomentDateModule
     ],
     providers: [

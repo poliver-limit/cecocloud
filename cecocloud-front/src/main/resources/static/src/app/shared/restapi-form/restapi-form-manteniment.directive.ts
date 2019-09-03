@@ -17,6 +17,9 @@ export class RestapiFormMantenimentDirective {
     private translate: TranslateService;
     private snackbar: MdcSnackbar;
 
+    onFormActionCancel() {
+        this.goToList();
+    }
     onFormActionSave() {
         if ( this.restapiForm.isCreacio() ) {
             this.showMessage(
@@ -29,7 +32,10 @@ export class RestapiFormMantenimentDirective {
         }
         this.goToList();
     }
-    onFormActionCancel() {
+    onFormActionDelete() {
+        this.showMessage(
+                this.translateKey( 'component.restapi.form.manteniment.deleted' ),
+                false );
         this.goToList();
     }
 
@@ -61,8 +67,9 @@ export class RestapiFormMantenimentDirective {
     constructor(
         private restapiForm: RestapiFormComponent,
         private injectorObj: Injector ) {
-        restapiForm.actionSave.subscribe(() => this.onFormActionSave() );
         restapiForm.actionCancel.subscribe(() => this.onFormActionCancel() );
+        restapiForm.actionSave.subscribe(() => this.onFormActionSave() );
+        restapiForm.actionDelete.subscribe(() => this.onFormActionDelete() );
         this.router = <Router>this.injectorObj.get( Router );
         this.currentRouteUrl = this.router.url;
         this.snackbar = <MdcSnackbar>this.injectorObj.get( MdcSnackbar );

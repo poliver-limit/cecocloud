@@ -14,12 +14,11 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 @Component( {
     selector: 'datagrid-header',
     template: `
-<div class="datagrid-header">
+<div class="datagrid-header" [ngClass]="{'datagrid-header-lov': lovMode}">
     <mdc-top-app-bar-row *ngIf="!fullWidthFilter">
-        <mdc-top-app-bar-section align="start" [title]="title">
-        </mdc-top-app-bar-section>
+        <mdc-top-app-bar-section align="start" [title]="title"></mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
-            <button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.crear'|translate}}"(click)="onButtonCreateClick()">
+            <button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.crear'|translate}}" (click)="onButtonCreateClick()">
                 <mdc-icon>add</mdc-icon>
             </button>
             <!--button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.importar'|translate}}" (click)="onButtonImportClick()">
@@ -68,7 +67,7 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
     border-bottom: 1px solid #e2e2e2;
 }
 .datagrid-header-lov {
-    border-top: 1px solid #e2e2e2;
+    background-color: white;
 }
 `]
 } )

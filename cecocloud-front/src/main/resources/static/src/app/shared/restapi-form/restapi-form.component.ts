@@ -272,7 +272,7 @@ export class RestapiFormComponent implements OnInit {
                                     customInput.fieldClick.emit( event );
                                 } );
                             } else {
-                                this.configureBaseFieldComponent( customField, field );
+                                this.configureBaseFieldComponent( customField, field, true );
                                 this.inputFields.push( customField );
                             }
                         }
@@ -304,12 +304,15 @@ export class RestapiFormComponent implements OnInit {
         );
     }
 
-    configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField ) {
+    configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField, callBaseOnInit?: boolean ) {
         fieldComponent.label = ( field.translateKey ) ? this.translateKey( field.translateKey, {}, field.name ) : field.name;
         fieldComponent.fieldName = field.name;
         fieldComponent.formGroup = this.formGroup;
         fieldComponent.restapiResource = this.restapiResource;
         fieldComponent.resourceInstance = this.resourceInstance;
+        if ( callBaseOnInit ) {
+            fieldComponent.baseOnInit( field.name, this.formGroup, this.restapiResource );
+        }
     }
 
     processErrors( errorResponse: HttpErrorResponse ) {
@@ -319,7 +322,7 @@ export class RestapiFormComponent implements OnInit {
                     if ( inputField.fieldName === error.field ) {
                         let fieldErrors = {};
                         let defaultErrorMessage = error.defaultMessage ? error.defaultMessage : error.code;
-                        fieldErrors[error.code] = this.translateKey('error.validation.contraint.' + error.code, undefined, defaultErrorMessage);
+                        fieldErrors[error.code] = this.translateKey( 'error.validation.contraint.' + error.code, undefined, defaultErrorMessage );
                         inputField.setErrors( fieldErrors );
                     }
                 } );
