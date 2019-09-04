@@ -17,7 +17,8 @@ import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaAmbOperaris;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
-import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgeConsulta;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesConsulta;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesEnviament;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.logic.api.dto.Operari;
@@ -121,7 +122,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<SincronitzacioMarcatge> marcatgeFind(SincronitzacioMarcatgeConsulta consulta) {
+	public List<SincronitzacioMarcatge> marcatgeFind(SincronitzacioMarcatgesConsulta consulta) {
 		// TODO Revisar si l'usuari te permisos
 		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
 				consulta.getCompanyiaCodi());
@@ -154,6 +155,12 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			}
 		}
 		return resposta;
+	}
+
+	@Override
+	public SincronitzacioResposta marcatgeCreate(SincronitzacioMarcatgesEnviament marcatges) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private void updateOperaris(

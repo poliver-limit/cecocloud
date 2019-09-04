@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
-import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgeConsulta;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesConsulta;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesEnviament;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class SincronitzacioApiController {
 	@PostMapping(
 			path = "/empreses_operaris",
 			produces = "application/json")
-	public ResponseEntity<SincronitzacioResposta> sincronitzar(
+	public ResponseEntity<SincronitzacioResposta> sincronitzarEmpresesOperaris(
 			HttpServletRequest request,
 			@RequestBody @Valid final SincronitzacioCompanyia dto) {
 		log.debug("Nova sincronització(" +
@@ -53,13 +54,25 @@ public class SincronitzacioApiController {
 	@GetMapping(
 			path = "/marcatges",
 			produces = "application/json")
-	public ResponseEntity<List<SincronitzacioMarcatge>> marcatgeFind(
+	public ResponseEntity<List<SincronitzacioMarcatge>> consultaMarcatges(
 			HttpServletRequest request,
-			@Valid final SincronitzacioMarcatgeConsulta consulta) {
+			@Valid final SincronitzacioMarcatgesConsulta consulta) {
 		log.debug("Consulta de marcatges (" +
 				"consulta=" + consulta + ")");
 		List<SincronitzacioMarcatge> marcatges = sincronitzacioService.marcatgeFind(consulta);
 		return ResponseEntity.ok(marcatges);
+	}
+
+	@PostMapping(
+			path = "/marcatges",
+			produces = "application/json")
+	public ResponseEntity<SincronitzacioResposta> sincronitzarMarcatges(
+			HttpServletRequest request,
+			@Valid final SincronitzacioMarcatgesEnviament marcatges) {
+		log.debug("Enviament de marcatges (" +
+				"marcatges=" + marcatges + ")");
+		return ResponseEntity.ok(
+				sincronitzacioService.marcatgeCreate(marcatges));
 	}
 
 }

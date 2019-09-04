@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularHalModule } from 'angular4-hal';
+import { NgxMaskModule } from 'ngx-mask'
 
 import { MdcWebModule } from './shared/mdc-web.module';
 import { AuthGuard } from './shared/auth/auth-guard';
@@ -38,6 +39,7 @@ export function createTranslateLoader( http: HttpClient ) {
             }
         } ),
         AngularHalModule.forRoot(),
+        NgxMaskModule.forRoot(),
         AppRoutingModule
     ],
     declarations: [

@@ -28,12 +28,13 @@ import lombok.Setter;
 @RestapiResource(
 		authoritiesWithCreatePermission = { Rol.ADMIN, Rol.MARCA },
 		authoritiesWithReadPermission = { Rol.ADMIN, Rol.MARCA },
-		authoritiesWithUpdatePermission = { Rol.ADMIN, Rol.MARCA },
-		authoritiesWithDeletePermission = { Rol.ADMIN, Rol.MARCA })
+		authoritiesWithUpdatePermission = { Rol.ADMIN },
+		authoritiesWithDeletePermission = { Rol.ADMIN })
 public class Marcatge extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Transient
+	@RestapiField(includeInQuickFilter = true)
 	private Operari operari;
 	@NotNull
 	@RestapiField(type = RestapiFieldType.DATETIME)

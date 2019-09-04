@@ -16,8 +16,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SincronitzacioResposta {
 
-	private int empresaCreateCount;
-	private int empresaUpdateCount;
-	private int empresaDeleteCount;
+	private int createCount;
+	private int updateCount;
+	private int deleteCount;
 
 }

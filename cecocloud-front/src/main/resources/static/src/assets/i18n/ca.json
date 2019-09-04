@@ -71,6 +71,7 @@
 
 	"error.validation.contraint.NotNull": "Aquest camp és obligatori",
 	"error.validation.contraint.MarcatgeOperariValid": "Operari invàlid",
+	"error.validation.contraint.MarcatgeData": "Data incorrecta",
 
 	"resource.usuari": "Usuari",
 	"resource.usuari.plural": "Usuaris",

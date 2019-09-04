@@ -20,7 +20,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class SincronitzacioMarcatgeConsulta {
+public class SincronitzacioMarcatgesConsulta {
 
 	@NotNull
 	@Size(max = 30)

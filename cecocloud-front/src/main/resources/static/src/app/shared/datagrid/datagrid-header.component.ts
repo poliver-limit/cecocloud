@@ -34,7 +34,7 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
                 <mdc-icon>search</mdc-icon>
             </button>
             <mat-form-field *ngIf="quickFilterAvailable && !mobileScreen" appearance="outline" class="mat-form-field-sm" style="margin-left: 1em; width: 50%">
-                <input matInput type="text" (input)="onQuickFilterChange($event)"/>
+                <input matInput type="text" (input)="onQuickFilterChange($event)" (keypress)="onQuickFilterKeypress($event)"/>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </mdc-top-app-bar-section>
@@ -42,7 +42,7 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
     <mdc-top-app-bar-row *ngIf="fullWidthFilter" style="border-top: 1px solid #e2e2e2">
         <mdc-top-app-bar-section>
             <mat-form-field #fullWidthFilterField appearance="outline" class="mat-form-field-sm" style="width:100%">
-                <input #fullWidthFilterInput matInput type="text" (input)="onQuickFilterChange($event)" (blur)="onFilterInputBlur()"/>
+                <input #fullWidthFilterInput matInput type="text" (input)="onQuickFilterChange($event)" (blur)="onFilterInputBlur()" (keypress)="onQuickFilterKeypress($event)"/>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </mdc-top-app-bar-section>
@@ -151,6 +151,13 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
         } );
     }
 
+    onQuickFilterKeypress( event ) {
+        let keyboardEvent = <KeyboardEvent>event;
+        let filteredKeys = ['(', ')', ';', ',', '"', '\'', '=', '~', '<', '>'];
+        if (filteredKeys.indexOf(keyboardEvent.key) != -1) {
+            event.preventDefault();
+        }
+    }
     onQuickFilterChange( event ) {
         this.quickFilterChange.emit( event.target.value );
     }

@@ -7,7 +7,8 @@ import java.util.List;
 
 import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
-import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgeConsulta;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesConsulta;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesEnviament;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 
 /**
@@ -23,7 +24,7 @@ public interface SincronitzacioService {
 	 * @param sincronitzacioCompanyia
 	 *            informació de sincronització.
 	 * 
-	 * @return el marcatge creat.
+	 * @return el resultat de la sincronització.
 	 */
 	public SincronitzacioResposta sincronitzar(SincronitzacioCompanyia sincronitzacioCompanyia);
 
@@ -35,6 +36,16 @@ public interface SincronitzacioService {
 	 * 
 	 * @return la llista de marcatges.
 	 */
-	public List<SincronitzacioMarcatge> marcatgeFind(SincronitzacioMarcatgeConsulta consulta);
+	public List<SincronitzacioMarcatge> marcatgeFind(SincronitzacioMarcatgesConsulta consulta);
+
+	/**
+	 * Dona d'alta els marcatges fets a CECOGEST.
+	 * 
+	 * @param marcatges
+	 *            la llista de marcatges fets a CECOGEST.
+	 * 
+	 * @return el resultat de la sincronització.
+	 */
+	public SincronitzacioResposta marcatgeCreate(SincronitzacioMarcatgesEnviament marcatges);
 
 }

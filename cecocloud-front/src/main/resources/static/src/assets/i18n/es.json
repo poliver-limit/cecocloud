@@ -71,6 +71,7 @@
 
 	"error.validation.contraint.NotNull": "Este campo es obligatorio",
 	"error.validation.contraint.MarcatgeOperariValid": "Operario inválido",
+	"error.validation.contraint.MarcatgeData": "Fecha incorrecta",
 
 	"resource.usuari": "Usuario",
 	"resource.usuari.plural": "Usuarios",
