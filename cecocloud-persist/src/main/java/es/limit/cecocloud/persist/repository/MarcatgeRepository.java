@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
+import es.limit.cecocloud.persist.entity.OperariEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus marcatge.
@@ -50,5 +51,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("dataInici") Date dataInici,
 			@Param("esNullDataFi") boolean esNullDataFi,
 			@Param("dataFi") Date dataFi);
+
+	MarcatgeEntity findFirstByOperariOrderByEmbeddedDataDesc(OperariEntity operari);
 
 }

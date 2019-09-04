@@ -40,7 +40,7 @@ public class OperariApiController extends AbstractIdentificableApiController<Ope
 		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
 		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.MARCA);
 		if (!isAdmin && isMarcatge) {
-			return "empresa.id=in=(115,267)";
+			return "usuari.codi==" + authenticationFacade.getAuthentication().getName();
 		}
 		return null;
 	}

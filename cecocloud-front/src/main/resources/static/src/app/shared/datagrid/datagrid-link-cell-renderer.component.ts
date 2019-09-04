@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component( {
-    template: `<a [routerLink]="linkUrl" [ngStyle]="{'left': left + 'px', 'width': width + 'px'}" *ngIf="showLink">&nbsp;</a>{{value}}`,
+    template: `<a [routerLink]="linkUrl" *ngIf="params.linkActive" [ngStyle]="{'left': left + 'px', 'width': width + 'px'}">&nbsp;</a>{{value}}`,
     styles: [`
 a {
     display: inline;
@@ -18,7 +18,6 @@ export class DatagridLinkCellRenderer implements ICellRendererAngularComp {
     private linkUrl: any;
     private left: number;
     private width: number;
-    private showLink: boolean;
 
     agInit( params: any ): void {
         this.params = params;
@@ -27,12 +26,11 @@ export class DatagridLinkCellRenderer implements ICellRendererAngularComp {
             this.linkUrl = './update/' + params.data.id;
         }
         let cellValueElement = params.eGridCell.querySelector( '.ag-cell-value' );
-        if (!cellValueElement && params.eGridCell.classList.contains('ag-cell-value')) {
+        if ( !cellValueElement && params.eGridCell.classList.contains( 'ag-cell-value' ) ) {
             cellValueElement = params.eGridCell;
         }
         this.left = cellValueElement.getBoundingClientRect().left - params.eGridCell.getBoundingClientRect().left;
         this.width = params.eGridCell.getBoundingClientRect().right - cellValueElement.getBoundingClientRect().left;
-        this.showLink = params.context.gridComponent.hasMantenimentDirective && params.data;
     }
 
     refresh(): boolean {

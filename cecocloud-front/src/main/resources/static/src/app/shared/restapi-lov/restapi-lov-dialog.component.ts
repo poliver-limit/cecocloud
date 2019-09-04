@@ -16,17 +16,12 @@ import { DatagridConfig } from '../datagrid/datagrid.component';
                     [config]="datagridConfig"
                     [restapiService]="restapiService"
                     (selectionChanged)="onDatagridSelectionChanged($event)"
-                    (rowDoubleClicked)="onDatagridRowDoubleClicked($event)"></datagrid>
+                    (rowClicked)="onDatagridRowClicked($event)"></datagrid>
             </mdc-dialog-content>
             <mdc-dialog-actions>
                 <button
                     mdcDialogButton
                     mdcDialogAction="close">{{ 'component.restapi.lov.button.close' | translate }}</button>
-                <button
-                    mdcDialogButton
-                    mdcDialogAction="accept"
-                    [disabled]="!selectedRowData"
-                    (click)="onSelectButtonClick()">{{ 'component.restapi.lov.button.select' | translate }}</button>
             </mdc-dialog-actions>
         </mdc-dialog-surface>
     </mdc-dialog-container>
@@ -43,7 +38,7 @@ export class RestapiLovDialogComponent {
         this.selectedRowData = ( event.api.getSelectedRows() ) ? event.api.getSelectedRows()[0] : null;
     }
 
-    onDatagridRowDoubleClicked( event ) {
+    onDatagridRowClicked( event ) {
         this.sendSelectionAndClose( event.data );
     }
 

@@ -92,6 +92,7 @@ export class DatagridComponent implements OnInit {
     @Output() headerActionCreate: EventEmitter<any> = new EventEmitter();
     @Output() headerActionDelete: EventEmitter<any> = new EventEmitter();
     @Output() selectionChanged: EventEmitter<any> = new EventEmitter();
+    @Output() rowClicked: EventEmitter<any> = new EventEmitter();
     @Output() rowDoubleClicked: EventEmitter<any> = new EventEmitter();
 
     @ViewChild( 'header', { static: false } ) header: DatagridHeaderComponent;
@@ -175,6 +176,10 @@ export class DatagridComponent implements OnInit {
     onSelectionChanged( event ) {
         event.context.gridComponent.selectionChanged.emit( event );
         event.context.gridComponent.selectionSubject.next( event );
+    }
+
+    onRowClicked( event ) {
+        event.context.gridComponent.rowClicked.emit( event );
     }
 
     onRowDoubleClicked( event ) {
@@ -285,6 +290,7 @@ export class DatagridComponent implements OnInit {
         gridOptions.onRowSelected = this.onSelectionChanged;
         gridOptions.onPaginationChanged = this.onPaginationChanged;
         gridOptions.onBodyScroll = this.onBodyScroll;
+        gridOptions.onRowClicked = this.onRowClicked;
         gridOptions.onRowDoubleClicked = this.onRowDoubleClicked;
         if ( !parentGridOptions && !gridConfig.detailConfig ) {
             if ( gridConfig.height ) {
@@ -434,11 +440,18 @@ export class DatagridComponent implements OnInit {
                         }
                     } );
                 }
+                let isModificable = restapiProfile.resource.hasUpdatePermission  || restapiProfile.resource.hasDeletePermission; 
                 let cellStyle = { lineHeight: this.rowHeight + 'px' };
                 let cellRenderer;
                 let cellRendererFramework = DatagridLinkCellRenderer;
+                let cellRendererParams = {
+                    linkActive: this.hasMantenimentDirective && isModificable
+                };
                 let cellEditorFramework;
                 let checkboxSelection = ( index == 0 ) && !datagridConfig.lovMode;
+                if ( !isModificable ) {
+                    checkboxSelection = false;
+                }
                 let columnField = gridColumn.field;
                 let columnEditable: any;
                 let tooltip = ( gridColumn.tooltip ) ? gridColumn.tooltip : undefined;
@@ -564,6 +577,7 @@ export class DatagridComponent implements OnInit {
                     cellClass: gridColumn.cellClass,
                     cellRenderer: ( cellRenderer !== undefined ) ? cellRenderer : gridColumn.cellRenderer,
                     cellRendererFramework: cellRendererFramework,
+                    cellRendererParams: cellRendererParams,
                     //checkboxSelection: ( !this.config.lovMode ) ? checkboxSelection : false,
                     checkboxSelection: checkboxSelection,
                     //headerCheckboxSelection: ( !this.config.lovMode ) ? checkboxSelection : false,

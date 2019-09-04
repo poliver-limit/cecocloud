@@ -12,7 +12,8 @@ import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.service.OperariService;
 
 /**
- * Validador dels operaris dels marcatges. Es fan les següents validacions:
+ * Validador dels operaris dels marcatges.
+ * Es fan les següents validacions:
  * · Que l'usuari tengui permisos per a fer marcatges amb l'operari.
  * · Que l'operari estigui actiu en la data del marcatge.
  * 
