@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.GenericService;
@@ -51,7 +50,10 @@ public abstract class AbstractIdentificableReadOnlyApiController<D extends Ident
 			return ResponseEntity.ok(
 					toResource(
 							dto,
-							getResourceWithIdLink(dto.getId(), Link.REL_SELF),
+							ApiControllerHelper.getResourceLink(
+									getClass(),
+									dto.getId(),
+									Link.REL_SELF),
 							getProfileLink("profile")));
 		} catch (EntityNotFoundException ex) {
 			return ResponseEntity.notFound().build();
@@ -77,19 +79,11 @@ public abstract class AbstractIdentificableReadOnlyApiController<D extends Ident
 		return ResponseEntity.ok(
 				toPagedResources(
 						pagina,
+						getClass(),
 						getApiLink(Link.REL_SELF),
 						getProfileLink("profile")));
 	}
 
-	@SuppressWarnings("unchecked")
-	protected Link getResourceWithIdLink(Object id, String rel) {
-		Link link = linkTo(methodOn(getClass()).getOne(null, null)).withRel(rel);
-		if (id != null) {
-			UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(link.getHref());
-			link = new Link(uriBuilder.buildAndExpand(id).toString());
-		}
-		return link;
-	}
 	protected Link getApiLink(String rel) {
 		return linkTo(methodOn(getClass()).find(null, null, null, null)).withRel(rel);
 	}

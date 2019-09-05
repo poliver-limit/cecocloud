@@ -51,21 +51,26 @@ public abstract class AbstractApiController {
 	@Autowired
 	private ProfileService profileService;
 
-	protected <D> Resource<D> toResource(
+	protected <D extends Identificable<?>> Resource<D> toResource(
 			D dto,
 			Link... links) {
 		return new Resource<D>(
 				dto,
 				links);
 	}
-	protected <D> Resources<Resource<D>> toResources(
+	@SuppressWarnings("rawtypes")
+	protected <D extends Identificable<?>> Resources<Resource<D>> toResources(
 			List<D> dtos,
+			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
 			Link... links) {
 		return new Resources<Resource<D>>(
-				dtos.stream().map(dto -> toResource(dto, links)).collect(Collectors.toList()));
+				dtos.stream().map(dto -> toResource(dto)).collect(Collectors.toList()),
+				links);
 	}
-	protected <D> PagedResources<Resource<D>> toPagedResources(
+	@SuppressWarnings("rawtypes")
+	protected <D extends Identificable<?>> PagedResources<Resource<D>> toPagedResources(
 			Page<D> page,
+			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
 			Link... links) {
 		PageMetadata pageMetadata = new PageMetadata(
 				page.getNumberOfElements(),
@@ -73,11 +78,11 @@ public abstract class AbstractApiController {
 				page.getTotalElements(),
 				page.getTotalPages());
 		return new PagedResources<Resource<D>>(
-				page.getContent().stream().map(dto -> toResource(dto)).collect(Collectors.toList()),
+				page.getContent().stream().map(dto -> toResource(dto, getSelfLink(dto, apiControllerClass))).collect(Collectors.toList()),
 				pageMetadata,
 				links);
 	}
-
+	
 	@SuppressWarnings("unchecked" )
 	protected Class<?> getDtoClass() {
 		if (dtoClass == null) {
@@ -147,6 +152,13 @@ public abstract class AbstractApiController {
 	}
 	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
 		return null;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private <D extends Identificable<?>> Link getSelfLink(
+			D dto,
+			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass) {
+		return ApiControllerHelper.getResourceLink(apiControllerClass, dto.getId(), Link.REL_SELF);
 	}
 
 	private String buildRsqlQueryFromRequestParams(HttpServletRequest request) {
