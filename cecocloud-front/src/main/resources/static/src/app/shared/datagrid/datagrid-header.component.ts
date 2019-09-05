@@ -36,17 +36,17 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
             <button mdc-icon-button *ngIf="quickFilterAvailable && mobileScreen" class="mdc-icon-button-sm" (click)="onFilterIconClick()">
                 <mdc-icon>search</mdc-icon>
             </button>
-            <mat-form-field *ngIf="quickFilterAvailable && !mobileScreen" appearance="outline" class="mat-form-field-sm" style="margin-left: 1em; width: 50%">
-                <input matInput type="text" (input)="onQuickFilterChange($event)" (keypress)="onQuickFilterKeypress($event)"/>
-                <mat-icon matSuffix>search</mat-icon>
+            <mat-form-field *ngIf="quickFilterAvailable && !mobileScreen" appearance="outline" style="font-size: 13px; margin-left: 1em; width: 50%; position: relative; top: 6px">
+                <input matInput type="text" [ngModel]="quickFilterValue" (ngModelChange)="quickFilterValue = $event" (input)="onQuickFilterChange($event)" (keypress)="onQuickFilterKeypress($event)" />
+                <mat-icon matSuffix style="position: relative; top: 4px">search</mat-icon>
             </mat-form-field>
         </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
     <mdc-top-app-bar-row *ngIf="fullWidthFilter" style="border-top: 1px solid #e2e2e2">
         <mdc-top-app-bar-section>
-            <mat-form-field #fullWidthFilterField appearance="outline" class="mat-form-field-sm" style="width:100%">
-                <input #fullWidthFilterInput matInput type="text" (input)="onQuickFilterChange($event)" (blur)="onFilterInputBlur()" (keypress)="onQuickFilterKeypress($event)"/>
-                <mat-icon matSuffix>search</mat-icon>
+            <mat-form-field #fullWidthFilterField appearance="outline" style="font-size: 13px; width: 100%; position: relative; top: 6px">
+                <input #fullWidthFilterInput matInput type="text" [ngModel]="quickFilterValue" (input)="onQuickFilterChange($event)" (ngModelChange)="quickFilterValue = $event" (blur)="onFilterInputBlur()" (keypress)="onQuickFilterKeypress($event)"/>
+                <mat-icon matSuffix style="position: relative; top: 4px">search</mat-icon>
             </mat-form-field>
         </mdc-top-app-bar-section>
     </mdc-top-app-bar-row>
@@ -110,6 +110,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     private mobileScreen: boolean;
     private fullWidthFilter: boolean;
     private fullWidthFilterInput: ElementRef;
+    private quickFilterValue: string;
 
     agInit( params ): void {
         this.params = params;

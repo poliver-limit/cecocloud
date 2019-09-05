@@ -1,10 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Resource } from 'angular4-hal';
 
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
 
-@Component( {} )
 export abstract class RestapiBaseFieldComponent {
 
     @Input() label: string;
