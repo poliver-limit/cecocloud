@@ -201,7 +201,7 @@ export class DatagridComponent implements OnInit {
                 event.context.gridComponent.startEditing( event.api, event.context, event.node.rowIndex );
                 let rowDataForUpdate = Object.assign( {}, event.context.gridComponent.getFromApiContext( event.api, 'editInitialRowData' ) );
                 event.node.setData( rowDataForUpdate );
-                console.log('>>> Error', error);
+                console.log( '>>> Error', error );
                 /*event.context.gridComponent.messageService.sendRowEditError( {
                     api: event.api,
                     error: error.error
@@ -261,7 +261,7 @@ export class DatagridComponent implements OnInit {
             editing: false
         } );*/
     }
-    
+
     onSelectionChanged( event ) {
         event.context.gridComponent.selectionChanged.emit( event );
         event.context.gridComponent.selectionSubject.next( event );
@@ -532,7 +532,7 @@ export class DatagridComponent implements OnInit {
                         }
                     } );
                 }
-                let isModificable = restapiProfile.resource.hasUpdatePermission  || restapiProfile.resource.hasDeletePermission; 
+                let isModificable = restapiProfile.resource.hasUpdatePermission || restapiProfile.resource.hasDeletePermission;
                 let cellStyle = { lineHeight: this.rowHeight + 'px' };
                 let cellRenderer;
                 let cellRendererFramework;
@@ -726,125 +726,56 @@ export class DatagridComponent implements OnInit {
                     } );
                 }
                 if ( params.filterModel && Object.keys( params.filterModel ).length ) {
-                    let toColumnFilter = function( fieldName: string, filter: any ) {
-                        let columnFilter = {
-                            fieldName: fieldName
-                        };
-                        let hasItems = false;
-                        if ( filter.condition1 ) {
-                            let items = [];
-                            let condition1Item = toColumnFilterItem( filter.condition1 );
-                            if ( condition1Item ) {
-                                items.push( condition1Item );
-                            }
-                            let condition2Item = toColumnFilterItem( filter.condition2 );
-                            if ( condition2Item ) {
-                                items.push( condition2Item );
-                            }
-                            if ( items.length ) {
-                                columnFilter['items'] = items;
-                                columnFilter['operation'] = filter.operator;
-                                hasItems = true;
-                            }
-                        } else {
-                            let item = toColumnFilterItem( filter );
-                            if ( item ) {
-                                columnFilter['items'] = [item];
-                                hasItems = true;
-                            }
-                        }
-                        return ( hasItems ) ? columnFilter : undefined;
-                    }
-                    let toColumnFilterItem = function( filter: any ) {
-                        let value = ( filter.filterType === 'date' ) ? filter.dateFrom : filter.filter;
-                        if ( value !== undefined ) {
-                            let item = {
-                                value: value
-                            };
-                            switch ( filter.type ) {
-                                case 'equals':
-                                    item['comparatorType'] = 'EQUAL';
-                                    break;
-                                case 'notEqual':
-                                    item['comparatorType'] = 'NOT_EQUAL';
-                                    break;
-                                case 'startsWith':
-                                    item['comparatorType'] = 'STARTS_WITH';
-                                    break;
-                                case 'endsWith':
-                                    item['comparatorType'] = 'ENDS_WITH';
-                                    break;
-                                case 'contains':
-                                    item['comparatorType'] = 'CONTAINS';
-                                    break;
-                                case 'notContains':
-                                    item['comparatorType'] = 'NOT_CONTAINS';
-                                    break;
-                                case 'greaterThan':
-                                    item['comparatorType'] = 'GREATER_THAN';
-                                    break;
-                                case 'lessThan':
-                                    item['comparatorType'] = 'LESS_THAN';
-                                    break;
-                                case 'greaterThanOrEqual':
-                                    item['comparatorType'] = 'GREATER_THAN_OR_EQUAL';
-                                    break;
-                                case 'lessThanOrEqual':
-                                    item['comparatorType'] = 'LESS_THAN_OR_EQUAL';
-                                    break;
-                                case 'inRange':
-                                    item['comparatorType'] = 'IN_RANGE';
-                                    break;
-                            }
-                            if ( filter.filterType === 'date' ) {
-                                if ( filter.dateTo ) {
-                                    item['valueTo'] = filter.dateTo;
-                                }
-                            } else {
-                                if ( filter.filterTo ) {
-                                    item['valueTo'] = filter.filterTo;
-                                }
-                            }
-                            return item;
-                        }
-                    }
-                    let columnIndex = 0;
+                    let rsqlQuery = '';
                     Object.keys( params.filterModel ).forEach(( key ) => {
-                        let columnFilter: any = toColumnFilter( key, params.filterModel[key] );
-                        if ( columnFilter ) {
-                            requestParams.push( {
-                                key: 'columnFilters[' + columnIndex + '].fieldName',
-                                value: key
-                            } );
-                            let itemIndex = 0;
-                            columnFilter.items.forEach( function( item: any ) {
-                                if ( item ) {
-                                    requestParams.push( {
-                                        key: 'columnFilters[' + columnIndex + '].items[' + itemIndex + '].comparatorType',
-                                        value: item.comparatorType
-                                    } );
-                                    requestParams.push( {
-                                        key: 'columnFilters[' + columnIndex + '].items[' + itemIndex + '].value',
-                                        value: item.value
-                                    } );
-                                    if ( item.valueTo ) {
-                                        requestParams.push( {
-                                            key: 'columnFilters[' + columnIndex + '].items[' + itemIndex + '].valueTo',
-                                            value: item.valueTo
-                                        } );
-                                    }
-                                    itemIndex++;
-                                }
-                            } );
-                            if ( columnFilter.operation ) {
-                                requestParams.push( {
-                                    key: 'columnFilters[' + columnIndex + '].operation',
-                                    value: columnFilter.operation
-                                } );
-                            }
-                            columnIndex++;
+                        let type = params.filterModel[key].type;
+                        let value = params.filterModel[key].filter;
+                        if (rsqlQuery) {
+                            rsqlQuery += ';';
+                        }
+                        rsqlQuery += key;
+                        switch ( type ) {
+                            case 'equals':
+                                rsqlQuery += '==' + value;
+                                break;
+                            case 'notEqual':
+                                rsqlQuery += '!=' + value;
+                                break;
+                            case 'startsWith':
+                                rsqlQuery += '==*' + value;
+                                break;
+                            case 'endsWith':
+                                rsqlQuery += '==' + value + '*';
+                                break;
+                            case 'contains':
+                                rsqlQuery += '==*' + value + '*';
+                                break;
+                            case 'notContains':
+                                rsqlQuery += '!=*' + value + '*';
+                                break;
+                            case 'greaterThan':
+                                rsqlQuery += '>' + value;
+                                break;
+                            case 'lessThan':
+                                rsqlQuery += '<' + value;
+                                break;
+                            case 'greaterThanOrEqual':
+                                rsqlQuery += '>=' + value;
+                                break;
+                            case 'lessThanOrEqual':
+                                rsqlQuery += '<=' + value;
+                                break;
+                            case 'inRange':
+                                rsqlQuery += '>' + value + ';' + key + '<' + params.filterModel[key].filter2;
+                                break;
                         }
                     } );
+                    if ( rsqlQuery ) {
+                        requestParams.push( {
+                            key: 'query',
+                            value: rsqlQuery
+                        } );
+                    }
                 }
                 restapiService.getAll( {
                     size: size,
