@@ -96,19 +96,19 @@ export class AppComponent implements OnInit {
     @ViewChild( 'menuButton', { static: false } ) menuButton: ElementRef;
     @ViewChild( 'menuList', { static: false } ) menulist: MdcList;
 
-    private topbarVisible: boolean = false;
-    private mobileScreen: boolean = false;
-    private smallToolbar: boolean = false;
-    private tokenPayload: AuthTokenPayload;
-    private menuItems = [
+    topbarVisible: boolean = false;
+    mobileScreen: boolean = false;
+    smallToolbar: boolean = false;
+    tokenPayload: AuthTokenPayload;
+    menuItems = [
         { icon: 'people', label: 'Usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
         { icon: 'domain', label: 'Companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
         { icon: 'business_center', label: 'Empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
         { icon: 'people_alt', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN', 'MARCA'] },
         { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
     ];
-    private allowedMenuItems = [];
-    private menuSelectedIndex: number;
+    allowedMenuItems = [];
+    menuSelectedIndex: number;
 
     ngOnInit() {
         this.refreshAllowedMenuItems();

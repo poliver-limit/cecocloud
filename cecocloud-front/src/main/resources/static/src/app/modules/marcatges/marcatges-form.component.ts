@@ -13,10 +13,10 @@ import { MarcatgesService } from './marcatges.service';
 } )
 export class MarcatgesFormComponent {
 
-    private formConfig: FormConfig = {
+    formConfig: FormConfig = {
     }
 
     constructor(
-        private marcatgesService: MarcatgesService ) { }
+        public marcatgesService: MarcatgesService ) { }
 
 }

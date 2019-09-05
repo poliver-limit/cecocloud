@@ -105,14 +105,14 @@ mdc-textarea {
 } )
 export class DefaultErrorDialog {
 
-    private activeTabId: string;
+    activeTabId: string;
 
     onActivatedTab( event ) {
         this.activeTabId = event.tab.id;
     }
 
     constructor(
-        @Inject( MDC_DIALOG_DATA ) private data: any ) {
+        @Inject( MDC_DIALOG_DATA ) public data: any ) {
         this.data = data;
     }
 

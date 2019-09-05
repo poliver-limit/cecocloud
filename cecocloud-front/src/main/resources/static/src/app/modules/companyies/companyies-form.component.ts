@@ -17,10 +17,10 @@ import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
 } )
 export class CompanyiesFormComponent {
 
-    private formConfig: FormConfig = {
+    formConfig: FormConfig = {
     }
 
     constructor(
-        private companyiesService: CompanyiesService ) { }
+        public companyiesService: CompanyiesService ) { }
 
 }

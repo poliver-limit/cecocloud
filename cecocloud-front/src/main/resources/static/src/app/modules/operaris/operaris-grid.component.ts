@@ -11,7 +11,7 @@ import { OperarisService } from './operaris.service';
 } )
 export class OperarisGridComponent implements OnInit {
 
-    private datagridConfig = {
+    datagridConfig = {
         // editable: true
     };
 
@@ -19,6 +19,6 @@ export class OperarisGridComponent implements OnInit {
     }
 
     constructor(
-        private operarisService: OperarisService ) { }
+        public operarisService: OperarisService ) { }
 
 }

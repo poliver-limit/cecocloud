@@ -95,7 +95,6 @@ export interface FormGridConfig {
                             datagrid-mant
                             [config]="{
                                 resourceName: grid.resourceName,
-                                parent: resourceInstancePk,
                                 height: 400
                             }"></datagrid>
                     </div>
@@ -137,20 +136,20 @@ export class RestapiFormComponent implements OnInit {
     @ContentChildren( RestapiCustomFieldComponent ) customInputs: QueryList<RestapiCustomFieldComponent>;
     @ViewChild( 'formTabs', { static: false } ) formTabs: MdcTabBar;
 
-    private description: string;
-    private resourceInstance: any;
-    private restapiResource: RestapiResource;
-    private formGroup: FormGroup;
-    private defaultFieldComponentFactory: ComponentFactory<any>;
-    private inputFields: RestapiBaseFieldComponent[];
-    private parentFromRoute: any;
+    description: string;
+    resourceInstance: any;
+    restapiResource: RestapiResource;
+    formGroup: FormGroup;
+    defaultFieldComponentFactory: ComponentFactory<any>;
+    inputFields: RestapiBaseFieldComponent[];
+    parentFromRoute: any;
 
-    private showTabs: boolean = false;
-    private activeTab: number = 0;
-    private grids: RestapiResourceGrid[];
-    private restapiError: any;
-    private isButtonSave: boolean;
-    private isUpdateShow: boolean;
+    showTabs: boolean = false;
+    activeTab: number = 0;
+    grids: RestapiResourceGrid[];
+    restapiError: any;
+    isButtonSave: boolean;
+    isUpdateShow: boolean;
 
     ngOnInit() {
         if ( this.config != undefined ) {

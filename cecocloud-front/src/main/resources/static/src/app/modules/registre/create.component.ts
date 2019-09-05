@@ -24,8 +24,8 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
         </mdc-form-field>        
         <br/>
         <div style="display: flex; justify-content: space-between">  
-            <button mdc-button (click)="onCancelButtonClick($event)" style="text-transform: none">{{'create.button.cancel'|translate}}</button>          
-            <button mdc-button primary (click)="onCrearButtonClick($event)">{{'create.button.crear'|translate}}</button>
+            <button mdc-button (click)="onCancelButtonClick()" style="text-transform: none">{{'create.button.cancel'|translate}}</button>          
+            <button mdc-button primary (click)="onCrearButtonClick()">{{'create.button.crear'|translate}}</button>
         </div>
     </form>
 </div>
@@ -49,11 +49,11 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 } )
 export class CreateComponent {
 
-    private nom: string;
-    private email: string;
-    private codi: string;
-    private valid: boolean = true;
-    private mobileScreen: boolean;
+    nom: string;
+    email: string;
+    codi: string;
+    valid: boolean = true;
+    mobileScreen: boolean;
 
     onNomFieldInput( value ) {
         this.nom = value;

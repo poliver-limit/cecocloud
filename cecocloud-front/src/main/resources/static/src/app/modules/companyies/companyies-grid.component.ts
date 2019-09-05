@@ -11,12 +11,12 @@ import { CompanyiesService } from './companyies.service';
 } )
 export class CompanyiesGridComponent {
 
-    private datagridConfig = {
+    datagridConfig = {
         editable: true,
         columnFiltersEnabled: true
     };
 
     constructor(
-        private companyiesService: CompanyiesService ) { }
+        public companyiesService: CompanyiesService ) { }
 
 }

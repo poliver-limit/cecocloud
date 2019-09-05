@@ -11,7 +11,7 @@ import { UsuarisService, Usuari } from './usuaris.service';
 } )
 export class UsuarisGridComponent implements OnInit {
 
-    private datagridConfig = {
+    datagridConfig = {
         // editable: true
     };
 
@@ -19,6 +19,6 @@ export class UsuarisGridComponent implements OnInit {
     }
 
     constructor(
-        private usuarisService: UsuarisService ) { }
+        public usuarisService: UsuarisService ) { }
 
 }

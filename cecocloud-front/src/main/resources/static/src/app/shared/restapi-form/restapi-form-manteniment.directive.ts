@@ -11,11 +11,11 @@ import { RestapiFormComponent } from '../restapi-form/restapi-form.component';
 } )
 export class RestapiFormMantenimentDirective {
 
-    private id: string;
-    private currentRouteUrl: string;
-    private router: Router;
-    private translate: TranslateService;
-    private snackbar: MdcSnackbar;
+    id: string;
+    currentRouteUrl: string;
+    router: Router;
+    translate: TranslateService;
+    snackbar: MdcSnackbar;
 
     onFormActionCancel() {
         this.goToList();

@@ -113,13 +113,13 @@ export class RestapiFormHeaderComponent {
     @Output() actionCancel: EventEmitter<any> = new EventEmitter();
     @Output() actionDelete: EventEmitter<any> = new EventEmitter();
 
-    private title: string;
-    private hasCreatePermission: boolean;
-    private hasReadPermission: boolean;
-    private hasUpdatePermission: boolean;
-    private hasDeletePermission: boolean;
-    private hasSavePermission: boolean;
-    private mobileScreen;
+    title: string;
+    hasCreatePermission: boolean;
+    hasReadPermission: boolean;
+    hasUpdatePermission: boolean;
+    hasDeletePermission: boolean;
+    hasSavePermission: boolean;
+    mobileScreen;
 
     onButtonSaveClick() {
         this.actionSave.emit();

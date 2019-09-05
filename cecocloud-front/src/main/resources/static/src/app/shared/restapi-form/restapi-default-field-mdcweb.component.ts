@@ -50,7 +50,6 @@ import { RestapiLovMdcwebComponent } from '../restapi-lov/restapi-lov-mdcweb.com
         <mdc-text-field
             type="number"
             [label]="label ? label : field.name"
-            [step]="any"
             outlined dense
             [formControlName]="field.name"
             [required]="field.required"
@@ -114,8 +113,8 @@ export class RestapiDefaultFieldMdcwebComponent extends RestapiBaseFieldComponen
     @ViewChild( MdcSelect, { static: false } ) mdcSelect: MdcSelect;
     @ViewChild( RestapiLovMdcwebComponent, { static: false } ) lovComponent: RestapiLovMdcwebComponent;
 
-    private errorMessage: string;
-    private mask: string;
+    errorMessage: string;
+    mask: string;
 
     ngOnInit() {
         this.baseOnInit(this.fieldName, this.formGroup, this.restapiResource);

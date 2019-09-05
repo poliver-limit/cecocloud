@@ -11,7 +11,7 @@ import { MarcatgesService } from './marcatges.service';
 } )
 export class MarcatgesGridComponent implements OnInit {
 
-    private datagridConfig = {
+    datagridConfig = {
         /*editable: true,
         columnFiltersEnabled: true*/
     };
@@ -20,6 +20,6 @@ export class MarcatgesGridComponent implements OnInit {
     }
 
     constructor(
-        private marcatgesService: MarcatgesService ) { }
+        public marcatgesService: MarcatgesService ) { }
 
 }

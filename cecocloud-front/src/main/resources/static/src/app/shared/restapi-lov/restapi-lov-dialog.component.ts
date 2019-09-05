@@ -29,10 +29,10 @@ import { DatagridConfig } from '../datagrid/datagrid.component';
 } )
 export class RestapiLovDialogComponent {
 
-    private restapiService: RestapiGenericService;
-    private lovResource: RestapiResource;
-    private datagridConfig: DatagridConfig;
-    private selectedRowData: any;
+    restapiService: RestapiGenericService;
+    lovResource: RestapiResource;
+    datagridConfig: DatagridConfig;
+    selectedRowData: any;
 
     onDatagridSelectionChanged( event ) {
         this.selectedRowData = ( event.api.getSelectedRows() ) ? event.api.getSelectedRows()[0] : null;

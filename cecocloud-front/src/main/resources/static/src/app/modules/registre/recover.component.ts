@@ -20,8 +20,8 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
             </mdc-form-field>
         <br/> 
         <div style="display: flex; justify-content: space-between">
-            <button mdc-button (click)="onCancelButtonClick($event)" style="text-transform: none">{{'recover.button.cancel'|translate}}</button>            
-            <button mdc-button primary (click)="onRecuperarButtonClick($event)">{{'recover.button.recuperar'|translate}}</button>
+            <button mdc-button (click)="onCancelButtonClick()" style="text-transform: none">{{'recover.button.cancel'|translate}}</button>            
+            <button mdc-button primary (click)="onRecuperarButtonClick()">{{'recover.button.recuperar'|translate}}</button>
         </div>
     </form>
 </div>
@@ -45,9 +45,9 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 } )
 export class RecoverComponent {
 
-    private email: string;
-    private valid: boolean = true;
-    private mobileScreen: boolean;
+    email: string;
+    valid: boolean = true;
+    mobileScreen: boolean;
 
     onEmailFieldInput( value ) {
         this.email = value;

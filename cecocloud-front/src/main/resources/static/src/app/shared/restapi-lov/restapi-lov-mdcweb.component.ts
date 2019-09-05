@@ -43,9 +43,9 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
     @ViewChild( 'lovHiddenInput', { static: false } ) lovHiddenInput: ElementRef;
     @ViewChild( 'lovDetailInput', { static: false } ) lovDetailInput: MdcTextField;
 
-    private lovFormGroup: FormGroup;
-    private lovResource: RestapiResource;
-    private errorMessage: string;
+    lovFormGroup: FormGroup;
+    lovResource: RestapiResource;
+    errorMessage: string;
 
     ngOnInit() {
         this.baseOnInit( this.fieldName, this.formGroup, this.restapiResource );

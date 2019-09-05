@@ -24,8 +24,8 @@ export class CompanyiesNomFieldComponent extends RestapiBaseFieldComponent {
 
     @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
 
-    private valid: boolean;
-    private errorMessage: string;
+    valid: boolean;
+    errorMessage: string;
 
     public setErrors( errors?: any ) {
         let valid = !( errors && Object.keys( errors ).length > 0 );

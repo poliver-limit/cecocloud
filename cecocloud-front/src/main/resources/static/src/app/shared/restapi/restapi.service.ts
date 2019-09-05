@@ -7,7 +7,6 @@ import { RestService, Resource, HalParam } from 'angular4-hal';
 import { RestapiConfigService } from './restapi-config.service';
 import { RestapiProfile, RestapiResource, RestapiResourceField } from './restapi-profile';
 
-@Injectable()
 export class RestapiService<T extends Resource> extends RestService<T> {
 
     private cachedProfile: RestapiProfile;

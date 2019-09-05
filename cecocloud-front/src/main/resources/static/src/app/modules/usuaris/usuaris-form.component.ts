@@ -13,10 +13,10 @@ import { UsuarisService } from './usuaris.service';
 } )
 export class UsuarisFormComponent {
 
-    private formConfig: FormConfig = {
+    formConfig: FormConfig = {
     }
 
     constructor(
-        private usuarisService: UsuarisService ) { }
+        public usuarisService: UsuarisService ) { }
 
 }

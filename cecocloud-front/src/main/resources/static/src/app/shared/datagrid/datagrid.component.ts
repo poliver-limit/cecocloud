@@ -99,29 +99,29 @@ export class DatagridComponent implements OnInit {
     @ViewChild( 'header', { static: false } ) header: DatagridHeaderComponent;
 
     // Subjects per a la comunicació entre components
-    private selectionSubject = new Subject<any>();
-    private paginationSubject = new Subject<any>();
-    private scrollSubject = new Subject<any>();
+    selectionSubject = new Subject<any>();
+    paginationSubject = new Subject<any>();
+    scrollSubject = new Subject<any>();
 
     // Aparença
-    private toolbarShown = false;
-    private theme = 'ag-theme-material'; // 'ag-theme-balham' o 'ag-theme-material'
-    private appHeaderHeight = 64;
-    private componentHeaderHeight = 65;
-    private lovFixedHeight = 220;
-    private headerHeight = 46;
-    private rowHeight = 36; // balham=32;
-    private styleHeight;
-    private marginBottom = 0;
-    private styleMarginBottom = this.marginBottom + 'px';
-    private rowDetailPadding = 20;
+    toolbarShown = false;
+    theme = 'ag-theme-material'; // 'ag-theme-balham' o 'ag-theme-material'
+    appHeaderHeight = 64;
+    componentHeaderHeight = 65;
+    lovFixedHeight = 220;
+    headerHeight = 46;
+    rowHeight = 36; // balham=32;
+    styleHeight;
+    marginBottom = 0;
+    styleMarginBottom = this.marginBottom + 'px';
+    rowDetailPadding = 20;
 
     // Altres
-    private gridOptions: GridOptions;
-    private hasMantenimentDirective: boolean;
-    private showLoading: boolean;
-    private quickFilterValue: string;
-    private mobileScreen: boolean;
+    gridOptions: GridOptions;
+    hasMantenimentDirective: boolean;
+    showLoading: boolean;
+    quickFilterValue: string;
+    mobileScreen: boolean;
 
     ngOnInit() {
         this.createGridOptions( this.config ).subscribe(( gridOptions: GridOptions ) => {

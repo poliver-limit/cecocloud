@@ -87,30 +87,30 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
         }
     }
 
-    private params: any;
-    private lovMode: boolean;
-    private selectionSubscription: Subscription;
-    private paginationSubscription: Subscription;
-    private restapiProfile: RestapiProfile;
+    params: any;
+    lovMode: boolean;
+    selectionSubscription: Subscription;
+    paginationSubscription: Subscription;
+    restapiProfile: RestapiProfile;
 
-    private title: string;
-    private quickFilterAvailable: boolean;
-    private anyRowSelected: boolean;
-    private paginationActive: boolean;
-    private paginationFirstRow: number;
-    private paginationLastRow: number;
-    private paginationRowCount: number;
-    private paginationCurrentPage: number;
-    private paginationTotalPages: number;
-    private paginationFirstPage: boolean;
-    private paginationLastPage: boolean;
-    private scrollFirstRow: number;
-    private scrollLastRow: number;
-    private scrollRowCount: number;
-    private mobileScreen: boolean;
-    private fullWidthFilter: boolean;
-    private fullWidthFilterInput: ElementRef;
-    private quickFilterValue: string;
+    title: string;
+    quickFilterAvailable: boolean;
+    anyRowSelected: boolean;
+    paginationActive: boolean;
+    paginationFirstRow: number;
+    paginationLastRow: number;
+    paginationRowCount: number;
+    paginationCurrentPage: number;
+    paginationTotalPages: number;
+    paginationFirstPage: boolean;
+    paginationLastPage: boolean;
+    scrollFirstRow: number;
+    scrollLastRow: number;
+    scrollRowCount: number;
+    mobileScreen: boolean;
+    fullWidthFilter: boolean;
+    fullWidthFilterInput: ElementRef;
+    quickFilterValue: string;
 
     agInit( params ): void {
         this.params = params;
@@ -203,7 +203,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
         this.params.api.paginationGoToLastPage();
     }
 
-    private calculateScrollFirstAndLastRow() {
+    calculateScrollFirstAndLastRow() {
         this.scrollRowCount = this.params.api.paginationGetRowCount();
         let rowHeight = this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.rowHeight;
         let verticalPixelRangeTop = this.params.api.getVerticalPixelRange().top;

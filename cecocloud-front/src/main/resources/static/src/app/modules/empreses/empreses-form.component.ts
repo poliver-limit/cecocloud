@@ -13,10 +13,10 @@ import { EmpresesService } from './empreses.service';
 } )
 export class EmpresesFormComponent {
 
-    private formConfig: FormConfig = {
+    formConfig: FormConfig = {
     }
 
     constructor(
-        private empresesService: EmpresesService ) { }
+        public empresesService: EmpresesService ) { }
 
 }

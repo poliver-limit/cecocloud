@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ColDef } from 'ag-grid-community/main';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
+import { Resource } from 'angular4-hal';
 
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
 import { RestapiDefaultFieldMaterialComponent } from '../restapi-form/restapi-default-field-material.component';
@@ -31,14 +32,15 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
 
     @ViewChild( 'fieldComponent', { static: true } ) fieldComponent: RestapiBaseFieldComponent;
 
-    private label: string;
-    private fieldName: string;
-    private formGroup: FormGroup;
-    private restapiResource: RestapiResource;
-    private isFirst: boolean;
-    private params: any;
+    label: string;
+    fieldName: string;
+    formGroup: FormGroup;
+    restapiResource: RestapiResource;
+    resourceInstance: Resource;
+    isFirst: boolean;
+    params: any;
 
-    private rowEditErrorSubscription: Subscription;
+    rowEditErrorSubscription: Subscription;
 
     agInit( params: any ): void {
         this.fieldName = params.column.getColId();

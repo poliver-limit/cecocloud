@@ -13,10 +13,10 @@ import { DatagridComponent } from './datagrid.component';
 } )
 export class DatagridMantenimentDirective {
 
-    private http: HttpClient;
-    private router: Router;
-    private translate: TranslateService;
-    private snackbar: MdcSnackbar;
+    http: HttpClient;
+    router: Router;
+    translate: TranslateService;
+    snackbar: MdcSnackbar;
 
     onDatagridActionCreate( params: any ) {
         let targetRoute = this.getTargetRoute(

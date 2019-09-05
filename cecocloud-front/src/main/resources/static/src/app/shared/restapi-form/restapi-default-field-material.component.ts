@@ -87,7 +87,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
     <button
         *ngIf="datetimeLinkButtonActive"
         mat-icon-button
-        (click)="onDatetimeLinkButtonClick($event)"
+        (click)="onDatetimeLinkButtonClick()"
         aria-label="Link with current time"
         style="margin-left: 6px">
         <mat-icon *ngIf="datetimeLinkedWithCurrentTime">link</mat-icon>
@@ -131,19 +131,19 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
     @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
     @ViewChild( RestapiLovMaterialComponent, { static: false } ) restapiLovField: RestapiLovMaterialComponent;
 
-    private isText: boolean = false;
-    private inputTextType: string = 'text';
-    private isTextarea: boolean = false;
-    private isDate: boolean = false;
-    private isDatetime: boolean = false;
-    private isCheckbox: boolean = false;
-    private isSelect: boolean = false;
-    private isLov: boolean = false;
-    private datetimeFormGroup: FormGroup;
-    private datetimeLinkButtonActive: boolean = true;
-    private datetimeLinkedWithCurrentTime: boolean = true;
-    private showCharCount: boolean;
-    private errorMessage: string;
+    isText: boolean = false;
+    inputTextType: string = 'text';
+    isTextarea: boolean = false;
+    isDate: boolean = false;
+    isDatetime: boolean = false;
+    isCheckbox: boolean = false;
+    isSelect: boolean = false;
+    isLov: boolean = false;
+    datetimeFormGroup: FormGroup;
+    datetimeLinkButtonActive: boolean = true;
+    datetimeLinkedWithCurrentTime: boolean = true;
+    showCharCount: boolean;
+    errorMessage: string;
 
     ngOnInit() {
         this.baseOnInit( this.fieldName, this.formGroup, this.restapiResource );
@@ -227,7 +227,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         return this.matInputField;
     }
 
-    private getEnumDescription( index: number, value: string ) {
+    getEnumDescription( index: number, value: string ) {
         if ( this.field.enumDescriptions ) {
             return this.field.enumDescriptions[index];
         } else if ( this.field.enumTranslateKeyPrefix ) {
@@ -237,7 +237,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         }
     }
 
-    private buildDatetimeFormGroup() {
+    buildDatetimeFormGroup() {
         let fieldValue = this.formGroup.get( this.fieldName ).value;
         let dateValue;
         let timeValue;
@@ -258,14 +258,14 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         this.datetimeFormGroup = this.formBuilder.group( lovControls );
     }
 
-    private onDatetimeLinkButtonClick() {
+    onDatetimeLinkButtonClick() {
         this.datetimeLinkedWithCurrentTime = !this.datetimeLinkedWithCurrentTime;
         if ( this.datetimeLinkedWithCurrentTime ) {
             this.doEachSecond();
         }
     }
 
-    private doEachSecond() {
+    doEachSecond() {
         if ( this.datetimeFormGroup && this.datetimeLinkedWithCurrentTime ) {
             let currentMoment = moment();
             this.datetimeFormGroup.get( 'date' ).setValue( currentMoment );
@@ -274,7 +274,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         }
     }
 
-    private datetimePropagateToFormControl() {
+    datetimePropagateToFormControl() {
         let dateValue = this.datetimeFormGroup.get( 'date' ).value;
         let timeValue = this.datetimeFormGroup.get( 'time' ).value;
         if ( dateValue !== undefined && timeValue !== undefined ) {
@@ -284,7 +284,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         }
     }
 
-    private getTimeZoneOffset() {
+    getTimeZoneOffset() {
         let offsetInHours = -( new Date().getTimezoneOffset() / 60 );
         let timezoneOffsetNegative = offsetInHours < 0;
         if ( timezoneOffsetNegative ) {

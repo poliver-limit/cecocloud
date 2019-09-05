@@ -16,8 +16,8 @@ export abstract class RestapiBaseFieldComponent {
     @Output() click: EventEmitter<any> = new EventEmitter();
     @Output() change: EventEmitter<any> = new EventEmitter();
 
-    protected formControl: FormControl;
-    protected field: RestapiResourceField;
+    formControl: FormControl;
+    field: RestapiResourceField;
 
     baseOnInit(
             fieldName: string,
@@ -31,10 +31,10 @@ export abstract class RestapiBaseFieldComponent {
         } );
     }
 
-    protected onFieldClick( event ) {
+    onFieldClick( event ) {
         this.click.emit( event );
     }
-    protected onFieldChange( event ) {
+    onFieldChange( event ) {
         if ( event.target && event.target.value === '' ) {
             this.formControl.reset();
         }

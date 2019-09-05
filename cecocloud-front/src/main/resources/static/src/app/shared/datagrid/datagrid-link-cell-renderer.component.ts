@@ -13,11 +13,11 @@ a {
 } )
 export class DatagridLinkCellRenderer implements ICellRendererAngularComp {
 
-    private params: any;
-    private value: string;
-    private linkUrl: any;
-    private left: number;
-    private width: number;
+    params: any;
+    value: string;
+    linkUrl: any;
+    left: number;
+    width: number;
 
     agInit( params: any ): void {
         this.params = params;

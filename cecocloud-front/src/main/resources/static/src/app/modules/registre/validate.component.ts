@@ -25,8 +25,8 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
         </mdc-form-field>
         <br/>
         <div style="display: flex; justify-content: space-between">
-        <button mdc-button (click)="onCancelButtonClick($event)" style="text-transform: none">{{'validate.button.cancel'|translate}}</button>
-            <button mdc-button primary (click)="onValidarButtonClick($event)">{{'validate.button.validate'|translate}}</button>
+        <button mdc-button (click)="onCancelButtonClick()" style="text-transform: none">{{'validate.button.cancel'|translate}}</button>
+            <button mdc-button primary (click)="onValidarButtonClick()">{{'validate.button.validate'|translate}}</button>
         </div>
     </form>
 </div>
@@ -50,12 +50,12 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 } )
 export class ValidateComponent {
 
-    private token: string;
-    private tokenPayload: any;
-    private contrasenya: string;
-    private contrasenya2: string;
-    private valid: boolean = true;
-    private mobileScreen: boolean;
+    token: string;
+    tokenPayload: any;
+    contrasenya: string;
+    contrasenya2: string;
+    valid: boolean = true;
+    mobileScreen: boolean;
 
     onContrasenyaFieldInput( value ) {
         this.contrasenya = value;

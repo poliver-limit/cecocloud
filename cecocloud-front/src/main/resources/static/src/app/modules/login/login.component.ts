@@ -25,7 +25,7 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
         <br/>
         <div style="display: flex; justify-content: space-between">
             <a mdc-button routerLink="/registre/create" style="text-transform: none">{{'login.msg.usuari.create'|translate}}</a>
-            <button mdc-button primary (click)="onEntrarButtonClick($event)">{{'login.button.entrar'|translate}}</button>
+            <button mdc-button primary (click)="onEntrarButtonClick()">{{'login.button.entrar'|translate}}</button>
         </div>
     </form>
 </div>`,
@@ -48,10 +48,10 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 } )
 export class LoginComponent {
 
-    private user: string;
-    private pass: string;
-    private valid: boolean = true;
-    private mobileScreen: boolean;
+    user: string;
+    pass: string;
+    valid: boolean = true;
+    mobileScreen: boolean;
 
     onUserFieldInput( value ) {
         this.user = value;
