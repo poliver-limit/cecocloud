@@ -11,7 +11,7 @@ import { RestapiBaseFieldComponent } from './restapi-base-field.component';
 import { RestapiLovMdcwebComponent } from '../restapi-lov/restapi-lov-mdcweb.component';
 
 @Component( {
-    selector: 'restapi-field',
+    selector: 'restapi-field-mdcweb',
     template: `
 <mdc-form-field fluid *ngIf="field.type != 'BOOLEAN' && field.type != 'LOV'" [formGroup]="formGroup">
     <ng-container *ngIf="field.type == 'STRING' || field.type == 'PASSWORD'">

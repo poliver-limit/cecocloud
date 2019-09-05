@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.Marcatge;
+import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaAmbOperaris;
@@ -21,7 +23,6 @@ import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesEnviament;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
-import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
@@ -158,9 +159,38 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	}
 
 	@Override
+	@Transactional
 	public SincronitzacioResposta marcatgeCreate(SincronitzacioMarcatgesEnviament marcatges) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Revisar si l'usuari te permisos
+		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
+				marcatges.getCompanyiaCodi());
+		int createCount = 0;
+		if (marcatges.getMarcatges() != null) {
+			for (SincronitzacioMarcatge marcatge: marcatges.getMarcatges()) {
+				Optional<OperariEntity> operari = operariRepository.findByEmpresaCompanyiaAndEmpresaEmbeddedIdentificadorCodiAndEmpresaEmbeddedCodiAndEmbeddedCodi(
+						companyia.get(),
+						marcatge.getEmpresaIdentificadorCodi(),
+						marcatge.getEmpresaCodi(),
+						marcatge.getOperariCodi());
+				MarcatgeEntity marcatgeExistent = marcatgeRepository.findByOperariAndEmbeddedData(
+						operari.get(),
+						marcatge.getData());
+				if (marcatgeExistent == null) {
+					Marcatge embedded = new Marcatge();
+					embedded.setData(marcatge.getData());
+					marcatgeRepository.save(
+							MarcatgeEntity.builder().
+							operari(operari.get()).
+							embedded(embedded).
+							build());
+					createCount++;
+				}
+			}
+		}
+		return new SincronitzacioResposta(
+				createCount,
+				0,
+				0);
 	}
 
 	private void updateOperaris(

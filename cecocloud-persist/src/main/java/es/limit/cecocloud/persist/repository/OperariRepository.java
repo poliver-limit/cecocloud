@@ -5,10 +5,12 @@ package es.limit.cecocloud.persist.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
 import es.limit.cecocloud.persist.entity.UsuariEntity;
@@ -39,6 +41,12 @@ public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 			"and op.embedded.dataFi is null")
 	List<OperariEntity> findByEmpresaAndDataFiNull(
 			@Param("empresa") EmpresaEntity empresa);
+
+	Optional<OperariEntity> findByEmpresaCompanyiaAndEmpresaEmbeddedIdentificadorCodiAndEmpresaEmbeddedCodiAndEmbeddedCodi(
+			CompanyiaEntity companyia,
+			String empresaIdentificadorCodi,
+			String empresaCodi,
+			String codi);
 
 	List<OperariEntity> findByUsuariAndEmpresa(UsuariEntity usuari, EmpresaEntity empresa);
 

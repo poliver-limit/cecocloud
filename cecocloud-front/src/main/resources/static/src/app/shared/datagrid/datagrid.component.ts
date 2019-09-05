@@ -39,6 +39,7 @@ import {
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 import { DatagridHeaderComponent } from './datagrid-header.component';
 import { DatagridLinkCellRenderer } from './datagrid-link-cell-renderer.component';
+import { DatagridRestapiEditorComponent } from './datagrid-restapi-editor.component';
 
 export interface DatagridConfig {
     parent?: any;
@@ -173,6 +174,94 @@ export class DatagridComponent implements OnInit {
         this.refreshInternal();
     }
 
+    onRowEditingStarted( event ) {
+        event.context.gridComponent.setInApiContext( event.api, 'editDataHasChanged', false );
+        event.context.gridComponent.setInApiContext( event.api, 'editActive', true );
+        /*event.context.gridComponent.messageService.sendRowEdit( {
+            api: event.api,
+            row: event.node,
+            editing: true
+        } );*/
+    }
+    onRowValueChanged( event ) {
+        let editDataHasChanged = event.context.gridComponent.getFromApiContext( event.api, 'editDataHasChanged' );
+        if ( editDataHasChanged ) {
+            let editIsCreate = event.context.gridComponent.getFromApiContext( event.api, 'editIsCreate' );
+            let editInitialRowDataSaved = event.context.gridComponent.getFromApiContext( event.api, 'editInitialRowData' );
+            let editRowIndexSaved = event.context.gridComponent.getFromApiContext( event.api, 'editRowIndex' );
+            let errorFunction = function( error ) {
+                event.context.gridComponent.setInApiContext( event.api, 'editInitialRowData', editInitialRowDataSaved );
+                event.context.gridComponent.setInApiContext( event.api, 'editRowIndex', editRowIndexSaved );
+                event.context.gridComponent.setInApiContext( event.api, 'editError', error );
+                if ( editIsCreate ) {
+                    event.context.gridComponent.setInApiContext( event.api, 'editIsCreate', true );
+                } else {
+                    event.context.gridComponent.setInApiContext( event.api, 'editIsUpdate', true );
+                }
+                event.context.gridComponent.startEditing( event.api, event.context, event.node.rowIndex );
+                let rowDataForUpdate = Object.assign( {}, event.context.gridComponent.getFromApiContext( event.api, 'editInitialRowData' ) );
+                event.node.setData( rowDataForUpdate );
+                console.log('>>> Error', error);
+                /*event.context.gridComponent.messageService.sendRowEditError( {
+                    api: event.api,
+                    error: error.error
+                } );*/
+            }
+            if ( editIsCreate ) {
+                let createUrl = event.context.restapiService.getApiUrl( true );
+                let postParams = new HttpParams( /*{ fromObject: parentPk }*/ );
+                event.context.restapiService.getHttpClient().post( createUrl, event.data, { params: postParams } ).subscribe(( resource: Resource ) => {
+                    /*event.context.gridComponent.messageService.sendRowEditError( { api: event.api } );*/
+                    event.context.gridComponent.refreshParentRow( event.api );
+                    event.context.gridComponent.refreshInternal( event.api );
+                }, error => errorFunction( error ) );
+            } else {
+                event.context.gridComponent.removeFromApiContext( event.api, 'editRowIndex' );
+                event.context.gridComponent.getResourceDataWithLinks( event.data, event.api, event.context ).subscribe( dataWithLinks => {
+                    event.context.restapiService.update( dataWithLinks ).subscribe(( resource: Resource ) => {
+                        event.node.setData( resource );
+                        event.api.flashCells( { rowNodes: [event.node] } );
+                        event.api.redrawRows( {
+                            rowNodes: [event.node]
+                        } );
+                        /*event.context.gridComponent.messageService.sendRowEditError( { api: event.api } );*/
+                        event.context.gridComponent.refreshParentRow( event.api );
+                    }, error => errorFunction( error ) );
+                } );
+            }
+        }
+    }
+    onRowEditingStopped( event ) {
+        let editIsCreate = event.context.gridComponent.getFromApiContext( event.api, 'editIsCreate' );
+        let editDataHasChanged = event.context.gridComponent.getFromApiContext( event.api, 'editDataHasChanged' );
+        if ( editIsCreate && !editDataHasChanged ) {
+            event.context.gridComponent.removeFromApiContext( event.api, 'editIsCreate' );
+            let parentGridApi = event.context.gridComponent.getFromApiContext(
+                event.api,
+                'parentGridApi' );
+            if ( event.context.config.detailConfig || parentGridApi ) {
+                let firstRow = event.api.getDisplayedRowAtIndex( 0 );
+                event.api.updateRowData( {
+                    remove: [firstRow.data]
+                } );
+                event.context.gridComponent.refreshDetailRowsHeight( event.api );
+            } else {
+                event.context.gridComponent.refreshInternal( event.api );
+            }
+        }
+        event.context.gridComponent.removeFromApiContext( event.api, 'editInitialRowData' );
+        event.context.gridComponent.removeFromApiContext( event.api, 'editRowIndex' );
+        event.context.gridComponent.removeFromApiContext( event.api, 'editActive' );
+        event.context.gridComponent.removeFromApiContext( event.api, 'editIsCreate' );
+        event.context.gridComponent.removeFromApiContext( event.api, 'editIsUpdate' );
+        /*event.context.gridComponent.messageService.sendRowEditError( { api: event.api } );
+        event.context.gridComponent.messageService.sendRowEdit( {
+            api: event.api,
+            row: event.node,
+            editing: false
+        } );*/
+    }
+    
     onSelectionChanged( event ) {
         event.context.gridComponent.selectionChanged.emit( event );
         event.context.gridComponent.selectionSubject.next( event );
@@ -200,7 +289,7 @@ export class DatagridComponent implements OnInit {
         let gridOptions: GridOptions = {
             suppressCellSelection: true,
             suppressContextMenu: true,
-            stopEditingWhenGridLosesFocus: true,
+            stopEditingWhenGridLosesFocus: false,
             enableBrowserTooltips: true,
             floatingFilter: gridConfig.columnFiltersEnabled,
             overlayNoRowsTemplate: '&nbsp;', //'<span style="padding: 10px; border: 2px solid #444; background: #efefef;">' + this.translate.instant( 'datatable.sense.resultats' ) + '</span>',
@@ -287,6 +376,9 @@ export class DatagridComponent implements OnInit {
         if ( parentGridOptions ) {
             parentGridOptions.context.detailRestapiService = restapiService;
         }
+        gridOptions.onRowEditingStarted = this.onRowEditingStarted;
+        gridOptions.onRowEditingStopped = this.onRowEditingStopped;
+        gridOptions.onRowValueChanged = this.onRowValueChanged;
         gridOptions.onRowSelected = this.onSelectionChanged;
         gridOptions.onPaginationChanged = this.onPaginationChanged;
         gridOptions.onBodyScroll = this.onBodyScroll;
@@ -443,11 +535,8 @@ export class DatagridComponent implements OnInit {
                 let isModificable = restapiProfile.resource.hasUpdatePermission  || restapiProfile.resource.hasDeletePermission; 
                 let cellStyle = { lineHeight: this.rowHeight + 'px' };
                 let cellRenderer;
-                let cellRendererFramework = DatagridLinkCellRenderer;
-                let cellRendererParams = {
-                    linkActive: this.hasMantenimentDirective && isModificable
-                };
-                let cellEditorFramework;
+                let cellRendererFramework;
+                let cellRendererParams;
                 let checkboxSelection = ( index == 0 ) && !datagridConfig.lovMode;
                 if ( !isModificable ) {
                     checkboxSelection = false;
@@ -476,11 +565,17 @@ export class DatagridComponent implements OnInit {
                             return editable;
                         }
                     };
+                } else {
+                    cellRendererFramework = DatagridLinkCellRenderer;
+                    cellRendererParams = {
+                        linkActive: this.hasMantenimentDirective && isModificable
+                    };
                 }
                 let columnFieldType = ( gridColumn.fieldType ) ? ( gridColumn.fieldType ) : restapiField.type;
                 let headerName = columnField;
+                let cellEditorFramework;
                 if ( restapiField ) {
-                    //cellEditorFramework = DatagridRestapiEditorComponent;
+                    cellEditorFramework = DatagridRestapiEditorComponent;
                     if ( columnFieldType === 'BIGDECIMAL' || columnFieldType === 'INTEGER' || columnFieldType === 'FLOAT' ) {
                         cellStyle['textAlign'] = 'right';
                     }
@@ -930,7 +1025,7 @@ export class DatagridComponent implements OnInit {
             let rowData = api.getDisplayedRowAtIndex( rowIndex ).data;
             let formGroup = context.restapiService.createFormGroup(
                 rowData,
-                context.restapiResource,
+                context.restapiProfile.resource,
                 editIsCreate );
             context.gridComponent.setInApiContext( api, 'editFormGroup', formGroup );
             context.gridComponent.setInApiContext( api, 'editInitialRowData', Object.assign( {}, rowData ) );

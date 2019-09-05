@@ -3,6 +3,7 @@
 	"app.action.logout": "Sortir",
 	"app.action.logout.confirm": "Estau segur que voleu sortir de l'aplicació?",
 
+	"component.datagrid.header.button.refrescar": "Actualitzar",
 	"component.datagrid.header.button.crear": "Crear",
 	"component.datagrid.header.button.importar": "Importar",
 	"component.datagrid.header.button.imprimir": "Imprimir",

@@ -12,7 +12,7 @@ import { OperarisService } from './operaris.service';
 export class OperarisGridComponent implements OnInit {
 
     private datagridConfig = {
-        editable: true
+        // editable: true
     };
 
     ngOnInit() {

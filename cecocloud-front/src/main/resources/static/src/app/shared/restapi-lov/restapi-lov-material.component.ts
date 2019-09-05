@@ -22,19 +22,21 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
         #lovHiddenInput
         type="hidden"
         formControlName="id"/>
-    <mat-label>{{label}}</mat-label>
+    <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
     <input
         matInput
         type="text"
         formControlName="description"
         [required]="field.required"
-        readonly
+        [readonly]="isReadonly"
         (click)="onFieldClick($event)"
+        (blur)="onFieldBlur()"
+        (keydown)="onFieldKeydown($event)"
         (change)="onFieldChange($event)"/>
-    <button *ngIf="!formControl.value" mat-icon-button matSuffix (click)="onExpandIconClick($event)">
+    <button *ngIf="!formControl.value" mat-icon-button matSuffix (click)="onExpandIconClick($event)" tabindex="-1">
         <mat-icon>arrow_drop_down</mat-icon>
     </button>
-    <button *ngIf="formControl.value" mat-icon-button matSuffix (click)="onClearIconClick($event)">
+    <button *ngIf="formControl.value" mat-icon-button matSuffix (click)="onClearIconClick($event)" tabindex="-1">
         <mat-icon>clear</mat-icon>
     </button>
     <mat-error>{{errorMessage}}</mat-error>
@@ -50,6 +52,8 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
     private lovFormGroup: FormGroup;
     private lovResource: RestapiResource;
     private errorMessage: string;
+
+    private isReadonly: boolean;
 
     ngOnInit() {
         this.baseOnInit( this.fieldName, this.formGroup, this.restapiResource );
@@ -76,8 +80,26 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
     }
 
     onFieldClick( event ) {
-        event.stopPropagation();
-        this.onExpandIconClick();
+        this.isReadonly = true;
+        if ( this.lovFormGroup.get( 'id' ).value ) {
+            event.target.select();
+        } else {
+            this.onExpandIconClick();
+            event.stopPropagation();
+            event.preventDefault();
+        }
+        this.click.emit( event );
+    }
+    onFieldBlur() {
+        this.isReadonly = false;
+    }
+    onFieldKeydown( event ) {
+        if ( event.keyCode == 8 || event.keyCode == 46 ) {
+            this.updateLovValue();
+        } else if ( event.keyCode == 13 && !this.lovFormGroup.get( 'id' ).value ) {
+            this.onExpandIconClick();
+        }
+        return event.keyCode == 27 || event.keyCode == 9 || event.code.startsWith( 'F' );
     }
 
     onExpandIconClick( event?: Event ) {

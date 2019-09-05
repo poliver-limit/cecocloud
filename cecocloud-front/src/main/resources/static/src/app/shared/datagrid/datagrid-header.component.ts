@@ -18,6 +18,9 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
     <mdc-top-app-bar-row *ngIf="!fullWidthFilter">
         <mdc-top-app-bar-section align="start" [title]="title"></mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
+            <button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.refrescar'|translate}}" (click)="onButtonRefreshClick()">
+                <mdc-icon>refresh</mdc-icon>
+            </button>
             <button mdc-icon-button *ngIf="restapiProfile?.resource.hasCreatePermission" class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.crear'|translate}}" (click)="onButtonCreateClick()">
                 <mdc-icon>add</mdc-icon>
             </button>
@@ -80,7 +83,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
         if ( fullWidthFilterInput ) {
             setTimeout(() => {
                 fullWidthFilterInput.nativeElement.focus();
-            });
+            } );
         }
     }
 
@@ -151,15 +154,8 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
         } );
     }
 
-    onQuickFilterKeypress( event ) {
-        let keyboardEvent = <KeyboardEvent>event;
-        let filteredKeys = ['(', ')', ';', ',', '"', '\'', '=', '~', '<', '>'];
-        if (filteredKeys.indexOf(keyboardEvent.key) != -1) {
-            event.preventDefault();
-        }
-    }
-    onQuickFilterChange( event ) {
-        this.quickFilterChange.emit( event.target.value );
+    onButtonRefreshClick() {
+        this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.refreshInternal();
     }
     onButtonCreateClick() {
         this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.headerActionCreate.emit( {} );
@@ -173,6 +169,17 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
             selectedRows: this.params.api.getSelectedRows()
         } );
     }
+
+    onQuickFilterKeypress( event ) {
+        let keyboardEvent = <KeyboardEvent>event;
+        let filteredKeys = ['(', ')', ';', ',', '"', '\'', '=', '~', '<', '>'];
+        if ( filteredKeys.indexOf( keyboardEvent.key ) != -1 ) {
+            event.preventDefault();
+        }
+    }
+    onQuickFilterChange( event ) {
+        this.quickFilterChange.emit( event.target.value );
+    }
     onFilterIconClick() {
         this.fullWidthFilter = true;
     }
@@ -181,6 +188,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
             this.fullWidthFilter = false;
         }
     }
+
     onPageFirstClick() {
         this.params.api.paginationGoToFirstPage();
     }

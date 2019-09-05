@@ -68,7 +68,7 @@ public class SincronitzacioApiController {
 			produces = "application/json")
 	public ResponseEntity<SincronitzacioResposta> sincronitzarMarcatges(
 			HttpServletRequest request,
-			@Valid final SincronitzacioMarcatgesEnviament marcatges) {
+			@RequestBody @Valid final SincronitzacioMarcatgesEnviament marcatges) {
 		log.debug("Enviament de marcatges (" +
 				"marcatges=" + marcatges + ")");
 		return ResponseEntity.ok(

@@ -17,16 +17,30 @@ $mdc-theme-on-surface: #666;*/
   @include mdc-tab-indicator-underline-color($mdc-theme-on-primary);
 }
 
-mat-form-field.mat-form-field-sm {
-	top: 8px;
+.mat-form-field:not(.mat-form-field-has-label) .mat-form-field-infix {
+  border-top-width: 0;
 }
-mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix  {
+mat-form-field.mat-form-field-sm .mat-form-field-wrapper {
+	padding-bottom: 0;
+}
+mat-form-field.mat-form-field-sm .mat-form-field-infix {
+	padding-bottom: 0;
+}
+/*mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix  {
 	padding: 0.2em 0px .6em 0;
 }
 mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix > span.mat-form-field-label-wrapper { top: -1.5em; }
 .mat-form-field-sm.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
     transform: translateY(-1.1em) scale(.75);
     width: 133.33333%;
+}*/
+.ag-theme-material .ag-cell.ag-cell-inline-editing, .ag-theme-material .ag-cell.ag-popup-editor {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 23px;
+}
+.ag-theme-material .ag-cell.ag-cell-inline-editing {
+    height: 100%;
 }
 
 .mdc-icon-button-sm {

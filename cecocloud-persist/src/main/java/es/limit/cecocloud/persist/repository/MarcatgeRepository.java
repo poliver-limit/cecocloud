@@ -54,4 +54,8 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 
 	MarcatgeEntity findFirstByOperariOrderByEmbeddedDataDesc(OperariEntity operari);
 
+	MarcatgeEntity findByOperariAndEmbeddedData(
+			OperariEntity operari,
+			Date data);
+
 }

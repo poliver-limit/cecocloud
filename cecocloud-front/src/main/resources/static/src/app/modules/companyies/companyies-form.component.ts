@@ -11,7 +11,7 @@ import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
     [config]="formConfig"
     [restapiService]="companyiesService">
     <restapi-custom name="codi"></restapi-custom>
-    <restapi-custom name="nom"><!--companyia-nom #customField></companyia-nom--></restapi-custom>
+    <restapi-custom name="nom"><companyia-nom #customField></companyia-nom></restapi-custom>
 </restapi-form>
 `
 } )

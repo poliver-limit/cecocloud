@@ -12,6 +12,7 @@ export abstract class RestapiBaseFieldComponent {
     @Input() formGroup: FormGroup;
     @Input() restapiResource: RestapiResource;
     @Input() resourceInstance: Resource;
+    @Input() hideLabel: boolean;
 
     @Output() click: EventEmitter<any> = new EventEmitter();
     @Output() change: EventEmitter<any> = new EventEmitter();
@@ -24,7 +25,6 @@ export abstract class RestapiBaseFieldComponent {
             formGroup: FormGroup,
             restapiResource: RestapiResource) {
         this.formControl = <FormControl>formGroup.get( fieldName );
-        // this.field = this.restapiResource.fields.filter(( field: RestapiResourceField ) => field.name == this.fieldName );
         restapiResource.fields.forEach(( field: RestapiResourceField ) => {
             if ( field.name == fieldName ) {
                 this.field = field;
@@ -43,7 +43,7 @@ export abstract class RestapiBaseFieldComponent {
     }
 
     public focus() {
-        if ( this.getFieldComponent && this.getFieldComponent['focus'] ) {
+        if ( this.getFieldComponent() && this.getFieldComponent()['focus'] ) {
             this.getFieldComponent()['focus']();
         }
     }

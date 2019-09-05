@@ -16,9 +16,9 @@ import { RestapiResource, RestapiResourceField } from '../../shared/restapi/rest
         [maxlength]="field.maxLength"
         [formControl]="formControl"
         [required]="field.required"/>
-    <mat-error>{{errorMessage}}</mat-error>
 </mat-form-field>
-`
+`, styles: [`
+`]
 } )
 export class CompanyiesNomFieldComponent extends RestapiBaseFieldComponent {
 

@@ -10,7 +10,7 @@ import { RestapiProfile, RestapiResource, RestapiResourceField } from './restapi
 @Injectable()
 export class RestapiService<T extends Resource> extends RestService<T> {
 
-    private profile: RestapiProfile;
+    private cachedProfile: RestapiProfile;
     private profileObservable: Observable<RestapiProfile>
 
     private restapiConfigService: RestapiConfigService;
@@ -18,9 +18,9 @@ export class RestapiService<T extends Resource> extends RestService<T> {
     private formBuilder: FormBuilder;
 
     public getProfile(): Observable<RestapiProfile> {
-        if ( this.profile ) {
+        if ( this.cachedProfile ) {
             return new Observable(( observer ) => {
-                observer.next( this.profile );
+                observer.next( this.cachedProfile );
                 observer.complete();
             } );
         } else {
@@ -82,7 +82,8 @@ export class RestapiService<T extends Resource> extends RestService<T> {
         if ( resourceName ) {
             this.profileObservable = new Observable(( observer ) => {
                 this.httpClient.get( this.restapiConfigService.getContextRelativeUrl( '/profiles/' + resourceName ) ).subscribe(( profile: RestapiProfile ) => {
-                    this.profile = profile;
+                    // TODO: no es pot utilitzar cache perquè quan es canvia d'usuari els permisos del Resource canvien
+                    // this.cachedProfile = profile;
                     let apiHref = profile._links.api.href;
                     let keyIndex = apiHref.lastIndexOf( '{' )
                     if ( keyIndex != -1 ) {
@@ -90,7 +91,7 @@ export class RestapiService<T extends Resource> extends RestService<T> {
                     }
                     let apiResource = apiHref.substring( apiHref.lastIndexOf( '/' ) + 1 );
                     this['resource'] = apiResource;
-                    observer.next( this.profile );
+                    observer.next( profile );
                     observer.complete();
                 } );
             } );
