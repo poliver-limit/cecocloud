@@ -39,5 +39,7 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@NotNull
 	@RestapiField(type = RestapiFieldType.DATETIME)
 	private Date data;
+	@NotNull
+	private MarcatgeOrigen origen;
 
 }

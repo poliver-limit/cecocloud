@@ -10,7 +10,7 @@
 	"component.datagrid.header.button.actions": "Accions",
 	"component.datagrid.header.action.delete": "Esborrar",
 	"component.datagrid.manteniment.button.close": "Tancar",
-	"component.datagrid.manteniment.delete.single.confirm": "Estau segur que voleu esborrar el/la {{description}}?",
+	"component.datagrid.manteniment.delete.single.confirm": "Estau segur que voleu esborrar aquest {{description}}?",
 	"component.datagrid.manteniment.deleted": "El registre s'ha esborrat correctament",
 
 	"component.restapi.form.header.title.crear": "crear",
@@ -18,7 +18,7 @@
 	"component.restapi.form.header.button.descartar": "Descartar",
 	"component.restapi.form.header.button.actions": "Accions",
 	"component.restapi.form.header.action.delete": "Esborrar",
-	"component.restapi.form.delete.confirm": "Estau segur que voleu esborrar el/la {{description}}?",
+	"component.restapi.form.delete.confirm": "Estau segur que voleu esborrar aquest {{description}}?",
 	"component.restapi.form.manteniment.created": "El registre s'ha creat correctament",
 	"component.restapi.form.manteniment.updated": "El registre s'ha modificat correctament",
 	"component.restapi.form.manteniment.deleted": "El registre s'ha esborrat correctament",

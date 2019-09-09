@@ -40,6 +40,7 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 import { DatagridHeaderComponent } from './datagrid-header.component';
 import { DatagridLinkCellRenderer } from './datagrid-link-cell-renderer.component';
 import { DatagridRestapiEditorComponent } from './datagrid-restapi-editor.component';
+import { DatagridRestapiFloatingFilterComponent } from './datagrid-restapi-floating-filter.component';
 
 export interface DatagridConfig {
     parent?: any;
@@ -310,6 +311,16 @@ export class DatagridComponent implements OnInit {
                 api: event.api,
                 context: context
             } );
+            /* Recalcula l'alçada de la capçalera amb els floatig filters */
+            /* Només pel tema material design */
+            let headerContainerElement: HTMLElement = event.api['gridPanel'].headerRootComp.eHeaderContainer;
+            if ( headerContainerElement.children.length == 2 ) {
+                let headerElement: HTMLElement = event.api['gridPanel'].headerRootComp.eGui;
+                headerElement.style.height = this.headerHeight * 2 + 'px';
+                headerElement.style.minHeight = this.headerHeight * 2 + 'px';
+                ( headerContainerElement.lastChild as HTMLElement ).style.height = this.headerHeight + 'px';
+            }
+            /* */
             event.api.hidePopupMenu();
             event.api.sizeColumnsToFit();
         }
@@ -597,10 +608,13 @@ export class DatagridComponent implements OnInit {
                 let filterFramework;
                 let floatingFilterComponentFramework;
                 let floatingFilterComponentParams = {
-                    suppressFilterButton: gridColumn.suppressFilterButton
+                    suppressFilterButton: gridColumn.suppressFilterButton,
+                    restapiField: restapiField
                 };
                 if ( datagridConfig.columnFiltersEnabled ) {
                     filter = true;
+                    filter = 'agTextColumnFilter';
+                    floatingFilterComponentFramework = DatagridRestapiFloatingFilterComponent;
                     /*if ( restapiField ) {
                         switch ( columnFieldType ) {
                             case 'STRING':
@@ -678,10 +692,10 @@ export class DatagridComponent implements OnInit {
                     //headerCheckboxSelection: ( !this.config.lovMode ) ? checkboxSelection : false,
                     suppressMenu: true,
                     filter: ( filter ) ? filter : false,
-                    /*filterFramework: filterFramework,
+                    filterFramework: filterFramework,
                     filterParams: filterParams,
                     floatingFilterComponentFramework: floatingFilterComponentFramework,
-                    floatingFilterComponentParams: floatingFilterComponentParams,*/
+                    floatingFilterComponentParams: floatingFilterComponentParams,
                     tooltipField: tooltipField,
                     tooltip: tooltip,
                     width: ( gridColumn.width ) ? gridColumn.width : null
@@ -726,48 +740,60 @@ export class DatagridComponent implements OnInit {
                     } );
                 }
                 if ( params.filterModel && Object.keys( params.filterModel ).length ) {
-                    let rsqlQuery = '';
-                    Object.keys( params.filterModel ).forEach(( key ) => {
-                        let type = params.filterModel[key].type;
-                        let value = params.filterModel[key].filter;
-                        if (rsqlQuery) {
-                            rsqlQuery += ';';
-                        }
-                        rsqlQuery += key;
+                    let filterModelToRsqlQuery = function( key, filterModel ) {
+                        let type = filterModel.type;
+                        let value = filterModel.filter;
+                        let rsql = key;
                         switch ( type ) {
                             case 'equals':
-                                rsqlQuery += '==' + value;
+                                rsql += '==' + value;
                                 break;
                             case 'notEqual':
-                                rsqlQuery += '!=' + value;
+                                rsql += '!=' + value;
                                 break;
                             case 'startsWith':
-                                rsqlQuery += '==*' + value;
+                                rsql += '==*' + value;
                                 break;
                             case 'endsWith':
-                                rsqlQuery += '==' + value + '*';
+                                rsql += '==' + value + '*';
                                 break;
                             case 'contains':
-                                rsqlQuery += '==*' + value + '*';
+                                rsql += '==*' + value + '*';
                                 break;
                             case 'notContains':
-                                rsqlQuery += '!=*' + value + '*';
+                                rsql += '!=*' + value + '*';
                                 break;
                             case 'greaterThan':
-                                rsqlQuery += '>' + value;
+                                rsql += '>' + value;
                                 break;
                             case 'lessThan':
-                                rsqlQuery += '<' + value;
+                                rsql += '<' + value;
                                 break;
                             case 'greaterThanOrEqual':
-                                rsqlQuery += '>=' + value;
+                                rsql += '>=' + value;
                                 break;
                             case 'lessThanOrEqual':
-                                rsqlQuery += '<=' + value;
+                                rsql += '<=' + value;
                                 break;
                             case 'inRange':
-                                rsqlQuery += '>' + value + ';' + key + '<' + params.filterModel[key].filter2;
+                                rsql = '(' + rsql + '>=' + value + ';' + key + '<=' + filterModel.filter2 + ')';
                                 break;
+                        }
+                        return rsql;
+                    };
+                    let rsqlQuery = '';
+                    Object.keys( params.filterModel ).forEach(( key ) => {
+                        if ( rsqlQuery ) {
+                            rsqlQuery += ';';
+                        }
+                        if ( params.filterModel[key].operator ) {
+                            rsqlQuery += '(';
+                            rsqlQuery += filterModelToRsqlQuery(key, params.filterModel[key].condition1);
+                            rsqlQuery += (params.filterModel[key].operator == 'OR') ? ',' : ';';
+                            rsqlQuery += filterModelToRsqlQuery(key, params.filterModel[key].condition2);
+                            rsqlQuery += ')';
+                        } else {
+                            rsqlQuery += filterModelToRsqlQuery(key, params.filterModel[key]);
                         }
                     } );
                     if ( rsqlQuery ) {

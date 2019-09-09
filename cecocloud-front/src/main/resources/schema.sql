@@ -23,8 +23,9 @@ create table empresa (
 
 create table marcatge (
    id number(19,0) not null,
+    operari_id number(19,0) not null,
     data timestamp not null,
-    usuemp_id number(19,0) not null,
+    origen number(10,0) not null,
     created_by varchar2(64 char) not null,
     created_date timestamp not null,
     lastmod_by varchar2(64 char),
@@ -119,13 +120,14 @@ create table empresa (
 
 create table marcatge (
    id bigint not null,
+    operari_id bigint not null,
     data timestamp not null,
+    origen integer not null,
     created_by varchar(64) not null,
     created_date timestamp not null,
     lastmod_by varchar(64),
     lastmod_date timestamp,
     version bigint not null,
-    usuemp_id bigint not null,
     primary key (id)
 );
 

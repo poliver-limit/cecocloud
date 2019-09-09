@@ -23,15 +23,13 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 	@Query(	"from" +
 			"    MarcatgeEntity m " +
 			"where " +
-			"    m.operari.empresa in (:empreses) " +
+			"    m.operari = :operari " +
 			"and m.embedded.data >= :dataInici " +
 			"and (:esNullDataFi = true or m.embedded.data <= :dataFi) " +
 			"order by " +
-			"    m.operari.empresa.embedded.identificadorCodi asc, " +
-			"    m.operari.empresa.embedded.codi asc, " +
 			"    m.embedded.data asc")
-	List<MarcatgeEntity> findByEmpresaInAndBetweenDatesMobile(
-			@Param("empreses") List<EmpresaEntity> empreses,
+	List<MarcatgeEntity> findByOperariAndBetweenDatesMobile(
+			@Param("operari") OperariEntity operari,
 			@Param("dataInici") Date dataInici,
 			@Param("esNullDataFi") boolean esNullDataFi,
 			@Param("dataFi") Date dataFi);
@@ -39,7 +37,8 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 	@Query(	"from" +
 			"    MarcatgeEntity m " +
 			"where " +
-			"    m.operari.empresa in (:empreses) " +
+			"    m.embedded.origen = MOBIL " +
+			"and m.operari.empresa in (:empreses) " +
 			"and m.createdDate >= :dataInici " +
 			"and (:esNullDataFi = true or m.createdDate <= :dataFi) " +
 			"order by " +

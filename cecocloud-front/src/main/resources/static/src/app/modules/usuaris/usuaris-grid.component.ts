@@ -12,7 +12,8 @@ import { UsuarisService, Usuari } from './usuaris.service';
 export class UsuarisGridComponent implements OnInit {
 
     datagridConfig = {
-        // editable: true
+        editable: true,
+        columnFiltersEnabled: true
     };
 
     ngOnInit() {

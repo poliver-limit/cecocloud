@@ -50,4 +50,6 @@ public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
 	List<OperariEntity> findByUsuariAndEmpresa(UsuariEntity usuari, EmpresaEntity empresa);
 
+	Optional<OperariEntity> findByUsuariAndEmpresaAndEmbeddedDataFiNull(UsuariEntity usuari, EmpresaEntity empresa);
+
 }

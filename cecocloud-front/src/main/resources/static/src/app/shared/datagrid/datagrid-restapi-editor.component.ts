@@ -14,7 +14,6 @@ import { RestapiBaseFieldComponent } from '../restapi-form/restapi-base-field.co
     template: `
 <restapi-field-material
     #fieldComponent
-    [label]="label"
     [fieldName]="fieldName"
     [formGroup]="formGroup"
     [restapiResource]="restapiResource"
@@ -32,7 +31,6 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
 
     @ViewChild( 'fieldComponent', { static: true } ) fieldComponent: RestapiBaseFieldComponent;
 
-    label: string;
     fieldName: string;
     formGroup: FormGroup;
     restapiResource: RestapiResource;
@@ -58,7 +56,6 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
                 first = false;
             }
         } );
-        this.label = ( field.translateKey ) ? this.translateKey( field.translateKey, {}, field.name ) : field.name;
         this.formGroup = params.context.gridComponent.getEditFormGroup(
             params.rowIndex,
             params.api,

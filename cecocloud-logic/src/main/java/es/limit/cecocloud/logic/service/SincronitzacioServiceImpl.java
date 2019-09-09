@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
+import es.limit.cecocloud.logic.api.dto.MarcatgeOrigen;
 import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
@@ -178,6 +179,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				if (marcatgeExistent == null) {
 					Marcatge embedded = new Marcatge();
 					embedded.setData(marcatge.getData());
+					embedded.setOrigen(MarcatgeOrigen.CECOGEST);
 					marcatgeRepository.save(
 							MarcatgeEntity.builder().
 							operari(operari.get()).

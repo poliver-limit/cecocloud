@@ -99,7 +99,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
         <mat-select
             [formControl]="formControl"
-            multiple
+            [multiple]="field.multiple"
             [required]="field.required"
             (click)="onFieldClick($event)"
             (change)="onFieldChange($event)">

@@ -33,7 +33,7 @@ import lombok.Setter;
 @Table(name = "marcatge")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "data", nullable = false)),
-	@AttributeOverride(name = "embedded.dataCreacio", column = @Column(name = "data_actual", nullable = false)),
+	@AttributeOverride(name = "embedded.origen", column = @Column(name = "origen", nullable = false)),
 })
 public class MarcatgeEntity extends AbstractAuditableEntity<Marcatge, Long> {
 
@@ -41,7 +41,7 @@ public class MarcatgeEntity extends AbstractAuditableEntity<Marcatge, Long> {
 	protected Marcatge embedded;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "usuemp_id",
+			name = "operari_id",
 			foreignKey = @ForeignKey(name = "marcatge_operari_fk"))
 	protected OperariEntity operari;
 

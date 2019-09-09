@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.logic.service;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +20,9 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobilConsulta;
+import es.limit.cecocloud.logic.api.dto.MarcatgeOrigen;
 import es.limit.cecocloud.logic.api.dto.Operari;
+import es.limit.cecocloud.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.MobileMarcatgeService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
@@ -55,22 +56,8 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
-
-	/*private DtoConverter<Marcatge, MarcatgeEntity, Long> marcatgeDtoConverter;*/
-	//private DtoConverter<Empresa, EmpresaEntity, Long> empresaDtoConverter;
-
 	@Autowired
-	public MobileMarcatgeServiceImpl(MapperFacade orikaMapperFacade) {
-		super();
-		/*this.marcatgeDtoConverter = new DtoConverter<Marcatge, MarcatgeEntity, Long>(
-				Marcatge.class,
-				MarcatgeEntity.class,
-				orikaMapperFacade);*/
-		/*this.empresaDtoConverter = new DtoConverter<Empresa, EmpresaEntity, Long>(
-				Empresa.class,
-				EmpresaEntity.class,
-				orikaMapperFacade);*/
-	}
+	private AuthenticationFacade authenticationFacade;
 
 	@Override
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
@@ -81,6 +68,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				"data=" + marcatgeMobil.getData() + ", " +
 				"dataActual=" + new Date() + ")");
 		marcatge.setData(marcatgeMobil.getData());
+		marcatge.setOrigen(MarcatgeOrigen.MOBIL);
 		MarcatgeEntity entity = MarcatgeEntity.builder().
 				operari(operari).
 				embedded(marcatge).
@@ -91,30 +79,24 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Override
 	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
-		List<OperariEntity> usuariEmpreses = findUsuarisEmpresesActius();
-		EmpresaEntity empresa = null;
-		for (OperariEntity usuariEmpresa: usuariEmpreses) {
-			if (usuariEmpresa.getEmpresa().getId().equals(consulta.getEmpresaId())) {
-				empresa = usuariEmpresa.getEmpresa();
-				break;
-			}
-		}
-		if (empresa != null) {
-			Calendar dataFi = Calendar.getInstance();
-			dataFi.setTime(consulta.getData());
-			dataFi.set(Calendar.HOUR_OF_DAY, 23);
-			dataFi.set(Calendar.MINUTE, 59);
-			dataFi.set(Calendar.SECOND, 59);
-			dataFi.set(Calendar.MILLISECOND, 999);
-			List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDatesMobile(
-					Arrays.asList(empresa),
-					consulta.getData(),
-					false,
-					dataFi.getTime());
-			return marcatges.stream().map(marcatge -> toMarcatgeMobil(marcatge)).collect(Collectors.toList());
-		} else {
-			throw new EntityNotFoundException("Empresa autoritzada amb id " + consulta.getEmpresaId());
-		}
+		Authentication auth = authenticationFacade.getAuthentication();
+		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(auth.getName());
+		EmpresaEntity empresa = empresaRepository.getOne(consulta.getEmpresaId());
+		Optional<OperariEntity> operari = operariRepository.findByUsuariAndEmpresaAndEmbeddedDataFiNull(
+				usuari.get(),
+				empresa);
+		Calendar dataFi = Calendar.getInstance();
+		dataFi.setTime(consulta.getData());
+		dataFi.set(Calendar.HOUR_OF_DAY, 23);
+		dataFi.set(Calendar.MINUTE, 59);
+		dataFi.set(Calendar.SECOND, 59);
+		dataFi.set(Calendar.MILLISECOND, 999);
+		List<MarcatgeEntity> marcatges = marcatgeRepository.findByOperariAndBetweenDatesMobile(
+				operari.get(),
+				consulta.getData(),
+				false,
+				dataFi.getTime());
+		return marcatges.stream().map(marcatge -> toMarcatgeMobil(marcatge)).collect(Collectors.toList());
 	}
 
 	@Override

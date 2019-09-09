@@ -12,6 +12,7 @@ import { DatagridHeaderComponent } from './datagrid/datagrid-header.component';
 import { DatagridMantenimentDirective } from './datagrid/datagrid-manteniment.directive';
 import { DatagridLinkCellRenderer } from './datagrid/datagrid-link-cell-renderer.component';
 import { DatagridRestapiEditorComponent } from './datagrid/datagrid-restapi-editor.component';
+import { DatagridRestapiFloatingFilterComponent } from './datagrid/datagrid-restapi-floating-filter.component';
 import { RestapiFormComponent } from './restapi-form/restapi-form.component';
 import { RestapiFormHeaderComponent } from './restapi-form/restapi-form-header.component';
 import { RestapiFormMantenimentDirective } from './restapi-form/restapi-form-manteniment.directive';
@@ -33,7 +34,8 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         AgGridModule.withComponents( [
             DatagridHeaderComponent,
             DatagridLinkCellRenderer,
-            DatagridRestapiEditorComponent
+            DatagridRestapiEditorComponent,
+            DatagridRestapiFloatingFilterComponent
         ] ),
         TranslateModule.forChild()
     ],
@@ -43,6 +45,7 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         DatagridMantenimentDirective,
         DatagridLinkCellRenderer,
         DatagridRestapiEditorComponent,
+        DatagridRestapiFloatingFilterComponent,
         RestapiFormComponent,
         RestapiFormHeaderComponent,
         RestapiFormMantenimentDirective,
