@@ -1,7 +1,8 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { IAfterGuiAttachedParams, IDoesFilterPassParams, IFilterParams, RowNode, IFloatingFilterParams, FilterChangedEvent, TextFilter } from 'ag-grid-community';
 import { IFilterAngularComp, IFloatingFilterComp } from 'ag-grid-angular';
+import * as moment from 'moment';
 
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
 
@@ -12,19 +13,14 @@ export interface DatagridRestapiFloatingFilterParams extends IFloatingFilterPara
 
 @Component( {
     template: `
-<!--input #input [ngModel]="value" type="text" (ngModelChange)="valueChanged($event)" style="margin:4px; width: calc(100% - 8px)"/>
-<input #inputTo [ngModel]="valueTo" type="text" (ngModelChange)="valueChanged($event)" style="margin:4px; width: calc(100% - 8px)" hidden/-->
-<mat-form-field style="width:100%; top: 2px;" appearance="outline">
-    <input matInput type="text" [ngModel]="value" (ngModelChange)="valueChanged($event)" autocomplete="off"/>
-</mat-form-field>
-<!--restapi-field-material
-    [fieldName]="fieldName"
-    [formGroup]="formGroup"
+<restapi-field-material
+    fieldName="filter"
+    [inputFormGroup]="formGroup"
     [restapiResource]="restapiResource"
-    [resourceInstance]="resourceInstance"
     [hideLabel]="true"
-    (click)="onFieldClick($event)"
-    (change)="onFieldChange($event)"></restapi-field-material-->
+    appearance="outline"
+    (input)="onFieldInput($event)"
+    style="width:100%; position: relative; top: 2px;"></restapi-field-material>
 `,
     styles: [`
 :host {
@@ -34,23 +30,28 @@ export interface DatagridRestapiFloatingFilterParams extends IFloatingFilterPara
 } )
 export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterComp {
 
-    fieldName: string = 'filter';
     formGroup: FormGroup;
     restapiResource: RestapiResource = {
         name: 'filter',
         fields: []
     };
+    resourceInstance: any = {};
     params: DatagridRestapiFloatingFilterParams;
+    field: RestapiResourceField;
     value: string;
 
     agInit( params: DatagridRestapiFloatingFilterParams ): void {
         this.params = params;
+        this.field = Object.assign( {}, params['restapiField'] );
+        this.field.name = 'filter';
+        this.field.required = false;
+        if (this.field.type === 'DATETIME') {
+            this.field.type = 'DATE';
+        }
+        this.restapiResource.fields = [this.field];
         this.formGroup = this.formBuilder.group( {
-            filter: [{ value: undefined }]
+            filter: new FormControl()
         } );
-        this.restapiResource.fields = [params['restapiField']];
-        this.restapiResource.fields[0].name = 'filter';
-        console.log( '>>> agInit', this.restapiResource );
     }
 
     onParentModelChanged( parentModel: any, event: FilterChangedEvent ): void {
@@ -65,12 +66,39 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
         }
     }
 
-    valueChanged( newValue ) {
+    valueChanged( value ) {
+        let filterType;
+        let processedValue;
+        if ( value && this.field.type === 'BOOLEAN' ) {
+            filterType = 'equals';
+            processedValue = ( value ) ? value : null;
+        } else if ( value && this.field.type === 'ENUM' ) {
+            filterType = 'equals';
+            processedValue = ( value ) ? value : null;
+        } else if ( value && this.field.type === 'DATE' ) {
+            filterType = 'equals';
+            if ( value ) {
+                let m = moment( value.format( 'YYYY-MM-DD' ) + ' 00:00:00', 'YYYY-MM-DD HH:mm:ss' );
+                processedValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + '+0000';
+            } else {
+                processedValue = ( value ) ? value : null;
+            }
+        } else if ( value && this.field.type === 'LOV' ) {
+            filterType = 'equals';
+            processedValue = value.id + '|@|id';
+        } else {
+            filterType = 'contains';
+            processedValue = ( value ) ? value : null;
+        }
         this.params.parentFilterInstance( function( instance ) {
             ( <TextFilter>instance ).onFloatingFilterChanged(
-                'contains',
-                newValue );
+                filterType,
+                processedValue );
         } );
+    }
+
+    onFieldInput( event ) {
+        this.valueChanged( this.formGroup.get( 'filter' ).value )
     }
 
     constructor(

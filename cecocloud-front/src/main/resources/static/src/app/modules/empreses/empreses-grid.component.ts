@@ -16,6 +16,7 @@ export class EmpresesGridComponent {
             "companyia.id": 1,
             nom: "*Lím*"
         }*/
+        columnFiltersEnabled: true
     };
 
     constructor(

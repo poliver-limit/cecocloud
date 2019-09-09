@@ -64,7 +64,7 @@ export class DefaultErrorHandler implements ErrorHandler {
                 <mdc-tab-bar (activated)="onActivatedTab($event)" [activeTabIndex]="0" useAutomaticActivation>
                     <mdc-tab-scroller>
                         <mdc-tab id="message" *ngIf="data.message" label="{{'error.dialog.tab.info'|translate}}"></mdc-tab>
-                        <mdc-tab id="fields" *ngIf="data.error.error.errors" label="{{'error.dialog.tab.fields'|translate}}"></mdc-tab>
+                        <mdc-tab id="fields" *ngIf="data.error.error?.errors" label="{{'error.dialog.tab.fields'|translate}}"></mdc-tab>
                         <mdc-tab id="trace" *ngIf="data.stack" label="{{'error.dialog.tab.trace'|translate}}"></mdc-tab>
                     </mdc-tab-scroller>
                 </mdc-tab-bar>

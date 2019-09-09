@@ -76,7 +76,7 @@ alter table empresa
 
 alter table marcatge 
    add constraint marcatge_operari_fk 
-   foreign key (usuemp_id) 
+   foreign key (operari_id) 
    references operari;
 
 alter table operari 
@@ -148,7 +148,7 @@ create table operari (
    id bigint not null,
     data_fi timestamp,
     data_inici timestamp not null,
-    operari_codi varchar(6) not null,
+    codi varchar(6) not null,
     version bigint not null,
     usuari_id bigint not null,
     empresa_id bigint not null,
@@ -173,7 +173,7 @@ alter table empresa
 
 alter table marcatge 
    add constraint marcatge_operari_fk 
-   foreign key (usuemp_id) 
+   foreign key (operari_id) 
    references operari;
 
 alter table operari 

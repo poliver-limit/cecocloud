@@ -16,7 +16,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
 @Component( {
     selector: 'restapi-field-material',
     template: `
-<mat-form-field *ngIf="isText || isTextarea" style="width:100%">
+<mat-form-field *ngIf="isText || isTextarea" [appearance]="appearance" style="width:100%">
     <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
     <input
         *ngIf="isText"
@@ -27,6 +27,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         [formControl]="formControl"
         [required]="field.required"
         (click)="onFieldClick($event)"
+        (input)="onFieldInput($event)"
         (change)="onFieldChange($event)"/>
     <textarea
         *ngIf="isTextarea"
@@ -36,12 +37,13 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         [formControl]="formControl"
         [required]="field.required"
         (click)="onFieldClick($event)"
+        (input)="onFieldInput($event)"
         (change)="onFieldChange($event)"></textarea>
     <mat-hint align="end" *ngIf="showCharCount">{{formControl.value?.length || 0}}/{{field.maxLength}}</mat-hint>
     <mat-error>{{errorMessage}}</mat-error>
 </mat-form-field>
 <ng-container *ngIf="isDate">
-    <mat-form-field style="width:100%">
+    <mat-form-field [appearance]="appearance" style="width:100%">
         <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
         <input
             matInput
@@ -49,14 +51,15 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             [formControl]="formControl"
             [required]="field.required"
             (click)="onFieldClick($event)"
-            (change)="onFieldChange($event)"/>
+            (dateInput)="onFieldInput($event)"
+            (dateChange)="onFieldChange($event)"/>
         <mat-datepicker-toggle matSuffix [for]="datePicker" tabindex="-1"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error>{{errorMessage}}</mat-error>
     </mat-form-field>
 </ng-container>
 <ng-container *ngIf="isDatetime" [formGroup]="datetimeFormGroup">
-    <mat-form-field style="width:50%; margin-right: 6px">
+    <mat-form-field [appearance]="appearance" style="width:50%; margin-right: 6px">
         <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
         <input
             matInput
@@ -65,12 +68,13 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             [required]="field.required"
             [readonly]="datetimeLinkedWithCurrentTime"
             (click)="onFieldClick($event)"
+            (input)="onFieldInput($event)"
             (change)="onFieldChange($event)"/>
         <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="datetimeLinkedWithCurrentTime" tabindex="-1"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error>{{errorMessage}}</mat-error>
     </mat-form-field>
-    <mat-form-field [ngStyle]="{'width': datetimeLinkButtonActive ? 'calc(50% - 6px - 40px - 6px)' : 'calc(50% - 6px)'}">
+    <mat-form-field [appearance]="appearance" [ngStyle]="{'width': datetimeLinkButtonActive ? 'calc(50% - 6px - 40px - 6px)' : 'calc(50% - 6px)'}">
         <input
             matInput
             type="time"
@@ -79,6 +83,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             [required]="field.required"
             [readonly]="datetimeLinkedWithCurrentTime"
             (click)="onFieldClick($event)"
+            (input)="onFieldInput($event)"
             (change)="onFieldChange($event)"/>
         <button mat-icon-button matSuffix [disabled]="datetimeLinkedWithCurrentTime" tabindex="-1">
             <mat-icon>schedule</mat-icon>
@@ -95,20 +100,20 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
     </button>
 </ng-container>
 <ng-container *ngIf="isSelect">
-    <mat-form-field style="width:100%">
+    <mat-form-field [appearance]="appearance" style="width:100%">
         <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
         <mat-select
             [formControl]="formControl"
             [multiple]="field.multiple"
             [required]="field.required"
             (click)="onFieldClick($event)"
-            (change)="onFieldChange($event)">
+            (selectionChange)="onFieldInput($event)">
             <mat-option *ngFor="let enumValue of field.enumValues" [value]="enumValue">{{enumValue}}</mat-option>
         </mat-select>
         <mat-error>{{errorMessage}}</mat-error>
     </mat-form-field>
 </ng-container>
-<div *ngIf="isCheckbox" style="width:100%">
+<div *ngIf="isCheckbox" style="width:100%; padding-top: 10px;">
     <mat-checkbox
         [formControl]="formControl"
         (click)="onFieldClick($event)"
@@ -118,15 +123,19 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
     *ngIf="isLov"
     [label]="label"
     [fieldName]="fieldName"
-    [formGroup]="formGroup"
+    [inputFormGroup]="inputFormGroup"
     [restapiResource]="restapiResource"
     [resourceInstance]="resourceInstance"
     [hideLabel]="hideLabel"
+    [appearance]="appearance"
     (click)="onFieldClick($event)"
+    (input)="onFieldInput($event)"
     (change)="onFieldChange($event)"></restapi-lov-material>
 `
 } )
 export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldComponent implements OnInit {
+
+    @Input() appearance: string = 'standard'; // 'legacy' | 'standard' | 'fill' | 'outline'
 
     @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
     @ViewChild( RestapiLovMaterialComponent, { static: false } ) restapiLovField: RestapiLovMaterialComponent;
@@ -146,7 +155,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
     errorMessage: string;
 
     ngOnInit() {
-        this.baseOnInit( this.fieldName, this.formGroup, this.restapiResource );
+        this.baseOnInit( this.fieldName, this.inputFormGroup, this.restapiResource );
         this.doEachSecond();
         switch ( this.field.type ) {
             case 'TEXTAREA':
@@ -187,13 +196,15 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
             this.formControl.reset();
         }
         if ( this.isDatetime ) {
-            this.datetimePropagateToFormControl();
+            this.propagateDateToFormControl(
+                    this.datetimeFormGroup.get( 'date' ).value,
+                    this.datetimeFormGroup.get( 'time' ).value);
         }
         super.onFieldChange( event );
     }
 
     onFieldInput( event ) {
-        console.log( '>>> onFieldInput', event )
+        super.onFieldInput( event );
     }
 
     public setErrors( errors?: any ) {
@@ -238,7 +249,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
     }
 
     buildDatetimeFormGroup() {
-        let fieldValue = this.formGroup.get( this.fieldName ).value;
+        let fieldValue = this.inputFormGroup.get( this.fieldName ).value;
         let dateValue;
         let timeValue;
         let fieldMoment;
@@ -270,18 +281,18 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
             let currentMoment = moment();
             this.datetimeFormGroup.get( 'date' ).setValue( currentMoment );
             this.datetimeFormGroup.get( 'time' ).setValue( currentMoment.format( 'HH:mm:ss' ) );
-            this.datetimePropagateToFormControl();
+            this.propagateDateToFormControl(
+                    this.datetimeFormGroup.get( 'date' ).value,
+                    this.datetimeFormGroup.get( 'time' ).value);
         }
     }
 
-    datetimePropagateToFormControl() {
-        let dateValue = this.datetimeFormGroup.get( 'date' ).value;
-        let timeValue = this.datetimeFormGroup.get( 'time' ).value;
-        if ( dateValue !== undefined && timeValue !== undefined ) {
-            let m = moment( dateValue.format( 'YYYY-MM-DD' ) + ' ' + timeValue, 'YYYY-MM-DD HH:mm:ss' );
-            let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + this.getTimeZoneOffset();
-            this.formGroup.get( this.fieldName ).setValue( apiValue );
-        }
+    propagateDateToFormControl(dateValue: Date, timeValue?: string) {
+        let date = dateValue ? dateValue : new Date();
+        let time = timeValue ? timeValue : '00:00:00';
+        let m = moment( moment(date, 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
+        let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + this.getTimeZoneOffset();
+        this.inputFormGroup.get( this.fieldName ).setValue( apiValue );
     }
 
     getTimeZoneOffset() {

@@ -741,9 +741,16 @@ export class DatagridComponent implements OnInit {
                 }
                 if ( params.filterModel && Object.keys( params.filterModel ).length ) {
                     let filterModelToRsqlQuery = function( key, filterModel ) {
+                        let childFieldToken = '|@|'
                         let type = filterModel.type;
                         let value = filterModel.filter;
-                        let rsql = key;
+                        let childField = '';
+                        let tokenIndex = value.indexOf( childFieldToken );
+                        if ( tokenIndex != -1 ) {
+                            childField = '.' + value.substring( tokenIndex + childFieldToken.length );
+                            value = value.substring( 0, tokenIndex );
+                        }
+                        let rsql = key + childField;
                         switch ( type ) {
                             case 'equals':
                                 rsql += '==' + value;
@@ -786,16 +793,19 @@ export class DatagridComponent implements OnInit {
                         if ( rsqlQuery ) {
                             rsqlQuery += ';';
                         }
-                        if ( params.filterModel[key].operator ) {
-                            rsqlQuery += '(';
-                            rsqlQuery += filterModelToRsqlQuery(key, params.filterModel[key].condition1);
-                            rsqlQuery += (params.filterModel[key].operator == 'OR') ? ',' : ';';
-                            rsqlQuery += filterModelToRsqlQuery(key, params.filterModel[key].condition2);
-                            rsqlQuery += ')';
-                        } else {
-                            rsqlQuery += filterModelToRsqlQuery(key, params.filterModel[key]);
+                        if ( params.filterModel[key].filter ) {
+                            if ( params.filterModel[key].operator ) {
+                                rsqlQuery += '(';
+                                rsqlQuery += filterModelToRsqlQuery( key, params.filterModel[key].condition1 );
+                                rsqlQuery += ( params.filterModel[key].operator == 'OR' ) ? ',' : ';';
+                                rsqlQuery += filterModelToRsqlQuery( key, params.filterModel[key].condition2 );
+                                rsqlQuery += ')';
+                            } else {
+                                rsqlQuery += filterModelToRsqlQuery( key, params.filterModel[key] );
+                            }
                         }
                     } );
+                    console.log( '>>> rsqlQuery', rsqlQuery )
                     if ( rsqlQuery ) {
                         requestParams.push( {
                             key: 'query',

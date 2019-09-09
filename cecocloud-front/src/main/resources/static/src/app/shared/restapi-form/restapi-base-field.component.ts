@@ -8,12 +8,13 @@ export abstract class RestapiBaseFieldComponent {
 
     @Input() label: string;
     @Input() fieldName: string;
-    @Input() formGroup: FormGroup;
+    @Input() inputFormGroup: FormGroup;
     @Input() restapiResource: RestapiResource;
     @Input() resourceInstance: Resource;
     @Input() hideLabel: boolean;
 
     @Output() click: EventEmitter<any> = new EventEmitter();
+    @Output() input: EventEmitter<any> = new EventEmitter();
     @Output() change: EventEmitter<any> = new EventEmitter();
 
     formControl: FormControl;
@@ -33,6 +34,9 @@ export abstract class RestapiBaseFieldComponent {
 
     onFieldClick( event ) {
         this.click.emit( event );
+    }
+    onFieldInput( event ) {
+        this.input.emit( event );
     }
     onFieldChange( event ) {
         if ( event.target && event.target.value === '' ) {

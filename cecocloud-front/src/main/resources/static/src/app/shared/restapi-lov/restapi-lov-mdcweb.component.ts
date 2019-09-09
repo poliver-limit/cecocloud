@@ -48,7 +48,7 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
     errorMessage: string;
 
     ngOnInit() {
-        this.baseOnInit( this.fieldName, this.formGroup, this.restapiResource );
+        this.baseOnInit( this.fieldName, this.inputFormGroup, this.restapiResource );
         this.createLovFormGroup( this.field );
         this.restapiService.configureWithResourceName( this.field.name );
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {

@@ -17,7 +17,7 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
 @Component( {
     selector: 'restapi-lov-material',
     template: `
-<mat-form-field *ngIf="lovFormGroup" [formGroup]="lovFormGroup" style="width:100%">
+<mat-form-field *ngIf="lovFormGroup" [formGroup]="lovFormGroup" [appearance]="appearance" style="width:100%">
     <input
         #lovHiddenInput
         type="hidden"
@@ -25,11 +25,13 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
     <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
     <input
         matInput
+        #lovDetailInput
         type="text"
         formControlName="description"
         [required]="field.required"
         [readonly]="isReadonly"
         (click)="onFieldClick($event)"
+        (input)="onFieldInput($event)"
         (blur)="onFieldBlur()"
         (keydown)="onFieldKeydown($event)"
         (change)="onFieldChange($event)"/>
@@ -46,8 +48,10 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
 } )
 export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent implements OnInit {
 
+    @Input() appearance: string = 'standard'; // 'legacy' | 'standard' | 'fill' | 'outline'
+
     @ViewChild( 'lovHiddenInput', { static: false } ) lovHiddenInput: ElementRef;
-    @ViewChild( 'lovDetailInput', { static: false } ) lovDetailInput: MatInput;
+    @ViewChild( 'lovDetailInput', { static: false } ) lovDetailInput: ElementRef;
 
     lovFormGroup: FormGroup;
     lovResource: RestapiResource;
@@ -56,9 +60,9 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
     isReadonly: boolean;
 
     ngOnInit() {
-        this.baseOnInit( this.fieldName, this.formGroup, this.restapiResource );
+        this.baseOnInit( this.fieldName, this.inputFormGroup, this.restapiResource );
         this.createLovFormGroup( this.field );
-        this.restapiService.configureWithResourceName( this.field.name );
+        this.restapiService.configureWithResourceName( this.field.lovResourceName );
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
             this.lovResource = restapiProfile.resource;
         } );
@@ -89,6 +93,9 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
             event.preventDefault();
         }
         this.click.emit( event );
+    }
+    onFieldInput( event ) {
+        this.input.emit( event );
     }
     onFieldBlur() {
         this.isReadonly = false;
@@ -140,6 +147,7 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
             this.lovFormGroup.get( 'description' ).setValue( undefined );
             this.formControl.setValue( undefined );
         }
+        this.lovDetailInput.nativeElement.dispatchEvent( new Event( 'input', { bubbles: true } ) );
     }
 
     createLovFormGroup( field: RestapiResourceField ) {

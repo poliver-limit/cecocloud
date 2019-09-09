@@ -13,6 +13,7 @@ export class OperarisGridComponent implements OnInit {
 
     datagridConfig = {
         // editable: true
+        columnFiltersEnabled: true
     };
 
     ngOnInit() {

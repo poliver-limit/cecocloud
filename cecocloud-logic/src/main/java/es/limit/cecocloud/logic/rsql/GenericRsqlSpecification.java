@@ -4,6 +4,10 @@
 package es.limit.cecocloud.logic.rsql;
 
 import java.lang.reflect.ParameterizedType;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +16,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
+import org.hibernate.query.criteria.internal.path.SingularAttributePath;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -63,7 +69,11 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 				}
 			}
 		} else {
-			path = root.get("embedded").get(property);
+			try {
+				path = root.get(property);
+			} catch (IllegalArgumentException ex) {
+				path = root.get("embedded").get(property);
+			}
 		}
 		final List<Object> args = castArguments(path);
 		final Object argument = args.get(0);
@@ -122,16 +132,20 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 
 	private List<Object> castArguments(Path<?> path) {
 		final Class<?> attributeType;
-		final String attributeName = ((javax.persistence.metamodel.SingularAttribute<?, ?>)path.getModel()).getName();
-		if ("id".equals(attributeName)) {
-			@SuppressWarnings("unchecked")
-			Class<? extends AbstractPersistable<?>> parentType = ((Path<? extends AbstractPersistable<?>>)path.getParentPath()).getJavaType();
-			ParameterizedType parameterizedType = (ParameterizedType)parentType.getGenericSuperclass();
-			if (parameterizedType != null) {
-				if (parameterizedType.getRawType().equals(AbstractEntity.class)) {
-					attributeType = (Class<?>)parameterizedType.getActualTypeArguments()[1];
-				} else if (parameterizedType.getRawType().equals(AbstractPersistable.class)) {
-					attributeType = (Class<?>)parameterizedType.getActualTypeArguments()[0];
+		if (SingularAttributePath.class.isAssignableFrom(path.getClass())) {
+			final String attributeName = ((SingularAttribute<?, ?>)path.getModel()).getName();
+			if ("id".equals(attributeName)) {
+				@SuppressWarnings("unchecked")
+				Class<? extends AbstractPersistable<?>> parentType = ((Path<? extends AbstractPersistable<?>>)path.getParentPath()).getJavaType();
+				ParameterizedType parameterizedType = (ParameterizedType)parentType.getGenericSuperclass();
+				if (parameterizedType != null) {
+					if (parameterizedType.getRawType().equals(AbstractEntity.class)) {
+						attributeType = (Class<?>)parameterizedType.getActualTypeArguments()[1];
+					} else if (parameterizedType.getRawType().equals(AbstractPersistable.class)) {
+						attributeType = (Class<?>)parameterizedType.getActualTypeArguments()[0];
+					} else {
+						attributeType = path.getJavaType();
+					}
 				} else {
 					attributeType = path.getJavaType();
 				}
@@ -141,16 +155,41 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 		} else {
 			attributeType = path.getJavaType();
 		}
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final List<Object> args = arguments.stream().map(arg -> {
-			if (attributeType.equals(Integer.class)) {
+			if (attributeType.equals(Integer.class) || attributeType.equals(int.class)) {
 				return Integer.parseInt(arg);
-			} else if (attributeType.equals(Long.class)) {
+			} else if (attributeType.equals(Long.class) || attributeType.equals(long.class)) {
 				return Long.parseLong(arg);
+			} else if (attributeType.equals(Date.class)) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				try {
+					return sdf.parse(arg);
+				} catch (ParseException ex) {
+					log.error("Error al parsejar la data amb el format yyyy-MM-dd'T'HH:mm:ss.SSSZ", ex);
+					return arg;
+				}
+			} else if (attributeType.equals(Boolean.class) || attributeType.equals(boolean.class)) {
+				return new Boolean(arg);
+			} else if (attributeType.isEnum()) {
+				return Enum.valueOf((Class<Enum>)attributeType, arg);
+			} else if (Collection.class.isAssignableFrom(attributeType)) {
+				/*//Now assuming that the first parameter to the method is of type List<Integer>
+				Type type = field.getGenericType();
+				ParameterizedType pType = (ParameterizedType) types[0];
+				Class<?> clazz = (Class<?>) pType.getActualTypeArguments()[0];*/
+				// TODO
+				return arg;
 			} else {
 				return arg;
 			}
 		}).collect(Collectors.toList());
 		return args;
 	}
+
+	/*private Object castSingleArgument(
+			String arg) {
+		
+	}*/
 
 }

@@ -12,7 +12,7 @@ import { CompanyiesService } from './companyies.service';
 export class CompanyiesGridComponent {
 
     datagridConfig = {
-        editable: true,
+        //editable: true,
         columnFiltersEnabled: true
     };
 

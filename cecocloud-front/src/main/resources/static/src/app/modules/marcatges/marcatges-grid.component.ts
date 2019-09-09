@@ -12,8 +12,8 @@ import { MarcatgesService } from './marcatges.service';
 export class MarcatgesGridComponent implements OnInit {
 
     datagridConfig = {
-        /*editable: true,
-        columnFiltersEnabled: true*/
+        /*editable: true,*/
+        columnFiltersEnabled: true
     };
 
     ngOnInit() {

@@ -306,7 +306,7 @@ export class RestapiFormComponent implements OnInit {
     configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField, callBaseOnInit?: boolean ) {
         fieldComponent.label = ( field.translateKey ) ? this.translateKey( field.translateKey, {}, field.name ) : field.name;
         fieldComponent.fieldName = field.name;
-        fieldComponent.formGroup = this.formGroup;
+        fieldComponent.inputFormGroup = this.formGroup;
         fieldComponent.restapiResource = this.restapiResource;
         fieldComponent.resourceInstance = this.resourceInstance;
         if ( callBaseOnInit ) {
