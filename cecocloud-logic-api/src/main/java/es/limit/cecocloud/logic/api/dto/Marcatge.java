@@ -40,6 +40,10 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@RestapiField(type = RestapiFieldType.DATETIME)
 	private Date data;
 	@NotNull
+	@RestapiField(
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
 	private MarcatgeOrigen origen;
 
 }

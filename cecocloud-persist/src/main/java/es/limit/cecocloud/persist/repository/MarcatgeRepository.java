@@ -27,7 +27,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"and m.embedded.data >= :dataInici " +
 			"and (:esNullDataFi = true or m.embedded.data <= :dataFi) " +
 			"order by " +
-			"    m.embedded.data asc")
+			"    m.embedded.data desc")
 	List<MarcatgeEntity> findByOperariAndBetweenDatesMobile(
 			@Param("operari") OperariEntity operari,
 			@Param("dataInici") Date dataInici,
