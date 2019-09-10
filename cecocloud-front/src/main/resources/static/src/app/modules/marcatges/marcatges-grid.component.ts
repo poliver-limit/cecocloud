@@ -13,7 +13,16 @@ export class MarcatgesGridComponent implements OnInit {
 
     datagridConfig = {
         /*editable: true,*/
-        columnFiltersEnabled: true
+        columnFiltersEnabled: true,
+        columns: [{
+            field: 'operari',
+            sort: 'asc'
+        }, {
+            field: 'data',
+            sort: 'desc'
+        }, {
+            field: 'origen'
+        }]
     };
 
     ngOnInit() {

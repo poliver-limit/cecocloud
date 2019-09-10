@@ -110,6 +110,6 @@
 	"resource.marcatge.plural": "Marcajes",
 	"resource.marcatge.field.operari": "Operario",
 	"resource.marcatge.field.data": "Fecha y hora",
-	"resource.marcatge.field.dataCreacio": "Fecha creación"
+	"resource.marcatge.field.origen": "Orígen"
 
 }

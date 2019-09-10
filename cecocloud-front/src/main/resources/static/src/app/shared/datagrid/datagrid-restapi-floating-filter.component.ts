@@ -32,7 +32,7 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
 
     formGroup: FormGroup;
     restapiResource: RestapiResource = {
-        name: 'filter',
+        name: 'floatingFilter',
         fields: []
     };
     resourceInstance: any = {};
@@ -45,7 +45,7 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
         this.field = Object.assign( {}, params['restapiField'] );
         this.field.name = 'filter';
         this.field.required = false;
-        if (this.field.type === 'DATETIME') {
+        if ( this.field.type === 'DATETIME' ) {
             this.field.type = 'DATE';
         }
         this.restapiResource.fields = [this.field];
@@ -70,24 +70,24 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
         let filterType;
         let processedValue;
         if ( value && this.field.type === 'BOOLEAN' ) {
-            filterType = 'equals';
+            filterType = 'EQUAL';
             processedValue = ( value ) ? value : null;
         } else if ( value && this.field.type === 'ENUM' ) {
-            filterType = 'equals';
+            filterType = 'EQUAL';
             processedValue = ( value ) ? value : null;
         } else if ( value && this.field.type === 'DATE' ) {
-            filterType = 'equals';
+            filterType = 'EQUAL';
             if ( value ) {
                 let m = moment( value.format( 'YYYY-MM-DD' ) + ' 00:00:00', 'YYYY-MM-DD HH:mm:ss' );
                 processedValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + '+0000';
             } else {
-                processedValue = ( value ) ? value : null;
+                processedValue = null;
             }
         } else if ( value && this.field.type === 'LOV' ) {
-            filterType = 'equals';
-            processedValue = value.id + '|@|id';
+            filterType = 'EQUAL';
+            processedValue = value.id;
         } else {
-            filterType = 'contains';
+            filterType = 'CONTAINS';
             processedValue = ( value ) ? value : null;
         }
         this.params.parentFilterInstance( function( instance ) {

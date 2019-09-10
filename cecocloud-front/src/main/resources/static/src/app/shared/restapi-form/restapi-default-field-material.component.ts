@@ -102,7 +102,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
 <ng-container *ngIf="isSelect">
     <mat-form-field [appearance]="appearance" style="width:100%">
         <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
-        <mat-select
+        <mat-select *ngIf="!nativeControl"
             [formControl]="formControl"
             [multiple]="field.multiple"
             [required]="field.required"
@@ -110,6 +110,15 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             (selectionChange)="onFieldInput($event)">
             <mat-option *ngFor="let enumValue of field.enumValues" [value]="enumValue">{{enumValue}}</mat-option>
         </mat-select>
+        <select *ngIf="nativeControl"
+            matNativeControl
+            [formControl]="formControl"
+            [multiple]="field.multiple"
+            [required]="field.required"
+            (click)="onFieldClick($event)"
+            (selectionChange)="onFieldInput($event)">
+            <option *ngFor="let enumValue of field.enumValues" [value]="enumValue">{{enumValue}}</option>
+        </select>
         <mat-error>{{errorMessage}}</mat-error>
     </mat-form-field>
 </ng-container>
@@ -136,6 +145,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
 export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldComponent implements OnInit {
 
     @Input() appearance: string = 'standard'; // 'legacy' | 'standard' | 'fill' | 'outline'
+    @Input() nativeControl: boolean;
 
     @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
     @ViewChild( RestapiLovMaterialComponent, { static: false } ) restapiLovField: RestapiLovMaterialComponent;

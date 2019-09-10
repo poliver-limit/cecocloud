@@ -40,6 +40,7 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 import { DatagridHeaderComponent } from './datagrid-header.component';
 import { DatagridLinkCellRenderer } from './datagrid-link-cell-renderer.component';
 import { DatagridRestapiEditorComponent } from './datagrid-restapi-editor.component';
+import { DatagridRestapiFilterComponent } from './datagrid-restapi-filter.component';
 import { DatagridRestapiFloatingFilterComponent } from './datagrid-restapi-floating-filter.component';
 
 export interface DatagridConfig {
@@ -603,7 +604,8 @@ export class DatagridComponent implements OnInit {
                 }
                 let filter;
                 let filterParams = {
-                    suppressAndOrCondition: false
+                    suppressAndOrCondition: false,
+                    restapiField: restapiField
                 };
                 let filterFramework;
                 let floatingFilterComponentFramework;
@@ -613,7 +615,8 @@ export class DatagridComponent implements OnInit {
                 };
                 if ( datagridConfig.columnFiltersEnabled ) {
                     filter = true;
-                    filter = 'agTextColumnFilter';
+                    //filter = 'agTextColumnFilter';
+                    filterFramework = DatagridRestapiFilterComponent;
                     floatingFilterComponentFramework = DatagridRestapiFloatingFilterComponent;
                     /*if ( restapiField ) {
                         switch ( columnFieldType ) {
@@ -741,49 +744,50 @@ export class DatagridComponent implements OnInit {
                 }
                 if ( params.filterModel && Object.keys( params.filterModel ).length ) {
                     let filterModelToRsqlQuery = function( key, filterModel ) {
-                        let childFieldToken = '|@|'
+                        let operation = filterModel.operation;
                         let type = filterModel.type;
-                        let value = filterModel.filter;
-                        let childField = '';
-                        let tokenIndex = value.indexOf( childFieldToken );
-                        if ( tokenIndex != -1 ) {
-                            childField = '.' + value.substring( tokenIndex + childFieldToken.length );
-                            value = value.substring( 0, tokenIndex );
-                        }
-                        let rsql = key + childField;
-                        switch ( type ) {
-                            case 'equals':
+                        let value = filterModel.value;
+                        let additionalPath = filterModel.additionalPath;
+                        let rsql = key + (additionalPath ? '.' + additionalPath : '');
+                        switch ( operation ) {
+                            case 'EQUAL':
                                 rsql += '==' + value;
                                 break;
-                            case 'notEqual':
+                            case 'NOT_EQUAL':
                                 rsql += '!=' + value;
                                 break;
-                            case 'startsWith':
+                            case 'STARTS_WITH':
                                 rsql += '==*' + value;
                                 break;
-                            case 'endsWith':
+                            case 'ENDS_WITH':
                                 rsql += '==' + value + '*';
                                 break;
-                            case 'contains':
+                            case 'CONTAINS':
                                 rsql += '==*' + value + '*';
                                 break;
-                            case 'notContains':
+                            case 'NOT_CONTAINS':
                                 rsql += '!=*' + value + '*';
                                 break;
-                            case 'greaterThan':
+                            case 'GREATER_THAN':
                                 rsql += '>' + value;
                                 break;
-                            case 'lessThan':
+                            case 'LESS_THAN':
                                 rsql += '<' + value;
                                 break;
-                            case 'greaterThanOrEqual':
+                            case 'GREATER_THAN_OR_EQUAL':
                                 rsql += '>=' + value;
                                 break;
-                            case 'lessThanOrEqual':
+                            case 'LESS_THAN_OR_EQUAL':
                                 rsql += '<=' + value;
                                 break;
-                            case 'inRange':
-                                rsql = '(' + rsql + '>=' + value + ';' + key + '<=' + filterModel.filter2 + ')';
+                            case 'IN':
+                                rsql += '=in=' + value;
+                                break;
+                            case 'NOT_IN':
+                                rsql += '=out=' + value;
+                                break;
+                            case 'BETWEEN':
+                                rsql = '(' + rsql + '>=' + value + ';' + key + '<=' + filterModel.additionalValue + ')';
                                 break;
                         }
                         return rsql;
@@ -793,19 +797,10 @@ export class DatagridComponent implements OnInit {
                         if ( rsqlQuery ) {
                             rsqlQuery += ';';
                         }
-                        if ( params.filterModel[key].filter ) {
-                            if ( params.filterModel[key].operator ) {
-                                rsqlQuery += '(';
-                                rsqlQuery += filterModelToRsqlQuery( key, params.filterModel[key].condition1 );
-                                rsqlQuery += ( params.filterModel[key].operator == 'OR' ) ? ',' : ';';
-                                rsqlQuery += filterModelToRsqlQuery( key, params.filterModel[key].condition2 );
-                                rsqlQuery += ')';
-                            } else {
-                                rsqlQuery += filterModelToRsqlQuery( key, params.filterModel[key] );
-                            }
+                        if ( params.filterModel[key].value ) {
+                            rsqlQuery += filterModelToRsqlQuery( key, params.filterModel[key] );
                         }
                     } );
-                    console.log( '>>> rsqlQuery', rsqlQuery )
                     if ( rsqlQuery ) {
                         requestParams.push( {
                             key: 'query',

@@ -110,6 +110,6 @@
 	"resource.marcatge.plural": "Marcatges",
 	"resource.marcatge.field.operari": "Operari",
 	"resource.marcatge.field.data": "Data i hora",
-	"resource.marcatge.field.dataCreacio": "Data creació"
+	"resource.marcatge.field.origen": "Orígen"
 
 }

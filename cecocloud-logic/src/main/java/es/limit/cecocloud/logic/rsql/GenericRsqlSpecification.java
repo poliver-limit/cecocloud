@@ -46,7 +46,7 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 		this.arguments = arguments;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Predicate toPredicate(final Root<T> root, final CriteriaQuery<?> query, final CriteriaBuilder builder) {
 		log.debug("Creant predicate (" +
@@ -103,13 +103,13 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 				return builder.notEqual(path, argument);
 			}
 		case GREATER_THAN:
-			return builder.greaterThan((Path<String>)path, argument.toString());
+			return builder.greaterThan((Path<Comparable>)path, (Comparable)argument);
 		case GREATER_THAN_OR_EQUAL:
-			return builder.greaterThanOrEqualTo((Path<String>)path, argument.toString());
+			return builder.greaterThanOrEqualTo((Path<Comparable>)path, (Comparable)argument);
 		case LESS_THAN:
-			return builder.lessThan((Path<String>)path, argument.toString());
+			return builder.lessThan((Path<Comparable>)path, (Comparable)argument);
 		case LESS_THAN_OR_EQUAL:
-			return builder.lessThanOrEqualTo((Path<String>)path, argument.toString());
+			return builder.lessThanOrEqualTo((Path<Comparable>)path, (Comparable)argument);
 		case IN:
 			return path.in(args);
 		case NOT_IN:
@@ -155,6 +155,9 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 		} else {
 			attributeType = path.getJavaType();
 		}
+		/*log.debug("Convertint argument (" +
+				"value=" + arguments + ", " +
+				"tipusDesti=" + attributeType + ")");*/
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final List<Object> args = arguments.stream().map(arg -> {
 			if (attributeType.equals(Integer.class) || attributeType.equals(int.class)) {

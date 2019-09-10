@@ -22,7 +22,7 @@
 		<ojdbc6.version>11.2.0.4</ojdbc6.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.test.skip>true</maven.test.skip>
-		<skip.npm>false</skip.npm>
+		<skip.npm>true</skip.npm>
 	</properties>
 	<modules>
 		<module>cecocloud-front</module>
