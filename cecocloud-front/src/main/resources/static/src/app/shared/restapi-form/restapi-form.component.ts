@@ -206,7 +206,7 @@ export class RestapiFormComponent implements OnInit {
     onHeaderActionDelete() {
         let resourceName = this.restapiResource.name;
         let rowData = this.resourceInstance;
-        let rowDescription = ( this.restapiResource.descriptionField ) ? rowData[this.restapiResource.descriptionField] : '[id:' + rowData.id + ']';
+        let rowDescription = ( this.restapiResource.descriptionField ) ? rowData[this.restapiResource.descriptionField] : '#' + rowData.id;
         let confirmTranslated = this.translateKey(
             'component.restapi.form.delete.confirm',
             { description: resourceName + ' ' + rowDescription } );

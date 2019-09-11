@@ -29,7 +29,7 @@ export class DatagridMantenimentDirective {
         let confirmMessageTranslated;
         if (params.selectedRows && params.selectedRows.length > 0) {
             let rowData = params.selectedRows[0];
-            let rowDescription = ( params.resource.descriptionField ) ? rowData[params.resource.descriptionField] : '[id:' + rowData.id + ']';
+            let rowDescription = ( params.resource.descriptionField ) ? rowData[params.resource.descriptionField] : '#' + rowData.id;
             confirmMessageTranslated = this.translateKey(
                 'component.datagrid.manteniment.delete.single.confirm',
                 { description: resourceName + ' ' + rowDescription } );
