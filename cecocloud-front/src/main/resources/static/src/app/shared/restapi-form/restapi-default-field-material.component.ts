@@ -68,8 +68,8 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             [required]="field.required"
             [readonly]="datetimeLinkedWithCurrentTime"
             (click)="onFieldClick($event)"
-            (input)="onFieldInput($event)"
-            (change)="onFieldChange($event)"/>
+            (dateInput)="onFieldInput($event)"
+            (dateChange)="onFieldChange($event)"/>
         <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="datetimeLinkedWithCurrentTime" tabindex="-1"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error>{{errorMessage}}</mat-error>
@@ -297,13 +297,10 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         }
     }
 
-    propagateDateToFormControl( dateValue: Date, timeValue?: string ) {
-        let date = dateValue ? dateValue : moment();
+    propagateDateToFormControl( dateValue, timeValue?: string ) {
         let time = timeValue ? timeValue : '00:00:00';
-        let m = moment( date.format( 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
-        //let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + this.getTimeZoneOffset();
+        let m = moment( (dateValue ? dateValue : moment()).format( 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
         let apiValue = m.format( 'YYYY-MM-DDTHH:mm:ss.SSS' ) + this.getTimeZoneOffset();
-        console.log( '>>> datetime', m )
         this.inputFormGroup.get( this.fieldName ).setValue( apiValue );
     }
 
