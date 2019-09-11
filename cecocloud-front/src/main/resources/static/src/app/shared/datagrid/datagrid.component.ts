@@ -293,8 +293,8 @@ export class DatagridComponent implements OnInit {
             suppressContextMenu: true,
             stopEditingWhenGridLosesFocus: false,
             enableBrowserTooltips: true,
-            floatingFilter: gridConfig.columnFiltersEnabled,
-            overlayNoRowsTemplate: '&nbsp;', //'<span style="padding: 10px; border: 2px solid #444; background: #efefef;">' + this.translate.instant( 'datatable.sense.resultats' ) + '</span>',
+            floatingFilter: !this.mobileScreen && gridConfig.columnFiltersEnabled,
+            overlayNoRowsTemplate: '&nbsp;' //'<span style="padding: 10px; border: 2px solid #444; background: #efefef;">' + this.translate.instant( 'datatable.sense.resultats' ) + '</span>',
         }
         gridOptions.getRowStyle = gridConfig.rowStyle;
         gridOptions.getRowClass = gridConfig.rowClass;
@@ -404,7 +404,7 @@ export class DatagridComponent implements OnInit {
                 if ( gridConfig.lovMode ) {
                     fixedHeight = this.lovFixedHeight;
                 } else {
-                    fixedHeight = this.appHeaderHeight + this.componentHeaderHeight;
+                    fixedHeight = ( this.mobileScreen ) ? this.componentHeaderHeight : this.appHeaderHeight + this.componentHeaderHeight;
                 }
                 fixedHeight += this.marginBottom;
                 this.styleHeight = this.sanitizer.bypassSecurityTrustStyle( 'calc(100vh - ' + fixedHeight + 'px)' );
@@ -748,7 +748,7 @@ export class DatagridComponent implements OnInit {
                         let type = filterModel.type;
                         let value = filterModel.value;
                         let additionalPath = filterModel.additionalPath;
-                        let rsql = key + (additionalPath ? '.' + additionalPath : '');
+                        let rsql = key + ( additionalPath ? '.' + additionalPath : '' );
                         switch ( operation ) {
                             case 'EQUAL':
                                 rsql += '==' + value;

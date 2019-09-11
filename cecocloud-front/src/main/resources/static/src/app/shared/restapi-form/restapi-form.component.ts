@@ -241,7 +241,7 @@ export class RestapiFormComponent implements OnInit {
                     ( resourceInstance: Resource ) => {
                         this.refrescarFormGroup( resourceInstance );
                         this.createInputs( this.restapiResource.fields );
-                        this.description = ( this.restapiResource.descriptionField ) ? resourceInstance[this.restapiResource.descriptionField] : this.restapiResource.name + '_' + this.id;
+                        this.description = ( this.restapiResource.descriptionField ) ? resourceInstance[this.restapiResource.descriptionField] : '#' + this.id;
                     } );
             }
         } );

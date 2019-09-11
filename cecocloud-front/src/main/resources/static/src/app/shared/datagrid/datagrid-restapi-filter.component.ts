@@ -81,6 +81,7 @@ export class DatagridRestapiFilterComponent implements IFilterAngularComp {
 
     getModel(): any {
         let processedOperation = this.formGroup.get( 'operation' ).value;
+        let processedValue = this.formGroup.get( 'filter' ).value;
         let additionalPath;
         let additionalValue;
         if ( this.filterField.type === 'DATE' && this.isDateTime ) {
@@ -91,10 +92,12 @@ export class DatagridRestapiFilterComponent implements IFilterAngularComp {
             additionalPath = 'id';
         } else if ( this.filterField.type === 'ENUM' && this.filterField.multiple ) {
             processedOperation = 'IN';
-            console.log('>>> ENUM MULTIPLE')
+            if ( Array.isArray( processedValue ) && processedValue.length > 1 ) {
+                processedValue = '(' + processedValue + ')';
+            }
         }
         let model = {
-            value: this.formGroup.get( 'filter' ).value,
+            value: processedValue,
             operation: processedOperation,
             type: this.filterField.type
         }
@@ -108,7 +111,7 @@ export class DatagridRestapiFilterComponent implements IFilterAngularComp {
     }
 
     setModel( model: any ): void {
-        if ( model.value !== undefined ) {
+        if ( model && model.value !== undefined ) {
             this.formGroup.setValue( {
                 operation: model.operation,
                 filter: model.value
@@ -116,7 +119,7 @@ export class DatagridRestapiFilterComponent implements IFilterAngularComp {
         } else {
             this.formGroup.setValue( {
                 operation: 'EQUAL',
-                filter: model.value
+                filter: ''
             } );
         }
     }

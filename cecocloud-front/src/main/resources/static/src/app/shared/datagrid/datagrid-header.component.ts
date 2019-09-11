@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { IHeaderGroupAngularComp } from 'ag-grid-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -14,9 +15,13 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 @Component( {
     selector: 'datagrid-header',
     template: `
-<div class="datagrid-header" [ngClass]="{'datagrid-header-lov': lovMode}">
+<div class="datagrid-header" [ngClass]="{'datagrid-header-lov': lovMode, 'datagrid-header-mobile': mobileScreen, 'datagrid-header-desktop': !mobileScreen}">
     <mdc-top-app-bar-row *ngIf="!fullWidthFilter">
-        <mdc-top-app-bar-section align="start" [title]="title"></mdc-top-app-bar-section>
+        <mdc-top-app-bar-section align="start" [title]="title">
+            <button *ngIf="mobileScreen" mdcTopAppBarNavIcon (click)="onButtonBackClick()">
+                <mdc-icon>arrow_back</mdc-icon>
+            </button>
+        </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
             <button mdc-icon-button class="mdc-icon-button-sm" title="{{'component.datagrid.header.button.refrescar'|translate}}" (click)="onButtonRefreshClick()">
                 <mdc-icon>refresh</mdc-icon>
@@ -65,9 +70,15 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
 `,
     styles: [`
 .datagrid-header {
+    border-bottom: 1px solid #e2e2e2;
+}
+.datagrid-header-desktop {
     background-color: #f2f2f2;
     color: rgba(0, 0, 0, 0.54);
-    border-bottom: 1px solid #e2e2e2;
+}
+.datagrid-header-mobile {
+    background-color: var(--mdc-theme-primary, #6200ee);
+    color: white;
 }
 .datagrid-header-lov {
     background-color: white;
@@ -155,6 +166,9 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
         } );
     }
 
+    onButtonBackClick() {
+        this.router.navigate( ['/'] );
+    }
     onButtonRefreshClick() {
         this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.refreshInternal();
     }
@@ -216,6 +230,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     }
 
     constructor(
+        private router: Router,
         private translate: TranslateService,
         private screenSizeService: ScreenSizeService ) {
         this.mobileScreen = this.screenSizeService.isMobile();

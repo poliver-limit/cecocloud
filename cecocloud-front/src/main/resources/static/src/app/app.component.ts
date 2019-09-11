@@ -25,7 +25,7 @@ import { AuthTokenPayload } from './shared/auth/auth-token-payload';
                 <a routerLink="/" mdcTopAppBarTitle style="color: white;">Cecocloud</a>
             </mdc-top-app-bar-section>
             <mdc-top-app-bar-section align="end">
-                <a href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
+                <a *ngIf="false" href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
                 <div mdcMenuSurfaceAnchor #userAnchor>
                     <mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload?.name}}" (click)="userMenu.open = !userMenu.open">account_circle</mdc-icon>
                     <mdc-menu anchorCorner="bottomStart" quickOpen #userMenu [anchorElement]="userAnchor">
@@ -95,6 +95,7 @@ export class AppComponent implements OnInit {
     @ViewChild( 'drawer', { static: false } ) drawer: MdcDrawer;
     @ViewChild( 'menuButton', { static: false } ) menuButton: ElementRef;
     @ViewChild( 'menuList', { static: false } ) menulist: MdcList;
+    @ViewChild( 'content', { static: false } ) content: ElementRef;
 
     topbarVisible: boolean = false;
     mobileScreen: boolean = false;
@@ -176,6 +177,11 @@ export class AppComponent implements OnInit {
         // Oculta la barra superior en la pàgina de login i selecciona l'opcio de menu actual
         router.events.pipe( filter( event => event instanceof NavigationEnd ) ).subscribe(( event: NavigationEnd ) => {
             this.topbarVisible = ( event.url !== '/login' ) && ( !event.url.startsWith( '/registre' ) );
+            // Oculta la barra superior en dispositius mòbils si no estam a la pàgina principal
+            if (this.mobileScreen && event.url !== '/') {
+                this.topbarVisible = false;
+                this.content.nativeElement.classList.remove('mdc-top-app-bar--fixed-adjust');
+            }
             // Ho posat a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
             setTimeout(() => {
                 this.menuSelectedIndex = undefined;

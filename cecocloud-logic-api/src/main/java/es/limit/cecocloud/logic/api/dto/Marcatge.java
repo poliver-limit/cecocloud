@@ -44,6 +44,6 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			hiddenInForm = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
-	private MarcatgeOrigen origen;
+	private MarcatgeOrigen origen = MarcatgeOrigen.CECOCLOUD;
 
 }

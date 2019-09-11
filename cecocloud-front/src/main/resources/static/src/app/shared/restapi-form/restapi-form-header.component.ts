@@ -56,7 +56,7 @@ export interface FormGridConfig {
 @Component( {
     selector: 'restapi-form-header',
     template: `
-<div class="form-header">
+<div class="form-header" [ngClass]="{'form-header-mobile': mobileScreen, 'form-header-desktop': !mobileScreen}">
     <mdc-top-app-bar-row>
         <mdc-top-app-bar-section align="start" >
             <button mdcTopAppBarNavIcon (click)="onButtonCancelClick()">
@@ -80,9 +80,15 @@ export interface FormGridConfig {
 `,
     styles: [`
 .form-header {
+    border-bottom: 1px solid #e2e2e2;
+}
+.form-header-desktop {
     background-color: #f2f2f2;
     color: rgba(0, 0, 0, 0.54);
-    border-bottom: 1px solid #e2e2e2;
+}
+.form-header-mobile {
+    background-color: var(--mdc-theme-primary, #6200ee);
+    color: white;
 }
 .header-title {
     font-size: 1.25rem;

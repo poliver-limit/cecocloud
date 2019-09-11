@@ -207,8 +207,8 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
         }
         if ( this.isDatetime ) {
             this.propagateDateToFormControl(
-                    this.datetimeFormGroup.get( 'date' ).value,
-                    this.datetimeFormGroup.get( 'time' ).value);
+                this.datetimeFormGroup.get( 'date' ).value,
+                this.datetimeFormGroup.get( 'time' ).value );
         }
         super.onFieldChange( event );
     }
@@ -292,16 +292,18 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
             this.datetimeFormGroup.get( 'date' ).setValue( currentMoment );
             this.datetimeFormGroup.get( 'time' ).setValue( currentMoment.format( 'HH:mm:ss' ) );
             this.propagateDateToFormControl(
-                    this.datetimeFormGroup.get( 'date' ).value,
-                    this.datetimeFormGroup.get( 'time' ).value);
+                this.datetimeFormGroup.get( 'date' ).value,
+                this.datetimeFormGroup.get( 'time' ).value );
         }
     }
 
-    propagateDateToFormControl(dateValue: Date, timeValue?: string) {
-        let date = dateValue ? dateValue : new Date();
+    propagateDateToFormControl( dateValue: Date, timeValue?: string ) {
+        let date = dateValue ? dateValue : moment();
         let time = timeValue ? timeValue : '00:00:00';
-        let m = moment( moment(date, 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
-        let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + this.getTimeZoneOffset();
+        let m = moment( date.format( 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
+        //let apiValue = m.format( 'YYYY-MM-DD' ) + 'T' + m.format( 'HH:mm:ss.SSS' ) + this.getTimeZoneOffset();
+        let apiValue = m.format( 'YYYY-MM-DDTHH:mm:ss.SSS' ) + this.getTimeZoneOffset();
+        console.log( '>>> datetime', m )
         this.inputFormGroup.get( this.fieldName ).setValue( apiValue );
     }
 
