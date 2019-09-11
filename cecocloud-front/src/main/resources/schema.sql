@@ -1,3 +1,4 @@
+/* Oracle */
 /*
 create sequence hibernate_sequence start with 1 increment by  1;
 
@@ -95,6 +96,105 @@ alter table usuari_rols
    references usuari;
 */
 
+/* PostgreSQL */
+/*
+create sequence hibernate_sequence start 1 increment 1;
+
+create table companyia (
+   id int8 not null,
+    version int8 not null,
+    codi varchar(30) not null,
+    nom varchar(30) not null,
+    primary key (id)
+);
+
+create table empresa (
+   id int8 not null,
+    version int8 not null,
+    activa boolean not null,
+    codi varchar(30) not null,
+    identificador_codi varchar(4) not null,
+    nif varchar(12) not null,
+    nom varchar(30) not null,
+    companyia_id int8,
+    primary key (id)
+);
+
+create table marcatge (
+   id int8 not null,
+    version int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
+    data timestamp not null,
+    origen int4 not null,
+    operari_id int8 not null,
+    primary key (id)
+);
+
+create table operari (
+   id int8 not null,
+    version int8 not null,
+    codi varchar(6) not null,
+    data_fi timestamp,
+    data_inici timestamp not null,
+    empresa_id int8,
+    usuari_id int8,
+    primary key (id)
+);
+
+create table usuari (
+   id int8 not null,
+    version int8 not null,
+    actiu boolean,
+    codi varchar(64) not null,
+    contrasenya varchar(255),
+    email varchar(100) not null,
+    imatge_url varchar(255),
+    nom varchar(100) not null,
+    validat boolean,
+    primary key (id)
+);
+
+create table usuari_rols (
+   usuari_id int8 not null,
+    rol varchar(10)
+);
+
+alter table usuari 
+   add constraint usuari_codi_uk unique (codi);
+
+alter table usuari 
+   add constraint usuari_email_uk unique (email);
+
+alter table empresa 
+   add constraint empresa_companyia_fk 
+   foreign key (companyia_id) 
+   references companyia;
+
+alter table marcatge 
+   add constraint marcatge_operari_fk 
+   foreign key (operari_id) 
+   references operari;
+
+alter table operari 
+   add constraint operari_empresa_fk 
+   foreign key (empresa_id) 
+   references empresa;
+
+alter table operari 
+   add constraint operari_usuari_fk 
+   foreign key (usuari_id) 
+   references usuari;
+
+alter table usuari_rols 
+   add constraint usurol_usuari_fk 
+   foreign key (usuari_id) 
+   references usuari; 
+*/
+
+/* HSQL */
 /*
 create sequence hibernate_sequence start with 1 increment by 1;
 

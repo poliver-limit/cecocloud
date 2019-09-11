@@ -1,0 +1,12 @@
+[Unit]
+Description=cecocloud
+After=syslog.target
+SyslogIdentifier=cecocloud
+
+[Service]
+User=cecogest
+ExecStart=/opt/cecocloud/cecocloud-front-0.1.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
