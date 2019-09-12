@@ -8,9 +8,10 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { filter, startWith, tap, delay } from 'rxjs/operators';
 
-import { ScreenSizeService, ScreenSizeChangeEvent } from './shared/screen-size.service';
 import { AuthService } from './shared/auth/auth.service';
 import { AuthTokenPayload } from './shared/auth/auth-token-payload';
+import { ScreenSizeService, ScreenSizeChangeEvent } from './shared/screen-size.service';
+import { MenuService, MenuItem } from './shared/menu.service';
 
 @Component( {
     selector: 'app-root',
@@ -98,21 +99,13 @@ export class AppComponent implements OnInit {
     @ViewChild( 'content', { static: false } ) content: ElementRef;
 
     topbarVisible: boolean = false;
-    mobileScreen: boolean = false;
+    mobileScreen: boolean;
     smallToolbar: boolean = false;
     tokenPayload: AuthTokenPayload;
-    menuItems = [
-        { icon: 'people', label: 'Usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
-        { icon: 'domain', label: 'Companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
-        { icon: 'business_center', label: 'Empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
-        { icon: 'people_alt', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN', 'MARCA'] },
-        { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
-    ];
-    allowedMenuItems = [];
-    menuSelectedIndex: number;
+    allowedMenuItems: MenuItem[];
 
     ngOnInit() {
-        this.refreshAllowedMenuItems();
+        this.allowedMenuItems = this.menuService.getAllowedMenuItems();
         this.refreshSmallToolbar( window.innerWidth );
         this.screenSizeService.onWindowResize( window.innerWidth );
     }
@@ -139,36 +132,20 @@ export class AppComponent implements OnInit {
         this.smallToolbar = windowWidth < 600;
     }
 
-    refreshAllowedMenuItems() {
-        let roles = [];
-        if ( this.tokenPayload && this.tokenPayload.rol ) {
-            roles = this.tokenPayload.rol;
-        }
-        this.allowedMenuItems.splice( 0, this.allowedMenuItems.length );
-        this.menuItems.forEach( menuItem => {
-            if ( menuItem.onlyForRoles ) {
-                let allowed = menuItem.onlyForRoles.some( menuItemRole => {
-                    return roles.includes( menuItemRole );
-                } );
-                if ( allowed ) {
-                    this.allowedMenuItems.push( menuItem );
-                }
-            } else {
-                this.allowedMenuItems.push( menuItem );
-            }
-        } );
-    }
-
     constructor(
         private authService: AuthService,
         private translate: TranslateService,
         private router: Router,
-        private screenSizeService: ScreenSizeService ) {
+        private screenSizeService: ScreenSizeService,
+        private menuService: MenuService ) {
         // Manten actualitzada la informació de l'usuari autenticat
         this.tokenPayload = authService.getAuthTokenPayload();
-        authService.authTokenChangeEvent.subscribe(( tokenPayload: AuthTokenPayload ) => {
+        authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: AuthTokenPayload ) => {
             this.tokenPayload = tokenPayload;
-            this.refreshAllowedMenuItems();
+        } );
+        // Manten actualitzada la llista d'elements de menu permesos
+        menuService.getAllowedMenuItemsChangeSubject().subscribe(( allowedMenuItems: MenuItem[] ) => {
+            this.allowedMenuItems = allowedMenuItems;
         } );
         // Configura l'idioma per defecte
         var userLang = navigator.language;
@@ -178,21 +155,23 @@ export class AppComponent implements OnInit {
         router.events.pipe( filter( event => event instanceof NavigationEnd ) ).subscribe(( event: NavigationEnd ) => {
             this.topbarVisible = ( event.url !== '/login' ) && ( !event.url.startsWith( '/registre' ) );
             // Oculta la barra superior en dispositius mòbils si no estam a la pàgina principal
-            if (this.mobileScreen && event.url !== '/') {
+            if ( this.mobileScreen && event.url !== '/' ) {
                 this.topbarVisible = false;
-                this.content.nativeElement.classList.remove('mdc-top-app-bar--fixed-adjust');
+                this.content.nativeElement.classList.remove( 'mdc-top-app-bar--fixed-adjust' );
             }
             // Ho posat a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
             setTimeout(() => {
-                this.menuSelectedIndex = undefined;
-                for ( let i = 0; i < this.menuItems.length; i++ ) {
-                    if ( event.url.startsWith( this.menuItems[i].route ) ) {
-                        this.menuSelectedIndex = i;
-                        break;
+                let menuSelectedIndex = undefined;
+                if ( this.allowedMenuItems ) {
+                    for ( let i = 0; i < this.allowedMenuItems.length; i++ ) {
+                        if ( event.url.startsWith( this.allowedMenuItems[i].route ) ) {
+                            menuSelectedIndex = i;
+                            break;
+                        }
                     }
-                }
-                if ( this.menuSelectedIndex && this.menulist ) {
-                    this.menulist.setSelectedIndex( this.menuSelectedIndex );
+                    if ( menuSelectedIndex && this.menulist ) {
+                        this.menulist.setSelectedIndex( menuSelectedIndex );
+                    }
                 }
                 if ( this.drawer ) {
                     this.drawer.open = false;
@@ -200,6 +179,7 @@ export class AppComponent implements OnInit {
             } );
         } );
         // Es subscriu al subject de canvi de tamany de la pantalla
+        this.mobileScreen = this.screenSizeService.isMobile();
         this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
             this.mobileScreen = event.mobile
         } );

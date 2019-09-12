@@ -31,4 +31,7 @@ export class ScreenSizeService {
         return this.screenSizeChangeSubject;
     }
 
+    constructor() {
+        this.mobile = window.innerWidth <= ScreenSizeService.SMALL_SCREEN_WIDTH;
+    }
 }

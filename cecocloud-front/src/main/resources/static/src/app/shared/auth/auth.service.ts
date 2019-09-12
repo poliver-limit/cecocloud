@@ -14,7 +14,7 @@ export class AuthService {
 
     private static readonly LOCAL_STORAGE_AUTH_KEY = 'authResponse';
 
-    authTokenChangeEvent: Subject<AuthTokenPayload> = new Subject<AuthTokenPayload>();
+    private authTokenChangeEvent: Subject<AuthTokenPayload> = new Subject<AuthTokenPayload>();
 
     public authenticate( user: string, pass: string ): Observable<any> {
         const params = new HttpParams().
@@ -80,7 +80,12 @@ export class AuthService {
 
     public logout() {
         this.removeAuthResponseFromLocalStorage();
+        this.authTokenChangeEvent.next();
         this.router.navigate( ['/login'] );
+    }
+
+    public getAuthTokenChangeEvent() {
+        return this.authTokenChangeEvent;
     }
 
     private saveAuthResponseToLocalStorage( authResponse: AuthResponse ) {
