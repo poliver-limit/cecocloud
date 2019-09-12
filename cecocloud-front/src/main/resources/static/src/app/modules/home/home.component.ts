@@ -6,7 +6,7 @@ import { MenuService, MenuItem } from '../../shared/menu.service';
 @Component( {
     template: `
     <div *ngIf="!mobileScreen" class="centered" style="text-align: center">
-        <div><mdc-icon style="font-size:200px">cloud_queue</mdc-icon></div>
+        <div><mdc-icon style="font-size:100px">cloud_queue</mdc-icon></div>
         <div mdcHeadline2>{{'home.salutacio'|translate}}</div>
     </div>
     <ng-container *ngIf="mobileScreen">
@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit {
     constructor(
         private screenSizeService: ScreenSizeService,
         private menuService: MenuService ) {
-        this.mobileScreen = this.screenSizeService.isMobile();
         // Es subscriu al subject de canvi de tamany de la pantalla
+        this.mobileScreen = this.screenSizeService.isMobile();
         this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
             this.mobileScreen = event.mobile
         } );
