@@ -79,6 +79,8 @@
 	"resource.usuari.field.codi": "Codi",
 	"resource.usuari.field.nom": "Nom",
 	"resource.usuari.field.email": "Correu-e",
+	"resource.usuari.field.imatgeUrl": "URL de la imatge",
+	"resource.usuari.field.contrasenya": "Contrasenya",
 	"resource.usuari.field.validat": "Validat",
 	"resource.usuari.field.actiu": "Actiu",
 	"resource.usuari.field.rols": "Rols",
