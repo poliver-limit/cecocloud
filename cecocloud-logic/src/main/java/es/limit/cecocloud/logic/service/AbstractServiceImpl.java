@@ -296,16 +296,25 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 
 	private Pageable processPageable(Pageable pageable) {
 		List<Order> orders = new ArrayList<Order>();
+		Field[] entityFields = getEntityClass().getDeclaredFields();
 		Field[] dtoFields = getDtoClass().getDeclaredFields();
 		List<ProfileResourceField> fields = ProfileServiceImpl.getFields(getDtoClass());
 		for (Order order: pageable.getSort()) {
 			boolean isEmbedded = true;
-			for (Field field: dtoFields) {
+			for (Field field: entityFields) {
 				if (field.getName().equals(order.getProperty())) {
-					if (field.getType().isAssignableFrom(GenericReference.class) || Identificable.class.isAssignableFrom(field.getType())) {
-						isEmbedded = false;
-					}
+					isEmbedded = false;
 					break;
+				}
+			}
+			if (isEmbedded) {
+				for (Field field: dtoFields) {
+					if (field.getName().equals(order.getProperty())) {
+						if (field.getType().isAssignableFrom(GenericReference.class) || Identificable.class.isAssignableFrom(field.getType())) {
+							isEmbedded = false;
+						}
+						break;
+					}
 				}
 			}
 			String property;

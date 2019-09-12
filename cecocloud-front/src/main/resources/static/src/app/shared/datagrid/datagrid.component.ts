@@ -79,6 +79,10 @@ export interface DatagridColumn {
     selector: 'datagrid',
     template: `
 <mat-spinner *ngIf="showLoading" diameter="50" style="position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);z-index:1"></mat-spinner>
+<div *ngIf="!showLoading && showNoRows" class="centered" style="text-align: center">
+    <div><mdc-icon style="font-size:100px; color: rgba(0, 0, 0, 0.18)">block</mdc-icon></div>
+    <div style="color: rgba(0, 0, 0, 0.18)">Sense resultats per mostrar</div>
+</div>
 <datagrid-header #header (quickFilterChange)="onQuickFilterChange($event)"></datagrid-header>
 <ag-grid-angular
     *ngIf="gridOptions"
@@ -122,6 +126,7 @@ export class DatagridComponent implements OnInit {
     gridOptions: GridOptions;
     hasMantenimentDirective: boolean;
     showLoading: boolean;
+    showNoRows: boolean;
     quickFilterValue: string;
     mobileScreen: boolean;
 
@@ -294,7 +299,7 @@ export class DatagridComponent implements OnInit {
             stopEditingWhenGridLosesFocus: false,
             enableBrowserTooltips: true,
             floatingFilter: !this.mobileScreen && gridConfig.columnFiltersEnabled,
-            overlayNoRowsTemplate: '&nbsp;' //'<span style="padding: 10px; border: 2px solid #444; background: #efefef;">' + this.translate.instant( 'datatable.sense.resultats' ) + '</span>',
+            overlayNoRowsTemplate: 'No hi ha res...' //'<span style="padding: 10px; border: 2px solid #444; background: #efefef;">' + this.translate.instant( 'datatable.sense.resultats' ) + '</span>',
         }
         gridOptions.getRowStyle = gridConfig.rowStyle;
         gridOptions.getRowClass = gridConfig.rowClass;
@@ -332,6 +337,11 @@ export class DatagridComponent implements OnInit {
             }
             event.api.sizeColumnsToFit();
             context.gridComponent.showLoading = false;
+            if (event.api.paginationGetRowCount()) {
+                context.gridComponent.showNoRows = false;
+            } else {
+                context.gridComponent.showNoRows = true;
+            }
         }
         gridOptions.onFirstDataRendered = function( event ) {
             let context = event.api['gridOptionsWrapper'].gridOptions.context;

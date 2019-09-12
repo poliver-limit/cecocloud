@@ -100,6 +100,7 @@ export interface FormGridConfig {
                     </div>
                 </div>
             </div>
+            <button (click)="onHeaderActionSave()" style="display:none"></button>
         </form>
     </ng-template>`,
     styles: [`

@@ -1,12 +1,12 @@
 -------------
 - COMPILACIO:
 -------------
-- Oracle:
-$ mvn package
 - PostgreSQL:
-$ mvn package -P postgresql,\!oracle
+$ mvn package
+- Oracle:
+$ mvn package -P oracle,\!postgresql
 - HypersonicSQL:
-$ mvn package -P hsql,\!oracle
+$ mvn package -P hsql,\!postgresql
 
 El fitxer .jar de l'aplicació es troba a cecocloud-front/target/cecocloud-front-?.?.jar
 
