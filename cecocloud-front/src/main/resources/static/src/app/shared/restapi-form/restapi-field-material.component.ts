@@ -205,9 +205,6 @@ export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent imp
     }
 
     onFieldChange( event ) {
-        if ( event.target && event.target.value === '' ) {
-            this.formControl.reset();
-        }
         if ( this.isDatetime ) {
             this.propagateDateToFormControl(
                 this.datetimeFormGroup.get( 'date' ).value,

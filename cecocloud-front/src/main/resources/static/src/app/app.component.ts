@@ -1,12 +1,8 @@
 import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { MdcDrawer, MdcList, MdcIconButton } from '@angular-mdc/web';
-import {
-    Router,
-    Event,
-    NavigationEnd
-} from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { filter, startWith, tap, delay } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { AuthService } from './shared/auth/auth.service';
 import { AuthTokenPayload } from './shared/auth/auth-token-payload';

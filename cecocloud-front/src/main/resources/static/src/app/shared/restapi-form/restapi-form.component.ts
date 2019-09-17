@@ -19,7 +19,9 @@ import {
 } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Router, Event, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { filter } from 'rxjs/operators';
 import { MdcTabBar, MdcTabActivatedEvent, MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
 import { Resource, ResourceHelper } from 'angular4-hal';
 
@@ -35,6 +37,7 @@ import { RestapiBaseFieldComponent } from './restapi-base-field.component';
 import { RestapiFieldMdcwebComponent } from './restapi-field-mdcweb.component';
 import { RestapiFieldMaterialComponent } from './restapi-field-material.component';
 import { RestapiCustomFieldComponent } from './restapi-custom-field.component';
+import { RestapiFormExitGuard } from './restapi-form-exit-guard';
 
 export interface FormConfig {
     parent?: any;
@@ -228,6 +231,7 @@ export class RestapiFormComponent implements OnInit {
             this.fieldsContainer.clear();
         }
         this.anyFieldChanged = false;
+        this.formExitGuard.setModified( false );
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
             this.restapiResource = restapiProfile.resource;
             if ( this.restapiResource.grids && this.id ) {
@@ -324,7 +328,9 @@ export class RestapiFormComponent implements OnInit {
         fieldComponent.resourceInstance = this.resourceInstance;
         fieldComponent.hideLabel = false;
         fieldComponent.change.subscribe( event => {
+            console.log('>>> field change', event)
             this.anyFieldChanged = true;
+            this.formExitGuard.setModified( true );
         } );
     }
 
@@ -403,7 +409,8 @@ export class RestapiFormComponent implements OnInit {
         private formBuilder: FormBuilder,
         private injector: Injector,
         private http: HttpClient,
-        private translate: TranslateService ) {
+        private translate: TranslateService,
+        private formExitGuard: RestapiFormExitGuard ) {
         this.defaultFieldComponentFactory = this.factoryResolver.resolveComponentFactory(
             //RestapiFieldMdcwebComponent
             RestapiFieldMaterialComponent

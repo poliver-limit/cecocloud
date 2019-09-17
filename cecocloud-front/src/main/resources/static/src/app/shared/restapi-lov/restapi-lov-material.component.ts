@@ -30,7 +30,7 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
         matInput
         #lovDetailInput
         [matAutocomplete]="lovAutocomplete"
-        [type]="text"
+        type="text"
         [readonly]="isReadonly"
         formControlName="description"
         [required]="field.required"
@@ -96,8 +96,8 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
                 }
             } ),
             switchMap( value => {
-                if ( this.lastQuickFilter !== value ) {
-                    if ( !this.formControl.value ) {
+                if ( !this.formControl.value && !( value instanceof Resource )) {
+                    if ( this.lastQuickFilter !== value ) {
                         let params;
                         if ( value ) {
                             params = [{ key: 'quickFilter', value: value }];
@@ -105,10 +105,10 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
                         this.lastQuickFilter = value;
                         return this.restapiService.getAll( { size: 10, params: params } );
                     } else {
-                        return of( null );
+                        return of( [{ id: -1 }] )
                     }
                 } else {
-                    return of( [{ id: -1 }] )
+                    return of( null );
                 }
             } ),
             finalize(() => {
@@ -155,7 +155,7 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
                 this.formControl.setValue( undefined );
                 this.isReadonly = false;
             }
-            this.lovDetailInput.nativeElement.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+            this.propagateChanges();
         } else {
             this.openLovDialog();
         }
@@ -215,6 +215,7 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
             };
             this.formControl.setValue( formControlValue );
             this.lovFormGroup.get( 'description' ).setValue( data );
+            this.isReadonly = true;
         } else {
             this.formControl.setValue( undefined );
             this.lovFormGroup.get( 'id' ).setValue( undefined );
@@ -222,7 +223,7 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
             this.isReadonly = false;
             this.lastQuickFilter = undefined;
         }
-        this.lovDetailInput.nativeElement.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+        this.propagateChanges();
     }
 
     createLovFormGroup( field: RestapiResourceField ) {
@@ -241,6 +242,12 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
         lovControls['id'] = { value: lovValueId, disabled: this.formControl.disabled };
         lovControls['description'] = { value: lovValueDescription, disabled: this.formControl.disabled };
         this.lovFormGroup = this.formBuilder.group( lovControls );
+    }
+
+    propagateChanges() {
+        //this.change.emit( event );
+        this.lovDetailInput.nativeElement.dispatchEvent( new Event( 'input', { bubbles: true } ) ); // target: this.lovDetailInput.nativeElement
+        this.lovDetailInput.nativeElement.dispatchEvent( new Event( 'change', { bubbles: true } ) );
     }
 
     displayWith( this, resource?: Resource ): string | undefined {

@@ -44,9 +44,6 @@ export abstract class RestapiBaseFieldComponent {
         this.input.emit( event );
     }
     onFieldChange( event ) {
-        if ( event.target && event.target.value === '' ) {
-            this.formControl.reset();
-        }
         this.change.emit( event );
     }
 

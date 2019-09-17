@@ -13,7 +13,7 @@ import { RestapiLovMdcwebComponent } from '../restapi-lov/restapi-lov-mdcweb.com
 @Component( {
     selector: 'restapi-field-mdcweb',
     template: `
-<mdc-form-field fluid *ngIf="field.type != 'BOOLEAN' && field.type != 'LOV'" [formGroup]="inputFormGroup">
+<mdc-form-field fluid *ngIf="field.type != 'BOOLEAN' && field.type != 'LOV'" [formGroup]="internalFormGroup">
     <ng-container *ngIf="field.type == 'STRING' || field.type == 'PASSWORD'">
         <mdc-text-field
             [type]="field.type == 'PASSWORD' ? 'password' : 'text'"
@@ -91,7 +91,7 @@ import { RestapiLovMdcwebComponent } from '../restapi-lov/restapi-lov-mdcweb.com
     </ng-container>
     <mdc-helper-text #helperText validation>{{errorMessage}}</mdc-helper-text>
 </mdc-form-field>
-<mdc-form-field *ngIf="field.type == 'BOOLEAN'" [formGroup]="inputFormGroup" style="width:100%">
+<mdc-form-field *ngIf="field.type == 'BOOLEAN'" [formGroup]="internalFormGroup" style="width:100%">
     <mdc-checkbox
         [formControlName]="field.name"></mdc-checkbox>
     <label>{{label ? label : field.name}}</label>

@@ -16,6 +16,7 @@ import { JwtInterceptor } from './shared/auth/jwt.interceptor';
 import { DefaultErrorHandler } from './shared/default-error-handler';
 import { DefaultErrorDialog } from './shared/default-error-handler';
 import { RestapiConfigService } from './shared/restapi/restapi-config.service';
+import { RestapiFormExitGuard } from './shared/restapi-form/restapi-form-exit-guard';
 import { LocaleService } from './shared/locale.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -55,6 +56,7 @@ export function createTranslateLoader( http: HttpClient ) {
         { provide: LOCALE_ID, useFactory: () => LocaleService.getCurrentLocale() },
         RestapiConfigService,
         AuthGuard,
+        //RestapiFormExitGuard,
         AuthService
     ],
     bootstrap: [

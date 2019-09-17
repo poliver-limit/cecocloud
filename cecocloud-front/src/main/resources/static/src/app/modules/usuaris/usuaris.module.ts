@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MantenimentModule } from '../../shared/manteniment.module';
 import { MdcWebModule } from '../../shared/mdc-web.module';
+import { RestapiFormExitGuard } from '../../shared/restapi-form/restapi-form-exit-guard';
 import { UsuarisGridComponent } from './usuaris-grid.component';
 import { UsuarisFormComponent } from './usuaris-form.component';
 import { UsuarisService } from './usuaris.service';
@@ -15,8 +16,8 @@ import { UsuarisService } from './usuaris.service';
         MantenimentModule,
         RouterModule.forChild( [
             { path: '', component: UsuarisGridComponent },
-            { path: 'create', component: UsuarisFormComponent },
-            { path: 'update/:id', component: UsuarisFormComponent }
+            { path: 'create', component: UsuarisFormComponent, canDeactivate: [RestapiFormExitGuard] },
+            { path: 'update/:id', component: UsuarisFormComponent, canDeactivate: [RestapiFormExitGuard] }
         ] )
     ],
     declarations: [
