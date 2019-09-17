@@ -192,6 +192,7 @@ export class RestapiFormComponent implements OnInit {
             let uri = ResourceHelper.getURL() + this.restapiService['resource'];
             let params = new HttpParams( { fromObject: this.getParent() } );
             this.http.post( uri, values, { params: params } ).subscribe(( resource: Resource ) => {
+                this.formExitGuard.setModified( false );
                 this.actionSave.emit( resource );
             }, errorResponse => {
                 this.processErrors( errorResponse );
@@ -199,6 +200,7 @@ export class RestapiFormComponent implements OnInit {
         } else {
             this.restapiService.update( Object.assign( new GenericResource, values ) ).subscribe(( resource: Resource ) => {
                 this.refrescarFormGroup( resource );
+                this.formExitGuard.setModified( false );
                 this.actionSave.emit( resource );
             }, errorResponse => {
                 this.processErrors( errorResponse );
@@ -328,7 +330,6 @@ export class RestapiFormComponent implements OnInit {
         fieldComponent.resourceInstance = this.resourceInstance;
         fieldComponent.hideLabel = false;
         fieldComponent.change.subscribe( event => {
-            console.log('>>> field change', event)
             this.anyFieldChanged = true;
             this.formExitGuard.setModified( true );
         } );
