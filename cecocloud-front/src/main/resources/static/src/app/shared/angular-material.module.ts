@@ -8,6 +8,7 @@ import {
     MatIconModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
+    MatAutocompleteModule,
     MAT_DATE_FORMATS
 } from '@angular/material';
 
@@ -23,6 +24,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         MatIconModule,
         MatDatepickerModule,
         MatProgressSpinnerModule,
+        MatAutocompleteModule,
         MomentDateModule
     ],
     providers: [

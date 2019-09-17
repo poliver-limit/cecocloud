@@ -7,7 +7,6 @@ import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { Resource } from 'angular4-hal';
 
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
-import { RestapiDefaultFieldMaterialComponent } from '../restapi-form/restapi-default-field-material.component';
 import { RestapiBaseFieldComponent } from '../restapi-form/restapi-base-field.component';
 
 @Component( {
@@ -61,7 +60,6 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
             params.api,
             params.context );
         this.params = params;
-        this.fieldComponent.baseOnInit(this.fieldName, this.formGroup, this.restapiResource);
     }
 
     isCancelBeforeStart(): boolean {

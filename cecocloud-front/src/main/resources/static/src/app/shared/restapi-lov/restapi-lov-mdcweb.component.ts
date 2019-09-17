@@ -48,7 +48,6 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
     errorMessage: string;
 
     ngOnInit() {
-        this.baseOnInit( this.fieldName, this.inputFormGroup, this.restapiResource );
         this.createLovFormGroup( this.field );
         this.restapiService.configureWithResourceName( this.field.name );
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
@@ -63,7 +62,7 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
         }
         this.errorMessage = valid ? undefined : errors[Object.keys( errors )[0]];
     }
-    
+
     getFieldComponent() {
         return this.lovDetailInput;
     }
@@ -91,7 +90,7 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
             }
         } );
     }
-    
+
     onClearIconClick( event ) {
         event.stopPropagation();
         this.updateLovValue();
@@ -135,8 +134,8 @@ export class RestapiLovMdcwebComponent extends RestapiBaseFieldComponent {
         private formBuilder: FormBuilder,
         private restapiService: RestapiGenericService,
         private dialog: MdcDialog,
-        private translateService: TranslateService ) {
-        super();
+        translateService: TranslateService ) {
+        super( translateService );
     }
 
 }

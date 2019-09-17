@@ -17,8 +17,8 @@ import { DatagridRestapiFloatingFilterComponent } from './datagrid/datagrid-rest
 import { RestapiFormComponent } from './restapi-form/restapi-form.component';
 import { RestapiFormHeaderComponent } from './restapi-form/restapi-form-header.component';
 import { RestapiFormMantenimentDirective } from './restapi-form/restapi-form-manteniment.directive';
-import { RestapiDefaultFieldMdcwebComponent } from './restapi-form/restapi-default-field-mdcweb.component';
-import { RestapiDefaultFieldMaterialComponent } from './restapi-form/restapi-default-field-material.component';
+import { RestapiFieldMdcwebComponent } from './restapi-form/restapi-field-mdcweb.component';
+import { RestapiFieldMaterialComponent } from './restapi-form/restapi-field-material.component';
 import { RestapiCustomFieldComponent } from './restapi-form/restapi-custom-field.component';
 import { RestapiLovMdcwebComponent } from './restapi-lov/restapi-lov-mdcweb.component';
 import { RestapiLovMaterialComponent } from './restapi-lov/restapi-lov-material.component';
@@ -52,8 +52,8 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RestapiFormComponent,
         RestapiFormHeaderComponent,
         RestapiFormMantenimentDirective,
-        RestapiDefaultFieldMdcwebComponent,
-        RestapiDefaultFieldMaterialComponent,
+        RestapiFieldMdcwebComponent,
+        RestapiFieldMaterialComponent,
         RestapiCustomFieldComponent,
         RestapiLovMdcwebComponent,
         RestapiLovMaterialComponent,
@@ -67,8 +67,8 @@ import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.comp
         RestapiFormMantenimentDirective,
     ],
     entryComponents: [
-        RestapiDefaultFieldMdcwebComponent,
-        RestapiDefaultFieldMaterialComponent,
+        RestapiFieldMdcwebComponent,
+        RestapiFieldMaterialComponent,
         RestapiLovDialogComponent
     ]
 } )

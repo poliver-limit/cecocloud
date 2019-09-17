@@ -728,6 +728,7 @@ export class DatagridComponent implements OnInit {
     createDataSource( restapiService: RestapiService<Resource> ) {
         return {
             getRows: ( params: IGetRowsParams ) => {
+                this.showLoading = true;
                 let size = params.endRow - params.startRow;
                 let page = params.startRow / size;
                 let requestParams: HalParam[] = [{

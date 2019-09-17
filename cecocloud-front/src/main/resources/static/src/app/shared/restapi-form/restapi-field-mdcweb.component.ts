@@ -98,15 +98,14 @@ import { RestapiLovMdcwebComponent } from '../restapi-lov/restapi-lov-mdcweb.com
 </mdc-form-field>
 <ng-container *ngIf="field.type == 'LOV'">
     <restapi-lov-mdcweb
-        [label]="label"
         [fieldName]="fieldName"
-        [formGroup]="inputFormGroup"
-        [restapiResource]="restapiResource"
+        [formGroup]="internalFormGroup"
+        [restapiResource]="internalRestapiResource"
         [resourceInstance]="resourceInstance"></restapi-lov-mdcweb>
 </ng-container>
 `
 } )
-export class RestapiDefaultFieldMdcwebComponent extends RestapiBaseFieldComponent implements OnInit {
+export class RestapiFieldMdcwebComponent extends RestapiBaseFieldComponent implements OnInit {
 
     @ViewChild( MdcTextField, { static: false } ) mdcTextField: MdcTextField;
     @ViewChild( MdcTextarea, { static: false } ) mdcTextarea: MdcTextarea;
@@ -117,7 +116,6 @@ export class RestapiDefaultFieldMdcwebComponent extends RestapiBaseFieldComponen
     mask: string;
 
     ngOnInit() {
-        this.baseOnInit(this.fieldName, this.inputFormGroup, this.restapiResource);
         this.mask = this.getMask();
     }
 
@@ -199,9 +197,9 @@ export class RestapiDefaultFieldMdcwebComponent extends RestapiBaseFieldComponen
     }
 
     constructor(
-        private translate: TranslateService,
+        translate: TranslateService,
         private renderer: Renderer2 ) {
-        super();
+        super( translate );
     }
 
 }

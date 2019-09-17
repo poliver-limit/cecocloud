@@ -5,6 +5,7 @@ import { IFilterAngularComp, IFloatingFilterComp } from 'ag-grid-angular';
 import * as moment from 'moment';
 
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
+import { RestapiFieldMaterialComponent } from '../restapi-form/restapi-field-material.component';
 
 export interface DatagridRestapiFloatingFilterParams extends IFloatingFilterParams {
     value: number;
@@ -15,7 +16,7 @@ export interface DatagridRestapiFloatingFilterParams extends IFloatingFilterPara
     template: `
 <restapi-field-material
     fieldName="filter"
-    [inputFormGroup]="formGroup"
+    [formGroup]="formGroup"
     [restapiResource]="restapiResource"
     [hideLabel]="true"
     appearance="outline"
@@ -29,6 +30,8 @@ export interface DatagridRestapiFloatingFilterParams extends IFloatingFilterPara
 `]
 } )
 export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterComp {
+
+    @ViewChild( RestapiFieldMaterialComponent, { static: false } ) restapiField: RestapiFieldMaterialComponent;
 
     formGroup: FormGroup;
     restapiResource: RestapiResource = {
@@ -49,9 +52,14 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
             this.field.type = 'DATE';
         }
         this.restapiResource.fields = [this.field];
-        this.formGroup = this.formBuilder.group( {
-            filter: new FormControl()
-        } );
+        /*this.formGroup.controls.filter.valueChanges
+        .debounceTime(400)
+        .switchMap(term => {
+            console.log('>>> Term: ' + term)
+        })
+        .subscribe(result => {
+            //this.result = result.artists.items
+        });*/
     }
 
     onParentModelChanged( parentModel: any, event: FilterChangedEvent ): void {
@@ -103,6 +111,9 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
 
     constructor(
         private formBuilder: FormBuilder ) {
+        this.formGroup = this.formBuilder.group( {
+            filter: new FormControl()
+        } );
     }
 
 }

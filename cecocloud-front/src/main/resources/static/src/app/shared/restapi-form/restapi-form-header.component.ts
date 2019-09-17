@@ -68,10 +68,26 @@ export interface FormGridConfig {
             <span class="header-title">{{title}}: {{description ? description : ('component.restapi.form.header.title.crear' | translate)}}</span>
         </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
-            <button mdc-icon-button *ngIf="hasSavePermission" class="mdc-icon-button-sm" title="{{'component.restapi.form.header.button.guardar'|translate}}" (click)="onButtonSaveClick()">
+            <button mdc-icon-button
+                *ngIf="hasSavePermission"
+                title="{{'component.restapi.form.header.button.guardar'|translate}}"
+                class="mdc-icon-button-sm"
+                (click)="onButtonSaveClick()">
                 <mdc-icon>save_alt</mdc-icon>
             </button>
-            <button mdc-icon-button *ngIf="id && hasDeletePermission" class="mdc-icon-button-sm" title="{{'component.restapi.form.header.action.delete'|translate}}" (click)="onButtonDeleteClick()">
+            <button mdc-icon-button
+                *ngIf="hasSavePermission"
+                title="{{'component.restapi.form.header.button.desfer'|translate}}"
+                class="mdc-icon-button-sm"
+                [disabled]="!anyFieldChanged"
+                (click)="onButtonUndoClick()">
+                <mdc-icon>undo</mdc-icon>
+            </button>
+            <button mdc-icon-button 
+                *ngIf="id && hasDeletePermission"
+                title="{{'component.restapi.form.header.action.delete'|translate}}"
+                class="mdc-icon-button-sm"
+                (click)="onButtonDeleteClick()">
                 <mdc-icon>delete</mdc-icon>
             </button>
         </mdc-top-app-bar-section>
@@ -114,9 +130,11 @@ export class RestapiFormHeaderComponent {
         }
     }
     @Input() restapiError: Error;
+    @Input() anyFieldChanged: boolean;
 
     @Output() actionSave: EventEmitter<any> = new EventEmitter();
     @Output() actionCancel: EventEmitter<any> = new EventEmitter();
+    @Output() actionUndo: EventEmitter<any> = new EventEmitter();
     @Output() actionDelete: EventEmitter<any> = new EventEmitter();
 
     title: string;
@@ -127,12 +145,16 @@ export class RestapiFormHeaderComponent {
     hasSavePermission: boolean;
     mobileScreen;
 
+    onButtonCancelClick() {
+        this.actionCancel.emit();
+    }
+
     onButtonSaveClick() {
         this.actionSave.emit();
     }
 
-    onButtonCancelClick() {
-        this.actionCancel.emit();
+    onButtonUndoClick() {
+        this.actionUndo.emit();
     }
 
     onButtonDeleteClick() {

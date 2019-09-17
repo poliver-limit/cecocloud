@@ -11,7 +11,7 @@ import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profil
 <div style="padding:.6em .6em 0 .6em">
     <restapi-field-material
         fieldName="operation"
-        [inputFormGroup]="formGroup"
+        [formGroup]="formGroup"
         [restapiResource]="restapiResource"
         [hideLabel]="true"
         nativeControl="true"
@@ -20,7 +20,7 @@ import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profil
         style="width:100%"></restapi-field-material>
     <restapi-field-material
         fieldName="filter"
-        [inputFormGroup]="formGroup"
+        [formGroup]="formGroup"
         [restapiResource]="restapiResource"
         [hideLabel]="true"
         appearance="outline"

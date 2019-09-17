@@ -17,11 +17,7 @@ import {
     ContentChildren,
     QueryList
 } from '@angular/core';
-import {
-    HttpClient,
-    HttpParams,
-    HttpErrorResponse
-} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcTabBar, MdcTabActivatedEvent, MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
@@ -36,8 +32,8 @@ import {
     RestapiResourceGrid
 } from '../restapi/restapi-profile';
 import { RestapiBaseFieldComponent } from './restapi-base-field.component';
-import { RestapiDefaultFieldMdcwebComponent } from './restapi-default-field-mdcweb.component';
-import { RestapiDefaultFieldMaterialComponent } from './restapi-default-field-material.component';
+import { RestapiFieldMdcwebComponent } from './restapi-field-mdcweb.component';
+import { RestapiFieldMaterialComponent } from './restapi-field-material.component';
 import { RestapiCustomFieldComponent } from './restapi-custom-field.component';
 
 export interface FormConfig {
@@ -65,8 +61,10 @@ export interface FormGridConfig {
             [description]="description"
             [restapiResource]="restapiResource"
             [restapiError]="restapiError"
-            (actionSave)="onHeaderActionSave()"
+            [anyFieldChanged]="anyFieldChanged"
             (actionCancel)="onHeaderActionCancel()"
+            (actionSave)="onHeaderActionSave()"
+            (actionUndo)="onHeaderActionUndo()"
             (actionDelete)="onHeaderActionDelete()"></restapi-form-header>
         <ng-container *ngTemplateOutlet="formTemplate"></ng-container>
     </ng-container>    
@@ -151,6 +149,7 @@ export class RestapiFormComponent implements OnInit {
     restapiError: any;
     isButtonSave: boolean;
     isUpdateShow: boolean;
+    anyFieldChanged: boolean;
 
     ngOnInit() {
         if ( this.config != undefined ) {
@@ -158,6 +157,10 @@ export class RestapiFormComponent implements OnInit {
             this.isUpdateShow = ( this.config.isUpdateShow != undefined && this.config.isUpdateShow );
         }
         this.refreshFields();
+    }
+
+    onHeaderActionCancel() {
+        this.actionCancel.emit();
     }
 
     onHeaderActionSave() {
@@ -200,8 +203,10 @@ export class RestapiFormComponent implements OnInit {
         }
     }
 
-    onHeaderActionCancel() {
-        this.actionCancel.emit();
+    onHeaderActionUndo() {
+        if ( confirm( this.translateKey( 'component.restapi.form.undo.confirm' ) ) ) {
+            this.refreshFields();
+        }
     }
 
     onHeaderActionDelete() {
@@ -221,6 +226,10 @@ export class RestapiFormComponent implements OnInit {
     }
 
     refreshFields() {
+        if ( this.fieldsContainer ) {
+            this.fieldsContainer.clear();
+        }
+        this.anyFieldChanged = false;
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
             this.restapiResource = restapiProfile.resource;
             if ( this.restapiResource.grids && this.id ) {
@@ -272,7 +281,7 @@ export class RestapiFormComponent implements OnInit {
                                     customInput.fieldClick.emit( event );
                                 } );
                             } else {
-                                this.configureBaseFieldComponent( customField, field, true );
+                                this.configureBaseFieldComponent( customField, field );
                                 this.inputFields.push( customField );
                             }
                         }
@@ -304,15 +313,15 @@ export class RestapiFormComponent implements OnInit {
         );
     }
 
-    configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField, callBaseOnInit?: boolean ) {
-        fieldComponent.label = ( field.translateKey ) ? this.translateKey( field.translateKey, {}, field.name ) : field.name;
+    configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField ) {
         fieldComponent.fieldName = field.name;
-        fieldComponent.inputFormGroup = this.formGroup;
+        fieldComponent.formGroup = this.formGroup;
         fieldComponent.restapiResource = this.restapiResource;
         fieldComponent.resourceInstance = this.resourceInstance;
-        if ( callBaseOnInit ) {
-            fieldComponent.baseOnInit( field.name, this.formGroup, this.restapiResource );
-        }
+        fieldComponent.hideLabel = false;
+        fieldComponent.change.subscribe( event => {
+            this.anyFieldChanged = true;
+        } );
     }
 
     processErrors( errorResponse: HttpErrorResponse ) {
@@ -392,8 +401,8 @@ export class RestapiFormComponent implements OnInit {
         private http: HttpClient,
         private translate: TranslateService ) {
         this.defaultFieldComponentFactory = this.factoryResolver.resolveComponentFactory(
-            //RestapiDefaultFieldMdcwebComponent
-            RestapiDefaultFieldMaterialComponent
+            //RestapiFieldMdcwebComponent
+            RestapiFieldMaterialComponent
         );
         this.formGroup = this.formBuilder.group( {} );
     }

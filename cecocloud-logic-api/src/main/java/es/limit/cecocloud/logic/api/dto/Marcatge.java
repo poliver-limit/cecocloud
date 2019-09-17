@@ -41,7 +41,6 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	private Date data;
 	@NotNull
 	@RestapiField(
-			hiddenInForm = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private MarcatgeOrigen origen = MarcatgeOrigen.CECOCLOUD;

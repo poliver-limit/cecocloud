@@ -13,13 +13,13 @@ El fitxer .jar de l'aplicació es troba a cecocloud-front/target/cecocloud-front
 ---------------
 - INSTAL·LACIO:
 ---------------
-1.- Crear arxiu cecocloud.service a la carpeta /etc/systemd/system.
-2.- Crear l'usuari cecocloud (useradd -M pepet -s /usr/sbin/nologin).
-3.- Crear una carpeta /opt/cecocloud.
-4.- Copiar el .jar de l'aplicació a dins /opt/cecocloud.
-5.- Configurar l'usuari cecocloud com a propietari del fitxer .jar (chown cecocloud ???.jar).
-6.- Donar permisos d'execució al fitxer .jar (chmod a+x ???.jar).
-7.- Crear el fitxer application.properties a dins /opt/cecocloud amb la configuració de connexió a BBDD i al servidor de correu.
+- Crear arxiu cecocloud.service a la carpeta /etc/systemd/system.
+- Crear l'usuari cecocloud (useradd -M pepet -s /usr/sbin/nologin).
+- Crear una carpeta /opt/cecocloud.
+- Copiar el .jar de l'aplicació a dins /opt/cecocloud.
+- Configurar l'usuari cecocloud com a propietari del fitxer .jar (chown cecocloud ???.jar).
+- Donar permisos d'execució al fitxer .jar (chmod a+x ???.jar).
+- Crear el fitxer application.properties a dins /opt/cecocloud amb la configuració de connexió a BBDD i al servidor de correu.
 
 ---------
 - GESTIÓ:

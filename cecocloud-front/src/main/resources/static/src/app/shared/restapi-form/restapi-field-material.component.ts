@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, isDevMode } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MatInput } from '@angular/material/input';
@@ -101,7 +101,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
 </ng-container>
 <ng-container *ngIf="isSelect">
     <mat-form-field [appearance]="appearance" style="width:100%">
-        <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
+        <mat-label *ngIf="enumLabelShown">{{label}}</mat-label>
         <mat-select *ngIf="!nativeControl"
             [formControl]="formControl"
             [multiple]="field.multiple"
@@ -128,21 +128,21 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         (click)="onFieldClick($event)"
         (change)="onFieldChange($event)"><span *ngIf="!hideLabel">{{label}}</span></mat-checkbox>
 </div>
-<restapi-lov-material
-    *ngIf="isLov"
-    [label]="label"
-    [fieldName]="fieldName"
-    [inputFormGroup]="inputFormGroup"
-    [restapiResource]="restapiResource"
-    [resourceInstance]="resourceInstance"
-    [hideLabel]="hideLabel"
-    [appearance]="appearance"
-    (click)="onFieldClick($event)"
-    (input)="onFieldInput($event)"
-    (change)="onFieldChange($event)"></restapi-lov-material>
+<ng-container *ngIf="isLov">
+    <restapi-lov-material
+        [fieldName]="fieldName"
+        [formGroup]="internalFormGroup"
+        [restapiResource]="internalRestapiResource"
+        [resourceInstance]="resourceInstance"
+        [hideLabel]="hideLabel"
+        [appearance]="appearance"
+        (click)="onFieldClick($event)"
+        (input)="onFieldInput($event)"
+        (change)="onFieldChange($event)"></restapi-lov-material>
+</ng-container>
 `
 } )
-export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldComponent implements OnInit {
+export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent implements OnInit {
 
     @Input() appearance: string = 'standard'; // 'legacy' | 'standard' | 'fill' | 'outline'
     @Input() nativeControl: boolean;
@@ -163,9 +163,11 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
     datetimeLinkedWithCurrentTime: boolean = true;
     showCharCount: boolean;
     errorMessage: string;
+    // Per a evitar l'error ExpressionChangedAfterItHasBeenCheckedError en el label del mat-select
+    enumLabelShown: boolean = false;
 
     ngOnInit() {
-        this.baseOnInit( this.fieldName, this.inputFormGroup, this.restapiResource );
+        this.enumLabelShown = !isDevMode && this.hideLabel;
         this.doEachSecond();
         switch ( this.field.type ) {
             case 'TEXTAREA':
@@ -259,7 +261,7 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
     }
 
     buildDatetimeFormGroup() {
-        let fieldValue = this.inputFormGroup.get( this.fieldName ).value;
+        let fieldValue = this.internalFormGroup.get( this.fieldName ).value;
         let dateValue;
         let timeValue;
         let fieldMoment;
@@ -299,9 +301,9 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
 
     propagateDateToFormControl( dateValue, timeValue?: string ) {
         let time = timeValue ? timeValue : '00:00:00';
-        let m = moment( (dateValue ? dateValue : moment()).format( 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
+        let m = moment(( dateValue ? dateValue : moment() ).format( 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
         let apiValue = m.format( 'YYYY-MM-DDTHH:mm:ss.SSS' ) + this.getTimeZoneOffset();
-        this.inputFormGroup.get( this.fieldName ).setValue( apiValue );
+        this.internalFormGroup.get( this.fieldName ).setValue( apiValue );
     }
 
     getTimeZoneOffset() {
@@ -316,8 +318,8 @@ export class RestapiDefaultFieldMaterialComponent extends RestapiBaseFieldCompon
 
     constructor(
         private formBuilder: FormBuilder,
-        private translate: TranslateService ) {
-        super();
+        translate: TranslateService ) {
+        super( translate );
         setInterval(() => {
             this.doEachSecond();
         }, 1000 );
