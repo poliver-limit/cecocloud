@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, isDevMode } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { MatInput } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInput, MatSelect, MatCheckbox } from '@angular/material';
 import { Resource } from 'angular4-hal';
 import * as moment from 'moment';
 
@@ -148,6 +147,8 @@ export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent imp
     @Input() nativeControl: boolean;
 
     @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
+    @ViewChild( MatSelect, { static: false } ) matSelectField: MatSelect;
+    @ViewChild( MatCheckbox, { static: false } ) matCheckboxField: MatCheckbox;
     @ViewChild( RestapiLovMaterialComponent, { static: false } ) restapiLovField: RestapiLovMaterialComponent;
 
     isText: boolean = false;
@@ -247,7 +248,15 @@ export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent imp
     }
 
     getFieldComponent() {
-        return this.matInputField;
+        if ( this.restapiLovField ) {
+            return this.restapiLovField.getFieldComponent();
+        } else if ( this.matSelectField ) {
+            return this.matSelectField;
+        } else if ( this.matCheckboxField ) {
+            return this.matCheckboxField;
+        } else {
+            return this.matInputField;
+        }
     }
 
     getEnumDescription( index: number, value: string ) {

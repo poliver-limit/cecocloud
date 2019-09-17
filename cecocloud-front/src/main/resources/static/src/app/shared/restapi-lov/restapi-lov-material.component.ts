@@ -20,32 +20,6 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
 @Component( {
     selector: 'restapi-lov-material',
     template: `
-<!--mat-form-field *ngIf="lovFormGroup" [formGroup]="lovFormGroup" [appearance]="appearance" style="width:100%">
-    <input
-        #lovHiddenInput
-        type="hidden"
-        formControlName="id"/>
-    <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
-    <input
-        matInput
-        #lovDetailInput
-        type="text"
-        formControlName="description"
-        [required]="field.required"
-        [readonly]="isReadonly"
-        (click)="onFieldClick($event)"
-        (input)="onFieldInput($event)"
-        (blur)="onFieldBlur()"
-        (keydown)="onFieldKeydown($event)"
-        (change)="onFieldChange($event)"/>
-    <button *ngIf="!formControl.value" mat-icon-button matSuffix (click)="onExpandIconClick($event)" tabindex="-1">
-        <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-    <button *ngIf="formControl.value" mat-icon-button matSuffix (click)="onClearIconClick($event)" tabindex="-1">
-        <mat-icon>clear</mat-icon>
-    </button>
-    <mat-error>{{errorMessage}}</mat-error>
-</mat-form-field-->
 <mat-form-field *ngIf="lovFormGroup" [formGroup]="lovFormGroup" [appearance]="appearance" style="width:100%">
     <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
     <input
@@ -74,8 +48,11 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
         <mat-option *ngFor="let resource of autocompleteResources" [value]="resource">
             {{displayResource(resource)}}
         </mat-option>
-        <mat-option id="FIND">Cercar...</mat-option>
+        <mat-option *ngIf="!formControl.value" id="FIND">Cercar...</mat-option>
     </mat-autocomplete>
+    <button *ngIf="formControl.value" mat-icon-button matSuffix (click)="onClearIconClick($event)" tabindex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
 </mat-form-field>
 `,
     providers: [RestapiGenericService]
@@ -87,13 +64,14 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
     @ViewChild( 'lovHiddenInput', { static: false } ) lovHiddenInput: ElementRef;
     @ViewChild( 'lovDetailInput', { static: false } ) lovDetailInput: ElementRef;
     @ViewChild( MatAutocompleteTrigger, { static: false } ) lovAutocomplete: MatAutocompleteTrigger;
-    //@ViewChild( 'lovAutocomplete', { static: false } ) lovAutocomplete: MatAutocompleteTrigger;
+    @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
 
     lovFormGroup: FormGroup;
     lovResource: RestapiResource;
     errorMessage: string;
 
     autocompleteResources: Resource[];
+    lastQuickFilter: string;
     isLoading: boolean;
     isReadonly: boolean;
 
@@ -103,33 +81,49 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
         this.restapiService.whenReady().subscribe(( restapiProfile: RestapiProfile ) => {
             this.lovResource = restapiProfile.resource;
         } );
+        // Per a forçar la consulta dels recursos si l'element te el focus
+        setTimeout(() => {
+            if ( !this.formControl.value && this.lovDetailInput && this.lovDetailInput.nativeElement === document.activeElement ) {
+                this.lovFormGroup.get( 'description' ).setValue( '' );
+            }
+        } );
         this.lovFormGroup.get( 'description' ).valueChanges.pipe(
             debounceTime( 250 ),
             tap( value => {
-                this.autocompleteResources = [];
-                this.isLoading = true;
+                if ( this.lastQuickFilter !== value ) {
+                    this.autocompleteResources = [];
+                    this.isLoading = true;
+                }
             } ),
             switchMap( value => {
-                if ( !this.formControl.value ) {
-                    let params;
-                    if ( value ) {
-                        params = [{ key: 'quickFilter', value: value }];
+                if ( this.lastQuickFilter !== value ) {
+                    if ( !this.formControl.value ) {
+                        let params;
+                        if ( value ) {
+                            params = [{ key: 'quickFilter', value: value }];
+                        }
+                        this.lastQuickFilter = value;
+                        return this.restapiService.getAll( { size: 10, params: params } );
+                    } else {
+                        return of( null );
                     }
-                    return this.restapiService.getAll( { size: 100, params: params } )
                 } else {
-                    return of( null );
+                    return of( [{ id: -1 }] )
                 }
             } ),
             finalize(() => {
                 this.isLoading = false;
             } )
-        ).subscribe( resources => {
-            this.isLoading = false;
-            if ( resources ) {
-                this.autocompleteResources = resources;
-                this.lovAutocomplete.openPanel();
-            } else {
-                this.autocompleteResources = [];
+        ).subscribe(( resources: any[] ) => {
+            let dontUpdate = ( resources && resources.length === 1 && resources[0].id === -1 )
+            if ( !dontUpdate ) {
+                this.isLoading = false;
+                if ( resources ) {
+                    this.autocompleteResources = resources;
+                    this.lovAutocomplete.openPanel();
+                } else {
+                    this.autocompleteResources = [];
+                }
             }
         } );
     }
@@ -146,7 +140,7 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
     }
 
     getFieldComponent() {
-        return this.lovDetailInput;
+        return this.matInputField;
     }
 
     onOptionSelected( event ) {
@@ -185,63 +179,16 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
         if ( this.formControl.value ) {
             if ( event.keyCode == 8 || event.keyCode == 46 ) {
                 this.updateLovValue();
-                this.isReadonly = false;
             }
             return event.keyCode == 27 || event.keyCode == 9 || event.code.startsWith( 'F' );
         } else {
             return true;
         }
     }
-
-    /*onFieldClick( event ) {
-        this.isReadonly = true;
-        if ( this.lovFormGroup.get( 'id' ).value ) {
-            event.target.select();
-        } else {
-            this.onExpandIconClick();
-            event.stopPropagation();
-            event.preventDefault();
-        }
-        this.click.emit( event );
-    }
-    onFieldInput( event ) {
-        this.input.emit( event );
-    }
-    onFieldBlur() {
-        this.isReadonly = false;
-    }
-    onFieldKeydown( event ) {
-        if ( event.keyCode == 8 || event.keyCode == 46 ) {
-            this.updateLovValue();
-        } else if ( event.keyCode == 13 && !this.lovFormGroup.get( 'id' ).value ) {
-            this.onExpandIconClick();
-        }
-        return event.keyCode == 27 || event.keyCode == 9 || event.code.startsWith( 'F' );
-    }
-
-    onExpandIconClick( event?: Event ) {
-        if ( event ) {
-            event.stopPropagation();
-        }
-        let dialogRef = this.dialog.open( RestapiLovDialogComponent, {
-            escapeToClose: true,
-            clickOutsideToClose: true,
-            data: {
-                restapiService: this.restapiService,
-                lovResource: this.lovResource
-            }
-        } );
-        dialogRef.afterClosed().subscribe( data => {
-            if ( data !== 'close' ) {
-                this.updateLovValue( data );
-            }
-        } );
-    }
-
     onClearIconClick( event ) {
         event.stopPropagation();
         this.updateLovValue();
-    }*/
+    }
 
     openLovDialog() {
         let dialogRef = this.dialog.open( RestapiLovDialogComponent, {
@@ -269,17 +216,18 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
             this.formControl.setValue( formControlValue );
             this.lovFormGroup.get( 'description' ).setValue( data );
         } else {
-            console.log( '>>> updateLovValue delete' )
             this.formControl.setValue( undefined );
             this.lovFormGroup.get( 'id' ).setValue( undefined );
-            this.lovFormGroup.get( 'description' ).setValue( undefined );
+            this.lovFormGroup.get( 'description' ).setValue( '' );
+            this.isReadonly = false;
+            this.lastQuickFilter = undefined;
         }
         this.lovDetailInput.nativeElement.dispatchEvent( new Event( 'input', { bubbles: true } ) );
     }
 
     createLovFormGroup( field: RestapiResourceField ) {
         let lovValueId = this.formControl.value ? this.formControl.value.id : undefined;
-        let lovValueDescription;
+        let lovValueDescription = '';
         if ( lovValueId ) {
             if ( field.lovGenericResource ) {
                 lovValueDescription = this.formControl.value['description'];

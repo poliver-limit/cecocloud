@@ -14,6 +14,7 @@
 	"component.datagrid.manteniment.deleted": "El registre s'ha esborrat correctament",
 
 	"component.restapi.form.header.title.crear": "crear",
+	"component.restapi.form.header.title.modificar": "modificar",
 	"component.restapi.form.header.button.guardar": "Guardar",
 	"component.restapi.form.header.button.descartar": "Descartar",
 	"component.restapi.form.header.button.desfer": "Desfer",

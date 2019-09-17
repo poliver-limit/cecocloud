@@ -219,9 +219,7 @@ export class RestapiFormComponent implements OnInit {
         if ( confirm( confirmTranslated ) ) {
             this.restapiService.delete( this.resourceInstance ).subscribe(( resource: Resource ) => {
                 this.actionDelete.emit( resource );
-            }/*, errorResponse => {
-                this.processSaveErrors( errorResponse );
-            }*/ );
+            } );
         }
     }
 
@@ -256,6 +254,21 @@ export class RestapiFormComponent implements OnInit {
             }
         } );
     }
+
+    refrescarFormGroup( resourceInstance?: any ) {
+        if ( resourceInstance ) {
+            this.resourceInstance = resourceInstance;
+        } else {
+            this.resourceInstance = {};
+        }
+        this.resourceChange.emit( this.resourceInstance );
+        this.formGroup = this.restapiService.createFormGroup(
+            this.resourceInstance,
+            this.restapiResource,
+            this.isCreacio()
+        );
+    }
+
     createInputs( fields: RestapiResourceField[] ) {
         this.inputFields = [];
         if ( fields && fields.length ) {
@@ -296,21 +309,12 @@ export class RestapiFormComponent implements OnInit {
                     }
                 }
             } );
+            if ( this.inputFields ) {
+                setTimeout(() => {
+                    this.inputFields[0].focus();
+                } )
+            }
         }
-    }
-
-    refrescarFormGroup( resourceInstance?: any ) {
-        if ( resourceInstance ) {
-            this.resourceInstance = resourceInstance;
-        } else {
-            this.resourceInstance = {};
-        }
-        this.resourceChange.emit( this.resourceInstance );
-        this.formGroup = this.restapiService.createFormGroup(
-            this.resourceInstance,
-            this.restapiResource,
-            this.isCreacio()
-        );
     }
 
     configureBaseFieldComponent( fieldComponent: RestapiBaseFieldComponent, field: RestapiResourceField ) {
