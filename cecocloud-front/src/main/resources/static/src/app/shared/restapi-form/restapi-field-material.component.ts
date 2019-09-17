@@ -106,7 +106,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             [multiple]="field.multiple"
             [required]="field.required"
             (click)="onFieldClick($event)"
-            (selectionChange)="onFieldInput($event)">
+            (selectionChange)="onSelectionChange($event)">
             <mat-option *ngFor="let enumValue of field.enumValues" [value]="enumValue">{{enumValue}}</mat-option>
         </mat-select>
         <select *ngIf="nativeControl"
@@ -115,7 +115,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
             [multiple]="field.multiple"
             [required]="field.required"
             (click)="onFieldClick($event)"
-            (selectionChange)="onFieldInput($event)">
+            (selectionChange)="onSelectionChange($event)">
             <option *ngFor="let enumValue of field.enumValues" [value]="enumValue">{{enumValue}}</option>
         </select>
         <mat-error>{{errorMessage}}</mat-error>
@@ -215,6 +215,14 @@ export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent imp
 
     onFieldInput( event ) {
         super.onFieldInput( event );
+    }
+
+    onSelectionChange( event ) {
+        if ( this.field.multiple && this.formControl.value && this.formControl.value.length == 0 ) {
+            this.formControl.reset();
+        }
+        super.onFieldInput( event );
+        super.onFieldChange( event );
     }
 
     public setErrors( errors?: any ) {
