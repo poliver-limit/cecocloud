@@ -10,6 +10,6 @@ import es.limit.cecocloud.logic.api.dto.Companyia;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface CompanyiaService extends GenericService<Companyia, Long> {
+public interface CompanyiaService extends GenericServiceWithPermissions<Companyia, Long> {
 
 }

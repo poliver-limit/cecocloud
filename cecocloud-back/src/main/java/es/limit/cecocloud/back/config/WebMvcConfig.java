@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.front.config;
+package es.limit.cecocloud.back.config;
 
 import java.io.IOException;
 

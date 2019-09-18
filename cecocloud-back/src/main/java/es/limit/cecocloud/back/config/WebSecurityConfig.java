@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.front.config;
+package es.limit.cecocloud.back.config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +32,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.limit.cecocloud.back.controller.AbstractIdentificableReadOnlyApiController;
 import es.limit.cecocloud.back.controller.ApiControllerHelper;
-import es.limit.cecocloud.front.auth.JwtAuthenticationFilter;
-import es.limit.cecocloud.front.auth.JwtAuthorizationFilter;
+import es.limit.cecocloud.back.auth.JwtAuthenticationFilter;
+import es.limit.cecocloud.back.auth.JwtAuthorizationFilter;
 import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;

@@ -17,7 +17,7 @@ import es.limit.cecocloud.logic.api.service.CompanyiaService;
  */
 @RestController
 @RequestMapping(value = AbstractApiController.API_PATH + CompanyiaApiController.API_CONTROLLER_PATH)
-public class CompanyiaApiController extends AbstractIdentificableApiController<Companyia, Long> {
+public class CompanyiaApiController extends AbstractIdentificableWithPermissionsApiController<Companyia, Long> {
 
 	public static final String API_CONTROLLER_PATH = "/companyies";
 

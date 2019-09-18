@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.front.config;
+package es.limit.cecocloud.back.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

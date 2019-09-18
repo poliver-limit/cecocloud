@@ -7,8 +7,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.GenericService;
 import es.limit.cecocloud.persist.entity.AbstractEntity;
+import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
 /**
@@ -26,6 +25,7 @@ import ma.glasnost.orika.MapperFacade;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E extends AbstractEntity<D, ID>, ID extends Serializable> extends AbstractServiceImpl<D, AbstractEntity<?, ?>, AbstractEntity<?, ?>, E, ID> implements GenericService<D, ID> {
 
 	@Autowired
@@ -34,7 +34,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	@Override
 	@Transactional
 	public D create(D dto) {
-		logger.debug("Creant entitat (" + "dto=" + dto + ")");
+		log.debug("Creant entitat (" + "dto=" + dto + ")");
 		E entity = buildNewEntity(dto);
 		beforeCreate(entity, dto);
 		E saved = getRepository().save(entity);
@@ -45,7 +45,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	@Override
 	@Transactional
 	public D update(ID id, D dto) {
-		logger.debug("Modificant entitat (" + "id=" + id + ", " + "dto=" + dto + ")");
+		log.debug("Modificant entitat (" + "id=" + id + ", " + "dto=" + dto + ")");
 		E entity = getEntity(id);
 		beforeUpdate(entity, dto);
 		updateEntity(entity, dto);
@@ -57,7 +57,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	@Override
 	@Transactional
 	public void delete(ID id) {
-		logger.debug("Esborrant entitat (" + "id=" + id + ")");
+		log.debug("Esborrant entitat (" + "id=" + id + ")");
 		E entity = getEntity(id);
 		beforeDelete(entity);
 		getRepository().delete(entity);
@@ -67,7 +67,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	@Override
 	@Transactional(readOnly = true)
 	public D getOne(ID id) {
-		logger.debug("Obtenint entitat (" + "id=" + id + ")");
+		log.debug("Obtenint entitat (" + "id=" + id + ")");
 		return toDto(getEntity(id));
 	}
 
@@ -77,7 +77,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 			String quickFilter,
 			String rsqlQuery,
 			Pageable pageable) {
-		logger.debug("Consulta d'entitats amb filtre i paginació (" +
+		log.debug("Consulta d'entitats amb filtre i paginació (" +
 				"quickFilter=" + quickFilter + ", " +
 				"rsqlQuery=" + rsqlQuery + ", " +
 				"pageable=" + pageable + ")");
@@ -91,7 +91,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	@Transactional(readOnly = true)
 	public D findOneByRsqlQuery(
 			String rsqlQuery) {
-		logger.debug("Consulta d'una única entitat amb filtre (" +
+		log.debug("Consulta d'una única entitat amb filtre (" +
 				"rsqlQuery=" + rsqlQuery + ")");
 		Page<D> page = findPageByQuickFilterAndRsqlQuery(
 				null,
@@ -116,7 +116,5 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 	protected List<E> getEntities(ID[] ids) {
 		return getRepository().findAllById(Arrays.asList(ids));
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(AbstractGenericServiceImpl.class);
 
 }

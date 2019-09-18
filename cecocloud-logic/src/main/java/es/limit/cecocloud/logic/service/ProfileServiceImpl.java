@@ -142,7 +142,7 @@ public class ProfileServiceImpl implements ProfileService {
 		return profile;
 	}
 
-	private Class<?> getDtoClassForName(
+	public static Class<?> getDtoClassForName(
 			String resourceName) {
 		Class<?> dtoClass = null;
 		for (String packageToScan: new String [] {Profile.class.getPackage().getName()}) {
@@ -157,7 +157,7 @@ public class ProfileServiceImpl implements ProfileService {
 		return dtoClass;
 	}
 
-	private Class<?> getClassForName(String className) {
+	private static Class<?> getClassForName(String className) {
 		try {
 			return Class.forName(className);
 		} catch (ClassNotFoundException ignored) {

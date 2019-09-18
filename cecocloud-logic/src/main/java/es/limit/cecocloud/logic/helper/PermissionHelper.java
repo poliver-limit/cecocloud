@@ -1,0 +1,199 @@
+/**
+ * 
+ */
+package es.limit.cecocloud.logic.helper;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.acls.domain.GrantedAuthoritySid;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
+import org.springframework.security.acls.domain.PrincipalSid;
+import org.springframework.security.acls.model.AccessControlEntry;
+import org.springframework.security.acls.model.MutableAcl;
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.NotFoundException;
+import org.springframework.security.acls.model.ObjectIdentity;
+import org.springframework.security.acls.model.Permission;
+import org.springframework.security.acls.model.Sid;
+import org.springframework.stereotype.Component;
+
+import es.limit.cecocloud.logic.api.acl.ExtendedPermission;
+import es.limit.cecocloud.logic.api.dto.Permission.PermissionSidType;
+
+/**
+ * Helper encarregat de gestionar i verificar els permisos amb ACLs.
+ * 
+ * @author Limit Tecnologies <limit@limit.es>
+ */
+@Component
+public class PermissionHelper {
+
+	@Autowired
+	private MutableAclService mutableAclService;
+
+	public void update(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			es.limit.cecocloud.logic.api.dto.Permission permission) {
+		MutableAcl acl = getMutableAcl(
+				resourceClass,
+				resourceId,
+				permission.getSidType(),
+				permission.getSidName(),
+				true);
+		// Es recorren els permisos de l'ACL i s'esborren els que no
+		// hi han de ser. Els permisos de permissionList que ja hi son
+		// S'esborren de la llista.
+		// Es recorren girats perque cada vegada que s'esborra un ace
+		// es reorganitzen els índexos
+		List<Permission> permissionList = getPermissionList(permission);
+		for (int i = acl.getEntries().size() - 1; i >= 0; i--) {
+			AccessControlEntry ace = acl.getEntries().get(i);
+			if (permissionList.contains(ace.getPermission())) {
+				permissionList.remove(ace.getPermission());
+			} else {
+				acl.deleteAce(i);
+			}
+		}
+		// S'afegeixen els permisos que queden a la llista
+		Sid sid = getSid(permission.getSidType(), permission.getSidName());
+		for (Permission permissionItem: permissionList) {
+			acl.insertAce(
+					acl.getEntries().size(),
+					permissionItem,
+					sid,
+					true);
+		}
+		mutableAclService.updateAcl(acl);
+	}
+
+	public List<es.limit.cecocloud.logic.api.dto.Permission> find(
+			Class<?> resourceClass,
+			Serializable resourceId) {
+		MutableAcl acl = getMutableAcl(
+				resourceClass,
+				resourceId,
+				null,
+				null,
+				false);
+		List<Sid> sids = new ArrayList<Sid>();
+		for (AccessControlEntry ace: acl.getEntries()) {
+			if (!sids.contains(ace.getSid())) {
+				sids.add(ace.getSid());
+			}
+		}
+		List<es.limit.cecocloud.logic.api.dto.Permission> permissions = new ArrayList<es.limit.cecocloud.logic.api.dto.Permission>();
+		for (Sid sid: sids) {
+			es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission();
+			if (sid instanceof PrincipalSid) {
+				permission.setSidType(PermissionSidType.PRINCIPAL);
+				permission.setSidName(((PrincipalSid)sid).getPrincipal());
+			} else {
+				permission.setSidType(PermissionSidType.GRANTED_AUTHORITY);
+				permission.setSidName(((GrantedAuthoritySid)sid).getGrantedAuthority());
+			}
+			permission.setReadGranted(
+					acl.isGranted(Arrays.asList(ExtendedPermission.READ), Arrays.asList(sid), true));
+			permission.setWriteGranted(
+					acl.isGranted(Arrays.asList(ExtendedPermission.WRITE), Arrays.asList(sid), true));
+			permission.setCreateGranted(
+					acl.isGranted(Arrays.asList(ExtendedPermission.CREATE), Arrays.asList(sid), true));
+			permission.setDeleteGranted(
+					acl.isGranted(Arrays.asList(ExtendedPermission.DELETE), Arrays.asList(sid), true));
+			permission.setAdminGranted(
+					acl.isGranted(Arrays.asList(ExtendedPermission.ADMINISTRATION), Arrays.asList(sid), true));
+			permission.setSyncGranted(
+					acl.isGranted(Arrays.asList(ExtendedPermission.SYNC), Arrays.asList(sid), true));
+			permissions.add(permission);
+		}
+		return permissions;
+	}
+
+	public boolean checkPermission(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			PermissionSidType sidType,
+			String sidName,
+			Permission permission) {
+		MutableAcl acl = getMutableAcl(
+				resourceClass,
+				resourceId,
+				sidType,
+				sidName,
+				false);
+		if (acl != null) {
+			Sid sid = getSid(sidType, sidName);
+			return acl.isGranted(Arrays.asList(permission), Arrays.asList(sid), true);
+		} else {
+			return false;
+		}
+	}
+
+	private MutableAcl getMutableAcl(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			PermissionSidType sidType,
+			String sidName,
+			boolean createIfNotExists) {
+		//Class<?> resourceClass = ProfileServiceImpl.getDtoClassForName(resourceName);
+		ObjectIdentity objectIdentity = new ObjectIdentityImpl(resourceClass.getName(), resourceId);
+		Sid sid = null;
+		if (sidType != null && sidName != null) {
+			sid = getSid(sidType, sidName);
+		}
+		MutableAcl acl;
+		try {
+			acl = (MutableAcl)mutableAclService.readAclById(
+					objectIdentity,
+					(sid != null) ? Arrays.asList(sid) : null);
+		} catch (NotFoundException ex) {
+			if (createIfNotExists) {
+				acl = mutableAclService.createAcl(objectIdentity);
+			} else {
+				acl = null;
+			}
+		}
+		return acl;
+	}
+
+	private Sid getSid(
+			PermissionSidType sidType,
+			String sidName) {
+		Sid sid;
+		if (PermissionSidType.PRINCIPAL.equals(sidType)) {
+			sid = new PrincipalSid(sidName);
+		} else {
+			sid = new GrantedAuthoritySid(sidName);
+		}
+		return sid;
+	}
+
+	private List<Permission> getPermissionList(
+			es.limit.cecocloud.logic.api.dto.Permission permission) {
+		List<Permission> permissionList = new ArrayList<Permission>();
+		if (permission.isReadGranted()) {
+			permissionList.add(ExtendedPermission.READ);
+		}
+		if (permission.isWriteGranted()) {
+			permissionList.add(ExtendedPermission.WRITE);
+		}
+		if (permission.isCreateGranted()) {
+			permissionList.add(ExtendedPermission.CREATE);
+		}
+		if (permission.isDeleteGranted()) {
+			permissionList.add(ExtendedPermission.DELETE);
+		}
+		if (permission.isAdminGranted()) {
+			permissionList.add(ExtendedPermission.ADMINISTRATION);
+		}
+		if (permission.isSyncGranted()) {
+			permissionList.add(ExtendedPermission.SYNC);
+		}
+		return permissionList;
+	}
+
+}

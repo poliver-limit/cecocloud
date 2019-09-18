@@ -51,7 +51,7 @@ public abstract class AbstractApiController {
 	@Autowired
 	private ProfileService profileService;
 
-	protected <D extends Identificable<?>> Resource<D> toResource(
+	protected <D> Resource<D> toResource(
 			D dto,
 			Link... links) {
 		return new Resource<D>(
@@ -59,7 +59,7 @@ public abstract class AbstractApiController {
 				links);
 	}
 	@SuppressWarnings("rawtypes")
-	protected <D extends Identificable<?>> Resources<Resource<D>> toResources(
+	protected <D> Resources<Resource<D>> toResources(
 			List<D> dtos,
 			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
 			Link... links) {

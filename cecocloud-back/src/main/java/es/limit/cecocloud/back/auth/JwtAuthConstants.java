@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.front.auth;
+package es.limit.cecocloud.back.auth;
 
 /**
  * Constants per a l'autenticació amb token JWT.

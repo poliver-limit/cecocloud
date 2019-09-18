@@ -6,7 +6,7 @@ package es.limit.cecocloud.logic.helper;
 import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
-@Service
+@Component
 public class TokenHelper {
 
 	// Signing key for HS512 algorithm

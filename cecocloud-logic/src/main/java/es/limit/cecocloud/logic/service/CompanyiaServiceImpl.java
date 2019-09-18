@@ -15,6 +15,6 @@ import es.limit.cecocloud.persist.entity.CompanyiaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class CompanyiaServiceImpl extends AbstractGenericServiceImpl<Companyia, CompanyiaEntity, Long> implements CompanyiaService {
+public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsImpl<Companyia, CompanyiaEntity, Long> implements CompanyiaService {
 
 }
