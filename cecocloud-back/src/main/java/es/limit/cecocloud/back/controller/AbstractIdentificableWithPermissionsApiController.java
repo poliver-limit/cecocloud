@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -42,7 +43,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			produces = "application/json")
 	public ResponseEntity<Resource<Permission>> permissionUpdate(
 			HttpServletRequest request,
-			@PathVariable /*@DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN)*/ final ID resourceId,
+			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
 			@RequestBody @Valid final Permission permission) {
 		log.debug("Modificant permis de l'entitat (" +
 				"resourceId=" + resourceId + ", " +
@@ -56,7 +57,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			produces = "application/json")
 	public ResponseEntity<Resources<Resource<Permission>>> permissionGet(
 			HttpServletRequest request,
-			@PathVariable /*@DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN)*/ final ID resourceId) {
+			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
 		log.debug("Obtenint els permisos de l'entitat (" +
 				"resourceId=" + resourceId + ")");
 		List<Permission> permissions = getService().permissionFind(resourceId);

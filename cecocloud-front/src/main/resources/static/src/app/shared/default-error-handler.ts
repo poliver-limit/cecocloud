@@ -1,4 +1,5 @@
-import { Component, ErrorHandler, Injectable, Injector, Inject } from '@angular/core';
+import { Component, ErrorHandler, Injectable, Injector, Inject, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
 
@@ -7,30 +8,22 @@ import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
 } )
 export class DefaultErrorHandler implements ErrorHandler {
 
-    handleError( error: Error ) {
-        let title;
-        if ( error instanceof HttpErrorResponse ) {
+    handleError( error: any ) {
+        if ( error.message.indexOf( 'ChunkLoadError' ) != -1 || !navigator.onLine ) {
+            this.showDialogError( null, 'Error de connexió', error, this.translate.instant( 'error.dialog.no.connexio' ) );
+        } else if ( error instanceof HttpErrorResponse ) {
             // Server or connection error happened
-            if ( !navigator.onLine ) {
-                title = 'No Internet Connection';
-            } else {
-                title = error.error ? error.error.error : error.message;
-            }
+            let title = error.error ? error.error.error : error.message;
             let code = error.error ? error.error.status : error.name;
             let message = error.error ? error.error.message : undefined;
             let timestamp = error.error ? error.error.timestamp : undefined;
             let trace = error.error ? error.error.trace : undefined;
-            this.showDialogError( code, title, error, message, timestamp, trace );
+            this.showDialogError( code, title, <Error>error, message, timestamp, trace );
         } else {
-            // Handle Client Error (Angular Error, ReferenceError...)
-            if ( !navigator.onLine ) {
-                title = 'No Internet Connection';
-            } else {
-                title = error.message ? error.message : error.toString();
-            }
-            this.showDialogError( error.name, title, error, null, null, error.stack );
-            throw error;
+            this.showDialogError( null, 'Error', error, error.message, error.timestamp, error.stack );
         }
+        // Handle Client Error (Angular Error, ReferenceError...)
+        //throw error;
     }
 
     showDialogError( code: string, title: string, error: Error, message?: string, timestamp?: string, stack?: string ) {
@@ -50,7 +43,10 @@ export class DefaultErrorHandler implements ErrorHandler {
         } );*/
     }
 
-    constructor( private injector: Injector ) { }
+    constructor(
+        private injector: Injector,
+        private translate: TranslateService ) {
+    }
 
 }
 
@@ -59,9 +55,9 @@ export class DefaultErrorHandler implements ErrorHandler {
 <mdc-dialog class="default-error-dialog">
     <mdc-dialog-container>
         <mdc-dialog-surface>
-            <mdc-dialog-title><mdc-icon class="text-icon error">warning</mdc-icon> [{{data.code}}] {{data.title}}</mdc-dialog-title>
+            <mdc-dialog-title><mdc-icon class="text-icon error">warning</mdc-icon>&nbsp;<span *ngIf="data.code">[{{data.code}}] </span>{{data.title}}</mdc-dialog-title>
             <mdc-dialog-content>
-                <mdc-tab-bar (activated)="onActivatedTab($event)" [activeTabIndex]="0" useAutomaticActivation>
+                <mdc-tab-bar *ngIf="tabsCount > 1" (activated)="onActivatedTab($event)" [activeTabIndex]="0" useAutomaticActivation>
                     <mdc-tab-scroller>
                         <mdc-tab id="message" *ngIf="data.message" label="{{'error.dialog.tab.info'|translate}}"></mdc-tab>
                         <mdc-tab id="fields" *ngIf="data.error.error?.errors" label="{{'error.dialog.tab.fields'|translate}}"></mdc-tab>
@@ -69,10 +65,11 @@ export class DefaultErrorHandler implements ErrorHandler {
                     </mdc-tab-scroller>
                 </mdc-tab-bar>
                 <mdc-list *ngIf="activeTabId == 'message'" twoLine>
-                    <mdc-list-item>
+                    <p>{{data.message}}</p>
+                    <!--mdc-list-item>
                         <mdc-list-item-text [secondaryText]="data.message">{{'error.dialog.field.message'|translate}}</mdc-list-item-text>
-                    </mdc-list-item>
-                    <mdc-list-item>
+                    </mdc-list-item-->
+                    <mdc-list-item *ngIf="data.timestamp">
                         <mdc-list-item-text [secondaryText]="data.timestamp">{{'error.dialog.field.timestamp'|translate}}</mdc-list-item-text>
                     </mdc-list-item>
                 </mdc-list>
@@ -106,6 +103,7 @@ mdc-textarea {
 export class DefaultErrorDialog {
 
     activeTabId: string;
+    tabsCount: number = 0;
 
     onActivatedTab( event ) {
         this.activeTabId = event.tab.id;
@@ -114,6 +112,18 @@ export class DefaultErrorDialog {
     constructor(
         @Inject( MDC_DIALOG_DATA ) public data: any ) {
         this.data = data;
+        if ( data.stack ) {
+            this.activeTabId = 'trace';
+            this.tabsCount++;
+        }
+        if ( data.error && data.error.error && data.error.error.errors ) {
+            this.activeTabId = 'fields';
+            this.tabsCount++;
+        }
+        if ( data.message ) {
+            this.activeTabId = 'message';
+            this.tabsCount++;
+        }
     }
 
 }

@@ -65,7 +65,7 @@ export interface FormGridConfig {
             <button mdc-icon-button *ngIf="restapiError" class="mdc-icon-button-sm" (click)="onErrorIconClick()" style="color:#de442c">
                 <mdc-icon>warning</mdc-icon>
             </button>
-            <span class="header-title">{{title}} / {{id ? ('component.restapi.form.header.title.modificar' | translate) : ('component.restapi.form.header.title.crear' | translate)}}</span>
+            <span class="header-title" *ngIf="title">{{title}} / {{id ? ('component.restapi.form.header.title.modificar' | translate) : ('component.restapi.form.header.title.crear' | translate)}}</span>
         </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align="end">
             <button mdc-icon-button

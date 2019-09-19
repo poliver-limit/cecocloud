@@ -71,6 +71,7 @@
 	"error.dialog.tab.trace": "Traça",
 	"error.dialog.field.message": "Missatge",
 	"error.dialog.field.timestamp": "Data i hora",
+	"error.dialog.no.connexio": "Sembla que s'ha perdut la connexió a Internet. Per favor, revisi la seva configuració de xarxa i torni a provar-ho.",
 	"error.dialog.button.close": "Tancar",
 
 	"error.validation.contraint.NotNull": "Aquest camp és obligatori",

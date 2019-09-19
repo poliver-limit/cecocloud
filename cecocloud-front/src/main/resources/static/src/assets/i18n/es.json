@@ -71,6 +71,7 @@
 	"error.dialog.tab.trace": "Traza",
 	"error.dialog.field.message": "Mensaje",
 	"error.dialog.field.timestamp": "Fecha y hora",
+	"error.dialog.no.connexio": "Parece que se ha perdido la conexión a Internet. Por favor, revise su configuración de red y vuelva a intentarlo.",
 	"error.dialog.button.close": "Cerrar",
 
 	"error.validation.contraint.NotNull": "Este campo es obligatorio",
