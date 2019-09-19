@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.cecocloud.logic.api.dto.Permission;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
@@ -31,6 +32,7 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 	private PermissionHelper permissionHelper;
 
 	@Override
+	@Transactional
 	public Permission permissionUpdate(
 			ID id,
 			Permission permission)
@@ -41,10 +43,11 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 				getDtoClass(),
 				id,
 				permission);
-		return null;
+		return permission;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Permission> permissionFind(ID id) {
 		log.debug("Consulta de permisos de l'entitat (" + "id=" + id + ")");
 		getEntity(id);

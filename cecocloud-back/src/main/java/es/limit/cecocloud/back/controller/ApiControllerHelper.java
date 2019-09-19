@@ -15,7 +15,6 @@ import org.reflections.Reflections;
 import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 
@@ -61,11 +60,7 @@ public abstract class ApiControllerHelper {
 			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
 			Object id,
 			String rel) {
-		Link link = linkTo(methodOn(apiControllerClass).getOne(null, null)).withRel(rel);
-		if (id != null) {
-			UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(link.getHref());
-			link = new Link(uriBuilder.buildAndExpand(id).toString());
-		}
+		Link link = linkTo(methodOn(apiControllerClass, id).getOne(null, null)).withRel(rel);
 		return link;
 	}
 	@SuppressWarnings("rawtypes")

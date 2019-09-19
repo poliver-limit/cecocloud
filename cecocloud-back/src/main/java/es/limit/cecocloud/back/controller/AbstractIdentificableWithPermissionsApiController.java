@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.back.controller;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -51,13 +54,24 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 	@GetMapping(
 			value = "/{resourceId}/permission",
 			produces = "application/json")
-	public ResponseEntity<Resources<Resource<Permission>>> getNew(
+	public ResponseEntity<Resources<Resource<Permission>>> permissionGet(
 			HttpServletRequest request,
 			@PathVariable /*@DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN)*/ final ID resourceId) {
 		log.debug("Obtenint els permisos de l'entitat (" +
 				"resourceId=" + resourceId + ")");
 		List<Permission> permissions = getService().permissionFind(resourceId);
-		return ResponseEntity.ok(toResources(permissions, getClass(), getApiLink(Link.REL_SELF)));
+		return ResponseEntity.ok(
+				toResources(
+						permissions,
+						getClass(),
+						getPermissionApiLink(resourceId, Link.REL_SELF)));
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Link getPermissionApiLink(
+			ID resourceId,
+			String rel) {
+		return linkTo(methodOn(getClass(), resourceId).permissionGet(null, null)).withRel(rel);
 	}
 
 	protected abstract GenericServiceWithPermissions<D, ID> getService();
