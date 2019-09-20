@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { CompanyiesService } from './companyies.service';
+import { CompanyiesPermissionService } from './companyies-permission.service';
 import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
 
 @Component( {
@@ -12,15 +14,41 @@ import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
     [restapiService]="companyiesService">
     <restapi-custom name="codi"></restapi-custom>
     <restapi-custom name="nom"><!--companyia-nom #customField></companyia-nom--></restapi-custom>
+    <ng-container *ngIf="id">
+        <datagrid
+        datagrid-mant
+        [config]="permisosDatagridConfig"
+        [restapiService]="companyiesPermissionService"></datagrid>
+    </ng-container>
 </restapi-form>
 `
 } )
 export class CompanyiesFormComponent {
 
+    id: any;
+
     formConfig: FormConfig = {
     }
+    permisosDatagridConfig = {
+        adjustHeight: false,
+        paginationEnabled: false,
+        mode: 'form'
+        //editable: true,
+        //columnFiltersEnabled: true
+    };
 
     constructor(
-        public companyiesService: CompanyiesService ) { }
+        private activatedRoute: ActivatedRoute,
+        public companyiesService: CompanyiesService,
+        public companyiesPermissionService: CompanyiesPermissionService ) {
+        activatedRoute.params.subscribe(( params ) => {
+            if ( params.id ) {
+                this.id = params.id;
+            }
+        } );
+        if ( this.id ) {
+            companyiesPermissionService.setPermissionResourceId( this.id );
+        }
+    }
 
 }

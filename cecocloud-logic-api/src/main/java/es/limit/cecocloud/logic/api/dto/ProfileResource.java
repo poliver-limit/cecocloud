@@ -19,7 +19,6 @@ public class ProfileResource {
 	private String name;
 	private String translateKey;
 	private String translateKeyPlural;
-	private String apiUrl;
 	private String descriptionField;
 	private String lovDescriptionField;
 	private boolean quickFilterAvailable;

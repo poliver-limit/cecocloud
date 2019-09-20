@@ -42,7 +42,7 @@ export class RestapiService<T extends Resource> extends RestService<T> {
 
     public createFormGroup( resourceInstance: any, resource: RestapiResource, isCreate: boolean ): FormGroup {
         let formControls = {};
-        resource.fields.forEach((field: RestapiResourceField) => {
+        resource.fields.forEach(( field: RestapiResourceField ) => {
             let value;
             if ( resourceInstance ) {
                 value = resourceInstance[field.name];
@@ -65,7 +65,7 @@ export class RestapiService<T extends Resource> extends RestService<T> {
             }
             let fieldDisabled = ( isCreate ) ? field.disabledForCreate : field.disabledForUpdate;
             formControls[field.name] = [{ value: value, disabled: fieldDisabled }, validators];
-        })
+        } )
         return this.formBuilder.group( formControls );
     }
 
@@ -79,8 +79,12 @@ export class RestapiService<T extends Resource> extends RestService<T> {
 
     public configureWithResourceName( resourceName: string ) {
         if ( resourceName ) {
+            let profileUrl: string = this.getProfileUrl( resourceName );
+            if ( !profileUrl ) {
+                profileUrl = '/profiles/' + resourceName;
+            }
             this.profileObservable = new Observable(( observer ) => {
-                this.httpClient.get( this.restapiConfigService.getContextRelativeUrl( '/profiles/' + resourceName ) ).subscribe(( profile: RestapiProfile ) => {
+                this.httpClient.get( this.restapiConfigService.getContextRelativeUrl( profileUrl ) ).subscribe(( profile: RestapiProfile ) => {
                     // TODO: no es pot utilitzar cache perquè quan es canvia d'usuari els permisos del Resource canvien
                     // this.cachedProfile = profile;
                     let apiHref = profile._links.api.href;
@@ -88,13 +92,24 @@ export class RestapiService<T extends Resource> extends RestService<T> {
                     if ( keyIndex != -1 ) {
                         apiHref = apiHref.substring( 0, keyIndex );
                     }
-                    let apiResource = apiHref.substring( apiHref.lastIndexOf( '/' ) + 1 );
-                    this['resource'] = apiResource;
+                    let apiResource = apiHref.substring( apiHref.lastIndexOf( '/api/' ) + '/api/'.length );
+                    if ( this.getPermissionResourceId() ) {
+                        this['resource'] = apiResource.replace( '$$$', this.getPermissionResourceId() );
+                    } else {
+                        this['resource'] = apiResource;
+                    }
                     observer.next( profile );
                     observer.complete();
                 } );
             } );
         }
+    }
+
+    protected getProfileUrl( resourceName: string ): string {
+        return undefined;
+    }
+    protected getPermissionResourceId(): any {
+        return undefined;
     }
 
     public formatDateForFormGroup( value: string, isTimestamp?: boolean ) {

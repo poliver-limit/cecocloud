@@ -13,7 +13,8 @@ export class CompanyiesGridComponent {
 
     datagridConfig = {
         //editable: true,
-        columnFiltersEnabled: true
+        columnFiltersEnabled: true,
+        paginationEnabled: false
     };
 
     constructor(

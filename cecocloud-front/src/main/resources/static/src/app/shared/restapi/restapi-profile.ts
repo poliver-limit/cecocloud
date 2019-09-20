@@ -48,9 +48,6 @@ export class RestapiResourceField {
     lovResourceName?: string;
     lovDescriptionField?: string;
     lovGenericResource?: boolean;
-    //lovDescriptionFieldInFront?: string;
-    //lovParentField?: string;
-    //lovWithDescriptionInput?: boolean;
     width?: number;
 }
 

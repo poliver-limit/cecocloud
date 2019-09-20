@@ -43,20 +43,56 @@ public class ProfileApiController {
 	public ResponseEntity<Resource<Profile>> getOne(
 			HttpServletRequest request,
 			@PathVariable final String resourceName) {
+		return getOnePrivate(
+				request,
+				resourceName,
+				linkTo(methodOn(getClass(), resourceName).getOne(null, null)).withSelfRel(),
+				null);
+	}
+
+	@GetMapping(value = "/{resourceName}/{resourceId}/permission", produces = "application/json")
+	public ResponseEntity<Resource<Profile>> getOne(
+			HttpServletRequest request,
+			@PathVariable final String resourceName,
+			@PathVariable final String resourceId) {
+		return getOnePrivate(
+				request,
+				resourceName,
+				linkTo(methodOn(getClass(), resourceName, resourceId).getOne(null, null, null)).withSelfRel(),
+				resourceId);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private ResponseEntity<Resource<Profile>> getOnePrivate(
+			HttpServletRequest request,
+			final String resourceName,
+			final Link selfLink,
+			final String permissionResourceId) {
 		try {
-			linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref();
+			//linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref();
 			Profile profile = profileService.getProfile(
 					resourceName,
-					linkTo(methodOn(getClass()).getOne(null, resourceName)).withRel(resourceName).getHref());
-			Link selfLink = linkTo(methodOn(getClass()).getOne(null, resourceName)).withSelfRel();
-			@SuppressWarnings("rawtypes")
+					selfLink.getHref(),
+					permissionResourceId);
 			Optional<Class<? extends AbstractIdentificableReadOnlyApiController>> matchingControllerClass = ApiControllerHelper.getApiControllerClasses().stream().
 					filter(apiControllerClass -> apiControllerHasResourceName(apiControllerClass, resourceName)).
 					findFirst();
 			Link apiLink = null;
-			try {
-				apiLink = ApiControllerHelper.getLinkFromApiControllerClass(matchingControllerClass.get(), "api");
-			} catch (NoSuchElementException ex) {
+			if (permissionResourceId == null) {
+				try {
+					apiLink = ApiControllerHelper.getLinkFromApiControllerClass(
+							matchingControllerClass.get(),
+							"api");
+				} catch (NoSuchElementException ex) {
+				}
+			} else {
+				try {
+					apiLink = ApiControllerHelper.getPermissionLinkFromApiControllerClass(
+							(Class<? extends AbstractIdentificableWithPermissionsApiController>)(matchingControllerClass.get()),
+							permissionResourceId,
+							"api");
+				} catch (NoSuchElementException ex) {
+				}
 			}
 			if (apiLink != null) {
 				return ResponseEntity.ok(

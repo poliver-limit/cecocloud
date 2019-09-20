@@ -22,8 +22,9 @@ export class DefaultErrorHandler implements ErrorHandler {
         } else {
             this.showDialogError( null, 'Error', error, error.message, error.timestamp, error.stack );
         }
-        // Handle Client Error (Angular Error, ReferenceError...)
-        //throw error;
+        if (error.stack ) {
+            throw error;
+        }
     }
 
     showDialogError( code: string, title: string, error: Error, message?: string, timestamp?: string, stack?: string ) {

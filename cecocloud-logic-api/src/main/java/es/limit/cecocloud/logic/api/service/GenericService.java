@@ -28,8 +28,6 @@ public interface GenericService<D extends Identificable<ID>, ID extends Serializ
 	 * @param dto
 	 *            informació de l'entitat.
 	 * @return l'entitat creada.
-	 * @throws PermissionDeniedException
-	 *             si l'usuari no te permisos per realitzar aquesta acció.
 	 */
 	public D create(
 			D dto) throws PermissionDeniedException;
@@ -44,25 +42,21 @@ public interface GenericService<D extends Identificable<ID>, ID extends Serializ
 	 * @return l'entitat modificada.
 	 * @throws EntityNotFoundException
 	 *             si no s'ha trobat l'entitat especificada.
-	 * @throws PermissionDeniedException
-	 *             si l'usuari no te permisos per realitzar aquesta acció.
 	 */
 	public D update(
 			ID id,
-			D dto) throws EntityNotFoundException, PermissionDeniedException;
+			D dto) throws EntityNotFoundException;
 
 	/**
 	 * Esborra una entitat donat el seu identificador.
 	 * 
 	 * @param id
-	 *            identificador de l'entitats.
+	 *            identificació de l'entitat.
 	 * @throws EntityNotFoundException
 	 *             si no s'ha trobat l'entitat especificada.
-	 * @throws PermissionDeniedException
-	 *             si l'usuari no te permisos per realitzar aquesta acció.
 	 */
 	public void delete(
-			ID id) throws EntityNotFoundException, PermissionDeniedException;
+			ID id) throws EntityNotFoundException;
 
 	/**
 	 * Consulta una entitat donada la seva identificació.

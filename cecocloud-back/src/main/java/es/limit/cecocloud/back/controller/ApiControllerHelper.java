@@ -72,6 +72,18 @@ public abstract class ApiControllerHelper {
 			rel = getResourceNameFromClass(dtoClass);
 		}
 		Link link = linkTo(methodOn(apiControllerClass).find(null, null, null, null)).withRel(rel);
+		return new Link(link.getTemplate().expand(null, null).toString(), rel);
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Link getPermissionLinkFromApiControllerClass(
+			Class<? extends AbstractIdentificableWithPermissionsApiController> apiControllerClass,
+			String permissionResourceId,
+			String rel) {
+		if (rel == null) {
+			Class<? extends Identificable<?>> dtoClass = ApiControllerHelper.getDtoClassFromApiController(apiControllerClass);
+			rel = ApiControllerHelper.getResourceNameFromClass(dtoClass);
+		}
+		Link link = linkTo(methodOn(apiControllerClass, permissionResourceId).permissionFind(null, null)).withRel(rel);
 		return link;
 	}
 

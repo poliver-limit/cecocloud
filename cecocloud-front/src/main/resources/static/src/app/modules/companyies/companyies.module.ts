@@ -11,6 +11,7 @@ import { CompanyiesGridComponent } from './companyies-grid.component';
 import { CompanyiesFormComponent } from './companyies-form.component';
 import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
 import { CompanyiesService } from './companyies.service';
+import { CompanyiesPermissionService } from './companyies-permission.service';
 
 @NgModule( {
     imports: [
@@ -31,7 +32,8 @@ import { CompanyiesService } from './companyies.service';
         CompanyiesNomFieldComponent
     ],
     providers: [
-        CompanyiesService
+        CompanyiesService,
+        CompanyiesPermissionService
     ]
 } )
 export class CompanyiesModule {}

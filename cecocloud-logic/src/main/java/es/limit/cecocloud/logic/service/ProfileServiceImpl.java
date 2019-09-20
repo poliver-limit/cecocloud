@@ -5,18 +5,15 @@ package es.limit.cecocloud.logic.service;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.alps.Alps;
 import org.springframework.hateoas.alps.Descriptor;
@@ -24,12 +21,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.logic.api.annotation.RestapiField;
 import es.limit.cecocloud.logic.api.annotation.RestapiGrid;
 import es.limit.cecocloud.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.logic.api.dto.Permission;
 import es.limit.cecocloud.logic.api.dto.Profile;
 import es.limit.cecocloud.logic.api.dto.ProfileResource;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
@@ -49,7 +45,6 @@ import es.limit.cecocloud.logic.api.service.ProfileService;
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-	private static final String CONTROLLER_PACKAGE = "com.josepgaya.temprj.back.controller";
 	private static final String TRANSLATE_KEY_PREFIX = "resource.";
 
 	@Autowired
@@ -58,10 +53,11 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public Profile getProfile(
 			String resourceName,
-			String profileHref) throws ClassNotFoundException {
+			String profileHref,
+			String permissionResourceId) throws ClassNotFoundException {
 		Class<?> dtoClass = getDtoClassForName(resourceName);
 		if (dtoClass != null) {
-			return getProfile(dtoClass, profileHref);
+			return getProfile(dtoClass, profileHref, permissionResourceId);
 		} else {
 			throw new ClassNotFoundException("Classe pel recurs " + resourceName + " no trobada");
 		}
@@ -70,27 +66,33 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public Profile getProfile(
 			Class<?> dtoClass,
-			String profileHref) throws ClassNotFoundException {
+			String profileHref,
+			String permissionResourceId) throws ClassNotFoundException {
 		ProfileResource resource = new ProfileResource();
 		resource.setName(getResourceNameFromDtoClass(dtoClass));
-		Class<?> controllerClass = getControllerClassForDto(dtoClass);
+		/*Class<?> controllerClass = getControllerClassForDto(dtoClass);
 		if (controllerClass != null) {
-			resource.setApiUrl(
-					getApiUrl(
-							dtoClass,
-							controllerClass));
+			resource.setApiUrl(getApiUrl(controllerClass));
+		}*/
+		Class<?> permissionDtoClass;
+		if (permissionResourceId != null) {
+			permissionDtoClass = Permission.class;
+			resource.setName(getResourceNameFromDtoClass(Permission.class));
+			//resource.setApiUrl(resource.getApiUrl() + "/" + permissionResourceId + "/permissions");
+		} else {
+			permissionDtoClass = dtoClass;
 		}
 		resource.setTranslateKey(
 				TRANSLATE_KEY_PREFIX + resource.getName());
 		resource.setTranslateKeyPlural(
 				TRANSLATE_KEY_PREFIX + resource.getName() + ".plural");
-		resource.setFields(getFields(dtoClass));
-		resource.setQuickFilterAvailable(isQuickFilterAvailable(dtoClass));
+		resource.setFields(getFields(permissionDtoClass));
+		resource.setQuickFilterAvailable(isQuickFilterAvailable(permissionDtoClass));
 		resource.setHasCreatePermission(true);
 		resource.setHasReadPermission(true);
 		resource.setHasUpdatePermission(true);
 		resource.setHasDeletePermission(true);
-		RestapiResource resourceAnnotation = dtoClass.getAnnotation(RestapiResource.class);
+		RestapiResource resourceAnnotation = permissionDtoClass.getAnnotation(RestapiResource.class);
 		if (resourceAnnotation != null) {
 			if (!resourceAnnotation.descriptionField().isEmpty()) {
 				resource.setDescriptionField(resourceAnnotation.descriptionField());
@@ -165,7 +167,7 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 	}
 
-	private Class<?> getControllerClassForDto(
+	/*private Class<?> getControllerClassForDto(
 			Class<?> dtoClass) throws ClassNotFoundException {
 		Class<?> controllerClass = null;
 		for (String packageToScan:  new String [] {CONTROLLER_PACKAGE}) {
@@ -189,7 +191,6 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	private String getApiUrl(
-			Class<?> dtoClass,
 			Class<?> controllerClass) throws ClassNotFoundException {
 		RequestMapping requestMappingAnnotation = controllerClass.getAnnotation(RequestMapping.class);
 		if (requestMappingAnnotation != null) {
@@ -199,7 +200,7 @@ public class ProfileServiceImpl implements ProfileService {
 			}
 		}
 		return null;
-	}
+	}*/
 
 	public static List<ProfileResourceField> getFields(
 			Class<?> dtoClass) {

@@ -19,13 +19,18 @@ public interface ProfileService {
 	 *            nom del recurs del qual es vol obtenir el perfil.
 	 * @param profileHref
 	 *            URL d'accés al perfil.
+	 * @param permissionResourceId
+	 *            Id del recurs pels perfils de tipus permission.
+	 *            Si aquest camp és != null s'indica que es vol obtenir
+	 *            el perfil pels permisos del recurs.
 	 * @return la informació del perfil.
 	 * @throws ClassNotFoundException
 	 *             si no es troba la classe del DTO o del controlador.
 	 */
 	public Profile getProfile(
 			String resourceName,
-			String profileHref) throws ClassNotFoundException;
+			String profileHref,
+			String permissionResourceId) throws ClassNotFoundException;
 
 	/**
 	 * Obtenir informació del perfil d'un recurs.
@@ -34,12 +39,17 @@ public interface ProfileService {
 	 *            classe del DTO del qual es vol obtenir el perfil.
 	 * @param profileHref
 	 *            URL d'accés al perfil.
+	 * @param permissionResourceId
+	 *            Id del recurs pels perfils de tipus permission.
+	 *            Si aquest camp és != null s'indica que es vol obtenir
+	 *            el perfil pels permisos del recurs.
 	 * @return la informació del perfil.
 	 * @throws ClassNotFoundException
 	 *             si no es troba la classe del controlador.
 	 */
 	public Profile getProfile(
 			Class<?> dtoClass,
-			String profileHref) throws ClassNotFoundException;
+			String profileHref,
+			String permissionResourceId) throws ClassNotFoundException;
 
 }

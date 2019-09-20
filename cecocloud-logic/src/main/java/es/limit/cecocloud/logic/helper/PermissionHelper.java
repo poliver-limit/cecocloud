@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NonUniqueResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
@@ -39,6 +42,7 @@ public class PermissionHelper {
 	public void update(
 			Class<?> resourceClass,
 			Serializable resourceId,
+			String permissionId,
 			es.limit.cecocloud.logic.api.dto.Permission permission) {
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
@@ -72,14 +76,60 @@ public class PermissionHelper {
 		mutableAclService.updateAcl(acl);
 	}
 
+	public void delete(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			String permissionId) {
+		es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission(permissionId);
+		update(
+				resourceClass,
+				resourceId,
+				permissionId,
+				permission);
+	}
+
+	public es.limit.cecocloud.logic.api.dto.Permission getOne(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			String permissionId) {
+		List<es.limit.cecocloud.logic.api.dto.Permission> permissions = find(
+				resourceClass, 
+				resourceId,
+				permissionId);
+		if (permissions.isEmpty()) {
+			throw new EntityNotFoundException("Permission #" + permissionId + " from entity #" + resourceId + " of type " + resourceClass);
+		} else if (permissions.size() > 1) {
+			throw new NonUniqueResultException("Query for permission #" + permissionId + " from entity #" + resourceId + " of type " + resourceClass + " returned more than one result (" + permissions.size() + ")");
+		} else {
+			return permissions.get(0);
+		}
+	}
+
 	public List<es.limit.cecocloud.logic.api.dto.Permission> find(
 			Class<?> resourceClass,
 			Serializable resourceId) {
+		return find(
+				resourceClass,
+				resourceId,
+				null);
+	}
+
+	private List<es.limit.cecocloud.logic.api.dto.Permission> find(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			String permissionId) {
+		PermissionSidType sidType = null;
+		String sidName = null;
+		if (permissionId != null) {
+			es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission(permissionId);
+			sidType = permission.getSidType();
+			sidName = permission.getSidName();
+		}
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
-				null,
-				null,
+				sidType,
+				sidName,
 				false);
 		List<es.limit.cecocloud.logic.api.dto.Permission> permissions = new ArrayList<es.limit.cecocloud.logic.api.dto.Permission>();
 		if (acl != null) {
@@ -90,13 +140,15 @@ public class PermissionHelper {
 				}
 			}
 			for (Sid sid: sids) {
-				es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission();
+				es.limit.cecocloud.logic.api.dto.Permission permission;
 				if (sid instanceof PrincipalSid) {
-					permission.setSidType(PermissionSidType.PRINCIPAL);
-					permission.setSidName(((PrincipalSid)sid).getPrincipal());
+					permission = new es.limit.cecocloud.logic.api.dto.Permission(
+							PermissionSidType.PRINCIPAL,
+							((PrincipalSid)sid).getPrincipal());
 				} else {
-					permission.setSidType(PermissionSidType.GRANTED_AUTHORITY);
-					permission.setSidName(((GrantedAuthoritySid)sid).getGrantedAuthority());
+					permission = new es.limit.cecocloud.logic.api.dto.Permission(
+							PermissionSidType.GRANTED_AUTHORITY,
+							((GrantedAuthoritySid)sid).getGrantedAuthority());
 				}
 				permission.setReadGranted(
 						isPermissionGranted(acl, sid, ExtendedPermission.READ));

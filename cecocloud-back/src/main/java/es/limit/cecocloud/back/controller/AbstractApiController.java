@@ -163,7 +163,7 @@ public abstract class AbstractApiController {
 
 	private String buildRsqlQueryFromRequestParams(HttpServletRequest request) {
 		try {
-			Profile profile = profileService.getProfile(getDtoClass(), null);
+			Profile profile = profileService.getProfile(getDtoClass(), null, null);
 			Enumeration<String> paramNames = request.getParameterNames();
 			StringBuilder rsqlQuery = new StringBuilder();
 			while (paramNames.hasMoreElements()) {

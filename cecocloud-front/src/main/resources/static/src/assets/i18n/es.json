@@ -12,6 +12,7 @@
 	"component.datagrid.manteniment.action.close": "Cerrar",
 	"component.datagrid.manteniment.delete.single.confirm": "¿Está seguro de que desea borrar este {{description}}?",
 	"component.datagrid.manteniment.deleted": "El registro se ha borrado correctamente",
+	"component.datagrid.no.rows": "Sin resultados",
 
 	"component.restapi.form.header.title.crear": "crear",
 	"component.restapi.form.header.title.modificar": "modificar",
@@ -116,6 +117,17 @@
 	"resource.marcatge.plural": "Marcajes",
 	"resource.marcatge.field.operari": "Operario",
 	"resource.marcatge.field.data": "Fecha y hora",
-	"resource.marcatge.field.origen": "Orígen"
+	"resource.marcatge.field.origen": "Orígen",
+
+	"resource.permission": "Permiso",
+	"resource.permission.plural": "Permisos",
+	"resource.permission.field.sidType": "Tipo",
+	"resource.permission.field.sidName": "Nombre de usuario/rol",
+	"resource.permission.field.readGranted": "Acceder",
+	"resource.permission.field.writeGranted": "Modificar",
+	"resource.permission.field.createGranted": "Crear",
+	"resource.permission.field.deleteGranted": "Borrar",
+	"resource.permission.field.adminGranted": "Administrar",
+	"resource.permission.field.syncGranted": "Sincronizar"
 
 }

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.cecocloud.logic.api.dto.Permission;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
-import es.limit.cecocloud.logic.api.exception.PermissionDeniedException;
 import es.limit.cecocloud.logic.api.service.GenericServiceWithPermissions;
 import es.limit.cecocloud.logic.helper.PermissionHelper;
 import es.limit.cecocloud.persist.entity.AbstractEntity;
@@ -32,18 +31,67 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 	private PermissionHelper permissionHelper;
 
 	@Override
-	@Transactional
-	public Permission permissionUpdate(
+	public Permission permissionCreate(
 			ID id,
-			Permission permission)
-			throws EntityNotFoundException, PermissionDeniedException {
-		log.debug("Modificant permisos de l'entitat (" + "id=" + id + ", " + "permission=" + permission + ")");
+			Permission permission) throws EntityNotFoundException {
+		log.debug("Creant permís de l'entitat (" +
+			"id=" + id + ", " +
+			"permission=" + permission + ")");
 		getEntity(id);
 		permissionHelper.update(
 				getDtoClass(),
 				id,
+				null,
 				permission);
 		return permission;
+	}
+
+	@Override
+	@Transactional
+	public Permission permissionUpdate(
+			ID id,
+			String permissionId,
+			Permission permission)
+			throws EntityNotFoundException {
+		log.debug("Modificant permís de l'entitat (" +
+				"id=" + id + ", " +
+				"permissionId=" + permissionId + ", " +
+				"permission=" + permission + ")");
+		getEntity(id);
+		permissionHelper.update(
+				getDtoClass(),
+				id,
+				permissionId,
+				permission);
+		return permission;
+	}
+
+	@Override
+	public void permissionDelete(
+			ID id,
+			String permissionId) throws EntityNotFoundException {
+		log.debug("Esborrant permís de l'entitat (" +
+				"id=" + id + ", " +
+				"permissionId=" + permissionId + ")");
+		getEntity(id);
+		permissionHelper.delete(
+				getDtoClass(),
+				id,
+				permissionId);
+	}
+
+	@Override
+	public Permission permissionGetOne(
+			ID id,
+			String permissionId) throws EntityNotFoundException {
+		log.debug("Obtenint permís de l'entitat (" +
+				"id=" + id + ", " +
+				"permissionId=" + permissionId + ")");
+		getEntity(id);
+		return permissionHelper.getOne(
+				getDtoClass(),
+				id,
+				permissionId);
 	}
 
 	@Override

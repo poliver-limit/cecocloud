@@ -1,41 +1,15 @@
-import {
-    Component,
-    Input,
-    Output,
-    OnInit,
-    ViewChild,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Injector
-} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input, Output, OnInit, ViewChild, ElementRef, EventEmitter, HostListener, Injector } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpParams } from '@angular/common/http';
-import {
-    GridApi,
-    GridOptions,
-    ColDef,
-    ColGroupDef,
-    Column,
-    RowNode,
-    ValueGetterParams,
-    ValueFormatterParams,
-    ValueParserParams,
-    ValueSetterParams,
-    IGetRowsParams
-} from 'ag-grid-community/main';
+import { GridApi, GridOptions, ColDef, ColGroupDef, Column, RowNode, ValueGetterParams, ValueFormatterParams, ValueParserParams, ValueSetterParams, IGetRowsParams } from 'ag-grid-community/main';
 import { Resource, HalParam } from 'angular4-hal';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { RestapiService } from '../restapi/restapi.service';
-import {
-    RestapiProfile,
-    RestapiResource,
-    RestapiResourceField
-} from '../restapi/restapi-profile';
+import { RestapiProfile, RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 import { DatagridHeaderComponent } from './datagrid-header.component';
 import { DatagridLinkCellRenderer } from './datagrid-link-cell-renderer.component';
@@ -44,9 +18,11 @@ import { DatagridRestapiFilterComponent } from './datagrid-restapi-filter.compon
 import { DatagridRestapiFloatingFilterComponent } from './datagrid-restapi-floating-filter.component';
 
 export interface DatagridConfig {
+    mode?: string;
     parent?: any;
     columns?: DatagridColumn[];
     height?: number;
+    adjustHeight?: boolean;
     editable?: boolean;
     staticData?: boolean;
     lovMode?: boolean;
@@ -58,7 +34,7 @@ export interface DatagridConfig {
     resizable?: boolean;
     additionalFilter?: any;
     columnFiltersEnabled?: boolean;
-    pagination?: boolean;
+    paginationEnabled?: boolean;
 }
 export interface DatagridColumn {
     field?: string;
@@ -78,17 +54,24 @@ export interface DatagridColumn {
 @Component( {
     selector: 'datagrid',
     template: `
-<mat-spinner *ngIf="showLoading" diameter="50" style="position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);z-index:1"></mat-spinner>
-<div *ngIf="!showLoading && showNoRows" class="centered" style="text-align: center">
+<div #datagridfull style="position:relative">
+<mat-spinner
+    #spinner
+    *ngIf="showLoading"
+    [diameter]="spinnerDiameter"
+    style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);z-index:1"></mat-spinner>
+<div #norows *ngIf="!showLoading && showNoRows" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center">
     <div><mdc-icon style="font-size:100px; color: rgba(0, 0, 0, 0.18)">block</mdc-icon></div>
-    <div style="color: rgba(0, 0, 0, 0.18)">Sense resultats per mostrar</div>
+    <div style="color: rgba(0, 0, 0, 0.18)">{{'component.datagrid.no.rows'|translate}}</div>
 </div>
 <datagrid-header #header (quickFilterChange)="onQuickFilterChange($event)"></datagrid-header>
 <ag-grid-angular
     *ngIf="gridOptions"
     [ngClass]="theme"
     [style.height]="styleHeight"
-    [gridOptions]="gridOptions"></ag-grid-angular>`
+    [gridOptions]="gridOptions"></ag-grid-angular>
+</div>
+<div *ngIf="config.mode === 'form'"><a href="">+ Nova fila</a></div>`
 } )
 export class DatagridComponent implements OnInit {
 
@@ -102,7 +85,9 @@ export class DatagridComponent implements OnInit {
     @Output() rowClicked: EventEmitter<any> = new EventEmitter();
     @Output() rowDoubleClicked: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild( 'header', { static: false } ) header: DatagridHeaderComponent;
+    @ViewChild( 'header', { static: false } ) headerComponent: DatagridHeaderComponent;
+    @ViewChild( 'header', { read: ElementRef, static: false } ) headerElementRef: ElementRef;
+    @ViewChild( 'datagridfull', { read: ElementRef, static: false } ) datagridfullElementRef: ElementRef;
 
     // Subjects per a la comunicació entre components
     selectionSubject = new Subject<any>();
@@ -110,17 +95,18 @@ export class DatagridComponent implements OnInit {
     scrollSubject = new Subject<any>();
 
     // Aparença
-    toolbarShown = false;
-    theme = 'ag-theme-material'; // 'ag-theme-balham' o 'ag-theme-material'
-    appHeaderHeight = 64;
-    componentHeaderHeight = 65;
-    lovFixedHeight = 220;
-    headerHeight = 46;
-    rowHeight = 36; // balham=32;
-    styleHeight;
-    marginBottom = 0;
-    styleMarginBottom = this.marginBottom + 'px';
-    rowDetailPadding = 20;
+    toolbarShown: boolean = false;
+    theme: string = 'ag-theme-material'; // 'ag-theme-balham' o 'ag-theme-material'
+    appHeaderHeight: number = 64;
+    componentHeaderHeight: number = 65;
+    lovFixedHeight: number = 220;
+    headerHeight: number = 46;
+    rowHeight: number = 36; // balham = 32;
+    styleHeight: SafeStyle;
+    marginBottom: number = 0;
+    styleMarginBottom: string = this.marginBottom + 'px';
+    rowDetailPadding: number = 20;
+    spinnerDiameter: number = 50;
 
     // Altres
     gridOptions: GridOptions;
@@ -155,7 +141,7 @@ export class DatagridComponent implements OnInit {
                 } );
             } else {
                 refreshContext.datasourceParentPk = parentPk;
-                refreshContext.gridComponent.showLoading = true;
+                refreshContext.gridComponent.showLoadingOverlay();
                 refreshApi.setDatasource( refreshContext.gridComponent.createDataSource( refreshContext.restapiService ) );
             }
         }
@@ -312,8 +298,8 @@ export class DatagridComponent implements OnInit {
         gridOptions.headerHeight = this.headerHeight;
         gridOptions.onGridReady = function( event ) {
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
-            context.gridComponent.showLoading = true;
-            context.gridComponent.header.agInit( {
+            context.gridComponent.showLoadingOverlay();
+            context.gridComponent.headerComponent.agInit( {
                 api: event.api,
                 context: context
             } );
@@ -336,8 +322,8 @@ export class DatagridComponent implements OnInit {
                 delete context.datasourceParentPk;
             }
             event.api.sizeColumnsToFit();
-            context.gridComponent.showLoading = false;
-            if (event.api.paginationGetRowCount()) {
+            context.gridComponent.hideLoadingOverlay();
+            if ( event.api.paginationGetRowCount() ) {
                 context.gridComponent.showNoRows = false;
             } else {
                 context.gridComponent.showNoRows = true;
@@ -356,18 +342,18 @@ export class DatagridComponent implements OnInit {
         }
         gridOptions.onRowDataChanged = function( event ) {
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
-            context.gridComponent.showLoading = false;
+            context.gridComponent.hideLoadingOverlay();
         }
         gridOptions.onGridSizeChanged = function( event ) {
             event.api.sizeColumnsToFit();
         }
         gridOptions.onSortChanged = function( event ) {
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
-            context.gridComponent.showLoading = true;
+            context.gridComponent.showLoadingOverlay();
         }
         gridOptions.onFilterChanged = function( event ) {
             let context = event.api['gridOptionsWrapper'].gridOptions.context;
-            context.gridComponent.showLoading = true;
+            context.gridComponent.showLoadingOverlay();
         }
         gridOptions.getRowHeight = function( params ) {
             let context = params.api['gridOptionsWrapper'].gridOptions.context;
@@ -407,9 +393,7 @@ export class DatagridComponent implements OnInit {
         gridOptions.onRowClicked = this.onRowClicked;
         gridOptions.onRowDoubleClicked = this.onRowDoubleClicked;
         if ( !parentGridOptions && !gridConfig.detailConfig ) {
-            if ( gridConfig.height ) {
-                this.styleHeight = gridConfig.height + 'px';
-            } else {
+            if ( gridConfig.adjustHeight === undefined || gridConfig.adjustHeight ) {
                 let fixedHeight;
                 if ( gridConfig.lovMode ) {
                     fixedHeight = this.lovFixedHeight;
@@ -418,6 +402,13 @@ export class DatagridComponent implements OnInit {
                 }
                 fixedHeight += this.marginBottom;
                 this.styleHeight = this.sanitizer.bypassSecurityTrustStyle( 'calc(100vh - ' + fixedHeight + 'px)' );
+            } else if ( gridConfig.height ) {
+                this.styleHeight = gridConfig.height + 'px';
+            } else {
+                // Sense restriccio d'alçada
+                gridOptions.domLayout = 'autoHeight';
+                //api.setDomLayout()
+                //this.styleHeight = 200 + 'px';
             }
         }
         if ( gridConfig.detailConfig ) {
@@ -625,65 +616,9 @@ export class DatagridComponent implements OnInit {
                 };
                 if ( datagridConfig.columnFiltersEnabled ) {
                     filter = true;
-                    //filter = 'agTextColumnFilter';
                     filterFramework = DatagridRestapiFilterComponent;
                     floatingFilterComponentFramework = DatagridRestapiFloatingFilterComponent;
-                    /*if ( restapiField ) {
-                        switch ( columnFieldType ) {
-                            case 'STRING':
-                                filter = 'agTextColumnFilter';
-                                filterParams['textFormatter'] = ( val ) => val;
-                                break;
-                            case 'TEXTAREA':
-                                filter = 'agTextColumnFilter';
-                                break;
-                            case 'LOV':
-                                filter = 'agTextColumnFilter';
-                                break;
-                            case 'COLLECTION':
-                                filter = 'agTextColumnFilter';
-                                sortable = false;
-                                break;
-                            case 'INTEGER':
-                                filter = 'agNumberColumnFilter';
-                                break;
-                            case 'FLOAT':
-                                filter = 'agNumberColumnFilter';
-                                break;
-                            case 'BIGDECIMAL':
-                                filter = 'agNumberColumnFilter';
-                                break;
-                            case 'PREU':
-                                filter = 'agNumberColumnFilter';
-                                break;
-                            case 'IMPORT':
-                                filter = 'agNumberColumnFilter';
-                                break;
-                            case 'DATE':
-                                filter = 'agDateColumnFilter';
-                                break;
-                            case 'BOOLEAN':
-                                filter = true;
-                                filterFramework = DatagridFilterBooleanComponent;
-                                floatingFilterComponentFramework = DatagridFilterFloatingBooleanComponent;
-                                break;
-                            case 'ENUM':
-                                filter = true;
-                                filterFramework = DatagridFilterEnumComponent;
-                                floatingFilterComponentFramework = DatagridFilterFloatingEnumComponent;
-                                filterParams['enumValues'] = restapiField.enumValues;
-                                floatingFilterComponentParams['enumValues'] = restapiField.enumValues;
-                                break;
-                            case 'PASSWORD':
-                                break;
-                        }
-                    } else {
-                        filter = 'agTextColumnFilter';
-                    }*/
                 }
-                /*if ( gridColumn.filterable ) {
-                    filter = false;
-                }*/
                 columnDefs.push( {
                     field: columnField,
                     headerName: headerName,
@@ -728,13 +663,17 @@ export class DatagridComponent implements OnInit {
     createDataSource( restapiService: RestapiService<Resource> ) {
         return {
             getRows: ( params: IGetRowsParams ) => {
-                this.showLoading = true;
-                let size = params.endRow - params.startRow;
-                let page = params.startRow / size;
-                let requestParams: HalParam[] = [{
-                    key: 'page',
-                    value: '' + page
-                }];
+                this.showLoadingOverlay();
+                let requestParams: HalParam[] = [];
+                let size;
+                if ( params.context.config.paginationEnabled === undefined || params.context.config.paginationEnabled ) {
+                    size = params.endRow - params.startRow;
+                    let page = params.startRow / size;
+                    requestParams.push( {
+                        key: 'page',
+                        value: '' + page
+                    } );
+                }
                 params.sortModel.forEach( sortModel => {
                     requestParams.push( {
                         key: 'sort',
@@ -823,10 +762,12 @@ export class DatagridComponent implements OnInit {
                     size: size,
                     params: requestParams
                 } ).subscribe(( resources: any ) => {
-                    params.context.numElements = restapiService.resourceArray.totalElements;
-                    params.successCallback(
-                        resources,
-                        restapiService.resourceArray.totalElements );
+                    let totalElements = restapiService.resourceArray.totalElements;
+                    if (typeof totalElements === "function") {
+                        totalElements = totalElements();
+                    }
+                    params.context.numElements = totalElements;
+                    params.successCallback( resources, totalElements );
                 }, error => {
                     params.failCallback();
                 } );
@@ -838,10 +779,10 @@ export class DatagridComponent implements OnInit {
         gridConfig: DatagridConfig,
         gridOptions: GridOptions ) {
         let paginationEnabled: boolean;
-        if ( gridConfig.pagination === undefined ) {
+        if ( gridConfig.paginationEnabled === undefined ) {
             paginationEnabled = !this.mobileScreen && !gridConfig.lovMode;
         } else {
-            paginationEnabled = gridConfig.pagination;
+            paginationEnabled = gridConfig.paginationEnabled;
         }
         if ( paginationEnabled ) {
             gridOptions.paginationAutoPageSize = true;
@@ -1154,6 +1095,13 @@ export class DatagridComponent implements OnInit {
         if ( api['context'] ) {
             delete api['context'][attribute];
         }
+    }
+
+    showLoadingOverlay() {
+        this.showLoading = true;
+    }
+    hideLoadingOverlay() {
+        this.showLoading = false;
     }
 
     @HostListener( 'window:resize', ['$event'] )

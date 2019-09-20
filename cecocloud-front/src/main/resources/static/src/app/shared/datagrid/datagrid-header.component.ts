@@ -4,18 +4,14 @@ import { IHeaderGroupAngularComp } from 'ag-grid-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import {
-    RestapiProfile,
-    RestapiResource,
-    RestapiResourceField
-} from '../restapi/restapi-profile';
+import { RestapiProfile, RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
 import { DatagridConfig } from './datagrid.component';
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
     selector: 'datagrid-header',
     template: `
-<div class="datagrid-header" [ngClass]="{'datagrid-header-lov': lovMode, 'datagrid-header-mobile': mobileScreen, 'datagrid-header-desktop': !mobileScreen}">
+<div #headerdiv class="datagrid-header" [ngClass]="{'datagrid-header-lov': lovMode, 'datagrid-header-mobile': mobileScreen, 'datagrid-header-desktop': !mobileScreen}">
     <mdc-top-app-bar-row *ngIf="!fullWidthFilter">
         <mdc-top-app-bar-section align="start" [title]="title">
             <button *ngIf="mobileScreen" mdcTopAppBarNavIcon (click)="onButtonBackClick()">
@@ -57,7 +53,7 @@ import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-si
     </mdc-top-app-bar-row>
     <!--mdc-top-app-bar-row>
         <mdc-top-app-bar-section align="start">
-            <ng-container *ngIf="paginationActive">
+            <ng-container *ngIf="paginationEnabled">
                 <button mdc-icon-button (click)="onPageFirstClick()" [disabled]="paginationFirstPage" class="mdc-icon-button-xs"><mdc-icon>first_page</mdc-icon></button>
                 <button mdc-icon-button (click)="onPageDownClick()" [disabled]="paginationFirstPage" class="mdc-icon-button-xs"><mdc-icon>chevron_left</mdc-icon></button>
                 &nbsp;{{paginationCurrentPage}}&nbsp;
@@ -107,7 +103,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     title: string;
     quickFilterAvailable: boolean;
     anyRowSelected: boolean;
-    paginationActive: boolean;
+    paginationEnabled: boolean;
     paginationFirstRow: number;
     paginationLastRow: number;
     paginationRowCount: number;
@@ -144,9 +140,9 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
             this.anyRowSelected = event.api.getSelectedRows().length > 0;
         } );
         // Actualitza la informacio de paginació
-        this.paginationActive = params.context.gridComponent.gridOptions.pagination;
+        this.paginationEnabled = params.context.gridComponent.gridOptions.paginationEnabled;
         this.paginationSubscription = params.context.gridComponent.paginationSubject.subscribe( event => {
-            this.paginationActive = params.context.gridComponent.gridOptions.pagination;
+            this.paginationEnabled = params.context.gridComponent.gridOptions.paginationEnabled;
             let currentPage = event.api.paginationGetCurrentPage();
             let pageSize = event.api.paginationGetPageSize();
             this.paginationFirstRow = currentPage * pageSize + 1;

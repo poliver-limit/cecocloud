@@ -12,6 +12,7 @@
 	"component.datagrid.manteniment.button.close": "Tancar",
 	"component.datagrid.manteniment.delete.single.confirm": "Estau segur que voleu esborrar aquest {{description}}?",
 	"component.datagrid.manteniment.deleted": "El registre s'ha esborrat correctament",
+	"component.datagrid.no.rows": "Sense resultats",
 
 	"component.restapi.form.header.title.crear": "crear",
 	"component.restapi.form.header.title.modificar": "modificar",
@@ -116,6 +117,17 @@
 	"resource.marcatge.plural": "Marcatges",
 	"resource.marcatge.field.operari": "Operari",
 	"resource.marcatge.field.data": "Data i hora",
-	"resource.marcatge.field.origen": "Orígen"
+	"resource.marcatge.field.origen": "Orígen",
+
+	"resource.permission": "Permís",
+	"resource.permission.plural": "Permisos",
+	"resource.permission.field.sidType": "Tipus",
+	"resource.permission.field.sidName": "Nom d'usuari/rol",
+	"resource.permission.field.readGranted": "Accedir",
+	"resource.permission.field.writeGranted": "Modificar",
+	"resource.permission.field.createGranted": "Crear",
+	"resource.permission.field.deleteGranted": "Esborrar",
+	"resource.permission.field.adminGranted": "Administrar",
+	"resource.permission.field.syncGranted": "Sincronitzar"
 
 }
