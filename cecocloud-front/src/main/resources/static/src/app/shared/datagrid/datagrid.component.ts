@@ -210,6 +210,15 @@ export class DatagridComponent implements OnInit {
     }
 
     onRowClicked( event ) {
+		if ( event.context.config.editable ) {
+			let editActive = event.context.gridComponent.getFromApiContext( event.api, 'editActive' );
+            if ( !editActive ) {
+                if ( !event.context.gridComponent.gridOptions.suppressClickEdit ) {
+                    event.context.gridComponent.setInApiContext( event.api, 'editIsUpdate', true );
+                    event.context.gridComponent.startEditing( event.api, event.context, event.rowIndex );
+                }
+            }
+		}
         event.context.gridComponent.rowClicked.emit( event );
     }
 
