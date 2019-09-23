@@ -762,13 +762,13 @@ export class DatagridComponent implements OnInit {
                     size: size,
                     params: requestParams
                 } ).subscribe(( resources: any ) => {
-                    let totalElements = restapiService.resourceArray.totalElements;
+                    let totalElements: any = restapiService.resourceArray.totalElements;
                     if (typeof totalElements === "function") {
                         totalElements = totalElements();
                     }
                     params.context.numElements = totalElements;
                     params.successCallback( resources, totalElements );
-                }, error => {
+                }, () => {
                     params.failCallback();
                 } );
             }
@@ -1121,4 +1121,5 @@ export class DatagridComponent implements OnInit {
             this.mobileScreen = event.mobile
         } );
     }
+
 }
