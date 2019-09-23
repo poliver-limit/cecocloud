@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { CompanyiesService } from './companyies.service';
 import { CompanyiesPermissionService } from './companyies-permission.service';
-import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
 
 @Component( {
     template: `
@@ -16,7 +15,6 @@ import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
     <restapi-custom name="nom"><!--companyia-nom #customField></companyia-nom--></restapi-custom>
     <ng-container *ngIf="id">
         <datagrid
-        datagrid-mant
         [config]="permisosDatagridConfig"
         [restapiService]="companyiesPermissionService"></datagrid>
     </ng-container>
@@ -32,8 +30,8 @@ export class CompanyiesFormComponent {
     permisosDatagridConfig = {
         adjustHeight: false,
         paginationEnabled: false,
-        mode: 'form'
-        //editable: true,
+        mode: 'form',
+		editable: true
         //columnFiltersEnabled: true
     };
 

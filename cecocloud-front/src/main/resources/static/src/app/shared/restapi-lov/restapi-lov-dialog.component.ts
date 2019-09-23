@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, Inject } from '@angular/core';
-import { MdcDialog, MdcDialogComponent, MdcDialogRef, MDC_DIALOG_DATA, MdcTextField } from '@angular-mdc/web';
+import { Component, Inject } from '@angular/core';
+import { MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
 
 import { RestapiGenericService } from '../restapi/restapi-generic.service';
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
@@ -67,7 +67,7 @@ export class RestapiLovDialogComponent {
         } );
         this.datagridConfig = {
             columns: dialogColumns,
-            lovMode: true
+            mode: 'lov'
         }
     }
 

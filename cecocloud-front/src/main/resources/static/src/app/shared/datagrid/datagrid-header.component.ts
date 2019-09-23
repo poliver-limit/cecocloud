@@ -4,14 +4,13 @@ import { IHeaderGroupAngularComp } from 'ag-grid-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { RestapiProfile, RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
-import { DatagridConfig } from './datagrid.component';
+import { RestapiProfile } from '../restapi/restapi-profile';
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
     selector: 'datagrid-header',
     template: `
-<div #headerdiv class="datagrid-header" [ngClass]="{'datagrid-header-lov': lovMode, 'datagrid-header-mobile': mobileScreen, 'datagrid-header-desktop': !mobileScreen}">
+<div #headerdiv *ngIf="!formMode" class="datagrid-header" [ngClass]="{'datagrid-header-lov': lovMode, 'datagrid-header-mobile': mobileScreen, 'datagrid-header-desktop': !mobileScreen}">
     <mdc-top-app-bar-row *ngIf="!fullWidthFilter">
         <mdc-top-app-bar-section align="start" [title]="title">
             <button *ngIf="mobileScreen" mdcTopAppBarNavIcon (click)="onButtonBackClick()">
@@ -96,6 +95,7 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
 
     params: any;
     lovMode: boolean;
+    formMode: boolean;
     selectionSubscription: Subscription;
     paginationSubscription: Subscription;
     restapiProfile: RestapiProfile;
@@ -119,10 +119,11 @@ export class DatagridHeaderComponent implements IHeaderGroupAngularComp {
     fullWidthFilterInput: ElementRef;
     quickFilterValue: string;
 
-    agInit( params ): void {
+    agInit( params: any ): void {
         this.params = params;
-        this.lovMode = params.context.config.lovMode;
-        this.fullWidthFilter = params.context.config.lovMode;
+        this.lovMode = params.context.config.mode && params.context.config.mode.toLowerCase() === 'lov';
+		this.formMode = params.context.config.mode && params.context.config.mode.toLowerCase() === 'form';
+        this.fullWidthFilter = this.lovMode;
         this.restapiProfile = params.context.restapiProfile;
         // Calcula del titol
         this.title = this.restapiProfile.resource.name;

@@ -3,10 +3,9 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpParams } from '@angular/common/http';
-import { GridApi, GridOptions, ColDef, ColGroupDef, Column, RowNode, ValueGetterParams, ValueFormatterParams, ValueParserParams, ValueSetterParams, IGetRowsParams } from 'ag-grid-community/main';
+import { GridApi, GridOptions, ColGroupDef, RowNode, ValueGetterParams, ValueFormatterParams, ValueParserParams, ValueSetterParams, IGetRowsParams } from 'ag-grid-community/main';
 import { Resource, HalParam } from 'angular4-hal';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 import { RestapiService } from '../restapi/restapi.service';
 import { RestapiProfile, RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
@@ -55,23 +54,29 @@ export interface DatagridColumn {
     selector: 'datagrid',
     template: `
 <div #datagridfull style="position:relative">
-<mat-spinner
-    #spinner
-    *ngIf="showLoading"
-    [diameter]="spinnerDiameter"
-    style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);z-index:1"></mat-spinner>
-<div #norows *ngIf="!showLoading && showNoRows" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center">
-    <div><mdc-icon style="font-size:100px; color: rgba(0, 0, 0, 0.18)">block</mdc-icon></div>
-    <div style="color: rgba(0, 0, 0, 0.18)">{{'component.datagrid.no.rows'|translate}}</div>
+	<mat-spinner
+		#spinner
+		*ngIf="showLoading"
+		[diameter]="spinnerDiameter"
+		style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);z-index:1"></mat-spinner>
+	<div #norows *ngIf="!showLoading && showNoRows && !formMode" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center;z-index:1">
+		<div><mdc-icon style="font-size:100px; color: rgba(0, 0, 0, 0.18)">block</mdc-icon></div>
+		<div style="color: rgba(0, 0, 0, 0.18)">{{'component.datagrid.no.rows'|translate}}</div>
+	</div>
+	<datagrid-header #header (quickFilterChange)="onQuickFilterChange($event)"></datagrid-header>
+	<ag-grid-angular
+		*ngIf="gridOptions"
+		[ngClass]="theme"
+		[style.height]="styleHeight"
+		[gridOptions]="gridOptions"></ag-grid-angular>
+	<div *ngIf="config.mode === 'form'">
+		<button mat-button (click)="onAddButtonClick()">
+			<mat-icon>add</mat-icon>
+			Nova fila
+		</button>
+	</div>
 </div>
-<datagrid-header #header (quickFilterChange)="onQuickFilterChange($event)"></datagrid-header>
-<ag-grid-angular
-    *ngIf="gridOptions"
-    [ngClass]="theme"
-    [style.height]="styleHeight"
-    [gridOptions]="gridOptions"></ag-grid-angular>
-</div>
-<div *ngIf="config.mode === 'form'"><a href="">+ Nova fila</a></div>`
+`
 } )
 export class DatagridComponent implements OnInit {
 
@@ -115,11 +120,13 @@ export class DatagridComponent implements OnInit {
     showNoRows: boolean;
     quickFilterValue: string;
     mobileScreen: boolean;
+	formMode: boolean;
 
     ngOnInit() {
         this.createGridOptions( this.config ).subscribe(( gridOptions: GridOptions ) => {
             this.gridOptions = gridOptions;
         } );
+		this.formMode = this.config.mode && this.config.mode.toLowerCase() === 'form';
     }
 
     public refresh( additionalFilter?: any ) {
@@ -165,6 +172,78 @@ export class DatagridComponent implements OnInit {
     onQuickFilterChange( value ) {
         this.quickFilterValue = value;
         this.refreshInternal();
+    }
+
+	/*onNewElementClicked( api: GridApi, context: any ) {
+        if ( context.config.onDatagridActionCreate ) {
+            context.config.onDatagridActionCreate( context );
+        }
+        if ( !context.config.readOnly ) {
+            if ( context.config.editable ) {
+                let editActive = context.gridComponent.getFromApiContext( api, 'editActive' );
+                if ( !editActive ) {
+                    context.gridComponent.setInApiContext( api, 'editIsCreate', true );
+                    let parentPk = context.gridComponent.getParentPk( api );
+                    let getParams = context.restapiService.generateGetParamsWithParent( 'new', parentPk );
+                    context.restapiService.get( getParams ).subscribe(( resource: Resource ) => {
+                        api.updateRowData( {
+                            addIndex: 0,
+                            add: [resource]
+                        } );
+                        context.gridComponent.startEditing( api, context, 0 );
+                        context.gridComponent.refreshDetailRowsHeight( api );
+                    } );
+                }
+            } else {
+                let outputParams: DatagridEventParams = {
+                    resourceName: context.resourceName,
+                    parentPk: this.config.parent
+                }
+                this.actionCreate.emit( outputParams );
+            }
+        }
+    }*/
+
+	onSelectionChanged( event ) {
+        event.context.gridComponent.selectionChanged.emit( event );
+        event.context.gridComponent.selectionSubject.next( event );
+    }
+
+    onRowClicked( event ) {
+        event.context.gridComponent.rowClicked.emit( event );
+    }
+
+    onRowDoubleClicked( event ) {
+        event.context.gridComponent.rowDoubleClicked.emit( event );
+    }
+
+	onAddButtonClick() {
+        if ( this.config.editable ) {
+			let api = this.gridOptions.api;
+            let editActive = this.getFromApiContext( api, 'editActive' );
+            if ( !editActive ) {
+                this.setInApiContext( api, 'editIsCreate', true );
+                /*let getParams = context.restapiService.generateGetParamsWithParent( 'new', parentPk );
+                context.restapiService.get( getParams ).subscribe(( resource: Resource ) => {
+                    api.updateRowData( {
+                        addIndex: 0,
+                        add: [resource]
+                    } );
+                    context.gridComponent.startEditing( api, context, 0 );
+                    context.gridComponent.refreshDetailRowsHeight( api );
+                } );*/
+				this.startEditing( api, undefined, 0 );
+                this.refreshDetailRowsHeight( api );
+            }
+        }
+	}
+
+    onPaginationChanged( event ) {
+        event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.paginationSubject.next( event );
+    }
+
+    onBodyScroll( event ) {
+        event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.scrollSubject.next( event );
     }
 
     onRowEditingStarted( event ) {
@@ -255,27 +334,6 @@ export class DatagridComponent implements OnInit {
         } );*/
     }
 
-    onSelectionChanged( event ) {
-        event.context.gridComponent.selectionChanged.emit( event );
-        event.context.gridComponent.selectionSubject.next( event );
-    }
-
-    onRowClicked( event ) {
-        event.context.gridComponent.rowClicked.emit( event );
-    }
-
-    onRowDoubleClicked( event ) {
-        event.context.gridComponent.rowDoubleClicked.emit( event );
-    }
-
-    onPaginationChanged( event ) {
-        event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.paginationSubject.next( event );
-    }
-
-    onBodyScroll( event ) {
-        event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.scrollSubject.next( event );
-    }
-
     createGridOptions(
         gridConfig: DatagridConfig,
         parentGridOptions?: GridOptions ): Observable<GridOptions> {
@@ -290,9 +348,13 @@ export class DatagridComponent implements OnInit {
         gridOptions.getRowStyle = gridConfig.rowStyle;
         gridOptions.getRowClass = gridConfig.rowClass;
         gridOptions.enableColResize = gridConfig.resizable;
-        gridOptions.suppressRowClickSelection = !gridConfig.lovMode;
-        gridOptions.rowSelection = 'single'; // 'single' o 'multiple'; 
-        gridOptions.rowDeselection = gridConfig.lovMode;
+		let lovMode = gridConfig.mode && gridConfig.mode.toLowerCase() === 'lov';
+		let formMode = gridConfig.mode && gridConfig.mode.toLowerCase() === 'form';
+		if ( !formMode ) {
+        	gridOptions.rowSelection = 'single'; // 'single' o 'multiple';
+		}
+        gridOptions.rowDeselection = lovMode;
+	    gridOptions.suppressRowClickSelection = formMode ? true : !lovMode;
         gridOptions.editType = 'fullRow';
         gridOptions.rowHeight = this.rowHeight;
         gridOptions.headerHeight = this.headerHeight;
@@ -394,8 +456,9 @@ export class DatagridComponent implements OnInit {
         gridOptions.onRowDoubleClicked = this.onRowDoubleClicked;
         if ( !parentGridOptions && !gridConfig.detailConfig ) {
             if ( gridConfig.adjustHeight === undefined || gridConfig.adjustHeight ) {
+				let lovMode = gridConfig.mode && gridConfig.mode.toLowerCase() === 'lov';
                 let fixedHeight;
-                if ( gridConfig.lovMode ) {
+                if ( lovMode ) {
                     fixedHeight = this.lovFixedHeight;
                 } else {
                     fixedHeight = ( this.mobileScreen ) ? this.componentHeaderHeight : this.appHeaderHeight + this.componentHeaderHeight;
@@ -524,10 +587,12 @@ export class DatagridComponent implements OnInit {
         restapiProfile: RestapiProfile ): ColGroupDef[] {
         let columnDefs = [];
         let gridColumns = datagridConfig.columns;
+		let lovMode = datagridConfig.mode && datagridConfig.mode.toLowerCase() === 'lov';
+		let formMode = datagridConfig.mode && datagridConfig.mode.toLowerCase() === 'form';
         if ( !gridColumns && restapiProfile ) {
             gridColumns = [];
             restapiProfile.resource.fields.forEach( field => {
-                let hidden = ( this.config.lovMode ) ? field.hiddenInLov : field.hiddenInGrid;
+                let hidden = ( lovMode ) ? field.hiddenInLov : field.hiddenInGrid;
                 if ( !hidden ) {
                     gridColumns.push( {
                         field: field.name
@@ -550,7 +615,7 @@ export class DatagridComponent implements OnInit {
                 let cellRenderer;
                 let cellRendererFramework;
                 let cellRendererParams;
-                let checkboxSelection = ( index == 0 ) && !datagridConfig.lovMode;
+                let checkboxSelection = ( index == 0 ) && !lovMode && !formMode;
                 if ( !isModificable ) {
                     checkboxSelection = false;
                 }
@@ -635,9 +700,9 @@ export class DatagridComponent implements OnInit {
                     cellRenderer: ( cellRenderer !== undefined ) ? cellRenderer : gridColumn.cellRenderer,
                     cellRendererFramework: cellRendererFramework,
                     cellRendererParams: cellRendererParams,
-                    //checkboxSelection: ( !this.config.lovMode ) ? checkboxSelection : false,
+                    //checkboxSelection: ( !lovMode ) ? checkboxSelection : false,
                     checkboxSelection: checkboxSelection,
-                    //headerCheckboxSelection: ( !this.config.lovMode ) ? checkboxSelection : false,
+                    //headerCheckboxSelection: ( !lovMode ) ? checkboxSelection : false,
                     suppressMenu: true,
                     filter: ( filter ) ? filter : false,
                     filterFramework: filterFramework,
@@ -780,7 +845,8 @@ export class DatagridComponent implements OnInit {
         gridOptions: GridOptions ) {
         let paginationEnabled: boolean;
         if ( gridConfig.paginationEnabled === undefined ) {
-            paginationEnabled = !this.mobileScreen && !gridConfig.lovMode;
+			let lovMode = gridConfig.mode && gridConfig.mode.toLowerCase() === 'lov';
+            paginationEnabled = !this.mobileScreen && !lovMode;
         } else {
             paginationEnabled = gridConfig.paginationEnabled;
         }
@@ -955,7 +1021,8 @@ export class DatagridComponent implements OnInit {
         let allColumns = api['gridOptionsWrapper'].columnApi.getAllColumns();
         if ( allColumns && allColumns.length ) {
             let rowNode = ( rowIndex !== undefined ) ? api.getDisplayedRowAtIndex( rowIndex ) : api.getSelectedNodes()[0];
-            let processedColId = colId;
+			let processedColId = allColumns[0].getColId();
+            /*let processedColId = colId;
             if ( !processedColId ) {
                 let editIsCreate = context.gridComponent.getFromApiContext( api, 'editIsCreate' );
                 let colIndex = 0;
@@ -969,7 +1036,7 @@ export class DatagridComponent implements OnInit {
                 if ( colIndex == allColumns.length ) {
                     processedColId = allColumns[0].getColId();
                 }
-            }
+            }*/
             api.startEditingCell( {
                 rowIndex: rowNode.rowIndex,
                 colKey: processedColId

@@ -8,17 +8,18 @@ $ mvn package -P oracle,\!postgresql
 - HypersonicSQL:
 $ mvn package -P hsql,\!postgresql
 
-El fitxer .jar de l'aplicació es troba a cecocloud-front/target/cecocloud-front-?.?.jar
+Una vegada compilat el projecte, el fitxer .jar de l'aplicació es troba a cecocloud-front/target/cecocloud-front-?.?.jar
 
 ---------------
 - INSTAL·LACIO:
 ---------------
+- Crear l'usuari cecocloud (useradd -M USUARI -s /usr/sbin/nologin).
 - Crear arxiu cecocloud.service a la carpeta /etc/systemd/system.
-- Crear l'usuari cecocloud (useradd -M pepet -s /usr/sbin/nologin).
+- Es pot agafar el fitxer d'exemple però s'ha de pensar a substituir l'usuari (línia que comença amb "User=") per l'usuari creat.
 - Crear una carpeta /opt/cecocloud.
 - Copiar el .jar de l'aplicació a dins /opt/cecocloud.
-- Configurar l'usuari cecocloud com a propietari del fitxer .jar (chown cecocloud ???.jar).
-- Donar permisos d'execució al fitxer .jar (chmod a+x ???.jar).
+- Configurar l'usuari cecocloud com a propietari del fitxer .jar (chown cecocloud USUARI.jar).
+- Donar permisos d'execució al fitxer .jar (chmod a+x USUARI.jar).
 - Crear el fitxer application.properties a dins /opt/cecocloud amb la configuració de connexió a BBDD i al servidor de correu.
 
 ---------
