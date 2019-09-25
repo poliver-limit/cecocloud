@@ -1110,7 +1110,7 @@ export class DatagridComponent implements OnInit {
 		this.showLoading = false;
 	}
 
-	@HostListener('window:resize', ['$event'])
+	@HostListener('window:resize')
 	onWindowResize() {
 		if (!this.config.detailConfig) {
 			this.refreshInternal();

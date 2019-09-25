@@ -44,5 +44,14 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private MarcatgeOrigen origen = MarcatgeOrigen.CECOCLOUD;
+	private Double latitud;
+	private Double longitud;
+
+	@Transient
+	public GeoPosition getUbicacio() {
+		return new GeoPosition(
+				getLatitud(),
+				getLongitud());
+	}
 
 }

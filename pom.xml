@@ -22,14 +22,16 @@
 		<swagger.version>2.9.2</swagger.version>
 		<ojdbc6.version>11.2.0.4</ojdbc6.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.test.skip>true</maven.test.skip>
 		<skip.npm>false</skip.npm>
 	</properties>
 	<modules>
-		<module>cecocloud-front</module>
-		<module>cecocloud-back</module>
-		<module>cecocloud-logic</module>
 		<module>cecocloud-logic-api</module>
 		<module>cecocloud-persist</module>
+		<module>cecocloud-logic</module>
+		<module>cecocloud-back</module>
+		<module>cecocloud-front</module>
 	</modules>
 </project>

@@ -97,5 +97,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>cecocloud</finalName>
 	</build>
 </project>

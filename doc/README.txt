@@ -8,7 +8,7 @@ $ mvn package -P oracle,\!postgresql
 - HypersonicSQL:
 $ mvn package -P hsql,\!postgresql
 
-Una vegada compilat el projecte, el fitxer .jar de l'aplicació es troba a cecocloud-front/target/cecocloud-front-?.?.jar
+Una vegada compilat el projecte, el fitxer .jar de l'aplicació es troba a cecocloud-back/target/cecocloud.jar
 
 ---------------
 - INSTAL·LACIO:

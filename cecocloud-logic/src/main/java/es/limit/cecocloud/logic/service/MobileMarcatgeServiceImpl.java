@@ -69,6 +69,8 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				"dataActual=" + new Date() + ")");
 		marcatge.setData(marcatgeMobil.getData());
 		marcatge.setOrigen(MarcatgeOrigen.MOBIL);
+		marcatge.setLatitud(marcatgeMobil.getLatitud());
+		marcatge.setLongitud(marcatgeMobil.getLongitud());
 		MarcatgeEntity entity = MarcatgeEntity.builder().
 				operari(operari).
 				embedded(marcatge).
@@ -149,10 +151,12 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	private MarcatgeMobil toMarcatgeMobil(MarcatgeEntity marcatge) {
 		MarcatgeMobil marcatgeMobil = new MarcatgeMobil();
-		marcatgeMobil.setData(marcatge.getEmbedded().getData());
 		marcatgeMobil.setEmpresa(
 				GenericReference.toGenericReference(
 						marcatge.getOperari().getEmpresa().getId()));
+		marcatgeMobil.setData(marcatge.getEmbedded().getData());
+		marcatgeMobil.setLatitud(marcatge.getEmbedded().getLatitud());
+		marcatgeMobil.setLongitud(marcatge.getEmbedded().getLongitud());
 		return marcatgeMobil;
 	}
 

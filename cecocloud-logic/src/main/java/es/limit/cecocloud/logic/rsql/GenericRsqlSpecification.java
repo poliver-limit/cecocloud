@@ -6,10 +6,10 @@ package es.limit.cecocloud.logic.rsql;
 import java.lang.reflect.ParameterizedType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -130,12 +130,12 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 		return null;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List<Object> castArguments(Path<?> path) {
 		final Class<?> attributeType;
 		if (SingularAttributePath.class.isAssignableFrom(path.getClass())) {
 			final String attributeName = ((SingularAttribute<?, ?>)path.getModel()).getName();
 			if ("id".equals(attributeName)) {
-				@SuppressWarnings("unchecked")
 				Class<? extends AbstractPersistable<?>> parentType = ((Path<? extends AbstractPersistable<?>>)path.getParentPath()).getJavaType();
 				ParameterizedType parameterizedType = (ParameterizedType)parentType.getGenericSuperclass();
 				if (parameterizedType != null) {
@@ -158,35 +158,37 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 		/*log.debug("Convertint argument (" +
 				"value=" + arguments + ", " +
 				"tipusDesti=" + attributeType + ")");*/
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		final List<Object> args = arguments.stream().map(arg -> {
+		List<Object> args = new ArrayList<Object>();
+		for (String argument: arguments) {
+			Object arg;
 			if (attributeType.equals(Integer.class) || attributeType.equals(int.class)) {
-				return Integer.parseInt(arg);
+				arg = Integer.parseInt(argument);
 			} else if (attributeType.equals(Long.class) || attributeType.equals(long.class)) {
-				return Long.parseLong(arg);
+				arg = Long.parseLong(argument);
 			} else if (attributeType.equals(Date.class)) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 				try {
-					return sdf.parse(arg);
+					arg = sdf.parse(argument);
 				} catch (ParseException ex) {
 					log.error("Error al parsejar la data amb el format yyyy-MM-dd'T'HH:mm:ss.SSSZ", ex);
-					return arg;
+					arg = argument;
 				}
 			} else if (attributeType.equals(Boolean.class) || attributeType.equals(boolean.class)) {
-				return new Boolean(arg);
+				arg = new Boolean(argument);
 			} else if (attributeType.isEnum()) {
-				return Enum.valueOf((Class<Enum>)attributeType, arg);
+				arg = Enum.valueOf((Class<Enum>)attributeType, argument);
 			} else if (Collection.class.isAssignableFrom(attributeType)) {
 				/*//Now assuming that the first parameter to the method is of type List<Integer>
 				Type type = field.getGenericType();
 				ParameterizedType pType = (ParameterizedType) types[0];
 				Class<?> clazz = (Class<?>) pType.getActualTypeArguments()[0];*/
 				// TODO
-				return arg;
+				arg = argument;
 			} else {
-				return arg;
+				arg = argument;
 			}
-		}).collect(Collectors.toList());
+			args.add(arg);
+		}
 		return args;
 	}
 

@@ -28,6 +28,8 @@ create table marcatge (
     lastmod_by varchar(64),
     lastmod_date timestamp,
     data timestamp not null,
+    latitud float8,
+    longitud float8,
     origen int4 not null,
     operari_id int8 not null,
     primary key (id)

@@ -21,6 +21,6 @@ public interface CompanyiaRepository extends BaseRepository<CompanyiaEntity, Lon
 			"    CompanyiaEntity c " +
 			"where " +
 			"    c.embedded.codi = :codi")
-	Optional<CompanyiaEntity> findByEmbeddedCodi(@Param("codi") String codi);
+	Optional<CompanyiaEntity> findByEmbeddedCodis(@Param("codi") String codi);
 
 }

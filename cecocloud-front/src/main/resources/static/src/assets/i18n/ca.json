@@ -118,6 +118,8 @@
 	"resource.marcatge.field.operari": "Operari",
 	"resource.marcatge.field.data": "Data i hora",
 	"resource.marcatge.field.origen": "Orígen",
+	"resource.marcatge.field.latitud": "Latitud",
+	"resource.marcatge.field.longitud": "Longitud",
 
 	"resource.permission": "Permís",
 	"resource.permission.plural": "Permisos",

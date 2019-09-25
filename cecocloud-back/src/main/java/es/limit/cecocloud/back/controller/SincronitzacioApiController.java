@@ -5,6 +5,7 @@ package es.limit.cecocloud.back.controller;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.cecocloud.logic.api.dto.Companyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesEnviament;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
+import es.limit.cecocloud.logic.api.service.CompanyiaService;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +41,8 @@ public class SincronitzacioApiController {
 
 	@Autowired
 	private SincronitzacioService sincronitzacioService;
+	@Autowired
+	private CompanyiaService companyiaService;
 
 	@PostMapping(
 			path = "/empreses_operaris",
@@ -47,8 +52,10 @@ public class SincronitzacioApiController {
 			@RequestBody @Valid final SincronitzacioCompanyia dto) {
 		log.debug("Nova sincronització(" +
 				"dto=" + dto + ")");
-		return ResponseEntity.ok(
-				sincronitzacioService.sincronitzar(dto));
+		SincronitzacioResposta resposta = sincronitzacioService.sincronitzar(
+				getCompanyiaId(dto.getCompanyiaCodi()),
+				dto.getEmpreses());
+		return ResponseEntity.ok(resposta);
 	}
 
 	@GetMapping(
@@ -59,7 +66,11 @@ public class SincronitzacioApiController {
 			@Valid final SincronitzacioMarcatgesConsulta consulta) {
 		log.debug("Consulta de marcatges (" +
 				"consulta=" + consulta + ")");
-		List<SincronitzacioMarcatge> marcatges = sincronitzacioService.marcatgeFind(consulta);
+		List<SincronitzacioMarcatge> marcatges = sincronitzacioService.marcatgeFind(
+				getCompanyiaId(consulta.getCompanyiaCodi()),
+				consulta.getEmpreses(),
+				consulta.getDataInici(),
+				consulta.getDataFi());
 		return ResponseEntity.ok(marcatges);
 	}
 
@@ -71,8 +82,19 @@ public class SincronitzacioApiController {
 			@RequestBody @Valid final SincronitzacioMarcatgesEnviament marcatges) {
 		log.debug("Enviament de marcatges (" +
 				"marcatges=" + marcatges + ")");
-		return ResponseEntity.ok(
-				sincronitzacioService.marcatgeCreate(marcatges));
+		SincronitzacioResposta resposta = sincronitzacioService.marcatgeCreate(
+				getCompanyiaId(marcatges.getCompanyiaCodi()),
+				marcatges.getMarcatges());
+		return ResponseEntity.ok(resposta);
+	}
+
+	private Long getCompanyiaId(String companyiaCodi) {
+		Companyia companyia = companyiaService.findOneByRsqlQuery("codi==" + companyiaCodi);
+		if (companyia != null) {
+			return companyia.getId();
+		} else {
+			throw new EntityNotFoundException("Companyia amb codi " + companyiaCodi);
+		}
 	}
 
 }

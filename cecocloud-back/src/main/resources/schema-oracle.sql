@@ -24,6 +24,8 @@ create table marcatge (
    id number(19,0) not null,
     operari_id number(19,0) not null,
     data timestamp not null,
+    latitud double precision,
+    longitud double precision,
     origen number(10,0) not null,
     created_by varchar2(64 char) not null,
     created_date timestamp not null,

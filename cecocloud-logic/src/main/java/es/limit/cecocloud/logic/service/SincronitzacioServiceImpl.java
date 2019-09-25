@@ -16,12 +16,9 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.MarcatgeOrigen;
 import es.limit.cecocloud.logic.api.dto.Operari;
-import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaAmbOperaris;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
-import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesConsulta;
-import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatgesEnviament;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
@@ -57,17 +54,17 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Override
 	@Transactional
-	public SincronitzacioResposta sincronitzar(SincronitzacioCompanyia sincronitzacioCompanyia) {
-		// TODO Revisar si l'usuari te permisos
-		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
-				sincronitzacioCompanyia.getCompanyiaCodi());
-		List<EmpresaEntity> empreses = empresaRepository.findByCompanyia(companyia.get());
+	public SincronitzacioResposta sincronitzar(
+			Long companyiaId,
+			List<SincronitzacioEmpresaAmbOperaris> empreses) {
+		Optional<CompanyiaEntity> companyia = companyiaRepository.findById(companyiaId);
+		List<EmpresaEntity> emps = empresaRepository.findByCompanyia(companyia.get());
 		int createCount = 0;
 		int updateCount = 0;
 		int deleteCount = 0;
-		for (EmpresaEntity empresa: empreses) {
+		for (EmpresaEntity empresa: emps) {
 			SincronitzacioEmpresaAmbOperaris syncFound = null;
-			for (SincronitzacioEmpresaAmbOperaris empresaSync: sincronitzacioCompanyia.getEmpreses()) {
+			for (SincronitzacioEmpresaAmbOperaris empresaSync: empreses) {
 				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
 					syncFound = empresaSync;
 					break;
@@ -89,9 +86,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				deleteCount++;
 			}
 		}
-		for (SincronitzacioEmpresaAmbOperaris empresaSync: sincronitzacioCompanyia.getEmpreses()) {
+		for (SincronitzacioEmpresaAmbOperaris empresaSync: empreses) {
 			EmpresaEntity dbFound = null;
-			for (EmpresaEntity empresa: empreses) {
+			for (EmpresaEntity empresa: emps) {
 				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
 					dbFound = empresa;
 					break;
@@ -124,14 +121,16 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<SincronitzacioMarcatge> marcatgeFind(SincronitzacioMarcatgesConsulta consulta) {
-		// TODO Revisar si l'usuari te permisos
-		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
-				consulta.getCompanyiaCodi());
-		List<EmpresaEntity> empreses = empresaRepository.findByCompanyia(companyia.get());
+	public List<SincronitzacioMarcatge> marcatgeFind(
+			Long companyiaId,
+			List<SincronitzacioEmpresa> empreses,
+			Date dataInici,
+			Date dataFi) {
+		Optional<CompanyiaEntity> companyia = companyiaRepository.findById(companyiaId);
+		List<EmpresaEntity> emps = empresaRepository.findByCompanyia(companyia.get());
 		List<EmpresaEntity> empresesConsulta = new ArrayList<EmpresaEntity>();
-		for (EmpresaEntity empresa: empreses) {
-			for (SincronitzacioEmpresa empresaSync: consulta.getEmpreses()) {
+		for (EmpresaEntity empresa: emps) {
+			for (SincronitzacioEmpresa empresaSync: empreses) {
 				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
 					empresesConsulta.add(empresa);
 					break;
@@ -142,9 +141,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		if (!empresesConsulta.isEmpty()) {
 			List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDatesSync(
 					empresesConsulta,
-					consulta.getDataInici(),
-					consulta.getDataFi() == null,
-					consulta.getDataFi());
+					dataInici,
+					dataFi == null,
+					dataFi);
 			for (MarcatgeEntity marcatge: marcatges) {
 				SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
 				Operari smUsuariEmpresa = marcatge.getOperari().getEmbedded();
@@ -153,6 +152,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				sm.setEmpresaCodi(smEmpresa.getCodi());
 				sm.setOperariCodi(smUsuariEmpresa.getCodi());
 				sm.setData(marcatge.getEmbedded().getData());
+				sm.setLatitud(marcatge.getEmbedded().getLatitud());
+				sm.setLongitud(marcatge.getEmbedded().getLongitud());
 				resposta.add(sm);
 			}
 		}
@@ -161,13 +162,13 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Override
 	@Transactional
-	public SincronitzacioResposta marcatgeCreate(SincronitzacioMarcatgesEnviament marcatges) {
-		// TODO Revisar si l'usuari te permisos
-		Optional<CompanyiaEntity> companyia = companyiaRepository.findByEmbeddedCodi(
-				marcatges.getCompanyiaCodi());
+	public SincronitzacioResposta marcatgeCreate(
+			Long companyiaId,
+			List<SincronitzacioMarcatge> marcatges) {
+		Optional<CompanyiaEntity> companyia = companyiaRepository.findById(companyiaId);
 		int createCount = 0;
-		if (marcatges.getMarcatges() != null) {
-			for (SincronitzacioMarcatge marcatge: marcatges.getMarcatges()) {
+		if (marcatges != null) {
+			for (SincronitzacioMarcatge marcatge: marcatges) {
 				Optional<OperariEntity> operari = operariRepository.findByEmpresaCompanyiaAndEmpresaEmbeddedIdentificadorCodiAndEmpresaEmbeddedCodiAndEmbeddedCodi(
 						companyia.get(),
 						marcatge.getEmpresaIdentificadorCodi(),
@@ -179,6 +180,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				if (marcatgeExistent == null) {
 					Marcatge embedded = new Marcatge();
 					embedded.setData(marcatge.getData());
+					embedded.setLatitud(marcatge.getLatitud());
+					embedded.setLongitud(marcatge.getLongitud());
 					embedded.setOrigen(MarcatgeOrigen.CECOGEST);
 					marcatgeRepository.save(
 							MarcatgeEntity.builder().

@@ -24,5 +24,7 @@ public class MarcatgeMobil {
 	private Date dataCreacio;
 	@NotNull
 	private GenericReference<Empresa, Long> empresa;
+	private Double latitud;
+	private Double longitud;
 
 }

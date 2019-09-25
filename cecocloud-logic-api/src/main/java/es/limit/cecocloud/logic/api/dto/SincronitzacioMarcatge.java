@@ -31,5 +31,7 @@ public class SincronitzacioMarcatge {
 	@NotNull
 	private Date data;
 	private Date dataCreacio;
+	private Double latitud;
+	private Double longitud;
 
 }
