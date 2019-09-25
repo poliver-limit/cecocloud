@@ -56,7 +56,7 @@ public abstract class ApiControllerHelper {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected static Link getResourceLink(
+	protected static Link getResourceLinkw(
 			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
 			Object id,
 			String rel) {
@@ -85,6 +85,10 @@ public abstract class ApiControllerHelper {
 		}
 		Link link = linkTo(methodOn(apiControllerClass, permissionResourceId).permissionFind(null, null)).withRel(rel);
 		return link;
+	}
+
+	static abstract class SelfLinkBuilder {
+		public abstract Link build(Class<?> apiControllerClass, Object... params);
 	}
 
 }

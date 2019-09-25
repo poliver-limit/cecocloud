@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.cecocloud.back.controller.ApiControllerHelper.SelfLinkBuilder;
 import es.limit.cecocloud.logic.api.dto.Profile;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
 import es.limit.cecocloud.logic.api.dto.Rol;
@@ -58,19 +59,19 @@ public abstract class AbstractApiController {
 				dto,
 				links);
 	}
-	@SuppressWarnings("rawtypes")
-	protected <D> Resources<Resource<D>> toResources(
+	protected <D extends Identificable<?>> Resources<Resource<D>> toResources(
 			List<D> dtos,
-			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			@SuppressWarnings("rawtypes") Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			SelfLinkBuilder selfLinkBuilder,
 			Link... links) {
 		return new Resources<Resource<D>>(
-				dtos.stream().map(dto -> toResource(dto)).collect(Collectors.toList()),
+				dtos.stream().map(dto -> toResource(dto, selfLinkBuilder.build(apiControllerClass, dto.getId()))).collect(Collectors.toList()),
 				links);
 	}
-	@SuppressWarnings("rawtypes")
 	protected <D extends Identificable<?>> PagedResources<Resource<D>> toPagedResources(
 			Page<D> page,
-			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			@SuppressWarnings("rawtypes") Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			SelfLinkBuilder selfLinkBuilder,
 			Link... links) {
 		PageMetadata pageMetadata = new PageMetadata(
 				page.getNumberOfElements(),
@@ -78,7 +79,7 @@ public abstract class AbstractApiController {
 				page.getTotalElements(),
 				page.getTotalPages());
 		return new PagedResources<Resource<D>>(
-				page.getContent().stream().map(dto -> toResource(dto, getSelfLink(dto, apiControllerClass))).collect(Collectors.toList()),
+				page.getContent().stream().map(dto -> toResource(dto, selfLinkBuilder.build(apiControllerClass, dto.getId()))).collect(Collectors.toList()),
 				pageMetadata,
 				links);
 	}
@@ -152,13 +153,6 @@ public abstract class AbstractApiController {
 	}
 	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
 		return null;
-	}
-
-	@SuppressWarnings("rawtypes")
-	private <D extends Identificable<?>> Link getSelfLink(
-			D dto,
-			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass) {
-		return ApiControllerHelper.getResourceLink(apiControllerClass, dto.getId(), Link.REL_SELF);
 	}
 
 	private String buildRsqlQueryFromRequestParams(HttpServletRequest request) {

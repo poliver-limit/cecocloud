@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.cecocloud.back.controller.ApiControllerHelper.SelfLinkBuilder;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.GenericService;
 import lombok.extern.slf4j.Slf4j;
@@ -50,10 +51,7 @@ public abstract class AbstractIdentificableReadOnlyApiController<D extends Ident
 			return ResponseEntity.ok(
 					toResource(
 							dto,
-							ApiControllerHelper.getResourceLink(
-									getClass(),
-									dto.getId(),
-									Link.REL_SELF),
+							getSelfLink(dto.getId()),
 							getProfileLink("profile")));
 		} catch (EntityNotFoundException ex) {
 			return ResponseEntity.notFound().build();
@@ -76,10 +74,22 @@ public abstract class AbstractIdentificableReadOnlyApiController<D extends Ident
 				quickFilter,
 				rsqlQuery,
 				pageable);
+		/*@SuppressWarnings("rawtypes")
+		private <D extends Identificable<?>> Link getSelfLink(
+				D dto,
+				Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass) {
+			
+		}*/
 		return ResponseEntity.ok(
 				toPagedResources(
 						pagina,
 						getClass(),
+						new SelfLinkBuilder() {
+							@Override
+							public Link build(Class<?> apiControllerClass, Object... params) {
+								return getSelfLink(params);
+							}
+						},
 						getApiLink(Link.REL_SELF),
 						getProfileLink("profile")));
 	}
@@ -89,6 +99,10 @@ public abstract class AbstractIdentificableReadOnlyApiController<D extends Ident
 	}
 	protected Link getProfileLink(String rel) {
 		return linkTo(methodOn(ProfileApiController.class).getOne(null, getResourceNameFromDtoClass())).withRel(rel);
+	}
+	@SuppressWarnings("unchecked")
+	protected Link getSelfLink(Object... params) {
+		return linkTo(methodOn(getClass(), params).getOne(null, null)).withSelfRel();
 	}
 
 	private String getResourceNameFromDtoClass() {

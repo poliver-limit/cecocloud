@@ -12,7 +12,7 @@ import { MarcatgesService } from './marcatges.service';
 export class MarcatgesGridComponent implements OnInit {
 
     datagridConfig = {
-        /*editable: true,*/
+        //editable: true,
         columnFiltersEnabled: true,
         columns: [{
             field: 'operari',

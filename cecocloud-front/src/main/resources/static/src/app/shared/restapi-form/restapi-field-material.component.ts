@@ -121,7 +121,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         <mat-error>{{errorMessage}}</mat-error>
     </mat-form-field>
 </ng-container>
-<div *ngIf="isCheckbox" style="width:100%; padding-top: 10px;">
+<div *ngIf="isCheckbox" style="width:100%">
     <mat-checkbox
         [formControl]="formControl"
         (click)="onFieldClick($event)"

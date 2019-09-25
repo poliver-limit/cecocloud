@@ -31,6 +31,7 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 	private PermissionHelper permissionHelper;
 
 	@Override
+	@Transactional
 	public Permission permissionCreate(
 			ID id,
 			Permission permission) throws EntityNotFoundException {
@@ -38,12 +39,11 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 			"id=" + id + ", " +
 			"permission=" + permission + ")");
 		getEntity(id);
-		permissionHelper.update(
+		return permissionHelper.update(
 				getDtoClass(),
 				id,
 				null,
 				permission);
-		return permission;
 	}
 
 	@Override
@@ -58,15 +58,15 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 				"permissionId=" + permissionId + ", " +
 				"permission=" + permission + ")");
 		getEntity(id);
-		permissionHelper.update(
+		return permissionHelper.update(
 				getDtoClass(),
 				id,
 				permissionId,
 				permission);
-		return permission;
 	}
 
 	@Override
+	@Transactional
 	public void permissionDelete(
 			ID id,
 			String permissionId) throws EntityNotFoundException {
@@ -81,6 +81,7 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Permission permissionGetOne(
 			ID id,
 			String permissionId) throws EntityNotFoundException {

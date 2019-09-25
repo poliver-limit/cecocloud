@@ -39,11 +39,18 @@ public class PermissionHelper {
 	@Autowired
 	private MutableAclService mutableAclService;
 
-	public void update(
+	public es.limit.cecocloud.logic.api.dto.Permission update(
 			Class<?> resourceClass,
 			Serializable resourceId,
 			String permissionId,
 			es.limit.cecocloud.logic.api.dto.Permission permission) {
+		if (permissionId != null) {
+			delete(
+					resourceClass,
+					resourceId,
+					permissionId);
+		}
+		Sid sid = getSid(permission.getSidType(), permission.getSidName());
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
@@ -58,14 +65,15 @@ public class PermissionHelper {
 		List<Permission> permissionList = getPermissionList(permission);
 		for (int i = acl.getEntries().size() - 1; i >= 0; i--) {
 			AccessControlEntry ace = acl.getEntries().get(i);
-			if (permissionList.contains(ace.getPermission())) {
-				permissionList.remove(ace.getPermission());
-			} else {
-				acl.deleteAce(i);
+			if (ace.getSid().equals(sid)) {
+				if (permissionList.contains(ace.getPermission())) {
+					permissionList.remove(ace.getPermission());
+				} else {
+					acl.deleteAce(i);
+				}
 			}
 		}
 		// S'afegeixen els permisos que queden a la llista
-		Sid sid = getSid(permission.getSidType(), permission.getSidName());
 		for (Permission permissionItem: permissionList) {
 			acl.insertAce(
 					acl.getEntries().size(),
@@ -74,6 +82,14 @@ public class PermissionHelper {
 					true);
 		}
 		mutableAclService.updateAcl(acl);
+		es.limit.cecocloud.logic.api.dto.Permission permissionForQuery = new es.limit.cecocloud.logic.api.dto.Permission(
+				permission.getSidType(),
+				permission.getSidName());
+		try {
+			return getOne(resourceClass, resourceId, permissionForQuery.getId());
+		} catch (EntityNotFoundException ignored) {
+			return null;
+		}
 	}
 
 	public void delete(
@@ -81,11 +97,22 @@ public class PermissionHelper {
 			Serializable resourceId,
 			String permissionId) {
 		es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission(permissionId);
-		update(
+		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
-				permissionId,
-				permission);
+				permission.getSidType(),
+				permission.getSidName(),
+				true);
+		Sid sid = getSid(
+				permission.getSidType(),
+				permission.getSidName());
+		for (int i = acl.getEntries().size() - 1; i >= 0; i--) {
+			AccessControlEntry ace = acl.getEntries().get(i);
+			if (ace.getSid().equals(sid)) {
+				acl.deleteAce(i);
+			}
+		}
+		mutableAclService.updateAcl(acl);
 	}
 
 	public es.limit.cecocloud.logic.api.dto.Permission getOne(
@@ -120,10 +147,14 @@ public class PermissionHelper {
 			String permissionId) {
 		PermissionSidType sidType = null;
 		String sidName = null;
+		Sid sidFromParams = null;
 		if (permissionId != null) {
 			es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission(permissionId);
 			sidType = permission.getSidType();
 			sidName = permission.getSidName();
+			sidFromParams = getSid(
+					permission.getSidType(),
+					permission.getSidName());
 		}
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
@@ -135,8 +166,10 @@ public class PermissionHelper {
 		if (acl != null) {
 			List<Sid> sids = new ArrayList<Sid>();
 			for (AccessControlEntry ace: acl.getEntries()) {
-				if (!sids.contains(ace.getSid())) {
-					sids.add(ace.getSid());
+				if (sidFromParams == null || sidFromParams.equals(ace.getSid())) {
+					if (!sids.contains(ace.getSid())) {
+						sids.add(ace.getSid());
+					}
 				}
 			}
 			for (Sid sid: sids) {
@@ -194,7 +227,6 @@ public class PermissionHelper {
 			PermissionSidType sidType,
 			String sidName,
 			boolean createIfNotExists) {
-		//Class<?> resourceClass = ProfileServiceImpl.getDtoClassForName(resourceName);
 		ObjectIdentity objectIdentity = new ObjectIdentityImpl(resourceClass.getName(), resourceId);
 		Sid sid = null;
 		if (sidType != null && sidName != null) {

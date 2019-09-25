@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.cecocloud.back.controller.ApiControllerHelper.SelfLinkBuilder;
 import es.limit.cecocloud.logic.api.dto.Permission;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.GenericServiceWithPermissions;
@@ -51,7 +52,14 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 				"resourceId=" + resourceId + ", " +
 				"permission=" + permission + ")");
 		Permission creat = getService().permissionCreate(resourceId, permission);
-		return ResponseEntity.ok(toResource(creat));
+		if (creat != null) {
+			return ResponseEntity.ok(
+					toResource(
+							creat,
+							getSelfLink(resourceId, creat.getId())));
+		} else {
+			return ResponseEntity.ok().build();
+		}
 	}
 
 	@PutMapping(
@@ -70,7 +78,14 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 				resourceId,
 				permissionId,
 				permission);
-		return ResponseEntity.ok(toResource(modificat));
+		if (modificat != null) {
+			return ResponseEntity.ok(
+					toResource(
+							modificat,
+							getSelfLink(resourceId, modificat.getId())));
+		} else {
+			return ResponseEntity.ok().build();
+		}
 	}
 
 	@DeleteMapping(value = "/{resourceId}/permissions/{permissionId}")
@@ -86,6 +101,18 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 	}
 
 	@GetMapping(
+			value = "/{resourceId}/permissions/new",
+			produces = "application/json")
+	public ResponseEntity<Resource<Permission>> permissionGetNew(
+			HttpServletRequest request,
+			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
+		log.debug("Obtenint nova instància del permis de l'entitat (" +
+				"resourceId=" + resourceId + ")");
+		return ResponseEntity.ok(
+				toResource(new Permission()));
+	}
+
+	@GetMapping(
 			value = "/{resourceId}/permissions/{permissionId}",
 			produces = "application/json")
 	public ResponseEntity<Resource<Permission>> permissionGetOne(
@@ -96,7 +123,9 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 				"resourceId=" + resourceId + ", " +
 				"permissionId=" + permissionId + ")");
 		Permission permission = getService().permissionGetOne(resourceId, permissionId);
-		return ResponseEntity.ok(toResource(permission));
+		return ResponseEntity.ok(toResource(
+				permission,
+				getSelfLink(resourceId, permissionId)));
 	}
 
 	@GetMapping(
@@ -112,14 +141,31 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 				toResources(
 						permissions,
 						getClass(),
-						getPermissionApiLink(resourceId, Link.REL_SELF)));
+						new PermissionSelfLinkBuilder<ID>(resourceId),
+						getApiLink(resourceId, Link.REL_SELF)));
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Link getPermissionApiLink(
+	protected Link getApiLink(
 			ID resourceId,
 			String rel) {
 		return linkTo(methodOn(getClass(), resourceId).permissionFind(null, null)).withRel(rel);
+	}
+	@SuppressWarnings("unchecked")
+	protected Link getSelfLink(Object... params) {
+		return linkTo(methodOn(getClass(), params).permissionGetOne(null, null, null)).withSelfRel();
+	}
+
+	static class PermissionSelfLinkBuilder<ID extends Serializable> extends SelfLinkBuilder {
+		ID resourceId;
+		PermissionSelfLinkBuilder(ID resourceId) {
+			this.resourceId = resourceId;
+		}
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		@Override
+		public Link build(Class<?> apiControllerClass, Object... params) {
+			return linkTo(methodOn(((Class<? extends AbstractIdentificableWithPermissionsApiController>)apiControllerClass), resourceId, params[0]).permissionGetOne(null, null, null)).withSelfRel();
+		}
 	}
 
 	protected abstract GenericServiceWithPermissions<D, ID> getService();

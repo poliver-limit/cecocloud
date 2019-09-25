@@ -29,7 +29,7 @@
     "ag-grid-angular": "^21.1.0",
     "ag-grid-community": "^21.1.1",
     "ag-grid-enterprise": "^21.1.1",
-    "angular4-hal": "^7.8.14",
+    "angular4-hal": "^7.9.1",
     "core-js": "^3.1.4",
     "moment": "^2.24.0",
     "ng-material-datetimepicker": "^1.18.5",

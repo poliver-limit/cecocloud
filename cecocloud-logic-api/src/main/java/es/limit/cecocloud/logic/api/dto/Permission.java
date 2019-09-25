@@ -34,8 +34,10 @@ public class Permission extends AbstractIdentificable<String> {
 
 	public void setId(String id) {
 		this.id = id;
-		if (id != null && !id.isEmpty()) {
+		if (id != null && !id.isEmpty() && this.sidType == null) {
 			this.sidType = (id.startsWith("P")) ? PermissionSidType.PRINCIPAL : PermissionSidType.GRANTED_AUTHORITY;
+		}
+		if (id != null && !id.isEmpty() && this.sidName == null) {
 			this.sidName = id.substring(1);
 		}
 	}

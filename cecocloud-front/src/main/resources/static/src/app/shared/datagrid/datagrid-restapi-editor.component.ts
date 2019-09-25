@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { ColDef } from 'ag-grid-community/main';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { Resource } from 'angular4-hal';
 
@@ -19,12 +18,7 @@ import { RestapiBaseFieldComponent } from '../restapi-form/restapi-base-field.co
     [resourceInstance]="resourceInstance"
     [hideLabel]="true"
     (click)="onFieldClick($event)"
-    (change)="onFieldChange($event)"></restapi-field-material>`,
-    styles: [`
-/*.form-control {
-    box-shadow:none !important;
-}*/
-`]
+    (change)="onFieldChange($event)"></restapi-field-material>`
 } )
 export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
 
@@ -43,12 +37,10 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
         this.fieldName = params.column.getColId();
         this.restapiResource = params.context.restapiProfile.resource;
         let first = true;
-        let field: RestapiResourceField;
         let editIsCreate = params.context.gridComponent.getFromApiContext( params.api, 'editIsCreate' );
         this.restapiResource.fields.forEach(( formField: RestapiResourceField ) => {
             let formFieldDisabled = ( editIsCreate ) ? formField.disabledForCreate : formField.disabledForUpdate
             if ( formField.name === this.fieldName ) {
-                field = formField;
                 this.isFirst = first && !formFieldDisabled;
             }
             if ( first && !formFieldDisabled ) {
@@ -93,11 +85,11 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
         return true;
     }
 
-    onFieldClick( event ) {
+    onFieldClick( event: Event ) {
         event.stopPropagation();
     }
 
-    onFieldChange( event ) {
+    onFieldChange( event: Event ) {
         if ( !event.target ) {
             /*this.messageService.sendCellValueChange({
                 rowIndex: this.params.rowIndex,
