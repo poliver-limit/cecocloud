@@ -48,10 +48,17 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	private Double longitud;
 
 	@Transient
+	@RestapiField(
+			hiddenInForm = true,
+			hiddenInLov = true)
 	public GeoPosition getUbicacio() {
-		return new GeoPosition(
-				getLatitud(),
-				getLongitud());
+		if (getLatitud() != null || getLongitud() != null) {
+			return new GeoPosition(
+					getLatitud(),
+					getLongitud());
+		} else {
+			return null;
+		}
 	}
 
 }

@@ -845,9 +845,9 @@ export class DatagridComponent implements OnInit {
 			return ((c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ',')));
 		} else if (field.type === 'BOOLEAN') {
 			if (typeof value === 'string') {
-				return (value == 'true') ? 'Si' : 'No';
+				return (value == 'true') ? this.translate.instant('component.datagrid.boolean.si') : this.translate.instant('component.datagrid.boolean.no');
 			} else {
-				return (value) ? 'Si' : 'No';
+				return (value) ? this.translate.instant('component.datagrid.boolean.si') : this.translate.instant('component.datagrid.boolean.no');
 			}
 		} else if (field.type === 'LOV') {
 			if (value) {
@@ -861,6 +861,8 @@ export class DatagridComponent implements OnInit {
 			} else {
 				return null;
 			}
+		} else if (field.type === 'GEOPOS' && value) {
+			return (value.latitude || '') + ', ' + (value.longitude || '');
 		}
 		return value;
 	}

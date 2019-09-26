@@ -3,8 +3,11 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +28,7 @@ import org.springframework.util.StringUtils;
 import es.limit.cecocloud.logic.api.annotation.RestapiField;
 import es.limit.cecocloud.logic.api.annotation.RestapiGrid;
 import es.limit.cecocloud.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.logic.api.dto.GeoPosition;
 import es.limit.cecocloud.logic.api.dto.Permission;
 import es.limit.cecocloud.logic.api.dto.Profile;
 import es.limit.cecocloud.logic.api.dto.ProfileResource;
@@ -167,145 +171,147 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 	}
 
-	/*private Class<?> getControllerClassForDto(
-			Class<?> dtoClass) throws ClassNotFoundException {
-		Class<?> controllerClass = null;
-		for (String packageToScan:  new String [] {CONTROLLER_PACKAGE}) {
-			Reflections reflections = new Reflections(packageToScan);
-			Set<Class<?>> candidats = reflections.getTypesAnnotatedWith(RestController.class);
-			for (Class<? extends Object> candidat: candidats) {
-				Type t = candidat.getGenericSuperclass();
-				if (t != null && t instanceof ParameterizedType) {
-					ParameterizedType parameterizedType = (ParameterizedType)t;
-					Type[] typeArgs = parameterizedType.getActualTypeArguments();
-					if (typeArgs.length > 0) {
-						if (typeArgs[0].equals(dtoClass)) {
-							controllerClass = candidat;
-							break;
-						}
-					}
-				}
-			}
-		}
-		return controllerClass;	
-	}
-
-	private String getApiUrl(
-			Class<?> controllerClass) throws ClassNotFoundException {
-		RequestMapping requestMappingAnnotation = controllerClass.getAnnotation(RequestMapping.class);
-		if (requestMappingAnnotation != null) {
-			String[] values = requestMappingAnnotation.value();
-			if (values.length > 0) {
-				return values[0];
-			}
-		}
-		return null;
-	}*/
-
 	public static List<ProfileResourceField> getFields(
 			Class<?> dtoClass) {
 		String resourceName = getResourceNameFromDtoClass(dtoClass);
-		List<ProfileResourceField> fields = new ArrayList<ProfileResourceField>();
+		List<ProfileResourceField> resourceFields = new ArrayList<ProfileResourceField>();
+		// Afegim els camps de la classe
 		for (Field field: dtoClass.getDeclaredFields()) {
-			ProfileResourceField fieldConfig = new ProfileResourceField();
-			fieldConfig.setName(field.getName());
-			fieldConfig.setType(getFieldType(field));
-			fieldConfig.setMultiple(Collection.class.isAssignableFrom(field.getType()));
-			fieldConfig.setTranslateKey(
-					TRANSLATE_KEY_PREFIX + resourceName + ".field." + field.getName());
-			if (field.getAnnotation(NotEmpty.class) != null) {
-				fieldConfig.setRequired(true);
-			}
-			if (field.getAnnotation(NotNull.class) != null) {
-				fieldConfig.setRequired(true);
-			}
-			Size size = field.getAnnotation(Size.class);
-			if (size != null) {
-				if (size.min() > 0) {
-					fieldConfig.setMinLength(size.min());
-				}
-				if (size.max() < Integer.MAX_VALUE) {
-					fieldConfig.setMaxLength(size.max());
-				}
-			}
-			Digits digits = field.getAnnotation(Digits.class);
-			if (digits != null) {
-				if (digits.integer() > 0) {
-					fieldConfig.setMaxLength(digits.integer());
-				}
-				if (digits.fraction() > 0) {
-					fieldConfig.setDecimalMaxLength(digits.fraction());
-				}
-			}
-			RestapiField restapiField = field.getAnnotation(RestapiField.class);
-			if (restapiField != null) {
-				RestapiFieldType fieldType = restapiField.type();
-				if (fieldType == RestapiFieldType.AUTO) {
-					fieldType = restapiField.value();
-				}
-				if (fieldType != RestapiFieldType.AUTO) {
-					fieldConfig.setType(fieldType);
-				}
-				if (restapiField.sizeMin() > 0) {
-					fieldConfig.setMinLength(restapiField.sizeMin());
-				}
-				if (restapiField.sizeMax() < Integer.MAX_VALUE) {
-					fieldConfig.setMaxLength(restapiField.sizeMax());
-				}
-				fieldConfig.setDisabledForCreate(
-						restapiField.disabledForCreate());
-				fieldConfig.setDisabledForUpdate(
-						restapiField.disabledForUpdate());
-				fieldConfig.setHiddenInGrid(
-						restapiField.hiddenInGrid());
-				fieldConfig.setHiddenInForm(
-						restapiField.hiddenInForm());
-				fieldConfig.setHiddenInLov(
-						restapiField.hiddenInLov());
-				fieldConfig.setToUpperCase(
-						restapiField.toUpperCase());
-			}
-			if (fieldConfig.getType() == RestapiFieldType.ENUM) {
-				Class<?> enumType = field.getType();
-				if (Collection.class.isAssignableFrom(field.getType())) {
-					ParameterizedType collectionGenericType = (ParameterizedType)field.getGenericType();
-					enumType = (Class<?>)collectionGenericType.getActualTypeArguments()[0];
-				}
-				if (enumType.isEnum()) {
-					fieldConfig.setEnumValues(
-							enumType.getEnumConstants());
-				}
-			}
-			if (restapiField != null) {
-				fieldConfig.setIncludeInQuickFilter(restapiField.includeInQuickFilter());
-			}
-			if (field.getName().equals("id") || field.getName().startsWith("parentId")) {
-				fieldConfig.setHiddenInGrid(true);
-				fieldConfig.setHiddenInForm(true);
-				fieldConfig.setHiddenInLov(true);
-			}
-			if (fieldConfig.getType() == RestapiFieldType.LOV) {
-				fillLovField(fieldConfig, dtoClass);
-			}
-			fields.add(fieldConfig);
+			resourceFields.add(
+					createResourceField(
+							field.getName(),
+							field.getType(),
+							field.getGenericType(),
+							field,
+							resourceName,
+							dtoClass));
 		}
+		// Afegim els mètodes get de la classe que no estan afegits com a camps
+		for (Method method: dtoClass.getMethods()) {
+			if (method.getName().startsWith("get") && !method.getName().equals("getId") && !method.getName().equals("getClass")) {
+				String fieldName = firstLetterInLowerCase(method.getName().substring("get".length()));
+				boolean alreadyExists = false;
+				for (ProfileResourceField resourceField: resourceFields) {
+					if (resourceField.getName().equals(fieldName)) {
+						alreadyExists = true;
+						break;
+					}
+				}
+				if (!alreadyExists) {
+					resourceFields.add(
+							createResourceField(
+									fieldName,
+									method.getReturnType(),
+									method.getGenericReturnType(),
+									method,
+									resourceName,
+									dtoClass));
+				}
+			}
+		}
+		// Afegim els camps i mètodes get de la superclasse (si en te)
 		if (dtoClass.getSuperclass() != null && !dtoClass.getSuperclass().getSimpleName().contains("Auditable")) {
-			fields.addAll(
+			resourceFields.addAll(
 					getFields(dtoClass.getSuperclass()));
 		}
-		return fields;
+		return resourceFields;
 	}
 
-	public static RestapiFieldType getFieldType(Field field) {
-		Class<?> type = field.getType();
-		if (Collection.class.isAssignableFrom(type)) {
-			ParameterizedType collectionGenericType = (ParameterizedType)field.getGenericType();
-			type = (Class<?>)collectionGenericType.getActualTypeArguments()[0];
+	private static ProfileResourceField createResourceField(
+			String fieldName,
+			Class<?> fieldType,
+			Type fieldGenericType,
+			AnnotatedElement annotatedElement,
+			String resourceName,
+			Class<?> dtoClass) {
+		RestapiFieldType restapiFieldType = getFieldType(fieldType, fieldGenericType);
+		ProfileResourceField fieldConfig = new ProfileResourceField();
+		fieldConfig.setName(fieldName);
+		fieldConfig.setType(restapiFieldType);
+		fieldConfig.setMultiple(Collection.class.isAssignableFrom(fieldType));
+		fieldConfig.setTranslateKey(
+				TRANSLATE_KEY_PREFIX + resourceName + ".field." + fieldName);
+		if (annotatedElement.getAnnotation(NotEmpty.class) != null) {
+			fieldConfig.setRequired(true);
 		}
-		if (type.isEnum()) {
+		if (annotatedElement.getAnnotation(NotNull.class) != null) {
+			fieldConfig.setRequired(true);
+		}
+		Size size = annotatedElement.getAnnotation(Size.class);
+		if (size != null) {
+			if (size.min() > 0) {
+				fieldConfig.setMinLength(size.min());
+			}
+			if (size.max() < Integer.MAX_VALUE) {
+				fieldConfig.setMaxLength(size.max());
+			}
+		}
+		Digits digits = annotatedElement.getAnnotation(Digits.class);
+		if (digits != null) {
+			if (digits.integer() > 0) {
+				fieldConfig.setMaxLength(digits.integer());
+			}
+			if (digits.fraction() > 0) {
+				fieldConfig.setDecimalMaxLength(digits.fraction());
+			}
+		}
+		RestapiField restapiField = annotatedElement.getAnnotation(RestapiField.class);
+		if (restapiField != null) {
+			RestapiFieldType annotationFieldType = restapiField.type();
+			if (annotationFieldType == RestapiFieldType.AUTO) {
+				annotationFieldType = restapiField.value();
+			}
+			if (annotationFieldType != RestapiFieldType.AUTO) {
+				fieldConfig.setType(annotationFieldType);
+			}
+			if (restapiField.sizeMin() > 0) {
+				fieldConfig.setMinLength(restapiField.sizeMin());
+			}
+			if (restapiField.sizeMax() < Integer.MAX_VALUE) {
+				fieldConfig.setMaxLength(restapiField.sizeMax());
+			}
+			fieldConfig.setDisabledForCreate(
+					restapiField.disabledForCreate());
+			fieldConfig.setDisabledForUpdate(
+					restapiField.disabledForUpdate());
+			fieldConfig.setHiddenInGrid(
+					restapiField.hiddenInGrid());
+			fieldConfig.setHiddenInForm(
+					restapiField.hiddenInForm());
+			fieldConfig.setHiddenInLov(
+					restapiField.hiddenInLov());
+			fieldConfig.setToUpperCase(
+					restapiField.toUpperCase());
+		}
+		if (fieldConfig.getType() == RestapiFieldType.ENUM) {
+			Class<?> enumType = getRealFieldType(fieldType, fieldGenericType);
+			if (enumType.isEnum()) {
+				fieldConfig.setEnumValues(
+						enumType.getEnumConstants());
+			}
+		}
+		if (restapiField != null) {
+			fieldConfig.setIncludeInQuickFilter(restapiField.includeInQuickFilter());
+		}
+		if (fieldName.equals("id") || fieldName.startsWith("parentId")) {
+			fieldConfig.setHiddenInGrid(true);
+			fieldConfig.setHiddenInForm(true);
+			fieldConfig.setHiddenInLov(true);
+		}
+		if (fieldConfig.getType() == RestapiFieldType.LOV) {
+			fillLovField(fieldConfig, dtoClass);
+		}
+		return fieldConfig;
+	}
+
+	private static RestapiFieldType getFieldType(
+			Class<?> fieldType,
+			Type fieldGenericType) {
+		Class<?> realType = getRealFieldType(fieldType, fieldGenericType);
+		if (realType.isEnum()) {
 			return RestapiFieldType.ENUM;
 		} else {
-			String simpleName = type.getSimpleName();
+			String simpleName = realType.getSimpleName();
 			if ("String".equals(simpleName)) {
 				return RestapiFieldType.STRING;
 			} else if ("int".equals(simpleName) || "Integer".equals(simpleName)) {
@@ -322,10 +328,23 @@ public class ProfileServiceImpl implements ProfileService {
 				return RestapiFieldType.DATE;
 			} else if ("BigDecimal".equals(simpleName)) {
 				return RestapiFieldType.BIGDECIMAL;
-			} else if (AbstractIdentificable.class.isAssignableFrom(type) || GenericReference.class.isAssignableFrom(type)) {
+			} else if (AbstractIdentificable.class.isAssignableFrom(realType) || GenericReference.class.isAssignableFrom(realType)) {
 				return RestapiFieldType.LOV;
+			} else if (GeoPosition.class.isAssignableFrom(realType)) {
+				return RestapiFieldType.GEOPOS;
 			}
 			return RestapiFieldType.STRING;
+		}
+	}
+
+	private static Class<?> getRealFieldType(
+			Class<?> fieldType,
+			Type fieldGenericType) {
+		if (Collection.class.isAssignableFrom(fieldType)) {
+			ParameterizedType collectionGenericType = (ParameterizedType)fieldGenericType;
+			return (Class<?>)collectionGenericType.getActualTypeArguments()[0];
+		} else {
+			return fieldType;
 		}
 	}
 
@@ -366,7 +385,14 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	private static String getResourceNameFromDtoClass(Class<?> dtoClass) {
-		return Character.toLowerCase(dtoClass.getSimpleName().charAt(0)) + dtoClass.getSimpleName().substring(1);
+		return firstLetterInLowerCase(dtoClass.getSimpleName());
+	}
+	private static String firstLetterInLowerCase(String str) {
+		if (str.isEmpty()) {
+			return str;
+		} else {
+			return Character.toLowerCase(str.charAt(0)) + str.substring(1);
+		}
 	}
 
 	private boolean isQuickFilterAvailable(Class<?> dtoClass) {

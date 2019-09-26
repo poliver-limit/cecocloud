@@ -48,7 +48,8 @@ public class ProfileResourceField {
 		TEXTAREA,
 		PASSWORD,
 		ENUM,
-		LOV
+		LOV,
+		GEOPOS
 	}
 
 }

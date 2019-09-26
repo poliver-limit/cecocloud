@@ -13,7 +13,7 @@ import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.METHOD})
 public @interface RestapiField {
 
 	public RestapiFieldType value() default RestapiFieldType.AUTO;

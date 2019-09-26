@@ -7,6 +7,7 @@ import { AuthTokenPayload } from './auth/auth-token-payload';
 export class MenuItem {
     icon?: string;
     label: string;
+    labelKey: string;
     route?: string;
     onlyForRoles?: string[];
 }
@@ -17,11 +18,11 @@ export class MenuItem {
 export abstract class MenuService {
 
     private menuItems = [
-        { icon: 'people', label: 'Usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
-        { icon: 'domain', label: 'Companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
-        { icon: 'business_center', label: 'Empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
-        { icon: 'people_alt', label: 'Operaris', route: '/operaris', onlyForRoles: ['ADMIN', 'MARCA'] },
-        { icon: 'timer', label: 'Marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
+        { icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
+        { icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
+        { icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
+        { icon: 'people_alt', label: 'Operaris', labelKey: 'app.menu.operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
+        { icon: 'timer', label: 'Marcatges', labelKey: 'app.menu.marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
     ];
     private allowedMenuItems = [];
     private allowedMenuItemsChangeSubject = new Subject<MenuItem[]>();
@@ -56,7 +57,7 @@ export abstract class MenuService {
     }
 
     constructor(
-        private authService: AuthService ) {
+        authService: AuthService ) {
         this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
         // Manten actualitzada la llista dels items de menu permesos
         authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: AuthTokenPayload ) => {

@@ -33,9 +33,11 @@ public class Usuari extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Size(max = 100)
+	@RestapiField(includeInQuickFilter = true)
 	private String codi;
 	@NotNull
 	@Size(max = 100)
+	@RestapiField(includeInQuickFilter = true)
 	private String nom;
 	@NotNull
 	@Size(max = 100)

@@ -22,6 +22,8 @@ export class MarcatgesGridComponent implements OnInit {
             sort: 'desc'
         }, {
             field: 'origen'
+        }, {
+            field: 'ubicacio'
         }]
     };
 

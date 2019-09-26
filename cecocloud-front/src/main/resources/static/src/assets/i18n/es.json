@@ -3,6 +3,12 @@
 	"app.action.logout": "Salir",
 	"app.action.logout.confirm": "¿Està seguro de que desea salir de la aplicación?",
 
+	"app.menu.usuaris": "Usuarios",
+	"app.menu.companyies": "Compañías",
+	"app.menu.empreses": "Empresas",
+	"app.menu.operaris": "Operarios",
+	"app.menu.marcatges": "Marcajes",
+
 	"component.datagrid.header.button.refrescar": "Actualizar",
 	"component.datagrid.header.button.crear": "Crear",
 	"component.datagrid.header.button.importar": "Importar",
@@ -13,6 +19,8 @@
 	"component.datagrid.manteniment.delete.single.confirm": "¿Está seguro de que desea borrar este {{description}}?",
 	"component.datagrid.manteniment.deleted": "El registro se ha borrado correctamente",
 	"component.datagrid.no.rows": "Sin resultados",
+	"component.datagrid.boolean.si": "Si",
+	"component.datagrid.boolean.no": "No",
 
 	"component.restapi.form.header.title.crear": "crear",
 	"component.restapi.form.header.title.modificar": "modificar",
@@ -90,8 +98,8 @@
 	"resource.usuari.field.actiu": "Activo",
 	"resource.usuari.field.rols": "Roles",
 
-	"resource.companyia": "Compañia",
-	"resource.companyia.plural": "Compañias",
+	"resource.companyia": "Compañía",
+	"resource.companyia.plural": "Compañías",
 	"resource.companyia.field.codi": "Código",
 	"resource.companyia.field.nom": "Nombre",
 
@@ -120,6 +128,7 @@
 	"resource.marcatge.field.origen": "Orígen",
 	"resource.marcatge.field.latitud": "Latitud",
 	"resource.marcatge.field.longitud": "Longitud",
+	"resource.marcatge.field.ubicacio": "Ubicación",
 
 	"resource.permission": "Permiso",
 	"resource.permission.plural": "Permisos",
