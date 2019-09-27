@@ -28,15 +28,22 @@ export class CompanyiesFormComponent {
     formConfig: FormConfig = {
     }
     permisosDatagridConfig = {
+        //columnFiltersEnabled: true
         adjustHeight: false,
         paginationEnabled: false,
         mode: 'form',
-		editable: true
-        //columnFiltersEnabled: true
+		editable: true,
+		columns: [{
+            field: 'sidType',
+        }, {
+            field: 'sidName',
+        }, {
+            field: 'syncGranted',
+        }]
     };
 
     constructor(
-        private activatedRoute: ActivatedRoute,
+        activatedRoute: ActivatedRoute,
         public companyiesService: CompanyiesService,
         public companyiesPermissionService: CompanyiesPermissionService ) {
         activatedRoute.params.subscribe(( params ) => {

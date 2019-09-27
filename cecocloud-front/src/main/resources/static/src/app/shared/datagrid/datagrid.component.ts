@@ -14,6 +14,7 @@ import { DatagridLinkCellRenderer } from './datagrid-link-cell-renderer.componen
 import { DatagridRestapiEditorComponent } from './datagrid-restapi-editor.component';
 import { DatagridRestapiFilterComponent } from './datagrid-restapi-filter.component';
 import { DatagridRestapiFloatingFilterComponent } from './datagrid-restapi-floating-filter.component';
+import { DatagridActionsRendererComponent } from './datagrid-actions-renderer.component';
 
 export interface DatagridConfig {
 	mode?: string;
@@ -193,11 +194,26 @@ export class DatagridComponent implements OnInit {
 		event.context.gridComponent.rowDoubleClicked.emit(event);
 	}
 
+	onRowActionClicked(api: GridApi, action: string, rowIndex: number) {
+		if (action == 'delete') {
+			let rowNode: RowNode = api.getDisplayedRowAtIndex(rowIndex);
+			this.restapiService.delete(rowNode.data).subscribe(() => {
+				rowNode.setData({});
+				api.flashCells({ rowNodes: [rowNode] });
+				this.refreshInternal(api);
+			}, (error: any) => {
+				console.log('>>> Error', error);
+			});
+		}
+	}
+
 	onAddRowButtonClick() {
 		if (this.config.editable) {
 			let api = this.gridOptions.api;
 			let editActive = this.getFromApiContext(api, 'editActive');
-			if (!editActive) {
+			console.log('>>> onAddRowButtonClick', editActive)
+			if (editActive === undefined || !editActive) {
+				console.log('>>>    startEditing')
 				let getParams = this.restapiService.generateGetParamsWithParent('new', this.config.parent);
 				this.restapiService.get(getParams).subscribe((resource: Resource) => {
 					let newRowIndex = api.getLastDisplayedRow() + 1;
@@ -208,6 +224,7 @@ export class DatagridComponent implements OnInit {
 					this.startEditing(api, newRowIndex);
 				});
 			} else {
+				console.log('>>>    stopEditing')
 				let currentRowIndex = api.getEditingCells()[0].rowIndex;
 				api.stopEditing();
 				this.startEditing(api, currentRowIndex);
@@ -238,6 +255,8 @@ export class DatagridComponent implements OnInit {
 		event.context.gridComponent.removeFromApiContext(event.api, 'editInitialRowData');
 		event.context.gridComponent.removeFromApiContext(event.api, 'editRowIndex');
 		event.context.gridComponent.removeFromApiContext(event.api, 'editActive');
+		console.log('>>> onRowEditingStopped', this['context'].gridComponent.getFromApiContext(event.api, 'editActive'), event.context.gridComponent.getFromApiContext(event.api, 'editActive'))
+		console.log('>>> onRowEditingStopped', this, this['context']);
 	}
 	onRowValueChanged(event: RowValueChangedEvent) {
 		let editDataHasChanged = event.context.gridComponent.getFromApiContext(event.api, 'editDataHasChanged');
@@ -252,8 +271,8 @@ export class DatagridComponent implements OnInit {
 					rowNodes: [rowNode]
 				});
 				event.api.flashCells({ rowNodes: [rowNode] });
+				event.context.gridComponent.refreshInternal(event.api);
 				event.context.gridComponent.refreshParentRow(event.api);
-				//event.context.gridComponent.refreshInternal(event.api);
 			};
 			let errorFunction = function(rowNode: RowNode, error: Error) {
 				console.log('>>> errorFunction', rowNode, error);
@@ -281,6 +300,7 @@ export class DatagridComponent implements OnInit {
 		gridConfig: DatagridConfig,
 		parentGridOptions?: GridOptions): Observable<GridOptions> {
 		let gridOptions: GridOptions = {
+			suppressHorizontalScroll: true,
 			suppressCellSelection: true,
 			suppressContextMenu: true,
 			stopEditingWhenGridLosesFocus: false,
@@ -620,10 +640,12 @@ export class DatagridComponent implements OnInit {
 					suppressFilterButton: gridColumn.suppressFilterButton,
 					restapiField: restapiField
 				};
-				if (datagridConfig.columnFiltersEnabled) {
-					filter = true;
-					filterFramework = DatagridRestapiFilterComponent;
-					floatingFilterComponentFramework = DatagridRestapiFloatingFilterComponent;
+				if (restapiField && datagridConfig.columnFiltersEnabled) {
+					if (restapiField.type !== 'GEOPOS') {
+						filter = true;
+						filterFramework = DatagridRestapiFilterComponent;
+						floatingFilterComponentFramework = DatagridRestapiFloatingFilterComponent;
+					}
 				}
 				columnDefs.push({
 					field: columnField,
@@ -654,6 +676,14 @@ export class DatagridComponent implements OnInit {
 					tooltip: tooltip,
 					width: (gridColumn.width) ? gridColumn.width : null
 				});
+			});
+		}
+		if (formMode) {
+			columnDefs.push({
+				width: this.rowHeight,
+				cellRendererFramework: DatagridActionsRendererComponent,
+				cellRendererParams: {
+				}
 			});
 		}
 		if (this.toolbarShown) {
@@ -967,7 +997,6 @@ export class DatagridComponent implements OnInit {
 					processedColId = allColumns[0].getColId();
 				}
 			}
-			console.log('>>> startEditingCell', rowNode.rowIndex, processedColId)
 			api.startEditingCell({
 				rowIndex: rowNode.rowIndex,
 				colKey: processedColId

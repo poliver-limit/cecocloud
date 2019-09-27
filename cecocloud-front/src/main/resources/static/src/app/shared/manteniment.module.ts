@@ -14,6 +14,7 @@ import { DatagridLinkCellRenderer } from './datagrid/datagrid-link-cell-renderer
 import { DatagridRestapiEditorComponent } from './datagrid/datagrid-restapi-editor.component';
 import { DatagridRestapiFilterComponent } from './datagrid/datagrid-restapi-filter.component';
 import { DatagridRestapiFloatingFilterComponent } from './datagrid/datagrid-restapi-floating-filter.component';
+import { DatagridActionsRendererComponent } from './datagrid/datagrid-actions-renderer.component';
 import { RestapiFormComponent } from './restapi-form/restapi-form.component';
 import { RestapiFormHeaderComponent } from './restapi-form/restapi-form-header.component';
 import { RestapiFormMantenimentDirective } from './restapi-form/restapi-form-manteniment.directive';
@@ -23,53 +24,58 @@ import { RestapiCustomFieldComponent } from './restapi-form/restapi-custom-field
 import { RestapiLovMdcwebComponent } from './restapi-lov/restapi-lov-mdcweb.component';
 import { RestapiLovMaterialComponent } from './restapi-lov/restapi-lov-material.component';
 import { RestapiLovDialogComponent } from './restapi-lov/restapi-lov-dialog.component';
+import { MapComponent } from './map/map.component';
 
-@NgModule( {
-    imports: [
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MdcWebModule,
-        AngularMaterialModule,
-        AgGridModule.withComponents( [
-            DatagridHeaderComponent,
-            DatagridLinkCellRenderer,
-            DatagridRestapiEditorComponent,
-            DatagridRestapiFilterComponent,
-            DatagridRestapiFloatingFilterComponent
-        ] ),
-        TranslateModule.forChild()
-    ],
-    declarations: [
-        DatagridComponent,
-        DatagridHeaderComponent,
-        DatagridMantenimentDirective,
-        DatagridLinkCellRenderer,
-        DatagridRestapiEditorComponent,
-        DatagridRestapiFilterComponent,
-        DatagridRestapiFloatingFilterComponent,
-        RestapiFormComponent,
-        RestapiFormHeaderComponent,
-        RestapiFormMantenimentDirective,
-        RestapiFieldMdcwebComponent,
-        RestapiFieldMaterialComponent,
-        RestapiCustomFieldComponent,
-        RestapiLovMdcwebComponent,
-        RestapiLovMaterialComponent,
-        RestapiLovDialogComponent
-    ],
-    exports: [
-        DatagridComponent,
-        DatagridMantenimentDirective,
-        RestapiFormComponent,
-        RestapiCustomFieldComponent,
-        RestapiFormMantenimentDirective,
-    ],
-    entryComponents: [
-        RestapiFieldMdcwebComponent,
-        RestapiFieldMaterialComponent,
-        RestapiLovDialogComponent
-    ]
-} )
-export class MantenimentModule {}
+@NgModule({
+	imports: [
+		CommonModule,
+		RouterModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MdcWebModule,
+		AngularMaterialModule,
+		AgGridModule.withComponents([
+			DatagridHeaderComponent,
+			DatagridLinkCellRenderer,
+			DatagridRestapiEditorComponent,
+			DatagridRestapiFilterComponent,
+			DatagridRestapiFloatingFilterComponent,
+			DatagridActionsRendererComponent
+		]),
+		TranslateModule.forChild()
+	],
+	declarations: [
+		DatagridComponent,
+		DatagridHeaderComponent,
+		DatagridMantenimentDirective,
+		DatagridLinkCellRenderer,
+		DatagridRestapiEditorComponent,
+		DatagridRestapiFilterComponent,
+		DatagridRestapiFloatingFilterComponent,
+		DatagridActionsRendererComponent,
+		RestapiFormComponent,
+		RestapiFormHeaderComponent,
+		RestapiFormMantenimentDirective,
+		RestapiFieldMdcwebComponent,
+		RestapiFieldMaterialComponent,
+		RestapiCustomFieldComponent,
+		RestapiLovMdcwebComponent,
+		RestapiLovMaterialComponent,
+		RestapiLovDialogComponent,
+		MapComponent
+	],
+	exports: [
+		DatagridComponent,
+		DatagridMantenimentDirective,
+		RestapiFormComponent,
+		RestapiCustomFieldComponent,
+		RestapiFormMantenimentDirective,
+		MapComponent
+	],
+	entryComponents: [
+		RestapiFieldMdcwebComponent,
+		RestapiFieldMaterialComponent,
+		RestapiLovDialogComponent
+	]
+})
+export class MantenimentModule { }
