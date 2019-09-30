@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { IAfterGuiAttachedParams, IDoesFilterPassParams, IFilterParams, RowNode } from 'ag-grid-community';
 import { IFilterAngularComp } from 'ag-grid-angular';
@@ -90,7 +90,7 @@ export class DatagridRestapiFilterComponent implements IFilterAngularComp {
             additionalValue = m.format( 'YYYY-MM-DD' ) + 'T23:59:59.999+0000';
         } else if ( this.filterField.type === 'LOV' ) {
             additionalPath = 'id';
-        } else if ( this.filterField.type === 'ENUM' && this.filterField.multiple ) {
+        } else if ( this.filterField.type === 'ENUM' ) {
             processedOperation = 'IN';
             if ( Array.isArray( processedValue ) && processedValue.length > 1 ) {
                 processedValue = '(' + processedValue + ')';

@@ -1,20 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, isDevMode } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild, isDevMode } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MatInput, MatSelect, MatCheckbox } from '@angular/material';
-import { Resource } from 'angular4-hal';
 import * as moment from 'moment';
+import * as textMask from "vanilla-text-mask/dist/vanillaTextMask.js";
+import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
-import {
-    RestapiResource,
-    RestapiResourceField
-} from '../restapi/restapi-profile';
 import { RestapiBaseFieldComponent } from './restapi-base-field.component';
 import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material.component';
 
-@Component( {
-    selector: 'restapi-field-material',
-    template: `
+@Component({
+	selector: 'restapi-field-material',
+	template: `
 <mat-form-field *ngIf="isText || isTextarea" [appearance]="appearance" style="width:100%">
     <mat-label *ngIf="!hideLabel">{{label}}</mat-label>
     <input
@@ -140,203 +138,250 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         (change)="onFieldChange($event)"></restapi-lov-material>
 </ng-container>
 `
-} )
+})
 export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent implements OnInit {
 
-    @Input() appearance: string = 'standard'; // 'legacy' | 'standard' | 'fill' | 'outline'
-    @Input() nativeControl: boolean;
+	@Input() appearance: string = 'standard'; // 'legacy' | 'standard' | 'fill' | 'outline'
+	@Input() nativeControl: boolean;
 
-    @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
-    @ViewChild( MatSelect, { static: false } ) matSelectField: MatSelect;
-    @ViewChild( MatCheckbox, { static: false } ) matCheckboxField: MatCheckbox;
-    @ViewChild( RestapiLovMaterialComponent, { static: false } ) restapiLovField: RestapiLovMaterialComponent;
+	@ViewChild(MatInput, { static: false }) matInputField: MatInput;
+	@ViewChild(MatSelect, { static: false }) matSelectField: MatSelect;
+	@ViewChild(MatCheckbox, { static: false }) matCheckboxField: MatCheckbox;
+	@ViewChild(RestapiLovMaterialComponent, { static: false }) restapiLovField: RestapiLovMaterialComponent;
 
-    isText: boolean = false;
-    inputTextType: string = 'text';
-    isTextarea: boolean = false;
-    isDate: boolean = false;
-    isDatetime: boolean = false;
-    isCheckbox: boolean = false;
-    isSelect: boolean = false;
-    isLov: boolean = false;
-    datetimeFormGroup: FormGroup;
-    datetimeLinkButtonActive: boolean = true;
-    datetimeLinkedWithCurrentTime: boolean = true;
-    showCharCount: boolean;
-    errorMessage: string;
-    // Per a evitar l'error ExpressionChangedAfterItHasBeenCheckedError en el label del mat-select
-    enumLabelShown: boolean = false;
+	isText: boolean = false;
+	inputTextType: string = 'text';
+	isTextarea: boolean = false;
+	isDate: boolean = false;
+	isDatetime: boolean = false;
+	isCheckbox: boolean = false;
+	isSelect: boolean = false;
+	isLov: boolean = false;
+	datetimeFormGroup: FormGroup;
+	datetimeLinkButtonActive: boolean = true;
+	datetimeLinkedWithCurrentTime: boolean = true;
+	showCharCount: boolean;
+	errorMessage: string;
+	// Per a evitar l'error ExpressionChangedAfterItHasBeenCheckedError en el label del mat-select
+	enumLabelShown: boolean = false;
 
-    ngOnInit() {
-        this.enumLabelShown = !isDevMode && this.hideLabel;
-        this.doEachSecond();
-        switch ( this.field.type ) {
-            case 'TEXTAREA':
-                this.isTextarea = true;
-                break;
-            case 'DATE':
-                this.isDate = true;
-                break;
-            case 'DATETIME':
-                this.buildDatetimeFormGroup();
-                this.isDatetime = true;
-                break;
-            case 'BOOLEAN':
-                this.isCheckbox = true;
-                break;
-            case 'ENUM':
-                this.isSelect = true;
-                break;
-            case 'LOV':
-                this.isLov = true;
-                break;
-            case 'INTEGER':
-            case 'FLOAT':
-            case 'BIGDECIMAL':
-            case 'PREU':
-            case 'IMPORT':
-                this.inputTextType = 'number';
-            case 'STRING':
-            case 'PASSWORD':
-            default:
-                this.isText = true;
-                break;
-        }
-    }
+	ngOnInit() {
+		this.enumLabelShown = !isDevMode && this.hideLabel;
+		this.doEachSecond();
+		switch (this.field.type) {
+			case 'TEXTAREA':
+				this.isTextarea = true;
+				break;
+			case 'DATE':
+				this.isDate = true;
+				break;
+			case 'DATETIME':
+				this.buildDatetimeFormGroup();
+				this.isDatetime = true;
+				break;
+			case 'BOOLEAN':
+				this.isCheckbox = true;
+				break;
+			case 'ENUM':
+				this.isSelect = true;
+				break;
+			case 'LOV':
+				this.isLov = true;
+				break;
+			case 'INTEGER':
+			case 'FLOAT':
+			case 'BIGDECIMAL':
+			case 'PREU':
+			case 'IMPORT':
+				this.inputTextType = 'number';
+			case 'STRING':
+			case 'PASSWORD':
+			default:
+				this.isText = true;
+				break;
+		}
+	}
 
-    onFieldChange( event ) {
-        if ( this.isDatetime ) {
-            this.propagateDateToFormControl(
-                this.datetimeFormGroup.get( 'date' ).value,
-                this.datetimeFormGroup.get( 'time' ).value );
-        }
-        super.onFieldChange( event );
-    }
+	onFieldChange(event: Event) {
+		if (this.isDatetime) {
+			setTimeout(() => {
+				this.matInputField.focus();
+			});
+			this.propagateDateToFormControl(
+				this.datetimeFormGroup.get('date').value,
+				this.datetimeFormGroup.get('time').value);
+		}
+		if (this.isDate || this.isDatetime) {
+			setTimeout(() => {
+				this.matInputField.focus();
+			});
+		}
+		super.onFieldChange(event);
+	}
 
-    onFieldInput( event ) {
-        super.onFieldInput( event );
-    }
+	onFieldInput(event: Event) {
+		super.onFieldInput(event);
+	}
 
-    onSelectionChange( event ) {
-        if ( this.field.multiple && this.formControl.value && this.formControl.value.length == 0 ) {
-            this.formControl.reset();
-        }
-        super.onFieldInput( event );
-        super.onFieldChange( event );
-    }
+	onSelectionChange(event: Event) {
+		if (this.field.multiple && this.formControl.value && this.formControl.value.length == 0) {
+			this.formControl.reset();
+		}
+		super.onFieldInput(event);
+		super.onFieldChange(event);
+	}
 
-    public setErrors( errors?: any ) {
-        if ( this.restapiLovField ) {
-            this.restapiLovField.setErrors( errors );
-        } else {
-            let valid = !( errors && Object.keys( errors ).length > 0 );
-            if ( !valid ) {
-                if ( this.datetimeFormGroup ) {
-                    this.datetimeFormGroup.get( 'date' ).markAsTouched();
-                    this.datetimeFormGroup.get( 'date' ).setErrors( errors );
-                    this.datetimeFormGroup.get( 'time' ).markAsTouched();
-                    this.datetimeFormGroup.get( 'time' ).setErrors( errors );
-                } else {
-                    this.formControl.markAsTouched();
-                    this.formControl.setErrors( errors );
-                }
-            } else {
-                if ( this.datetimeFormGroup ) {
-                    this.datetimeFormGroup.get( 'date' ).setErrors( null );
-                    this.datetimeFormGroup.get( 'time' ).setErrors( null );
-                } else {
-                    this.formControl.setErrors( null );
-                }
-            }
-            this.errorMessage = valid ? undefined : errors[Object.keys( errors )[0]];
-        }
-    }
+	getMask(): any {
+		switch (this.field.type) {
+			case 'DATE':
+			case 'DATETIME':
+				return [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+				//return createAutoCorrectedDatePipe('dd/mm/yyyy');
+			case 'INTEGER':
+				return createNumberMask({
+					includeThousandsSeparator: false,
+					allowDecimal: false,
+					allowNegative: true,
+					allowLeadingZeroes: false
+				});
+			case 'FLOAT':
+				return createNumberMask({
+					includeThousandsSeparator: false,
+					allowDecimal: true,
+					requireDecimal: false,
+					allowNegative: true,
+					allowLeadingZeroes: false
+				});
+			case 'BIGDECIMAL':
+			case 'PREU':
+			case 'IMPORT':
+				return createNumberMask({
+					prefix: '',
+					suffix: ' €',
+					includeThousandsSeparator: true,
+					allowDecimal: true,
+					decimalLimit: 10,
+					requireDecimal: false,
+					allowNegative: false,
+					allowLeadingZeroes: false
+				});
+			default:
+				return undefined;
+		}
+	}
 
-    getFieldComponent() {
-        if ( this.restapiLovField ) {
-            return this.restapiLovField.getFieldComponent();
-        } else if ( this.matSelectField ) {
-            return this.matSelectField;
-        } else if ( this.matCheckboxField ) {
-            return this.matCheckboxField;
-        } else {
-            return this.matInputField;
-        }
-    }
+	setErrors(errors?: any) {
+		if (this.restapiLovField) {
+			this.restapiLovField.setErrors(errors);
+		} else {
+			let valid = !(errors && Object.keys(errors).length > 0);
+			if (!valid) {
+				if (this.datetimeFormGroup) {
+					this.datetimeFormGroup.get('date').markAsTouched();
+					this.datetimeFormGroup.get('date').setErrors(errors);
+					this.datetimeFormGroup.get('time').markAsTouched();
+					this.datetimeFormGroup.get('time').setErrors(errors);
+				} else {
+					this.formControl.markAsTouched();
+					this.formControl.setErrors(errors);
+				}
+			} else {
+				if (this.datetimeFormGroup) {
+					this.datetimeFormGroup.get('date').setErrors(null);
+					this.datetimeFormGroup.get('time').setErrors(null);
+				} else {
+					this.formControl.setErrors(null);
+				}
+			}
+			this.errorMessage = valid ? undefined : errors[Object.keys(errors)[0]];
+		}
+	}
 
-    getEnumDescription( index: number, value: string ) {
-        if ( this.field.enumDescriptions ) {
-            return this.field.enumDescriptions[index];
-        } else if ( this.field.enumTranslateKeyPrefix ) {
-            return this.translate.instant( this.field.enumTranslateKeyPrefix + value );
-        } else {
-            return value;
-        }
-    }
+	getFieldComponent() {
+		if (this.restapiLovField) {
+			return this.restapiLovField.getFieldComponent();
+		} else if (this.matSelectField) {
+			return this.matSelectField;
+		} else if (this.matCheckboxField) {
+			return this.matCheckboxField;
+		} else {
+			return this.matInputField;
+		}
+	}
 
-    buildDatetimeFormGroup() {
-        let fieldValue = this.internalFormGroup.get( this.fieldName ).value;
-        let dateValue;
-        let timeValue;
-        let fieldMoment;
-        if ( fieldValue ) {
-            fieldMoment = moment( fieldValue );
-            this.datetimeLinkedWithCurrentTime = false;
-        } else if ( this.datetimeLinkedWithCurrentTime ) {
-            fieldMoment = moment();
-        }
-        if ( fieldMoment ) {
-            dateValue = fieldMoment;
-            timeValue = fieldMoment.format( 'HH:mm:ss' );
-        }
-        let lovControls = {};
-        lovControls['date'] = { value: dateValue, disabled: this.formControl.disabled };
-        lovControls['time'] = { value: timeValue, disabled: this.formControl.disabled };
-        this.datetimeFormGroup = this.formBuilder.group( lovControls );
-    }
+	getEnumDescription(index: number, value: string) {
+		if (this.field.enumDescriptions) {
+			return this.field.enumDescriptions[index];
+		} else if (this.field.enumTranslateKeyPrefix) {
+			return this.translate.instant(this.field.enumTranslateKeyPrefix + value);
+		} else {
+			return value;
+		}
+	}
 
-    onDatetimeLinkButtonClick() {
-        this.datetimeLinkedWithCurrentTime = !this.datetimeLinkedWithCurrentTime;
-        if ( this.datetimeLinkedWithCurrentTime ) {
-            this.doEachSecond();
-        }
-    }
+	buildDatetimeFormGroup() {
+		let fieldValue = this.internalFormGroup.get(this.fieldName).value;
+		let dateValue;
+		let timeValue;
+		let fieldMoment;
+		if (fieldValue) {
+			fieldMoment = moment(fieldValue);
+			this.datetimeLinkedWithCurrentTime = false;
+		} else if (this.datetimeLinkedWithCurrentTime) {
+			fieldMoment = moment();
+		}
+		if (fieldMoment) {
+			dateValue = fieldMoment;
+			timeValue = fieldMoment.format('HH:mm:ss');
+		}
+		let lovControls = {};
+		lovControls['date'] = { value: dateValue, disabled: this.formControl.disabled };
+		lovControls['time'] = { value: timeValue, disabled: this.formControl.disabled };
+		this.datetimeFormGroup = this.formBuilder.group(lovControls);
+	}
 
-    doEachSecond() {
-        if ( this.datetimeFormGroup && this.datetimeLinkedWithCurrentTime ) {
-            let currentMoment = moment();
-            this.datetimeFormGroup.get( 'date' ).setValue( currentMoment );
-            this.datetimeFormGroup.get( 'time' ).setValue( currentMoment.format( 'HH:mm:ss' ) );
-            this.propagateDateToFormControl(
-                this.datetimeFormGroup.get( 'date' ).value,
-                this.datetimeFormGroup.get( 'time' ).value );
-        }
-    }
+	onDatetimeLinkButtonClick() {
+		this.datetimeLinkedWithCurrentTime = !this.datetimeLinkedWithCurrentTime;
+		if (this.datetimeLinkedWithCurrentTime) {
+			this.doEachSecond();
+		}
+	}
 
-    propagateDateToFormControl( dateValue, timeValue?: string ) {
-        let time = timeValue ? timeValue : '00:00:00';
-        let m = moment(( dateValue ? dateValue : moment() ).format( 'YYYY-MM-DD' ) + ' ' + time, 'YYYY-MM-DD HH:mm:ss' );
-        let apiValue = m.format( 'YYYY-MM-DDTHH:mm:ss.SSS' ) + this.getTimeZoneOffset();
-        this.internalFormGroup.get( this.fieldName ).setValue( apiValue );
-    }
+	doEachSecond() {
+		if (this.datetimeFormGroup && this.datetimeLinkedWithCurrentTime) {
+			let currentMoment = moment();
+			this.datetimeFormGroup.get('date').setValue(currentMoment);
+			this.datetimeFormGroup.get('time').setValue(currentMoment.format('HH:mm:ss'));
+			this.propagateDateToFormControl(
+				this.datetimeFormGroup.get('date').value,
+				this.datetimeFormGroup.get('time').value);
+		}
+	}
 
-    getTimeZoneOffset() {
-        let offsetInHours = -( new Date().getTimezoneOffset() / 60 );
-        let timezoneOffsetNegative = offsetInHours < 0;
-        if ( timezoneOffsetNegative ) {
-            offsetInHours = -offsetInHours;
-        }
-        let timezoneOffsetStr = ( timezoneOffsetNegative ? '-' : '+' ) + ( ( offsetInHours < 10 ) ? '0' + offsetInHours : '' + offsetInHours ) + ':00';
-        return timezoneOffsetStr;
-    }
+	propagateDateToFormControl(dateValue, timeValue?: string) {
+		let time = timeValue ? timeValue : '00:00:00';
+		let m = moment((dateValue ? dateValue : moment()).format('YYYY-MM-DD') + ' ' + time, 'YYYY-MM-DD HH:mm:ss');
+		let apiValue = m.format('YYYY-MM-DDTHH:mm:ss.SSS') + this.getTimeZoneOffset();
+		this.internalFormGroup.get(this.fieldName).setValue(apiValue);
+	}
 
-    constructor(
-        private formBuilder: FormBuilder,
-        translate: TranslateService ) {
-        super( translate );
-        setInterval(() => {
-            this.doEachSecond();
-        }, 1000 );
-    }
+	getTimeZoneOffset() {
+		let offsetInHours = -(new Date().getTimezoneOffset() / 60);
+		let timezoneOffsetNegative = offsetInHours < 0;
+		if (timezoneOffsetNegative) {
+			offsetInHours = -offsetInHours;
+		}
+		let timezoneOffsetStr = (timezoneOffsetNegative ? '-' : '+') + ((offsetInHours < 10) ? '0' + offsetInHours : '' + offsetInHours) + ':00';
+		return timezoneOffsetStr;
+	}
+
+	constructor(
+		private formBuilder: FormBuilder,
+		translate: TranslateService) {
+		super(translate);
+		setInterval(() => {
+			this.doEachSecond();
+		}, 1000);
+	}
 
 }

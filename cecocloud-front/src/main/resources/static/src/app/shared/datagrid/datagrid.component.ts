@@ -64,11 +64,13 @@ export interface DatagridColumn {
 		<div style="color: rgba(0, 0, 0, 0.18)">{{'component.datagrid.no.rows'|translate}}</div>
 	</div>
 	<datagrid-header #header (quickFilterChange)="onQuickFilterChange($event)"></datagrid-header>
-	<ag-grid-angular
-		*ngIf="gridOptions"
-		[ngClass]="theme"
-		[style.height]="styleHeight"
-		[gridOptions]="gridOptions"></ag-grid-angular>
+	<form autocomplete="off">
+		<ag-grid-angular
+			*ngIf="gridOptions"
+			[ngClass]="theme"
+			[style.height]="styleHeight"
+			[gridOptions]="gridOptions"></ag-grid-angular>
+	</form>
 	<div *ngIf="config.mode === 'form'" style="margin-top: .4em">
 		<button mat-button (click)="onAddRowButtonClick()">
 			<mat-icon>add</mat-icon>
