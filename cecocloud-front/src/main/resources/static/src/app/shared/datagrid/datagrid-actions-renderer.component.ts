@@ -26,7 +26,7 @@ export class DatagridActionsRendererComponent implements ICellRendererAngularCom
 	onActionClick(event: Event, actionName: string) {
 		event.stopPropagation();
 		event.preventDefault();
-		this.params.api['gridOptionsWrapper'].gridOptions.context.gridComponent.onRowActionClicked(
+		this.params.api['getDatagridComponent']().onRowActionClicked(
 			this.params.api,
 			actionName,
 			this.params.rowIndex);

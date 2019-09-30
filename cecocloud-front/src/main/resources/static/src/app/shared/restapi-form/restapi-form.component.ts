@@ -66,6 +66,7 @@ export interface FormGridConfig {
     </ng-container>    
     <ng-template #formTemplate>
         <form [formGroup]="formGroup">
+            <button (click)="onHeaderActionSave()" style="display:none"></button>
             <mdc-tab-bar
                 #formTabs
                 *ngIf="showTabs"
@@ -94,7 +95,6 @@ export interface FormGridConfig {
                     </div>
                 </div>
             </div>
-            <button (click)="onHeaderActionSave()" style="display:none"></button>
         </form>
     </ng-template>`,
 	styles: [`

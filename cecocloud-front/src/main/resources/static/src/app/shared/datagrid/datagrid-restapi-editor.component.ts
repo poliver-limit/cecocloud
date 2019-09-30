@@ -8,8 +8,8 @@ import { Resource } from 'angular4-hal';
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
 import { RestapiBaseFieldComponent } from '../restapi-form/restapi-base-field.component';
 
-@Component( {
-    template: `
+@Component({
+	template: `
 <restapi-field-material
     #fieldComponent
     [fieldName]="fieldName"
@@ -19,78 +19,77 @@ import { RestapiBaseFieldComponent } from '../restapi-form/restapi-base-field.co
     [hideLabel]="true"
     (click)="onFieldClick($event)"
     (change)="onFieldChange($event)"></restapi-field-material>`
-} )
+})
 export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
 
-    @ViewChild( 'fieldComponent', { static: true } ) fieldComponent: RestapiBaseFieldComponent;
+	@ViewChild('fieldComponent', { static: true }) fieldComponent: RestapiBaseFieldComponent;
 
-    fieldName: string;
-    formGroup: FormGroup;
-    restapiResource: RestapiResource;
-    resourceInstance: Resource;
-    isFirst: boolean;
-    params: any;
+	fieldName: string;
+	formGroup: FormGroup;
+	restapiResource: RestapiResource;
+	resourceInstance: Resource;
+	isFirst: boolean;
+	params: any;
 
-    rowEditErrorSubscription: Subscription;
+	rowEditErrorSubscription: Subscription;
 
-    agInit( params: any ): void {
-        this.fieldName = params.column.getColId();
-        this.restapiResource = params.context.restapiProfile.resource;
-        let first = true;
-        let editIsCreate = params.context.gridComponent.getFromApiContext( params.api, 'editIsCreate' );
-        this.restapiResource.fields.forEach(( formField: RestapiResourceField ) => {
-            let formFieldDisabled = ( editIsCreate ) ? formField.disabledForCreate : formField.disabledForUpdate
-            if ( formField.name === this.fieldName ) {
-                this.isFirst = first && !formFieldDisabled;
-            }
-            if ( first && !formFieldDisabled ) {
-                first = false;
-            }
-        } );
-        this.formGroup = params.context.gridComponent.getEditFormGroup(
-            params.rowIndex,
-            params.api,
-            params.context );
-        this.params = params;
-    }
+	agInit(params: any): void {
+		this.fieldName = params.column.getColId();
+		this.restapiResource = params.api['getFromOptionsContext']('restapiProfile').resource;
+		let first = true;
+		let editIsCreate = params.data.id === undefined;
+		this.restapiResource.fields.forEach((formField: RestapiResourceField) => {
+			let formFieldDisabled = (editIsCreate) ? formField.disabledForCreate : formField.disabledForUpdate
+			if (formField.name === this.fieldName) {
+				this.isFirst = first && !formFieldDisabled;
+			}
+			if (first && !formFieldDisabled) {
+				first = false;
+			}
+		});
+		this.formGroup = params.api['getDatagridComponent']().getEditFormGroup(
+			params.api,
+			params.rowIndex);
+		this.params = params;
+	}
 
-    isCancelBeforeStart(): boolean {
-        if ( this.isFirst ) {
-            setTimeout(() => {
-                this.fieldComponent.focus();
-            }, 100 );
-        }
-        return false;
-    }
+	isCancelBeforeStart(): boolean {
+		if (this.isFirst) {
+			setTimeout(() => {
+				this.fieldComponent.focus();
+			}, 100);
+		}
+		return false;
+	}
 
-    getValue(): any {
-        if ( this.params.column.colDef.valueParser ) {
-            return this.params.column.colDef.valueParser( {
-                oldValue: this.params.value,
-                newValue: this.formGroup.controls[this.fieldName].value,
-                node: this.params.node,
-                colDef: this.params.column.colDef,
-                column: this.params.column,
-                api: this.params.api,
-                columnApi: this.params.columnApi,
-                context: this.params.context
-            } );
-        } else {
-            return this.formGroup.controls[this.fieldName].value;
-        }
-    }
+	getValue(): any {
+		if (this.params.column.colDef.valueParser) {
+			return this.params.column.colDef.valueParser({
+				oldValue: this.params.value,
+				newValue: this.formGroup.controls[this.fieldName].value,
+				node: this.params.node,
+				colDef: this.params.column.colDef,
+				column: this.params.column,
+				api: this.params.api,
+				columnApi: this.params.columnApi,
+				context: this.params.context
+			});
+		} else {
+			return this.formGroup.controls[this.fieldName].value;
+		}
+	}
 
-    focusIn(): boolean {
-        this.fieldComponent.focus();
-        return true;
-    }
+	focusIn(): boolean {
+		this.fieldComponent.focus();
+		return true;
+	}
 
-    onFieldClick( event: Event ) {
-        event.stopPropagation();
-    }
+	onFieldClick(event: Event) {
+		event.stopPropagation();
+	}
 
-    onFieldChange( event: Event ) {
-        if ( !event.target ) {
+	onFieldChange(event: Event) {
+		if (!event.target) {
             /*this.messageService.sendCellValueChange({
                 rowIndex: this.params.rowIndex,
                 fieldName: this.field.name,
@@ -99,20 +98,20 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
                 context: this.params.context,
                 formGroup: this.formGroup
             });*/
-        }
-    }
+		}
+	}
 
-    translateKey( key: string, params?: any, defaultValue?: string ) {
-        let translatedKey = this.translate.instant( key, params );
-        if ( defaultValue ) {
-            return ( translatedKey !== key ) ? translatedKey : defaultValue;
-        } else {
-            return translatedKey;
-        }
-    }
+	translateKey(key: string, params?: any, defaultValue?: string) {
+		let translatedKey = this.translate.instant(key, params);
+		if (defaultValue) {
+			return (translatedKey !== key) ? translatedKey : defaultValue;
+		} else {
+			return translatedKey;
+		}
+	}
 
-    constructor(
-        private translate: TranslateService ) {
+	constructor(
+		private translate: TranslateService) {
         /*this.rowEditErrorSubscription = this.messageService.getRowEditError().subscribe(
             ( message: RowEditErrorMessage ) => {
                 let error = message ? message.error : undefined;
@@ -127,6 +126,6 @@ export class DatagridRestapiEditorComponent implements ICellEditorAngularComp {
                     } );
                 }
             } );*/
-    }
+	}
 
 }

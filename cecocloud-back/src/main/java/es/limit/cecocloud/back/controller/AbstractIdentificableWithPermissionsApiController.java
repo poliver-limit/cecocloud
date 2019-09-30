@@ -56,7 +56,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			return ResponseEntity.ok(
 					toResource(
 							creat,
-							getSelfLink(resourceId, creat.getId())));
+							getPermissionSelfLink(resourceId, creat.getId())));
 		} else {
 			return ResponseEntity.ok().build();
 		}
@@ -82,7 +82,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			return ResponseEntity.ok(
 					toResource(
 							modificat,
-							getSelfLink(resourceId, modificat.getId())));
+							getPermissionSelfLink(resourceId, modificat.getId())));
 		} else {
 			return ResponseEntity.ok().build();
 		}
@@ -125,7 +125,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 		Permission permission = getService().permissionGetOne(resourceId, permissionId);
 		return ResponseEntity.ok(toResource(
 				permission,
-				getSelfLink(resourceId, permissionId)));
+				getPermissionSelfLink(resourceId, permissionId)));
 	}
 
 	@GetMapping(
@@ -142,17 +142,17 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 						permissions,
 						getClass(),
 						new PermissionSelfLinkBuilder<ID>(resourceId),
-						getApiLink(resourceId, Link.REL_SELF)));
+						getPermissionApiLink(resourceId, Link.REL_SELF)));
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Link getApiLink(
+	protected Link getPermissionApiLink(
 			ID resourceId,
 			String rel) {
 		return linkTo(methodOn(getClass(), resourceId).permissionFind(null, null)).withRel(rel);
 	}
 	@SuppressWarnings("unchecked")
-	protected Link getSelfLink(Object... params) {
+	protected Link getPermissionSelfLink(Object... params) {
 		return linkTo(methodOn(getClass(), params).permissionGetOne(null, null, null)).withSelfRel();
 	}
 

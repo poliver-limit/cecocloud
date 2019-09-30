@@ -1,7 +1,7 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { Observable, EMPTY, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RestService, Resource, HalParam } from 'angular4-hal';
 
 import { RestapiConfigService } from './restapi-config.service';
@@ -43,7 +43,7 @@ export class RestapiService<T extends Resource> extends RestService<T> {
     public createFormGroup( resourceInstance: any, resource: RestapiResource, isCreate: boolean ): FormGroup {
         let formControls = {};
         resource.fields.forEach(( field: RestapiResourceField ) => {
-            let value;
+            let value: any;
             if ( resourceInstance ) {
                 value = resourceInstance[field.name];
             }
@@ -128,7 +128,7 @@ export class RestapiService<T extends Resource> extends RestService<T> {
             return dateStr;
         }
     }
-    private numberWithPadding( n, width, z?) {
+    private numberWithPadding( n: any, width: number, z?: string) {
         z = z || '0';
         n = n + '';
         return n.length >= width ? n : new Array( width - n.length + 1 ).join( z ) + n;

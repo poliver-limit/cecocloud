@@ -69,7 +69,7 @@ export interface DatagridColumn {
 		[ngClass]="theme"
 		[style.height]="styleHeight"
 		[gridOptions]="gridOptions"></ag-grid-angular>
-	<div *ngIf="config.mode === 'form'">
+	<div *ngIf="config.mode === 'form'" style="margin-top: .4em">
 		<button mat-button (click)="onAddRowButtonClick()">
 			<mat-icon>add</mat-icon>
 			Nova fila
@@ -120,6 +120,7 @@ export class DatagridComponent implements OnInit {
 	quickFilterValue: string;
 	mobileScreen: boolean;
 	formMode: boolean;
+	currentEditingRow: any;
 
 	ngOnInit() {
 		this.createGridOptions(this.config).subscribe((gridOptions: GridOptions) => {
@@ -137,31 +138,27 @@ export class DatagridComponent implements OnInit {
 	public refreshInternal(api?: GridApi) {
 		let refreshApi = (api) ? api : this.gridOptions.api;
 		if (refreshApi) {
-			let refreshContext = refreshApi['gridOptionsWrapper'].gridOptions.context;
-			let refreshConfig = refreshContext.config;
-			let parentPk = refreshContext.gridComponent.getParentPk(refreshApi);
-			refreshContext.gridComponent.configPagination(refreshConfig, refreshContext.gridComponent.gridOptions);
-			if (refreshConfig.detailConfig && refreshContext.isRoot) {
-				refreshContext.gridComponent.refreshDetailRowData(refreshContext.restapiService, parentPk).subscribe((resources: Resource[]) => {
+			let refreshContext = refreshApi['getOptionsContext']();
+			refreshApi['getDatagridComponent']().configPagination(refreshContext.config, refreshApi['getDatagridComponent']().gridOptions);
+			if (refreshContext.config.detailConfig && refreshContext.isRoot) {
+				refreshApi['getDatagridComponent']().refreshDetailRowData(refreshContext.restapiService).subscribe((resources: Resource[]) => {
 					refreshApi.setRowData(resources);
 				});
 			} else {
-				refreshContext.datasourceParentPk = parentPk;
-				refreshContext.gridComponent.showLoadingOverlay();
+				refreshApi['getDatagridComponent']().showLoadingOverlay();
 				refreshApi.setDatasource(
-					refreshContext.gridComponent.createDataSource(refreshContext.restapiService));
+					refreshApi['getDatagridComponent']().createDataSource(refreshContext.restapiService));
 			}
 		}
 	}
 
 	public refreshRow(api: GridApi, rowNode: RowNode, data: any) {
-		let context = api['gridOptionsWrapper'].gridOptions.context;
 		rowNode.setData(data);
 		api.flashCells({ rowNodes: [rowNode] });
 		api.redrawRows({
 			rowNodes: [rowNode]
 		});
-		context.gridComponent.refreshParentRow(api);
+		api['getDatagridComponent']().refreshParentRow(api);
 	}
 
 	public mantenimentConfig() {
@@ -174,24 +171,26 @@ export class DatagridComponent implements OnInit {
 	}
 
 	onSelectionChanged(event: SelectionChangedEvent) {
-		event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.selectionChanged.emit(event);
-		event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.selectionSubject.next(event);
+		event.api['getDatagridComponent']().selectionChanged.emit(event);
+		event.api['getDatagridComponent']().selectionSubject.next(event);
 	}
 
 	onPaginationChanged(event: PaginationChangedEvent) {
-		event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.paginationSubject.next(event);
+		if (event.api['getDatagridComponent']) {
+			event.api['getDatagridComponent']().paginationSubject.next(event);
+		}
 	}
 
 	onBodyScroll(event: BodyScrollEvent) {
-		event.api['gridOptionsWrapper'].gridOptions.context.gridComponent.scrollSubject.next(event);
+		event.api['getDatagridComponent']().scrollSubject.next(event);
 	}
 
 	onRowClicked(event: RowClickedEvent) {
-		event.context.gridComponent.rowClicked.emit(event);
+		event.api['getDatagridComponent']().rowClicked.emit(event);
 	}
 
 	onRowDoubleClicked(event: RowDoubleClickedEvent) {
-		event.context.gridComponent.rowDoubleClicked.emit(event);
+		event.api['getDatagridComponent']().rowDoubleClicked.emit(event);
 	}
 
 	onRowActionClicked(api: GridApi, action: string, rowIndex: number) {
@@ -210,10 +209,8 @@ export class DatagridComponent implements OnInit {
 	onAddRowButtonClick() {
 		if (this.config.editable) {
 			let api = this.gridOptions.api;
-			let editActive = this.getFromApiContext(api, 'editActive');
-			console.log('>>> onAddRowButtonClick', editActive)
+			let editActive = api['getFromApiContext']('editActive');
 			if (editActive === undefined || !editActive) {
-				console.log('>>>    startEditing')
 				let getParams = this.restapiService.generateGetParamsWithParent('new', this.config.parent);
 				this.restapiService.get(getParams).subscribe((resource: Resource) => {
 					let newRowIndex = api.getLastDisplayedRow() + 1;
@@ -224,46 +221,48 @@ export class DatagridComponent implements OnInit {
 					this.startEditing(api, newRowIndex);
 				});
 			} else {
-				console.log('>>>    stopEditing')
-				let currentRowIndex = api.getEditingCells()[0].rowIndex;
 				api.stopEditing();
-				this.startEditing(api, currentRowIndex);
+				//let currentRowIndex = api.getEditingCells()[0].rowIndex;
+				//this.startEditing(api, currentRowIndex);
 			}
 		}
 	}
 
 	onRowEditingStarted(event: RowEditingStartedEvent) {
-		event.context.gridComponent.setInApiContext(event.api, 'editDataHasChanged', false);
-		event.context.gridComponent.setInApiContext(event.api, 'editActive', true);
+		//console.log('>>> onRowEditingStarted')
+		event.api['getDatagridComponent']().currentEditingRow = event.api['gridPanel'].eCenterContainer.childNodes[event.rowIndex];
+		event.api['setInApiContext']('editDataHasChanged', false);
+		event.api['setInApiContext']('editActive', true);
 	}
 	onRowEditingStopped(event: RowEditingStoppedEvent) {
+		//console.log('>>> onRowEditingStopped')
 		let editIsCreate = event.data.id === undefined;
-		let editDataHasChanged = event.context.gridComponent.getFromApiContext(event.api, 'editDataHasChanged');
+		let editDataHasChanged = event.api['getFromApiContext']('editDataHasChanged');
 		if (editIsCreate && !editDataHasChanged) {
-			event.context.gridComponent.removeFromApiContext(event.api, 'editIsCreate');
-			let parentGridApi = event.context.gridComponent.getFromApiContext(event.api, 'parentGridApi');
+			event.api['removeFromApiContext']('editIsCreate');
+			let parentGridApi = event.api['getFromApiContext']('parentGridApi');
 			if (event.context.config.detailConfig || parentGridApi) {
 				let newRow: RowNode = event.api.getDisplayedRowAtIndex(event.api.getLastDisplayedRow());
 				event.api.updateRowData({
 					remove: [newRow.data]
 				});
-				event.context.gridComponent.refreshDetailRowsHeight(event.api);
+				event.api['getDatagridComponent']().refreshDetailRowsHeight(event.api);
 			} else {
-				event.context.gridComponent.refreshInternal(event.api);
+				event.api['getDatagridComponent']().refreshInternal(event.api);
 			}
 		}
-		event.context.gridComponent.removeFromApiContext(event.api, 'editInitialRowData');
-		event.context.gridComponent.removeFromApiContext(event.api, 'editRowIndex');
-		event.context.gridComponent.removeFromApiContext(event.api, 'editActive');
-		console.log('>>> onRowEditingStopped', this['context'].gridComponent.getFromApiContext(event.api, 'editActive'), event.context.gridComponent.getFromApiContext(event.api, 'editActive'))
-		console.log('>>> onRowEditingStopped', this, this['context']);
+		event.api['removeFromApiContext']('editInitialRowData');
+		event.api['removeFromApiContext']('editRowIndex');
+		event.api['removeFromApiContext']('editActive');
+		event.api['getDatagridComponent']().currentEditingRow = undefined;
 	}
 	onRowValueChanged(event: RowValueChangedEvent) {
-		let editDataHasChanged = event.context.gridComponent.getFromApiContext(event.api, 'editDataHasChanged');
+		//console.log('>>> onRowValueChanged')
+		let editDataHasChanged = event.api['getFromApiContext']('editDataHasChanged');
 		if (editDataHasChanged) {
 			let editIsCreate = event.data.id === undefined;
-			let editInitialRowDataSaved = event.context.gridComponent.getFromApiContext(event.api, 'editInitialRowData');
-			let editRowIndexSaved = event.context.gridComponent.getFromApiContext(event.api, 'editRowIndex');
+			let editInitialRowDataSaved = event.api['getFromApiContext']('editInitialRowData');
+			let editRowIndexSaved = event.api['getFromApiContext']('editRowIndex');
 			let successFunction = function(rowNode: RowNode, resource: Resource) {
 				//console.log('>>> successFunction', rowNode, resource);
 				rowNode.setData(resource);
@@ -271,25 +270,25 @@ export class DatagridComponent implements OnInit {
 					rowNodes: [rowNode]
 				});
 				event.api.flashCells({ rowNodes: [rowNode] });
-				event.context.gridComponent.refreshInternal(event.api);
-				event.context.gridComponent.refreshParentRow(event.api);
+				event.api['getDatagridComponent']().refreshInternal(event.api);
+				event.api['getDatagridComponent']().refreshParentRow(event.api);
 			};
 			let errorFunction = function(rowNode: RowNode, error: Error) {
 				console.log('>>> errorFunction', rowNode, error);
-				event.context.gridComponent.setInApiContext(event.api, 'editInitialRowData', editInitialRowDataSaved);
-				event.context.gridComponent.setInApiContext(event.api, 'editRowIndex', editRowIndexSaved);
-				event.context.gridComponent.setInApiContext(event.api, 'editError', error);
-				event.context.gridComponent.startEditing(event.api, rowNode.rowIndex);
-				let rowDataForUpdate = Object.assign({}, event.context.gridComponent.getFromApiContext(event.api, 'editInitialRowData'));
+				event.api['setInApiContext']('editInitialRowData', editInitialRowDataSaved);
+				event.api['setInApiContext']('editRowIndex', editRowIndexSaved);
+				event.api['setInApiContext']('editError', error);
+				event.api['getDatagridComponent']().startEditing(event.api, rowNode.rowIndex);
+				let rowDataForUpdate = Object.assign({}, event.api['getFromApiContext']('editInitialRowData'));
 				rowNode.setData(rowDataForUpdate);
 			};
 			if (editIsCreate) {
-				event.context.restapiService.create(event.data).subscribe(
+				event.api['getFromOptionsContext']('restapiService').create(event.data).subscribe(
 					(resource: Resource) => successFunction(event.node, resource),
 					(error: Error) => errorFunction(event.node, error));
 			} else {
-				event.context.gridComponent.removeFromApiContext(event.api, 'editRowIndex');
-				event.context.restapiService.update(event.data).subscribe(
+				event.api['removeFromApiContext']('editRowIndex');
+				event.api['getFromOptionsContext']('restapiService').update(event.data).subscribe(
 					(resource: Resource) => successFunction(event.node, resource),
 					(error: Error) => errorFunction(event.node, error));
 			}
@@ -327,12 +326,49 @@ export class DatagridComponent implements OnInit {
 		gridOptions.singleClickEdit = true
 		gridOptions.rowHeight = this.rowHeight;
 		gridOptions.headerHeight = this.headerHeight;
+		gridOptions.onFirstDataRendered = function(event) {
+			event.api['getFromApiContext'] = function(attribute: string): any {
+				//console.log('>>> getFromApiContext', attribute, this['datagridApiContext'])
+				if (this['datagridApiContext']) {
+					return this['datagridApiContext'][attribute];
+				}
+			}
+			event.api['setInApiContext'] = function(attribute: string, value: any) {
+				//console.log('>>> setInApiContext', attribute, value, this['datagridApiContext'])
+				if (!this['datagridApiContext']) {
+					this['datagridApiContext'] = {}
+				}
+				this['datagridApiContext'][attribute] = value;
+			}
+			event.api['removeFromApiContext'] = function(attribute: string) {
+				//console.log('>>> removeFromApiContext', attribute, this['datagridApiContext'])
+				if (this['datagridApiContext']) {
+					delete this['datagridApiContext'][attribute];
+				}
+			}
+			event.api['getDatagridComponent'] = function(): DatagridComponent {
+				return this['gridOptionsWrapper'].gridOptions.context['datagridComponent'];
+			}
+			event.api['getOptionsContext'] = function(): any {
+				return this['gridOptionsWrapper'].gridOptions.context;
+			}
+			event.api['getFromOptionsContext'] = function(attribute: string): any {
+				return this['gridOptionsWrapper'].gridOptions.context[attribute];
+			}
+			let parentGridApi = event.api['getFromApiContext']('parentGridApi');
+			if (parentGridApi) {
+				let refreshDetailHeights = parentGridApi['getFromApiContext']('refreshDetailHeights');
+				if (refreshDetailHeights) {
+					event.api['getDatagridComponent']().refreshDetailRowsHeight(parentGridApi);
+					parentGridApi['removeFromApiContext']('refreshDetailHeights');
+				}
+			}
+		}
 		gridOptions.onGridReady = function(event) {
-			let context = event.api['gridOptionsWrapper'].gridOptions.context;
-			context.gridComponent.showLoadingOverlay();
-			context.gridComponent.headerComponent.agInit({
+			event.api['getDatagridComponent']().showLoadingOverlay();
+			event.api['getDatagridComponent']().headerComponent.agInit({
 				api: event.api,
-				context: context
+				context: event.api['getOptionsContext']()
 			});
 			/* Recalcula l'alçada de la capçalera amb els floatig filters */
 			/* Només pel tema material design */
@@ -348,53 +384,35 @@ export class DatagridComponent implements OnInit {
 			event.api.sizeColumnsToFit();
 		}
 		gridOptions.onModelUpdated = function(event) {
-			let context = event.api['gridOptionsWrapper'].gridOptions.context;
-			if (context.datasourceParentPk) {
-				delete context.datasourceParentPk;
-			}
 			event.api.sizeColumnsToFit();
-			context.gridComponent.hideLoadingOverlay();
+			event.api['getDatagridComponent']().hideLoadingOverlay();
 			if (event.api.paginationGetRowCount()) {
-				context.gridComponent.showNoRows = false;
+				event.api['getDatagridComponent']().showNoRows = false;
 			} else {
-				context.gridComponent.showNoRows = true;
-			}
-		}
-		gridOptions.onFirstDataRendered = function(event) {
-			let context = event.api['gridOptionsWrapper'].gridOptions.context;
-			let parentGridApi = context.gridComponent.getFromApiContext(event.api, 'parentGridApi');
-			if (parentGridApi) {
-				let refreshDetailHeights = context.gridComponent.getFromApiContext(parentGridApi, 'refreshDetailHeights');
-				if (refreshDetailHeights) {
-					context.gridComponent.refreshDetailRowsHeight(parentGridApi);
-					context.gridComponent.removeFromApiContext(parentGridApi, 'refreshDetailHeights');
-				}
+				event.api['getDatagridComponent']().showNoRows = true;
 			}
 		}
 		gridOptions.onRowDataChanged = function(event) {
-			let context = event.api['gridOptionsWrapper'].gridOptions.context;
-			context.gridComponent.hideLoadingOverlay();
+			event.api['getDatagridComponent']().hideLoadingOverlay();
 		}
 		gridOptions.onGridSizeChanged = function(event) {
 			event.api.sizeColumnsToFit();
 		}
 		gridOptions.onSortChanged = function(event) {
-			let context = event.api['gridOptionsWrapper'].gridOptions.context;
-			context.gridComponent.showLoadingOverlay();
+			event.api['getDatagridComponent']().showLoadingOverlay();
 		}
 		gridOptions.onFilterChanged = function(event) {
-			let context = event.api['gridOptionsWrapper'].gridOptions.context;
-			context.gridComponent.showLoadingOverlay();
+			event.api['getDatagridComponent']().showLoadingOverlay();
 		}
 		gridOptions.getRowHeight = function(params: any) {
-			let rowHeight = params.context.gridComponent.rowHeight;
+			let rowHeight = params.api['getDatagridComponent']().rowHeight;
 			if (params.node.detail) {
 				let minHeight = 157;
-				let detailDataAttribute = params.context.detailDataAttribute;
+				let detailDataAttribute = params.api['getFromOptionsContext']('detailDataAttribute');
 				let details = (params.data) ? params.data[detailDataAttribute] : null;
 				let headerHeight = this.matenimentHeaderHeight;
 				let numRows = (details) ? details.length : 0;
-				let padding = params.context.gridComponent.rowDetailPadding;
+				let padding = params.api['getDatagridComponent']().rowDetailPadding;
 				let detailRowHeight = headerHeight + rowHeight * numRows + padding * 2;
 				return (detailRowHeight > minHeight) ? detailRowHeight : minHeight;
 			} else {
@@ -403,7 +421,7 @@ export class DatagridComponent implements OnInit {
 		}
 		let restapiService = (gridConfig.restapiService) ? gridConfig.restapiService : this.restapiService;
 		gridOptions.context = {
-			gridComponent: this,
+			datagridComponent: this,
 			config: gridConfig,
 			restapiService: restapiService,
 			isRoot: !parentGridOptions
@@ -448,39 +466,23 @@ export class DatagridComponent implements OnInit {
 					if (detailRowNode.rowIndex === event.node.rowIndex) {
 						isCloseEvent = false;
 						detailRowId = detailGridInfo.id;
-						event.context.gridComponent.setInApiContext(
-							detailGridInfo.api,
-							'detailRowId',
-							detailRowId);
-						event.context.gridComponent.setInApiContext(
-							detailGridInfo.api,
-							'parentPk',
-							event.data.pk);
-						event.context.gridComponent.setInApiContext(
-							detailGridInfo.api,
-							'parentRowId',
-							event.node.id);
-						event.context.datasourceParentPk = event.data.pk;
+						detailGridInfo.api['setInApiContext']('detailRowId', detailRowId);
+						detailGridInfo.api['setInApiContext']('parentRowId', event.node.id);
 					}
-					event.context.gridComponent.setInApiContext(
-						detailGridInfo.api,
-						'parentGridApi',
-						event.api);
+					detailGridInfo.api['setInApiContext']('parentGridApi', event.api);
 				});
 				if (!isCloseEvent) {
 					// Refresca alçada detall obert
 					if (event.context.config.staticData) {
-						event.context.gridComponent.refreshDetailRowsHeight(event.api);
+						event.api['getDatagridComponent']().refreshDetailRowsHeight(event.api);
 					} else {
-						event.context.gridComponent.setInApiContext(event.api, 'refreshDetailHeights', true);
+						event.api['setInApiContext']('refreshDetailHeights', true);
 					}
 				} else {
 					// Refresca alçades del grid pare nomes quan es tanca el detall
-					let parentGridApi = event.context.gridComponent.getFromApiContext(
-						event.api,
-						'parentGridApi');
+					let parentGridApi = event.api['getFromApiContext']('parentGridApi');
 					if (parentGridApi) {
-						event.context.gridComponent.refreshDetailRowsHeight(parentGridApi);
+						event.api['getDatagridComponent']().refreshDetailRowsHeight(parentGridApi);
 					}
 				}
 			}
@@ -501,13 +503,12 @@ export class DatagridComponent implements OnInit {
 							params.successCallback(params.data[gridConfig.detailConfig.dataAttribute]);
 						} else {
 							let gridApi = params.node.gridApi;
-							let context = gridApi['gridOptionsWrapper'].gridOptions.context;
-							context.gridComponent.refreshDetailRowData(context.detailRestapiService, params.data.pk).subscribe((resources: Resource[]) => {
+							gridApi['getDatagridComponent']().refreshDetailRowData(gridApi['getFromOptionsContext']('detailRestapiService'), params.data.pk).subscribe((resources: Resource[]) => {
 								params.successCallback(resources);
 								if (resources.length === 0) {
-									let parentGridApi = context.gridComponent.getFromApiContext(gridApi, 'parentGridApi');
+									let parentGridApi = gridApi['getFromApiContext']('parentGridApi');
 									if (parentGridApi) {
-										context.gridComponent.refreshDetailRowsHeight(parentGridApi);
+										gridApi['getDatagridComponent']().refreshDetailRowsHeight(parentGridApi);
 									}
 								}
 							});
@@ -534,7 +535,6 @@ export class DatagridComponent implements OnInit {
 				} else {
 					gridOptions.rowModelType = 'infinite';
 					this.configPagination(gridConfig, gridOptions);
-					gridOptions.context.datasourceParentPk = gridConfig.parent;
 					gridOptions.datasource = this.createDataSource(restapiService);
 				}
 				observer.next(gridOptions);
@@ -587,7 +587,7 @@ export class DatagridComponent implements OnInit {
 				let sortable: boolean = (gridColumn.sortable === undefined) ? true : gridColumn.sortable;
 				if (datagridConfig.editable) {
 					columnEditable = function(params: any) {
-						let editIsCreate = params.context.gridComponent.getFromApiContext(params.api, 'editIsCreate');
+						let editIsCreate = params.api['getFromApiContext']('editIsCreate');
 						let editable = false;
 						if (editIsCreate) {
 							editable = !restapiField.disabledForCreate;
@@ -702,7 +702,7 @@ export class DatagridComponent implements OnInit {
 				this.showLoadingOverlay();
 				let requestParams: HalParam[] = [];
 				let size: number;
-				if (params.context.config.paginationEnabled === undefined || params.context.config.paginationEnabled) {
+				if (this.config.paginationEnabled === undefined || this.config.paginationEnabled) {
 					size = params.endRow - params.startRow;
 					let page = params.startRow / size;
 					requestParams.push({
@@ -716,16 +716,16 @@ export class DatagridComponent implements OnInit {
 						value: sortModel.colId + ',' + sortModel.sort
 					});
 				});
-				let additionalFilter = params.context.config.additionalFilter;
+				let additionalFilter = this.config.additionalFilter;
 				if (additionalFilter) {
 					RestapiService.transformToHalParams(additionalFilter).forEach(function(halParam: HalParam) {
 						requestParams.push(halParam);
 					});
 				}
-				if (params.context.gridComponent.quickFilterValue) {
+				if (this.quickFilterValue) {
 					requestParams.push({
 						key: 'quickFilter',
-						value: params.context.gridComponent.quickFilterValue
+						value: this.quickFilterValue
 					});
 				}
 				if (params.filterModel && Object.keys(params.filterModel).length) {
@@ -832,7 +832,7 @@ export class DatagridComponent implements OnInit {
 		return (params.data) ? params.data[params.column.getColId()] : undefined;
 	}
 	valueFormatter(params: ValueFormatterParams) {
-		let field: RestapiResourceField = params.context.gridComponent.getRestapiFieldForColumn(
+		let field: RestapiResourceField = params.api['getDatagridComponent']().getRestapiFieldForColumn(
 			params.api,
 			params.column.getColId());
 		if (field) {
@@ -844,13 +844,13 @@ export class DatagridComponent implements OnInit {
 						if (!first) {
 							descriptionFull += ', ';
 						}
-						descriptionFull += params.context.gridComponent.valueFormatterSingle(field, item);
+						descriptionFull += params.api['getDatagridComponent']().valueFormatterSingle(field, item);
 						first = false;
 					});
 					return descriptionFull;
 				}
 			} else {
-				return params.context.gridComponent.valueFormatterSingle(field, params.value);
+				return params.api['getDatagridComponent']().valueFormatterSingle(field, params.value);
 			}
 		}
 		return params.value;
@@ -919,7 +919,7 @@ export class DatagridComponent implements OnInit {
 		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 	}
 	valueParser(params: ValueParserParams) {
-		let field: RestapiResourceField = params.context.gridComponent.getRestapiFieldForColumn(
+		let field: RestapiResourceField = params.api['getDatagridComponent']().getRestapiFieldForColumn(
 			params.api,
 			params.column.getColId());
 		if (field && field.type !== 'LOV') {
@@ -933,7 +933,7 @@ export class DatagridComponent implements OnInit {
 		}
 	}
 	valueSetter(params: ValueSetterParams): boolean {
-		let field: RestapiResourceField = params.context.gridComponent.getRestapiFieldForColumn(
+		let field: RestapiResourceField = params.api['getDatagridComponent']().getRestapiFieldForColumn(
 			params.api,
 			params.column.getColId());
 		if (field && field.type === 'LOV') {
@@ -945,34 +945,34 @@ export class DatagridComponent implements OnInit {
 				} else {
 					delete params.data[params.column.getColId()];
 				}
-				params.context.gridComponent.setInApiContext(params.api, 'editDataHasChanged', true);
+				params.api['setInApiContext']('editDataHasChanged', true);
 				return true;
 			} else {
 				return false
 			}
 		} else if (params.oldValue !== params.newValue) {
 			params.data[params.column.getColId()] = params.newValue;
-			params.context.gridComponent.setInApiContext(params.api, 'editDataHasChanged', true);
+			params.api['setInApiContext']('editDataHasChanged', true);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	getEditFormGroup(rowIndex: number, api: GridApi, context: any): FormGroup {
-		let editIsCreate = context.gridComponent.getFromApiContext(api, 'editIsCreate');
-		let contextRowIndex = context.gridComponent.getFromApiContext(api, 'editRowIndex');
+	getEditFormGroup(api: GridApi, rowIndex: number): FormGroup {
+		let editIsCreate = api['getFromApiContext']('editIsCreate');
+		let contextRowIndex = api['getFromApiContext']('editRowIndex');
 		if (rowIndex !== contextRowIndex) {
 			let rowData = api.getDisplayedRowAtIndex(rowIndex).data;
-			let formGroup = context.restapiService.createFormGroup(
+			let formGroup = api['getFromOptionsContext']('restapiService').createFormGroup(
 				rowData,
-				context.restapiProfile.resource,
+				api['getFromOptionsContext']('restapiProfile').resource,
 				editIsCreate);
-			context.gridComponent.setInApiContext(api, 'editFormGroup', formGroup);
-			context.gridComponent.setInApiContext(api, 'editInitialRowData', Object.assign({}, rowData));
-			context.gridComponent.setInApiContext(api, 'editRowIndex', rowIndex);
+			api['setInApiContext']('editFormGroup', formGroup);
+			api['setInApiContext']('editInitialRowData', Object.assign({}, rowData));
+			api['setInApiContext']('editRowIndex', rowIndex);
 		}
-		return context.gridComponent.getFromApiContext(api, 'editFormGroup');
+		return api['getFromApiContext']('editFormGroup');
 	}
 
 	startEditing(
@@ -1005,7 +1005,7 @@ export class DatagridComponent implements OnInit {
 	}
 
 	getRestapiFieldForColumn(api: GridApi, colId: string): RestapiResourceField {
-		let restapiResource: RestapiResource = api['gridOptionsWrapper'].gridOptions.context.restapiProfile.resource;
+		let restapiResource: RestapiResource = api['getFromOptionsContext']('restapiProfile').resource;
 		let restapiField: RestapiResourceField;
 		if (restapiResource) {
 			restapiResource.fields.forEach(field => {
@@ -1019,13 +1019,11 @@ export class DatagridComponent implements OnInit {
 
 	refreshDetailRowsHeight(api: GridApi, additionalHeight?: number) {
 		// additionalHeight: -14 o 1
-		let context = api['gridOptionsWrapper'].gridOptions.context;
-		let detailRowId = context.gridComponent.getFromApiContext(api, 'detailRowId');
-		context.gridComponent.removeFromApiContext(api, 'detailRowId');
+		let detailRowId = api['getFromApiContext']('detailRowId');
+		api['removeFromApiContext']('detailRowId');
 		api.forEachDetailGridInfo(detailGridInfo => {
 			if (!detailRowId || (detailRowId && detailRowId === detailGridInfo.id)) {
-				let detailContext = detailGridInfo.api['gridOptionsWrapper'].gridOptions.context;
-				let padding = detailContext.gridComponent.rowDetailPadding;
+				let padding = detailGridInfo.api['getDatagridComponent']().rowDetailPadding;
 				let gridPanelNativeElement = detailGridInfo.api['gridPanel']['eGui'];
 				let gridPanelHeight = gridPanelNativeElement.offsetHeight + padding * 2 + (additionalHeight ? additionalHeight : 1);
 				let rowId = detailGridInfo.id.split('_')[1];
@@ -1034,21 +1032,9 @@ export class DatagridComponent implements OnInit {
 				api.onRowHeightChanged();
 			}
 		});
-		let parentGridApi = context.gridComponent.getFromApiContext(
-			api,
-			'parentGridApi');
+		let parentGridApi = api['getFromApiContext']('parentGridApi');
 		if (parentGridApi) {
-			context.gridComponent.refreshDetailRowsHeight(parentGridApi);
-		}
-	}
-
-	getParentPk(api: GridApi): any {
-		let context = api['gridOptionsWrapper'].gridOptions.context;
-		let parentGridApi = context.gridComponent.getFromApiContext(api, 'parentGridApi');
-		if (parentGridApi) {
-			return context.gridComponent.getFromApiContext(api, 'parentPk');
-		} else {
-			return context.gridComponent.config.parent;
+			api['getDatagridComponent']().refreshDetailRowsHeight(parentGridApi);
 		}
 	}
 
@@ -1070,10 +1056,9 @@ export class DatagridComponent implements OnInit {
 				observer.next(data);
 				observer.complete();
 			} else {
-				let context = api['gridOptionsWrapper'].gridOptions.context;
-				let parent = context.gridComponent.config.parent;
-				let getParams = context.restapiService.generateGetParamsWithParent(data.id, parent);
-				context.restapiService.get(getParams).subscribe((resource: Resource) => {
+				let parent = api['getDatagridComponent']().config.parent;
+				let getParams = api['getFromOptionsContext']('restapiService').generateGetParamsWithParent(data.id, parent);
+				api['getFromOptionsContext']('restapiService').get(getParams).subscribe((resource: Resource) => {
 					observer.next(Object.assign(data, { _links: resource._links }));
 					observer.complete();
 				});
@@ -1082,55 +1067,22 @@ export class DatagridComponent implements OnInit {
 	}
 
 	refreshParentRow(api: GridApi) {
-		let context = api['gridOptionsWrapper'].gridOptions.context;
-		if (context.config.refreshParentRow) {
-			let parentGridApi = context.gridComponent.getFromApiContext(api, 'parentGridApi');
-			let parentRowId = context.gridComponent.getFromApiContext(api, 'parentRowId');
+		if (api['getFromOptionsContext']('config').refreshParentRow) {
+			let parentGridApi = api['getFromApiContext']('parentGridApi');
+			let parentRowId = api['getFromApiContext']('parentRowId');
 			let parentRow = parentGridApi.getRowNode(parentRowId);
-			let parentContext = parentGridApi['gridOptionsWrapper'].gridOptions.context;
-			let parentPk = parentContext.gridComponent.getParentPk(parentGridApi);
-			let getParams = parentContext.restapiService.generateGetParamsWithParent(parentRow.data.id, parentPk);
-			parentContext.restapiService.get(getParams).subscribe((resource: Resource) => {
+			let restapiService = parentGridApi['getFromOptionsContext']('restapiService');
+			let getParams = restapiService.generateGetParamsWithParent(parentRow.data.id);
+			restapiService.get(getParams).subscribe((resource: Resource) => {
 				parentRow.setData(resource);
 				parentGridApi.redrawRows({
 					rowNodes: [parentRow]
 				});
 				parentGridApi.flashCells({ rowNodes: [parentRow] });
-				if (parentContext.config.refreshParentRow) {
-					context.gridComponent.refreshParentRow(parentGridApi);
+				if (parentGridApi['getFromOptionsContext']('config').refreshParentRow) {
+					api['getDatagridComponent']().refreshParentRow(parentGridApi);
 				}
 			});
-		}
-	}
-
-	isSameApi(sourceApi: GridApi, targetApi: GridApi) {
-		let sourceContext = sourceApi['gridOptionsWrapper'].gridOptions.context;
-		let sourceResourceName = sourceContext.config.resourceName;
-		let sourceParentPk = sourceContext.gridComponent.getParentPk(sourceApi);
-		let sourceId = sourceResourceName + '#' + (sourceParentPk ? JSON.stringify(sourceParentPk) : '');
-		let targetContext = targetApi['gridOptionsWrapper'].gridOptions.context;
-		let targetResourceName = targetContext.config.resourceName;
-		let targetParentPk = targetContext.gridComponent.getParentPk(targetApi);
-		let targetId = targetResourceName + '#' + (targetParentPk ? JSON.stringify(targetParentPk) : '');
-		return sourceId === targetId;
-	}
-
-	getFromApiContext(api: GridApi, attribute: string): any {
-		if (api['context']) {
-			return api['context'][attribute];
-		} else {
-			return undefined;
-		}
-	}
-	setInApiContext(api: GridApi, attribute: string, value: any) {
-		if (!api['context']) {
-			api['context'] = {}
-		}
-		api['context'][attribute] = value;
-	}
-	removeFromApiContext(api: GridApi, attribute: string) {
-		if (api['context']) {
-			delete api['context'][attribute];
 		}
 	}
 
@@ -1148,10 +1100,15 @@ export class DatagridComponent implements OnInit {
 		}
 	}
 	@HostListener('document:click', ['$event'])
-	onClickOutsideComponent(event: Event) {
-		if (!this.componentRef.nativeElement.contains(event.target) && this.gridOptions && this.gridOptions.api) {
-			let isEditActive = this.getFromApiContext(this.gridOptions.api, 'editActive');
-			if (isEditActive) {
+	onDocumentClick(event: Event) {
+		let isOutsideEditingRow = false;
+		if (this.currentEditingRow) {
+			isOutsideEditingRow = !this.currentEditingRow.contains(event.target);
+		}
+		let targetClassName = event.target['className'];
+		if (isOutsideEditingRow && this.gridOptions && this.gridOptions.api) {
+			let isInputDesplegableClick = targetClassName.indexOf('mat-option') != -1 || targetClassName.indexOf('mat-calendar') != -1;
+			if (!isInputDesplegableClick) {
 				this.gridOptions.api.stopEditing();
 			}
 		}
@@ -1160,8 +1117,7 @@ export class DatagridComponent implements OnInit {
 	constructor(
 		private translate: TranslateService,
 		private sanitizer: DomSanitizer,
-		private screenSizeService: ScreenSizeService,
-		private componentRef: ElementRef) {
+		private screenSizeService: ScreenSizeService) {
 		this.mobileScreen = this.screenSizeService.isMobile();
 		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: ScreenSizeChangeEvent) => {
 			this.mobileScreen = event.mobile
