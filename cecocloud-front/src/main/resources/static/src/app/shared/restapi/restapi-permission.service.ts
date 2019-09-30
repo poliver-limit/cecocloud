@@ -13,7 +13,7 @@ export class RestapiPermissionService extends RestapiService<Permission> {
         return '/profiles/' + resourceName + '/$$$/permission';
     }
 
-    public setPermissionResourceId( permissionResourceId ) {
+    public setPermissionResourceId( permissionResourceId: any ) {
         this.permissionResourceId = permissionResourceId;
     }
     protected getPermissionResourceId(): any {
