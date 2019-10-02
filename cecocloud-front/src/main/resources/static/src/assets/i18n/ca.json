@@ -39,6 +39,7 @@
 	"component.restapi.lov.title": "Seleccionar",
 	"component.restapi.lov.button.close": "Tancar",
 	"component.restapi.lov.button.select": "Seleccionar",
+	"component.restapi.lov.option.find": "Cercar",
 
 	"login.field.usuari": "Usuari",
 	"login.field.contrasenya": "Contrasenya",

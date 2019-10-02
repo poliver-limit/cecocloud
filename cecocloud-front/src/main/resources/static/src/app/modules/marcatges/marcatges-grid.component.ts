@@ -2,19 +2,23 @@ import { Component, OnInit } from '@angular/core';
 
 import { MarcatgesService } from './marcatges.service';
 
-@Component( {
-    template: `
+@Component({
+	template: `
     <datagrid
         datagrid-mant
         [config]="datagridConfig"
         [restapiService]="marcatgesService"></datagrid>`
-} )
+})
 export class MarcatgesGridComponent implements OnInit {
 
-    datagridConfig = {
-        //editable: true,
-        columnFiltersEnabled: true/*,
-        columns: [{
+	datagridConfig = {
+		//editable: true,
+		columnFiltersEnabled: true,
+		sort: [
+			{ fieldName: 'operari', direction: 'asc' },
+			{ fieldName: 'data', direction: 'desc' }
+		]
+        /*columns: [{
             field: 'operari',
             sort: 'asc'
         }, {
@@ -25,12 +29,12 @@ export class MarcatgesGridComponent implements OnInit {
         }, {
             field: 'ubicacio'
         }]*/
-    };
+	};
 
-    ngOnInit() {
-    }
+	ngOnInit() {
+	}
 
-    constructor(
-        public marcatgesService: MarcatgesService ) { }
+	constructor(
+		public marcatgesService: MarcatgesService) { }
 
 }

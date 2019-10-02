@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { MatInput, MatAutocompleteTrigger } from '@angular/material';
-import { MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
+import { MdcDialog } from '@angular-mdc/web';
 import { Resource } from 'angular4-hal';
 
 import { RestapiGenericService } from '../restapi/restapi-generic.service';
@@ -48,7 +48,7 @@ import { RestapiLovDialogComponent } from './restapi-lov-dialog.component';
         <mat-option *ngFor="let resource of autocompleteResources" [value]="resource">
             {{displayResource(resource)}}
         </mat-option>
-        <mat-option *ngIf="!formControl.value" id="FIND">Cercar...</mat-option>
+        <mat-option *ngIf="!formControl.value" id="FIND"><mat-icon>search</mat-icon>{{'component.restapi.lov.option.find'|translate}}...</mat-option>
     </mat-autocomplete>
     <button *ngIf="formControl.value" mat-icon-button matSuffix (click)="onClearIconClick($event)" tabindex="-1">
         <mat-icon>clear</mat-icon>
@@ -98,7 +98,7 @@ export class RestapiLovMaterialComponent extends RestapiBaseFieldComponent imple
             switchMap( value => {
                 if ( !this.formControl.value && !( value instanceof Resource )) {
                     if ( this.lastQuickFilter !== value ) {
-                        let params;
+                        let params: any[];
                         if ( value ) {
                             params = [{ key: 'quickFilter', value: value }];
                         }

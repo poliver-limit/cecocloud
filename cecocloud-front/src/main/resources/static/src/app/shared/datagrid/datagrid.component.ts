@@ -34,6 +34,7 @@ export interface DatagridConfig {
 	additionalFilter?: any;
 	columnFiltersEnabled?: boolean;
 	paginationEnabled?: boolean;
+	sort?: DatagridSortEntry[];
 }
 export interface DatagridColumn {
 	field?: string;
@@ -48,6 +49,10 @@ export interface DatagridColumn {
 	cellRenderer?: any;
 	filterable?: boolean;
 	suppressFilterButton?: boolean;
+}
+export interface DatagridSortEntry {
+	fieldName: string;
+	direction?: string;
 }
 
 @Component({
@@ -587,6 +592,21 @@ export class DatagridComponent implements OnInit {
 				let tooltip = (gridColumn.tooltip) ? gridColumn.tooltip : undefined;
 				let tooltipField: string = (gridColumn.tooltipField) ? gridColumn.tooltipField : undefined;
 				let sortable: boolean = (gridColumn.sortable === undefined) ? true : gridColumn.sortable;
+				let sort: string;
+				let sortingOrder: number;
+				if (sortable) {
+					if (datagridConfig.sort && datagridConfig.sort.length) {
+						for (let i = 0; i < datagridConfig.sort.length; i++) {
+							if (datagridConfig.sort[i].fieldName == gridColumn.field) {
+								sort = datagridConfig.sort[i].direction ? datagridConfig.sort[i].direction : 'asc';
+								sortingOrder = i;
+								break;
+							}
+						}
+					} else {
+						sort = gridColumn.sort;
+					}
+				}
 				let width: number;
 				if (restapiField) {
 					width = restapiField.gridPercentWidth;
@@ -660,7 +680,8 @@ export class DatagridComponent implements OnInit {
 					field: columnField,
 					headerName: headerName,
 					sortable: sortable,
-					sort: gridColumn.sort,
+					sort: sort,
+					sortingOrder: sortingOrder,
 					editable: columnEditable,
 					cellEditorFramework: cellEditorFramework,
 					valueGetter: this.valueGetter,

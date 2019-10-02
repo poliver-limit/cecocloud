@@ -80,21 +80,23 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
 	valueChanged(value: any, eventTargetValue: any) {
 		let filterType: string;
 		let processedValue: string;
+		let propagateToParentFilter: boolean = true;
 		if (value && this.field.type === 'BOOLEAN') {
 			filterType = 'EQUAL';
 			processedValue = (value) ? value : null;
 		} else if (value && this.field.type === 'ENUM') {
 			filterType = 'EQUAL';
 			processedValue = (value) ? value : null;
-		} else if (value && this.field.type === 'DATE') {
+		} else if ((value && this.field.type === 'DATE') || (value && this.field.type === 'DATETIME')) {
 			filterType = 'EQUAL';
 			if (value) {
-				if (typeof eventTargetValue ==='object') {
+				if (typeof eventTargetValue === 'object') {
 					processedValue = value.format('YYYY-MM-DD') + 'T' + value.format('HH:mm:ss.SSS') + '+0000';
 				} else if (typeof eventTargetValue ==='string' && eventTargetValue.length == 10 && eventTargetValue.indexOf('_') == -1) {
 					let m = moment(value.format('YYYY-MM-DD') + ' 00:00:00', 'YYYY-MM-DD HH:mm:ss');
 					processedValue = m.format('YYYY-MM-DD') + 'T' + m.format('HH:mm:ss.SSS') + '+0000';
 				} else {
+					propagateToParentFilter = false;
 					processedValue = null;
 				}
 			} else {
@@ -107,11 +109,13 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
 			filterType = 'CONTAINS';
 			processedValue = (value) ? value : null;
 		}
-		this.params.parentFilterInstance(function(instance: any) {
-			(<TextFilter>instance).onFloatingFilterChanged(
-				filterType,
-				processedValue);
-		});
+		if (propagateToParentFilter) {
+			this.params.parentFilterInstance(function(instance: any) {
+				(<TextFilter>instance).onFloatingFilterChanged(
+					filterType,
+					processedValue);
+			});
+		}
 	}
 
 	onFieldInput(event: Event) {
