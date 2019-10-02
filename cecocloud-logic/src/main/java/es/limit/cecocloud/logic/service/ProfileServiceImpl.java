@@ -90,7 +90,9 @@ public class ProfileServiceImpl implements ProfileService {
 				TRANSLATE_KEY_PREFIX + resource.getName());
 		resource.setTranslateKeyPlural(
 				TRANSLATE_KEY_PREFIX + resource.getName() + ".plural");
-		resource.setFields(getFields(permissionDtoClass));
+		List<ProfileResourceField> fields = getFields(permissionDtoClass);
+		resource.setFields(fields);
+		calculateGridPercentWidths(fields);
 		resource.setQuickFilterAvailable(isQuickFilterAvailable(permissionDtoClass));
 		resource.setHasCreatePermission(true);
 		resource.setHasReadPermission(true);
@@ -98,9 +100,11 @@ public class ProfileServiceImpl implements ProfileService {
 		resource.setHasDeletePermission(true);
 		RestapiResource resourceAnnotation = permissionDtoClass.getAnnotation(RestapiResource.class);
 		if (resourceAnnotation != null) {
+			// Configura el camp de descripció
 			if (!resourceAnnotation.descriptionField().isEmpty()) {
 				resource.setDescriptionField(resourceAnnotation.descriptionField());
 			}
+			// Configura els grids
 			if (resourceAnnotation.grids().length > 0) {
 				List<ProfileResourceGrid> grids = new ArrayList<ProfileResourceGrid>();
 				for (RestapiGrid grid: resourceAnnotation.grids()) {
@@ -117,6 +121,7 @@ public class ProfileServiceImpl implements ProfileService {
 				}
 				resource.setGrids(grids);
 			}
+			// Configura els permisos
 			resource.setHasCreatePermission(
 					checkPermission(resourceAnnotation.authoritiesWithCreatePermission()));
 			resource.setHasReadPermission(
@@ -216,7 +221,7 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 		return resourceFields;
 	}
-
+	
 	private static ProfileResourceField createResourceField(
 			String fieldName,
 			Class<?> fieldType,
@@ -282,6 +287,8 @@ public class ProfileServiceImpl implements ProfileService {
 					restapiField.hiddenInLov());
 			fieldConfig.setToUpperCase(
 					restapiField.toUpperCase());
+			fieldConfig.setGridPercentWidth(
+					restapiField.gridPercentWidth());
 		}
 		if (fieldConfig.getType() == RestapiFieldType.ENUM) {
 			Class<?> enumType = getRealFieldType(fieldType, fieldGenericType);
@@ -381,6 +388,62 @@ public class ProfileServiceImpl implements ProfileService {
 					lovField.setLovParentField(restapiField.lovParentField());
 				}
 			}*/
+		}
+	}
+
+	private static void calculateGridPercentWidths(
+			List<ProfileResourceField> resourceFields) {
+		float percentToDistribute = 100;
+		float totalMaxLengthWidth = 0;
+		float numFieldsMaxLength = 0;
+		float numFieldsNoWidth = 0;
+		for (ProfileResourceField resourceField: resourceFields) {
+			if (!resourceField.isHiddenInGrid()) {
+				int fieldMaxLength = getFieldMaxLength(resourceField);
+				totalMaxLengthWidth += fieldMaxLength;
+				if (resourceField.getGridPercentWidth() > 0) {
+					percentToDistribute -= resourceField.getGridPercentWidth();
+				} else {
+					if (fieldMaxLength > 0) {
+						numFieldsMaxLength++;
+					} else {
+						numFieldsNoWidth++;
+					}
+				}
+			}
+		}
+		float percentForMaxLength = percentToDistribute * (numFieldsMaxLength / (numFieldsMaxLength + numFieldsNoWidth));
+		float percentForNoWidth = percentToDistribute * (numFieldsNoWidth / (numFieldsMaxLength + numFieldsNoWidth));
+		for (ProfileResourceField resourceField: resourceFields) {
+			if (!resourceField.isHiddenInGrid()) {
+				if (resourceField.getGridPercentWidth() <= 0) {
+					int fieldMaxLength = getFieldMaxLength(resourceField);
+					if (fieldMaxLength > 0) {
+						resourceField.setGridPercentWidth(fieldMaxLength * percentForMaxLength / totalMaxLengthWidth);
+					} else {
+						resourceField.setGridPercentWidth(percentForNoWidth / numFieldsNoWidth);
+					}
+				}
+			}
+		}
+	}
+
+	private static int getFieldMaxLength(ProfileResourceField resourceField) {
+		if (RestapiFieldType.DATE.equals(resourceField.getType())) {
+			return 10;
+		} else if (RestapiFieldType.DATETIME.equals(resourceField.getType())) {
+			return 19;
+		} else if (RestapiFieldType.BOOLEAN.equals(resourceField.getType())) {
+			return 5;
+		} else {
+			int maxLength = 0;
+			if (resourceField.getMaxLength() != null && resourceField.getMaxLength() > 0) {
+				maxLength += resourceField.getMaxLength();
+			}
+			if (resourceField.getDecimalMaxLength() != null && resourceField.getDecimalMaxLength() > 0) {
+				maxLength += resourceField.getDecimalMaxLength() + 1; // +1 per tenir en compte el separador de decimals
+			}
+			return maxLength;
 		}
 	}
 

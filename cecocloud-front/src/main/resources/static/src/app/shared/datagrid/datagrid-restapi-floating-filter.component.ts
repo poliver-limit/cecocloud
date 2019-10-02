@@ -1,7 +1,7 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { IAfterGuiAttachedParams, IDoesFilterPassParams, IFilterParams, RowNode, IFloatingFilterParams, FilterChangedEvent, TextFilter } from 'ag-grid-community';
-import { IFilterAngularComp, IFloatingFilterComp } from 'ag-grid-angular';
+import { IFloatingFilterParams, FilterChangedEvent, TextFilter } from 'ag-grid-community';
+import { IFloatingFilterComp } from 'ag-grid-angular';
 import * as moment from 'moment';
 
 import { RestapiResource, RestapiResourceField } from '../restapi/restapi-profile';
@@ -114,8 +114,8 @@ export class DatagridRestapiFloatingFilterComponent implements IFloatingFilterCo
 		});
 	}
 
-	onFieldInput(event) {
-		this.valueChanged(this.formGroup.get('filter').value, event.target.value)
+	onFieldInput(event: Event) {
+		this.valueChanged(this.formGroup.get('filter').value, event.target ? event.target['value']: undefined);
 	}
 
 	constructor(

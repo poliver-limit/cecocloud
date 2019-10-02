@@ -99,24 +99,32 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		try {
 			Method builderMethod = getEntityClass().getMethod("builder");
 			Class<?> builderReturnType = builderMethod.getReturnType();
+			Object builderInstance = builderMethod.invoke(null); // builderInstance = dtoClass.builder();
+			// Es crida el mètode "embedded" del builder que guarda la informació del DTO
 			Method embeddedMethod = builderReturnType.getMethod("embedded", getDtoClass());
-			Object builderInstance = builderMethod.invoke(null);
-			// Es crida el mètode que guarda els valors del DTO a dins embedded
-			embeddedMethod.invoke(builderInstance, dto);
+			embeddedMethod.invoke(builderInstance, dto); // builderInstance.embedded(dto);
+			/*/ Si existeix el mètode "pk" vol dir que és una entitat amb clau primària composta i es crida
+			// passant com a paràmetre la clau primària decodificada a partir del DTO.
+			try {
+				Method pkMethod = builderReturnType.getMethod("pk", getDtoClass());
+				Object pk = null; // TODO obtenir pk del DTO
+				pkMethod.invoke(builderInstance, pk); // builderInstance.pk(pk);
+			} catch (NoSuchMethodException ex) {
+				// Si no existeix el mètode "pk" no es fa res.
+			}*/
 			if (referencedRepositoriesMap != null) {
 				// Es criden els mètodes del builder per a les entitats referenciades en el DTO
 				for (Method builderCallableMethod: builderReturnType.getDeclaredMethods()) {
 					// Només es criden els mètodes amb un argument
 					if (builderCallableMethod.getParameterTypes().length == 1) {
-						// Només es criden els métodes que no son "embedded" i que no corresponen a un parent 
-						boolean forbiddenMethod = embeddedMethod.equals(builderCallableMethod);
-						if (!forbiddenMethod) {
+						// Només es criden els métodes que no son "embedded"
+						if (!builderCallableMethod.equals(embeddedMethod)) {
 							AbstractEntity<?, ?> referencedEntity = getReferencedEntityForDtoField(
 									builderCallableMethod.getParameterTypes()[0],
 									dto,
 									builderCallableMethod.getName());
 							if (referencedEntity != null) {
-								builderCallableMethod.invoke(builderInstance, referencedEntity);
+								builderCallableMethod.invoke(builderInstance, referencedEntity); // builderInstance.referencedEntityName(referencedEntity);
 							}
 						}
 					}
@@ -124,14 +132,17 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 			}
 			// Es crida el mètode build per a crear la instància de l'entitat
 			Method buildMethod = builderReturnType.getMethod("build");
-			return (E)buildMethod.invoke(builderInstance);
+			return (E)buildMethod.invoke(builderInstance); // return builderInstance.build();
 		} catch (Exception ex) {
 			throw new RuntimeException("No s'ha pogut crear l'entitat de tipus " + getEntityClass(), ex);
 		}
 	}
 
 	protected void updateEntity(E entity, D dto) {
+		// Crida el mètode update per a actualitzar el camp embedded
 		entity.update(dto);
+		// Es suposa que, per a cada entitat a la que es fa referència, existeix un mètode update*.
+		// Crida cada un dels mètodes update* passant com a paràmetre l'entitat corresponent
 		for (Field field: getEntityClass().getDeclaredFields()) {
 			if (!field.getName().equals("embedded") && AbstractPersistable.class.isAssignableFrom(field.getType())) {
 				try {
@@ -141,7 +152,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 							field.getName());
 					if (referencedEntity != null) {
 						String updateMethodName = "update" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-						getEntityClass().getMethod(updateMethodName, field.getType()).invoke(entity, referencedEntity);
+						getEntityClass().getMethod(updateMethodName, field.getType()).invoke(entity, referencedEntity); // entity.update*(referencedEntity);
 					}
 				} catch (Exception ex) {
 					throw new RuntimeException("No s'ha pogut actualitzar el camp " + field.getName() + " de l'entitat " + entity, ex);

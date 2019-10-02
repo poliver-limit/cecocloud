@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.NonUniqueResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -101,8 +103,7 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 			if (page.getTotalElements() <= 1) {
 				return page.getContent().get(0);
 			} else {
-				// TODO retornar error per haver trobat + d'un resultat
-				return page.getContent().get(0);
+				throw new NonUniqueResultException("La consulta \"" + rsqlQuery + "\" ha retornat més d'un resultat");
 			}
 		} else {
 			return null;

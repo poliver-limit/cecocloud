@@ -34,8 +34,8 @@ import io.jsonwebtoken.Jws;
 @Service
 public class RegistreServiceImpl implements RegistreService {
 
-	private static final String CECOCLOUD_BASE_URL = "http://oficinal.limit.es/cecocloud";
-	
+	private static final String CECOCLOUD_BASE_URL = "http://oficina.limit.es/cecocloud";
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired

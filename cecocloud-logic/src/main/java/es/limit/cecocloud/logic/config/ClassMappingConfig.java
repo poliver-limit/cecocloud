@@ -39,11 +39,16 @@ public class ClassMappingConfig implements OrikaMapperFactoryConfigurer {
 
 	@Override
 	public void configure(MapperFactory orikaMapperFactory) {
-		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<UsuariEntity, Usuari>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<CompanyiaEntity, Companyia>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<EmpresaEntity, Empresa>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<OperariEntity, Operari>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(new EntityToDtoConverter<MarcatgeEntity, Marcatge>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(
+				new EntityToDtoConverter<UsuariEntity, Usuari>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(
+				new EntityToDtoConverter<CompanyiaEntity, Companyia>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(
+				new EntityToDtoConverter<EmpresaEntity, Empresa>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(
+				new EntityToDtoConverter<OperariEntity, Operari>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(
+				new EntityToDtoConverter<MarcatgeEntity, Marcatge>() {});
 	}
 
 	@Slf4j

@@ -587,6 +587,13 @@ export class DatagridComponent implements OnInit {
 				let tooltip = (gridColumn.tooltip) ? gridColumn.tooltip : undefined;
 				let tooltipField: string = (gridColumn.tooltipField) ? gridColumn.tooltipField : undefined;
 				let sortable: boolean = (gridColumn.sortable === undefined) ? true : gridColumn.sortable;
+				let width: number;
+				if (restapiField) {
+					width = restapiField.gridPercentWidth;
+				}
+				if (gridColumn.width) {
+					width = gridColumn.width;
+				}
 				if (datagridConfig.editable) {
 					columnEditable = function(params: any) {
 						let editIsCreate = params.api['getFromApiContext']('editIsCreate');
@@ -676,7 +683,7 @@ export class DatagridComponent implements OnInit {
 					floatingFilterComponentParams: floatingFilterComponentParams,
 					tooltipField: tooltipField,
 					tooltip: tooltip,
-					width: (gridColumn.width) ? gridColumn.width : null
+					width: width
 				});
 			});
 		}

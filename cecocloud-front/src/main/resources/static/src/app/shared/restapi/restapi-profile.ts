@@ -48,7 +48,7 @@ export class RestapiResourceField {
     lovResourceName?: string;
     lovDescriptionField?: string;
     lovGenericResource?: boolean;
-    width?: number;
+    gridPercentWidth?: number;
 }
 
 export class RestapiResourceGrid {

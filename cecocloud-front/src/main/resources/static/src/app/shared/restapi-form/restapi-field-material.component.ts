@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MatInput, MatSelect, MatCheckbox } from '@angular/material';
 import * as moment from 'moment';
-import * as textMask from "vanilla-text-mask/dist/vanillaTextMask.js";
-import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 import { RestapiBaseFieldComponent } from './restapi-base-field.component';
@@ -321,9 +319,9 @@ export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent imp
 
 	buildDatetimeFormGroup() {
 		let fieldValue = this.internalFormGroup.get(this.fieldName).value;
-		let dateValue;
-		let timeValue;
-		let fieldMoment;
+		let dateValue: string;
+		let timeValue: string;
+		let fieldMoment: any;
 		if (fieldValue) {
 			fieldMoment = moment(fieldValue);
 			this.datetimeLinkedWithCurrentTime = false;
@@ -358,7 +356,7 @@ export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent imp
 		}
 	}
 
-	propagateDateToFormControl(dateValue, timeValue?: string) {
+	propagateDateToFormControl(dateValue: any, timeValue?: string) {
 		let time = timeValue ? timeValue : '00:00:00';
 		let m = moment((dateValue ? dateValue : moment()).format('YYYY-MM-DD') + ' ' + time, 'YYYY-MM-DD HH:mm:ss');
 		let apiValue = m.format('YYYY-MM-DDTHH:mm:ss.SSS') + this.getTimeZoneOffset();

@@ -30,5 +30,6 @@ public @interface RestapiField {
 	public String lovParentField() default "";
 	public String lovModule() default "";
 	public boolean includeInQuickFilter() default false;
+	public float gridPercentWidth() default 0;
 
 }

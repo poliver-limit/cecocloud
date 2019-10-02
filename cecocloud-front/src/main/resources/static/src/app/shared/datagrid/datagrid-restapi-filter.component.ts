@@ -82,8 +82,8 @@ export class DatagridRestapiFilterComponent implements IFilterAngularComp {
     getModel(): any {
         let processedOperation = this.formGroup.get( 'operation' ).value;
         let processedValue = this.formGroup.get( 'filter' ).value;
-        let additionalPath;
-        let additionalValue;
+        let additionalPath: string;
+        let additionalValue: string;
         if ( this.filterField.type === 'DATE' && this.isDateTime ) {
             processedOperation = 'BETWEEN';
             let m = moment( this.formGroup.get( 'filter' ).value )

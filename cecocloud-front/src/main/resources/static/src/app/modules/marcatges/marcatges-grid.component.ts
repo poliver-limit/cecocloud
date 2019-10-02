@@ -13,7 +13,7 @@ export class MarcatgesGridComponent implements OnInit {
 
     datagridConfig = {
         //editable: true,
-        columnFiltersEnabled: true,
+        columnFiltersEnabled: true/*,
         columns: [{
             field: 'operari',
             sort: 'asc'
@@ -24,7 +24,7 @@ export class MarcatgesGridComponent implements OnInit {
             field: 'origen'
         }, {
             field: 'ubicacio'
-        }]
+        }]*/
     };
 
     ngOnInit() {

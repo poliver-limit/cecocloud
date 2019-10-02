@@ -35,6 +35,7 @@ public class ProfileResourceField {
 	private String lovDescriptionField;
 	private boolean lovGenericResource;
 	private boolean includeInQuickFilter;
+	private float gridPercentWidth = 0;
 
 	public static enum RestapiFieldType {
 		AUTO,
