@@ -78,7 +78,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, ID extend
 	public void afterPropertiesSet() throws Exception {
 		Class<D> dtoClass = getDtoClass();
 		Class<E> entityClass = getEntityClass();
-		log.info("Configurant service pel recurs " + dtoClass + " amb l'entitat associada " + entityClass + ".");
+		log.info("Configurant service pel recurs " + dtoClass + " amb l'entitat associada " + entityClass);
 		for (Field field: getDtoClass().getDeclaredFields()) {
 			Class<? extends Identificable<?>> referencedClass = null;
 			if (field.getType().isAssignableFrom(GenericReference.class)) {
@@ -304,7 +304,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, ID extend
 		}
 		
 	}
-
+	
 	private Type getArgumentTypeFromGenericSuperclass(Class<?> clazz, int index) {
 		Type genericSuperClass = clazz.getGenericSuperclass();
 		while (genericSuperClass != null && !(genericSuperClass instanceof ParameterizedType)) {

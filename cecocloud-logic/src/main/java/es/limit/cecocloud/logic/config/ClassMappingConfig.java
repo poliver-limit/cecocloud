@@ -3,33 +3,18 @@
  */
 package es.limit.cecocloud.logic.config;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.util.Set;
 
+import org.reflections.Reflections;
 import org.springframework.stereotype.Component;
 
-import es.limit.cecocloud.logic.api.annotation.RestapiResource;
-import es.limit.cecocloud.logic.api.dto.Companyia;
-import es.limit.cecocloud.logic.api.dto.CompositePkTest;
-import es.limit.cecocloud.logic.api.dto.Empresa;
-import es.limit.cecocloud.logic.api.dto.Marcatge;
-import es.limit.cecocloud.logic.api.dto.Operari;
-import es.limit.cecocloud.logic.api.dto.Usuari;
-import es.limit.cecocloud.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.util.Identificable;
-import es.limit.cecocloud.persist.entity.AbstractEntity;
-import es.limit.cecocloud.persist.entity.CompanyiaEntity;
-import es.limit.cecocloud.persist.entity.CompositePkTestEntity;
+import es.limit.cecocloud.logic.converter.AbstractEntityToDtoConverter;
 import es.limit.cecocloud.persist.entity.EmbeddableEntity;
-import es.limit.cecocloud.persist.entity.EmpresaEntity;
-import es.limit.cecocloud.persist.entity.MarcatgeEntity;
-import es.limit.cecocloud.persist.entity.OperariEntity;
-import es.limit.cecocloud.persist.entity.UsuariEntity;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.CustomConverter;
 import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.MappingContext;
-import ma.glasnost.orika.metadata.Type;
 import net.rakugakibox.spring.boot.orika.OrikaMapperFactoryConfigurer;
 
 /**
@@ -37,77 +22,44 @@ import net.rakugakibox.spring.boot.orika.OrikaMapperFactoryConfigurer;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Component
 public class ClassMappingConfig implements OrikaMapperFactoryConfigurer {
 
 	@Override
 	public void configure(MapperFactory orikaMapperFactory) {
-		// TODO recòrrer el package amb les entities i donar d'alta els converters de forma automàtica.
-		orikaMapperFactory.getConverterFactory().registerConverter(
-				new EntityToDtoConverter<UsuariEntity, Usuari>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(
-				new EntityToDtoConverter<CompanyiaEntity, Companyia>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(
-				new EntityToDtoConverter<EmpresaEntity, Empresa>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(
-				new EntityToDtoConverter<OperariEntity, Operari>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(
-				new EntityToDtoConverter<MarcatgeEntity, Marcatge>() {});
-		orikaMapperFactory.getConverterFactory().registerConverter(
-				new EntityToDtoConverter<CompositePkTestEntity, CompositePkTest>() {});
+		Reflections reflections = new Reflections(EmbeddableEntity.class.getPackage().getName());
+		@SuppressWarnings("rawtypes")
+		Set<Class<? extends EmbeddableEntity>> entityClasses = reflections.getSubTypesOf(EmbeddableEntity.class);
+		entityClasses.removeIf(apiControllerClass -> (apiControllerClass.isInterface() || Modifier.isAbstract(apiControllerClass.getModifiers())));
+		for (@SuppressWarnings("rawtypes") Class<? extends EmbeddableEntity> entityClass: entityClasses) {
+			ParameterizedType parameterizedType = (ParameterizedType)entityClass.getGenericSuperclass();
+			orikaMapperFactory.getConverterFactory().registerConverter(
+					getEntityToDtoConverter(entityClass, (Class<?>)parameterizedType.getActualTypeArguments()[0]));
+		}
 	}
 
-	@Slf4j
-	public static class EntityToDtoConverter<E extends EmbeddableEntity<D, ?>, D extends Identificable<?>> extends CustomConverter<E, D> {
-	    @Override
-	    public D convert(E source, Type<? extends D> destinationType, MappingContext mappingContext) {
-	    	D dto = mapperFacade.map(
-	    			source.getEmbedded(),
-	    			destinationType.getRawType());
-	    	mapperFacade.map(
-	    			source,
-	    			dto);
-	    	for (Field dtoField: destinationType.getRawType().getDeclaredFields()) {
-				boolean isReference = dtoField.getType().isAssignableFrom(GenericReference.class);
-				if (isReference) {
-					String getMethodName = "get" + dtoField.getName().substring(0, 1).toUpperCase() + dtoField.getName().substring(1);
-					GenericReference<?, ?> genericReference = null;
-					try {
-						genericReference = (GenericReference<?, ?>)(destinationType.getRawType().getMethod(getMethodName).invoke(dto));
-					} catch (Exception ex) {
-						log.error("Error al obtenir la referencia " + dtoField.getName() + " del DTO " + dto, ex);
-					}
-					if (genericReference != null) {
-						Class<?> fieldResourceType = (Class<?>)((ParameterizedType)dtoField.getGenericType()).getActualTypeArguments()[0];
-						RestapiResource resourceAnnotation = fieldResourceType.getAnnotation(RestapiResource.class);
-						if (resourceAnnotation != null && !resourceAnnotation.descriptionField().isEmpty()) {
-							String descriptionField = resourceAnnotation.descriptionField();
-							try {
-								AbstractEntity<?, ?> entityFieldValue = null;
-								try {
-									entityFieldValue = (AbstractEntity<?, ?>)source.getClass().getMethod(getMethodName).invoke(source);
-									String descriptionGetMethodName = "get" + descriptionField.substring(0, 1).toUpperCase() + descriptionField.substring(1);
-									try {
-										genericReference.setDescription(
-												(String)fieldResourceType.getMethod(descriptionGetMethodName).invoke(entityFieldValue.getEmbedded()));
-									} catch (Exception ex) {
-										log.error("Error al obtenir el camp " + descriptionGetMethodName + " del l'entitat " + entityFieldValue, ex);
-									}
-								} catch (Exception ex) {
-									log.error("Error al obtenir el camp " + getMethodName + " del l'entitat " + source, ex);
-								}
-							} catch (Exception ex) {
-								log.error("Error al obtenir la descripció del camp " + descriptionField + " de la referència " + source, ex);
-							}
-						} else {
-							String resourceName = dtoField.getType().getSimpleName().substring(0, 1).toLowerCase() + dtoField.getType().getSimpleName().substring(1);
-							genericReference.setDescription(resourceName + "_" + genericReference.getId());
-						}
-					}
+	private CustomConverter<?, ?> getEntityToDtoConverter(
+			Class<?> entityClass,
+			Class<?> dtoClass) {
+		Reflections reflections = new Reflections(AbstractEntityToDtoConverter.class.getPackage().getName());
+		@SuppressWarnings("rawtypes")
+		Set<Class<? extends CustomConverter>> converterClasses = reflections.getSubTypesOf(CustomConverter.class);
+		converterClasses.removeIf(apiControllerClass -> (apiControllerClass.isInterface() || Modifier.isAbstract(apiControllerClass.getModifiers())));
+		for (@SuppressWarnings("rawtypes") Class<? extends CustomConverter> converterClass: converterClasses) {
+			ParameterizedType parameterizedType = (ParameterizedType)converterClass.getGenericSuperclass();
+			Class<?> converterEntityClass = (Class<?>)(parameterizedType.getActualTypeArguments()[0]);
+			Class<?> converterDtoClass = (Class<?>)(parameterizedType.getActualTypeArguments()[1]);
+			if (converterEntityClass.equals(entityClass) && converterDtoClass.equals(dtoClass)) {
+				try {
+					log.info("Configurant converter entre les entitats de tipus " + entityClass + " i els DTOs de tipus " + dtoClass);
+					return converterClass.newInstance();
+				} catch (InstantiationException | IllegalAccessException ex) {
+					throw new RuntimeException("No s'ha pogut crear la instància del conversor " + converterClass, ex);
 				}
-	    	}
-	    	return dto;
-	    }
+			}
+		}
+		throw new RuntimeException("No s'ha trobat cap EntityToDtoConverter per a les entitats de tipus " + entityClass + " i el DTOs de tipus " + dtoClass);
 	}
 
 }
