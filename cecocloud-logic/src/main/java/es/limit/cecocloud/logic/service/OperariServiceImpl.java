@@ -20,7 +20,7 @@ import es.limit.cecocloud.persist.repository.OperariRepository;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class OperariServiceImpl extends AbstractGenericServiceImpl<Operari, OperariEntity, Long> implements OperariService {
+public class OperariServiceImpl extends AbstractGenericServiceImpl<Operari, Long, OperariEntity, Long> implements OperariService {
 
 	@Autowired
 	private OperariRepository operariRepository;

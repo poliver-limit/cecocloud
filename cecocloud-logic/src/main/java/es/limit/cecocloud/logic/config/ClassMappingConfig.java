@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.Companyia;
+import es.limit.cecocloud.logic.api.dto.CompositePkTest;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.Operari;
@@ -18,6 +19,8 @@ import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.persist.entity.AbstractEntity;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
+import es.limit.cecocloud.persist.entity.CompositePkTestEntity;
+import es.limit.cecocloud.persist.entity.EmbeddableEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
@@ -39,6 +42,7 @@ public class ClassMappingConfig implements OrikaMapperFactoryConfigurer {
 
 	@Override
 	public void configure(MapperFactory orikaMapperFactory) {
+		// TODO recòrrer el package amb les entities i donar d'alta els converters de forma automàtica.
 		orikaMapperFactory.getConverterFactory().registerConverter(
 				new EntityToDtoConverter<UsuariEntity, Usuari>() {});
 		orikaMapperFactory.getConverterFactory().registerConverter(
@@ -49,10 +53,12 @@ public class ClassMappingConfig implements OrikaMapperFactoryConfigurer {
 				new EntityToDtoConverter<OperariEntity, Operari>() {});
 		orikaMapperFactory.getConverterFactory().registerConverter(
 				new EntityToDtoConverter<MarcatgeEntity, Marcatge>() {});
+		orikaMapperFactory.getConverterFactory().registerConverter(
+				new EntityToDtoConverter<CompositePkTestEntity, CompositePkTest>() {});
 	}
 
 	@Slf4j
-	public static class EntityToDtoConverter<E extends AbstractEntity<D, ?>, D extends Identificable<?>> extends CustomConverter<E, D> {
+	public static class EntityToDtoConverter<E extends EmbeddableEntity<D, ?>, D extends Identificable<?>> extends CustomConverter<E, D> {
 	    @Override
 	    public D convert(E source, Type<? extends D> destinationType, MappingContext mappingContext) {
 	    	D dto = mapperFacade.map(

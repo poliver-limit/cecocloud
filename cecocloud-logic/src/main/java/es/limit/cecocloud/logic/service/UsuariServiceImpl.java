@@ -17,7 +17,7 @@ import es.limit.cecocloud.persist.entity.UsuariEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class UsuariServiceImpl extends AbstractGenericServiceImpl<Usuari, UsuariEntity, Long> implements UsuariService {
+public class UsuariServiceImpl extends AbstractGenericServiceImpl<Usuari, Long, UsuariEntity, Long> implements UsuariService {
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

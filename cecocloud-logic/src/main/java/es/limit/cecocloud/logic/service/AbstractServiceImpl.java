@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -11,10 +12,12 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -35,9 +41,12 @@ import es.limit.cecocloud.logic.api.dto.ProfileResourceField;
 import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
+import es.limit.cecocloud.logic.api.dto.util.IdentificableWithCompositePk;
 import es.limit.cecocloud.logic.rsql.CustomRsqlVisitor;
 import es.limit.cecocloud.logic.rsql.RsqlSearchOperation;
+import es.limit.cecocloud.persist.entity.AbstractCompositePkEntity;
 import es.limit.cecocloud.persist.entity.AbstractEntity;
+import es.limit.cecocloud.persist.entity.EmbeddableEntity;
 import es.limit.cecocloud.persist.repository.BaseRepository;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
@@ -48,22 +57,28 @@ import ma.glasnost.orika.MapperFacade;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
-public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extends AbstractEntity<?, ?>, P2 extends AbstractEntity<?, ?>, E extends AbstractEntity<D, ID>, ID extends Serializable> /*extends AbstractDtoConverter<D, E, ID>*/ implements InitializingBean {
+public abstract class AbstractServiceImpl<D extends Identificable<ID>, ID extends Serializable, E extends EmbeddableEntity<D, PK>, PK extends Serializable> implements InitializingBean {
 
+	@Autowired
+    private ObjectMapper objectMapper;
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
 	@Autowired
-	private BaseRepository<E, ID> repository;
+	private BaseRepository<E, PK> repository;
 	@Autowired
 	private List<BaseRepository<?, ?>> repositories;
 
 	private Class<E> entityClass;
 	private Class<D> dtoClass;
+	private Class<? extends Serializable> pkClass;
 	private Map<Class<? extends Identificable<?>>, BaseRepository<?, ?>> referencedRepositoriesMap;
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public void afterPropertiesSet() throws Exception {
+		Class<D> dtoClass = getDtoClass();
+		Class<E> entityClass = getEntityClass();
+		log.info("Configurant service pel recurs " + dtoClass + " amb l'entitat associada " + entityClass + ".");
 		for (Field field: getDtoClass().getDeclaredFields()) {
 			Class<? extends Identificable<?>> referencedClass = null;
 			if (field.getType().isAssignableFrom(GenericReference.class)) {
@@ -73,6 +88,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 				referencedClass = (Class<? extends Identificable<?>>)field.getType();
 			}
 			if (referencedClass != null) {
+				log.info("   Configurant repository JPA pel recurs " + referencedClass + ".");
 				BaseRepository<?, ?> referencedRepository = getRepositoryForReferencedClass(referencedClass);
 				log.debug("Afegint repository per referència " + field.getName() + " al servei " + getClass().getName());
 				if (referencedRepository != null) {
@@ -85,9 +101,9 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 				}
 			}
 		}
-		Method builderMethod = getEntityClass().getMethod("builder");
+		Method builderMethod = entityClass.getMethod("builder");
 		if (!Modifier.isStatic(builderMethod.getModifiers())) {
-			throw new Exception("El mètode builder de la classe " + getEntityClass() + " no te el modificador static");
+			throw new Exception("El mètode builder de la classe " + entityClass + " no te el modificador static");
 		}
 		Class<?> builderReturnType = builderMethod.getReturnType();
 		builderReturnType.getMethod("build");
@@ -103,15 +119,12 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 			// Es crida el mètode "embedded" del builder que guarda la informació del DTO
 			Method embeddedMethod = builderReturnType.getMethod("embedded", getDtoClass());
 			embeddedMethod.invoke(builderInstance, dto); // builderInstance.embedded(dto);
-			/*/ Si existeix el mètode "pk" vol dir que és una entitat amb clau primària composta i es crida
-			// passant com a paràmetre la clau primària decodificada a partir del DTO.
-			try {
-				Method pkMethod = builderReturnType.getMethod("pk", getDtoClass());
-				Object pk = null; // TODO obtenir pk del DTO
-				pkMethod.invoke(builderInstance, pk); // builderInstance.pk(pk);
-			} catch (NoSuchMethodException ex) {
-				// Si no existeix el mètode "pk" no es fa res.
-			}*/
+			// Si el DTO exten de AbstractIdentificableWithCompositePk vol dir que te clau primària composta
+			if (IdentificableWithCompositePk.class.isAssignableFrom(dto.getClass())) {
+				Class<? extends Serializable> pkClass = getPkClass();
+				Method pkMethod = builderReturnType.getMethod("pk", pkClass);
+				pkMethod.invoke(builderInstance, getPkFromDto(dto)); // builderInstance.pk(pk);
+			}
 			if (referencedRepositoriesMap != null) {
 				// Es criden els mètodes del builder per a les entitats referenciades en el DTO
 				for (Method builderCallableMethod: builderReturnType.getDeclaredMethods()) {
@@ -152,7 +165,11 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 							field.getName());
 					if (referencedEntity != null) {
 						String updateMethodName = "update" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-						getEntityClass().getMethod(updateMethodName, field.getType()).invoke(entity, referencedEntity); // entity.update*(referencedEntity);
+						try {
+							getEntityClass().getMethod(updateMethodName, field.getType()).invoke(entity, referencedEntity); // entity.update*(referencedEntity);
+						} catch (NoSuchMethodException ignored) {
+							// Si el mètode update no existeix suposarem que aquesta entitat no s'ha d'actualitzar
+						}
 					}
 				} catch (Exception ex) {
 					throw new RuntimeException("No s'ha pogut actualitzar el camp " + field.getName() + " de l'entitat " + entity, ex);
@@ -193,19 +210,31 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 		return toDto(resultat, processPageable(pageable));
 	}
 
-	protected BaseRepository<E, ID> getRepository() {
+	protected BaseRepository<E, PK> getRepository() {
 		return repository;
 	}
 
 	protected D toDto(E entity) {
-		return orikaMapperFacade.map(
+		D dto = orikaMapperFacade.map(
 				entity,
 				getDtoClass());
+		if (AbstractCompositePkEntity.class.isAssignableFrom(getEntityClass())) {
+			dto.setId(getDtoIdFromCompositePkEntity(
+					(AbstractCompositePkEntity<?, ?>)entity));
+		}
+		return dto;
 	}
 	protected List<D> toDto(List<E> entities) {
-		return orikaMapperFacade.mapAsList(
+		List<D> dtos = orikaMapperFacade.mapAsList(
 				entities,
 				getDtoClass());
+		if (AbstractCompositePkEntity.class.isAssignableFrom(getEntityClass())) {
+			IntStream.range(0, dtos.size()).forEach(i -> {
+				dtos.get(i).setId(getDtoIdFromCompositePkEntity(
+						(AbstractCompositePkEntity<?, ?>)entities.get(i)));
+			});
+		}
+		return dtos;
 	}
 	protected Page<D> toDto(Page<E> entityPage, Pageable pageable) {
 		return new PageImpl<D>(
@@ -217,7 +246,7 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	@SuppressWarnings("unchecked")
 	protected Class<D> getDtoClass() {
 		if (dtoClass == null) {
-			dtoClass = (Class<D>)getClassFromGenericType(0);
+			dtoClass = (Class<D>)getArgumentTypeFromGenericSuperclass(getClass(), 0);
 		}
 		return (Class<D>)dtoClass;
 	}
@@ -225,18 +254,64 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, P1 extend
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		if (entityClass == null) {
-			entityClass = (Class<E>)getClassFromGenericType(1);
+			if (AbstractGenericCompositePkServiceImpl.class.isAssignableFrom(getClass())) {
+				entityClass = (Class<E>)getArgumentTypeFromGenericSuperclass(getClass(), 1);
+			} else {
+				entityClass = (Class<E>)getArgumentTypeFromGenericSuperclass(getClass(), 2);
+			}
 		}
 		return (Class<E>)entityClass;
 	}
 
-	private Class<?> getClassFromGenericType(int index) {
-		Type genericSuperClass = getClass().getGenericSuperclass();
+	@SuppressWarnings("unchecked")
+	protected Class<? extends Serializable> getPkClass() {
+		if (pkClass == null) {
+			pkClass = (Class<? extends Serializable>)getArgumentTypeFromGenericSuperclass(getDtoClass(), 0);
+		}
+		return (Class<? extends Serializable>)pkClass;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected PK getPkFromDto(D dto) {
+		return (PK)dto.getId();
+	}
+	@SuppressWarnings("unchecked")
+	protected Serializable getPkFromDtoId(ID id) {
+		if (IdentificableWithCompositePk.class.isAssignableFrom(getDtoClass())) {
+			byte[] idBase64 = ((String)id).getBytes();
+			/*return (PK)SerializationUtils.deserialize(
+					Base64.getDecoder().decode(idBase64));*/
+			try {
+				return objectMapper.readValue(
+						new String(Base64.getDecoder().decode(idBase64)),
+						getPkClass());
+			} catch (IOException ex) {
+				throw new RuntimeException("Error al convertir el DTO id " + id, ex);
+			}
+		} else {
+			return (PK)id;
+		}
+	}
+	@SuppressWarnings("unchecked")
+	protected ID getDtoIdFromCompositePkEntity(AbstractCompositePkEntity<?, ?> entity) {
+		/*byte[] idBase64 = Base64.getEncoder().encode(
+				SerializationUtils.serialize(entity.getId()));*/
+		try {
+			byte[] idBase64 = Base64.getEncoder().encode(objectMapper.writeValueAsString(entity.getId()).getBytes());
+			return (ID)new String(idBase64);
+		} catch (JsonProcessingException ex) {
+			throw new RuntimeException("Error al convertir la clau primària " + entity.getId() + " a DTO id", ex);
+		}
+		
+	}
+
+	private Type getArgumentTypeFromGenericSuperclass(Class<?> clazz, int index) {
+		Type genericSuperClass = clazz.getGenericSuperclass();
 		while (genericSuperClass != null && !(genericSuperClass instanceof ParameterizedType)) {
 			genericSuperClass = ((Class<?>)genericSuperClass).getGenericSuperclass();
 		}
 		ParameterizedType parameterizedType = (ParameterizedType)genericSuperClass;
-		return (Class<?>)parameterizedType.getActualTypeArguments()[index];
+		return parameterizedType.getActualTypeArguments()[index];
 	}
 
 	private BaseRepository<?, ?> getRepositoryForReferencedClass(Class<? extends Identificable<?>> dtoClass) {

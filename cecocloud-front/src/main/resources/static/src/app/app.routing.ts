@@ -34,6 +34,10 @@ export const routes: Routes = [{
     loadChildren: './modules/marcatges/marcatges.module#MarcatgesModule',
     canActivate: [AuthGuard]
 }, {
+    path: 'cpktest',
+    loadChildren: './modules/cpktest/cpktest.module#CpktestModule',
+    canActivate: [AuthGuard]
+}, {
     path: '**',
     redirectTo: ''
 }];

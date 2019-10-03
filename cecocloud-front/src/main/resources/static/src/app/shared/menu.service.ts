@@ -22,7 +22,8 @@ export abstract class MenuService {
         { icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
         { icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
         { icon: 'people_alt', label: 'Operaris', labelKey: 'app.menu.operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
-        { icon: 'timer', label: 'Marcatges', labelKey: 'app.menu.marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] }
+        { icon: 'timer', label: 'Marcatges', labelKey: 'app.menu.marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] },
+        { icon: 'help', label: 'CPK Test', labelKey: 'app.menu.cpktest', route: '/cpktest', onlyForRoles: ['ADMIN'] }
     ];
     private allowedMenuItems = [];
     private allowedMenuItemsChangeSubject = new Subject<MenuItem[]>();

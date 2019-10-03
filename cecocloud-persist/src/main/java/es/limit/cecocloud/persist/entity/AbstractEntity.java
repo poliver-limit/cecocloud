@@ -14,13 +14,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
- * Entitat de base de dades abstracta que representa una entitat arrel.
+ * Entitat de base de dades abstracta.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter
 @MappedSuperclass
-public abstract class AbstractEntity<E, PK extends Serializable> extends AbstractPersistable<PK> {
+public abstract class AbstractEntity<E, PK extends Serializable> extends AbstractPersistable<PK> implements EmbeddableEntity<E, PK> {
 
 	@Version
 	@Getter(AccessLevel.NONE)

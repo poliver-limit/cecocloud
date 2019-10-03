@@ -15,7 +15,7 @@ import es.limit.cecocloud.logic.api.dto.Permission;
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.GenericServiceWithPermissions;
 import es.limit.cecocloud.logic.helper.PermissionHelper;
-import es.limit.cecocloud.persist.entity.AbstractEntity;
+import es.limit.cecocloud.persist.entity.EmbeddableEntity;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
-public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identificable<ID>, E extends AbstractEntity<D, ID>, ID extends Serializable> extends AbstractGenericServiceImpl<D, E, ID> implements GenericServiceWithPermissions<D, ID> {
+public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identificable<ID>, ID extends Serializable, E extends EmbeddableEntity<D, PK>, PK extends Serializable> extends AbstractGenericServiceImpl<D, ID, E, PK> implements GenericServiceWithPermissions<D, ID> {
 
 	@Autowired
 	private PermissionHelper permissionHelper;

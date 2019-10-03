@@ -13,6 +13,6 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @NoRepositoryBean
-public interface BaseRepository<E, ID> extends JpaRepository<E, ID>, JpaSpecificationExecutor<E> {
+public interface BaseRepository<E, PK> extends JpaRepository<E, PK>, JpaSpecificationExecutor<E> {
 
 }

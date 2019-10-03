@@ -6,6 +6,7 @@ package es.limit.cecocloud.logic.service;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.NonUniqueResultException;
 
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.cecocloud.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.service.GenericService;
-import es.limit.cecocloud.persist.entity.AbstractEntity;
+import es.limit.cecocloud.persist.entity.EmbeddableEntity;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
@@ -28,7 +29,7 @@ import ma.glasnost.orika.MapperFacade;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
-public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E extends AbstractEntity<D, ID>, ID extends Serializable> extends AbstractServiceImpl<D, AbstractEntity<?, ?>, AbstractEntity<?, ?>, E, ID> implements GenericService<D, ID> {
+public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, ID extends Serializable, E extends EmbeddableEntity<D, PK>, PK extends Serializable> extends AbstractServiceImpl<D, ID, E, PK> implements GenericService<D, ID> {
 
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
@@ -110,12 +111,15 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, E 
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected E getEntity(ID id) {
-		return getRepository().getOne(id);
+		return getRepository().getOne((PK)getPkFromDtoId(id));
 	}
 
+	@SuppressWarnings("unchecked")
 	protected List<E> getEntities(ID[] ids) {
-		return getRepository().findAllById(Arrays.asList(ids));
+		return getRepository().findAllById(
+				Arrays.stream(ids).map(id -> (PK)getPkFromDtoId(id)).collect(Collectors.toList()));
 	}
 
 }
