@@ -96,7 +96,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
 </ng-container>
 <ng-container *ngIf="isSelect">
     <mat-form-field [appearance]="appearance" style="width:100%">
-        <mat-label *ngIf="enumLabelShown">{{label}}</mat-label>
+        <mat-label *ngIf="showEnumLabel">{{label}}</mat-label>
         <mat-select *ngIf="!nativeControl"
             [formControl]="formControl"
             [multiple]="field.multiple"
@@ -117,7 +117,7 @@ import { RestapiLovMaterialComponent } from '../restapi-lov/restapi-lov-material
         <mat-error>{{errorMessage}}</mat-error>
     </mat-form-field>
 </ng-container>
-<div *ngIf="isCheckbox" style="width:100%">
+<div *ngIf="isCheckbox" style="width:100%; padding-top: 1.6em;" [ngStyle]="{'padding-top': (!hideLabel) ? '1.6em' : ''}">
     <mat-checkbox
         [formControl]="formControl"
         (click)="onFieldClick($event)"
@@ -161,10 +161,10 @@ export class RestapiFieldMaterialComponent extends RestapiBaseFieldComponent imp
 	showCharCount: boolean;
 	errorMessage: string;
 	// Per a evitar l'error ExpressionChangedAfterItHasBeenCheckedError en el label del mat-select
-	enumLabelShown: boolean = false;
+	showEnumLabel: boolean;
 
 	ngOnInit() {
-		this.enumLabelShown = !isDevMode && this.hideLabel;
+		this.showEnumLabel = !isDevMode && this.hideLabel;
 		this.doEachSecond();
 		switch (this.field.type) {
 			case 'TEXTAREA':

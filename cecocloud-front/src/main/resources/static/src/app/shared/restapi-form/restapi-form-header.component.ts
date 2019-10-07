@@ -1,39 +1,7 @@
-import {
-    Component,
-    Injector,
-    ComponentFactoryResolver,
-    EmbeddedViewRef,
-    ComponentFactory,
-    ComponentRef,
-    ViewRef,
-    ElementRef,
-    Input,
-    Output,
-    EventEmitter,
-    ViewChild,
-    ViewContainerRef,
-    ViewChildren,
-    ContentChildren,
-    QueryList
-} from '@angular/core';
-import {
-    HttpClient,
-    HttpParams,
-    HttpErrorResponse
-} from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MdcTabBar, MdcTabActivatedEvent, MdcDialog, MdcDialogComponent, MdcDialogRef } from '@angular-mdc/web';
-import { Resource, ResourceHelper } from 'angular4-hal';
 
-import { GenericResource } from '../restapi/restapi-generic.service';
-import { RestapiService } from '../restapi/restapi.service';
-import {
-    RestapiProfile,
-    RestapiResource,
-    RestapiResourceField,
-    RestapiResourceGrid
-} from '../restapi/restapi-profile';
+import { RestapiResource } from '../restapi/restapi-profile';
 import { DefaultErrorHandler } from '../default-error-handler';
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../screen-size.service';
 
@@ -143,7 +111,7 @@ export class RestapiFormHeaderComponent {
     hasUpdatePermission: boolean;
     hasDeletePermission: boolean;
     hasSavePermission: boolean;
-    mobileScreen;
+    mobileScreen: boolean;
 
     onButtonCancelClick() {
         this.actionCancel.emit();
@@ -161,7 +129,7 @@ export class RestapiFormHeaderComponent {
         this.actionDelete.emit();
     }
 
-    onActionSelect( event ) {
+    onActionSelect( event: any ) {
         if ( event.index == 0 ) {
             this.actionDelete.emit();
         }
@@ -189,7 +157,6 @@ export class RestapiFormHeaderComponent {
 
     constructor(
         private translate: TranslateService,
-        private dialog: MdcDialog,
         private screenSizeService: ScreenSizeService,
         private defaultErrorHandler: DefaultErrorHandler ) {
         this.mobileScreen = this.screenSizeService.isMobile();

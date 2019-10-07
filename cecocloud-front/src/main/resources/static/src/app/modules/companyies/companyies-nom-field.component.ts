@@ -1,10 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MdcTextField } from '@angular-mdc/web';
+import { Component, ViewChild } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 
 import { RestapiBaseFieldComponent } from '../../shared/restapi-form/restapi-base-field.component';
-import { RestapiResource, RestapiResourceField } from '../../shared/restapi/restapi-profile';
 
 @Component( {
     selector: 'companyia-nom',

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Injector } from '@angular/core';
+import { Directive, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -44,7 +44,6 @@ export class RestapiFormMantenimentDirective {
             message,
             this.translateKey( 'component.restapi.form.manteniment.button.close' ), {
             } );
-
     }
 
     goToList() {

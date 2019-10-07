@@ -105,6 +105,14 @@ export class RestapiService<T extends Resource> extends RestService<T> {
         }
     }
 
+	public getHttpClient(): HttpClient {
+		return this.httpClient;
+	}
+
+	public getResourceUrl(suffix?: string): string {
+		return 'api/' + this['resource'] + ((suffix) ? suffix : '');
+	}
+
     protected getProfileUrl( resourceName: string ): string {
         return undefined;
     }

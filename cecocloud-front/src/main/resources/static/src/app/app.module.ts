@@ -18,45 +18,46 @@ import { LocaleService } from './shared/locale.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 
-export function createTranslateLoader( http: HttpClient ) {
-    return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
+export function createTranslateLoader(http: HttpClient) {
+	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-@NgModule( {
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MdcWebModule,
-        TranslateModule.forRoot( {
-            loader: {
-                provide: TranslateLoader,
-                useFactory: ( createTranslateLoader ),
-                deps: [HttpClient]
-            }
-        } ),
-        AngularHalModule.forRoot(),
-        AppRoutingModule
-    ],
-    declarations: [
-        AppComponent,
-        DefaultErrorDialog
-    ],
-    entryComponents: [
-        DefaultErrorDialog],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: ErrorHandler, useClass: DefaultErrorHandler },
-        { provide: 'ExternalConfigurationService', useClass: RestapiConfigService },
-        { provide: LOCALE_ID, useFactory: () => LocaleService.getCurrentLocale() },
-        RestapiConfigService,
-        AuthGuard,
-        //RestapiFormExitGuard,
-        AuthService
-    ],
-    bootstrap: [
-        AppComponent
-    ]
-} )
+@NgModule({
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		MdcWebModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: (createTranslateLoader),
+				deps: [HttpClient]
+			}
+		}),
+		AngularHalModule.forRoot(),
+		AppRoutingModule
+	],
+	declarations: [
+		AppComponent,
+		DefaultErrorDialog
+	],
+	entryComponents: [
+		DefaultErrorDialog
+	],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: ErrorHandler, useClass: DefaultErrorHandler },
+		{ provide: 'ExternalConfigurationService', useClass: RestapiConfigService },
+		{ provide: LOCALE_ID, useFactory: () => LocaleService.getCurrentLocale() },
+		RestapiConfigService,
+		AuthGuard,
+		//RestapiFormExitGuard,
+		AuthService
+	],
+	bootstrap: [
+		AppComponent
+	]
+})
 export class AppModule { }

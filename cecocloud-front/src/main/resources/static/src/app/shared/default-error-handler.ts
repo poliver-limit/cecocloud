@@ -1,7 +1,7 @@
-import { Component, ErrorHandler, Injectable, Injector, Inject, OnInit } from '@angular/core';
+import { Component, ErrorHandler, Injectable, Injector, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA } from '@angular-mdc/web';
+import { MdcDialog, MDC_DIALOG_DATA } from '@angular-mdc/web';
 
 @Injectable( {
     providedIn: 'root'
@@ -39,9 +39,9 @@ export class DefaultErrorHandler implements ErrorHandler {
                 error: error
             }
         } );
-        /*dialogRef.afterClosed().subscribe( result => {
-            console.log( result );
-        } );*/
+        dialogRef.afterClosed().subscribe( result => {
+            //console.log( result );
+        } );
     }
 
     constructor(

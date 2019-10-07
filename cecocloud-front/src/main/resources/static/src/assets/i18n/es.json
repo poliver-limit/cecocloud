@@ -140,6 +140,14 @@
 	"resource.permission.field.createGranted": "Crear",
 	"resource.permission.field.deleteGranted": "Borrar",
 	"resource.permission.field.adminGranted": "Administrar",
-	"resource.permission.field.syncGranted": "Sincronizar"
+	"resource.permission.field.syncGranted": "Sincronizar",
+
+	"module.usuaris.canvi.contrasenya.titol": "Cambiar contraseña",
+	"module.usuaris.canvi.contrasenya.field.contrasenya": "Contraseña",
+	"module.usuaris.canvi.contrasenya.field.confirmacio": "Repetición",
+	"module.usuaris.canvi.contrasenya.button.cancelar": "Cancelar",
+	"module.usuaris.canvi.contrasenya.button.canviar": "Cambiar",
+	"module.usuaris.canvi.contrasenya.no.coincideix": "La contraseña y la repetición no coinciden",
+	"module.usuaris.canvi.contrasenya.ok": "La contraseña se ha modificado correctamente"
 
 }

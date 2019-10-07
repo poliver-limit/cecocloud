@@ -26,7 +26,7 @@ export class DatagridMantenimentDirective {
     }
     onDatagridActionDelete( params: any ) {
         let resourceName = params.resource.name;
-        let confirmMessageTranslated;
+        let confirmMessageTranslated: string;
         if (params.selectedRows && params.selectedRows.length > 0) {
             let rowData = params.selectedRows[0];
             let rowDescription = ( params.resource.descriptionField ) ? rowData[params.resource.descriptionField] : '#' + rowData.id;
@@ -49,7 +49,7 @@ export class DatagridMantenimentDirective {
     }
 
     showMessage( message: string, error: boolean ) {
-        const snackbarRef = this.snackbar.open(
+        this.snackbar.open(
             message,
             this.translateKey( 'component.datagrid.manteniment.button.close' ), {} );
     }
