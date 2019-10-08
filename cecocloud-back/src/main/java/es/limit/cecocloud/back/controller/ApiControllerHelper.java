@@ -48,16 +48,16 @@ public abstract class ApiControllerHelper {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static Set<Class<? extends AbstractIdentificableReadOnlyApiController>> getApiControllerClasses() {
+	public static Set<Class<? extends AbstractIdentificableApiController>> getApiControllerClasses() {
 		Reflections reflections = new Reflections(ApiControllerHelper.class.getPackage().getName());
-		Set<Class<? extends AbstractIdentificableReadOnlyApiController>> apiControllerClasses = reflections.getSubTypesOf(AbstractIdentificableReadOnlyApiController.class);
+		Set<Class<? extends AbstractIdentificableApiController>> apiControllerClasses = reflections.getSubTypesOf(AbstractIdentificableApiController.class);
 		apiControllerClasses.removeIf(apiControllerClass -> (apiControllerClass.isInterface() || Modifier.isAbstract(apiControllerClass.getModifiers())));
 		return apiControllerClasses;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected static Link getResourceLinkw(
-			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			Class<? extends AbstractIdentificableApiController> apiControllerClass,
 			Object id,
 			String rel) {
 		Link link = linkTo(methodOn(apiControllerClass, id).getOne(null, null)).withRel(rel);
@@ -65,7 +65,7 @@ public abstract class ApiControllerHelper {
 	}
 	@SuppressWarnings("rawtypes")
 	public static Link getLinkFromApiControllerClass(
-			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			Class<? extends AbstractIdentificableApiController> apiControllerClass,
 			String rel) {
 		if (rel == null) {
 			Class<? extends Identificable<?>> dtoClass = getDtoClassFromApiController(apiControllerClass);

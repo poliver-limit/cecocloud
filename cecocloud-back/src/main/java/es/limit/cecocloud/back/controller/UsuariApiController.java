@@ -16,7 +16,7 @@ import es.limit.cecocloud.logic.api.service.UsuariService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + UsuariApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + UsuariApiController.API_CONTROLLER_PATH)
 public class UsuariApiController extends AbstractIdentificableApiController<Usuari, Long> {
 
 	public static final String API_CONTROLLER_PATH = "/usuaris";

@@ -16,7 +16,7 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + EmpresaApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + EmpresaApiController.API_CONTROLLER_PATH)
 public class EmpresaApiController extends AbstractIdentificableApiController<Empresa, Long> {
 
 	public static final String API_CONTROLLER_PATH = "/empreses";

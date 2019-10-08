@@ -20,7 +20,7 @@ import es.limit.cecocloud.logic.api.service.OperariService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + OperariApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + OperariApiController.API_CONTROLLER_PATH)
 public class OperariApiController extends AbstractIdentificableApiController<Operari, Long> {
 
 	public static final String API_CONTROLLER_PATH = "/operaris";

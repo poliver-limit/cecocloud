@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH)
 public class IndexApiController {
 
 	@GetMapping(produces = "application/json")

@@ -16,7 +16,7 @@ import es.limit.cecocloud.logic.api.service.CompositePkTestService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + CpkTestApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + CpkTestApiController.API_CONTROLLER_PATH)
 public class CpkTestApiController extends AbstractIdentificableApiController<CompositePkTest, String> {
 
 	public static final String API_CONTROLLER_PATH = "/cpktest";

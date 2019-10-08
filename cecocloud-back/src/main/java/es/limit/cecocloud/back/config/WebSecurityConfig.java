@@ -30,10 +30,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.limit.cecocloud.back.controller.AbstractIdentificableReadOnlyApiController;
-import es.limit.cecocloud.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.back.auth.JwtAuthenticationFilter;
 import es.limit.cecocloud.back.auth.JwtAuthorizationFilter;
+import es.limit.cecocloud.back.controller.AbstractIdentificableApiController;
+import es.limit.cecocloud.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Usuari;
@@ -118,7 +118,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private void addAntMatchersFromApiControllers(
 			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizationRegistry) throws ClassNotFoundException {
-		for (@SuppressWarnings("rawtypes") Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass: ApiControllerHelper.getApiControllerClasses()) {
+		for (@SuppressWarnings("rawtypes") Class<? extends AbstractIdentificableApiController> apiControllerClass: ApiControllerHelper.getApiControllerClasses()) {
 			String[] apiUrls = ApiControllerHelper.getApiUrlsFromApiController(apiControllerClass);
 			Class<? extends Identificable<?>> dtoClass = ApiControllerHelper.getDtoClassFromApiController(apiControllerClass);
 			RestapiResource restapiResource = dtoClass.getAnnotation(RestapiResource.class);

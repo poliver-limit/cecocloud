@@ -319,7 +319,7 @@ export class DatagridComponent implements OnInit {
 		let lovMode = gridConfig.mode && gridConfig.mode.toLowerCase() === 'lov';
 		let formMode = gridConfig.mode && gridConfig.mode.toLowerCase() === 'form';
 		if (!formMode) {
-			gridOptions.rowSelection = 'single'; // 'single' o 'multiple';
+			gridOptions.rowSelection = 'multiple'; // 'single' o 'multiple';
 		}
 		gridOptions.rowDeselection = lovMode;
 		gridOptions.suppressRowClickSelection = formMode ? true : !lovMode;

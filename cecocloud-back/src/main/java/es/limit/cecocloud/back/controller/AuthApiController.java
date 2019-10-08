@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + AuthApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + AuthApiController.API_CONTROLLER_PATH)
 public class AuthApiController {
 
 	public static final String API_CONTROLLER_PATH = "/auth";

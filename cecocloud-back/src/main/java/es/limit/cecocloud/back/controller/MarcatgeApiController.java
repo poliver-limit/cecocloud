@@ -20,7 +20,7 @@ import es.limit.cecocloud.logic.api.service.MarcatgeService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + MarcatgeApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + MarcatgeApiController.API_CONTROLLER_PATH)
 public class MarcatgeApiController extends AbstractIdentificableApiController<Marcatge, Long> {
 
 	public static final String API_CONTROLLER_PATH = "/marcatges";

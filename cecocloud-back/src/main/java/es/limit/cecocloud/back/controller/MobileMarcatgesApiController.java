@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + MobileMarcatgesApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + MobileMarcatgesApiController.API_CONTROLLER_PATH)
 public class MobileMarcatgesApiController {
 
 	public static final String API_CONTROLLER_PATH = "/mobile/marcatges";

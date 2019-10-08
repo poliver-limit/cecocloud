@@ -31,7 +31,7 @@ import es.limit.cecocloud.logic.api.service.ProfileService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + ProfileApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + ProfileApiController.API_CONTROLLER_PATH)
 public class ProfileApiController {
 
 	public static final String API_CONTROLLER_PATH = "/profiles";
@@ -74,7 +74,7 @@ public class ProfileApiController {
 					resourceName,
 					selfLink.getHref(),
 					permissionResourceId);
-			Optional<Class<? extends AbstractIdentificableReadOnlyApiController>> matchingControllerClass = ApiControllerHelper.getApiControllerClasses().stream().
+			Optional<Class<? extends AbstractIdentificableApiController>> matchingControllerClass = ApiControllerHelper.getApiControllerClasses().stream().
 					filter(apiControllerClass -> apiControllerHasResourceName(apiControllerClass, resourceName)).
 					findFirst();
 			Link apiLink = null;
@@ -113,7 +113,7 @@ public class ProfileApiController {
 
 	@SuppressWarnings("rawtypes")
 	private boolean apiControllerHasResourceName(
-			Class<? extends AbstractIdentificableReadOnlyApiController> apiControllerClass,
+			Class<? extends AbstractIdentificableApiController> apiControllerClass,
 			String resourceName) {
 		Class<? extends Identificable<?>> dtoClass = ApiControllerHelper.getDtoClassFromApiController(apiControllerClass);
 		String controllerResourceName = ApiControllerHelper.getResourceNameFromClass(dtoClass);

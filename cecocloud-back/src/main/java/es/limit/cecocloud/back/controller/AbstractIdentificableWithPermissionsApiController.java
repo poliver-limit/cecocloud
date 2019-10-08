@@ -12,7 +12,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -46,7 +45,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			produces = "application/json")
 	public ResponseEntity<Resource<Permission>> permissionCreate(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
+			@PathVariable final ID resourceId,
 			@RequestBody @Valid final Permission permission) {
 		log.debug("Creant permis de l'entitat (" +
 				"resourceId=" + resourceId + ", " +
@@ -67,7 +66,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			produces = "application/json")
 	public ResponseEntity<Resource<Permission>> permissionUpdate(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
+			@PathVariable final ID resourceId,
 			@PathVariable final String permissionId,
 			@RequestBody @Valid final Permission permission) {
 		log.debug("Modificant permis de l'entitat (" +
@@ -91,7 +90,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 	@DeleteMapping(value = "/{resourceId}/permissions/{permissionId}")
 	public ResponseEntity<?> permissionDelete(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
+			@PathVariable final ID resourceId,
 			@PathVariable final String permissionId) {
 		log.debug("Esborrant entitat (" +
 				"resourceId=" + resourceId + ", " +
@@ -105,7 +104,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			produces = "application/json")
 	public ResponseEntity<Resource<Permission>> permissionGetNew(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
+			@PathVariable final ID resourceId) {
 		log.debug("Obtenint nova instància del permis de l'entitat (" +
 				"resourceId=" + resourceId + ")");
 		return ResponseEntity.ok(
@@ -117,15 +116,16 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			produces = "application/json")
 	public ResponseEntity<Resource<Permission>> permissionGetOne(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId,
+			@PathVariable final ID resourceId,
 			@PathVariable final String permissionId) {
 		log.debug("Obtenint un permis de l'entitat (" +
 				"resourceId=" + resourceId + ", " +
 				"permissionId=" + permissionId + ")");
 		Permission permission = getService().permissionGetOne(resourceId, permissionId);
-		return ResponseEntity.ok(toResource(
-				permission,
-				getPermissionSelfLink(resourceId, permissionId)));
+		return ResponseEntity.ok(
+				toResource(
+						permission,
+						getPermissionSelfLink(resourceId, permissionId)));
 	}
 
 	@GetMapping(
@@ -133,7 +133,7 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 			produces = "application/json")
 	public ResponseEntity<Resources<Resource<Permission>>> permissionFind(
 			HttpServletRequest request,
-			@PathVariable @DateTimeFormat(pattern = PATHVARIABLE_DATEFORMAT_PATTERN) final ID resourceId) {
+			@PathVariable final ID resourceId) {
 		log.debug("Obtenint els permisos de l'entitat (" +
 				"resourceId=" + resourceId + ")");
 		List<Permission> permissions = getService().permissionFind(resourceId);

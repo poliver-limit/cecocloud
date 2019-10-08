@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = AbstractApiController.API_PATH + RegistreApiController.API_CONTROLLER_PATH)
+@RequestMapping(value = AbstractIdentificableApiController.API_PATH + RegistreApiController.API_CONTROLLER_PATH)
 public class RegistreApiController {
 
 	public static final String API_CONTROLLER_PATH = "/registres";
