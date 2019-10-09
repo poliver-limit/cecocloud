@@ -62,13 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				antMatchers("/api/auth", "/api/auth/**/*").permitAll().
 				antMatchers("/api/registres/**/*").permitAll();
 		addAntMatchersFromApiControllers(authorizationRegistry);
-//		authorizationRegistry.
-//		antMatchers("/api/usuaris", "/api/usuaris/**/*").hasAuthority("ADMIN").
-//		antMatchers("/api/companyies", "/api/companyies/**/*").hasAuthority("ADMIN").
-//		antMatchers("/api/empreses", "/api/empreses/**/*").hasAuthority("ADMIN").
-//		antMatchers("/api/operaris", "/api/operaris/**/*").hasAnyAuthority("ADMIN", "MARCA").
-//		antMatchers("/api/marcatges", "/api/marcatges/**/*").hasAnyAuthority("ADMIN", "MARCA").
-		authorizationRegistry.antMatchers("/api/sync/**/*").hasAuthority("SYNC").
+		authorizationRegistry.
+		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
 		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority("MARCA").
 		antMatchers("/api/**/*").authenticated().
 		anyRequest().permitAll().
@@ -161,10 +156,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			if (authorities != null && authorities.length > 0) {
 				authorizationRegistry.antMatchers(httpMethod, apiUrl, apiUrl + "/**/*").hasAnyAuthority(
 						Arrays.stream(authorities).map(authority -> authority.name()).toArray(String[]::new));
-				//System.out.println(">>>    antMatchers(HttpMethod." + httpMethod + ", \"" + apiUrl + "\", \"" + apiUrl + "/**/*\").hasAnyAuthority(" + authorities + ").");
 			} else {
 				authorizationRegistry.antMatchers(httpMethod, apiUrl, apiUrl + "/**/*").authenticated();
-				//System.out.println(">>>    antMatchers(HttpMethod." + httpMethod + ", \"" + apiUrl + "\", \"" + apiUrl + "/**/*\").authenticated().");
 			}
 		}
 	}

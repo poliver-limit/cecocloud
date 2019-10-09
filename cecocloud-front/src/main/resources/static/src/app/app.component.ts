@@ -144,7 +144,7 @@ export class AppComponent implements OnInit {
 		menuService.getAllowedMenuItemsChangeSubject().subscribe((allowedMenuItems: MenuItem[]) => {
 			this.allowedMenuItems = allowedMenuItems;
 		});
-		// Configura l'idioma per defecte
+		// Configura l'idioma de l'aplicació
 		let userLang = navigator.language.substring(0, 2); // 'ca';
 		translate.setDefaultLang(userLang);
 		translate.use(userLang);
@@ -156,7 +156,7 @@ export class AppComponent implements OnInit {
 				this.topbarVisible = false;
 				this.content.nativeElement.classList.remove('mdc-top-app-bar--fixed-adjust');
 			}
-			// Ho posat a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
+			// Ho posam a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
 			setTimeout(() => {
 				let menuSelectedIndex = undefined;
 				if (this.allowedMenuItems) {

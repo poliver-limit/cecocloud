@@ -64,7 +64,6 @@ export class DatagridMantenimentDirective {
 						}
 	                    this.datagrid.refreshInternal();
 	                } );
-		            
 	        	}
 			}
         }

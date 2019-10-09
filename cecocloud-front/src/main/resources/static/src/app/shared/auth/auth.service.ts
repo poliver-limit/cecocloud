@@ -4,7 +4,6 @@ import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AuthResponse } from './auth-response';
-import { AuthValidationSession } from './auth-validation-session';
 import { AuthTokenPayload } from './auth-token-payload';
 
 @Injectable( {
@@ -16,7 +15,7 @@ export class AuthService {
 
     private authTokenChangeEvent: Subject<AuthTokenPayload> = new Subject<AuthTokenPayload>();
 
-    public authenticate( user: string, pass: string ): Observable<any> {
+    public login( user: string, pass: string ): Observable<any> {
         const params = new HttpParams().
             append( 'user', user ).
             append( 'pass', pass );
@@ -33,32 +32,43 @@ export class AuthService {
         } );
     }
 
-    public checkAutenticationWithTokenRefresh( throwError: boolean ): Observable<boolean> {
-        return new Observable(( observer ) => {
+	public logout() {
+        this.removeAuthResponseFromLocalStorage();
+        this.authTokenChangeEvent.next();
+        this.router.navigate( ['/login'] );
+    }
+
+    public checkAutenticationWithTokenRefresh(): Observable<boolean> {
+        return new Observable((observer) => {
             let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-            if ( authResponse && !this.isTokenExpired( authResponse.token ) ) {
-                observer.next( true );
-                observer.complete();
-            } else if ( authResponse ) {
-                console.info( 'Refrescant token expirat', authResponse.token );
-                const headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
-                this.http.post( 'api/auth/refresh', { token: authResponse.token }, { headers: headers } ).subscribe(( response: AuthResponse ) => {
-                    console.info( 'Token refrescat amb èxit', response.token );
-                    this.saveAuthResponseToLocalStorage( response );
-                    this.authTokenChangeEvent.next( this.getAuthTokenPayload() );
-                    // Token refrescat correctament
-                    observer.next( true );
-                    observer.complete();
-                }, ( error: HttpErrorResponse ) => {
-                    console.info( 'Error al refrescar el token', error );
-                    // Token refrescat amb error
-                    this.logout();
-                    observer.next( false );
-                    observer.complete();
-                } );
+			if (authResponse) {
+				if (!this.isTokenExpired(authResponse.token)) {
+					// Si hi ha token i encara no ha expirat retorna true
+	                observer.next(true);
+	                observer.complete();
+	            } else {
+					// Si hi ha token i ha expirat intenta refrescar-lo
+	                console.info('Refrescant token expirat', authResponse.token);
+	                const headers = new HttpHeaders().set('Content-Type', 'application/json');
+	                this.http.post('api/auth/refresh', {token: authResponse.token}, {headers: headers}).subscribe((response: AuthResponse) => {
+	                    console.info('Token refrescat amb èxit', response.token);
+	                    this.saveAuthResponseToLocalStorage(response);
+	                    this.authTokenChangeEvent.next(this.getAuthTokenPayload());
+	                    // Token refrescat correctament
+	                    observer.next(true);
+	                    observer.complete();
+	                }, ( error: HttpErrorResponse ) => {
+	                    console.info('Error al refrescar el token', error);
+	                    // Token refrescat amb error
+	                    this.logout();
+	                    observer.next(false);
+	                    observer.complete();
+	                } );
+				}
             } else {
+				// Si no hi ha token executa un logout (redirigint a la pàgina de login)
                 this.logout();
-                observer.next( false );
+                observer.next(false);
                 observer.complete();
             }
         } );
@@ -66,7 +76,7 @@ export class AuthService {
 
     public getAuthToken(): string {
         let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
-        if ( authResponse && !this.isTokenExpired( authResponse.token ) ) {
+        if ( authResponse/* && !this.isTokenExpired( authResponse.token )*/ ) {
             return authResponse.token;
         }
     }
@@ -76,12 +86,6 @@ export class AuthService {
         if ( authResponse ) {
             return this.tokenToObject( authResponse.token );
         }
-    }
-
-    public logout() {
-        this.removeAuthResponseFromLocalStorage();
-        this.authTokenChangeEvent.next();
-        this.router.navigate( ['/login'] );
     }
 
     public getAuthTokenChangeEvent() {

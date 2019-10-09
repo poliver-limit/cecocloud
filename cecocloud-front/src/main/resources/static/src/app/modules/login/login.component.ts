@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../shared/auth/auth.service';
-import { AuthResponse } from '../../shared/auth/auth-response';
 import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
@@ -53,16 +52,16 @@ export class LoginComponent {
     valid: boolean = true;
     mobileScreen: boolean;
 
-    onUserFieldInput( value ) {
+    onUserFieldInput( value: string ) {
         this.user = value;
     }
-    onPassFieldInput( value ) {
+    onPassFieldInput( value: string ) {
         this.pass = value;
     }
 
     onEntrarButtonClick() {
         this.valid = true;
-        this.authService.authenticate( this.user, this.pass ).subscribe(
+        this.authService.login( this.user, this.pass ).subscribe(
             ( response ) => {
                 if ( response.error ) {
                     this.valid = false;
@@ -72,7 +71,7 @@ export class LoginComponent {
             } );
     }
 
-    onSubmit( event ) {
+    onSubmit( event: Event ) {
         event.preventDefault();
         this.onEntrarButtonClick();
     }
