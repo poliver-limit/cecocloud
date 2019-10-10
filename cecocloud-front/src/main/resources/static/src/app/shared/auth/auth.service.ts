@@ -38,6 +38,18 @@ export class AuthService {
         this.router.navigate( ['/login'] );
     }
 
+	public sessionSave(session: any) {
+		this.tokenRefresh(session).subscribe(
+			(response: AuthResponse) => {
+	            this.saveAuthResponseToLocalStorage(response);
+	            this.authTokenChangeEvent.next(this.getAuthTokenPayload());
+	        }, ( error: HttpErrorResponse ) => {
+	            console.error('Couldn\'t save session', error);
+	            this.logout();
+	        }
+		);
+	} 
+
     public checkAutenticationWithTokenRefresh(): Observable<boolean> {
         return new Observable((observer) => {
             let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
@@ -47,23 +59,23 @@ export class AuthService {
 	                observer.next(true);
 	                observer.complete();
 	            } else {
-					// Si hi ha token i ha expirat intenta refrescar-lo
 	                console.info('Refrescant token expirat', authResponse.token);
-	                const headers = new HttpHeaders().set('Content-Type', 'application/json');
-	                this.http.post('api/auth/refresh', {token: authResponse.token}, {headers: headers}).subscribe((response: AuthResponse) => {
-	                    console.info('Token refrescat amb èxit', response.token);
-	                    this.saveAuthResponseToLocalStorage(response);
-	                    this.authTokenChangeEvent.next(this.getAuthTokenPayload());
-	                    // Token refrescat correctament
-	                    observer.next(true);
-	                    observer.complete();
-	                }, ( error: HttpErrorResponse ) => {
-	                    console.info('Error al refrescar el token', error);
-	                    // Token refrescat amb error
-	                    this.logout();
-	                    observer.next(false);
-	                    observer.complete();
-	                } );
+					this.tokenRefresh().subscribe(
+						(response: AuthResponse) => {
+							//console.info('Token refrescat amb èxit', response.token);
+							this.saveAuthResponseToLocalStorage(response);
+							this.authTokenChangeEvent.next(this.getAuthTokenPayload());
+							// Token refrescat correctament
+							observer.next(true);
+							observer.complete();
+						}, ( error: HttpErrorResponse ) => {
+							// Token refrescat amb error
+							console.error('Couldn\'t refresh token', error);
+							this.logout();
+							observer.next(false);
+							observer.complete();
+						}
+					);
 				}
             } else {
 				// Si no hi ha token executa un logout (redirigint a la pàgina de login)
@@ -88,9 +100,30 @@ export class AuthService {
         }
     }
 
+    public getSession(): any {
+        let payload: AuthTokenPayload = this.getAuthTokenPayload()
+		if (payload) {
+			return payload.session;
+		}
+    }
+
     public getAuthTokenChangeEvent() {
         return this.authTokenChangeEvent;
     }
+
+	private tokenRefresh(session?: any): Observable<AuthResponse> {
+		let authResponse: AuthResponse = this.getAuthResponseFromLocalStorage();
+		if (!session) {}
+		let refreshParams: any = {
+			token: authResponse.token
+		};
+		let requestSession: any = (session) ? session: this.getSession();
+		if (requestSession) {
+			refreshParams.session = requestSession;
+		}
+		const headers = new HttpHeaders().set('Content-Type', 'application/json');
+		return <Observable<AuthResponse>>this.http.post('api/auth/refresh', refreshParams, {headers: headers});
+	}
 
     private saveAuthResponseToLocalStorage( authResponse: AuthResponse ) {
         localStorage.setItem(

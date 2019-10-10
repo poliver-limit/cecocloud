@@ -6,4 +6,5 @@ export class AuthTokenPayload {
     rol: string[];
     name: string;
     email: string;
+	session: any;
 }

@@ -35,10 +35,16 @@ export class CompanyiesFormComponent {
 		editable: true,
 		columns: [{
             field: 'sidType',
+			width: 30
         }, {
             field: 'sidName',
+			width: 40
+        }, {
+            field: 'adminGranted',
+			width: 10
         }, {
             field: 'syncGranted',
+			width: 10
         }]
     };
 

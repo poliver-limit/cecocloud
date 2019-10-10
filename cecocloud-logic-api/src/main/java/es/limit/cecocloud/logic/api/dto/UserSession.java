@@ -15,5 +15,6 @@ import lombok.Setter;
 public class UserSession {
 
 	private Long companyia;
+	private Long empresa;
 
 }

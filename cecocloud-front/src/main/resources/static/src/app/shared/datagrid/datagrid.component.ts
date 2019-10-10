@@ -612,6 +612,7 @@ export class DatagridComponent implements OnInit {
 					width = restapiField.gridPercentWidth;
 				}
 				if (gridColumn.width) {
+					console.log('>>> width: ', gridColumn.width)
 					width = gridColumn.width;
 				}
 				if (datagridConfig.editable) {
@@ -710,7 +711,7 @@ export class DatagridComponent implements OnInit {
 		}
 		if (formMode) {
 			columnDefs.push({
-				width: this.rowHeight,
+				width: 1,
 				cellRendererFramework: DatagridActionsRendererComponent,
 				cellRendererParams: {
 				}
