@@ -23,7 +23,7 @@ import { MenuService, MenuItem } from './shared/menu.service';
             </mdc-top-app-bar-section>
             <mdc-top-app-bar-section align="end">
                 <a *ngIf="false" href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
-				<mdc-icon mdcTopAppBarActionItem (click)="onSessionIconClick()">get_app</mdc-icon>
+				<!--mdc-icon mdcTopAppBarActionItem (click)="onSessionIconClick()">get_app</mdc-icon-->
                 <div mdcMenuSurfaceAnchor #userAnchor>
                     <mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload?.name}}" (click)="userMenu.open = !userMenu.open">account_circle</mdc-icon>
                     <mdc-menu anchorCorner="bottomStart" quickOpen #userMenu [anchorElement]="userAnchor">
@@ -146,7 +146,6 @@ export class AppComponent implements OnInit {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: AuthTokenPayload) => {
-			console.log('>>> Token refrescat', this.authService.getSession());
 			this.tokenPayload = tokenPayload;
 		});
 		// Manten actualitzada la llista d'elements de menu permesos
