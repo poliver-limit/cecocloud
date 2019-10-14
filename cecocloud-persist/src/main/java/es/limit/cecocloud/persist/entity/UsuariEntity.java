@@ -46,7 +46,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "actiu"))
 })
 public class UsuariEntity extends AbstractEntity<Usuari, Long> {
-	
+
 	@Embedded
 	protected Usuari embedded;
 
