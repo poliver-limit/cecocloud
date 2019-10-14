@@ -89,4 +89,17 @@ public interface GenericServiceWithPermissions<D extends Identificable<ID>, ID e
 	 */
 	public List<Permission> permissionFind(ID id);
 
+	/**
+	 * Verifica l'usuari actual te permís a damunt l'entitat especificada.
+	 * 
+	 * @param id
+	 *            identificació de l'entitat.
+	 * @param permission
+	 *            permís a verificar.
+	 * @return true si l'usuari te permís o false en cas contrari.
+	 */
+	public boolean permissionCheck(
+			ID id,
+			org.springframework.security.acls.model.Permission permission);
+
 }

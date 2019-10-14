@@ -98,11 +98,24 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 	@Override
 	@Transactional(readOnly = true)
 	public List<Permission> permissionFind(ID id) {
-		log.debug("Consulta de permisos de l'entitat (" + "id=" + id + ")");
+		log.debug("Consulta de permisos de l'entitat (id=" + id + ")");
 		getEntity(id);
 		return permissionHelper.find(
 				getDtoClass(),
 				id);
+	}
+
+	@Override
+	public boolean permissionCheck(
+			ID id,
+			org.springframework.security.acls.model.Permission permission) {
+		log.debug("Verificació de permís (" +
+				"id=" + id + ", " +
+				"permission=" + permission + ")");
+		return permissionHelper.checkPermissionForCurrentUser(
+				getDtoClass(),
+				id,
+				permission);
 	}
 
 }

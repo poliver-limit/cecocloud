@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom",
 		authoritiesWithCreatePermission = { Rol.ADMIN },
-		authoritiesWithReadPermission = { Rol.ADMIN },
+		authoritiesWithReadPermission = { Rol.ADMIN, Rol.MARCA },
 		authoritiesWithUpdatePermission = { Rol.ADMIN },
 		authoritiesWithDeletePermission = { Rol.ADMIN })
 public class Empresa extends AbstractIdentificable<Long> {

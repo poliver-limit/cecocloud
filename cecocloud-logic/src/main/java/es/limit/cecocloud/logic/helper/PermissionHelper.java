@@ -23,6 +23,9 @@ import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.acls.model.ObjectIdentity;
 import org.springframework.security.acls.model.Permission;
 import org.springframework.security.acls.model.Sid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.logic.api.acl.ExtendedPermission;
@@ -54,8 +57,8 @@ public class PermissionHelper {
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
-				permission.getSidType(),
-				permission.getSidName(),
+				Arrays.asList(
+						getSid(permission.getSidType(), permission.getSidName())),
 				true);
 		// Es recorren els permisos de l'ACL i s'esborren els que no
 		// hi han de ser. Els permisos de permissionList que ja hi son
@@ -100,8 +103,8 @@ public class PermissionHelper {
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
-				permission.getSidType(),
-				permission.getSidName(),
+				Arrays.asList(
+						getSid(permission.getSidType(), permission.getSidName())),
 				true);
 		Sid sid = getSid(
 				permission.getSidType(),
@@ -141,6 +144,44 @@ public class PermissionHelper {
 				null);
 	}
 
+	public boolean checkPermissionForCurrentUser(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			Permission permission) {
+		List<Sid> sids = new ArrayList<Sid>();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			sids.add(new PrincipalSid(auth.getName()));
+			for (GrantedAuthority ga: auth.getAuthorities()) {
+				sids.add(new GrantedAuthoritySid(ga.getAuthority()));
+			}
+			return checkPermissionForSids(
+					resourceClass,
+					resourceId,
+					sids,
+					permission);
+		} else {
+			return false;
+		}
+	}
+
+	private boolean checkPermissionForSids(
+			Class<?> resourceClass,
+			Serializable resourceId,
+			List<Sid> sids,
+			Permission permission) {
+		MutableAcl acl = getMutableAcl(
+				resourceClass,
+				resourceId,
+				sids,
+				false);
+		if (acl != null) {
+			return acl.isGranted(Arrays.asList(permission), sids, true);
+		} else {
+			return false;
+		}
+	}
+
 	private List<es.limit.cecocloud.logic.api.dto.Permission> find(
 			Class<?> resourceClass,
 			Serializable resourceId,
@@ -159,8 +200,8 @@ public class PermissionHelper {
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
-				sidType,
-				sidName,
+				Arrays.asList(
+						getSid(sidType, sidName)),
 				false);
 		List<es.limit.cecocloud.logic.api.dto.Permission> permissions = new ArrayList<es.limit.cecocloud.logic.api.dto.Permission>();
 		if (acl != null) {
@@ -201,42 +242,15 @@ public class PermissionHelper {
 		return permissions;
 	}
 
-	public boolean checkPermission(
-			Class<?> resourceClass,
-			Serializable resourceId,
-			PermissionSidType sidType,
-			String sidName,
-			Permission permission) {
-		MutableAcl acl = getMutableAcl(
-				resourceClass,
-				resourceId,
-				sidType,
-				sidName,
-				false);
-		if (acl != null) {
-			Sid sid = getSid(sidType, sidName);
-			return acl.isGranted(Arrays.asList(permission), Arrays.asList(sid), true);
-		} else {
-			return false;
-		}
-	}
-
 	private MutableAcl getMutableAcl(
 			Class<?> resourceClass,
 			Serializable resourceId,
-			PermissionSidType sidType,
-			String sidName,
+			List<Sid> sids,
 			boolean createIfNotExists) {
 		ObjectIdentity objectIdentity = new ObjectIdentityImpl(resourceClass.getName(), resourceId);
-		Sid sid = null;
-		if (sidType != null && sidName != null) {
-			sid = getSid(sidType, sidName);
-		}
 		MutableAcl acl;
 		try {
-			acl = (MutableAcl)mutableAclService.readAclById(
-					objectIdentity,
-					(sid != null) ? Arrays.asList(sid) : null);
+			acl = (MutableAcl)mutableAclService.readAclById(objectIdentity, sids);
 		} catch (NotFoundException ex) {
 			if (createIfNotExists) {
 				acl = mutableAclService.createAcl(objectIdentity);
