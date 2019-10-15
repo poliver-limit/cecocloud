@@ -92,7 +92,7 @@ export class UsuarisContrasenyaDialog implements OnInit {
 		let confirmation = this.formGroup.get('confirmation').value;
 		if (!password && !confirmation) {
 			this.passwordField.nativeElement.focus();
-			this.fieldError = this.translate.instant('error.validation.contraint.NotNull');
+			this.fieldError = this.translate.instant('error.validation.constraint.NotNull');
 			this.formGroup.get('password').markAsTouched();
 			this.formGroup.get('password').setErrors({'error': true});
 			this.formGroup.get('confirmation').markAsTouched();

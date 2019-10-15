@@ -146,16 +146,13 @@ export class AuthService {
         return Date.now() > tokenPayload.exp * 1000;
     }
 
-    private tokenToObject( token: string ): any {
+    public tokenToObject( token: string ): any {
         let base64Url = token.split( '.' )[1];
         let base64 = base64Url.replace( /-/g, '+' ).replace( /_/g, '/' );
-        return JSON.parse( atob( base64 ) );
-        /*aud: "secure-app"
-        exp: 1563292589
-        iss: "secure-api"
-        name: "test"
-        rol: ["ADMIN"]
-        sub: "test"*/
+		let decoded: string = decodeURIComponent(atob(base64).split('').map(function(c) {
+			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+		}).join(''));
+        return JSON.parse( decoded );
     }
 
     constructor(

@@ -31,7 +31,7 @@ import { UsuarisService } from './usuaris.service';
 		<div style="width: 20%">
 		</div>
 	</div>
-	<restapi-custom name="contrasenya"><usuari-contrasenya #customField [usuariId]="usuariId"></usuari-contrasenya></restapi-custom>
+	<restapi-custom *ngIf="usuariId" name="contrasenya"><usuari-contrasenya #customField [usuariId]="usuariId"></usuari-contrasenya></restapi-custom>
 </restapi-form>
 `
 } )

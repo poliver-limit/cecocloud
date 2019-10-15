@@ -3,9 +3,10 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import es.limit.cecocloud.logic.api.validation.UsuariEmailNotExists;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,15 +16,13 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@UsuariEmailNotExists
 public class RegistreUsuari {
 
-	@NotNull
-	@Size(max = 100)
-	private String codi;
-	@NotNull
+	@NotEmpty
 	@Size(max = 100)
 	private String nom;
-	@NotNull
+	@NotEmpty
 	@Size(max = 100)
 	private String email;
 

@@ -57,7 +57,7 @@
 	"create.msg.create.error": "Usuario o correo-e incorrectos",
 	"create.button.cancel": "Cancelar",
 	"create.button.crear": "Crear",
-	"create.notify.create": "El usuario se ha creado correctamente",
+	"create.snack.created.ok": "El usuario se ha creado correctamente. En breve recibirá un correo con más instrucciones.",
 
 	"recover.titol": "Recuperar contraseña",
 	"recover.field.correu": "Correo-e",
@@ -66,16 +66,17 @@
 	"recover.button.recuperar": "Recuperar",
 	"recover.notify.recover": "Correcto",
 
-	"validate.titol.validar": "Validar nuevo usuario",
+	"validate.titol.validar": "Validar usuario",
 	"validate.titol.recuperarContrasenya": "Recuperar contraseña",
 	"validate.label.usuari": "Usuario",
-	"validate.label.nom": "Nombre",
+	"validate.label.correu": "Correo-e",
 	"validate.field.contrasenya": "Contraseña",
 	"validate.field.repContrasenya": "Repetir contraseña",
 	"validate.msg.validate.error": "La contraseña no coincide",
 	"validate.button.cancel": "Cancelar",
 	"validate.button.validate": "Validar",
-	"validate.notify.validate": "Correcto",
+	"validate.snack.validated.ok": "El usuario se ha validado correctamente",
+	"validate.link.expired": "El periodo de validez de este enlace ya ha expirado",
 
 	"home.salutacio": "Bienvenido",
 
@@ -87,9 +88,14 @@
 	"error.dialog.no.connexio": "Parece que se ha perdido la conexión a Internet. Por favor, revise su configuración de red y vuelva a intentarlo.",
 	"error.dialog.button.close": "Cerrar",
 
-	"error.validation.contraint.NotNull": "Este campo es obligatorio",
-	"error.validation.contraint.MarcatgeOperariValid": "Operario inválido",
-	"error.validation.contraint.MarcatgeData": "Fecha incorrecta",
+	"error.validation.unknown": "Error desconocido",
+	"error.validation.constraint.required": "Este campo es obligatorio",
+	"error.validation.constraint.email": "No es una dirección de correo válida",
+	"error.validation.constraint.NotNull": "Este campo es obligatorio",
+	"error.validation.constraint.NotEmpty": "Este campo es obligatorio",
+	"error.validation.constraint.MarcatgeOperariValid": "Operario inválido",
+	"error.validation.constraint.MarcatgeData": "Fecha incorrecta",
+	"error.validation.constraint.UsuariEmailNotExists": "Ya existe otro usuario con la misma dirección de correo",
 
 	"resource.usuari": "Usuario",
 	"resource.usuari.plural": "Usuarios",
