@@ -46,17 +46,17 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
 		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
 		boolean isAdminCurrentCompanyia = false;
-		if (getUserSession(request).getCompanyia() != null) {
-			isAdminCurrentCompanyia = companyiaService.permissionCheck(
-					getUserSession(request).getCompanyia(),
-					ExtendedPermission.ADMINISTRATION);
-		}
+//		if (getUserSession(request).getCompanyia() != null) {
+//			isAdminCurrentCompanyia = companyiaService.permissionCheck(
+//					getUserSession(request).getCompanyia(),
+//					ExtendedPermission.ADMINISTRATION);
+//		}
 		boolean isAdminCurrentEmpresa = false;
-		if (getUserSession(request).getCompanyia() != null) {
-			/*isAdminCurrentEmpresa = empresaService.permissionCheck(
-					getUserSession(request).getEmpresa(),
-					ExtendedPermission.ADMINISTRATION);*/
-		}
+//		if (getUserSession(request).getCompanyia() != null) {
+//			/*isAdminCurrentEmpresa = empresaService.permissionCheck(
+//					getUserSession(request).getEmpresa(),
+//					ExtendedPermission.ADMINISTRATION);*/
+//		}
 		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.MARCA);
 		if (!isAdmin && isAdminCurrentCompanyia) {
 			return "operari.empresa.companyia.id==" + this.getUserSession(request).getCompanyia();

@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		addAntMatchersFromApiControllers(authorizationRegistry);
 		authorizationRegistry.
 		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
-		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority("MARCA").
+		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority(Rol.MARCA.name()).
 		antMatchers("/api/**/*").authenticated().
 		anyRequest().permitAll().
 		and().
@@ -116,6 +116,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		for (@SuppressWarnings("rawtypes") Class<? extends AbstractIdentificableApiController> apiControllerClass: ApiControllerHelper.getApiControllerClasses()) {
 			String[] apiUrls = ApiControllerHelper.getApiUrlsFromApiController(apiControllerClass);
 			Class<? extends Identificable<?>> dtoClass = ApiControllerHelper.getDtoClassFromApiController(apiControllerClass);
+			/*Map<Permission, List<Rol>> permisos = aclService.consultaElsRols();
+			for(Permission permission: permisos.keySet()) {
+				
+			}*/
 			RestapiResource restapiResource = dtoClass.getAnnotation(RestapiResource.class);
 			if (restapiResource != null) {
 				addAntMatcher(
