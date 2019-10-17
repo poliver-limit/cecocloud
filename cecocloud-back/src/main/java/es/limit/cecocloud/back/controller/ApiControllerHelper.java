@@ -71,7 +71,7 @@ public abstract class ApiControllerHelper {
 			Class<? extends Identificable<?>> dtoClass = getDtoClassFromApiController(apiControllerClass);
 			rel = getResourceNameFromClass(dtoClass);
 		}
-		Link link = linkTo(methodOn(apiControllerClass).find(null, null, null, null)).withRel(rel);
+		Link link = linkTo(methodOn(apiControllerClass).find(null, null, null, null, null)).withRel(rel);
 		return new Link(link.getTemplate().expand(null, null).toString(), rel);
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })

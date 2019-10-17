@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.back.acl;
+package es.limit.cecocloud.logic.config;
 
 import java.util.List;
 

@@ -36,7 +36,7 @@ public class OperariApiController extends AbstractIdentificableApiController<Ope
 	}
 
 	@Override
-	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
+	protected String buildAdditionalRsqlQuery(HttpServletRequest request, boolean admin) {
 		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
 		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.MARCA);
 		if (!isAdmin && isMarcatge) {

@@ -40,7 +40,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	}
 
 	@Override
-	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
+	protected String buildAdditionalRsqlQuery(HttpServletRequest request, boolean admin) {
 		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
 		boolean isAdminCurrentCompanyia = false;
 //		if (getUserSession(request).getCompanyia() != null) {

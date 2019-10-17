@@ -28,5 +28,6 @@ public class ProfileResource {
 	private boolean hasReadPermission;
 	private boolean hasUpdatePermission;
 	private boolean hasDeletePermission;
+	private boolean hasAdminPermission;
 
 }

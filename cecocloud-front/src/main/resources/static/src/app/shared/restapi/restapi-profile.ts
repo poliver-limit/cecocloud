@@ -24,6 +24,7 @@ export class RestapiResource {
     hasReadPermission?: boolean;
     hasUpdatePermission?: boolean;
     hasDeletePermission?: boolean;
+    hasAdminPermission?: boolean;
 }
 
 export class RestapiResourceField {

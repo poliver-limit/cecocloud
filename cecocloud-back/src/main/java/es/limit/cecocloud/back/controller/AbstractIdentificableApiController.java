@@ -245,11 +245,17 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 			HttpServletRequest request,
 			@RequestParam(value = "quickFilter", required = false) final String quickFilter,
 			@RequestParam(value = "query", required = false) final String query,
+			@RequestParam(value = "admin", required = false) final Boolean admin,
 			final Pageable pageable) {
-		String rsqlQuery = buildServiceRsqlQuery(request, query);
+		String rsqlQuery = buildServiceRsqlQuery(
+				request,
+				query,
+				admin != null ? admin.booleanValue() : false);
 		log.debug("Consulta d'entitats amb filtre i paginació (" +
 				"quickFilter=" + quickFilter + ", " +
+				"query=" + query + ", " +
 				"rsqlQuery=" + rsqlQuery + ", " +
+				"admin=" + admin + ", " +
 				"pageable=" + pageable + ")");
 		Page<D> pagina = getService().findPageByQuickFilterAndRsqlQuery(
 				quickFilter,
@@ -357,23 +363,33 @@ public abstract class AbstractIdentificableApiController<D extends Identificable
 
 	protected String buildServiceRsqlQuery(
 			HttpServletRequest request,
-			String rsqlQuery) {
+			String rsqlQuery,
+			boolean admin) {
 		StringBuilder finalRsqlQuery = new StringBuilder();
 		appendRsqlQuery(finalRsqlQuery, rsqlQuery);
 		appendRsqlQuery(
 				finalRsqlQuery,
 				buildRsqlQueryFromRequestParams(request));
+		if (!admin) {
+			appendRsqlQuery(
+					finalRsqlQuery,
+					buildRsqlQueryFromSession(getUserSession(request)));
+		}
 		appendRsqlQuery(
 				finalRsqlQuery,
-				buildAdditionalRsqlQuery(request));
+				buildAdditionalRsqlQuery(request, admin));
 		return (finalRsqlQuery.length() > 0) ? finalRsqlQuery.toString() : null;
+		
 	}
-	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
+	protected String buildRsqlQueryFromSession(UserSession userSession) {
+		return null;
+	}
+	protected String buildAdditionalRsqlQuery(HttpServletRequest request, boolean admin) {
 		return null;
 	}
 
 	protected Link getApiLink(String rel) {
-		return linkTo(methodOn(getClass()).find(null, null, null, null)).withRel(rel);
+		return linkTo(methodOn(getClass()).find(null, null, null, null, null)).withRel(rel);
 	}
 	protected Link getProfileLink(String rel) {
 		return linkTo(methodOn(ProfileApiController.class).getOne(null, getResourceNameFromDtoClass())).withRel(rel);

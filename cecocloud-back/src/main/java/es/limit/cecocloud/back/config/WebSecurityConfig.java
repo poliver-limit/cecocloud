@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -122,31 +123,43 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			}*/
 			RestapiResource restapiResource = dtoClass.getAnnotation(RestapiResource.class);
 			if (restapiResource != null) {
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.POST,
-						apiUrls,
-						restapiResource.authoritiesWithCreatePermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.GET,
-						apiUrls,
-						restapiResource.authoritiesWithReadPermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.PUT,
-						apiUrls,
-						restapiResource.authoritiesWithUpdatePermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.PATCH,
-						apiUrls,
-						restapiResource.authoritiesWithUpdatePermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.DELETE,
-						apiUrls,
-						restapiResource.authoritiesWithDeletePermission());
+				if (restapiResource.restrictedToAuthorities()) {
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.POST,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithCreatePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.GET,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithReadPermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.PUT,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithUpdatePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.PATCH,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithUpdatePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.DELETE,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithDeletePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+				}
 			}
 		}
 	}

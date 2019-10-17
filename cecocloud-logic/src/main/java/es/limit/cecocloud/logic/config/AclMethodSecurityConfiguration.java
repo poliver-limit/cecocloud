@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.back.acl;
+package es.limit.cecocloud.logic.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
