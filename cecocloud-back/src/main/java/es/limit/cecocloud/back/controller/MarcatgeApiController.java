@@ -9,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.cecocloud.logic.api.acl.ExtendedPermission;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.util.AuthenticationFacade;
-import es.limit.cecocloud.logic.api.service.CompanyiaService;
-import es.limit.cecocloud.logic.api.service.EmpresaService;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 
 /**
@@ -28,10 +25,10 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 
 	public static final String API_CONTROLLER_PATH = "/marcatges";
 
-	@Autowired
+	/*@Autowired
 	private CompanyiaService companyiaService;
 	@Autowired
-	private EmpresaService empresaService;
+	private EmpresaService empresaService;*/
 	@Autowired
 	private MarcatgeService service;
 	@Autowired
