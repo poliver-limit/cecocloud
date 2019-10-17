@@ -186,22 +186,19 @@ public class PermissionHelper {
 			Class<?> resourceClass,
 			Serializable resourceId,
 			String permissionId) {
-		PermissionSidType sidType = null;
-		String sidName = null;
+		List<Sid> sidsFromParams = null;
 		Sid sidFromParams = null;
 		if (permissionId != null) {
 			es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission(permissionId);
-			sidType = permission.getSidType();
-			sidName = permission.getSidName();
 			sidFromParams = getSid(
 					permission.getSidType(),
 					permission.getSidName());
+			sidsFromParams = Arrays.asList(sidFromParams);
 		}
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
-				Arrays.asList(
-						getSid(sidType, sidName)),
+				sidsFromParams,
 				false);
 		List<es.limit.cecocloud.logic.api.dto.Permission> permissions = new ArrayList<es.limit.cecocloud.logic.api.dto.Permission>();
 		if (acl != null) {
