@@ -144,7 +144,68 @@ public abstract class AbstractIdentificableWithPermissionsApiController<D extend
 						new PermissionSelfLinkBuilder<ID>(resourceId),
 						getPermissionApiLink(resourceId, Link.REL_SELF)));
 	}
+	
+//	@GetMapping(
+//			value = "/alowed",
+//			produces = "application/json")
+//	public ResponseEntity<PagedResources<Resource<D>>> findAllowed(
+//			HttpServletRequest request,
+//			@RequestParam(value = "quickFilter", required = false) final String quickFilter,
+//			@RequestParam(value = "query", required = false) final String query,
+//			final Pageable pageable) {
+//		String rsqlQuery = buildServiceRsqlQuery(request, query);
+//		log.debug("Consulta d'entitats amb filtre i paginació (" +
+//				"quickFilter=" + quickFilter + ", " +
+//				"rsqlQuery=" + rsqlQuery + ", " +
+//				"pageable=" + pageable + ")");
+//		// Obtenim la llista de tots els elements filtrats
+//		List<D> llista = getService().findListByQuickFilterAndRsqlQuery(
+//				quickFilter,
+//				rsqlQuery);
+//		// Comprovam si tenim permisos sobre cada un dels elements, 
+//		// i en cas afirmatiu guardam el seu identificador
+//		List<String> idsAllowed = new ArrayList<String>();
+//		for (D dto: llista) {
+//			if (getService().permissionCheck(dto.getId(), ExtendedPermission.ADMINISTRATION)) {
+//				idsAllowed.add(dto.getId().toString());
+//			}
+//		}
+//		// Afegim els ids permesos al filtre de la consulta
+//		String appendRsqlQuery = "id in (" + idsAllowed.stream().collect(Collectors.joining(",")) + ")";
+//		String allowedRsqlQuery = appendRsqlQuery(rsqlQuery, appendRsqlQuery);
+//		// Realitzam la consulta d'abans filtrant pels ids permesos, i paginant 
+//		Page<D> pagina = getService().findPageByQuickFilterAndRsqlQuery(
+//				quickFilter,
+//				allowedRsqlQuery,
+//				pageable);
+//		
+//		return ResponseEntity.ok(
+//				toPagedResources(
+//						pagina,
+//						getClass(),
+//						new SelfLinkBuilder() {
+//							@Override
+//							public Link build(Class<?> apiControllerClass, Object... params) {
+//								return getSelfLink(params);
+//							}
+//						},
+//						getApiLink(Link.REL_SELF),
+//						getProfileLink("profile")));
+//	}
 
+	private String appendRsqlQuery(String rsqlQuery, String appendRsqlQuery) {
+		String finalRsqlQuery = rsqlQuery;
+		if (finalRsqlQuery != null && !finalRsqlQuery.isEmpty()) {
+			if (finalRsqlQuery.length() > 0) {
+				finalRsqlQuery += ";";
+			}
+			finalRsqlQuery += "(";
+			finalRsqlQuery += rsqlQuery;
+			finalRsqlQuery += ")";
+		}
+		return finalRsqlQuery;
+	}
+	
 	@SuppressWarnings("unchecked")
 	protected Link getPermissionApiLink(
 			ID resourceId,

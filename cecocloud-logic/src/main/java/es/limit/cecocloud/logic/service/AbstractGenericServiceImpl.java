@@ -89,6 +89,19 @@ public abstract class AbstractGenericServiceImpl<D extends Identificable<ID>, ID
 				rsqlQuery,
 				pageable);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<D> findListByQuickFilterAndRsqlQuery(
+			String quickFilter,
+			String rsqlQuery) {
+		log.debug("Consulta d'entitats amb filtre sense paginació (" +
+				"quickFilter=" + quickFilter + ", " +
+				"rsqlQuery=" + rsqlQuery + ")");
+		return super.findListByQuickFilterAndRsqlQuery(
+				quickFilter,
+				rsqlQuery);
+	}
 
 	@Override
 	@Transactional(readOnly = true)

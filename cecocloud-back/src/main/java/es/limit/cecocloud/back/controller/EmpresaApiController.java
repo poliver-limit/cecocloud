@@ -17,10 +17,21 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
  */
 @RestController
 @RequestMapping(value = AbstractIdentificableApiController.API_PATH + EmpresaApiController.API_CONTROLLER_PATH)
-public class EmpresaApiController extends AbstractIdentificableApiController<Empresa, Long> {
+public class EmpresaApiController extends AbstractIdentificableWithPermissionsApiController<Empresa, Long> {
 
 	public static final String API_CONTROLLER_PATH = "/empreses";
 
+//	@GetMapping(
+//			path = "/permeses}",
+//			produces = "application/json")
+//	public ResponseEntity<Resources<Resource<Empresa>>> permeses(
+//			HttpServletRequest request) {
+//		
+//		List<Empresa> empresesPermeses = getService().getAllowedEmpreses();
+//
+//		return null;
+//	}
+	
 	@Autowired
 	private EmpresaService service;
 

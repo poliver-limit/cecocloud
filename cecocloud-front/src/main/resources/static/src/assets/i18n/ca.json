@@ -38,7 +38,8 @@
 	"component.restapi.form.manteniment.updated": "El registre s'ha modificat correctament",
 	"component.restapi.form.manteniment.deleted": "El registre s'ha esborrat correctament",
 	"component.restapi.form.manteniment.button.close": "Tancar",
-
+	"component.restapi.form.permiosos": "Permisos",
+	
 	"component.restapi.lov.title": "Seleccionar",
 	"component.restapi.lov.button.close": "Tancar",
 	"component.restapi.lov.button.select": "Seleccionar",

@@ -38,6 +38,7 @@
 	"component.restapi.form.manteniment.updated": "El registro se ha modificado correctamente",
 	"component.restapi.form.manteniment.deleted": "El registro se ha borrado correctamente",
 	"component.restapi.form.manteniment.button.close": "Cerrar",
+	"component.restapi.form.permiosos": "Permisos",
 
 	"component.restapi.lov.title": "Seleccionar",
 	"component.restapi.lov.button.close": "Cerrar",

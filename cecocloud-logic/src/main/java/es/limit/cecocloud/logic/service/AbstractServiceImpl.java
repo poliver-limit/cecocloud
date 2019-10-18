@@ -209,6 +209,37 @@ public abstract class AbstractServiceImpl<D extends Identificable<ID>, ID extend
 		}
 		return toDto(resultat, processPageable(pageable));
 	}
+	
+	protected List<D> findListByQuickFilterAndRsqlQuery(
+			String quickFilter,
+			String rsqlQuery) {
+		List<E> resultat;
+		StringBuilder rsqlQueryWithQuickFilter = null;
+		if (quickFilter != null) {
+			rsqlQueryWithQuickFilter = buildRsqlQueryWithQuickFilter(quickFilter);
+		}
+		if (rsqlQuery != null) {
+			if (rsqlQueryWithQuickFilter == null) {
+				rsqlQueryWithQuickFilter = new StringBuilder();
+			} else if (rsqlQueryWithQuickFilter.length() > 0) {
+				rsqlQueryWithQuickFilter.append(";");
+			}
+			rsqlQueryWithQuickFilter.append(rsqlQuery);
+		}
+		if (rsqlQueryWithQuickFilter != null && rsqlQueryWithQuickFilter.length() > 0) {
+			log.debug("Consulta amb filtre RSQL (" +
+					"rsqlQuery=" + rsqlQueryWithQuickFilter + ")");
+			Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
+			operators.add(RsqlSearchOperation.EQUAL_IGNORE_CASE.getOperator());
+			Node rootNode = new RSQLParser(operators).parse(rsqlQueryWithQuickFilter.toString());
+			Specification<E> spec = rootNode.accept(new CustomRsqlVisitor<E>());
+			resultat = getRepository().findAll(spec);
+		} else {
+			log.debug("Consulta sense filtre RSQL");
+			resultat = getRepository().findAll();
+		}
+		return toDto(resultat);
+	}
 
 	protected BaseRepository<E, PK> getRepository() {
 		return repository;

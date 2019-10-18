@@ -4,6 +4,7 @@
 package es.limit.cecocloud.logic.api.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -85,6 +86,20 @@ public interface GenericService<D extends Identificable<ID>, ID extends Serializ
 			String quickFilter,
 			String rsqlQuery,
 			Pageable pageable);
+	
+	/**
+	 * Consulta sense paginar d'entitats amb filtre i consulta en format RSQL.
+	 * 
+	 * @param quickFilter
+	 *            Filtre ràpid en format text.
+	 * @param rsqlQuery
+	 *            consulta en format RSQL.
+	 * @return la llista d'entitats.
+	 */
+	public List<D> findListByQuickFilterAndRsqlQuery(
+			String quickFilter,
+			String rsqlQuery);
+
 
 	/**
 	 * Consulta d'una única entitat amb consulta en format RSQL.

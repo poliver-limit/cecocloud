@@ -8,6 +8,7 @@ import { RestapiFormExitGuard } from '../../shared/restapi-form/restapi-form-exi
 import { EmpresesGridComponent } from './empreses-grid.component';
 import { EmpresesFormComponent } from './empreses-form.component';
 import { EmpresesService } from './empreses.service';
+import { EmpresesPermissionService } from './empreses-permission.service';
 
 @NgModule( {
     imports: [
@@ -25,7 +26,8 @@ import { EmpresesService } from './empreses.service';
         EmpresesFormComponent
     ],
     providers: [
-        EmpresesService
+        EmpresesService,
+        EmpresesPermissionService
     ]
 } )
 export class EmpresesModule {}
