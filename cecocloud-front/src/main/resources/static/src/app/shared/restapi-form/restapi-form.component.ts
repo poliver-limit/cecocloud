@@ -335,7 +335,7 @@ export class RestapiFormComponent implements OnInit {
 					if (inputField.fieldName === error.field) {
 						let fieldErrors = {};
 						let defaultErrorMessage = error.defaultMessage ? error.defaultMessage : error.code;
-						fieldErrors[error.code] = this.translateKey('error.validation.contraint.' + error.code, undefined, defaultErrorMessage);
+						fieldErrors[error.code] = this.translateKey('error.validation.constraint.' + error.code, undefined, defaultErrorMessage);
 						inputField.setErrors(fieldErrors);
 					}
 				});

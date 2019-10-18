@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		addAntMatchersFromApiControllers(authorizationRegistry);
 		authorizationRegistry.
 		antMatchers("/api/sync/**/*").hasAuthority("SYNC").
-		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority("MARCA").
+		antMatchers("/api/mobile/marcatges", "/api/mobile/marcatges/**/*").hasAuthority(Rol.MARCA.name()).
 		antMatchers("/api/**/*").authenticated().
 		anyRequest().permitAll().
 		and().
@@ -116,33 +117,49 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		for (@SuppressWarnings("rawtypes") Class<? extends AbstractIdentificableApiController> apiControllerClass: ApiControllerHelper.getApiControllerClasses()) {
 			String[] apiUrls = ApiControllerHelper.getApiUrlsFromApiController(apiControllerClass);
 			Class<? extends Identificable<?>> dtoClass = ApiControllerHelper.getDtoClassFromApiController(apiControllerClass);
+			/*Map<Permission, List<Rol>> permisos = aclService.consultaElsRols();
+			for(Permission permission: permisos.keySet()) {
+				
+			}*/
 			RestapiResource restapiResource = dtoClass.getAnnotation(RestapiResource.class);
 			if (restapiResource != null) {
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.POST,
-						apiUrls,
-						restapiResource.authoritiesWithCreatePermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.GET,
-						apiUrls,
-						restapiResource.authoritiesWithReadPermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.PUT,
-						apiUrls,
-						restapiResource.authoritiesWithUpdatePermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.PATCH,
-						apiUrls,
-						restapiResource.authoritiesWithUpdatePermission());
-				addAntMatcher(
-						authorizationRegistry,
-						HttpMethod.DELETE,
-						apiUrls,
-						restapiResource.authoritiesWithDeletePermission());
+				if (restapiResource.restrictedToAuthorities()) {
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.POST,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithCreatePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.GET,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithReadPermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.PUT,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithUpdatePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.PATCH,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithUpdatePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+					addAntMatcher(
+							authorizationRegistry,
+							HttpMethod.DELETE,
+							apiUrls,
+							(Rol[])ArrayUtils.addAll(
+									restapiResource.authoritiesWithDeletePermission(),
+									restapiResource.authoritiesWithAdminPermission()));
+				}
 			}
 		}
 	}

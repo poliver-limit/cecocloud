@@ -100,7 +100,7 @@ public abstract class AbstractGenericServiceWithPermissionsImpl<D extends Identi
 	public List<Permission> permissionFind(ID id) {
 		log.debug("Consulta de permisos de l'entitat (id=" + id + ")");
 		getEntity(id);
-		return permissionHelper.find(
+		return permissionHelper.findByResource(
 				getDtoClass(),
 				id);
 	}

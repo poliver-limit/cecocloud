@@ -55,7 +55,7 @@ export class RecoverComponent {
 
     onRecuperarButtonClick() {
         this.valid = true;
-        this.registreService.contrasenyaRecover(
+        this.registreService.recover(
             this.email ).subscribe(( response ) => {
                 this.notify_simple();
                 this.router.navigate( ['login'] );

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,39 +8,33 @@ import { Observable } from 'rxjs';
 })
 export class RegistreService {
 
-    create(codi: string, email: string, nom: string): Observable<any> {
-        const params = new HttpParams().
-            append('codi', codi).
-            append('email', email).
-            append('nom', nom);
+	create(formGroup: FormGroup): Observable<any> {
+		return this.http.post(
+			'api/registres/create', {
+				nom: formGroup.value.nom,
+				email: formGroup.value.email
+			}
+		);
+	}
 
-        const jsn = { 'codi': codi, 'email': email, 'nom': nom };
+	validate(token: string, formGroup: FormGroup): Observable<any> {
+		return this.http.post(
+			'api/registres/validate', {
+				token: token,
+				contrasenya: formGroup.value.contrasenya,
+				repeticio: formGroup.value.repeticio
+			}
+		);
+	}
 
-        return this.http.post('api/registres/create', jsn);
-    }
+	recover(email: string): Observable<any> {
+		return this.http.post(
+			'api/registres/' + email + '/reset',
+			new HttpParams().append('email', email));
+	}
 
-    contrasenyaRecover(email: string): Observable<any> {
-        const params = new HttpParams().
-            append('email', email);
-
-        return this.http.post('api/registres/' + email + '/reset', params);
-    }
-
-    validate(contrasenya: string, contrasenya2: string, token: string): Observable<any> {
-
-        const params = new HttpParams().
-            append('contrasenya', contrasenya).
-            append('repeticio', contrasenya2).
-            append('token', token);
-
-
-        const jsn = { 'contrasenya': contrasenya, 'repeticio': contrasenya2, 'token': token };
-
-        return this.http.post('api/registres/validate', jsn);
-
-    }
-
-    constructor(
-        private http: HttpClient) { }
+	constructor(
+	    private http: HttpClient) {
+	}
 
 }

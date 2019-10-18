@@ -4,14 +4,25 @@
 package es.limit.cecocloud.logic.helper;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NonUniqueResultException;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.security.acls.domain.PrincipalSid;
@@ -41,6 +52,8 @@ public class PermissionHelper {
 
 	@Autowired
 	private MutableAclService mutableAclService;
+
+	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	public es.limit.cecocloud.logic.api.dto.Permission update(
 			Class<?> resourceClass,
@@ -135,13 +148,52 @@ public class PermissionHelper {
 		}
 	}
 
-	public List<es.limit.cecocloud.logic.api.dto.Permission> find(
+	public List<es.limit.cecocloud.logic.api.dto.Permission> findByResource(
 			Class<?> resourceClass,
 			Serializable resourceId) {
 		return find(
 				resourceClass,
 				resourceId,
 				null);
+	}
+
+	public Set<Serializable> findResourceIdsWithPermission(
+			Class<?> resourceClass,
+			String principal,
+			List<String> grantedAuthorities,
+			Permission... permissions) {
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
+		paramsMap.put("class", resourceClass.getSimpleName());
+		paramsMap.put("isPrincipal", true);
+		paramsMap.put("isGrantedAuthority", true);
+		paramsMap.put("grantedAuthorities", grantedAuthorities);
+		paramsMap.put(
+				"masks",
+				Arrays.stream(permissions).map(Permission::getMask).collect(Collectors.toSet()));
+		Set<Serializable> resourceIds = jdbcTemplate.query(
+				"select " +
+				"    acl_object_indentity.object_id_identity " +
+				"from " +
+				"    acl_entry left join acl_object_indentity on acl_object_indentity.id = acl_entry.acl_object_identity " +
+				"    left join acl_class on acl_class.id = acl_object_indentity.object_id_class " +
+				"where " +
+				"    acl_class.class = :class " +
+				"and ( " +
+				"    acl_entry.sid in (select acl_sid.id from acl_sid where acl_sid.principal = :isPrincipal and acl_sid.name = :principal) " +
+				"    or acl_entry.sid in (select acl_sid.id from acl_sid where acl_sid.principal = :isGrantedAuthority and acl_sid.name in (:grantedAuthorities))) " +
+				"and acl_entry.mask in (:masks) " +
+				"and acl_antry.granting = true ",
+				paramsMap,
+				new ResultSetExtractor<Set<Serializable>>() {
+					public Set<Serializable> extractData(ResultSet rs) throws SQLException, DataAccessException {
+						Set<Serializable> ids = new HashSet<Serializable>();
+						while (rs.next()) {
+							ids.add((Serializable)rs.getObject(1));
+						}
+						return ids;
+					}
+				});
+		return resourceIds;
 	}
 
 	public boolean checkPermissionForCurrentUser(
@@ -186,22 +238,19 @@ public class PermissionHelper {
 			Class<?> resourceClass,
 			Serializable resourceId,
 			String permissionId) {
-		PermissionSidType sidType = null;
-		String sidName = null;
+		List<Sid> sidsFromParams = null;
 		Sid sidFromParams = null;
 		if (permissionId != null) {
 			es.limit.cecocloud.logic.api.dto.Permission permission = new es.limit.cecocloud.logic.api.dto.Permission(permissionId);
-			sidType = permission.getSidType();
-			sidName = permission.getSidName();
 			sidFromParams = getSid(
 					permission.getSidType(),
 					permission.getSidName());
+			sidsFromParams = Arrays.asList(sidFromParams);
 		}
 		MutableAcl acl = getMutableAcl(
 				resourceClass,
 				resourceId,
-				Arrays.asList(
-						getSid(sidType, sidName)),
+				sidsFromParams,
 				false);
 		List<es.limit.cecocloud.logic.api.dto.Permission> permissions = new ArrayList<es.limit.cecocloud.logic.api.dto.Permission>();
 		if (acl != null) {
@@ -254,6 +303,8 @@ public class PermissionHelper {
 		} catch (NotFoundException ex) {
 			if (createIfNotExists) {
 				acl = mutableAclService.createAcl(objectIdentity);
+				//acl.setParent(newParent);
+				//acl.setEntriesInheriting(true);
 			} else {
 				acl = null;
 			}
@@ -306,6 +357,11 @@ public class PermissionHelper {
 		} catch (NotFoundException ex) {
 			return false;
 		}
+	}
+
+	@Autowired
+	private void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 }

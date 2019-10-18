@@ -98,6 +98,7 @@ public class ProfileServiceImpl implements ProfileService {
 		resource.setHasReadPermission(true);
 		resource.setHasUpdatePermission(true);
 		resource.setHasDeletePermission(true);
+		resource.setHasAdminPermission(true);
 		RestapiResource resourceAnnotation = permissionDtoClass.getAnnotation(RestapiResource.class);
 		if (resourceAnnotation != null) {
 			// Configura el camp de descripció
@@ -130,6 +131,8 @@ public class ProfileServiceImpl implements ProfileService {
 					checkPermission(resourceAnnotation.authoritiesWithUpdatePermission()));
 			resource.setHasDeletePermission(
 					checkPermission(resourceAnnotation.authoritiesWithDeletePermission()));
+			resource.setHasAdminPermission(
+					checkPermission(resourceAnnotation.authoritiesWithAdminPermission()));
 		}
 		Profile profile = new Profile();
 		List<Descriptor> fieldDescriptors = new ArrayList<Descriptor>();

@@ -9,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.cecocloud.logic.api.acl.ExtendedPermission;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.util.AuthenticationFacade;
-import es.limit.cecocloud.logic.api.service.CompanyiaService;
-import es.limit.cecocloud.logic.api.service.EmpresaService;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 
 /**
@@ -28,10 +25,10 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 
 	public static final String API_CONTROLLER_PATH = "/marcatges";
 
-	@Autowired
+	/*@Autowired
 	private CompanyiaService companyiaService;
 	@Autowired
-	private EmpresaService empresaService;
+	private EmpresaService empresaService;*/
 	@Autowired
 	private MarcatgeService service;
 	@Autowired
@@ -43,20 +40,20 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	}
 
 	@Override
-	protected String buildAdditionalRsqlQuery(HttpServletRequest request) {
+	protected String buildAdditionalRsqlQuery(HttpServletRequest request, boolean admin) {
 		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
 		boolean isAdminCurrentCompanyia = false;
-		if (getUserSession(request).getCompanyia() != null) {
-			isAdminCurrentCompanyia = companyiaService.permissionCheck(
-					getUserSession(request).getCompanyia(),
-					ExtendedPermission.ADMINISTRATION);
-		}
+//		if (getUserSession(request).getCompanyia() != null) {
+//			isAdminCurrentCompanyia = companyiaService.permissionCheck(
+//					getUserSession(request).getCompanyia(),
+//					ExtendedPermission.ADMINISTRATION);
+//		}
 		boolean isAdminCurrentEmpresa = false;
-		if (getUserSession(request).getCompanyia() != null) {
-			/*isAdminCurrentEmpresa = empresaService.permissionCheck(
-					getUserSession(request).getEmpresa(),
-					ExtendedPermission.ADMINISTRATION);*/
-		}
+//		if (getUserSession(request).getCompanyia() != null) {
+//			/*isAdminCurrentEmpresa = empresaService.permissionCheck(
+//					getUserSession(request).getEmpresa(),
+//					ExtendedPermission.ADMINISTRATION);*/
+//		}
 		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.MARCA);
 		if (!isAdmin && isAdminCurrentCompanyia) {
 			return "operari.empresa.companyia.id==" + this.getUserSession(request).getCompanyia();

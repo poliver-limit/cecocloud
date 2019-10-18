@@ -51,13 +51,13 @@ public class RegistreServiceImpl implements RegistreService {
 	@Transactional
 	public void create(RegistreUsuari dto) {
 		Usuari usuari = new Usuari();
-		usuari.setCodi(dto.getCodi());
+		usuari.setCodi(dto.getEmail());
 		usuari.setNom(dto.getNom());
 		usuari.setEmail(dto.getEmail());
 		usuari.setActiu(true);
 		usuari.setRols(new HashSet<Rol>(Arrays.asList(Rol.MARCA)));
 		UsuariEntity entity = UsuariEntity.builder().embedded(usuari).build();
-		usuariRepository.save(entity);
+		usuariRepository.saveAndFlush(entity);
 		enviarEmailValidacio(usuari);
 	}
 

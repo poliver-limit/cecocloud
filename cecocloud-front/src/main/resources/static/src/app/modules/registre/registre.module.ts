@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MdcWebModule } from '../../shared/mdc-web.module';
@@ -12,6 +12,8 @@ import { ValidateComponent } from './validate.component';
 @NgModule( {
     imports: [
         CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
         TranslateModule,
         MdcWebModule,
         RegistreRoutingModule

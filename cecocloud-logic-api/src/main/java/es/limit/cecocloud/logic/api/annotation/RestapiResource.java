@@ -19,9 +19,12 @@ public @interface RestapiResource {
 
 	public String descriptionField() default "";
 	public RestapiGrid[] grids() default {};
+	public boolean restrictedToAuthorities() default true;
 	public Rol[] authoritiesWithCreatePermission() default {};
 	public Rol[] authoritiesWithReadPermission() default {};
 	public Rol[] authoritiesWithUpdatePermission() default {};
 	public Rol[] authoritiesWithDeletePermission() default {};
+	public Rol[] authoritiesWithAdminPermission() default {};
+	//public boolean restrictedToRoles() default false;
 
 }
