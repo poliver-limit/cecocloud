@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.MarcatgeOrigen;
@@ -30,7 +31,6 @@ import es.limit.cecocloud.persist.repository.CompanyiaRepository;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.repository.OperariRepository;
-import es.limit.cecocloud.persist.repository.UsuariRepository;
 
 /**
  * Implementació del servei encarregat de gestionar la sincronització de la informació provinent

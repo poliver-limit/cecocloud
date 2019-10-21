@@ -48,5 +48,10 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>es.limit</groupId>
+			<artifactId>base-boot-logic-api</artifactId>
+			<version>${baseboot.version}</version>
+		</dependency>
 	</dependencies>
 </project>

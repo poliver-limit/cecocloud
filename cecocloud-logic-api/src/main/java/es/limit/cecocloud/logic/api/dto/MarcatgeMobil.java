@@ -7,7 +7,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import es.limit.cecocloud.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
 

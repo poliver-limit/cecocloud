@@ -9,6 +9,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.service.OperariService;
 import es.limit.cecocloud.persist.entity.OperariEntity;

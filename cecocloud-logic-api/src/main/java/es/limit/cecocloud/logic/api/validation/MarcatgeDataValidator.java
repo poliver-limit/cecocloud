@@ -14,8 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import es.limit.base.boot.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
-import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 
 /**

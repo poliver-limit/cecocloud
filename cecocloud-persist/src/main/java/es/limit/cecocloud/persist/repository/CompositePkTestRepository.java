@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.persist.repository;
 
+import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.logic.api.dto.CompositePkTest.CompositePkTestPk;
 import es.limit.cecocloud.persist.entity.CompositePkTestEntity;
 

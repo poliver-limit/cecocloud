@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.logic.converter;
 
+import org.springframework.stereotype.Component;
+
+import es.limit.base.boot.logic.converter.AbstractEntityToDtoConverter;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 
@@ -11,6 +14,7 @@ import es.limit.cecocloud.persist.entity.CompanyiaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Component
 public class CompanyiaEntityToDtoConverter extends AbstractEntityToDtoConverter<CompanyiaEntity, Companyia> {
 
 }

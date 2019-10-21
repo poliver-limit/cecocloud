@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import es.limit.base.boot.persist.entity.AbstractEntity;
+import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.logic.api.dto.Operari;
 import lombok.AccessLevel;
 import lombok.Builder;

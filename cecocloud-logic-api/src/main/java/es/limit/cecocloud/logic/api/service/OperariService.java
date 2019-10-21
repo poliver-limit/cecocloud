@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.persistence.EntityNotFoundException;
 
+import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.Operari;
 
 /**

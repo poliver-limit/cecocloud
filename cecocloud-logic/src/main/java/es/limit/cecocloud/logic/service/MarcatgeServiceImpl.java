@@ -6,6 +6,7 @@ package es.limit.cecocloud.logic.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;

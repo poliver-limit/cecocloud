@@ -10,6 +10,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import es.limit.base.boot.persist.entity.AbstractEntity;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import lombok.AccessLevel;
 import lombok.Builder;

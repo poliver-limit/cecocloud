@@ -16,23 +16,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.persist.entity.UsuariEntity;
+import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.logic.api.dto.MarcatgeOrigen;
 import es.limit.cecocloud.logic.api.dto.Operari;
-import es.limit.cecocloud.logic.api.dto.util.AuthenticationFacade;
-import es.limit.cecocloud.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.service.MobileMarcatgeService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
-import es.limit.cecocloud.persist.entity.UsuariEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.repository.OperariRepository;
-import es.limit.cecocloud.persist.repository.UsuariRepository;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 

@@ -5,6 +5,7 @@ package es.limit.cecocloud.persist.repository;
 
 import java.util.List;
 
+import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 

@@ -5,6 +5,7 @@ package es.limit.cecocloud.logic.service;
 
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;

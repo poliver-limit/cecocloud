@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.base.boot.back.controller.AbstractIdentificableWithPermissionsApiController;
+import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
 
@@ -16,22 +18,9 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractIdentificableApiController.API_PATH + EmpresaApiController.API_CONTROLLER_PATH)
+@RequestMapping(ApiControllerHelper.API_PATH + "/empreses")
 public class EmpresaApiController extends AbstractIdentificableWithPermissionsApiController<Empresa, Long> {
 
-	public static final String API_CONTROLLER_PATH = "/empreses";
-
-//	@GetMapping(
-//			path = "/permeses}",
-//			produces = "application/json")
-//	public ResponseEntity<Resources<Resource<Empresa>>> permeses(
-//			HttpServletRequest request) {
-//		
-//		List<Empresa> empresesPermeses = getService().getAllowedEmpreses();
-//
-//		return null;
-//	}
-	
 	@Autowired
 	private EmpresaService service;
 

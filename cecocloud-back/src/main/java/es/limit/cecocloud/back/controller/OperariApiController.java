@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
+import es.limit.base.boot.back.controller.ApiControllerHelper;
+import es.limit.base.boot.logic.api.dto.Rol;
+import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.Operari;
-import es.limit.cecocloud.logic.api.dto.Rol;
-import es.limit.cecocloud.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.service.OperariService;
 
 /**
@@ -20,10 +22,8 @@ import es.limit.cecocloud.logic.api.service.OperariService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractIdentificableApiController.API_PATH + OperariApiController.API_CONTROLLER_PATH)
+@RequestMapping(ApiControllerHelper.API_PATH + "/operaris")
 public class OperariApiController extends AbstractIdentificableApiController<Operari, Long> {
-
-	public static final String API_CONTROLLER_PATH = "/operaris";
 
 	@Autowired
 	private OperariService service;
@@ -36,7 +36,7 @@ public class OperariApiController extends AbstractIdentificableApiController<Ope
 	}
 
 	@Override
-	protected String buildAdditionalRsqlQuery(HttpServletRequest request, boolean admin) {
+	protected String additionalRsqlFilter(HttpServletRequest request, boolean admin) {
 		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
 		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.MARCA);
 		if (!isAdmin && isMarcatge) {

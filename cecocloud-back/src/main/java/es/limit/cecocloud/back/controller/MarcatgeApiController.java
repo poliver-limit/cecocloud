@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
+import es.limit.base.boot.back.controller.ApiControllerHelper;
+import es.limit.base.boot.logic.api.dto.Rol;
+import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
-import es.limit.cecocloud.logic.api.dto.Rol;
-import es.limit.cecocloud.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 
 /**
@@ -20,10 +22,8 @@ import es.limit.cecocloud.logic.api.service.MarcatgeService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = AbstractIdentificableApiController.API_PATH + MarcatgeApiController.API_CONTROLLER_PATH)
+@RequestMapping(ApiControllerHelper.API_PATH + "/marcatges")
 public class MarcatgeApiController extends AbstractIdentificableApiController<Marcatge, Long> {
-
-	public static final String API_CONTROLLER_PATH = "/marcatges";
 
 	/*@Autowired
 	private CompanyiaService companyiaService;
@@ -40,7 +40,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	}
 
 	@Override
-	protected String buildAdditionalRsqlQuery(HttpServletRequest request, boolean admin) {
+	protected String additionalRsqlFilter(HttpServletRequest request, boolean admin) {
 		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
 		boolean isAdminCurrentCompanyia = false;
 //		if (getUserSession(request).getCompanyia() != null) {

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;

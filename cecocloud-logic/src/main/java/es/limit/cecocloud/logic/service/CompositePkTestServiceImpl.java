@@ -5,6 +5,7 @@ package es.limit.cecocloud.logic.service;
 
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
 import es.limit.cecocloud.logic.api.dto.CompositePkTest;
 import es.limit.cecocloud.logic.api.dto.CompositePkTest.CompositePkTestPk;
 import es.limit.cecocloud.logic.api.service.CompositePkTestService;

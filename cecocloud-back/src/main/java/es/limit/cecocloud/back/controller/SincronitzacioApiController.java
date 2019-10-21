@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioCompanyia;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
@@ -34,10 +35,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = AbstractIdentificableApiController.API_PATH + SincronitzacioApiController.API_CONTROLLER_PATH)
+@RequestMapping(ApiControllerHelper.API_PATH + "/sync")
 public class SincronitzacioApiController {
-
-	public static final String API_CONTROLLER_PATH = "/sync";
 
 	@Autowired
 	private SincronitzacioService sincronitzacioService;

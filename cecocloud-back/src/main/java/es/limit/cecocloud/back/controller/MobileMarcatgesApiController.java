@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.logic.api.dto.MarcatgeMobilConsulta;
@@ -29,10 +30,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = AbstractIdentificableApiController.API_PATH + MobileMarcatgesApiController.API_CONTROLLER_PATH)
+@RequestMapping(ApiControllerHelper.API_PATH + "/mobile/marcatges")
 public class MobileMarcatgesApiController {
-
-	public static final String API_CONTROLLER_PATH = "/mobile/marcatges";
 
 	@Autowired
 	private MobileMarcatgeService mobileMarcatgeService;

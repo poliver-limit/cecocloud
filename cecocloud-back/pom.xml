@@ -7,7 +7,8 @@
 		<artifactId>cecocloud</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-back</artifactId><dependencies>
+	<artifactId>cecocloud-back</artifactId>
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -62,6 +63,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>es.limit</groupId>
+			<artifactId>base-boot-back</artifactId>
+			<version>${baseboot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

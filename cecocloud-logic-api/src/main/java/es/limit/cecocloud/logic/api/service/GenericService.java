@@ -11,8 +11,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import es.limit.cecocloud.logic.api.dto.util.Identificable;
-import es.limit.cecocloud.logic.api.exception.PermissionDeniedException;
+import es.limit.base.boot.logic.api.dto.util.Identificable;
+import es.limit.base.boot.logic.api.exception.PermissionDeniedException;
 
 /**
  * Servei genèric per a gestionar una entitat del model de dades.

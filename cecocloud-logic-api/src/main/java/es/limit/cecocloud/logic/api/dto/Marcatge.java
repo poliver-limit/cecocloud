@@ -8,10 +8,12 @@ import java.util.Date;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import es.limit.cecocloud.logic.api.annotation.RestapiField;
-import es.limit.cecocloud.logic.api.annotation.RestapiResource;
-import es.limit.cecocloud.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.cecocloud.logic.api.dto.util.AbstractIdentificable;
+import es.limit.base.boot.logic.api.annotation.RestapiField;
+import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.GeoPosition;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.dto.Rol;
+import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.validation.MarcatgeData;
 import es.limit.cecocloud.logic.api.validation.MarcatgeOperariValid;
 import lombok.Getter;
