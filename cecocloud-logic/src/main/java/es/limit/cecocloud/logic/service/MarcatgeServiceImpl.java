@@ -20,7 +20,7 @@ import es.limit.cecocloud.persist.repository.OperariRepository;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class MarcatgeServiceImpl extends AbstractGenericServiceImpl<Marcatge, Long, MarcatgeEntity, Long> implements MarcatgeService {
+public class MarcatgeServiceImpl extends AbstractGenericServiceImpl<Marcatge, MarcatgeEntity, Long> implements MarcatgeService {
 
 	@Autowired
 	private OperariRepository operariRepository;

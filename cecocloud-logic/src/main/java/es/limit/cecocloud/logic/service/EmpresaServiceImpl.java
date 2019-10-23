@@ -16,7 +16,7 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImpl<Empresa, Long, EmpresaEntity, Long> implements EmpresaService {
+public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImpl<Empresa, EmpresaEntity, Long> implements EmpresaService {
 
 //	@Override
 //	public List<Empresa> getAllowedEmpreses() {
