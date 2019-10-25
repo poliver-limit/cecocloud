@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.Rol;
+import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +21,10 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom",
-		authoritiesWithCreatePermission = { Rol.ADMIN },
-		authoritiesWithReadPermission = { Rol.ADMIN },
-		authoritiesWithUpdatePermission = { Rol.ADMIN },
-		authoritiesWithDeletePermission = { Rol.ADMIN })
+		authoritiesWithCreatePermission = { Authorities.ADMIN },
+		authoritiesWithReadPermission = { Authorities.ADMIN },
+		authoritiesWithUpdatePermission = { Authorities.ADMIN },
+		authoritiesWithDeletePermission = { Authorities.ADMIN })
 public class Companyia extends AbstractIdentificable<Long> {
 
 	@NotNull

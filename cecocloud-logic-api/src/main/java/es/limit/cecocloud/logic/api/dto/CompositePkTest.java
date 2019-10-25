@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.Rol;
+import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.base.boot.logic.api.dto.Usuari;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
@@ -29,10 +29,10 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "codi",
-		authoritiesWithCreatePermission = { Rol.ADMIN },
-		authoritiesWithReadPermission = { Rol.ADMIN },
-		authoritiesWithUpdatePermission = { Rol.ADMIN },
-		authoritiesWithDeletePermission = { Rol.ADMIN })
+		authoritiesWithCreatePermission = { Authorities.ADMIN },
+		authoritiesWithReadPermission = { Authorities.ADMIN },
+		authoritiesWithUpdatePermission = { Authorities.ADMIN },
+		authoritiesWithDeletePermission = { Authorities.ADMIN })
 public class CompositePkTest extends AbstractIdentificableWithCompositePk<CompositePkTestPk> {
 
 	@NotNull

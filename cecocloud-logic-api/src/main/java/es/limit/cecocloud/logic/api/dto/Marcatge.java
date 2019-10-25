@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.base.boot.logic.api.dto.GeoPosition;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.Rol;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.logic.api.validation.MarcatgeData;
 import es.limit.cecocloud.logic.api.validation.MarcatgeOperariValid;
@@ -28,10 +28,10 @@ import lombok.Setter;
 @MarcatgeOperariValid
 @MarcatgeData
 @RestapiResource(
-		authoritiesWithCreatePermission = { Rol.ADMIN, Rol.MARCA },
-		authoritiesWithReadPermission = { Rol.ADMIN, Rol.MARCA },
-		authoritiesWithUpdatePermission = { Rol.ADMIN },
-		authoritiesWithDeletePermission = { Rol.ADMIN })
+		authoritiesWithCreatePermission = { Authorities.ADMIN, Authorities.MARCA },
+		authoritiesWithReadPermission = { Authorities.ADMIN, Authorities.MARCA },
+		authoritiesWithUpdatePermission = { Authorities.ADMIN },
+		authoritiesWithDeletePermission = { Authorities.ADMIN })
 public class Marcatge extends AbstractIdentificable<Long> {
 
 	@NotNull

@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import es.limit.base.boot.logic.api.dto.Rol;
+import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 
@@ -40,7 +40,7 @@ public class MarcatgeDataValidator implements ConstraintValidator<MarcatgeData, 
 			Marcatge marcatge,
 			ConstraintValidatorContext context) {
 		Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-		if (!authorities.contains(new SimpleGrantedAuthority(Rol.ADMIN.name()))) {
+		if (!authorities.contains(new SimpleGrantedAuthority(Authorities.ADMIN.name()))) {
 			if (marcatge.getOperari() != null) {
 				Marcatge darrerMarcatge = marcatgeService.findDarrerMarcatgePerOperari(marcatge.getOperari().getId());
 				if (darrerMarcatge != null) {

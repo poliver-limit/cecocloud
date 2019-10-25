@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
-import es.limit.base.boot.logic.api.dto.Rol;
+import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.service.OperariService;
@@ -37,8 +37,8 @@ public class OperariApiController extends AbstractIdentificableApiController<Ope
 
 	@Override
 	protected String additionalRsqlFilter(HttpServletRequest request, boolean admin) {
-		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.ADMIN);
-		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Rol.MARCA);
+		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Authorities.ADMIN);
+		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Authorities.MARCA);
 		if (!isAdmin && isMarcatge) {
 			return "usuari.codi==" + authenticationFacade.getAuthentication().getName();
 		}
