@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
+import { BngFormConfig } from '@programari-limit/bang';
 
-import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { MarcatgesService } from './marcatges.service';
 
 @Component({
 	template: `
-	<restapi-form
+	<bng-form
 		restapi-form-mant
 		[config]="formConfig"
 		[restapiService]="marcatgesService"
-		(resourceChange)="onResourceChange($event)"></restapi-form>
+		(resourceChange)="onResourceChange($event)"></bng-form>
 	<map *ngIf="showMap"
 		[longitude]="longitud"
 		[latitude]="latitud"></map>
@@ -21,7 +21,7 @@ export class MarcatgesFormComponent {
 	latitud: number;
 	showMap: boolean = false;
 
-	formConfig: FormConfig = {
+	formConfig: BngFormConfig = {
 	}
 
 	onResourceChange(resource: any) {

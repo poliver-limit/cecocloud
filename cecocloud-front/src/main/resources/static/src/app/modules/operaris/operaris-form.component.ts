@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
+import { BngFormConfig } from '@programari-limit/bang';
 
-import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { OperarisService } from './operaris.service';
 
 @Component( {
     template: `
-    <restapi-form
+    <bng-form
         restapi-form-mant
         [config]="formConfig"
-        [restapiService]="operarisService"></restapi-form>
+        [restapiService]="operarisService"></bng-form>
 `
 } )
 export class OperarisFormComponent {
 
-    formConfig: FormConfig = {
+    formConfig: BngFormConfig = {
     }
 
     constructor(

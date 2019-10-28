@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
 
-import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 import { MenuService, MenuItem } from '../../shared/menu.service';
 
 @Component( {
@@ -28,11 +28,11 @@ export class HomeComponent implements OnInit {
     }
 
     constructor(
-        private screenSizeService: ScreenSizeService,
+        private screenSizeService: BngScreenSizeService,
         private menuService: MenuService ) {
         // Es subscriu al subject de canvi de tamany de la pantalla
         this.mobileScreen = this.screenSizeService.isMobile();
-        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
             this.mobileScreen = event.mobile
         } );
     }

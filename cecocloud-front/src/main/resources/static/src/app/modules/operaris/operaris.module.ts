@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { BngModule, BngFormExitGuard } from '@programari-limit/bang';
 
-import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebModule } from '../../shared/mdc-web.module';
-import { RestapiFormExitGuard } from '../../shared/restapi-form/restapi-form-exit-guard';
+import { MaterialModule } from '../../shared/material.module';
+
 import { OperarisGridComponent } from './operaris-grid.component';
 import { OperarisFormComponent } from './operaris-form.component';
 import { OperarisService } from './operaris.service';
@@ -12,12 +13,13 @@ import { OperarisService } from './operaris.service';
 @NgModule( {
     imports: [
         CommonModule,
-        MdcWebModule,
-        MantenimentModule,
+		TranslateModule,
+		BngModule,
+		MaterialModule,
         RouterModule.forChild( [
             { path: '', component: OperarisGridComponent },
-            { path: 'create', component: OperarisFormComponent, canDeactivate: [RestapiFormExitGuard] },
-            { path: 'update/:id', component: OperarisFormComponent, canDeactivate: [RestapiFormExitGuard] }
+            { path: 'create', component: OperarisFormComponent, canDeactivate: [BngFormExitGuard] },
+            { path: 'update/:id', component: OperarisFormComponent, canDeactivate: [BngFormExitGuard] }
         ] )
     ],
     declarations: [

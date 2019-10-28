@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
+import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
 
 import { RegistreService } from '../registre/registre.service';
-import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
     template: `
@@ -132,9 +132,9 @@ export class CreateComponent {
 		private snackbar: MdcSnackbar,
 		private formBuilder: FormBuilder,
 		private translate: TranslateService,
-		private screenSizeService: ScreenSizeService ) {
+		private screenSizeService: BngScreenSizeService ) {
 		this.mobileScreen = this.screenSizeService.isMobile();
-		this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
 			this.mobileScreen = event.mobile
 		} );
 	}

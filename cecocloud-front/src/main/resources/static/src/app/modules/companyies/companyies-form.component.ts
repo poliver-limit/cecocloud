@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig } from '@programari-limit/bang';
 
-import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { CompanyiesService } from './companyies.service';
 import { CompanyiesPermissionService } from './companyies-permission.service';
 
 @Component( {
     template: `
-<restapi-form
+<bng-form
     restapi-form-mant
     [config]="formConfig"
     [restapiService]="companyiesService">
-    <restapi-custom name="codi"></restapi-custom>
-    <restapi-custom name="nom"><!--companyia-nom #customField></companyia-nom--></restapi-custom>
+    <bng-custom-field name="codi"></bng-custom-field>
+    <bng-custom-field name="nom"><!--companyia-nom #customField></companyia-nom--></bng-custom-field>
     <ng-container *ngIf="id">
-        <datagrid
+        <bng-datagrid
         [config]="permisosDatagridConfig"
-        [restapiService]="companyiesPermissionService"></datagrid>
+        [restapiService]="companyiesPermissionService"></bng-datagrid>
     </ng-container>
-</restapi-form>
+</bng-form>
 `
 } )
 export class CompanyiesFormComponent {
 
     id: any;
 
-    formConfig: FormConfig = {
+    formConfig: BngFormConfig = {
     }
     permisosDatagridConfig = {
         //columnFiltersEnabled: true

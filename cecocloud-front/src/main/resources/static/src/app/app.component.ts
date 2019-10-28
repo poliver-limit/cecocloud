@@ -3,10 +3,8 @@ import { MdcDrawer, MdcList } from '@angular-mdc/web';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
+import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
 
-import { AuthService } from './shared/auth/auth.service';
-import { AuthTokenPayload } from './shared/auth/auth-token-payload';
-import { ScreenSizeService, ScreenSizeChangeEvent } from './shared/screen-size.service';
 import { MenuService, MenuItem } from './shared/menu.service';
 
 @Component({
@@ -98,7 +96,7 @@ export class AppComponent implements OnInit {
 	topbarVisible: boolean = false;
 	mobileScreen: boolean;
 	smallToolbar: boolean = false;
-	tokenPayload: AuthTokenPayload;
+	tokenPayload: BngAuthTokenPayload;
 	allowedMenuItems: MenuItem[];
 
 	ngOnInit() {
@@ -138,14 +136,14 @@ export class AppComponent implements OnInit {
 	}
 
 	constructor(
-		private authService: AuthService,
+		private authService: BngAuthService,
 		private translate: TranslateService,
 		router: Router,
-		private screenSizeService: ScreenSizeService,
+		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
-		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: AuthTokenPayload) => {
+		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
 		});
 		// Manten actualitzada la llista d'elements de menu permesos
@@ -185,7 +183,7 @@ export class AppComponent implements OnInit {
 		});
 		// Es subscriu al subject de canvi de tamany de la pantalla
 		this.mobileScreen = this.screenSizeService.isMobile();
-		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: ScreenSizeChangeEvent) => {
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
 			this.mobileScreen = event.mobile
 		});
 	}

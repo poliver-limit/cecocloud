@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig } from '@programari-limit/bang';
 
-import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { EmpresesService } from './empreses.service';
 import { EmpresesPermissionService } from './empreses-permission.service';
 
 @Component( {
     template: `
-    <restapi-form
+    <bng-form
         restapi-form-mant
         [config]="formConfig"
         [restapiService]="empresesService">
@@ -15,19 +15,19 @@ import { EmpresesPermissionService } from './empreses-permission.service';
         <br/>
         <h4>Permisos</h4>
         <ng-container *ngIf="id">
-            <datagrid
+            <bng-datagrid
                 [config]="permisosDatagridConfig"
                 [restapiService]="empresesPermissionService">
-            </datagrid>
+            </bng-datagrid>
         </ng-container>
-    </restapi-form>
+    </bng-form>
 `
 } )
 export class EmpresesFormComponent {
 
     id: any;
 
-    formConfig: FormConfig = {
+    formConfig: BngFormConfig = {
     }
     permisosDatagridConfig = {
         //columnFiltersEnabled: true

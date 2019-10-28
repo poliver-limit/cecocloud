@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-
-import { AuthService } from './auth/auth.service';
-import { AuthTokenPayload } from './auth/auth-token-payload';
+import { BngAuthService, BngAuthTokenPayload } from '@programari-limit/bang';
 
 export class MenuItem {
     icon?: string;
@@ -36,7 +34,7 @@ export abstract class MenuService {
         return this.allowedMenuItemsChangeSubject;
     }
 
-    private refreshAllowedMenuItems( tokenPayload?: AuthTokenPayload ) {
+    private refreshAllowedMenuItems( tokenPayload?: BngAuthTokenPayload ) {
         let roles = [];
         if ( tokenPayload && tokenPayload.rol ) {
             roles = tokenPayload.rol;
@@ -58,10 +56,10 @@ export abstract class MenuService {
     }
 
     constructor(
-        authService: AuthService ) {
+        authService: BngAuthService ) {
         this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
         // Manten actualitzada la llista dels items de menu permesos
-        authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: AuthTokenPayload ) => {
+        authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
             this.refreshAllowedMenuItems( tokenPayload );
         } );
     }

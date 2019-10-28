@@ -4,10 +4,10 @@ import { CpktestService } from './cpktest.service';
 
 @Component( {
     template: `
-    <datagrid
+    <bng-datagrid
         datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="cpktestService"></datagrid>`
+        [restapiService]="cpktestService"></bng-datagrid>`
 } )
 export class CpktestGridComponent implements OnInit {
 

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { BngModule, BngFormExitGuard } from '@programari-limit/bang';
 
-import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebModule } from '../../shared/mdc-web.module';
-import { RestapiFormExitGuard } from '../../shared/restapi-form/restapi-form-exit-guard';
+import { MaterialModule } from '../../shared/material.module';
+
 import { EmpresesGridComponent } from './empreses-grid.component';
 import { EmpresesFormComponent } from './empreses-form.component';
 import { EmpresesService } from './empreses.service';
@@ -13,12 +14,13 @@ import { EmpresesPermissionService } from './empreses-permission.service';
 @NgModule( {
     imports: [
         CommonModule,
-        MantenimentModule,
-        MdcWebModule,
+		TranslateModule,
+		BngModule,
+		MaterialModule,
         RouterModule.forChild( [
             { path: '', component: EmpresesGridComponent },
-            { path: 'create', component: EmpresesFormComponent, canDeactivate: [RestapiFormExitGuard] },
-            { path: 'update/:id', component: EmpresesFormComponent, canDeactivate: [RestapiFormExitGuard] }
+            { path: 'create', component: EmpresesFormComponent, canDeactivate: [BngFormExitGuard] },
+            { path: 'update/:id', component: EmpresesFormComponent, canDeactivate: [BngFormExitGuard] }
         ] )
     ],
     declarations: [

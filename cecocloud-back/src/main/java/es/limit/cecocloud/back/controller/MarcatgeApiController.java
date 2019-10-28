@@ -13,6 +13,7 @@ import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
+import es.limit.cecocloud.back.session.UserSession;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 
@@ -54,11 +55,12 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 //					getUserSession(request).getEmpresa(),
 //					ExtendedPermission.ADMINISTRATION);*/
 //		}
+		UserSession userSession = (UserSession)getUserSession(request);
 		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Authorities.MARCA);
 		if (!isAdmin && isAdminCurrentCompanyia) {
-			return "operari.empresa.companyia.id==" + this.getUserSession(request).getCompanyia();
+			return "operari.empresa.companyia.id==" + userSession.getCompanyia();
 		} else if (!isAdmin && !isAdminCurrentCompanyia && isAdminCurrentEmpresa) {
-			return "operari.empresa.id==" + this.getUserSession(request).getEmpresa();
+			return "operari.empresa.id==" + userSession.getEmpresa();
 		} else if (!isAdmin && !isAdminCurrentCompanyia && !isAdminCurrentEmpresa && isMarcatge) {
 			return "operari.usuari.codi==" + authenticationFacade.getAuthentication().getName();
 		}

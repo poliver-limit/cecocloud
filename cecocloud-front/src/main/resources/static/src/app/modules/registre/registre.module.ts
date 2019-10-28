@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MdcWebModule } from '../../shared/mdc-web.module';
+import { MaterialModule } from '../../shared/material.module';
 import { RegistreRoutingModule } from './registre.routing';
 import { CreateComponent } from './create.component';
 import { RecoverComponent } from './recover.component';
@@ -15,7 +15,7 @@ import { ValidateComponent } from './validate.component';
 		FormsModule,
 		ReactiveFormsModule,
         TranslateModule,
-        MdcWebModule,
+        MaterialModule,
         RegistreRoutingModule
     ],
     declarations: [

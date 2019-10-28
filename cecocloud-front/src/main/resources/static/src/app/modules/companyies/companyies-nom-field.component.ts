@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatInput } from '@angular/material/input';
-
-import { RestapiBaseFieldComponent } from '../../shared/restapi-form/restapi-base-field.component';
+import { BngFormBaseField } from '@programari-limit/bang';
 
 @Component( {
     selector: 'companyia-nom',
@@ -17,7 +16,7 @@ import { RestapiBaseFieldComponent } from '../../shared/restapi-form/restapi-bas
 `, styles: [`
 `]
 } )
-export class CompanyiesNomFieldComponent extends RestapiBaseFieldComponent {
+export class CompanyiesNomFieldComponent extends BngFormBaseField {
 
     @ViewChild( MatInput, { static: false } ) matInputField: MatInput;
 

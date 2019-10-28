@@ -4,10 +4,10 @@ import { MarcatgesService } from './marcatges.service';
 
 @Component({
 	template: `
-    <datagrid
+    <bng-datagrid
         datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="marcatgesService"></datagrid>`
+        [restapiService]="marcatgesService"></bng-datagrid>`
 })
 export class MarcatgesGridComponent implements OnInit {
 

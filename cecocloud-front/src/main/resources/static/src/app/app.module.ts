@@ -6,14 +6,9 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularHalModule } from 'angular4-hal';
+import { BngRestapiConfigService, BngAuthGuard, BngAuthService, BngJwtInterceptor, BngErrorModule, BngErrorHandler } from '@programari-limit/bang';
 
-import { MdcWebModule } from './shared/mdc-web.module';
-import { AuthGuard } from './shared/auth/auth-guard';
-import { AuthService } from './shared/auth/auth.service';
-import { JwtInterceptor } from './shared/auth/jwt.interceptor';
-import { DefaultErrorHandler } from './shared/default-error-handler';
-import { DefaultErrorDialog } from './shared/default-error-handler';
-import { RestapiConfigService } from './shared/restapi/restapi-config.service';
+import { MaterialModule } from './shared/material.module';
 import { LocaleService } from './shared/locale.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -28,7 +23,7 @@ export function createTranslateLoader(http: HttpClient) {
 		BrowserAnimationsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		MdcWebModule,
+		MaterialModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
@@ -37,24 +32,21 @@ export function createTranslateLoader(http: HttpClient) {
 			}
 		}),
 		AngularHalModule.forRoot(),
+		BngErrorModule,
 		AppRoutingModule
 	],
 	declarations: [
-		AppComponent,
-		DefaultErrorDialog
-	],
-	entryComponents: [
-		DefaultErrorDialog
+		AppComponent
 	],
 	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-		{ provide: ErrorHandler, useClass: DefaultErrorHandler },
-		{ provide: 'ExternalConfigurationService', useClass: RestapiConfigService },
+		{ provide: HTTP_INTERCEPTORS, useClass: BngJwtInterceptor, multi: true },
+		{ provide: ErrorHandler, useClass: BngErrorHandler },
+		{ provide: 'ExternalConfigurationService', useClass: BngRestapiConfigService },
 		{ provide: LOCALE_ID, useFactory: () => LocaleService.getCurrentLocale() },
-		RestapiConfigService,
-		AuthGuard,
+		BngRestapiConfigService,
+		BngAuthGuard,
 		//RestapiFormExitGuard,
-		AuthService
+		BngAuthService
 	],
 	bootstrap: [
 		AppComponent

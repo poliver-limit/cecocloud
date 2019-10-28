@@ -2,8 +2,8 @@ import { Component, Input, Injector, Inject, ViewChild, ElementRef, OnInit } fro
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcSnackbar } from '@angular-mdc/web';
+import { BngFormBaseField } from '@programari-limit/bang';
 
-import { RestapiBaseFieldComponent } from '../../shared/restapi-form/restapi-base-field.component';
 import { UsuarisService } from './usuaris.service';
 
 @Component( {
@@ -15,7 +15,7 @@ import { UsuarisService } from './usuaris.service';
 `, styles: [`
 `]
 } )
-export class UsuarisContrasenyaFieldComponent extends RestapiBaseFieldComponent {
+export class UsuarisContrasenyaFieldComponent extends BngFormBaseField {
 
 	@Input() usuariId: number;
 

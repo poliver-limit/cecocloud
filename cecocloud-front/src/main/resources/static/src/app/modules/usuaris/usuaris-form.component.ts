@@ -1,43 +1,43 @@
 import { Component } from '@angular/core';
+import { BngFormConfig } from '@programari-limit/bang';
 
-import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { UsuarisService } from './usuaris.service';
 
 @Component( {
     template: `
-<restapi-form
-	restapi-form-mant
+<bng-form
+	bng-form-mant
 	[config]="formConfig"
 	[restapiService]="usuarisService"
 	(resourceChange)="onResourceChange($event)">
 	<div style="display: flex">
 		<div style="width: 80%; display: flex">
-			<restapi-custom name="codi" style="width: 50%; padding-right: 2em"></restapi-custom>
-			<restapi-custom name="nom" style="width: 50%"></restapi-custom>
+			<bng-custom-field name="codi" style="width: 50%; padding-right: 2em"></bng-custom-field>
+			<bng-custom-field name="nom" style="width: 50%"></bng-custom-field>
 		</div>
-		<restapi-custom name="validat" style="margin-left: 2em"></restapi-custom>
+		<bng-custom-field name="validat" style="margin-left: 2em"></bng-custom-field>
 	</div>
 	<div style="display: flex">
 		<div style="width: 80%; display: flex">
-			<restapi-custom name="email" style="width: 50%; padding-right: 2em"></restapi-custom>
-			<restapi-custom name="imatgeUrl" style="width: 50%"></restapi-custom>
+			<bng-custom-field name="email" style="width: 50%; padding-right: 2em"></bng-custom-field>
+			<bng-custom-field name="imatgeUrl" style="width: 50%"></bng-custom-field>
 		</div>
-		<restapi-custom name="actiu" style="margin-left: 2em"></restapi-custom>
+		<bng-custom-field name="actiu" style="margin-left: 2em"></bng-custom-field>
 	</div>
 	<div style="display: flex">
 		<div style="width: 80%">
-			<restapi-custom name="rols"></restapi-custom>
+			<bng-custom-field name="rols"></bng-custom-field>
 		</div>
 		<div style="width: 20%">
 		</div>
 	</div>
-	<restapi-custom *ngIf="usuariId" name="contrasenya"><usuari-contrasenya #customField [usuariId]="usuariId"></usuari-contrasenya></restapi-custom>
-</restapi-form>
+	<bng-custom-field *ngIf="usuariId" name="contrasenya"><usuari-contrasenya #customField [usuariId]="usuariId"></usuari-contrasenya></bng-custom-field>
+</bng-form>
 `
 } )
 export class UsuarisFormComponent {
 
-    formConfig: FormConfig = {};
+    formConfig: BngFormConfig = {};
 	usuariId: number;
 
 	onResourceChange(usuari: any) {

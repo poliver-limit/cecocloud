@@ -4,10 +4,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcSnackbar } from '@angular-mdc/web';
+import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
 
 import { RegistreService } from '../registre/registre.service';
-import { AuthService } from '../../shared/auth/auth.service';
-import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
 
 @Component( {
     template: `
@@ -144,16 +143,16 @@ export class ValidateComponent {
 		private activatedRoute: ActivatedRoute,
 		private snackbar: MdcSnackbar,
 		private formBuilder: FormBuilder,
-		authService: AuthService,
+		authService: BngAuthService,
 		private translate: TranslateService,
-		private screenSizeService: ScreenSizeService ) {
+		private screenSizeService: BngScreenSizeService ) {
 		this.activatedRoute.params.subscribe( params => {
 			this.token = params['token'];
 			this.tokenPayload = authService.tokenToObject(this.token);
 			this.tokenExpired = Date.now() > this.tokenPayload.exp * 1000;
 		} );
 		this.mobileScreen = this.screenSizeService.isMobile();
-		this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
 			this.mobileScreen = event.mobile
 		} );
 	}

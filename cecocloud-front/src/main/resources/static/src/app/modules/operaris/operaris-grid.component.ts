@@ -4,10 +4,10 @@ import { OperarisService } from './operaris.service';
 
 @Component( {
     template: `
-    <datagrid
+    <bng-datagrid
         datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="operarisService"></datagrid>`
+        [restapiService]="operarisService"></bng-datagrid>`
 } )
 export class OperarisGridComponent implements OnInit {
 

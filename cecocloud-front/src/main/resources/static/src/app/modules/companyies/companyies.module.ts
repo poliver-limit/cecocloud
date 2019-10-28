@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { BngModule, BngFormExitGuard } from '@programari-limit/bang';
 
-import { MantenimentModule } from '../../shared/manteniment.module';
-import { MdcWebModule } from '../../shared/mdc-web.module';
-import { AngularMaterialModule } from '../../shared/angular-material.module';
-import { RestapiFormExitGuard } from '../../shared/restapi-form/restapi-form-exit-guard';
+import { MaterialModule } from '../../shared/material.module';
+
 import { CompanyiesGridComponent } from './companyies-grid.component';
 import { CompanyiesFormComponent } from './companyies-form.component';
 import { CompanyiesNomFieldComponent } from './companyies-nom-field.component';
@@ -18,13 +17,12 @@ import { CompanyiesPermissionService } from './companyies-permission.service';
         CommonModule,
 		FormsModule,
         ReactiveFormsModule,
-        MantenimentModule,
-        MdcWebModule,
-        AngularMaterialModule,
+        BngModule,
+		MaterialModule,
         RouterModule.forChild( [
             { path: '', component: CompanyiesGridComponent },
-            { path: 'create', component: CompanyiesFormComponent, canDeactivate: [RestapiFormExitGuard] },
-            { path: 'update/:id', component: CompanyiesFormComponent, canDeactivate: [RestapiFormExitGuard] }
+            { path: 'create', component: CompanyiesFormComponent, canDeactivate: [BngFormExitGuard] },
+            { path: 'update/:id', component: CompanyiesFormComponent, canDeactivate: [BngFormExitGuard] }
         ] )
     ],
     declarations: [

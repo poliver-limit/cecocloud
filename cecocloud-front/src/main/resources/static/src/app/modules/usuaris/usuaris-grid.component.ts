@@ -4,10 +4,10 @@ import { UsuarisService } from './usuaris.service';
 
 @Component( {
     template: `
-    <datagrid
-        datagrid-mant
+    <bng-datagrid
+        bng-datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="usuarisService"></datagrid>`
+        [restapiService]="usuarisService"></bng-datagrid>`
 } )
 export class UsuarisGridComponent implements OnInit {
 

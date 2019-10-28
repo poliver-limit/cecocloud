@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AuthService } from '../../shared/auth/auth.service';
-import { ScreenSizeService, ScreenSizeChangeEvent } from '../../shared/screen-size.service';
+import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
 
 @Component( {
     template: `
 <div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-    <div class="formTitle" mdcHeadline3><mdc-icon style="font-size:40px">cloud_queue</mdc-icon>&nbsp;{{'app.titol'|translate}}</div>
+    <div class="formTitle" mdcHeadline3><mdc-icon style="font-size:40px">cloud_queue</mdc-icon>&nbsp;Cecocloud</div>
     <br/>
     <form (submit)="onSubmit($event)">
         <mdc-form-field fluid>
@@ -77,11 +75,11 @@ export class LoginComponent {
     }
 
     constructor(
-        private authService: AuthService,
+        private authService: BngAuthService,
         private router: Router,
-        private screenSizeService: ScreenSizeService ) {
+        private screenSizeService: BngScreenSizeService ) {
         this.mobileScreen = this.screenSizeService.isMobile();
-        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: ScreenSizeChangeEvent ) => {
+        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
             this.mobileScreen = event.mobile
         } );
     }

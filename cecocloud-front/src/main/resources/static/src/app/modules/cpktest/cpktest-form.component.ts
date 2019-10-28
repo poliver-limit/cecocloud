@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { BngFormConfig } from '@programari-limit/bang';
 
-import { FormConfig } from '../../shared/restapi-form/restapi-form.component';
 import { CpktestService } from './cpktest.service';
 
 @Component( {
@@ -13,7 +13,7 @@ import { CpktestService } from './cpktest.service';
 } )
 export class CpktestFormComponent {
 
-    formConfig: FormConfig = {
+    formConfig: BngFormConfig = {
     }
 
     constructor(

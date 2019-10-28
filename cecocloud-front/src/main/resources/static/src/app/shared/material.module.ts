@@ -1,16 +1,30 @@
 import { NgModule } from '@angular/core';
 import {
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatProgressSpinnerModule,
-    MatAutocompleteModule,
-    MAT_DATE_FORMATS
+	MatFormFieldModule,
+	MatInputModule,
+	MatSelectModule,
+	MatCheckboxModule,
+	MatButtonModule,
+	MatIconModule,
+	MatDatepickerModule,
+	MatProgressSpinnerModule,
+	MatAutocompleteModule,
+	MAT_DATE_FORMATS
 } from '@angular/material';
+import {
+	MdcButtonModule,
+	MdcDialogModule,
+	MdcIconModule,
+	MdcIconButtonModule,
+	MdcListModule,
+	MdcSnackbarModule,
+	MdcTabBarModule,
+    MdcTopAppBarModule,
+	MdcDrawerModule,
+	MdcMenuModule,
+	MdcTextFieldModule,
+	MdcTypographyModule
+} from '@angular-mdc/web';
 
 import { MomentDateModule } from '@angular/material-moment-adapter';
 
@@ -25,6 +39,18 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         MatDatepickerModule,
         MatProgressSpinnerModule,
         MatAutocompleteModule,
+		MdcButtonModule,
+		MdcDialogModule,
+		MdcIconModule,
+		MdcIconButtonModule,
+		MdcListModule,
+		MdcSnackbarModule,
+		MdcTabBarModule,
+		MdcTopAppBarModule,
+		MdcDrawerModule,
+		MdcMenuModule,
+		MdcTextFieldModule,
+		MdcTypographyModule,
         MomentDateModule
     ],
     providers: [
@@ -41,4 +67,4 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         }
     ]
 } )
-export class AngularMaterialModule { }
+export class MaterialModule { }

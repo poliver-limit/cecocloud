@@ -4,10 +4,10 @@ import { CompanyiesService } from './companyies.service';
 
 @Component( {
     template: `
-    <datagrid
+    <bng-datagrid
         datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="companyiesService"></datagrid>`
+        [restapiService]="companyiesService"></bng-datagrid>`
 } )
 export class CompanyiesGridComponent {
 
