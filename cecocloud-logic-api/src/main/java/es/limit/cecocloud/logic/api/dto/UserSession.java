@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.back.session;
+package es.limit.cecocloud.logic.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

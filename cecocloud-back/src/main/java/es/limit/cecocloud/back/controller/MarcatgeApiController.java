@@ -13,8 +13,8 @@ import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
-import es.limit.cecocloud.back.session.UserSession;
 import es.limit.cecocloud.logic.api.dto.Marcatge;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.MarcatgeService;
 
 /**
