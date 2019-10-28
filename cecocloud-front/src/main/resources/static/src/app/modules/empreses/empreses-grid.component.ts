@@ -5,7 +5,7 @@ import { EmpresesService } from './empreses.service';
 @Component( {
     template: `
     <bng-datagrid
-        datagrid-mant
+        bng-datagrid-mant
         [config]="datagridConfig"
         [restapiService]="empresesService"></bng-datagrid>`
 } )

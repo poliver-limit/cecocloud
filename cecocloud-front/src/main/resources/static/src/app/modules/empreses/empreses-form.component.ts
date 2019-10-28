@@ -8,7 +8,7 @@ import { EmpresesPermissionService } from './empreses-permission.service';
 @Component( {
     template: `
     <bng-form
-        restapi-form-mant
+        bng-form-mant
         [config]="formConfig"
         [restapiService]="empresesService">
         <hr/>

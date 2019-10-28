@@ -5,7 +5,7 @@ import { CpktestService } from './cpktest.service';
 @Component( {
     template: `
     <bng-datagrid
-        datagrid-mant
+        bng-datagrid-mant
         [config]="datagridConfig"
         [restapiService]="cpktestService"></bng-datagrid>`
 } )

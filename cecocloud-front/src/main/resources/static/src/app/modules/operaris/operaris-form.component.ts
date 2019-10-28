@@ -6,7 +6,7 @@ import { OperarisService } from './operaris.service';
 @Component( {
     template: `
     <bng-form
-        restapi-form-mant
+        bng-form-mant
         [config]="formConfig"
         [restapiService]="operarisService"></bng-form>
 `

@@ -6,7 +6,7 @@ import { CpktestService } from './cpktest.service';
 @Component( {
     template: `
     <restapi-form
-        restapi-form-mant
+        bng-form-mant
         [config]="formConfig"
         [restapiService]="cpktestService"></restapi-form>
 `

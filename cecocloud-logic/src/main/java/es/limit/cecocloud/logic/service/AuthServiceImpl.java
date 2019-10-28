@@ -20,7 +20,6 @@ public class AuthServiceImpl extends AbstractAuthServiceImpl {
 
 	@Override
 	protected List<GrantedAuthority> getAuthoritiesFromSession(Object session) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

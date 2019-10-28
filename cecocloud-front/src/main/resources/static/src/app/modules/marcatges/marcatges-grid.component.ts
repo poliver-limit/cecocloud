@@ -5,7 +5,7 @@ import { MarcatgesService } from './marcatges.service';
 @Component({
 	template: `
     <bng-datagrid
-        datagrid-mant
+        bng-datagrid-mant
         [config]="datagridConfig"
         [restapiService]="marcatgesService"></bng-datagrid>`
 })

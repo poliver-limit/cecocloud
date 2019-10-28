@@ -5,7 +5,7 @@ import { OperarisService } from './operaris.service';
 @Component( {
     template: `
     <bng-datagrid
-        datagrid-mant
+        bng-datagrid-mant
         [config]="datagridConfig"
         [restapiService]="operarisService"></bng-datagrid>`
 } )

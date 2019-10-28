@@ -6,7 +6,7 @@ import { MarcatgesService } from './marcatges.service';
 @Component({
 	template: `
 	<bng-form
-		restapi-form-mant
+		bng-form-mant
 		[config]="formConfig"
 		[restapiService]="marcatgesService"
 		(resourceChange)="onResourceChange($event)"></bng-form>

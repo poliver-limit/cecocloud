@@ -8,7 +8,7 @@ import { CompanyiesPermissionService } from './companyies-permission.service';
 @Component( {
     template: `
 <bng-form
-    restapi-form-mant
+    bng-form-mant
     [config]="formConfig"
     [restapiService]="companyiesService">
     <bng-custom-field name="codi"></bng-custom-field>
