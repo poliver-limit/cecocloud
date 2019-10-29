@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "base-angular": [
+        "node_modules/@programari-limit/base-angular"
+      ],
+      "base-angular/*": [
+        "node_modules/@programari-limit/base-angular/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

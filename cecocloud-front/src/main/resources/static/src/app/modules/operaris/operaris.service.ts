@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Resource } from 'angular4-hal';
-import { BngRestapiService } from '@programari-limit/bang';
+import { BngRestapiService } from 'base-angular';
 
 export class Operari extends Resource {}
 

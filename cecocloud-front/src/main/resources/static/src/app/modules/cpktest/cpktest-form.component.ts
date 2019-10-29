@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from '@programari-limit/bang';
+import { BngFormConfig } from 'base-angular';
 
 import { CpktestService } from './cpktest.service';
 
 @Component( {
     template: `
-    <restapi-form
+    <bng-form
         bng-form-mant
         [config]="formConfig"
-        [restapiService]="cpktestService"></restapi-form>
+        [restapiService]="cpktestService"></bng-form>
 `
 } )
 export class CpktestFormComponent {

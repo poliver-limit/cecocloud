@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BngFormConfig } from '@programari-limit/bang';
+import { BngFormConfig } from 'base-angular';
 
 import { CompanyiesService } from './companyies.service';
 import { CompanyiesPermissionService } from './companyies-permission.service';

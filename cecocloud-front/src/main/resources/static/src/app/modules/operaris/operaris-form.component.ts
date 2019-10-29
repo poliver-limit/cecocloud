@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from '@programari-limit/bang';
+import { BngFormConfig } from 'base-angular';
 
 import { OperarisService } from './operaris.service';
 

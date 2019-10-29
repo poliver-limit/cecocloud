@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BngRestapiConfigService } from '@programari-limit/bang';
+import { BngRestapiConfigService } from 'base-angular';
 
 @Injectable()
 export class RestapiConfigService extends BngRestapiConfigService {

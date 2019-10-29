@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BngAuthGuard } from '@programari-limit/bang';
+import { BngAuthGuard } from 'base-angular';
 
 export const routes: Routes = [{
     path: '',

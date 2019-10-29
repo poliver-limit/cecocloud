@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MatInput } from '@angular/material/input';
-import { BngFormBaseField } from '@programari-limit/bang';
+import { BngFormBaseField } from 'base-angular';
 
 @Component( {
     selector: 'companyia-nom',

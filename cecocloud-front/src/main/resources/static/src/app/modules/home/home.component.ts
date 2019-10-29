@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
+import { BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 import { MenuService, MenuItem } from '../../shared/menu.service';
 

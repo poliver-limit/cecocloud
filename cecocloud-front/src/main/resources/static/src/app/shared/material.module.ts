@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import {
+	MatToolbarModule,
+	MatSidenavModule,
+	MatMenuModule,
+	MatListModule,
 	MatFormFieldModule,
 	MatInputModule,
 	MatSelectModule,
@@ -23,13 +27,18 @@ import {
 	MdcDrawerModule,
 	MdcMenuModule,
 	MdcTextFieldModule,
-	MdcTypographyModule
+	MdcTypographyModule,
+	MdcElevationModule
 } from '@angular-mdc/web';
 
 import { MomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule( {
     exports: [
+		MatToolbarModule,
+		MatSidenavModule,
+		MatMenuModule,
+		MatListModule,
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
@@ -51,6 +60,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 		MdcMenuModule,
 		MdcTextFieldModule,
 		MdcTypographyModule,
+		MdcElevationModule,
         MomentDateModule
     ],
     providers: [

@@ -1,97 +1,100 @@
 import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { MdcDrawer, MdcList } from '@angular-mdc/web';
+import { MatSidenav } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
-import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
+import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 import { MenuService, MenuItem } from './shared/menu.service';
 
 @Component({
 	selector: 'app-root',
 	template: `
-<header>
-    <mdc-top-app-bar *ngIf="topbarVisible" fixed [fixedAdjustElement]="content">
-        <mdc-top-app-bar-row>
-            <mdc-top-app-bar-section align="start">
-                <button #menuButton mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="mobileScreen">
-                    <mdc-icon>menu</mdc-icon>
-                </button>
-                <a routerLink="/" mdcTopAppBarTitle style="color: white;">Cecocloud</a>
-            </mdc-top-app-bar-section>
-            <mdc-top-app-bar-section align="end">
-                <a *ngIf="false" href="/cecocloud/swagger-ui.html" target="_blank" style="text-decoration:none"><mdc-icon mdcTopAppBarActionItem>contact_support</mdc-icon></a>
-				<!--mdc-icon mdcTopAppBarActionItem (click)="onSessionIconClick()">get_app</mdc-icon-->
-                <div mdcMenuSurfaceAnchor #userAnchor>
-                    <mdc-icon #userIcon mdcTopAppBarActionItem title="{{tokenPayload?.name}}" (click)="userMenu.open = !userMenu.open">account_circle</mdc-icon>
-                    <mdc-menu anchorCorner="bottomStart" quickOpen #userMenu [anchorElement]="userAnchor">
-                        <mdc-list-group>
-                            <mdc-list twoLine interactive="false">
-                                <mdc-list-item>
-                                    <a mdc-fab mini style="margin-right: 1em">{{tokenPayload?.name.charAt(0).toUpperCase()}}</a>
-                                    <mdc-list-item-text secondaryText="{{tokenPayload?.email}}">{{tokenPayload?.name}}</mdc-list-item-text>
-                                </mdc-list-item>
-                            </mdc-list>
-                            <mdc-list-divider></mdc-list-divider>
-                            <div style="text-align: center; margin-bottom: 6px">
-                                <button mdc-button outlined (click)="onActionSortirClick()" class="logout-button-ink-color">{{'app.action.logout'|translate}}</button>
-                            </div>
-                        </mdc-list-group>
-                    </mdc-menu>
-                </div>
-            </mdc-top-app-bar-section>
-        </mdc-top-app-bar-row>
-    </mdc-top-app-bar>
+<header *ngIf="topbarVisible && !mobileScreen">
+	<ng-container *ngTemplateOutlet="toolbar_template"></ng-container>
 </header>
-<nav *ngIf="topbarVisible && mobileScreen">
-    <mdc-drawer #drawer drawer="modal" (closed)="onDrawerClosed()">
-        <mdc-drawer-content>
-            <mdc-list #menuList>
-                <a mdc-list-item [routerLink]="item.route" *ngFor="let item of allowedMenuItems; let i = index">
-                    <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.label}}
-                </a>
-            </mdc-list>
-        </mdc-drawer-content>
-    </mdc-drawer>
-</nav>
-<div #content id="content">
-    <nav>
-        <mdc-drawer *ngIf="topbarVisible && !mobileScreen" drawer="fixed" [fixedAdjustElement]="content" (closed)="onDrawerClosed()">
-            <mdc-drawer-content>
-                <mdc-list #menuList>
-                    <a mdc-list-item [routerLink]="item.route" *ngFor="let item of allowedMenuItems; let i = index">
-                        <mdc-icon mdcListItemGraphic *ngIf="item.icon">{{item.icon}}</mdc-icon>{{item.labelKey|translate}}
-                    </a>
-                </mdc-list>
-            </mdc-drawer-content>
-        </mdc-drawer>
-    </nav>
-    <main [ngClass]="{'staticDrawerContent': !mobileScreen}">
-        <router-outlet></router-outlet>
-    </main>
-</div>
+<mat-sidenav-container>
+	<mat-sidenav #sidenav *ngIf="topbarVisible" [mode]="(!mobileScreen) ? 'side' : 'over'" [opened]="!mobileScreen" [ngStyle]="{ 'margin-top' : (topbarVisible && !mobileScreen) ? '64px' : '0', 'width' : '256px'}">
+		<nav>
+			<mat-nav-list>
+				<a mat-list-item *ngFor="let item of allowedMenuItems; let i = index" [routerLink]="item.route">
+					<mat-icon style="margin-right:1em">{{item.icon}}</mat-icon>
+					<span>{{item.label}}</span>
+				</a>
+			</mat-nav-list>
+		</nav>
+	</mat-sidenav>
+	<mat-sidenav-content [ngStyle]="{ 'margin-top' : (topbarVisible) ? (mobileScreen ? '56px' : '64px') : '0'}">
+		<header *ngIf="topbarVisible && mobileScreen">
+			<ng-container *ngTemplateOutlet="toolbar_template"></ng-container>
+		</header>
+		<main id="content">
+			<router-outlet></router-outlet>
+		</main>
+	</mat-sidenav-content>
+</mat-sidenav-container>
+<ng-template #toolbar_template>
+	<mat-toolbar id="toolbar" color="primary">
+		<button mat-icon-button *ngIf="mobileScreen" (click)="onMenuItemClick()" style="margin-right: .5em">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<span>Cecocloud</span>
+		<span class="toolbar-fill"></span>
+		<span>
+			<!--button mat-icon-button>
+				<mat-icon>contact_support</mat-icon>
+			</button-->
+			<button mat-icon-button>
+				<mat-icon>build</mat-icon>
+			</button>
+			<button mat-button>
+				LIM / PRO
+				<mat-icon>arrow_drop_down</mat-icon>
+			</button>
+			<button mat-icon-button [matMenuTriggerFor]="userMenu">
+				<mat-icon>account_circle</mat-icon>
+			</button>
+			<mat-menu #userMenu="matMenu">
+				<mat-list style="padding-top:0">
+					<mat-list-item>
+						<ng-container mat-list-icon>
+							<button mat-mini-fab>{{tokenPayload?.name.charAt(0).toUpperCase()}}</button>
+						</ng-container>
+						<h4 mat-line>{{tokenPayload?.name}}</h4>
+						<p mat-line>{{tokenPayload?.email}}</p>
+					</mat-list-item>
+					<mat-divider></mat-divider>
+  					<mat-list-item role="listitem">
+						<div class="toolbar-fill" style="flex: 1 1 auto; text-align: center">
+							<button mat-stroked-button (click)="onActionSortirClick()">{{'app.action.logout'|translate}}</button>
+						</div>
+					</mat-list-item>
+				</mat-list>
+			</mat-menu>
+		</span>
+	</mat-toolbar>
+</ng-template>
 `,
 	styles: [`
+#toolbar {
+	position: fixed;
+	top: 0;
+	z-index: 2;
+}
 #content {
     min-height: calc(100vh - 64px);
 }
-#content mdc-drawer {
-    min-height: calc(100vh - 64px);
-    height: calc(100% - 64px);
-    position: fixed;
-    z-index: 2;
-}
-main.staticDrawerContent {
-    margin-left: 256px;
+.toolbar-fill {
+	flex: 1 1 auto;
 }
 `]
 })
 export class AppComponent implements OnInit {
 
+	@ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 	@ViewChild('drawer', { static: false }) drawer: MdcDrawer;
-	@ViewChild('menuButton', { static: false }) menuButton: ElementRef;
 	@ViewChild('menuList', { static: false }) menulist: MdcList;
-	@ViewChild('content', { static: false }) content: ElementRef;
 
 	topbarVisible: boolean = false;
 	mobileScreen: boolean;
@@ -103,6 +106,10 @@ export class AppComponent implements OnInit {
 		this.allowedMenuItems = this.menuService.getAllowedMenuItems();
 		this.refreshSmallToolbar(window.innerWidth);
 		this.screenSizeService.onWindowResize(window.innerWidth);
+	}
+
+	onMenuItemClick() {
+		this.sidenav.toggle();
 	}
 
 	onActionSortirClick() {
@@ -121,7 +128,7 @@ export class AppComponent implements OnInit {
 	}
 
 	onDrawerClosed() {
-		this.menuButton.nativeElement.blur();
+		//this.menuButton.nativeElement.blur();
 	}
 
 	@HostListener('window:resize', ['$event'])
@@ -157,10 +164,8 @@ export class AppComponent implements OnInit {
 		// Oculta la barra superior en la pàgina de login i selecciona l'opcio de menu actual
 		router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
 			this.topbarVisible = (event.url !== '/login') && (!event.url.startsWith('/registre'));
-			// Oculta la barra superior en dispositius mòbils si no estam a la pàgina principal
-			if (this.mobileScreen && event.url !== '/') {
-				this.topbarVisible = false;
-				this.content.nativeElement.classList.remove('mdc-top-app-bar--fixed-adjust');
+			if (this.mobileScreen && this.sidenav) {
+				this.sidenav.close();
 			}
 			// Ho posam a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
 			setTimeout(() => {

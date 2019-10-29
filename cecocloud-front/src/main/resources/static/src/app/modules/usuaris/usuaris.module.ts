@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { BngModule, BngFormExitGuard } from '@programari-limit/bang';
+import { BngModule, BngFormExitGuard } from 'base-angular';
 
 import { MaterialModule } from '../../shared/material.module';
 

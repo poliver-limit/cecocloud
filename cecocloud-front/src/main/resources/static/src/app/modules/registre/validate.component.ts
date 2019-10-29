@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcSnackbar } from '@angular-mdc/web';
-import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
+import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 import { RegistreService } from '../registre/registre.service';
 

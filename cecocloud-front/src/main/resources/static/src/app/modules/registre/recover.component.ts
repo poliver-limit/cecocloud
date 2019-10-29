@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
-import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
+import { BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 import { RegistreService } from '../registre/registre.service';
 

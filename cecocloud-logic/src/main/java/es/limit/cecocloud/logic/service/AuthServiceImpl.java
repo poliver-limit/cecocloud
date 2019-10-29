@@ -5,7 +5,6 @@ package es.limit.cecocloud.logic.service;
 
 import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.service.AbstractAuthServiceImpl;
@@ -19,7 +18,7 @@ import es.limit.base.boot.logic.service.AbstractAuthServiceImpl;
 public class AuthServiceImpl extends AbstractAuthServiceImpl {
 
 	@Override
-	protected List<GrantedAuthority> getAuthoritiesFromSession(Object session) {
+	protected List<ExternalGrantedAuthority> getAuthoritiesFromSession(Object session) {
 		return null;
 	}
 

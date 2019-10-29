@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { BngAuthService, BngAuthTokenPayload } from '@programari-limit/bang';
+import { BngAuthService, BngAuthTokenPayload } from 'base-angular';
 
 export class MenuItem {
     icon?: string;

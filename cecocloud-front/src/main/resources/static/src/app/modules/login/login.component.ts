@@ -1,28 +1,29 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/bang';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 @Component( {
     template: `
 <div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-    <div class="formTitle" mdcHeadline3><mdc-icon style="font-size:40px">cloud_queue</mdc-icon>&nbsp;Cecocloud</div>
-    <br/>
-    <form (submit)="onSubmit($event)">
-        <mdc-form-field fluid>
-            <mdc-text-field label="{{'login.field.usuari'|translate}}" outlined [valid]="valid" (input)="onUserFieldInput($event)"></mdc-text-field>
-        </mdc-form-field>
-        <br/>
-        <mdc-form-field fluid>
-            <mdc-text-field label="{{'login.field.contrasenya'|translate}}" type="password" outlined [valid]="valid" (input)="onPassFieldInput($event)"></mdc-text-field>
-            <mdc-helper-text validation>
-                <span>{{'login.msg.login.error'|translate}}</span>
-            </mdc-helper-text>
-        </mdc-form-field>
-        <a mdc-button routerLink="/registre/recover" style="text-transform: none">{{'login.msg.contrasenya.recover'|translate}}</a>
-        <br/>
+    <h1 class="mat-display-3" style="text-align:center"><mat-icon style="font-size:50px;margin-right:.8em">cloud_queue</mat-icon>Cecocloud</h1>
+    <form [formGroup]="formGroup">
+		<mat-form-field appearance="outline" style="width:100%">
+			<mat-label>{{'login.field.usuari'|translate}}</mat-label>
+			<input matInput type="text" formControlName="user" autocomplete="off"/>
+			<mat-error>{{getErrorMessage('user')}}</mat-error>
+        </mat-form-field>
+		<mat-form-field appearance="outline" style="width:100%">
+			<mat-label>{{'login.field.contrasenya'|translate}}</mat-label>
+			<input matInput type="password" formControlName="pass" autocomplete="off"/>
+			<mat-error>{{getErrorMessage('pass')}}</mat-error>
+        </mat-form-field>
+		<button (click)="onEntrarButtonClick()" style="display:none"></button>
+        <a mat-button color="accent" routerLink="/registre/recover">{{'login.msg.contrasenya.recover'|translate}}</a>
         <div style="display: flex; justify-content: space-between">
-            <a mdc-button routerLink="/registre/create" style="text-transform: none">{{'login.msg.usuari.create'|translate}}</a>
-            <button mdc-button primary (click)="onEntrarButtonClick()">{{'login.button.entrar'|translate}}</button>
+            <a mat-button color="accent" routerLink="/registre/create">{{'login.msg.usuari.create'|translate}}</a>
+            <button mat-raised-button primary color="primary" (click)="onEntrarButtonClick()">{{'login.button.entrar'|translate}}</button>
         </div>
     </form>
 </div>`,
@@ -45,28 +46,28 @@ import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '
 } )
 export class LoginComponent {
 
-    user: string;
-    pass: string;
-    valid: boolean = true;
+	formGroup: FormGroup = this.formBuilder.group({
+		user: ['', Validators.required],
+		pass: ['', [Validators.required]]
+	});
     mobileScreen: boolean;
 
-    onUserFieldInput( value: string ) {
-        this.user = value;
-    }
-    onPassFieldInput( value: string ) {
-        this.pass = value;
-    }
-
     onEntrarButtonClick() {
-        this.valid = true;
-        this.authService.login( this.user, this.pass ).subscribe(
-            ( response ) => {
-                if ( response.error ) {
-                    this.valid = false;
-                } else {
+		this.formGroup.updateValueAndValidity();
+		if (this.formGroup.valid) {
+			 this.authService.login( this.formGroup.get('user').value, this.formGroup.get('pass').value ).subscribe(( response: any ) => {
+				if ( !response.error ) {
                     this.router.navigate( ['/home'] );
+                } else {
+                    // TODO mostrar error
                 }
-            } );
+			}, () => {
+				let errors = {};
+				errors['loginError'] = true;
+				this.formGroup.controls['user'].setErrors(errors);
+				this.formGroup.controls['pass'].setErrors(errors);
+			});
+		}
     }
 
     onSubmit( event: Event ) {
@@ -74,9 +75,36 @@ export class LoginComponent {
         this.onEntrarButtonClick();
     }
 
+	getErrorMessage(fieldName: string): string {
+		if (this.formGroup.get(fieldName).errors) {
+			var errorCode = Object.keys(this.formGroup.get(fieldName).errors)[0];
+			if (errorCode) {
+				if (errorCode == 'loginError') {
+					return this.translateKey('login.msg.login.error');
+				} else {
+					return this.translateKey(
+						'error.validation.constraint.' + errorCode,
+						undefined,
+						this.translate.instant('error.validation.unknown'));
+				}
+			}
+		}
+	}
+
+	translateKey(key: string, params?: any, defaultValue?: string) {
+		let translatedKey = this.translate.instant(key, params);
+		if (defaultValue) {
+			return (translatedKey !== key) ? translatedKey : defaultValue;
+		} else {
+			return translatedKey;
+		}
+	}
+
     constructor(
         private authService: BngAuthService,
         private router: Router,
+		private formBuilder: FormBuilder,
+		private translate: TranslateService,
         private screenSizeService: BngScreenSizeService ) {
         this.mobileScreen = this.screenSizeService.isMobile();
         this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
