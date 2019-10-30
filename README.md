@@ -18,6 +18,16 @@ spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 spring.datasource.url=jdbc:postgresql://DB_HOST/DB_NAME
 spring.datasource.username=DB_USER
 spring.datasource.password=DB_PASSWD
+
+spring.mail.host=MAIL_HOST
+spring.mail.port=MAIL_PORT
+spring.mail.username=MAIL_USER
+spring.mail.password=MAIL_PASSWD
+spring.mail.properties.mail.smtp.from=MAIL_SMTP_FROM
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.ssl.enable=true
+spring.mail.properties.mail.smtp.ssl.trust=MAIL_SSL_TRUST
+spring.mail.properties.mail.smtp.starttls.enable=true
 ```
 
 ## Executar
