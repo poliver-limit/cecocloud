@@ -10,41 +10,41 @@ import { RegistreService } from '../registre/registre.service';
 
 @Component( {
     template: `
-<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-    <div mdcHeadline5>{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</div>
+<div [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
+	<h1 class="mat-display-1 formTitle">{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</h1>
     <form [formGroup]="formGroup">
-		<p>{{tokenPayload.name}} &lt;{{tokenPayload.sub}}&gt;</p>
+		<p>{{tokenPayload.name}} {{tokenPayload.llinatges}} &lt;{{tokenPayload.sub}}&gt;</p>
 		<ng-container *ngIf="!tokenExpired">
-	        <mdc-form-field fluid>
-				<mdc-text-field
+			<mat-form-field appearance="outline" style="width:100%">
+				<mat-label>{{'validate.field.contrasenya'|translate}}</mat-label>
+				<input matInput
 					type="password"
-					label="{{'validate.field.contrasenya'|translate}}"
-					outlined
 					formControlName="contrasenya"
-					autocomplete="off"></mdc-text-field>    
-					<mdc-helper-text validation>{{getErrorMessage('contrasenya')}}</mdc-helper-text>       
-	        </mdc-form-field>
-	        <mdc-form-field fluid>
-	            <mdc-text-field
+					maxlength="100"
+					autocomplete="off"/>
+				<mat-error>{{getErrorMessage('contrasenya')}}</mat-error>
+	        </mat-form-field>
+			<mat-form-field appearance="outline" style="width:100%">
+				<mat-label>{{'validate.field.repeticio'|translate}}</mat-label>
+				<input matInput
 					type="password"
-					label="{{'validate.field.contrasenya'|translate}}"
-					outlined
 					formControlName="repeticio"
-					autocomplete="off"></mdc-text-field>    
-					<mdc-helper-text validation>{{getErrorMessage('repeticio')}}</mdc-helper-text>      
-	        </mdc-form-field>
-	        <br/>
+					maxlength="100"
+					autocomplete="off"/>
+				<mat-error>{{getErrorMessage('repeticio')}}</mat-error>
+	        </mat-form-field>
 			<button (click)="onValidateButtonClick()" style="display:none"></button>
 		</ng-container>
 		<ng-container *ngIf="tokenExpired">
 			<br/>
-			<div mdcHeadline5 [mdcElevation]="6" style="padding:1em;color:#d8000c;background-color: #ffbaba; text-align: center">{{'validate.link.expired'|translate}}</div>
+			<div style="padding:1em;color:#d8000c;background-color: #ffbaba; text-align: center">{{'validate.link.expired'|translate}}</div>
 			<br/>
 		</ng-container>
-        <div style="display: flex; justify-content: space-between">
-        	<button mdc-button (click)="onCancelButtonClick()" style="text-transform: none">{{'validate.button.cancel'|translate}}</button>
-            <button *ngIf="!tokenExpired" mdc-button primary (click)="onValidateButtonClick()">{{'validate.button.validate'|translate}}</button>
-        </div>
+		<button (click)="onValidateButtonClick()" style="display:none"></button>
+		<div style="display: flex; justify-content: space-between">
+			<button mat-button (click)="onCancelButtonClick()">{{'validate.button.cancel'|translate}}</button>
+			<button mat-raised-button color="primary" (click)="onValidateButtonClick()" [disabled]="tokenExpired">{{'validate.button.validate'|translate}}</button>
+		</div>
     </form>
 </div>
 `,
@@ -115,7 +115,7 @@ export class ValidateComponent {
 		snackbarRef.afterDismiss().subscribe( reason => {
 		} );
 	}
-	
+
 	getErrorMessage(fieldName: string): string {
 		if (this.formGroup.get(fieldName).errors) {
 			var errorCode = Object.keys(this.formGroup.get(fieldName).errors)[0];

@@ -6,24 +6,31 @@ import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '
 
 @Component( {
     template: `
-<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-    <h1 class="mat-display-3" style="text-align:center"><mat-icon style="font-size:50px;margin-right:.8em">cloud_queue</mat-icon>Cecocloud</h1>
+<div [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
+    <h1 class="mat-display-3 formTitle"><mat-icon style="font-size:50px;margin-right:.8em">cloud_queue</mat-icon>Cecocloud</h1>
     <form [formGroup]="formGroup">
 		<mat-form-field appearance="outline" style="width:100%">
 			<mat-label>{{'login.field.usuari'|translate}}</mat-label>
-			<input matInput type="text" formControlName="user" autocomplete="off"/>
+			<input matInput
+				type="text"
+				formControlName="user"
+				maxlength="100"
+				autocomplete="off"/>
 			<mat-error>{{getErrorMessage('user')}}</mat-error>
         </mat-form-field>
 		<mat-form-field appearance="outline" style="width:100%">
 			<mat-label>{{'login.field.contrasenya'|translate}}</mat-label>
-			<input matInput type="password" formControlName="pass" autocomplete="off"/>
+			<input matInput
+				type="password"
+				formControlName="pass"
+				autocomplete="off"/>
 			<mat-error>{{getErrorMessage('pass')}}</mat-error>
         </mat-form-field>
 		<button (click)="onEntrarButtonClick()" style="display:none"></button>
         <a mat-button color="accent" routerLink="/registre/recover">{{'login.msg.contrasenya.recover'|translate}}</a>
         <div style="display: flex; justify-content: space-between">
             <a mat-button color="accent" routerLink="/registre/create">{{'login.msg.usuari.create'|translate}}</a>
-            <button mat-raised-button primary color="primary" (click)="onEntrarButtonClick()">{{'login.button.entrar'|translate}}</button>
+            <button mat-raised-button color="primary" (click)="onEntrarButtonClick()">{{'login.button.entrar'|translate}}</button>
         </div>
     </form>
 </div>`,

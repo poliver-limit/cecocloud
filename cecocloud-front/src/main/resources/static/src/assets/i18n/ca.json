@@ -54,6 +54,7 @@
 
 	"create.titol": "Crear nou usuari",
 	"create.field.nom": "Nom",
+	"create.field.llinatges": "Llinatges",
 	"create.field.correu": "Correu-e",
 	"create.msg.create.error": "Usuari o correu-e incorrecte",
 	"create.button.cancel": "Cancel·lar",

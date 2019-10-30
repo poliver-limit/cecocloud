@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MdcSnackbar } from '@angular-mdc/web';
+import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
@@ -8,21 +9,29 @@ import { RegistreService } from '../registre/registre.service';
 
 @Component( {
     template: `
-<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-    <div mdcHeadline5>{{'recover.titol'|translate}}</div>
-    <br/>
-    <form (submit)="onSubmit($event)">
-        <mdc-form-field fluid>
+<div [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
+	<h1 class="mat-display-1 formTitle">{{'recover.titol'|translate}}</h1>
+    <form [formGroup]="formGroup">
+		<mat-form-field appearance="outline" style="width:100%">
+			<mat-label>{{'recover.field.correu'|translate}}</mat-label>
+			<input matInput
+				type="text"
+				formControlName="email"
+				maxlength="100"
+				autocomplete="off"/>
+			<mat-error>{{getErrorMessage('email')}}</mat-error>
+        </mat-form-field>
+        <!--mdc-form-field fluid>
             <mdc-text-field label="{{'recover.field.correu'|translate}}" outlined [valid]="valid" (input)="onEmailFieldInput($event)"></mdc-text-field>
             <mdc-helper-text validation>
-            <span>{{'recover.msg.recover.error'|translate}}</span>
-        </mdc-helper-text>
-            </mdc-form-field>
-        <br/> 
-        <div style="display: flex; justify-content: space-between">
-            <button mdc-button (click)="onCancelButtonClick()" style="text-transform: none">{{'recover.button.cancel'|translate}}</button>            
-            <button mdc-button primary (click)="onRecuperarButtonClick()">{{'recover.button.recuperar'|translate}}</button>
-        </div>
+            	<span>{{'recover.msg.recover.error'|translate}}</span>
+        	</mdc-helper-text>
+           </mdc-form-field-->
+		<button (click)="onRecuperarButtonClick()" style="display:none"></button>
+		<div style="display: flex; justify-content: space-between">
+			<button mat-button (click)="onCancelButtonClick()">{{'recover.button.cancel'|translate}}</button>
+			<button mat-raised-button color="primary" (click)="onRecuperarButtonClick()">{{'recover.button.recuperar'|translate}}</button>
+		</div>
     </form>
 </div>
 `,
@@ -45,43 +54,67 @@ import { RegistreService } from '../registre/registre.service';
 } )
 export class RecoverComponent {
 
-    email: string;
-    valid: boolean = true;
+    formGroup: FormGroup = this.formBuilder.group({
+		email: ['', [Validators.required, Validators.email]]
+	});
     mobileScreen: boolean;
 
-    onEmailFieldInput( value ) {
-        this.email = value;
-    }
+	onCancelButtonClick() {
+		this.router.navigate( ['login'] );
+	}
 
     onRecuperarButtonClick() {
-        this.valid = true;
-        this.registreService.recover(
-            this.email ).subscribe(( response ) => {
-                this.notify_simple();
-                this.router.navigate( ['login'] );
-            }, err => {
-                this.valid = false;
+        this.formGroup.updateValueAndValidity();
+		if (this.formGroup.valid) {
+	        this.registreService.recover(this.formGroup.get('email').value).subscribe(( response ) => {
+				this.showSnack('recover.notify.recover');
+				this.router.navigate( ['login'] );
+			}, () => {
+				let errors = {};
+				errors['recoverError'] = true;
+				this.formGroup.controls['email'].setErrors(errors);
+			});
+		}
+    }
+	
+	showSnack(message: string) {
+		 let snackBarRef = this.snackbar.open(
+            this.translate.instant(message),
+            this.translateKey( 'component.restapi.form.manteniment.button.close' ), {
             } );
-    }
+		snackBarRef.afterDismissed().subscribe(() => {
+		} );
+	}
 
-    notify_simple() {
-        const snackbarRef = this.snackbar.open( this.translate.instant( 'recover.notify.recover' ) );
-        snackbarRef.afterDismiss().subscribe( reason => {
-            console.log( reason );
-        } );
-    }
+	getErrorMessage(fieldName: string): string {
+		if (this.formGroup.get(fieldName).errors) {
+			var errorCode = Object.keys(this.formGroup.get(fieldName).errors)[0];
+			if (errorCode) {
+				if (errorCode == 'recoverError') {
+					return this.translateKey('recover.msg.recover.error');
+				} else {
+					return this.translateKey(
+						'error.validation.constraint.' + errorCode,
+						undefined,
+						this.translate.instant('error.validation.unknown'));
+				}
+			}
+		}
+	}
 
-    onCancelButtonClick() {
-        this.router.navigate( ['login'] )
-    }
-
-    onSubmit( event ) {
-        event.preventDefault();
-    }
+	translateKey(key: string, params?: any, defaultValue?: string) {
+		let translatedKey = this.translate.instant(key, params);
+		if (defaultValue) {
+			return (translatedKey !== key) ? translatedKey : defaultValue;
+		} else {
+			return translatedKey;
+		}
+	}
 
     constructor(
         private router: Router,
-        private snackbar: MdcSnackbar,
+		private snackbar: MatSnackBar,
+		private formBuilder: FormBuilder,
         private registreService: RegistreService,
         private translate: TranslateService,
         private screenSizeService: BngScreenSizeService ) {

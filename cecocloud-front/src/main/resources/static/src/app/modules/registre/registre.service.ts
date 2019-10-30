@@ -12,6 +12,7 @@ export class RegistreService {
 		return this.http.post(
 			'api/registres/create', {
 				nom: formGroup.value.nom,
+				llinatges: formGroup.value.llinatges,
 				email: formGroup.value.email
 			}
 		);

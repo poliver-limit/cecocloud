@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MdcSnackbar } from '@angular-mdc/web';
+import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
@@ -10,34 +10,41 @@ import { RegistreService } from '../registre/registre.service';
 
 @Component( {
     template: `
-<div mdcBody1 [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-    <div mdcHeadline5>{{'create.titol'|translate}}</div>
-    <br/>
-    <form [formGroup]="formGroup">
-        <mdc-form-field fluid>
-            <mdc-text-field
-				label="{{'create.field.nom'|translate}}"
-				outlined
-				maxlength="100"
+<div [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
+	<h1 class="mat-display-1 formTitle">{{'create.titol'|translate}}</h1>
+	<form [formGroup]="formGroup">
+		<mat-form-field appearance="outline" style="width:100%">
+			<mat-label>{{'create.field.nom'|translate}}</mat-label>
+			<input matInput
+				type="text"
 				formControlName="nom"
-				autocomplete="off"></mdc-text-field>
-			<mdc-helper-text validation>{{getErrorMessage('nom')}}</mdc-helper-text>
-        </mdc-form-field>
-        <mdc-form-field fluid>
-            <mdc-text-field
-				label="{{'create.field.correu'|translate}}"
-				outlined
+				maxlength="100"
+				autocomplete="off"/>
+			<mat-error>{{getErrorMessage('nom')}}</mat-error>
+        </mat-form-field>
+		<mat-form-field appearance="outline" style="width:100%">
+			<mat-label>{{'create.field.llinatges'|translate}}</mat-label>
+			<input matInput
+				type="text"
+				formControlName="llinatges"
+				maxlength="100"
+				autocomplete="off"/>
+			<mat-error>{{getErrorMessage('llinatges')}}</mat-error>
+        </mat-form-field>
+		<mat-form-field appearance="outline" style="width:100%">
+			<mat-label>{{'create.field.correu'|translate}}</mat-label>
+			<input matInput
+				type="text"
 				formControlName="email"
-				autocomplete="off"></mdc-text-field>
-           <mdc-helper-text validation>{{getErrorMessage('email')}}</mdc-helper-text>
-        </mdc-form-field>        
-        <br/>
+				autocomplete="off"/>
+			<mat-error>{{getErrorMessage('email')}}</mat-error>
+        </mat-form-field>
 		<button (click)="onCreateButtonClick()" style="display:none"></button>
-        <div style="display: flex; justify-content: space-between">  
-            <button mdc-button (click)="onCancelButtonClick()" style="text-transform: none">{{'create.button.cancel'|translate}}</button>          
-            <button mdc-button primary (click)="onCreateButtonClick()">{{'create.button.crear'|translate}}</button>
-        </div>
-    </form>
+		<div style="display: flex; justify-content: space-between">
+			<button mat-button (click)="onCancelButtonClick()">{{'create.button.cancel'|translate}}</button>
+			<button mat-raised-button color="primary" (click)="onCreateButtonClick()">{{'create.button.crear'|translate}}</button>
+		</div>
+	</form>
 </div>
 `,
     styles: [`
@@ -61,6 +68,7 @@ export class CreateComponent {
 
 	formGroup: FormGroup = this.formBuilder.group({
 		nom: ['', Validators.required],
+		llinatges: ['', Validators.required],
 		email: ['', [Validators.required, Validators.email]]
 	});
     mobileScreen: boolean;
@@ -97,11 +105,11 @@ export class CreateComponent {
 	}
 	
 	showSnack(message: string) {
-		 const snackbarRef = this.snackbar.open(
+		 let snackBarRef = this.snackbar.open(
             this.translate.instant(message),
             this.translateKey( 'component.restapi.form.manteniment.button.close' ), {
             } );
-		snackbarRef.afterDismiss().subscribe( reason => {
+		snackBarRef.afterDismissed().subscribe(() => {
 		} );
 	}
 
@@ -129,7 +137,7 @@ export class CreateComponent {
 	constructor(
 		private registreService: RegistreService,
 		private router: Router,
-		private snackbar: MdcSnackbar,
+		private snackbar: MatSnackBar,
 		private formBuilder: FormBuilder,
 		private translate: TranslateService,
 		private screenSizeService: BngScreenSizeService ) {
