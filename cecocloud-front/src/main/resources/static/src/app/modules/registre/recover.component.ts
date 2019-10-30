@@ -21,12 +21,6 @@ import { RegistreService } from '../registre/registre.service';
 				autocomplete="off"/>
 			<mat-error>{{getErrorMessage('email')}}</mat-error>
         </mat-form-field>
-        <!--mdc-form-field fluid>
-            <mdc-text-field label="{{'recover.field.correu'|translate}}" outlined [valid]="valid" (input)="onEmailFieldInput($event)"></mdc-text-field>
-            <mdc-helper-text validation>
-            	<span>{{'recover.msg.recover.error'|translate}}</span>
-        	</mdc-helper-text>
-           </mdc-form-field-->
 		<button (click)="onRecuperarButtonClick()" style="display:none"></button>
 		<div style="display: flex; justify-content: space-between">
 			<button mat-button (click)="onCancelButtonClick()">{{'recover.button.cancel'|translate}}</button>

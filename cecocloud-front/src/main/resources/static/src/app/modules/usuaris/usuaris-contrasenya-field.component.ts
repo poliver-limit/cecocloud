@@ -1,7 +1,7 @@
 import { Component, Input, Injector, Inject, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcSnackbar } from '@angular-mdc/web';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { BngFormBaseField } from 'base-angular';
 
 import { UsuarisService } from './usuaris.service';
@@ -10,7 +10,7 @@ import { UsuarisService } from './usuaris.service';
     selector: 'usuari-contrasenya',
     template: `
 <div>
-	<button mdc-button primary (click)="onButtonClick($event)">{{'module.usuaris.canvi.contrasenya.titol'|translate}}</button>
+	<button mat-raised-button color="primary" (click)="onButtonClick($event)">{{'module.usuaris.canvi.contrasenya.titol'|translate}}</button>
 </div>
 `, styles: [`
 `]
@@ -22,12 +22,14 @@ export class UsuarisContrasenyaFieldComponent extends BngFormBaseField {
 	onButtonClick(event: Event) {
 		event.stopPropagation();
 		event.preventDefault();
-		const dialog = this.injector.get( MdcDialog );
-        /*const dialogRef = */dialog.open( UsuarisContrasenyaDialog, {
-            data: {
+		const dialogRef = this.dialog.open(UsuarisContrasenyaDialog, {
+			//width: '250px',
+			data: {
 				usuariId: this.usuariId
-            }
-        } );
+			}
+		});
+		dialogRef.afterClosed().subscribe((/*result*/) => {
+		});
 	}
 
     public setErrors( errors?: any ) {
@@ -37,8 +39,9 @@ export class UsuarisContrasenyaFieldComponent extends BngFormBaseField {
     }
 
 	constructor(
-        private injector: Injector,
-		translate: TranslateService ) {
+        public injector: Injector,
+		translate: TranslateService,
+		public dialog: MatDialog ) {
 		super(translate);
     }
 
@@ -46,32 +49,26 @@ export class UsuarisContrasenyaFieldComponent extends BngFormBaseField {
 
 @Component( {
     template: `
-<mdc-dialog class="default-error-dialog">
-    <mdc-dialog-container>
-        <mdc-dialog-surface>
-            <mdc-dialog-title>{{'module.usuaris.canvi.contrasenya.titol'|translate}}</mdc-dialog-title>
-            <mdc-dialog-content>
-				<form [formGroup]="formGroup">
-					<button (click)="onButtonCanviarClick()" style="display:none"></button>
-	                <mat-form-field style="width:100%">
-	    				<mat-label>{{'module.usuaris.canvi.contrasenya.field.contrasenya'|translate}}</mat-label>
-						<input #inputPassword matInput formControlName="password" type="password" autocomplete="off" required/>
-						<mat-error>{{fieldError}}</mat-error>
-					</mat-form-field>
-					<mat-form-field style="width:100%">
-	    				<mat-label>{{'module.usuaris.canvi.contrasenya.field.confirmacio'|translate}}</mat-label>
-						<input #inputConfirmation matInput formControlName="confirmation" type="password" autocomplete="off" required/>
-						<mat-error>{{fieldError}}</mat-error>
-					</mat-form-field>
-				</form>
-            </mdc-dialog-content>
-            <mdc-dialog-actions>
-                <button mdcDialogButton mdcDialogAction="close">{{'module.usuaris.canvi.contrasenya.button.cancelar'|translate}}</button>
-				<button mdcDialogButton primary (click)="onButtonCanviarClick()">{{'module.usuaris.canvi.contrasenya.button.canviar'|translate}}</button>
-            </mdc-dialog-actions>
-        </mdc-dialog-surface>
-    </mdc-dialog-container>
-</mdc-dialog>`
+<h1 mat-dialog-title>{{'module.usuaris.canvi.contrasenya.titol'|translate}}</h1>
+<div mat-dialog-content>
+	<form [formGroup]="formGroup">
+		<button (click)="onButtonCanviarClick()" style="display:none"></button>
+	    <mat-form-field style="width:100%">
+			<mat-label>{{'module.usuaris.canvi.contrasenya.field.contrasenya'|translate}}</mat-label>
+			<input #inputPassword matInput formControlName="password" type="password" autocomplete="off" required/>
+			<mat-error>{{fieldError}}</mat-error>
+		</mat-form-field>
+		<mat-form-field style="width:100%">
+			<mat-label>{{'module.usuaris.canvi.contrasenya.field.confirmacio'|translate}}</mat-label>
+			<input #inputConfirmation matInput formControlName="confirmation" type="password" autocomplete="off" required/>
+			<mat-error>{{fieldError}}</mat-error>
+		</mat-form-field>
+	</form>
+</div>
+<div mat-dialog-actions>
+	<button mat-button (click)="onCancelButtonClick()">{{'module.usuaris.canvi.contrasenya.button.cancelar'|translate}}</button>
+	<button mat-raised-button color="primary" (click)="onButtonCanviarClick()">{{'module.usuaris.canvi.contrasenya.button.canviar'|translate}}</button>
+</div>`
 } )
 export class UsuarisContrasenyaDialog implements OnInit {
 
@@ -85,6 +82,10 @@ export class UsuarisContrasenyaDialog implements OnInit {
 			password: [''],
 			confirmation: ['']
 		});
+	}
+
+	onCancelButtonClick() {
+		this.dialogRef.close();
 	}
 
 	onButtonCanviarClick() {
@@ -117,14 +118,14 @@ export class UsuarisContrasenyaDialog implements OnInit {
 		}
 	}
 
-    constructor(
-		private dialogRef: MdcDialogRef<UsuarisContrasenyaDialog>,
-        @Inject( MDC_DIALOG_DATA ) public data: any,
+	constructor(
+		private dialogRef: MatDialogRef<UsuarisContrasenyaDialog>,
+		@Inject(MAT_DIALOG_DATA) public data: any,
 		private formBuilder: FormBuilder,
-		private snackbar: MdcSnackbar,
+		private snackbar: MatSnackBar,
 		private translate: TranslateService,
 		private usuarisService: UsuarisService) {
         this.data = data;
-    }
+	}
 
 }

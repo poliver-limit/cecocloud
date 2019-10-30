@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MdcSnackbar } from '@angular-mdc/web';
 import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 import { RegistreService } from '../registre/registre.service';
@@ -108,11 +108,11 @@ export class ValidateComponent {
 	}
 
 	showSnack(message: string) {
-		const snackbarRef = this.snackbar.open(
+		 let snackBarRef = this.snackbar.open(
             this.translate.instant(message),
             this.translateKey( 'component.restapi.form.manteniment.button.close' ), {
             } );
-		snackbarRef.afterDismiss().subscribe( reason => {
+		snackBarRef.afterDismissed().subscribe(() => {
 		} );
 	}
 
@@ -141,8 +141,8 @@ export class ValidateComponent {
 		private registreService: RegistreService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private snackbar: MdcSnackbar,
 		private formBuilder: FormBuilder,
+		private snackbar: MatSnackBar,
 		authService: BngAuthService,
 		private translate: TranslateService,
 		private screenSizeService: BngScreenSizeService ) {
