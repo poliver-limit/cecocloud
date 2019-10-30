@@ -13,7 +13,7 @@
 		<relativePath/>
 	</parent>
 	<properties>
-		<baseboot.version>0.1</baseboot.version>
+		<baseboot.version>0.3</baseboot.version>
 		<node.version>v10.16.3</node.version>
 		<orika.starter.version>1.8.0</orika.starter.version>
 		<reflections.version>0.9.11</reflections.version>
@@ -26,7 +26,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.test.skip>true</maven.test.skip>
-		<skip.npm>true</skip.npm>
+		<skip.npm>false</skip.npm>
 	</properties>
 	<modules>
 		<module>cecocloud-logic-api</module>
