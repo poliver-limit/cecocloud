@@ -47,9 +47,28 @@ import { MenuService, MenuItem } from './shared/menu.service';
 			<button mat-icon-button>
 				<mat-icon>build</mat-icon>
 			</button>
-			<button mat-button>
+			<button mat-button [matMenuTriggerFor]="companyiaMenu">Companyia 1 <mat-icon>arrow_drop_down</mat-icon></button>
+			<mat-menu #companyiaMenu="matMenu" xPosition="before">
+				<button mat-menu-item>Companyia 1</button>
+				<button mat-menu-item>Companyia 2</button>
+				<button mat-menu-item>Companyia 3</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
+			</mat-menu>
+			<button mat-button [matMenuTriggerFor]="empresaMenu">Empresa 1 <mat-icon>arrow_drop_down</mat-icon></button>
+			<mat-menu #empresaMenu="matMenu" xPosition="before">
+				<button mat-menu-item>Empresa 1</button>
+				<button mat-menu-item>Empresa 2</button>
+				<button mat-menu-item>Empresa 3</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
+			</mat-menu>
+			<!--button mat-button>
 				LIM / PRO
 				<mat-icon>arrow_drop_down</mat-icon>
+			</button-->
+			<button mat-icon-button>
+				<mat-icon>apps</mat-icon>
 			</button>
 			<button mat-icon-button [matMenuTriggerFor]="userMenu">
 				<mat-icon>account_circle</mat-icon>
