@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
-import { MdcDrawer, MdcList } from '@angular-mdc/web';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -93,8 +92,6 @@ import { MenuService, MenuItem } from './shared/menu.service';
 export class AppComponent implements OnInit {
 
 	@ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
-	@ViewChild('drawer', { static: false }) drawer: MdcDrawer;
-	@ViewChild('menuList', { static: false }) menulist: MdcList;
 
 	topbarVisible: boolean = false;
 	mobileScreen: boolean;
@@ -168,7 +165,7 @@ export class AppComponent implements OnInit {
 				this.sidenav.close();
 			}
 			// Ho posam a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
-			setTimeout(() => {
+			/*setTimeout(() => {
 				let menuSelectedIndex = undefined;
 				if (this.allowedMenuItems) {
 					for (let i = 0; i < this.allowedMenuItems.length; i++) {
@@ -184,7 +181,7 @@ export class AppComponent implements OnInit {
 				if (this.drawer) {
 					this.drawer.open = false;
 				}
-			});
+			});*/
 		});
 		// Es subscriu al subject de canvi de tamany de la pantalla
 		this.mobileScreen = this.screenSizeService.isMobile();

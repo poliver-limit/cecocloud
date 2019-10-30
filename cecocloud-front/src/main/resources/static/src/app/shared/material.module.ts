@@ -17,21 +17,6 @@ import {
 	MatDialogModule,
 	MAT_DATE_FORMATS
 } from '@angular/material';
-/*import {
-	MdcButtonModule,
-	MdcDialogModule,
-	MdcIconModule,
-	MdcIconButtonModule,
-	MdcListModule,
-	MdcSnackbarModule,
-	MdcTabBarModule,
-    MdcTopAppBarModule,
-	MdcDrawerModule,
-	MdcMenuModule,
-	MdcTextFieldModule,
-	MdcTypographyModule,
-	MdcElevationModule
-} from '@angular-mdc/web';*/
 
 import { MomentDateModule } from '@angular/material-moment-adapter';
 
@@ -52,19 +37,6 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         MatProgressSpinnerModule,
         MatAutocompleteModule,
 		MatDialogModule,
-		/*MdcButtonModule,
-		MdcDialogModule,
-		MdcIconModule,
-		MdcIconButtonModule,
-		MdcListModule,
-		MdcSnackbarModule,
-		MdcTabBarModule,
-		MdcTopAppBarModule,
-		MdcDrawerModule,
-		MdcMenuModule,
-		MdcTextFieldModule,
-		MdcTypographyModule,
-		MdcElevationModule,*/
         MomentDateModule
     ],
     providers: [
