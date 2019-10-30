@@ -60,11 +60,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>es.limit</groupId>
 			<artifactId>base-boot-back</artifactId>
 			<version>${baseboot.version}</version>
@@ -79,22 +74,5 @@
 			<artifactId>cecocloud-logic</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>cecocloud-front</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<executable>true</executable>
-				</configuration>
-			</plugin>
-		</plugins>
-		<finalName>cecocloud</finalName>
-	</build>
 </project>
