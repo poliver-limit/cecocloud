@@ -13,7 +13,12 @@ import { UsuarisService } from './usuaris.service';
 	<div style="display: flex">
 		<div style="width: 80%; display: flex">
 			<bng-custom-field name="codi" style="width: 50%; padding-right: 2em"></bng-custom-field>
-			<bng-custom-field name="nom" style="width: 50%"></bng-custom-field>
+		</div>
+	</div>
+	<div style="display: flex">
+		<div style="width: 80%; display: flex">
+			<bng-custom-field name="nom" style="width: 50%; padding-right: 2em"></bng-custom-field>
+			<bng-custom-field name="llinatges" style="width: 50%"></bng-custom-field>
 		</div>
 		<bng-custom-field name="validat" style="margin-left: 2em"></bng-custom-field>
 	</div>
