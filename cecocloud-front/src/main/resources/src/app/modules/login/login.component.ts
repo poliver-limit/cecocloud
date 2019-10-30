@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
-@Component( {
-    template: `
+@Component({
+	template: `
 <div [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-    <h1 class="mat-display-3 formTitle"><mat-icon style="font-size:50px;margin-right:.8em">cloud_queue</mat-icon>Cecocloud</h1>
-    <form [formGroup]="formGroup">
+	<h1 class="mat-display-3 formTitle"><mat-icon style="font-size:50px;margin-right:.8em">filter_tilt_shift</mat-icon>BaseBoot</h1>
+	<form [formGroup]="formGroup">
 		<mat-form-field appearance="outline" style="width:100%">
 			<mat-label>{{'login.field.usuari'|translate}}</mat-label>
 			<input matInput
@@ -34,7 +34,7 @@ import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '
         </div>
     </form>
 </div>`,
-    styles: [`
+	styles: [`
 .formContentDesktop {
     padding: 2em;
     background-color: white;
@@ -50,24 +50,27 @@ import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '
     text-align: center;
 }
 `]
-} )
+})
 export class LoginComponent {
 
 	formGroup: FormGroup = this.formBuilder.group({
 		user: ['', Validators.required],
 		pass: ['', [Validators.required]]
 	});
-    mobileScreen: boolean;
+	mobileScreen: boolean;
 
-    onEntrarButtonClick() {
+	onEntrarButtonClick() {
 		this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
-			 this.authService.login( this.formGroup.get('user').value, this.formGroup.get('pass').value ).subscribe(( response: any ) => {
-				if ( !response.error ) {
-                    this.router.navigate( ['/home'] );
-                } else {
-                    // TODO mostrar error
-                }
+			this.authService.login(this.formGroup.get('user').value, this.formGroup.get('pass').value).subscribe((response: any) => {
+				if (!response.error) {
+					this.router.navigate(['/home']);
+				} else {
+					let errors = {};
+					errors['loginError'] = true;
+					this.formGroup.controls['user'].setErrors(errors);
+					this.formGroup.controls['pass'].setErrors(errors);
+				}
 			}, () => {
 				let errors = {};
 				errors['loginError'] = true;
@@ -75,12 +78,12 @@ export class LoginComponent {
 				this.formGroup.controls['pass'].setErrors(errors);
 			});
 		}
-    }
+	}
 
-    onSubmit( event: Event ) {
-        event.preventDefault();
-        this.onEntrarButtonClick();
-    }
+	onSubmit(event: Event) {
+		event.preventDefault();
+		this.onEntrarButtonClick();
+	}
 
 	getErrorMessage(fieldName: string): string {
 		if (this.formGroup.get(fieldName).errors) {
@@ -107,16 +110,16 @@ export class LoginComponent {
 		}
 	}
 
-    constructor(
-        private authService: BngAuthService,
-        private router: Router,
+	constructor(
+		private authService: BngAuthService,
+		private router: Router,
 		private formBuilder: FormBuilder,
 		private translate: TranslateService,
-        private screenSizeService: BngScreenSizeService ) {
-        this.mobileScreen = this.screenSizeService.isMobile();
-        this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
-            this.mobileScreen = event.mobile
-        } );
-    }
+		private screenSizeService: BngScreenSizeService) {
+		this.mobileScreen = this.screenSizeService.isMobile();
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
+			this.mobileScreen = event.mobile
+		});
+	}
 
 }

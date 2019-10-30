@@ -5,7 +5,11 @@ import { BngRestapiConfigService } from 'base-angular';
 @Injectable()
 export class RestapiConfigService extends BngRestapiConfigService {
 
-	getContextPath() {
+	getServerUrl(): string {
+		return undefined;
+	}
+
+	getContextPath(): string {
 		return "/cecocloud/api";
 	}
 
