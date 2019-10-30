@@ -8,12 +8,15 @@
 		<version>0.1</version>
 	</parent>
 	<artifactId>cecocloud-front</artifactId>
+	<properties>
+		<angular.resources.path>src/main/resources</angular.resources.path>
+	</properties>
 	<build>
 		<resources>
 			<resource>
-		  		<directory>src/main/resources</directory>
+		  		<directory>${angular.resources.path}</directory>
 		  		<excludes>
-		   			<exclude>static/**</exclude>
+		   			<exclude>/**</exclude>
 				</excludes>
 			</resource>
 		</resources>
@@ -24,7 +27,7 @@
 				<configuration>
 					<nodeVersion>${node.version}</nodeVersion>
 					<installDirectory>target</installDirectory>
-					<workingDirectory>src/main/resources/static</workingDirectory>
+					<workingDirectory>src/main/resources</workingDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -56,7 +59,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>src/main/resources/static</directory>
+							<directory>${angular.resources.path}</directory>
 							<includes>
 								<include>**/dist/**</include>
 								<include>**/node_modules/**</include>
