@@ -5,61 +5,61 @@ import { BngFormConfig } from 'base-angular';
 import { CompanyiesService } from './companyies.service';
 import { CompanyiesPermissionService } from './companyies-permission.service';
 
-@Component( {
-    template: `
+@Component({
+	template: `
 <bng-form
-    bng-form-mant
-    [config]="formConfig"
-    [restapiService]="companyiesService">
-    <bng-custom-field name="codi"></bng-custom-field>
-    <bng-custom-field name="nom"><!--companyia-nom #customField></companyia-nom--></bng-custom-field>
-    <ng-container *ngIf="id">
-        <bng-datagrid
-        [config]="permisosDatagridConfig"
-        [restapiService]="companyiesPermissionService"></bng-datagrid>
-    </ng-container>
+	bng-form-mant
+	[config]="formConfig"
+	[restapiService]="companyiesService">
+	<bng-custom-field name="codi"></bng-custom-field>
+	<bng-custom-field name="nom"><!--companyia-nom #customField></companyia-nom--></bng-custom-field>
+	<ng-container *ngIf="id">
+		<bng-datagrid
+			[config]="permisosDatagridConfig"
+			[restapiService]="companyiesPermissionService"></bng-datagrid>
+	</ng-container>
 </bng-form>
 `
-} )
+})
 export class CompanyiesFormComponent {
 
-    id: any;
+	id: any;
 
-    formConfig: BngFormConfig = {
-    }
-    permisosDatagridConfig = {
-        //columnFiltersEnabled: true
-        adjustHeight: false,
-        paginationEnabled: false,
-        mode: 'form',
+	formConfig: BngFormConfig = {
+	}
+	permisosDatagridConfig = {
+		//columnFiltersEnabled: true
+		adjustHeight: false,
+		paginationEnabled: false,
+		mode: 'form',
 		editable: true,
 		columns: [{
-            field: 'sidType',
+			field: 'sidType',
 			width: 30
-        }, {
-            field: 'sidName',
+		}, {
+			field: 'sidName',
 			width: 40
-        }, {
-            field: 'adminGranted',
+		}, {
+			field: 'adminGranted',
 			width: 10
-        }, {
-            field: 'syncGranted',
+		}, {
+			field: 'syncGranted',
 			width: 10
-        }]
-    };
+		}]
+	};
 
-    constructor(
-        activatedRoute: ActivatedRoute,
-        public companyiesService: CompanyiesService,
-        public companyiesPermissionService: CompanyiesPermissionService ) {
-        activatedRoute.params.subscribe(( params ) => {
-            if ( params.id ) {
-                this.id = params.id;
-            }
-        } );
-        if ( this.id ) {
-            companyiesPermissionService.setPermissionResourceId( this.id );
-        }
-    }
+	constructor(
+		activatedRoute: ActivatedRoute,
+		public companyiesService: CompanyiesService,
+		public companyiesPermissionService: CompanyiesPermissionService) {
+		activatedRoute.params.subscribe((params) => {
+			if (params.id) {
+				this.id = params.id;
+			}
+		});
+		if (this.id) {
+			companyiesPermissionService.setPermissionResourceId(this.id);
+		}
+	}
 
 }
