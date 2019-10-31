@@ -31,13 +31,14 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "empresa")
+@Table(name = "tcom_empresa")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.identificadorCodi", column = @Column(name = "identificador_codi", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.identificadorCodi", column = @Column(name = "identificador_codi", length = 4, nullable = false)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.nif", column = @Column(name = "nif", length = 12, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.activa", column = @Column(name = "activa", nullable = false))
+	@AttributeOverride(name = "embedded.activa", column = @Column(name = "activa", nullable = false)),
+	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "tipus", nullable = false))
 })
 public class EmpresaEntity extends AbstractEntity<Empresa, Long> {
 
@@ -49,13 +50,21 @@ public class EmpresaEntity extends AbstractEntity<Empresa, Long> {
 			name = "companyia_id",
 			foreignKey = @ForeignKey(name = "empresa_companyia_fk"))
 	protected CompanyiaEntity companyia;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "identificador_codi",
+			foreignKey = @ForeignKey(name = "empresa_identificador_fk"))
+	protected IdentificadorEntity identificador;
 
 	@Builder
     public EmpresaEntity(
     		Empresa embedded,
-    		CompanyiaEntity companyia) {
+    		CompanyiaEntity companyia,
+    		IdentificadorEntity identificador) {
         this.embedded = embedded;
         this.companyia = companyia;
+        this.identificador = identificador;
     }
 
 	@Override
@@ -64,6 +73,9 @@ public class EmpresaEntity extends AbstractEntity<Empresa, Long> {
 	}
 	public void updateCompanyia(CompanyiaEntity companyia) {
 		this.companyia = companyia;
+	}
+	public void updateIdentificador(IdentificadorEntity identificador) {
+		this.identificador = identificador;
 	}
 
 }

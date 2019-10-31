@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.Authorities;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,11 +30,41 @@ public class Companyia extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Size(max = 30)
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(	disabledForCreate = true, 
+					disabledForUpdate = true, 
+					includeInQuickFilter = true)
 	private String codi;
 	@NotNull
 	@Size(max = 30)
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(	disabledForCreate = true, 
+					includeInQuickFilter = true)
 	private String nom;
+	@Size(max = 60)
+	@RestapiField(	disabledForCreate = true, 
+					hiddenInGrid = true, 
+					hiddenInLov = true, 
+					includeInQuickFilter = true)
+	private String telefon;
+	@NotNull
+	@Size(max = 60)
+	@RestapiField(	disabledForCreate = true, 
+					hiddenInGrid = true, 
+					hiddenInLov = true, 
+					includeInQuickFilter = true)
+	private String email;
+	@NotNull(groups = {OnCreate.class})
+	@Size(max = 2000)
+	@RestapiField(	type = RestapiFieldType.TEXTAREA, 
+					disabledForUpdate = true, 
+					disabledForCreate = true, 
+					hiddenInGrid = true, 
+					hiddenInLov = true)
+	private String llicenciaKey;
+	@RestapiField(	type = RestapiFieldType.LOV, 
+					lovWithDescriptionInput = true, 
+					hiddenInGrid = true, 
+					hiddenInLov = true, 
+					hiddenInForm = true)
+	private Llicencia llicencia;
 
 }

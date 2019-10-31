@@ -82,7 +82,7 @@ public interface GenericService<D extends Identificable<ID>, ID extends Serializ
 	 *            paràmetres per a paginar i ordenar el llistat.
 	 * @return la llista d'entitats.
 	 */
-	public Page<D> findPageByQuickFilterAndRsqlQuery(
+	public Page<D> findByQuickFilterAndRsqlQuery(
 			String quickFilter,
 			String rsqlQuery,
 			Pageable pageable);
@@ -96,7 +96,7 @@ public interface GenericService<D extends Identificable<ID>, ID extends Serializ
 	 *            consulta en format RSQL.
 	 * @return la llista d'entitats.
 	 */
-	public List<D> findListByQuickFilterAndRsqlQuery(
+	public List<D> findByQuickFilterAndRsqlQuery(
 			String quickFilter,
 			String rsqlQuery);
 

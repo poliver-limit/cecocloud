@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import javax.persistence.Enumerated;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,9 +35,9 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@RestapiField(includeInQuickFilter = true)
 	private GenericReference<Companyia, Long> companyia;
 	@NotNull
-	@Size(max = 4)
-	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)
-	private String identificadorCodi;
+	@Transient
+	@RestapiField(includeInQuickFilter = true)
+	private GenericReference<Identificador, String> identificador;
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)
@@ -51,5 +52,11 @@ public class Empresa extends AbstractIdentificable<Long> {
 	private String nif;
 	@RestapiField(hiddenInLov = true)
 	private boolean activa;
+	@NotNull(groups = { OnCreate.class })
+	@RestapiField(hiddenInLov = true,
+			includeInQuickFilter = true,
+			disabledForUpdate = true)
+	@Enumerated
+	protected TipusEmpresaEnum tipus;
 
 }
