@@ -43,7 +43,7 @@ public class PerfilUsuariEmpresaEntity extends AbstractEntity<PerfilUsuariEmpres
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "perfil_id",
-			foreignKey = @ForeignKey(name = "perfilusuemp_rol_fk"))
+			foreignKey = @ForeignKey(name = "perfilusuemp_perfil_fk"))
 	protected PerfilEntity perfil;
 	
 	@Builder

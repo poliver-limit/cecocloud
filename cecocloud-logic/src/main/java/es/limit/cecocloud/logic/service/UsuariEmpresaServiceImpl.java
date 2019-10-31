@@ -75,7 +75,7 @@ public class UsuariEmpresaServiceImpl extends AbstractGenericServiceImpl<UsuariE
 	public UsuariEmpresa findByUsuariCodiAndEmpresa(
 			String usuariCodi, 
 			Long empresaCodi) {
-		return toDto(usuariEmpresaRepository.getByUsuariCodiAndEmpresaCodi(
+		return toDto(usuariEmpresaRepository.getByUsuariEmbeddedCodiAndEmpresaEmbeddedCodi(
 					usuariCodi, 
 					empresaCodi));
 	}

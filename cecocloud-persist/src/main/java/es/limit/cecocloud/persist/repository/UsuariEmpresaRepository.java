@@ -27,7 +27,7 @@ public interface UsuariEmpresaRepository extends BaseRepository<UsuariEmpresaEnt
 			+ " UsuariEmpresaEntity uem "
 			+ " where "
 			+ " lower(uem.empresa.identificador.id) = lower(:identificadorCodi)"
-			+ " and lower(uem.usuari.codi) = lower(:usuariCodi)")
+			+ " and lower(uem.usuari.embedded.codi) = lower(:usuariCodi)")
 	Page<UsuariEmpresaEntity> findByFilter(
 			@Param("usuariCodi") String usuariCodi,
 			@Param("identificadorCodi") String identificadorCodi,
@@ -37,12 +37,12 @@ public interface UsuariEmpresaRepository extends BaseRepository<UsuariEmpresaEnt
 			+ " UsuariEmpresaEntity uem "
 			+ " where "
 			+ " lower(uem.empresa.identificador.id) = lower(:identificadorCodi)"
-			+ " and lower(uem.usuari.codi) = lower(:usuariCodi)")
+			+ " and lower(uem.usuari.embedded.codi) = lower(:usuariCodi)")
 	List<UsuariEmpresaEntity> findByUsuariCodiAndIdentificadorCodi(
 			@Param("usuariCodi") String usuariCodi,
 			@Param("identificadorCodi") String identificadorCodi);
 	
-	UsuariEmpresaEntity getByUsuariCodiAndEmpresaCodi(
+	UsuariEmpresaEntity getByUsuariEmbeddedCodiAndEmpresaEmbeddedCodi(
 			String usuariCodi,
 			Long empresaCodi);
 }

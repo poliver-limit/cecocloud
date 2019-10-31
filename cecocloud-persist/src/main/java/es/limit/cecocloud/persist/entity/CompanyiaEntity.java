@@ -10,7 +10,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableEntity;
+import es.limit.base.boot.persist.entity.AbstractEntity;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -31,11 +31,11 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "telefon", length = 60)),
-	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 30)),
-	@AttributeOverride(name = "embedded.llicenciaKey", column = @Column(name = "llicencia", length = 30))
+	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "telefon", length = 16)),
+	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 120)),
+	@AttributeOverride(name = "embedded.llicenciaKey", column = @Column(name = "llicencia", length = 2000))
 })
-public class CompanyiaEntity extends AbstractAuditableEntity<Companyia, Long> {
+public class CompanyiaEntity extends AbstractEntity<Companyia, Long> {
 
 	@Embedded
 	protected Companyia embedded;

@@ -48,7 +48,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 	@Transactional
 	@Override
 	public  List<Identificador> findIdentificadorByCompanyiaCodi(String companyiaCodi) {
-		return toDto(identificadorRepository.findByCompanyiaCodi(companyiaCodi));
+		return toDto(identificadorRepository.findByCompanyiaEmbeddedCodi(companyiaCodi));
 	}
 
 }

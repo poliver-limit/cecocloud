@@ -37,13 +37,13 @@ public class PerfilRolEntity extends AbstractEntity<PerfilRol, Long> {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "perfil_id",
-			foreignKey = @ForeignKey(name = "perfil_companyia_fk"))
+			foreignKey = @ForeignKey(name = "perfilrol_perfil_fk"))
 	protected PerfilEntity perfil;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "rol_id",
-			foreignKey = @ForeignKey(name = "perfil_companyia_fk"))
+			foreignKey = @ForeignKey(name = "perfilrol_rol_fk"))
 	protected RolEntity rol;
 	
 	@Builder

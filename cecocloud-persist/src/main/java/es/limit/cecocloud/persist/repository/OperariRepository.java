@@ -43,7 +43,7 @@ public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 	List<OperariEntity> findByEmpresaAndDataFiNull(
 			@Param("empresa") EmpresaEntity empresa);
 
-	Optional<OperariEntity> findByEmpresaCompanyiaAndEmpresaEmbeddedIdentificadorCodiAndEmpresaEmbeddedCodiAndEmbeddedCodi(
+	Optional<OperariEntity> findByEmpresaCompanyiaAndEmpresaIdentificadorIdAndEmpresaEmbeddedCodiAndEmbeddedCodi(
 			CompanyiaEntity companyia,
 			String empresaIdentificadorCodi,
 			String empresaCodi,

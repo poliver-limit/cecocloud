@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -60,6 +61,7 @@ public class Companyia extends AbstractIdentificable<Long> {
 					hiddenInGrid = true, 
 					hiddenInLov = true)
 	private String llicenciaKey;
+	@Transient
 	@RestapiField(	type = RestapiFieldType.LOV, 
 					lovWithDescriptionInput = true, 
 					hiddenInGrid = true, 

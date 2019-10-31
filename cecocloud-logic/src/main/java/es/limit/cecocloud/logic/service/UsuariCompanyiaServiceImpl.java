@@ -30,18 +30,18 @@ public class UsuariCompanyiaServiceImpl extends AbstractGenericServiceImpl<Usuar
 	@Transactional
 	@Override
 	public List<UsuariCompanyia> findUsuariCompanyiaByUsuariCodi(String usuariCodi) {
-		return toDto(usuariCompanyiaRepository.findByUsuariCodi(usuariCodi));
+		return toDto(usuariCompanyiaRepository.findByUsuariEmbeddedCodi(usuariCodi));
 	}
 	@Transactional
 	@Override
 	public List<UsuariCompanyia> findUsuariCompanyiaByCompanyiaCodi(String companyiaCodi) {
-		return toDto(usuariCompanyiaRepository.findByCompanyiaCodi(companyiaCodi));
+		return toDto(usuariCompanyiaRepository.findByCompanyiaEmbeddedCodi(companyiaCodi));
 	}
 	
 	@Transactional
 	@Override
 	public UsuariCompanyia findUsuariCompanyiaByUsuariCodiAndCompanyiaCodi(String usuariCodi, String companyiaCodi) {
-		return toDto(usuariCompanyiaRepository.findUsuariCompanyiaByUsuariCodiAndCompanyiaCodi(usuariCodi, companyiaCodi));
+		return toDto(usuariCompanyiaRepository.findUsuariCompanyiaByUsuariEmbeddedCodiAndCompanyiaEmbeddedCodi(usuariCodi, companyiaCodi));
 	}
 
 }

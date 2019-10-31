@@ -22,7 +22,7 @@ import es.limit.cecocloud.persist.entity.IdentificadorEntity;
  */
 @Repository
 public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, String> {
-	List<IdentificadorEntity> findByCompanyiaCodi(String companyiaCodi);
+	List<IdentificadorEntity> findByCompanyiaEmbeddedCodi(String companyiaCodi);
 	
 	@Query("from "
 			+ " IdentificadorEntity i "
