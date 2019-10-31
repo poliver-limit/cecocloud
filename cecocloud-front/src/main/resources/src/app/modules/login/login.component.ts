@@ -7,7 +7,7 @@ import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from '
 @Component({
 	template: `
 <div [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
-	<h1 class="mat-display-3 formTitle"><mat-icon style="font-size:50px;margin-right:.8em">filter_tilt_shift</mat-icon>BaseBoot</h1>
+	<h1 class="mat-display-3 formTitle"><mat-icon style="font-size:50px;margin-right:.8em">cloud_queue</mat-icon>Cecocloud</h1>
 	<form [formGroup]="formGroup">
 		<mat-form-field appearance="outline" style="width:100%">
 			<mat-label>{{'login.field.usuari'|translate}}</mat-label>
