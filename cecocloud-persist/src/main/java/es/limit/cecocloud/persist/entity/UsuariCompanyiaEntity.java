@@ -30,7 +30,7 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "tcom_usuari_companyia")
+@Table(name = "usuari_companyia")
 public class UsuariCompanyiaEntity extends AbstractEntity<UsuariCompanyia, Long> {
 	
 	@Embedded

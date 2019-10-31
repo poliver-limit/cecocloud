@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "tcom_rol_usuariempresa")
+@Table(name = "rol_usuariempresa")
 public class RolUsuariEmpresaEntity extends AbstractEntity<RolUsuariEmpresa, Long> {
 
 	@Embedded

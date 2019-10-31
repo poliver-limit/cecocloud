@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "tcom_identificador")
+@Table(name = "identificador")
 @AttributeOverrides({
 	@AttributeOverride(name = "id", column = @Column(name = "codi", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", insertable = false, updatable = false)),
