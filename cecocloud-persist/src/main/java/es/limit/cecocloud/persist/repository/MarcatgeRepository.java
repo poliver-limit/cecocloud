@@ -43,7 +43,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"and m.createdDate >= :dataInici " +
 			"and (:esNullDataFi = true or m.createdDate <= :dataFi) " +
 			"order by " +
-			"    m.operari.empresa.embedded.identificadorCodi asc, " +
+			"    m.operari.empresa.identificador.id asc, " +
 			"    m.operari.empresa.embedded.codi asc, " +
 			"    m.embedded.data asc")
 	List<MarcatgeEntity> findByEmpresaInAndBetweenDatesSync(

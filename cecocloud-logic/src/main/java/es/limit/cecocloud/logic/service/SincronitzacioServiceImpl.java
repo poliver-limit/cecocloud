@@ -22,13 +22,16 @@ import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaAmbOperaris;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
+import es.limit.cecocloud.logic.api.dto.TipusEmpresaEnum;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
 import es.limit.cecocloud.persist.repository.CompanyiaRepository;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 import es.limit.cecocloud.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.repository.OperariRepository;
 
@@ -45,6 +48,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private CompanyiaRepository companyiaRepository;
 	@Autowired
 	private EmpresaRepository empresaRepository;
+	@Autowired
+	private IdentificadorRepository identificadorRepository;
 	@Autowired
 	private OperariRepository operariRepository;
 	@Autowired
@@ -98,15 +103,18 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				// Si l'empresa no existeix a la BBDD i si a la informació de sincronització
 				// Crea l'empresa a la BBDD
 				Empresa empresa = new Empresa();
-				empresa.setIdentificadorCodi(empresaSync.getIdentificadorCodi());
+//				empresa.setIdentificadorCodi(empresaSync.getIdentificadorCodi());
 				empresa.setCodi(empresaSync.getCodi());
 				empresa.setNif(empresaSync.getNif());
 				empresa.setNom(empresaSync.getNom());
+				empresa.setTipus(TipusEmpresaEnum.GESTIO);
 				empresa.setActiva(true);
+				Optional<IdentificadorEntity> identificador = identificadorRepository.findById(empresaSync.getIdentificadorCodi());
 				EmpresaEntity empresaCreada = empresaRepository.save(
 						EmpresaEntity.builder().
 						embedded(empresa).
 						companyia(companyia.get()).
+						identificador(identificador.get()).
 						build());
 				// Actualitza els operaris
 				updateOperaris(empresaCreada, empresaSync);
@@ -148,7 +156,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
 				Operari smUsuariEmpresa = marcatge.getOperari().getEmbedded();
 				Empresa smEmpresa = marcatge.getOperari().getEmpresa().getEmbedded();
-				sm.setEmpresaIdentificadorCodi(smEmpresa.getIdentificadorCodi());
+				sm.setEmpresaIdentificadorCodi(smEmpresa.getIdentificador().getId()); //.getIdentificadorCodi());
 				sm.setEmpresaCodi(smEmpresa.getCodi());
 				sm.setOperariCodi(smUsuariEmpresa.getCodi());
 				sm.setData(marcatge.getEmbedded().getData());
@@ -169,7 +177,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		int createCount = 0;
 		if (marcatges != null) {
 			for (SincronitzacioMarcatge marcatge: marcatges) {
-				Optional<OperariEntity> operari = operariRepository.findByEmpresaCompanyiaAndEmpresaEmbeddedIdentificadorCodiAndEmpresaEmbeddedCodiAndEmbeddedCodi(
+				Optional<OperariEntity> operari = operariRepository.findByEmpresaCompanyiaAndEmpresaIdentificadorIdAndEmpresaEmbeddedCodiAndEmbeddedCodi(
 						companyia.get(),
 						marcatge.getEmpresaIdentificadorCodi(),
 						marcatge.getEmpresaCodi(),
@@ -254,7 +262,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private boolean empresaDbEqualsEmpresaSync(
 			EmpresaEntity empresaDb,
 			SincronitzacioEmpresa empresaSync) {
-		return empresaDb.getEmbedded().getIdentificadorCodi().equals(empresaSync.getIdentificadorCodi()) && empresaDb.getEmbedded().getCodi().equals(empresaSync.getCodi());
+		return empresaDb.getEmbedded().getIdentificador().getId().equals(empresaSync.getIdentificadorCodi()) && empresaDb.getEmbedded().getCodi().equals(empresaSync.getCodi());
 	}
 
 }

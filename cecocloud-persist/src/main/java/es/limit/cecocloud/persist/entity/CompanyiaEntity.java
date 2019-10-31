@@ -31,6 +31,9 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "telefon", length = 16)),
+	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 120)),
+	@AttributeOverride(name = "embedded.llicenciaKey", column = @Column(name = "llicencia", length = 2000))
 })
 public class CompanyiaEntity extends AbstractEntity<Companyia, Long> {
 

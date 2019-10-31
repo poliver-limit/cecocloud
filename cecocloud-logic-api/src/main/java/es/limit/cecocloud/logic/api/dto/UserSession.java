@@ -15,6 +15,7 @@ import lombok.Setter;
 public class UserSession {
 
 	private Long companyia;
+	private String identificador;
 	private Long empresa;
 
 }
