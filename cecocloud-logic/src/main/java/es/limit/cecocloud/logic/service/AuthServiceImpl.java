@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.service.AbstractAuthServiceImpl;
@@ -28,16 +27,29 @@ public class AuthServiceImpl extends AbstractAuthServiceImpl {
 	RolRepository rolRepository;
 	
 	@Override
-	protected List<ExternalGrantedAuthority> getAuthoritiesFromSession(Object session) {
+	protected List<ExternalGrantedAuthority> getAuthoritiesFromSession(String usuariCodi, Object session) {
 		List<ExternalGrantedAuthority> grantedAuthorities = new ArrayList<ExternalGrantedAuthority>();
-		UserSession sessio = (UserSession)session;
-		List<RolEntity> rols = rolRepository.findByUsuariCodiEmpresa(
-				SecurityContextHolder.getContext().getAuthentication().getName(), 
-				sessio.getEmpresa(), 
-				sessio.getIdentificador());
-
-		if (rols != null && !rols.isEmpty()) {
-			grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getNom())).collect(Collectors.toList()); 
+		
+		if (usuariCodi != null) {
+			Long empresaId = null;
+			String identificadorCodi = null;
+			UserSession sessio = (UserSession)session;
+			
+			if (sessio != null) {
+				empresaId = sessio.getEmpresa();
+				identificadorCodi = sessio.getIdentificador();
+			}
+			
+			if (empresaId != null && identificadorCodi != null) {
+				List<RolEntity> rols = rolRepository.findByUsuariCodiEmpresa(
+						usuariCodi, 
+						sessio.getEmpresa(), 
+						sessio.getIdentificador());
+		
+				if (rols != null && !rols.isEmpty()) {
+					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getNom())).collect(Collectors.toList()); 
+				}
+			}
 		}
 		
 		return grantedAuthorities;

@@ -3,10 +3,6 @@
  */
 package es.limit.cecocloud.logic.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,7 +15,6 @@ import es.limit.cecocloud.logic.api.service.IdentificadorService;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.repository.CompanyiaRepository;
-import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 /**
  * Implementació del servei de gestió d'identificadors.
@@ -29,8 +24,8 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 @Service("comuIdentificadorServiceImpl")
 public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identificador, IdentificadorEntity, String> implements IdentificadorService {
 
-	@Autowired
-	private IdentificadorRepository identificadorRepository;
+//	@Autowired
+//	private IdentificadorRepository identificadorRepository;
 	
 	@Autowired
 	private CompanyiaRepository companyiaRepository;
@@ -45,10 +40,10 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 	}
 
 
-	@Transactional
-	@Override
-	public  List<Identificador> findIdentificadorByCompanyiaCodi(String companyiaCodi) {
-		return toDto(identificadorRepository.findByCompanyiaEmbeddedCodi(companyiaCodi));
-	}
+//	@Transactional
+//	@Override
+//	public  List<Identificador> findIdentificadorByCompanyiaCodi(String companyiaCodi) {
+//		return toDto(identificadorRepository.findByCompanyiaEmbeddedCodi(companyiaCodi));
+//	}
 
 }

@@ -33,7 +33,7 @@ public class PermisModulsAspect {
 		// Obtenim el mòdul a partir del nom del servei
 		String modul = signature.getDeclaringTypeName().split("\\.")[3];
 		// El mòdul comú és accessible a tothom
-		if ("comu".equals(modul))
+		if ("comu".equals(modul) || "boot".equals(modul))
 			return;
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
