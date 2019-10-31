@@ -30,13 +30,11 @@ public class Identificador extends AbstractIdentificable<String> {
 			includeInQuickFilter = true)
 	@Transient
 	protected String codi;
-	
 	@NotNull
 	@Size(max = 40)
 	@RestapiField(
 			includeInQuickFilter = true)
 	protected String nom;
-	
 	@NotNull
 	@Transient
 	@RestapiField(
@@ -47,5 +45,5 @@ public class Identificador extends AbstractIdentificable<String> {
 			hiddenInForm = true,
 			includeInQuickFilter = true)
 	private GenericReference<Companyia, Long> companyia;
-	
+
 }

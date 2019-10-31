@@ -32,10 +32,9 @@ public class Llicencia {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataCaducitat;
 	private List <String> modulsDisponibles;
-	
 	@RestapiField(hiddenInGrid=true,
 			hiddenInLov=true,
 			hiddenInForm=true)
 	private String defaultIdentifier;
-	
+
 }

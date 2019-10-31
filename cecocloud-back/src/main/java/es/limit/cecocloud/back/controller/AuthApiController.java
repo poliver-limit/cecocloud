@@ -22,7 +22,6 @@ public class AuthApiController extends AbstractAuthApiController {
 
 	@Override
 	protected Object parseSessionObject(JsonNode session) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
