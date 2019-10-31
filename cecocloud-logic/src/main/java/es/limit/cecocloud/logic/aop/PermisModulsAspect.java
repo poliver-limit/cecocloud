@@ -9,7 +9,6 @@ import javax.persistence.EntityNotFoundException;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,7 +27,7 @@ import es.limit.cecocloud.logic.api.service.CompanyiaService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Component
-@Aspect
+//@Aspect
 public class PermisModulsAspect {
 
 	@Autowired
