@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import es.limit.base.boot.persist.entity.AbstractEntity;
 import es.limit.cecocloud.logic.api.dto.Companyia;
@@ -27,9 +28,14 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "companyia")
+@Table(
+		name = "companyia",
+		uniqueConstraints = {
+				@UniqueConstraint(name = "companyia_codi_uk", columnNames = {"codi"})
+		}
+)
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false, unique = true)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "telefon", length = 16)),
 	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 120)),

@@ -48,10 +48,13 @@ public class PerfilUsuariEmpresaEntity extends AbstractCompositePkEntity<PerfilU
 	@JoinColumn(name = "perfil_id", foreignKey = @ForeignKey(name = "perfilusuemp_perfil_fk"), insertable = false, updatable = false)
 	protected PerfilEntity perfil;
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name = "usuari_id", foreignKey = @ForeignKey(name = "perfilusuemp_usuemp_fk"), insertable = false, updatable = false),
-		@JoinColumn(name = "empresa_id", foreignKey = @ForeignKey(name = "perfilusuemp_usuemp_fk"), insertable = false, updatable = false)
-	})
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "usuari_id", insertable = false, updatable = false),
+					@JoinColumn(name = "empresa_id", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "perfilusuemp_usuemp_fk")
+	)
 	protected UsuariEmpresaEntity usuariEmpresa;
 
 	@Builder
