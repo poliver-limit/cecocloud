@@ -1,7 +1,7 @@
 create sequence hibernate_sequence start 1 increment 1;
 
 create table companyia (
-    id int8 not null,
+   id int8 not null,
     version int8 not null,
     codi varchar(30) not null,
     email varchar(120),
@@ -12,7 +12,7 @@ create table companyia (
 );
 
 create table empresa (
-    id int8 not null,
+   id int8 not null,
     version int8 not null,
     activa boolean not null,
     codi varchar(30) not null,
@@ -24,7 +24,7 @@ create table empresa (
 );
 
 create table identificador (
-    id int8 not null,
+   id int8 not null,
     version int8 not null,
     codi varchar(4) not null,
     nom varchar(40) not null,
@@ -33,7 +33,7 @@ create table identificador (
 );
 
 create table perfil (
-    id int8 not null,
+   id int8 not null,
     version int8 not null,
     codi varchar(30) not null,
     descripcio varchar(255) not null,
@@ -42,14 +42,14 @@ create table perfil (
 );
 
 create table perfil_rol (
+   perfil_id int8 not null,
+    rol_id int8 not null,
     version int8 not null,
-    perfil_id int8,
-    rol_id int8,
     primary key (perfil_id, rol_id)
 );
 
 create table perfil_usuariempresa (
-    empresa_id int8 not null,
+   empresa_id int8 not null,
     perfil_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
@@ -57,7 +57,7 @@ create table perfil_usuariempresa (
 );
 
 create table rol (
-    id int8 not null,
+   id int8 not null,
     version int8 not null,
     codi varchar(30) not null,
     descripcio varchar(255) not null,
@@ -66,7 +66,7 @@ create table rol (
 );
 
 create table rol_usuariempresa (
-    empresa_id int8 not null,
+   empresa_id int8 not null,
     rol_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
@@ -74,33 +74,33 @@ create table rol_usuariempresa (
 );
 
 create table usuari (
-    id int8 not null,
+   id int8 not null,
     version int8 not null,
     actiu boolean,
     codi varchar(64) not null,
     contrasenya varchar(255),
     email varchar(100) not null,
     imatge_url varchar(255),
-    nom varchar(100) not null,
     llinatges varchar(100),
+    nom varchar(100) not null,
     validat boolean,
     primary key (id)
 );
 
 create table usuari_authority (
-    usuari_id int8 not null,
+   usuari_id int8 not null,
     rol varchar(10)
 );
 
 create table usuari_companyia (
-    companyia_id int8 not null,
+   companyia_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
     primary key (companyia_id, usuari_id)
 );
 
 create table usuari_empresa (
-    empresa_id int8 not null,
+   empresa_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
     primary key (empresa_id, usuari_id)
@@ -158,7 +158,7 @@ alter table perfil_usuariempresa
    references perfil;
 
 alter table perfil_usuariempresa 
-   add constraint perfilusuemp_usuemp_fk
+   add constraint perfilusuemp_usuemp_fk 
    foreign key (usuari_id, empresa_id) 
    references usuari_empresa;
 
@@ -178,7 +178,7 @@ alter table rol_usuariempresa
    references usuari_empresa;
 
 alter table usuari_authority 
-   add constraint usuaut_usuari_fk
+   add constraint usuaut_usuari_fk 
    foreign key (usuari_id) 
    references usuari;
 
