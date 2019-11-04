@@ -38,25 +38,22 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 
 	@Autowired
 	private ObjectMapper objectMapper;
-	
+
 	@Override
 	@Transactional
 	@Cacheable(value="companyia", key="#id")
 	public Companyia getOne(Long id) {
 		Companyia companyia = super.getOne(id);
-		
-		// Carregar llicència
 		if (companyia.getLlicenciaKey() != null & !companyia.getLlicenciaKey().isEmpty()) {
 			try {
 				companyia.setLlicencia(objectMapper.readValue(
 						AsymmetricCryptographyHelper.decryptText(companyia.getLlicenciaKey()), 
 						Llicencia.class));
 			} catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | NoSuchAlgorithmException
-					| InvalidKeySpecException | NoSuchPaddingException | IOException e) {
-				throw new InvalidLicenseException("No s'ha pogut desencriptar la llicència", e);
+					| InvalidKeySpecException | NoSuchPaddingException | IOException ex) {
+				throw new InvalidLicenseException("No s'ha pogut desencriptar la llicència", ex);
 			}
 		}
-		
 		return companyia;
 	}
 

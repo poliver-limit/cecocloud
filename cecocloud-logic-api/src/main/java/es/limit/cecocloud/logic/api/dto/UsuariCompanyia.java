@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -10,9 +12,12 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.Usuari;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
+import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.logic.api.dto.UsuariCompanyia.UsuariCompanyiaPk;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -24,8 +29,8 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "companyia")
-public class UsuariCompanyia extends AbstractIdentificable<Long> {
-	
+public class UsuariCompanyia extends AbstractIdentificableWithCompositePk<UsuariCompanyiaPk> {
+
 	@NotNull(groups = {OnCreate.class})
 	@Transient
 	@RestapiField(
@@ -44,6 +49,14 @@ public class UsuariCompanyia extends AbstractIdentificable<Long> {
 			includeInQuickFilter = true)
 	private GenericReference<Companyia, Long> companyia;
 
-//	private boolean administrador;
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@Getter
+	@SuppressWarnings("serial")
+	public static class UsuariCompanyiaPk implements Serializable {
+		private Long usuariId;
+		private Long companyiaId;
+	}
+
 }
 

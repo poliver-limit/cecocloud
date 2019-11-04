@@ -30,22 +30,22 @@ import lombok.Setter;
 @Entity
 @Table(name = "perfil_rol")
 public class PerfilRolEntity extends AbstractEntity<PerfilRol, Long> {
-	
+
 	@Embedded
 	protected PerfilRol embedded;
-	
+
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "perfil_id",
 			foreignKey = @ForeignKey(name = "perfilrol_perfil_fk"))
 	protected PerfilEntity perfil;
-	
+
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "rol_id",
 			foreignKey = @ForeignKey(name = "perfilrol_rol_fk"))
 	protected RolEntity rol;
-	
+
 	@Builder
 	public PerfilRolEntity(
 			PerfilRol embedded,
@@ -66,4 +66,5 @@ public class PerfilRolEntity extends AbstractEntity<PerfilRol, Long> {
 	public void updateRol(RolEntity rol) {
 		this.rol = rol;
 	}
+
 }

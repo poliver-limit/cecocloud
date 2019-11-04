@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,15 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractEntity;
+import es.limit.base.boot.persist.entity.AbstractCompositePkEntity;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.logic.api.dto.UsuariCompanyia;
+import es.limit.cecocloud.logic.api.dto.UsuariCompanyia.UsuariCompanyiaPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 /**
  * Entitat del model de dades que conté la informació d'una relacio usuari-companyia.
@@ -31,23 +34,22 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(name = "usuari_companyia")
-public class UsuariCompanyiaEntity extends AbstractEntity<UsuariCompanyia, Long> {
-	
+@AttributeOverrides({
+	@AttributeOverride(name = "id.usuariId", column = @Column(name = "usuari_id")),
+	@AttributeOverride(name = "id.companyiaId", column = @Column(name = "companyia_id")),
+})
+public class UsuariCompanyiaEntity extends AbstractCompositePkEntity<UsuariCompanyia, UsuariCompanyiaPk> {
+
 	@Embedded
 	protected UsuariCompanyia embedded;
-	
+
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "usuari_id",
-			foreignKey = @ForeignKey(name = "usucom_usuari_fk"))
+	@JoinColumn(name = "usuari_id", foreignKey = @ForeignKey(name = "usucom_usuari_fk"), insertable = false, updatable = false)
 	protected UsuariEntity usuari;
-	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "companyia_id",
-			foreignKey = @ForeignKey(name = "usucom_companyia_fk"))
+	@JoinColumn(name = "companyia_id", foreignKey = @ForeignKey(name = "usucom_companyia_fk"), insertable = false, updatable = false)
 	protected CompanyiaEntity companyia;
-	
+
 	@Builder
 	public UsuariCompanyiaEntity(
 			UsuariCompanyia embedded,
@@ -60,15 +62,6 @@ public class UsuariCompanyiaEntity extends AbstractEntity<UsuariCompanyia, Long>
 
 	@Override
 	public void update(UsuariCompanyia embedded) {
-		this.embedded = embedded;
 	}
-	public void updateUsuari(UsuariEntity usuari) {
-		this.usuari = usuari;
-	}
-	public void updateCompanyia(CompanyiaEntity companyia) {
-		this.companyia = companyia;
-	}
-	
-//	private boolean administrador;
 
 }

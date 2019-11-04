@@ -43,7 +43,7 @@ public class AuthServiceImpl extends AbstractAuthServiceImpl {
 						userSession.getEmpresa(), 
 						userSession.getIdentificador());
 				if (rols != null && !rols.isEmpty()) {
-					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getNom())).collect(Collectors.toList()); 
+					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getCodi())).collect(Collectors.toList()); 
 				}
 			}
 		}

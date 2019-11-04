@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractEntity;
+import es.limit.base.boot.persist.entity.AbstractCompositePkEntity;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
+import es.limit.cecocloud.logic.api.dto.UsuariEmpresa.UsuariEmpresaPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,23 +35,22 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(name = "usuari_empresa")
-public class UsuariEmpresaEntity extends AbstractEntity<UsuariEmpresa ,Long> {
-	
+@AttributeOverrides({
+	@AttributeOverride(name = "id.usuariId", column = @Column(name = "usuari_id")),
+	@AttributeOverride(name = "id.empresaId", column = @Column(name = "empresa_id")),
+})
+public class UsuariEmpresaEntity extends AbstractCompositePkEntity<UsuariEmpresa, UsuariEmpresaPk> {
+
 	@Embedded
 	protected UsuariEmpresa embedded;
-	
+
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "usuari_id",
-			foreignKey = @ForeignKey(name = "usuemp_usuari_fk"))
+	@JoinColumn(name = "usuari_id", foreignKey = @ForeignKey(name = "usuemp_usuari_fk"), insertable = false, updatable = false)
 	protected UsuariEntity usuari;
-	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "empresa_id",
-			foreignKey = @ForeignKey(name = "usuemp_empresa_fk"))
+	@JoinColumn(name = "empresa_id", foreignKey = @ForeignKey(name = "usuemp_empresa_fk"), insertable = false, updatable = false)
 	protected EmpresaEntity empresa;
-	
+
 	@Builder
 	public UsuariEmpresaEntity(
 			UsuariEmpresa embedded,
@@ -60,13 +63,6 @@ public class UsuariEmpresaEntity extends AbstractEntity<UsuariEmpresa ,Long> {
 
 	@Override
 	public void update(UsuariEmpresa embedded) {
-		this.embedded = embedded;
 	}
-	public void updateUsuari(UsuariEntity usuari) {
-		this.usuari = usuari;
-	}
-	public void updateEmpresa(EmpresaEntity empresa) {
-		this.empresa = empresa;
-	}
-	
+
 }

@@ -12,7 +12,5 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
  * @author Limit Tecnologies <limit@limit.es>
  */
 public interface EmpresaService extends GenericServiceWithPermissions<Empresa, Long> {
-	
-//	public List<Empresa> getAllowedEmpreses();
 
 }

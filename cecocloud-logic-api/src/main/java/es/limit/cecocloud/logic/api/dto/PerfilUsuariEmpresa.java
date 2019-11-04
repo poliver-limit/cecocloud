@@ -3,15 +3,21 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
+import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.logic.api.dto.PerfilUsuariEmpresa.PerfilUsuariEmpresaPk;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -23,7 +29,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "perfil"
 )
-public class PerfilUsuariEmpresa extends AbstractIdentificable<Long> {
+public class PerfilUsuariEmpresa extends AbstractIdentificableWithCompositePk<PerfilUsuariEmpresaPk> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Transient
@@ -33,7 +39,7 @@ public class PerfilUsuariEmpresa extends AbstractIdentificable<Long> {
 			disabledForUpdate=true,
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
-	private GenericReference<UsuariEmpresa, Long> usuariEmpresa;
+	private GenericReferenceWithCompositePk<UsuariEmpresa> usuariEmpresa;
 	@NotNull(groups = {OnCreate.class})
 	@Transient
 	@RestapiField(
@@ -42,5 +48,15 @@ public class PerfilUsuariEmpresa extends AbstractIdentificable<Long> {
 			disabledForUpdate=true,
 			includeInQuickFilter = true)
 	private GenericReference<Perfil, Long> perfil;
-	
+
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@Getter
+	@SuppressWarnings("serial")
+	public static class PerfilUsuariEmpresaPk implements Serializable {
+		private Long usuariId;
+		private Long empresaId;
+		private Long perfilId;
+	}
+
 }

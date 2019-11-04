@@ -113,7 +113,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				EmpresaEntity empresaCreada = empresaRepository.save(
 						EmpresaEntity.builder().
 						embedded(empresa).
-						companyia(companyia.get()).
+						//companyia(companyia.get()).
 						identificador(identificador.get()).
 						build());
 				// Actualitza els operaris
@@ -155,9 +155,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			for (MarcatgeEntity marcatge: marcatges) {
 				SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
 				Operari smUsuariEmpresa = marcatge.getOperari().getEmbedded();
-				Empresa smEmpresa = marcatge.getOperari().getEmpresa().getEmbedded();
-				sm.setEmpresaIdentificadorCodi(smEmpresa.getIdentificador().getId()); //.getIdentificadorCodi());
-				sm.setEmpresaCodi(smEmpresa.getCodi());
+				EmpresaEntity smEmpresa = marcatge.getOperari().getEmpresa();
+				sm.setEmpresaIdentificadorCodi(smEmpresa.getIdentificador().getEmbedded().getCodi());
+				sm.setEmpresaCodi(smEmpresa.getEmbedded().getCodi());
 				sm.setOperariCodi(smUsuariEmpresa.getCodi());
 				sm.setData(marcatge.getEmbedded().getData());
 				sm.setLatitud(marcatge.getEmbedded().getLatitud());
@@ -262,7 +262,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private boolean empresaDbEqualsEmpresaSync(
 			EmpresaEntity empresaDb,
 			SincronitzacioEmpresa empresaSync) {
-		return empresaDb.getEmbedded().getIdentificador().getId().equals(empresaSync.getIdentificadorCodi()) && empresaDb.getEmbedded().getCodi().equals(empresaSync.getCodi());
+		return empresaDb.getIdentificador().getEmbedded().getCodi().equals(empresaSync.getIdentificadorCodi()) && empresaDb.getEmbedded().getCodi().equals(empresaSync.getCodi());
 	}
 
 }

@@ -33,30 +33,26 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@NotNull
 	@Transient
 	@RestapiField(includeInQuickFilter = true)
-	private GenericReference<Companyia, Long> companyia;
-	@NotNull
-	@Transient
-	@RestapiField(includeInQuickFilter = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<Identificador, Long> identificador;
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)
 	private String codi;
 	@NotNull
-	@Size(max = 40)
-	@RestapiField(includeInQuickFilter = true)
-	private String nom;
-	@NotNull
 	@Size(max = 12)
 	@RestapiField(includeInQuickFilter = true)
 	private String nif;
-	@RestapiField(hiddenInLov = true)
-	private boolean activa;
+	@NotNull
+	@Size(max = 40)
+	@RestapiField(includeInQuickFilter = true)
+	private String nom;
 	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInLov = true,
 			includeInQuickFilter = true,
 			disabledForUpdate = true)
 	@Enumerated
 	protected TipusEmpresaEnum tipus;
+	@RestapiField(hiddenInLov = true)
+	private boolean activa;
 
 }

@@ -22,11 +22,8 @@ import es.limit.cecocloud.persist.repository.CompanyiaRepository;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service("comuIdentificadorServiceImpl")
-public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identificador, IdentificadorEntity, String> implements IdentificadorService {
+public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identificador, IdentificadorEntity, Long> implements IdentificadorService {
 
-//	@Autowired
-//	private IdentificadorRepository identificadorRepository;
-	
 	@Autowired
 	private CompanyiaRepository companyiaRepository;
 	
@@ -38,12 +35,5 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 		CompanyiaEntity companyia = companyiaRepository.getOne(session.getCompanyia());
 		entity.updateCompanyia(companyia);
 	}
-
-
-//	@Transactional
-//	@Override
-//	public  List<Identificador> findIdentificadorByCompanyiaCodi(String companyiaCodi) {
-//		return toDto(identificadorRepository.findByCompanyiaEmbeddedCodi(companyiaCodi));
-//	}
 
 }

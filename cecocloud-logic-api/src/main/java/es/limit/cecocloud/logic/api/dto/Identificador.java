@@ -20,7 +20,7 @@ import lombok.Setter;
 		authoritiesWithReadPermission = { Authorities.ADMIN },
 		authoritiesWithUpdatePermission = { Authorities.ADMIN },
 		authoritiesWithDeletePermission = { Authorities.ADMIN })
-public class Identificador extends AbstractIdentificable<String> {
+public class Identificador extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Size(max = 4)
@@ -28,7 +28,6 @@ public class Identificador extends AbstractIdentificable<String> {
 			disabledForUpdate = true,
 			toUpperCase=true,
 			includeInQuickFilter = true)
-	@Transient
 	protected String codi;
 	@NotNull
 	@Size(max = 40)

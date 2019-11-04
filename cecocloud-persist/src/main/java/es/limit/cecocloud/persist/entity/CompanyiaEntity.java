@@ -29,7 +29,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "companyia")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false, unique = true)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "telefon", length = 16)),
 	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 120)),

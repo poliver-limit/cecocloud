@@ -5,7 +5,7 @@ package es.limit.cecocloud.logic.api.service;
 
 import java.util.List;
 
-import es.limit.base.boot.logic.api.service.GenericService;
+import es.limit.base.boot.logic.api.service.GenericCompositePkService;
 import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
 
 /**
@@ -13,14 +13,16 @@ import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface UsuariEmpresaService extends GenericService<UsuariEmpresa, Long> {
-	public List<UsuariEmpresa> findByUsuariCodi(
+public interface UsuariEmpresaService extends GenericCompositePkService<UsuariEmpresa> {
+
+	/*public List<UsuariEmpresa> findByUsuariCodi(
 			String usuariCodi,
 			String identificadorCodi);
-	
+
 	public UsuariEmpresa findByUsuariCodiAndEmpresa(
 			String usuariCodi, 
-			Long empresaCodi);
-	
-	public List<String> findMenusPermesos(String modulActiu); //String usuariCodi, EmpresaPk parentPk);
+			Long empresaCodi);*/
+
+	public List<String> findMenusPermesos(String modulActiu);
+
 }

@@ -28,7 +28,7 @@ public class Perfil extends AbstractIdentificable<Long> {
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(includeInQuickFilter = true)
-	private String nom;
+	private String codi;
 	@Size(max = 255)
 	@RestapiField(includeInQuickFilter = true)
 	private String descripcio;
