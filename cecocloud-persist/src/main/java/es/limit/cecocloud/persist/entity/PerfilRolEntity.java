@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,8 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractEntity;
+import es.limit.base.boot.persist.entity.AbstractCompositePkEntity;
 import es.limit.cecocloud.logic.api.dto.PerfilRol;
+import es.limit.cecocloud.logic.api.dto.PerfilRol.PerfilRolPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,21 +33,20 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(name = "perfil_rol")
-public class PerfilRolEntity extends AbstractEntity<PerfilRol, Long> {
+@AttributeOverrides({
+	@AttributeOverride(name = "id.perfilId", column = @Column(name = "perfil_id")),
+	@AttributeOverride(name = "id.rolId", column = @Column(name = "rol_id")),
+})
+public class PerfilRolEntity extends AbstractCompositePkEntity<PerfilRol, PerfilRolPk> {
 
 	@Embedded
 	protected PerfilRol embedded;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "perfil_id",
-			foreignKey = @ForeignKey(name = "perfilrol_perfil_fk"))
+	@JoinColumn(name = "perfil_id", foreignKey = @ForeignKey(name = "perfilrol_perfil_fk"), insertable = false, updatable = false)
 	protected PerfilEntity perfil;
-
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "rol_id",
-			foreignKey = @ForeignKey(name = "perfilrol_rol_fk"))
+	@JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "perfilrol_rol_fk"), insertable = false, updatable = false)
 	protected RolEntity rol;
 
 	@Builder
@@ -59,12 +62,6 @@ public class PerfilRolEntity extends AbstractEntity<PerfilRol, Long> {
 	@Override
 	public void update(PerfilRol embedded) {
 		this.embedded = embedded;
-	}
-	public void updatePerfil(PerfilEntity perfil) {
-		this.perfil = perfil;
-	}
-	public void updateRol(RolEntity rol) {
-		this.rol = rol;
 	}
 
 }

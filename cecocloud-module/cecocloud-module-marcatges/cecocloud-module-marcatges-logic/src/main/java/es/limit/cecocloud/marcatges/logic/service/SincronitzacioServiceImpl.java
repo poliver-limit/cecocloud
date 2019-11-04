@@ -62,8 +62,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	public SincronitzacioResposta sincronitzar(
 			Long companyiaId,
 			List<SincronitzacioEmpresaAmbOperaris> empreses) {
-		Optional<CompanyiaEntity> companyia = companyiaRepository.findById(companyiaId);
-		List<EmpresaEntity> emps = empresaRepository.findByCompanyia(companyia.get());
+		//Optional<CompanyiaEntity> companyia = companyiaRepository.findById(companyiaId);
+		List<EmpresaEntity> emps = null; // TODO empresaRepository.findByCompanyia(companyia.get());
 		int createCount = 0;
 		int updateCount = 0;
 		int deleteCount = 0;
@@ -109,7 +109,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				empresa.setNom(empresaSync.getNom());
 				empresa.setTipus(TipusEmpresaEnum.GESTIO);
 				empresa.setActiva(true);
-				Optional<IdentificadorEntity> identificador = identificadorRepository.findById(empresaSync.getIdentificadorCodi());
+				Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(empresaSync.getIdentificadorCodi());
 				EmpresaEntity empresaCreada = empresaRepository.save(
 						EmpresaEntity.builder().
 						embedded(empresa).
@@ -135,7 +135,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			Date dataInici,
 			Date dataFi) {
 		Optional<CompanyiaEntity> companyia = companyiaRepository.findById(companyiaId);
-		List<EmpresaEntity> emps = empresaRepository.findByCompanyia(companyia.get());
+		List<EmpresaEntity> emps = null; // TODO empresaRepository.findByCompanyia(companyia.get());
 		List<EmpresaEntity> empresesConsulta = new ArrayList<EmpresaEntity>();
 		for (EmpresaEntity empresa: emps) {
 			for (SincronitzacioEmpresa empresaSync: empreses) {

@@ -6,6 +6,7 @@ package es.limit.cecocloud.persist.repository;
 import java.util.List;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
+import es.limit.cecocloud.logic.api.dto.UsuariCompanyia.UsuariCompanyiaPk;
 import es.limit.cecocloud.persist.entity.UsuariCompanyiaEntity;
 
 /**
@@ -14,7 +15,7 @@ import es.limit.cecocloud.persist.entity.UsuariCompanyiaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface UsuariCompanyiaRepository extends BaseRepository<UsuariCompanyiaEntity, Long> {
+public interface UsuariCompanyiaRepository extends BaseRepository<UsuariCompanyiaEntity, UsuariCompanyiaPk> {
 	List<UsuariCompanyiaEntity> findByUsuariEmbeddedCodi(String usuariCodi);
 	List<UsuariCompanyiaEntity> findByCompanyiaEmbeddedCodi(String companyiaCodi);
 	UsuariCompanyiaEntity findUsuariCompanyiaByUsuariEmbeddedCodiAndCompanyiaEmbeddedCodi(String usuariCodi, String companyiaCodi);

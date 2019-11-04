@@ -6,6 +6,7 @@ package es.limit.cecocloud.persist.repository;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
+import es.limit.cecocloud.logic.api.dto.PerfilUsuariEmpresa.PerfilUsuariEmpresaPk;
 import es.limit.cecocloud.persist.entity.PerfilUsuariEmpresaEntity;
 
 /**
@@ -15,5 +16,5 @@ import es.limit.cecocloud.persist.entity.PerfilUsuariEmpresaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository
-public interface PerfilUsuariEmpresaRepository extends BaseRepository<PerfilUsuariEmpresaEntity, Long> {
+public interface PerfilUsuariEmpresaRepository extends BaseRepository<PerfilUsuariEmpresaEntity, PerfilUsuariEmpresaPk> {
 }

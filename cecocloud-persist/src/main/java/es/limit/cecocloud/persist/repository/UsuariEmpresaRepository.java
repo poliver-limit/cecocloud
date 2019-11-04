@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
+import es.limit.cecocloud.logic.api.dto.UsuariEmpresa.UsuariEmpresaPk;
 import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
 
 /**
@@ -21,7 +22,7 @@ import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository
-public interface UsuariEmpresaRepository extends BaseRepository<UsuariEmpresaEntity, Long> {
+public interface UsuariEmpresaRepository extends BaseRepository<UsuariEmpresaEntity, UsuariEmpresaPk> {
 	
 	@Query("from "
 			+ " UsuariEmpresaEntity uem "
