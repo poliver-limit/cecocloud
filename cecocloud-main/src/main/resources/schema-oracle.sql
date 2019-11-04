@@ -1,68 +1,123 @@
-create sequence hibernate_sequence start with 1 increment by  1;
-
 create table companyia (
-   id number(19,0) not null,
-    codi varchar2(30 char) not null,
-    nom varchar2(30 char) not null,
+    id number(19,0) not null,
     version number(19,0) not null,
+    codi varchar2(30 char) not null,
+    email varchar2(120 char),
+    llicencia varchar2(2000 char),
+    nom varchar2(30 char) not null,
+    telefon varchar2(16 char),
     primary key (id)
 );
 
 create table empresa (
-   id number(19,0) not null,
-    codi varchar2(30 char) not null,
-    identificador_codi varchar2(255 char),
-    nif varchar2(255 char),
-    nom varchar2(30 char) not null,
-    activa number(1,0) not null,
+    id number(19,0) not null,
     version number(19,0) not null,
-    companyia_id number(19,0) not null,
+    activa number(1,0) not null,
+    codi varchar2(30 char) not null,
+    nif varchar2(12 char) not null,
+    nom varchar2(30 char) not null,
+    tipus number(10,0) not null,
+    identificador_id number(19,0),
     primary key (id)
 );
 
-create table marcatge (
-   id number(19,0) not null,
-    operari_id number(19,0) not null,
-    data timestamp not null,
-    latitud double precision,
-    longitud double precision,
-    origen number(10,0) not null,
-    created_by varchar2(64 char) not null,
-    created_date timestamp not null,
-    lastmod_by varchar2(64 char),
-    lastmod_date timestamp,
+create table identificador (
+    id number(19,0) not null,
     version number(19,0) not null,
+    codi varchar2(4 char) not null,
+    nom varchar2(40 char) not null,
+    companyia_id number(19,0),
     primary key (id)
+);
+
+create table perfil (
+    id number(19,0) not null,
+    version number(19,0) not null,
+    codi varchar2(30 char) not null,
+    descripcio varchar2(255 char) not null,
+    companyia_id number(19,0),
+    primary key (id)
+);
+
+create table perfil_rol (
+    perfil_id number(19,0) not null,
+    rol_id number(19,0) not null,
+    version number(19,0) not null,
+    primary key (perfil_id, rol_id)
+);
+
+create table perfil_usuariempresa (
+    empresa_id number(19,0) not null,
+    perfil_id number(19,0) not null,
+    usuari_id number(19,0) not null,
+    version number(19,0) not null,
+    primary key (empresa_id, perfil_id, usuari_id)
+);
+
+create table rol (
+    id number(19,0) not null,
+    version number(19,0) not null,
+    codi varchar2(30 char) not null,
+    descripcio varchar2(255 char) not null,
+    companyia_id number(19,0),
+    primary key (id)
+);
+
+create table rol_usuariempresa (
+    empresa_id number(19,0) not null,
+    rol_id number(19,0) not null,
+    usuari_id number(19,0) not null,
+    version number(19,0) not null,
+    primary key (empresa_id, rol_id, usuari_id)
 );
 
 create table usuari (
-   id number(19,0) not null,
+    id number(19,0) not null,
+    version number(19,0) not null,
+    actiu number(1,0),
     codi varchar2(64 char) not null,
     contrasenya varchar2(255 char),
     email varchar2(100 char) not null,
     imatge_url varchar2(255 char),
+    llinatges varchar2(100 char),
     nom varchar2(100 char) not null,
     validat number(1,0),
-    actiu number(1,0),
-    version number(19,0) not null,
     primary key (id)
 );
 
-create table operari (
-   id number(19,0) not null,
-    data_fi timestamp not null,
-    data_inici timestamp not null,
-    codi varchar2(6 char) not null,
-    version number(19,0) not null,
+create table usuari_authority (
     usuari_id number(19,0) not null,
-    empresa_id number(19,0) not null,
-    primary key (id)
-);
-
-create table usuari_rols (
-   usuari_id number(19,0) not null,
     rol varchar2(10 char)
 );
+
+create table usuari_companyia (
+    companyia_id number(19,0) not null,
+    usuari_id number(19,0) not null,
+    version number(19,0) not null,
+    primary key (companyia_id, usuari_id)
+);
+
+create table usuari_empresa (
+    empresa_id number(19,0) not null,
+    usuari_id number(19,0) not null,
+    version number(19,0) not null,
+    primary key (empresa_id, usuari_id)
+);
+
+alter table companyia 
+   add constraint companyia_codi_uk unique (codi);
+
+alter table empresa 
+   add constraint empresa_uk unique (identificador_id, codi);
+
+alter table identificador 
+   add constraint identificador_uk unique (companyia_id, codi);
+
+alter table perfil 
+   add constraint perfil_uk unique (companyia_id, codi);
+
+alter table rol 
+   add constraint rol_uk unique (companyia_id, codi);
 
 alter table usuari 
    add constraint usuari_codi_uk unique (codi);
@@ -71,27 +126,77 @@ alter table usuari
    add constraint usuari_email_uk unique (email);
 
 alter table empresa 
-   add constraint empresa_companyia_fk 
+   add constraint empresa_identificador_fk 
+   foreign key (identificador_id) 
+   references identificador;
+
+alter table identificador 
+   add constraint identificador_companyia_fk 
    foreign key (companyia_id) 
    references companyia;
 
-alter table marcatge 
-   add constraint marcatge_operari_fk 
-   foreign key (operari_id) 
-   references operari;
+alter table perfil 
+   add constraint perfil_companyia_fk 
+   foreign key (companyia_id) 
+   references companyia;
 
-alter table operari 
-   add constraint operari_usuari_fk 
+alter table perfil_rol 
+   add constraint perfilrol_perfil_fk 
+   foreign key (perfil_id) 
+   references perfil;
+
+alter table perfil_rol 
+   add constraint perfilrol_rol_fk 
+   foreign key (rol_id) 
+   references rol;
+
+alter table perfil_usuariempresa 
+   add constraint perfilusuemp_perfil_fk 
+   foreign key (perfil_id) 
+   references perfil;
+
+alter table perfil_usuariempresa 
+   add constraint perfilusuemp_usuemp_fk 
+   foreign key (usuari_id, empresa_id) 
+   references usuari_empresa;
+
+alter table rol 
+   add constraint rol_companyia_fk 
+   foreign key (companyia_id) 
+   references companyia;
+
+alter table rol_usuariempresa 
+   add constraint rolusuemp_rol_fk 
+   foreign key (rol_id) 
+   references rol;
+
+alter table rol_usuariempresa 
+   add constraint rolusuemp_usuemp_fk 
+   foreign key (usuari_id, empresa_id) 
+   references usuari_empresa;
+
+alter table usuari_authority 
+   add constraint usuaut_usuari_fk
    foreign key (usuari_id) 
    references usuari;
 
-alter table operari 
-   add constraint operari_empresa_fk 
+alter table usuari_companyia 
+   add constraint usucom_companyia_fk 
+   foreign key (companyia_id) 
+   references companyia;
+
+alter table usuari_companyia 
+   add constraint usucom_usuari_fk 
+   foreign key (usuari_id) 
+   references usuari;
+
+alter table usuari_empresa 
+   add constraint usuemp_empresa_fk 
    foreign key (empresa_id) 
    references empresa;
 
-alter table usuari_rols 
-   add constraint usurol_usuari_fk 
+alter table usuari_empresa 
+   add constraint usuemp_usuari_fk 
    foreign key (usuari_id) 
    references usuari;
 

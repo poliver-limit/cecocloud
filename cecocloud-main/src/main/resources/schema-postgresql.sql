@@ -158,7 +158,7 @@ alter table perfil_usuariempresa
    references perfil;
 
 alter table perfil_usuariempresa 
-   add constraint perfil_usuemp_fk
+   add constraint perfilusuemp_usuemp_fk
    foreign key (usuari_id, empresa_id) 
    references usuari_empresa;
 
@@ -173,12 +173,12 @@ alter table rol_usuariempresa
    references rol;
 
 alter table rol_usuariempresa 
-   add constraint rol_usuemp_fk 
+   add constraint rolusuemp_usuemp_fk 
    foreign key (usuari_id, empresa_id) 
    references usuari_empresa;
 
 alter table usuari_authority 
-   add constraint usuari_authority_fk
+   add constraint usuaut_usuari_fk
    foreign key (usuari_id) 
    references usuari;
 

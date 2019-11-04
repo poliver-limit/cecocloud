@@ -49,8 +49,8 @@ public class RolUsuariEmpresaEntity extends AbstractCompositePkEntity<RolUsuariE
 	protected RolEntity rol;
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns({
-		@JoinColumn(name = "usuari_id", foreignKey = @ForeignKey(name = "rolusuemp_usuari_fk"), insertable = false, updatable = false),
-		@JoinColumn(name = "empresa_id", foreignKey = @ForeignKey(name = "rolusuemp_empresa_fk"), insertable = false, updatable = false)
+		@JoinColumn(name = "usuari_id", foreignKey = @ForeignKey(name = "rolusuemp_usuemp_fk"), insertable = false, updatable = false),
+		@JoinColumn(name = "empresa_id", foreignKey = @ForeignKey(name = "rolusuemp_usuemp_fk"), insertable = false, updatable = false)
 	})
 	protected UsuariEmpresaEntity usuariEmpresa;
 
