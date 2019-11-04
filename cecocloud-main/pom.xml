@@ -83,4 +83,10 @@
 		</plugins>
 		<finalName>cecocloud</finalName>
 	</build>
+	<repositories>
+		<repository>
+			<id>mvn-local-repo</id>
+			<url>file://${basedir}/../mvn-local-repo</url>
+		</repository>
+	</repositories>
 </project>
