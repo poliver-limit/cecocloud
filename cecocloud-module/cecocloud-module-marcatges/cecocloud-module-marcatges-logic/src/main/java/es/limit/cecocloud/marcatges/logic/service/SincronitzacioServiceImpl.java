@@ -177,7 +177,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		int createCount = 0;
 		if (marcatges != null) {
 			for (SincronitzacioMarcatge marcatge: marcatges) {
-				Optional<OperariEntity> operari = operariRepository.findByEmpresaCompanyiaAndEmpresaIdentificadorIdAndEmpresaEmbeddedCodiAndEmbeddedCodi(
+				Optional<OperariEntity> operari = operariRepository.findByEmpresaIdentificadorCompanyiaAndEmpresaIdentificadorEmbeddedCodiAndEmpresaEmbeddedCodiAndEmbeddedCodi(
 						companyia.get(),
 						marcatge.getEmpresaIdentificadorCodi(),
 						marcatge.getEmpresaCodi(),

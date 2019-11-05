@@ -13,7 +13,7 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.service.IdentificadorService;
 
 /**
- * Controlador per al servei REST de gestió de companyies.
+ * Controlador per al servei REST de gestió d'identificadors.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
