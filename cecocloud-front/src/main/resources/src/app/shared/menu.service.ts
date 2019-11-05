@@ -15,6 +15,25 @@ export class MenuItem {
 } )
 export abstract class MenuService {
 
+    private menuAdministracioItems = [
+        { icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
+        { icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] }
+    ];
+
+    private menuCompanyiaItems = [
+        { icon: 'domain', label: 'Companyia', labelKey: 'app.menu.companyia', route: '/companyies/{resourceId}' },
+        { icon: 'home_work', label: "Grup d'empreses", labelKey: 'app.menu.grup.empreses', route: '/identificadors' },
+        { icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' },
+        { icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+        { icon: 'people', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' },
+        { icon: 'people', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols' },
+    ];
+
+    private menuEmpresaItems = [
+        { icon: 'business_center', label: 'Empresa', labelKey: 'app.menu.empresa', route: '/empreses/{resourceId}' },
+        { icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+    ];
+
     private menuItems = [
         { icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
         { icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
@@ -55,12 +74,29 @@ export abstract class MenuService {
         this.allowedMenuItemsChangeSubject.next( this.allowedMenuItems );
     }
 
+    private refreshMenuCompanyia( tokenPayload?: BngAuthTokenPayload ) {
+        let usuariCodi;
+        let companyiaId;
+        let empresaId;
+
+        if ( tokenPayload && tokenPayload.name ) {
+            usuariCodi = tokenPayload.name;
+        }
+        if ( tokenPayload && tokenPayload.name ) {
+            companyiaId = tokenPayload.session['companyia'];
+            empresaId = tokenPayload.session['empresa'];
+        }
+
+
+    }
+
     constructor(
         authService: BngAuthService ) {
         this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
         // Manten actualitzada la llista dels items de menu permesos
         authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
             this.refreshAllowedMenuItems( tokenPayload );
+            this.refreshMenuCompanyia(tokenPayload);
         } );
     }
 

@@ -34,6 +34,6 @@
 		<module>cecocloud-back</module>
 		<module>cecocloud-front</module>
 		<module>cecocloud-main</module>
-		<!--module>cecocloud-module</module-->
+<!-- 		<module>cecocloud-module</module> -->
 	</modules>
 </project>

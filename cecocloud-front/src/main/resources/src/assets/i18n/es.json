@@ -5,7 +5,12 @@
 
 	"app.menu.usuaris": "Usuarios",
 	"app.menu.companyies": "Compañías",
+	"app.menu.companyia": "Compañía",
+	"app.menu.grup.empreses": "Grupo de empresas",
 	"app.menu.empreses": "Empresas",
+	"app.menu.empresa": "Empresa",
+	"app.menu.perfils": "Perfiles",
+	"app.menu.rols": "Roles",
 	"app.menu.operaris": "Operarios",
 	"app.menu.marcatges": "Marcajes",
 
