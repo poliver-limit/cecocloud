@@ -28,6 +28,16 @@
 			<artifactId>cecocloud-front</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-marcatges-front</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-marcatges-back</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
