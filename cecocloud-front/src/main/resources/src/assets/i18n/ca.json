@@ -154,6 +154,13 @@
 	"resource.permission.field.adminGranted": "Administrar",
 	"resource.permission.field.syncGranted": "Sincronitzar",
 
+	"resource.rol": "Rol",
+	"resource.rol.plural": "Rols",
+	"resource.rol.field.codi": "Codi",
+	"resource.rol.field.descripcio": "Descripció",
+	"resource.rol.field.companyia": "Companyia",
+	"resource.abstractIdentificable.field.id": "Id",
+
 	"module.usuaris.canvi.contrasenya.titol": "Canviar contrasenya",
 	"module.usuaris.canvi.contrasenya.field.contrasenya": "Contrasenya",
 	"module.usuaris.canvi.contrasenya.field.confirmacio": "Repetició",
