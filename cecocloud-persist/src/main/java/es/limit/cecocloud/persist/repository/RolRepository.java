@@ -31,7 +31,7 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 			+ " 	where 	rue.usuariEmpresa.id = uem.id "
 			+ "		  and 	uem.usuari.embedded.codi = :usuariCodi "
 			+ "		  and 	uem.empresa.embedded.codi = :empresaCodi "
-			+ "		  and 	uem.empresa.identificador.id = :identificadorCodi "
+//			+ "		  and 	uem.empresa.identificador.id = :identificadorCodi "
 			+ ") or r.id in ( "
 			+ "		select 	pr.rol.id "
 			+ "		from 	PerfilEntity p, "
@@ -43,12 +43,12 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 			+ "    	  and 	pue.usuariEmpresa.id = uem.id "
 			+ "	      and 	uem.usuari.embedded.codi = :usuariCodi "
 			+ "       and 	uem.empresa.embedded.codi = :empresaCodi "
-			+ "       and 	uem.empresa.identificador.id = :identificadorCodi"
+//			+ "       and 	uem.empresa.identificador.id = :identificadorCodi"
 			+ ") ")
 	List<RolEntity> findByUsuariCodiEmpresaCodi(
 			@Param("usuariCodi") String usuariCodi,
-			@Param("empresaCodi") String empresaCodi,
-			@Param("identificadorCodi") String identificadorCodi);
+			@Param("empresaCodi") String empresaCodi);
+//			@Param("identificadorCodi") String identificadorCodi);
 	
 	@Query(	"select r "
 			+ "from "
@@ -60,7 +60,7 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 			+ " 	where 	rue.usuariEmpresa.id = uem.id "
 			+ "		  and 	uem.usuari.embedded.codi = :usuariCodi "
 			+ "		  and 	uem.empresa.id = :empresaId "
-			+ "		  and 	uem.empresa.identificador.id = :identificadorId "
+//			+ "		  and 	uem.empresa.identificador.id = :identificadorId "
 			+ ") or r.id in ( "
 			+ "		select 	pr.rol.id "
 			+ "		from 	PerfilEntity p, "
@@ -72,10 +72,10 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 			+ "    	  and 	pue.usuariEmpresa.id = uem.id "
 			+ "	      and 	uem.usuari.embedded.codi = :usuariCodi "
 			+ "       and 	uem.empresa.id = :empresaId "
-			+ "       and 	uem.empresa.identificador.id = :identificadorId"
+//			+ "       and 	uem.empresa.identificador.id = :identificadorId"
 			+ ") ")
 	List<RolEntity> findByUsuariCodiEmpresa(
 			@Param("usuariCodi") String usuariCodi,
-			@Param("empresaId") Long empresaId,
-			@Param("identificadorId") String identificadorId);
+			@Param("empresaId") Long empresaId);
+//			@Param("identificadorId") String identificadorId);
 }

@@ -11,8 +11,6 @@ import { CompanyiesPermissionService } from './companyies-permission.service';
 	bng-form-mant
 	[config]="formConfig"
 	[restapiService]="companyiesService">
-	<bng-custom-field name="codi"></bng-custom-field>
-	<bng-custom-field name="nom"><!--companyia-nom #customField></companyia-nom--></bng-custom-field>
 	<ng-container *ngIf="id">
 		<bng-datagrid
 			[config]="permisosDatagridConfig"

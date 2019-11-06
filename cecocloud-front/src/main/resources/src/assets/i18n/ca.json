@@ -5,9 +5,15 @@
 
 	"app.menu.usuaris": "Usuaris",
 	"app.menu.companyies": "Companyies",
+	"app.menu.companyia": "Companyia",
+	"app.menu.grup.empreses": "Grup d'empreses",
 	"app.menu.empreses": "Empreses",
+	"app.menu.empresa": "Empresa",
+	"app.menu.perfils": "Perfils",
+	"app.menu.rols": "Rols",
 	"app.menu.operaris": "Operaris",
 	"app.menu.marcatges": "Marcatges",
+
 
 	"component.datagrid.header.button.refrescar": "Actualitzar",
 	"component.datagrid.header.button.crear": "Crear",

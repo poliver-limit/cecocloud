@@ -27,19 +27,15 @@ public class Companyia extends AbstractIdentificable<Long> {
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
-			disabledForCreate = true, 
-			disabledForUpdate = true, 
 			includeInQuickFilter = true)
 	private String codi;
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
-			disabledForCreate = true, 
 			includeInQuickFilter = true)
 	private String nom;
 	@Size(max = 60)
 	@RestapiField(
-			disabledForCreate = true, 
 			hiddenInGrid = true, 
 			hiddenInLov = true, 
 			includeInQuickFilter = true)
@@ -47,7 +43,6 @@ public class Companyia extends AbstractIdentificable<Long> {
 	@NotNull
 	@Size(max = 60)
 	@RestapiField(
-			disabledForCreate = true, 
 			hiddenInGrid = true, 
 			hiddenInLov = true, 
 			includeInQuickFilter = true)

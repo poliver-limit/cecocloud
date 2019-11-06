@@ -31,17 +31,17 @@ public class AuthServiceImpl extends AbstractAuthServiceImpl {
 		List<ExternalGrantedAuthority> grantedAuthorities = new ArrayList<ExternalGrantedAuthority>();
 		if (usuariCodi != null) {
 			Long empresaId = null;
-			String identificadorCodi = null;
+//			String identificadorCodi = null;
 			UserSession userSession = (UserSession)session;
 			if (userSession != null) {
 				empresaId = userSession.getEmpresa();
-				identificadorCodi = userSession.getIdentificador();
+//				identificadorCodi = userSession.getIdentificador();
 			}
-			if (empresaId != null && identificadorCodi != null) {
+			if (empresaId != null) { // && identificadorCodi != null) {
 				List<RolEntity> rols = rolRepository.findByUsuariCodiEmpresa(
 						usuariCodi, 
-						userSession.getEmpresa(), 
-						userSession.getIdentificador());
+						userSession.getEmpresa());
+//						userSession.getIdentificador());
 				if (rols != null && !rols.isEmpty()) {
 					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getCodi())).collect(Collectors.toList()); 
 				}
