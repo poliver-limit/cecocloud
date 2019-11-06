@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { BngAuthService, BngAuthTokenPayload } from 'base-angular';
+import { ModuleService, ModuleItem } from './module.service';
 
-export class MenuItem {
+export class AppMenu {
+	icon?: string;
+    label: string;
+    labelKey: string;
+	menuItems: AppMenuItem[]
+}
+export class AppMenuItem {
     icon?: string;
     label: string;
     labelKey: string;
@@ -15,15 +22,49 @@ export class MenuItem {
 } )
 export abstract class MenuService {
 
-    private menuItems = [
-        { icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris', onlyForRoles: ['ADMIN'] },
-        { icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies', onlyForRoles: ['ADMIN'] },
-        { icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses', onlyForRoles: ['ADMIN'] },
-        { icon: 'people_alt', label: 'Operaris', labelKey: 'app.menu.operaris', route: '/operaris', onlyForRoles: ['ADMIN'] },
-        { icon: 'timer', label: 'Marcatges', labelKey: 'app.menu.marcatges', route: '/marcatges', onlyForRoles: ['ADMIN', 'MARCA'] },
-        { icon: 'help', label: 'CPK Test', labelKey: 'app.menu.cpktest', route: '/cpktest', onlyForRoles: ['tiruri'] }
-    ];
-    private allowedMenuItems = [];
+	private adminMenu: AppMenu = {
+		icon: 'build',
+		label: 'Administració',
+		labelKey: 'app.menu.admin',
+		menuItems: [
+			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
+        	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
+		]
+	}
+
+	private adminCompanyiaMenu: AppMenu = {
+		icon: 'build',
+		label: 'Gestionar companyia',
+		labelKey: 'app.menu.admin',
+		menuItems: [
+			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
+        	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
+		]
+	}
+
+	public getAdminMenu(): AppMenu {
+		return this.adminMenu;
+	}
+
+	public getAdminCompanyiaMenu(): AppMenu {
+		return this.adminCompanyiaMenu;
+	}
+
+	public getModuleMenu(module: string): AppMenu {
+		let moduleItem: ModuleItem = this.moduleService.getModuleItem(module);
+		if (moduleItem) {
+			return <AppMenu> {
+				icon: moduleItem.icon,
+				label: moduleItem.label,
+				labelKey: 'app.module' + module,
+				menuItems: moduleItem.menuItems
+			};
+		}
+	}
+
+    /*private allowedMenuItems = [];
     private allowedMenuItemsChangeSubject = new Subject<MenuItem[]>();
 
     public getAllowedMenuItems() {
@@ -53,15 +94,16 @@ export abstract class MenuService {
             }
         } );
         this.allowedMenuItemsChangeSubject.next( this.allowedMenuItems );
-    }
+    }*/
 
     constructor(
-        authService: BngAuthService ) {
-        this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
+        authService: BngAuthService,
+		private moduleService: ModuleService ) {
+        /*this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
         // Manten actualitzada la llista dels items de menu permesos
-        authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
+        /*authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
             this.refreshAllowedMenuItems( tokenPayload );
-        } );
+        } );*/
     }
 
 }

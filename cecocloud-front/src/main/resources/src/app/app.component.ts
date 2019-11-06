@@ -5,7 +5,8 @@ import { filter } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material';
 import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
-import { MenuService, MenuItem } from './shared/menu.service';
+import { MenuService, AppMenu } from './shared/menu.service';
+import { ModuleService, ModuleItem } from './shared/module.service';
 
 @Component({
 	selector: 'app-root',
@@ -15,14 +16,21 @@ import { MenuService, MenuItem } from './shared/menu.service';
 </header>
 <mat-sidenav-container>
 	<mat-sidenav #sidenav *ngIf="topbarVisible" [mode]="(!mobileScreen) ? 'side' : 'over'" [opened]="!mobileScreen" [ngStyle]="{ 'margin-top' : (topbarVisible && !mobileScreen) ? '64px' : '0', 'width' : '256px'}">
-		<nav>
-			<mat-nav-list>
-				<a mat-list-item *ngFor="let item of allowedMenuItems; let i = index" [routerLink]="item.route">
-					<mat-icon style="margin-right:1em">{{item.icon}}</mat-icon>
-					<span>{{item.label}}</span>
-				</a>
-			</mat-nav-list>
-		</nav>
+		<ng-container *ngIf="currentMenu">
+			<mat-toolbar>
+				<mat-icon *ngIf="currentMenu.icon" style="margin-right:.5em">{{currentMenu.icon}}</mat-icon>
+				<span>{{currentMenu.label}}</span>
+			</mat-toolbar>
+			<mat-divider></mat-divider>
+			<nav>
+				<mat-nav-list>
+					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route">
+						<mat-icon style="margin-right:1em">{{item.icon}}</mat-icon>
+						<span>{{item.label}}</span>
+					</a>
+				</mat-nav-list>
+			</nav>
+		</ng-container>
 	</mat-sidenav>
 	<mat-sidenav-content [ngStyle]="{ 'margin-top' : (topbarVisible) ? (mobileScreen ? '56px' : '64px') : '0'}">
 		<header *ngIf="topbarVisible && mobileScreen">
@@ -44,7 +52,7 @@ import { MenuService, MenuItem } from './shared/menu.service';
 			<!--button mat-icon-button>
 				<mat-icon>contact_support</mat-icon>
 			</button-->
-			<button mat-icon-button>
+			<button mat-icon-button (click)="onAdminButtonClick()">
 				<mat-icon>build</mat-icon>
 			</button>
 			<button mat-button [matMenuTriggerFor]="companyiaMenu">Companyia 1 <mat-icon>arrow_drop_down</mat-icon></button>
@@ -63,13 +71,15 @@ import { MenuService, MenuItem } from './shared/menu.service';
 				<mat-divider></mat-divider>
 				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
 			</mat-menu>
-			<!--button mat-button>
-				LIM / PRO
-				<mat-icon>arrow_drop_down</mat-icon>
-			</button-->
-			<button mat-icon-button>
+			<button mat-icon-button [matMenuTriggerFor]="modulesMenu" style="margin-right:.5em">
 				<mat-icon>apps</mat-icon>
 			</button>
+			<mat-menu #modulesMenu="matMenu" xPosition="before">
+				<button mat-menu-item *ngFor="let item of moduleItems" (click)="onModuleButtonClick(item.code)">
+					<mat-icon>{{item.icon}}</mat-icon>
+    				<span>{{item.label}}</span>
+				</button>
+			</mat-menu>
 			<button mat-icon-button [matMenuTriggerFor]="userMenu">
 				<mat-icon>account_circle</mat-icon>
 			</button>
@@ -116,10 +126,13 @@ export class AppComponent implements OnInit {
 	mobileScreen: boolean;
 	smallToolbar: boolean = false;
 	tokenPayload: BngAuthTokenPayload;
-	allowedMenuItems: MenuItem[];
+	currentMenu: AppMenu;
+	moduleItems: ModuleItem[];
 
 	ngOnInit() {
-		this.allowedMenuItems = this.menuService.getAllowedMenuItems();
+		//this.menuItems = this.menuService.getAllowedMenuItems();
+		//this.currentMenu = this.menuService.getAdminMenu();
+		this.moduleItems = this.moduleService.getAllowedModuleItems();
 		this.refreshSmallToolbar(window.innerWidth);
 		this.screenSizeService.onWindowResize(window.innerWidth);
 	}
@@ -128,10 +141,18 @@ export class AppComponent implements OnInit {
 		this.sidenav.toggle();
 	}
 
+	onAdminButtonClick() {
+		this.currentMenu = this.menuService.getAdminMenu();
+	}
+
+	onModuleButtonClick(module: string) {
+		this.currentMenu = this.menuService.getModuleMenu(module);
+	}
+
 	onActionSortirClick() {
 		if (confirm(this.translate.instant('app.action.logout.confirm'))) {
 			this.tokenPayload = undefined;
-			this.allowedMenuItems = [];
+			this.currentMenu = undefined;
 			this.authService.logout();
 		}
 	}
@@ -163,15 +184,20 @@ export class AppComponent implements OnInit {
 		private translate: TranslateService,
 		router: Router,
 		private screenSizeService: BngScreenSizeService,
-		private menuService: MenuService) {
+		private menuService: MenuService,
+		private moduleService: ModuleService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
 		});
-		// Manten actualitzada la llista d'elements de menu permesos
-		menuService.getAllowedMenuItemsChangeSubject().subscribe((allowedMenuItems: MenuItem[]) => {
-			this.allowedMenuItems = allowedMenuItems;
+		// Manten actualitzada la llista d'elements de menu
+		/*menuService.getAllowedMenuItemsChangeSubject().subscribe((menuItems: MenuItem[]) => {
+			this.menuItems = menuItems;
+		});*/
+		// Manten actualitzada la llista de mòduls disponibles
+		moduleService.getAllowedModuleItemsChangeSubject().subscribe((moduleItems: ModuleItem[]) => {
+			this.moduleItems = moduleItems;
 		});
 		// Configura l'idioma de l'aplicació
 		let userLang = navigator.language.substring(0, 2); // 'ca';
