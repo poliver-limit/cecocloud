@@ -12,23 +12,11 @@ import { MarcatgesService } from './marcatges.service';
 export class MarcatgesGridComponent implements OnInit {
 
 	datagridConfig = {
-		//editable: true,
 		columnFiltersEnabled: true,
 		sort: [
 			{ fieldName: 'operari', direction: 'asc' },
 			{ fieldName: 'data', direction: 'desc' }
 		]
-        /*columns: [{
-            field: 'operari',
-            sort: 'asc'
-        }, {
-            field: 'data',
-            sort: 'desc'
-        }, {
-            field: 'origen'
-        }, {
-            field: 'ubicacio'
-        }]*/
 	};
 
 	ngOnInit() {

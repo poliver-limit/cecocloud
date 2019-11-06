@@ -3,39 +3,35 @@
  */
 package es.limit.cecocloud.logic.api.module;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import es.limit.base.boot.logic.api.dto.Profile;
+import es.limit.base.boot.logic.api.module.AbstractModules;
+import es.limit.base.boot.logic.api.module.ModuleInfo;
+import es.limit.cecocloud.logic.api.dto.Companyia;
 
 /**
  * Classe que gestiona els diferents mòduls disponibles.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class Modules {
-
-	private static final String[] AVAILABLE_MODULES = {
-		"fact",
-		"comp",
-		"rrhh",
-		"rrmm",
-		"lici",
-		"marc"
-	};
-
-	private static List<ModuleInfo> modules = new ArrayList<ModuleInfo>();
+public class Modules extends AbstractModules {
 
 	public static void registerModule(ModuleInfo moduleInfo) {
-		boolean isValid = Arrays.stream(AVAILABLE_MODULES).anyMatch(moduleInfo.getCode()::equals);
-		if (isValid) {
-			modules.add(moduleInfo);
-		} else {
-			throw new RuntimeException("Invalid module: " + moduleInfo.getCode());
+		if (!isInitialized()) {
+			init(
+					new String[] {
+							"fact",
+							"comp",
+							"rrhh",
+							"rrmm",
+							"lici",
+							"marc"
+					},
+					new String[] {
+							Profile.class.getPackage().getName(),
+							Companyia.class.getPackage().getName()
+					});
 		}
-	}
-
-	public static List<ModuleInfo> getModules() {
-		return modules;
+		register(moduleInfo);
 	}
 
 }

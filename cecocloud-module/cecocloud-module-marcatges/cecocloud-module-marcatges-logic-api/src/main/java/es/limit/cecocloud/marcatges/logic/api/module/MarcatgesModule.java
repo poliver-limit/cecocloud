@@ -5,7 +5,7 @@ package es.limit.cecocloud.marcatges.logic.api.module;
 
 import org.springframework.stereotype.Component;
 
-import es.limit.cecocloud.logic.api.module.ModuleInfo;
+import es.limit.base.boot.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
 
