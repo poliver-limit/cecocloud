@@ -96,6 +96,22 @@ export abstract class MenuService {
         this.allowedMenuItemsChangeSubject.next( this.allowedMenuItems );
     }*/
 
+    private refreshMenuCompanyia( tokenPayload?: BngAuthTokenPayload ) {
+        let usuariCodi;
+        let companyiaId;
+        let empresaId;
+
+        if ( tokenPayload && tokenPayload.name ) {
+            usuariCodi = tokenPayload.name;
+        }
+        if ( tokenPayload && tokenPayload.name ) {
+            companyiaId = tokenPayload.session['companyia'];
+            empresaId = tokenPayload.session['empresa'];
+        }
+
+
+    }
+
     constructor(
         authService: BngAuthService,
 		private moduleService: ModuleService ) {
