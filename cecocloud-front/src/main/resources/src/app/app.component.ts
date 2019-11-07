@@ -3,10 +3,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material';
-import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
+import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent, BngModuleService, BngModuleItem } from 'base-angular';
 
 import { MenuService, AppMenu } from './shared/menu.service';
-import { ModuleService, ModuleItem } from './shared/module.service';
 import { ModuleInitService } from './shared/module-init.service';
 
 @Component({
@@ -128,7 +127,7 @@ export class AppComponent implements OnInit {
 	smallToolbar: boolean = false;
 	tokenPayload: BngAuthTokenPayload;
 	currentMenu: AppMenu;
-	moduleItems: ModuleItem[];
+	moduleItems: BngModuleItem[];
 
 	ngOnInit() {
 		this.currentMenu = this.menuService.getAdminMenu();
@@ -187,7 +186,7 @@ export class AppComponent implements OnInit {
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
 		moduleInitService: ModuleInitService,
-		private moduleService: ModuleService) {
+		private moduleService: BngModuleService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
@@ -198,7 +197,7 @@ export class AppComponent implements OnInit {
 			this.menuItems = menuItems;
 		});*/
 		// Manten actualitzada la llista de mòduls disponibles
-		moduleService.getAllowedModuleItemsChangeSubject().subscribe((moduleItems: ModuleItem[]) => {
+		moduleService.getAllowedModuleItemsChangeSubject().subscribe((moduleItems: BngModuleItem[]) => {
 			this.moduleItems = moduleItems;
 		});
 		// Configura l'idioma de l'aplicació

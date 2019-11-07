@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { ModuleService } from './module.service';
+import { BngModuleService } from 'base-angular';
 
 @Injectable( {
     providedIn: 'root'
 } )
 export class ModuleInitService {
 
-    constructor(moduleService: ModuleService) {
-		console.log('>>> constructor ModuleInitService');
+    constructor(moduleService: BngModuleService) {
 		moduleService.register({
 			code: 'fact',
 			icon: 'assignment',

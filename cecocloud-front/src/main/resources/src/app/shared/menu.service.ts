@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ModuleService, ModuleItem, ModuleMenuItem } from './module.service';
+import { BngModuleService, BngModuleItem, BngModuleMenuItem } from 'base-angular';
 
 export class AppMenu {
 	icon?: string;
@@ -8,7 +8,8 @@ export class AppMenu {
     labelKey: string;
 	menuItems: AppMenuItem[]
 }
-export class AppMenuItem extends ModuleMenuItem {};
+export class AppMenuItem extends BngModuleMenuItem {
+};
 
 @Injectable( {
     providedIn: 'root'
@@ -47,7 +48,7 @@ export class MenuService {
 	}
 	
 	public getModuleMenu(module: string): AppMenu {
-		let moduleItem: ModuleItem = this.moduleService.getModuleItem(module);
+		let moduleItem: BngModuleItem = this.moduleService.getModuleItem(module);
 		if (moduleItem) {
 			return <AppMenu> {
 				icon: moduleItem.icon,
@@ -122,7 +123,7 @@ export class MenuService {
 	}*/
 	
 	constructor(
-		private moduleService: ModuleService ) {
+		private moduleService: BngModuleService ) {
 	    /*this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
 	    // Manten actualitzada la llista dels items de menu permesos
 	    /*authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
