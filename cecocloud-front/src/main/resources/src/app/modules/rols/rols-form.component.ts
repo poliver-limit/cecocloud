@@ -13,10 +13,9 @@ import { RolsService } from './rols.service';
 } )
 export class RolsFormComponent {
 
-    formConfig: BngFormConfig = {
-    }
+    formConfig: BngFormConfig = {}
 
     constructor(
-        public rolsService: RolsService ) { }
+        public rolsService: RolsService ) {}
 
 }

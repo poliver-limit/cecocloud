@@ -6,8 +6,8 @@ import { MenuService, AppMenuItem } from '../../shared/menu.service';
 @Component( {
     template: `
 <div *ngIf="!mobileScreen" class="mat-display-3 centered" style="text-align: center">
-    <p><mat-icon *ngIf="!mobileScreen" class="big-icon">cloud_queue</mat-icon></p>
-    <p>{{'home.salutacio'|translate}}</p>
+	<p style="margin:0"><mat-icon inline="true" style="font-size:100px;">cloud_queue</mat-icon></p>
+    <p style="margin:.4em">{{'home.salutacio'|translate}}</p>
 </div>
 <ng-container *ngIf="mobileScreen">
     <p *ngFor="let item of allowedMenuItems" style="text-align:center">
@@ -15,18 +15,7 @@ import { MenuService, AppMenuItem } from '../../shared/menu.service';
             <mat-icon>{{item.icon}}</mat-icon>{{item.label}}
         </a>
     </p>
-</ng-container>`,
-    styles: [`
-        .big-icon {
-            height: 128px;
-            width: 128px;
-            font-size: 128px;
-            position: relative;
-            top: 75px;
-        }
-    `
-    ]
-    
+</ng-container>`
 } )
 export class HomeComponent implements OnInit {
 
