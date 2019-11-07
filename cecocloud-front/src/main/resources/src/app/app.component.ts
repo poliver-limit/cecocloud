@@ -57,10 +57,13 @@ import { CompanyiesService } from './shared/companyies.service';
 				<mat-icon>build</mat-icon>
 			</button>
 			<button mat-button *ngIf="companyies.length" [matMenuTriggerFor]="companyiaMenu">{{companyies[companyiaSelectedIndex].nom}} <mat-icon>arrow_drop_down</mat-icon></button>
+			<mat-menu #companyiaChild="matMenu">
+				<ng-template matMenuContent let-index="index">
+					<button mat-menu-item (click)="onCompanyiaAdministrarButtonClick(index)"><mat-icon>build</mat-icon> Administrar</button>
+				</ng-template>
+			</mat-menu>
 			<mat-menu #companyiaMenu="matMenu" xPosition="before">
-				<button mat-menu-item *ngFor="let companyia of companyies; let i = index" (click)="onCompanyiaButtonClick(i)">{{companyia.nom}}</button>
-				<mat-divider></mat-divider>
-				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
+				<button mat-menu-item *ngFor="let companyia of companyies; let i = index" (click)="onCompanyiaButtonClick(i)" [matMenuTriggerFor]="companyiaChild" [matMenuTriggerData]="{index: i}">{{companyia.nom}}</button>
 			</mat-menu>
 			<!--button mat-button [matMenuTriggerFor]="empresaMenu">Empresa 1 <mat-icon>arrow_drop_down</mat-icon></button>
 			<mat-menu #empresaMenu="matMenu" xPosition="before">
@@ -153,6 +156,10 @@ export class AppComponent implements OnInit {
 		this.authService.sessionSave({
 			companyia: this.companyies[index].id
 		});
+	}
+
+	onCompanyiaAdministrarButtonClick(index: number) {
+		console.log('>>> onCompanyiaAdministrarButtonClick', index);
 	}
 
 	onModuleButtonClick(module: string) {
