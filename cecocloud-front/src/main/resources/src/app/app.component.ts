@@ -55,19 +55,26 @@ import { ModuleService, ModuleItem } from './shared/module.service';
 			<button mat-icon-button (click)="onAdminButtonClick()">
 				<mat-icon>build</mat-icon>
 			</button>
-			<button mat-button [matMenuTriggerFor]="companyiaMenu">Companyia 1 <mat-icon>arrow_drop_down</mat-icon></button>
+			<button mat-button [matMenuTriggerFor]="companyiaMenu">Selecció empresa<mat-icon>arrow_drop_down</mat-icon></button>
 			<mat-menu #companyiaMenu="matMenu" xPosition="before">
-				<button mat-menu-item>Companyia 1</button>
-				<button mat-menu-item>Companyia 2</button>
-				<button mat-menu-item>Companyia 3</button>
-				<mat-divider></mat-divider>
-				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
+				<button mat-menu-item [matMenuTriggerFor]="subMenuCompanyia1">Companyia 1</button>
+				<button mat-menu-item [matMenuTriggerFor]="subMenuCompanyia2">Companyia 2</button>
+				<button mat-menu-item [matMenuTriggerFor]="subMenuCompanyia3">Companyia 3</button>
 			</mat-menu>
-			<button mat-button [matMenuTriggerFor]="empresaMenu">Empresa 1 <mat-icon>arrow_drop_down</mat-icon></button>
-			<mat-menu #empresaMenu="matMenu" xPosition="before">
+			<mat-menu #subMenuCompanyia1="matMenu" xPosition="before">
 				<button mat-menu-item>Empresa 1</button>
 				<button mat-menu-item>Empresa 2</button>
 				<button mat-menu-item>Empresa 3</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
+			</mat-menu>
+			<mat-menu #subMenuCompanyia2="matMenu" xPosition="before">
+				<button mat-menu-item>Empresa 4</button>
+				<button mat-menu-item>Empresa 5</button>
+			</mat-menu>
+			<mat-menu #subMenuCompanyia3="matMenu" xPosition="before">
+				<button mat-menu-item>Empresa 6</button>
+				<button mat-menu-item>Empresa 7</button>
 				<mat-divider></mat-divider>
 				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
 			</mat-menu>

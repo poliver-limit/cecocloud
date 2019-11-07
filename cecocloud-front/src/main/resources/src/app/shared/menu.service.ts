@@ -30,7 +30,7 @@ export abstract class MenuService {
 		labelKey: 'app.menu.admin',
 		menuItems: [
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
-			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols', onlyForRoles: ['ADMIN'] },
+			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols'},
 			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
         	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
 		]
@@ -41,9 +41,12 @@ export abstract class MenuService {
 		label: 'Gestionar companyia',
 		labelKey: 'app.menu.admin',
 		menuItems: [
-			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
-			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
-        	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
+			{ icon: 'domain', label: 'Companyia', labelKey: 'app.menu.companyia', route: '/companyies/{resourceId}' },
+			{ icon: 'home_work', label: "Grup d'empreses", labelKey: 'app.menu.grup.empreses', route: '/{resourceId}/identificadors' },
+        	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' },
+			{ icon: 'person_outline', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+			{ icon: 'person_pin', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' },
+        	{ icon: 'people', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols' }
 		]
 	}
 
@@ -104,29 +107,28 @@ export abstract class MenuService {
         let usuariCodi;
         let companyiaId;
         let empresaId;
-
-         if ( tokenPayload && tokenPayload.name ) {
-             usuariCodi = tokenPayload.name;
+debugger;
+         if ( tokenPayload && tokenPayload.sub ) {
+             usuariCodi = tokenPayload.sub;
          }
-         if ( tokenPayload && tokenPayload.name ) {
+         if ( tokenPayload && tokenPayload.session ) {
              companyiaId = tokenPayload.session['companyia'];
              empresaId = tokenPayload.session['empresa'];
          }
 
-        // if (usuariCodi) {
-        //     let rsqlquery = "usuari.id==" + usuariCodi;
-        //     let pageable = {};
-        //     let params = new HttpParams()
-        //         .set('query', rsqlquery)
-        //         .set('page', "0")
-        //         .set('size', "0")
-        //         .set('sort', "companyia.nom,desc");
-        //     this.http.get('api/companyies', {params: params}).subscribe(
-        //         (response)
-        //     );
-        // } else {
+         if (usuariCodi) {
+             let rsqlquery = "usuari.id==" + usuariCodi;
+             let params = new HttpParams()
+                 .set('query', rsqlquery)
+                 .set('sort', "companyia.nom,desc");
+             this.http.get('api/companyies', {params: params}).subscribe(
+                 (response) => {
+					console.log("Companyies: ", response);
+				}
+             );
+         } else {
 
-        // }
+         }
 
     }
 
@@ -134,11 +136,14 @@ export abstract class MenuService {
         authService: BngAuthService,
         private http: HttpClient,
 		private moduleService: ModuleService ) {
-        /*this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
-        // Manten actualitzada la llista dels items de menu permesos
-        /*authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
-            this.refreshAllowedMenuItems( tokenPayload );
-        } );*/
+			debugger;
+			this.refreshMenuCompanyia( authService.getAuthTokenPayload() );
+        //this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
+        // Manten actualitzada la llista de empreses i companyies
+//        authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
+//			debugger;
+//            this.refreshMenuCompanyia( tokenPayload );
+//        } );
     }
 
 }
