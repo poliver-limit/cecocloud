@@ -17,6 +17,10 @@ export const routes: Routes = [{
     loadChildren: './modules/usuaris/usuaris.module#UsuarisModule',
     canActivate: [BngAuthGuard]
 }, {
+    path: 'rols',
+    loadChildren: './modules/rols/rols.module#RolsModule',
+    canActivate: [BngAuthGuard]
+}, {
     path: 'companyies',
     loadChildren: './modules/companyies/companyies.module#CompanyiesModule',
     canActivate: [BngAuthGuard]

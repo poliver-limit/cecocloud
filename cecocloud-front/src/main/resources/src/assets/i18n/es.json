@@ -159,6 +159,13 @@
 	"resource.permission.field.adminGranted": "Administrar",
 	"resource.permission.field.syncGranted": "Sincronizar",
 
+	"resource.rol": "Rol",
+	"resource.rol.plural": "Roles",
+	"resource.rol.field.codi": "Código",
+	"resource.rol.field.descripcio": "Descripción",
+	"resource.rol.field.companyia": "Compañía",
+	"resource.abstractIdentificable.field.id": "Id",
+
 	"module.usuaris.canvi.contrasenya.titol": "Cambiar contraseña",
 	"module.usuaris.canvi.contrasenya.field.contrasenya": "Contraseña",
 	"module.usuaris.canvi.contrasenya.field.confirmacio": "Repetición",

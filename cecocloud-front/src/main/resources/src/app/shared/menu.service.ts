@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { BngAuthService, BngAuthTokenPayload } from 'base-angular';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { ModuleService, ModuleItem } from './module.service';
 
 export class AppMenu {
@@ -28,6 +30,7 @@ export abstract class MenuService {
 		labelKey: 'app.menu.admin',
 		menuItems: [
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols', onlyForRoles: ['ADMIN'] },
 			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
         	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
 		]
@@ -65,6 +68,7 @@ export abstract class MenuService {
 	}
 
     /*private allowedMenuItems = [];
+
     private allowedMenuItemsChangeSubject = new Subject<MenuItem[]>();
 
     public getAllowedMenuItems() {
@@ -101,19 +105,34 @@ export abstract class MenuService {
         let companyiaId;
         let empresaId;
 
-        if ( tokenPayload && tokenPayload.name ) {
-            usuariCodi = tokenPayload.name;
-        }
-        if ( tokenPayload && tokenPayload.name ) {
-            companyiaId = tokenPayload.session['companyia'];
-            empresaId = tokenPayload.session['empresa'];
-        }
+         if ( tokenPayload && tokenPayload.name ) {
+             usuariCodi = tokenPayload.name;
+         }
+         if ( tokenPayload && tokenPayload.name ) {
+             companyiaId = tokenPayload.session['companyia'];
+             empresaId = tokenPayload.session['empresa'];
+         }
 
+        // if (usuariCodi) {
+        //     let rsqlquery = "usuari.id==" + usuariCodi;
+        //     let pageable = {};
+        //     let params = new HttpParams()
+        //         .set('query', rsqlquery)
+        //         .set('page', "0")
+        //         .set('size', "0")
+        //         .set('sort', "companyia.nom,desc");
+        //     this.http.get('api/companyies', {params: params}).subscribe(
+        //         (response)
+        //     );
+        // } else {
+
+        // }
 
     }
 
     constructor(
         authService: BngAuthService,
+        private http: HttpClient,
 		private moduleService: ModuleService ) {
         /*this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
         // Manten actualitzada la llista dels items de menu permesos
