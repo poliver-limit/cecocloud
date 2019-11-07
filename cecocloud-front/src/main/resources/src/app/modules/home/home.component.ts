@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
-import { MenuService, MenuItem } from '../../shared/menu.service';
+import { MenuService, AppMenuItem } from '../../shared/menu.service';
 
 @Component( {
     template: `
@@ -20,10 +20,10 @@ import { MenuService, MenuItem } from '../../shared/menu.service';
 export class HomeComponent implements OnInit {
 
     mobileScreen: boolean;
-    allowedMenuItems: MenuItem[];
+    allowedMenuItems: AppMenuItem[];
 
     ngOnInit() {
-        this.allowedMenuItems = this.menuService.getAllowedMenuItems();
+        //this.allowedMenuItems = this.menuService.getAllowedMenuItems();
     }
 
     constructor(
