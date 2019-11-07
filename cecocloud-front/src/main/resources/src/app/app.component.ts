@@ -7,6 +7,7 @@ import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSiz
 
 import { MenuService, AppMenu } from './shared/menu.service';
 import { ModuleService, ModuleItem } from './shared/module.service';
+import { ModuleInitService } from './shared/module-init.service';
 
 @Component({
 	selector: 'app-root',
@@ -185,6 +186,7 @@ export class AppComponent implements OnInit {
 		router: Router,
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
+		moduleInitService: ModuleInitService,
 		private moduleService: ModuleService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();

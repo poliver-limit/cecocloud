@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { BngAuthService, BngAuthTokenPayload } from 'base-angular';
-import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { ModuleService, ModuleItem } from './module.service';
+import { ModuleService, ModuleItem, ModuleMenuItem } from './module.service';
 
 export class AppMenu {
 	icon?: string;
@@ -11,18 +8,12 @@ export class AppMenu {
     labelKey: string;
 	menuItems: AppMenuItem[]
 }
-export class AppMenuItem {
-    icon?: string;
-    label: string;
-    labelKey: string;
-    route?: string;
-    onlyForRoles?: string[];
-}
+export class AppMenuItem extends ModuleMenuItem {};
 
 @Injectable( {
     providedIn: 'root'
 } )
-export abstract class MenuService {
+export class MenuService {
 
 	private adminMenu: AppMenu = {
 		icon: 'build',
@@ -32,7 +23,7 @@ export abstract class MenuService {
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
 			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols', onlyForRoles: ['ADMIN'] },
 			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
-        	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
+	    	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
 		]
 	}
 
@@ -43,18 +34,18 @@ export abstract class MenuService {
 		menuItems: [
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
 			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
-        	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
+			{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
 		]
 	}
 
 	public getAdminMenu(): AppMenu {
 		return this.adminMenu;
 	}
-
+	
 	public getAdminCompanyiaMenu(): AppMenu {
 		return this.adminCompanyiaMenu;
 	}
-
+	
 	public getModuleMenu(module: string): AppMenu {
 		let moduleItem: ModuleItem = this.moduleService.getModuleItem(module);
 		if (moduleItem) {
@@ -100,45 +91,43 @@ export abstract class MenuService {
         this.allowedMenuItemsChangeSubject.next( this.allowedMenuItems );
     }*/
 
-    private refreshMenuCompanyia( tokenPayload?: BngAuthTokenPayload ) {
-        let usuariCodi;
-        let companyiaId;
-        let empresaId;
-
-         if ( tokenPayload && tokenPayload.name ) {
-             usuariCodi = tokenPayload.name;
-         }
-         if ( tokenPayload && tokenPayload.name ) {
-             companyiaId = tokenPayload.session['companyia'];
-             empresaId = tokenPayload.session['empresa'];
-         }
-
-        // if (usuariCodi) {
-        //     let rsqlquery = "usuari.id==" + usuariCodi;
-        //     let pageable = {};
-        //     let params = new HttpParams()
-        //         .set('query', rsqlquery)
-        //         .set('page', "0")
-        //         .set('size', "0")
-        //         .set('sort', "companyia.nom,desc");
-        //     this.http.get('api/companyies', {params: params}).subscribe(
-        //         (response)
-        //     );
-        // } else {
-
-        // }
-
-    }
-
-    constructor(
-        authService: BngAuthService,
-        private http: HttpClient,
+	/* private refreshMenuCompanyia( tokenPayload?: BngAuthTokenPayload ) {
+	    let usuariCodi;
+	    let companyiaId;
+	    let empresaId;
+	
+	     if ( tokenPayload && tokenPayload.name ) {
+	         usuariCodi = tokenPayload.name;
+	     }
+	     if ( tokenPayload && tokenPayload.name ) {
+	         companyiaId = tokenPayload.session['companyia'];
+	         empresaId = tokenPayload.session['empresa'];
+	     }
+	
+	    // if (usuariCodi) {
+	    //     let rsqlquery = "usuari.id==" + usuariCodi;
+	    //     let pageable = {};
+	    //     let params = new HttpParams()
+	    //         .set('query', rsqlquery)
+	    //         .set('page', "0")
+	    //         .set('size', "0")
+	    //         .set('sort', "companyia.nom,desc");
+	    //     this.http.get('api/companyies', {params: params}).subscribe(
+	    //         (response)
+	    //     );
+	    // } else {
+	
+	    // }
+	
+	}*/
+	
+	constructor(
 		private moduleService: ModuleService ) {
-        /*this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
-        // Manten actualitzada la llista dels items de menu permesos
-        /*authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
-            this.refreshAllowedMenuItems( tokenPayload );
-        } );*/
-    }
+	    /*this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
+	    // Manten actualitzada la llista dels items de menu permesos
+	    /*authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
+	        this.refreshAllowedMenuItems( tokenPayload );
+	    } );*/
+	}
 
 }

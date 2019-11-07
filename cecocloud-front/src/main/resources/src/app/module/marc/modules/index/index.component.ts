@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
     <p>Marcatges</p>
 </div>`
 } )
-export class HomeComponent {
+export class IndexComponent {
 
 }

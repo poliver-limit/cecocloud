@@ -8,7 +8,7 @@ import { BngAuthGuard } from 'base-angular';
 		CommonModule,
 		RouterModule.forChild([{
 			path: '',
-			loadChildren: '../marc/modules/home/home.module#HomeModule',
+			loadChildren: '../marc/modules/index/index.module#IndexModule',
 			canActivate: [BngAuthGuard]
         },{
 			path: 'operaris',
