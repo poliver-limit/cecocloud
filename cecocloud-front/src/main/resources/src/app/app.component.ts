@@ -142,10 +142,12 @@ export class AppComponent implements OnInit {
 	}
 
 	onAdminButtonClick() {
+		this.moduleService.setSelected();
 		this.currentMenu = this.menuService.getAdminMenu();
 	}
 
 	onModuleButtonClick(module: string) {
+		this.moduleService.setSelected(module);
 		this.currentMenu = this.menuService.getModuleMenu(module);
 	}
 

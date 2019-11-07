@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { BngAuthService, BngAuthTokenPayload, BngRestapiConfigService } from 'base-angular';
+import { BngAuthService, BngRestapiConfigService } from 'base-angular';
 
 import { AppMenuItem } from './menu.service';
 
@@ -17,6 +17,7 @@ export class ModuleItem {
 } )
 export abstract class ModuleService {
 
+	private selected: ModuleItem;
     private moduleItems: ModuleItem[] = [{
 		code: 'fact',
 		icon: 'assignment',
@@ -46,8 +47,8 @@ export abstract class ModuleService {
 		icon: 'touch_app',
 		label: 'Marcatges',
 		menuItems: [
-			{ icon: 'people_alt', label: 'Operaris', labelKey: 'app.menu.operaris', route: '/operaris' },
-        	{ icon: 'timer', label: 'Marcatges', labelKey: 'app.menu.marcatges', route: '/marcatges' }
+			{ icon: 'people_alt', label: 'Operaris', labelKey: 'app.menu.operaris', route: '/marc/operaris' },
+        	{ icon: 'timer', label: 'Marcatges', labelKey: 'app.menu.marcatges', route: '/marc/marcatges' }
 		]
 	}];
     private allowedModuleItems: ModuleItem[] = [];
@@ -71,11 +72,28 @@ export abstract class ModuleService {
 		return foundModuleItem
 	}
 
+	public setSelected(module?: string) {
+		if (module) {
+			this.selected = this.getModuleItem(module);
+		} else {
+			this.selected = undefined;
+		}
+	}
+
+	public removeSelected() {
+		this.setSelected()
+	}
+
+	public getSelected(): ModuleItem {
+		return this.selected;
+	}
+
     private refreshAllowedModuleItems() {
+		this.allowedModuleItems.splice(0, this.allowedModuleItems.length);
 		this.http.get(this.restapiConfigService.getContextRelativeUrl('/modules')).subscribe((response: string[]) => {
 			response.forEach((module: string) => {
 				this.moduleItems.forEach((moduleItem: ModuleItem) => {
-					if (true || moduleItem.code === module) {
+					if (moduleItem.code === module) {
 						this.allowedModuleItems.push(moduleItem);
 					}
 				});

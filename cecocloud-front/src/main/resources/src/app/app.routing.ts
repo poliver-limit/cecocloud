@@ -25,16 +25,8 @@ export const routes: Routes = [{
     loadChildren: './modules/empreses/empreses.module#EmpresesModule',
     canActivate: [BngAuthGuard]
 }, {
-    path: 'operaris',
-    loadChildren: './modules/operaris/operaris.module#OperarisModule',
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'marcatges',
-    loadChildren: './modules/marcatges/marcatges.module#MarcatgesModule',
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'cpktest',
-    loadChildren: './modules/cpktest/cpktest.module#CpktestModule',
+    path: 'marc',
+    loadChildren: './module/marc/marc.module#MarcModule',
     canActivate: [BngAuthGuard]
 }, {
     path: '**',
