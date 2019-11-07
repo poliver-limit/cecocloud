@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { BngAuthService, BngRestapiConfigService } from 'base-angular';
+import { BngAuthService, BngAuthTokenPayload, BngRestapiConfigService } from 'base-angular';
 
 import { AppMenuItem } from './menu.service';
 
@@ -106,9 +106,11 @@ export abstract class ModuleService {
 		private http: HttpClient,
 		private restapiConfigService: BngRestapiConfigService,
         authService: BngAuthService ) {
-        this.refreshAllowedModuleItems();
-        authService.getAuthTokenChangeEvent().subscribe(() => {
-            this.refreshAllowedModuleItems();
+        //this.refreshAllowedModuleItems();
+        authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
+			if (tokenPayload) {
+            	this.refreshAllowedModuleItems();
+			}
         } );
     }
 

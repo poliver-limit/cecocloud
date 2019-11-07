@@ -130,9 +130,7 @@ export class AppComponent implements OnInit {
 	moduleItems: ModuleItem[];
 
 	ngOnInit() {
-		//this.menuItems = this.menuService.getAllowedMenuItems();
-		//this.currentMenu = this.menuService.getAdminMenu();
-		this.moduleItems = this.moduleService.getAllowedModuleItems();
+		this.currentMenu = this.menuService.getAdminMenu();
 		this.refreshSmallToolbar(window.innerWidth);
 		this.screenSizeService.onWindowResize(window.innerWidth);
 	}
