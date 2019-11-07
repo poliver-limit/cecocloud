@@ -28,7 +28,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "companyia")
+		descriptionField = "description")
 public class UsuariCompanyia extends AbstractIdentificableWithCompositePk<UsuariCompanyiaPk> {
 
 	@NotNull(groups = {OnCreate.class})
@@ -56,6 +56,13 @@ public class UsuariCompanyia extends AbstractIdentificableWithCompositePk<Usuari
 	public static class UsuariCompanyiaPk implements Serializable {
 		private Long usuariId;
 		private Long companyiaId;
+	}
+	
+	@Transient
+	private String description;
+	
+	public String getDescription() {
+		return usuari.getDescription() + " - " + companyia.getDescription();
 	}
 
 }
