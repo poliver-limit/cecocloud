@@ -5,6 +5,7 @@ package es.limit.cecocloud.logic.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,27 +28,52 @@ public class AuthServiceImpl extends AbstractAuthServiceImpl {
 	RolRepository rolRepository;
 
 	@Override
+	protected Object parseJwtSession(Map<String, Object> jwtSession) {
+		if (jwtSession == null) {
+			return null;
+		} else {
+			UserSession session = new UserSession();
+			session.setCompanyia(
+					objectToLong(jwtSession.get("companyia")));
+			session.setEmpresa(
+					objectToLong(jwtSession.get("empresa")));
+			return session;
+		}
+	}
+
+	@Override
 	protected List<ExternalGrantedAuthority> getAuthoritiesFromSession(String usuariCodi, Object session) {
 		List<ExternalGrantedAuthority> grantedAuthorities = new ArrayList<ExternalGrantedAuthority>();
 		if (usuariCodi != null) {
 			Long empresaId = null;
-//			String identificadorCodi = null;
 			UserSession userSession = (UserSession)session;
 			if (userSession != null) {
 				empresaId = userSession.getEmpresa();
-//				identificadorCodi = userSession.getIdentificador();
 			}
 			if (empresaId != null) { // && identificadorCodi != null) {
 				List<RolEntity> rols = rolRepository.findByUsuariCodiEmpresa(
 						usuariCodi, 
 						userSession.getEmpresa());
-//						userSession.getIdentificador());
 				if (rols != null && !rols.isEmpty()) {
 					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getCodi())).collect(Collectors.toList()); 
 				}
 			}
 		}
 		return grantedAuthorities;
+	}
+
+	private Long objectToLong(Object o) {
+		if (o == null) {
+			return null;
+		} else {
+			if (o instanceof Number) {
+				return ((Number)o).longValue();
+			} else if (o instanceof String) {
+				return Long.parseLong((String)o);
+			} else {
+				return null;
+			}
+		}
 	}
 
 }

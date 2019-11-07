@@ -44,7 +44,7 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	@Cacheable(value="companyia", key="#id")
 	public Companyia getOne(Long id) {
 		Companyia companyia = super.getOne(id);
-		if (companyia.getLlicenciaKey() != null & !companyia.getLlicenciaKey().isEmpty()) {
+		if (companyia.getLlicenciaKey() != null && !companyia.getLlicenciaKey().isEmpty()) {
 			try {
 				companyia.setLlicencia(objectMapper.readValue(
 						AsymmetricCryptographyHelper.decryptText(companyia.getLlicenciaKey()), 

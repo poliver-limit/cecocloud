@@ -7,6 +7,7 @@ import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSiz
 
 import { MenuService, AppMenu } from './shared/menu.service';
 import { ModuleInitService } from './shared/module-init.service';
+import { CompanyiesService } from './shared/companyies.service';
 
 @Component({
 	selector: 'app-root',
@@ -52,25 +53,23 @@ import { ModuleInitService } from './shared/module-init.service';
 			<!--button mat-icon-button>
 				<mat-icon>contact_support</mat-icon>
 			</button-->
-			<button mat-icon-button (click)="onAdminButtonClick()">
+			<button mat-icon-button (click)="onAdminButtonClick()" style="margin-right:.5em">
 				<mat-icon>build</mat-icon>
 			</button>
-			<button mat-button [matMenuTriggerFor]="companyiaMenu">Companyia 1 <mat-icon>arrow_drop_down</mat-icon></button>
+			<button mat-button *ngIf="companyies.length" [matMenuTriggerFor]="companyiaMenu">{{companyies[companyiaSelectedIndex].nom}} <mat-icon>arrow_drop_down</mat-icon></button>
 			<mat-menu #companyiaMenu="matMenu" xPosition="before">
-				<button mat-menu-item>Companyia 1</button>
-				<button mat-menu-item>Companyia 2</button>
-				<button mat-menu-item>Companyia 3</button>
+				<button mat-menu-item *ngFor="let companyia of companyies; let i = index" (click)="onCompanyiaButtonClick(i)">{{companyia.nom}}</button>
 				<mat-divider></mat-divider>
 				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
 			</mat-menu>
-			<button mat-button [matMenuTriggerFor]="empresaMenu">Empresa 1 <mat-icon>arrow_drop_down</mat-icon></button>
+			<!--button mat-button [matMenuTriggerFor]="empresaMenu">Empresa 1 <mat-icon>arrow_drop_down</mat-icon></button>
 			<mat-menu #empresaMenu="matMenu" xPosition="before">
 				<button mat-menu-item>Empresa 1</button>
 				<button mat-menu-item>Empresa 2</button>
 				<button mat-menu-item>Empresa 3</button>
 				<mat-divider></mat-divider>
 				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
-			</mat-menu>
+			</mat-menu-->
 			<button mat-icon-button [matMenuTriggerFor]="modulesMenu" style="margin-right:.5em">
 				<mat-icon>apps</mat-icon>
 			</button>
@@ -116,11 +115,16 @@ import { ModuleInitService } from './shared/module-init.service';
 .toolbar-fill {
 	flex: 1 1 auto;
 }
-`]
+`], providers: [
+		CompanyiesService
+	]
 })
 export class AppComponent implements OnInit {
 
 	@ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
+
+	companyies: any[] = [];
+	companyiaSelectedIndex: number;
 
 	topbarVisible: boolean = false;
 	mobileScreen: boolean;
@@ -142,6 +146,13 @@ export class AppComponent implements OnInit {
 	onAdminButtonClick() {
 		this.moduleService.setSelected();
 		this.currentMenu = this.menuService.getAdminMenu();
+	}
+
+	onCompanyiaButtonClick(index: number) {
+		this.companyiaSelectedIndex = index;
+		this.authService.sessionSave({
+			companyia: this.companyies[index].id
+		});
 	}
 
 	onModuleButtonClick(module: string) {
@@ -179,18 +190,47 @@ export class AppComponent implements OnInit {
 		this.smallToolbar = windowWidth < 600;
 	}
 
+	updateCompanyies() {
+		if (this.tokenPayload) {
+			this.companyiesService.whenReady().subscribe(() => {
+				this.companyiesService.getAll().subscribe((resposta: any[]) => {
+					this.companyies = resposta;
+					if (resposta.length) {
+						let session: any = this.authService.getSession();
+						if (!session || !session.companyia) {
+							this.companyiaSelectedIndex = 0;
+							this.authService.sessionSave({
+								companyia: resposta[0].id
+							});
+						} else {
+							for (let i = 0; i < resposta.length; i++) {
+								if (resposta[i].id == session.companyia) {
+									this.companyiaSelectedIndex = i;
+									break;
+								}
+							}
+						}
+					}
+				});
+			});
+		}
+	}
+
 	constructor(
 		private authService: BngAuthService,
 		private translate: TranslateService,
 		router: Router,
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
+		private moduleService: BngModuleService,
 		moduleInitService: ModuleInitService,
-		private moduleService: BngModuleService) {
+		private companyiesService: CompanyiesService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
+		this.updateCompanyies();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
+			this.updateCompanyies();
 		});
 		// Manten actualitzada la llista d'elements de menu
 		/*menuService.getAllowedMenuItemsChangeSubject().subscribe((menuItems: MenuItem[]) => {

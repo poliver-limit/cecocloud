@@ -6,8 +6,8 @@ import { MenuService, AppMenuItem } from '../../shared/menu.service';
 @Component( {
     template: `
 <div *ngIf="!mobileScreen" class="mat-display-3 centered" style="text-align: center">
-    <p><mat-icon>cloud_queue</mat-icon></p>
-    <p>{{'home.salutacio'|translate}}</p>
+	<p style="margin:0"><mat-icon inline="true" style="font-size:100px;">cloud_queue</mat-icon></p>
+    <p style="margin:.4em">{{'home.salutacio'|translate}}</p>
 </div>
 <ng-container *ngIf="mobileScreen">
     <p *ngFor="let item of allowedMenuItems" style="text-align:center">
