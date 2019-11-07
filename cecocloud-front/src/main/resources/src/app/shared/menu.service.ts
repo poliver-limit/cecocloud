@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { BngAuthService, BngAuthTokenPayload } from 'base-angular';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { ModuleService, ModuleItem } from './module.service';
+import { BngModuleService, BngModuleItem, BngModuleMenuItem } from 'base-angular';
 
 export class AppMenu {
 	icon?: string;
@@ -11,18 +9,13 @@ export class AppMenu {
     labelKey: string;
 	menuItems: AppMenuItem[]
 }
-export class AppMenuItem {
-    icon?: string;
-    label: string;
-    labelKey: string;
-    route?: string;
-    onlyForRoles?: string[];
-}
+export class AppMenuItem extends BngModuleMenuItem {
+};
 
 @Injectable( {
     providedIn: 'root'
 } )
-export abstract class MenuService {
+export class MenuService {
 
 	private adminMenu: AppMenu = {
 		icon: 'build',
@@ -32,7 +25,7 @@ export abstract class MenuService {
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
 			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols'},
 			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
-        	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
+	    	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
 		]
 	}
 
@@ -44,22 +37,22 @@ export abstract class MenuService {
 			{ icon: 'domain', label: 'Companyia', labelKey: 'app.menu.companyia', route: '/companyies/{resourceId}' },
 			{ icon: 'home_work', label: "Grup d'empreses", labelKey: 'app.menu.grup.empreses', route: '/{resourceId}/identificadors' },
         	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' },
-			{ icon: 'person_outline', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
 			{ icon: 'person_pin', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' },
-        	{ icon: 'people', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols' }
+        	{ icon: 'person_outline', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols' }
 		]
 	}
 
 	public getAdminMenu(): AppMenu {
 		return this.adminMenu;
 	}
-
+	
 	public getAdminCompanyiaMenu(): AppMenu {
 		return this.adminCompanyiaMenu;
 	}
-
+	
 	public getModuleMenu(module: string): AppMenu {
-		let moduleItem: ModuleItem = this.moduleService.getModuleItem(module);
+		let moduleItem: BngModuleItem = this.moduleService.getModuleItem(module);
 		if (moduleItem) {
 			return <AppMenu> {
 				icon: moduleItem.icon,
@@ -134,8 +127,8 @@ debugger;
 
     constructor(
         authService: BngAuthService,
-        private http: HttpClient,
-		private moduleService: ModuleService ) {
+        private http: HttpClient ) {
+		//private moduleService: ModuleService ) {
 			debugger;
 			this.refreshMenuCompanyia( authService.getAuthTokenPayload() );
         //this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );

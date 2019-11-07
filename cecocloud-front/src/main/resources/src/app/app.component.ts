@@ -3,10 +3,10 @@ import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material';
-import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
+import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent, BngModuleService, BngModuleItem } from 'base-angular';
 
 import { MenuService, AppMenu } from './shared/menu.service';
-import { ModuleService, ModuleItem } from './shared/module.service';
+import { ModuleInitService } from './shared/module-init.service';
 
 @Component({
 	selector: 'app-root',
@@ -134,12 +134,10 @@ export class AppComponent implements OnInit {
 	smallToolbar: boolean = false;
 	tokenPayload: BngAuthTokenPayload;
 	currentMenu: AppMenu;
-	moduleItems: ModuleItem[];
+	moduleItems: BngModuleItem[];
 
 	ngOnInit() {
-		//this.menuItems = this.menuService.getAllowedMenuItems();
-		//this.currentMenu = this.menuService.getAdminMenu();
-		this.moduleItems = this.moduleService.getAllowedModuleItems();
+		this.currentMenu = this.menuService.getAdminMenu();
 		this.refreshSmallToolbar(window.innerWidth);
 		this.screenSizeService.onWindowResize(window.innerWidth);
 	}
@@ -149,10 +147,12 @@ export class AppComponent implements OnInit {
 	}
 
 	onAdminButtonClick() {
+		this.moduleService.setSelected();
 		this.currentMenu = this.menuService.getAdminMenu();
 	}
 
 	onModuleButtonClick(module: string) {
+		this.moduleService.setSelected(module);
 		this.currentMenu = this.menuService.getModuleMenu(module);
 	}
 
@@ -192,7 +192,8 @@ export class AppComponent implements OnInit {
 		router: Router,
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
-		private moduleService: ModuleService) {
+		moduleInitService: ModuleInitService,
+		private moduleService: BngModuleService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
@@ -203,7 +204,7 @@ export class AppComponent implements OnInit {
 			this.menuItems = menuItems;
 		});*/
 		// Manten actualitzada la llista de mòduls disponibles
-		moduleService.getAllowedModuleItemsChangeSubject().subscribe((moduleItems: ModuleItem[]) => {
+		moduleService.getAllowedModuleItemsChangeSubject().subscribe((moduleItems: BngModuleItem[]) => {
 			this.moduleItems = moduleItems;
 		});
 		// Configura l'idioma de l'aplicació
