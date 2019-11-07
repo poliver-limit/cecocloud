@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { BngModuleService, BngModuleItem, BngModuleMenuItem } from 'base-angular';
+import { BngModuleService, BngModuleItem, BngModuleMenuItem, BngAuthTokenPayload, BngAuthService } from 'base-angular';
 
 export class AppMenu {
 	icon?: string;
@@ -100,7 +100,6 @@ export class MenuService {
         let usuariCodi;
         let companyiaId;
         let empresaId;
-debugger;
          if ( tokenPayload && tokenPayload.sub ) {
              usuariCodi = tokenPayload.sub;
          }
@@ -110,15 +109,20 @@ debugger;
          }
 
          if (usuariCodi) {
-             let rsqlquery = "usuari.id==" + usuariCodi;
+             let rsqlquery = "usuari.codi==" + usuariCodi;
              let params = new HttpParams()
                  .set('query', rsqlquery)
                  .set('sort', "companyia.nom,desc");
-             this.http.get('api/companyies', {params: params}).subscribe(
-                 (response) => {
-					console.log("Companyies: ", response);
+             this.http.get('api/usuariCompanyia', {params: params}).subscribe( (response) => {
+				let numCompanyies = +response['page']['size'];
+				console.log("Núm. companyies: ", numCompanyies);
+				if (numCompanyies != null) {
+					let companyies = response['_embedded']['usuariCompanyias'];
+					console.log("Companyies: ", companyies);
 				}
-             );
+				
+//					let companyies: any = response.
+			});
          } else {
 
          }
@@ -127,16 +131,15 @@ debugger;
 
     constructor(
         authService: BngAuthService,
-        private http: HttpClient ) {
-		//private moduleService: ModuleService ) {
-			debugger;
+        private http: HttpClient,
+		private moduleService: BngModuleService ) {
 			this.refreshMenuCompanyia( authService.getAuthTokenPayload() );
         //this.refreshAllowedMenuItems( authService.getAuthTokenPayload() );
         // Manten actualitzada la llista de empreses i companyies
-//        authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
-//			debugger;
-//            this.refreshMenuCompanyia( tokenPayload );
-//        } );
+        authService.getAuthTokenChangeEvent().subscribe(( tokenPayload: BngAuthTokenPayload ) => {
+			console.log(">>>>Token changed!");
+            this.refreshMenuCompanyia( tokenPayload );
+        } );
     }
 
 }

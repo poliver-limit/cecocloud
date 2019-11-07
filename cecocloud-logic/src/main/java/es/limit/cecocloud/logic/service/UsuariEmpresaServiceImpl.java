@@ -54,6 +54,8 @@ public class UsuariEmpresaServiceImpl extends AbstractGenericCompositePkServiceI
 		}
 		return recursosDisponibles;
 	}
+	
+	
 
 	/*@Transactional
 	@Override

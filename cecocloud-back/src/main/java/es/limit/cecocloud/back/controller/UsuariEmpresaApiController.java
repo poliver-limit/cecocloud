@@ -28,5 +28,5 @@ public class UsuariEmpresaApiController extends AbstractIdentificableApiControll
 	protected UsuariEmpresaService getService() {
 		return service;
 	}
-
+	
 }
