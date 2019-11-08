@@ -8,6 +8,7 @@ import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSiz
 
 import { MenuService, AppMenu } from './shared/menu.service';
 import { ModuleInitService } from './shared/module-init.service';
+import { CompanyiesService } from './shared/companyies.service';
 import { MenuCompanyia } from './shared/model/menu-companyia';
 import { MenuCompanyiaEmpresa } from './shared/model/menu-companyia-empresa';
 
@@ -22,12 +23,12 @@ import { MenuCompanyiaEmpresa } from './shared/model/menu-companyia-empresa';
 		<ng-container *ngIf="currentMenu">
 			<mat-toolbar>
 				<mat-icon *ngIf="currentMenu.icon" style="margin-right:.5em">{{currentMenu.icon}}</mat-icon>
-				<span>{{currentMenu.label}}</span>
+				{{currentMenu.label}}
 			</mat-toolbar>
 			<mat-divider></mat-divider>
 			<nav>
 				<mat-nav-list>
-					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route">
+					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route" routerLinkActive="nav-list-item-active">
 						<mat-icon style="margin-right:1em">{{item.icon}}</mat-icon>
 						<span>{{item.label}}</span>
 					</a>
@@ -114,7 +115,7 @@ import { MenuCompanyiaEmpresa } from './shared/model/menu-companyia-empresa';
 	flex: 1 1 auto;
 }
 `], providers: [
-//		CompanyiesService
+		CompanyiesService
 	]
 })
 export class AppComponent implements OnInit {
@@ -156,7 +157,6 @@ export class AppComponent implements OnInit {
 			companyia: this.companyies[indexCompanyia].id,
 			empresa: this.companyies[indexCompanyia].empreses[indexEmpresa].id
 		});
-		//this.currentMenu = this.menuService.getModuleMenu(this.moduleService.getSelected().code);
 		this.updateNomCompanyiaEmpresa();
 	}
 
@@ -167,7 +167,7 @@ export class AppComponent implements OnInit {
 			companyia: this.companyies[index].id,
 			empresa: null
 		});
-		this.currentMenu = this.menuService.getAdminCompanyiaMenu(); //nom);
+		this.currentMenu = this.menuService.getAdminCompanyiaMenu(nom);
 		this.updateNomCompanyiaEmpresa();
 	}
 
@@ -184,17 +184,6 @@ export class AppComponent implements OnInit {
 		}
 	}
 
-//	onSessionIconClick() {
-//		this.authService.sessionSave({
-//			companyia: 10,
-//			empresa: 11
-//		});
-//	}
-
-//	onDrawerClosed() {
-//		//this.menuButton.nativeElement.blur();
-//	}
-
 	@HostListener('window:resize', ['$event'])
 	onWindowResize(event: Event) {
 		let innerWidth = event.target['innerWidth'];
@@ -209,7 +198,7 @@ export class AppComponent implements OnInit {
 	private updateCompanyies() {
 		if ( this.tokenPayload ) {
 			this.http.get<MenuCompanyia[]>('api/menus').subscribe((companyies) => {
-				console.log("Menus: ", companyies);
+//				console.log("Menus: ", companyies);
 				this.companyies = companyies;
 				if (companyies.length) {
 					let session: any = this.authService.getSession();
@@ -254,8 +243,6 @@ export class AppComponent implements OnInit {
     }
 
 	private updateNomCompanyiaEmpresa(): void {
-		console.log(">>> companyiaSelectedIndex: " + this.companyiaSelectedIndex)
-		console.log(">>> empresaSelectedIndex: " + this.empresaSelectedIndex)
 		let nomCompanyia = this.companyies[this.companyiaSelectedIndex].nom;
 		let nomEmpresa = "";
 		if (this.empresaSelectedIndex != null && this.companyies[this.companyiaSelectedIndex].empreses[this.empresaSelectedIndex]) {
@@ -263,7 +250,6 @@ export class AppComponent implements OnInit {
 		}
 		
 		this.nomCompanyiaEmpresa = "[" + nomCompanyia + "] " + nomEmpresa;
-		console.log(">>> Canvi nom empresa: " + this.nomCompanyiaEmpresa);
 	}
 
 	constructor(
@@ -274,7 +260,7 @@ export class AppComponent implements OnInit {
 		private menuService: MenuService,
 		private moduleService: BngModuleService,
 		moduleInitService: ModuleInitService,
-//		private companyiesService: CompanyiesService,
+		private companyiesService: CompanyiesService,
 		private http: HttpClient) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
@@ -283,7 +269,6 @@ export class AppComponent implements OnInit {
 			this.tokenPayload = tokenPayload;
 			this.updateCompanyies();
 		});
-		// Manten actualitzada la llista d'elements de menu
 		/*menuService.getAllowedMenuItemsChangeSubject().subscribe((menuItems: MenuItem[]) => {
 			this.menuItems = menuItems;
 		});*/
@@ -297,28 +282,14 @@ export class AppComponent implements OnInit {
 		translate.use(userLang);
 		// Oculta la barra superior en la pàgina de login i selecciona l'opcio de menu actual
 		router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+			if (!this.currentMenu) {
+				// Selecciona el menu actual
+				this.currentMenu = this.menuService.getCurrentRouteMenu(companyiesService);
+			}
 			this.topbarVisible = (event.url !== '/login') && (!event.url.startsWith('/registre'));
 			if (this.mobileScreen && this.sidenav) {
 				this.sidenav.close();
 			}
-			// Ho posam a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
-			/*setTimeout(() => {
-				let menuSelectedIndex = undefined;
-				if (this.allowedMenuItems) {
-					for (let i = 0; i < this.allowedMenuItems.length; i++) {
-						if (event.url.startsWith(this.allowedMenuItems[i].route)) {
-							menuSelectedIndex = i;
-							break;
-						}
-					}
-					if (menuSelectedIndex && this.menulist) {
-						this.menulist.setSelectedIndex(menuSelectedIndex);
-					}
-				}
-				if (this.drawer) {
-					this.drawer.open = false;
-				}
-			});*/
 		});
 		// Es subscriu al subject de canvi de tamany de la pantalla
 		this.mobileScreen = this.screenSizeService.isMobile();
