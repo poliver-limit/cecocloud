@@ -20,12 +20,12 @@ import { CompanyiesService } from './shared/companyies.service';
 		<ng-container *ngIf="currentMenu">
 			<mat-toolbar>
 				<mat-icon *ngIf="currentMenu.icon" style="margin-right:.5em">{{currentMenu.icon}}</mat-icon>
-				<span>{{currentMenu.label}}</span>
+				{{currentMenu.label}}
 			</mat-toolbar>
 			<mat-divider></mat-divider>
 			<nav>
 				<mat-nav-list>
-					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route">
+					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route" routerLinkActive="nav-list-item-active">
 						<mat-icon style="margin-right:1em">{{item.icon}}</mat-icon>
 						<span>{{item.label}}</span>
 					</a>
@@ -53,17 +53,17 @@ import { CompanyiesService } from './shared/companyies.service';
 			<!--button mat-icon-button>
 				<mat-icon>contact_support</mat-icon>
 			</button-->
-			<button mat-icon-button (click)="onAdminButtonClick()" style="margin-right:.5em">
+			<button mat-icon-button *ngIf="tokenPayload?.rol.includes('ADMIN')" (click)="onAdminButtonClick()" style="margin-right:.5em">
 				<mat-icon>build</mat-icon>
 			</button>
 			<button mat-button *ngIf="companyies.length" [matMenuTriggerFor]="companyiaMenu">{{companyies[companyiaSelectedIndex].nom}} <mat-icon>arrow_drop_down</mat-icon></button>
 			<mat-menu #companyiaChild="matMenu">
-				<ng-template matMenuContent let-index="index">
-					<button mat-menu-item (click)="onCompanyiaAdministrarButtonClick(index)"><mat-icon>build</mat-icon> Administrar</button>
+				<ng-template matMenuContent let-index="index" let-nom="nom">
+					<button mat-menu-item (click)="onCompanyiaAdministrarButtonClick(index, nom)"><mat-icon>build</mat-icon> Administrar</button>
 				</ng-template>
 			</mat-menu>
 			<mat-menu #companyiaMenu="matMenu" xPosition="before">
-				<button mat-menu-item *ngFor="let companyia of companyies; let i = index" (click)="onCompanyiaButtonClick(i)" [matMenuTriggerFor]="companyiaChild" [matMenuTriggerData]="{index: i}">{{companyia.nom}}</button>
+				<button mat-menu-item *ngFor="let companyia of companyies; let i = index" (click)="onCompanyiaButtonClick(i)" [matMenuTriggerFor]="companyiaChild" [matMenuTriggerData]="{index: i, nom: companyia.nom}">{{companyia.nom}}</button>
 			</mat-menu>
 			<!--button mat-button [matMenuTriggerFor]="empresaMenu">Empresa 1 <mat-icon>arrow_drop_down</mat-icon></button>
 			<mat-menu #empresaMenu="matMenu" xPosition="before">
@@ -137,7 +137,6 @@ export class AppComponent implements OnInit {
 	moduleItems: BngModuleItem[];
 
 	ngOnInit() {
-		this.currentMenu = this.menuService.getAdminMenu();
 		this.refreshSmallToolbar(window.innerWidth);
 		this.screenSizeService.onWindowResize(window.innerWidth);
 	}
@@ -158,8 +157,9 @@ export class AppComponent implements OnInit {
 		});
 	}
 
-	onCompanyiaAdministrarButtonClick(index: number) {
-		console.log('>>> onCompanyiaAdministrarButtonClick', index);
+	onCompanyiaAdministrarButtonClick(index: number, nom: string) {
+		this.onCompanyiaButtonClick(index);
+		this.currentMenu = this.menuService.getAdminCompanyiaMenu(nom);
 	}
 
 	onModuleButtonClick(module: string) {
@@ -180,10 +180,6 @@ export class AppComponent implements OnInit {
 			companyia: 10,
 			empresa: 11
 		});
-	}
-
-	onDrawerClosed() {
-		//this.menuButton.nativeElement.blur();
 	}
 
 	@HostListener('window:resize', ['$event'])
@@ -239,7 +235,6 @@ export class AppComponent implements OnInit {
 			this.tokenPayload = tokenPayload;
 			this.updateCompanyies();
 		});
-		// Manten actualitzada la llista d'elements de menu
 		/*menuService.getAllowedMenuItemsChangeSubject().subscribe((menuItems: MenuItem[]) => {
 			this.menuItems = menuItems;
 		});*/
@@ -253,28 +248,14 @@ export class AppComponent implements OnInit {
 		translate.use(userLang);
 		// Oculta la barra superior en la pàgina de login i selecciona l'opcio de menu actual
 		router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+			if (!this.currentMenu) {
+				// Selecciona el menu actual
+				this.currentMenu = this.menuService.getCurrentRouteMenu(companyiesService);
+			}
 			this.topbarVisible = (event.url !== '/login') && (!event.url.startsWith('/registre'));
 			if (this.mobileScreen && this.sidenav) {
 				this.sidenav.close();
 			}
-			// Ho posam a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
-			/*setTimeout(() => {
-				let menuSelectedIndex = undefined;
-				if (this.allowedMenuItems) {
-					for (let i = 0; i < this.allowedMenuItems.length; i++) {
-						if (event.url.startsWith(this.allowedMenuItems[i].route)) {
-							menuSelectedIndex = i;
-							break;
-						}
-					}
-					if (menuSelectedIndex && this.menulist) {
-						this.menulist.setSelectedIndex(menuSelectedIndex);
-					}
-				}
-				if (this.drawer) {
-					this.drawer.open = false;
-				}
-			});*/
 		});
 		// Es subscriu al subject de canvi de tamany de la pantalla
 		this.mobileScreen = this.screenSizeService.isMobile();
