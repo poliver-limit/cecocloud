@@ -60,7 +60,10 @@ export class LoginComponent {
 	mobileScreen: boolean;
 
 	onEntrarButtonClick() {
-		this.formGroup.updateValueAndValidity();
+		this.formGroup.get('user').setErrors({ 'loginError': null });
+		this.formGroup.get('user').updateValueAndValidity();
+		this.formGroup.get('pass').setErrors({ 'loginError': null });
+		this.formGroup.get('pass').updateValueAndValidity();
 		if (this.formGroup.valid) {
 			this.authService.login(this.formGroup.get('user').value, this.formGroup.get('pass').value).subscribe((response: any) => {
 				if (!response.error) {
