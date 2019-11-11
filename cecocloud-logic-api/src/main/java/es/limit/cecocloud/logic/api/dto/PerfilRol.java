@@ -26,7 +26,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "perfil"
+		descriptionField = "description"
 )
 public class PerfilRol extends AbstractIdentificableWithCompositePk<PerfilRolPk> {
 
@@ -56,4 +56,10 @@ public class PerfilRol extends AbstractIdentificableWithCompositePk<PerfilRolPk>
 		private Long rolId;
 	}
 
+	@Transient
+	private String description;
+	
+	public String getDescription() {
+		return perfil.getDescription() + " - " + rol.getDescription();
+	}
 }

@@ -16,7 +16,9 @@ import es.limit.cecocloud.persist.entity.UsuariCompanyiaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 public interface UsuariCompanyiaRepository extends BaseRepository<UsuariCompanyiaEntity, UsuariCompanyiaPk> {
-	List<UsuariCompanyiaEntity> findByUsuariEmbeddedCodi(String usuariCodi);
-	List<UsuariCompanyiaEntity> findByCompanyiaEmbeddedCodi(String companyiaCodi);
-	UsuariCompanyiaEntity findUsuariCompanyiaByUsuariEmbeddedCodiAndCompanyiaEmbeddedCodi(String usuariCodi, String companyiaCodi);
+	
+	List<UsuariCompanyiaEntity> findByUsuariEmbeddedCodiOrderByCompanyiaEmbeddedNom(String usuariCodi);
+	
+//	List<UsuariCompanyiaEntity> findByCompanyiaEmbeddedCodi(String companyiaCodi);
+//	UsuariCompanyiaEntity findUsuariCompanyiaByUsuariEmbeddedCodiAndCompanyiaEmbeddedCodi(String usuariCodi, String companyiaCodi);
 }

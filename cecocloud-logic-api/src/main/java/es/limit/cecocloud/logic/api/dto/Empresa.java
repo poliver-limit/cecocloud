@@ -54,5 +54,9 @@ public class Empresa extends AbstractIdentificable<Long> {
 	protected TipusEmpresaEnum tipus;
 	@RestapiField(hiddenInLov = true)
 	private boolean activa;
+	
+	@Transient
+	@RestapiField(hiddenInForm = true, hiddenInGrid = true)
+	private Long companyiaId;
 
 }
