@@ -27,7 +27,7 @@ import { CompanyiesService } from './shared/companyies.service';
 				<mat-nav-list>
 					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route" routerLinkActive="nav-list-item-active">
 						<mat-icon style="margin-right:1em">{{item.icon}}</mat-icon>
-						<span>{{item.label}}</span>
+						<span>{{item.labelKey ? (item.labelKey | translate) : item.label}}</span>
 					</a>
 				</mat-nav-list>
 			</nav>
