@@ -163,7 +163,14 @@
 	"resource.rol.plural": "Roles",
 	"resource.rol.field.codi": "Código",
 	"resource.rol.field.descripcio": "Descripción",
-	"resource.rol.field.companyia": "Compañía",
+	"resource.rol.field.companyia": "Compañía",	
+	
+	"resource.perfil": "Perfil",
+	"resource.perfil.plural": "Perfiles",
+	"resource.perfil.field.codi": "Código",
+	"resource.perfil.field.descripcio": "Descripción",
+	"resource.perfil.field.companyia": "Compañía",
+	
 	"resource.abstractIdentificable.field.id": "Id",
 
 	"module.usuaris.canvi.contrasenya.titol": "Cambiar contraseña",

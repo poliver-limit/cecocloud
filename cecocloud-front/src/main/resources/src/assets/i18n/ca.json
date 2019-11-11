@@ -164,7 +164,14 @@
 	"resource.rol.plural": "Rols",
 	"resource.rol.field.codi": "Codi",
 	"resource.rol.field.descripcio": "Descripció",
-	"resource.rol.field.companyia": "Companyia",
+	"resource.rol.field.companyia": "Companyia",	
+	
+	"resource.perfil": "Perfil",
+	"resource.perfil.plural": "Perfils",
+	"resource.perfil.field.codi": "Codi",
+	"resource.perfil.field.descripcio": "Descripció",
+	"resource.perfil.field.companyia": "Companyia",	
+	
 	"resource.abstractIdentificable.field.id": "Id",
 
 	"module.usuaris.canvi.contrasenya.titol": "Canviar contrasenya",

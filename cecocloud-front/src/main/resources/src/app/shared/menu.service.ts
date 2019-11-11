@@ -31,6 +31,7 @@ export abstract class MenuService {
 		menuItems: [
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
 			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols', onlyForRoles: ['ADMIN'] },
+			{ icon: 'portrait', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils', onlyForRoles: ['ADMIN'] },
 			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' },
         	{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' }
 		]
