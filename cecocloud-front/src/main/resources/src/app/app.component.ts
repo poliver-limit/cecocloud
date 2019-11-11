@@ -9,8 +9,7 @@ import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSiz
 import { MenuService, AppMenu } from './shared/menu.service';
 import { ModuleInitService } from './shared/module-init.service';
 import { CompanyiesService } from './shared/companyies.service';
-import { MenuCompanyia } from './shared/model/menu-companyia';
-import { MenuCompanyiaEmpresa } from './shared/model/menu-companyia-empresa';
+import { SelectorCompanyia } from './shared/model/selector-companyia';
 
 @Component({
 	selector: 'app-root',
@@ -122,8 +121,7 @@ export class AppComponent implements OnInit {
 
 	@ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
-	companyies: MenuCompanyia[] = [];
-	companyiaEmpreses: MenuCompanyiaEmpresa[] = [];
+	companyies: SelectorCompanyia[] = [];
 	companyiaSelectedIndex: number;
 	empresaSelectedIndex: number;
 
@@ -195,9 +193,9 @@ export class AppComponent implements OnInit {
 		this.smallToolbar = windowWidth < 600;
 	}
 
-	private updateCompanyies() {
+	private updateSelectorCompanyies() {
 		if ( this.tokenPayload ) {
-			this.http.get<MenuCompanyia[]>('api/menus').subscribe((companyies) => {
+			this.http.get<SelectorCompanyia[]>('api/selectorCompanyiaEmpres').subscribe((companyies) => {
 //				console.log("Menus: ", companyies);
 				this.companyies = companyies;
 				if (companyies.length) {
@@ -264,10 +262,10 @@ export class AppComponent implements OnInit {
 		private http: HttpClient) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
-		this.updateCompanyies();
+		this.updateSelectorCompanyies();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
-			this.updateCompanyies();
+			this.updateSelectorCompanyies();
 		});
 		/*menuService.getAllowedMenuItemsChangeSubject().subscribe((menuItems: MenuItem[]) => {
 			this.menuItems = menuItems;

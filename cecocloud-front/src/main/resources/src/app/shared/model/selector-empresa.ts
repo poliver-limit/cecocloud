@@ -1,4 +1,4 @@
-export class MenuEmpresa {
+export class SelectorEmpresa {
 	
 	id: number;
 	codi: string;

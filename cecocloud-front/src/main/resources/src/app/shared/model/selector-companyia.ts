@@ -1,12 +1,12 @@
-import { MenuEmpresa } from './menu-empresa';
+import { SelectorEmpresa } from './selector-empresa';
 
-export class MenuCompanyia {
+export class SelectorCompanyia {
 	
 	id: number;
 	codi: string;
 	nom: string;
 	administracio: boolean;
-	empreses: MenuEmpresa[];
+	empreses: SelectorEmpresa[];
 	
 		
 	constructor(
@@ -14,7 +14,7 @@ export class MenuCompanyia {
 		codi: string,
 		nom: string,
 		administracio: boolean,
-		empreses: MenuEmpresa[]) {
+		empreses: SelectorEmpresa[]) {
 			this.id = id;
 			this.codi = codi;
 			this.nom = nom;

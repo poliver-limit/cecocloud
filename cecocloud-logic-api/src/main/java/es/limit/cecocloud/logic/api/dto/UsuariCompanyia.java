@@ -59,9 +59,6 @@ public class UsuariCompanyia extends AbstractIdentificableWithCompositePk<Usuari
 	}
 	
 	@Transient
-	private boolean administrador;
-	
-	@Transient
 	private String description;
 	
 	public String getDescription() {
