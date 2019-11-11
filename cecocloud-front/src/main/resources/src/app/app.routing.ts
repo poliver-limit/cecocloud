@@ -30,11 +30,11 @@ export const routes: Routes = [{
     canActivate: [BngAuthGuard]
 }, {
     path: 'empreses',
-    loadChildren: './modules/empreses/empreses.module#EmpresesModule',
+    loadChildren: './pages/empreses/empreses.module#EmpresesModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'marc',
-    loadChildren: './module/marc/marc.module#MarcModule',
+    loadChildren: './modules/marc/marc.module#MarcModule',
     canActivate: [BngAuthGuard]
 }, {
     path: '**',
