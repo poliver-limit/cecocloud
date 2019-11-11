@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { MaterialModule } from '../../../../shared/material.module';
 
-import { HomeComponent } from './home.component';
+import { IndexComponent } from './index.component';
 
 @NgModule( {
     imports: [
@@ -13,11 +13,11 @@ import { HomeComponent } from './home.component';
         TranslateModule,
         MaterialModule,
         RouterModule.forChild( [
-            { path: '', component: HomeComponent }
+            { path: '', component: IndexComponent }
         ] )
     ],
     declarations: [
-        HomeComponent
+        IndexComponent
     ]
 } )
-export class HomeModule {}
+export class IndexModule {}

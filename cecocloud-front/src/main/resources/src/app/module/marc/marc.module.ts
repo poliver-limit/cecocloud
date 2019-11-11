@@ -8,15 +8,15 @@ import { BngAuthGuard } from 'base-angular';
 		CommonModule,
 		RouterModule.forChild([{
 			path: '',
-			loadChildren: '../marc/modules/home/home.module#HomeModule',
+			loadChildren: './pages/index/index.module#IndexModule',
 			canActivate: [BngAuthGuard]
         },{
 			path: 'operaris',
-			loadChildren: './modules/operaris/operaris.module#OperarisModule',
+			loadChildren: './pages/operaris/operaris.module#OperarisModule',
 			canActivate: [BngAuthGuard]
 		}, {
 			path: 'marcatges',
-			loadChildren: './modules/marcatges/marcatges.module#MarcatgesModule',
+			loadChildren: './pages/marcatges/marcatges.module#MarcatgesModule',
 			canActivate: [BngAuthGuard]
 		}, {
 			path: '**',
@@ -24,10 +24,4 @@ import { BngAuthGuard } from 'base-angular';
 		}])
     ]
 })
-export class MarcModule {
-
-	constructor() {
-		//console.log('lazy module loaded');
-	}
-
-}
+export class MarcModule {}

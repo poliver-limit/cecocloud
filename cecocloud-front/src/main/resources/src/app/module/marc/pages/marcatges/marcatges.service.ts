@@ -8,7 +8,7 @@ export class Marcatge extends Resource {}
 export class MarcatgesService extends BngRestapiService<Marcatge> {
 
     constructor( injector: Injector ) {
-        super( Marcatge, 'marcatge', injector );
+        super( Marcatge, 'marcatge', injector, 'marc' );
     }
 
 }

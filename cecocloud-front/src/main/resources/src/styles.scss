@@ -9,8 +9,13 @@ $mdc-theme-on-surface: #666;*/
 @import "~ag-grid-community/src/styles/ag-grid.scss";
 @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
 
+.nav-list-item-active {
+	font-weight: bold;
+	background-color: #eee;
+}
+
 .mat-form-field:not(.mat-form-field-has-label) .mat-form-field-infix {
-  border-top-width: 0;
+	border-top-width: 0;
 }
 .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
 	height: 1.5em !important;

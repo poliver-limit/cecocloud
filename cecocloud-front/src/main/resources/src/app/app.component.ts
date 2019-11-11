@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material';
-import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
+import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSizeChangeEvent, BngModuleService, BngModuleItem } from 'base-angular';
 
 import { MenuService, AppMenu } from './shared/menu.service';
-import { ModuleService, ModuleItem } from './shared/module.service';
+import { ModuleInitService } from './shared/module-init.service';
+import { CompanyiesService } from './shared/companyies.service';
+import { MenuCompanyia } from './shared/model/menu-companyia';
+import { MenuCompanyiaEmpresa } from './shared/model/menu-companyia-empresa';
 
 @Component({
 	selector: 'app-root',
@@ -19,14 +23,14 @@ import { ModuleService, ModuleItem } from './shared/module.service';
 		<ng-container *ngIf="currentMenu">
 			<mat-toolbar>
 				<mat-icon *ngIf="currentMenu.icon" style="margin-right:.5em">{{currentMenu.icon}}</mat-icon>
-				<span>{{currentMenu.label}}</span>
+				{{currentMenu.label}}
 			</mat-toolbar>
 			<mat-divider></mat-divider>
 			<nav>
 				<mat-nav-list>
-					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route">
+					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route" routerLinkActive="nav-list-item-active">
 						<mat-icon style="margin-right:1em">{{item.icon}}</mat-icon>
-						<span>{{item.label}}</span>
+						<span>{{item.labelKey ? (item.labelKey | translate) : item.label}}</span>
 					</a>
 				</mat-nav-list>
 			</nav>
@@ -52,24 +56,18 @@ import { ModuleService, ModuleItem } from './shared/module.service';
 			<!--button mat-icon-button>
 				<mat-icon>contact_support</mat-icon>
 			</button-->
-			<button mat-icon-button (click)="onAdminButtonClick()">
+			<button mat-icon-button *ngIf="tokenPayload?.rol.includes('ADMIN')" (click)="onAdminButtonClick()" style="margin-right:.5em">
 				<mat-icon>build</mat-icon>
 			</button>
-			<button mat-button [matMenuTriggerFor]="companyiaMenu">Companyia 1 <mat-icon>arrow_drop_down</mat-icon></button>
-			<mat-menu #companyiaMenu="matMenu" xPosition="before">
-				<button mat-menu-item>Companyia 1</button>
-				<button mat-menu-item>Companyia 2</button>
-				<button mat-menu-item>Companyia 3</button>
-				<mat-divider></mat-divider>
-				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
+			<button mat-button *ngIf="companyies.length" [matMenuTriggerFor]="companyiaMenu">{{nomCompanyiaEmpresa}}<mat-icon>arrow_drop_down</mat-icon></button>
+			<mat-menu #companyiaChild="matMenu">
+				<ng-template matMenuContent let-indexComp="indexComp" let-nom="nom">
+					<button mat-menu-item *ngFor="let empresa of companyies[indexComp].empreses; let i = index" (click)="onCompanyiaButtonClick(indexComp, i)">{{empresa.nom}}</button>
+					<button mat-menu-item *ngIf="companyies[indexComp].administracio" (click)="onCompanyiaAdministrarButtonClick(indexComp, nom)"><mat-icon>build</mat-icon> Administrar</button>
+				</ng-template>
 			</mat-menu>
-			<button mat-button [matMenuTriggerFor]="empresaMenu">Empresa 1 <mat-icon>arrow_drop_down</mat-icon></button>
-			<mat-menu #empresaMenu="matMenu" xPosition="before">
-				<button mat-menu-item>Empresa 1</button>
-				<button mat-menu-item>Empresa 2</button>
-				<button mat-menu-item>Empresa 3</button>
-				<mat-divider></mat-divider>
-				<button mat-menu-item><mat-icon>build</mat-icon> Configurar</button>
+			<mat-menu #companyiaMenu="matMenu" xPosition="before">
+				<button mat-menu-item *ngFor="let companyia of companyies; let i = index" [matMenuTriggerFor]="companyiaChild" [matMenuTriggerData]="{indexComp: i, nom: companyia.nom}">{{companyia.nom}}</button>
 			</mat-menu>
 			<button mat-icon-button [matMenuTriggerFor]="modulesMenu" style="margin-right:.5em">
 				<mat-icon>apps</mat-icon>
@@ -116,21 +114,29 @@ import { ModuleService, ModuleItem } from './shared/module.service';
 .toolbar-fill {
 	flex: 1 1 auto;
 }
-`]
+`], providers: [
+		CompanyiesService
+	]
 })
 export class AppComponent implements OnInit {
 
 	@ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
+
+	companyies: MenuCompanyia[] = [];
+	companyiaEmpreses: MenuCompanyiaEmpresa[] = [];
+	companyiaSelectedIndex: number;
+	empresaSelectedIndex: number;
 
 	topbarVisible: boolean = false;
 	mobileScreen: boolean;
 	smallToolbar: boolean = false;
 	tokenPayload: BngAuthTokenPayload;
 	currentMenu: AppMenu;
-	moduleItems: ModuleItem[];
+	moduleItems: BngModuleItem[];
+	nomCompanyiaEmpresa: string;
+	
 
 	ngOnInit() {
-		this.currentMenu = this.menuService.getAdminMenu();
 		this.refreshSmallToolbar(window.innerWidth);
 		this.screenSizeService.onWindowResize(window.innerWidth);
 	}
@@ -142,6 +148,27 @@ export class AppComponent implements OnInit {
 	onAdminButtonClick() {
 		this.moduleService.setSelected();
 		this.currentMenu = this.menuService.getAdminMenu();
+	}
+
+	onCompanyiaButtonClick(indexCompanyia: number, indexEmpresa: number) {
+		this.companyiaSelectedIndex = indexCompanyia;
+		this.empresaSelectedIndex = indexEmpresa;
+		this.authService.sessionSave({
+			companyia: this.companyies[indexCompanyia].id,
+			empresa: this.companyies[indexCompanyia].empreses[indexEmpresa].id
+		});
+		this.updateNomCompanyiaEmpresa();
+	}
+
+	onCompanyiaAdministrarButtonClick(index: number, nom: string) {
+		this.companyiaSelectedIndex = index;
+		this.empresaSelectedIndex = null;
+		this.authService.sessionSave({
+			companyia: this.companyies[index].id,
+			empresa: null
+		});
+		this.currentMenu = this.menuService.getAdminCompanyiaMenu(nom);
+		this.updateNomCompanyiaEmpresa();
 	}
 
 	onModuleButtonClick(module: string) {
@@ -157,17 +184,6 @@ export class AppComponent implements OnInit {
 		}
 	}
 
-	onSessionIconClick() {
-		this.authService.sessionSave({
-			companyia: 10,
-			empresa: 11
-		});
-	}
-
-	onDrawerClosed() {
-		//this.menuButton.nativeElement.blur();
-	}
-
 	@HostListener('window:resize', ['$event'])
 	onWindowResize(event: Event) {
 		let innerWidth = event.target['innerWidth'];
@@ -179,24 +195,85 @@ export class AppComponent implements OnInit {
 		this.smallToolbar = windowWidth < 600;
 	}
 
+	private updateCompanyies() {
+		if ( this.tokenPayload ) {
+			this.http.get<MenuCompanyia[]>('api/menus').subscribe((companyies) => {
+//				console.log("Menus: ", companyies);
+				this.companyies = companyies;
+				if (companyies.length) {
+					let session: any = this.authService.getSession();
+					let teEmpresa: boolean = false;
+					if (!session || !session.companyia) {
+						this.companyiaSelectedIndex = 0;
+						this.empresaSelectedIndex = null;
+						for (let i = 0; i < companyies.length; i++) {
+							if (companyies[i].empreses.length) {
+								this.companyiaSelectedIndex = i;
+								this.empresaSelectedIndex = 0;
+								teEmpresa = true;
+								break;
+							}
+						}
+						this.authService.sessionSave({
+							companyia: companyies[this.companyiaSelectedIndex].id,
+							empresa: teEmpresa? companyies[this.companyiaSelectedIndex].empreses[0].id : null
+						});
+					} else {
+						for (let i = 0; i < companyies.length; i++) {
+							if (companyies[i].id == session.companyia) {
+								this.companyiaSelectedIndex = i;
+								if (session.empresa) {
+									for (let j = 0; j < companyies[i].empreses.length; j++) {
+										if(companyies[i].empreses[j].id == session.empresa) {
+											this.empresaSelectedIndex = j;
+											break;
+										}
+									}
+								}
+								break;
+							}
+						}
+					}
+					this.updateNomCompanyiaEmpresa();
+				}
+			});
+		} else {
+			this.companyies = [];
+		}
+    }
+
+	private updateNomCompanyiaEmpresa(): void {
+		let nomCompanyia = this.companyies[this.companyiaSelectedIndex].nom;
+		let nomEmpresa = "";
+		if (this.empresaSelectedIndex != null && this.companyies[this.companyiaSelectedIndex].empreses[this.empresaSelectedIndex]) {
+			nomEmpresa = this.companyies[this.companyiaSelectedIndex].empreses[this.empresaSelectedIndex].nom;
+		}
+		
+		this.nomCompanyiaEmpresa = "[" + nomCompanyia + "] " + nomEmpresa;
+	}
+
 	constructor(
 		private authService: BngAuthService,
 		private translate: TranslateService,
 		router: Router,
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
-		private moduleService: ModuleService) {
+		private moduleService: BngModuleService,
+		moduleInitService: ModuleInitService,
+		private companyiesService: CompanyiesService,
+		private http: HttpClient) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
+		this.updateCompanyies();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
+			this.updateCompanyies();
 		});
-		// Manten actualitzada la llista d'elements de menu
 		/*menuService.getAllowedMenuItemsChangeSubject().subscribe((menuItems: MenuItem[]) => {
 			this.menuItems = menuItems;
 		});*/
 		// Manten actualitzada la llista de mòduls disponibles
-		moduleService.getAllowedModuleItemsChangeSubject().subscribe((moduleItems: ModuleItem[]) => {
+		moduleService.getAllowedModuleItemsChangeSubject().subscribe((moduleItems: BngModuleItem[]) => {
 			this.moduleItems = moduleItems;
 		});
 		// Configura l'idioma de l'aplicació
@@ -205,28 +282,14 @@ export class AppComponent implements OnInit {
 		translate.use(userLang);
 		// Oculta la barra superior en la pàgina de login i selecciona l'opcio de menu actual
 		router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+			if (!this.currentMenu) {
+				// Selecciona el menu actual
+				this.currentMenu = this.menuService.getCurrentRouteMenu(companyiesService);
+			}
 			this.topbarVisible = (event.url !== '/login') && (!event.url.startsWith('/registre'));
 			if (this.mobileScreen && this.sidenav) {
 				this.sidenav.close();
 			}
-			// Ho posam a dins un setTimeout per a evitar l'error "Expression has changed after it was checked"
-			/*setTimeout(() => {
-				let menuSelectedIndex = undefined;
-				if (this.allowedMenuItems) {
-					for (let i = 0; i < this.allowedMenuItems.length; i++) {
-						if (event.url.startsWith(this.allowedMenuItems[i].route)) {
-							menuSelectedIndex = i;
-							break;
-						}
-					}
-					if (menuSelectedIndex && this.menulist) {
-						this.menulist.setSelectedIndex(menuSelectedIndex);
-					}
-				}
-				if (this.drawer) {
-					this.drawer.open = false;
-				}
-			});*/
 		});
 		// Es subscriu al subject de canvi de tamany de la pantalla
 		this.mobileScreen = this.screenSizeService.isMobile();

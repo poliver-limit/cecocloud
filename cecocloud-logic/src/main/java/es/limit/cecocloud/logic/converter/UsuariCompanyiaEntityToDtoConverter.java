@@ -17,4 +17,14 @@ import es.limit.cecocloud.persist.entity.UsuariCompanyiaEntity;
 @Component
 public class UsuariCompanyiaEntityToDtoConverter extends AbstractEntityToDtoConverter<UsuariCompanyiaEntity, UsuariCompanyia> {
 
+//	@Autowired
+//	PermissionHelper permissionHelper;
+//	
+//	@Override
+//	public UsuariCompanyia convert(UsuariCompanyiaEntity source, Type<? extends UsuariCompanyia> destinationType,
+//			MappingContext mappingContext) {
+//		UsuariCompanyia usuariCompanyia = super.convert(source, destinationType, mappingContext);
+//		usuariCompanyia.setAdministrador(permissionHelper.checkPermissionForCurrentUser(UsuariCompanyia.class, usuariCompanyia.getId(), ExtendedPermission.ADMINISTRATION));
+//		return usuariCompanyia;
+//	}
 }
