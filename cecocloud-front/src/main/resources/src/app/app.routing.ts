@@ -4,29 +4,29 @@ import { BngAuthGuard } from 'base-angular';
 
 export const routes: Routes = [{
     path: '',
-    loadChildren: './modules/home/home.module#HomeModule',
+    loadChildren: './pages/home/home.module#HomeModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'login',
-    loadChildren: './modules/login/login.module#LoginModule'
+    loadChildren: './pages/login/login.module#LoginModule'
 }, {
     path: 'registre',
-    loadChildren: './modules/registre/registre.module#RegistreModule'
+    loadChildren: './pages/registre/registre.module#RegistreModule'
 }, {
     path: 'usuaris',
-    loadChildren: './modules/usuaris/usuaris.module#UsuarisModule',
+    loadChildren: './pages/usuaris/usuaris.module#UsuarisModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'rols',
-    loadChildren: './modules/rols/rols.module#RolsModule',
+    loadChildren: './pages/rols/rols.module#RolsModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'perfils',
-    loadChildren: './modules/perfils/perfils.module#PerfilsModule',
+    loadChildren: './pages/perfils/perfils.module#PerfilsModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'companyies',
-    loadChildren: './modules/companyies/companyies.module#CompanyiesModule',
+    loadChildren: './pages/companyies/companyies.module#CompanyiesModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'empreses',
