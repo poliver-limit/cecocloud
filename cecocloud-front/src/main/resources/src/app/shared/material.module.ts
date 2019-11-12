@@ -15,6 +15,7 @@ import {
 	MatProgressSpinnerModule,
 	MatAutocompleteModule,
 	MatDialogModule,
+	MatCardModule,
 	MAT_DATE_FORMATS
 } from '@angular/material';
 
@@ -37,6 +38,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         MatProgressSpinnerModule,
         MatAutocompleteModule,
 		MatDialogModule,
+		MatCardModule,
         MomentDateModule
     ],
     providers: [

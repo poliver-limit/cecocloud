@@ -52,9 +52,11 @@ public class UsuariCompanyiaEntity extends AbstractCompositePkEntity<UsuariCompa
 
 	@Builder
 	public UsuariCompanyiaEntity(
+			UsuariCompanyiaPk pk,
 			UsuariCompanyia embedded,
 			UsuariEntity usuari,
 			CompanyiaEntity companyia) {
+		setId(pk);
 		this.embedded = embedded;
 		this.usuari = usuari;
 		this.companyia = companyia;

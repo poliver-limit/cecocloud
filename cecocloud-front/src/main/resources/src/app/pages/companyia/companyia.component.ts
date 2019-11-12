@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BngFormConfig } from 'base-angular';
+import { BngAuthService, BngFormConfig } from 'base-angular';
 
 import { CompanyiesService } from './companyies.service';
 
@@ -8,8 +8,10 @@ import { CompanyiesService } from './companyies.service';
 	template: `
 <bng-form
 	bng-form-mant
+	[id]="id"
 	[config]="formConfig"
-	[restapiService]="companyiesService"></bng-form>
+	[restapiService]="companyiesService">
+</bng-form>
 `
 })
 export class CompanyiaComponent {
@@ -17,16 +19,14 @@ export class CompanyiaComponent {
 	id: any;
 
 	formConfig: BngFormConfig = {
+		
 	}
 
 	constructor(
+		private authService: BngAuthService,
 		activatedRoute: ActivatedRoute,
 		public companyiesService: CompanyiesService) {
-		activatedRoute.params.subscribe((params) => {
-			if (params.id) {
-				this.id = params.id;
-			}
-		});
+		this.id = authService.getSession().companyia;
 	}
 
 }

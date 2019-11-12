@@ -18,7 +18,8 @@ import es.limit.cecocloud.logic.api.dto.SelectorCompanyia;
 import es.limit.cecocloud.logic.api.service.SelectorCompanyiaEmpresaService;
 
 /**
- * Controlador per al servei REST que retorna la llista de companyies i empreses a les que l'usuari té accés.
+ * Controlador per al servei REST que retorna la llista de companyies i empreses a les
+ * que l'usuari té accés.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -26,13 +27,13 @@ import es.limit.cecocloud.logic.api.service.SelectorCompanyiaEmpresaService;
 @RequestMapping(value = ApiControllerHelper.API_PATH + "/selectorCompanyiaEmpres")
 public class SelectorCompanyiaEmpresaApiController {
 
-	@Autowired SelectorCompanyiaEmpresaService menuService;
-	
+	@Autowired SelectorCompanyiaEmpresaService selectorCompanyiaEmpresaService;
+
 	@GetMapping(
 			produces = "application/json")
 	public ResponseEntity<List<SelectorCompanyia>> findMenuCompanyies(
 			HttpServletRequest request) {
-		return ResponseEntity.ok(menuService.getSelectorCompanyiaEmpresa());
+		return ResponseEntity.ok(selectorCompanyiaEmpresaService.getSelectorCompanyiaEmpresa());
 	}
 
 }

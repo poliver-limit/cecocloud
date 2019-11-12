@@ -43,8 +43,8 @@ export class ModuleInitService {
 			icon: 'touch_app',
 			label: 'Marcatges',
 			menuItems: [
-				{ icon: 'people_alt', label: 'Operaris', labelKey: 'app.menu.operaris', route: '/marc/operaris' },
-		    	{ icon: 'timer', label: 'Marcatges', labelKey: 'app.menu.marcatges', route: '/marc/marcatges' }
+				{ icon: 'people_alt', label: 'Operaris', route: '/marc/operaris' },
+		    	{ icon: 'timer', label: 'Marcatges', route: '/marc/marcatges' }
 			]
 		});
 		moduleService.refreshAllowedModuleItems();

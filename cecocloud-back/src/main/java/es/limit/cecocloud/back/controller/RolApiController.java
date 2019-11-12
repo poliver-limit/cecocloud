@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.Rol;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.RolService;
 
 /**
@@ -27,6 +29,18 @@ public class RolApiController extends AbstractIdentificableApiController<Rol, Lo
 	@Override
 	protected RolService getService() {
 		return service;
+	}
+
+	@Override
+	protected String additionalRsqlFilterFromSession(Object userSession) {
+		Long companyiaId = ((UserSession)userSession).getCompanyia();
+		return "companyia.id==" + companyiaId;
+	}
+
+	@Override
+	protected void completeDtoWithSession(Rol dto, Object userSession) {
+		Long companyiaId = ((UserSession)userSession).getCompanyia();
+		dto.setCompanyia(GenericReference.toGenericReference(companyiaId));
 	}
 
 }
