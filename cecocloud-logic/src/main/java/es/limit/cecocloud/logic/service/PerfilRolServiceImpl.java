@@ -12,11 +12,18 @@ import es.limit.cecocloud.logic.api.service.PerfilRolService;
 import es.limit.cecocloud.persist.entity.PerfilRolEntity;
 
 /**
- * Implementació del servei de gestió de Grups.
+ * Implementació del servei de gestió de perfil-rols.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
 public class PerfilRolServiceImpl extends AbstractGenericCompositePkServiceImpl<PerfilRol, PerfilRolEntity, PerfilRolPk> implements PerfilRolService {
+
+	@Override
+	protected PerfilRolPk getPkFromDto(PerfilRol dto) {
+		return new PerfilRolPk(
+				dto.getPerfil().getId(),
+				dto.getRol().getId());
+	}
 
 }

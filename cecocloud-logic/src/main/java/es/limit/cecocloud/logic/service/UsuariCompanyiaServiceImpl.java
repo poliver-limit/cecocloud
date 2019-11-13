@@ -19,25 +19,12 @@ import es.limit.cecocloud.persist.entity.UsuariCompanyiaEntity;
 @Service
 public class UsuariCompanyiaServiceImpl extends AbstractGenericCompositePkServiceImpl<UsuariCompanyia, UsuariCompanyiaEntity, UsuariCompanyiaPk> implements UsuariCompanyiaService {
 
-	/*@Autowired
-	private UsuariCompanyiaRepository usuariCompanyiaRepository;
-
-	@Transactional
 	@Override
-	public List<UsuariCompanyia> findUsuariCompanyiaByUsuariCodi(String usuariCodi) {
-		return toDto(usuariCompanyiaRepository.findByUsuariEmbeddedCodi(usuariCodi));
+	protected UsuariCompanyiaPk getPkFromDto(UsuariCompanyia dto) {
+		return new UsuariCompanyiaPk(
+				dto.getUsuari().getId(),
+				dto.getCompanyia().getId());
 	}
-	@Transactional
-	@Override
-	public List<UsuariCompanyia> findUsuariCompanyiaByCompanyiaCodi(String companyiaCodi) {
-		return toDto(usuariCompanyiaRepository.findByCompanyiaEmbeddedCodi(companyiaCodi));
-	}
-	
-	@Transactional
-	@Override
-	public UsuariCompanyia findUsuariCompanyiaByUsuariCodiAndCompanyiaCodi(String usuariCodi, String companyiaCodi) {
-		return toDto(usuariCompanyiaRepository.findUsuariCompanyiaByUsuariEmbeddedCodiAndCompanyiaEmbeddedCodi(usuariCodi, companyiaCodi));
-	}*/
 
 }
 
