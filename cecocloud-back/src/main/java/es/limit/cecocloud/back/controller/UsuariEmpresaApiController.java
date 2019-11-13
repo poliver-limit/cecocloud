@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
 import es.limit.cecocloud.logic.api.service.UsuariEmpresaService;
 
 /**
- * Controlador per al servei REST de gestió de companyies.
+ * Controlador per al servei REST de gestió de relacions usuari-empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -28,5 +29,11 @@ public class UsuariEmpresaApiController extends AbstractIdentificableApiControll
 	protected UsuariEmpresaService getService() {
 		return service;
 	}
-	
+
+	@Override
+	protected String additionalRsqlFilterFromSession(Object userSession) {
+		Long companyiaId = ((UserSession)userSession).getCompanyia();
+		return "empresa.companyia.id==" + companyiaId;
+	}
+
 }

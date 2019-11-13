@@ -14,25 +14,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.ApiControllerHelper;
-import es.limit.cecocloud.logic.api.dto.MenuCompanyia;
-import es.limit.cecocloud.logic.api.service.MenuService;
+import es.limit.cecocloud.logic.api.dto.SelectorCompanyia;
+import es.limit.cecocloud.logic.api.service.SelectorCompanyiaEmpresaService;
 
 /**
- * Controlador per al servei REST que retorna la llista de mòduls disponibles.
+ * Controlador per al servei REST que retorna la llista de companyies i empreses a les
+ * que l'usuari té accés.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(value = ApiControllerHelper.API_PATH + "/menus")
-public class MenuApiController {
+@RequestMapping(value = ApiControllerHelper.API_PATH + "/selectorCompanyiaEmpres")
+public class SelectorCompanyiaEmpresaApiController {
 
-	@Autowired MenuService menuService;
-	
+	@Autowired SelectorCompanyiaEmpresaService selectorCompanyiaEmpresaService;
+
 	@GetMapping(
 			produces = "application/json")
-	public ResponseEntity<List<MenuCompanyia>> findMenuCompanyies(
+	public ResponseEntity<List<SelectorCompanyia>> findMenuCompanyies(
 			HttpServletRequest request) {
-		return ResponseEntity.ok(menuService.getMenuCompanyia());
+		return ResponseEntity.ok(selectorCompanyiaEmpresaService.getSelectorCompanyiaEmpresa());
 	}
 
 }

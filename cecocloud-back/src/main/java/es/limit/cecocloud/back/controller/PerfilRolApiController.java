@@ -13,7 +13,7 @@ import es.limit.cecocloud.logic.api.dto.PerfilRol;
 import es.limit.cecocloud.logic.api.service.PerfilRolService;
 
 /**
- * Controlador per al servei REST de gestió de perfil-rols.
+ * Controlador per al servei REST de gestió relacions perfil-rol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

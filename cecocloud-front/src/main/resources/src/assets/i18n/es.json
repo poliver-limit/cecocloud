@@ -119,6 +119,9 @@
 	"resource.companyia.plural": "Compañías",
 	"resource.companyia.field.codi": "Código",
 	"resource.companyia.field.nom": "Nombre",
+	"resource.companyia.field.telefon": "Teléfono",
+	"resource.companyia.field.email": "Correo-e",
+	"resource.companyia.field.llicenciaKey": "Licencia",
 
 	"resource.empresa": "Empresa",
 	"resource.empresa.plural": "Empresas",
@@ -128,6 +131,12 @@
 	"resource.empresa.field.nom": "Nombre",
 	"resource.empresa.field.activa": "Activa",
 	"resource.empresa.field.companyia": "Compañia",
+
+	"resource.identificador": "Grupo de empresas",
+	"resource.identificador.plural": "Grupos de empresas",
+	"resource.identificador.field.codi": "Código",
+	"resource.identificador.field.nom": "Nombre",
+	"resource.identificador.field.companyia": "Compañía",
 
 	"resource.operari": "Operario",
 	"resource.operari.plural": "Operarios",
@@ -163,21 +172,27 @@
 	"resource.rol.field.codi": "Código",
 	"resource.rol.field.descripcio": "Descripción",
 	"resource.rol.field.companyia": "Compañía",	
-	
+
 	"resource.perfil": "Perfil",
 	"resource.perfil.plural": "Perfiles",
 	"resource.perfil.field.codi": "Código",
 	"resource.perfil.field.descripcio": "Descripción",
 	"resource.perfil.field.companyia": "Compañía",
-	
-	"resource.abstractIdentificable.field.id": "Id",
 
-	"module.usuaris.canvi.contrasenya.titol": "Cambiar contraseña",
-	"module.usuaris.canvi.contrasenya.field.contrasenya": "Contraseña",
-	"module.usuaris.canvi.contrasenya.field.confirmacio": "Repetición",
-	"module.usuaris.canvi.contrasenya.button.cancelar": "Cancelar",
-	"module.usuaris.canvi.contrasenya.button.canviar": "Cambiar",
-	"module.usuaris.canvi.contrasenya.no.coincideix": "La contraseña y la repetición no coinciden",
-	"module.usuaris.canvi.contrasenya.ok": "La contraseña se ha modificado correctamente"
+	"resource.usuariCompanyia": "Usuario de la compañia",
+	"resource.usuariCompanyia.plural": "Usuarios de la compañia",
+	"resource.usuariCompanyia.field.usuari": "Usuario",
+
+	"page.usuaris.canvi.contrasenya.titol": "Cambiar contraseña",
+	"page.usuaris.canvi.contrasenya.field.contrasenya": "Contraseña",
+	"page.usuaris.canvi.contrasenya.field.confirmacio": "Repetición",
+	"page.usuaris.canvi.contrasenya.button.cancelar": "Cancelar",
+	"page.usuaris.canvi.contrasenya.button.canviar": "Cambiar",
+	"page.usuaris.canvi.contrasenya.no.coincideix": "La contraseña y la repetición no coinciden",
+	"page.usuaris.canvi.contrasenya.ok": "La contraseña se ha modificado correctamente",
+
+	"page.companyia-usuaris.modal.titol": "Añadir usuario",
+	"page.companyia-usuaris.modal.button.cancelar": "Cancelar",
+	"page.companyia-usuaris.modal.button.afegir": "Añadir"
 
 }

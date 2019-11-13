@@ -59,9 +59,11 @@ public class RolUsuariEmpresaEntity extends AbstractCompositePkEntity<RolUsuariE
 
 	@Builder
 	public RolUsuariEmpresaEntity(
+			RolUsuariEmpresaPk pk,
 			RolUsuariEmpresa embedded,
 			RolEntity rol,
 			UsuariEmpresaEntity usuariEmpresa) {
+		setId(pk);
 		this.embedded = embedded;
 		this.rol = rol;
 		this.usuariEmpresa = usuariEmpresa;

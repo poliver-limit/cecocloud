@@ -17,16 +17,28 @@ export const routes: Routes = [{
     loadChildren: './pages/usuaris/usuaris.module#UsuarisModule',
     canActivate: [BngAuthGuard]
 }, {
+    path: 'companyies',
+    loadChildren: './pages/companyies/companyies.module#CompanyiesModule',
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'companyia',
+    loadChildren: './pages/companyia/companyia.module#CompanyiaModule',
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'companyia-usuaris',
+    loadChildren: './pages/companyia-usuaris/companyia-usuaris.module#CompanyiaUsuarisModule',
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'identificadors',
+    loadChildren: './pages/identificadors/identificadors.module#IdentificadorsModule',
+    canActivate: [BngAuthGuard]
+}, {
     path: 'rols',
     loadChildren: './pages/rols/rols.module#RolsModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'perfils',
     loadChildren: './pages/perfils/perfils.module#PerfilsModule',
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'companyies',
-    loadChildren: './pages/companyies/companyies.module#CompanyiesModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'empreses',

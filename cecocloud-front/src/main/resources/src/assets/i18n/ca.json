@@ -119,6 +119,9 @@
 	"resource.companyia.plural": "Companyies",
 	"resource.companyia.field.codi": "Codi",
 	"resource.companyia.field.nom": "Nom",
+	"resource.companyia.field.telefon": "Telèfon",
+	"resource.companyia.field.email": "Correu-e",
+	"resource.companyia.field.llicenciaKey": "Llicència",
 
 	"resource.empresa": "Empresa",
 	"resource.empresa.plural": "Empreses",
@@ -128,6 +131,12 @@
 	"resource.empresa.field.nom": "Nom",
 	"resource.empresa.field.activa": "Activa",
 	"resource.empresa.field.companyia": "Companyia",
+
+	"resource.identificador": "Grup d'empreses",
+	"resource.identificador.plural": "Grups d'empreses",
+	"resource.identificador.field.codi": "Codi",
+	"resource.identificador.field.nom": "Nom",
+	"resource.identificador.field.companyia": "Companyia",
 
 	"resource.operari": "Operari",
 	"resource.operari.plural": "Operaris",
@@ -163,21 +172,27 @@
 	"resource.rol.field.codi": "Codi",
 	"resource.rol.field.descripcio": "Descripció",
 	"resource.rol.field.companyia": "Companyia",	
-	
+
 	"resource.perfil": "Perfil",
 	"resource.perfil.plural": "Perfils",
 	"resource.perfil.field.codi": "Codi",
 	"resource.perfil.field.descripcio": "Descripció",
-	"resource.perfil.field.companyia": "Companyia",	
-	
-	"resource.abstractIdentificable.field.id": "Id",
+	"resource.perfil.field.companyia": "Companyia",
 
-	"module.usuaris.canvi.contrasenya.titol": "Canviar contrasenya",
-	"module.usuaris.canvi.contrasenya.field.contrasenya": "Contrasenya",
-	"module.usuaris.canvi.contrasenya.field.confirmacio": "Repetició",
-	"module.usuaris.canvi.contrasenya.button.cancelar": "Cancel·lar",
-	"module.usuaris.canvi.contrasenya.button.canviar": "Canviar",
-	"module.usuaris.canvi.contrasenya.no.coincideix": "La contrasenya i la repetició no coincideixen",
-	"module.usuaris.canvi.contrasenya.ok": "La contrasenya s'ha modificat correctament"
+	"resource.usuariCompanyia": "Usuari de la companyia",
+	"resource.usuariCompanyia.plural": "Usuaris de la companyia",
+	"resource.usuariCompanyia.field.usuari": "Usuari",
+
+	"page.usuaris.canvi.contrasenya.titol": "Canviar contrasenya",
+	"page.usuaris.canvi.contrasenya.field.contrasenya": "Contrasenya",
+	"page.usuaris.canvi.contrasenya.field.confirmacio": "Repetició",
+	"page.usuaris.canvi.contrasenya.button.cancelar": "Cancel·lar",
+	"page.usuaris.canvi.contrasenya.button.canviar": "Canviar",
+	"page.usuaris.canvi.contrasenya.no.coincideix": "La contrasenya i la repetició no coincideixen",
+	"page.usuaris.canvi.contrasenya.ok": "La contrasenya s'ha modificat correctament",
+
+	"page.companyia-usuaris.modal.titol": "Afegir usuari",
+	"page.companyia-usuaris.modal.button.cancelar": "Cancel·lar",
+	"page.companyia-usuaris.modal.button.afegir": "Afegir"
 
 }

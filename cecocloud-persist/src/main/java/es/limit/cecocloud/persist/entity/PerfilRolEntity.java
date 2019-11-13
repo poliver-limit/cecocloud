@@ -55,6 +55,7 @@ public class PerfilRolEntity extends AbstractCompositePkEntity<PerfilRol, Perfil
 			PerfilRol embedded,
 			PerfilEntity perfil,
 			RolEntity rol) {
+		setId(pk);
 		this.embedded = embedded;
 		this.perfil = perfil;
 		this.rol = rol;

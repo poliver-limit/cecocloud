@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.limit.base.boot.back.controller.AbstractIdentificableWithPermissionsApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
 
 /**
@@ -27,6 +28,12 @@ public class EmpresaApiController extends AbstractIdentificableWithPermissionsAp
 	@Override
 	protected EmpresaService getService() {
 		return service;
+	}
+
+	@Override
+	protected String additionalRsqlFilterFromSession(Object userSession) {
+		Long companyiaId = ((UserSession)userSession).getCompanyia();
+		return "identificador.companyia.id==" + companyiaId;
 	}
 
 }

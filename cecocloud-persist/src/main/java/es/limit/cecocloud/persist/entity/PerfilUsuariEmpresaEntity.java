@@ -59,9 +59,11 @@ public class PerfilUsuariEmpresaEntity extends AbstractCompositePkEntity<PerfilU
 
 	@Builder
 	public PerfilUsuariEmpresaEntity(
+			PerfilUsuariEmpresaPk pk,
 			PerfilUsuariEmpresa embedded,
 			PerfilEntity perfil,
 			UsuariEmpresaEntity usuariEmpresa) {
+		setId(pk);
 		this.embedded = embedded;
 		this.perfil = perfil;
 		this.usuariEmpresa = usuariEmpresa;

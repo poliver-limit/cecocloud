@@ -10,7 +10,7 @@ import { UsuarisService } from './usuaris.service';
     selector: 'usuari-contrasenya',
     template: `
 <div>
-	<button mat-raised-button color="primary" (click)="onButtonClick($event)">{{'module.usuaris.canvi.contrasenya.titol'|translate}}</button>
+	<button mat-raised-button color="primary" (click)="onButtonClick($event)">{{'page.usuaris.canvi.contrasenya.titol'|translate}}</button>
 </div>
 `, styles: [`
 `]
@@ -49,25 +49,25 @@ export class UsuarisContrasenyaFieldComponent extends BngFormBaseField {
 
 @Component( {
     template: `
-<h1 mat-dialog-title>{{'module.usuaris.canvi.contrasenya.titol'|translate}}</h1>
+<h1 mat-dialog-title>{{'page.usuaris.canvi.contrasenya.titol'|translate}}</h1>
 <div mat-dialog-content>
 	<form [formGroup]="formGroup">
 		<button (click)="onButtonCanviarClick()" style="display:none"></button>
 	    <mat-form-field style="width:100%">
-			<mat-label>{{'module.usuaris.canvi.contrasenya.field.contrasenya'|translate}}</mat-label>
+			<mat-label>{{'page.usuaris.canvi.contrasenya.field.contrasenya'|translate}}</mat-label>
 			<input #inputPassword matInput formControlName="password" type="password" autocomplete="off" required/>
 			<mat-error>{{fieldError}}</mat-error>
 		</mat-form-field>
 		<mat-form-field style="width:100%">
-			<mat-label>{{'module.usuaris.canvi.contrasenya.field.confirmacio'|translate}}</mat-label>
+			<mat-label>{{'page.usuaris.canvi.contrasenya.field.confirmacio'|translate}}</mat-label>
 			<input #inputConfirmation matInput formControlName="confirmation" type="password" autocomplete="off" required/>
 			<mat-error>{{fieldError}}</mat-error>
 		</mat-form-field>
 	</form>
 </div>
 <div mat-dialog-actions>
-	<button mat-button (click)="onCancelButtonClick()">{{'module.usuaris.canvi.contrasenya.button.cancelar'|translate}}</button>
-	<button mat-raised-button color="primary" (click)="onButtonCanviarClick()">{{'module.usuaris.canvi.contrasenya.button.canviar'|translate}}</button>
+	<button mat-button (click)="onCancelButtonClick()">{{'page.usuaris.canvi.contrasenya.button.cancelar'|translate}}</button>
+	<button mat-raised-button color="primary" (click)="onButtonCanviarClick()">{{'page.usuaris.canvi.contrasenya.button.canviar'|translate}}</button>
 </div>`
 } )
 export class UsuarisContrasenyaDialog implements OnInit {
@@ -100,16 +100,16 @@ export class UsuarisContrasenyaDialog implements OnInit {
 			this.formGroup.get('confirmation').setErrors({'error': true});
 		} else {
 			if (password == confirmation) {
-				let patchUrl = this.usuarisService.getResourceUrl('/' + this.data.usuariId);
+				let patchUrl = this.usuarisService.getApiBaseUrl('/' + this.data.usuariId);
 				let patchOperation: any = { op: 'replace', path: '/contrasenya', value: password };
 				this.usuarisService.getHttpClient().patch(patchUrl, [patchOperation]).subscribe((usuari: any) => {
 					this.snackbar.open(
-						this.translate.instant('module.usuaris.canvi.contrasenya.ok'),
+						this.translate.instant('page.usuaris.canvi.contrasenya.ok'),
 						this.translate.instant('component.restapi.form.manteniment.button.close'));
 					this.dialogRef.close();
 				});
 			} else {
-				this.fieldError = this.translate.instant('module.usuaris.canvi.contrasenya.no.coincideix');
+				this.fieldError = this.translate.instant('page.usuaris.canvi.contrasenya.no.coincideix');
 				this.formGroup.get('password').markAsTouched();
 				this.formGroup.get('password').setErrors({'error': true});
 				this.formGroup.get('confirmation').markAsTouched();

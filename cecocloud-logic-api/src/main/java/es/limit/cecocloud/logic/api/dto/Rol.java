@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
@@ -34,7 +35,12 @@ public class Rol extends AbstractIdentificable<Long> {
 	private String descripcio;
 	@NotNull
 	@Transient
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			//hiddenInGrid = true,
+			hiddenInForm = true)
 	private GenericReference<Companyia, Long> companyia;
 	
 }

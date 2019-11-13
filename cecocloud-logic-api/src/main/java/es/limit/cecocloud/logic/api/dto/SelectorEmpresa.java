@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +14,10 @@ import lombok.Setter;
  */
 @Getter @Setter
 @AllArgsConstructor
-public class MenuCompanyia {
+public class SelectorEmpresa {
 
 	private Long id;
 	private String codi;
 	private String nom;
-	private boolean administracio;
-	
-	private List<MenuEmpresa> empreses;
 
 }

@@ -38,11 +38,10 @@ public class Identificador extends AbstractIdentificable<Long> {
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			disabledForUpdate=true,
-			disabledForCreate=true,
-			hiddenInForm = true,
-			includeInQuickFilter = true)
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			//hiddenInGrid = true,
+			hiddenInForm = true)
 	private GenericReference<Companyia, Long> companyia;
 
 }
