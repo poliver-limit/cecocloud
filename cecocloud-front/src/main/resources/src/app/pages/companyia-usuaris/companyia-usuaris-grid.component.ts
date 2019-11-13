@@ -1,18 +1,19 @@
-import { Component, AfterViewInit, Inject } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HalParam } from 'angular4-hal';
 import { of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, finalize } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BngAuthService } from 'base-angular';
+import { BngAuthService, BngDatagrid } from 'base-angular';
 
-import { UsuariCompanyia, CompanyiaUsuarisService } from './companyia-usuaris.service';
+import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { UsuarisService } from './usuaris.service';
 
 @Component({
 	template: `
     <bng-datagrid
+		#datagrid
         [config]="datagridConfig"
         [restapiService]="companyiaUsuarisService"
 		(headerActionCreate)="onGridActionCreate()"
@@ -20,27 +21,24 @@ import { UsuarisService } from './usuaris.service';
 })
 export class CompanyiaUsuarisGridComponent {
 
+	@ViewChild('datagrid', { static: false }) datagrid: BngDatagrid;	
+
 	datagridConfig = {
 	};
 
 	onGridActionCreate() {
-		console.log('>>> onGridActionCreate')
 		const dialogRef = this.dialog.open(CompanyiaUsuarisAddDialog, {
-			width: '500px',
-			data: {
-				usuarisService: this.usuarisService
-			},
+			width: '500px'
 		});
 		dialogRef.afterClosed().subscribe(usuari => {
 			if (usuari) {
-				console.log('>>> Afegir usuari', usuari)
 				let session = this.authService.getSession();
 				let usuariCompanyia: any = {
 					usuari: {id: usuari.id},
 					companyia: {id: session.companyia}
 				};
-				this.companyiaUsuarisService.create(usuariCompanyia).subscribe((resposta) => {
-					console.log('>>> usuariCompanyia creat', resposta)
+				this.companyiaUsuarisService.create(usuariCompanyia).subscribe(() => {
+					this.datagrid.refresh();
 				});
 			}
 		});
@@ -56,17 +54,20 @@ export class CompanyiaUsuarisGridComponent {
 					'component.datagrid.manteniment.delete.single.confirm',
 					{ description: resourceName + ' ' + rowDescription });
 				if (confirm(confirmMessageTranslated)) {
-					this.companyiaUsuarisService.deleteById(event.selectedRows[0].id);
+					this.companyiaUsuarisService.deleteById(event.selectedRows[0].id).subscribe(() => {
+						this.datagrid.refresh();
+					});
 				}
 			} else {
-				// Esborram varis registres
 				let resourceNamePlural = this.translateKey(event.resource.translateKeyPlural).toLowerCase();
 				let confirmMessageTranslated = this.translateKey(
 					'component.datagrid.manteniment.delete.multiple.confirm',
 					{ count: event.selectedRows.length, description: resourceNamePlural });
 				if (confirm(confirmMessageTranslated)) {
 					let ids = event.selectedRows.map((resource: any) => { return resource.id });
-					this.companyiaUsuarisService.deleteBulk(ids);
+					this.companyiaUsuarisService.deleteBulk(ids).subscribe(() => {
+						this.datagrid.refresh();
+					});
 				}
 			}
 		}
@@ -85,10 +86,7 @@ export class CompanyiaUsuarisGridComponent {
 		private translate: TranslateService,
 		private dialog: MatDialog,
 		private authService: BngAuthService,
-		public companyiaUsuarisService: CompanyiaUsuarisService,
-		public usuarisService: UsuarisService) {
-		usuarisService.whenReady().subscribe(() => {
-		});
+		public companyiaUsuarisService: CompanyiaUsuarisService) {
 	}
 
 }
@@ -125,7 +123,6 @@ export class CompanyiaUsuarisAddDialog implements AfterViewInit {
 
 	usuari: any;
 	isLoading: boolean;
-	private usuarisService: UsuarisService
 
 	ngAfterViewInit() {
 		this.email.valueChanges.pipe(
@@ -169,9 +166,9 @@ export class CompanyiaUsuarisAddDialog implements AfterViewInit {
 
 	constructor(
 		private translate: TranslateService,
+		private usuarisService: UsuarisService,
 		public dialogRef: MatDialogRef<CompanyiaUsuarisAddDialog>,
 		@Inject(MAT_DIALOG_DATA) public data: any) {
-		this.usuarisService = data.usuarisService;
 	}
 
 }

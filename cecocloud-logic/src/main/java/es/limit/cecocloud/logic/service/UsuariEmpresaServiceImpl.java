@@ -12,33 +12,18 @@ import es.limit.cecocloud.logic.api.service.UsuariEmpresaService;
 import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
 
 /**
- * Implementació del servei de gestió d'usuari-companyia.
+ * Implementació del servei de gestió d'usuari-empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
 public class UsuariEmpresaServiceImpl extends AbstractGenericCompositePkServiceImpl<UsuariEmpresa, UsuariEmpresaEntity, UsuariEmpresaPk> implements UsuariEmpresaService {
 
-	/*@Autowired
-	private UsuariEmpresaRepository usuariEmpresaRepository;*/
-
-	/*@Transactional
 	@Override
-	public List<UsuariEmpresa> findByUsuariCodi(
-			String usuariCodi,
-			String identificadorCodi) {
-		return toDto(usuariEmpresaRepository.findByUsuariCodiAndIdentificadorCodi(
-					usuariCodi,
-					identificadorCodi));
+	protected UsuariEmpresaPk getPkFromDto(UsuariEmpresa dto) {
+		return new UsuariEmpresaPk(
+				dto.getUsuari().getId(),
+				dto.getEmpresa().getId());
 	}
-
-	@Override
-	public UsuariEmpresa findByUsuariCodiAndEmpresa(
-			String usuariCodi, 
-			Long empresaCodi) {
-		return toDto(usuariEmpresaRepository.getByUsuariEmbeddedCodiAndEmpresaEmbeddedCodi(
-					usuariCodi, 
-					empresaCodi));
-	}*/
 
 }
