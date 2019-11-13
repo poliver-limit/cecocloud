@@ -34,7 +34,6 @@ public class Identificador extends AbstractIdentificable<Long> {
 	@RestapiField(
 			includeInQuickFilter = true)
 	protected String nom;
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
