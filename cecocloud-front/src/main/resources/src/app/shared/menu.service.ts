@@ -23,7 +23,7 @@ export class MenuService {
 		icon: 'build',
 		label: 'Administració',
 		labelKey: 'app.menu.admin',
-		menuItems: [
+		menuItems: [			
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
 			{ icon: 'domain', label: 'Companyies', labelKey: 'app.menu.companyies', route: '/companyies' }
 		]

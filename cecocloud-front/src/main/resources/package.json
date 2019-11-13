@@ -30,6 +30,7 @@
     "angular4-hal": "^7.9.1",
     "core-js": "^3.1.4",
     "ng-material-datetimepicker": "^1.18.5",
+    "ng-recaptcha": "^5.0.0",
     "npm-check-updates": "^3.1.20",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",

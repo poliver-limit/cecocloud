@@ -40,9 +40,13 @@ import { RegistreService } from '../registre/registre.service';
 			<mat-error>{{getErrorMessage('email')}}</mat-error>
         </mat-form-field>
 		<button (click)="onCreateButtonClick()" style="display:none"></button>
-		<div style="display: flex; justify-content: space-between">
+		<div style="display:block; margin-left: auto; margin-right: auto; width: 70%; margin-top: 10px;">
+			<re-captcha (resolved)="captchaResolved($event)" siteKey="6LcdScIUAAAAAC7Rgi9lcUU8UbAdkQG7alCNvAam"></re-captcha>
+		</div>
+		<div style="display: flex; justify-content: space-between; margin-top: 20px;">
+			
 			<button mat-button (click)="onCancelButtonClick()">{{'create.button.cancel'|translate}}</button>
-			<button mat-raised-button color="primary" (click)="onCreateButtonClick()">{{'create.button.crear'|translate}}</button>
+			<button [disabled]="createButtonDisabled" mat-raised-button color="primary" (click)="onCreateButtonClick()">{{'create.button.crear'|translate}}</button>
 		</div>
 	</form>
 </div>
@@ -66,6 +70,8 @@ import { RegistreService } from '../registre/registre.service';
 } )
 export class CreateComponent {
 
+	createButtonDisabled: any = true;
+	
 	formGroup: FormGroup = this.formBuilder.group({
 		nom: ['', Validators.required],
 		llinatges: ['', Validators.required],
@@ -73,6 +79,11 @@ export class CreateComponent {
 	});
     mobileScreen: boolean;
 
+	captchaResolved(captchaResponse: string) {
+		this.createButtonDisabled = false;
+		console.log('Resolved captcha with response', captchaResponse);
+	}
+	
 	onCancelButtonClick() {
 		this.router.navigate( ['login'] );
 	}

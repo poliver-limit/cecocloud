@@ -9,8 +9,11 @@ import { CreateComponent } from './create.component';
 import { RecoverComponent } from './recover.component';
 import { ValidateComponent } from './validate.component';
 
+import { RecaptchaModule } from 'ng-recaptcha';
+
 @NgModule( {
     imports: [
+		RecaptchaModule.forRoot(),
         CommonModule,
 		FormsModule,
 		ReactiveFormsModule,

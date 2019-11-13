@@ -11,7 +11,7 @@ import { PerfilsGridComponent } from './perfils-grid.component';
 import { PerfilsFormComponent } from './perfils-form.component';
 import { PerfilsService } from './perfils.service';
 import { RolsService } from './rols.service';
-import { PerfilRolService } from './perfilRol.service';
+import { PerfilRol, PerfilRolService } from './perfilRol.service';
 
 @NgModule( {
     imports: [
@@ -34,7 +34,8 @@ import { PerfilRolService } from './perfilRol.service';
     providers: [
         PerfilsService,
 		RolsService,
-		PerfilRolService
+		PerfilRolService,
+		PerfilRol
     ]
 } )
 export class PerfilsModule {}
