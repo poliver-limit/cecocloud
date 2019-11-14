@@ -19,7 +19,7 @@ export class CompanyiaComponent {
 	id: any;
 
 	formConfig: BngFormConfig = {
-		
+		mode: 'isolated'
 	}
 
 	constructor(
