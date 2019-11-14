@@ -12,6 +12,7 @@ import { HalParam } from 'angular4-hal';
 import { Perfil, PerfilsService } from './perfils.service';
 import { Rol, RolsService } from './rols.service';
 import { PerfilRol, PerfilRolService } from './perfilRol.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component( {
     template: `
@@ -22,7 +23,7 @@ import { PerfilRol, PerfilRolService } from './perfilRol.service';
 			<form [formGroup]="formGroup" *ngIf="id">
 				<mat-form-field style="width:100%;">
 					<mat-label>Rols</mat-label>	
-					<mat-select #rolsSelect multiple formControlName="rols" (selectionChange)="onSelectionChange($event.value)">    
+					<mat-select #rolsSelect multiple formControlName="rols">    
 						<mat-option *ngFor="let role of roleList" [value]="role.id" (click)="onOptionClick(role)">
 							{{role.descripcio}}
 						</mat-option>
@@ -58,10 +59,10 @@ export class PerfilsFormComponent
 		activatedRoute: ActivatedRoute,
         public perfilsService: PerfilsService,
         public rolsService: RolsService,
-		public perfilRolService: PerfilRolService
+		public perfilRolService: PerfilRolService,
+		private http: HttpClient
 	)
-	{
-		// this.formGroup.get('rols') (retorna formControl) reactive forms
+	{		
 		activatedRoute.params.subscribe((params) => {
 			if (params.id) {
 				this.id = params.id;				
@@ -78,24 +79,17 @@ export class PerfilsFormComponent
 							
 							perfilRolService.getAll({params: requestParams}).subscribe((resposta: any) => {
 								this.profileRoleList = resposta;								
-								console.log('>>> perfilRols', resposta)
+								
 								let selectedIds = [];
 								this.profileRoleList.forEach((perfilRol: any) => {
 									selectedIds.push(perfilRol.rol.id);
 								});
-								this.formGroup.get('rols').setValue(selectedIds);
+								this.formGroup.get('rols').setValue(selectedIds);								
 								
-								console.log("This.id "+ this.id)
 								perfilsService.get(this.id).subscribe((resposta: any) => {
 									this.perfil = resposta;							
-								})
-								
-//								for (var i=0;i<resposta.length;i++) {
-//									console.log(resposta[i].rol.id)
-//									this.rolsSelected.push(resposta[i].rol.id)
-//								}
-//								console.log(">>> rolsSelected: ", this.rolsSelected)
-//								console.log('>>> rolsSelect', this.rolsSelect);								
+								})							
+						
 							});
 						});						
 					});
@@ -104,18 +98,9 @@ export class PerfilsFormComponent
 							
 			}
 		});		
-	}	
-	
-	onSelectionChange(selection: any) {
-//		console.log ("Selection: ",selection)
-//		this.profileRoleList.forEach((perfilRol: any) => {
-//			this.perfilRolService.delete(perfilRol)
-//		});
-//		this.perfilRolService.delete(this.profileRoleList)
 	}
 	
-	onOptionClick(rol: any) {
-		console.log ("Rol: ",rol)
+	onOptionClick(rol: any) {		
 		
 		let i = 0;
 		let found = false;
@@ -126,44 +111,39 @@ export class PerfilsFormComponent
 				i++;
 			}
 		}
-		if (found) {
-			console.log ("Esborrem el perfil de la estructura");
-			console.log ("Esborrem el perfil de bbdd");			
+		
+		if (found) {			
+					
+			// Eliminar perfilRol de la BBDD
+			console.log("A punt d'esborrar amb link: ", this.profileRoleList[i]._links.self.href);
+			this.http.delete (this.profileRoleList[i]._links.self.href).subscribe((resposta: any) => {
+				console.log("En teoria esborrat amb resposta: ",resposta)
+				
+				// Eliminar perfilRol de l'estructura			
+				this.profileRoleList.splice(i,1);				
+			});		
+			
 		} else {
 			
-			console.log ("Creem el perfil a bbdd");
-			let perfilRol: any = {
-				rol: {id: rol.id},
-				perfil: {id: this.perfil.id}
-			}		
+			// Creació perfilRol a la BBDD
+			let perfilRol: any = { rol: {id: rol.id}, perfil: {id: this.perfil.id} }			
 			this.perfilRolService.create(<PerfilRol>perfilRol).subscribe((resposta: any) => {
-				console.log ("PerfilRol creat: " , resposta);
+												
+				// Creació del perfilRol a la estructura								
+				let perfilRolObj = new PerfilRol;				
+				perfilRolObj["rol"] = {id:resposta.rol.id};
+				perfilRolObj["perfil"] = {id:resposta.perfil.id};
+				perfilRolObj["_links"] = resposta._links			
+						
+				this.profileRoleList.push(perfilRolObj);				
+				console.log("Estructura actualitzada: ", this.profileRoleList);				
+						
 			});			
 			
 			
-			
-			console.log ("Creem el perfil a la estructura");
-			
 						
-		}
-			
-		
-		
-		let requestParams: HalParam[] = [];
-		requestParams.push({
-			key: 'query',
-			value: 'perfil.id==' + this.id + ';rol.id==' + rol.id
-		});		
-		
-		this.perfilRolService.getAll({params: requestParams}).subscribe((resposta: any) => {
-			console.log(resposta);
-			if (resposta.length>0) {
-				console.log ("Esborrem el perfilRol")
-				this.perfilRolService.delete(resposta[0]);
-			} else {
-				console.log ("Creem el perfilRol")
-			}
-		})
+		}	
+
 	}
 
 }
