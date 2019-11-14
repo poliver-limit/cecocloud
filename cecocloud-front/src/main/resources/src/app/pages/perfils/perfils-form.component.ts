@@ -114,29 +114,29 @@ export class PerfilsFormComponent
 		
 		if (found) {			
 					
-			// Eliminar perfilRol de la BBDD
-			console.log("A punt d'esborrar amb link: ", this.profileRoleList[i]._links.self.href);
-			this.http.delete (this.profileRoleList[i]._links.self.href).subscribe((resposta: any) => {
-				console.log("En teoria esborrat amb resposta: ",resposta)
+			// Eliminar perfilRol de la BBDD			
+//			this.http.delete (this.profileRoleList[i]._links.self.href).subscribe((resposta: any) => {
+			this.perfilRolService.deleteById(this.profileRoleList[i].id).subscribe((resposta: any) => {		
 				
 				// Eliminar perfilRol de l'estructura			
 				this.profileRoleList.splice(i,1);				
+				
 			});		
 			
 		} else {
 			
 			// Creació perfilRol a la BBDD
 			let perfilRol: any = { rol: {id: rol.id}, perfil: {id: this.perfil.id} }			
-			this.perfilRolService.create(<PerfilRol>perfilRol).subscribe((resposta: any) => {
-												
+			this.perfilRolService.create(<PerfilRol>perfilRol).subscribe((resposta: any) => {							
+							
 				// Creació del perfilRol a la estructura								
-				let perfilRolObj = new PerfilRol;				
+				let perfilRolObj = new PerfilRol;		
+				perfilRolObj["id"] = resposta.id;		
 				perfilRolObj["rol"] = {id:resposta.rol.id};
 				perfilRolObj["perfil"] = {id:resposta.perfil.id};
-				perfilRolObj["_links"] = resposta._links			
+//				perfilRolObj["_links"] = resposta._links			
 						
 				this.profileRoleList.push(perfilRolObj);				
-				console.log("Estructura actualitzada: ", this.profileRoleList);				
 						
 			});			
 			
