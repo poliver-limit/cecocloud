@@ -19,30 +19,7 @@ import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
  */
 @Repository
 public interface UsuariEmpresaRepository extends BaseRepository<UsuariEmpresaEntity, UsuariEmpresaPk> {
-	
+
 	List<UsuariEmpresaEntity> findByUsuariEmbeddedCodiAndEmpresaIdentificadorCompanyiaIdOrderByEmpresaEmbeddedNom(String usuariCodi, Long companyiaId);
-	
-//	@Query("from "
-//			+ " UsuariEmpresaEntity uem "
-//			+ " where "
-//			+ " lower(uem.empresa.identificador.id) = lower(:identificadorCodi)"
-//			+ " and lower(uem.usuari.embedded.codi) = lower(:usuariCodi)")
-//	Page<UsuariEmpresaEntity> findByFilter(
-//			@Param("usuariCodi") String usuariCodi,
-//			@Param("identificadorCodi") String identificadorCodi,
-//			Pageable pageable);
-//	
-//	@Query("from "
-//			+ " UsuariEmpresaEntity uem "
-//			+ " where "
-//			+ " lower(uem.empresa.identificador.id) = lower(:identificadorCodi)"
-//			+ " and lower(uem.usuari.embedded.codi) = lower(:usuariCodi)")
-//	List<UsuariEmpresaEntity> findByUsuariCodiAndIdentificadorCodi(
-//			@Param("usuariCodi") String usuariCodi,
-//			@Param("identificadorCodi") String identificadorCodi);
-//	
-//	UsuariEmpresaEntity getByUsuariEmbeddedCodiAndEmpresaEmbeddedCodi(
-//			String usuariCodi,
-//			Long empresaCodi);
-	
+
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
-import es.limit.base.boot.logic.api.dto.Authorities;
+import es.limit.base.boot.logic.api.dto.Authority;
 import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
@@ -42,7 +42,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 
 	@Override
 	protected String additionalRsqlFilter(HttpServletRequest request, boolean admin) {
-		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Authorities.ADMIN);
+		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Authority.ADMIN);
 		boolean isAdminCurrentCompanyia = false;
 //		if (getUserSession(request).getCompanyia() != null) {
 //			isAdminCurrentCompanyia = companyiaService.permissionCheck(
@@ -56,7 +56,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 //					ExtendedPermission.ADMINISTRATION);*/
 //		}
 		UserSession userSession = (UserSession)getUserSession(request);
-		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Authorities.MARCA);
+		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Authority.MARCA);
 		if (!isAdmin && isAdminCurrentCompanyia) {
 			return "operari.empresa.companyia.id==" + userSession.getCompanyia();
 		} else if (!isAdmin && !isAdminCurrentCompanyia && isAdminCurrentEmpresa) {
