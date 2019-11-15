@@ -85,7 +85,6 @@ export class CreateComponent {
 
 	captchaResolved(captchaResponse: string) {
 		this.createButtonDisabled = false;		
-		console.log('Resolved captcha with response', captchaResponse);
 		this.captchaResponse = captchaResponse;	
 	}
 	
@@ -96,9 +95,12 @@ export class CreateComponent {
 	onCreateButtonClick() {
 		this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
-			this.registreService.create(this.formGroup, this.captchaResponse).subscribe(( response: any ) => {
-				console.log("Resposta: ", response);
-				this.showSnack('create.snack.created.ok');
+			this.registreService.create(this.formGroup, this.captchaResponse).subscribe(( response: any ) => {				
+				if (response!=null) {
+					this.showSnack('create.snack.created.ok');					
+				} else {
+					this.showSnack('create.snack.created.ko');
+				}
 				this.router.navigate( ['login'] );
 			}, (error: Error) => {
 				let processed = false;

@@ -64,6 +64,7 @@
 	"create.button.cancel": "Cancel·lar",
 	"create.button.crear": "Crear",
 	"create.snack.created.ok": "L'usuari s'ha creat correctament. En breu rebrà un correu amb més instruccions.",
+	"create.snack.created.ko": "S'ha produït un error en la creació de l'usuari.",
 
 	"recover.titol": "Recuperar contrasenya",
 	"recover.field.correu": "Correu-e",
