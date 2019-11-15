@@ -177,8 +177,7 @@ export class AppComponent implements OnInit {
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
 		private moduleService: BngModuleService,
-		moduleInitService: ModuleInitService,
-		companyiesService: CompanyiesService) {
+		moduleInitService: ModuleInitService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
@@ -196,7 +195,7 @@ export class AppComponent implements OnInit {
 		router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
 			if (!this.currentMenu) {
 				// Selecciona el menu actual
-				this.currentMenu = this.menuService.getCurrentRouteMenu(companyiesService);
+				this.currentMenu = this.menuService.getCurrentRouteMenu();
 			}
 			this.topbarVisible = (event.url !== '/login') && (!event.url.startsWith('/registre'));
 			if (this.mobileScreen && this.sidenav) {

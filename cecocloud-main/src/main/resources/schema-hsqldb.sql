@@ -26,6 +26,7 @@ create table empresa (
 create table identificador (
    id bigint not null,
     version bigint not null,
+    actiu boolean not null,
     codi varchar(4) not null,
     nom varchar(40) not null,
     companyia_id bigint,
