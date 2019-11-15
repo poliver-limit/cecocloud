@@ -97,6 +97,7 @@ export class CreateComponent {
 		this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
 			this.registreService.create(this.formGroup, this.captchaResponse).subscribe(( response: any ) => {
+				console.log("Resposta: ", response);
 				this.showSnack('create.snack.created.ok');
 				this.router.navigate( ['login'] );
 			}, (error: Error) => {
