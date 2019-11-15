@@ -63,7 +63,7 @@ export class MenuService {
 		}
 	}
 
-	public getCurrentRouteMenu(companyiesService: CompanyiesService): AppMenu {
+	public getCurrentRouteMenu(): AppMenu {
 		let found: boolean = false;
 		if (this.router.url.startsWith('/admin-app')) {
 			found = true;
@@ -91,8 +91,8 @@ export class MenuService {
 		if (found) {
 			let session: any = this.authService.getSession();
 			if (session) {
-				companyiesService.whenReady().subscribe(() => {
-					companyiesService.get(session.companyia).subscribe((resposta: any) => {
+				this.companyiesService.whenReady().subscribe(() => {
+					this.companyiesService.get(session.companyia).subscribe((resposta: any) => {
 						this.adminCompanyiaMenu.label = resposta.nom;
 					});
 				});
@@ -108,7 +108,8 @@ export class MenuService {
 	constructor(
 		private router: Router,
 		private authService: BngAuthService,
-		private moduleService: BngModuleService) {
+		private moduleService: BngModuleService,
+		private companyiesService: CompanyiesService) {
 	}
 
 }

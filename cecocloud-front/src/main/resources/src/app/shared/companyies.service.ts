@@ -5,7 +5,9 @@ import { BngRestapiService } from 'base-angular';
 
 export class Companyia extends Resource {}
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class CompanyiesService extends BngRestapiService<Companyia> {
 
 	public getSelectionTree(): Observable<any> {

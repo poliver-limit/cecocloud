@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { BngAuthService } from 'base-angular';
+import { BngAuthService, BngAuthTokenPayload } from 'base-angular';
 
 import { CompanyiesService } from './companyies.service';
 
@@ -31,6 +31,7 @@ export class SeleccioCompanyiaEmpresaComponent {
 	@Output() empresaChange: EventEmitter<any> = new EventEmitter();
 	@Output() companyiaAdmin: EventEmitter<any> = new EventEmitter();
 
+	tokenPayload: BngAuthTokenPayload;
 	selectedCompanyia: any;
 	selectedEmpresa: any;
 	selectionTree: any[];
@@ -47,7 +48,7 @@ export class SeleccioCompanyiaEmpresaComponent {
 
 	onAdministrarButtonClick(indexCompanyia: number) {
 		let selectedCompanyia = this.selectionTree[indexCompanyia];
-		if (selectedCompanyia.id !== this.selectedCompanyia.id) {
+		if (!this.selectedCompanyia || selectedCompanyia.id !== this.selectedCompanyia.id) {
 			this.selectedCompanyia = selectedCompanyia;
 			this.selectedEmpresa = undefined;
 			this.authService.sessionSave({
@@ -57,21 +58,40 @@ export class SeleccioCompanyiaEmpresaComponent {
 		this.companyiaAdmin.emit(this.selectedCompanyia);
 	}
 
+	private refreshSelectionTree() {
+		let authToken: string = this.authService.getAuthToken();
+		if (authToken) {
+			this.companyiesService.whenReady().subscribe(() => {
+				this.companyiesService.getSelectionTree().subscribe((resposta: any) => {
+					this.selectionTree = resposta._embedded.companyiaSelectionTreeItems;
+					let session: any = this.authService.getSession();
+					if (session && session.companyia) {
+						this.selectedCompanyia = this.selectionTree.find((companyia: any) => {return companyia.id === session.companyia});
+						if (this.selectedCompanyia && session.empresa && this.selectedCompanyia.empreses) {
+							this.selectedEmpresa = this.selectedCompanyia.empreses.find((empresa: any) => {return empresa.id === session.empresa});
+						}
+					}
+				});
+			});
+		} else {
+			this.selectionTree = undefined;
+		}
+	}
+
 	constructor(
 		private authService: BngAuthService,
-		companyiesService: CompanyiesService) {
-		companyiesService.whenReady().subscribe(() => {
-			companyiesService.getSelectionTree().subscribe((resposta: any) => {
-				this.selectionTree = resposta._embedded.companyiaSelectionTreeItems;
-				let session: any = this.authService.getSession();
-				if (session && session.companyia) {
-					this.selectedCompanyia = this.selectionTree.find((companyia: any) => {return companyia.id === session.companyia});
-					if (this.selectedCompanyia && session.empresa && this.selectedCompanyia.empreses) {
-						this.selectedEmpresa = this.selectedCompanyia.empreses.find((empresa: any) => {return empresa.id === session.empresa});
-					}
+		private companyiesService: CompanyiesService) {
+		this.tokenPayload = authService.getAuthTokenPayload();
+		/*authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
+			if (tokenPayload) {
+				// Només refresca l'arbre si l'usuari ha canviat
+				if (!this.tokenPayload || this.tokenPayload.sub !== tokenPayload.sub) {
+					this.refreshSelectionTree();
 				}
-			});		
-		});
+			}
+			this.tokenPayload = tokenPayload;
+		});*/
+		this.refreshSelectionTree();
 	}
 
 }
