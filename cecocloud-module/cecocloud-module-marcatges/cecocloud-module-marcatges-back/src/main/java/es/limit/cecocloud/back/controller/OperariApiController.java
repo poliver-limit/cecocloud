@@ -37,11 +37,11 @@ public class OperariApiController extends AbstractIdentificableApiController<Ope
 
 	@Override
 	protected String additionalRsqlFilter(HttpServletRequest request, boolean admin) {
-		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Authority.ADMIN);
+		/*boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Authority.ADMIN);
 		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Authority.MARCA);
 		if (!isAdmin && isMarcatge) {
 			return "usuari.codi==" + authenticationFacade.getAuthentication().getName();
-		}
+		}*/
 		return null;
 	}
 

@@ -23,6 +23,8 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
  */
 public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
+	List<OperariEntity> findByEmpresaIdentificadorCompanyia(CompanyiaEntity companyia);
+
 	@Query(	"from" +
 			"    OperariEntity op " +
 			"where " +

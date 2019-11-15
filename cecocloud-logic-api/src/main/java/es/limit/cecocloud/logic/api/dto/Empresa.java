@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
@@ -27,7 +28,10 @@ public class Empresa extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Transient
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForUpdate = true,
+			includeInQuickFilter = true)
 	private GenericReference<Identificador, Long> identificador;
 	@NotNull
 	@Size(max = 4)

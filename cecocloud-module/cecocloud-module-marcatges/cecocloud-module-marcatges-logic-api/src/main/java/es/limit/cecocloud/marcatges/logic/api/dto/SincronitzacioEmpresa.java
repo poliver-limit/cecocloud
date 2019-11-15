@@ -27,7 +27,7 @@ public class SincronitzacioEmpresa {
 	@Size(max = 12)
 	private String nif;
 	@NotNull
-	@Size(max = 40)
+	@Size(max = 30)
 	private String nom;
 
 }

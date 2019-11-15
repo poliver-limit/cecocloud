@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * IResposta de la sincronització una companyia de CECOGEST.
+ * Resposta genèrica de sincronització.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -19,5 +19,6 @@ public class SincronitzacioResposta {
 	private int createCount;
 	private int updateCount;
 	private int deleteCount;
+	private int errorCount;
 
 }

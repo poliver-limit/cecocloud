@@ -3,11 +3,13 @@
  */
 package es.limit.cecocloud.persist.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
+import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 
 /**
@@ -21,9 +23,9 @@ public interface IdentificadorRepository extends BaseRepository<IdentificadorEnt
 
 	Optional<IdentificadorEntity> findByEmbeddedCodi(String codi);
 
-	/*List<IdentificadorEntity> findByCompanyiaEmbeddedCodi(String companyiaCodi);
-	
-	@Query("from "
+	List<IdentificadorEntity> findByCompanyia(CompanyiaEntity companyia);
+
+	/*@Query("from "
 			+ " IdentificadorEntity i "
 			+ " where "
 			+ " i.companyia.embedded.codi = :companyiaCodi")

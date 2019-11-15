@@ -47,7 +47,7 @@ import { CompanyiesService } from './shared/companyies.service';
 		<button mat-icon-button *ngIf="mobileScreen" (click)="onMenuItemClick()" style="margin-right: .5em">
 			<mat-icon>menu</mat-icon>
 		</button>
-		<span>Cecocloud</span>
+		<mat-icon (click)="onHomeLinkClick()" style="cursor:pointer">cloud_queue</mat-icon><span (click)="onHomeLinkClick()" style="cursor:pointer">&nbsp;&nbsp;Cecocloud</span>
 		<span class="toolbar-fill"></span>
 		<span>
 			<button mat-icon-button *ngIf="tokenPayload?.rol.includes('ADMIN')" (click)="onAdminButtonClick()" style="margin-right:.5em">
@@ -121,6 +121,11 @@ export class AppComponent implements OnInit {
 		this.screenSizeService.onWindowResize(window.innerWidth);
 	}
 
+	onHomeLinkClick() {
+		this.router.navigate(['/']);
+		this.currentMenu = undefined;
+	}
+
 	onMenuItemClick() {
 		this.sidenav.toggle();
 	}
@@ -128,7 +133,7 @@ export class AppComponent implements OnInit {
 	onAdminButtonClick() {
 		this.moduleService.setSelected();
 		this.currentMenu = this.menuService.getAdminMenu();
-		// TODO: anar a l'index de l'admin d'aplicació
+		this.router.navigate(['/admin-app']);
 	}
 
 	onSeleccioEmpresaChange(empresa: any) {
@@ -137,13 +142,13 @@ export class AppComponent implements OnInit {
 
 	onSeleccioCompanyiaAdmin(companyia: any) {
 		this.currentMenu = this.menuService.getAdminCompanyiaMenu(companyia.nom);
-		// TODO: anar a l'index de l'admin de companyia
+		this.router.navigate(['/admin-companyia']);
 	}
 
 	onModuleButtonClick(module: string) {
 		this.moduleService.setSelected(module);
 		this.currentMenu = this.menuService.getModuleMenu(module);
-		// TODO: anar a l'index del mòdul
+		this.router.navigate(['/' + module]);
 	}
 
 	onActionSortirClick() {
@@ -168,7 +173,7 @@ export class AppComponent implements OnInit {
 	constructor(
 		private authService: BngAuthService,
 		private translate: TranslateService,
-		router: Router,
+		private router: Router,
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
 		private moduleService: BngModuleService,
