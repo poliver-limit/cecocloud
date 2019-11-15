@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import es.limit.cecocloud.logic.api.service.CompanyiaService;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioCompanyia;
+import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioCompanyiaResposta;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatgesEnviament;
@@ -46,27 +48,40 @@ public class SincronitzacioApiController {
 	@PostMapping(
 			path = "/empreses_operaris",
 			produces = "application/json")
-	public ResponseEntity<SincronitzacioResposta> sincronitzarEmpresesOperaris(
+	@PreAuthorize("hasPermission(getCompanyia(#dto.companyiaCodi), 'SYNC')")
+	public ResponseEntity<SincronitzacioCompanyiaResposta> sincronitzarEmpresesOperaris(
 			HttpServletRequest request,
 			@RequestBody @Valid final SincronitzacioCompanyia dto) {
 		log.debug("Nova sincronització(" +
 				"dto=" + dto + ")");
-		SincronitzacioResposta resposta = sincronitzacioService.sincronitzar(
-				getCompanyiaId(dto.getCompanyiaCodi()),
+		Companyia companyia = getCompanyia(dto.getCompanyiaCodi());
+		SincronitzacioResposta identificadorsResposta = sincronitzacioService.sincronitzarIdentificadors(
+				companyia.getId(),
+				dto.getIdentificadors());
+		SincronitzacioResposta empresesResposta = sincronitzacioService.sincronitzarEmpreses(
+				companyia.getId(),
 				dto.getEmpreses());
-		return ResponseEntity.ok(resposta);
+		SincronitzacioResposta operarisResposta = sincronitzacioService.sincronitzarOperaris(
+				companyia.getId(),
+				dto.getOperaris());
+		return ResponseEntity.ok(
+				new SincronitzacioCompanyiaResposta(
+						identificadorsResposta,
+						empresesResposta,
+						operarisResposta));
 	}
 
 	@GetMapping(
 			path = "/marcatges",
 			produces = "application/json")
+	@PreAuthorize("hasPermission(getCompanyia(#consulta.companyiaCodi), 'SYNC')")
 	public ResponseEntity<List<SincronitzacioMarcatge>> consultaMarcatges(
 			HttpServletRequest request,
 			@Valid final SincronitzacioMarcatgesConsulta consulta) {
 		log.debug("Consulta de marcatges (" +
 				"consulta=" + consulta + ")");
 		List<SincronitzacioMarcatge> marcatges = sincronitzacioService.marcatgeFind(
-				getCompanyiaId(consulta.getCompanyiaCodi()),
+				getCompanyia(consulta.getCompanyiaCodi()).getId(),
 				consulta.getEmpreses(),
 				consulta.getDataInici(),
 				consulta.getDataFi());
@@ -76,21 +91,22 @@ public class SincronitzacioApiController {
 	@PostMapping(
 			path = "/marcatges",
 			produces = "application/json")
+	@PreAuthorize("hasPermission(getCompanyia(#marcatges.companyiaCodi), 'SYNC')")
 	public ResponseEntity<SincronitzacioResposta> sincronitzarMarcatges(
 			HttpServletRequest request,
 			@RequestBody @Valid final SincronitzacioMarcatgesEnviament marcatges) {
 		log.debug("Enviament de marcatges (" +
 				"marcatges=" + marcatges + ")");
 		SincronitzacioResposta resposta = sincronitzacioService.marcatgeCreate(
-				getCompanyiaId(marcatges.getCompanyiaCodi()),
+				getCompanyia(marcatges.getCompanyiaCodi()).getId(),
 				marcatges.getMarcatges());
 		return ResponseEntity.ok(resposta);
 	}
 
-	private Long getCompanyiaId(String companyiaCodi) {
+	private Companyia getCompanyia(String companyiaCodi) {
 		Companyia companyia = companyiaService.findOneByRsqlQuery("codi==" + companyiaCodi);
 		if (companyia != null) {
-			return companyia.getId();
+			return companyia;
 		} else {
 			throw new EntityNotFoundException("Companyia amb codi " + companyiaCodi);
 		}

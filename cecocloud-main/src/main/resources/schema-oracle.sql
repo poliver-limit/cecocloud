@@ -26,6 +26,7 @@ create table empresa (
 create table identificador (
    id number(19,0) not null,
     version number(19,0) not null,
+    actiu number(1,0) not null,
     codi varchar2(4 char) not null,
     nom varchar2(40 char) not null,
     companyia_id number(19,0),

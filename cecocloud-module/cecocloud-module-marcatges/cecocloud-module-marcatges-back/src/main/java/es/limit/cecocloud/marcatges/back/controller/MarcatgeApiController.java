@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
-import es.limit.base.boot.logic.api.dto.Authorities;
 import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
@@ -41,29 +40,27 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	}
 
 	@Override
-	protected String additionalRsqlFilter(HttpServletRequest request, boolean admin) {
-		boolean isAdmin = hasAnyAuthority(authenticationFacade.getAuthentication(), Authorities.ADMIN);
-		boolean isAdminCurrentCompanyia = false;
-//		if (getUserSession(request).getCompanyia() != null) {
-//			isAdminCurrentCompanyia = companyiaService.permissionCheck(
-//					getUserSession(request).getCompanyia(),
-//					ExtendedPermission.ADMINISTRATION);
-//		}
-		boolean isAdminCurrentEmpresa = false;
-//		if (getUserSession(request).getCompanyia() != null) {
-//			/*isAdminCurrentEmpresa = empresaService.permissionCheck(
-//					getUserSession(request).getEmpresa(),
-//					ExtendedPermission.ADMINISTRATION);*/
-//		}
-		UserSession userSession = (UserSession)getUserSession(request);
-		boolean isMarcatge = hasAnyAuthority(authenticationFacade.getAuthentication(), Authorities.MARCA);
-		if (!isAdmin && isAdminCurrentCompanyia) {
-			return "operari.empresa.companyia.id==" + userSession.getCompanyia();
-		} else if (!isAdmin && !isAdminCurrentCompanyia && isAdminCurrentEmpresa) {
-			return "operari.empresa.id==" + userSession.getEmpresa();
-		} else if (!isAdmin && !isAdminCurrentCompanyia && !isAdminCurrentEmpresa && isMarcatge) {
-			return "operari.usuari.codi==" + authenticationFacade.getAuthentication().getName();
+	protected String additionalRsqlFilterFromSession(Object userSession) {
+		String usuariCodi = authenticationFacade.getAuthentication().getName();
+		String rsqlUsuari = "operari.usuari.codi==" + usuariCodi + ";";
+		UserSession session = (UserSession)userSession;
+		if (session != null) {
+			if (session.getCompanyia() != null && session.getEmpresa() != null) {
+				return rsqlUsuari + "operari.empresa.companyia.id==" + session.getCompanyia() + ";operari.empresa.id==" + session.getEmpresa();
+			} else if (session.getCompanyia() != null) {
+				return rsqlUsuari + "operari.empresa.companyia.id==" + session.getCompanyia();
+			} else {
+				// Si no hi ha cap companyia seleccionada no retorna resultats
+				return "operari.id==0";
+			}
+		} else {
+			// Si no hi ha sessió no retorna resultats
+			return "operari.id==0";
 		}
+	}
+	
+	@Override
+	protected String additionalRsqlFilter(HttpServletRequest request, boolean bypassSessionFilter) {
 		return null;
 	}
 

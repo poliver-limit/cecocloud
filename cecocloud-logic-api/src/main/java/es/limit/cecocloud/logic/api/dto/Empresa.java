@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.Authorities;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
@@ -23,16 +23,15 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom",
-		authoritiesWithCreatePermission = { Authorities.ADMIN },
-		authoritiesWithReadPermission = { Authorities.ADMIN, Authorities.MARCA },
-		authoritiesWithUpdatePermission = { Authorities.ADMIN },
-		authoritiesWithDeletePermission = { Authorities.ADMIN })
+		descriptionField = "nom")
 public class Empresa extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Transient
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForUpdate = true,
+			includeInQuickFilter = true)
 	private GenericReference<Identificador, Long> identificador;
 	@NotNull
 	@Size(max = 4)
@@ -54,7 +53,7 @@ public class Empresa extends AbstractIdentificable<Long> {
 	protected TipusEmpresaEnum tipus;
 	@RestapiField(hiddenInLov = true)
 	private boolean activa;
-	
+
 	@Transient
 	@RestapiField(hiddenInForm = true, hiddenInGrid = true)
 	private Long companyiaId;

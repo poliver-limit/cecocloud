@@ -7,8 +7,12 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import es.limit.base.boot.logic.api.annotation.RestapiAuthoritiesWithPermission;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
+import es.limit.base.boot.logic.api.dto.Authority;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import lombok.Getter;
@@ -21,7 +25,19 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom")
+		descriptionField = "nom",
+		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(
+						type = RestapiPermissionConstraintType.AUTHORITY,
+						authoritiesWithPermissions = {
+								@RestapiAuthoritiesWithPermission(permission = "CREATE", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "READ", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "UPDATE", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "DELETE", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "ADMIN", authorities = {Authority.ADMIN}),
+						} )
+		}
+)
 public class Companyia extends AbstractIdentificable<Long> {
 
 	@NotNull

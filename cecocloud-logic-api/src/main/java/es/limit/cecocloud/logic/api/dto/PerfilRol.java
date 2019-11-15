@@ -60,6 +60,8 @@ public class PerfilRol extends AbstractIdentificableWithCompositePk<PerfilRolPk>
 	private String description;
 	
 	public String getDescription() {
-		return perfil.getDescription() + " - " + rol.getDescription();
+		if (perfil != null && rol != null) 
+			return perfil.getDescription() + " - " + rol.getDescription();
+		return "";
 	}
 }

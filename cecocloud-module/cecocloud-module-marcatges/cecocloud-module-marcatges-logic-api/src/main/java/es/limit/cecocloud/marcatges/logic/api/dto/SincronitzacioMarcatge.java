@@ -21,7 +21,7 @@ public class SincronitzacioMarcatge {
 
 	@NotNull
 	@NotEmpty
-	private String empresaIdentificadorCodi;
+	private String identificadorCodi;
 	@NotNull
 	@NotEmpty
 	private String empresaCodi;

@@ -11,6 +11,7 @@ import { BngJwtInterceptor, BngErrorModule, BngErrorHandler, BngRestapiConfigSer
 import { MaterialModule } from './shared/material.module';
 import { LocaleService } from './shared/locale.service';
 import { RestapiConfigService } from './shared/restapi-config.service';
+import { SeleccioCompanyiaEmpresaComponent } from './shared/seleccio-companyia-empresa.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 
@@ -37,7 +38,8 @@ export function createTranslateLoader(http: HttpClient) {
 		AppRoutingModule
 	],
 	declarations: [
-		AppComponent
+		AppComponent,
+		SeleccioCompanyiaEmpresaComponent
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: BngJwtInterceptor, multi: true },
