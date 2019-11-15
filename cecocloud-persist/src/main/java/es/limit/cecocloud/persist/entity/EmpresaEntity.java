@@ -39,7 +39,7 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 4, nullable = false)),
 	@AttributeOverride(name = "embedded.nif", column = @Column(name = "nif", length = 12, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "tipus", nullable = false)),

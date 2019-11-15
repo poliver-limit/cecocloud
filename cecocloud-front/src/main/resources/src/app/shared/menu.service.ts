@@ -65,20 +65,28 @@ export class MenuService {
 
 	public getCurrentRouteMenu(companyiesService: CompanyiesService): AppMenu {
 		let found: boolean = false;
-		this.adminMenu.menuItems.forEach((menuItem: AppMenuItem) => {
-			if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
-				found = true;
-			}
-		});
-		if (found) {
-			return this.adminMenu;
+		if (this.router.url.startsWith('/admin-app')) {
+			found = true;
 		} else {
-			found = false;
-			this.adminCompanyiaMenu.menuItems.forEach((menuItem: AppMenuItem) => {
+			this.adminMenu.menuItems.forEach((menuItem: AppMenuItem) => {
 				if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 					found = true;
 				}
 			});
+		}
+		if (found) {
+			return this.adminMenu;
+		} else {
+			found = false;
+			if (this.router.url.startsWith('/admin-companyia')) {
+				found = true;
+			} else {
+				this.adminCompanyiaMenu.menuItems.forEach((menuItem: AppMenuItem) => {
+					if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
+						found = true;
+					}
+				});
+			}
 		}
 		if (found) {
 			let session: any = this.authService.getSession();
@@ -92,7 +100,7 @@ export class MenuService {
 			return this.adminCompanyiaMenu;
 		} else {
 			let routerUrl = this.router.url.substring(1);
-			let modul = routerUrl.substring(0, routerUrl.indexOf("/"))
+			let modul = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
 			return this.getModuleMenu(modul);
 		}
 	}

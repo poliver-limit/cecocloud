@@ -13,12 +13,20 @@ export const routes: Routes = [{
     path: 'registre',
     loadChildren: './pages/registre/registre.module#RegistreModule'
 }, {
+    path: 'admin-app',
+    loadChildren: './pages/admin-app/admin-app.module#AdminAppModule',
+    canActivate: [BngAuthGuard]
+}, {
     path: 'usuaris',
     loadChildren: './pages/usuaris/usuaris.module#UsuarisModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'companyies',
     loadChildren: './pages/companyies/companyies.module#CompanyiesModule',
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'admin-companyia',
+    loadChildren: './pages/admin-companyia/admin-companyia.module#AdminCompanyiaModule',
     canActivate: [BngAuthGuard]
 }, {
     path: 'companyia',
