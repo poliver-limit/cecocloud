@@ -8,12 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class RegistreService {
 
-	create(formGroup: FormGroup): Observable<any> {
+	create(formGroup: FormGroup, captchaResponse: string): Observable<any> {
 		return this.http.post(
 			'api/registres/create', {
 				nom: formGroup.value.nom,
 				llinatges: formGroup.value.llinatges,
-				email: formGroup.value.email
+				email: formGroup.value.email,
+				captchaResponse: captchaResponse
 			}
 		);
 	}

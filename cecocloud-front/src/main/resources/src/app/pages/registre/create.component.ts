@@ -43,8 +43,11 @@ import { RegistreService } from '../registre/registre.service';
 		<div style="display:block; margin-left: auto; margin-right: auto; width: 70%; margin-top: 10px;">
 			<re-captcha (resolved)="captchaResolved($event)" siteKey="6LcdScIUAAAAAC7Rgi9lcUU8UbAdkQG7alCNvAam"></re-captcha>
 		</div>
-		<div style="display: flex; justify-content: space-between; margin-top: 20px;">
-			
+		<!--<mat-form-field style="display: block; visibility: hidden; height: 0; width: 0;">
+		<mat-form-field>
+		    <input matInput type="text" placeholder="An Input" formControlName="reCaptchaToken">
+		</mat-form-field>-->
+		<div style="display: flex; justify-content: space-between; margin-top: 20px;">			
 			<button mat-button (click)="onCancelButtonClick()">{{'create.button.cancel'|translate}}</button>
 			<button [disabled]="createButtonDisabled" mat-raised-button color="primary" (click)="onCreateButtonClick()">{{'create.button.crear'|translate}}</button>
 		</div>
@@ -77,11 +80,13 @@ export class CreateComponent {
 		llinatges: ['', Validators.required],
 		email: ['', [Validators.required, Validators.email]]
 	});
+	captchaResponse: string;
     mobileScreen: boolean;
 
 	captchaResolved(captchaResponse: string) {
-		this.createButtonDisabled = false;
+		this.createButtonDisabled = false;		
 		console.log('Resolved captcha with response', captchaResponse);
+		this.captchaResponse = captchaResponse;	
 	}
 	
 	onCancelButtonClick() {
@@ -91,7 +96,7 @@ export class CreateComponent {
 	onCreateButtonClick() {
 		this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
-			this.registreService.create(this.formGroup).subscribe(( response: any ) => {
+			this.registreService.create(this.formGroup, this.captchaResponse).subscribe(( response: any ) => {
 				this.showSnack('create.snack.created.ok');
 				this.router.navigate( ['login'] );
 			}, (error: Error) => {
