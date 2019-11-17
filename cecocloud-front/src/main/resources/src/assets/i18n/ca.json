@@ -182,6 +182,8 @@
 	"resource.usuariCompanyia": "Usuari de la companyia",
 	"resource.usuariCompanyia.plural": "Usuaris de la companyia",
 	"resource.usuariCompanyia.field.usuari": "Usuari",
+	
+	"resource.zona" : "Zona",
 
 	"page.usuaris.canvi.contrasenya.titol": "Canviar contrasenya",
 	"page.usuaris.canvi.contrasenya.field.contrasenya": "Contrasenya",

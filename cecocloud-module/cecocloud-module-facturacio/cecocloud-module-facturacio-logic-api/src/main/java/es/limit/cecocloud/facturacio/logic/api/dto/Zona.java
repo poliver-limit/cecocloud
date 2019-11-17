@@ -3,32 +3,44 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
-import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import es.limit.cecogest.comu.logic.api.dto.AbstractCompositePkAuditableDto;
-import es.limit.cecogest.comu.logic.api.dto.annotations.RestapiField;
-import es.limit.cecogest.comu.logic.api.dto.annotations.RestapiResource;
-import es.limit.cecogest.comu.logic.api.dto.annotations.RestapiField.RestapiFieldType;
-import es.limit.cecogest.comu.logic.api.pk.AbstractIdentificadorParentPk;
-import es.limit.cecogest.comu.logic.api.pk.IdentificadorPk;
-import es.limit.cecogest.facturacio.logic.api.dto.Zona.ZonaPk;
+import es.limit.base.boot.logic.api.annotation.RestapiField;
+import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.facturacio.logic.api.dto.Zona.ZonaPk;
+import es.limit.cecocloud.logic.api.dto.Identificador;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * Objecte de transferència que representa una zona.
+ * DTO amb informació d'una zona.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Getter @Setter
 @RestapiResource(
-		descriptionField = "nom",
-		grupPermissionRequired = true)
-public class Zona extends AbstractCompositePkAuditableDto<IdentificadorPk, ZonaPk, String> {
+		descriptionField = "nom"
+//		resourceAccessConstraints = {
+//				@RestapiResourceAccessConstraint(
+//						type = RestapiPermissionConstraintType.ACL_RESOURCE
+//				)
+//		}
+)
+public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 
-	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -54,41 +66,24 @@ public class Zona extends AbstractCompositePkAuditableDto<IdentificadorPk, ZonaP
 			hiddenInLov = true)
 	@Digits(integer = 12, fraction = 2)
 	private BigDecimal preu;
-
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public String getDescripcio() {
-		return descripcio;
-	}
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
-	}
-	public Integer getRadioKm() {
-		return radioKm;
-	}
-	public void setRadioKm(Integer radioKm) {
-		this.radioKm = radioKm;
-	}
-	public BigDecimal getPreu() {
-		return preu;
-	}
-	public void setPreu(BigDecimal preu) {
-		this.preu = preu;
-	}
 	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			//hiddenInGrid = true,
+			hiddenInForm = true)
+	private GenericReference<Identificador, Long> identificador;
 
-	@MappedSuperclass
+
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@Getter
 	@SuppressWarnings("serial")
-	public static class ZonaPk extends AbstractIdentificadorParentPk<String> {}
+	public static class ZonaPk implements Serializable {
+		private String identificadorCodi;
+		private String codi;
+	}
 
 }

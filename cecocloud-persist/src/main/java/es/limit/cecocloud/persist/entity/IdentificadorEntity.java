@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.NaturalId;
 
 import es.limit.base.boot.persist.entity.AbstractEntity;
 import es.limit.cecocloud.logic.api.dto.Identificador;
@@ -35,31 +38,36 @@ import lombok.Setter;
 @Table(
 		name = "identificador",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "identificador_uk", columnNames = {"companyia_id", "codi"})
+				@UniqueConstraint(name = "identificador_uk", columnNames = {"codi"})
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 4, nullable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 4, nullable = false, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 40, nullable = false))
 })
 public class IdentificadorEntity extends AbstractEntity<Identificador, Long> {
 
 	@Embedded
 	protected Identificador embedded;
-
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "companyia_id",
 			foreignKey = @ForeignKey(name = "identificador_companyia_fk"))
 	protected CompanyiaEntity companyia;
 
+	@NaturalId
+	@Column(name = "codi", length = 4, nullable = false)
+	@Size(max = 4)
+	protected String codi;
+	
 	@Builder
     public IdentificadorEntity(
     		Identificador embedded,
     		CompanyiaEntity companyia) {
         this.embedded = embedded;
         this.companyia = companyia;
-    }
+	}
 
 	@Override
 	public void update(Identificador embedded) {
@@ -67,6 +75,9 @@ public class IdentificadorEntity extends AbstractEntity<Identificador, Long> {
 	}
 	public void updateCompanyia(CompanyiaEntity companyia) {
 		this.companyia = companyia;
+	}
+	public void updateCodi(String codi) {
+		this.codi = codi;
 	}
 
 }
