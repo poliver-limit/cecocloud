@@ -13,10 +13,6 @@ import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.NaturalId;
 
 import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.Identificador;
@@ -36,16 +32,16 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "identificador",
-		uniqueConstraints = {
-				@UniqueConstraint(name = "identificador_uk", columnNames = {"codi"})
-		}
+		name = "identificador"
+//		uniqueConstraints = {
+//				@UniqueConstraint(name = "identificador_uk", columnNames = {"codi"})
+//		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 4, nullable = false, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "id", length = 4, nullable = false, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 40, nullable = false))
 })
-public class IdentificadorEntity extends AbstractVersionableEntity<Identificador, Long> {
+public class IdentificadorEntity extends AbstractVersionableEntity<Identificador, String> {
 
 	@Embedded
 	protected Identificador embedded;
@@ -56,10 +52,10 @@ public class IdentificadorEntity extends AbstractVersionableEntity<Identificador
 			foreignKey = @ForeignKey(name = "identificador_companyia_fk"))
 	protected CompanyiaEntity companyia;
 
-	@NaturalId
-	@Column(name = "codi", length = 4, nullable = false)
-	@Size(max = 4)
-	protected String codi;
+//	@NaturalId
+//	@Column(name = "codi", length = 4, nullable = false)
+//	@Size(max = 4)
+//	protected String codi;
 	
 	@Builder
     public IdentificadorEntity(
@@ -67,6 +63,7 @@ public class IdentificadorEntity extends AbstractVersionableEntity<Identificador
     		CompanyiaEntity companyia) {
         this.embedded = embedded;
         this.companyia = companyia;
+        this.setId(embedded.getCodi());
 	}
 
 	@Override
@@ -76,8 +73,8 @@ public class IdentificadorEntity extends AbstractVersionableEntity<Identificador
 	public void updateCompanyia(CompanyiaEntity companyia) {
 		this.companyia = companyia;
 	}
-	public void updateCodi(String codi) {
-		this.codi = codi;
-	}
+//	public void updateCodi(String codi) {
+//		this.codi = codi;
+//	}
 
 }

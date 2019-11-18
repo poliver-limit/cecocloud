@@ -4,7 +4,6 @@
 package es.limit.cecocloud.persist.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,9 +18,9 @@ import es.limit.cecocloud.persist.entity.IdentificadorEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository
-public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, Long> {
+public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, String> {
 
-	Optional<IdentificadorEntity> findByCodi(String codi);
+//	Optional<IdentificadorEntity> findByCodi(String codi);
 
 	List<IdentificadorEntity> findByCompanyia(CompanyiaEntity companyia);
 

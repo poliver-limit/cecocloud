@@ -39,7 +39,7 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service("comuIdentificadorServiceImpl")
-public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identificador, IdentificadorEntity, Long> implements IdentificadorService {
+public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identificador, IdentificadorEntity, String> implements IdentificadorService {
 
 	@Autowired
 	private CompanyiaRepository companyiaRepository;
@@ -54,7 +54,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 	protected void beforeCreate(IdentificadorEntity entity, Identificador dto) {
 		// Agafam la companyia de la sessió
 		
-		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authenticationFacade.getAuthentication(); //SecurityContextHolder.getContext().getAuthentication();
+		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authenticationFacade.getAuthentication();
 		UserSession session = (UserSession)auth.getSession();
 		CompanyiaEntity companyia = companyiaRepository.getOne(session.getCompanyia());
 		entity.updateCompanyia(companyia);
@@ -62,10 +62,10 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 		boolean exist = false;
 		do {
 			codi = generateCode();
-			Optional<IdentificadorEntity> idf = identificadorRepository.findByCodi(codi);
+			Optional<IdentificadorEntity> idf = identificadorRepository.findById(codi);
 			exist = idf.isPresent();
 		} while (exist);
-		entity.updateCodi(codi);
+		entity.getEmbedded().setCodi(codi);
 	}
 
 	private String generateCode() {

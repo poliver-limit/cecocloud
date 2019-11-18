@@ -13,8 +13,6 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
-import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
@@ -74,7 +72,7 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 			disabledForUpdate = true,
 			//hiddenInGrid = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, Long> identificador;
+	private GenericReference<Identificador, String> identificador;
 
 
 	@NoArgsConstructor

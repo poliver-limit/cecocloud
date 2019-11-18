@@ -11,6 +11,6 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface IdentificadorService extends GenericService<Identificador, Long> {
+public interface IdentificadorService extends GenericService<Identificador, String> {
 	
 }

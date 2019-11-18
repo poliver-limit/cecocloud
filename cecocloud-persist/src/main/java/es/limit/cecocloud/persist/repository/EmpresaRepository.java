@@ -19,7 +19,7 @@ public interface EmpresaRepository extends BaseRepository<EmpresaEntity, Long> {
 
 	List<EmpresaEntity> findByIdentificadorCompanyia(CompanyiaEntity companyia);
 
-	Optional<EmpresaEntity> findByIdentificadorCompanyiaAndIdentificadorCodiAndEmbeddedCodi(
+	Optional<EmpresaEntity> findByIdentificadorCompanyiaAndIdentificadorIdAndEmbeddedCodi(
 			CompanyiaEntity companyia,
 			String identificadorCodi,
 			String codi);

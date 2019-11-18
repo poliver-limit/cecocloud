@@ -15,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkNoVersionEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
 import es.limit.cecocloud.facturacio.logic.api.dto.Zona.ZonaPk;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
@@ -52,7 +52,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "zon_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "zon_datmod"))
 })
-public class ZonaEntity extends AbstractAuditableCompositePkNoVersionEntity<Zona, ZonaPk> {
+public class ZonaEntity extends AbstractAuditableCompositePkEntity<Zona, ZonaPk> {
 	
 	@Embedded
 	protected Zona embedded;
@@ -60,7 +60,6 @@ public class ZonaEntity extends AbstractAuditableCompositePkNoVersionEntity<Zona
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "zon_idf_cod",
-			referencedColumnName = "codi",
 			foreignKey = @ForeignKey(name = "rges_zon_idf_cod"),
 			insertable = false, updatable = false)
 	protected IdentificadorEntity identificador;

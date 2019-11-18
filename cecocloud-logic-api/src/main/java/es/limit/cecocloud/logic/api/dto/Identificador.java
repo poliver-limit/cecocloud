@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom")
-public class Identificador extends AbstractIdentificable<Long> {
+public class Identificador extends AbstractIdentificable<String> {
 
 	@Transient
 	@RestapiField(
