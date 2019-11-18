@@ -30,11 +30,11 @@ import lombok.Setter;
 				@RestapiResourceAccessConstraint(
 						type = RestapiPermissionConstraintType.AUTHORITY,
 						authoritiesWithPermissions = {
-								@RestapiAuthoritiesWithPermission(permission = "CREATE", authorities = {Authority.ADMIN}),
 								@RestapiAuthoritiesWithPermission(permission = "READ", authorities = {Authority.ADMIN}),
-								@RestapiAuthoritiesWithPermission(permission = "UPDATE", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "WRITE", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "CREATE", authorities = {Authority.ADMIN}),
 								@RestapiAuthoritiesWithPermission(permission = "DELETE", authorities = {Authority.ADMIN}),
-								@RestapiAuthoritiesWithPermission(permission = "ADMIN", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "ADMINISTRATION", authorities = {Authority.ADMIN}),
 						} )
 		}
 )

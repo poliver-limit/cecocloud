@@ -46,9 +46,9 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 		UserSession session = (UserSession)userSession;
 		if (session != null) {
 			if (session.getCompanyia() != null && session.getEmpresa() != null) {
-				return rsqlUsuari + "operari.empresa.companyia.id==" + session.getCompanyia() + ";operari.empresa.id==" + session.getEmpresa();
+				return rsqlUsuari + "operari.empresa.identificador.companyia.id==" + session.getCompanyia() + ";operari.empresa.id==" + session.getEmpresa();
 			} else if (session.getCompanyia() != null) {
-				return rsqlUsuari + "operari.empresa.companyia.id==" + session.getCompanyia();
+				return rsqlUsuari + "operari.empresa.identificador.companyia.id==" + session.getCompanyia();
 			} else {
 				// Si no hi ha cap companyia seleccionada no retorna resultats
 				return "operari.id==0";
