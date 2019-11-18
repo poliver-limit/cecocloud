@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import es.limit.base.boot.persist.entity.AbstractEntity;
+import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -42,7 +42,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 4, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 40, nullable = false))
 })
-public class IdentificadorEntity extends AbstractEntity<Identificador, Long> {
+public class IdentificadorEntity extends AbstractVersionableEntity<Identificador, Long> {
 
 	@Embedded
 	protected Identificador embedded;

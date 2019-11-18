@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,7 +38,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.latitud", column = @Column(name = "latitud")),
 	@AttributeOverride(name = "embedded.longitud", column = @Column(name = "longitud"))
 })
-public class MarcatgeEntity extends AbstractAuditableEntity<Marcatge, Long> {
+public class MarcatgeEntity extends AbstractAuditableVersionableEntity<Marcatge, Long> {
 
 	@Embedded
 	protected Marcatge embedded;

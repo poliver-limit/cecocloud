@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import es.limit.base.boot.persist.entity.AbstractEntity;
+import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -45,7 +45,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "tipus", nullable = false)),
 	@AttributeOverride(name = "embedded.activa", column = @Column(name = "activa", nullable = false))
 })
-public class EmpresaEntity extends AbstractEntity<Empresa, Long> {
+public class EmpresaEntity extends AbstractVersionableEntity<Empresa, Long> {
 
 	@Embedded
 	protected Empresa embedded;

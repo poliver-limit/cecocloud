@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractCompositePkEntity;
+import es.limit.base.boot.persist.entity.AbstractVersionableCompositePkEntity;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.marcatges.logic.api.dto.CompositePkTest;
 import es.limit.cecocloud.marcatges.logic.api.dto.CompositePkTest.CompositePkTestPk;
@@ -42,7 +42,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 100))
 })
-public class CompositePkTestEntity extends AbstractCompositePkEntity<CompositePkTest, CompositePkTestPk> {
+public class CompositePkTestEntity extends AbstractVersionableCompositePkEntity<CompositePkTest, CompositePkTestPk> {
 
 	@Embedded
 	protected CompositePkTest embedded;
