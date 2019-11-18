@@ -3,123 +3,81 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
-import java.math.BigDecimal;
-
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecogest.facturacio.logic.api.dto.Zona.ZonaPk;
+import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkNoVersionEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
+import es.limit.cecocloud.facturacio.logic.api.dto.Zona.ZonaPk;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * Classe de model de dades que conté la informació d'una zona.
+ * Entitat de model de dades que conté la informació d'una zona.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Entity(name = "factZonaEntity")
-@Table(name = TaulesPrefix.ESQ_FACTURACIO + TaulesPrefix.ZONA)
+@Getter
+@Setter(value = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Entity
+@Table(	name = "tges_zon",
+		indexes = { @Index(name = "iges_zon_idf_fk", columnList = "zon_idf_cod"),
+					@Index(name = "irges_zon_pk", columnList = "zon_idf_cod,zon_cod", unique = true)
+		}
+)
 @AttributeOverrides({
-	@AttributeOverride(
-			name = "pk.identificadorCodi",
-			column = @Column(name = TaulesPrefix.ZONA_ + TaulesPrefix.IDENTIFICADOR_ + "cod", length = 4)),
-	@AttributeOverride(
-			name = "pk.id",
-			column = @Column(name = TaulesPrefix.ZONA_ + "cod", length = 4)),
-	@AttributeOverride(
-			name = "identificadorCodi",
-			column = @Column(name = TaulesPrefix.ZONA_ + TaulesPrefix.IDENTIFICADOR_ + "cod", insertable = false, updatable = false)),
-	@AttributeOverride(
-			name = "creacioUsuari",
-			column = @Column(name = TaulesPrefix.ZONA_ + "usucre")),
-	@AttributeOverride(
-			name = "creacioData",
-			column = @Column(name = TaulesPrefix.ZONA_ + "datcre")),
-	@AttributeOverride(
-			name = "modificacioUsuari",
-			column = @Column(name = TaulesPrefix.ZONA_ + "usumod")),
-	@AttributeOverride(
-			name = "modificacioData",
-			column = @Column(name = TaulesPrefix.ZONA_ + "datmod"))
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "zon_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "zon_cod", length = 4)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "zon_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "zon_nom", length = 30)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "zon_des", length = 1000)),
+	@AttributeOverride(name = "embedded.radioKm", column = @Column(name = "zon_radio_km")),
+	@AttributeOverride(name = "embedded.preu", column = @Column(name = "zon_precio")),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "zon_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "zon_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "zon_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "zon_datmod"))
 })
-@AssociationOverrides({
-	@AssociationOverride(
-			name = "identificador",
-			joinColumns = {
-					@JoinColumn(name = TaulesPrefix.ZONA_ + TaulesPrefix.IDENTIFICADOR_ + "cod", insertable = false, updatable = false)
-			})
-})
-public class ZonaEntity extends AbstractIdentificadorParentEntity<ZonaPk> {
+public class ZonaEntity extends AbstractAuditableCompositePkNoVersionEntity<Zona, ZonaPk> {
+	
+	@Embedded
+	protected Zona embedded;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "zon_idf_cod",
+			referencedColumnName = "codi",
+			foreignKey = @ForeignKey(name = "rges_zon_idf_cod"),
+			insertable = false, updatable = false)
+	protected IdentificadorEntity identificador;
 
-	@Column(name = TaulesPrefix.ZONA_ + "cod", insertable = false, updatable = false)
-	private String codi;
-	@Column(name = TaulesPrefix.ZONA_ + "nom", length = 30, nullable = false)
-	private String nom;
-	@Column(name = TaulesPrefix.ZONA_ + "des", length = 1000)
-	private String descripcio;
-	@Column(name = TaulesPrefix.ZONA_ + "radio_km")
-	private Integer radioKm;
-	@Column(name = TaulesPrefix.ZONA_ + "precio")
-	private BigDecimal preu;
-
-	public String getCodi() {
-		return codi;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public String getDescripcio() {
-		return descripcio;
-	}
-	public Integer getRadioKm() {
-		return radioKm;
-	}
-	public BigDecimal getPreu() {
-		return preu;
-	}
-
-	public void update(
-			String nom,
-			String descripcio,
-			Integer radioKm,
-			BigDecimal preu) {
-		this.nom = nom;
-		this.descripcio = descripcio;
-		this.radioKm = radioKm;
-		this.preu = preu;
-	}
-
-	public static Builder getBuilder(
+	@Builder
+	public ZonaEntity(
 			ZonaPk pk,
-			String nom) {
-		return new Builder(
-				pk,
-				nom);
+			Zona embedded,
+			IdentificadorEntity identificador) {
+		setId(pk);
+		this.embedded = embedded;
+		this.identificador = identificador;
 	}
-	public static class Builder extends AbstractIdentificadorParentEntity.Builder<ZonaEntity, ZonaPk> {
-		Builder(
-				ZonaPk pk,
-				String nom) {
-			super(pk, ZonaEntity.class);
-			built.codi = pk.getId();
-			built.nom = nom;
-		}
-		public Builder descripcio(String descripcio) {
-			built.descripcio = descripcio;
-			return this;
-		}
-		public Builder radioKm(Integer radioKm) {
-			built.radioKm = radioKm;
-			return this;
-		}
-		public Builder preu(BigDecimal preu) {
-			built.preu = preu;
-			return this;
-		}
+
+	@Override
+	public void update(Zona embedded) {
+		this.embedded = embedded;
 	}
 
 }

@@ -11,7 +11,10 @@ export class ModuleInitService {
 		moduleService.register({
 			code: 'fact',
 			icon: 'assignment',
-			label: 'Facturació'
+			label: 'Facturació',
+			menuItems: [
+				{ icon: 'room', label: 'Zones', route: '/fact/zones' }
+			]
 		});
 		moduleService.register({
 			code: 'comp',

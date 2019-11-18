@@ -25,12 +25,13 @@ public class Identificador extends AbstractIdentificable<Long> {
 			hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Companyia, Long> companyia;
-	@NotNull
-	@Size(max = 4)
+	@Transient
 	@RestapiField(
 			disabledForUpdate = true,
+			disabledForCreate = true,
 			toUpperCase=true,
-			includeInQuickFilter = true)
+			includeInQuickFilter = true, 
+			gridPercentWidth = 15)
 	protected String codi;
 	@NotNull
 	@Size(max = 40)

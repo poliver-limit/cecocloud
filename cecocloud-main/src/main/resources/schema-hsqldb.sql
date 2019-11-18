@@ -1,4 +1,5 @@
 create sequence hibernate_sequence start with 1 increment by 1;
+create sequence identificador_sequence start with 1 increment by 1;
 
 create table companyia (
    id bigint not null,

@@ -21,7 +21,7 @@ import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 @Repository
 public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, Long> {
 
-	Optional<IdentificadorEntity> findByEmbeddedCodi(String codi);
+	Optional<IdentificadorEntity> findByCodi(String codi);
 
 	List<IdentificadorEntity> findByCompanyia(CompanyiaEntity companyia);
 
