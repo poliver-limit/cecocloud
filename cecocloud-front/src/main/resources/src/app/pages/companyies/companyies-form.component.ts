@@ -54,10 +54,8 @@ export class CompanyiesFormComponent {
 			if (params.id) {
 				this.id = params.id;
 			}
+			companyiesPermissionService.setPermissionResourceId(params.id);
 		});
-		if (this.id) {
-			companyiesPermissionService.setPermissionResourceId(this.id);
-		}
 	}
 
 }

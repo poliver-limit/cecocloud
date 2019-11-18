@@ -21,7 +21,7 @@ import es.limit.cecocloud.logic.api.service.IdentificadorService;
  */
 @RestController
 @RequestMapping(ApiControllerHelper.API_PATH + "/identificadors")
-public class IdentificadorApiController extends AbstractIdentificableApiController<Identificador, Long> {
+public class IdentificadorApiController extends AbstractIdentificableApiController<Identificador, String> {
 
 	@Autowired
 	private IdentificadorService service;

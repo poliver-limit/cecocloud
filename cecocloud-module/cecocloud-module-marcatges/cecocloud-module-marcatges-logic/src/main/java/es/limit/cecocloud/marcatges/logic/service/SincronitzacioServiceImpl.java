@@ -170,7 +170,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				empresa.setNom(empresaSync.getNom());
 				empresa.setTipus(TipusEmpresaEnum.GESTIO);
 				empresa.setActiva(true);
-				Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(empresaSync.getIdentificadorCodi());
+				Optional<IdentificadorEntity> identificador = identificadorRepository.findById(empresaSync.getIdentificadorCodi());
 				empresaRepository.save(
 						EmpresaEntity.builder().
 						embedded(empresa).
@@ -231,7 +231,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				Operari operari = new Operari();
 				operari.setCodi(operariSync.getCodi());
 				operari.setDataInici(new Date());
-				Optional<EmpresaEntity> empresa = empresaRepository.findByIdentificadorCompanyiaAndIdentificadorEmbeddedCodiAndEmbeddedCodi(
+				Optional<EmpresaEntity> empresa = empresaRepository.findByIdentificadorCompanyiaAndIdentificadorIdAndEmbeddedCodi(
 						companyia.get(),
 						operariSync.getIdentificadorCodi(),
 						operariSync.getCodi());
@@ -281,7 +281,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
 				Operari smUsuariEmpresa = marcatge.getOperari().getEmbedded();
 				EmpresaEntity smEmpresa = marcatge.getOperari().getEmpresa();
-				sm.setIdentificadorCodi(smEmpresa.getIdentificador().getEmbedded().getCodi());
+				sm.setIdentificadorCodi(smEmpresa.getIdentificador().getId());
 				sm.setEmpresaCodi(smEmpresa.getEmbedded().getCodi());
 				sm.setOperariCodi(smUsuariEmpresa.getCodi());
 				sm.setData(marcatge.getEmbedded().getData());
@@ -302,7 +302,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		int createCount = 0;
 		if (marcatges != null) {
 			for (SincronitzacioMarcatge marcatge: marcatges) {
-				Optional<OperariEntity> operari = operariRepository.findByEmpresaIdentificadorCompanyiaAndEmpresaIdentificadorEmbeddedCodiAndEmpresaEmbeddedCodiAndEmbeddedCodi(
+				Optional<OperariEntity> operari = operariRepository.findByEmpresaIdentificadorCompanyiaAndEmpresaIdentificadorIdAndEmpresaEmbeddedCodiAndEmbeddedCodi(
 						companyia.get(),
 						marcatge.getIdentificadorCodi(),
 						marcatge.getEmpresaCodi(),
@@ -341,14 +341,14 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private boolean empresaDbEqualsEmpresaSync(
 			EmpresaEntity empresaDb,
 			SincronitzacioEmpresa empresaSync) {
-		return empresaDb.getIdentificador().getEmbedded().getCodi().equals(empresaSync.getIdentificadorCodi())
+		return empresaDb.getIdentificador().getId().equals(empresaSync.getIdentificadorCodi())
 				&& empresaDb.getEmbedded().getCodi().equals(empresaSync.getCodi());
 	}
 
 	private boolean operariDbEqualsOperariSync(
 			OperariEntity operariDb,
 			SincronitzacioOperari operariSync) {
-		return operariDb.getEmpresa().getIdentificador().getEmbedded().getCodi().equals(operariSync.getIdentificadorCodi())
+		return operariDb.getEmpresa().getIdentificador().getId().equals(operariSync.getIdentificadorCodi())
 				&& operariDb.getEmpresa().getEmbedded().getCodi().equals(operariSync.getEmpresaCodi())
 				&& operariDb.getEmbedded().getCodi().equals(operariSync.getCodi());
 	}

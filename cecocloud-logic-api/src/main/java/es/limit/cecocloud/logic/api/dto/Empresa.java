@@ -32,7 +32,7 @@ public class Empresa extends AbstractIdentificable<Long> {
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
-	private GenericReference<Identificador, Long> identificador;
+	private GenericReference<Identificador, String> identificador;
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)

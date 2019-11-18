@@ -6,95 +6,31 @@ package es.limit.cecocloud.facturacio.logic.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.limit.cecogest.comu.logic.api.pk.IdentificadorPk;
-import es.limit.cecogest.comu.logic.helper.UpperCaseHelper;
-import es.limit.cecogest.comu.logic.service.AbstractCompositePkService;
-import es.limit.cecogest.facturacio.logic.api.dto.Zona;
-import es.limit.cecogest.facturacio.logic.api.dto.Zona.ZonaPk;
-import es.limit.cecogest.facturacio.logic.api.service.ZonaService;
-import es.limit.cecogest.facturacio.persist.entity.IdentificadorEntity;
-import es.limit.cecogest.facturacio.persist.entity.ZonaEntity;
-import es.limit.cecogest.facturacio.persist.repository.IdentificadorRepository;
-import es.limit.cecogest.facturacio.persist.repository.ZonaRepository;
+import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
+import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
+import es.limit.cecocloud.facturacio.logic.api.dto.Zona.ZonaPk;
+import es.limit.cecocloud.facturacio.logic.api.service.ZonaService;
+import es.limit.cecocloud.facturacio.persist.entity.ZonaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 /**
  * Implementació del servei de gestió de zones.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service("factZonaServiceImpl")
-public class ZonaServiceImpl extends AbstractCompositePkService<IdentificadorEntity, ZonaEntity, Zona, IdentificadorPk, ZonaPk, String> implements ZonaService {
+@Service
+public class ZonaServiceImpl extends AbstractGenericCompositePkServiceImpl<Zona, ZonaEntity, ZonaPk> implements ZonaService {
 
 	@Autowired
-	private IdentificadorRepository identificadorRepository;
-	@Autowired
-	private ZonaRepository zonaRepository;
-
+	IdentificadorRepository identificadorRepository;
 	@Override
-	protected ZonaEntity buildNewEntity(
-			IdentificadorPk parentPk,
-			Zona dto) {
-		ZonaPk pk = new ZonaPk();
-		pk.setIdentificadorCodi(parentPk.getId());
-		pk.setId(UpperCaseHelper.convert(dto.getCodi(), 4));
-		ZonaEntity entity = ZonaEntity.getBuilder(
-				pk,
-				dto.getNom()).
-				descripcio(dto.getDescripcio()).
-				radioKm(dto.getRadioKm()).
-				preu(dto.getPreu()).
-				build();
-		return entity;
+	protected ZonaPk getPkFromDto(Zona dto) {
+		IdentificadorEntity idf = identificadorRepository.getOne(dto.getIdentificador().getId());
+		return new ZonaPk(
+				idf.getEmbedded().getCodi(),
+				dto.getCodi());
 	}
 
-	@Override
-	protected void updateEntity(
-			ZonaEntity entity,
-			Zona dto) {
-		entity.update(
-				dto.getNom(),
-				dto.getDescripcio(),
-				dto.getRadioKm(),
-				dto.getPreu());
-	}
-
-	@Override
-	protected IdentificadorEntity getParent(IdentificadorPk parentPk) {
-		return identificadorRepository.findById(parentPk.getId()).orElse(null);
-	}
-
-	@Override
-	protected String getParentFieldName() {
-		return "identificador";
-	}
-
-	@Override
-	protected IdentificadorPk getParentPk(ZonaEntity entity) {
-		IdentificadorPk parentPk = new IdentificadorPk();
-		parentPk.setId(entity.getIdentificadorCodi());
-		return parentPk;
-	}
-
-	@Override
-	protected ZonaPk getPk(IdentificadorPk parentPk, String id) {
-		ZonaPk pk = new ZonaPk();
-		pk.setIdentificadorCodi(parentPk.getId());
-		pk.setId(id);
-		return pk;
-	}
-
-	@Override
-	protected ZonaRepository getRepository() {
-		return zonaRepository;
-	}
-
-	@Override
-	protected Class<ZonaEntity> getEntityClass() {
-		return ZonaEntity.class;
-	}
-	@Override
-	protected Class<Zona> getDtoClass() {
-		return Zona.class;
-	}
 
 }
