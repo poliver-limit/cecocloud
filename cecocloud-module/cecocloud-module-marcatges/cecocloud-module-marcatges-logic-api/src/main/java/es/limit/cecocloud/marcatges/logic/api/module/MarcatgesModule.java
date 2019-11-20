@@ -24,6 +24,7 @@ public class MarcatgesModule {
 			Marcatge.class.getPackage().getName());
 
 	static {
+		System.out.println(">>> static registerModule: " + moduleInfo.getCode());
 		Modules.registerModule(moduleInfo);
 	}
 

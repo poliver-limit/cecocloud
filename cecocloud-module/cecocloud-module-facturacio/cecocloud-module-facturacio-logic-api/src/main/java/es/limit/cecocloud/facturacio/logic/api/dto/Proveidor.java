@@ -37,7 +37,6 @@ import lombok.Setter;
 )
 public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk> {
 
-	// Definicions DTO
 	@Size(max = 6)
 	@RestapiField(disabledForUpdate = true,
 			includeInQuickFilter = true)
@@ -51,52 +50,9 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@Size(max = 40)
 	private String nomFiscal;
 	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private RegimIva regimIva;
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private CodiPostal codiPostal;
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private TipusVenciment tipusVenciment;
-
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private Divisa divisa;
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private DocumentPagamentCobrament documentPagamentCobrament;
-	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private boolean bloquetjat;
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private FamiliaProveidor familiaProveidor;
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
@@ -105,8 +61,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private boolean dhm;
-	
-	// Camps transient (no persistència) ~ Referencia a objectes FK
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -115,9 +69,55 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private RegimIva regimIva;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private CodiPostal codiPostal;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private TipusVenciment tipusVenciment;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private Divisa divisa;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private DocumentPagamentCobrament documentPagamentCobrament;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private FamiliaProveidor familiaProveidor;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter

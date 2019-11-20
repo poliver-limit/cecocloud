@@ -36,7 +36,6 @@ import lombok.Setter;
 )
 public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk> {
 
-	// Definicions DTO
 	@Size(max = 3)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -49,20 +48,6 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 	@Size(max = 30)
 	private String nom;
 
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -72,13 +57,12 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 			hiddenInForm = true)
 	private GenericReference<Pais, String> pais;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter
 	@SuppressWarnings("serial")
 	public static class ProvinciaPk implements Serializable {
+		private String identificadorCodi;
 		private String paisCodi;
 		private String codi;
 	}

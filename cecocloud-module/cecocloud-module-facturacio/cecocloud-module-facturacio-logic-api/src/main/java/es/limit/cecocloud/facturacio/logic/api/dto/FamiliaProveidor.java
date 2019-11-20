@@ -37,7 +37,6 @@ import lombok.Setter;
 )
 public class FamiliaProveidor extends AbstractIdentificableWithCompositePk<FamiliaProveidorPk> {
 
-	// Definicions DTO
 	@Size(max = 4)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -71,8 +70,7 @@ public class FamiliaProveidor extends AbstractIdentificableWithCompositePk<Famil
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String driprfcmp;
-	
-	// Camps transient (no persistència)
+
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -82,8 +80,6 @@ public class FamiliaProveidor extends AbstractIdentificableWithCompositePk<Famil
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter

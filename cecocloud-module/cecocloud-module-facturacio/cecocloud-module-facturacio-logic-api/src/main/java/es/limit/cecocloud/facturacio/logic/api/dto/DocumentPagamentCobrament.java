@@ -39,7 +39,6 @@ import lombok.Setter;
 )
 public class DocumentPagamentCobrament extends AbstractIdentificableWithCompositePk<DocumentPagamentCobramentPk> {
 
-	// Definicions DTO
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase = true,
@@ -50,19 +49,12 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
-	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean controlarEfectes;
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean agruparVencimentsRemeses;
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private NaturalesaPagamentCobrament naturalesaPagamentCobrament;
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=3,
 			hiddenInLov = true)
@@ -90,18 +82,6 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codigoFacturaElectronica;
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private Iva iva;
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private RegimIva regimIva;
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer = 2, fraction = 2)
@@ -146,8 +126,6 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContablePagos2;
-	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -156,9 +134,28 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private NaturalesaPagamentCobrament naturalesaPagamentCobrament;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private Iva iva;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private RegimIva regimIva;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter

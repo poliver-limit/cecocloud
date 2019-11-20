@@ -37,29 +37,12 @@ import lombok.Setter;
 )
 public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalPk> {
 
-	// Definicions DTO
 	@Size(max = 8)
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			includeInQuickFilter = true)
-	private Pais pais;
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			lovParentField = "pais",
-			hiddenInGrid = true,
-			includeInQuickFilter = true)
-	private Provincia provincia;
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
@@ -69,8 +52,6 @@ public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalP
 	@RestapiField(
 			hiddenInLov = true)
 	private String municipi;
-	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -79,8 +60,24 @@ public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalP
 			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			includeInQuickFilter = true)
+	private Pais pais;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			lovParentField = "pais",
+			hiddenInGrid = true,
+			includeInQuickFilter = true)
+	private Provincia provincia;
 
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter

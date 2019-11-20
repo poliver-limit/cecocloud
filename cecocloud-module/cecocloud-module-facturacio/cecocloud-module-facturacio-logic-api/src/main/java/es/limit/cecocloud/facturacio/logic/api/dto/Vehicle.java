@@ -60,7 +60,7 @@ public class Vehicle extends AbstractIdentificableWithCompositePk<VehiclePk> {
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=4,
 			hiddenInLov = true)
-	private String matricula_remolc;
+	private String matriculaRemolc;
 	
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=4,

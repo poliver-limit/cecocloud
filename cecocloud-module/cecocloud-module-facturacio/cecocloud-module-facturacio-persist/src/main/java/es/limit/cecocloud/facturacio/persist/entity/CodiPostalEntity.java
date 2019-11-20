@@ -35,90 +35,61 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(	name = "tges_cpo",
-		indexes = { @Index(name = "iges_cpo_idf_fk", columnList = "cpo_idf_cod"),
-					@Index(name = "irges_cpo_pk", columnList = "cpo_idf_cod,cpo_cod", unique = true)
+@Table(
+		name = "tges_cpo",
+		indexes = {
+				@Index(name = "iges_cpo_idf_fk", columnList = "cpo_idf_cod"),
+				@Index(name = "irges_cpo_pk", columnList = "cpo_idf_cod,cpo_cod", unique = true)
 		}
 )
 @AttributeOverrides({
-
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cpo_idf_cod", length = 4)),	
 	@AttributeOverride(name = "id.codi", column = @Column(name = "cpo_cod", length = 4)),	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cpo_cod", length = 4, insertable = false, updatable = false)),
-	
-	// Propis de l'entitat (Definits anteriorment a la classe de la Entity ~ public class CodiPostalEntity)
 	@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "cpo_pob", length = 30, nullable = false)),		
 	@AttributeOverride(name = "embedded.municipi", column = @Column(name = "cpo_mun", length = 30)),
-
-	// Join Columns
-	@AttributeOverride(name = "embedded.paisCodi", column = @Column(name = "cpo_pas_cod", length = 4, nullable = false)),	
-	@AttributeOverride(name = "embedded.provinciaCodi", column = @Column(name = "cpo_prv_cod", length = 4, nullable = false)),
-	
-	// Auditoria ~ (Normalment, sempre els mateixos camps):
 	@AttributeOverride(name = "createdBy", column = @Column(name = "cpo_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "cpo_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cpo_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "cpo_datmod"))
 })
 public class CodiPostalEntity extends AbstractAuditableCompositePkEntity<CodiPostal, CodiPostalPk> {
-	
-	// Definir la part embedded (DTO)
+
 	@Embedded
 	protected CodiPostal embedded;
-	
-	// Definicions per a la part hibernate:
-	// La part ManyToOne de l'identificador no es definia anteriorment. Sí a partir de Cecocloud
+
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "cpo_idf_cod",
-			foreignKey = @ForeignKey(name = "rges_cpo_idf_cod"),
-			insertable = false, updatable = false)
+			insertable = false,
+			updatable = false,
+			foreignKey = @ForeignKey(name = "rges_cpo_idf_fk"))
 	protected IdentificadorEntity identificador;
-	
-	// Aqui van les altres definicions hibernate definides a Cecogest
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(
-				name = "cpo_idf_cod",
-				referencedColumnName = "pas_idf_cod",
-				insertable = false,
-				updatable = false),
-		@JoinColumn(
-				name = "cpo_pas_cod",
-				referencedColumnName = "pas_cod",
-				insertable = false,
-				updatable = false)
-	})
-	private PaisEntity pais;
-	
+	@JoinColumns(
+			value = {
+				@JoinColumn(name = "cpo_idf_cod", referencedColumnName = "pas_idf_cod", insertable = false, updatable = false),
+				@JoinColumn(name = "cpo_pas_cod", referencedColumnName = "pas_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_cpo_pas_fk"))
+	protected PaisEntity pais;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(
-				name = "cpo_idf_cod",
-				referencedColumnName = "prv_idf_cod",
-				insertable = false,
-				updatable = false),
-		@JoinColumn(
-				name = "cpo_pas_cod",
-				referencedColumnName = "prv_pas_cod",
-				insertable = false,
-				updatable = false),
-		@JoinColumn(
-				name = "cpo_prv_cod",
-				referencedColumnName = "prv_cod",
-				insertable = false,
-				updatable = false)
-	})
-	private ProvinciaEntity provincia;
-	
+	@JoinColumns(
+			value = {
+				@JoinColumn(name = "cpo_idf_cod", referencedColumnName = "prv_idf_cod", insertable = false, updatable = false),
+				@JoinColumn(name = "cpo_pas_cod", referencedColumnName = "prv_pas_cod", insertable = false, updatable = false),
+				@JoinColumn(name = "cpo_prv_cod", referencedColumnName = "prv_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_cpo_prv_fk"))
+	protected ProvinciaEntity provincia;
+
 	@Builder
 	public CodiPostalEntity(
 			CodiPostalPk pk,
 			CodiPostal embedded,
 			IdentificadorEntity identificador,
 			PaisEntity pais,
-			ProvinciaEntity provincia	
-			) {
+			ProvinciaEntity provincia) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

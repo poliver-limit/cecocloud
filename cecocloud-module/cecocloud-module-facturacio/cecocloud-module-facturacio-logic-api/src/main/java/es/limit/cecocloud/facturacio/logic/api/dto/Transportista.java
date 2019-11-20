@@ -37,7 +37,6 @@ import lombok.Setter;
 )
 public class Transportista extends AbstractIdentificableWithCompositePk<TransportistaPk> {
 
-	// Definicions DTO
 	@Size(max = 6)
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase=true,
@@ -53,20 +52,6 @@ public class Transportista extends AbstractIdentificableWithCompositePk<Transpor
 	hiddenInLov=true)
 	@Size(max = 12)
 	private String nif;
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			includeInQuickFilter = true)
-	private CodiPostal codiPostal;	
-	@NotNull
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private Divisa divisa;
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 60)
@@ -105,17 +90,10 @@ public class Transportista extends AbstractIdentificableWithCompositePk<Transpor
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String observacions;
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private Proveidor proveidor;
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean vehicleEmpresa;
-	
-	// Camps transient (no persistència)
+
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -124,6 +102,29 @@ public class Transportista extends AbstractIdentificableWithCompositePk<Transpor
 			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			includeInQuickFilter = true)
+	private CodiPostal codiPostal;
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private Divisa divisa;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private Proveidor proveidor;
 
 
 	// Definició de la PK

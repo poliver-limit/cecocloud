@@ -34,7 +34,7 @@ import lombok.Setter;
 								@RestapiAuthoritiesWithPermission(permission = "WRITE", authorities = {Authority.ADMIN}),
 								@RestapiAuthoritiesWithPermission(permission = "CREATE", authorities = {Authority.ADMIN}),
 								@RestapiAuthoritiesWithPermission(permission = "DELETE", authorities = {Authority.ADMIN}),
-								@RestapiAuthoritiesWithPermission(permission = "ADMINISTRATION", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "ADMINISTRATION", authorities = {Authority.ADMIN})
 						} )
 		}
 )

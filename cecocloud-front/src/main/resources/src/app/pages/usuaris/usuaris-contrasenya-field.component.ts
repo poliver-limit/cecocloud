@@ -65,9 +65,9 @@ export class UsuarisContrasenyaFieldComponent extends BngFormBaseField {
 		</mat-form-field>
 	</form>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions style="display:flex;justify-content:space-between">
 	<button mat-button (click)="onCancelButtonClick()">{{'page.usuaris.canvi.contrasenya.button.cancelar'|translate}}</button>
-	<button mat-raised-button color="primary" (click)="onButtonCanviarClick()">{{'page.usuaris.canvi.contrasenya.button.canviar'|translate}}</button>
+	<button mat-raised-button color="primary" (click)="onButtonCanviarClick()" style="">{{'page.usuaris.canvi.contrasenya.button.canviar'|translate}}</button>
 </div>`
 } )
 export class UsuarisContrasenyaDialog implements OnInit {

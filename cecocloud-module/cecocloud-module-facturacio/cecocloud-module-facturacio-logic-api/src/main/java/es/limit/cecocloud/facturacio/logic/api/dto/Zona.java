@@ -39,7 +39,6 @@ import lombok.Setter;
 )
 public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 
-	// Definicions DTO
 	@Size(max = 4)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -66,7 +65,6 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 	@Digits(integer = 12, fraction = 2)
 	private BigDecimal preu;
 	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -76,8 +74,6 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter

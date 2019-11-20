@@ -39,7 +39,6 @@ import lombok.Setter;
 )
 public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 
-	// Definicions DTO
 	@Size(max = 4)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -80,8 +79,7 @@ public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String text;
-	
-	// Camps transient (no persistència)
+
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -91,8 +89,6 @@ public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter

@@ -34,44 +34,37 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(	name = "tges_npg",
-		indexes = { @Index(name = "iges_npg_idf_fk", columnList = "npg_idf_cod"),
-					@Index(name = "irges_npg_pk", columnList = "npg_idf_cod,npg_cod", unique = true)
+@Table(
+		name = "tges_npg",
+		indexes = {
+				@Index(name = "iges_npg_idf_fk", columnList = "npg_idf_cod"),
+				@Index(name = "irges_npg_pk", columnList = "npg_idf_cod,npg_cod", unique = true)
 		}
 )
 @AttributeOverrides({
-
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "npg_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "npg_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "npg_cod", length = 4, insertable = false, updatable = false)),
-	
-	// Propis de l'entitat (Definits anteriorment a la classe de la Entity ~ public class NaturalesaPagamentCobramentEntity)
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "npg_des", length = 30, nullable = false)),		
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "npg_obs", length = 1000, nullable = false)),	
-	
-	// Auditoria ~ (Normalment, sempre els mateixos camps):
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "npg_des", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "npg_obs", length = 1000, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "npg_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "npg_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "npg_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "npg_datmod"))
 })
 public class NaturalesaPagamentCobramentEntity extends AbstractAuditableCompositePkEntity<NaturalesaPagamentCobrament, NaturalesaPagamentCobramentPk> {
-	
-	// Definir la part embedded (DTO)
+
 	@Embedded
 	protected NaturalesaPagamentCobrament embedded;
-	
-	// Definicions per a la part hibernate:
-	// La part ManyToOne de l'identificador no es definia anteriorment. Sí a partir de Cecocloud
+
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "npg_idf_cod",
-			foreignKey = @ForeignKey(name = "rges_npg_idf_cod"),
-			insertable = false, updatable = false)
+			insertable = false,
+			updatable = false,
+			foreignKey = @ForeignKey(name = "rges_npg_idf_fk"))
 	protected IdentificadorEntity identificador;
-	
-	// Aqui van les altres definicions hibernate definides a Cecogest
-	
+
 	@Builder
 	public NaturalesaPagamentCobramentEntity(
 			NaturalesaPagamentCobramentPk pk,
