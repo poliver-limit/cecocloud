@@ -65,7 +65,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 			Optional<IdentificadorEntity> idf = identificadorRepository.findById(codi);
 			exist = idf.isPresent();
 		} while (exist);
-		entity.getEmbedded().setCodi(codi);
+		entity.setCodi(codi);
 	}
 
 	private String generateCode() {

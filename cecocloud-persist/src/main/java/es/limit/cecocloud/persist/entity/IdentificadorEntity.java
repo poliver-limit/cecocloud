@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecocloud.logic.api.exception.OperationDeniedException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,12 +32,7 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(
-		name = "identificador"
-//		uniqueConstraints = {
-//				@UniqueConstraint(name = "identificador_uk", columnNames = {"codi"})
-//		}
-)
+@Table(name = "identificador")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "id", length = 4, nullable = false, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 40, nullable = false))
@@ -52,18 +48,12 @@ public class IdentificadorEntity extends AbstractVersionableEntity<Identificador
 			foreignKey = @ForeignKey(name = "identificador_companyia_fk"))
 	protected CompanyiaEntity companyia;
 
-//	@NaturalId
-//	@Column(name = "codi", length = 4, nullable = false)
-//	@Size(max = 4)
-//	protected String codi;
-	
 	@Builder
     public IdentificadorEntity(
     		Identificador embedded,
     		CompanyiaEntity companyia) {
         this.embedded = embedded;
         this.companyia = companyia;
-        this.setId(embedded.getCodi());
 	}
 
 	@Override
@@ -73,8 +63,12 @@ public class IdentificadorEntity extends AbstractVersionableEntity<Identificador
 	public void updateCompanyia(CompanyiaEntity companyia) {
 		this.companyia = companyia;
 	}
-//	public void updateCodi(String codi) {
-//		this.codi = codi;
-//	}
+	public void setCodi(String id) {
+		if (this.isNew()) {
+			this.setId(id);
+		} else {
+			throw new OperationDeniedException("Modificar ID de Identificador.");
+		}
+	}
 
 }

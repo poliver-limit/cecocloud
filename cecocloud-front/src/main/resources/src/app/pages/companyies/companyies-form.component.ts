@@ -22,9 +22,9 @@ import { CompanyiesPermissionService } from './companyies-permission.service';
 export class CompanyiesFormComponent {
 
 	id: any;
-
 	formConfig: BngFormConfig = {
-	}
+		readOnlyStateEnabled: true
+	};
 	permisosDatagridConfig = {
 		//columnFiltersEnabled: true
 		adjustHeight: false,

@@ -17,6 +17,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.marcatges.logic.api.dto.CompositePkTest.CompositePkTestPk;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,6 +49,7 @@ public class CompositePkTest extends AbstractIdentificableWithCompositePk<Compos
 
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class CompositePkTestPk implements Serializable {
