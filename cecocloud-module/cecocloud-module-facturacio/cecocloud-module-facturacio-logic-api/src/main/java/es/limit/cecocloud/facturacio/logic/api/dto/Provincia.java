@@ -4,10 +4,8 @@
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Transient;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,15 +14,14 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.Zona.ZonaPk;
-import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecocloud.facturacio.logic.api.dto.Provincia.ProvinciaPk;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'una zona.
+ * DTO amb informació d'una provincia.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -37,34 +34,33 @@ import lombok.Setter;
 //				)
 //		}
 )
-public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
+public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk> {
 
 	// Definicions DTO
-	@Size(max = 4)
+	@Size(max = 3)
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
 	@NotNull
-	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
+	@Size(max = 30)
 	private String nom;
-	@Size(max = 1000)
-	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String descripcio;
-	@RestapiField(hiddenInGrid = true,
-			sizeMax=4,
-			hiddenInLov = true)
-	private Integer radioKm;
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Digits(integer = 12, fraction = 2)
-	private BigDecimal preu;
+
+	public String getCodi() {
+		return codi;
+	}
+	public void setCodi(String codi) {
+		this.codi = codi;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 	
 	// Camps transient (no persistència)
 	@Transient
@@ -74,7 +70,7 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 			disabledForUpdate = true,
 			//hiddenInGrid = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<Pais, String> pais;
 
 
 	// Definició de la PK
@@ -82,8 +78,8 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 	@AllArgsConstructor
 	@Getter
 	@SuppressWarnings("serial")
-	public static class ZonaPk implements Serializable {
-		private String identificadorCodi;
+	public static class ProvinciaPk implements Serializable {
+		private String paisCodi;
 		private String codi;
 	}
 

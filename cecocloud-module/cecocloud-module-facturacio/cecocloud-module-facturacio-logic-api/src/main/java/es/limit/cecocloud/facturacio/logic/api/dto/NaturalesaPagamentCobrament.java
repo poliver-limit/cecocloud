@@ -4,10 +4,8 @@
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Transient;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,7 +14,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.Zona.ZonaPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.NaturalesaPagamentCobrament.NaturalesaPagamentCobramentPk;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,47 +22,38 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'una zona.
+ * DTO amb informació d'una naturalesa de pagament/cobrament.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "descripcio"
 //		resourceAccessConstraints = {
 //				@RestapiResourceAccessConstraint(
 //						type = RestapiPermissionConstraintType.ACL_RESOURCE
 //				)
 //		}
 )
-public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
+public class NaturalesaPagamentCobrament extends AbstractIdentificableWithCompositePk<NaturalesaPagamentCobramentPk> {
 
 	// Definicions DTO
 	@Size(max = 4)
-	@RestapiField(
-			disabledForUpdate = true,
-			toUpperCase = true,
+	@RestapiField(disabledForUpdate = true,
+			toUpperCase=true,
 			includeInQuickFilter = true)
 	private String codi;
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
-	private String nom;
+	private String descripcio;
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private String descripcio;
-	@RestapiField(hiddenInGrid = true,
-			sizeMax=4,
-			hiddenInLov = true)
-	private Integer radioKm;
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Digits(integer = 12, fraction = 2)
-	private BigDecimal preu;
+	private String observacions;
 	
 	// Camps transient (no persistència)
 	@Transient
@@ -82,7 +71,7 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 	@AllArgsConstructor
 	@Getter
 	@SuppressWarnings("serial")
-	public static class ZonaPk implements Serializable {
+	public static class NaturalesaPagamentCobramentPk implements Serializable {
 		private String identificadorCodi;
 		private String codi;
 	}

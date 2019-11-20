@@ -11,8 +11,7 @@ import { BngAuthGuard } from 'base-angular';
 			path: '',
 			loadChildren: './pages/index/index-fact.module#IndexFactModule',
 			canActivate: [BngAuthGuard]
-        },
-		{
+        }, {
 			path: 'zones',
 			loadChildren: './pages/zones/zones.module#ZonesModule',
 			canActivate: [BngAuthGuard]

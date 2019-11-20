@@ -40,13 +40,28 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
+//	@AttributeOverride(
+//			name = "pk.identificadorCodi",
+//			column = @Column(name = TaulesPrefix.ZONA_ + TaulesPrefix.IDENTIFICADOR_ + "cod", length = 4)),
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "zon_idf_cod", length = 4)),
+	
+//	@AttributeOverride(
+//			name = "pk.id",
+//			column = @Column(name = TaulesPrefix.ZONA_ + "cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "zon_cod", length = 4)),
+	
+//	@AttributeOverride(
+//			name = "identificadorCodi",
+//			column = @Column(name = TaulesPrefix.ZONA_ + TaulesPrefix.IDENTIFICADOR_ + "cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "zon_cod", length = 4, insertable = false, updatable = false)),
+	
+	// Propis de l'entitat (Definits anteriorment a la classe de la Entity ~ public class ZonaEntity)
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "zon_nom", length = 30)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "zon_des", length = 1000)),
 	@AttributeOverride(name = "embedded.radioKm", column = @Column(name = "zon_radio_km")),
 	@AttributeOverride(name = "embedded.preu", column = @Column(name = "zon_precio")),
+	
+	// Auditoria ~ (Normalment, sempre els mateixos camps):
 	@AttributeOverride(name = "createdBy", column = @Column(name = "zon_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "zon_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "zon_usumod")),
@@ -54,16 +69,22 @@ import lombok.Setter;
 })
 public class ZonaEntity extends AbstractAuditableCompositePkEntity<Zona, ZonaPk> {
 	
+	// Definir la part embedded (DTO)
 	@Embedded
 	protected Zona embedded;
 	
+	// Definicions per a la part hibernate:
+	// La part ManyToOne de l'identificador no es definia anteriorment. Sí a partir de Cecocloud
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "zon_idf_cod",
 			foreignKey = @ForeignKey(name = "rges_zon_idf_cod"),
 			insertable = false, updatable = false)
 	protected IdentificadorEntity identificador;
+	
+	// Aqui van les altres definicions hibernate definides a Cecogest
 
+	
 	@Builder
 	public ZonaEntity(
 			ZonaPk pk,
