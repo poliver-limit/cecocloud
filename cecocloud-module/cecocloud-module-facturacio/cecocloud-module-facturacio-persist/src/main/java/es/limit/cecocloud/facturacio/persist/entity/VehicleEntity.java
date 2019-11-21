@@ -66,10 +66,10 @@ public class VehicleEntity extends AbstractAuditableCompositePkEntity<Vehicle, V
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "zon_idf_cod",
+			name = "mtr_idf_cod",
 			insertable = false,
 			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_zon_idf_fk"))
+			foreignKey = @ForeignKey(name = "rges_mtr_idf_fk"))
 	protected IdentificadorEntity identificador;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
