@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.crypto.BadPaddingException;
@@ -19,24 +20,32 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.limit.base.boot.logic.api.dto.Permission;
+import es.limit.base.boot.logic.api.dto.Permission.PermissionSidType;
 import es.limit.base.boot.logic.api.exception.InvalidLicenseException;
 import es.limit.base.boot.logic.helper.PermissionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
+import es.limit.base.boot.persist.entity.UsuariEntity;
+import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.acl.ExtendedPermission;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import es.limit.cecocloud.logic.api.dto.CompanyiaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Llicencia;
+import es.limit.cecocloud.logic.api.dto.UsuariCompanyia;
+import es.limit.cecocloud.logic.api.dto.UsuariCompanyia.UsuariCompanyiaPk;
 import es.limit.cecocloud.logic.api.service.CompanyiaService;
 import es.limit.cecocloud.logic.helper.AsymmetricCryptographyHelper;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.UsuariCompanyiaEntity;
 import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
+import es.limit.cecocloud.persist.repository.CompanyiaRepository;
 import es.limit.cecocloud.persist.repository.UsuariCompanyiaRepository;
 import es.limit.cecocloud.persist.repository.UsuariEmpresaRepository;
 
@@ -51,9 +60,13 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	@Autowired
 	private ObjectMapper objectMapper;
 	@Autowired
+	private CompanyiaRepository companyiaRepository;
+	@Autowired
 	private UsuariCompanyiaRepository usuariCompanyiaRepository;
 	@Autowired
 	private UsuariEmpresaRepository usuariEmpresaRepository;
+	@Autowired
+	private UsuariRepository usuariRepository;
 	@Autowired
 	private PermissionHelper permissionHelper;
 
@@ -114,6 +127,74 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 			}
 		}
 		return selectionTree;
+	}
+
+	@Override
+	protected void afterCreate(CompanyiaEntity entity, Companyia dto) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Permission permission = new Permission(
+				PermissionSidType.PRINCIPAL,
+				auth.getName());
+		permission.setAdminGranted(true);
+		this.permissionCreate(
+				entity.getId(),
+				permission);
+	}
+
+	@Override
+	protected void afterPermissionCreate(Long id, Permission permission) {
+		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
+			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
+			Optional<CompanyiaEntity> companyia = companyiaRepository.findById(id);
+			UsuariCompanyiaPk usuariCompanyiaPk = new UsuariCompanyiaPk(
+					usuari.get().getId(),
+					companyia.get().getId());
+			UsuariCompanyiaEntity usuariCompanyia = UsuariCompanyiaEntity.builder().
+					pk(usuariCompanyiaPk).
+					embedded(new UsuariCompanyia()).
+					usuari(usuari.get()).
+					companyia(companyia.get()).
+					build();
+			usuariCompanyiaRepository.save(usuariCompanyia);
+		}
+	}
+
+	@Override
+	protected void afterPermissionUpdate(Long id, Permission permission) {
+		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
+			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
+			Optional<CompanyiaEntity> companyia = companyiaRepository.findById(id);
+			UsuariCompanyiaPk usuariCompanyiaPk = new UsuariCompanyiaPk(
+					usuari.get().getId(),
+					companyia.get().getId());
+			Optional<UsuariCompanyiaEntity> usuariCompanyia = usuariCompanyiaRepository.findById(usuariCompanyiaPk);
+			if (usuariCompanyia.isPresent() && !permission.isAdminGranted()) {
+				usuariCompanyiaRepository.delete(usuariCompanyia.get());
+			} else if (!usuariCompanyia.isPresent() && permission.isAdminGranted()) {
+				UsuariCompanyiaEntity usuariCompanyiaPerCrear = UsuariCompanyiaEntity.builder().
+						pk(usuariCompanyiaPk).
+						embedded(new UsuariCompanyia()).
+						usuari(usuari.get()).
+						companyia(companyia.get()).
+						build();
+				usuariCompanyiaRepository.save(usuariCompanyiaPerCrear);
+			}
+		}
+	}
+
+	@Override
+	protected void afterPermissionDelete(Long id, Permission permission) {
+		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
+			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
+			Optional<CompanyiaEntity> companyia = companyiaRepository.findById(id);
+			UsuariCompanyiaPk usuariCompanyiaPk = new UsuariCompanyiaPk(
+					usuari.get().getId(),
+					companyia.get().getId());
+			Optional<UsuariCompanyiaEntity> usuariCompanyia = usuariCompanyiaRepository.findById(usuariCompanyiaPk);
+			if (usuariCompanyia.isPresent()) {
+				usuariCompanyiaRepository.delete(usuariCompanyia.get());
+			}
+		}
 	}
 
 }
