@@ -60,7 +60,7 @@ export class RecoverComponent {
     onRecuperarButtonClick() {
         this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
-	        this.registreService.recover(this.formGroup.get('email').value).subscribe(( response ) => {
+	        this.registreService.passwordRecover(this.formGroup.get('email').value).subscribe(( response ) => {
 				this.showSnack('recover.notify.recover');
 				this.router.navigate( ['login'] );
 			}, () => {

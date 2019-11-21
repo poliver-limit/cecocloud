@@ -40,13 +40,9 @@ import { RegistreService } from '../registre/registre.service';
 			<mat-error>{{getErrorMessage('email')}}</mat-error>
         </mat-form-field>
 		<button (click)="onCreateButtonClick()" style="display:none"></button>
-		<div style="display:block; margin-left: auto; margin-right: auto; width: 70%; margin-top: 10px;">
-			<re-captcha (resolved)="captchaResolved($event)" siteKey="6LcdScIUAAAAAC7Rgi9lcUU8UbAdkQG7alCNvAam"></re-captcha>
+		<div *ngIf="recatpchaSiteKey" style="display:block; margin-left: auto; margin-right: auto; width: 70%; margin-top: .5em;">
+			<re-captcha (resolved)="captchaResolved($event)" [siteKey]="recatpchaSiteKey"></re-captcha>
 		</div>
-		<!--<mat-form-field style="display: block; visibility: hidden; height: 0; width: 0;">
-		<mat-form-field>
-		    <input matInput type="text" placeholder="An Input" formControlName="reCaptchaToken">
-		</mat-form-field>-->
 		<div style="display: flex; justify-content: space-between; margin-top: 20px;">			
 			<button mat-button (click)="onCancelButtonClick()">{{'create.button.cancel'|translate}}</button>
 			<button [disabled]="createButtonDisabled" mat-raised-button color="primary" (click)="onCreateButtonClick()">{{'create.button.crear'|translate}}</button>
@@ -74,12 +70,12 @@ import { RegistreService } from '../registre/registre.service';
 export class CreateComponent {
 
 	createButtonDisabled: any = true;
-	
 	formGroup: FormGroup = this.formBuilder.group({
 		nom: ['', Validators.required],
 		llinatges: ['', Validators.required],
 		email: ['', [Validators.required, Validators.email]]
 	});
+	recatpchaSiteKey: string; // = '6LcdScIUAAAAAC7Rgi9lcUU8UbAdkQG7alCNvAam';
 	captchaResponse: string;
     mobileScreen: boolean;
 
@@ -95,7 +91,7 @@ export class CreateComponent {
 	onCreateButtonClick() {
 		this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
-			this.registreService.create(this.formGroup, this.captchaResponse).subscribe(( response: any ) => {				
+			this.registreService.userCreate(this.formGroup, this.captchaResponse).subscribe(( response: any ) => {				
 				if (response!=null) {
 					this.showSnack('create.snack.created.ok');					
 				} else {
@@ -164,6 +160,9 @@ export class CreateComponent {
 		this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
 			this.mobileScreen = event.mobile
 		} );
+		this.registreService.recatpchaSiteKey().subscribe((recatpchaSiteKey: string) => {
+			this.recatpchaSiteKey = recatpchaSiteKey;
+		});
 	}
 
 }
