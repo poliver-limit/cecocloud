@@ -88,11 +88,15 @@ export class SelectorCompanyiaEmpresaComponent {
 		if (authToken) {
 			this.companyiesService.whenReady().subscribe(() => {
 				this.companyiesService.getSelectionTree().subscribe((resposta: any) => {
-					this.selectionTree = resposta._embedded.companyiaSelectionTreeItems;
-					let session: any = this.authService.getSession();
+					if (resposta && resposta._embedded) {
+						this.selectionTree = resposta._embedded.companyiaSelectionTreeItems;
+					} else {
+						this.selectionTree = undefined;
+					}
 					let selectedCompanyia: any;
 					let selectedEmpresa: any;
-					if (session && session.companyia) {
+					let session: any = this.authService.getSession();
+					if (session && session.companyia && this.selectionTree) {
 						selectedCompanyia = this.selectionTree.find((companyia: any) => {return companyia.id === session.companyia});
 						if (session.empresa && selectedCompanyia && selectedCompanyia.empreses) {
 							selectedEmpresa = selectedCompanyia.empreses.find((empresa: any) => {return empresa.id === session.empresa});

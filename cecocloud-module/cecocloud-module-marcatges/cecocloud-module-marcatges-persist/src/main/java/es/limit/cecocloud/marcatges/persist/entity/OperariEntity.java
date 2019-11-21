@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.marcatges.logic.api.dto.Operari;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
@@ -39,7 +39,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "data_inici", nullable = false)),
 	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi"))
 })
-public class OperariEntity extends AbstractVersionableEntity<Operari, Long> {
+public class OperariEntity extends AbstractAuditableVersionableEntity<Operari, Long> {
 
 	@Embedded
 	protected Operari embedded;

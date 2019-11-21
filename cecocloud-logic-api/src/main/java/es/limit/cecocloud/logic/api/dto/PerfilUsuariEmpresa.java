@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'una relació Perfil - UsuariEmpresa.
+ * Informació d'una relació perfil-(usuari-empresa).
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

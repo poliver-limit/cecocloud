@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractVersionableCompositePkEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableVersionableCompositePkEntity;
 import es.limit.cecocloud.logic.api.dto.PerfilRol;
 import es.limit.cecocloud.logic.api.dto.PerfilRol.PerfilRolPk;
 import lombok.AccessLevel;
@@ -37,7 +37,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.perfilId", column = @Column(name = "perfil_id")),
 	@AttributeOverride(name = "id.rolId", column = @Column(name = "rol_id")),
 })
-public class PerfilRolEntity extends AbstractVersionableCompositePkEntity<PerfilRol, PerfilRolPk> {
+public class PerfilRolEntity extends AbstractAuditableVersionableCompositePkEntity<PerfilRol, PerfilRolPk> {
 
 	@Embedded
 	protected PerfilRol embedded;

@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'una llicencia
+ * Informació d'una llicència.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.exception.OperationDeniedException;
 import lombok.AccessLevel;
@@ -34,10 +34,10 @@ import lombok.Setter;
 @Entity
 @Table(name = "identificador")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "id", length = 4, nullable = false, insertable = false, updatable = false)),
+	@AttributeOverride(name = "id", column = @Column(name = "id", length = 4, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 40, nullable = false))
 })
-public class IdentificadorEntity extends AbstractVersionableEntity<Identificador, String> {
+public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Identificador, String> {
 
 	@Embedded
 	protected Identificador embedded;

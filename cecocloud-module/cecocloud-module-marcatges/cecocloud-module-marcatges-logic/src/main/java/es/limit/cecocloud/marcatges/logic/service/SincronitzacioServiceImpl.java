@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
 import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.logic.api.dto.TipusEmpresaEnum;
 import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marcatges.logic.api.dto.MarcatgeOrigen;
 import es.limit.cecocloud.marcatges.logic.api.dto.Operari;
@@ -168,7 +168,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				empresa.setCodi(empresaSync.getCodi());
 				empresa.setNif(empresaSync.getNif());
 				empresa.setNom(empresaSync.getNom());
-				empresa.setTipus(TipusEmpresaEnum.GESTIO);
+				empresa.setTipus(EmpresaTipusEnum.GESTIO);
 				empresa.setActiva(true);
 				Optional<IdentificadorEntity> identificador = identificadorRepository.findById(empresaSync.getIdentificadorCodi());
 				empresaRepository.save(

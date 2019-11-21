@@ -50,7 +50,7 @@ public class Empresa extends AbstractIdentificable<Long> {
 			includeInQuickFilter = true,
 			disabledForUpdate = true)
 	@Enumerated
-	protected TipusEmpresaEnum tipus;
+	protected EmpresaTipusEnum tipus;
 	@RestapiField(hiddenInLov = true)
 	private boolean activa;
 
@@ -58,4 +58,9 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@RestapiField(hiddenInForm = true, hiddenInGrid = true)
 	private Long companyiaId;
 
+	public enum EmpresaTipusEnum {
+		COMPTABLE,
+		GESTIO
+	}
+	
 }

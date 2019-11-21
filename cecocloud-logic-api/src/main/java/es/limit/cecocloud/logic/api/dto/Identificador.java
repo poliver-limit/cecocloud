@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.logic.api.dto;
 
 import javax.persistence.Transient;
@@ -12,6 +15,11 @@ import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Informació d'un identificador.
+ * 
+ * @author Limit Tecnologies <limit@limit.es>
+ */
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom")
@@ -40,5 +48,9 @@ public class Identificador extends AbstractIdentificable<String> {
 	protected String nom;
 	@RestapiField(hiddenInLov = true)
 	private boolean actiu;
+
+	public String getCodi() {
+		return this.id;
+	}
 
 }

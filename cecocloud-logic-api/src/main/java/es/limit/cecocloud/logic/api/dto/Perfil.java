@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'un perfil.
+ * Informació d'un perfil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
