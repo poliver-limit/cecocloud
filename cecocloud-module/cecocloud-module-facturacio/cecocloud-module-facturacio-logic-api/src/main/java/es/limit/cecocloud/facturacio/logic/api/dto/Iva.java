@@ -46,7 +46,7 @@ public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 			includeInQuickFilter = true)
 	private String codi;
 	@NotNull
-	@Size(max = 30)
+	@Size(max = 30) 
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
