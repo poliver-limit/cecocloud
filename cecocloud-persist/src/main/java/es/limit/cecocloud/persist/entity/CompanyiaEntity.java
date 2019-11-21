@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -41,7 +41,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.email", column = @Column(name = "email", length = 120)),
 	@AttributeOverride(name = "embedded.llicenciaKey", column = @Column(name = "llicencia", length = 2000))
 })
-public class CompanyiaEntity extends AbstractVersionableEntity<Companyia, Long> {
+public class CompanyiaEntity extends AbstractAuditableVersionableEntity<Companyia, Long> {
 
 	@Embedded
 	protected Companyia embedded;

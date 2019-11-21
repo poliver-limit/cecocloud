@@ -83,7 +83,7 @@ export class ValidateComponent {
 	onValidateButtonClick() {
 		this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
-			this.registreService.validate( this.token, this.formGroup ).subscribe(( response: any ) => {
+			this.registreService.userValidate( this.token, this.formGroup ).subscribe(( response: any ) => {
 				this.showSnack('validate.snack.validated.ok');
 				this.router.navigate( ['login'] );
 			}, (error: Error) => {

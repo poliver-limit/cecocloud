@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Resource } from 'angular4-hal';
+
+import { BngRestapiService } from 'base-angular';
+
+export class BngGenericResource extends Resource {}
 
 @Injectable({
     providedIn: 'root',
 })
-export class RegistreService {
+export class RegistreService extends BngRestapiService<BngGenericResource> {
 
-	create(formGroup: FormGroup, captchaResponse: string): Observable<any> {
-		return this.http.post(
+	userCreate(formGroup: FormGroup, captchaResponse: string): Observable<any> {
+		return this.getHttpClient().post(
 			'api/registres/create', {
 				nom: formGroup.value.nom,
 				llinatges: formGroup.value.llinatges,
@@ -19,8 +24,8 @@ export class RegistreService {
 		);
 	}
 
-	validate(token: string, formGroup: FormGroup): Observable<any> {
-		return this.http.post(
+	userValidate(token: string, formGroup: FormGroup): Observable<any> {
+		return this.getHttpClient().post(
 			'api/registres/validate', {
 				token: token,
 				contrasenya: formGroup.value.contrasenya,
@@ -29,14 +34,18 @@ export class RegistreService {
 		);
 	}
 
-	recover(email: string): Observable<any> {
-		return this.http.post(
+	passwordRecover(email: string): Observable<any> {
+		return this.getHttpClient().post(
 			'api/registres/' + email + '/reset',
 			new HttpParams().append('email', email));
 	}
 
-	constructor(
-	    private http: HttpClient) {
+	recatpchaSiteKey(): Observable<any> {
+		return this.getHttpClient().get('api/registres/recaptchaSiteKey', {responseType: 'text'});
 	}
+
+	constructor( injector: Injector ) {
+        super( BngGenericResource, undefined, injector );
+    }
 
 }

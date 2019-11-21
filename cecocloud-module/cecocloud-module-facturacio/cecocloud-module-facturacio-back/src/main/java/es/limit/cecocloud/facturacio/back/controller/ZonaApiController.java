@@ -38,7 +38,9 @@ public class ZonaApiController extends AbstractIdentificableApiController<Zona, 
 	@Override
 	protected void completeDtoWithSession(Zona dto, Object userSession) {
 		Long empresaId = ((UserSession)userSession).getEmpresa();
-		Empresa empresa = empresaService.getOne(empresaId);
-		dto.setIdentificador(GenericReference.toGenericReference(empresa.getIdentificador().getId()));
+		if (empresaId != null) {
+			Empresa empresa = empresaService.getOne(empresaId);
+			dto.setIdentificador(GenericReference.toGenericReference(empresa.getIdentificador().getId()));
+		}
 	}
 }

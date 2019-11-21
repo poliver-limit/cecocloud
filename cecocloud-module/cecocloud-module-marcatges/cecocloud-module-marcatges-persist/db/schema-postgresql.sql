@@ -9,11 +9,11 @@ create table cpktest (
 
 create table marcatge (
    id int8 not null,
-    version int8 not null,
     created_by varchar(64) not null,
     created_date timestamp not null,
     lastmod_by varchar(64),
     lastmod_date timestamp,
+    version int8 not null,
     data timestamp not null,
     latitud float8,
     longitud float8,
@@ -24,6 +24,10 @@ create table marcatge (
 
 create table operari (
    id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version int8 not null,
     codi varchar(6) not null,
     data_fi timestamp,

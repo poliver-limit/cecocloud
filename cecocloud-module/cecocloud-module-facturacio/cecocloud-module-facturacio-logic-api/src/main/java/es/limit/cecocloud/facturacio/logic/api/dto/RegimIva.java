@@ -18,6 +18,7 @@ import es.limit.cecocloud.facturacio.logic.api.dto.RegimIva.RegimIvaPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusRegimEnumDto;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,7 +39,6 @@ import lombok.Setter;
 )
 public class RegimIva extends AbstractIdentificableWithCompositePk<RegimIvaPk> {
 
-	// Definicions DTO
 	@Size(max = 2)
 	@RestapiField(disabledForUpdate = true,
 			toUpperCase=true,
@@ -76,10 +76,9 @@ public class RegimIva extends AbstractIdentificableWithCompositePk<RegimIvaPk> {
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class RegimIvaPk implements Serializable {

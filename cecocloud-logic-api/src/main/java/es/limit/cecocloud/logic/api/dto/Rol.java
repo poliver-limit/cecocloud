@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'un grup.
+ * Informació d'un rol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

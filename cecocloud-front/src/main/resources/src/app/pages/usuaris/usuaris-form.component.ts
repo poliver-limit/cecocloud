@@ -43,7 +43,6 @@ import { UsuarisService } from './usuaris.service';
 export class UsuarisFormComponent {
 
     formConfig: BngFormConfig = {
-		readOnlyStateEnabled: true
 	};
 	usuariId: number;
 

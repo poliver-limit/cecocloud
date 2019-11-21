@@ -18,11 +18,10 @@ import { CompanyiesService } from './shared/companyies.service';
 <mat-sidenav-container>
 	<mat-sidenav #sidenav *ngIf="topbarVisible" [mode]="(!mobileScreen) ? 'side' : 'over'" [opened]="!mobileScreen" [ngStyle]="{ 'margin-top' : (topbarVisible && !mobileScreen) ? '64px' : '0', 'width' : '256px'}">
 		<ng-container *ngIf="currentMenu">
-			<mat-toolbar>
+			<mat-toolbar style="border-bottom: 1px solid #e2e2e2">
 				<mat-icon *ngIf="currentMenu.icon" style="margin-right:.5em">{{currentMenu.icon}}</mat-icon>
-				{{currentMenu.label}}
+				<p>{{currentMenu.label}}</p>
 			</mat-toolbar>
-			<mat-divider></mat-divider>
 			<nav>
 				<mat-nav-list>
 					<a mat-list-item *ngFor="let item of currentMenu.menuItems; let i = index" [routerLink]="item.route" routerLinkActive="nav-list-item-active">
@@ -47,23 +46,36 @@ import { CompanyiesService } from './shared/companyies.service';
 		<button mat-icon-button *ngIf="mobileScreen" (click)="onMenuItemClick()" style="margin-right: .5em">
 			<mat-icon>menu</mat-icon>
 		</button>
-		<mat-icon (click)="onHomeLinkClick()" style="cursor:pointer">cloud_queue</mat-icon><span (click)="onHomeLinkClick()" style="cursor:pointer">&nbsp;&nbsp;Cecocloud</span>
+		<ng-container *ngIf="!mobileScreen">
+			<mat-icon (click)="onHomeLinkClick()" style="cursor:pointer">cloud_queue</mat-icon>
+			&nbsp;&nbsp;<span (click)="onHomeLinkClick()" style="cursor:pointer">Cecocloud</span>
+		</ng-container>
+		<ng-container *ngIf="mobileScreen">
+			<span (click)="onHomeLinkClick()" style="cursor:pointer">Cc</span>
+		</ng-container>
 		<span class="toolbar-fill"></span>
 		<span>
 			<button mat-icon-button *ngIf="tokenPayload?.rol.includes('ADMIN')" (click)="onAdminButtonClick()" style="margin-right:.5em">
 				<mat-icon>build</mat-icon>
 			</button>
-			<seleccio-companyia-empresa
-				(empresaChange)="onSeleccioEmpresaChange($event)"
-				(companyiaAdmin)="onSeleccioCompanyiaAdmin($event)"></seleccio-companyia-empresa>
+			<selector-companyia-empresa
+				(selectedCompanyiaEmpresaChange)="onSelectedCompanyiaEmpresaChange($event)"
+				(companyiaAdmin)="onSeleccioCompanyiaAdmin($event)"></selector-companyia-empresa>
 			<button mat-icon-button [matMenuTriggerFor]="modulesMenu" style="margin-right:.5em">
 				<mat-icon>apps</mat-icon>
 			</button>
 			<mat-menu #modulesMenu="matMenu" xPosition="before">
-				<button mat-menu-item *ngFor="let item of moduleItems" (click)="onModuleButtonClick(item.code)">
-					<mat-icon>{{item.icon}}</mat-icon>
-    				<span>{{item.label}}</span>
-				</button>
+				<ng-container *ngIf="!currentEmpresa">
+					<button mat-menu-item>
+	    				No hi ha cap empresa seleccionada
+					</button>
+				</ng-container>
+				<ng-container *ngIf="currentEmpresa">
+					<button mat-menu-item *ngFor="let item of moduleItems" (click)="onModuleButtonClick(item.code)">
+						<mat-icon>{{item.icon}}</mat-icon>
+	    				<span>{{item.label}}</span>
+					</button>
+				</ng-container>
 			</mat-menu>
 			<button mat-icon-button [matMenuTriggerFor]="userMenu">
 				<mat-icon>account_circle</mat-icon>
@@ -115,6 +127,7 @@ export class AppComponent implements OnInit {
 	tokenPayload: BngAuthTokenPayload;
 	currentMenu: AppMenu;
 	moduleItems: BngModuleItem[];
+	currentEmpresa: any;
 
 	ngOnInit() {
 		this.refreshSmallToolbar(window.innerWidth);
@@ -136,8 +149,8 @@ export class AppComponent implements OnInit {
 		this.router.navigate(['/admin-app']);
 	}
 
-	onSeleccioEmpresaChange(empresa: any) {
-		console.log('>>> onSeleccioEmpresaChange', empresa)
+	onSelectedCompanyiaEmpresaChange(companyiaEmpresa: any) {
+		this.currentEmpresa = companyiaEmpresa.empresa;
 	}
 
 	onSeleccioCompanyiaAdmin(companyia: any) {
@@ -177,7 +190,7 @@ export class AppComponent implements OnInit {
 		private screenSizeService: BngScreenSizeService,
 		private menuService: MenuService,
 		private moduleService: BngModuleService,
-		moduleInitService: ModuleInitService) {
+		moduleInitService: ModuleInitService /* Ha d'estar aquí maldament no s'utilitzi perquè si no no s'inicialitzen els mòduls' */) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {

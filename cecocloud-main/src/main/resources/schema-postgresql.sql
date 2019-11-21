@@ -1,8 +1,11 @@
 create sequence hibernate_sequence start 1 increment 1;
-create sequence identificador_sequence start 1 increment 1;
 
 create table companyia (
    id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version int8 not null,
     codi varchar(30) not null,
     email varchar(120),
@@ -14,21 +17,28 @@ create table companyia (
 
 create table empresa (
    id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version int8 not null,
     activa boolean not null,
-    codi varchar(30) not null,
+    codi varchar(4) not null,
     nif varchar(12) not null,
     nom varchar(30) not null,
     tipus int4 not null,
-    identificador_id int8,
+    identificador_id varchar(255),
     primary key (id)
 );
 
 create table identificador (
-   id int8 not null,
+   id varchar(4) not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version int8 not null,
     actiu boolean not null,
-    codi varchar(4) not null,
     nom varchar(40) not null,
     companyia_id int8,
     primary key (id)
@@ -36,6 +46,10 @@ create table identificador (
 
 create table perfil (
    id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version int8 not null,
     codi varchar(30) not null,
     descripcio varchar(255) not null,
@@ -47,6 +61,10 @@ create table perfil_rol (
    perfil_id int8 not null,
     rol_id int8 not null,
     version int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     primary key (perfil_id, rol_id)
 );
 
@@ -55,11 +73,19 @@ create table perfil_usuariempresa (
     perfil_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     primary key (empresa_id, perfil_id, usuari_id)
 );
 
 create table rol (
    id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version int8 not null,
     codi varchar(30) not null,
     descripcio varchar(255) not null,
@@ -72,11 +98,19 @@ create table rol_usuariempresa (
     rol_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     primary key (empresa_id, rol_id, usuari_id)
 );
 
 create table usuari (
    id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     version int8 not null,
     actiu boolean,
     codi varchar(64) not null,
@@ -98,6 +132,10 @@ create table usuari_companyia (
    companyia_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     primary key (companyia_id, usuari_id)
 );
 
@@ -105,6 +143,10 @@ create table usuari_empresa (
    empresa_id int8 not null,
     usuari_id int8 not null,
     version int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
     primary key (empresa_id, usuari_id)
 );
 
@@ -113,9 +155,6 @@ alter table companyia
 
 alter table empresa 
    add constraint empresa_uk unique (identificador_id, codi);
-
-alter table identificador 
-   add constraint identificador_uk unique (companyia_id, codi);
 
 alter table perfil 
    add constraint perfil_uk unique (companyia_id, codi);

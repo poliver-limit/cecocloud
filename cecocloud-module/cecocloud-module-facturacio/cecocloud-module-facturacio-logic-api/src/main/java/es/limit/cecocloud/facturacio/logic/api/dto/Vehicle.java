@@ -18,6 +18,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle.VehiclePk;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -87,7 +88,6 @@ public class Vehicle extends AbstractIdentificableWithCompositePk<VehiclePk> {
 	@Digits(integer = 12, fraction = 2)
 	private BigDecimal pesMaxim;
 	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -97,9 +97,9 @@ public class Vehicle extends AbstractIdentificableWithCompositePk<VehiclePk> {
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class VehiclePk implements Serializable {

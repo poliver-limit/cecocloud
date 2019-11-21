@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.adresaWeb", column = @Column(name = "tra_www")),
 	@AttributeOverride(name = "embedded.contacte", column = @Column(name = "tra_con")),
 	@AttributeOverride(name = "embedded.formaPagament", column = @Column(name = "tra_fpa")),
-	@AttributeOverride(name = "embedded.horaRepartiment", column = @Column(name = "tra_hri")),
+	@AttributeOverride(name = "embedded.horariRepartiment", column = @Column(name = "tra_hri")),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tra_obs")),
 	@AttributeOverride(name = "embedded.vehicleEmpresa", column = @Column(name = "tra_vehemp")),
 	@AttributeOverride(name = "embedded.codiPostalCodi", column = @Column(name = "tra_cpo_cod", length = 8, nullable = false)),

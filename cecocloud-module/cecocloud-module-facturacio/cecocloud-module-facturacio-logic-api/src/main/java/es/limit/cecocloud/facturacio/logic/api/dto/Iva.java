@@ -19,6 +19,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.Iva.IvaPk;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -91,6 +92,7 @@ public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class IvaPk implements Serializable {

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'una relació Perfil - Grup.
+ * Informació d'una relació perfil-rol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

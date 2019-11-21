@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import es.limit.base.boot.persist.entity.AbstractVersionableEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -42,7 +42,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
     @AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 255, nullable = false))
 })
-public class RolEntity extends AbstractVersionableEntity<Rol, Long> {
+public class RolEntity extends AbstractAuditableVersionableEntity<Rol, Long> {
 
 	@Embedded
 	protected Rol embedded;

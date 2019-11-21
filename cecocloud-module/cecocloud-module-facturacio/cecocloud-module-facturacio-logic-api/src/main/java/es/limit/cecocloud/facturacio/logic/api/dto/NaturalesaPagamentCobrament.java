@@ -17,6 +17,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.NaturalesaPagamentCobrament.NaturalesaPagamentCobramentPk;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,7 +38,6 @@ import lombok.Setter;
 )
 public class NaturalesaPagamentCobrament extends AbstractIdentificableWithCompositePk<NaturalesaPagamentCobramentPk> {
 
-	// Definicions DTO
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
 			toUpperCase=true,
@@ -65,10 +65,9 @@ public class NaturalesaPagamentCobrament extends AbstractIdentificableWithCompos
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class NaturalesaPagamentCobramentPk implements Serializable {
