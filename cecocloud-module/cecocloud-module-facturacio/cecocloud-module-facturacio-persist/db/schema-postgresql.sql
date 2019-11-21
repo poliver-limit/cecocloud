@@ -70,12 +70,12 @@ create table tges_fpr (
     fpr_datcre timestamp,
     fpr_usumod varchar(255),
     fpr_datmod timestamp,
-    ctacprcmp varchar(255),
-    dricmp varchar(255),
-    driprfcmp varchar(255),
+    fpr_ctacprcmp varchar(255),
+    fpr_dricmp varchar(255),
+    fpr_driprfcmp varchar(255),
     fpr_nom varchar(30) not null,
-    observacions varchar(255),
-    tipasicmp varchar(255),
+    fpr_obs varchar(255),
+    fpr_tipasicmp varchar(255),
     primary key (fpr_cod, fpr_idf_cod)
 );
 
@@ -202,7 +202,7 @@ create table tges_tra (
     tra_eml varchar(255),
     tra_fax varchar(255),
     tra_fpa varchar(255),
-    horariRepartiment varchar(255),
+    tra_hri varchar(255),
     tra_nif varchar(12) not null,
     tra_nom varchar(30) not null,
     tra_obs varchar(255),

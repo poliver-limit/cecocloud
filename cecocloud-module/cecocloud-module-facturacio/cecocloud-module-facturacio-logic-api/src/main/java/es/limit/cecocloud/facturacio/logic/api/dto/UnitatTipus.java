@@ -18,6 +18,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.UnitatTipus.UnitatTipusPk;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,7 +39,6 @@ import lombok.Setter;
 )
 public class UnitatTipus extends AbstractIdentificableWithCompositePk<UnitatTipusPk> {
 
-	// Definicions DTO
 	@Size(max = 4)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -54,7 +54,6 @@ public class UnitatTipus extends AbstractIdentificableWithCompositePk<UnitatTipu
 			hiddenInLov=true)
 	private BigDecimal factorConversio;
 	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -64,10 +63,9 @@ public class UnitatTipus extends AbstractIdentificableWithCompositePk<UnitatTipu
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class UnitatTipusPk implements Serializable {

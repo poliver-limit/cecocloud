@@ -16,6 +16,7 @@ import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositeP
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.Provincia.ProvinciaPk;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,6 +60,7 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class ProvinciaPk implements Serializable {

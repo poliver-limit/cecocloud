@@ -21,6 +21,7 @@ import es.limit.cecocloud.facturacio.logic.api.dto.enums.MesosEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusVencimentEnumDto;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,7 +42,6 @@ import lombok.Setter;
 )
 public class TipusVenciment extends AbstractIdentificableWithCompositePk<TipusVencimentPk> {
 
-	// Definicions DTO
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase=true,
@@ -142,7 +142,6 @@ public class TipusVenciment extends AbstractIdentificableWithCompositePk<TipusVe
 	@Size(max = 4)
 	private String classeVenciment;
 	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -152,10 +151,9 @@ public class TipusVenciment extends AbstractIdentificableWithCompositePk<TipusVe
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
-
-	// Definició de la PK
 	@NoArgsConstructor
 	@AllArgsConstructor
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
 	public static class TipusVencimentPk implements Serializable {
