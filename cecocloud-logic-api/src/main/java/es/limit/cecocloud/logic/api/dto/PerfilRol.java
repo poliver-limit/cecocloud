@@ -35,7 +35,6 @@ public class PerfilRol extends AbstractIdentificableWithCompositePk<PerfilRolPk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			disabledForUpdate=true,
 			includeInQuickFilter = true)
 	private GenericReference<Perfil, Long> perfil;
@@ -43,7 +42,6 @@ public class PerfilRol extends AbstractIdentificableWithCompositePk<PerfilRolPk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			disabledForUpdate=true,
 			includeInQuickFilter = true)
 	private GenericReference<Rol, Long> rol;

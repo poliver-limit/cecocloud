@@ -74,10 +74,9 @@ public class Companyia extends AbstractIdentificable<Long> {
 	private String llicenciaKey;
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = true, 
-			hiddenInGrid = true, 
-			hiddenInLov = true, 
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInLov = true,
 			hiddenInForm = true)
 	private Llicencia llicencia;
 

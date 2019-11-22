@@ -36,7 +36,6 @@ public class PerfilUsuariEmpresa extends AbstractIdentificableWithCompositePk<Pe
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			disabledForUpdate=true,
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
@@ -45,7 +44,6 @@ public class PerfilUsuariEmpresa extends AbstractIdentificableWithCompositePk<Pe
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			disabledForUpdate=true,
 			includeInQuickFilter = true)
 	private GenericReference<Perfil, Long> perfil;
