@@ -63,13 +63,13 @@ public class Companyia extends AbstractIdentificable<Long> {
 			hiddenInLov = true, 
 			includeInQuickFilter = true)
 	private String email;
-	@NotNull(groups = {OnCreate.class})
 	@Size(max = 2000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA, 
 			disabledForUpdate = true, 
 			disabledForCreate = true, 
 			hiddenInGrid = true, 
+			hiddenInForm = true, 
 			hiddenInLov = true)
 	private String llicenciaKey;
 	@Transient

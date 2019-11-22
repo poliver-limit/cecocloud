@@ -16,6 +16,7 @@ import {
 	MatAutocompleteModule,
 	MatDialogModule,
 	MatCardModule,
+	MatTabsModule,
 	MAT_DATE_FORMATS
 } from '@angular/material';
 
@@ -39,6 +40,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         MatAutocompleteModule,
 		MatDialogModule,
 		MatCardModule,
+		MatTabsModule,
         MomentDateModule
     ],
     providers: [

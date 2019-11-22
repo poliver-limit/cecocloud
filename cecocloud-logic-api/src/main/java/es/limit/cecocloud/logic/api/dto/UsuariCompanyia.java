@@ -45,7 +45,6 @@ public class UsuariCompanyia extends AbstractIdentificableWithCompositePk<Usuari
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Companyia, Long> companyia;
 
