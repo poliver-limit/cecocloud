@@ -77,11 +77,11 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 		Companyia companyia = super.getOne(id);
 		if (companyia.getLlicenciaKey() != null && !companyia.getLlicenciaKey().isEmpty()) {
 			try {
-				companyia.setLlicencia(objectMapper.readValue(
-						AsymmetricCryptographyHelper.decryptText(companyia.getLlicenciaKey()), 
-						Llicencia.class));
-			} catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | NoSuchAlgorithmException
-					| InvalidKeySpecException | NoSuchPaddingException | IOException ex) {
+				companyia.setLlicencia(
+						objectMapper.readValue(
+								AsymmetricCryptographyHelper.decryptText(companyia.getLlicenciaKey()), 
+								Llicencia.class));
+			} catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IOException ex) {
 				throw new InvalidLicenseException("No s'ha pogut desencriptar la llicència", ex);
 			}
 		}
