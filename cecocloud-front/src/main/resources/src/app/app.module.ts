@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularHalModule } from 'angular4-hal';
+import { NgxMaskModule } from 'ngx-mask';
 import { BngJwtInterceptor, BngErrorModule, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
 
 import { MaterialModule } from './shared/material.module';
@@ -34,6 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
 			}
 		}),
 		AngularHalModule.forRoot(),
+		NgxMaskModule.forRoot(),
 		BngErrorModule,
 		AppRoutingModule
 	],

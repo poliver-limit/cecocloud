@@ -27,6 +27,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom",
 		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(type = RestapiPermissionConstraintType.ACL_ID),
 				@RestapiResourceAccessConstraint(
 						type = RestapiPermissionConstraintType.AUTHORITY,
 						authoritiesWithPermissions = {
@@ -65,11 +66,11 @@ public class Companyia extends AbstractIdentificable<Long> {
 	private String email;
 	@Size(max = 2000)
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA, 
-			disabledForUpdate = true, 
-			disabledForCreate = true, 
-			hiddenInGrid = true, 
-			hiddenInForm = true, 
+			type = RestapiFieldType.TEXTAREA,
+			disabledForUpdate = true,
+			disabledForCreate = true,
+			hiddenInGrid = true,
+			hiddenInForm = true,
 			hiddenInLov = true)
 	private String llicenciaKey;
 	@Transient
