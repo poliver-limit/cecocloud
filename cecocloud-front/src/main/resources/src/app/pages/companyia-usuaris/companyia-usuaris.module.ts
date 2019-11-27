@@ -10,6 +10,7 @@ import { MaterialModule } from '../../shared/material.module';
 import { CompanyiaUsuarisGridComponent, CompanyiaUsuarisAddDialog } from './companyia-usuaris-grid.component';
 import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { UsuarisService } from './usuaris.service';
+import { CompanyiaUsuarisFormComponent } from './companyia-usuaris-form.component';
 
 @NgModule( {
     imports: [
@@ -20,11 +21,13 @@ import { UsuarisService } from './usuaris.service';
         BngModule,
 		MaterialModule,
         RouterModule.forChild([
-            { path: '', component: CompanyiaUsuarisGridComponent, canDeactivate: [BngFormExitGuard] }
+            { path: '', component: CompanyiaUsuarisGridComponent, canDeactivate: [BngFormExitGuard] },
+			{ path: 'update/:id', component: CompanyiaUsuarisFormComponent, canDeactivate: [BngFormExitGuard] }
         ])
     ],
     declarations: [
         CompanyiaUsuarisGridComponent,
+		CompanyiaUsuarisFormComponent,
 		CompanyiaUsuarisAddDialog
     ],
     providers: [

@@ -9,6 +9,7 @@ import { BngAuthService, BngDatagrid } from 'base-angular';
 
 import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { UsuarisService } from './usuaris.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
 	template: `
@@ -17,16 +18,20 @@ import { UsuarisService } from './usuaris.service';
         [config]="datagridConfig"
         [restapiService]="companyiaUsuarisService"
 		(headerActionCreate)="onGridActionCreate()"
-		(headerActionDelete)="onGridActionDelete($event)"></bng-datagrid>`
+		(headerActionDelete)="onGridActionDelete($event)"
+		(rowClicked)="onRowClicked($event)"></bng-datagrid>`
 })
 export class CompanyiaUsuarisGridComponent {
 
 	@ViewChild('datagrid', { static: false }) datagrid: BngDatagrid;	
 
 	datagridConfig = {
+		columFiltersEnable: true,
+		
 	};
 
 	onGridActionCreate() {
+		
 		const dialogRef = this.dialog.open(CompanyiaUsuarisAddDialog, {
 			width: '500px'
 		});
@@ -72,6 +77,10 @@ export class CompanyiaUsuarisGridComponent {
 			}
 		}
 	}
+	
+	onRowClicked(event: any) {
+		this.router.navigate(['update', event.data.id], {relativeTo: this.route});
+	}
 
 	translateKey(key: string, params?: any, defaultValue?: string) {
 		let translatedKey = this.translate.instant(key, params);
@@ -86,6 +95,8 @@ export class CompanyiaUsuarisGridComponent {
 		private translate: TranslateService,
 		private dialog: MatDialog,
 		private authService: BngAuthService,
+		private router: Router,
+		private route: ActivatedRoute,
 		public companyiaUsuarisService: CompanyiaUsuarisService) {
 	}
 
