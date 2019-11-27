@@ -30,11 +30,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nomComercial"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk> {
 
@@ -67,7 +62,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 	@Transient

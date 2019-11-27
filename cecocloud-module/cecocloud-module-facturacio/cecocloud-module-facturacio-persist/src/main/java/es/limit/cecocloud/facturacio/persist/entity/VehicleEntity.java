@@ -71,6 +71,7 @@ public class VehicleEntity extends AbstractAuditableCompositePkEntity<Vehicle, V
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rges_mtr_idf_fk"))
 	protected IdentificadorEntity identificador;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {

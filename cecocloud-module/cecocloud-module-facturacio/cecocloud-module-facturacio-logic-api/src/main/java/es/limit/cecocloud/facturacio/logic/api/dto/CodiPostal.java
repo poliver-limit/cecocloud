@@ -30,11 +30,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "poblacio"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalPk> {
 
@@ -58,7 +53,6 @@ public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalP
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 	@Transient

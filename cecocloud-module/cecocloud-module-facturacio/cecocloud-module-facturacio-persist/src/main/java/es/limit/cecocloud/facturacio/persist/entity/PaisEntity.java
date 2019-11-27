@@ -44,12 +44,14 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pas_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "pas_cod", length = 4)),
+	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pas_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "pas_nom", length = 30, nullable = false)),	
 	@AttributeOverride(name = "embedded.nif", column = @Column(name = "pas_nif", length = 2)),	
 	@AttributeOverride(name = "embedded.codiso", column = @Column(name = "pas_codiso", length = 3)),	
 	@AttributeOverride(name = "embedded.codiso002", column = @Column(name = "pas_codiso002", length = 2)),
 	@AttributeOverride(name = "embedded.cee", column = @Column(name = "pas_cee", length = 1)),
+	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "pas_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "pas_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "pas_usumod")),

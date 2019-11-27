@@ -30,11 +30,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk> {
 
@@ -55,7 +50,6 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 	
@@ -64,7 +58,6 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Pais, String> pais;
 

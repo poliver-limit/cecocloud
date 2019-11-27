@@ -30,11 +30,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "descripcio"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class NaturalesaPagamentCobrament extends AbstractIdentificableWithCompositePk<NaturalesaPagamentCobramentPk> {
 
@@ -61,7 +56,6 @@ public class NaturalesaPagamentCobrament extends AbstractIdentificableWithCompos
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 
