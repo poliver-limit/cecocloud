@@ -9,26 +9,38 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import es.limit.base.boot.logic.service.AbstractAuthServiceImpl;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.limit.base.boot.logic.api.service.SessionService;
+import es.limit.base.boot.logic.service.AuthServiceImpl.ExternalGrantedAuthority;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.RolEntity;
 import es.limit.cecocloud.persist.repository.RolRepository;
 
 /**
- * Implementació del servei encarregat de gestionar l'autenticació.
+ * Implementació del servei encarregat de gestionar les sessions d'usuari del front.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class AuthServiceImpl extends AbstractAuthServiceImpl {
+public class SessionServiceImpl implements SessionService {
 
 	@Autowired
-	RolRepository rolRepository;
+	private ObjectMapper jacksonObjectMapper;
+	@Autowired
+	private RolRepository rolRepository;
 
 	@Override
-	protected Object parseJwtSession(Map<String, Object> jwtSession) {
+	public Object parseJsonSession(JsonNode jsonNode) {
+		return jacksonObjectMapper.convertValue(jsonNode, UserSession.class);
+	}
+
+	@Override
+	public Object parseJwtSession(Map<String, Object> jwtSession) {
 		if (jwtSession == null) {
 			return null;
 		} else {
@@ -42,8 +54,8 @@ public class AuthServiceImpl extends AbstractAuthServiceImpl {
 	}
 
 	@Override
-	protected List<ExternalGrantedAuthority> getAuthoritiesFromSession(String usuariCodi, Object session) {
-		List<ExternalGrantedAuthority> grantedAuthorities = new ArrayList<ExternalGrantedAuthority>();
+	public List<GrantedAuthority> getAuthoritiesFromSession(String usuariCodi, Object session) {
+		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 		if (usuariCodi != null) {
 			Long empresaId = null;
 			UserSession userSession = (UserSession)session;

@@ -6,6 +6,7 @@ package es.limit.cecocloud.logic.test;
 import static org.junit.Assert.assertEquals;
 
 import es.limit.base.boot.test.AbstractServiceTest;
+import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 
 /**
@@ -16,24 +17,27 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
 public class IdentificadorTest extends AbstractServiceTest<Identificador, String> {
 
 	@Override
-	protected Identificador createDto() {
-		Identificador dto = new Identificador();
-		dto.setNom("Test");
-		dto.setActiu(true);
-		return dto;
-	}
-
-	@Override
-	protected void updateDto(Identificador dto) {
-		dto.setNom("Test2");
-		dto.setActiu(false);
-	}
-
-	@Override
-	protected void compareDto(Identificador expected, Identificador actual) {
-		assertEquals(expected.getCodi(), actual.getCodi());
-		assertEquals(expected.getNom(), actual.getNom());
-		assertEquals(expected.isActiu(), actual.isActiu());
+	protected CrudTester<Identificador> getCrudTester() {
+		return new CrudTester<Identificador>() {
+			@Override
+			public Identificador createDto() {
+				Identificador dto = new Identificador();
+				dto.setNom("Test");
+				dto.setActiu(true);
+				return dto;
+			}
+			@Override
+			public void updateDto(Identificador dto) {
+				dto.setNom("Test2");
+				dto.setActiu(false);
+			}
+			@Override
+			public void compareDto(Identificador expected, Identificador actual) {
+				assertEquals(expected.getCodi(), actual.getCodi());
+				assertEquals(expected.getNom(), actual.getNom());
+				assertEquals(expected.isActiu(), actual.isActiu());
+			}
+		};
 	}
 
 }
