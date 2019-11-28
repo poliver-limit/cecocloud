@@ -14,7 +14,6 @@ import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
-import es.limit.cecocloud.marcatges.logic.api.service.MarcatgeService;
 
 /**
  * Controlador per al servei REST de gestió de marcatges.
@@ -30,14 +29,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	@Autowired
 	private EmpresaService empresaService;*/
 	@Autowired
-	private MarcatgeService service;
-	@Autowired
 	private AuthenticationFacade authenticationFacade;
-
-	@Override
-	protected MarcatgeService getService() {
-		return service;
-	}
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {

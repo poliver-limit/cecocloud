@@ -27,7 +27,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom",
 		resourceAccessConstraints = {
-				@RestapiResourceAccessConstraint(type = RestapiPermissionConstraintType.ACL_ID),
+				//@RestapiResourceAccessConstraint(type = RestapiPermissionConstraintType.ACL_ID),
 				@RestapiResourceAccessConstraint(
 						type = RestapiPermissionConstraintType.AUTHORITY,
 						authoritiesWithPermissions = {
