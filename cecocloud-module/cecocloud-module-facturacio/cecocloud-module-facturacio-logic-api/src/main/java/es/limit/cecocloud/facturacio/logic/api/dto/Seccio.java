@@ -16,7 +16,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument.PeuDocumentPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.Seccio.SeccioPk;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,71 +25,78 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'un peu document.
+ * DTO amb informació d'una seccio.
+ * 
+ * PROPI DEL MÒDUL DE RRHH (FUTURIBLEMENT MOVIBLE)
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio"
+		descriptionField = "nom"
 )
-public class PeuDocument extends AbstractIdentificableWithCompositePk<PeuDocumentPk> {
+public class Seccio extends AbstractIdentificableWithCompositePk<SeccioPk> {
 
 	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
-	@RestapiField(disabledForUpdate = true, toUpperCase = true,includeInQuickFilter = true)
+	@RestapiField(disabledForUpdate = true, toUpperCase = true, includeInQuickFilter = true)
 	private String codi;
 	
-	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
-	private String descripcio;
+	@NotNull
+	@RestapiField(includeInQuickFilter = true)
+	private String nom;
 	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private boolean factura;
+	@Size(max = 10)
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	private String compteSous;
 	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private boolean albara;
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	private boolean controlPartes;
 	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private boolean pre;
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	private boolean controlHoresExtras;
 	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private boolean com;
+	@Size(max = 4)
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	private String depcmp;
 	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private boolean imprimirPeuCertificacio;
+	@Size(max = 2)
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	private String discos;
 	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private boolean familiaCliProv;
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	@Digits(integer = 5, fraction = 3)
+	private BigDecimal dtehor;
 	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Size(max = 1000)
-	private String pie;
-	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private boolean impCls;
-	
-	@Digits(integer=3, fraction=3)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private BigDecimal ordre;
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	@Digits(integer = 5, fraction = 2)
+	private BigDecimal horesLaboralesDia;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	private SerieCompra serieCompra;
+			hiddenInLov=true
+			)
+	private SeccioGrup seccioGrup;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	@Size(max = 1000)
+	private String observaciones;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	@Size(max = 15)
+	private String rolVistas;
+
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInForm = true)
+	private GenericReference<Identificador, String> identificador;
 	
 	@Transient
 	@RestapiField(
@@ -98,21 +105,13 @@ public class PeuDocument extends AbstractIdentificableWithCompositePk<PeuDocumen
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Empresa, String> empresa;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;	
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
-	public static class PeuDocumentPk implements Serializable {
+	public static class SeccioPk implements Serializable {
 		private String identificadorCodi;
 		private String empresaCodi;
 		private String codi;

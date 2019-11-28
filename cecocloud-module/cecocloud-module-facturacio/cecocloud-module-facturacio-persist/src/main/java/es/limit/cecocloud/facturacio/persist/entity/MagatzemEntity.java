@@ -58,13 +58,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.tipusAssentamentComptable", column = @Column(name = "mag_tipasicmp", length = 2)),		
 	@AttributeOverride(name = "embedded.diariComptableTraspassos1", column = @Column(name = "mag_dricmp1", length = 2)),		
 	@AttributeOverride(name = "embedded.diariComptableTraspassos2", column = @Column(name = "mag_dricmp2", length = 2)),	
-	@AttributeOverride(name = "embedded.compteTraspassos", column = @Column(name = "mag_ctetrs", length = 10)),
-		
-	
-//    @Formula(value="( SELECT r.pmg_cod FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
-//	private String periodeActualCodi;
-//    @Formula(value="( SELECT r.pmg_diaini FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
-//	private String periodeActualData;
+	@AttributeOverride(name = "embedded.compteTraspassos", column = @Column(name = "mag_ctetrs", length = 10)),	
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "mag_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "mag_datcre")),

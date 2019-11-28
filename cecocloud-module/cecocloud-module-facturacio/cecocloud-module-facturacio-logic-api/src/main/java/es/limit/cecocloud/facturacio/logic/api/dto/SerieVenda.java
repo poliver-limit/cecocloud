@@ -206,14 +206,14 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			includeInQuickFilter = true)
 	private Magatzem magatzem;
 	
-//	@Transient
-//	@RestapiField(
-//			type = RestapiFieldType.LOV,
-//			lovWithDescriptionInput = true,
-//			hiddenInGrid = true,
-//					hiddenInLov = true,
-//			includeInQuickFilter = true)
-//	private Empresa empresaOp;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovWithDescriptionInput = true,
+			hiddenInGrid = true,
+					hiddenInLov = true,
+			includeInQuickFilter = true)
+	private Empresa empresaOp;
 	
 	@Transient
 	@RestapiField(
@@ -250,13 +250,13 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	@RestapiField(includeInQuickFilter = true)
 	private boolean desglossarIva;
 
-//	@Transient
-//	@RestapiField(
-//			type = RestapiFieldType.LOV,
-//			disabledForCreate = true,
-//			disabledForUpdate = true,
-//			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInForm = true)
+	private GenericReference<Empresa, String> empresa;
 	
 	@Transient
 	@RestapiField(
@@ -273,7 +273,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	@SuppressWarnings("serial")
 	public static class SerieVendaPk implements Serializable {
 		private String identificadorCodi;
-//		private String empresaCodi;
+		private String empresaCodi;
 		private String codi;
 	}
 

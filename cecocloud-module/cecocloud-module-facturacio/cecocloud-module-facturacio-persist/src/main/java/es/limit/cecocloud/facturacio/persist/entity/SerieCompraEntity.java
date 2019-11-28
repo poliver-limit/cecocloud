@@ -87,30 +87,29 @@ public class SerieCompraEntity extends AbstractAuditableCompositePkEntity<SerieC
 			},
 			foreignKey = @ForeignKey(name = "rges_scp_mag_fk"))
 	protected MagatzemEntity magatzem;
-
 	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//					@JoinColumn(name = "scp_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
-//					@JoinColumn(name = "scp_emp_od002", referencedColumnName = "emp_cod", insertable = false, updatable = false)
-//			},
-//			foreignKey = @ForeignKey(name = "rges_scp_emp_fk"))
-//	protected EmpresaEntity empresaOp;
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "scp_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "scp_emp_od002", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_scp_emp_fk"))
+	protected EmpresaEntity empresaOp;
 	
 	@Builder
 	public SerieCompraEntity(
 			SerieCompraPk pk,
 			SerieCompra embedded,
 			IdentificadorEntity identificador,
-			MagatzemEntity magatzem
-//			,EmpresaEntity empresaOp
+			MagatzemEntity magatzem,
+			EmpresaEntity empresaOp
 		) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.magatzem = magatzem;
-//		this.empresaOp = empresaOp;
+		this.empresaOp = empresaOp;
 	}
 
 	@Override

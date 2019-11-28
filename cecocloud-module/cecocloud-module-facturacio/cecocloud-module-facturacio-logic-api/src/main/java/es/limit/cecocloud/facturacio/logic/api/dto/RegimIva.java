@@ -61,7 +61,6 @@ public class RegimIva extends AbstractIdentificableWithCompositePk<RegimIvaPk> {
 			hiddenInLov = true)
 	private String codiFacturaElectronica;
 	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

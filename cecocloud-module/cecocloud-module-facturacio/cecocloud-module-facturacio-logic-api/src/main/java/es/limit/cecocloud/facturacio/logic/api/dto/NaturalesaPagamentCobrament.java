@@ -50,7 +50,6 @@ public class NaturalesaPagamentCobrament extends AbstractIdentificableWithCompos
 			hiddenInLov = true)
 	private String observacions;
 	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

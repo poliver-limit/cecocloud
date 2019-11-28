@@ -4,8 +4,10 @@
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,7 +16,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.Departament.DepartamentPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa.SeccioEmpresaPk;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,35 +25,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'un departament.
+ * DTO amb informació d'una seccio empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio"
+		descriptionField = "nom"
 )
-public class Departament extends AbstractIdentificableWithCompositePk<DepartamentPk> {
+public class SeccioEmpresa extends AbstractIdentificableWithCompositePk<SeccioEmpresaPk> {
 
-	@NotNull(groups = {OnCreate.class})
-	@Size(max = 4)
+	@Transient
+	@NotNull
 	@RestapiField(
-			disabledForUpdate = true,
+			type = RestapiFieldType.LOV, 
+			lovWithDescriptionInput = false, 
+			disabledForUpdate = true,  
 			toUpperCase = true,
-			includeInQuickFilter = true)
-	private String codi;
+			includeInQuickFilter = true,
+			lovModule = "rrhh")
+	private Seccio seccio;
 	
 	@NotNull
-	@Size(max = 60)
-	@RestapiField(
-			includeInQuickFilter = true)
-	private String descripcio;
+	@Digits(integer = 5, fraction = 2)
+	private BigDecimal valorPercentual;
 	
 	@Size(max = 1000)
-	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			hiddenInGrid = true,
-			hiddenInLov = true)
+ 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	private String observacions;
 
 	@Transient
@@ -69,15 +69,24 @@ public class Departament extends AbstractIdentificableWithCompositePk<Departamen
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Empresa, String> empresa;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInForm = true)
+	private GenericReference<ArticleFamilia, String> articleFamilia;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
-	public static class DepartamentPk implements Serializable {
+	public static class SeccioEmpresaPk implements Serializable {
 		private String identificadorCodi;
 		private String empresaCodi;
+		private String articleFamiliaCodi;
 		private String codi;
 	}
 

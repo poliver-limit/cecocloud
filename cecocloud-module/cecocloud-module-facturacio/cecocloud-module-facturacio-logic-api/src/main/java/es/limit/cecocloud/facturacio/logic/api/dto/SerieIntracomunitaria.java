@@ -71,13 +71,13 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithCompositePk<
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 	
-//	@Transient
-//	@RestapiField(
-//			type = RestapiFieldType.LOV,
-//			disabledForCreate = true,
-//			disabledForUpdate = true,
-//			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInForm = true)
+	private GenericReference<Empresa, String> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -86,7 +86,7 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithCompositePk<
 	@SuppressWarnings("serial")
 	public static class SerieIntracomunitariaPk implements Serializable {
 		private String identificadorCodi;
-//		private String empresaCodi;
+		private String empresaCodi;
 		private String codi;
 	}
 

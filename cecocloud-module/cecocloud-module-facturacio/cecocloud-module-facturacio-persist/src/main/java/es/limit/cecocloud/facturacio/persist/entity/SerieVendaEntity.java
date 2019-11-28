@@ -130,14 +130,14 @@ public class SerieVendaEntity extends AbstractAuditableCompositePkEntity<SerieVe
 			foreignKey = @ForeignKey(name = "rges_ser_mag_fk"))			
 	protected MagatzemEntity magatzem;
 	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//					@JoinColumn(name = "ser_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
-//					@JoinColumn(name = "ser_emp_codprn", referencedColumnName = "emp_cod", insertable = false, updatable = false)
-//			},
-//			foreignKey = @ForeignKey(name = "rges_ser_emp_fk"))			
-//	protected EmpresaEntity empresaOp;	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "ser_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "ser_emp_codprn", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_ser_emp_fk"))			
+	protected EmpresaEntity empresaOp;	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -157,7 +157,7 @@ public class SerieVendaEntity extends AbstractAuditableCompositePkEntity<SerieVe
 			PeuDocumentEntity condicioPagamentPressupost,
 			PeuDocumentEntity peuDocument,
 			MagatzemEntity magatzem,
-//			EmpresaEntity empresaOp,
+			EmpresaEntity empresaOp,
 			DepartamentEntity departament			
 			) {
 		setId(pk);
@@ -166,7 +166,7 @@ public class SerieVendaEntity extends AbstractAuditableCompositePkEntity<SerieVe
 		this.condicioPagamentPressupost = condicioPagamentPressupost;
 		this.peuDocument = peuDocument;
 		this.magatzem = magatzem;
-//		this.empresaOp = empresaOp;
+		this.empresaOp = empresaOp;
 		this.departament = departament;		
 	}
 
