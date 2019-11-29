@@ -101,7 +101,6 @@ public class Transportista extends AbstractIdentificableWithCompositePk<Transpor
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)
 	private CodiPostal codiPostal;
@@ -109,14 +108,12 @@ public class Transportista extends AbstractIdentificableWithCompositePk<Transpor
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Divisa divisa;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Proveidor proveidor;

@@ -32,8 +32,12 @@ public class EmpresaApiController extends AbstractIdentificableWithPermissionsAp
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getCompanyia();
-		return "identificador.companyia.id==" + companyiaId;
+		Long companyiaId = (userSession != null) ? ((UserSession)userSession).getCompanyia() : null;
+		if (companyiaId != null) {
+			return "identificador.companyia.id==" + companyiaId;
+		} else {
+			return null; // "identificador.companyia.id==0";
+		}
 	}
 
 }

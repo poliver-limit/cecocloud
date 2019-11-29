@@ -59,7 +59,6 @@ public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalP
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)
 	private Pais pais;
@@ -67,8 +66,7 @@ public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalP
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
-			lovParentField = "pais",
+			//lovParentField = "pais",
 			hiddenInGrid = true,
 			includeInQuickFilter = true)
 	private Provincia provincia;

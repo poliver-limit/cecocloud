@@ -132,21 +132,18 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private NaturalesaPagamentCobrament naturalesaPagamentCobrament;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private Iva iva;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private RegimIva regimIva;

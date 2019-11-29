@@ -11,7 +11,6 @@ import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
-import es.limit.cecocloud.facturacio.logic.api.service.ZonaService;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
@@ -26,14 +25,7 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
 public class ZonaApiController extends AbstractIdentificableApiController<Zona, String> {
 
 	@Autowired
-	private ZonaService service;
-	@Autowired
 	private EmpresaService empresaService;
-	
-	@Override
-	protected ZonaService getService() {
-		return service;
-	}
 
 	@Override
 	protected void completeDtoWithSession(Zona dto, Object userSession) {
@@ -43,4 +35,5 @@ public class ZonaApiController extends AbstractIdentificableApiController<Zona, 
 			dto.setIdentificador(GenericReference.toGenericReference(empresa.getIdentificador().getId()));
 		}
 	}
+
 }

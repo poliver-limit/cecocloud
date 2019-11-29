@@ -68,7 +68,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private RegimIva regimIva;
@@ -76,7 +75,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private CodiPostal codiPostal;
@@ -84,7 +82,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private TipusVenciment tipusVenciment;
@@ -92,7 +89,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private Divisa divisa;
@@ -100,7 +96,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private DocumentPagamentCobrament documentPagamentCobrament;
@@ -108,7 +103,6 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private FamiliaProveidor familiaProveidor;

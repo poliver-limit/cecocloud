@@ -36,7 +36,6 @@ public class UsuariEmpresa extends AbstractIdentificableWithCompositePk<UsuariEm
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			disabledForUpdate=true,
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
@@ -45,7 +44,6 @@ public class UsuariEmpresa extends AbstractIdentificableWithCompositePk<UsuariEm
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			disabledForUpdate=true,
 			includeInQuickFilter = true)
 	private GenericReference<Empresa, Long> empresa;
