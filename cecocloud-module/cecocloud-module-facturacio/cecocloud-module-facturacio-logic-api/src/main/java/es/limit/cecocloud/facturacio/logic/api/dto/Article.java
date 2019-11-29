@@ -54,7 +54,6 @@ public class Article extends AbstractIdentificableWithCompositePk<ArticlePk> {
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			includeInQuickFilter = true)
 	private ArticleFamilia familia;
 	
@@ -62,7 +61,6 @@ public class Article extends AbstractIdentificableWithCompositePk<ArticlePk> {
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Iva iva;
@@ -120,8 +118,7 @@ public class Article extends AbstractIdentificableWithCompositePk<ArticlePk> {
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private ArticleModel model;

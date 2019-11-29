@@ -74,15 +74,13 @@ public class SerieCompra extends AbstractIdentificableWithCompositePk<SerieCompr
 	private Date validFins;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = true, 
+	@RestapiField(type = RestapiFieldType.LOV,			
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	private Magatzem magatzem;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = true, 
+	@RestapiField(type = RestapiFieldType.LOV,			
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	private Empresa empresaOp;

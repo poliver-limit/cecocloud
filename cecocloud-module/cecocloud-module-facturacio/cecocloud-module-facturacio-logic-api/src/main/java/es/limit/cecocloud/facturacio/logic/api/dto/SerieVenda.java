@@ -161,8 +161,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)
@@ -170,8 +169,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)
@@ -199,8 +197,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)
@@ -208,8 +205,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)
@@ -217,8 +213,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)

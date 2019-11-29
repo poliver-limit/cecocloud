@@ -62,8 +62,7 @@ public class Empresa extends AbstractIdentificableWithCompositePk<EmpresaPk> {
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private CodiPostal codiPostalComercial;
@@ -82,8 +81,7 @@ public class Empresa extends AbstractIdentificableWithCompositePk<EmpresaPk> {
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private CodiPostal codiPostalFiscal;
@@ -96,8 +94,7 @@ public class Empresa extends AbstractIdentificableWithCompositePk<EmpresaPk> {
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Divisa divisa;
@@ -131,8 +128,7 @@ public class Empresa extends AbstractIdentificableWithCompositePk<EmpresaPk> {
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Magatzem magatzem;

@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -37,8 +36,7 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = false, 
+			type = RestapiFieldType.LOV,			
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
@@ -56,8 +54,7 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = false, 
+			type = RestapiFieldType.LOV,			 
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
@@ -65,16 +62,14 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = false,
+			type = RestapiFieldType.LOV,			
 			includeInQuickFilter = false,
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private ArticleFamilia familia;
 	
 	@Transient
-	@RestapiField(
-			lovWithDescriptionInput = false,
+	@RestapiField(			
 			includeInQuickFilter = false,
 			disabledForCreate = true,
 			disabledForUpdate = true)

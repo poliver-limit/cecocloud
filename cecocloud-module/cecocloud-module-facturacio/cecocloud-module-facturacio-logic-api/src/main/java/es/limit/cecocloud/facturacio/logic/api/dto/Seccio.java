@@ -75,8 +75,7 @@ public class Seccio extends AbstractIdentificableWithCompositePk<SeccioPk> {
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovWithDescriptionInput = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov=true
 			)

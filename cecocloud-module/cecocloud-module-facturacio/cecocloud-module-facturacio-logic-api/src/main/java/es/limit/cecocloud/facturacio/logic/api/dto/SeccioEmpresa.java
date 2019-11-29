@@ -38,12 +38,13 @@ public class SeccioEmpresa extends AbstractIdentificableWithCompositePk<SeccioEm
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = false, 
+			type = RestapiFieldType.LOV,
+			
 			disabledForUpdate = true,  
 			toUpperCase = true,
-			includeInQuickFilter = true,
-			lovModule = "rrhh")
+			includeInQuickFilter = true
+//			lovModule = "rrhh"
+			)
 	private Seccio seccio;
 	
 	@NotNull

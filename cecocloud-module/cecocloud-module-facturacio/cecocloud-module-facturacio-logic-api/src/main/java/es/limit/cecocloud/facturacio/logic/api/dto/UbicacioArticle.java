@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -36,8 +35,7 @@ public class UbicacioArticle extends AbstractIdentificableWithCompositePk<Ubicac
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV, 
-			lovWithDescriptionInput = true, 
+			type = RestapiFieldType.LOV,			
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
