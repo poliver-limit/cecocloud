@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -33,30 +32,11 @@ import lombok.Setter;
 )
 public class ArticleFamiliaEmpresa extends AbstractIdentificableWithCompositePk<ArticleFamiliaEmpresaPk> {
 
-	@NotNull(groups = { OnCreate.class })
-	@Size(max = 4)
-	@RestapiField(
-			disabledForUpdate = true,
-			toUpperCase = true,
-			includeInQuickFilter = true)
-	private String codi;
-	
-//	@Transient
-//	@NotNull(groups = {OnCreate.class})
-//	@RestapiField(
-//			type = RestapiFieldType.LOV, 
-//			lovWithDescriptionInput = false, 
-//			disabledForUpdate = true,
-//			toUpperCase = true,
-//			includeInQuickFilter = true)
-//	private Empresa empresa;
-	
 	@NotNull
 	@RestapiField(
 			hiddenInLov=true,
 			includeInQuickFilter = true)
 	private boolean web;
-
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -64,7 +44,6 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithCompositePk<
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
-	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -72,7 +51,6 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithCompositePk<
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<ArticleFamilia, String> articleFamilia;
-	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

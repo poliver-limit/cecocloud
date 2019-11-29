@@ -47,13 +47,14 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.articleCodi", column = @Column(name = "sui_art_cod", length = 6)),
 	@AttributeOverride(name = "id.magatzemCodi", column = @Column(name = "sui_mag_cod", length = 6)),
 	@AttributeOverride(name = "id.classe", column = @Column(name = "sui_cls", length = 6)),	
+
+	@AttributeOverride(name = "embedded.classe", column = @Column(name = "sui_cls", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.unitatsInicials", column = @Column(name = "sui_uniini", nullable = false)),
+	@AttributeOverride(name = "embedded.unitatsMetriquesInicials", column = @Column(name = "sui_unimetini")),
+	@AttributeOverride(name = "embedded.preuCostUnitari", column = @Column(name = "sui_prucosuni", nullable = false)),
+	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "sui_div_cod", length = 4, nullable = false)),
+	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "sui_far_cod", length = 4, nullable = false)),
 	
-	@AttributeOverride(name = "embedded.unitatsInicials", column = @Column(name = "sui_uniini", nullable = false)),			
-	@AttributeOverride(name = "embedded.unitatsMetriquesInicials", column = @Column(name = "sui_unimetini")),			
-	@AttributeOverride(name = "embedded.preuCostUnitari", column = @Column(name = "sui_prucosuni", nullable = false)),			
-	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "sui_div_cod", length = 4, nullable = false)),			
-	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "sui_far_cod", length = 4, nullable = false)),			
-			
 //	@Transient
 //	@RestapiField(
 //			lovWithDescriptionInput = false,
@@ -61,7 +62,7 @@ import lombok.Setter;
 //			disabledForCreate = true,
 //			disabledForUpdate = true)
 //	private Object ubicacionsReferencies;
-	
+
 	@AttributeOverride(name = "createdBy", column = @Column(name = "sui_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "sui_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "sui_usumod")),

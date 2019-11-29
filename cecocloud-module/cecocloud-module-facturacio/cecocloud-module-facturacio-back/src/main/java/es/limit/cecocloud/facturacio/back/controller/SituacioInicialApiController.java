@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
-import es.limit.base.boot.back.controller.ApiControllerHelper;
+import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioInicial;
 import es.limit.cecocloud.facturacio.logic.api.service.SituacioInicialService;
@@ -22,7 +22,7 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(ApiControllerHelper.API_PATH + "/situacionsInicial")
+@RequestMapping(FacturacioModule.API_PATH + "/situacionsInicial")
 public class SituacioInicialApiController extends AbstractIdentificableApiController<SituacioInicial, String> {
 
 	@Autowired

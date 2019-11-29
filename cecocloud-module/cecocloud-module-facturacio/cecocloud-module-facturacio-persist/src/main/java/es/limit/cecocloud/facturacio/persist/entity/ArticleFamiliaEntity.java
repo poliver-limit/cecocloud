@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.excloureAlGenerarAlbara", column = @Column(name = "far_blogenalb", length = 1, nullable = false)),	
 	@AttributeOverride(name = "embedded.margeSobreCost", column = @Column(name = "far_marpvpcos")),	
 	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "far_cmiven")),	
-	@AttributeOverride(name = "embedded.compteExistencies", column = @Column(name = "far_desope", length = 500)),	
+	@AttributeOverride(name = "embedded.compteExistencies", column = @Column(name = "far_ctecmpexi", length = 500)),	
 	@AttributeOverride(name = "embedded.compteCompres", column = @Column(name = "far_ctacprcmp", length = 10)),
 	@AttributeOverride(name = "embedded.compteVentes", column = @Column(name = "far_ctavencmp", length = 10)),	
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "far_obs", length = 1000)),	

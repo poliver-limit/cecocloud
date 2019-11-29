@@ -33,6 +33,14 @@ import lombok.Setter;
 )
 public class SituacioInicial extends AbstractIdentificableWithCompositePk<SituacioInicialPk> {
 
+	@RestapiField()
+	private BigDecimal unitatsInicials;
+	@RestapiField()
+	private BigDecimal unitatsMetriquesInicials;
+	@RestapiField()
+	private BigDecimal preuCostUnitari;
+	@RestapiField()
+	private String classe;
 	@Transient
 	@NotNull
 	@RestapiField(
@@ -41,16 +49,6 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private GenericReference<Article, String> article;	
-	
-	@RestapiField()
-	private BigDecimal unitatsInicials;
-	
-	@RestapiField()
-	private BigDecimal unitatsMetriquesInicials;
-	
-	@RestapiField()
-	private BigDecimal preuCostUnitari;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
@@ -59,7 +57,6 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private Divisa divisa;
-	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
@@ -67,14 +64,6 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private ArticleFamilia familia;
-	
-	@Transient
-	@RestapiField(			
-			includeInQuickFilter = false,
-			disabledForCreate = true,
-			disabledForUpdate = true)
-	private Object ubicacionsReferencies;
-
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -90,9 +79,12 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Magatzem, String> magatzem;
-	
-	@RestapiField()
-	private String classe;
+	@Transient
+	@RestapiField(			
+			includeInQuickFilter = false,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private Object ubicacionsReferencies;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

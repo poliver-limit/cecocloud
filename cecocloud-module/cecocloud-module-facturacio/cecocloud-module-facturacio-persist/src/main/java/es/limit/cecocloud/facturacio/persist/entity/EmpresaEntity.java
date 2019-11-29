@@ -44,9 +44,10 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "emp_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "emp_cod", length = 4)),	
-		
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "emp_nomcom", length = 40, nullable = false)),			
+	@AttributeOverride(name = "id.codi", column = @Column(name = "emp_cod", length = 4)),
+
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "emp_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.nomComercial", column = @Column(name = "emp_nomcom", length = 40, nullable = false)),			
 	@AttributeOverride(name = "embedded.domiciliComercial", column = @Column(name = "emp_domcom", length = 60, nullable = false)),			
 	@AttributeOverride(name = "embedded.codiPostalComercialCodi", column = @Column(name = "emp_cpocodcom", length = 8, nullable = false)),			
 	@AttributeOverride(name = "embedded.nomFiscal", column = @Column(name = "emp_nomfis", length = 40, nullable = false)),			
@@ -77,7 +78,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.logoImprimir", column = @Column(name = "emp_prnlog", length = 1)),
 	@AttributeOverride(name = "embedded.logoPath", column = @Column(name = "emp_dirlog", length = 300)),			
 	@AttributeOverride(name = "embedded.tancamentData", column = @Column(name = "emp_dattan")),
-			
+
 	@AttributeOverride(name = "createdBy", column = @Column(name = "emp_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "emp_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "emp_usumod")),

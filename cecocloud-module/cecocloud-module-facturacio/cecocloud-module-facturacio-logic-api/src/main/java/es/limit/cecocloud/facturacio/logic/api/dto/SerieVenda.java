@@ -180,12 +180,6 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteVendesProforma;
- 	
-	@Size(max = 10)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String facturaDesc;
 	
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)

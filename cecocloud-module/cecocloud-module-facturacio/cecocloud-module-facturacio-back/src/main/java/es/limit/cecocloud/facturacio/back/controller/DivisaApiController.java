@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
-import es.limit.base.boot.back.controller.ApiControllerHelper;
+import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.Divisa;
 import es.limit.cecocloud.facturacio.logic.api.service.DivisaService;
@@ -22,7 +22,7 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(ApiControllerHelper.API_PATH + "/divises")
+@RequestMapping(FacturacioModule.API_PATH + "/divises")
 public class DivisaApiController extends AbstractIdentificableApiController<Divisa, String> {
 
 	@Autowired

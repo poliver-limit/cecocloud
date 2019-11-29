@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
-import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia;
+import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
 import es.limit.cecocloud.facturacio.logic.api.service.ArticleFamiliaService;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -22,7 +22,7 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(ApiControllerHelper.API_PATH + "/articlesFamilia")
+@RequestMapping(FacturacioModule.API_PATH + "/articlesFamilia")
 public class ArticleFamiliaApiController extends AbstractIdentificableApiController<ArticleFamilia, String> {
 
 	@Autowired

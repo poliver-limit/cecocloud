@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableWithPermissionsApiController;
-import es.limit.base.boot.back.controller.ApiControllerHelper;
+import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
@@ -19,7 +19,7 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(ApiControllerHelper.API_PATH + "/empreses")
+@RequestMapping(GenericController.API_PATH + "/empreses")
 public class EmpresaApiController extends AbstractIdentificableWithPermissionsApiController<Empresa, Long> {
 
 	@Autowired
