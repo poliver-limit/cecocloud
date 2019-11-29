@@ -5,6 +5,9 @@ package es.limit.cecocloud.logic.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
+import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.test.AbstractServiceTest;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Empresa;
@@ -15,7 +18,7 @@ import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class EmpresaTest extends AbstractServiceTest<Empresa, Long> {
+public class EmpresaServiceTest extends AbstractServiceTest<Empresa, Long> {
 
 	@Override
 	protected CrudTester<Empresa> getCrudTester() {
@@ -45,6 +48,10 @@ public class EmpresaTest extends AbstractServiceTest<Empresa, Long> {
 				assertEquals(expected.getNom(), actual.getNom());
 				assertEquals(expected.getTipus(), actual.getTipus());
 				assertEquals(expected.isActiva(), actual.isActiva());
+			}
+			@Override
+			public List<Class<? extends Identificable<?>>> toCreateBeforeTest() {
+				return null;
 			}
 		};
 	}

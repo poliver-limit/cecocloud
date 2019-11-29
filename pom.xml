@@ -35,5 +35,6 @@
 		<module>cecocloud-front</module>
 		<module>cecocloud-main</module>
  		<module>cecocloud-module</module>
+ 		<module>cecocloud-test</module>
 	</modules>
 </project>
