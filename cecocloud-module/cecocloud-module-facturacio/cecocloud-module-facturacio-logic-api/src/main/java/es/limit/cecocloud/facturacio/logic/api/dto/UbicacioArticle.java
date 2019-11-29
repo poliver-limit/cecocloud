@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -76,10 +77,9 @@ public class UbicacioArticle extends AbstractIdentificableWithCompositePk<Ubicac
 	@Getter
 	@SuppressWarnings("serial")
 	public static class UbicacioArticlePk implements Serializable {
-		private String identificadorCodi;
+		private String identificadorCodi;		
 		private String articleCodi;
-		private String magatzemCodi;
-		private String codi;
+		private String magatzemCodi;		
 	}
 
 }

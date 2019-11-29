@@ -64,9 +64,9 @@ public class Ubicacio extends AbstractIdentificableWithCompositePk<UbicacioPk> {
 	@Getter
 	@SuppressWarnings("serial")
 	public static class UbicacioPk implements Serializable {
-		private String identificadorCodi;
-		private String magatzemCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String magatzemCodi;
 	}
 
 }

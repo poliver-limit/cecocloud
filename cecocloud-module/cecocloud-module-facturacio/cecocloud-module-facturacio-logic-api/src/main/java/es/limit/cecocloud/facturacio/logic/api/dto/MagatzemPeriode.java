@@ -73,9 +73,9 @@ public class MagatzemPeriode extends AbstractIdentificableWithCompositePk<Magatz
 	@Getter
 	@SuppressWarnings("serial")
 	public static class MagatzemPeriodePk implements Serializable {
-		private String identificadorCodi;
-		private String magatzemCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String magatzemCodi;
 	}
 
 }

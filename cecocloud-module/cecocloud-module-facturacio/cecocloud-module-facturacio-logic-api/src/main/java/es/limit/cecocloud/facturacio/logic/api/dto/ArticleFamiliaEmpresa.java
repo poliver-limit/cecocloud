@@ -88,10 +88,8 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithCompositePk<
 	@SuppressWarnings("serial")
 	public static class ArticleFamiliaEmpresaPk implements Serializable {
 		private String identificadorCodi;
-		private String empresaCodi;
 		private String articleFamiliaCodi;
-		
-		private String codi;
+		private String empresaCodi;
 	}
 
 }

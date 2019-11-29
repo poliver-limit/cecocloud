@@ -42,8 +42,7 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "mca_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.paisCodi", column = @Column(name = "mca_pas_cod", length = 4)),
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "mca_idf_cod", length = 4)),	
 	@AttributeOverride(name = "id.codi", column = @Column(name = "mca_cod", length = 4)),
 	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "mca_cod", length = 4, insertable = false, updatable = false)),

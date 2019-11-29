@@ -39,15 +39,14 @@ import lombok.Setter;
 		name = "tges_sui",
 		indexes = {
 				@Index(name = "iges_sui_idf_fk", columnList = "sui_idf_cod"),
-				@Index(name = "irges_sui_pk", columnList = "sui_idf_cod,sui_cod", unique = true)
+				@Index(name = "irges_sui_pk", columnList = "sui_idf_cod", unique = true)
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "sui_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.articleCodi", column = @Column(name = "sui_art_cod", length = 6)),
 	@AttributeOverride(name = "id.magatzemCodi", column = @Column(name = "sui_mag_cod", length = 6)),
-	@AttributeOverride(name = "id.classe", column = @Column(name = "sui_cls", length = 6)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "sui_cod", length = 4)),
+	@AttributeOverride(name = "id.classe", column = @Column(name = "sui_cls", length = 6)),	
 	
 	@AttributeOverride(name = "embedded.unitatsInicials", column = @Column(name = "sui_uniini", nullable = false)),			
 	@AttributeOverride(name = "embedded.unitatsMetriquesInicials", column = @Column(name = "sui_unimetini")),			

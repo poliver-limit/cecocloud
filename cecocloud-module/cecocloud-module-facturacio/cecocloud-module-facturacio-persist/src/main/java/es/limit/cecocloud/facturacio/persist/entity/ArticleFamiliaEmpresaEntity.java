@@ -39,14 +39,13 @@ import lombok.Setter;
 		name = "tges_fae",
 		indexes = {
 				@Index(name = "iges_fae_idf_fk", columnList = "fae_idf_cod"),
-				@Index(name = "irges_fae_pk", columnList = "fae_idf_cod,fae_cod", unique = true)
+				@Index(name = "irges_fae_pk", columnList = "fae_idf_cod", unique = true)
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fae_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.articleFamiliaCodi", column = @Column(name = "fae_far_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "fae_cod", length = 4)),
-	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "dfs_emp_cod", length = 4)),
+	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "fae_emp_cod", length = 4)),
 	
 	@AttributeOverride(name = "embedded.web", column = @Column(name = "fae_web")),
 	

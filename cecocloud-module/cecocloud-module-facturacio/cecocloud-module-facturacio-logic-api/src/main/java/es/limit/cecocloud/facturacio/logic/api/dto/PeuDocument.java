@@ -113,9 +113,9 @@ public class PeuDocument extends AbstractIdentificableWithCompositePk<PeuDocumen
 	@Getter
 	@SuppressWarnings("serial")
 	public static class PeuDocumentPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String empresaCodi;
 	}
 
 }

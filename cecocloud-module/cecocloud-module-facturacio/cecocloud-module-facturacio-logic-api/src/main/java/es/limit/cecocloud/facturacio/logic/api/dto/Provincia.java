@@ -67,9 +67,9 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 	@Getter
 	@SuppressWarnings("serial")
 	public static class ProvinciaPk implements Serializable {
-		private String identificadorCodi;
-		private String paisCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String paisCodi;
 	}
 
 }

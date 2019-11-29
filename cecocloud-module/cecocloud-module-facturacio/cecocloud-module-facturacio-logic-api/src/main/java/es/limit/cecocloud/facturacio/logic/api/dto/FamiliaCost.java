@@ -13,7 +13,9 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.FamiliaCost.FamiliaCostPk;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -59,6 +61,14 @@ public class FamiliaCost extends AbstractIdentificableWithCompositePk<FamiliaCos
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private ArticleFamilia articleFamilia;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInForm = true)
+	private GenericReference<Identificador, String> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

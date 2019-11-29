@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -104,11 +105,10 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 	@Getter
 	@SuppressWarnings("serial")
 	public static class SituacioInicialPk implements Serializable {
-		private String identificadorCodi;
+		private String identificadorCodi;		
 		private String articleCodi;
-		private String magatzemCodi;
 		private String classe;
-		private String codi;
+		private String magatzemCodi;		
 	}
 
 }

@@ -272,9 +272,9 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 	@Getter
 	@SuppressWarnings("serial")
 	public static class SerieVendaPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String empresaCodi;
 	}
 
 }

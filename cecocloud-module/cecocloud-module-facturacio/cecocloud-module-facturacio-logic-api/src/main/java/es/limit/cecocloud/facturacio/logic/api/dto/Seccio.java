@@ -112,9 +112,9 @@ public class Seccio extends AbstractIdentificableWithCompositePk<SeccioPk> {
 	@Getter
 	@SuppressWarnings("serial")
 	public static class SeccioPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String empresaCodi;
 	}
 
 }

@@ -40,6 +40,12 @@ import lombok.Setter;
 )
 public class Empresa extends AbstractIdentificableWithCompositePk<EmpresaPk> {
 
+	@Size(max = 4)
+	@RestapiField(disabledForUpdate = true,
+				toUpperCase = true,
+				includeInQuickFilter = true)
+	private String codi;
+	
 	@NotNull
 	@Size(max = 40)
 	@RestapiField(disabledForUpdate = true,

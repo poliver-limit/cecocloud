@@ -22,9 +22,9 @@ public class ProvinciaServiceImpl extends AbstractGenericCompositePkServiceImpl<
 	@Override
 	protected ProvinciaPk getPkFromDto(Provincia dto) {
 		return new ProvinciaPk(
-				dto.getIdentificador().getId(),
-				dto.getPais().getId(),
-				dto.getCodi());
+				dto.getIdentificador().getId(),				
+				dto.getCodi(),
+				dto.getPais().getId());
 	}
 
 

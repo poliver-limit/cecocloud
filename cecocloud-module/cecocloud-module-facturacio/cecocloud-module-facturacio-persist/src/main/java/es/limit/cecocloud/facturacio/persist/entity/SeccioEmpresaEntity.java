@@ -39,14 +39,13 @@ import lombok.Setter;
 		name = "tges_dfs",
 		indexes = {
 				@Index(name = "iges_dfs_idf_fk", columnList = "dfs_idf_cod"),
-				@Index(name = "irges_dfs_pk", columnList = "dfs_idf_cod,dfs_cod", unique = true)
+				@Index(name = "irges_dfs_pk", columnList = "dfs_idf_cod", unique = true)
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "dfs_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "dfs_emp_cod", length = 4)),
-	@AttributeOverride(name = "id.articleFamiliaCodi", column = @Column(name = "dfs_far_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "dfs_cod", length = 4)),	
+	@AttributeOverride(name = "id.articleFamiliaCodi", column = @Column(name = "dfs_far_cod", length = 4)),		
 	
 	@AttributeOverride(name = "embedded.seccioCodi", column = @Column(name = "dfs_sec_cod", insertable = false, updatable = false)),			
 	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "dfs_pte")),			

@@ -34,7 +34,7 @@ import lombok.Setter;
 		descriptionField = "nom"
 )
 public class SeccioEmpresa extends AbstractIdentificableWithCompositePk<SeccioEmpresaPk> {
-
+	
 	@Transient
 	@NotNull
 	@RestapiField(
@@ -84,10 +84,9 @@ public class SeccioEmpresa extends AbstractIdentificableWithCompositePk<SeccioEm
 	@Getter
 	@SuppressWarnings("serial")
 	public static class SeccioEmpresaPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String articleFamiliaCodi;
-		private String codi;
+		private String empresaCodi;
 	}
 
 }

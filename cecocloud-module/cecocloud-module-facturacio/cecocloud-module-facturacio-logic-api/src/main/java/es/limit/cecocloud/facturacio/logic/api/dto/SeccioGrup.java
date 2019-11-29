@@ -67,9 +67,9 @@ public class SeccioGrup extends AbstractIdentificableWithCompositePk<SeccioGrupP
 	@Getter
 	@SuppressWarnings("serial")
 	public static class SeccioGrupPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String empresaCodi;
 	}
 
 }

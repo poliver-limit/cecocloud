@@ -76,9 +76,9 @@ public class Departament extends AbstractIdentificableWithCompositePk<Departamen
 	@Getter
 	@SuppressWarnings("serial")
 	public static class DepartamentPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String empresaCodi;
 	}
 
 }

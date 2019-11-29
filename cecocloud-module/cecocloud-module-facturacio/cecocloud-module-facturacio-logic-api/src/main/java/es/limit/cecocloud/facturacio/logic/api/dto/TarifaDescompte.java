@@ -60,14 +60,6 @@ public class TarifaDescompte extends AbstractIdentificableWithCompositePk<Tarifa
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Pais, String> pais;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -75,9 +67,8 @@ public class TarifaDescompte extends AbstractIdentificableWithCompositePk<Tarifa
 	@Getter
 	@SuppressWarnings("serial")
 	public static class TarifaDescomptePk implements Serializable {
-		private String identificadorCodi;
-		private String paisCodi;
-		private String codi;
+		private String identificadorCodi;		
+		private String codi;		
 	}
 
 }

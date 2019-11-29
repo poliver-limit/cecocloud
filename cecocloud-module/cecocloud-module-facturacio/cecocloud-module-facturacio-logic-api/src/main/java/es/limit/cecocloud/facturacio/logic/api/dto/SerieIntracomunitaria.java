@@ -85,9 +85,9 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithCompositePk<
 	@Getter
 	@SuppressWarnings("serial")
 	public static class SerieIntracomunitariaPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String empresaCodi;
 	}
 
 }

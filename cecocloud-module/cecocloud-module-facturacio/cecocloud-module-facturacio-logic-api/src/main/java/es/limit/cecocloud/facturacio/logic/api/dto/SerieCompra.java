@@ -116,9 +116,9 @@ public class SerieCompra extends AbstractIdentificableWithCompositePk<SerieCompr
 	@Getter
 	@SuppressWarnings("serial")
 	public static class SerieCompraPk implements Serializable {
-		private String identificadorCodi;
-		private String empresaCodi;
+		private String identificadorCodi;		
 		private String codi;
+		private String empresaCodi;
 	}
 
 }
