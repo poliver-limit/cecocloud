@@ -32,11 +32,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "codi"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 
@@ -47,7 +42,7 @@ public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 			includeInQuickFilter = true)
 	private String codi;
 	@NotNull
-	@Size(max = 30)
+	@Size(max = 30) 
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
@@ -86,7 +81,6 @@ public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 

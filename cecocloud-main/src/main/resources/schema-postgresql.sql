@@ -118,7 +118,7 @@ create table usuari (
     contrasenya varchar(255),
     email varchar(100) not null,
     imatge_url varchar(255),
-    llinatges varchar(100),
+    llinatges varchar(100) not null,
     nom varchar(100) not null,
     validat boolean,
     primary key (id)

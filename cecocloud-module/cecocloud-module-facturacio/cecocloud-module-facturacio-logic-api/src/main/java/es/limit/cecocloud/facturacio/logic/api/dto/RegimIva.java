@@ -31,11 +31,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "descripcio"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class RegimIva extends AbstractIdentificableWithCompositePk<RegimIvaPk> {
 
@@ -66,13 +61,11 @@ public class RegimIva extends AbstractIdentificableWithCompositePk<RegimIvaPk> {
 			hiddenInLov = true)
 	private String codiFacturaElectronica;
 	
-	// Camps transient (no persistència)
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 

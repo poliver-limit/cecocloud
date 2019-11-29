@@ -32,11 +32,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 
@@ -71,7 +66,6 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 

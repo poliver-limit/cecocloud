@@ -32,11 +32,6 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom"
-//		resourceAccessConstraints = {
-//				@RestapiResourceAccessConstraint(
-//						type = RestapiPermissionConstraintType.ACL_RESOURCE
-//				)
-//		}
 )
 public class DocumentPagamentCobrament extends AbstractIdentificableWithCompositePk<DocumentPagamentCobramentPk> {
 
@@ -132,7 +127,6 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
 	@Transient

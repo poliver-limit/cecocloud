@@ -10,7 +10,8 @@
 	<artifactId>cecocloud-modules</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>cecocloud-module-marcatges</module>
 		<module>cecocloud-module-facturacio</module>
+		<module>cecocloud-module-rrhh</module>
+		<module>cecocloud-module-marc</module>
 	</modules>
 </project>

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableWithPermissionsApiController;
-import es.limit.base.boot.back.controller.ApiControllerHelper;
 import es.limit.base.boot.back.controller.ApiControllerHelper.SelfLinkBuilder;
+import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import es.limit.cecocloud.logic.api.dto.CompanyiaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.service.CompanyiaService;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(ApiControllerHelper.API_PATH + "/companyies")
+@RequestMapping(GenericController.API_PATH + "/companyies")
 public class CompanyiaApiController extends AbstractIdentificableWithPermissionsApiController<Companyia, Long> {
 
 	@Autowired
