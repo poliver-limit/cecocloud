@@ -16,7 +16,7 @@ import es.limit.cecocloud.facturacio.persist.entity.EmpresaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service
+@Service("factEmpresaServiceImpl")
 public class EmpresaServiceImpl extends AbstractGenericCompositePkServiceImpl<Empresa, EmpresaEntity, EmpresaPk> implements EmpresaService {
 
 	@Override

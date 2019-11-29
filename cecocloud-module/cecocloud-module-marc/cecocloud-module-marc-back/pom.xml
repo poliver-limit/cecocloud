@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>es.limit.cecogest</groupId>
-		<artifactId>cecocloud-module-marcatges</artifactId>
+		<artifactId>cecocloud-module-marc</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-module-marcatges-persist</artifactId>
+	<artifactId>cecocloud-module-marc-back</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -16,12 +16,17 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>cecocloud-persist</artifactId>
+			<artifactId>cecocloud-back</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>cecocloud-module-marcatges-logic-api</artifactId>
+			<artifactId>cecocloud-module-marc-logic-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-marc-logic</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

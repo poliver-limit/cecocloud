@@ -18,7 +18,7 @@ import es.limit.cecocloud.facturacio.logic.api.service.EmpresaService;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
+@RestController("factEmpresaApiController")
 @RequestMapping(ApiControllerHelper.API_PATH + "/empreses")
 public class EmpresaApiController extends AbstractIdentificableApiController<Empresa, String> {
 

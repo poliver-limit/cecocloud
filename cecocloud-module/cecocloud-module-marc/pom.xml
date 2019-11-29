@@ -7,13 +7,13 @@
 		<artifactId>cecocloud-modules</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-module-marcatges</artifactId>
+	<artifactId>cecocloud-module-marc</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>cecocloud-module-marcatges-front</module>
-		<module>cecocloud-module-marcatges-back</module>
-		<module>cecocloud-module-marcatges-logic-api</module>
-		<module>cecocloud-module-marcatges-logic</module>
-		<module>cecocloud-module-marcatges-persist</module>
+		<module>cecocloud-module-marc-front</module>
+		<module>cecocloud-module-marc-back</module>
+		<module>cecocloud-module-marc-logic-api</module>
+		<module>cecocloud-module-marc-logic</module>
+		<module>cecocloud-module-marc-persist</module>
 	</modules>
 </project>

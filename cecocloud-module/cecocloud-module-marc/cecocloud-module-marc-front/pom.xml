@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>es.limit.cecogest</groupId>
-		<artifactId>cecocloud-module-marcatges</artifactId>
+		<artifactId>cecocloud-module-marc</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-module-marcatges-front</artifactId>
+	<artifactId>cecocloud-module-marc-front</artifactId>
 </project>
