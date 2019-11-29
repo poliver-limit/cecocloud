@@ -4,14 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>es.limit.cecogest</groupId>
-		<artifactId>cecocloud</artifactId>
+		<artifactId>cecocloud-module-rrhh</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-modules</artifactId>
-	<packaging>pom</packaging>
-	<modules>
-		<module>cecocloud-module-marcatges</module>
-		<module>cecocloud-module-facturacio</module>
-		<module>cecocloud-module-rrhh</module>
-	</modules>
+	<artifactId>cecocloud-module-rrhh-front</artifactId>
 </project>

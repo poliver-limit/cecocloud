@@ -74,5 +74,17 @@
 			<artifactId>cecocloud-logic</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>es.limit</groupId>
+			<artifactId>base-boot-test</artifactId>
+			<version>${baseboot.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

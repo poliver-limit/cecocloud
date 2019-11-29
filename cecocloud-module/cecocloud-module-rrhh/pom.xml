@@ -4,14 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>es.limit.cecogest</groupId>
-		<artifactId>cecocloud</artifactId>
+		<artifactId>cecocloud-modules</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-modules</artifactId>
+	<artifactId>cecocloud-module-rrhh</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>cecocloud-module-marcatges</module>
-		<module>cecocloud-module-facturacio</module>
-		<module>cecocloud-module-rrhh</module>
+		<module>cecocloud-module-rrhh-back</module>
+		<module>cecocloud-module-rrhh-logic-api</module>
+		<module>cecocloud-module-rrhh-logic</module>
+		<module>cecocloud-module-rrhh-persistence</module>
+		<module>cecocloud-module-rrhh-front</module>
 	</modules>
 </project>

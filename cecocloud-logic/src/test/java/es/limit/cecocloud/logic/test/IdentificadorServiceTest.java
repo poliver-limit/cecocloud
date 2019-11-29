@@ -5,6 +5,9 @@ package es.limit.cecocloud.logic.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
+import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.test.AbstractServiceTest;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
@@ -14,7 +17,7 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class IdentificadorTest extends AbstractServiceTest<Identificador, String> {
+public class IdentificadorServiceTest extends AbstractServiceTest<Identificador, String> {
 
 	@Override
 	protected CrudTester<Identificador> getCrudTester() {
@@ -36,6 +39,10 @@ public class IdentificadorTest extends AbstractServiceTest<Identificador, String
 				assertEquals(expected.getCodi(), actual.getCodi());
 				assertEquals(expected.getNom(), actual.getNom());
 				assertEquals(expected.isActiu(), actual.isActiu());
+			}
+			@Override
+			public List<Class<? extends Identificable<?>>> toCreateBeforeTest() {
+				return null;
 			}
 		};
 	}
