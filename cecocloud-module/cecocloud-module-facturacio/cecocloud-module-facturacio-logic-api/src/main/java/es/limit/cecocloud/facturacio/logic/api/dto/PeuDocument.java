@@ -96,7 +96,7 @@ public class PeuDocument extends AbstractIdentificableWithCompositePk<PeuDocumen
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaFact, String> empresa;
 	
 	@Transient
 	@RestapiField(

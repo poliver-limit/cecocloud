@@ -8,34 +8,42 @@ import { BngModule, BngFormExitGuard } from 'base-angular';
 import { MaterialModule } from '../../shared/material.module';
 
 import { CompanyiaUsuarisGridComponent, CompanyiaUsuarisAddDialog } from './companyia-usuaris-grid.component';
+import { CompanyiaUsuarisFormComponent } from './companyia-usuaris-form.component';
 import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { UsuarisService } from './usuaris.service';
-import { CompanyiaUsuarisFormComponent } from './companyia-usuaris-form.component';
+import { UsuariEmpresaService } from './../../shared/usuari-empresa.service';
+import { PerfilUsuariEmpresaService } from './perfil-usuari-empresa.service';
+import { PerfilsService } from './../perfils/perfils.service';
+import { MatTableModule } from '@angular/material';
 
-@NgModule( {
+@NgModule({
     imports: [
         CommonModule,
-		FormsModule,
+        FormsModule,
         ReactiveFormsModule,
-		TranslateModule,
+        TranslateModule,
         BngModule,
-		MaterialModule,
+        MaterialModule,
+        MatTableModule,
         RouterModule.forChild([
             { path: '', component: CompanyiaUsuarisGridComponent, canDeactivate: [BngFormExitGuard] },
-			{ path: 'update/:id', component: CompanyiaUsuarisFormComponent, canDeactivate: [BngFormExitGuard] }
+            { path: 'update/:id', component: CompanyiaUsuarisFormComponent, canDeactivate: [BngFormExitGuard] }
         ])
     ],
     declarations: [
         CompanyiaUsuarisGridComponent,
-		CompanyiaUsuarisFormComponent,
-		CompanyiaUsuarisAddDialog
+        CompanyiaUsuarisFormComponent,
+        CompanyiaUsuarisAddDialog
     ],
     providers: [
         CompanyiaUsuarisService,
-		UsuarisService
+        UsuarisService,
+        UsuariEmpresaService,
+        PerfilsService,
+        PerfilUsuariEmpresaService
     ],
-	entryComponents: [
-		CompanyiaUsuarisAddDialog
-	]
-} )
-export class CompanyiaUsuarisModule {}
+    entryComponents: [
+        CompanyiaUsuarisAddDialog
+    ]
+})
+export class CompanyiaUsuarisModule { }

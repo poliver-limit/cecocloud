@@ -43,7 +43,7 @@
 	"component.restapi.form.manteniment.updated": "El registre s'ha modificat correctament",
 	"component.restapi.form.manteniment.deleted": "El registre s'ha esborrat correctament",
 	"component.restapi.form.manteniment.button.close": "Tancar",
-	
+
 	"component.restapi.lov.title": "Seleccionar",
 	"component.restapi.lov.button.close": "Tancar",
 	"component.restapi.lov.button.select": "Seleccionar",
@@ -172,7 +172,7 @@
 	"resource.rol.plural": "Rols",
 	"resource.rol.field.codi": "Codi",
 	"resource.rol.field.descripcio": "Descripció",
-	"resource.rol.field.companyia": "Companyia",	
+	"resource.rol.field.companyia": "Companyia",
 
 	"resource.perfil": "Perfil",
 	"resource.perfil.plural": "Perfils",
@@ -183,7 +183,7 @@
 	"resource.usuariCompanyia": "Usuari de la companyia",
 	"resource.usuariCompanyia.plural": "Usuaris de la companyia",
 	"resource.usuariCompanyia.field.usuari": "Usuari",
-	
+
 	"resource.zona" : "Zona",
 
 	"page.usuaris.canvi.contrasenya.titol": "Canviar contrasenya",
@@ -196,6 +196,9 @@
 
 	"page.companyia-usuaris.modal.titol": "Afegir usuari",
 	"page.companyia-usuaris.modal.button.cancelar": "Cancel·lar",
-	"page.companyia-usuaris.modal.button.afegir": "Afegir"
+	"page.companyia-usuaris.modal.button.afegir": "Afegir",
+
+	"page.componyia-usuari-empresa.permisos": "Permisos",
+	"page.componyia-usuari-empresa.preferencies": "Preferències"
 
 }

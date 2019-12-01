@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.limit.base.boot.logic.api.permission.ExternalGrantedAuthority;
 import es.limit.base.boot.logic.api.service.SessionService;
-import es.limit.base.boot.logic.service.AuthServiceImpl.ExternalGrantedAuthority;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.RolEntity;
 import es.limit.cecocloud.persist.repository.RolRepository;

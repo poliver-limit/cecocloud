@@ -15,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import es.limit.base.boot.logic.service.AuthServiceImpl.BaseBootAuthenticationToken;
+import es.limit.base.boot.logic.api.permission.BaseBootAuthenticationToken;
 import es.limit.cecocloud.logic.api.dto.Companyia;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.exception.ModuleDeniedException;

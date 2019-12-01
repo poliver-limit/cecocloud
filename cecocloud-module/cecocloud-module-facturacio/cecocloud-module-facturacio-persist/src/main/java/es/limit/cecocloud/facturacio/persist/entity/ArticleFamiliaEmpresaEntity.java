@@ -83,7 +83,7 @@ public class ArticleFamiliaEmpresaEntity extends AbstractAuditableCompositePkEnt
 						@JoinColumn(name = "fae_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 				},
 				foreignKey = @ForeignKey(name = "rges_fae_emp_fk"))
-	protected EmpresaEntity empresa;
+	protected EmpresaFactEntity empresa;
 	
 	@Builder
 	public ArticleFamiliaEmpresaEntity(
@@ -91,7 +91,7 @@ public class ArticleFamiliaEmpresaEntity extends AbstractAuditableCompositePkEnt
 			IdentificadorEntity identificador,
 			ArticleFamiliaEmpresa embedded,
 			ArticleFamiliaEntity familia,
-			EmpresaEntity empresa) {
+			EmpresaFactEntity empresa) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

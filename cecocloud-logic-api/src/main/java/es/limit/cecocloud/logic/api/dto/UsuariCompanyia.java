@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.Usuari;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
@@ -28,7 +30,15 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "usuari")
+		descriptionField = "usuari",
+		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(
+						type = RestapiPermissionConstraintType.ACL_ID, 
+						resourceClass = "es.limit.cecocloud.logic.api.dto.Companyia",
+						resourceSessionField = "companyia",
+						resourcePermission = "ADMINISTRATION"),
+		}
+)
 public class UsuariCompanyia extends AbstractIdentificableWithCompositePk<UsuariCompanyiaPk> {
 
 	@NotNull
