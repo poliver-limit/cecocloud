@@ -1,6 +1,12 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
+/*
+- Referències per a modificar el tema:
+	https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1
+	http://mcg.mbitson.com/
+*/
+
 $cecocloud-primary: (
     50 : #f1ebef,
     100 : #dbced7,
