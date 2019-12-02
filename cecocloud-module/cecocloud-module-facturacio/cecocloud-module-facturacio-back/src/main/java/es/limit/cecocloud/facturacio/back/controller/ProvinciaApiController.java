@@ -37,7 +37,7 @@ public class ProvinciaApiController extends AbstractIdentificableApiController<P
 
 	@Override
 	protected void completeDtoWithSession(Provincia dto, Object userSession) {
-		Long empresaId = ((UserSession)userSession).getEmpresa();
+		Long empresaId = ((UserSession)userSession).getE();
 		Empresa empresa = empresaService.getOne(empresaId);
 		dto.setIdentificador(GenericReference.toGenericReference(empresa.getIdentificador().getId()));
 	}

@@ -75,8 +75,8 @@ export class SelectorCompanyiaEmpresaComponent {
 				empresa = selectedCompanyiaEmpresa.empresa.id;
 			}
 			this.authService.sessionSave({
-				companyia: companyia,
-				empresa: empresa
+				c: companyia,
+				e: empresa
 			});
 		}
 		this.selectedCompanyiaEmpresaService.setSelectedCompanyiaEmpresa(selectedCompanyiaEmpresa);
@@ -96,10 +96,10 @@ export class SelectorCompanyiaEmpresaComponent {
 					let selectedCompanyia: any;
 					let selectedEmpresa: any;
 					let session: any = this.authService.getSession();
-					if (session && session.companyia && this.selectionTree) {
-						selectedCompanyia = this.selectionTree.find((companyia: any) => {return companyia.id === session.companyia});
-						if (session.empresa && selectedCompanyia && selectedCompanyia.empreses) {
-							selectedEmpresa = selectedCompanyia.empreses.find((empresa: any) => {return empresa.id === session.empresa});
+					if (session && session.c && this.selectionTree) {
+						selectedCompanyia = this.selectionTree.find((companyia: any) => {return companyia.id === session.c});
+						if (session.e && selectedCompanyia && selectedCompanyia.empreses) {
+							selectedEmpresa = selectedCompanyia.empreses.find((empresa: any) => {return empresa.id === session.e});
 						}
 					}
 					this.changeSelectedCompanyiaEmpresa({

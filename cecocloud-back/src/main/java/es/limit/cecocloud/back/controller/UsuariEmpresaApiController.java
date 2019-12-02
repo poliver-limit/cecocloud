@@ -22,7 +22,7 @@ public class UsuariEmpresaApiController extends AbstractIdentificableApiControll
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getCompanyia();
+		Long companyiaId = ((UserSession)userSession).getC();
 		return "empresa.companyia.id==" + companyiaId;
 	}
 

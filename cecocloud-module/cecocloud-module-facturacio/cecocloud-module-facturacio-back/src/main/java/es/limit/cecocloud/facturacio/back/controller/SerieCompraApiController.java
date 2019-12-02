@@ -37,7 +37,7 @@ public class SerieCompraApiController extends AbstractIdentificableApiController
 
 	@Override
 	protected void completeDtoWithSession(SerieCompra dto, Object userSession) {
-		Long empresaId = ((UserSession)userSession).getEmpresa();
+		Long empresaId = ((UserSession)userSession).getE();
 		Empresa empresa = empresaService.getOne(empresaId);
 		dto.setIdentificador(GenericReference.toGenericReference(empresa.getIdentificador().getId()));
 	}

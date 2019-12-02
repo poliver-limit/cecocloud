@@ -56,7 +56,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 		
 		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authenticationFacade.getAuthentication();
 		UserSession session = (UserSession)auth.getSession();
-		CompanyiaEntity companyia = companyiaRepository.getOne(session.getCompanyia());
+		CompanyiaEntity companyia = companyiaRepository.getOne(session.getC());
 		entity.updateCompanyia(companyia);
 		String codi;
 		boolean exist = false;

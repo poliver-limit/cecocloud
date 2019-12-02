@@ -45,10 +45,12 @@ public class SessionServiceImpl implements SessionService {
 			return null;
 		} else {
 			UserSession session = new UserSession();
-			session.setCompanyia(
-					objectToLong(jwtSession.get("companyia")));
-			session.setEmpresa(
-					objectToLong(jwtSession.get("empresa")));
+			session.setC(
+					objectToLong(jwtSession.get("c")));
+			session.setI(
+					objectToLong(jwtSession.get("i")));
+			session.setE(
+					objectToLong(jwtSession.get("e")));
 			return session;
 		}
 	}
@@ -60,12 +62,12 @@ public class SessionServiceImpl implements SessionService {
 			Long empresaId = null;
 			UserSession userSession = (UserSession)session;
 			if (userSession != null) {
-				empresaId = userSession.getEmpresa();
+				empresaId = userSession.getE();
 			}
 			if (empresaId != null) { // && identificadorCodi != null) {
 				List<RolEntity> rols = rolRepository.findByUsuariCodiEmpresa(
 						usuariCodi, 
-						userSession.getEmpresa());
+						userSession.getE());
 				if (rols != null && !rols.isEmpty()) {
 					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getCodi())).collect(Collectors.toList()); 
 				}

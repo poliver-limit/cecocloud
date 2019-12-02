@@ -52,7 +52,7 @@ public class PermisModulsAspect {
 		String usuari = auth.getName();
 		UserSession session = (UserSession)auth.getSession();
 		Companyia companyia = null;
-		Long companyiaId = session.getCompanyia();
+		Long companyiaId = session.getC();
 		if (companyiaId != null) {
 			try {
 				companyia = companyiaService.getOne(companyiaId);

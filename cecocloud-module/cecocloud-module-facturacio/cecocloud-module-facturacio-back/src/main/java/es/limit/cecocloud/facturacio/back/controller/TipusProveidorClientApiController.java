@@ -37,7 +37,7 @@ public class TipusProveidorClientApiController extends AbstractIdentificableApiC
 
 	@Override
 	protected void completeDtoWithSession(TipusProveidorClient dto, Object userSession) {
-		Long empresaId = ((UserSession)userSession).getEmpresa();
+		Long empresaId = ((UserSession)userSession).getE();
 		Empresa empresa = empresaService.getOne(empresaId);
 		dto.setIdentificador(GenericReference.toGenericReference(empresa.getIdentificador().getId()));
 	}
