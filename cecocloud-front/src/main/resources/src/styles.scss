@@ -1,11 +1,3 @@
-/*$mdc-theme-primary: #875a7b;
-$mdc-theme-secondary: #008784;
-$mdc-theme-on-primary: #feeae6;
-$mdc-theme-on-secondary: red;
-$mdc-theme-on-surface: #666;*/
-
-@import '~@angular-mdc/theme/material';
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~ag-grid-community/src/styles/ag-grid.scss';
 @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
 
@@ -30,6 +22,7 @@ mat-form-field.mat-form-field-sm .mat-form-field-infix {
 mat-checkbox .mat-checkbox-layout {
 	padding-top: 0.9em;
 }
+
 /*mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix  {
 	padding: 0.2em 0px .6em 0;
 }
@@ -65,7 +58,7 @@ mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-fie
 	width: 100%;
 }
 
-.mdc-tab-bar-top {
+/*.mdc-tab-bar-top {
 	@include mdc-tab-text-label-color($mdc-theme-on-primary);
 	@include mdc-tab-states-color(black);
 }
@@ -88,7 +81,7 @@ mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-fie
 	position: relative;
 	top: -3.5px;
 	left: -3.5px;
-}
+}*/
 
 .centered {
 	position: absolute;
@@ -98,7 +91,7 @@ mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-fie
 	transform: translate(-50%, -40%);
 }
 
-.logout-button-ink-color {
+/*.logout-button-ink-color {
 	@include mdc-button-ink-color(grey);
 	@include mdc-button-outline-color(grey);
 	@include mdc-states(lightgrey);
@@ -115,7 +108,7 @@ mdc-dialog.restapi-lov-dialog {
 mdc-dialog.default-error-dialog {
 	@include mdc-dialog-min-width(400px);
 	@include mdc-dialog-max-width(800px, 16px);
-}
+}*/
 
 * {
 	font-family: Lato, 'Roboto', Arial, sans-serif;
