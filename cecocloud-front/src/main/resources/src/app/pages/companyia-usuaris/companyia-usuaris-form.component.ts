@@ -1,7 +1,8 @@
+import { EmpresesService } from './../empreses/empreses.service';
 import { PerfilUsuariEmpresaService, PerfilUsuariEmpresa } from './perfil-usuari-empresa.service';
 import { PerfilsService } from './../perfils/perfils.service';
 import { UsuariEmpresaService } from './../../shared/usuari-empresa.service';
-import { Resource } from 'angular4-hal';
+import { Resource, HalParam } from 'angular4-hal';
 import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from "@ngx-translate/core";
@@ -13,6 +14,13 @@ import { BngRestapiProfile } from '@programari-limit/base-angular/lib/restapi/re
 import { UsuarisService } from "./usuaris.service";
 import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { MatTable, MatSnackBar } from '@angular/material';
+
+export interface EmpresaPerfil {
+	empresaNom: string;
+	empresaId: number;
+	usuariEmpresaId: string;
+	perfils: number[];
+}
 
 @Component({
 	template: `
@@ -64,6 +72,7 @@ import { MatTable, MatSnackBar } from '@angular/material';
 			<div style="width: 100%; margin-top: 40px;">
 				<mat-tab-group>
 					<mat-tab label="{{'page.componyia-usuari-empresa.permisos'|translate}}">
+						<!-- Pestanya de permisos -->
 						<table mat-table [dataSource]="perfilTree" class="mat-elevation-z8" style="width:100%;">
 							<!-- Columna de empresa -->
 							<ng-container matColumnDef="nom">
@@ -74,8 +83,8 @@ import { MatTable, MatSnackBar } from '@angular/material';
 							<ng-container matColumnDef="perfils">
 								<th mat-header-cell *matHeaderCellDef style="width:70%;"> {{'resource.perfil.plural' | translate}} </th>
 								<td mat-cell *matCellDef="let empresa; let index = index">
-									<mat-select [(value)]="empresa.perfils" multiple placeholder="Perfils" (selectionChange)="onPerfilChange($event, index)">
-										<mat-option *ngFor="let perfil of perfils" [value]="perfil.id">{{perfil.descripcio}}</mat-option>
+									<mat-select [(value)]="empresa.perfils" multiple placeholder="Sense accés" (selectionChange)="onPerfilChange($event, index)">
+										<mat-option *ngFor="let perfil of perfils" [value]="perfil.id">{{perfil.codi}}</mat-option>
 									</mat-select>
 								</td>
 							</ng-container>
@@ -84,6 +93,7 @@ import { MatTable, MatSnackBar } from '@angular/material';
 						</table>
 					</mat-tab>
 					<mat-tab label="{{'page.componyia-usuari-empresa.preferencies'|translate}}">
+					<!-- Pestanya de preferències -->
 						<h3>Empresa per defecte</h3>
 					</mat-tab>
 				</mat-tab-group>
@@ -113,19 +123,25 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	@ViewChild(MatTable, null) table: MatTable<any>;
 
 	public translate: TranslateService;
-
 	private routeSub: Subscription;
 
-	usuari: any;
 	usuariCompanyiaId: string;
 	currentRouteUrl: string;
 	mobileScreen: boolean;
 	hasSavePermission: boolean;
 	title: string;
-	anyFieldChanged: boolean;
+
+	usuari: any;
+	empreses: any[];
+	usuariEmpreses: any[];
+	perfilsUsuariEpresa: any[];
+	perfils: any[];
+	empresaPerfils: EmpresaPerfil[];
+	epo: EmpresaPerfil[];
+
+	//anyFieldChanged: boolean;
 	perfilTree: any[];
 	perfilTreeOriginal: any[];
-	perfils: any[];
 	columnsToDisplay: string[] = ['nom', 'perfils'];
 
 	ngOnDestroy() {
@@ -210,6 +226,10 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 		});
 	}
 
+	private generateTableData() {
+
+	}
+
 	translateKey(key: string, params?: any, defaultValue?: string) {
 		let translatedKey = this.translate.instant(key, params);
 		if (defaultValue) {
@@ -222,6 +242,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 		public usuarisService: UsuarisService,
 		public usuariCompanyiaService: CompanyiaUsuarisService,
 		public usuariEmpresaService: UsuariEmpresaService,
+		public empresaService: EmpresesService,
 		public perfilsService: PerfilsService,
 		public perfilUsuariEmpresaService: PerfilUsuariEmpresaService,
 		translate: TranslateService,
@@ -231,7 +252,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 		private snackbar: MatSnackBar) {
 
 		this.perfilTree = [];
-		this.anyFieldChanged = false;
+		//this.anyFieldChanged = false;
 		this.currentRouteUrl = this.router.url;
 		this.translate = translate;
 		this.mobileScreen = this.screenSizeService.isMobile();
@@ -248,12 +269,36 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 						this.usuarisService.get(usuariCompanyia['usuari']['id']).subscribe((usuari: Resource) => {
 							this.usuari = usuari;
 							this.refreshEmpresaPerfils();
+
+							this.empresaService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
+								let requestParams: HalParam[] = [];
+								requestParams.push({ key: 'sort', value: 'nom,ASC' });
+								this.empresaService.getAll({ params: requestParams }).subscribe((response: any) => {
+									this.empreses = response;
+									this.usuariEmpresaService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
+										let requestParams: HalParam[] = [];
+										requestParams.push({ key: 'query', value: 'usuari.id==' + this.usuari.id });
+										requestParams.push({ key: 'sort', value: 'empresa.nom,ASC' });
+										this.usuariEmpresaService.getAll({ params: requestParams }).subscribe((response: any) => {
+											this.usuariEmpreses = response;
+											this.perfilUsuariEmpresaService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
+												this.perfilUsuariEmpresaService.getAll().subscribe((response: any) => {
+													this.perfilsUsuariEpresa = response;
+													this.perfilsService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
+														let requestParams: HalParam[] = [];
+														requestParams.push({ key: 'sort', value: 'codi,ASC' });
+														this.perfilsService.getAll({ params: requestParams }).subscribe((response: any) => {
+															this.perfils = response;
+															this.generateTableData();
+														});
+													});
+												});
+											});
+										});
+									});
+								});
+							});
 						});
-					});
-				});
-				this.perfilsService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
-					this.perfilsService.getAll().subscribe((response: any) => {
-						this.perfils = response;
 					});
 				});
 			}

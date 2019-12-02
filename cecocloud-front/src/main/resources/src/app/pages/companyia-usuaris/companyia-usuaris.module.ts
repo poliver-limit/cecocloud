@@ -14,6 +14,7 @@ import { UsuarisService } from './usuaris.service';
 import { UsuariEmpresaService } from './../../shared/usuari-empresa.service';
 import { PerfilUsuariEmpresaService } from './perfil-usuari-empresa.service';
 import { PerfilsService } from './../perfils/perfils.service';
+import { EmpresesService } from '../empreses/empreses.service';
 import { MatTableModule } from '@angular/material';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { MatTableModule } from '@angular/material';
     providers: [
         CompanyiaUsuarisService,
         UsuarisService,
+        EmpresesService,
         UsuariEmpresaService,
         PerfilsService,
         PerfilUsuariEmpresaService

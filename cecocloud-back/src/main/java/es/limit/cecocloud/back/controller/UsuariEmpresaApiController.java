@@ -44,7 +44,7 @@ public class UsuariEmpresaApiController extends AbstractIdentificableApiControll
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
 		Long companyiaId = ((UserSession)userSession).getC();
-		return "empresa.companyia.id==" + companyiaId;
+		return "empresa.identificador.companyia.id==" + companyiaId;
 	}
 	
 	
