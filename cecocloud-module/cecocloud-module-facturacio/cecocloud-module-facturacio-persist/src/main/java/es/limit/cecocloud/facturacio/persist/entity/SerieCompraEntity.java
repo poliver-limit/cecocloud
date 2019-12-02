@@ -95,7 +95,7 @@ public class SerieCompraEntity extends AbstractAuditableCompositePkEntity<SerieC
 					@JoinColumn(name = "scp_emp_od002", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_scp_emp_fk"))
-	protected EmpresaEntity empresaOp;
+	protected EmpresaFactEntity empresaOp;
 	
 	@Builder
 	public SerieCompraEntity(
@@ -103,7 +103,7 @@ public class SerieCompraEntity extends AbstractAuditableCompositePkEntity<SerieC
 			SerieCompra embedded,
 			IdentificadorEntity identificador,
 			MagatzemEntity magatzem,
-			EmpresaEntity empresaOp
+			EmpresaFactEntity empresaOp
 		) {
 		setId(pk);
 		this.embedded = embedded;

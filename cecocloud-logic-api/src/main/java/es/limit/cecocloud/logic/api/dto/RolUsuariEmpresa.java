@@ -63,6 +63,8 @@ public class RolUsuariEmpresa extends AbstractIdentificableWithCompositePk<RolUs
 	private String description;
 	
 	public String getDescription() {
-		return usuariEmpresa.getDescription() + " - " + rol.getDescription();
+		if (usuariEmpresa != null && rol != null)
+			return usuariEmpresa.getDescription() + " - " + rol.getDescription();
+		return "";
 	}
 }

@@ -31,7 +31,7 @@ import { UsuarisService } from './usuaris.service';
 	</div>
 	<div style="display: flex">
 		<div style="width: 80%">
-			<bng-custom-field name="rols"></bng-custom-field>
+			<bng-custom-field name="authorities"></bng-custom-field>
 		</div>
 		<div style="width: 20%">
 		</div>

@@ -16,21 +16,44 @@ import { SelectedCompanyiaEmpresaService, SelectedCompanyiaEmpresa } from './sel
 <mat-menu #companyiaMenu="matMenu" xPosition="before">
 	<ng-container *ngFor="let treeItem of selectionTree; let i = index">
 		<mat-divider></mat-divider>
-		<button mat-menu-item style="background-color: #ddd">
+		<button mat-menu-item style="background-color: #ddd; cursor: default;">
 			<mat-icon>domain</mat-icon>
 			<span>{{treeItem.nom}}</span>
+			<button *ngIf="treeItem.hasAdminPermission"
+				mat-raised-button color='primary'
+				aria-label="Botó d'edició de la companyia"
+				(click)="onAdministrarButtonClick(i)"
+				class="btn_adm">
+				<mat-icon class="icon_adm">build</mat-icon>
+			</button>
 		</button>
 		<mat-divider></mat-divider>
 		<button mat-menu-item *ngFor="let empresa of treeItem.empreses; let j = index" (click)="onEmpresaButtonClick(i, j)">
 			<span style="padding-left:1em">{{empresa.nom}}</span>
 		</button>
-		<button mat-menu-item *ngIf="treeItem.hasAdminPermission" (click)="onAdministrarButtonClick(i)">
+		<!--button mat-menu-item *ngIf="treeItem.hasAdminPermission" (click)="onAdministrarButtonClick(i)">
 			<mat-icon style="padding-left:1em">build</mat-icon>
 			<span>Administrar</span>
-		</button>
+		</button-->
 	</ng-container>
 </mat-menu>
-`
+`,
+	styles: [`
+	.btn_adm {
+		margin-left:1em;
+		padding: 0;
+		width: 30px;
+		min-width: 40px;
+		height:26px;
+		line-height: 32px;
+		top: 2px;
+	}
+	.icon_adm {
+		font-size:1.2em;
+		margin: 0 !important;
+		color: white;
+	}
+`]
 })
 export class SelectorCompanyiaEmpresaComponent {
 

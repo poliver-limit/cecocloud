@@ -33,7 +33,6 @@ public class Perfil extends AbstractIdentificable<Long> {
 	@Size(max = 255)
 	@RestapiField(includeInQuickFilter = true)
 	private String descripcio;
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

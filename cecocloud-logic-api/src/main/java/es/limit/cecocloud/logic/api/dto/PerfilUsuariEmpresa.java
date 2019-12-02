@@ -63,6 +63,8 @@ public class PerfilUsuariEmpresa extends AbstractIdentificableWithCompositePk<Pe
 	private String description;
 	
 	public String getDescription() {
-		return usuariEmpresa.getDescription() + " - " + perfil.getDescription();
+		if (usuariEmpresa != null && perfil != null) 
+			return usuariEmpresa.getDescription() + " - " + perfil.getDescription();
+		return "";
 	}
 }

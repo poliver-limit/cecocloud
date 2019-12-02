@@ -26,7 +26,7 @@ export class CompanyiaComponent {
 		private authService: BngAuthService,
 		activatedRoute: ActivatedRoute,
 		public companyiesService: CompanyiesService) {
-		this.id = authService.getSession().companyia;
+		this.id = authService.getSession().c;
 	}
 
 }

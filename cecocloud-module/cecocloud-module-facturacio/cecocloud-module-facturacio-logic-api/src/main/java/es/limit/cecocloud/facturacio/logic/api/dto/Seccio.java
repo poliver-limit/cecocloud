@@ -103,7 +103,7 @@ public class Seccio extends AbstractIdentificableWithCompositePk<SeccioPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaFact, String> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

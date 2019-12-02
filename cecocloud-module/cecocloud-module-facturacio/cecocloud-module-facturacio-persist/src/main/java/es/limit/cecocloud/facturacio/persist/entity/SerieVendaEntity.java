@@ -136,7 +136,7 @@ public class SerieVendaEntity extends AbstractAuditableCompositePkEntity<SerieVe
 					@JoinColumn(name = "ser_emp_codprn", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_ser_emp_fk"))			
-	protected EmpresaEntity empresaOp;	
+	protected EmpresaFactEntity empresaOp;	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -156,7 +156,7 @@ public class SerieVendaEntity extends AbstractAuditableCompositePkEntity<SerieVe
 			PeuDocumentEntity condicioPagamentPressupost,
 			PeuDocumentEntity peuDocument,
 			MagatzemEntity magatzem,
-			EmpresaEntity empresaOp,
+			EmpresaFactEntity empresaOp,
 			DepartamentEntity departament			
 			) {
 		setId(pk);

@@ -62,7 +62,9 @@ public class UsuariEmpresa extends AbstractIdentificableWithCompositePk<UsuariEm
 	private String description;
 	
 	public String getDescription() {
-		return usuari.getDescription() + " - " + empresa.getDescription();
+		if (usuari != null && empresa != null)
+			return usuari.getDescription() + " - " + empresa.getDescription();
+		return "";
 	}
 
 }
