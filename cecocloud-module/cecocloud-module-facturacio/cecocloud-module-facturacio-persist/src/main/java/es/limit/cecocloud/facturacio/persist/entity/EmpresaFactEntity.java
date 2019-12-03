@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.facturacio.logic.api.dto.Empresa;
-import es.limit.cecocloud.facturacio.logic.api.dto.Empresa.EmpresaPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.EmpresaFact;
+import es.limit.cecocloud.facturacio.logic.api.dto.EmpresaFact.EmpresaFactPk;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -84,10 +84,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "emp_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "emp_datmod"))
 })
-public class EmpresaEntity extends AbstractAuditableCompositePkEntity<Empresa, EmpresaPk> {
+public class EmpresaFactEntity extends AbstractAuditableCompositePkEntity<EmpresaFact, EmpresaFactPk> {
 
 	@Embedded
-	protected Empresa embedded;
+	protected EmpresaFact embedded;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
@@ -134,9 +134,9 @@ public class EmpresaEntity extends AbstractAuditableCompositePkEntity<Empresa, E
 	private MagatzemEntity magatzem;
 
 	@Builder
-	public EmpresaEntity(
-			EmpresaPk pk,
-			Empresa embedded,
+	public EmpresaFactEntity(
+			EmpresaFactPk pk,
+			EmpresaFact embedded,
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostalComercial,
 			CodiPostalEntity codiPostalFiscal,
@@ -153,7 +153,7 @@ public class EmpresaEntity extends AbstractAuditableCompositePkEntity<Empresa, E
 	}
 
 	@Override
-	public void update(Empresa embedded) {
+	public void update(EmpresaFact embedded) {
 		this.embedded = embedded;
 	}
 

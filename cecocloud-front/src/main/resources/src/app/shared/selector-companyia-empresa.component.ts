@@ -16,21 +16,58 @@ import { SelectedCompanyiaEmpresaService, SelectedCompanyiaEmpresa } from './sel
 <mat-menu #companyiaMenu="matMenu" xPosition="before">
 	<ng-container *ngFor="let treeItem of selectionTree; let i = index">
 		<mat-divider></mat-divider>
-		<button mat-menu-item style="background-color: #ddd">
-			<mat-icon>domain</mat-icon>
-			<span>{{treeItem.nom}}</span>
+		<button mat-menu-item style="background-color: #ddd; cursor: default;">
+			<mat-icon class="iconcom">domain</mat-icon>
+			<span class="nomcom">{{treeItem.nom}}</span>
+			<button *ngIf="treeItem.hasAdminPermission"
+				mat-icon-button color='primary'
+				aria-label="Botó d'edició de la companyia"
+				(click)="onAdministrarButtonClick(i)"
+				class="btn_adm">
+				<mat-icon class="icon_adm">build</mat-icon>
+			</button>
 		</button>
 		<mat-divider></mat-divider>
 		<button mat-menu-item *ngFor="let empresa of treeItem.empreses; let j = index" (click)="onEmpresaButtonClick(i, j)">
 			<span style="padding-left:1em">{{empresa.nom}}</span>
 		</button>
-		<button mat-menu-item *ngIf="treeItem.hasAdminPermission" (click)="onAdministrarButtonClick(i)">
+		<!--button mat-menu-item *ngIf="treeItem.hasAdminPermission" (click)="onAdministrarButtonClick(i)">
 			<mat-icon style="padding-left:1em">build</mat-icon>
 			<span>Administrar</span>
-		</button>
+		</button-->
 	</ng-container>
 </mat-menu>
-`
+`,
+	styles: [`
+	.btn_adm {
+		float: right;
+		margin-left:1em;
+		padding: 0;
+		width: 30px;
+		min-width: 40px;
+		height:26px;
+		line-height: 32px;
+		top: 6px;
+	}
+	.icon_adm {
+		font-size:1.2em;
+		margin: 0 !important;
+		color: #875A7B;
+		/*color: white;*/
+	}
+	.nomcom {
+		width: 154px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display:inline-block;
+	}
+	.iconcom {
+		float: left;
+    	position: relative;
+    	top: 10px;
+	}
+`]
 })
 export class SelectorCompanyiaEmpresaComponent {
 
@@ -75,8 +112,8 @@ export class SelectorCompanyiaEmpresaComponent {
 				empresa = selectedCompanyiaEmpresa.empresa.id;
 			}
 			this.authService.sessionSave({
-				companyia: companyia,
-				empresa: empresa
+				c: companyia,
+				e: empresa
 			});
 		}
 		this.selectedCompanyiaEmpresaService.setSelectedCompanyiaEmpresa(selectedCompanyiaEmpresa);
@@ -96,10 +133,10 @@ export class SelectorCompanyiaEmpresaComponent {
 					let selectedCompanyia: any;
 					let selectedEmpresa: any;
 					let session: any = this.authService.getSession();
-					if (session && session.companyia && this.selectionTree) {
-						selectedCompanyia = this.selectionTree.find((companyia: any) => {return companyia.id === session.companyia});
-						if (session.empresa && selectedCompanyia && selectedCompanyia.empreses) {
-							selectedEmpresa = selectedCompanyia.empreses.find((empresa: any) => {return empresa.id === session.empresa});
+					if (session && session.c && this.selectionTree) {
+						selectedCompanyia = this.selectionTree.find((companyia: any) => { return companyia.id === session.c });
+						if (session.e && selectedCompanyia && selectedCompanyia.empreses) {
+							selectedEmpresa = selectedCompanyia.empreses.find((empresa: any) => { return empresa.id === session.e });
 						}
 					}
 					this.changeSelectedCompanyiaEmpresa({

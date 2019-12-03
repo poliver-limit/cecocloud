@@ -23,13 +23,13 @@ public class IdentificadorApiController extends AbstractIdentificableApiControll
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getCompanyia();
+		Long companyiaId = ((UserSession)userSession).getC();
 		return "companyia.id==" + companyiaId;
 	}
 
 	@Override
 	protected void completeDtoWithSession(Identificador dto, Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getCompanyia();
+		Long companyiaId = ((UserSession)userSession).getC();
 		dto.setCompanyia(GenericReference.toGenericReference(companyiaId));
 	}
 

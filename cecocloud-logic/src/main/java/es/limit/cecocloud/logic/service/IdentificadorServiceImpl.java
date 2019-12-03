@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
-import es.limit.base.boot.logic.service.AuthServiceImpl.BaseBootAuthenticationToken;
+import es.limit.base.boot.logic.api.permission.BaseBootAuthenticationToken;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -56,7 +56,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceImpl<Identif
 		
 		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authenticationFacade.getAuthentication();
 		UserSession session = (UserSession)auth.getSession();
-		CompanyiaEntity companyia = companyiaRepository.getOne(session.getCompanyia());
+		CompanyiaEntity companyia = companyiaRepository.getOne(session.getC());
 		entity.updateCompanyia(companyia);
 		String codi;
 		boolean exist = false;

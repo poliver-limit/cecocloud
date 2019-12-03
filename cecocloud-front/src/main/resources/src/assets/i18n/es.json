@@ -28,6 +28,8 @@
 	"component.datagrid.no.rows": "Sin resultados",
 	"component.datagrid.boolean.si": "Si",
 	"component.datagrid.boolean.no": "No",
+	"component.datagrid.boolean.true": "Si",
+	"component.datagrid.boolean.false": "No",
 
 	"component.restapi.form.header.title.crear": "crear",
 	"component.restapi.form.header.title.modificar": "modificar",
@@ -138,6 +140,7 @@
 	"resource.identificador.field.codi": "Código",
 	"resource.identificador.field.nom": "Nombre",
 	"resource.identificador.field.companyia": "Compañía",
+	"resource.identificador.field.actiu": "Activo",
 
 	"resource.operari": "Operario",
 	"resource.operari.plural": "Operarios",
@@ -160,7 +163,7 @@
 	"resource.permission": "Permiso",
 	"resource.permission.plural": "Permisos",
 	"resource.permission.field.sidType": "Tipo",
-	"resource.permission.field.sidName": "Nombre de usuario/rol",
+	"resource.permission.field.sidName": "Usuario",
 	"resource.permission.field.readGranted": "Acceder",
 	"resource.permission.field.writeGranted": "Modificar",
 	"resource.permission.field.createGranted": "Crear",
@@ -196,6 +199,10 @@
 
 	"page.companyia-usuaris.modal.titol": "Añadir usuario",
 	"page.companyia-usuaris.modal.button.cancelar": "Cancelar",
-	"page.companyia-usuaris.modal.button.afegir": "Añadir"
+	"page.companyia-usuaris.modal.button.afegir": "Añadir",
+
+	"page.componyia-usuari-empresa.permisos": "Permisos",
+	"page.componyia-usuari-empresa.preferencies": "Preferencias"
+
 
 }

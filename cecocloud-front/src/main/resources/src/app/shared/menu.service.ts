@@ -92,7 +92,7 @@ export class MenuService {
 			let session: any = this.authService.getSession();
 			if (session) {
 				this.companyiesService.whenReady().subscribe(() => {
-					this.companyiesService.get(session.companyia).subscribe((resposta: any) => {
+					this.companyiesService.get(session.c).subscribe((resposta: any) => {
 						this.adminCompanyiaMenu.label = resposta.nom;
 					});
 				});

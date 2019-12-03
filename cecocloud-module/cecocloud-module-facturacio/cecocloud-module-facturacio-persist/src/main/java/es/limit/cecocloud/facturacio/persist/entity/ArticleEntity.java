@@ -131,7 +131,7 @@ public class ArticleEntity extends AbstractAuditableCompositePkEntity<Article, A
 					@JoinColumn(name = "art_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_emp_fk"))			
-	protected EmpresaEntity empresa;
+	protected EmpresaFactEntity empresa;
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -171,7 +171,7 @@ public class ArticleEntity extends AbstractAuditableCompositePkEntity<Article, A
 			ArticleModelEntity model,
 			ArticleGammaEntity gamma,
 			ArticleMarcaEntity marca,
-			EmpresaEntity empresa,
+			EmpresaFactEntity empresa,
 			ArticleEntity alternatiu,
 			ArticleEntity alternatiu2,	
 			ArticleEntity articleRaee			

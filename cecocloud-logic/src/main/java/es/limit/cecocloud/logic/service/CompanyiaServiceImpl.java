@@ -45,7 +45,6 @@ import es.limit.cecocloud.logic.helper.AsymmetricCryptographyHelper;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.UsuariCompanyiaEntity;
 import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
-import es.limit.cecocloud.persist.repository.CompanyiaRepository;
 import es.limit.cecocloud.persist.repository.UsuariCompanyiaRepository;
 import es.limit.cecocloud.persist.repository.UsuariEmpresaRepository;
 
@@ -59,8 +58,6 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 
 	@Autowired
 	private ObjectMapper objectMapper;
-	@Autowired
-	private CompanyiaRepository companyiaRepository;
 	@Autowired
 	private UsuariCompanyiaRepository usuariCompanyiaRepository;
 	@Autowired
@@ -136,16 +133,16 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 				PermissionSidType.PRINCIPAL,
 				auth.getName());
 		permission.setAdminGranted(true);
-		this.permissionCreate(
+		permissionCreate(
 				entity.getId(),
 				permission);
 	}
 
 	@Override
 	protected void afterPermissionCreate(Long id, Permission permission) {
-		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
+		if (PermissionSidType.PRINCIPAL == permission.getSidType() && hasAnyPermission(permission)) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
-			Optional<CompanyiaEntity> companyia = companyiaRepository.findById(id);
+			Optional<CompanyiaEntity> companyia = getRepository().findById(id);
 			UsuariCompanyiaPk usuariCompanyiaPk = new UsuariCompanyiaPk(
 					usuari.get().getId(),
 					companyia.get().getId());
@@ -163,14 +160,14 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	protected void afterPermissionUpdate(Long id, Permission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
-			Optional<CompanyiaEntity> companyia = companyiaRepository.findById(id);
+			Optional<CompanyiaEntity> companyia = getRepository().findById(id);
 			UsuariCompanyiaPk usuariCompanyiaPk = new UsuariCompanyiaPk(
 					usuari.get().getId(),
 					companyia.get().getId());
 			Optional<UsuariCompanyiaEntity> usuariCompanyia = usuariCompanyiaRepository.findById(usuariCompanyiaPk);
-			if (usuariCompanyia.isPresent() && !permission.isAdminGranted()) {
+			if (usuariCompanyia.isPresent() && !hasAnyPermission(permission)) {
 				usuariCompanyiaRepository.delete(usuariCompanyia.get());
-			} else if (!usuariCompanyia.isPresent() && permission.isAdminGranted()) {
+			} else if (!usuariCompanyia.isPresent() && hasAnyPermission(permission)) {
 				UsuariCompanyiaEntity usuariCompanyiaPerCrear = UsuariCompanyiaEntity.builder().
 						pk(usuariCompanyiaPk).
 						embedded(new UsuariCompanyia()).
@@ -186,7 +183,7 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	protected void afterPermissionDelete(Long id, Permission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
-			Optional<CompanyiaEntity> companyia = companyiaRepository.findById(id);
+			Optional<CompanyiaEntity> companyia = getRepository().findById(id);
 			UsuariCompanyiaPk usuariCompanyiaPk = new UsuariCompanyiaPk(
 					usuari.get().getId(),
 					companyia.get().getId());
@@ -195,6 +192,10 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 				usuariCompanyiaRepository.delete(usuariCompanyia.get());
 			}
 		}
+	}
+
+	private boolean hasAnyPermission(Permission permission) {
+		return permission.isReadGranted() || permission.isAdminGranted();
 	}
 
 }

@@ -5,63 +5,62 @@ import { BngFormConfig } from 'base-angular';
 import { EmpresesService } from './empreses.service';
 import { EmpresesPermissionService } from './empreses-permission.service';
 
-@Component( {
-    template: `
-    <bng-form
-        bng-form-mant
-        [config]="formConfig"
-        [restapiService]="empresesService">
-        <hr/>
-        <br/>
-        <h4>Permisos</h4>
-        <ng-container *ngIf="id">
-            <bng-datagrid
-                [config]="permisosDatagridConfig"
-                [restapiService]="empresesPermissionService">
-            </bng-datagrid>
-        </ng-container>
-    </bng-form>
+@Component({
+	template: `
+	<bng-form
+		bng-form-mant
+		[config]="formConfig"
+		[restapiService]="empresesService">
+		<ng-container *ngIf="id">
+			<mat-tab-group>
+				<mat-tab label="Permisos">
+					<br/>
+					<bng-datagrid
+						[config]="permisosDatagridConfig"
+						[restapiService]="empresesPermissionService"
+						editable="true">
+					</bng-datagrid>
+				</mat-tab>
+			</mat-tab-group>
+		</ng-container>
+	</bng-form>
 `
-} )
+})
 export class EmpresesFormComponent {
 
-    id: any;
+	id: any;
 
-    formConfig: BngFormConfig = {
-    }
-    permisosDatagridConfig = {
-        //columnFiltersEnabled: true
-        adjustHeight: false,
-        paginationEnabled: false,
-        mode: 'form',
-		editable: true,
+	formConfig: BngFormConfig = {
+	}
+	permisosDatagridConfig = {
+		//columnFiltersEnabled: true
+		adjustHeight: false,
+		paginationEnabled: false,
+		mode: 'form',
 		columns: [{
-            field: 'sidType',
+			field: 'sidType',
 			width: 30
-        }, {
-            field: 'sidName',
+		}, {
+			field: 'sidName',
 			width: 40
-        }, {
-            field: 'readGranted',
+		}, {
+			field: 'readGranted',
 			width: 10
-        }, {
-            field: 'adminGranted',
-			width: 10
-        }]
-    };
+		}]
+	};
 
-    constructor(
-        activatedRoute: ActivatedRoute,
-        public empresesService: EmpresesService,
-        public empresesPermissionService: EmpresesPermissionService ) { 
-            activatedRoute.params.subscribe(( params ) => {
-                if ( params.id ) {
-                    this.id = params.id;
-                }
-            } );
-            if ( this.id ) {
-                empresesPermissionService.setPermissionResourceId( this.id );
-            }
-    }
+	constructor(
+		activatedRoute: ActivatedRoute,
+		public empresesService: EmpresesService,
+		public empresesPermissionService: EmpresesPermissionService) {
+		activatedRoute.params.subscribe((params) => {
+			if (params.id) {
+				this.id = params.id;
+			}
+		});
+		if (this.id) {
+			empresesPermissionService.setPermissionResourceId(this.id);
+		}
+	}
 
 }

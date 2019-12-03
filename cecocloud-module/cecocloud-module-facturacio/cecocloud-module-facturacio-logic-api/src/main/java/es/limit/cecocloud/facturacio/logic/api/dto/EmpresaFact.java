@@ -17,7 +17,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.Empresa.EmpresaPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.EmpresaFact.EmpresaFactPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.FacturacioTipusEnum;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusComptabilitatClientEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusEstrangerEnumDto;
@@ -38,7 +38,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nomComercial"
 )
-public class Empresa extends AbstractIdentificableWithCompositePk<EmpresaPk> {
+public class EmpresaFact extends AbstractIdentificableWithCompositePk<EmpresaFactPk> {
 
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
@@ -234,7 +234,7 @@ public class Empresa extends AbstractIdentificableWithCompositePk<EmpresaPk> {
 	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
-	public static class EmpresaPk implements Serializable {
+	public static class EmpresaFactPk implements Serializable {
 		private String identificadorCodi;	
 		private String codi;
 	}

@@ -203,7 +203,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)
-	private Empresa empresaOp;
+	private EmpresaFact empresaOp;
 	
 	@Transient
 	@RestapiField(
@@ -245,7 +245,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaFact, String> empresa;
 	
 	@Transient
 	@RestapiField(

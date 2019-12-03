@@ -47,7 +47,7 @@ public class Identificador extends AbstractIdentificable<String> {
 			includeInQuickFilter = true)
 	protected String nom;
 	@RestapiField(hiddenInLov = true)
-	private boolean actiu;
+	private boolean actiu = true;
 
 	public String getCodi() {
 		return this.id;

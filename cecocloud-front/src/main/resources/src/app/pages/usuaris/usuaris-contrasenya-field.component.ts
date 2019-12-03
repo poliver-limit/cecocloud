@@ -10,7 +10,7 @@ import { UsuarisService } from './usuaris.service';
     selector: 'usuari-contrasenya',
     template: `
 <div>
-	<button mat-raised-button color="primary" (click)="onButtonClick($event)">{{'page.usuaris.canvi.contrasenya.titol'|translate}}</button>
+	<button mat-raised-button color="accent" (click)="onButtonClick($event)">{{'page.usuaris.canvi.contrasenya.titol'|translate}}</button>
 </div>
 `, styles: [`
 `]

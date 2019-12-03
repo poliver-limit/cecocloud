@@ -32,11 +32,11 @@ export class SelectedCompanyiaEmpresaService {
 		authService: BngAuthService) {
 		let session: any = authService.getSession();
 		if (session) {
-			let companyia = session.companyia ? {id: session.companyia} : undefined;
-			let empresa = session.empresa ? {id: session.empresa} : undefined;
+			let companyia = session.c ? {id: session.c} : undefined;
+			let empresa = session.e ? {id: session.e} : undefined;
 			this.selectedCompanyiaEmpresa = {
-				companyia: companyia ? {id: session.companyia}: undefined,
-    			empresa: empresa ? {id: session.empresa}: undefined
+				companyia: companyia ? {id: session.c}: undefined,
+    			empresa: empresa ? {id: session.e}: undefined
 			}
 		}
 	}

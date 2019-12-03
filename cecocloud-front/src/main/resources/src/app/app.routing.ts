@@ -65,11 +65,11 @@ export const routes: Routes = [{
     redirectTo: ''
 }];
 
-@NgModule( {
+@NgModule({
     imports: [
-        RouterModule.forRoot( routes )],
+        RouterModule.forRoot(routes, { enableTracing: false })],
     declarations: [],
     exports: [
         RouterModule]
-} )
+})
 export class AppRoutingModule { }

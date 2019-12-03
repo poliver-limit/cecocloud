@@ -70,7 +70,7 @@ public class SeccioEmpresa extends AbstractIdentificableWithCompositePk<SeccioEm
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaFact, String> empresa;
 	
 	@Transient
 	@RestapiField(

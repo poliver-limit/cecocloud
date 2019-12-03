@@ -83,7 +83,7 @@ public class SerieCompra extends AbstractIdentificableWithCompositePk<SerieCompr
 	@RestapiField(type = RestapiFieldType.LOV,			
 			hiddenInLov = true,
 			hiddenInGrid = true)
-	private Empresa empresaOp;
+	private EmpresaFact empresaOp;
 	
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String departament;
@@ -98,7 +98,7 @@ public class SerieCompra extends AbstractIdentificableWithCompositePk<SerieCompr
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaFact, String> empresa;
 	
 	@Transient
 	@RestapiField(
