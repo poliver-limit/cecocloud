@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.Node;
 import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
 import lombok.AccessLevel;
@@ -44,7 +44,7 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "nod_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "nod_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "nod_num", length = 4)),
 	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "nod_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "nod_tip")),	

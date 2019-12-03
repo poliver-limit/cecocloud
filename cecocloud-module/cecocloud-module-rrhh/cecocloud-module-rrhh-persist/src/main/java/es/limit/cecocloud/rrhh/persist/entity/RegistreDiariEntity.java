@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.RegistreDiari;
 import es.limit.cecocloud.rrhh.logic.api.dto.RegistreDiari.RegistreDiariPk;
 import lombok.AccessLevel;
@@ -39,13 +39,14 @@ import lombok.Setter;
 		name = "trhu_rdi",
 		indexes = {
 				@Index(name = "irhu_rdi_idf_fk", columnList = "rdi_idf_cod"),
-				@Index(name = "irrhu_rdi_pk", columnList = "rdi_idf_cod,rdi_cod", unique = true)
+				@Index(name = "irrhu_rdi_pk", columnList = "rdi_idf_cod", unique = true)
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "rdi_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "rdi_cod", length = 4)),
+//	@AttributeOverride(name = "id.codi", column = @Column(name = "rdi_cod", length = 4)),
 	@AttributeOverride(name = "id.calendariData", column = @Column(name = "rdi_cln_dat")),
+	
 	@AttributeOverride(name = "embedded.calendariData", column = @Column(name = "rdi_cln_dat", insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.operariCodi", column = @Column(name = "rdi_ope_cod", length = 6, insertable = false, updatable = false)),			
 	@AttributeOverride(name = "embedded.horesTeoriques", column = @Column(name = "rdi_horteo", length = 22, precision = 22, scale = 0, nullable = false)),			
@@ -120,7 +121,8 @@ public class RegistreDiariEntity extends AbstractAuditableCompositePkEntity<Regi
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "rdi_idf_cod", referencedColumnName = "sec_idf_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "rdi_sec_cod", referencedColumnName = "sec_cod", insertable = false, updatable = false)
+					@JoinColumn(name = "rdi_sec_cod", referencedColumnName = "sec_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "rdi_emp_cod", referencedColumnName = "sec_emp_cod", insertable = false, updatable = false),
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_sec_fk"))
 	protected SeccioEntity seccio;	

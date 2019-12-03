@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.EmpresaFact;
 import es.limit.cecocloud.facturacio.logic.api.dto.EmpresaFact.EmpresaFactPk;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +33,7 @@ import lombok.Setter;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity
+@Entity(name = "empresaFactEntity")
 @Table(
 		name = "tges_emp",
 		indexes = {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup.RecursGrupPk;
 import lombok.AccessLevel;
@@ -35,10 +35,10 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tges_gre",
+		name = "trhu_gre",
 		indexes = {
-				@Index(name = "iges_gre_idf_fk", columnList = "gre_idf_cod"),
-				@Index(name = "irges_gre_pk", columnList = "gre_idf_cod,gre_cod", unique = true)
+				@Index(name = "irhu_gre_idf_fk", columnList = "gre_idf_cod"),
+				@Index(name = "irrhu_gre_pk", columnList = "gre_idf_cod,gre_cod", unique = true)
 		}
 )
 @AttributeOverrides({
@@ -66,7 +66,7 @@ public class RecursGrupEntity extends AbstractAuditableCompositePkEntity<RecursG
 			name = "gre_idf_cod",
 			insertable = false,
 			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_gre_idf_fk"))
+			foreignKey = @ForeignKey(name = "rrhu_gre_idf_fk"))
 	protected IdentificadorEntity identificador;
 
 	@Builder

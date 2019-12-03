@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

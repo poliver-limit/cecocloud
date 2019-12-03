@@ -22,7 +22,7 @@ import es.limit.cecocloud.facturacio.logic.api.dto.enums.FacturacioTipusEnum;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusComptabilitatClientEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusEstrangerEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusPersonaEnumDto;
-import es.limit.cecocloud.logic.api.dto.Identificador;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup;
 import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup.SeccioGrupPk;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

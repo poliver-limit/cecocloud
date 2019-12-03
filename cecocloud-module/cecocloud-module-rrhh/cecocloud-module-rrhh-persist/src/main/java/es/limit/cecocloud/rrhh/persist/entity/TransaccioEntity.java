@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.persist.entity.EmpresaEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio.TransaccioPk;
 import lombok.AccessLevel;
@@ -97,7 +95,7 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 					@JoinColumn(name = "tra_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "tra_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 					},
-			foreignKey = @ForeignKey(name = "rrhu_tra_ttr_fk"))			
+			foreignKey = @ForeignKey(name = "rrhu_tra_emp_fk"))			
 	protected EmpresaEntity empresa;	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -16,11 +16,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusDia;
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusDia.TipusDiaPk;
 import lombok.AccessLevel;
@@ -78,7 +75,7 @@ public class TipusDiaEntity extends AbstractAuditableCompositePkEntity<TipusDia,
 					@JoinColumn(name = "tdi_reg_cod", referencedColumnName = "reg_cod", insertable = false, updatable = false)
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tdi_reg_fk"))
-	@NotFound(action = NotFoundAction.IGNORE)
+//	@NotFound(action = NotFoundAction.IGNORE)
 	protected RegimEntity regim;	
 	
 	@Builder

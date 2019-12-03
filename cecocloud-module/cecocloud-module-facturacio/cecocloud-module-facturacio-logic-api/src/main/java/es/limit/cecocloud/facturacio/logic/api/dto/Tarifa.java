@@ -20,7 +20,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.Tarifa.TarifaPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TarifaFormaCalculEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TarifaTipusEnumDto;
-import es.limit.cecocloud.logic.api.dto.Identificador;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

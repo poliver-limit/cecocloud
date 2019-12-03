@@ -17,7 +17,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa.SeccioEmpresaPk;
-import es.limit.cecocloud.logic.api.dto.Identificador;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -35,11 +35,12 @@ public class Subcategoria extends AbstractIdentificableWithCompositePk<Subcatego
 	
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
-	private String codi;
+	private String codi;	
 	
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true, hiddenInLov = true)
 	private String categoriaCodi;
 	
+	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private Categoria categoria;

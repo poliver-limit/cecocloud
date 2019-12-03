@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari;
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari.CalendariPk;
 import lombok.AccessLevel;
@@ -39,14 +39,14 @@ import lombok.Setter;
 		name = "trhu_cln",
 		indexes = {
 				@Index(name = "irhu_cln_idf_fk", columnList = "cln_idf_cod"),
-				@Index(name = "irrhu_cln_pk", columnList = "cln_idf_cod,cln_cod", unique = true)
+				@Index(name = "irrhu_cln_pk", columnList = "cln_idf_cod", unique = true)
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cln_idf_cod", length = 4)),	
 	@AttributeOverride(name = "id.calendariData", column = @Column(name = "cln_dat", length = 4)),
 	
-	@AttributeOverride(name = "embedded.calendariData", column = @Column(name = "cln_dat", length = 4, insertable = false, updatable = false)),	
+//	@AttributeOverride(name = "embedded.calendariData", column = @Column(name = "cln_dat", length = 4, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "cln_dat", insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.tipusDiaCodi", column = @Column(name = "cln_tdi_cod", length = 4)),			
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "cln_des", length = 1000)),			

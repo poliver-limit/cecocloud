@@ -21,7 +21,7 @@ import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia.ArticleFamilia
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaAvisAlbaraClientEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaTipusEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaTipusServeiEnumDto;
-import es.limit.cecocloud.logic.api.dto.Identificador;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

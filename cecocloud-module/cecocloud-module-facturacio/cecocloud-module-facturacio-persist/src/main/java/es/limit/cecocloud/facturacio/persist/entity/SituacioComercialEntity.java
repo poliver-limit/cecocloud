@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioComercial;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioComercial.SituacioComercialPk;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

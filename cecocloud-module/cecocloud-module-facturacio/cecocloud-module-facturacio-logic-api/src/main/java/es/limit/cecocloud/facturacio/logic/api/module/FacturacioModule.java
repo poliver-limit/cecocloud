@@ -10,6 +10,7 @@ import es.limit.base.boot.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
 import es.limit.cecocloud.logic.api.module.Modules;
 
+
 /**
  * Configuració del mòdul de marcatges.
  * 

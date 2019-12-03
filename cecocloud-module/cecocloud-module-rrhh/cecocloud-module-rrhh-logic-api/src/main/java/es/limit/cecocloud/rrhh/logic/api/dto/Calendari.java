@@ -37,6 +37,7 @@ public class Calendari extends AbstractIdentificableWithCompositePk<CalendariPk>
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private Date data;
 	
+	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV, 			
@@ -67,8 +68,9 @@ public class Calendari extends AbstractIdentificableWithCompositePk<CalendariPk>
 	@Getter
 	@SuppressWarnings("serial")
 	public static class CalendariPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
+		private String identificadorCodi;	
+		private String calendariData;
+//		private String codi;
 	}
 
 }

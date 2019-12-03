@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecoloud.rrhh.persist.entity;
+package es.limit.cecocloud.rrhh.persist.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.Empresa;
 import es.limit.cecocloud.rrhh.logic.api.dto.Empresa.EmpresaPk;
 import lombok.AccessLevel;
@@ -33,7 +33,7 @@ import lombok.Setter;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity
+@Entity(name = "empresaRrhhEntity")
 @Table(
 		name = "trhu_emp",
 		indexes = {
@@ -45,6 +45,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "emp_idf_cod", length = 4)),	
 	@AttributeOverride(name = "id.codi", column = @Column(name = "emp_cod", length = 4)),		
 	
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "emp_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.domiciliPostal", column = @Column(name = "emp_dom", length = 60)),	
 	@AttributeOverride(name = "embedded.codiPostal", column = @Column(name = "emp_cpo", length = 5)),			
 	@AttributeOverride(name = "embedded.poble", column = @Column(name = "emp_pob", length = 30)),			

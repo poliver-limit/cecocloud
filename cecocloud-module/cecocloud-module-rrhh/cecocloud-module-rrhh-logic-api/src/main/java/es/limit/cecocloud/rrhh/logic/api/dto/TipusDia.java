@@ -37,6 +37,7 @@ public class TipusDia extends AbstractIdentificableWithCompositePk<TipusDiaPk> {
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
 	
+	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
