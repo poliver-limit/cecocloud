@@ -20,6 +20,7 @@ import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia.ArticleFamiliaPk;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import es.limit.cecoloud.rrhh.persist.entity.RecursGrupEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
