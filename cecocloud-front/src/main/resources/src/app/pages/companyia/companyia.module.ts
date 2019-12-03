@@ -8,6 +8,7 @@ import { MaterialModule } from '../../shared/material.module';
 
 import { CompanyiaComponent } from './companyia.component';
 import { CompanyiesService } from './companyies.service';
+import { CompanyiesPermissionService } from './companyies-permission.service';
 
 @NgModule( {
     imports: [
@@ -24,7 +25,8 @@ import { CompanyiesService } from './companyies.service';
         CompanyiaComponent
     ],
     providers: [
-        CompanyiesService
+        CompanyiesService,
+		CompanyiesPermissionService
     ]
 } )
 export class CompanyiaModule {}

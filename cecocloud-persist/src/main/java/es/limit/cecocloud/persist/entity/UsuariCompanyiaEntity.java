@@ -36,7 +36,7 @@ import lombok.Setter;
 @Table(name = "usuari_companyia")
 @AttributeOverrides({
 	@AttributeOverride(name = "id.usuariId", column = @Column(name = "usuari_id")),
-	@AttributeOverride(name = "id.companyiaId", column = @Column(name = "companyia_id")),
+	@AttributeOverride(name = "id.companyiaId", column = @Column(name = "companyia_id"))
 })
 public class UsuariCompanyiaEntity extends AbstractAuditableVersionableCompositePkEntity<UsuariCompanyia, UsuariCompanyiaPk> {
 

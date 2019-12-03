@@ -18,18 +18,19 @@ import { CompanyiesPermissionService } from './companyies-permission.service';
 				<br/>
 				<bng-datagrid
 					[config]="permisosDatagridConfig"
-					[restapiService]="companyiesPermissionService"></bng-datagrid>
+					[restapiService]="companyiesPermissionService"
+					editable="true"></bng-datagrid>
 			</mat-tab>
 		</mat-tab-group>
 	</ng-container>
 	<ng-template #fieldsTemplate>
 		<div style="display: flex">
 			<bng-custom-field name="codi" style="width: 30%; padding-right: 2em"></bng-custom-field>
-			<bng-custom-field name="nom" style="width: 30%"></bng-custom-field>
+			<bng-custom-field name="nom" style="width: 70%"></bng-custom-field>
 		</div>
 		<div style="display: flex">
-			<bng-custom-field name="telefon" style="width: 30%; padding-right: 2em"></bng-custom-field>
-			<bng-custom-field name="email" style="width: 30%"></bng-custom-field>
+			<bng-custom-field name="telefon" style="width: 50%; padding-right: 2em"></bng-custom-field>
+			<bng-custom-field name="email" style="width: 50%"></bng-custom-field>
 		</div>
 	</ng-template>
 </bng-form>

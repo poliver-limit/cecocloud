@@ -35,7 +35,7 @@ import lombok.Setter;
 @Table(name = "perfil_rol")
 @AttributeOverrides({
 	@AttributeOverride(name = "id.perfilId", column = @Column(name = "perfil_id")),
-	@AttributeOverride(name = "id.rolId", column = @Column(name = "rol_id")),
+	@AttributeOverride(name = "id.rolId", column = @Column(name = "rol_id"))
 })
 public class PerfilRolEntity extends AbstractAuditableVersionableCompositePkEntity<PerfilRol, PerfilRolPk> {
 

@@ -113,14 +113,14 @@ create table usuari (
     lastmod_by varchar(64),
     lastmod_date timestamp,
     version int8 not null,
-    actiu boolean,
+    actiu boolean not null,
     codi varchar(64) not null,
     contrasenya varchar(255),
     email varchar(100) not null,
     imatge_url varchar(255),
     llinatges varchar(100) not null,
     nom varchar(100) not null,
-    validat boolean,
+    validat boolean not null,
     primary key (id)
 );
 

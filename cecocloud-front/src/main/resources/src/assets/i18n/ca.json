@@ -28,6 +28,8 @@
 	"component.datagrid.no.rows": "Sense resultats",
 	"component.datagrid.boolean.si": "Si",
 	"component.datagrid.boolean.no": "No",
+	"component.datagrid.boolean.true": "Si",
+	"component.datagrid.boolean.false": "No",
 
 	"component.restapi.form.header.title.crear": "crear",
 	"component.restapi.form.header.title.modificar": "modificar",
@@ -138,6 +140,7 @@
 	"resource.identificador.field.codi": "Codi",
 	"resource.identificador.field.nom": "Nom",
 	"resource.identificador.field.companyia": "Companyia",
+	"resource.identificador.field.actiu": "Actiu",
 
 	"resource.operari": "Operari",
 	"resource.operari.plural": "Operaris",
@@ -160,7 +163,7 @@
 	"resource.permission": "Permís",
 	"resource.permission.plural": "Permisos",
 	"resource.permission.field.sidType": "Tipus",
-	"resource.permission.field.sidName": "Nom d'usuari/rol",
+	"resource.permission.field.sidName": "Usuari",
 	"resource.permission.field.readGranted": "Accedir",
 	"resource.permission.field.writeGranted": "Modificar",
 	"resource.permission.field.createGranted": "Crear",
