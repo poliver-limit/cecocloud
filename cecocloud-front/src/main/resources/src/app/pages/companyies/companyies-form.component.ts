@@ -54,6 +54,9 @@ export class CompanyiesFormComponent {
 			field: 'sidName',
 			width: 40
 		}, {
+			field: 'readGranted',
+			width: 10
+		}, {
 			field: 'adminGranted',
 			width: 10
 		}, {
