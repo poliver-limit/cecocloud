@@ -16,6 +16,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: './pages/index/index-fact.module#IndexFactModule',
 				canActivate: [BngAuthGuard]
 	        }, {
+				path: 'articles',
+				loadChildren: './pages/articles/articles.module#ArticlesModule',
+				canActivate: [BngAuthGuard]
+			}, {
 				path: 'zones',
 				loadChildren: './pages/zones/zones.module#ZonesModule',
 				canActivate: [BngAuthGuard]

@@ -4,7 +4,6 @@
 package es.limit.cecocloud.facturacio.persist.tools;
 
 import es.limit.cecocloud.facturacio.persist.entity.ZonaEntity;
-import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.rrhh.persist.entity.SeccioEntity;
 
 /**
@@ -22,9 +21,9 @@ public class DdlScriptGenerator extends es.limit.base.boot.persist.tools.DdlScri
 
 	private static String[] getAdditionalPackageNames() {
 		return new String[] {
-				//CompanyiaEntity.class.getPackage().getName(),
-				ZonaEntity.class.getPackage().getName(),
-				SeccioEntity.class.getPackage().getName()};
+				ZonaEntity.class.getPackage().getName(), // package amb entitats del mòdul de facturació
+				SeccioEntity.class.getPackage().getName() // package amb entitats del mòdul de recursos humans
+		};
 	}
 
 }
