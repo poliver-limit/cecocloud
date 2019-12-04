@@ -42,6 +42,7 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 		Permission permission = new Permission(
 				PermissionSidType.PRINCIPAL,
 				auth.getName());
+		permission.setReadGranted(true);
 		permissionCreate(
 				entity.getId(),
 				permission);

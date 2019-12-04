@@ -50,8 +50,8 @@ public class PerfilUsuariEmpresaEntity extends AbstractAuditableVersionableCompo
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-					@JoinColumn(name = "usuari_id", insertable = false, updatable = false),
-					@JoinColumn(name = "empresa_id", insertable = false, updatable = false)
+					@JoinColumn(name = "usuari_id", referencedColumnName="usuari_id", insertable = false, updatable = false),
+					@JoinColumn(name = "empresa_id", referencedColumnName="empresa_id", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "perfilusuemp_usuemp_fk")
 	)

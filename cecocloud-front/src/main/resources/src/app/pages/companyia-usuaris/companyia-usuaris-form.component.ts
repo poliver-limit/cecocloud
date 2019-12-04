@@ -1,3 +1,4 @@
+import { EmpresaPerfil } from './companyia-usuaris-form.component';
 import { EmpresesService } from './../empreses/empreses.service';
 import { PerfilUsuariEmpresaService, PerfilUsuariEmpresa } from './perfil-usuari-empresa.service';
 import { PerfilsService } from './../perfils/perfils.service';
@@ -19,6 +20,7 @@ export interface EmpresaPerfil {
 	empresaNom: string;
 	empresaId: number;
 	usuariEmpresaId: string;
+	ids: string[];
 	perfils: number[];
 }
 
@@ -72,12 +74,28 @@ export interface EmpresaPerfil {
 			<div style="width: 100%; margin-top: 40px;">
 				<mat-tab-group>
 					<mat-tab label="{{'page.componyia-usuari-empresa.permisos'|translate}}">
-						<!-- Pestanya de permisos -->
+						<!-- Pestanya de permisos ->
 						<table mat-table [dataSource]="perfilTree" class="mat-elevation-z8" style="width:100%;">
-							<!-- Columna de empresa -->
 							<ng-container matColumnDef="nom">
 								<th mat-header-cell *matHeaderCellDef style="width:30%;"> {{'resource.empresa' | translate}} </th>
 								<td mat-cell *matCellDef="let empresa"> {{empresa.nom}} </td>
+							</ng-container>
+							<ng-container matColumnDef="perfils">
+								<th mat-header-cell *matHeaderCellDef style="width:70%;"> {{'resource.perfil.plural' | translate}} </th>
+								<td mat-cell *matCellDef="let empresa; let index = index">
+									<mat-select [(value)]="empresa.perfils" multiple placeholder="Sense accés" (selectionChange)="onPerfilChange($event, index)">
+										<mat-option *ngFor="let perfil of perfils" [value]="perfil.id">{{perfil.codi}}</mat-option>
+									</mat-select>
+								</td>
+							</ng-container>
+							<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+							<tr mat-row *matRowDef="let rows; columns: columnsToDisplay"></tr>
+						</table-->
+						<table mat-table [dataSource]="empresaPerfils" class="mat-elevation-z8" style="width:100%;">
+							<!-- Columna de empresa -->
+							<ng-container matColumnDef="nom">
+								<th mat-header-cell *matHeaderCellDef style="width:30%;"> {{'resource.empresa' | translate}} </th>
+								<td mat-cell *matCellDef="let empresa"> {{empresa.empresaNom}} </td>
 							</ng-container>
 							<!-- Columna de perfils -->
 							<ng-container matColumnDef="perfils">
@@ -153,19 +171,38 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 		this.router.navigate([this.currentRouteUrl.substring(0, index)]);
 	}
 
-	// onButtonSaveClick() {
-	// }
-
-	// onButtonUndoClick() {
-	// 	let returnToReadOnlyState: boolean = false;
-	// 	if (this.anyFieldChanged) {
-	// 		returnToReadOnlyState = confirm(this.translateKey('component.restapi.form.undo.confirm'));
+	// onPerfilChange(event, index) {
+	// 	let perfilsNous = this.empresaPerfils[index].perfils.filter(item => this.epo[index].perfils.indexOf(item) < 0);
+	// 	// TODO: Deshabilitar mentres s'està creant/eliminant el perfil
+	// 	if (perfilsNous.length > 0) {
+	// 		let usuariEmpresaId = this.empresaPerfils[index].usuariEmpresaId;
+	// 		// TODO: Crear l'usuari-empresa si no existeix
+	// 		let perfilUsuariEmpresa: any = {
+	// 			usuariEmpresa: { id: this.empresaPerfils[index].usuariEmpresaId },
+	// 			perfil: { id: perfilsNous[0] }
+	// 		}
+	// 		this.perfilUsuariEmpresaService.create(<PerfilUsuariEmpresa>perfilUsuariEmpresa).subscribe((resposta: any) => {
+	// 			// TODO: Afegir l'id del perfil-usuari-empresa
+	// 			this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
+	// 			this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
+	// 		});
 	// 	} else {
-	// 		returnToReadOnlyState = true;
-	// 	}
-	// 	if (returnToReadOnlyState) {
-	// 		//	this.refreshFields(false);
-	// 		this.anyFieldChanged = false;
+	// 		let perfilsEliminats = this.epo[index].perfils.filter(item => this.empresaPerfils[index].perfils.indexOf(item) < 0);
+	// 		if (perfilsEliminats.length > 0) {
+	// 			if (this.empresaPerfils[index].perfils.length == 0) {
+	// 				// TODO: Eliminar l'usuari-empresa
+	// 			}
+	// 			//let perfilUsuariEmpresaId = this.epo[index].ids[]
+	// 			let perfilUsuariEmpresaPk = {
+	// 				usuariId: this.usuari.id,
+	// 				empresaId: this.empresaPerfils[index].id,
+	// 				perfilId: perfilsEliminats[0]
+	// 			}
+	// 			this.perfilUsuariEmpresaService.deleteById(btoa(JSON.stringify(perfilUsuariEmpresaPk))).subscribe((resposta: any) => {
+	// 				this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
+	// 				this.showMessage(this.translateKey('component.restapi.form.manteniment.deleted'));
+	// 			});
+	// 		}
 	// 	}
 	// }
 
@@ -196,16 +233,8 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 				});
 			}
 		}
-
 	}
 
-	private showMessage(message: string) {
-		const snackbarRef = this.snackbar.open(
-			message,
-			this.translateKey('component.restapi.form.manteniment.button.close'), {
-			duration: 2000
-		});
-	}
 
 	private usuariTeImatge() {
 		return this.usuari != null && this.usuari.imatgeUrl != null && this.usuari.imatgeUrl != '';
@@ -227,7 +256,38 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	}
 
 	private generateTableData() {
+		this.empresaPerfils = [];
+		this.empreses.forEach((empresa) => {
+			if (empresa.activa) {
+				let usuariEmpresa = this.usuariEmpreses.find(item => item.empresa.id == empresa.id);
+				let usuariEmpresaId = null;
+				let perfilsUsuariEmpresaId = [];
+				let perfils = [];
+				if (usuariEmpresa) {
+					usuariEmpresaId = usuariEmpresa.id;
+					let perfilsUsuariEmpresa = this.perfilsUsuariEpresa.filter(item => item.usuariEmpresa.id == usuariEmpresa.id);
+					perfilsUsuariEmpresaId = perfilsUsuariEmpresa.map(item => item.perfil.id);
+				}
+				let empresaPerfil: EmpresaPerfil = {
+					empresaId: empresa.id,
+					empresaNom: empresa.nom,
+					usuariEmpresaId: usuariEmpresaId,
+					ids: perfilsUsuariEmpresaId,
+					perfils: perfils
+				};
 
+				this.empresaPerfils.push(empresaPerfil);
+			}
+		});
+		this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
+	}
+
+	private showMessage(message: string) {
+		const snackbarRef = this.snackbar.open(
+			message,
+			this.translateKey('component.restapi.form.manteniment.button.close'), {
+			duration: 2000
+		});
 	}
 
 	translateKey(key: string, params?: any, defaultValue?: string) {
@@ -238,6 +298,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 			return translatedKey;
 		}
 	}
+
 	constructor(
 		public usuarisService: UsuarisService,
 		public usuariCompanyiaService: CompanyiaUsuarisService,
@@ -269,26 +330,31 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 						this.usuarisService.get(usuariCompanyia['usuari']['id']).subscribe((usuari: Resource) => {
 							this.usuari = usuari;
 							this.refreshEmpresaPerfils();
-
+							// Obtenim totes les empreses de la companyia
 							this.empresaService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
 								let requestParams: HalParam[] = [];
 								requestParams.push({ key: 'sort', value: 'nom,ASC' });
 								this.empresaService.getAll({ params: requestParams }).subscribe((response: any) => {
 									this.empreses = response;
+									// Obtenim totes les empreses que estan associades a l'usuari
 									this.usuariEmpresaService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
 										let requestParams: HalParam[] = [];
 										requestParams.push({ key: 'query', value: 'usuari.id==' + this.usuari.id });
 										requestParams.push({ key: 'sort', value: 'empresa.nom,ASC' });
 										this.usuariEmpresaService.getAll({ params: requestParams }).subscribe((response: any) => {
 											this.usuariEmpreses = response;
+											// Obtenim tots els perfils-empresa de l'usuari
 											this.perfilUsuariEmpresaService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
 												this.perfilUsuariEmpresaService.getAll().subscribe((response: any) => {
 													this.perfilsUsuariEpresa = response;
+													// Obtenim tots els perfils de la companyia
 													this.perfilsService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
 														let requestParams: HalParam[] = [];
 														requestParams.push({ key: 'sort', value: 'codi,ASC' });
 														this.perfilsService.getAll({ params: requestParams }).subscribe((response: any) => {
 															this.perfils = response;
+															// Quan em obtingut totes les dades necessàries, generam l'estructura de dades
+															// necessària per a montar la taula de empreses-perfils
 															this.generateTableData();
 														});
 													});
