@@ -44,7 +44,6 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "rdi_idf_cod", length = 4)),	
-//	@AttributeOverride(name = "id.codi", column = @Column(name = "rdi_cod", length = 4)),
 	@AttributeOverride(name = "id.calendariData", column = @Column(name = "rdi_cln_dat")),
 	
 	@AttributeOverride(name = "embedded.calendariData", column = @Column(name = "rdi_cln_dat", insertable = false, updatable = false)),	

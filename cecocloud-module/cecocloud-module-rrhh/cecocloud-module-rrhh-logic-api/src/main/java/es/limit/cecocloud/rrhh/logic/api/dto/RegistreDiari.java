@@ -39,74 +39,60 @@ public class RegistreDiari extends AbstractIdentificableWithCompositePk<Registre
 			disabledForUpdate = true,
 			toUpperCase = true)
 	private Calendari calendari;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)
 	private Operari operari;
-	
 	@NotNull
 	private BigDecimal horesTeoriques;
-	
 	@NotNull
 	private BigDecimal horesNormals;
-	
 	@NotNull
 	private BigDecimal horesExtras;
-	
 	@NotNull
 	private BigDecimal preuHoresExtras;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)
 	private Horari horari;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)
 	private Regim regim;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)
 	private Seccio seccio;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)
 	private Empresa empresa;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)
 	private Categoria categoria;
-	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)
 	private Subcategoria subcategoria;
-	
 	@NotNull
 	private BigDecimal preuHoraNormal;
-	
 	@NotNull
 	private BigDecimal preuHoraNit;
-	
 	@NotNull
 	private BigDecimal horesNit;
 
@@ -117,14 +103,6 @@ public class RegistreDiari extends AbstractIdentificableWithCompositePk<Registre
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Calendari, String> calendariData;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -133,7 +111,7 @@ public class RegistreDiari extends AbstractIdentificableWithCompositePk<Registre
 	@SuppressWarnings("serial")
 	public static class RegistreDiariPk implements Serializable {
 		private String identificadorCodi;		
-		private String caledariCodi;
+		private String calendariData;
 	}
 
 }

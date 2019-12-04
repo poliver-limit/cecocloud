@@ -4,14 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>es.limit.cecogest</groupId>
-		<artifactId>cecocloud</artifactId>
+		<artifactId>cecocloud-modules</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-modules</artifactId>
+	<artifactId>cecocloud-module-fact</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>cecocloud-module-fact</module>
-		<module>cecocloud-module-rrhh</module>
-		<module>cecocloud-module-marc</module>
+		<module>cecocloud-module-fact-back</module>
+		<module>cecocloud-module-fact-persist</module>
+		<module>cecocloud-module-fact-logic-api</module>
+		<module>cecocloud-module-fact-logic</module>
+		<module>cecocloud-module-fact-front</module>
 	</modules>
 </project>

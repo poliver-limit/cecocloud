@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.rrhh.logic.api.dto;
+package es.limit.cecocloud.facturacio.logic.api.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +23,7 @@ import lombok.Setter;
 )
 public class Identificador extends AbstractIdentificable<String> {
 
+	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)
 	@RestapiField(
 			disabledForUpdate = true,

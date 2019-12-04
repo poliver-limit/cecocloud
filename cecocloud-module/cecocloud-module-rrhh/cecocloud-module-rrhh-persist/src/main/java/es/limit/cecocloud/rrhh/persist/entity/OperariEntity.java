@@ -34,7 +34,7 @@ import lombok.Setter;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity
+@Entity(name = "OperariRrhhEntity")
 @Table(
 		name = "trhu_ope",
 		indexes = {
@@ -48,7 +48,7 @@ import lombok.Setter;
 	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", length = 4, insertable = false, updatable = false)),		
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 40, nullable = false)),	
-	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
+	/*@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
 	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
 	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
 	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
@@ -70,7 +70,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.ado", column = @Column(name = "ope_ado", length = 1, nullable = false)),			
 	@AttributeOverride(name = "embedded.controlPartes", column = @Column(name = "ope_ctlffo", length = 1)),			
 	@AttributeOverride(name = "embedded.controlHoresExtras", column = @Column(name = "ope_ctlhoe", length = 1)),			
-	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),
+	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),*/
 			
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
