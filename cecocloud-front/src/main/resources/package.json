@@ -26,7 +26,7 @@
     "@angular/router": "~8.1.3",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
-    "@programari-limit/base-angular": "^0.0.26",
+    "@programari-limit/base-angular": "^0.0.28",
     "angular4-hal": "^7.9.1",
     "core-js": "^3.1.4",
     "ng-material-datetimepicker": "^1.18.5",
