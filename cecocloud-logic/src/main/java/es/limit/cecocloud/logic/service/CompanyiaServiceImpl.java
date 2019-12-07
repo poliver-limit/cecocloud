@@ -26,8 +26,8 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.limit.base.boot.logic.api.dto.Permission;
-import es.limit.base.boot.logic.api.dto.Permission.PermissionSidType;
+import es.limit.base.boot.logic.api.dto.BaseBootPermission;
+import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
 import es.limit.base.boot.logic.api.exception.InvalidLicenseException;
 import es.limit.base.boot.logic.helper.PermissionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
@@ -129,7 +129,7 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	@Override
 	protected void afterCreate(CompanyiaEntity entity, Companyia dto) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Permission permission = new Permission(
+		BaseBootPermission permission = new BaseBootPermission(
 				PermissionSidType.PRINCIPAL,
 				auth.getName());
 		permission.setAdminGranted(true);
@@ -139,7 +139,7 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	}
 
 	@Override
-	protected void afterPermissionCreate(Long id, Permission permission) {
+	protected void afterPermissionCreate(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && hasAnyPermission(permission)) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<CompanyiaEntity> companyia = getRepository().findById(id);
@@ -157,7 +157,7 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	}
 
 	@Override
-	protected void afterPermissionUpdate(Long id, Permission permission) {
+	protected void afterPermissionUpdate(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<CompanyiaEntity> companyia = getRepository().findById(id);
@@ -180,7 +180,7 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 	}
 
 	@Override
-	protected void afterPermissionDelete(Long id, Permission permission) {
+	protected void afterPermissionDelete(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<CompanyiaEntity> companyia = getRepository().findById(id);
@@ -194,7 +194,7 @@ public class CompanyiaServiceImpl extends AbstractGenericServiceWithPermissionsI
 		}
 	}
 
-	private boolean hasAnyPermission(Permission permission) {
+	private boolean hasAnyPermission(BaseBootPermission permission) {
 		return permission.isReadGranted() || permission.isAdminGranted();
 	}
 

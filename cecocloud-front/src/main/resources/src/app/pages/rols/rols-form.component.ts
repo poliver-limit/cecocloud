@@ -1,21 +1,48 @@
-import { Component } from '@angular/core';
+import { RecursosService } from './../../shared/recusros.service';
+import { Component, OnInit } from '@angular/core';
 import { BngFormConfig } from 'base-angular';
 
 import { RolsService } from './rols.service';
+import { ActivatedRoute } from '@angular/router';
 
-@Component( {
-    template: `
+@Component({
+	template: `
     <bng-form
         bng-form-mant
         [config]="formConfig"
-        [restapiService]="rolsService"></bng-form>
+        [restapiService]="rolsService">
+
+        <ng-container *ngIf="id">
+            <cec-recursos
+                [rol] = "id">
+            </cec-recursos>
+        </ng-container>
+
+    </bng-form>
 `
-} )
-export class RolsFormComponent {
+})
+export class RolsFormComponent { //implements OnInit {
 
-    formConfig: BngFormConfig = {}
+	id: any;
+	formConfig: BngFormConfig = {}
+	recursos: any;
 
-    constructor(
-        public rolsService: RolsService ) {}
+	// ngOnInit(): void {
+	//     this.recursosSetvice.getRecursosByRol(this.id).subscribe((recursos) => {
+	//         console.log("RecursosRol: ", recursos);
+	//         this.recursos = recursos;
+	//     });
+	// }
+
+	constructor(
+		activatedRoute: ActivatedRoute,
+		public rolsService: RolsService) {
+		// public recursosSetvice: RecursosService) {
+		activatedRoute.params.subscribe((params) => {
+			if (params.id) {
+				this.id = params.id;
+			}
+		});
+	}
 
 }

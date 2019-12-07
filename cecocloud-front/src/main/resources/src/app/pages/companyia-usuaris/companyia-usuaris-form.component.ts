@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
 
-import { BngScreenSizeChangeEvent, BngScreenSizeService } from '@programari-limit/base-angular';
+import { BngScreenSizeChangeEvent, BngScreenSizeService, BngFormConfig } from '@programari-limit/base-angular';
 import { BngRestapiProfile } from '@programari-limit/base-angular/lib/restapi/restapi-profile';
 
 import { UsuarisService } from "./usuaris.service";
@@ -26,50 +26,45 @@ export interface EmpresaPerfil {
 
 @Component({
 	template: `
-	<mat-toolbar class="form-header" [ngClass]="{'form-header-mobile': mobileScreen, 'form-header-desktop': !mobileScreen}">
-		<button mat-icon-button (click)="onButtonCancelClick()">
-			<mat-icon>arrow_back</mat-icon>
-		</button>
-		<span style="padding-left:.4em">{{title}} / {{'component.restapi.form.header.title.modificar' | translate}}</span>
-		<span class="toolbar-fill"></span>
-		<!--button mat-icon-button *ngIf="hasSavePermission" title="{{'component.restapi.form.header.button.guardar'|translate}}" (click)="onButtonSaveClick()">
-			<mat-icon>save_alt</mat-icon>
-		</button>
-		<button mat-icon-button *ngIf="hasSavePermission" title="{{'component.restapi.form.header.button.descartar'|translate}}" [disabled]="!anyFieldChanged" (click)="onButtonUndoClick()">
-			<mat-icon>undo</mat-icon>
-		</button-->
-	</mat-toolbar>
-
-	<mat-card class="mat-elevation-z4" style="margin: 1em; padding: 2em">
-		<div style="display: flex; flex-wrap: wrap;">
-			<div style="display: flex; flex-wrap: wrap; width: calc(100% - 110px);">
-				<mat-form-field style="width:100%;">
-					<mat-label>{{'resource.usuari.field.nom'|translate}}</mat-label>
-					<input matInput type="text" readonly="true"	value='{{usuari?.nom}}' />
-				</mat-form-field>
-				<mat-form-field style="width:100%;">
-					<mat-label>{{'resource.usuari.field.llinatges'|translate}}</mat-label>
-					<input matInput type="text" readonly="true" value='{{usuari?.llinatges}}' />
-				</mat-form-field>
+	<bng-form
+		bng-form-mant
+		[config]="formConfig"
+		[restapiService]="usuariCompanyiaService">
+		<ng-container *ngTemplateOutlet="fieldsTemplate"></ng-container>
+		<ng-template #fieldsTemplate>
+			<div style="display: flex">
+				<bng-custom-field name="usuari" style="width: 30%; padding-right: 2em; display:none;"></bng-custom-field>
 			</div>
-			<div *ngIf="usuariTeImatge(); else icona" style="width: 110px; display: flex;">
-				<img src='{{usuari?.imatgeUrl}}' style="margin-left: 20px; width: 90px; height: 90px; background-color: #AAA;" />
-			</div>
-			<ng-template #icona>
-				<div style="width: 90px; display: flex; padding-left: 20px;">
-					<mat-icon style="font-size: 90px; width: 90px; height: 90px;">account_circle</mat-icon>
+			<div style="display: flex; flex-wrap: wrap;">
+				<div style="display: flex; flex-wrap: wrap; width: calc(100% - 110px);">
+					<mat-form-field style="width:100%;">
+						<mat-label>{{'resource.usuari.field.nom'|translate}}</mat-label>
+						<input matInput type="text" readonly="true"	value='{{usuari?.nom}}' />
+					</mat-form-field>
+					<mat-form-field style="width:100%;">
+						<mat-label>{{'resource.usuari.field.llinatges'|translate}}</mat-label>
+						<input matInput type="text" readonly="true" value='{{usuari?.llinatges}}' />
+					</mat-form-field>
 				</div>
-			</ng-template>
-		</div>
-		<div style="width: 100%; display: flex; flex-wrap: wrap;">
-			<mat-form-field style="width: calc(100% - 110px);">
-				<mat-label>{{'resource.usuari.field.email'|translate}}</mat-label>
-				<input matInput type="text" readonly="true" value='{{usuari?.email}}' />
-			</mat-form-field>
-			<mat-checkbox disabled="true" [checked]='usuari?.actiu' style="margin-left: 20px; position: relative; top: 12px;">
-				<span>{{'resource.usuari.field.actiu'|translate}}</span>
-			</mat-checkbox>
-		</div>
+				<div *ngIf="usuariTeImatge(); else icona" style="width: 110px; display: flex;">
+					<img src='{{usuari?.imatgeUrl}}' style="margin-left: 20px; width: 90px; height: 90px; background-color: #AAA;" />
+				</div>
+				<ng-template #icona>
+					<div style="width: 90px; display: flex; padding-left: 20px;">
+						<mat-icon style="font-size: 90px; width: 90px; height: 90px;">account_circle</mat-icon>
+					</div>
+				</ng-template>
+			</div>
+			<div style="width: 100%; display: flex; flex-wrap: wrap;">
+				<mat-form-field style="width: calc(100% - 110px);">
+					<mat-label>{{'resource.usuari.field.email'|translate}}</mat-label>
+					<input matInput type="text" readonly="true" value='{{usuari?.email}}' />
+				</mat-form-field>
+				<mat-checkbox disabled="true" [checked]='usuari?.actiu' style="margin-left: 20px; position: relative; top: 12px;">
+					<span>{{'resource.usuari.field.actiu'|translate}}</span>
+				</mat-checkbox>
+			</div>
+		</ng-template>
 		<div style="display: flex">
 			<div style="width: 100%; margin-top: 40px;">
 				<mat-tab-group>
@@ -101,7 +96,7 @@ export interface EmpresaPerfil {
 				</mat-tab-group>
 			</div>
 		</div>
-	</mat-card>
+	</bng-form>
 	`,
 	styles: [`
 	.form-header {
@@ -118,11 +113,21 @@ export interface EmpresaPerfil {
 	.toolbar-fill {
 		flex: 1 1 auto;
 	}
+	button[title="Editar"] {
+    	display: none;
+	}
 	`]
 })
 export class CompanyiaUsuarisFormComponent implements OnDestroy {
 
 	@ViewChild(MatTable, null) table: MatTable<any>;
+
+	id: any;
+	formConfig: BngFormConfig = {
+		readOnlyStateEnabled: true,
+		isButtonSave: false,
+		isUpdateShow: false
+	};
 
 	public translate: TranslateService;
 	private routeSub: Subscription;
@@ -142,7 +147,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	epo: EmpresaPerfil[];
 
 	columnsToDisplay: string[] = ['nom', 'perfils'];
-	disableSelects: boolean;
+	disableSelects: boolean = false;
 
 	ngOnDestroy() {
 		this.routeSub.unsubscribe();
@@ -156,17 +161,10 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	onPerfilChange(event, index) {
 		// Deshabilitar selects mentres s'està creant/eliminant el perfil
 		this.disableSelects = true;
-
-		console.log("Actual: ", this.empresaPerfils);
-		console.log("Antics: ", this.epo);
-
 		let perfilsNous = this.empresaPerfils[index].perfils.filter(item => this.epo[index].perfils.indexOf(item) < 0);
-		console.log("Perfil a crear: ", perfilsNous);
-
 		if (perfilsNous.length > 0) {
 			let usuariEmpresaId = this.empresaPerfils[index].usuariEmpresaId;
 			if (usuariEmpresaId) {
-				console.log("Ja existeix usuari-empresa", usuariEmpresaId);
 				let perfilUsuariEmpresa: any = {
 					usuariEmpresa: { id: usuariEmpresaId },
 					perfil: { id: perfilsNous[0] }
@@ -192,7 +190,6 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 			if (perfilsEliminats.length > 0) {
 				let pos = this.epo[index].perfils.indexOf(perfilsEliminats[0]);
 				let perfilUsuariEmpresaId = this.epo[index].ids[pos];
-				console.log("Perfil a eliminar: ", perfilsEliminats, " de: ", perfilUsuariEmpresaId);
 				// Eliminar el perfil-usuari-empresa
 				this.deletePerfilEmpresa(
 					perfilUsuariEmpresaId,
@@ -216,22 +213,18 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 					this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
 					this.showMessage(this.translateKey('component.restapi.form.manteniment.deleted'));
 					this.disableSelects = false;
-					console.log("Un cop eliminat el perfil-usuari-empresa: ", this.empresaPerfils);
 				});
 			} else {
 				this.empresaPerfils[index].ids.splice(pos, 1);
 				this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
 				this.showMessage(this.translateKey('component.restapi.form.manteniment.deleted'));
 				this.disableSelects = false;
-				console.log("Un cop eliminat el perfil-usuari-empresa: ", this.empresaPerfils);
 			}
 		});
 	}
 
 	private createPerfilEmpresa(perfilUsuariEmpresa, index) {
-		console.log("Anem a crear el nou perfil-usuari-empresa: ", perfilUsuariEmpresa);
 		this.perfilUsuariEmpresaService.create(<PerfilUsuariEmpresa>perfilUsuariEmpresa).subscribe((resposta: any) => {
-			console.log("perfil-usuari-empresa creat amb id: ", resposta.id);
 			let pos = this.empresaPerfils[index].perfils.indexOf(perfilUsuariEmpresa.perfil.id);
 			if (pos == this.empresaPerfils[index].ids.length) {
 				this.empresaPerfils[index].ids.push(resposta.id);
@@ -241,7 +234,6 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 			this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
 			this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
 			this.disableSelects = false;
-			console.log("Un cop creat el nou perfil-usuari-empresa: ", this.empresaPerfils);
 		});
 	}
 
@@ -250,7 +242,6 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	}
 
 	private generateTableData() {
-		console.log("GenerateTableData");
 		this.empresaPerfils = [];
 		this.empreses.forEach((empresa) => {
 			if (empresa.activa) {
@@ -276,7 +267,6 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 			}
 		});
 		this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
-		console.log(this.empresaPerfils);
 		//this.table.renderRows();
 	}
 
@@ -284,7 +274,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 		const snackbarRef = this.snackbar.open(
 			message,
 			this.translateKey('component.restapi.form.manteniment.button.close'), {
-			duration: 2000
+			duration: 1000
 		});
 	}
 

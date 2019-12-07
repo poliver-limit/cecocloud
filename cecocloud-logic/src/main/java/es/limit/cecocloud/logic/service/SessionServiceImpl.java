@@ -56,6 +56,7 @@ public class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
+//	TODO: @Cacheable()
 	public List<GrantedAuthority> getAuthoritiesFromSession(String usuariCodi, Object session) {
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 		if (usuariCodi != null) {
@@ -69,7 +70,7 @@ public class SessionServiceImpl implements SessionService {
 						usuariCodi, 
 						userSession.getE());
 				if (rols != null && !rols.isEmpty()) {
-					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getEmbedded().getCodi())).collect(Collectors.toList()); 
+					grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getId().toString())).collect(Collectors.toList()); 
 				}
 			}
 		}
