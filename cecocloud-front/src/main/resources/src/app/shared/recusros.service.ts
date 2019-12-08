@@ -29,8 +29,13 @@ export class RecursosService {
         rolsId.forEach((rolId: number) => {
             params = params.append(`rolsID[]`, rolId.toString());
         })
-        params.append('rolsId', rolsId.join(', '));
-        return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/rols/', { params: params });
+        let rolIdparams = rolsId.join(', ');
+        console.log("Params: ", params.toString());
+        return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/rols/' + rolIdparams); //, { params: params });
+    }
+
+    public saveRecurs(resourceInfo: any) {
+        return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/recursos/permissions/save', resourceInfo);
     }
 
     constructor(

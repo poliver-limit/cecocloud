@@ -1,4 +1,3 @@
-import { RecursosService } from './../../shared/recusros.service';
 import { Component, OnInit } from '@angular/core';
 import { BngFormConfig } from 'base-angular';
 

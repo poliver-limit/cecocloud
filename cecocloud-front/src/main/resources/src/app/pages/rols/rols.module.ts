@@ -1,3 +1,4 @@
+import { RecusrosPermisModule } from '../../shared/recursos-permis.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,7 +11,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { RolsGridComponent } from './rols-grid.component';
 import { RolsFormComponent } from './rols-form.component';
-import { RecursosPermisComponent } from './recursos-permis.component';
+import { RecursosPermisComponent } from '../../shared/recursos-permis.component';
 import { RolsService } from './rols.service';
 import { RecursosService } from 'src/app/shared/recusros.service';
 import { PerfilRolService } from '../perfils/perfilRol.service';
@@ -23,8 +24,9 @@ import { PerfilUsuariEmpresaService } from '../companyia-usuaris/perfil-usuari-e
         TranslateModule,
         BngModule,
         MaterialModule,
-        MatTableModule,
-        MatSlideToggleModule,
+        RecusrosPermisModule,
+        // MatTableModule,
+        // MatSlideToggleModule,
         RouterModule.forChild([
             { path: '', component: RolsGridComponent },
             { path: 'create', component: RolsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -33,14 +35,14 @@ import { PerfilUsuariEmpresaService } from '../companyia-usuaris/perfil-usuari-e
     ],
     declarations: [
         RolsGridComponent,
-        RolsFormComponent,
-        RecursosPermisComponent
+        RolsFormComponent
+        // RecursosPermisComponent
     ],
     providers: [
-        RolsService,
-        RecursosService,
-        PerfilRolService,
-        PerfilUsuariEmpresaService
+        RolsService
+        // RecursosService,
+        // PerfilRolService,
+        // PerfilUsuariEmpresaService
     ]
 })
 export class RolsModule { }
