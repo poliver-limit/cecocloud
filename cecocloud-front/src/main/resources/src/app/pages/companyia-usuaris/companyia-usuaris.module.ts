@@ -16,6 +16,7 @@ import { PerfilUsuariEmpresaService } from './perfil-usuari-empresa.service';
 import { PerfilsService } from './../perfils/perfils.service';
 import { EmpresesService } from '../empreses/empreses.service';
 import { MatTableModule } from '@angular/material';
+import { RecusrosPermisModule } from 'src/app/shared/recursos-permis.module';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { MatTableModule } from '@angular/material';
         TranslateModule,
         BngModule,
         MaterialModule,
+        RecusrosPermisModule,
         MatTableModule,
         RouterModule.forChild([
             { path: '', component: CompanyiaUsuarisGridComponent, canDeactivate: [BngFormExitGuard] },

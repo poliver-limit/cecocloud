@@ -13,7 +13,7 @@ import { HalParam } from 'angular4-hal';
     template: `
         <div style="display: flex">
 			<div style="width: 100%; margin-top: 40px;">
-                <mat-tab-group>
+                <mat-tab-group animationDuration="0ms">
                     <mat-tab *ngFor="let recursosModul of recursosModuls; let indexModul = index" label="{{'app.module.' + recursosModul.module.code |translate}}">
                     <div [style.height.px]="tableHeight" class="permisos-container">
                         <table mat-table [dataSource]="recursosModul.resources" class="mat-elevation-z8" style="width:100%;">
@@ -28,14 +28,13 @@ import { HalParam } from 'angular4-hal';
                                         <ng-container *ngIf="!mobileScreen"> {{'resource.permis.read' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">CON</ng-container>
                                     </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index">
-                                        <mat-slide-toggle
+                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
+                                        <mat-checkbox
                                             name = 'readGranted'
-                                            [ngClass]="{'toggle-mobile': mobileScreen}"
                                             [checked]="recurs.permission.readGranted"
                                             [disabled]="disableToggles"
                                             (change) = "onPermisChange($event, indexModul, index)">
-                                        </mat-slide-toggle>
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de write -->
@@ -44,14 +43,13 @@ import { HalParam } from 'angular4-hal';
                                         <ng-container *ngIf="!mobileScreen"> {{'resource.permis.write' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">MOD</ng-container>
                                     </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index">
-                                        <mat-slide-toggle
+                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
+                                        <mat-checkbox
                                             name = 'writeGranted'
-                                            [ngClass]="{'toggle-mobile': mobileScreen}"
                                             [checked]="recurs.permission.writeGranted"
                                             [disabled]="disableToggles"
                                             (change) = "onPermisChange($event, indexModul, index)">
-                                        </mat-slide-toggle>
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de create -->
@@ -60,14 +58,13 @@ import { HalParam } from 'angular4-hal';
                                         <ng-container *ngIf="!mobileScreen"> {{'resource.permis.create' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">CRE</ng-container>
                                     </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index">
-                                        <mat-slide-toggle
+                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
+                                        <mat-checkbox
                                             name='createGranted'
-                                            [ngClass]="{'toggle-mobile': mobileScreen}"
                                             [checked]="recurs.permission.createGranted"
                                             [disabled]="disableToggles"
                                             (change) = "onPermisChange($event, indexModul, index)">
-                                        </mat-slide-toggle>
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de delete -->
@@ -76,14 +73,13 @@ import { HalParam } from 'angular4-hal';
                                         <ng-container *ngIf="!mobileScreen"> {{'resource.permis.delete' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">BOR</ng-container>
                                     </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index">
-                                        <mat-slide-toggle
+                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
+                                        <mat-checkbox
                                             name = 'deleteGranted'
-                                            [ngClass]="{'toggle-mobile': mobileScreen}"
                                             [checked]="recurs.permission.deleteGranted"
                                             [disabled]="disableToggles"
                                             (change) = "onPermisChange($event, indexModul, index)">
-                                        </mat-slide-toggle>
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de administration -->
@@ -92,14 +88,13 @@ import { HalParam } from 'angular4-hal';
                                         <ng-container *ngIf="!mobileScreen"> {{'resource.permis.administration' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">ADM</ng-container>
                                     </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index">
-                                        <mat-slide-toggle
+                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
+                                        <mat-checkbox
                                             name = 'adminGranted'
-                                            [ngClass]="{'toggle-mobile': mobileScreen}"
                                             [checked]="recurs.permission.adminGranted"
                                             [disabled]="disableToggles"
                                             (change) = "onPermisChange($event, indexModul, index)">
-                                        </mat-slide-toggle>
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de print -->
@@ -108,14 +103,13 @@ import { HalParam } from 'angular4-hal';
                                         <ng-container *ngIf="!mobileScreen"> {{'resource.permis.print' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">IMP</ng-container>
                                     </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index">
-                                        <mat-slide-toggle
+                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
+                                        <mat-checkbox
                                             name = 'printGranted'
-                                            [ngClass]="{'toggle-mobile': mobileScreen}"
                                             [checked]="recurs.permission.printGranted"
                                             [disabled]="disableToggles"
                                             (change) = "onPermisChange($event, indexModul, index)">
-                                        </mat-slide-toggle>
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
@@ -128,8 +122,8 @@ import { HalParam } from 'angular4-hal';
         </div>
     `,
     styles: [`
-        .toggle-mobile {
-            transform: rotate(270deg);
+        .rcheck {
+            text-align: center;
         }
         .htoggle-mobile {
             width:8%;
@@ -143,7 +137,7 @@ import { HalParam } from 'angular4-hal';
             max-width:60px;
             text-align: center;
         }
-        .mat-slide-toggle.mat-disabled {
+        .mat-checkbox-disabled {
             opacity: .78;
         }
     `]
@@ -152,7 +146,7 @@ export class RecursosPermisComponent implements OnInit {
 
     @Input() rol: number;
     @Input() perfil: number;
-    @Input() usuariEmpresa: string;
+    @Input() usuariEmpresa: any;
 
     public translate: TranslateService;
     recursosModuls: any;
@@ -164,7 +158,6 @@ export class RecursosPermisComponent implements OnInit {
     tableHeight: number;
 
     onPermisChange(event, indexModul, indexRecurs) {
-        console.log("PermisChange: ", event, indexModul, indexRecurs);
         // Deshabilitar els checks mentres es desen els permisos
         this.disableToggles = true;
         let resourceInfo = JSON.parse(JSON.stringify(this.recursosModuls[indexModul].resources[indexRecurs]));
@@ -177,7 +170,7 @@ export class RecursosPermisComponent implements OnInit {
             },
             error => {
                 this.disableToggles = false;
-                console.log(error);
+                console.error(error);
             }
         );
     }
@@ -225,7 +218,6 @@ export class RecursosPermisComponent implements OnInit {
                             rols = perfilRols.map(perfilRol => perfilRol.rol.id);
                         }
                         this.recursosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
-                            console.log("RecursosRol: ", recursosModuls);
                             this.recursosModuls = recursosModuls;
                         }),
                             error => console.log(error);
@@ -239,10 +231,11 @@ export class RecursosPermisComponent implements OnInit {
             let requestParams: HalParam[] = [];
             requestParams.push({
                 key: 'query',
-                value: 'usuariEmpresa.id==' + this.usuariEmpresa
+                value: 'usuariEmpresa.usuari.codi=="' + this.usuariEmpresa.usuariCodi + '"; usuariEmpresa.empresa.id==' + this.usuariEmpresa.empresaId
             });
             this.perfilUsuariEmpresaService.getAll({ params: requestParams }).subscribe((perfilUsuariEmpreses) => {
                 let perfilsUsuari: string[];
+                debugger;
                 if (perfilUsuariEmpreses == null || perfilUsuariEmpreses.length == 0) {
                     this.recursosService.getRecursosByRol(-1).subscribe((recursosModuls) => {
                         this.recursosModuls = recursosModuls;
@@ -255,10 +248,10 @@ export class RecursosPermisComponent implements OnInit {
                             value: 'perfil.id==' + perfilUsuariEmpreses[0]['perfil'].id
                         });
                     } else {
-                        perfilsUsuari = perfilUsuariEmpreses.map(perfilUsuariEmpresa => perfilUsuariEmpreses['perfil'].id);
+                        perfilsUsuari = perfilUsuariEmpreses.map(perfilUsuariEmpresa => perfilUsuariEmpresa['perfil'].id);
                         requestParams.push({
                             key: 'query',
-                            value: 'perfil.id in ' + perfilUsuariEmpreses.join(',')
+                            value: 'perfil.id =in= (' + perfilsUsuari.join(',') + ')'
                         });
                     }
                     this.perfilRolService.getAll({ params: requestParams }).subscribe((perfilRols) => {
