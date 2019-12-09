@@ -31,6 +31,7 @@ export class EmpresesFormComponent {
 	id: any;
 
 	formConfig: BngFormConfig = {
+		readOnlyStateEnabled: true
 	}
 	permisosDatagridConfig = {
 		//columnFiltersEnabled: true

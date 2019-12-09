@@ -10,8 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import es.limit.base.boot.logic.api.dto.Permission;
-import es.limit.base.boot.logic.api.dto.Permission.PermissionSidType;
+import es.limit.base.boot.logic.api.dto.BaseBootPermission;
+import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
 import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
@@ -39,16 +39,17 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 	@Override
 	protected void afterCreate(EmpresaEntity entity, Empresa dto) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Permission permission = new Permission(
+		BaseBootPermission permission = new BaseBootPermission(
 				PermissionSidType.PRINCIPAL,
 				auth.getName());
+		permission.setReadGranted(true);
 		permissionCreate(
 				entity.getId(),
 				permission);
 	}
 
 	@Override
-	protected void afterPermissionCreate(Long id, Permission permission) {
+	protected void afterPermissionCreate(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && hasAnyPermission(permission)) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<EmpresaEntity> empresa = getRepository().findById(id);
@@ -66,7 +67,7 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 	}
 
 	@Override
-	protected void afterPermissionUpdate(Long id, Permission permission) {
+	protected void afterPermissionUpdate(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<EmpresaEntity> empresa = getRepository().findById(id);
@@ -89,7 +90,7 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 	}
 
 	@Override
-	protected void afterPermissionDelete(Long id, Permission permission) {
+	protected void afterPermissionDelete(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<EmpresaEntity> empresa = getRepository().findById(id);
@@ -103,7 +104,7 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 		}
 	}
 
-	private boolean hasAnyPermission(Permission permission) {
+	private boolean hasAnyPermission(BaseBootPermission permission) {
 		return permission.isReadGranted();
 	}
 

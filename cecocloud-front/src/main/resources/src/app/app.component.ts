@@ -131,7 +131,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.refreshSmallToolbar(window.innerWidth);
-		this.screenSizeService.onWindowResize(window.innerWidth);
+		this.screenSizeService.onWindowResize(window.innerWidth, window.innerHeight);
 	}
 
 	onHomeLinkClick() {
@@ -175,8 +175,9 @@ export class AppComponent implements OnInit {
 	@HostListener('window:resize', ['$event'])
 	onWindowResize(event: Event) {
 		let innerWidth = event.target['innerWidth'];
+		let innerHeight = event.target['innerHeight'];
 		this.refreshSmallToolbar(innerWidth);
-		this.screenSizeService.onWindowResize(innerWidth);
+		this.screenSizeService.onWindowResize(innerWidth, innerHeight);
 	}
 
 	refreshSmallToolbar(windowWidth: number) {

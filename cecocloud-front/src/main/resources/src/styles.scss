@@ -23,6 +23,12 @@ mat-checkbox .mat-checkbox-layout {
 	padding-top: 0.9em;
 }
 
+/* Per a fer que els camps disabled no es mostrin amb una linia de punts a davall*/
+.bng-form-field.mat-form-field-disabled .mat-form-field-underline {
+    background-color: rgba(0, 0, 0, 0.42) !important;
+    background-image: none !important;
+}
+
 /*mat-form-field.mat-form-field-sm > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix  {
 	padding: 0.2em 0px .6em 0;
 }

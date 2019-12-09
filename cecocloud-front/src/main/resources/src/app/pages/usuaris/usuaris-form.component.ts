@@ -10,39 +10,44 @@ import { UsuarisService } from './usuaris.service';
 	[config]="formConfig"
 	[restapiService]="usuarisService"
 	(resourceChange)="onResourceChange($event)">
+	<ng-container ngProjectAs="headerActions">
+		<usuari-contrasenya *ngIf="usuariId" [usuariId]="usuariId"></usuari-contrasenya>
+	</ng-container>
 	<div style="display: flex">
-		<div style="width: 80%; display: flex">
-			<bng-custom-field name="codi" style="width: 50%; padding-right: 2em"></bng-custom-field>
+		<div style="width: 50%; padding-right: 1em">
+			<bng-custom-field name="codi"></bng-custom-field>
+		</div>
+		<div style="width: 50%; padding-left: 1em">
 		</div>
 	</div>
 	<div style="display: flex">
-		<div style="width: 80%; display: flex">
-			<bng-custom-field name="nom" style="width: 50%; padding-right: 2em"></bng-custom-field>
-			<bng-custom-field name="llinatges" style="width: 50%"></bng-custom-field>
+		<div style="width: 50%; padding-right: 1em">
+			<bng-custom-field name="nom"></bng-custom-field>
+			<bng-custom-field name="llinatges"></bng-custom-field>
 		</div>
-		<bng-custom-field name="validat" style="margin-left: 2em"></bng-custom-field>
+		<div style="width: 50%; padding-left: 1em">
+			<bng-custom-field name="email"></bng-custom-field>
+			<bng-custom-field name="imatgeUrl"></bng-custom-field>
+		</div>
 	</div>
 	<div style="display: flex">
-		<div style="width: 80%; display: flex">
-			<bng-custom-field name="email" style="width: 50%; padding-right: 2em"></bng-custom-field>
-			<bng-custom-field name="imatgeUrl" style="width: 50%"></bng-custom-field>
-		</div>
-		<bng-custom-field name="actiu" style="margin-left: 2em"></bng-custom-field>
+		<bng-custom-field name="authorities" style="width: 100%"></bng-custom-field>
 	</div>
 	<div style="display: flex">
-		<div style="width: 80%">
-			<bng-custom-field name="authorities"></bng-custom-field>
+		<div style="width: 50%; padding-right: 1em">
+			<bng-custom-field name="actiu"></bng-custom-field>
 		</div>
-		<div style="width: 20%">
+		<div style="width: 50%; padding-left: 1em">
+			<bng-custom-field name="validat"></bng-custom-field>
 		</div>
 	</div>
-	<bng-custom-field *ngIf="usuariId" name="contrasenya"><usuari-contrasenya #customField [usuariId]="usuariId"></usuari-contrasenya></bng-custom-field>
 </bng-form>
 `
 } )
 export class UsuarisFormComponent {
 
     formConfig: BngFormConfig = {
+		readOnlyStateEnabled: true
 	};
 	usuariId: number;
 

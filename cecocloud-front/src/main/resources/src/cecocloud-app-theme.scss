@@ -73,6 +73,77 @@ $cecocloud-accent: (
     )
 );
 
+/*
+
+Amb colors de Límit
+
+$cecocloud-primary: (
+     50 : #e7eff3,
+    100 : #c3d7e2,
+    200 : #9bbccf,
+    300 : #73a1bb,
+    400 : #558cad,
+    500 : #37789e,
+    600 : #317096,
+    700 : #2a658c,
+    800 : #235b82,
+    900 : #164870,
+    A100 : #a8d6ff,
+    A200 : #75bdff,
+    A400 : #42a5ff,
+    A700 : #2999ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$cecocloud-accent: (
+    50 : #fcf6ec,
+    100 : #f6e7cf,
+    200 : #f1d8b0,
+    300 : #ebc890,
+    400 : #e6bc78,
+    500 : #e2b060,
+    600 : #dfa958,
+    700 : #daa04e,
+    800 : #d69744,
+    900 : #cf8733,
+    A100 : #ffffff,
+    A200 : #fff1e2,
+    A400 : #ffd9af,
+    A700 : #ffcc96,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+*/
+
 $cecocloud-app-primary: mat-palette($cecocloud-primary);
 $cecocloud-app-accent: mat-palette($cecocloud-accent);
 $cecocloud-app-warn: mat-palette($mat-red);

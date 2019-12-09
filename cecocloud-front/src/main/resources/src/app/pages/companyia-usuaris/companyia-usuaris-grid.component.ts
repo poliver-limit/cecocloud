@@ -14,24 +14,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
 	template: `
     <bng-datagrid
+		bng-datagrid-mant
 		#datagrid
         [config]="datagridConfig"
         [restapiService]="companyiaUsuarisService"
 		(headerActionCreate)="onGridActionCreate()"
-		(headerActionDelete)="onGridActionDelete($event)"
-		(rowClicked)="onRowClicked($event)"></bng-datagrid>`
+		(headerActionDelete)="onGridActionDelete($event)"></bng-datagrid>
+		<!--(rowClicked)="onRowClicked($event)"></bng-datagrid-->`
 })
 export class CompanyiaUsuarisGridComponent {
 
-	@ViewChild('datagrid', { static: false }) datagrid: BngDatagrid;	
+	@ViewChild('datagrid', { static: false }) datagrid: BngDatagrid;
 
 	datagridConfig = {
 		columFiltersEnable: true,
-		
+
 	};
 
 	onGridActionCreate() {
-		
+
 		const dialogRef = this.dialog.open(CompanyiaUsuarisAddDialog, {
 			width: '500px'
 		});
@@ -39,8 +40,8 @@ export class CompanyiaUsuarisGridComponent {
 			if (usuari) {
 				let session = this.authService.getSession();
 				let usuariCompanyia: any = {
-					usuari: {id: usuari.id},
-					companyia: {id: session.companyia}
+					usuari: { id: usuari.id },
+					companyia: { id: session.companyia }
 				};
 				this.companyiaUsuarisService.create(usuariCompanyia).subscribe(() => {
 					this.datagrid.refresh();
@@ -77,9 +78,9 @@ export class CompanyiaUsuarisGridComponent {
 			}
 		}
 	}
-	
+
 	onRowClicked(event: any) {
-		this.router.navigate(['update', event.data.id], {relativeTo: this.route});
+		this.router.navigate(['update', event.data.id], { relativeTo: this.route });
 	}
 
 	translateKey(key: string, params?: any, defaultValue?: string) {
@@ -155,9 +156,9 @@ export class CompanyiaUsuarisAddDialog implements AfterViewInit {
 					return of(null);
 				}
 			}),
-            finalize(() => {
-                this.isLoading = false;
-            })).subscribe((data: any) => {
+			finalize(() => {
+				this.isLoading = false;
+			})).subscribe((data: any) => {
 				if (data && data.length == 1) {
 					this.usuari = data[0];
 				}
