@@ -39,15 +39,18 @@ public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalP
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String poblacio;
+	
 	@Size(max = 30)
 	@RestapiField(
 			hiddenInLov = true)
 	private String municipi;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -55,21 +58,23 @@ public class CodiPostal extends AbstractIdentificableWithCompositePk<CodiPostalP
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			includeInQuickFilter = true)
-	private Pais pais;
+			includeInQuickFilter = true)	
+	private GenericReference<Pais, String> pais;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			//lovParentField = "pais",
 			hiddenInGrid = true,
-			includeInQuickFilter = true)
-	private Provincia provincia;
+			includeInQuickFilter = true)	
+	private GenericReference<Provincia, String> provincia;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

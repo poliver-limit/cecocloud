@@ -166,14 +166,13 @@ public class ArticleFamilia extends AbstractIdentificableWithCompositePk<Article
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true) 
-	private FamiliaCost familiaCost;
+			hiddenInGrid = true)	
+	private GenericReference<FamiliaCost, String> familiaCost;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, 
-//			lovModule = "rrhh",			
-			hiddenInGrid = true,hiddenInLov = true)
-	private RecursGrup recursGrup;
+	@RestapiField(type = RestapiFieldType.LOV, 	
+			hiddenInGrid = true,hiddenInLov = true)	
+	private GenericReference<RecursGrup, String> recursGrup;
 	
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,

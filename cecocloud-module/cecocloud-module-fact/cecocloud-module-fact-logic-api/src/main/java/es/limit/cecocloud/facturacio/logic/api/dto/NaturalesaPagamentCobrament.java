@@ -38,11 +38,13 @@ public class NaturalesaPagamentCobrament extends AbstractIdentificableWithCompos
 			toUpperCase=true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
+	
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,

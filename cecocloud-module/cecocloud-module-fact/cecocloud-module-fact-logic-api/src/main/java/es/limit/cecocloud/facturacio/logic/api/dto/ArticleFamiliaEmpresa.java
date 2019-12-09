@@ -36,6 +36,7 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithCompositePk<
 			hiddenInLov=true,
 			includeInQuickFilter = true)
 	private boolean web;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -43,6 +44,7 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithCompositePk<
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -50,6 +52,7 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithCompositePk<
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<ArticleFamilia, String> articleFamilia;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

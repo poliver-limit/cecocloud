@@ -14,7 +14,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.logic.api.dto.RegistreDiari.RegistreDiariPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,62 +36,76 @@ public class RegistreDiari extends AbstractIdentificableWithCompositePk<Registre
 	@NotNull(groups = {OnCreate.class}) 
 	@RestapiField(
 			disabledForUpdate = true,
-			toUpperCase = true)
-	private Calendari calendari;
+			toUpperCase = true)	
+	private GenericReference<Calendari, String> calendari;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)
-	private Operari operari;
+			hiddenInGrid = true)	
+	private GenericReference<Operari, String> operari;
+	
 	@NotNull
 	private BigDecimal horesTeoriques;
+	
 	@NotNull
 	private BigDecimal horesNormals;
+	
 	@NotNull
 	private BigDecimal horesExtras;
+	
 	@NotNull
 	private BigDecimal preuHoresExtras;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)
-	private Horari horari;
+			hiddenInGrid = true)	
+	private GenericReference<Horari, String> horari;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
-			hiddenInGrid = true)
-	private Regim regim;
+			hiddenInGrid = true)	
+	private GenericReference<Regim, String> regim;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)
-	private Seccio seccio;
+			hiddenInGrid = true)	
+	private GenericReference<Seccio, String> seccio;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
-			hiddenInGrid = true)
-	private Empresa empresa;
+			hiddenInGrid = true)	
+	private GenericReference<Empresa, String> empresa;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
-			hiddenInGrid = true)
-	private Categoria categoria;
+			hiddenInGrid = true)	
+	private GenericReference<Categoria, String> categoria;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
-			hiddenInGrid = true)
-	private Subcategoria subcategoria;
+			hiddenInGrid = true)	
+	private GenericReference<Subcategoria, String> subcategoria;
+	
 	@NotNull
 	private BigDecimal preuHoraNormal;
+	
 	@NotNull
 	private BigDecimal preuHoraNit;
+	
 	@NotNull
 	private BigDecimal horesNit;
 

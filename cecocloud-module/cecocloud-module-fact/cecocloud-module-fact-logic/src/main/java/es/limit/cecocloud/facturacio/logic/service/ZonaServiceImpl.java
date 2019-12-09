@@ -16,7 +16,7 @@ import es.limit.cecocloud.facturacio.persist.entity.ZonaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service
+@Service("ZonaFactService")
 public class ZonaServiceImpl extends AbstractGenericCompositePkServiceImpl<Zona, ZonaEntity, ZonaPk> implements ZonaService {
 
 	@Override

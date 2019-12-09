@@ -12,7 +12,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.logic.api.dto.Servidor.ServidorPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -14,7 +14,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -41,18 +40,18 @@ public class Node extends AbstractIdentificableWithCompositePk<NodePk> {
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
-	private Zona zonaOrigen;
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	private GenericReference<Zona, String> zonaOrigen;
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
-	private Zona zonaDesti;
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	private GenericReference<Zona, String> zonaDesti;
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
-	private Servidor servidor;
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	private GenericReference<Servidor, String> servidor;
 	
 	@Size(max = 10)
 	@RestapiField()

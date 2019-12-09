@@ -58,8 +58,8 @@ public class FamiliaCost extends AbstractIdentificableWithCompositePk<FamiliaCos
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov=true)
-	private ArticleFamilia articleFamilia;
+			hiddenInLov=true)	
+	private GenericReference<ArticleFamilia, String> articleFamilia;
 	
 	@Transient
 	@RestapiField(

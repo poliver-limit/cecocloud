@@ -40,35 +40,41 @@ public class Iva extends AbstractIdentificableWithCompositePk<IvaPk> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 30) 
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
+	
 	@NotNull
 	@Digits(integer=2, fraction=3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private BigDecimal percentatgeIva;
+	
 	@NotNull
 	@Digits(integer=2, fraction=3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private BigDecimal percentatgeRecarrecEquivalencia;
+	
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiComptabilitat;
+	
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiRecarrecComptabilitat;
+	
 	@Size(max = 6)
 	@RestapiField(
 			hiddenInGrid = true,

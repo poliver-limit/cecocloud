@@ -37,6 +37,7 @@ public class Ubicacio extends AbstractIdentificableWithCompositePk<UbicacioPk> {
 	@NotNull
 	@Size(max = 4)
 	private String codi;
+	
 	@RestapiField(includeInQuickFilter = true)
 	@NotNull
 	@Size(max = 30)

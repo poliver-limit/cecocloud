@@ -39,6 +39,7 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)

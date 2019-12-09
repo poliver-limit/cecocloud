@@ -20,7 +20,7 @@ import es.limit.cecocloud.marcatges.persist.repository.OperariRepository;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service
+@Service("OperariMarcService")
 public class OperariServiceImpl extends AbstractGenericServiceImpl<Operari, OperariEntity, Long> implements OperariService {
 
 	@Autowired

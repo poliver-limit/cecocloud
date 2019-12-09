@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.BaseRepository;
@@ -21,6 +22,7 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Repository("OperariMarcRepository")
 public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
 	List<OperariEntity> findByEmpresaIdentificadorCompanyia(CompanyiaEntity companyia);

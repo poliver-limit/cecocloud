@@ -164,16 +164,16 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
-			includeInQuickFilter = true)
-	private PeuDocument condicioPagamentPressupost;
+			includeInQuickFilter = true)	
+	private GenericReference<PeuDocument, String> condicioPagamentPressupost;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
-			includeInQuickFilter = true)
-	private PeuDocument peuDocument;
+			includeInQuickFilter = true)	
+	private GenericReference<PeuDocument, String> peuDocument;
 	
  	@Size(max = 10)
 	@RestapiField(
@@ -194,24 +194,24 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
-			includeInQuickFilter = true)
-	private Magatzem magatzem;
+			includeInQuickFilter = true)	
+	private GenericReference<Magatzem, String> magatzem;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
-			includeInQuickFilter = true)
-	private EmpresaFact empresaOp;
+			includeInQuickFilter = true)	
+	private GenericReference<EmpresaFact, String> empresaOp;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 					hiddenInLov = true,
-			includeInQuickFilter = true)
-	private Departament departament;
+			includeInQuickFilter = true)	
+	private GenericReference<Departament, String> departament;
 	
 	@Size(max = 20)
 	@RestapiField(

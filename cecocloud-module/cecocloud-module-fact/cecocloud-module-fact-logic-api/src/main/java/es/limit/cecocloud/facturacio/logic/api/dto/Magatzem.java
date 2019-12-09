@@ -43,10 +43,12 @@ public class Magatzem extends AbstractIdentificableWithCompositePk<MagatzemPk> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	private String nom;
+	
 	@NotNull
 	@Size(max = 60)
 	@RestapiField(hiddenInLov = true)
@@ -58,28 +60,36 @@ public class Magatzem extends AbstractIdentificableWithCompositePk<MagatzemPk> {
 	@Size(max = 60)
 	@RestapiField(hiddenInLov = true)
 	private String telefon;
+	
 	@Size(max = 60)
 	@RestapiField(hiddenInLov = true)
 	private String fax;
+	
 	@Size(max = 60)
 	@javax.validation.constraints.Email
 	@RestapiField(hiddenInLov = true)
 	private String email;
+	
 	@Size(max = 30)
 	@RestapiField(hiddenInLov = true)
 	private String responsable;
+	
 	@Size(max = 1000)
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true, type = RestapiFieldType.TEXTAREA)
 	private String observacions;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	private String tipusAssentamentComptable;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	private String diariComptableTraspassos1;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	private String diariComptableTraspassos2;
+	
 	@Size(max = 10)
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	private String compteTraspassos;
