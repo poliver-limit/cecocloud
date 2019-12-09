@@ -23,7 +23,7 @@ export class ModuleInitService {
 				{ icon: 'room', label: 'Departaments', route: '/fact/departaments' },
 				{ icon: 'room', label: 'Divises', route: '/fact/divises' },
 				{ icon: 'room', label: 'Documents de pagament/cobrament', route: '/fact/documentsPagamentCobrament' },
-				{ icon: 'room', label: 'Empreses', route: '/fact/empreses' },
+				{ icon: 'room', label: 'Empreses (Facturació)', route: '/fact/empresesFact' },
 				{ icon: 'room', label: 'Famílies cost', route: '/fact/familiesCost' },
 				{ icon: 'room', label: 'Famílies proveidor', route: '/fact/familiesProveidor' },
 				{ icon: 'room', label: 'Iva', route: '/fact/ives' },
@@ -70,7 +70,27 @@ export class ModuleInitService {
 		moduleService.register({
 			code: 'rrhh',
 			icon: 'people_alt',
-			label: 'Recursos humans'
+			label: 'Recursos humans',
+			menuItems: [
+				{ icon: 'room', label: 'Calendaris', route: '/rrhh/calendaris' },
+				{ icon: 'room', label: 'Categories', route: '/rrhh/categories' },
+				{ icon: 'room', label: 'Empreses', route: '/rrhh/empreses' },
+				{ icon: 'room', label: 'Horaris', route: '/rrhh/horaris' },
+				{ icon: 'room', label: 'Identificadors', route: '/rrhh/identificadors' },
+				{ icon: 'room', label: 'Nodes', route: '/rrhh/nodes' },
+				{ icon: 'room', label: 'Operaris', route: '/rrhh/operaris' },
+				{ icon: 'room', label: 'Parametres', route: '/rrhh/parametres' },
+				{ icon: 'room', label: 'Recursos Grup', route: '/rrhh/recursosGrup' },
+				{ icon: 'room', label: 'Regims', route: '/rrhh/regims' },
+				{ icon: 'room', label: 'Registres Diaris', route: '/rrhh/registresDiari' },
+				{ icon: 'room', label: 'Seccions', route: '/rrhh/seccions' },
+				{ icon: 'room', label: 'Seccions Grup', route: '/rrhh/seccionsGrup' },
+				{ icon: 'room', label: 'Servidors', route: '/rrhh/servidors' },
+				{ icon: 'room', label: 'Subcategories', route: '/rrhh/subcategorias' },
+				{ icon: 'room', label: 'Tipus Dia', route: '/rrhh/tipusDies' },
+				{ icon: 'room', label: 'Tipus Transaccio', route: '/rrhh/tipusTransaccions' },
+				{ icon: 'room', label: 'Transaccions', route: '/rrhh/transaccions' },
+				{ icon: 'room', label: 'Zones', route: '/rrhh/zones' }									]
 		});
 		moduleService.register({
 			code: 'rrmm',

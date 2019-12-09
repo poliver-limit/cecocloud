@@ -39,20 +39,25 @@ public class UnitatControl extends AbstractIdentificableWithCompositePk<UnitatCo
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private int sequencia;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@Size(max = 250)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
+	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private Integer numeroOrigen;
+	
 	private BigDecimal importTotal;
+	
 	private BigDecimal costTotal;
 	
 	@Transient

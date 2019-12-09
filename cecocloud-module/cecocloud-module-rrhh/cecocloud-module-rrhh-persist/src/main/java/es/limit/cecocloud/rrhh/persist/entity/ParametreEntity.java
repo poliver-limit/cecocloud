@@ -17,8 +17,8 @@ import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
-import es.limit.cecocloud.rrhh.logic.api.dto.Operari.OperariPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.Parametre;
+import es.limit.cecocloud.rrhh.logic.api.dto.Parametre.ParametrePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Entitat de model de dades que conté la informació d'un Operari.
+ * Entitat de model de dades que conté la informació d'un Parametre.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -35,41 +35,41 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "trhu_ope",
+		name = "trhu_par",
 		indexes = {
-				@Index(name = "irhu_ope_idf_fk", columnList = "ope_idf_cod"),
-				@Index(name = "irrhu_ope_pk", columnList = "ope_idf_cod,ope_cod", unique = true)
+				@Index(name = "irhu_par_idf_fk", columnList = "par_idf_cod"),
+				@Index(name = "irrhu_par_pk", columnList = "par_idf_cod,par_cod", unique = true)
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ope_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 4)),
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "par_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.codi", column = @Column(name = "par_cod", length = 4)),
 	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", length = 4, insertable = false, updatable = false)),	
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "par_cod", length = 4, insertable = false, updatable = false)),	
 			
-	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ope_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ope_datmod"))
+	@AttributeOverride(name = "createdBy", column = @Column(name = "par_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "par_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "par_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "par_datmod"))
 })
-public class ParametreEntity extends AbstractAuditableCompositePkEntity<Operari, OperariPk> {
+public class ParametreEntity extends AbstractAuditableCompositePkEntity<Parametre, ParametrePk> {
 
 	@Embedded
-	protected Operari embedded;
+	protected Parametre embedded;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "ope_idf_cod",
+			name = "par_idf_cod",
 			insertable = false,
 			updatable = false,
-			foreignKey = @ForeignKey(name = "rrhu_ope_idf_fk"))
+			foreignKey = @ForeignKey(name = "rrhu_par_idf_fk"))
 	protected IdentificadorEntity identificador;
 
 	
 	@Builder
 	public ParametreEntity(
-			OperariPk pk,
-			Operari embedded,
+			ParametrePk pk,
+			Parametre embedded,
 			IdentificadorEntity identificador
 			) {
 		setId(pk);
@@ -78,7 +78,7 @@ public class ParametreEntity extends AbstractAuditableCompositePkEntity<Operari,
 	}
 
 	@Override
-	public void update(Operari embedded) {
+	public void update(Parametre embedded) {
 		this.embedded = embedded;
 	}
 

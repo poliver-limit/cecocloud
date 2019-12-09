@@ -30,6 +30,7 @@ public class Identificador extends AbstractIdentificable<String> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 40)
 	@RestapiField(

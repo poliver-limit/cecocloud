@@ -15,7 +15,6 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.rrhh.logic.api.dto.Zona.ZonaPk;
-import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,10 +36,13 @@ public class Zona extends AbstractIdentificableWithCompositePk<ZonaPk> {
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
+	
 	@RestapiField()
 	private Boolean zonaTreball;
+	
 	@Size(max = 30)
 	private String nom;
+	
 	@Size(max = 1000)
 	private String observacio;
 

@@ -39,29 +39,35 @@ public class FamiliaProveidor extends AbstractIdentificableWithCompositePk<Famil
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String nom;
+	
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String ctacprcmp;
+	
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String observacions;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String tipasicmp;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String dricmp;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)

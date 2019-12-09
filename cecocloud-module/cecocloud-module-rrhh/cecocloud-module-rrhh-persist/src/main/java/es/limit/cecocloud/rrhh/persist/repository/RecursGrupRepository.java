@@ -8,7 +8,7 @@ import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup.RecursGrupPk;
 import es.limit.cecocloud.rrhh.persist.entity.RecursGrupEntity;
 
 /**
- * Repositori per a gestionar les entitats de tipus Article.
+ * Repositori per a gestionar les entitats de tipus RecursGrup.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

@@ -39,14 +39,12 @@ public class SeccioEmpresa extends AbstractIdentificableWithCompositePk<SeccioEm
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			
+			type = RestapiFieldType.LOV,			
 			disabledForUpdate = true,  
 			toUpperCase = true,
 			includeInQuickFilter = true
-//			lovModule = "rrhh"
-			)
-	private Seccio seccio;
+			)	
+	private GenericReference<Seccio, String> seccio;
 	
 	@NotNull
 	@Digits(integer = 5, fraction = 2)

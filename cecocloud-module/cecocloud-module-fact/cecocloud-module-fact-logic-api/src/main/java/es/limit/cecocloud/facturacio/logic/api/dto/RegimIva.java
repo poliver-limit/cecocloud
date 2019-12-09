@@ -39,22 +39,26 @@ public class RegimIva extends AbstractIdentificableWithCompositePk<RegimIvaPk> {
 			toUpperCase=true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
+	
 	@Size(max = 2)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiComptabilitat;
+	
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.ENUM,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private TipusRegimEnumDto tip;
+	
 	@Size(max = 2)
 	@RestapiField(
 			hiddenInGrid = true,

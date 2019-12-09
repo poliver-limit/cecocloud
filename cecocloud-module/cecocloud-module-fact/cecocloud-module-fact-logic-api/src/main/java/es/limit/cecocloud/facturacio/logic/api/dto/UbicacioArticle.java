@@ -38,8 +38,8 @@ public class UbicacioArticle extends AbstractIdentificableWithCompositePk<Ubicac
 			type = RestapiFieldType.LOV,			
 			disabledForUpdate = true,
 			toUpperCase = true,
-			includeInQuickFilter = true)
-	private Ubicacio ubicacio;
+			includeInQuickFilter = true)	
+	private GenericReference<Ubicacio, String> ubicacio;
 	
 	@RestapiField(includeInQuickFilter = true)
 	@NotNull

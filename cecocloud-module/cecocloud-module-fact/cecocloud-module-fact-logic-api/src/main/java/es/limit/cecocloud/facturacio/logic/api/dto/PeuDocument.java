@@ -87,8 +87,8 @@ public class PeuDocument extends AbstractIdentificableWithCompositePk<PeuDocumen
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	private SerieCompra serieCompra;
+			hiddenInLov = true)	
+	private GenericReference<SerieCompra, String> serieCompra;
 	
 	@Transient
 	@RestapiField(

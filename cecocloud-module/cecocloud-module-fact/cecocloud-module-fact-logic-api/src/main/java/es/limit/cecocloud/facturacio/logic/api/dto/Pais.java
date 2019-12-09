@@ -39,23 +39,28 @@ public class Pais extends AbstractIdentificableWithCompositePk<PaisPk> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String nom;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String nif;
+	
 	@Size(max = 3)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiso;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiso002;
+	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean cee;

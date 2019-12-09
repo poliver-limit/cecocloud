@@ -37,26 +37,32 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 	@RestapiField(disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 40)
 	private String nomComercial;
+	
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 40)
 	private String nomFiscal;
+	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private boolean bloquetjat;
+	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private boolean subcontratista;
+	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private boolean dhm;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -64,49 +70,55 @@ public class Proveidor extends AbstractIdentificableWithCompositePk<ProveidorPk>
 			disabledForUpdate = true,
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov=true)
-	private RegimIva regimIva;
+			hiddenInLov=true)	
+	private GenericReference<RegimIva, String> regimIva;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov=true)
-	private CodiPostal codiPostal;
+			hiddenInLov=true)	
+	private GenericReference<CodiPostal, String> codiPostal;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov=true)
-	private TipusVenciment tipusVenciment;
+			hiddenInLov=true)	
+	private GenericReference<TipusVenciment, String> tipusVenciment;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov=true)
-	private Divisa divisa;
+			hiddenInLov=true)	
+	private GenericReference<Divisa, String> divisa;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov=true)
-	private DocumentPagamentCobrament documentPagamentCobrament;
+			hiddenInLov=true)	
+	private GenericReference<DocumentPagamentCobrament, String> documentPagamentCobrament;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov=true)
-	private FamiliaProveidor familiaProveidor;
-
+			hiddenInLov=true)	
+	private GenericReference<FamiliaProveidor, String> familiaProveidor;
+	
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode

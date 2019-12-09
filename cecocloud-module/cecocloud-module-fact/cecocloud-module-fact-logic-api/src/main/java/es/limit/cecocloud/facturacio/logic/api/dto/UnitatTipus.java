@@ -40,11 +40,13 @@ public class UnitatTipus extends AbstractIdentificableWithCompositePk<UnitatTipu
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 60)
 	private String descripcio;
+	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private BigDecimal factorConversio;

@@ -64,8 +64,8 @@ public class EmpresaFact extends AbstractIdentificableWithCompositePk<EmpresaFac
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	private CodiPostal codiPostalComercial;
+			hiddenInLov = true)	
+	private GenericReference<CodiPostal, String> codiPostalComercial;
 	
 	@NotNull
 	@Size(max = 40)
@@ -83,8 +83,8 @@ public class EmpresaFact extends AbstractIdentificableWithCompositePk<EmpresaFac
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	private CodiPostal codiPostalFiscal;
+			hiddenInLov = true)	
+	private GenericReference<CodiPostal, String> codiPostalFiscal;
 	
 	@Transient
 	@NotNull
@@ -96,8 +96,8 @@ public class EmpresaFact extends AbstractIdentificableWithCompositePk<EmpresaFac
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	private Divisa divisa;
+			hiddenInLov = true)	
+	private GenericReference<Divisa, String> divisa;
 	
 	@NotNull
 	@RestapiField(
@@ -130,8 +130,8 @@ public class EmpresaFact extends AbstractIdentificableWithCompositePk<EmpresaFac
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	private Magatzem magatzem;
+			hiddenInLov = true)	
+	private GenericReference<Magatzem, String> magatzem;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,

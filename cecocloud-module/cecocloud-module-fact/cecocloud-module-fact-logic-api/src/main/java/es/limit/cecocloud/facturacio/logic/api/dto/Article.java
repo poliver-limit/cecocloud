@@ -54,16 +54,16 @@ public class Article extends AbstractIdentificableWithCompositePk<ArticlePk> {
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)
-	private ArticleFamilia familia;
+			includeInQuickFilter = true)	
+	private GenericReference<ArticleFamilia, String> familia;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	private Iva iva;
+			hiddenInLov = true)	
+	private GenericReference<Iva, String> iva;
 	
 	@NotNull
 	@RestapiField(
@@ -121,7 +121,7 @@ public class Article extends AbstractIdentificableWithCompositePk<ArticlePk> {
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private ArticleModel model;
+	private GenericReference<ArticleModel, String> model;	
 	
 	@Transient
 	@RestapiField(

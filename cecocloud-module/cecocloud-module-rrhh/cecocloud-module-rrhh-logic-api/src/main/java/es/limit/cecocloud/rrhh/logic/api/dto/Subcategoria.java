@@ -14,7 +14,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.logic.api.dto.Subcategoria.SubcategoriaPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -42,8 +41,8 @@ public class Subcategoria extends AbstractIdentificableWithCompositePk<Subcatego
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
-	private Categoria categoria;
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	private GenericReference<Categoria, String> categoria;
 	
 	@Size(max = 30)
 	private String nom;

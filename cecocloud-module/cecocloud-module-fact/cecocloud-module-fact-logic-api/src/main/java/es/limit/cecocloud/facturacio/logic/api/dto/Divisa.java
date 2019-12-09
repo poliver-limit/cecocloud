@@ -41,34 +41,40 @@ public class Divisa extends AbstractIdentificableWithCompositePk<DivisaPk> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String nom;
+	
 	@Size(max = 5)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String abreviatura;
+	
 	@NotNull
 	@Digits(integer = 7, fraction = 3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private BigDecimal valorEuros;
+	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 1)
 	private int decimalsPreus;
+	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 1)
 	private int decimalsImports;
+	
 	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
