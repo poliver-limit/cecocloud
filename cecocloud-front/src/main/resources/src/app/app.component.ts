@@ -89,6 +89,11 @@ import { CompanyiesService } from './shared/companyies.service';
 						<h4 mat-line>{{tokenPayload?.name}}</h4>
 						<p mat-line>{{tokenPayload?.email}}</p>
 					</mat-list-item>
+					<!--mat-divider></mat-divider>
+					<mat-list-item>
+						<mat-icon mat-list-icon>stars</mat-icon>
+						<h4 mat-line>Gestor de llicències</h4>
+					</mat-list-item-->
 					<mat-divider></mat-divider>
   					<mat-list-item role="listitem">
 						<div class="toolbar-fill" style="flex: 1 1 auto; text-align: center">
