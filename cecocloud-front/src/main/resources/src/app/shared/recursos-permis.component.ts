@@ -33,7 +33,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'readGranted'
                                             [checked]="recurs.permission.readGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -48,7 +48,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'writeGranted'
                                             [checked]="recurs.permission.writeGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -63,7 +63,7 @@ import { HalParam } from 'angular4-hal';
                                             name='createGranted'
                                             [checked]="recurs.permission.createGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -78,7 +78,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'deleteGranted'
                                             [checked]="recurs.permission.deleteGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -93,7 +93,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'adminGranted'
                                             [checked]="recurs.permission.adminGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -108,7 +108,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'printGranted'
                                             [checked]="recurs.permission.printGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -161,14 +161,18 @@ export class RecursosPermisComponent implements OnInit {
         // Deshabilitar els checks mentres es desen els permisos
         this.disableToggles = true;
         let resourceInfo = JSON.parse(JSON.stringify(this.recursosModuls[indexModul].resources[indexRecurs]));
-        resourceInfo.permission[event.source.name] = event.checked;
+        let permis = event.currentTarget.attributes['name'].value;
+        let check = !resourceInfo.permission[permis];
+        resourceInfo.permission[permis] = check;
         //resourceInfo.
         this.recursosService.saveRecurs(resourceInfo).subscribe(
             () => {
+                this.recursosModuls[indexModul].resources[indexRecurs].permission[permis] = check;
                 this.disableToggles = false;
-                this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
+                //this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
             },
             error => {
+                event.preventDefault();
                 this.disableToggles = false;
                 console.error(error);
             }

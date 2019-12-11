@@ -75,12 +75,17 @@ export interface EmpresaPerfil {
 						<table mat-table [dataSource]="empresaPerfils" multiTemplateDataRows class="mat-elevation-z8" style="width:100%;">
 							<!-- Columna de empresa -->
 							<ng-container matColumnDef="nom">
-								<th mat-header-cell *matHeaderCellDef style="width:30%;"> {{'resource.empresa' | translate}} </th>
-								<td mat-cell *matCellDef="let empresa" (click)="this.expandedEmpresa = this.expandedEmpresa === empresa ? null : empresa"> {{empresa.empresaNom}} </td>
+								<th mat-header-cell *matHeaderCellDef> {{'resource.empresa' | translate}} </th>
+								<td mat-cell *matCellDef="let empresa">
+									<button mat-button class="bdown">
+										<mat-icon (click)="this.expandedEmpresa = this.expandedEmpresa === empresa ? null : empresa">keyboard_arrow_down</mat-icon>
+									</button>
+									{{empresa.empresaNom}}
+								</td>
 							</ng-container>
 							<!-- Columna de perfils -->
 							<ng-container matColumnDef="perfils">
-								<th mat-header-cell *matHeaderCellDef style="width:70%;"> {{'resource.perfil.plural' | translate}} </th>
+								<th mat-header-cell *matHeaderCellDef> {{'resource.perfil.plural' | translate}} </th>
 								<td mat-cell *matCellDef="let empresa; let index = index">
 									<mat-select [disabled]="disableSelects" [(value)]="empresa.perfils" multiple placeholder="Sense accés" (selectionChange)="onPerfilChange($event, index)">
 										<mat-option *ngFor="let perfil of perfils" [value]="perfil.id">{{perfil.codi}}</mat-option>
@@ -154,6 +159,18 @@ export interface EmpresaPerfil {
 	.empresa-permisos-detail {
   		overflow: hidden;
   		display: flex;
+	}
+	.mat-column-nom {
+		width: 25%;
+		flex: 0 0 25% !important;
+	}
+	.mat-column-perfils {
+		width: 75%;
+		flex: 0 0 75% !important;
+	}
+	.bdown {
+		min-width: 24px;
+		padding: 0px;
 	}
 	`]
 })
