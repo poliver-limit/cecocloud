@@ -75,7 +75,6 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				operari(operari).
 				embedded(marcatge).
 				build();
-		// Marcatge dtoCreat = marcatgeDtoConverter.toDto(marcatgeRepository.save(entity));
 		return toMarcatgeMobil(marcatgeRepository.save(entity));
 	}
 
@@ -102,13 +101,12 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	}
 
 	@Override
-	public List<Empresa> empresesFindAll() {
-		List<OperariEntity> usuariEmpreses = findUsuarisEmpresesActius();
+	public List<Empresa> empresesFindDisponiblesPerUsuariActual() {
+		List<OperariEntity> operaris = findOperarisActiusIAmbEmpresaActivaPerUsuariActual();
+		// TODO: Controlar si es retornen empreses repetides
 		return orikaMapperFacade.mapAsList(
-				usuariEmpreses.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()),
+				operaris.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()),
 				Empresa.class);
-		/*return empresaDtoConverter.toDto(
-				usuariEmpreses.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()));*/
 	}
 
 	private OperariEntity getOperariPerMarcatge(MarcatgeMobil marcatgeMobil) {
@@ -139,7 +137,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		}
 	}
 
-	private List<OperariEntity> findUsuarisEmpresesActius() {
+	private List<OperariEntity> findOperarisActiusIAmbEmpresaActivaPerUsuariActual() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = auth.getName();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);

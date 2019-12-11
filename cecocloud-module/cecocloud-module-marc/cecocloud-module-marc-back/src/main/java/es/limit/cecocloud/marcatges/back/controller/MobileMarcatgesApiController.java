@@ -63,7 +63,7 @@ public class MobileMarcatgesApiController {
 	public ResponseEntity<List<Empresa>> empresesFind(
 			HttpServletRequest request) {
 		log.debug("Consulta d'empreses disponibles");
-		return ResponseEntity.ok(mobileMarcatgeService.empresesFindAll());
+		return ResponseEntity.ok(mobileMarcatgeService.empresesFindDisponiblesPerUsuariActual());
 	}
 
 }
