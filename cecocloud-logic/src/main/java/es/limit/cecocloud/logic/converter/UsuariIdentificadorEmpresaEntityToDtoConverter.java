@@ -10,11 +10,11 @@ import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
 
 /**
- * Conversor cap a DTO de les entitats de tipus usuariCompanyia.
+ * Conversor cap a DTO de les entitats de tipus UsuariIdentificadorEmpresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Component
-public class UsuariEmpresaEntityToDtoConverter extends AbstractEntityToDtoConverter<UsuariIdentificadorEmpresaEntity, UsuariIdentificadorEmpresa> {
+public class UsuariIdentificadorEmpresaEntityToDtoConverter extends AbstractEntityToDtoConverter<UsuariIdentificadorEmpresaEntity, UsuariIdentificadorEmpresa> {
 
 }

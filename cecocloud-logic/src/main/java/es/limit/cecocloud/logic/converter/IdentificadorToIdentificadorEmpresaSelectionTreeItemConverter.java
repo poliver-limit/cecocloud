@@ -10,7 +10,7 @@ import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 
 /**
- * Conversor cap a DTO de les entitats de tipus companyia.
+ * Conversor de les entitats de tipus identificador a DRO IdentificadorEmpresaSelectionTree.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
