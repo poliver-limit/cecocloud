@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,9 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.FamiliaCost;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,32 +43,30 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fct_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fct_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "fct_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "fct_cod", length = 4, insertable = false, updatable = false)),	
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "fct_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "fct_des", length = 60, nullable = false)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "fct_obs", length = 1000)),
 	@AttributeOverride(name = "embedded.articleFamiliaCodi", column = @Column(name = "fct_far_cod", insertable = false, updatable = false)),
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "fct_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "fct_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fct_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "fct_datmod"))
 })
-public class FamiliaCostEntity extends AbstractAuditableCompositePkEntity<FamiliaCost, AmbIdentificadorICodiPk<String>> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "fct_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_fct_idf_fk"))
+})
+public class FamiliaCostEntity extends AbstractAmbIdentificadorEntity<FamiliaCost, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected FamiliaCost embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "fct_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_fct_idf_fk"))
-	protected IdentificadorEntity identificador;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {

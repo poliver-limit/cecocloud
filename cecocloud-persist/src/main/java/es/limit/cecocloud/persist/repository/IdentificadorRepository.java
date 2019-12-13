@@ -16,7 +16,7 @@ import es.limit.cecocloud.persist.entity.IdentificadorEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository
-public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, String> {
+public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, Long> {
 
 	Optional<IdentificadorEntity> findByEmbeddedCodi(String codi);
 

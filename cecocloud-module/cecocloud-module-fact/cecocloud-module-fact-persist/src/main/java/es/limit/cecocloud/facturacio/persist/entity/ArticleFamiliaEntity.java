@@ -44,35 +44,32 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "far_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "far_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "far_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "far_cod", length = 4, insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "far_des", length = 30, nullable = false)),	
-	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "far_tip", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.lotNavegable", column = @Column(name = "far_lotnav", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.ubicacioNavegable", column = @Column(name = "far_ubinav", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.avisAlbaraClient", column = @Column(name = "far_avialb", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.excloureAlGenerarAlbara", column = @Column(name = "far_blogenalb", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.margeSobreCost", column = @Column(name = "far_marpvpcos")),	
-	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "far_cmiven")),	
-	@AttributeOverride(name = "embedded.compteExistencies", column = @Column(name = "far_ctecmpexi", length = 500)),	
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "far_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "far_des", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "far_tip", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.lotNavegable", column = @Column(name = "far_lotnav", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.ubicacioNavegable", column = @Column(name = "far_ubinav", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.avisAlbaraClient", column = @Column(name = "far_avialb", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.excloureAlGenerarAlbara", column = @Column(name = "far_blogenalb", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.margeSobreCost", column = @Column(name = "far_marpvpcos")),
+	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "far_cmiven")),
+	@AttributeOverride(name = "embedded.compteExistencies", column = @Column(name = "far_ctecmpexi", length = 500)),
 	@AttributeOverride(name = "embedded.compteCompres", column = @Column(name = "far_ctacprcmp", length = 10)),
-	@AttributeOverride(name = "embedded.compteVentes", column = @Column(name = "far_ctavencmp", length = 10)),	
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "far_obs", length = 1000)),	
-	@AttributeOverride(name = "embedded.productePropi", column = @Column(name = "far_pop", length = 1)),	
-	@AttributeOverride(name = "embedded.tempsFabricacioUnitatsMetriques", column = @Column(name = "far_fabunimet", length = 1)),	
-	@AttributeOverride(name = "embedded.distribuirCostAdicional", column = @Column(name = "far_discos", length = 1)),	
-	@AttributeOverride(name = "embedded.sequenciaOrdenacio", column = @Column(name = "far_seqord")),	
+	@AttributeOverride(name = "embedded.compteVentes", column = @Column(name = "far_ctavencmp", length = 10)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "far_obs", length = 1000)),
+	@AttributeOverride(name = "embedded.productePropi", column = @Column(name = "far_pop", length = 1)),
+	@AttributeOverride(name = "embedded.tempsFabricacioUnitatsMetriques", column = @Column(name = "far_fabunimet", length = 1)),
+	@AttributeOverride(name = "embedded.distribuirCostAdicional", column = @Column(name = "far_discos", length = 1)),
+	@AttributeOverride(name = "embedded.sequenciaOrdenacio", column = @Column(name = "far_seqord")),
 	@AttributeOverride(name = "embedded.margeMinim", column = @Column(name = "far_marmin")),
 	@AttributeOverride(name = "embedded.tipusServei", column = @Column(name = "far_tipser", length = 1)),
 	@AttributeOverride(name = "embedded.percentatgePenalitzacioDevolucio", column = @Column(name = "far_ptependev")),
 	@AttributeOverride(name = "embedded.descOperacio", column = @Column(name = "far_desope", length = 500)),
 	@AttributeOverride(name = "embedded.artExportables", column = @Column(name = "far_pda", length = 1)),
-	@AttributeOverride(name = "embedded.familiaCostCodi", column = @Column(name = "far_fct_cod",  length = 4)),	
-	@AttributeOverride(name = "embedded.recursGrupCodi", column = @Column(name = "far_gre_cod", length = 4)),			
-
-	
+	@AttributeOverride(name = "embedded.familiaCostCodi", column = @Column(name = "far_fct_cod",  length = 4)),
+	@AttributeOverride(name = "embedded.recursGrupCodi", column = @Column(name = "far_gre_cod", length = 4)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "far_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "far_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "far_usumod")),
@@ -82,8 +79,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "far_idf_cod", foreignKey = @ForeignKey(name = "rges_far_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "far_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_far_idf_fk"))
 })
 public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<ArticleFamilia, AmbIdentificadorICodiPk<String>> {
 

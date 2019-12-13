@@ -3,19 +3,18 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.TipusVenciment;
 import lombok.AccessLevel;
@@ -74,18 +73,18 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tve_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tve_datmod"))
 })
-public class TipusVencimentEntity extends AbstractAuditableCompositePkEntity<TipusVenciment, AmbIdentificadorICodiPk<String>> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "tve_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_tve_idf_fk"))
+})
+public class TipusVencimentEntity extends AbstractAmbIdentificadorEntity<TipusVenciment, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected TipusVenciment embedded;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "tve_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_tve_idf_fk"))
-	protected IdentificadorEntity identificador;
 
 	@Builder
 	public TipusVencimentEntity(

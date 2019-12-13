@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(GenericController.API_PATH + "/usuarisIdentificadorEmpresa")
+@RequestMapping(GenericController.API_PATH + "/usuariIdentificadorEmpreses")
 public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificableApiController<UsuariIdentificadorEmpresa, String> {
 
 	@Override

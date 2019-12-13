@@ -17,7 +17,7 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(GenericController.API_PATH + "/rolsUsuariIdentificadorEmpresa")
+@RequestMapping(GenericController.API_PATH + "/rolUsuariIdentificadorEmpreses")
 public class RolUsuariIdentificadorEmpresaApiController extends AbstractIdentificableApiController<RolUsuariIdentificadorEmpresa, String> {
 
 	@Override

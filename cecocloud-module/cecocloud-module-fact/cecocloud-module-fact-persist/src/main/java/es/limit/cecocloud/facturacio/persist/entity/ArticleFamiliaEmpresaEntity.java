@@ -56,8 +56,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "fae_idf_cod", foreignKey = @ForeignKey(name = "rges_fae_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "fae_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_fae_idf_fk"))
 })
 public class ArticleFamiliaEmpresaEntity extends AbstractAmbIdentificadorEntity<ArticleFamiliaEmpresa, ArticleFamiliaEmpresaPk> {
 
@@ -80,7 +81,7 @@ public class ArticleFamiliaEmpresaEntity extends AbstractAmbIdentificadorEntity<
 						@JoinColumn(name = "fae_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 				},
 				foreignKey = @ForeignKey(name = "rges_fae_emp_fk"))
-	protected EmpresaFactEntity empresa;
+	protected EmpresaEntity empresa;
 	
 	@Builder
 	public ArticleFamiliaEmpresaEntity(
@@ -88,7 +89,7 @@ public class ArticleFamiliaEmpresaEntity extends AbstractAmbIdentificadorEntity<
 			IdentificadorEntity identificador,
 			ArticleFamiliaEmpresa embedded,
 			ArticleFamiliaEntity familia,
-			EmpresaFactEntity empresa) {
+			EmpresaEntity empresa) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

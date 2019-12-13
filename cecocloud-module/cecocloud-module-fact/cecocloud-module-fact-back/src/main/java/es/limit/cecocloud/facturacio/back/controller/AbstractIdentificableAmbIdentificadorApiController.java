@@ -4,7 +4,6 @@
 package es.limit.cecocloud.facturacio.back.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
@@ -18,7 +17,6 @@ import es.limit.cecocloud.logic.api.service.IdentificadorService;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
 public class AbstractIdentificableAmbIdentificadorApiController<D extends IdentificableAmbIdentificador<?>> extends AbstractIdentificableApiController<D, String> {
 
 	@Autowired

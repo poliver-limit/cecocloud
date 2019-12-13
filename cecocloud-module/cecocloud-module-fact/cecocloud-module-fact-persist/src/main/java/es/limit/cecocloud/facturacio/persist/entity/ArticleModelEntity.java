@@ -40,13 +40,11 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "mod_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "mod_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "mod_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "mod_cod", length = 4, insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "mod_des", length = 30, nullable = false)),	
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "mod_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "mod_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.control", column = @Column(name = "mod_nounitra", length = 1)),
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "mod_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "mod_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mod_usumod")),
@@ -56,8 +54,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "mca_idf_cod", foreignKey = @ForeignKey(name = "rges_mca_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "mca_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_mca_idf_fk"))
 })
 public class ArticleModelEntity extends AbstractAmbIdentificadorEntity<ArticleModel, AmbIdentificadorICodiPk<String>> {
 

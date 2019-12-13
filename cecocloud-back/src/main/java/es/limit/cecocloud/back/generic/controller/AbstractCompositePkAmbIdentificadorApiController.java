@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.back.generic.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -15,7 +13,6 @@ import es.limit.cecocloud.logic.api.generic.dto.CompositePkAmbIdentificador;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
 public class AbstractCompositePkAmbIdentificadorApiController<D extends CompositePkAmbIdentificador<?>> extends AbstractIdentificableApiController<D, String> {
 
 	@Override

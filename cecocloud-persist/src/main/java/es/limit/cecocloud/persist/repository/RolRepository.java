@@ -20,7 +20,7 @@ import es.limit.cecocloud.persist.entity.RolEntity;
 @Repository
 public interface RolRepository extends BaseRepository<RolEntity, Long> {
 
-	@Query(	"select r "
+	/*@Query(	"select r "
 			+ "from "
 			+ " RolEntity r "
 			+ "where r.id in ( "
@@ -44,16 +44,16 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 			+ ") ")
 	List<RolEntity> findByUsuariCodiEmpresaCodi(
 			@Param("usuariCodi") String usuariCodi,
-			@Param("empresaCodi") String empresaCodi);
+			@Param("empresaCodi") String empresaCodi);*/
 
 	@Query(	"select r "
 			+ "from "
 			+ " RolEntity r "
-			+ "where r.id in ( "
+			/*+ "where r.id in ( "
 			+ "		select rue.rol.id "
-			+ "		from 	RolUsuariEmpresaEntity rue, "
+			+ "		from 	RolUsuariIdentificadorEmpresaEntity ruie, "
 			+ " 			UsuariEmpresaEntity uem "
-			+ " 	where 	rue.usuariEmpresa.id = uem.id "
+			+ " 	where 	ruie.usuariEmpresa.id = uem.id "
 			+ "		  and 	uem.usuari.embedded.codi = :usuariCodi "
 			+ "		  and 	uem.empresa.id = :empresaId "
 			+ ") or r.id in ( "
@@ -67,7 +67,7 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 			+ "    	  and 	pue.usuariEmpresa.id = uem.id "
 			+ "	      and 	uem.usuari.embedded.codi = :usuariCodi "
 			+ "       and 	uem.empresa.id = :empresaId "
-			+ ") ")
+			+ ") "*/)
 	List<RolEntity> findByUsuariCodiEmpresa(
 			@Param("usuariCodi") String usuariCodi,
 			@Param("empresaId") Long empresaId);

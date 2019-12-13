@@ -14,7 +14,7 @@ import es.limit.cecocloud.logic.api.service.PerfilUsuariIdentificadorEmpresaServ
 import es.limit.cecocloud.persist.entity.PerfilUsuariIdentificadorEmpresaEntity;
 
 /**
- * Implementació del servei de gestió de perfil-rols.
+ * Implementació del servei de gestió de perfil-(usuari-identificador-empresa).
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

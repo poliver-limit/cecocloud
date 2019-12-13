@@ -108,7 +108,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	public List<IdentificadorEmpresaSelectionTreeItem> buildSelectionTree() {
 		List<IdentificadorEmpresaSelectionTreeItem> selectionTree = new ArrayList<IdentificadorEmpresaSelectionTreeItem>();
 		String usuariCodi = SecurityContextHolder.getContext().getAuthentication().getName();
-		List<UsuariIdentificadorEntity> usuariIdentificadors = usuariIdentificadorRepository.findByUsuariEmbeddedCodiOrderByCompanyiaEmbeddedNom(usuariCodi);
+		List<UsuariIdentificadorEntity> usuariIdentificadors = usuariIdentificadorRepository.findByUsuariEmbeddedCodiOrderByIdentificadorEmbeddedDescripcio(usuariCodi);
 		for (UsuariIdentificadorEntity usuariIdentificador: usuariIdentificadors) {
 			IdentificadorEntity identificador = usuariIdentificador.getIdentificador();
 			boolean hasAdminPermission = permissionHelper.checkPermissionForCurrentUser(

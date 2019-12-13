@@ -40,7 +40,7 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "gma_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "gma_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "gma_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "gma_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "gma_des", length = 30, nullable = false)),
@@ -53,8 +53,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "gma_idf_cod", foreignKey = @ForeignKey(name = "rges_gma_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "gma_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_gma_idf_fk"))
 })
 public class ArticleGammaEntity extends AbstractAmbIdentificadorEntity<ArticleGamma, AmbIdentificadorICodiPk<String>> {
 
