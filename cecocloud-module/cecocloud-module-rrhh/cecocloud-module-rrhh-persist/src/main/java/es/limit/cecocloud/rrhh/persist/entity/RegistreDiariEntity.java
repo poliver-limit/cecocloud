@@ -70,8 +70,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "rdi_idf_cod", foreignKey = @ForeignKey(name = "rrhu_rdi_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "rdi_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rrhu_rdi_idf_fk"))
 })
 public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<RegistreDiari, RegistreDiariPk> {
 

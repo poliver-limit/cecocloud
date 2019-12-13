@@ -60,8 +60,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "nod_idf_cod", foreignKey = @ForeignKey(name = "rrhu_nod_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "nod_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rrhu_nod_idf_fk"))
 })
 public class NodeEntity extends AbstractAmbIdentificadorEntity<Node, NodePk> {
 

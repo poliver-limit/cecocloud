@@ -5,7 +5,6 @@ package es.limit.cecocloud.marcatges.back.controller;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -18,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.cecocloud.logic.api.dto.Companyia;
-import es.limit.cecocloud.logic.api.service.CompanyiaService;
-import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioCompanyia;
-import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioCompanyiaResposta;
+import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioIdentificadorPeticio;
+import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioIdentificadorResposta;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatgesEnviament;
@@ -42,33 +39,18 @@ public class SincronitzacioApiController {
 
 	@Autowired
 	private SincronitzacioService sincronitzacioService;
-	@Autowired
-	private CompanyiaService companyiaService;
 
 	@PostMapping(
 			path = "/empreses_operaris",
 			produces = "application/json")
 	@PreAuthorize("hasPermission(getCompanyia(#dto.companyiaCodi), 'SYNC')")
-	public ResponseEntity<SincronitzacioCompanyiaResposta> sincronitzarEmpresesOperaris(
+	public ResponseEntity<SincronitzacioIdentificadorResposta> sincronitzarIdentificador(
 			HttpServletRequest request,
-			@RequestBody @Valid final SincronitzacioCompanyia dto) {
+			@RequestBody @Valid final SincronitzacioIdentificadorPeticio dto) {
 		log.debug("Nova sincronització(" +
 				"dto=" + dto + ")");
-		Companyia companyia = getCompanyia(dto.getCompanyiaCodi());
-		SincronitzacioResposta identificadorsResposta = sincronitzacioService.sincronitzarIdentificadors(
-				companyia.getId(),
-				dto.getIdentificadors());
-		SincronitzacioResposta empresesResposta = sincronitzacioService.sincronitzarEmpreses(
-				companyia.getId(),
-				dto.getEmpreses());
-		SincronitzacioResposta operarisResposta = sincronitzacioService.sincronitzarOperaris(
-				companyia.getId(),
-				dto.getOperaris());
 		return ResponseEntity.ok(
-				new SincronitzacioCompanyiaResposta(
-						identificadorsResposta,
-						empresesResposta,
-						operarisResposta));
+				sincronitzacioService.sincronitzarIdentificador(dto));
 	}
 
 	@GetMapping(
@@ -80,12 +62,11 @@ public class SincronitzacioApiController {
 			@Valid final SincronitzacioMarcatgesConsulta consulta) {
 		log.debug("Consulta de marcatges (" +
 				"consulta=" + consulta + ")");
-		List<SincronitzacioMarcatge> marcatges = sincronitzacioService.marcatgeFind(
-				getCompanyia(consulta.getCompanyiaCodi()).getId(),
-				consulta.getEmpreses(),
-				consulta.getDataInici(),
-				consulta.getDataFi());
-		return ResponseEntity.ok(marcatges);
+		return ResponseEntity.ok(
+				sincronitzacioService.marcatgeFind(
+						consulta.getIdentificadorCodi(),
+						consulta.getDataInici(),
+						consulta.getDataFi()));
 	}
 
 	@PostMapping(
@@ -97,19 +78,10 @@ public class SincronitzacioApiController {
 			@RequestBody @Valid final SincronitzacioMarcatgesEnviament marcatges) {
 		log.debug("Enviament de marcatges (" +
 				"marcatges=" + marcatges + ")");
-		SincronitzacioResposta resposta = sincronitzacioService.marcatgeCreate(
-				getCompanyia(marcatges.getCompanyiaCodi()).getId(),
-				marcatges.getMarcatges());
-		return ResponseEntity.ok(resposta);
-	}
-
-	private Companyia getCompanyia(String companyiaCodi) {
-		Companyia companyia = companyiaService.findOneByRsqlQuery("codi==" + companyiaCodi);
-		if (companyia != null) {
-			return companyia;
-		} else {
-			throw new EntityNotFoundException("Companyia amb codi " + companyiaCodi);
-		}
+		return ResponseEntity.ok(
+				sincronitzacioService.marcatgeCreate(
+						marcatges.getIdentificadorCodi(),
+						marcatges.getMarcatges()));
 	}
 
 }

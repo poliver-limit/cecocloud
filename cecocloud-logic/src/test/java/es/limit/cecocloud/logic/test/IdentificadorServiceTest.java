@@ -5,6 +5,7 @@ package es.limit.cecocloud.logic.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
 import java.util.List;
 
 import es.limit.base.boot.logic.api.dto.util.Identificable;
@@ -26,20 +27,35 @@ public class IdentificadorServiceTest extends AbstractServiceTest<Identificador,
 			@Override
 			public Identificador createDto() {
 				Identificador dto = new Identificador();
-//				dto.setNom("Test");
-//				dto.setActiu(true);
+				dto.setDescripcio("Test");
+				dto.setNumUsuaris(1);
+				dto.setNumEmpreses(2);
+				dto.setDataInici(new Date());
+				dto.setDataFi(new Date());
+				dto.setLlicencia("1");
+				dto.setLlicenciaOk(true);
 				return dto;
 			}
 			@Override
 			public void updateDto(Identificador dto) {
-//				dto.setNom("Test2");
-//				dto.setActiu(false);
+				dto.setDescripcio("Test2");
+				dto.setNumUsuaris(2);
+				dto.setNumEmpreses(3);
+				dto.setDataInici(new Date());
+				dto.setDataFi(new Date());
+				dto.setLlicencia("1234");
+				dto.setLlicenciaOk(false);
 			}
 			@Override
 			public void compareDto(Identificador expected, Identificador actual) {
 				assertEquals(expected.getCodi(), actual.getCodi());
-//				assertEquals(expected.getNom(), actual.getNom());
-//				assertEquals(expected.isActiu(), actual.isActiu());
+				assertEquals(expected.getDescripcio(), actual.getDescripcio());
+				assertEquals(expected.getNumUsuaris(), actual.getNumUsuaris());
+				assertEquals(expected.getNumEmpreses(), actual.getNumEmpreses());
+				assertEquals(expected.getDataInici(), actual.getDataInici());
+				assertEquals(expected.getDataFi(), actual.getDataFi());
+				assertEquals(expected.getLlicencia(), actual.getLlicencia());
+				assertEquals(expected.isLlicenciaOk(), actual.isLlicenciaOk());
 			}
 			@Override
 			public List<Class<? extends Identificable<?>>> toCreateBeforeTest() {

@@ -16,8 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import es.limit.base.boot.logic.api.dto.util.AuthenticationFacade;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
@@ -57,7 +57,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
 	@Autowired
-	private AuthenticationFacade authenticationFacade;
+	private AuthenticationHelper authenticationHelper;
 
 	@Override
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
@@ -80,8 +80,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Override
 	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
-		Authentication auth = authenticationFacade.getAuthentication();
-		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(auth.getName());
+		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(authenticationHelper.getPrincipalName());
 		EmpresaEntity empresa = empresaRepository.getOne(consulta.getEmpresaId());
 		Optional<OperariEntity> operari = operariRepository.findByUsuariAndEmpresaAndEmbeddedDataFiNull(
 				usuari.get(),

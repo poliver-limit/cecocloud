@@ -19,9 +19,6 @@ public class SincronitzacioEmpresa {
 
 	@NotNull
 	@Size(max = 4)
-	private String identificadorCodi;
-	@NotNull
-	@Size(max = 4)
 	private String codi;
 	@NotNull
 	@Size(max = 12)

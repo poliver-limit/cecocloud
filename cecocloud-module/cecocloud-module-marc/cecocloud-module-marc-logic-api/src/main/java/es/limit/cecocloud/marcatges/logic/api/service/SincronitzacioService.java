@@ -6,10 +6,9 @@ package es.limit.cecocloud.marcatges.logic.api.service;
 import java.util.Date;
 import java.util.List;
 
-import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioEmpresa;
-import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioIdentificador;
+import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioIdentificadorPeticio;
+import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioIdentificadorResposta;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatge;
-import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioResposta;
 
 /**
@@ -20,51 +19,20 @@ import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioResposta;
 public interface SincronitzacioService {
 
 	/**
-	 * Sincronitza els identificadors d'una companyia.
+	 * Sincronitza la informació (empreses i operaris) d'un identificador.
 	 * 
-	 * @param companyiaId
-	 *            identificador de la companyia.
-	 * @param identificadors
-	 *            informació dels identificadors a sincronitzar.
+	 * @param peticio
+	 *            informació de l'identificador a sincronitzar.
 	 * @return el resultat de la sincronització.
 	 */
-	public SincronitzacioResposta sincronitzarIdentificadors(
-			Long companyiaId,
-			List<SincronitzacioIdentificador> identificadors);
+	public SincronitzacioIdentificadorResposta sincronitzarIdentificador(
+			SincronitzacioIdentificadorPeticio peticio);
 
 	/**
-	 * Sincronitza les empreses d'una companyia.
+	 * Consulta els marcatges d'un identificador disponibles a cecocloud.
 	 * 
 	 * @param companyiaId
 	 *            identificador de la companyia.
-	 * @param empreses
-	 *            informació de les empreses a sincronitzar.
-	 * @return el resultat de la sincronització.
-	 */
-	public SincronitzacioResposta sincronitzarEmpreses(
-			Long companyiaId,
-			List<SincronitzacioEmpresa> empreses);
-
-	/**
-	 * Sincronitza els operaris d'una companyia.
-	 * 
-	 * @param companyiaId
-	 *            identificador de la companyia.
-	 * @param operaris
-	 *            informació dels operaris a sincronitzar.
-	 * @return el resultat de la sincronització.
-	 */
-	public SincronitzacioResposta sincronitzarOperaris(
-			Long companyiaId,
-			List<SincronitzacioOperari> operaris);
-
-	/**
-	 * Consulta de marcatges.
-	 * 
-	 * @param companyiaId
-	 *            identificador de la companyia.
-	 * @param empreses
-	 *            llista d'empreses per a la consulta.
 	 * @param dataInici
 	 *            data inicial per a la consulta.
 	 * @param dataFi
@@ -73,23 +41,22 @@ public interface SincronitzacioService {
 	 * @return la llista de marcatges.
 	 */
 	public List<SincronitzacioMarcatge> marcatgeFind(
-			Long companyiaId,
-			List<SincronitzacioEmpresa> empreses,
+			String identificadorCodi,
 			Date dataInici,
 			Date dataFi);
 
 	/**
-	 * Dona d'alta els marcatges fets a CECOGEST.
+	 * Crea els marcatges de cecogest a dins cecocloud.
 	 * 
-	 * @param companyiaId
-	 *            identificador de la companyia.
+	 * @param identificadorCodi
+	 *            codi de l'identificador a sincronitzar.
 	 * @param marcatges
 	 *            llista de marcatges per a crear.
 	 * 
 	 * @return el resultat de la sincronització.
 	 */
 	public SincronitzacioResposta marcatgeCreate(
-			Long companyiaId,
+			String identificadorCodi,
 			List<SincronitzacioMarcatge> marcatges);
 
 }

@@ -20,8 +20,8 @@ import lombok.Setter;
 public class SincronitzacioMarcatgesEnviament {
 
 	@NotNull
-	@Size(max = 30)
-	private String companyiaCodi;
+	@Size(max = 4)
+	private String identificadorCodi;
 	private List<SincronitzacioMarcatge> marcatges;
 
 }
