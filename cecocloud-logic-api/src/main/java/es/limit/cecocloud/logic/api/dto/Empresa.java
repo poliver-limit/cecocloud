@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +23,7 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom")
-public class Empresa extends AbstractIdentificable<Long> {
+public class Empresa extends AbstractIdentificableAmbIdentificador<Long> {
 
 	@NotNull
 	@Transient

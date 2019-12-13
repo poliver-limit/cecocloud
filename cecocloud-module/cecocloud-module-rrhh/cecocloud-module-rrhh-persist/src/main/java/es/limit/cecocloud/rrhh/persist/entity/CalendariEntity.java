@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.rrhh.persist.entity;
 
-import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -58,8 +57,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "cln_idf_cod", foreignKey = @ForeignKey(name = "rrhu_cln_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "cln_idf_cod", insertable = false, updatable = false)
+			}),
+			foreignKey = @ForeignKey(name = "rrhu_cln_idf_fk")
 })
 public class CalendariEntity extends AbstractAmbIdentificadorEntity<Calendari, CalendariPk> {
 

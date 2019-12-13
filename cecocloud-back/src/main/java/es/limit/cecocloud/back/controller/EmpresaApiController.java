@@ -22,14 +22,6 @@ import es.limit.cecocloud.logic.api.service.EmpresaService;
 @RequestMapping(GenericController.API_PATH + "/empreses")
 public class EmpresaApiController extends AbstractIdentificableWithPermissionsApiController<Empresa, Long> {
 
-	@Autowired
-	private EmpresaService service;
-
-	@Override
-	protected EmpresaService getService() {
-		return service;
-	}
-
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
 		Long companyiaId = (userSession != null) ? ((UserSession)userSession).getC() : null;

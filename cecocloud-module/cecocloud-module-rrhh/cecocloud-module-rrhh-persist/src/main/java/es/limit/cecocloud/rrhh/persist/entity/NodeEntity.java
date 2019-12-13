@@ -39,7 +39,7 @@ import lombok.Setter;
 		name = "trhu_nod",
 		indexes = {
 				@Index(name = "irhu_nod_idf_fk", columnList = "nod_idf_cod"),
-				@Index(name = "irrhu_nod_pk", columnList = "nod_idf_cod,nod_cod", unique = true)
+				@Index(name = "irrhu_nod_pk", columnList = "nod_idf_cod,nod_num", unique = true)
 		}
 )
 @AttributeOverrides({
