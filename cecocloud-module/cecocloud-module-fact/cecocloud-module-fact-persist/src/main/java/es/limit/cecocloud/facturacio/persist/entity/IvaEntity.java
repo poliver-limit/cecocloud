@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Iva;
-import es.limit.cecocloud.facturacio.logic.api.dto.Iva.IvaPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "iva_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "iva_datmod"))
 })
-public class IvaEntity extends AbstractAuditableCompositePkEntity<Iva, IvaPk> {
+public class IvaEntity extends AbstractAuditableCompositePkEntity<Iva, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Iva embedded;
@@ -70,7 +70,7 @@ public class IvaEntity extends AbstractAuditableCompositePkEntity<Iva, IvaPk> {
 
 	@Builder
 	public IvaEntity(
-			IvaPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Iva embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.DocumentPagamentCobrament;
-import es.limit.cecocloud.facturacio.logic.api.dto.DocumentPagamentCobrament.DocumentPagamentCobramentPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -71,7 +71,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "dpg_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "dpg_datmod"))
 })
-public class DocumentPagamentCobramentEntity extends AbstractAuditableCompositePkEntity<DocumentPagamentCobrament, DocumentPagamentCobramentPk> {
+public class DocumentPagamentCobramentEntity extends AbstractAuditableCompositePkEntity<DocumentPagamentCobrament, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected DocumentPagamentCobrament embedded;
@@ -110,7 +110,7 @@ public class DocumentPagamentCobramentEntity extends AbstractAuditableCompositeP
 
 	@Builder
 	public DocumentPagamentCobramentEntity(
-			DocumentPagamentCobramentPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			DocumentPagamentCobrament embedded,
 			IdentificadorEntity identificador,
 			NaturalesaPagamentCobramentEntity naturalesaPagamentCobrament,

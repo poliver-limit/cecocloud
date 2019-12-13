@@ -35,16 +35,30 @@ public class PerfilRol extends AbstractIdentificableWithCompositePk<PerfilRolPk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForUpdate=true,
+			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Perfil, Long> perfil;
 	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForUpdate=true,
+			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Rol, Long> rol;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String description;
+
+	public String getDescription() {
+		if (perfil != null || perfil != null) {
+			return ((perfil != null) ? perfil.getDescription() : "") + " - " + ((rol != null) ? rol.getDescription() : "");
+		} else {
+			return null;
+		}
+	}
 
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -56,12 +70,4 @@ public class PerfilRol extends AbstractIdentificableWithCompositePk<PerfilRolPk>
 		private Long rolId;
 	}
 
-	@Transient
-	private String description;
-	
-	public String getDescription() {
-		if (perfil != null && rol != null) 
-			return perfil.getDescription() + " - " + rol.getDescription();
-		return "";
-	}
 }

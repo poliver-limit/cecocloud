@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Subvencio;
-import es.limit.cecocloud.facturacio.logic.api.dto.Subvencio.SubvencioPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -54,7 +54,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "sue_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "sue_datmod"))
 })
-public class SubvencioEntity extends AbstractAuditableCompositePkEntity<Subvencio, SubvencioPk> {
+public class SubvencioEntity extends AbstractAuditableCompositePkEntity<Subvencio, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Subvencio embedded;
@@ -69,10 +69,9 @@ public class SubvencioEntity extends AbstractAuditableCompositePkEntity<Subvenci
 
 	@Builder
 	public SubvencioEntity(
-			SubvencioPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Subvencio embedded,
-			IdentificadorEntity identificador
-			) {
+			IdentificadorEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

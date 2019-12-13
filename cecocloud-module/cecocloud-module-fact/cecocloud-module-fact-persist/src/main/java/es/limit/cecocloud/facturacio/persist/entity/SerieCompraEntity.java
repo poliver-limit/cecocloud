@@ -102,8 +102,7 @@ public class SerieCompraEntity extends AbstractAuditableCompositePkEntity<SerieC
 			SerieCompra embedded,
 			IdentificadorEntity identificador,
 			MagatzemEntity magatzem,
-			EmpresaFactEntity empresaOp
-		) {
+			EmpresaFactEntity empresaOp) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

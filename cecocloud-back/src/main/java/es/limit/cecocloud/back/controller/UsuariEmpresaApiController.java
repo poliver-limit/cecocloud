@@ -18,9 +18,9 @@ import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper.SelfLinkBuilder;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.UserSession;
-import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
-import es.limit.cecocloud.logic.api.dto.UsuariEmpresaPerfilTreeItem;
-import es.limit.cecocloud.logic.api.service.UsuariEmpresaService;
+import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
+import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresaPerfilTreeItem;
+import es.limit.cecocloud.logic.api.service.UsuariIdentificadorEmpresaService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -31,13 +31,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping(GenericController.API_PATH + "/usuariEmpresa")
-public class UsuariEmpresaApiController extends AbstractIdentificableApiController<UsuariEmpresa, String> {
+public class UsuariEmpresaApiController extends AbstractIdentificableApiController<UsuariIdentificadorEmpresa, String> {
 
 	@Autowired
-	private UsuariEmpresaService service;
+	private UsuariIdentificadorEmpresaService service;
 
 	@Override
-	protected UsuariEmpresaService getService() {
+	protected UsuariIdentificadorEmpresaService getService() {
 		return service;
 	}
 	
@@ -52,7 +52,7 @@ public class UsuariEmpresaApiController extends AbstractIdentificableApiControll
 	@GetMapping(
 			value = "/perfilTree",
 			produces = "application/json")
-	public ResponseEntity<Resources<Resource<UsuariEmpresaPerfilTreeItem>>> selectionTree(
+	public ResponseEntity<Resources<Resource<UsuariIdentificadorEmpresaPerfilTreeItem>>> selectionTree(
 			HttpServletRequest request) {
 		log.debug("Obtenint arbre de usuaris-empreses");
 		return ResponseEntity.ok(

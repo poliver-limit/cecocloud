@@ -71,8 +71,7 @@ public class DepartamentEntity extends AbstractAuditableCompositePkEntity<Depart
 	public DepartamentEntity(
 			DepartamentPk pk,
 			Departament embedded,
-			IdentificadorEntity identificador
-		) {
+			IdentificadorEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;		

@@ -156,8 +156,7 @@ public class SerieVendaEntity extends AbstractAuditableCompositePkEntity<SerieVe
 			PeuDocumentEntity peuDocument,
 			MagatzemEntity magatzem,
 			EmpresaFactEntity empresaOp,
-			DepartamentEntity departament			
-			) {
+			DepartamentEntity departament) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

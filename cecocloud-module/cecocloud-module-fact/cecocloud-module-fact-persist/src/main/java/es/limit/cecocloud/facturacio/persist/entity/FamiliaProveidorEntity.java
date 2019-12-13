@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.FamiliaProveidor;
-import es.limit.cecocloud.facturacio.logic.api.dto.FamiliaProveidor.FamiliaProveidorPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fpr_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "fpr_datmod"))
 })
-public class FamiliaProveidorEntity extends AbstractAuditableCompositePkEntity<FamiliaProveidor, FamiliaProveidorPk> {
+public class FamiliaProveidorEntity extends AbstractAuditableCompositePkEntity<FamiliaProveidor, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected FamiliaProveidor embedded;
@@ -70,7 +70,7 @@ public class FamiliaProveidorEntity extends AbstractAuditableCompositePkEntity<F
 
 	@Builder
 	public FamiliaProveidorEntity(
-			FamiliaProveidorPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			FamiliaProveidor embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

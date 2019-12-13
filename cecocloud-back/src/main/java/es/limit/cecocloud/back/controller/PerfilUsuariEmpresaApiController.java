@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
-import es.limit.cecocloud.logic.api.dto.PerfilUsuariEmpresa;
+import es.limit.cecocloud.logic.api.dto.PerfilUsuariIdentificadorEmpresa;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 
 /**
@@ -19,7 +19,7 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
  */
 @RestController
 @RequestMapping(GenericController.API_PATH + "/perfilUsuariEmpresa")
-public class PerfilUsuariEmpresaApiController extends AbstractIdentificableApiController<PerfilUsuariEmpresa, String> {
+public class PerfilUsuariEmpresaApiController extends AbstractIdentificableApiController<PerfilUsuariIdentificadorEmpresa, String> {
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {

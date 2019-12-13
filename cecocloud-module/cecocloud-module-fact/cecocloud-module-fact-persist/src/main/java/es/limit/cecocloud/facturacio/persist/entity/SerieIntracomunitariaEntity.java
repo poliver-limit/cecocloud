@@ -74,8 +74,7 @@ public class SerieIntracomunitariaEntity extends AbstractAuditableCompositePkEnt
 	public SerieIntracomunitariaEntity(
 			SerieIntracomunitariaPk pk,
 			SerieIntracomunitaria embedded,
-			IdentificadorEntity identificador
-		) {
+			IdentificadorEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

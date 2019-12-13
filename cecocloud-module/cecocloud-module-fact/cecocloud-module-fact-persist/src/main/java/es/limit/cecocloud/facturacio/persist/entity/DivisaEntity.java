@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Divisa;
-import es.limit.cecocloud.facturacio.logic.api.dto.Divisa.DivisaPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "div_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "div_datmod"))
 })
-public class DivisaEntity extends AbstractAuditableCompositePkEntity<Divisa, DivisaPk> {
+public class DivisaEntity extends AbstractAuditableCompositePkEntity<Divisa, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Divisa embedded;
@@ -70,7 +70,7 @@ public class DivisaEntity extends AbstractAuditableCompositePkEntity<Divisa, Div
 
 	@Builder
 	public DivisaEntity(
-			DivisaPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Divisa embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

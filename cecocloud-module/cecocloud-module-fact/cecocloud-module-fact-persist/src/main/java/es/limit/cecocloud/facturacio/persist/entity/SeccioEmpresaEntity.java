@@ -105,8 +105,7 @@ public class SeccioEmpresaEntity extends AbstractAuditableCompositePkEntity<Secc
 			IdentificadorEntity identificador,
 			ArticleFamiliaEmpresaEntity familiaEmpresa,
 			ArticleFamiliaEntity familia,
-			SeccioEntity seccio
-			) {
+			SeccioEntity seccio) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

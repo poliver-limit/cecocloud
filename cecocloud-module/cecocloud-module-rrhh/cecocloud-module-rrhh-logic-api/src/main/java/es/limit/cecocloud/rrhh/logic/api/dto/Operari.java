@@ -3,20 +3,13 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
-import java.io.Serializable;
-
 import javax.persistence.Transient;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.rrhh.logic.api.dto.Operari.OperariPk;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -28,7 +21,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Operari extends AbstractIdentificableWithCompositePk<OperariPk> {
+public class Operari extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
 	private String codi;
 	private String nom;
@@ -57,14 +50,7 @@ public class Operari extends AbstractIdentificableWithCompositePk<OperariPk> {
 	@Transient
 	private OperariEnumDto controlHoresExtras;
 	private String usuariCodi;*/
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
-	
+
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -73,14 +59,5 @@ public class Operari extends AbstractIdentificableWithCompositePk<OperariPk> {
 			hiddenInForm = true)
 	private GenericReference<Horari, String> horari;
 
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class OperariPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
-	}
 
 }

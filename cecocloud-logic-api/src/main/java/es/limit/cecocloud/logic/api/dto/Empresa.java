@@ -32,7 +32,7 @@ public class Empresa extends AbstractIdentificable<Long> {
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<Identificador, Long> identificador;
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)
@@ -45,7 +45,7 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@Size(max = 40)
 	@RestapiField(includeInQuickFilter = true)
 	private String nom;
-	@NotNull(groups = { OnCreate.class })
+	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			disabledForUpdate = true)
@@ -54,13 +54,9 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@RestapiField(hiddenInLov = true)
 	private boolean activa;
 
-	@Transient
-	@RestapiField(hiddenInForm = true, hiddenInGrid = true)
-	private Long companyiaId;
-
 	public enum EmpresaTipusEnum {
 		COMPTABLE,
 		GESTIO
 	}
-	
+
 }

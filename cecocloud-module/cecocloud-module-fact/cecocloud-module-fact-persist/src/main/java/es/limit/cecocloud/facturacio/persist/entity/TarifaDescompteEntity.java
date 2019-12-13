@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.TarifaDescompte;
-import es.limit.cecocloud.facturacio.logic.api.dto.TarifaDescompte.TarifaDescomptePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,7 +53,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tds_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tds_datmod"))
 })
-public class TarifaDescompteEntity extends AbstractAuditableCompositePkEntity<TarifaDescompte, TarifaDescomptePk> {
+public class TarifaDescompteEntity extends AbstractAuditableCompositePkEntity<TarifaDescompte, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected TarifaDescompte embedded;
@@ -68,10 +68,9 @@ public class TarifaDescompteEntity extends AbstractAuditableCompositePkEntity<Ta
 
 	@Builder
 	public TarifaDescompteEntity(
-			TarifaDescomptePk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			TarifaDescompte embedded,
-			IdentificadorEntity identificador
-			) {
+			IdentificadorEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;	

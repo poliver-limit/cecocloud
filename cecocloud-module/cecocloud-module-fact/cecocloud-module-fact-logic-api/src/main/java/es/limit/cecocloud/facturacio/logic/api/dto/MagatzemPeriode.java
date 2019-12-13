@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Transient;
@@ -12,11 +11,9 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +29,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
-public class MagatzemPeriode extends AbstractIdentificableWithCompositePk<MagatzemPeriodePk> {
+public class MagatzemPeriode extends AbstractIdentificableAmbIdentificador<MagatzemPeriodePk> {
 
 	@NotNull
 	@Size(max = 4)
@@ -59,23 +56,20 @@ public class MagatzemPeriode extends AbstractIdentificableWithCompositePk<Magatz
 			hiddenInLov = true)	
 	private GenericReference<Magatzem, String> magatzem;
 
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;	
-
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@EqualsAndHashCode
+	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class MagatzemPeriodePk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
+	public static class MagatzemPeriodePk extends AmbIdentificadorICodiPk<String> {
 		private String magatzemCodi;
+		public MagatzemPeriodePk(
+				String identificadorCodi,
+				String magatzemCodi,
+				String codi) {
+			super(identificadorCodi, codi);
+			this.magatzemCodi = magatzemCodi;
+		}
 	}
 
 }

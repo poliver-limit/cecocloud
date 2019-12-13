@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
-import es.limit.cecocloud.facturacio.logic.api.dto.Zona.ZonaPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,7 +52,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "zon_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "zon_datmod"))
 })
-public class ZonaEntity extends AbstractAuditableCompositePkEntity<Zona, ZonaPk> {
+public class ZonaEntity extends AbstractAuditableCompositePkEntity<Zona, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Zona embedded;
@@ -67,7 +67,7 @@ public class ZonaEntity extends AbstractAuditableCompositePkEntity<Zona, ZonaPk>
 
 	@Builder
 	public ZonaEntity(
-			ZonaPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Zona embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

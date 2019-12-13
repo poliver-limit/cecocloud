@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Pais;
-import es.limit.cecocloud.facturacio.logic.api.dto.Pais.PaisPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,7 +56,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "pas_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "pas_datmod"))
 })
-public class PaisEntity extends AbstractAuditableCompositePkEntity<Pais, PaisPk> {
+public class PaisEntity extends AbstractAuditableCompositePkEntity<Pais, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Pais embedded;
@@ -71,7 +71,7 @@ public class PaisEntity extends AbstractAuditableCompositePkEntity<Pais, PaisPk>
 
 	@Builder
 	public PaisEntity(
-			PaisPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Pais embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

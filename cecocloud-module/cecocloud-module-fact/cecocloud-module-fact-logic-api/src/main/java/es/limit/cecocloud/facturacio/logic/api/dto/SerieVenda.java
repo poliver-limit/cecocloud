@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Transient;
@@ -13,11 +12,10 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SerieVenda.SerieVendaPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.SerieFacturaRectificativaEnumDto;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,7 +31,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaPk> {
+public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVendaPk> {
 
 	@NotNull
 	@Size(max = 2)
@@ -203,7 +201,7 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-	private GenericReference<EmpresaFact, String> empresaOp;
+	private GenericReference<Empresa, String> empresaOp;
 	
 	@Transient
 	@RestapiField(
@@ -245,25 +243,22 @@ public class SerieVenda extends AbstractIdentificableWithCompositePk<SerieVendaP
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<EmpresaFact, String> empresa;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<Empresa, String> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@EqualsAndHashCode
+	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class SerieVendaPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
+	public static class SerieVendaPk extends AmbIdentificadorICodiPk<String> {
 		private String empresaCodi;
+		public SerieVendaPk(
+				String identificadorCodi,
+				String empresaCodi,
+				String codi) {
+			super(identificadorCodi, codi);
+			this.empresaCodi = empresaCodi;
+		}
 	}
 
 }

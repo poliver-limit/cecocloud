@@ -13,14 +13,13 @@ import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.persist.entity.RolEntity;
 
 /**
- * Mètodes necessaris per a gestionar una entitat de base
- * de dades de tipus grup.
+ * Repository per a gestionar les entitats de tipus rol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository
 public interface RolRepository extends BaseRepository<RolEntity, Long> {
-	
+
 	@Query(	"select r "
 			+ "from "
 			+ " RolEntity r "
@@ -46,7 +45,7 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 	List<RolEntity> findByUsuariCodiEmpresaCodi(
 			@Param("usuariCodi") String usuariCodi,
 			@Param("empresaCodi") String empresaCodi);
-	
+
 	@Query(	"select r "
 			+ "from "
 			+ " RolEntity r "
@@ -72,4 +71,5 @@ public interface RolRepository extends BaseRepository<RolEntity, Long> {
 	List<RolEntity> findByUsuariCodiEmpresa(
 			@Param("usuariCodi") String usuariCodi,
 			@Param("empresaId") Long empresaId);
+
 }

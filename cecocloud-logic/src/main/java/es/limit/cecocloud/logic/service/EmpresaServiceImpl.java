@@ -16,12 +16,16 @@ import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImp
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
-import es.limit.cecocloud.logic.api.dto.UsuariEmpresa;
-import es.limit.cecocloud.logic.api.dto.UsuariEmpresa.UsuariEmpresaPk;
+import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
+import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
+import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa.UsuariIdentificadorEmpresaPk;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
-import es.limit.cecocloud.persist.entity.UsuariEmpresaEntity;
-import es.limit.cecocloud.persist.repository.UsuariEmpresaRepository;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
+import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
+import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
+import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
 /**
  * Implementació del servei encarregat de gestionar empreses.
@@ -34,7 +38,9 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 	@Autowired
 	private UsuariRepository usuariRepository;
 	@Autowired
-	private UsuariEmpresaRepository usuariEmpresaRepository;
+	private UsuariIdentificadorRepository usuariIdentificadorRepository;
+	@Autowired
+	private UsuariIdentificadorEmpresaRepository usuariIdentificadorEmpresaRepository;
 
 	@Override
 	protected void afterCreate(EmpresaEntity entity, Empresa dto) {
@@ -53,16 +59,22 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && hasAnyPermission(permission)) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<EmpresaEntity> empresa = getRepository().findById(id);
-			UsuariEmpresaPk usuariEmpresaPk = new UsuariEmpresaPk(
+			IdentificadorEntity identificador = empresa.get().getIdentificador();
+			UsuariIdentificadorPk usuariIdentificadorPk = new UsuariIdentificadorPk(
 					usuari.get().getId(),
+					identificador.getId());
+			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findById(usuariIdentificadorPk);
+			UsuariIdentificadorEmpresaPk usuariIdentificadorEmpresaPk = new UsuariIdentificadorEmpresaPk(
+					usuari.get().getId(),
+					identificador.getId(),
 					empresa.get().getId());
-			UsuariEmpresaEntity usuariEmpresa = UsuariEmpresaEntity.builder().
-					pk(usuariEmpresaPk).
-					embedded(new UsuariEmpresa()).
-					usuari(usuari.get()).
+			UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresa = UsuariIdentificadorEmpresaEntity.builder().
+					pk(usuariIdentificadorEmpresaPk).
+					embedded(new UsuariIdentificadorEmpresa()).
+					usuariIdentificador(usuariIdentificador.get()).
 					empresa(empresa.get()).
 					build();
-			usuariEmpresaRepository.save(usuariEmpresa);
+			usuariIdentificadorEmpresaRepository.save(usuariIdentificadorEmpresa);
 		}
 	}
 
@@ -71,20 +83,26 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<EmpresaEntity> empresa = getRepository().findById(id);
-			UsuariEmpresaPk usuariEmpresaPk = new UsuariEmpresaPk(
+			IdentificadorEntity identificador = empresa.get().getIdentificador();
+			UsuariIdentificadorPk usuariIdentificadorPk = new UsuariIdentificadorPk(
 					usuari.get().getId(),
+					identificador.getId());
+			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findById(usuariIdentificadorPk);
+			UsuariIdentificadorEmpresaPk usuariIdentificadorEmpresaPk = new UsuariIdentificadorEmpresaPk(
+					usuari.get().getId(),
+					identificador.getId(),
 					empresa.get().getId());
-			Optional<UsuariEmpresaEntity> usuariEmpresa = usuariEmpresaRepository.findById(usuariEmpresaPk);
-			if (usuariEmpresa.isPresent() && !hasAnyPermission(permission)) {
-				usuariEmpresaRepository.delete(usuariEmpresa.get());
-			} else if (!usuariEmpresa.isPresent() && hasAnyPermission(permission)) {
-				UsuariEmpresaEntity usuariEmpresaPerCrear = UsuariEmpresaEntity.builder().
-						pk(usuariEmpresaPk).
-						embedded(new UsuariEmpresa()).
-						usuari(usuari.get()).
+			Optional<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpresa = usuariIdentificadorEmpresaRepository.findById(usuariIdentificadorEmpresaPk);
+			if (usuariIdentificadorEmpresa.isPresent() && !hasAnyPermission(permission)) {
+				usuariIdentificadorEmpresaRepository.delete(usuariIdentificadorEmpresa.get());
+			} else if (!usuariIdentificadorEmpresa.isPresent() && hasAnyPermission(permission)) {
+				UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresaPerCrear = UsuariIdentificadorEmpresaEntity.builder().
+						pk(usuariIdentificadorEmpresaPk).
+						embedded(new UsuariIdentificadorEmpresa()).
+						usuariIdentificador(usuariIdentificador.get()).
 						empresa(empresa.get()).
 						build();
-				usuariEmpresaRepository.save(usuariEmpresaPerCrear);
+				usuariIdentificadorEmpresaRepository.save(usuariIdentificadorEmpresaPerCrear);
 			}
 		}
 	}
@@ -94,12 +112,14 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<EmpresaEntity> empresa = getRepository().findById(id);
-			UsuariEmpresaPk usuariEmpresaPk = new UsuariEmpresaPk(
+			IdentificadorEntity identificador = empresa.get().getIdentificador();
+			UsuariIdentificadorEmpresaPk usuariIdentificadorEmpresaPk = new UsuariIdentificadorEmpresaPk(
 					usuari.get().getId(),
+					identificador.getId(),
 					empresa.get().getId());
-			Optional<UsuariEmpresaEntity> usuariEmpresa = usuariEmpresaRepository.findById(usuariEmpresaPk);
-			if (usuariEmpresa.isPresent()) {
-				usuariEmpresaRepository.delete(usuariEmpresa.get());
+			Optional<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpresa = usuariIdentificadorEmpresaRepository.findById(usuariIdentificadorEmpresaPk);
+			if (usuariIdentificadorEmpresa.isPresent()) {
+				usuariIdentificadorEmpresaRepository.delete(usuariIdentificadorEmpresa.get());
 			}
 		}
 	}

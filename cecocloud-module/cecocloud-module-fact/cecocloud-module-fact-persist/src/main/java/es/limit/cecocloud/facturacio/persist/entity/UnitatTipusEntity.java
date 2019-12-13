@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.UnitatTipus;
-import es.limit.cecocloud.facturacio.logic.api.dto.UnitatTipus.UnitatTipusPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,7 +51,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tun_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tun_datmod"))
 })
-public class UnitatTipusEntity extends AbstractAuditableCompositePkEntity<UnitatTipus, UnitatTipusPk> {
+public class UnitatTipusEntity extends AbstractAuditableCompositePkEntity<UnitatTipus, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected UnitatTipus embedded;
@@ -66,7 +66,7 @@ public class UnitatTipusEntity extends AbstractAuditableCompositePkEntity<Unitat
 
 	@Builder
 	public UnitatTipusEntity(
-			UnitatTipusPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			UnitatTipus embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

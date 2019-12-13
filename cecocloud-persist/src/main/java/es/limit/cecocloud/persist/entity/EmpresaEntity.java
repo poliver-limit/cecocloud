@@ -50,7 +50,7 @@ public class EmpresaEntity extends AbstractAuditableVersionableEntity<Empresa, L
 	@Embedded
 	protected Empresa embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "identificador_id",
 			foreignKey = @ForeignKey(name = "empresa_identificador_fk"))

@@ -15,8 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
+import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.logic.api.exception.OperationDeniedException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,40 +35,39 @@ import lombok.Setter;
 @Table(name = "identificador")
 @AttributeOverrides({
 	@AttributeOverride(name = "id", column = @Column(name = "id", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 40, nullable = false))
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 40, nullable = false)),
+	@AttributeOverride(name = "embedded.numUsuaris", column = @Column(name = "num_usuaris", nullable = false)),
+	@AttributeOverride(name = "embedded.numEmpreses", column = @Column(name = "num_empreses", nullable = false)),
+	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "data_inici", nullable = false)),
+	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi", nullable = false)),
+	@AttributeOverride(name = "embedded.llicencia", column = @Column(name = "llicencia", length = 1000, nullable = false)),
+	@AttributeOverride(name = "embedded.llicenciaOk", column = @Column(name = "llicencia_ok", nullable = false))
 })
-public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Identificador, String> {
+public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Identificador, Long> {
 
 	@Embedded
 	protected Identificador embedded;
-	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "companyia_id",
-			foreignKey = @ForeignKey(name = "identificador_companyia_fk"))
-	protected CompanyiaEntity companyia;
+			name = "propietari_id",
+			foreignKey = @ForeignKey(name = "identificador_propietari_fk"))
+	protected UsuariEntity propietari;
 
 	@Builder
     public IdentificadorEntity(
     		Identificador embedded,
-    		CompanyiaEntity companyia) {
+    		UsuariEntity propietari) {
         this.embedded = embedded;
-        this.companyia = companyia;
+        this.propietari = propietari;
 	}
 
 	@Override
 	public void update(Identificador embedded) {
 		this.embedded = embedded;
 	}
-	public void updateCompanyia(CompanyiaEntity companyia) {
-		this.companyia = companyia;
-	}
-	public void setCodi(String id) {
-		if (this.isNew()) {
-			this.setId(id);
-		} else {
-			throw new OperationDeniedException("Modificar ID de Identificador.");
-		}
+	public void updatePropietari(UsuariEntity propietari) {
+		this.propietari = propietari;
 	}
 
 }

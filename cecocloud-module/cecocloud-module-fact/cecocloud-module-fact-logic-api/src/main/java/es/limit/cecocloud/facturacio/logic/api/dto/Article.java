@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Transient;
@@ -14,14 +13,8 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.Article.ArticlePk;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -33,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
-public class Article extends AbstractIdentificableWithCompositePk<ArticlePk> {
+public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 15)
@@ -130,15 +123,5 @@ public class Article extends AbstractIdentificableWithCompositePk<ArticlePk> {
 			disabledForUpdate = true,			
 			hiddenInForm = true)
 	private GenericReference<Identificador, String> identificador;
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class ArticlePk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
-	}
 
 }

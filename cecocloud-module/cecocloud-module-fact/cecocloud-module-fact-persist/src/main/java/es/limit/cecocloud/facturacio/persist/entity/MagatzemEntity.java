@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem;
-import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem.MagatzemPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -64,7 +64,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mag_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "mag_datmod"))
 })
-public class MagatzemEntity extends AbstractAuditableCompositePkEntity<Magatzem, MagatzemPk> {
+public class MagatzemEntity extends AbstractAuditableCompositePkEntity<Magatzem, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Magatzem embedded;
@@ -97,12 +97,11 @@ public class MagatzemEntity extends AbstractAuditableCompositePkEntity<Magatzem,
 
 	@Builder
 	public MagatzemEntity(
-			MagatzemPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Magatzem embedded,
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostal,
-			DivisaEntity divisa
-			) {
+			DivisaEntity divisa) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

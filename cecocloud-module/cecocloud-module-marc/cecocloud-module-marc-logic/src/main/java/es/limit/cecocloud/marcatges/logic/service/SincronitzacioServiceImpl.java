@@ -33,7 +33,7 @@ import es.limit.cecocloud.marcatges.persist.repository.OperariRepository;
 import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
-import es.limit.cecocloud.persist.repository.CompanyiaRepository;
+import es.limit.cecocloud.persist.repository.CaracteristicaRepository;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
@@ -47,7 +47,7 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Autowired
-	private CompanyiaRepository companyiaRepository;
+	private CaracteristicaRepository companyiaRepository;
 	@Autowired
 	private IdentificadorRepository identificadorRepository;
 	@Autowired

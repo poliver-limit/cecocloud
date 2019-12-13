@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia;
-import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia.ArticleFamiliaPk;
 import es.limit.cecocloud.rrhh.persist.entity.RecursGrupEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -77,7 +77,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "far_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "far_datmod"))
 })
-public class ArticleFamiliaEntity extends AbstractAuditableCompositePkEntity<ArticleFamilia, ArticleFamiliaPk> {
+public class ArticleFamiliaEntity extends AbstractAuditableCompositePkEntity<ArticleFamilia, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected ArticleFamilia embedded;
@@ -110,12 +110,11 @@ public class ArticleFamiliaEntity extends AbstractAuditableCompositePkEntity<Art
 
 	@Builder
 	public ArticleFamiliaEntity(
-			ArticleFamiliaPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			ArticleFamilia embedded,
 			IdentificadorEntity identificador,
 			RecursGrupEntity recursGrup,
-			FamiliaCostEntity familiaCost
-			) {
+			FamiliaCostEntity familiaCost) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

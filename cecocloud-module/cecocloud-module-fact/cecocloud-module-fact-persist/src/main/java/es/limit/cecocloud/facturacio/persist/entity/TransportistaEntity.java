@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Transportista;
-import es.limit.cecocloud.facturacio.logic.api.dto.Transportista.TransportistaPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -65,7 +65,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tra_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tra_datmod"))
 })
-public class TransportistaEntity extends AbstractAuditableCompositePkEntity<Transportista, TransportistaPk> {
+public class TransportistaEntity extends AbstractAuditableCompositePkEntity<Transportista, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Transportista embedded;
@@ -104,7 +104,7 @@ public class TransportistaEntity extends AbstractAuditableCompositePkEntity<Tran
 
 	@Builder
 	public TransportistaEntity(
-			TransportistaPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Transportista embedded,
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostal,

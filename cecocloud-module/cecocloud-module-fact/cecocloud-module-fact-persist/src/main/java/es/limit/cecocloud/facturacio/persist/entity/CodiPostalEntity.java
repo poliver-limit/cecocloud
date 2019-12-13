@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.CodiPostal;
-import es.limit.cecocloud.facturacio.logic.api.dto.CodiPostal.CodiPostalPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,7 +52,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cpo_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "cpo_datmod"))
 })
-public class CodiPostalEntity extends AbstractAuditableCompositePkEntity<CodiPostal, CodiPostalPk> {
+public class CodiPostalEntity extends AbstractAuditableCompositePkEntity<CodiPostal, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected CodiPostal embedded;
@@ -84,7 +84,7 @@ public class CodiPostalEntity extends AbstractAuditableCompositePkEntity<CodiPos
 
 	@Builder
 	public CodiPostalEntity(
-			CodiPostalPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			CodiPostal embedded,
 			IdentificadorEntity identificador,
 			PaisEntity pais,

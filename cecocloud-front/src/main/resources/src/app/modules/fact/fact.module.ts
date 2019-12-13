@@ -13,191 +13,191 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			canActivate: [SelectedEmpresaGuard],
 			children: [{
 				path: '',
-				loadChildren: './pages/index/index-fact.module#IndexFactModule',
+				loadChildren: () => import('./pages/index/index-fact.module').then(m => m.IndexFactModule),
 				canActivate: [BngAuthGuard]
 	        }, {
 				path: 'articles',
-				loadChildren: './pages/articles/articles.module#ArticlesModule',
+				loadChildren: () => import('./pages/articles/articles.module').then(m => m.ArticlesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'articlesFamilia',
-				loadChildren: './pages/articlesFamilia/articlesFamilia.module#ArticlesFamiliaModule',
+				loadChildren: () => import('./pages/articlesFamilia/articlesFamilia.module').then(m => m.ArticlesFamiliaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'articlesFamiliaEmpresa',
-				loadChildren: './pages/articlesFamiliaEmpresa/articlesFamiliaEmpresa.module#ArticlesFamiliaEmpresaModule',
+				loadChildren: () => import('./pages/articlesFamiliaEmpresa/articlesFamiliaEmpresa.module').then(m => m.ArticlesFamiliaEmpresaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'articlesGamma',
-				loadChildren: './pages/articlesGamma/articlesGamma.module#ArticlesGammaModule',
+				loadChildren: () => import('./pages/articlesGamma/articlesGamma.module').then(m => m.ArticlesGammaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'articlesMarca',
-				loadChildren: './pages/articlesMarca/articlesMarca.module#ArticlesMarcaModule',
+				loadChildren: () => import('./pages/articlesMarca/articlesMarca.module').then(m => m.ArticlesMarcaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'articlesModel',
-				loadChildren: './pages/articlesModel/articlesModel.module#ArticlesModelModule',
+				loadChildren: () => import('./pages/articlesModel/articlesModel.module').then(m => m.ArticlesModelModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'codisPostal',
-				loadChildren: './pages/codisPostal/codisPostal.module#CodisPostalModule',
+				loadChildren: () => import('./pages/codisPostal/codisPostal.module').then(m => m.CodisPostalModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'departaments',
-				loadChildren: './pages/departaments/departaments.module#DepartamentsModule',
+				loadChildren: () => import('./pages/departaments/departaments.module').then(m => m.DepartamentsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'divises',
-				loadChildren: './pages/divises/divises.module#DivisesModule',
+				loadChildren: () => import('./pages/divises/divises.module').then(m => m.DivisesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'documentsPagamentCobrament',
-				loadChildren: './pages/documentsPagamentCobrament/documentsPagamentCobrament.module#DocumentsPagamentCobramentModule',
+				loadChildren: () => import('./pages/documentsPagamentCobrament/documentsPagamentCobrament.module').then(m => m.DocumentsPagamentCobramentModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'empreses',
-				loadChildren: './pages/empresesFact/empresesFact.module#EmpresesFactModule',
+				loadChildren: () => import('./pages/empresesFact/empresesFact.module').then(m => m.EmpresesFactModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'familiesCost',
-				loadChildren: './pages/familiesCost/familiesCost.module#FamiliesCostModule',
+				loadChildren: () => import('./pages/familiesCost/familiesCost.module').then(m => m.FamiliesCostModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'familiesProveidor',
-				loadChildren: './pages/familiesProveidor/familiesProveidor.module#FamiliesProveidorModule',
+				loadChildren: () => import('./pages/familiesProveidor/familiesProveidor.module').then(m => m.FamiliesProveidorModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'ives',
-				loadChildren: './pages/ives/ives.module#IvesModule',
+				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'magatzems',
-				loadChildren: './pages/magatzems/magatzems.module#MagatzemsModule',
+				loadChildren: () => import('./pages/magatzems/magatzems.module').then(m => m.MagatzemsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'magatzemsPeriode',
-				loadChildren: './pages/magatzemsPeriode/magatzemsPeriode.module#MagatzemsPeriodeModule',
+				loadChildren: () => import('./pages/magatzemsPeriode/magatzemsPeriode.module').then(m => m.MagatzemsPeriodeModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'naturalesesPagamentCobrament',
-				loadChildren: './pages/naturalesesPagamentCobrament/naturalesesPagamentCobrament.module#NaturalesesPagamentCobramentModule',
+				loadChildren: () => import('./pages/naturalesesPagamentCobrament/naturalesesPagamentCobrament.module').then(m => m.NaturalesesPagamentCobramentModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'paisos',
-				loadChildren: './pages/paisos/paisos.module#PaisosModule',
+				loadChildren: () => import('./pages/paisos/paisos.module').then(m => m.PaisosModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'peusDocument',
-				loadChildren: './pages/peusDocument/peusDocument.module#PeusDocumentModule',
+				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'proveidors',
-				loadChildren: './pages/proveidors/proveidors.module#ProveidorsModule',
+				loadChildren: () => import('./pages/proveidors/proveidors.module').then(m => m.ProveidorsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'provincies',
-				loadChildren: './pages/provincies/provincies.module#ProvinciesModule',
+				loadChildren: () => import('./pages/provincies/provincies.module').then(m => m.ProvinciesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'recursosGrup',
-				loadChildren: './pages/recursosGrup/recursosGrup.module#RecursosGrupModule',
+				loadChildren: () => import('./pages/recursosGrup/recursosGrup.module').then(m => m.RecursosGrupModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'regimsIva',
-				loadChildren: './pages/regimsIva/regimsIva.module#RegimsIvaModule',
+				loadChildren: () => import('./pages/regimsIva/regimsIva.module').then(m => m.RegimsIvaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'seccions',
-				loadChildren: './pages/seccions/seccions.module#SeccionsModule',
+				loadChildren: () => import('./pages/seccions/seccions.module').then(m => m.SeccionsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'seccionsEmpresa',
-				loadChildren: './pages/seccionsEmpresa/seccionsEmpresa.module#SeccionsEmpresaModule',
+				loadChildren: () => import('./pages/seccionsEmpresa/seccionsEmpresa.module').then(m => m.SeccionsEmpresaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'seccionsGrup',
-				loadChildren: './pages/seccionsGrup/seccionsGrup.module#SeccionsGrupModule',
+				loadChildren: () => import('./pages/seccionsGrup/seccionsGrup.module').then(m => m.SeccionsGrupModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'seriesCompra',
-				loadChildren: './pages/seriesCompra/seriesCompra.module#SeriesCompraModule',
+				loadChildren: () => import('./pages/seriesCompra/seriesCompra.module').then(m => m.SeriesCompraModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'seriesIntracomunitaria',
-				loadChildren: './pages/seriesIntracomunitaria/seriesIntracomunitaria.module#SeriesIntracomunitariaModule',
+				loadChildren: () => import('./pages/seriesIntracomunitaria/seriesIntracomunitaria.module').then(m => m.SeriesIntracomunitariaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'seriesVenda',
-				loadChildren: './pages/seriesVenda/seriesVenda.module#SeriesVendaModule',
+				loadChildren: () => import('./pages/seriesVenda/seriesVenda.module').then(m => m.SeriesVendaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'situacionsComercial',
-				loadChildren: './pages/situacionsComercial/situacionsComercial.module#SituacionsComercialModule',
+				loadChildren: () => import('./pages/situacionsComercial/situacionsComercial.module').then(m => m.SituacionsComercialModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'situacionsInicial',
-				loadChildren: './pages/situacionsInicial/situacionsInicial.module#SituacionsInicialModule',
+				loadChildren: () => import('./pages/situacionsInicial/situacionsInicial.module').then(m => m.SituacionsInicialModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'subvencions',
-				loadChildren: './pages/subvencions/subvencions.module#SubvencionsModule',
+				loadChildren: () => import('./pages/subvencions/subvencions.module').then(m => m.SubvencionsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tarifes',
-				loadChildren: './pages/tarifes/tarifes.module#TarifesModule',
+				loadChildren: () => import('./pages/tarifes/tarifes.module').then(m => m.TarifesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tarifesDescompte',
-				loadChildren: './pages/tarifesDescompte/tarifesDescompte.module#TarifesDescompteModule',
+				loadChildren: () => import('./pages/tarifesDescompte/tarifesDescompte.module').then(m => m.TarifesDescompteModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tipusComisions',
-				loadChildren: './pages/tipusComisions/tipusComisions.module#TipusComisionsModule',
+				loadChildren: () => import('./pages/tipusComisions/tipusComisions.module').then(m => m.TipusComisionsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tipusFacturacions',
-				loadChildren: './pages/tipusFacturacions/tipusFacturacions.module#TipusFacturacionsModule',
+				loadChildren: () => import('./pages/tipusFacturacions/tipusFacturacions.module').then(m => m.TipusFacturacionsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tipusIncidenciesFactura',
-				loadChildren: './pages/tipusIncidenciesFactura/tipusIncidenciesFactura.module#TipusIncidenciesFacturaModule',
+				loadChildren: () => import('./pages/tipusIncidenciesFactura/tipusIncidenciesFactura.module').then(m => m.TipusIncidenciesFacturaModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tipusProveidorsClient',
-				loadChildren: './pages/tipusProveidorsClient/tipusProveidorsClient.module#TipusProveidorsClientModule',
+				loadChildren: () => import('./pages/tipusProveidorsClient/tipusProveidorsClient.module').then(m => m.TipusProveidorsClientModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tipusRiscos',
-				loadChildren: './pages/tipusRiscos/tipusRiscos.module#TipusRiscosModule',
+				loadChildren: () => import('./pages/tipusRiscos/tipusRiscos.module').then(m => m.TipusRiscosModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tipusVenciment',
-				loadChildren: './pages/tipusVenciments/tipusVenciments.module#TipusVencimentsModule',
+				loadChildren: () => import('./pages/tipusVenciments/tipusVenciments.module').then(m => m.TipusVencimentsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'transportistes',
-				loadChildren: './pages/transportistes/transportistes.module#TransportistesModule',
+				loadChildren: () => import('./pages/transportistes/transportistes.module').then(m => m.TransportistesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'ubicacions',
-				loadChildren: './pages/ubicacions/ubicacions.module#UbicacionsModule',
+				loadChildren: () => import('./pages/ubicacions/ubicacions.module').then(m => m.UbicacionsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'ubicacionsArticle',
-				loadChildren: './pages/ubicacionsArticle/ubicacionsArticle.module#UbicacionsArticleModule',
+				loadChildren: () => import('./pages/ubicacionsArticle/ubicacionsArticle.module').then(m => m.UbicacionsArticleModule),
 				canActivate: [BngAuthGuard]	
 			}, {
 				path: 'unitatsTipus',
-				loadChildren: './pages/unitatsTipus/unitatsTipus.module#UnitatsTipusModule',
+				loadChildren: () => import('./pages/unitatsTipus/unitatsTipus.module').then(m => m.UnitatsTipusModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'vehicles',
-				loadChildren: './pages/vehicles/vehicles.module#VehiclesModule',
+				loadChildren: () => import('./pages/vehicles/vehicles.module').then(m => m.VehiclesModule),
 				canActivate: [BngAuthGuard]				
 			}, {
 				path: 'zones',
-				loadChildren: './pages/zones/zones.module#ZonesModule',
+				loadChildren: () => import('./pages/zones/zones.module').then(m => m.ZonesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: '**',

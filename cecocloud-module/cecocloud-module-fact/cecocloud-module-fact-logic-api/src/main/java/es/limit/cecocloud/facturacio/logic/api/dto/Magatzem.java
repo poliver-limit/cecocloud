@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
-
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,15 +12,9 @@ import org.hibernate.annotations.Formula;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem.MagatzemPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ValoracioInventariTraspasEnum;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -34,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Magatzem extends AbstractIdentificableWithCompositePk<MagatzemPk> {
+public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
 	@NotNull
 	@Size(max = 4)
@@ -106,14 +98,6 @@ public class Magatzem extends AbstractIdentificableWithCompositePk<MagatzemPk> {
 	@Transient
 	@Formula(value="( SELECT r.pmg_diaini FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
 	private String periodeActualData;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
 	
 	@Transient
 	@NotNull
@@ -128,15 +112,5 @@ public class Magatzem extends AbstractIdentificableWithCompositePk<MagatzemPk> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReference<Divisa, String> divisa;
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class MagatzemPk implements Serializable {
-		private String identificadorCodi;
-		private String codi;
-	}
 
 }

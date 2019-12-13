@@ -30,7 +30,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Node extends AbstractIdentificableWithCompositePk<NodePk> {
+public class Node extends AbstractIdentificableAmbIdentificadorICodi<String> {
 	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private Integer codi;
@@ -56,23 +56,5 @@ public class Node extends AbstractIdentificableWithCompositePk<NodePk> {
 	@Size(max = 10)
 	@RestapiField()
 	private String tipus1;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class NodePk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
-	}
 
 }

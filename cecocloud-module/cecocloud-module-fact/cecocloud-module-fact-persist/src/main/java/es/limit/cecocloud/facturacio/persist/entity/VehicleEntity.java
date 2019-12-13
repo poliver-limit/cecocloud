@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle;
-import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle.VehiclePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,7 +58,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mtr_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "mtr_datmod"))
 })
-public class VehicleEntity extends AbstractAuditableCompositePkEntity<Vehicle, VehiclePk> {
+public class VehicleEntity extends AbstractAuditableCompositePkEntity<Vehicle, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Vehicle embedded;
@@ -82,7 +82,7 @@ public class VehicleEntity extends AbstractAuditableCompositePkEntity<Vehicle, V
 
 	@Builder
 	public VehicleEntity(
-			VehiclePk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Vehicle embedded,
 			IdentificadorEntity identificador,
 			TransportistaEntity transportista) {

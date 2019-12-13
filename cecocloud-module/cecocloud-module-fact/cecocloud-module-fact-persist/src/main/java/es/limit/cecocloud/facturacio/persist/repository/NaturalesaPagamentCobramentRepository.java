@@ -4,7 +4,7 @@
 package es.limit.cecocloud.facturacio.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.facturacio.logic.api.dto.NaturalesaPagamentCobrament.NaturalesaPagamentCobramentPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.persist.entity.NaturalesaPagamentCobramentEntity;
 
 /**
@@ -12,5 +12,5 @@ import es.limit.cecocloud.facturacio.persist.entity.NaturalesaPagamentCobramentE
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface NaturalesaPagamentCobramentRepository extends BaseRepository<NaturalesaPagamentCobramentEntity, NaturalesaPagamentCobramentPk> {
+public interface NaturalesaPagamentCobramentRepository extends BaseRepository<NaturalesaPagamentCobramentEntity, AmbIdentificadorICodiPk<String>> {
 }

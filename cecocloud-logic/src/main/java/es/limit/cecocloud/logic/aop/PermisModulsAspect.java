@@ -16,10 +16,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import es.limit.base.boot.logic.api.permission.BaseBootAuthenticationToken;
-import es.limit.cecocloud.logic.api.dto.Companyia;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.exception.ModuleDeniedException;
-import es.limit.cecocloud.logic.api.service.CompanyiaService;
+import es.limit.cecocloud.logic.api.service.IdentificadorService;
 
 /**
  * Aspecte per a controlar l'accés als diferents mòduls de l'aplicació.
@@ -31,7 +31,7 @@ import es.limit.cecocloud.logic.api.service.CompanyiaService;
 public class PermisModulsAspect {
 
 	@Autowired
-	private CompanyiaService companyiaService;
+	private IdentificadorService identificadorService;
 
 	@Before("@within(org.springframework.stereotype.Service) && execution(public * *(..))")
 	public void before(JoinPoint joinPoint) {
@@ -51,17 +51,17 @@ public class PermisModulsAspect {
 		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authentication;
 		String usuari = auth.getName();
 		UserSession session = (UserSession)auth.getSession();
-		Companyia companyia = null;
-		Long companyiaId = session.getC();
-		if (companyiaId != null) {
+		Identificador identificador = null;
+		Long identificadorId = session.getI();
+		if (identificadorId != null) {
 			try {
-				companyia = companyiaService.getOne(companyiaId);
+				identificador = identificadorService.getOne(identificadorId);
 			} catch (EntityNotFoundException e) { }
 		}
-		if (companyia == null) {
+		if (identificador == null) {
 			throw new ModuleDeniedException(usuari, modul);
 		}
-		List<String> modulsDisponibles = companyia.getLlicencia().getModulsDisponibles();
+		List<String> modulsDisponibles = identificador.getLlicencia().getModulsDisponibles();
 		// Comprovam l'accés de l'usuari al mòdul
 		if (modulsDisponibles.lastIndexOf(modul) == -1) {
 			throw new ModuleDeniedException(usuari, companyia.getCodi(), modul);

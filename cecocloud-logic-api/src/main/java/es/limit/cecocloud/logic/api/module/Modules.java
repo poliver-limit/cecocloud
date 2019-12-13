@@ -6,7 +6,7 @@ package es.limit.cecocloud.logic.api.module;
 import es.limit.base.boot.logic.api.dto.Profile;
 import es.limit.base.boot.logic.api.module.AbstractModules;
 import es.limit.base.boot.logic.api.module.ModuleInfo;
-import es.limit.cecocloud.logic.api.dto.Companyia;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 
 /**
  * Classe que gestiona els diferents mòduls disponibles.
@@ -28,7 +28,7 @@ public class Modules extends AbstractModules {
 					},
 					new String[] {
 							Profile.class.getPackage().getName(),
-							Companyia.class.getPackage().getName()
+							Identificador.class.getPackage().getName()
 					});
 		}
 		register(moduleInfo);

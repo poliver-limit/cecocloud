@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.TipusProveidorClient;
-import es.limit.cecocloud.facturacio.logic.api.dto.TipusProveidorClient.TipusProveidorClientPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,7 +52,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tip_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tip_datmod"))
 })
-public class TipusProveidorClientEntity extends AbstractAuditableCompositePkEntity<TipusProveidorClient, TipusProveidorClientPk> {
+public class TipusProveidorClientEntity extends AbstractAuditableCompositePkEntity<TipusProveidorClient, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected TipusProveidorClient embedded;
@@ -67,10 +67,9 @@ public class TipusProveidorClientEntity extends AbstractAuditableCompositePkEnti
 
 	@Builder
 	public TipusProveidorClientEntity(
-			TipusProveidorClientPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			TipusProveidorClient embedded,
-			IdentificadorEntity identificador
-			) {
+			IdentificadorEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;		

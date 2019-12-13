@@ -25,12 +25,12 @@ import lombok.Setter;
 		descriptionField = "descripcio"
 )
 public class Rol extends AbstractIdentificable<Long> {
-	
+
 	@NotNull
-	@Size(max = 30)
+	@Size(max = 10)
 	@RestapiField(includeInQuickFilter = true)
 	private String codi;
-	@Size(max = 255)
+	@Size(max = 100)
 	@RestapiField(includeInQuickFilter = true)
 	private String descripcio;
 	@Transient
@@ -38,8 +38,9 @@ public class Rol extends AbstractIdentificable<Long> {
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			//hiddenInGrid = true,
-			hiddenInForm = true)
-	private GenericReference<Companyia, Long> companyia;
-	
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private GenericReference<Identificador, Long> identificador;
+
 }

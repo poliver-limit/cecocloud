@@ -13,15 +13,15 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			canActivate: [SelectedEmpresaGuard],
 			children: [{
 				path: '',
-				loadChildren: './pages/index/index.module#IndexModule',
+				loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule),
 				canActivate: [BngAuthGuard]
 	        },{
 				path: 'operaris',
-				loadChildren: './pages/operaris/operaris.module#OperarisModule',
+				loadChildren: () => import('./pages/operaris/operaris.module').then(m => m.OperarisModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'marcatges',
-				loadChildren: './pages/marcatges/marcatges.module#MarcatgesModule',
+				loadChildren: () => import('./pages/marcatges/marcatges.module').then(m => m.MarcatgesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: '**',

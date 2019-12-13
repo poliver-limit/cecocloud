@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Proveidor;
-import es.limit.cecocloud.facturacio.logic.api.dto.Proveidor.ProveidorPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -61,7 +61,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "pro_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "pro_datmod"))
 })
-public class ProveidorEntity extends AbstractAuditableCompositePkEntity<Proveidor, ProveidorPk> {
+public class ProveidorEntity extends AbstractAuditableCompositePkEntity<Proveidor, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Proveidor embedded;
@@ -124,7 +124,7 @@ public class ProveidorEntity extends AbstractAuditableCompositePkEntity<Proveido
 
 	@Builder
 	public ProveidorEntity(
-			ProveidorPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Proveidor embedded,
 			IdentificadorEntity identificador,
 			RegimIvaEntity regimIva,

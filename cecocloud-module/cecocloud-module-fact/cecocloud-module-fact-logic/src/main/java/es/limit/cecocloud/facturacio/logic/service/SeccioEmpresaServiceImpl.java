@@ -27,5 +27,4 @@ public class SeccioEmpresaServiceImpl extends AbstractGenericCompositePkServiceI
 				dto.getEmpresa().getId());				
 	}
 
-
 }

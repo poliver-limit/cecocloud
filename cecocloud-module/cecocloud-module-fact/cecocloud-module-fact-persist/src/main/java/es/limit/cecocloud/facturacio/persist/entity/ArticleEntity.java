@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Article;
-import es.limit.cecocloud.facturacio.logic.api.dto.Article.ArticlePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -66,7 +66,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "art_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "art_datmod"))
 })
-public class ArticleEntity extends AbstractAuditableCompositePkEntity<Article, ArticlePk> {
+public class ArticleEntity extends AbstractAuditableCompositePkEntity<Article, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Article embedded;
@@ -162,7 +162,7 @@ public class ArticleEntity extends AbstractAuditableCompositePkEntity<Article, A
 	
 	@Builder
 	public ArticleEntity(
-			ArticlePk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Article embedded,
 			IdentificadorEntity identificador,
 			ArticleFamiliaEntity familia,
@@ -173,8 +173,7 @@ public class ArticleEntity extends AbstractAuditableCompositePkEntity<Article, A
 			EmpresaFactEntity empresa,
 			ArticleEntity alternatiu,
 			ArticleEntity alternatiu2,	
-			ArticleEntity articleRaee			
-			) {
+			ArticleEntity articleRaee) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
