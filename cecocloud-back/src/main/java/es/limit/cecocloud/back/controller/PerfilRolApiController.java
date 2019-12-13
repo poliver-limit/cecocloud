@@ -17,7 +17,7 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(GenericController.API_PATH + "/perfilRol")
+@RequestMapping(GenericController.API_PATH + "/perfilRols")
 public class PerfilRolApiController extends AbstractIdentificableApiController<PerfilRol, String> {
 
 	@Override

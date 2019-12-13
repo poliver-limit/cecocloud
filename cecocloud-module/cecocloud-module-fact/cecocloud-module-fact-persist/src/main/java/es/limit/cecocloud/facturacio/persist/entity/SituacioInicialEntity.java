@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioInicial;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioInicial.SituacioInicialPk;
 import lombok.AccessLevel;
@@ -45,40 +46,30 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "sui_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.articleCodi", column = @Column(name = "sui_art_cod", length = 6)),
 	@AttributeOverride(name = "id.magatzemCodi", column = @Column(name = "sui_mag_cod", length = 6)),
-	@AttributeOverride(name = "id.classe", column = @Column(name = "sui_cls", length = 6)),	
-
+	@AttributeOverride(name = "id.classe", column = @Column(name = "sui_cls", length = 6)),
 	@AttributeOverride(name = "embedded.classe", column = @Column(name = "sui_cls", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.unitatsInicials", column = @Column(name = "sui_uniini", nullable = false)),
 	@AttributeOverride(name = "embedded.unitatsMetriquesInicials", column = @Column(name = "sui_unimetini")),
 	@AttributeOverride(name = "embedded.preuCostUnitari", column = @Column(name = "sui_prucosuni", nullable = false)),
 	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "sui_div_cod", length = 4, nullable = false)),
 	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "sui_far_cod", length = 4, nullable = false)),
-	
-//	@Transient
-//	@RestapiField(
-//			lovWithDescriptionInput = false,
-//			includeInQuickFilter = false,
-//			disabledForCreate = true,
-//			disabledForUpdate = true)
-//	private Object ubicacionsReferencies;
-
 	@AttributeOverride(name = "createdBy", column = @Column(name = "sui_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "sui_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "sui_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "sui_datmod"))
 })
-public class SituacioInicialEntity extends AbstractAuditableCompositePkEntity<SituacioInicial, SituacioInicialPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "sui_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_sui_idf_fk"))
+})
+public class SituacioInicialEntity extends AbstractAmbIdentificadorEntity<SituacioInicial, SituacioInicialPk> {
 
 	@Embedded
 	protected SituacioInicial embedded;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "sui_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_sui_idf_fk"))
-	protected IdentificadorEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -88,7 +79,6 @@ public class SituacioInicialEntity extends AbstractAuditableCompositePkEntity<Si
 			},
 			foreignKey = @ForeignKey(name = "rges_sui_art_fk"))			
 	protected ArticleEntity article;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -98,7 +88,6 @@ public class SituacioInicialEntity extends AbstractAuditableCompositePkEntity<Si
 			},
 			foreignKey = @ForeignKey(name = "rges_sui_pmg_fk"))
 	protected MagatzemPeriodeEntity magatzemPeriode;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -114,7 +103,7 @@ public class SituacioInicialEntity extends AbstractAuditableCompositePkEntity<Si
 			SituacioInicial embedded,
 			IdentificadorEntity identificador,
 			ArticleEntity article,
-			MagatzemPeriodeEntity magatzemPeriode,			
+			MagatzemPeriodeEntity magatzemPeriode,
 			DivisaEntity divisa) {
 		setId(pk);
 		this.embedded = embedded;

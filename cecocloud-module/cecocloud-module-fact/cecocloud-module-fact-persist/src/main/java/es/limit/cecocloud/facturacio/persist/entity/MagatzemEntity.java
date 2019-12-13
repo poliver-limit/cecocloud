@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem;
 import lombok.AccessLevel;
@@ -42,41 +43,39 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "mag_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "mag_cod", length = 4)),	
-	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "mag_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "mag_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "mag_cod", length = 4, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "mag_nom", length = 30, nullable = false)),	
-	@AttributeOverride(name = "embedded.domicili", column = @Column(name = "mag_dom", length = 60, nullable = false)),	
-	@AttributeOverride(name = "embedded.valoracioInventariTraspas", column = @Column(name = "mag_valinvtrs", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "mag_tel", length = 60)),		
-	@AttributeOverride(name = "embedded.fax", column = @Column(name = "mag_fax", length = 60)),		
-	@AttributeOverride(name = "embedded.email", column = @Column(name = "mag_eml", length = 60)),		
-	@AttributeOverride(name = "embedded.responsable", column = @Column(name = "mag_res", length = 30)),		
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "mag_obs", length = 1000)),		
-	@AttributeOverride(name = "embedded.tipusAssentamentComptable", column = @Column(name = "mag_tipasicmp", length = 2)),		
-	@AttributeOverride(name = "embedded.diariComptableTraspassos1", column = @Column(name = "mag_dricmp1", length = 2)),		
-	@AttributeOverride(name = "embedded.diariComptableTraspassos2", column = @Column(name = "mag_dricmp2", length = 2)),	
-	@AttributeOverride(name = "embedded.compteTraspassos", column = @Column(name = "mag_ctetrs", length = 10)),	
-	
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "mag_nom", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.domicili", column = @Column(name = "mag_dom", length = 60, nullable = false)),
+	@AttributeOverride(name = "embedded.valoracioInventariTraspas", column = @Column(name = "mag_valinvtrs", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "mag_tel", length = 60)),
+	@AttributeOverride(name = "embedded.fax", column = @Column(name = "mag_fax", length = 60)),
+	@AttributeOverride(name = "embedded.email", column = @Column(name = "mag_eml", length = 60)),
+	@AttributeOverride(name = "embedded.responsable", column = @Column(name = "mag_res", length = 30)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "mag_obs", length = 1000)),
+	@AttributeOverride(name = "embedded.tipusAssentamentComptable", column = @Column(name = "mag_tipasicmp", length = 2)),
+	@AttributeOverride(name = "embedded.diariComptableTraspassos1", column = @Column(name = "mag_dricmp1", length = 2)),
+	@AttributeOverride(name = "embedded.diariComptableTraspassos2", column = @Column(name = "mag_dricmp2", length = 2)),
+	@AttributeOverride(name = "embedded.compteTraspassos", column = @Column(name = "mag_ctetrs", length = 10)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "mag_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "mag_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mag_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "mag_datmod"))
 })
-public class MagatzemEntity extends AbstractAuditableCompositePkEntity<Magatzem, AmbIdentificadorICodiPk<String>> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "mag_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_mag_idf_fk"))
+})
+public class MagatzemEntity extends AbstractAmbIdentificadorEntity<Magatzem, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Magatzem embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "mag_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_mag_idf_fk"))
-	protected IdentificadorEntity identificador;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -85,7 +84,6 @@ public class MagatzemEntity extends AbstractAuditableCompositePkEntity<Magatzem,
 			},
 			foreignKey = @ForeignKey(name = "rges_mag_cpo_fk"))
 	protected CodiPostalEntity codiPostal;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {

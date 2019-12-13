@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.Provincia;
 import es.limit.cecocloud.facturacio.logic.api.dto.Provincia.ProvinciaPk;
 import lombok.AccessLevel;
@@ -45,28 +46,26 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "prv_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.paisCodi", column = @Column(name = "prv_pas_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "prv_cod", length = 4)),
-	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "prv_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "prv_nom", length = 30, nullable = false)),
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "prv_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "prv_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "prv_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "prv_datmod"))
 })
-public class ProvinciaEntity extends AbstractAuditableCompositePkEntity<Provincia, ProvinciaPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "prv_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_prv_idf_fk"))
+})
+public class ProvinciaEntity extends AbstractAmbIdentificadorEntity<Provincia, ProvinciaPk> {
 
 	@Embedded
 	protected Provincia embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "prv_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_prv_idf_fk"))
-	protected IdentificadorEntity identificador;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {

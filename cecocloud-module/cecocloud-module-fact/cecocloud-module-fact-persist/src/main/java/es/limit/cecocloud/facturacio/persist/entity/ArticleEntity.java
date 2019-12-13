@@ -43,25 +43,23 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "art_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "art_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "art_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "art_cod", length = 15, insertable = false, updatable = false)),	
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "art_cod", length = 15, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "art_des", length = 2000, nullable = false)),
-	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "art_far_cod", length = 6, nullable = false)),	
-	@AttributeOverride(name = "embedded.ivaCodi", column = @Column(name = "art_iva_cod", length = 6, nullable = false)),	
+	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "art_far_cod", length = 6, nullable = false)),
+	@AttributeOverride(name = "embedded.ivaCodi", column = @Column(name = "art_iva_cod", length = 6, nullable = false)),
 	@AttributeOverride(name = "embedded.pvp", column = @Column(name = "art_pvp", nullable = false, precision = 17, scale = 5)),
-	@AttributeOverride(name = "embedded.factorConversioEntrada", column = @Column(name = "art_fce", nullable = false, precision = 15, scale = 3)),	
-	@AttributeOverride(name = "embedded.factorConversioSortida", column = @Column(name = "art_fcs", nullable = false, precision = 15, scale = 3)),	
-	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, precision = 1, scale = 0)),	
-	@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "art_blo", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.compost", column = @Column(name = "art_cst", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.controlStock", column = @Column(name = "art_sto", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.crearReferencies", column = @Column(name = "art_creref", length = 1, nullable = false)),	
-	@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "art_descur", length = 60)),	
-	@AttributeOverride(name = "embedded.alies", column = @Column(name = "art_ali", length = 30)),	
+	@AttributeOverride(name = "embedded.factorConversioEntrada", column = @Column(name = "art_fce", nullable = false, precision = 15, scale = 3)),
+	@AttributeOverride(name = "embedded.factorConversioSortida", column = @Column(name = "art_fcs", nullable = false, precision = 15, scale = 3)),
+	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, precision = 1, scale = 0)),
+	@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "art_blo", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.compost", column = @Column(name = "art_cst", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.controlStock", column = @Column(name = "art_sto", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.crearReferencies", column = @Column(name = "art_creref", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "art_descur", length = 60)),
+	@AttributeOverride(name = "embedded.alies", column = @Column(name = "art_ali", length = 30)),
 	@AttributeOverride(name = "embedded.modelCodi", column = @Column(name = "art_mod_cod", length = 6, nullable = false)),
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "art_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "art_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "art_usumod")),
@@ -71,8 +69,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "art_idf_cod", foreignKey = @ForeignKey(name = "rges_art_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "art_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_art_idf_fk"))
 })
 public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbIdentificadorICodiPk<String>> {
 
@@ -130,7 +129,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_emp_fk"))			
-	protected EmpresaFactEntity empresa;
+	protected EmpresaEntity empresa;
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -170,7 +169,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			ArticleModelEntity model,
 			ArticleGammaEntity gamma,
 			ArticleMarcaEntity marca,
-			EmpresaFactEntity empresa,
+			EmpresaEntity empresa,
 			ArticleEntity alternatiu,
 			ArticleEntity alternatiu2,	
 			ArticleEntity articleRaee) {

@@ -16,7 +16,7 @@ import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(GenericController.API_PATH + "/usuariEmpresa")
+@RequestMapping(GenericController.API_PATH + "/usuariIdentificadors")
 //public class UsuariIdentificadorApiController extends AbstractCompositePkAmbIdentificadorApiController<UsuariIdentificador> {
 public class UsuariIdentificadorApiController extends AbstractIdentificableApiController<UsuariIdentificador, String> {
 

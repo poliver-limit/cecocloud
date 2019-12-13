@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.logic.aop;
 
-import java.util.List;
-
 import javax.persistence.EntityNotFoundException;
 
 import org.aspectj.lang.JoinPoint;
