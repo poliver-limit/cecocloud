@@ -6,7 +6,7 @@ package es.limit.cecocloud.rrhh.persist.repository;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.rrhh.logic.api.dto.Operari.OperariPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 
 /**
@@ -15,5 +15,5 @@ import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository("OperariRrhhRepository")
-public interface OperariRepository extends BaseRepository<OperariEntity, OperariPk> {
+public interface OperariRepository extends BaseRepository<OperariEntity, AmbIdentificadorICodiPk<String>> {
 }

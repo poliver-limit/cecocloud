@@ -6,7 +6,6 @@ package es.limit.cecocloud.rrhh.back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.cecocloud.rrhh.logic.api.dto.Empresa;
 import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
 
@@ -15,8 +14,8 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController("EmpresaRrhhController")
+@RestController("rrhhEmpresaController")
 @RequestMapping(RrhhModule.API_PATH + "/empreses")
-public class EmpresaApiController extends AbstractIdentificableApiController<Empresa, String> {
+public class EmpresaApiController extends AbstractIdentificableAmbIdentificadorApiController<Empresa> {
 
 }

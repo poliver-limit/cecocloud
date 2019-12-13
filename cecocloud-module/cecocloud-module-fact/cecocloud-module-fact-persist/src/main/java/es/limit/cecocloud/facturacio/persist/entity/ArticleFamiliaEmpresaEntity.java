@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa.ArticleFamiliaEmpresaPk;
 import lombok.AccessLevel;
@@ -45,26 +46,23 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fae_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.articleFamiliaCodi", column = @Column(name = "fae_far_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "fae_emp_cod", length = 4)),
-	
 	@AttributeOverride(name = "embedded.web", column = @Column(name = "fae_web")),
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "fae_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "fae_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fae_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "fae_datmod"))
 })
-public class ArticleFamiliaEmpresaEntity extends AbstractAuditableCompositePkEntity<ArticleFamiliaEmpresa, ArticleFamiliaEmpresaPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "fae_idf_cod", foreignKey = @ForeignKey(name = "rges_fae_idf_fk"), insertable = false, updatable = false)
+			})
+})
+public class ArticleFamiliaEmpresaEntity extends AbstractAmbIdentificadorEntity<ArticleFamiliaEmpresa, ArticleFamiliaEmpresaPk> {
 
 	@Embedded
 	protected ArticleFamiliaEmpresa embedded;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "fae_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_fae_idf_fk"))
-	protected IdentificadorEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(

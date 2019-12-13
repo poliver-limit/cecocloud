@@ -5,7 +5,7 @@ package es.limit.cecocloud.facturacio.logic.api.dto;
 
 import java.io.Serializable;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.Getter;
 import lombok.Setter;
 

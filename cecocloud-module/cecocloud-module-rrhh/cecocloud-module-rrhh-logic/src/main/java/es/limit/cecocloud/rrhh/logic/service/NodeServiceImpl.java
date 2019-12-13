@@ -23,8 +23,7 @@ public class NodeServiceImpl extends AbstractGenericCompositePkServiceImpl<Node,
 	protected NodePk getPkFromDto(Node dto) {
 		return new NodePk(
 				dto.getIdentificador().getId(),
-				dto.getCodi().toString());
+				dto.getNumero());
 	}
-
 
 }

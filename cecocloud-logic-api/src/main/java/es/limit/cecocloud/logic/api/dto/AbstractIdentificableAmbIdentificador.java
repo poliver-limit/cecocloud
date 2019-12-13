@@ -1,15 +1,16 @@
 /**
  * 
  */
-package es.limit.cecocloud.facturacio.logic.api.dto;
+package es.limit.cecocloud.logic.api.dto;
+
+import java.io.Serializable;
 
 import javax.persistence.Transient;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public abstract class AbstractIdentificableAmbIdentificador<PK extends AmbIdentificadorPk> extends AbstractIdentificableWithCompositePk<PK> implements IdentificableAmbIdentificador<PK> {
+public abstract class AbstractIdentificableAmbIdentificador<ID extends Serializable> extends AbstractIdentificable<ID> implements IdentificableAmbIdentificador<ID> {
 
 	@Transient
 	@RestapiField(
@@ -27,6 +28,6 @@ public abstract class AbstractIdentificableAmbIdentificador<PK extends AmbIdenti
 			disabledForCreate = true,
 			disabledForUpdate = true,			
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<Identificador, Long> identificador;
 
 }

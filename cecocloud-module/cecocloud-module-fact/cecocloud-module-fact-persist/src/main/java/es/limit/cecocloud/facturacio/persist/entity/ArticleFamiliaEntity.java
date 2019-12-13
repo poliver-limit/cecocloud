@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,9 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-import es.limit.cecocloud.facturacio.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.persist.entity.RecursGrupEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -77,18 +78,17 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "far_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "far_datmod"))
 })
-public class ArticleFamiliaEntity extends AbstractAuditableCompositePkEntity<ArticleFamilia, AmbIdentificadorICodiPk<String>> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "far_idf_cod", foreignKey = @ForeignKey(name = "rges_far_idf_fk"), insertable = false, updatable = false)
+			})
+})
+public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<ArticleFamilia, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected ArticleFamilia embedded;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "far_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_far_idf_fk"))
-	protected IdentificadorEntity identificador;	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns(

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.facturacio.logic.service;
+package es.limit.cecocloud.rrhh.logic.service;
 
 import java.io.Serializable;
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
 import es.limit.base.boot.persist.entity.AbstractCompositePkEntity;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.IdentificableAmbIdentificadorICodi;
 
 /**
  * Entitat de base de dades abstracta amb identificador i codi.
