@@ -6,7 +6,6 @@ package es.limit.cecocloud.rrhh.back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
 import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
 
@@ -17,6 +16,6 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
  */
 @RestController("ZonaRrhhController")
 @RequestMapping(RrhhModule.API_PATH + "/zones")
-public class ZonaApiController extends AbstractIdentificableApiController<Zona, String> {
+public class ZonaApiController extends AbstractIdentificableAmbIdentificadorApiController<Zona> {
 
 }

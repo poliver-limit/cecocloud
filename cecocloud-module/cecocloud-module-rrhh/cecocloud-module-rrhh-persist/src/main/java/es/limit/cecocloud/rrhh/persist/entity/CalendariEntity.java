@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.rrhh.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -15,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari;
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari.CalendariPk;
@@ -43,32 +43,28 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cln_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.calendariData", column = @Column(name = "cln_dat", length = 4)),
-	
-//	@AttributeOverride(name = "embedded.calendariData", column = @Column(name = "cln_dat", length = 4, insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.data", column = @Column(name = "cln_dat", insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.tipusDiaCodi", column = @Column(name = "cln_tdi_cod", length = 4)),			
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "cln_des", length = 1000)),			
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cln_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.data", column = @Column(name = "cln_dat", length = 4)),
+	@AttributeOverride(name = "embedded.data", column = @Column(name = "cln_dat", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.tipusDiaCodi", column = @Column(name = "cln_tdi_cod", length = 4)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "cln_des", length = 1000)),
 	@AttributeOverride(name = "embedded.observacio", column = @Column(name = "cln_obs", length = 1000)),
-			
 	@AttributeOverride(name = "createdBy", column = @Column(name = "cln_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "cln_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cln_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "cln_datmod"))
 })
-public class CalendariEntity extends AbstractAuditableCompositePkEntity<Calendari, CalendariPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "cln_idf_cod", foreignKey = @ForeignKey(name = "rrhu_cln_idf_fk"), insertable = false, updatable = false)
+			})
+})
+public class CalendariEntity extends AbstractAmbIdentificadorEntity<Calendari, CalendariPk> {
 
 	@Embedded
 	protected Calendari embedded;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "cln_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rrhu_cln_idf_fk"))
-	protected IdentificadorEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -78,14 +74,13 @@ public class CalendariEntity extends AbstractAuditableCompositePkEntity<Calendar
 					},
 			foreignKey = @ForeignKey(name = "rrhu_cln_tdi_fk"))
 	protected TipusDiaEntity tipusDia;	
-	
+
 	@Builder
 	public CalendariEntity(
 			CalendariPk pk,
 			Calendari embedded,
 			IdentificadorEntity identificador,
-			TipusDiaEntity tipusDia
-			) {
+			TipusDiaEntity tipusDia) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

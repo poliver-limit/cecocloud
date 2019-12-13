@@ -23,9 +23,8 @@ public class SeccioServiceImpl extends AbstractGenericCompositePkServiceImpl<Sec
 	protected SeccioPk getPkFromDto(Seccio dto) {
 		return new SeccioPk(
 				dto.getIdentificador().getId(),
-				dto.getCodi(),
-				dto.getEmpresa().getId());
+				dto.getEmpresa().getId(),
+				dto.getCodi());
 	}
-
 
 }

@@ -6,7 +6,6 @@ package es.limit.cecocloud.rrhh.back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusDia;
 import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
 
@@ -17,6 +16,6 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
  */
 @RestController
 @RequestMapping(RrhhModule.API_PATH + "/tipusDies")
-public class TipusDiaApiController extends AbstractIdentificableApiController<TipusDia, String> {
+public class TipusDiaApiController extends AbstractIdentificableAmbIdentificadorApiController<TipusDia> {
 
 }

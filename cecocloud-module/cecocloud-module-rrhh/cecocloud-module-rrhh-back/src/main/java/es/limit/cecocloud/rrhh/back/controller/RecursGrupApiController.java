@@ -6,7 +6,6 @@ package es.limit.cecocloud.rrhh.back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
 import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
 
@@ -17,6 +16,6 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
  */
 @RestController
 @RequestMapping(RrhhModule.API_PATH + "/recursosGrup")
-public class RecursGrupApiController extends AbstractIdentificableApiController<RecursGrup, String> {
+public class RecursGrupApiController extends AbstractIdentificableAmbIdentificadorApiController<RecursGrup> {
 
 }
