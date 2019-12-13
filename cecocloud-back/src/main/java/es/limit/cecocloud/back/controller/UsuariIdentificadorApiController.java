@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
-import es.limit.cecocloud.back.generic.controller.AbstractCompositePkAmbIdentificadorApiController;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
 
 /**
