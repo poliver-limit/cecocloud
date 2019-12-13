@@ -54,7 +54,7 @@ public class UsuariEmpresaApiController extends AbstractIdentificableApiControll
 			produces = "application/json")
 	public ResponseEntity<Resources<Resource<UsuariIdentificadorEmpresaPerfilTreeItem>>> selectionTree(
 			HttpServletRequest request) {
-		log.debug("Obtenint arbre de usuaris-empreses");
+		log.debug("Obtenint arbre de usuaris-idf-empreses");
 		return ResponseEntity.ok(
 				toResources(
 						getService().buildPerfilTree(),

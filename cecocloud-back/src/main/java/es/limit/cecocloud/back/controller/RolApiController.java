@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.Rol;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 
@@ -23,14 +22,14 @@ public class RolApiController extends AbstractIdentificableApiController<Rol, Lo
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getC();
-		return "companyia.id==" + companyiaId;
+		Long identificadorId = ((UserSession)userSession).getI();
+		return "identificador.id==" + identificadorId;
 	}
 
-	@Override
-	protected void completeDtoWithSession(Rol dto, Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getC();
-		dto.setCompanyia(GenericReference.toGenericReference(companyiaId));
-	}
+//	@Override
+//	protected void completeDtoWithSession(Rol dto, Object userSession) {
+//		Long identificadorId = ((UserSession)userSession).getI();
+//		dto.setIdentificador(GenericReference.toGenericReference(identificadorId));
+//	}
 
 }

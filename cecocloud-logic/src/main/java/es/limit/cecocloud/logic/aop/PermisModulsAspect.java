@@ -61,11 +61,12 @@ public class PermisModulsAspect {
 		if (identificador == null) {
 			throw new ModuleDeniedException(usuari, modul);
 		}
-		List<String> modulsDisponibles = identificador.getLlicencia().getModulsDisponibles();
-		// Comprovam l'accés de l'usuari al mòdul
-		if (modulsDisponibles.lastIndexOf(modul) == -1) {
-			throw new ModuleDeniedException(usuari, companyia.getCodi(), modul);
-		}
+		 
+//		List<String> modulsDisponibles = identificador.getLlicencia().getModulsDisponibles();
+//		// Comprovam l'accés de l'usuari al mòdul
+//		if (modulsDisponibles.lastIndexOf(modul) == -1) {
+//			throw new ModuleDeniedException(usuari, companyia.getCodi(), modul);
+//		}
 	}
 
 }

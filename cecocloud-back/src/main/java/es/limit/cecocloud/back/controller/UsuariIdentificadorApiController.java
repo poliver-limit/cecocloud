@@ -10,20 +10,22 @@ import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Controlador per al servei REST de gestió de relacions usuari-companyia.
+ * Controlador per al servei REST de gestió de relacions usuari-identificador.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @RestController
-@RequestMapping(GenericController.API_PATH + "/usuariCompanyia")
-public class UsuariCompanyiaApiController extends AbstractIdentificableApiController<UsuariIdentificador, String> {
+@RequestMapping(GenericController.API_PATH + "/usuariEmpresa")
+public class UsuariIdentificadorApiController extends AbstractIdentificableApiController<UsuariIdentificador, String> {
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getC();
-		return "companyia.id==" + companyiaId;
+		Long identificadorId = ((UserSession)userSession).getI();
+		return "identificador.id==" + identificadorId;
 	}
 
 }

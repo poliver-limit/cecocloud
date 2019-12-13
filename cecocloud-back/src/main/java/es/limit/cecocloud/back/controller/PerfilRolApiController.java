@@ -22,8 +22,8 @@ public class PerfilRolApiController extends AbstractIdentificableApiController<P
 
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getC();
-		return "perfil.companyia.id==" + companyiaId;
+		Long identificadorId = ((UserSession)userSession).getI();
+		return "identificador.id==" + identificadorId;
 	}
 	
 }
