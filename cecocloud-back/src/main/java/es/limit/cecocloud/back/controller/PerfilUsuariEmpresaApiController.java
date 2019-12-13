@@ -21,15 +21,15 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
 @RequestMapping(GenericController.API_PATH + "/perfilUsuariEmpresa")
 public class PerfilUsuariEmpresaApiController extends AbstractIdentificableApiController<PerfilUsuariIdentificadorEmpresa, String> {
 
-	@Override
-	protected String additionalRsqlFilterFromSession(Object userSession) {
-		String usuariCodi = SecurityContextHolder.getContext().getAuthentication().getName(); 
-		Long companyiaId = (userSession != null) ? ((UserSession)userSession).getC() : null;
-		if (companyiaId != null) {
-			return "usuariEmpresa.empresa.identificador.companyia.id==" + companyiaId + ";"
-					+ "usuariEmpresa.usuari.codi==" + usuariCodi;
-		} else {
-			return null; // "identificador.companyia.id==0";
-		}
-	}
+//	@Override
+//	protected String additionalRsqlFilterFromSession(Object userSession) {
+//		String usuariCodi = SecurityContextHolder.getContext().getAuthentication().getName(); 
+//		Long companyiaId = (userSession != null) ? ((UserSession)userSession).getC() : null;
+//		if (companyiaId != null) {
+//			return "usuariEmpresa.empresa.identificador.companyia.id==" + companyiaId + ";"
+//					+ "usuariEmpresa.usuari.codi==" + usuariCodi;
+//		} else {
+//			return null; // "identificador.companyia.id==0";
+//		}
+//	}
 }

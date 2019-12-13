@@ -41,12 +41,11 @@ public class UsuariEmpresaApiController extends AbstractIdentificableApiControll
 		return service;
 	}
 	
-	@Override
-	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long companyiaId = ((UserSession)userSession).getC();
-		return "empresa.identificador.companyia.id==" + companyiaId;
-	}
-	
+//	@Override
+//	protected String additionalRsqlFilterFromSession(Object userSession) {
+//		Long companyiaId = ((UserSession)userSession).getC();
+//		return "empresa.identificador.companyia.id==" + companyiaId;
+//	}
 	
 	// Mètodes per a configurar els permisos (perfils) a nivell d'usuari-empresa
 	@GetMapping(
