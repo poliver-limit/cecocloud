@@ -4,7 +4,7 @@
 package es.limit.cecocloud.marcatges.persist.tools;
 
 import es.limit.cecocloud.marcatges.persist.entity.MarcatgeEntity;
-import es.limit.cecocloud.persist.entity.CompanyiaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 
 /**
  * Utilitat per a la generació dels scripts SQL de creació de la BBDD.
@@ -21,7 +21,7 @@ public class DdlScriptGenerator extends es.limit.base.boot.persist.tools.DdlScri
 
 	private static String[] getAdditionalPackageNames() {
 		return new String[] {
-				CompanyiaEntity.class.getPackage().getName(),
+				IdentificadorEntity.class.getPackage().getName(),
 				MarcatgeEntity.class.getPackage().getName()};
 	}
 

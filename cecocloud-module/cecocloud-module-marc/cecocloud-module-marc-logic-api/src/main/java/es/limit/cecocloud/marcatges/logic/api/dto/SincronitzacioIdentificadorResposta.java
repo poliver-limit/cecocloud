@@ -8,15 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Resposta de la sincronització d'una companyia de CECOGEST.
+ * Resposta del procés de sincronització d'un identificador.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
 @AllArgsConstructor
-public class SincronitzacioCompanyiaResposta {
+public class SincronitzacioIdentificadorResposta {
 
-	private SincronitzacioResposta identificadorsResposta;
 	private SincronitzacioResposta empresesResposta;
 	private SincronitzacioResposta operarisResposta;
 

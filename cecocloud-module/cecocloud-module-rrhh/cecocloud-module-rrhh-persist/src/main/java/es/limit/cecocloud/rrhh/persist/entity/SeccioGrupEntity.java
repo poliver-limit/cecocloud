@@ -54,8 +54,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "gse_idf_cod", foreignKey = @ForeignKey(name = "rrhu_gse_idf_fk"), insertable = false, updatable = false)
-			})
+					@JoinColumn(name = "gse_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rrhu_gse_idf_fk"))
 })
 public class SeccioGrupEntity extends AbstractAmbIdentificadorEntity<SeccioGrup, SeccioGrupPk> {
 
