@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BngAuthGuard } from 'base-angular';
 
-import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
+import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-empresa.guard';
 
 @NgModule({
 	imports: [

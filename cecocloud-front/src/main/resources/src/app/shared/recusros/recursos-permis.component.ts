@@ -1,12 +1,12 @@
-import { PerfilUsuariEmpresaService } from '../pages/companyia-usuaris/perfil-usuari-empresa.service';
-import { PerfilRolService } from '../pages/perfils/perfilRol.service';
+import { PerfilRolService } from '../../pages/perfils/perfilRol.service';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { RecursosService } from 'src/app/shared/recusros.service';
+import { RecursosService } from 'src/app/shared/recusros/recusros.service';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/base-angular';
 import { HalParam } from 'angular4-hal';
+import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identificador-usuaris/perfil-usuari-identificador-empresa.service';
 
 @Component({
     selector: "cec-recursos",
@@ -22,6 +22,21 @@ import { HalParam } from 'angular4-hal';
                                     <th mat-header-cell *matHeaderCellDef style=""> {{'resource.label' | translate}} </th>
                                     <td mat-cell *matCellDef="let recurs"> {{recurs.label | translate}} </td>
                                 </ng-container>
+                                <!-- Columna de access -->
+                                <ng-container matColumnDef="access">
+                                    <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.access' | translate}}</ng-container>
+                                        <ng-container *ngIf="mobileScreen">ACC</ng-container>
+                                    </th>
+                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
+                                        <mat-checkbox
+                                            name = 'accessGranted'
+                                            [checked]="recurs.permission.accessGranted"
+                                            [disabled]="disableToggles"
+                                            (click) = "onPermisChange($event, indexModul, index)">
+                                        </mat-checkbox>
+                                    </td>
+                                </ng-container>
                                 <!-- Columna de read -->
                                 <ng-container matColumnDef="read">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
@@ -33,7 +48,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'readGranted'
                                             [checked]="recurs.permission.readGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -48,7 +63,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'writeGranted'
                                             [checked]="recurs.permission.writeGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -63,7 +78,7 @@ import { HalParam } from 'angular4-hal';
                                             name='createGranted'
                                             [checked]="recurs.permission.createGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -78,7 +93,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'deleteGranted'
                                             [checked]="recurs.permission.deleteGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -93,7 +108,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'adminGranted'
                                             [checked]="recurs.permission.adminGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -108,7 +123,7 @@ import { HalParam } from 'angular4-hal';
                                             name = 'printGranted'
                                             [checked]="recurs.permission.printGranted"
                                             [disabled]="disableToggles"
-                                            (change) = "onPermisChange($event, indexModul, index)">
+                                            (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
@@ -146,11 +161,11 @@ export class RecursosPermisComponent implements OnInit {
 
     @Input() rol: number;
     @Input() perfil: number;
-    @Input() usuariEmpresa: any;
+    @Input() usuariIdentificadorEmpresa: any;
 
     public translate: TranslateService;
     recursosModuls: any;
-    columnsToDisplay: string[] = ['label', 'read', 'write', 'create', 'delete', 'administration', 'print'];
+    columnsToDisplay: string[] = ['label', 'access', 'read', 'write', 'create', 'delete', 'administration', 'print'];
 
     disableToggles: boolean;
 
@@ -161,14 +176,17 @@ export class RecursosPermisComponent implements OnInit {
         // Deshabilitar els checks mentres es desen els permisos
         this.disableToggles = true;
         let resourceInfo = JSON.parse(JSON.stringify(this.recursosModuls[indexModul].resources[indexRecurs]));
-        resourceInfo.permission[event.source.name] = event.checked;
-        //resourceInfo.
+        let permis = event.currentTarget.attributes['name'].value;
+        let check = !resourceInfo.permission[permis];
+        resourceInfo.permission[permis] = check;
         this.recursosService.saveRecurs(resourceInfo).subscribe(
             () => {
+                this.recursosModuls[indexModul].resources[indexRecurs].permission[permis] = check;
                 this.disableToggles = false;
-                this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
+                //this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
             },
             error => {
+                event.preventDefault();
                 this.disableToggles = false;
                 console.error(error);
             }
@@ -227,28 +245,30 @@ export class RecursosPermisComponent implements OnInit {
             },
                 error => console.log(error)
             );
-        } else if (this.usuariEmpresa) {
+        } else if (this.usuariIdentificadorEmpresa) {
             let requestParams: HalParam[] = [];
             requestParams.push({
                 key: 'query',
-                value: 'usuariEmpresa.usuari.codi=="' + this.usuariEmpresa.usuariCodi + '"; usuariEmpresa.empresa.id==' + this.usuariEmpresa.empresaId
+                value: 'usuariIdentificadorEmpresa.usuariIdentificador.usuari.codi=="' + this.usuariIdentificadorEmpresa.usuariCodi + '";' +
+                    ' usuariIdentificadorEmpresa.usuariIdentificador.identificador.id=="' + this.usuariIdentificadorEmpresa.identificadorId + '";' +
+                    ' usuariIdentificadorEmpresa.empresa.id==' + this.usuariIdentificadorEmpresa.empresaId
             });
-            this.perfilUsuariEmpresaService.getAll({ params: requestParams }).subscribe((perfilUsuariEmpreses) => {
+            this.perfilUsuariIdentificadorEmpresaService.getAll({ params: requestParams }).subscribe((perfilUsuariIdentificadorEmpreses) => {
                 let perfilsUsuari: string[];
                 debugger;
-                if (perfilUsuariEmpreses == null || perfilUsuariEmpreses.length == 0) {
+                if (perfilUsuariIdentificadorEmpreses == null || perfilUsuariIdentificadorEmpreses.length == 0) {
                     this.recursosService.getRecursosByRol(-1).subscribe((recursosModuls) => {
                         this.recursosModuls = recursosModuls;
                     });
                 } else {
                     let requestParams: HalParam[] = [];
-                    if (perfilUsuariEmpreses.length == 1) {
+                    if (perfilUsuariIdentificadorEmpreses.length == 1) {
                         requestParams.push({
                             key: 'query',
-                            value: 'perfil.id==' + perfilUsuariEmpreses[0]['perfil'].id
+                            value: 'perfil.id==' + perfilUsuariIdentificadorEmpreses[0]['perfil'].id
                         });
                     } else {
-                        perfilsUsuari = perfilUsuariEmpreses.map(perfilUsuariEmpresa => perfilUsuariEmpresa['perfil'].id);
+                        perfilsUsuari = perfilUsuariIdentificadorEmpreses.map(perfilUsuariEmpresa => perfilUsuariEmpresa['perfil'].id);
                         requestParams.push({
                             key: 'query',
                             value: 'perfil.id =in= (' + perfilsUsuari.join(',') + ')'
@@ -274,7 +294,7 @@ export class RecursosPermisComponent implements OnInit {
     constructor(
         public recursosService: RecursosService,
         public perfilRolService: PerfilRolService,
-        public perfilUsuariEmpresaService: PerfilUsuariEmpresaService,
+        public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
         translate: TranslateService,
         private screenSizeService: BngScreenSizeService,
         private snackbar: MatSnackBar) {

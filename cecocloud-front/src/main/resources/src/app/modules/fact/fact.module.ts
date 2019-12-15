@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BngAuthGuard } from 'base-angular';
 
-import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
+import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-empresa.guard';
 
 @NgModule({
 	imports: [
@@ -186,7 +186,7 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'ubicacionsArticle',
 				loadChildren: () => import('./pages/ubicacionsArticle/ubicacionsArticle.module').then(m => m.UbicacionsArticleModule),
-				canActivate: [BngAuthGuard]	
+				canActivate: [BngAuthGuard]
 			}, {
 				path: 'unitatsTipus',
 				loadChildren: () => import('./pages/unitatsTipus/unitatsTipus.module').then(m => m.UnitatsTipusModule),
@@ -194,7 +194,7 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'vehicles',
 				loadChildren: () => import('./pages/vehicles/vehicles.module').then(m => m.VehiclesModule),
-				canActivate: [BngAuthGuard]				
+				canActivate: [BngAuthGuard]
 			}, {
 				path: 'zones',
 				loadChildren: () => import('./pages/zones/zones.module').then(m => m.ZonesModule),

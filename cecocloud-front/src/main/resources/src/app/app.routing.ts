@@ -21,24 +21,20 @@ export const routes: Routes = [{
     loadChildren: () => import('./pages/usuaris/usuaris.module').then(m => m.UsuarisModule),
     canActivate: [BngAuthGuard]
 }, {
-    path: 'companyies',
-    loadChildren: () => import('./pages/companyies/companyies.module').then(m => m.CompanyiesModule),
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'admin-companyia',
-    loadChildren: () => import('./pages/admin-companyia/admin-companyia.module').then(m => m.AdminCompanyiaModule),
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'companyia',
-    loadChildren: () => import('./pages/companyia/companyia.module').then(m => m.CompanyiaModule),
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'companyia-usuaris',
-    loadChildren: () => import('./pages/companyia-usuaris/companyia-usuaris.module').then(m => m.CompanyiaUsuarisModule),
+    path: 'admin-identificador',
+    loadChildren: () => import('./pages/admin-identificador/admin-identificador.module').then(m => m.AdminIdentificadorModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'identificadors',
     loadChildren: () => import('./pages/identificadors/identificadors.module').then(m => m.IdentificadorsModule),
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'identificador',
+    loadChildren: () => import('./pages/identificador/identificador.module').then(m => m.IdentificadorModule),
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'companyia-usuaris',
+    loadChildren: () => import('./pages/companyia-usuaris/companyia-usuaris.module').then(m => m.CompanyiaUsuarisModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'rols',

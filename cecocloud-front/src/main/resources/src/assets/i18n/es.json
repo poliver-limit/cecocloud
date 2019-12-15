@@ -6,6 +6,7 @@
 	"app.menu.usuaris": "Usuarios",
 	"app.menu.companyies": "Compañías",
 	"app.menu.companyia": "Compañía",
+	"app.menu.identificador": "Grupo de empresas",
 	"app.menu.identificadors": "Grupos de empresas",
 	"app.menu.empreses": "Empresas",
 	"app.menu.perfils": "Perfiles",
@@ -111,6 +112,7 @@
 	"error.validation.constraint.UsuariEmailNotExists": "Ya existe otro usuario con la misma dirección de correo",
 
 	"resource.label": "Recurso",
+	"resource.permis.access": "Acceso",
 	"resource.permis.read": "Consultar",
 	"resource.permis.write": "Modificar",
 	"resource.permis.create": "Crear",

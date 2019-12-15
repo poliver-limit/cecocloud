@@ -12,7 +12,7 @@ import { PerfilsFormComponent } from './perfils-form.component';
 import { PerfilsService } from './perfils.service';
 import { RolsService } from './rols.service';
 import { PerfilRolService } from './perfilRol.service';
-import { RecusrosPermisModule } from 'src/app/shared/recursos-permis.module';
+import { RecusrosPermisModule } from 'src/app/shared/recusros/recursos-permis.module';
 
 @NgModule({
     imports: [

@@ -7,7 +7,7 @@ import { BngAuthService, BngAuthTokenPayload, BngScreenSizeService, BngScreenSiz
 
 import { MenuService, AppMenu } from './shared/menu.service';
 import { ModuleInitService } from './shared/module-init.service';
-import { CompanyiesService } from './shared/companyies.service';
+import { IdentificadorsService } from './pages/identificadors/identificadors.service';
 
 @Component({
 	selector: 'app-root',
@@ -58,9 +58,10 @@ import { CompanyiesService } from './shared/companyies.service';
 			<button mat-icon-button *ngIf="tokenPayload?.rol.includes('ADMIN')" (click)="onAdminButtonClick()" style="margin-right:.5em">
 				<mat-icon>build</mat-icon>
 			</button>
-			<selector-companyia-empresa
-				(selectedCompanyiaEmpresaChange)="onSelectedCompanyiaEmpresaChange($event)"
-				(companyiaAdmin)="onSeleccioCompanyiaAdmin($event)"></selector-companyia-empresa>
+			<selector-identificador-empresa
+				(selectedIdentificadorEmpresaChange)="onSelectedIdentificadorEmpresaChange($event)"
+				(identificadorAdmin)="onSeleccioIdentificadorAdmin($event)">
+			</selector-identificador-empresa>
 			<button mat-icon-button [matMenuTriggerFor]="modulesMenu" style="margin-right:.5em">
 				<mat-icon>apps</mat-icon>
 			</button>
@@ -119,7 +120,7 @@ import { CompanyiesService } from './shared/companyies.service';
 	flex: 1 1 auto;
 }
 `], providers: [
-		CompanyiesService
+		IdentificadorsService
 	]
 })
 export class AppComponent implements OnInit {
@@ -154,13 +155,13 @@ export class AppComponent implements OnInit {
 		this.router.navigate(['/admin-app']);
 	}
 
-	onSelectedCompanyiaEmpresaChange(companyiaEmpresa: any) {
-		this.currentEmpresa = companyiaEmpresa.empresa;
+	onSelectedIdentificadorEmpresaChange(identificadorEmpresa: any) {
+		this.currentEmpresa = identificadorEmpresa.empresa;
 	}
 
-	onSeleccioCompanyiaAdmin(companyia: any) {
-		this.currentMenu = this.menuService.getAdminCompanyiaMenu(companyia.nom);
-		this.router.navigate(['/admin-companyia']);
+	onSeleccioIdentificadorAdmin(identificador: any) {
+		this.currentMenu = this.menuService.getAdminIdentificadorMenu(identificador.descripcio);
+		this.router.navigate(['/admin-identificador']);
 	}
 
 	onModuleButtonClick(module: string) {

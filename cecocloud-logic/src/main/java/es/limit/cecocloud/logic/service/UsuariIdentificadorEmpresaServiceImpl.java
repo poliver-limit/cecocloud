@@ -9,11 +9,17 @@ import java.util.stream.Collectors;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.limit.base.boot.logic.api.permission.ExtendedPermission;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
+import es.limit.base.boot.logic.helper.PermissionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
+import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
@@ -21,10 +27,13 @@ import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa.UsuariIdentif
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresaPerfilTreeItem;
 import es.limit.cecocloud.logic.api.service.UsuariIdentificadorEmpresaService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.PerfilUsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
+import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
+import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
 /**
  * Implementació del servei de gestió d'usuari-empresa.
@@ -37,9 +46,13 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericCompos
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
 	@Autowired
+	private UsuariIdentificadorRepository usuariIdentificadorRepository;
+	@Autowired
 	private UsuariIdentificadorEmpresaRepository usuariIdentificadorEmpresaRepository;
 	@Autowired
 	private PerfilUsuariIdentificadorEmpresaRepository perfilUsuariIdentificadorEmpresaRepository;
+	@Autowired
+	private PermissionHelper permissionHelper;
 
 	@Override
 	protected UsuariIdentificadorEmpresaPk getPkFromDto(UsuariIdentificadorEmpresa dto) {
@@ -53,6 +66,48 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericCompos
 				dto.getEmpresa().getId());
 	}
 
+	@Override
+	public List<IdentificadorEmpresaSelectionTreeItem> buildSelectionTree() {
+		List<IdentificadorEmpresaSelectionTreeItem> selectionTree = new ArrayList<IdentificadorEmpresaSelectionTreeItem>();
+		String usuariCodi = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<UsuariIdentificadorEntity> usuariIdentificadors = usuariIdentificadorRepository.findByUsuariEmbeddedCodiOrderByIdentificadorEmbeddedDescripcio(usuariCodi);
+		for (UsuariIdentificadorEntity usuariIdentificador: usuariIdentificadors) {
+			IdentificadorEntity identificador = usuariIdentificador.getIdentificador();
+			boolean hasAdminPermission = permissionHelper.checkPermissionForCurrentUser(
+					Identificador.class,
+					identificador.getId(),
+					ExtendedPermission.ADMINISTRATION);
+			List<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdOrderByEmpresaEmbeddedNom(
+					usuariCodi,
+					identificador.getId());
+//			List<Empresa> empreses = toDto(
+//					usuariIdentificadorEmpreses.stream().map(usuariIdentificadorEmpresa -> usuariIdentificadorEmpresa.getEmpresa()).collect(Collectors.toList()),
+//					Empresa.class);
+			List<Empresa> empreses = usuariIdentificadorEmpreses.stream().map(usuariIdentificadorEmpresa -> {
+						Empresa empresa = new Empresa();
+//						return usuariIdentificadorEmpresa.getEmpresa();
+						empresa.setId(usuariIdentificadorEmpresa.getEmpresa().getId());
+						empresa.setCodi(usuariIdentificadorEmpresa.getEmpresa().getEmbedded().getCodi());
+						empresa.setNom(usuariIdentificadorEmpresa.getEmpresa().getEmbedded().getNom());
+						empresa.setNif(usuariIdentificadorEmpresa.getEmpresa().getEmbedded().getNif());
+						empresa.setTipus(usuariIdentificadorEmpresa.getEmpresa().getEmbedded().getTipus());
+						empresa.setIdentificador(usuariIdentificadorEmpresa.getEmpresa().getEmbedded().getIdentificador());
+						return empresa;
+					}).collect(Collectors.toList());
+			if (hasAdminPermission || !empreses.isEmpty()) {
+				IdentificadorEmpresaSelectionTreeItem dto = new IdentificadorEmpresaSelectionTreeItem(
+						identificador.getId(),
+						identificador.getEmbedded().getCodi(),
+						identificador.getEmbedded().getDescripcio(),
+						hasAdminPermission,
+						empreses);
+				//toDto(identificador, IdentificadorEmpresaSelectionTreeItem.class);
+				selectionTree.add(dto);
+			}
+		}
+		return selectionTree;
+	}
+	
 	@Override
 	@Transactional(readOnly = true)
 	public List<UsuariIdentificadorEmpresaPerfilTreeItem> buildPerfilTree() {

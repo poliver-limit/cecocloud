@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { SelectedCompanyiaEmpresaService, SelectedCompanyiaEmpresa } from './selected-companyia-empresa.service';
+import { SelectedIdentificadorEmpresaService, SelectedIdentificadorEmpresa } from './selected-identificador-empresa.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -10,8 +10,8 @@ import { SelectedCompanyiaEmpresaService, SelectedCompanyiaEmpresa } from './sel
 export class SelectedEmpresaGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		let selectedCompanyiaEmpresa: SelectedCompanyiaEmpresa = this.selectedCompanyiaEmpresaService.getSelectedCompanyiaEmpresa();
-		let anyEmpresaSelected = selectedCompanyiaEmpresa && selectedCompanyiaEmpresa.empresa && selectedCompanyiaEmpresa.empresa.id !== undefined;
+		let selectedIdentificadorEmpresa: SelectedIdentificadorEmpresa = this.selectedIdentificadorEmpresaService.getSelectedIdentificadorEmpresa();
+		let anyEmpresaSelected = selectedIdentificadorEmpresa && selectedIdentificadorEmpresa.empresa && selectedIdentificadorEmpresa.empresa.id !== undefined;
 		if (!anyEmpresaSelected) {
 			// TODO: Mostrar missatge explicant que per accedir a una pàgina d'un mòdul hi ha d'haver alguna empresa seleccionada
 			console.error("Per accedir a una pàgina d'un mòdul hi ha d'haver alguna empresa seleccionada");
@@ -23,7 +23,7 @@ export class SelectedEmpresaGuard implements CanActivate {
 
 	constructor(
 		private router: Router,
-		private selectedCompanyiaEmpresaService: SelectedCompanyiaEmpresaService) {
+		private selectedIdentificadorEmpresaService: SelectedIdentificadorEmpresaService) {
 	}
 
 }

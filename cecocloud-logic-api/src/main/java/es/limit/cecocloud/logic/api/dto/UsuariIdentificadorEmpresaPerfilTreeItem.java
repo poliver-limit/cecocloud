@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -15,7 +16,12 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@NoArgsConstructor
 public class UsuariIdentificadorEmpresaPerfilTreeItem extends AbstractIdentificable<Long> {
+
+	private String codi;
+	private String nom;
+	private List<Long> perfils;
 
 	public UsuariIdentificadorEmpresaPerfilTreeItem(
 			Long id,
@@ -28,9 +34,5 @@ public class UsuariIdentificadorEmpresaPerfilTreeItem extends AbstractIdentifica
 		this.nom = nom;
 		this.perfils = perfils;
 	}
-
-	String codi;
-	String nom;
-	List<Long> perfils;
-
+	
 }

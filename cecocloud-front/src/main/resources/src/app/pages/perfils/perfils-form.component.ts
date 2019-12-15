@@ -1,4 +1,4 @@
-import { RecursosPermisComponent } from './../../shared/recursos-permis.component';
+import { RecursosPermisComponent } from '../../shared/recusros/recursos-permis.component';
 // (MGG) -> Els comentaris(//) son simplement resultat de proves
 // per inici formació en Angular. Es futuriblement per esborrar
 import { Component, ViewChild } from '@angular/core';

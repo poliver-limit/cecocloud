@@ -11,43 +11,43 @@ import { CompanyiaUsuarisGridComponent, CompanyiaUsuarisAddDialog } from './comp
 import { CompanyiaUsuarisFormComponent } from './companyia-usuaris-form.component';
 import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { UsuarisService } from './usuaris.service';
-import { UsuariEmpresaService } from './../../shared/usuari-empresa.service';
+import { UsuariIdentificadorEmpresaService } from '../../shared/usuari-identificador-empresa.service';
 import { PerfilUsuariEmpresaService } from './perfil-usuari-empresa.service';
 import { PerfilsService } from './../perfils/perfils.service';
 import { EmpresesService } from '../empreses/empreses.service';
 import { MatTableModule } from '@angular/material';
-import { RecusrosPermisModule } from 'src/app/shared/recursos-permis.module';
+import { RecusrosPermisModule } from 'src/app/shared/recusros/recursos-permis.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        TranslateModule,
-        BngModule,
-        MaterialModule,
-        RecusrosPermisModule,
-        MatTableModule,
-        RouterModule.forChild([
-            { path: '', component: CompanyiaUsuarisGridComponent, canDeactivate: [BngFormExitGuard] },
-            { path: 'update/:id', component: CompanyiaUsuarisFormComponent, canDeactivate: [BngFormExitGuard] }
-        ])
-    ],
-    declarations: [
-        CompanyiaUsuarisGridComponent,
-        CompanyiaUsuarisFormComponent,
-        CompanyiaUsuarisAddDialog
-    ],
-    providers: [
-        CompanyiaUsuarisService,
-        UsuarisService,
-        EmpresesService,
-        UsuariEmpresaService,
-        PerfilsService,
-        PerfilUsuariEmpresaService
-    ],
-    entryComponents: [
-        CompanyiaUsuarisAddDialog
-    ]
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		TranslateModule,
+		BngModule,
+		MaterialModule,
+		RecusrosPermisModule,
+		MatTableModule,
+		RouterModule.forChild([
+			{ path: '', component: CompanyiaUsuarisGridComponent, canDeactivate: [BngFormExitGuard] },
+			{ path: 'update/:id', component: CompanyiaUsuarisFormComponent, canDeactivate: [BngFormExitGuard] }
+		])
+	],
+	declarations: [
+		CompanyiaUsuarisGridComponent,
+		CompanyiaUsuarisFormComponent,
+		CompanyiaUsuarisAddDialog
+	],
+	providers: [
+		CompanyiaUsuarisService,
+		UsuarisService,
+		EmpresesService,
+		UsuariIdentificadorEmpresaService,
+		PerfilsService,
+		PerfilUsuariEmpresaService
+	],
+	entryComponents: [
+		CompanyiaUsuarisAddDialog
+	]
 })
 export class CompanyiaUsuarisModule { }

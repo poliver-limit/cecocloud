@@ -26,13 +26,13 @@ import lombok.Setter;
 		descriptionField = "nom")
 public class Empresa extends AbstractIdentificableAmbIdentificador<Long> {
 
-	@NotNull
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
-	private GenericReference<Identificador, Long> identificador;
+//	@NotNull
+//	@Transient
+//	@RestapiField(
+//			type = RestapiFieldType.LOV,
+//			disabledForUpdate = true,
+//			includeInQuickFilter = true)
+//	private GenericReference<Identificador, Long> identificador;
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)

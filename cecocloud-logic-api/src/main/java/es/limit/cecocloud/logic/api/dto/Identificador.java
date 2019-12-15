@@ -41,37 +41,37 @@ public class Identificador extends AbstractIdentificable<Long> {
 			includeInQuickFilter = true)
 	private String descripcio;
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
+//			disabledForCreate = true,
+//			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true,
+			hiddenInForm = false,
 			hiddenInLov = true)
 	private int numUsuaris;
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
+//			disabledForCreate = true,
+//			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true,
+			hiddenInForm = false,
 			hiddenInLov = true)
 	private int numEmpreses;
 	@NotNull
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
+//			disabledForCreate = true,
+//			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true,
+			hiddenInForm = false,
 			hiddenInLov = true)
 	private Date dataInici;
+	@NotNull
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
+//			disabledForCreate = true,
+//			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true,
+			hiddenInForm = false,
 			hiddenInLov = true)
-	@NotNull
 	private Date dataFi;
-	@NotNull
-	@Size(max = 1000)
+//	@NotNull
+	@Size(max = 4000)
 	@RestapiField(
 			disabledForCreate = true,
 			disabledForUpdate = true,
@@ -86,14 +86,14 @@ public class Identificador extends AbstractIdentificable<Long> {
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private boolean llicenciaOk;
-	@NotNull
+//	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
+			disabledForCreate = false,
 			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true,
+			hiddenInForm = false,
 			hiddenInLov = true)
 	private GenericReference<Usuari, Long> propietari;
 

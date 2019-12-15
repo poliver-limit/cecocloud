@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,19 +20,26 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-@RestapiResource(descriptionField = "nomCompanyia")
+@AllArgsConstructor
+@RestapiResource(descriptionField = "descripcio")
 public class Llicencia {
 
+	@JsonProperty("c")
 	private String codi;
-	private String nomCompanyia;
-	private String emailCompanyia;
-	private String telefonCompanyia;
+	@JsonProperty("d")
+	private String descripcio;
+	@JsonProperty("e")
 	private Integer nombreMaxEmpreses;
+	@JsonProperty("u")
 	private Integer nombreMaxUsuaris;
-	private boolean caduca;
+	@JsonProperty("i")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-	private Date dataCaducitat;
+	private Date dataInici;
+	@JsonProperty("f")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private Date dataFi;
+	@JsonProperty("m")
 	private List <String> modulsDisponibles;
-	private String defaultIdentifier;
-
+	@JsonProperty("a")
+	private List <Long> caracteristiques;
 }

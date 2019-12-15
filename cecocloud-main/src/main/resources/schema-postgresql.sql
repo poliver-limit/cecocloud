@@ -52,7 +52,7 @@ create sequence identificador_sequence start 1 increment 1;
         data_fi timestamp not null,
         data_inici timestamp not null,
         descripcio varchar(40) not null,
-        llicencia varchar(1000) not null,
+        llicencia varchar(4000) not null,
         llicencia_ok boolean not null,
         num_empreses int4 not null,
         num_usuaris int4 not null,
@@ -272,6 +272,12 @@ create sequence identificador_sequence start 1 increment 1;
        foreign key (identificador_id, usuari_id) 
        references usuari_ident;
 
+create table acl_sid(
+    id bigserial not null primary key,
+    principal boolean not null,
+    sid varchar(100) not null,
+    constraint aclsid_uk unique(sid,principal)
+);
 
 create table acl_class(
     id bigserial not null primary key,

@@ -3,39 +3,37 @@
  */
 package es.limit.cecocloud.logic.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
-import es.limit.base.boot.logic.helper.PermissionHelper;
+import es.limit.base.boot.logic.api.exception.GenericException;
 import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
-import es.limit.cecocloud.logic.api.acl.ExtendedPermission;
-import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
+import es.limit.cecocloud.logic.api.dto.Llicencia;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
 import es.limit.cecocloud.logic.api.service.IdentificadorService;
+import es.limit.cecocloud.logic.helper.AsymmetricCryptographyHelper;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
-import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
-import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Implementació del servei de gestió d'identificadors.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Service
 public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissionsImpl<Identificador, IdentificadorEntity, Long> implements IdentificadorService {
 
@@ -43,10 +41,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	private UsuariRepository usuariRepository;
 	@Autowired
 	private UsuariIdentificadorRepository usuariIdentificadorRepository;
-	@Autowired
-	private UsuariIdentificadorEmpresaRepository usuariIdentificadorEmpresaRepository;
-	@Autowired
-	private PermissionHelper permissionHelper;
+	
 
 	@Override
 	protected void afterPermissionCreate(Long id, BaseBootPermission permission) {
@@ -105,33 +100,84 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	}
 
 	@Override
-	public List<IdentificadorEmpresaSelectionTreeItem> buildSelectionTree() {
-		List<IdentificadorEmpresaSelectionTreeItem> selectionTree = new ArrayList<IdentificadorEmpresaSelectionTreeItem>();
-		String usuariCodi = SecurityContextHolder.getContext().getAuthentication().getName();
-		List<UsuariIdentificadorEntity> usuariIdentificadors = usuariIdentificadorRepository.findByUsuariEmbeddedCodiOrderByIdentificadorEmbeddedDescripcio(usuariCodi);
-		for (UsuariIdentificadorEntity usuariIdentificador: usuariIdentificadors) {
-			IdentificadorEntity identificador = usuariIdentificador.getIdentificador();
-			boolean hasAdminPermission = permissionHelper.checkPermissionForCurrentUser(
-					Identificador.class,
-					identificador.getId(),
-					ExtendedPermission.ADMINISTRATION);
-			List<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdOrderByEmpresaEmbeddedNom(
-					usuariCodi,
-					identificador.getId());
-			List<Empresa> empreses = toDto(
-					usuariIdentificadorEmpreses.stream().map(usuariIdentificadorEmpresa -> usuariIdentificadorEmpresa.getEmpresa()).collect(Collectors.toList()),
-					Empresa.class);
-			if (hasAdminPermission || !empreses.isEmpty()) {
-				IdentificadorEmpresaSelectionTreeItem dto = toDto(identificador, IdentificadorEmpresaSelectionTreeItem.class);
-				dto.setDescription(identificador.getEmbedded().getDescripcio());
-				dto.setHasAdminPermission(hasAdminPermission);
-				dto.setEmpreses(empreses);
-				selectionTree.add(dto);
-			}
+	protected void beforeCreate(IdentificadorEntity entity, Identificador dto) {
+		super.beforeCreate(entity, dto);
+		generateLicense(dto);
+	}
+	
+	@Override
+	protected void beforeUpdate(IdentificadorEntity entity, Identificador dto) throws GenericException {
+		super.beforeUpdate(entity, dto);
+		generateLicense(dto);
+	}
+	
+	
+	
+	@Override
+	protected void beforeDelete(IdentificadorEntity entity) throws GenericException {
+		super.beforeDelete(entity);
+		// Eliminar permisos
+		List<BaseBootPermission> permisos = permissionFind(entity.getId());
+		for (BaseBootPermission permis: permisos) {
+			permissionDelete(entity.getId(), permis.getId());
 		}
-		return selectionTree;
+		// Eliminar UsuariIdentificador
+		List<UsuariIdentificadorEntity> usuariIdfs = usuariIdentificadorRepository.findByIdentificadorId(entity.getId());
+		for(UsuariIdentificadorEntity usuariIdf: usuariIdfs) {
+			usuariIdentificadorRepository.delete(usuariIdf);
+		}
 	}
 
+	private void generateLicense(Identificador dto) {
+		// General la llicència
+		Llicencia llicencia = new Llicencia(
+				dto.getCodi(),
+				dto.getDescripcio(),
+				dto.getNumEmpreses(),
+				dto.getNumUsuaris(),
+				dto.getDataInici(),
+				dto.getDataFi(),
+				null,	// Moduls
+				null);	// Caracteristiques
+		ObjectMapper mapper = new ObjectMapper();
+		String llicenciaJson;
+		try {
+			llicenciaJson = mapper.writeValueAsString(llicencia);
+			dto.setLlicencia(AsymmetricCryptographyHelper.encryptText(llicenciaJson));
+		} catch (Exception e) {
+			log.error("Error al generar la llicència", e);
+			throw new GenericException("Error generating the license.", e);
+		}
+	}
+	
+	@Override
+	protected void afterCreate(IdentificadorEntity entity, Identificador dto) {
+		super.afterCreate(entity, dto);
+		
+		// Assignar permisos al propietari
+		BaseBootPermission permission = new BaseBootPermission(
+				PermissionSidType.PRINCIPAL,
+				entity.getPropietari().getEmbedded().getCodi());
+		permission.setAdminGranted(true);
+		permission.setAccessGranted(true);
+		permission.setSyncGranted(true);
+		permissionCreate(entity.getId(), permission);
+	}
+	
+	@Override
+	protected void afterUpdate(IdentificadorEntity entity, Identificador dto) {
+		super.afterUpdate(entity, dto);
+		
+		// Assignar permisos al propietari
+		BaseBootPermission permission = new BaseBootPermission(
+				PermissionSidType.PRINCIPAL,
+				entity.getPropietari().getEmbedded().getCodi());
+		permission.setAdminGranted(true);
+		permission.setAccessGranted(true);
+		permission.setSyncGranted(true);
+		permissionCreate(entity.getId(), permission);
+	}
+	
 	/*@Override
 	protected void beforeCreate(IdentificadorEntity entity, Identificador dto) {
 		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authenticationFacade.getAuthentication();

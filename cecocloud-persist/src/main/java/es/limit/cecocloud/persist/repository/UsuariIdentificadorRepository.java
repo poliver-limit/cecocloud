@@ -20,5 +20,6 @@ import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 public interface UsuariIdentificadorRepository extends BaseRepository<UsuariIdentificadorEntity, UsuariIdentificadorPk> {
 
 	List<UsuariIdentificadorEntity> findByUsuariEmbeddedCodiOrderByIdentificadorEmbeddedDescripcio(String usuariCodi);
+	List<UsuariIdentificadorEntity> findByIdentificadorId(Long identificadorId);
 
 }

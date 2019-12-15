@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper.SelfLinkBuilder;
 import es.limit.base.boot.logic.api.controller.GenericController;
+import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresaPerfilTreeItem;
@@ -38,11 +39,32 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 		return "empresa.identificador.id==" + identificadorId;
 	}
 	
+	// Mètodes per a obtenir les empreses a les que té accés l'usuari autenticat
+	@GetMapping(
+			value = "/selectionTree",
+			produces = "application/json")
+	public ResponseEntity<Resources<Resource<IdentificadorEmpresaSelectionTreeItem>>> selectionTree(
+			HttpServletRequest request) {
+		log.debug("Obtenint arbre de usuaris-idf-empreses");
+		return ResponseEntity.ok(
+				toResources(
+						((UsuariIdentificadorEmpresaService)getService()).buildSelectionTree(),
+						getClass(),
+						new SelfLinkBuilder() {
+							@Override
+							public Link build(Class<?> apiControllerClass, Object... params) {
+								return getSelfLink(params);
+							}
+						},
+						getApiLink(Link.REL_SELF),
+						getProfileLink("profile")));
+	}
+		
 	// Mètodes per a configurar els permisos (perfils) a nivell d'usuari-empresa
 	@GetMapping(
 			value = "/perfilTree",
 			produces = "application/json")
-	public ResponseEntity<Resources<Resource<UsuariIdentificadorEmpresaPerfilTreeItem>>> selectionTree(
+	public ResponseEntity<Resources<Resource<UsuariIdentificadorEmpresaPerfilTreeItem>>> perfilTree(
 			HttpServletRequest request) {
 		log.debug("Obtenint arbre de usuaris-idf-empreses");
 		return ResponseEntity.ok(

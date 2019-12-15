@@ -2,7 +2,7 @@ import { EmpresaPerfil } from './companyia-usuaris-form.component';
 import { EmpresesService } from './../empreses/empreses.service';
 import { PerfilUsuariEmpresaService, PerfilUsuariEmpresa } from './perfil-usuari-empresa.service';
 import { PerfilsService } from './../perfils/perfils.service';
-import { UsuariEmpresaService, UsuariEmpresa } from './../../shared/usuari-empresa.service';
+import { UsuariIdentificadorEmpresaService, UsuariIdentificadorEmpresa } from '../../shared/usuari-identificador-empresa.service';
 import { Resource, HalParam } from 'angular4-hal';
 import { Component, OnInit, OnDestroy, ViewChild, ViewChildren, QueryList } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { BngRestapiProfile } from '@programari-limit/base-angular/lib/restapi/re
 import { UsuarisService } from "./usuaris.service";
 import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { MatTable, MatSnackBar } from '@angular/material';
-import { RecursosPermisComponent } from 'src/app/shared/recursos-permis.component';
+import { RecursosPermisComponent } from 'src/app/shared/recusros/recursos-permis.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 export interface EmpresaPerfil {
@@ -216,7 +216,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 					usuari: { id: this.usuari.id },
 					empresa: { id: this.empresaPerfils[index].empresaId }
 				}
-				this.usuariEmpresaService.create(<UsuariEmpresa>usuariEmpresa).subscribe((resposta: any) => {
+				this.usuariEmpresaService.create(<UsuariIdentificadorEmpresa>usuariEmpresa).subscribe((resposta: any) => {
 					this.empresaPerfils[index].usuariEmpresaId = resposta.id;
 					let perfilUsuariEmpresa: any = {
 						usuariEmpresa: { id: resposta.id },
@@ -330,7 +330,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	constructor(
 		public usuarisService: UsuarisService,
 		public usuariCompanyiaService: CompanyiaUsuarisService,
-		public usuariEmpresaService: UsuariEmpresaService,
+		public usuariEmpresaService: UsuariIdentificadorEmpresaService,
 		public empresaService: EmpresesService,
 		public perfilsService: PerfilsService,
 		public perfilUsuariEmpresaService: PerfilUsuariEmpresaService,
