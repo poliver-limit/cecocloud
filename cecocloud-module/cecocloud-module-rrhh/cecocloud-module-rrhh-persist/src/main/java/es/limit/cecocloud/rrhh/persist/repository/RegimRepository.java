@@ -4,7 +4,7 @@
 package es.limit.cecocloud.rrhh.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.rrhh.logic.api.dto.Regim.RegimPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.persist.entity.RegimEntity;
 
 /**
@@ -12,5 +12,5 @@ import es.limit.cecocloud.rrhh.persist.entity.RegimEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface RegimRepository extends BaseRepository<RegimEntity, RegimPk> {
+public interface RegimRepository extends BaseRepository<RegimEntity, AmbIdentificadorICodiPk<String>> {
 }

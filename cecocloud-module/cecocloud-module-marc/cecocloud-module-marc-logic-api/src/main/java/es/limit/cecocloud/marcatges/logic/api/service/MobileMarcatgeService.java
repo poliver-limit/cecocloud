@@ -40,6 +40,6 @@ public interface MobileMarcatgeService {
 	 * 
 	 * @return la llista d'empreses.
 	 */
-	public List<Empresa> empresesFindAll();
+	public List<Empresa> empresesFindDisponiblesPerUsuariActual();
 
 }

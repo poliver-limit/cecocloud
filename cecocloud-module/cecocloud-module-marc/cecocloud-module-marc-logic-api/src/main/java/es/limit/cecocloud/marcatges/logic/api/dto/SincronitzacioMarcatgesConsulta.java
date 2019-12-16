@@ -4,7 +4,6 @@
 package es.limit.cecocloud.marcatges.logic.api.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,10 +22,8 @@ import lombok.Setter;
 public class SincronitzacioMarcatgesConsulta {
 
 	@NotNull
-	@Size(max = 30)
-	private String companyiaCodi;
-	@NotNull
-	private List<SincronitzacioEmpresa> empreses;
+	@Size(max = 4)
+	private String identificadorCodi;
 	@NotNull
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date dataInici;

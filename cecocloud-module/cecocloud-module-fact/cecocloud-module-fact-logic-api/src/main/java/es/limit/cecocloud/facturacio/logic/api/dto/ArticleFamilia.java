@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
-
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -15,18 +13,12 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia.ArticleFamiliaPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaAvisAlbaraClientEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaTipusEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaTipusServeiEnumDto;
-
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -38,7 +30,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class ArticleFamilia extends AbstractIdentificableWithCompositePk<ArticleFamiliaPk> {
+public class ArticleFamilia extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
 	@RestapiField(disabledForUpdate = true, 
 			toUpperCase = true,
@@ -146,14 +138,6 @@ public class ArticleFamilia extends AbstractIdentificableWithCompositePk<Article
 	private Float margeMinim;
 	
 	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,		
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
-	
-	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM,
 			includeInQuickFilter = true)
 	private ArticleFamiliaTipusServeiEnumDto tipusServei;
@@ -183,15 +167,5 @@ public class ArticleFamilia extends AbstractIdentificableWithCompositePk<Article
 	@RestapiField(
 			hiddenInLov = true,hiddenInGrid = true)
 	private boolean artExportables;
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class ArticleFamiliaPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
-	}
 
 }

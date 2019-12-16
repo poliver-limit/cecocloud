@@ -6,7 +6,7 @@ package es.limit.cecocloud.logic.api.service;
 import java.util.List;
 
 /**
- * Servei encarregat de gestionar companyies.
+ * Servei encarregat de gestionar menus.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

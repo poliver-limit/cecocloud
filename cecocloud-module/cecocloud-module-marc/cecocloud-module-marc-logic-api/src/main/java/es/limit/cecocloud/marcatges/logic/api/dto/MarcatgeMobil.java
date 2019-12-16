@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'un marcatge fet amb el mòbil.
+ * Informació d'un marcatge per a l'app mòbil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

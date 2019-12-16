@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Transient;
@@ -12,10 +11,9 @@ import javax.validation.constraints.NotNull;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioInicial.SituacioInicialPk;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,7 +29,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "article"
 )
-public class SituacioInicial extends AbstractIdentificableWithCompositePk<SituacioInicialPk> {
+public class SituacioInicial extends AbstractIdentificableAmbIdentificador<SituacioInicialPk> {
 
 	@RestapiField()
 	private BigDecimal unitatsInicials;
@@ -52,7 +50,7 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
-	private GenericReference<Article, String> article;	
+	private GenericReference<Article, String> article;
 	
 	@Transient
 	@NotNull
@@ -61,7 +59,7 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)	
-	private GenericReference<Divisa, String> divisa;	
+	private GenericReference<Divisa, String> divisa;
 	
 	@Transient
 	@RestapiField(
@@ -69,15 +67,7 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 			includeInQuickFilter = false,
 			disabledForCreate = true,
 			disabledForUpdate = true)	
-	private GenericReference<ArticleFamilia, String> familia;	
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<ArticleFamilia, String> familia;
 	
 	@Transient
 	@RestapiField(
@@ -96,14 +86,23 @@ public class SituacioInicial extends AbstractIdentificableWithCompositePk<Situac
 
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@EqualsAndHashCode
+	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class SituacioInicialPk implements Serializable {
-		private String identificadorCodi;		
+	public static class SituacioInicialPk extends AmbIdentificadorPk {
 		private String articleCodi;
 		private String classe;
-		private String magatzemCodi;		
+		private String magatzemCodi;
+		public SituacioInicialPk(
+				String identificadorCodi,
+				String articleCodi,
+				String classe,
+				String magatzemCodi) {
+			super(identificadorCodi);
+			this.articleCodi = articleCodi;
+			this.classe = classe;
+			this.magatzemCodi = magatzemCodi;
+		}
 	}
 
 }

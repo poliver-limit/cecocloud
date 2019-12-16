@@ -3,22 +3,20 @@
  */
 package es.limit.cecocloud.rrhh.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
-
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Parametre;
-import es.limit.cecocloud.rrhh.logic.api.dto.Parametre.ParametrePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,36 +40,34 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "par_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "par_idf_cod", length = 15)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "par_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "par_cod", length = 4, insertable = false, updatable = false)),	
-			
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "par_cod", length = 15, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.valor", column = @Column(name = "par_val", length = 1000, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "par_des", length = 1000, insertable = false, updatable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "par_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "par_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "par_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "par_datmod"))
 })
-public class ParametreEntity extends AbstractAuditableCompositePkEntity<Parametre, ParametrePk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "par_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rrhu_par_idf_fk"))
+})
+public class ParametreEntity extends AbstractAmbIdentificadorEntity<Parametre, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Parametre embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "par_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rrhu_par_idf_fk"))
-	protected IdentificadorRrhhEntity identificador;
-
-	
 	@Builder
 	public ParametreEntity(
-			ParametrePk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Parametre embedded,
-			IdentificadorRrhhEntity identificador
-			) {
+			IdentificadorEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;	

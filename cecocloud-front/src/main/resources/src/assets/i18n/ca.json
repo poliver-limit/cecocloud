@@ -6,6 +6,7 @@
 	"app.menu.usuaris": "Usuaris",
 	"app.menu.companyies": "Companyies",
 	"app.menu.companyia": "Companyia",
+	"app.menu.identificador": "Grup d'empreses",
 	"app.menu.identificadors": "Grups d'empreses",
 	"app.menu.empreses": "Empreses",
 	"app.menu.perfils": "Perfils",
@@ -111,6 +112,7 @@
 	"error.validation.constraint.UsuariEmailNotExists": "Ja existeix un altre usuari amb la mateixa adreça de correu",
 
 	"resource.label": "Recurs",
+	"resource.permis.access": "Accés",
 	"resource.permis.read": "Consultar",
 	"resource.permis.write": "Modificar",
 	"resource.permis.create": "Crear",
@@ -839,6 +841,6 @@
 	"page.companyia-usuaris.modal.button.cancelar": "Cancel·lar",
 	"page.companyia-usuaris.modal.button.afegir": "Afegir",
 
-	"page.componyia-usuari-empresa.permisos": "Permisos",
+	"page.componyia-usuari-empresa.permisos": "Permisos per empresa",
 	"page.componyia-usuari-empresa.preferencies": "Preferències"
 }

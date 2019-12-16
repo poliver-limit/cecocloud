@@ -4,15 +4,12 @@
 package es.limit.cecocloud.logic.api.dto;
 
 import javax.persistence.Enumerated;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.logic.api.generic.dto.AbstractIdentificableAmbIdentificador;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,15 +21,8 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "nom")
-public class Empresa extends AbstractIdentificable<Long> {
+public class Empresa extends AbstractIdentificableAmbIdentificador<Long> {
 
-	@NotNull
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
-	private GenericReference<Identificador, String> identificador;
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)
@@ -45,7 +35,7 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@Size(max = 40)
 	@RestapiField(includeInQuickFilter = true)
 	private String nom;
-	@NotNull(groups = { OnCreate.class })
+	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			disabledForUpdate = true)
@@ -54,13 +44,9 @@ public class Empresa extends AbstractIdentificable<Long> {
 	@RestapiField(hiddenInLov = true)
 	private boolean activa;
 
-	@Transient
-	@RestapiField(hiddenInForm = true, hiddenInGrid = true)
-	private Long companyiaId;
-
 	public enum EmpresaTipusEnum {
 		COMPTABLE,
 		GESTIO
 	}
-	
+
 }

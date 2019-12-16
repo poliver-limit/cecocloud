@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Transient;
@@ -13,13 +12,8 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio.TransaccioPk;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -31,7 +25,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Transaccio extends AbstractIdentificableWithCompositePk<TransaccioPk> {
+public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<Integer> {
 	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private Integer codi;
@@ -42,7 +36,7 @@ public class Transaccio extends AbstractIdentificableWithCompositePk<TransaccioP
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<OperariRrhh, String> operari;
+	private GenericReference<Operari, String> operari;
 	
 	@Transient
 	@NotNull
@@ -51,7 +45,7 @@ public class Transaccio extends AbstractIdentificableWithCompositePk<TransaccioP
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<EmpresaRrhh, String> empresa;
+	private GenericReference<Empresa, String> empresa;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
@@ -60,23 +54,5 @@ public class Transaccio extends AbstractIdentificableWithCompositePk<TransaccioP
 	@Size(max = 1000)
 	@RestapiField()
 	private String observacions;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<IdentificadorRrhh, String> identificador;
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class TransaccioPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
-	}
 
 }

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.marcatges.persist.entity.OperariEntity;
-import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus operari.
@@ -25,7 +25,7 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
 @Repository("OperariMarcRepository")
 public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
-	List<OperariEntity> findByEmpresaIdentificadorCompanyia(CompanyiaEntity companyia);
+	List<OperariEntity> findByEmpresaIdentificador(IdentificadorEntity identificador);
 
 	@Query(	"from" +
 			"    OperariEntity op " +
@@ -47,9 +47,8 @@ public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 	List<OperariEntity> findByEmpresaAndDataFiNull(
 			@Param("empresa") EmpresaEntity empresa);
 
-	Optional<OperariEntity> findByEmpresaIdentificadorCompanyiaAndEmpresaIdentificadorIdAndEmpresaEmbeddedCodiAndEmbeddedCodi(
-			CompanyiaEntity companyia,
-			String empresaIdentificadorCodi,
+	Optional<OperariEntity> findByEmpresaIdentificadorAndEmpresaEmbeddedCodiAndEmbeddedCodi(
+			IdentificadorEntity identificador,
 			String empresaCodi,
 			String codi);
 

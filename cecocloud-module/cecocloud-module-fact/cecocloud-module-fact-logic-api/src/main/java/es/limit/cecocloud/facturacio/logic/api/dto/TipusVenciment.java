@@ -3,10 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,16 +12,9 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.TipusVenciment.TipusVencimentPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.MesosEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusVencimentEnumDto;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -35,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class TipusVenciment extends AbstractIdentificableWithCompositePk<TipusVencimentPk> {
+public class TipusVenciment extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
@@ -160,23 +151,5 @@ public class TipusVenciment extends AbstractIdentificableWithCompositePk<TipusVe
 			hiddenInLov = true)
 	@Size(max = 4)
 	private String classeVenciment;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class TipusVencimentPk implements Serializable {
-		private String identificadorCodi;
-		private String codi;
-	}
 
 }

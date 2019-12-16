@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -15,9 +17,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle;
-import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle.VehiclePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,19 +59,19 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mtr_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "mtr_datmod"))
 })
-public class VehicleEntity extends AbstractAuditableCompositePkEntity<Vehicle, VehiclePk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "mtr_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_mtr_idf_fk"))
+})
+public class VehicleEntity extends AbstractAmbIdentificadorEntity<Vehicle, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Vehicle embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "mtr_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_mtr_idf_fk"))
-	protected IdentificadorEntity identificador;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -82,7 +83,7 @@ public class VehicleEntity extends AbstractAuditableCompositePkEntity<Vehicle, V
 
 	@Builder
 	public VehicleEntity(
-			VehiclePk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Vehicle embedded,
 			IdentificadorEntity identificador,
 			TransportistaEntity transportista) {

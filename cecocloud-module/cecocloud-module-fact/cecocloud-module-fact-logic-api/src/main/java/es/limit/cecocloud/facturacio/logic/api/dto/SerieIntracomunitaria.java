@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,10 +14,9 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SerieIntracomunitaria.SerieIntracomunitariaPk;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,7 +32,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class SerieIntracomunitaria extends AbstractIdentificableWithCompositePk<SerieIntracomunitariaPk> {
+public class SerieIntracomunitaria extends AbstractIdentificableAmbIdentificador<SerieIntracomunitariaPk> {
 
 	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
@@ -62,14 +60,6 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithCompositePk<
 	
 	@RestapiField(includeInQuickFilter = true, hiddenInLov = true) 
 	private boolean serieDefecto;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
 	
 	@Transient
 	@RestapiField(
@@ -77,17 +67,22 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithCompositePk<
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<EmpresaFact, String> empresa;
+	private GenericReference<Empresa, String> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@EqualsAndHashCode
+	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class SerieIntracomunitariaPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
+	public static class SerieIntracomunitariaPk extends AmbIdentificadorICodiPk<String> {
 		private String empresaCodi;
+		public SerieIntracomunitariaPk(
+				String identificadorCodi,
+				String empresaCodi,
+				String codi) {
+			super(identificadorCodi, codi);
+			this.empresaCodi = empresaCodi;
+		}
 	}
 
 }

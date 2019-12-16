@@ -4,7 +4,7 @@
 package es.limit.cecocloud.facturacio.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.facturacio.logic.api.dto.TipusComissio.TipusComissioPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.persist.entity.TipusComissioEntity;
 
 /**
@@ -12,5 +12,5 @@ import es.limit.cecocloud.facturacio.persist.entity.TipusComissioEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface TipusComissioRepository extends BaseRepository<TipusComissioEntity, TipusComissioPk> {
+public interface TipusComissioRepository extends BaseRepository<TipusComissioEntity, AmbIdentificadorICodiPk<String>> {
 }

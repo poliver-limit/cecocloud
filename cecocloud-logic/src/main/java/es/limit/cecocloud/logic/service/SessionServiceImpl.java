@@ -45,8 +45,6 @@ public class SessionServiceImpl implements SessionService {
 			return null;
 		} else {
 			UserSession session = new UserSession();
-			session.setC(
-					objectToLong(jwtSession.get("c")));
 			session.setI(
 					objectToLong(jwtSession.get("i")));
 			session.setE(

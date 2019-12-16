@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle;
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle.UbicacioArticlePk;
 import lombok.AccessLevel;
@@ -42,30 +43,28 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "uba_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "uba_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.articleCodi", column = @Column(name = "uba_art_cod", length = 6)),
 	@AttributeOverride(name = "id.magatzemCodi", column = @Column(name = "uba_mag_cod", length = 6)),
-	
-	@AttributeOverride(name = "embedded.unitat", column = @Column(name = "uba_uni", length = 22)),	
-	
+	@AttributeOverride(name = "embedded.unitat", column = @Column(name = "uba_uni", length = 22)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "uba_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "uba_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "uba_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "uba_datmod"))
 })
-public class UbicacioArticleEntity extends AbstractAuditableCompositePkEntity<UbicacioArticle, UbicacioArticlePk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "uba_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_uba_idf_fk"))
+})
+public class UbicacioArticleEntity extends AbstractAmbIdentificadorEntity<UbicacioArticle, UbicacioArticlePk> {
 
 	@Embedded
 	protected UbicacioArticle embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "uba_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_uba_idf_fk"))
-	protected IdentificadorEntity identificador;	
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -74,7 +73,6 @@ public class UbicacioArticleEntity extends AbstractAuditableCompositePkEntity<Ub
 			},
 			foreignKey = @ForeignKey(name = "rges_uba_art_fk"))
 	protected ArticleEntity article;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {	
@@ -89,7 +87,7 @@ public class UbicacioArticleEntity extends AbstractAuditableCompositePkEntity<Ub
 	public UbicacioArticleEntity(
 			UbicacioArticlePk pk,
 			UbicacioArticle embedded,
-			IdentificadorEntity identificador,			
+			IdentificadorEntity identificador,
 			ArticleEntity article,
 			UbicacioEntity ubicacio) {
 		setId(pk);

@@ -10,7 +10,7 @@ import es.limit.cecocloud.logic.api.dto.PerfilRol;
 import es.limit.cecocloud.persist.entity.PerfilRolEntity;
 
 /**
- * Conversor cap a DTO de les entitats de tipus usuariCompanyia.
+ * Conversor cap a DTO de les entitats de tipus perfilRol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

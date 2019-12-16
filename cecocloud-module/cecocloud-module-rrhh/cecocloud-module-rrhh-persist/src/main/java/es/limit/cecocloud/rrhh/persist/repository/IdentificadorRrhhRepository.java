@@ -6,7 +6,7 @@ package es.limit.cecocloud.rrhh.persist.repository;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.rrhh.persist.entity.IdentificadorRrhhEntity;
+import es.limit.cecocloud.rrhh.persist.entity.IdentificadorEntity;
 
 /**
  * Repositori per a gestionar les entitats de tipus Identificador.
@@ -14,5 +14,5 @@ import es.limit.cecocloud.rrhh.persist.entity.IdentificadorRrhhEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository("IdentificadorRrhhRepository")
-public interface IdentificadorRrhhRepository extends BaseRepository<IdentificadorRrhhEntity, String> {
+public interface IdentificadorRrhhRepository extends BaseRepository<IdentificadorEntity, String> {
 }

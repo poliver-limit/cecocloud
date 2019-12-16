@@ -3,21 +3,20 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.TarifaDescompte;
-import es.limit.cecocloud.facturacio.logic.api.dto.TarifaDescompte.TarifaDescomptePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,40 +40,37 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "tds_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "tds_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "tds_cod", length = 4)),
-	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tds_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "tds_des", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tds_obs", length = 1000)),	
-	
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tds_obs", length = 1000)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "tds_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "tds_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tds_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tds_datmod"))
 })
-public class TarifaDescompteEntity extends AbstractAuditableCompositePkEntity<TarifaDescompte, TarifaDescomptePk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "tds_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_tds_idf_fk"))
+})
+public class TarifaDescompteEntity extends AbstractAmbIdentificadorEntity<TarifaDescompte, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected TarifaDescompte embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "tds_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_tds_idf_fk"))
-	protected IdentificadorEntity identificador;
-
 	@Builder
 	public TarifaDescompteEntity(
-			TarifaDescomptePk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			TarifaDescompte embedded,
-			IdentificadorEntity identificador
-			) {
+			IdentificadorEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
-		this.identificador = identificador;	
+		this.identificador = identificador;
 	}
 
 	@Override

@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Entitat del model de dades que conté la informació d'un rol.
+ * Entitat del model que representa un rol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -35,38 +35,38 @@ import lombok.Setter;
 @Table(
 		name = "rol",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "rol_uk", columnNames = {"companyia_id", "codi"})
+				@UniqueConstraint(name = "rol_uk", columnNames = {"identificador_id", "codi"})
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 30, nullable = false)),
-    @AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 255, nullable = false))
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 10, nullable = false)),
+    @AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 100, nullable = false))
 })
 public class RolEntity extends AbstractAuditableVersionableEntity<Rol, Long> {
 
 	@Embedded
 	protected Rol embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "companyia_id",
-			foreignKey = @ForeignKey(name = "rol_companyia_fk"))
-	protected CompanyiaEntity companyia;
+			name = "identificador_id",
+			foreignKey = @ForeignKey(name = "rol_identificador_fk"))
+	protected IdentificadorEntity identificador;
 
 	@Builder
 	public RolEntity(
 			Rol embedded,
-			CompanyiaEntity companyia) {
+			IdentificadorEntity identificador) {
 		this.embedded = embedded;
-		this.companyia = companyia;
+		this.identificador = identificador;
 	}
 
 	@Override
 	public void update(Rol embedded) {
 		this.embedded = embedded;
 	}
-	public void updateCompanyia(CompanyiaEntity companyia) {
-		this.companyia = companyia;
+	public void updateIdentificador(IdentificadorEntity identificador) {
+		this.identificador = identificador;
 	}
 
 }

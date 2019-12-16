@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Entitat del model de dades que conté la informació de la relació entre perfil i grup.
+ * Entitat del model que representa una relació perfil-rol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -42,10 +42,10 @@ public class PerfilRolEntity extends AbstractAuditableVersionableCompositePkEnti
 	@Embedded
 	protected PerfilRol embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "perfil_id", foreignKey = @ForeignKey(name = "perfilrol_perfil_fk"), insertable = false, updatable = false)
 	protected PerfilEntity perfil;
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "perfilrol_rol_fk"), insertable = false, updatable = false)
 	protected RolEntity rol;
 

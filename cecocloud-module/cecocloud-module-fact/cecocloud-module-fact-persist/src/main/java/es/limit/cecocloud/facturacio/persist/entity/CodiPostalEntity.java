@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,9 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.CodiPostal;
-import es.limit.cecocloud.facturacio.logic.api.dto.CodiPostal.CodiPostalPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,28 +43,29 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cpo_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "cpo_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cpo_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "cpo_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cpo_cod", length = 4, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "cpo_pob", length = 30, nullable = false)),		
+	@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "cpo_pob", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.municipi", column = @Column(name = "cpo_mun", length = 30)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "cpo_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "cpo_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cpo_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "cpo_datmod"))
 })
-public class CodiPostalEntity extends AbstractAuditableCompositePkEntity<CodiPostal, CodiPostalPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "cpo_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_cpo_idf_fk"))
+})
+public class CodiPostalEntity extends AbstractAmbIdentificadorEntity<CodiPostal, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected CodiPostal embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "cpo_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_cpo_idf_fk"))
-	protected IdentificadorEntity identificador;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -84,7 +86,7 @@ public class CodiPostalEntity extends AbstractAuditableCompositePkEntity<CodiPos
 
 	@Builder
 	public CodiPostalEntity(
-			CodiPostalPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			CodiPostal embedded,
 			IdentificadorEntity identificador,
 			PaisEntity pais,

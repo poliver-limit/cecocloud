@@ -26,7 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity(name = "IdentificadorFactEntity")
+@Entity(name = "factIdentificadorEntity")
 @Table(name = "tges_idf")
 
 @AttributeOverrides({

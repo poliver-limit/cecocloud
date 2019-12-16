@@ -14,7 +14,6 @@ import lombok.Setter;
 @Getter @Setter
 public class UserSession {
 
-	private Long c; // Id de la companyia
 	private Long i; // Id de l'identificador
 	private Long e; // Id de l'empresa
 

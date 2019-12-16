@@ -9,8 +9,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.persist.entity.CompanyiaEntity;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus empresa.
@@ -20,11 +20,8 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
 @Repository
 public interface EmpresaRepository extends BaseRepository<EmpresaEntity, Long> {
 
-	List<EmpresaEntity> findByIdentificadorCompanyia(CompanyiaEntity companyia);
+	List<EmpresaEntity> findByIdentificador(IdentificadorEntity identificador);
 
-	Optional<EmpresaEntity> findByIdentificadorCompanyiaAndIdentificadorIdAndEmbeddedCodi(
-			CompanyiaEntity companyia,
-			String identificadorCodi,
-			String codi);
-
+	Optional<EmpresaEntity> findByIdentificadorAndEmbeddedCodi(IdentificadorEntity identificador, String codi);
+	
 }

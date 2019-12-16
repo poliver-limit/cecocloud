@@ -40,7 +40,7 @@ public class AsymmetricCryptographyHelper {
 					NoSuchAlgorithmException, 
 					InvalidKeySpecException {
 		if (privateKey == null) {
-			InputStream stream = AsymmetricCryptographyHelper.class.getClassLoader().getResourceAsStream("es/limit/cecogest/comu/logic/keys/privateKey");
+			InputStream stream = AsymmetricCryptographyHelper.class.getClassLoader().getResourceAsStream("es/limit/cecocloud/logic/keys/privateKey");
 			byte[] keyBytes = IOUtils.toByteArray(stream);
 			PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
 			KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -54,7 +54,7 @@ public class AsymmetricCryptographyHelper {
 					NoSuchAlgorithmException, 
 					InvalidKeySpecException  {
 		if (publicKey == null) {
-			InputStream stream = AsymmetricCryptographyHelper.class.getClassLoader().getResourceAsStream("es/limit/cecogest/comu/logic/keys/publicKey");
+			InputStream stream = AsymmetricCryptographyHelper.class.getClassLoader().getResourceAsStream("es/limit/cecocloud/logic/keys/publicKey");
 			byte[] keyBytes = IOUtils.toByteArray(stream);
 			X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
 			KeyFactory kf = KeyFactory.getInstance("RSA");

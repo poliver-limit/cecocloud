@@ -28,5 +28,4 @@ public class SituacioInicialServiceImpl extends AbstractGenericCompositePkServic
 				dto.getMagatzem().getId());
 	}
 
-
 }

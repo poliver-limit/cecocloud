@@ -4,7 +4,7 @@
 package es.limit.cecocloud.rrhh.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.rrhh.logic.api.dto.Subcategoria.SubcategoriaPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.persist.entity.SubcategoriaEntity;
 
 /**
@@ -12,5 +12,5 @@ import es.limit.cecocloud.rrhh.persist.entity.SubcategoriaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface SubcategoriaRepository extends BaseRepository<SubcategoriaEntity, SubcategoriaPk> {
+public interface SubcategoriaRepository extends BaseRepository<SubcategoriaEntity, AmbIdentificadorICodiPk<String>> {
 }

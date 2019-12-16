@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,9 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Transportista;
-import es.limit.cecocloud.facturacio.logic.api.dto.Transportista.TransportistaPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -65,18 +66,19 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tra_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tra_datmod"))
 })
-public class TransportistaEntity extends AbstractAuditableCompositePkEntity<Transportista, TransportistaPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "tra_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_tra_idf_fk"))
+})
+public class TransportistaEntity extends AbstractAmbIdentificadorEntity<Transportista, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected Transportista embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "tra_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_tra_idf_fk"))
-	protected IdentificadorEntity identificador;
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -104,7 +106,7 @@ public class TransportistaEntity extends AbstractAuditableCompositePkEntity<Tran
 
 	@Builder
 	public TransportistaEntity(
-			TransportistaPk pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Transportista embedded,
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostal,

@@ -1,4 +1,4 @@
-import { RecusrosPermisModule } from '../../shared/recursos-permis.module';
+import { RecusrosPermisModule } from '../../shared/recusros/recursos-permis.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -11,9 +11,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { RolsGridComponent } from './rols-grid.component';
 import { RolsFormComponent } from './rols-form.component';
-import { RecursosPermisComponent } from '../../shared/recursos-permis.component';
+import { RecursosPermisComponent } from '../../shared/recusros/recursos-permis.component';
 import { RolsService } from './rols.service';
-import { RecursosService } from 'src/app/shared/recusros.service';
+import { RecursosService } from 'src/app/shared/recusros/recusros.service';
 import { PerfilRolService } from '../perfils/perfilRol.service';
 import { PerfilUsuariEmpresaService } from '../companyia-usuaris/perfil-usuari-empresa.service';
 

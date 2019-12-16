@@ -2,9 +2,9 @@ import { EmpresaPerfil } from './companyia-usuaris-form.component';
 import { EmpresesService } from './../empreses/empreses.service';
 import { PerfilUsuariEmpresaService, PerfilUsuariEmpresa } from './perfil-usuari-empresa.service';
 import { PerfilsService } from './../perfils/perfils.service';
-import { UsuariEmpresaService, UsuariEmpresa } from './../../shared/usuari-empresa.service';
+import { UsuariIdentificadorEmpresaService, UsuariIdentificadorEmpresa } from '../../shared/usuari-identificador-empresa.service';
 import { Resource, HalParam } from 'angular4-hal';
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ViewChildren, QueryList } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
@@ -15,6 +15,8 @@ import { BngRestapiProfile } from '@programari-limit/base-angular/lib/restapi/re
 import { UsuarisService } from "./usuaris.service";
 import { CompanyiaUsuarisService } from './companyia-usuaris.service';
 import { MatTable, MatSnackBar } from '@angular/material';
+import { RecursosPermisComponent } from 'src/app/shared/recusros/recursos-permis.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 export interface EmpresaPerfil {
 	empresaNom: string;
@@ -67,37 +69,60 @@ export interface EmpresaPerfil {
 		</ng-template>
 		<div style="display: flex">
 			<div style="width: 100%; margin-top: 40px;">
-				<mat-tab-group>
+				<mat-tab-group animationDuration="0ms">
 					<mat-tab label="{{'page.componyia-usuari-empresa.permisos'|translate}}">
 						<!-- Pestanya de permisos -->
-						<table mat-table [dataSource]="empresaPerfils" class="mat-elevation-z8" style="width:100%;">
+						<table mat-table [dataSource]="empresaPerfils" multiTemplateDataRows class="mat-elevation-z8" style="width:100%;">
 							<!-- Columna de empresa -->
 							<ng-container matColumnDef="nom">
-								<th mat-header-cell *matHeaderCellDef style="width:30%;"> {{'resource.empresa' | translate}} </th>
-								<td mat-cell *matCellDef="let empresa"> {{empresa.empresaNom}} </td>
+								<th mat-header-cell *matHeaderCellDef> {{'resource.empresa' | translate}} </th>
+								<td mat-cell *matCellDef="let empresa">
+									<button mat-button class="bdown">
+										<mat-icon (click)="this.expandedEmpresa = this.expandedEmpresa === empresa ? null : empresa">keyboard_arrow_down</mat-icon>
+									</button>
+									{{empresa.empresaNom}}
+								</td>
 							</ng-container>
 							<!-- Columna de perfils -->
 							<ng-container matColumnDef="perfils">
-								<th mat-header-cell *matHeaderCellDef style="width:70%;"> {{'resource.perfil.plural' | translate}} </th>
+								<th mat-header-cell *matHeaderCellDef> {{'resource.perfil.plural' | translate}} </th>
 								<td mat-cell *matCellDef="let empresa; let index = index">
 									<mat-select [disabled]="disableSelects" [(value)]="empresa.perfils" multiple placeholder="Sense accés" (selectionChange)="onPerfilChange($event, index)">
 										<mat-option *ngFor="let perfil of perfils" [value]="perfil.id">{{perfil.codi}}</mat-option>
 									</mat-select>
 								</td>
 							</ng-container>
+							<!-- Detall de permisos -->
+							<ng-container matColumnDef="expandedDetail">
+								<td mat-cell *matCellDef="let empresa" [attr.colspan]="columnsToDisplay.length">
+									<div class="empresa-permisos-detail" [@detailExpand]="empresa == expandedEmpresa ? 'expanded' : 'collapsed'">
+										<cec-recursos [usuariEmpresa] = "{'empresaId': empresa.empresaId, 'usuariCodi': usuari.codi}" style="width:100%;"></cec-recursos>
+									</div>
+								</td>
+							</ng-container>
 							<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-							<tr mat-row *matRowDef="let rows; columns: columnsToDisplay"></tr>
+							<tr mat-row *matRowDef="let empresa; columns: columnsToDisplay;"
+								[class.empresa-expanded-row]="expandedEmpresa === empresa">
+							</tr>
+							<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="empresa-permisos-row"></tr>
 						</table>
 					</mat-tab>
-					<mat-tab label="{{'page.componyia-usuari-empresa.preferencies'|translate}}">
-					<!-- Pestanya de preferències -->
+					<!--mat-tab label="{{'page.componyia-usuari-empresa.preferencies'|translate}}">
+					<!-- Pestanya de preferències ->
 						<h3>Empresa per defecte</h3>
-					</mat-tab>
+					</mat-tab-->
 				</mat-tab-group>
 			</div>
 		</div>
 	</bng-form>
 	`,
+	animations: [
+		trigger('detailExpand', [
+			state('collapsed', style({ height: '0px', minHeight: '0' })),
+			state('expanded', style({ height: '*' })),
+			transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+		]),
+	],
 	styles: [`
 	.form-header {
 		border-bottom: 1px solid #e2e2e2;
@@ -115,6 +140,37 @@ export interface EmpresaPerfil {
 	}
 	button[title="Editar"] {
     	display: none;
+	}
+	tr.empresa-permisos-row {
+		height: 0;
+	}
+
+	tr.empresa-permisos-row:not(.example-expanded-row):hover {
+	background: #777;
+	}
+
+	tr.empresa-permisos-row:not(.example-expanded-row):active {
+	background: #efefef;
+	}
+
+	.empresa-permisos-row td {
+	border-bottom-width: 0;
+	}
+	.empresa-permisos-detail {
+  		overflow: hidden;
+  		display: flex;
+	}
+	.mat-column-nom {
+		width: 25%;
+		flex: 0 0 25% !important;
+	}
+	.mat-column-perfils {
+		width: 75%;
+		flex: 0 0 75% !important;
+	}
+	.bdown {
+		min-width: 24px;
+		padding: 0px;
 	}
 	`]
 })
@@ -147,6 +203,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	epo: EmpresaPerfil[];
 
 	columnsToDisplay: string[] = ['nom', 'perfils'];
+	expandedEmpresa: any | null;
 	disableSelects: boolean = false;
 
 	ngOnDestroy() {
@@ -176,7 +233,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 					usuari: { id: this.usuari.id },
 					empresa: { id: this.empresaPerfils[index].empresaId }
 				}
-				this.usuariEmpresaService.create(<UsuariEmpresa>usuariEmpresa).subscribe((resposta: any) => {
+				this.usuariEmpresaService.create(<UsuariIdentificadorEmpresa>usuariEmpresa).subscribe((resposta: any) => {
 					this.empresaPerfils[index].usuariEmpresaId = resposta.id;
 					let perfilUsuariEmpresa: any = {
 						usuariEmpresa: { id: resposta.id },
@@ -290,7 +347,7 @@ export class CompanyiaUsuarisFormComponent implements OnDestroy {
 	constructor(
 		public usuarisService: UsuarisService,
 		public usuariCompanyiaService: CompanyiaUsuarisService,
-		public usuariEmpresaService: UsuariEmpresaService,
+		public usuariEmpresaService: UsuariIdentificadorEmpresaService,
 		public empresaService: EmpresesService,
 		public perfilsService: PerfilsService,
 		public perfilUsuariEmpresaService: PerfilUsuariEmpresaService,

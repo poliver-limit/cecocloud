@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.rrhh.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,9 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio;
-import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio.TransaccioPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,34 +43,32 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "tra_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "tra_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tra_cod", length = 4, insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.dataHora", column = @Column(name = "tra_dathor")),	
-	@AttributeOverride(name = "embedded.operariCodi", column = @Column(name = "tra_ope_cod", length = 6)),			
-	@AttributeOverride(name = "embedded.tipusTransaccioCodi", column = @Column(name = "tra_ttr_cod", length = Integer.MAX_VALUE)),			
-	@AttributeOverride(name = "embedded.empresaCodi", column = @Column(name = "tra_emp_cod", length = 4)),			
-	@AttributeOverride(name = "embedded.nodeCodi", column = @Column(name = "tra_nod_num", length = 4)),			
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "tra_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "tra_cod")),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tra_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.dataHora", column = @Column(name = "tra_dathor")),
+	@AttributeOverride(name = "embedded.operariCodi", column = @Column(name = "tra_ope_cod", length = 6)),
+	@AttributeOverride(name = "embedded.tipusTransaccioCodi", column = @Column(name = "tra_ttr_cod", length = Integer.MAX_VALUE)),
+	@AttributeOverride(name = "embedded.empresaCodi", column = @Column(name = "tra_emp_cod", length = 4)),
+	@AttributeOverride(name = "embedded.nodeCodi", column = @Column(name = "tra_nod_num", length = 4)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tra_obs", length = 1000)),
-			
 	@AttributeOverride(name = "createdBy", column = @Column(name = "tra_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "tra_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tra_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tra_datmod"))
 })
-public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transaccio, TransaccioPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "tra_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rrhu_tra_idf_fk"))
+})
+public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio, AmbIdentificadorICodiPk<Integer>> {
 
 	@Embedded
 	protected Transaccio embedded;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "tra_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rrhu_tra_idf_fk"))
-	protected IdentificadorRrhhEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -78,8 +77,7 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 					@JoinColumn(name = "tra_ope_cod", referencedColumnName = "ope_cod", insertable = false, updatable = false)
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_ope_fk"))			
-	protected OperariRrhhEntity operari;
-	
+	protected OperariEntity operari;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = { 
@@ -88,7 +86,6 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_ttr_fk"))	
 	protected TipusTransaccioEntity tipusTransaccio;
-	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = { 
@@ -96,8 +93,7 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 					@JoinColumn(name = "tra_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_emp_fk"))			
-	protected EmpresaRrhhEntity empresa;	
-	
+	protected EmpresaEntity empresa;	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = { 
@@ -106,17 +102,16 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_nod_fk"))			
 	protected NodeEntity node;	
-	
+
 	@Builder
 	public TransaccioEntity(
-			TransaccioPk pk,
+			AmbIdentificadorICodiPk<Integer> pk,
 			Transaccio embedded,
-			IdentificadorRrhhEntity identificador,
-			OperariRrhhEntity operari,
+			IdentificadorEntity identificador,
+			OperariEntity operari,
 			TipusTransaccioEntity tipusTransaccio,
-			EmpresaRrhhEntity empresa,
-			NodeEntity node
-			) {
+			EmpresaEntity empresa,
+			NodeEntity node) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

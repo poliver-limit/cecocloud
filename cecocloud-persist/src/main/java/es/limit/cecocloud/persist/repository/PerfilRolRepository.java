@@ -10,8 +10,7 @@ import es.limit.cecocloud.logic.api.dto.PerfilRol.PerfilRolPk;
 import es.limit.cecocloud.persist.entity.PerfilRolEntity;
 
 /**
- * Mètodes necessaris per a gestionar una entitat de base
- * de dades de tipus perfil - grup.
+ * Repository per a gestionar les entitats de tipus perfil-rol.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

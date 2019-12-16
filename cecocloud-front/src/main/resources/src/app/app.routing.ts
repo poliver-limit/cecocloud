@@ -4,61 +4,57 @@ import { BngAuthGuard } from 'base-angular';
 
 export const routes: Routes = [{
     path: '',
-    loadChildren: './pages/home/home.module#HomeModule',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'login',
-    loadChildren: './pages/login/login.module#LoginModule'
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
 }, {
     path: 'registre',
-    loadChildren: './pages/registre/registre.module#RegistreModule'
+    loadChildren: () => import('./pages/registre/registre.module').then(m => m.RegistreModule)
 }, {
     path: 'admin-app',
-    loadChildren: './pages/admin-app/admin-app.module#AdminAppModule',
+    loadChildren: () => import('./pages/admin-app/admin-app.module').then(m => m.AdminAppModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'usuaris',
-    loadChildren: './pages/usuaris/usuaris.module#UsuarisModule',
+    loadChildren: () => import('./pages/usuaris/usuaris.module').then(m => m.UsuarisModule),
     canActivate: [BngAuthGuard]
 }, {
-    path: 'companyies',
-    loadChildren: './pages/companyies/companyies.module#CompanyiesModule',
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'admin-companyia',
-    loadChildren: './pages/admin-companyia/admin-companyia.module#AdminCompanyiaModule',
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'companyia',
-    loadChildren: './pages/companyia/companyia.module#CompanyiaModule',
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'companyia-usuaris',
-    loadChildren: './pages/companyia-usuaris/companyia-usuaris.module#CompanyiaUsuarisModule',
+    path: 'admin-identificador',
+    loadChildren: () => import('./pages/admin-identificador/admin-identificador.module').then(m => m.AdminIdentificadorModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'identificadors',
-    loadChildren: './pages/identificadors/identificadors.module#IdentificadorsModule',
+    loadChildren: () => import('./pages/identificadors/identificadors.module').then(m => m.IdentificadorsModule),
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'identificador',
+    loadChildren: () => import('./pages/identificador/identificador.module').then(m => m.IdentificadorModule),
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'companyia-usuaris',
+    loadChildren: () => import('./pages/companyia-usuaris/companyia-usuaris.module').then(m => m.CompanyiaUsuarisModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'rols',
-    loadChildren: './pages/rols/rols.module#RolsModule',
+    loadChildren: () => import('./pages/rols/rols.module').then(m => m.RolsModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'perfils',
-    loadChildren: './pages/perfils/perfils.module#PerfilsModule',
+    loadChildren: () => import('./pages/perfils/perfils.module').then(m => m.PerfilsModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'empreses',
-    loadChildren: './pages/empreses/empreses.module#EmpresesModule',
+    loadChildren: () => import('./pages/empreses/empreses.module').then(m => m.EmpresesModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'marc',
-    loadChildren: './modules/marc/marc.module#MarcModule',
+    loadChildren: () => import('./modules/marc/marc.module').then(m => m.MarcModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'fact',
-    loadChildren: './modules/fact/fact.module#FactModule',
+    loadChildren: () => import('./modules/fact/fact.module').then(m => m.FactModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'rrhh',
