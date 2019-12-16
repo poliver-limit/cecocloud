@@ -6,7 +6,6 @@ package es.limit.cecocloud.logic.api.generic.dto;
 import java.io.Serializable;
 
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
@@ -24,13 +23,14 @@ import lombok.Setter;
 @Getter @Setter
 public abstract class AbstractIdentificableAmbIdentificador<ID extends Serializable> extends AbstractIdentificable<ID> implements IdentificableAmbIdentificador<ID> {
 
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,			
-			hiddenInForm = true)
+			hiddenInGrid = true,			
+			hiddenInForm = true,			
+			hiddenInLov = true)
 	private GenericReference<Identificador, Long> identificador;
 
 }

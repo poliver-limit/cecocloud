@@ -26,7 +26,9 @@ public abstract class AbstractIdentificableAmbIdentificador<PK extends AmbIdenti
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,			
-			hiddenInForm = true)
+			hiddenInGrid = true,			
+			hiddenInForm = true,			
+			hiddenInLov = true)
 	private GenericReference<Identificador, String> identificador;
 
 }
