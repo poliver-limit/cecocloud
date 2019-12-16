@@ -40,7 +40,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.numEmpreses", column = @Column(name = "num_empreses", nullable = false)),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "data_inici", nullable = false)),
 	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi", nullable = false)),
-	@AttributeOverride(name = "embedded.llicencia", column = @Column(name = "llicencia", length = 1000, nullable = false)),
+	@AttributeOverride(name = "embedded.llicencia", column = @Column(name = "llicencia", length = 2000, nullable = false)),
 	@AttributeOverride(name = "embedded.llicenciaOk", column = @Column(name = "llicencia_ok", nullable = false))
 })
 public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Identificador, Long> {

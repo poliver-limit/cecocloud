@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
-import es.limit.base.boot.logic.api.exception.GenericException;
+import es.limit.base.boot.logic.api.exception.LicenseGenerationException;
 import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
@@ -26,14 +26,12 @@ import es.limit.cecocloud.logic.helper.AsymmetricCryptographyHelper;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Implementació del servei de gestió d'identificadors.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Slf4j
 @Service
 public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissionsImpl<Identificador, IdentificadorEntity, Long> implements IdentificadorService {
 
@@ -106,7 +104,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	}
 	
 	@Override
-	protected void beforeUpdate(IdentificadorEntity entity, Identificador dto) throws GenericException {
+	protected void beforeUpdate(IdentificadorEntity entity, Identificador dto) {
 		super.beforeUpdate(entity, dto);
 		generateLicense(dto);
 	}
@@ -114,7 +112,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	
 	
 	@Override
-	protected void beforeDelete(IdentificadorEntity entity) throws GenericException {
+	protected void beforeDelete(IdentificadorEntity entity) {
 		super.beforeDelete(entity);
 		// Eliminar permisos
 		List<BaseBootPermission> permisos = permissionFind(entity.getId());
@@ -128,28 +126,6 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		}
 	}
 
-	private void generateLicense(Identificador dto) {
-		// General la llicència
-		Llicencia llicencia = new Llicencia(
-				dto.getCodi(),
-				dto.getDescripcio(),
-				dto.getNumEmpreses(),
-				dto.getNumUsuaris(),
-				dto.getDataInici(),
-				dto.getDataFi(),
-				null,	// Moduls
-				null);	// Caracteristiques
-		ObjectMapper mapper = new ObjectMapper();
-		String llicenciaJson;
-		try {
-			llicenciaJson = mapper.writeValueAsString(llicencia);
-			dto.setLlicencia(AsymmetricCryptographyHelper.encryptText(llicenciaJson));
-		} catch (Exception e) {
-			log.error("Error al generar la llicència", e);
-			throw new GenericException("Error generating the license.", e);
-		}
-	}
-	
 	@Override
 	protected void afterCreate(IdentificadorEntity entity, Identificador dto) {
 		super.afterCreate(entity, dto);
@@ -163,7 +139,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		permission.setSyncGranted(true);
 		permissionCreate(entity.getId(), permission);
 	}
-	
+
 	@Override
 	protected void afterUpdate(IdentificadorEntity entity, Identificador dto) {
 		super.afterUpdate(entity, dto);
@@ -177,7 +153,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		permission.setSyncGranted(true);
 		permissionCreate(entity.getId(), permission);
 	}
-	
+
 	/*@Override
 	protected void beforeCreate(IdentificadorEntity entity, Identificador dto) {
 		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authenticationFacade.getAuthentication();
@@ -225,6 +201,27 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		session.close();
 		return StringUtils.leftPad(Long.toString(longCode, 36).toUpperCase(), 4, "0");
 	}*/
+
+	private void generateLicense(Identificador dto) {
+		// General la llicència
+		Llicencia llicencia = new Llicencia(
+				dto.getCodi(),
+				dto.getDescripcio(),
+				dto.getNumEmpreses(),
+				dto.getNumUsuaris(),
+				dto.getDataInici(),
+				dto.getDataFi(),
+				null,	// Moduls
+				null);	// Caracteristiques
+		ObjectMapper mapper = new ObjectMapper();
+		String llicenciaJson;
+		try {
+			llicenciaJson = mapper.writeValueAsString(llicencia);
+			dto.setLlicencia(AsymmetricCryptographyHelper.encryptText(llicenciaJson));
+		} catch (Exception e) {
+			throw new LicenseGenerationException("Error generating the license.", e);
+		}
+	}
 
 	private boolean hasAnyPermission(BaseBootPermission permission) {
 		return permission.isReadGranted() || permission.isAdminGranted();

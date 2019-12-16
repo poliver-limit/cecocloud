@@ -4,14 +4,11 @@
 package es.limit.cecocloud.logic.api.dto;
 
 import javax.persistence.Enumerated;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.generic.dto.AbstractIdentificableAmbIdentificador;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,13 +23,6 @@ import lombok.Setter;
 		descriptionField = "nom")
 public class Empresa extends AbstractIdentificableAmbIdentificador<Long> {
 
-//	@NotNull
-//	@Transient
-//	@RestapiField(
-//			type = RestapiFieldType.LOV,
-//			disabledForUpdate = true,
-//			includeInQuickFilter = true)
-//	private GenericReference<Identificador, Long> identificador;
 	@NotNull
 	@Size(max = 4)
 	@RestapiField(hiddenInLov = true, includeInQuickFilter = true)

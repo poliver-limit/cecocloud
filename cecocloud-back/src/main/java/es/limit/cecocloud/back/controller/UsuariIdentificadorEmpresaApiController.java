@@ -33,12 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(GenericController.API_PATH + "/usuariIdentificadorEmpreses")
 public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificableApiController<UsuariIdentificadorEmpresa, String> {
 
-	@Override
-	protected String additionalRsqlFilterFromSession(Object userSession) {
-		Long identificadorId = ((UserSession)userSession).getI();
-		return "empresa.identificador.id==" + identificadorId;
-	}
-	
 	// Mètodes per a obtenir les empreses a les que té accés l'usuari autenticat
 	@GetMapping(
 			value = "/selectionTree",
@@ -59,7 +53,7 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 						getApiLink(Link.REL_SELF),
 						getProfileLink("profile")));
 	}
-		
+
 	// Mètodes per a configurar els permisos (perfils) a nivell d'usuari-empresa
 	@GetMapping(
 			value = "/perfilTree",
@@ -80,4 +74,11 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 						getApiLink(Link.REL_SELF),
 						getProfileLink("profile")));
 	}
+
+	@Override
+	protected String additionalRsqlFilterFromSession(Object userSession) {
+		Long identificadorId = ((UserSession)userSession).getI();
+		return "empresa.identificador.id==" + identificadorId;
+	}
+
 }

@@ -41,5 +41,6 @@ public class Llicencia {
 	@JsonProperty("m")
 	private List <String> modulsDisponibles;
 	@JsonProperty("a")
-	private List <Long> caracteristiques;
+	private List <String> caracteristiques;
+
 }
