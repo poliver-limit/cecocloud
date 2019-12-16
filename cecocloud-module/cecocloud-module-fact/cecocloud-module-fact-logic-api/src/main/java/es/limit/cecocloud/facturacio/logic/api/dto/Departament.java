@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
-
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,10 +10,9 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.facturacio.logic.api.dto.Departament.DepartamentPk;
-
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,7 +28,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class Departament extends AbstractIdentificableWithCompositePk<DepartamentPk> {
+public class Departament extends AbstractIdentificableAmbIdentificador<DepartamentPk> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)
@@ -40,27 +37,19 @@ public class Departament extends AbstractIdentificableWithCompositePk<Departamen
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	
+
 	@NotNull
 	@Size(max = 60)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
-	
+
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String observacions;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
 	
 	@Transient
 	@RestapiField(
@@ -68,17 +57,22 @@ public class Departament extends AbstractIdentificableWithCompositePk<Departamen
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<EmpresaFact, String> empresa;
+	private GenericReference<Empresa, String> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@EqualsAndHashCode
+	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class DepartamentPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
+	public static class DepartamentPk extends AmbIdentificadorICodiPk<String> {
 		private String empresaCodi;
+		public DepartamentPk(
+				String identificadorCodi,
+				String empresaCodi,
+				String codi) {
+			super(identificadorCodi, codi);
+			this.empresaCodi = empresaCodi;
+		}
 	}
 
 }

@@ -7,7 +7,7 @@ import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.Rol;
 
 /**
- * Servei per a la gestió de rols.
+ * Servei encarregat de gestionar rols.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

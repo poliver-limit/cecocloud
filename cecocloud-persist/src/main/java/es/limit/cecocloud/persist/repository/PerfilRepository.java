@@ -9,8 +9,7 @@ import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.persist.entity.PerfilEntity;
 
 /**
- * Mètodes necessaris per a gestionar una entitat de base
- * de dades de tipus perfil.
+ * Repository per a gestionar les entitats de tipus perfil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

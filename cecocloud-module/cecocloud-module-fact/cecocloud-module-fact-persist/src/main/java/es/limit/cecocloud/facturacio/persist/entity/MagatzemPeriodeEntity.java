@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
 import lombok.AccessLevel;
@@ -45,28 +46,26 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pmg_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.magatzemCodi", column = @Column(name = "pmg_mag_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "pmg_cod", length = 4)),
-	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pmg_cod", length = 4, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "pmg_des", length = 30, nullable = false)),	
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "pmg_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "pmg_diaini", nullable = false)),
-			
 	@AttributeOverride(name = "createdBy", column = @Column(name = "pmg_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "pmg_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "pmg_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "pmg_datmod"))
 })
-public class MagatzemPeriodeEntity extends AbstractAuditableCompositePkEntity<MagatzemPeriode, MagatzemPeriodePk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "pmg_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_pmg_idf_fk"))
+})
+public class MagatzemPeriodeEntity extends AbstractAmbIdentificadorEntity<MagatzemPeriode, MagatzemPeriodePk> {
 
 	@Embedded
 	protected MagatzemPeriode embedded;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "pmg_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_pmg_idf_fk"))
-	protected IdentificadorEntity identificador;	
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -76,7 +75,7 @@ public class MagatzemPeriodeEntity extends AbstractAuditableCompositePkEntity<Ma
 			},
 			foreignKey = @ForeignKey(name = "rges_pmg_mag_fk"))
 	private MagatzemEntity magatzem;
-	
+
 	@Builder
 	public MagatzemPeriodeEntity(
 			MagatzemPeriodePk pk,

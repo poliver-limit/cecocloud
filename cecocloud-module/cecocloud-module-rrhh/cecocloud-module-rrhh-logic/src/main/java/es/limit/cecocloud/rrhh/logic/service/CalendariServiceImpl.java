@@ -23,9 +23,7 @@ public class CalendariServiceImpl extends AbstractGenericCompositePkServiceImpl<
 	protected CalendariPk getPkFromDto(Calendari dto) {
 		return new CalendariPk(
 				dto.getIdentificador().getId(),
-				dto.getData().toString()
-				);
+				dto.getData());
 	}
-
 
 }

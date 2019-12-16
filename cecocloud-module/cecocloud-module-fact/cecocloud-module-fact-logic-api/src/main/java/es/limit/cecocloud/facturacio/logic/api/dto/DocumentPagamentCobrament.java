@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Transient;
@@ -14,14 +13,8 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.DocumentPagamentCobrament.DocumentPagamentCobramentPk;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -33,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class DocumentPagamentCobrament extends AbstractIdentificableWithCompositePk<DocumentPagamentCobramentPk> {
+public class DocumentPagamentCobrament extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
@@ -147,14 +140,6 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
 	private GenericReference<NaturalesaPagamentCobrament, String> naturalesaPagamentCobrament;
@@ -172,15 +157,5 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithComposit
 			hiddenInGrid = true,
 			hiddenInLov = true)	
 	private GenericReference<RegimIva, String> regimIva;
-	
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class DocumentPagamentCobramentPk implements Serializable {
-		private String identificadorCodi;
-		private String codi;
-	}
 
 }

@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa;
 import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa.SeccioEmpresaPk;
 import es.limit.cecocloud.rrhh.persist.entity.SeccioEntity;
@@ -45,30 +46,28 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "dfs_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "dfs_emp_cod", length = 4)),
-	@AttributeOverride(name = "id.articleFamiliaCodi", column = @Column(name = "dfs_far_cod", length = 4)),		
-	
-	@AttributeOverride(name = "embedded.seccioCodi", column = @Column(name = "dfs_sec_cod", insertable = false, updatable = false)),			
-	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "dfs_pte")),			
+	@AttributeOverride(name = "id.articleFamiliaCodi", column = @Column(name = "dfs_far_cod", length = 4)),
+	@AttributeOverride(name = "embedded.seccioCodi", column = @Column(name = "dfs_sec_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "dfs_pte")),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "dfs_obs", length = 1000)),
-			
 	@AttributeOverride(name = "createdBy", column = @Column(name = "dfs_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "dfs_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "dfs_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "dfs_datmod"))
 })
-public class SeccioEmpresaEntity extends AbstractAuditableCompositePkEntity<SeccioEmpresa, SeccioEmpresaPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "dfs_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_dfs_idf_fk"))
+})
+public class SeccioEmpresaEntity extends AbstractAmbIdentificadorEntity<SeccioEmpresa, SeccioEmpresaPk> {
 
 	@Embedded
 	protected SeccioEmpresa embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "dfs_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_dfs_idf_fk"))
-	protected IdentificadorEntity identificador;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -78,7 +77,6 @@ public class SeccioEmpresaEntity extends AbstractAuditableCompositePkEntity<Secc
 			},
 			foreignKey = @ForeignKey(name = "rges_dfs_fae_fk"))
 	protected ArticleFamiliaEmpresaEntity familiaEmpresa;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -87,7 +85,6 @@ public class SeccioEmpresaEntity extends AbstractAuditableCompositePkEntity<Secc
 			},
 			foreignKey = @ForeignKey(name = "rges_dfs_far_fk"))
 	protected ArticleFamiliaEntity familia;	
-
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -105,8 +102,7 @@ public class SeccioEmpresaEntity extends AbstractAuditableCompositePkEntity<Secc
 			IdentificadorEntity identificador,
 			ArticleFamiliaEmpresaEntity familiaEmpresa,
 			ArticleFamiliaEntity familia,
-			SeccioEntity seccio
-			) {
+			SeccioEntity seccio) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

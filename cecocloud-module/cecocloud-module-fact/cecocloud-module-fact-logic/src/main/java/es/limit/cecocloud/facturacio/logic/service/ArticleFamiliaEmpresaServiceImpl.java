@@ -27,5 +27,4 @@ public class ArticleFamiliaEmpresaServiceImpl extends AbstractGenericCompositePk
 				dto.getEmpresa().getId());
 	}
 
-
 }

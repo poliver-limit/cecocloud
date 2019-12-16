@@ -3,25 +3,15 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.TipusComissio.TipusComissioPk;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -33,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class TipusComissio extends AbstractIdentificableWithCompositePk<TipusComissioPk> {
+public class TipusComissio extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
 	
 	@NotNull(groups = {OnCreate.class})
@@ -67,23 +57,5 @@ public class TipusComissio extends AbstractIdentificableWithCompositePk<TipusCom
 			hiddenInLov = true)
 	@Digits(integer = 12, fraction = 3)
 	private BigDecimal minim;
-		
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;	
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	public static class TipusComissioPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
-	}
 
 }

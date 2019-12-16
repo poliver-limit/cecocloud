@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
-import java.io.Serializable;
-
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,10 +10,9 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Provincia.ProvinciaPk;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,7 +28,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk> {
+public class Provincia extends AbstractIdentificableAmbIdentificador<ProvinciaPk> {
 
 	@Size(max = 3)
 	@RestapiField(
@@ -45,14 +42,6 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String nom;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
 	
 	@Transient
 	@RestapiField(
@@ -64,13 +53,18 @@ public class Provincia extends AbstractIdentificableWithCompositePk<ProvinciaPk>
 
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@EqualsAndHashCode
+	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class ProvinciaPk implements Serializable {
-		private String identificadorCodi;		
-		private String codi;
+	public static class ProvinciaPk extends AmbIdentificadorICodiPk<String> {
 		private String paisCodi;
+		public ProvinciaPk(
+				String identificadorCodi,
+				String paisCodi,
+				String codi) {
+			super(identificadorCodi, codi);
+			this.paisCodi = paisCodi;
+		}
 	}
 
 }

@@ -4,7 +4,7 @@
 package es.limit.cecocloud.facturacio.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle.VehiclePk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.persist.entity.VehicleEntity;
 
 /**
@@ -12,5 +12,5 @@ import es.limit.cecocloud.facturacio.persist.entity.VehicleEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface VehicleRepository extends BaseRepository<VehicleEntity, VehiclePk> {
+public interface VehicleRepository extends BaseRepository<VehicleEntity, AmbIdentificadorICodiPk<String>> {
 }

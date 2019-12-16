@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.facturacio.persist.entity;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument.PeuDocumentPk;
 import lombok.AccessLevel;
@@ -45,38 +46,36 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ped_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "ped_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "ped_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ped_cod", length = 4, insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "ped_des", length = 30, nullable = false)),	
-	@AttributeOverride(name = "embedded.factura", column = @Column(name = "ped_fac", nullable = false)),	
-	@AttributeOverride(name = "embedded.albara", column = @Column(name = "ped_alb", nullable = false)),	
-	@AttributeOverride(name = "embedded.pre", column = @Column(name = "ped_pre", nullable = false)),			
-	@AttributeOverride(name = "embedded.com", column = @Column(name = "ped_com", nullable = false)),			
-	@AttributeOverride(name = "embedded.imprimirPeuCertificacio", column = @Column(name = "ped_cer", nullable = false)),			
-	@AttributeOverride(name = "embedded.familiaCliProv", column = @Column(name = "ped_famclipro", nullable = false)),			
-	@AttributeOverride(name = "embedded.pie", column = @Column(name = "ped_pie", length = 1000)),			
-	@AttributeOverride(name = "embedded.impCls", column = @Column(name = "ped_impcls", nullable = false)),			
-	@AttributeOverride(name = "embedded.ordre", column = @Column(name = "ped_ord")),			
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ped_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "ped_des", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.factura", column = @Column(name = "ped_fac", nullable = false)),
+	@AttributeOverride(name = "embedded.albara", column = @Column(name = "ped_alb", nullable = false)),
+	@AttributeOverride(name = "embedded.pre", column = @Column(name = "ped_pre", nullable = false)),
+	@AttributeOverride(name = "embedded.com", column = @Column(name = "ped_com", nullable = false)),
+	@AttributeOverride(name = "embedded.imprimirPeuCertificacio", column = @Column(name = "ped_cer", nullable = false)),
+	@AttributeOverride(name = "embedded.familiaCliProv", column = @Column(name = "ped_famclipro", nullable = false)),
+	@AttributeOverride(name = "embedded.pie", column = @Column(name = "ped_pie", length = 1000)),
+	@AttributeOverride(name = "embedded.impCls", column = @Column(name = "ped_impcls", nullable = false)),
+	@AttributeOverride(name = "embedded.ordre", column = @Column(name = "ped_ord")),
 	@AttributeOverride(name = "embedded.serieCompraCodi", column = @Column(name = "ped_scp_codcom", insertable = false, updatable = false)),
-			
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ped_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "ped_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ped_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ped_datmod"))
 })
-public class PeuDocumentEntity extends AbstractAuditableCompositePkEntity<PeuDocument, PeuDocumentPk> {
+@AssociationOverrides({
+	@AssociationOverride(
+			name = "identificador",
+			joinColumns = {
+					@JoinColumn(name = "ped_idf_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_ped_idf_fk"))
+})
+public class PeuDocumentEntity extends AbstractAmbIdentificadorEntity<PeuDocument, PeuDocumentPk> {
 
 	@Embedded
 	protected PeuDocument embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "ped_idf_cod",
-			insertable = false,
-			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_ped_idf_fk"))
-	protected IdentificadorEntity identificador;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -86,7 +85,6 @@ public class PeuDocumentEntity extends AbstractAuditableCompositePkEntity<PeuDoc
 			},
 			foreignKey = @ForeignKey(name = "rges_ped_scp_fk"))			
 	protected SerieCompraEntity serieCompra;
-	
 
 	@Builder
 	public PeuDocumentEntity(
