@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.base.boot.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
-import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
+import es.limit.cecocloud.rrhh.logic.api.dto.ZonaRrhh;
 
 
 /**
@@ -24,7 +24,7 @@ public class RrhhModule {
 
 	private static ModuleInfo moduleInfo = new ModuleInfo(
 			CODE,
-			Zona.class.getPackage().getName());
+			ZonaRrhh.class.getPackage().getName());
 
 	static {
 		Modules.registerModule(moduleInfo);

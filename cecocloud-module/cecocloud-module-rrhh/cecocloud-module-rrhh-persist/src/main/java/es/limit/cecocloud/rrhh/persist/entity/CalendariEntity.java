@@ -68,7 +68,7 @@ public class CalendariEntity extends AbstractAuditableCompositePkEntity<Calendar
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_cln_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -83,7 +83,7 @@ public class CalendariEntity extends AbstractAuditableCompositePkEntity<Calendar
 	public CalendariEntity(
 			CalendariPk pk,
 			Calendari embedded,
-			IdentificadorEntity identificador,
+			IdentificadorRrhhEntity identificador,
 			TipusDiaEntity tipusDia
 			) {
 		setId(pk);

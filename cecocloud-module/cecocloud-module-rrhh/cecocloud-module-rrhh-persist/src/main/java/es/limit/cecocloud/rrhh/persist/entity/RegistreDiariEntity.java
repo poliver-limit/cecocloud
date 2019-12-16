@@ -78,7 +78,7 @@ public class RegistreDiariEntity extends AbstractAuditableCompositePkEntity<Regi
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_rdi_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 		@JoinColumns(
@@ -96,7 +96,7 @@ public class RegistreDiariEntity extends AbstractAuditableCompositePkEntity<Regi
 					@JoinColumn(name = "rdi_ope_cod", referencedColumnName = "ope_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_ope_fk"))
-	protected OperariEntity operari;	
+	protected OperariRrhhEntity operari;	
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -133,7 +133,7 @@ public class RegistreDiariEntity extends AbstractAuditableCompositePkEntity<Regi
 					@JoinColumn(name = "rdi_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_emp_fk"))
-	protected EmpresaEntity empresa;
+	protected EmpresaRrhhEntity empresa;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -157,13 +157,13 @@ public class RegistreDiariEntity extends AbstractAuditableCompositePkEntity<Regi
 	public RegistreDiariEntity(
 			RegistreDiariPk pk,
 			RegistreDiari embedded,
-			IdentificadorEntity identificador,
+			IdentificadorRrhhEntity identificador,
 			CalendariEntity calendari,
-			OperariEntity operari,
+			OperariRrhhEntity operari,
 			HorariEntity horari,
 			RegimEntity regim,
 			SeccioEntity seccio,
-			EmpresaEntity empresa,
+			EmpresaRrhhEntity empresa,
 			CategoriaEntity categoria,
 			SubcategoriaEntity subcategoria
 			) {

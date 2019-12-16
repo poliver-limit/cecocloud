@@ -44,7 +44,7 @@ public class RegistreDiari extends AbstractIdentificableWithCompositePk<Registre
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)	
-	private GenericReference<Operari, String> operari;
+	private GenericReference<OperariRrhh, String> operari;
 	
 	@NotNull
 	private BigDecimal horesTeoriques;
@@ -84,7 +84,7 @@ public class RegistreDiari extends AbstractIdentificableWithCompositePk<Registre
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)	
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaRrhh, String> empresa;
 	
 	@Transient
 	@NotNull
@@ -115,7 +115,7 @@ public class RegistreDiari extends AbstractIdentificableWithCompositePk<Registre
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<IdentificadorRrhh, String> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

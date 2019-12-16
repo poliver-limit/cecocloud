@@ -64,13 +64,13 @@ public class ServidorEntity extends AbstractAuditableCompositePkEntity<Servidor,
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_sno_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 	
 	@Builder
 	public ServidorEntity(
 			ServidorPk pk,
 			Servidor embedded,
-			IdentificadorEntity identificador		
+			IdentificadorRrhhEntity identificador		
 			) {
 		setId(pk);
 		this.embedded = embedded;

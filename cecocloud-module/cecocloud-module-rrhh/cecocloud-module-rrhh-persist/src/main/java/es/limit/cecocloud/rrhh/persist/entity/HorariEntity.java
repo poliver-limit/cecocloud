@@ -67,13 +67,13 @@ public class HorariEntity extends AbstractAuditableCompositePkEntity<Horari, Hor
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_hor_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 	
 	@Builder
 	public HorariEntity(
 			HorariPk pk,
 			Horari embedded,
-			IdentificadorEntity identificador,
+			IdentificadorRrhhEntity identificador,
 			HorariEntity horari
 			) {
 		setId(pk);

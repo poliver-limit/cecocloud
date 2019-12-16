@@ -45,7 +45,7 @@ public class Horari extends AbstractIdentificableWithCompositePk<HorariPk> {
 	
 	@Transient
 	@NotNull
-	@RestapiField(hiddenInGrid = true)
+	@RestapiField(hiddenInGrid = false)
 	private TipusHorariEnumDto tipus;
 	
 	@Size(max = 1000)
@@ -65,7 +65,7 @@ public class Horari extends AbstractIdentificableWithCompositePk<HorariPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<IdentificadorRrhh, String> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

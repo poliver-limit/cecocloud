@@ -18,31 +18,30 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'calendaris',
 				loadChildren: './pages/calendaris/calendaris.module#CalendarisModule',
-				canActivate: [BngAuthGuard]
-				
+				canActivate: [BngAuthGuard]				
 			}, {
 				path: 'categories',
 				loadChildren: './pages/categories/categories.module#CategoriesModule',
 				canActivate: [BngAuthGuard]				
 			}, {
 				path: 'empreses',
-				loadChildren: './pages/empreses/empreses.module#EmpresesModule',
+				loadChildren: './pages/empresesRrhh/empresesRrhh.module#EmpresesRrhhModule',
 				canActivate: [BngAuthGuard]				
 			}, {
 				path: 'horaris',
 				loadChildren: './pages/horaris/horaris.module#HorarisModule',
 				canActivate: [BngAuthGuard]				
 			}, {
-				path: 'identificadors',
-				loadChildren: './pages/identificadors/identificadors.module#IdentificadorsModule',
+				path: 'identificadorsRrhh',
+				loadChildren: './pages/identificadorsRrhh/identificadorsRrhh.module#IdentificadorsRrhhModule',
 				canActivate: [BngAuthGuard]				
 			}, {
 				path: 'nodes',
 				loadChildren: './pages/nodes/nodes.module#NodesModule',
 				canActivate: [BngAuthGuard]				
 			}, {
-				path: 'operaris',
-				loadChildren: './pages/operaris/operaris.module#OperarisModule',
+				path: 'operarisRrhh',
+				loadChildren: './pages/operarisRrhh/operarisRrhh.module#OperarisRrhhModule',
 				canActivate: [BngAuthGuard]				
 			}, {
 				path: 'parametres',

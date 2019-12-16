@@ -69,7 +69,7 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_tra_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -78,7 +78,7 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 					@JoinColumn(name = "tra_ope_cod", referencedColumnName = "ope_cod", insertable = false, updatable = false)
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_ope_fk"))			
-	protected OperariEntity operari;
+	protected OperariRrhhEntity operari;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -96,7 +96,7 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 					@JoinColumn(name = "tra_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_emp_fk"))			
-	protected EmpresaEntity empresa;	
+	protected EmpresaRrhhEntity empresa;	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -111,10 +111,10 @@ public class TransaccioEntity extends AbstractAuditableCompositePkEntity<Transac
 	public TransaccioEntity(
 			TransaccioPk pk,
 			Transaccio embedded,
-			IdentificadorEntity identificador,
-			OperariEntity operari,
+			IdentificadorRrhhEntity identificador,
+			OperariRrhhEntity operari,
 			TipusTransaccioEntity tipusTransaccio,
-			EmpresaEntity empresa,
+			EmpresaRrhhEntity empresa,
 			NodeEntity node
 			) {
 		setId(pk);

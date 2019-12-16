@@ -63,14 +63,14 @@ public class ParametreEntity extends AbstractAuditableCompositePkEntity<Parametr
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_par_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	
 	@Builder
 	public ParametreEntity(
 			ParametrePk pk,
 			Parametre embedded,
-			IdentificadorEntity identificador
+			IdentificadorRrhhEntity identificador
 			) {
 		setId(pk);
 		this.embedded = embedded;

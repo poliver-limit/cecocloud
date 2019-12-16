@@ -36,7 +36,7 @@ public class Parametre extends AbstractIdentificableWithCompositePk<ParametrePk>
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<IdentificadorRrhh, String> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

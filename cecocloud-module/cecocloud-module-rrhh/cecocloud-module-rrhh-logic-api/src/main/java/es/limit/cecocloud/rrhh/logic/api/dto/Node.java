@@ -41,12 +41,12 @@ public class Node extends AbstractIdentificableWithCompositePk<NodePk> {
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Zona, String> zonaOrigen;
+	private GenericReference<ZonaRrhh, String> zonaOrigen;
 	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Zona, String> zonaDesti;
+	private GenericReference<ZonaRrhh, String> zonaDesti;
 	
 	@Transient
 	@NotNull
@@ -63,7 +63,7 @@ public class Node extends AbstractIdentificableWithCompositePk<NodePk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<IdentificadorRrhh, String> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

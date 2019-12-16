@@ -65,7 +65,7 @@ public class Regim extends AbstractIdentificableWithCompositePk<RegimPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<IdentificadorRrhh, String> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

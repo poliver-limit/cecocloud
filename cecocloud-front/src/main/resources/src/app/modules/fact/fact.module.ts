@@ -98,27 +98,15 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'provincies',
 				loadChildren: './pages/provincies/provincies.module#ProvinciesModule',
-				canActivate: [BngAuthGuard]
-			}, {
-				path: 'recursosGrup',
-				loadChildren: './pages/recursosGrup/recursosGrup.module#RecursosGrupModule',
-				canActivate: [BngAuthGuard]
+				canActivate: [BngAuthGuard]		
 			}, {
 				path: 'regimsIva',
 				loadChildren: './pages/regimsIva/regimsIva.module#RegimsIvaModule',
-				canActivate: [BngAuthGuard]
-			}, {
-				path: 'seccions',
-				loadChildren: './pages/seccions/seccions.module#SeccionsModule',
-				canActivate: [BngAuthGuard]
+				canActivate: [BngAuthGuard]			
 			}, {
 				path: 'seccionsEmpresa',
 				loadChildren: './pages/seccionsEmpresa/seccionsEmpresa.module#SeccionsEmpresaModule',
-				canActivate: [BngAuthGuard]
-			}, {
-				path: 'seccionsGrup',
-				loadChildren: './pages/seccionsGrup/seccionsGrup.module#SeccionsGrupModule',
-				canActivate: [BngAuthGuard]
+				canActivate: [BngAuthGuard]			
 			}, {
 				path: 'seriesCompra',
 				loadChildren: './pages/seriesCompra/seriesCompra.module#SeriesCompraModule',
@@ -196,8 +184,8 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: './pages/vehicles/vehicles.module#VehiclesModule',
 				canActivate: [BngAuthGuard]				
 			}, {
-				path: 'zones',
-				loadChildren: './pages/zones/zones.module#ZonesModule',
+				path: 'zonesFact',
+				loadChildren: './pages/zonesFact/zonesFact.module#ZonesFactModule',
 				canActivate: [BngAuthGuard]
 			}, {
 				path: '**',

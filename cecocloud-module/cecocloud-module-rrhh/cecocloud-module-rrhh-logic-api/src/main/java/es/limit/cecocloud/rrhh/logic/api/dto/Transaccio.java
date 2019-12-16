@@ -42,7 +42,7 @@ public class Transaccio extends AbstractIdentificableWithCompositePk<TransaccioP
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Operari, String> operari;
+	private GenericReference<OperariRrhh, String> operari;
 	
 	@Transient
 	@NotNull
@@ -51,7 +51,7 @@ public class Transaccio extends AbstractIdentificableWithCompositePk<TransaccioP
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaRrhh, String> empresa;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
@@ -67,7 +67,7 @@ public class Transaccio extends AbstractIdentificableWithCompositePk<TransaccioP
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<IdentificadorRrhh, String> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

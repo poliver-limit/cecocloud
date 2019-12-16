@@ -61,6 +61,10 @@ export const routes: Routes = [{
     loadChildren: './modules/fact/fact.module#FactModule',
     canActivate: [BngAuthGuard]
 }, {
+    path: 'rrhh',
+    loadChildren: './modules/rrhh/rrhh.module#RrhhModule',
+    canActivate: [BngAuthGuard]
+}, {
     path: '**',
     redirectTo: ''
 }];

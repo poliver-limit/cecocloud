@@ -65,13 +65,13 @@ public class SeccioGrupEntity extends AbstractAuditableCompositePkEntity<SeccioG
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_gse_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@Builder
 	public SeccioGrupEntity(
 			SeccioGrupPk pk,
 			SeccioGrup embedded,
-			IdentificadorEntity identificador
+			IdentificadorRrhhEntity identificador
 			) {
 		setId(pk);
 		this.embedded = embedded;

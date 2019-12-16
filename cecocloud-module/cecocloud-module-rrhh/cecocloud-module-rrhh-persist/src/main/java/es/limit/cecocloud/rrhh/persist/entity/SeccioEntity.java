@@ -77,7 +77,7 @@ public class SeccioEntity extends AbstractAuditableCompositePkEntity<Seccio, Sec
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_sec_idf_fk"))
-	protected IdentificadorEntity identificador;	
+	protected IdentificadorRrhhEntity identificador;	
 	
 	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -93,7 +93,7 @@ public class SeccioEntity extends AbstractAuditableCompositePkEntity<Seccio, Sec
 	public SeccioEntity(
 			SeccioPk pk,
 			Seccio embedded,
-			IdentificadorEntity identificador,
+			IdentificadorRrhhEntity identificador,
 			SeccioGrupEntity seccioGrup) {
 		setId(pk);
 		this.embedded = embedded;

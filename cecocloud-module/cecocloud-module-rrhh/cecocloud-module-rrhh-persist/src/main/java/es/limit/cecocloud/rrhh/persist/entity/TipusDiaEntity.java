@@ -66,7 +66,7 @@ public class TipusDiaEntity extends AbstractAuditableCompositePkEntity<TipusDia,
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_tdi_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -82,7 +82,7 @@ public class TipusDiaEntity extends AbstractAuditableCompositePkEntity<TipusDia,
 	public TipusDiaEntity(
 			TipusDiaPk pk,
 			TipusDia embedded,
-			IdentificadorEntity identificador,
+			IdentificadorRrhhEntity identificador,
 			RegimEntity regim
 			) {
 		setId(pk);

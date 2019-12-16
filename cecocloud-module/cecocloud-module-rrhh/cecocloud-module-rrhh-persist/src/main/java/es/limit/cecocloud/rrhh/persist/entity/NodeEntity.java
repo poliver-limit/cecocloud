@@ -69,7 +69,7 @@ public class NodeEntity extends AbstractAuditableCompositePkEntity<Node, NodePk>
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_nod_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -78,7 +78,7 @@ public class NodeEntity extends AbstractAuditableCompositePkEntity<Node, NodePk>
 					@JoinColumn(name = "nod_zon_codori", referencedColumnName = "zon_cod", insertable = false, updatable = false)
 					},
 			foreignKey = @ForeignKey(name = "rrhu_nod_zon_ori_fk"))
-	protected ZonaEntity zonaOrigen;	
+	protected ZonaRrhhEntity zonaOrigen;	
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -87,7 +87,7 @@ public class NodeEntity extends AbstractAuditableCompositePkEntity<Node, NodePk>
 					@JoinColumn(name = "nod_zon_coddti", referencedColumnName = "zon_cod", insertable = false, updatable = false)
 					},
 			foreignKey = @ForeignKey(name = "rrhu_nod_zon_dti_fk"))
-	protected ZonaEntity zonaDesti;	
+	protected ZonaRrhhEntity zonaDesti;	
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -103,9 +103,9 @@ public class NodeEntity extends AbstractAuditableCompositePkEntity<Node, NodePk>
 	public NodeEntity(
 			NodePk pk,
 			Node embedded,
-			IdentificadorEntity identificador,
-			ZonaEntity zonaOrigen,
-			ZonaEntity zonaDesti,
+			IdentificadorRrhhEntity identificador,
+			ZonaRrhhEntity zonaOrigen,
+			ZonaRrhhEntity zonaDesti,
 			ServidorEntity servidor
 			) {
 		setId(pk);

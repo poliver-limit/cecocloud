@@ -64,13 +64,13 @@ public class TipusTransaccioEntity extends AbstractAuditableCompositePkEntity<Ti
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_ttr_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 	
 	@Builder
 	public TipusTransaccioEntity(
 			TipusTransaccioPk pk,
 			TipusTransaccio embedded,
-			IdentificadorEntity identificador			
+			IdentificadorRrhhEntity identificador			
 			) {
 		setId(pk);
 		this.embedded = embedded;

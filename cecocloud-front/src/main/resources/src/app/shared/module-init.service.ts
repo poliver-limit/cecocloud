@@ -33,12 +33,9 @@ export class ModuleInitService {
 				{ icon: 'room', label: 'Països', route: '/fact/paisos' },
 				{ icon: 'room', label: 'Peus de document', route: '/fact/peusDocument' },
 				{ icon: 'room', label: 'Proveïdors', route: '/fact/proveidors' },
-				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },
-				{ icon: 'room', label: 'Recursos grup', route: '/fact/recursosGrup' },
-				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },
-				{ icon: 'room', label: 'Seccions', route: '/fact/seccions' },
-				{ icon: 'room', label: 'Seccions empresa', route: '/fact/seccionsEmpresa' },
-				{ icon: 'room', label: 'Seccions grup', route: '/fact/seccionsGrup' },
+				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },			
+				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },			
+				{ icon: 'room', label: 'Seccions empresa', route: '/fact/seccionsEmpresa' },		
 				{ icon: 'room', label: 'Sèries de compra', route: '/fact/seccionsCompra' },
 				{ icon: 'room', label: 'Sèries intracomunitàries', route: '/fact/seriesIntracomunitaria' },
 				{ icon: 'room', label: 'Sèries de venda', route: '/fact/seriesVenda' },
@@ -58,7 +55,7 @@ export class ModuleInitService {
 				{ icon: 'room', label: 'Ubicacions articles', route: '/fact/ubicacionsArticle' },
 				{ icon: 'room', label: 'Unitats tipus', route: '/fact/unitatsTipus' },
 				{ icon: 'room', label: 'Vehicles', route: '/fact/vehicles' },				
-				{ icon: 'room', label: 'Zones', route: '/fact/zones' }					
+				{ icon: 'room', label: 'Zones (Facturació)', route: '/fact/zonesFact' }					
 				
 			]
 		});
@@ -74,11 +71,11 @@ export class ModuleInitService {
 			menuItems: [
 				{ icon: 'room', label: 'Calendaris', route: '/rrhh/calendaris' },
 				{ icon: 'room', label: 'Categories', route: '/rrhh/categories' },
-				{ icon: 'room', label: 'Empreses', route: '/rrhh/empreses' },
+				{ icon: 'room', label: 'Empreses', route: '/rrhh/empresesRrhh' },
 				{ icon: 'room', label: 'Horaris', route: '/rrhh/horaris' },
-				{ icon: 'room', label: 'Identificadors', route: '/rrhh/identificadors' },
+				{ icon: 'room', label: 'Identificadors (Recursos humans)', route: '/rrhh/identificadorsRrhh' },
 				{ icon: 'room', label: 'Nodes', route: '/rrhh/nodes' },
-				{ icon: 'room', label: 'Operaris', route: '/rrhh/operaris' },
+				{ icon: 'room', label: 'Operaris (Recursos humans)', route: '/rrhh/operarisRrhh' },
 				{ icon: 'room', label: 'Parametres', route: '/rrhh/parametres' },
 				{ icon: 'room', label: 'Recursos Grup', route: '/rrhh/recursosGrup' },
 				{ icon: 'room', label: 'Regims', route: '/rrhh/regims' },

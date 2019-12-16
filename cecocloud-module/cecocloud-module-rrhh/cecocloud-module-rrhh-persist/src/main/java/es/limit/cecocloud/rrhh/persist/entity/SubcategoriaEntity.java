@@ -71,7 +71,7 @@ public class SubcategoriaEntity extends AbstractAuditableCompositePkEntity<Subca
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_sct_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -87,7 +87,7 @@ public class SubcategoriaEntity extends AbstractAuditableCompositePkEntity<Subca
 	public SubcategoriaEntity(
 			SubcategoriaPk pk,
 			Subcategoria embedded,
-			IdentificadorEntity identificador,
+			IdentificadorRrhhEntity identificador,
 			 CategoriaEntity categoria
 			) {
 		setId(pk);

@@ -67,13 +67,13 @@ public class RecursGrupEntity extends AbstractAuditableCompositePkEntity<RecursG
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_gre_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 
 	@Builder
 	public RecursGrupEntity(
 			RecursGrupPk pk,
 			RecursGrup embedded,
-			IdentificadorEntity identificador) {
+			IdentificadorRrhhEntity identificador) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;		

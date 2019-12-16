@@ -92,7 +92,7 @@ public class Seccio extends AbstractIdentificableWithCompositePk<SeccioPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<IdentificadorRrhh, String> identificador;
 	
 	@Transient
 	@RestapiField(
@@ -100,7 +100,7 @@ public class Seccio extends AbstractIdentificableWithCompositePk<SeccioPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+	private GenericReference<EmpresaRrhh, String> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

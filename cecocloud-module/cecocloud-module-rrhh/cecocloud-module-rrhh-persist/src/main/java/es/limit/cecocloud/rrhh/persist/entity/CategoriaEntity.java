@@ -67,13 +67,13 @@ public class CategoriaEntity extends AbstractAuditableCompositePkEntity<Categori
 			insertable = false,
 			updatable = false,
 			foreignKey = @ForeignKey(name = "rrhu_cat_idf_fk"))
-	protected IdentificadorEntity identificador;
+	protected IdentificadorRrhhEntity identificador;
 	
 	@Builder
 	public CategoriaEntity(
 			CategoriaPk pk,
 			Categoria embedded,
-			IdentificadorEntity identificador			
+			IdentificadorRrhhEntity identificador			
 			) {
 		setId(pk);
 		this.embedded = embedded;
