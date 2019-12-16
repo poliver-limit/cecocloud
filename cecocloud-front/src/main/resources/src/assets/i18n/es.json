@@ -132,6 +132,17 @@
 	"resource.usuari.field.actiu": "Activo",
 	"resource.usuari.field.authorities": "Roles",
 
+	"resource.identificador": "Grupo de empresas",
+	"resource.identificador.plural": "Grupos de empresas",
+	"resource.identificador.field.codi": "Código",
+	"resource.identificador.field.descripcio": "Nombre",
+	"resource.identificador.field.numUsuaris": "Núm. usuarios",
+	"resource.identificador.field.numEmpreses": "Núm. empresas",
+	"resource.identificador.field.numOperaris": "Núm. operarios",
+	"resource.identificador.field.dataInici": "Fecha inicio",
+	"resource.identificador.field.dataFi": "Fecha fin",
+	"resource.identificador.field.propietari": "Propietario",
+
 	"resource.companyia": "Compañía",
 	"resource.companyia.plural": "Compañías",
 	"resource.companyia.field.codi": "Código",
@@ -149,13 +160,6 @@
 	"resource.empresa.field.activa": "Activa",
 	"resource.empresa.field.companyia": "Compañia",
 
-	"resource.identificador": "Grupo de empresas",
-	"resource.identificador.plural": "Grupos de empresas",
-	"resource.identificador.field.codi": "Código",
-	"resource.identificador.field.nom": "Nombre",
-	"resource.identificador.field.companyia": "Compañía",
-	"resource.identificador.field.actiu": "Activo",	
-	
 	"resource.operari": "Operario",
 	"resource.operari.plural": "Operarios",
 	"resource.operari.field.usuari": "Usuario",

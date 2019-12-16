@@ -10,27 +10,46 @@ import { ActivatedRoute } from '@angular/router';
     <bng-form
         bng-form-mant
         [config]="formConfig"
-		[restapiService]="identificadorsService">
-		<!-- (actionSave)="onIdentificadorSave($event)" -->
+		[restapiService]="identificadorsService"
+		(readonlyStateChange)="onReadonlyStateChange($event)">
+		<div style="display: flex">
+			<bng-custom-field name="codi" style="width: 30%; padding-right: 2em"></bng-custom-field>
+		</div>
+		<div style="display: flex">
+			<bng-custom-field name="descripcio" style="width: 100%"></bng-custom-field>
+		</div>
+		<div style="display: flex">
+			<bng-custom-field name="numUsuaris" style="width: 50%; padding-right: 2em"></bng-custom-field>
+			<bng-custom-field name="numEmpreses" style="width: 50%"></bng-custom-field>
+		</div>
+		<div style="display: flex">
+			<bng-custom-field name="dataInici" style="width: 50%; padding-right: 2em"></bng-custom-field>
+			<bng-custom-field name="dataFi" style="width: 50%"></bng-custom-field>
+		</div>
+		<div style="display: flex">
+			<bng-custom-field name="propietari" style="width: 100%"></bng-custom-field>
+		</div>
         <ng-container *ngIf="id">
-		<mat-tab-group>
-			<mat-tab label="Permisos">
-				<br/>
-				<bng-datagrid
-					[config]="permisosDatagridConfig"
-					[restapiService]="identificadorsPermissionService"
-					editable="true"></bng-datagrid>
-			</mat-tab>
-			<mat-tab label="Altres">
-			</mat-tab>
-		</mat-tab-group>
-	</ng-container>
+			<mat-tab-group>
+				<mat-tab label="Permisos">
+					<br/>
+					<bng-datagrid
+						[config]="permisosDatagridConfig"
+						[restapiService]="identificadorsPermissionService"
+						[editable]="permisosEditable"></bng-datagrid>
+				</mat-tab>
+				<!--mat-tab label="Altres">
+				</mat-tab-->
+			</mat-tab-group>
+		</ng-container>
     </bng-form>
 `
 })
 export class IdentificadorsFormComponent {
 
 	id: any;
+	permisosEditable: boolean;
+
 	formConfig: BngFormConfig = {
 		readOnlyStateEnabled: true
 	}
@@ -58,6 +77,10 @@ export class IdentificadorsFormComponent {
 			width: 10
 		}]
 	};
+
+	onReadonlyStateChange(readonlyStateActive: boolean) {
+		this.permisosEditable = !readonlyStateActive;
+	}
 
 	// onIdentificadorSave(event) {
 	// 	// TODO: Refrescar selector empreses

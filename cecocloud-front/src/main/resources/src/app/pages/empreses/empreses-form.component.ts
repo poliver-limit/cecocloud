@@ -10,7 +10,8 @@ import { EmpresesPermissionService } from './empreses-permission.service';
 	<bng-form
 		bng-form-mant
 		[config]="formConfig"
-		[restapiService]="empresesService">
+		[restapiService]="empresesService"
+		(readonlyStateChange)="onReadonlyStateChange($event)">
 		<ng-container *ngIf="id">
 			<mat-tab-group>
 				<mat-tab label="Permisos">
@@ -18,7 +19,7 @@ import { EmpresesPermissionService } from './empreses-permission.service';
 					<bng-datagrid
 						[config]="permisosDatagridConfig"
 						[restapiService]="empresesPermissionService"
-						editable="true">
+						[editable]="permisosEditable">
 					</bng-datagrid>
 				</mat-tab>
 			</mat-tab-group>
@@ -29,10 +30,12 @@ import { EmpresesPermissionService } from './empreses-permission.service';
 export class EmpresesFormComponent {
 
 	id: any;
+	permisosEditable: boolean;
 
 	formConfig: BngFormConfig = {
 		readOnlyStateEnabled: true
 	}
+
 	permisosDatagridConfig = {
 		//columnFiltersEnabled: true
 		adjustHeight: false,
@@ -49,6 +52,10 @@ export class EmpresesFormComponent {
 			width: 10
 		}]
 	};
+
+	onReadonlyStateChange(readonlyStateActive: boolean) {
+		this.permisosEditable = !readonlyStateActive;
+	}
 
 	constructor(
 		activatedRoute: ActivatedRoute,
