@@ -36,19 +36,14 @@ public class Provincia extends AbstractIdentificableAmbIdentificador<ProvinciaPk
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String nom;
-	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			type = RestapiFieldType.LOV)
 	private GenericReference<Pais, String> pais;
 
 	@NoArgsConstructor

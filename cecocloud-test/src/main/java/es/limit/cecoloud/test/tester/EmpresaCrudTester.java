@@ -5,11 +5,11 @@ package es.limit.cecoloud.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import es.limit.base.boot.logic.api.dto.util.Identificable;
+import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
 
 /**
@@ -17,7 +17,7 @@ import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class EmpresaCrudTester implements CrudTester<Empresa> {
+public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 
 	@Override
 	public Empresa createDto() {
@@ -27,6 +27,7 @@ public class EmpresaCrudTester implements CrudTester<Empresa> {
 		dto.setNom("Test");
 		dto.setTipus(EmpresaTipusEnum.GESTIO);
 		dto.setActiva(true);
+		getResourceFromParentCrudTester(Identificador.class);
 		return dto;
 	}
 
@@ -48,9 +49,13 @@ public class EmpresaCrudTester implements CrudTester<Empresa> {
 		assertEquals(expected.isActiva(), actual.isActiva());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Class<? extends Identificable<?>>> toCreateBeforeTest() {
-		return null;
+	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
+		return new CrudTester[] {
+			new IdentificadorCrudTester(),
+			new EmpresaCrudTester()
+		};
 	}
 
 }
