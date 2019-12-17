@@ -8,7 +8,7 @@ export class EmpresaFact extends Resource {}
 export class EmpresesFactService extends BngRestapiService<EmpresaFact> {
 
     constructor( injector: Injector ) {
-        super( EmpresaFact, 'empresaFact', injector, 'fact' );
+        super( EmpresaFact, 'empresa', injector, 'fact' );
     }
 
 }

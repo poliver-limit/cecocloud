@@ -38,17 +38,17 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableAmbIdentificador
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInForm = false)
 	private GenericReference<ArticleFamilia, String> articleFamilia;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInForm = false)
 	private GenericReference<Empresa, String> empresa;
 
 	@NoArgsConstructor

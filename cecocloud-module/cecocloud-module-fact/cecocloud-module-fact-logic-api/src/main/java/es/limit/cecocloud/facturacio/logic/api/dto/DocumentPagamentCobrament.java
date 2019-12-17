@@ -105,7 +105,7 @@ public class DocumentPagamentCobrament extends AbstractIdentificableAmbIdentific
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 2)
-	private String TipusSeientIngressos;
+	private String tipusSeientIngressos;
 	
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,

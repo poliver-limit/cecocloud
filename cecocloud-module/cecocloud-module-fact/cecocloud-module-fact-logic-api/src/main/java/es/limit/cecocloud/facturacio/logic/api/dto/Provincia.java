@@ -46,9 +46,9 @@ public class Provincia extends AbstractIdentificableAmbIdentificador<ProvinciaPk
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInForm = false)
 	private GenericReference<Pais, String> pais;
 
 	@NoArgsConstructor

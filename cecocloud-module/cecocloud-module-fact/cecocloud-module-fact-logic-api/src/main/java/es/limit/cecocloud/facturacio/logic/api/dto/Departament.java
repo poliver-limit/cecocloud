@@ -54,9 +54,9 @@ public class Departament extends AbstractIdentificableAmbIdentificador<Departame
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInForm = false)
 	private GenericReference<Empresa, String> empresa;
 
 	@NoArgsConstructor

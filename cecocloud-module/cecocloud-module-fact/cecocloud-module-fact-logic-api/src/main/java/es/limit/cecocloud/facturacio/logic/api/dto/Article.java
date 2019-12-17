@@ -115,13 +115,5 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReference<ArticleModel, String> model;	
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,			
-			hiddenInForm = true)
-	private GenericReference<Identificador, String> identificador;
 
 }

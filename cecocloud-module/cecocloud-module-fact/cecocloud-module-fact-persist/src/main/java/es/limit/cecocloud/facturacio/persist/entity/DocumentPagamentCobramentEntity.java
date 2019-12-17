@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.compteContableComissio", column = @Column(name = "dpg_cnccmp", nullable = false)),
 	@AttributeOverride(name = "embedded.concepteContable", column = @Column(name = "dpg_ctecmpcmi" ,nullable = false)),
 	@AttributeOverride(name = "embedded.compteContableOrigenIngressos", column = @Column(name = "dpg_ctecmping", nullable = false)),
-	@AttributeOverride(name = "embedded.TipusSeientIngressos", column = @Column(name = "dpg_tipasiing", nullable = false)),
+	@AttributeOverride(name = "embedded.tipusSeientIngressos", column = @Column(name = "dpg_tipasiing", nullable = false)),
 	@AttributeOverride(name = "embedded.diariContableIngressos", column = @Column(name = "dpg_dricmping", nullable = false)),
 	@AttributeOverride(name = "embedded.diariContableIngressos2", column = @Column(name = "dpg_dricmping002", nullable = false)),
 	@AttributeOverride(name = "embedded.compteContableDestiPagos", column = @Column(name = "dpg_ctecmppag", nullable = false)),

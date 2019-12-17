@@ -97,7 +97,7 @@ public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<Article
 			foreignKey = @ForeignKey(name = "rges_far_gre_fk"))
 	protected RecursGrupEntity recursGrup;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 			@JoinColumn(name = "far_idf_cod", referencedColumnName = "fct_idf_cod", insertable = false, updatable = false),
