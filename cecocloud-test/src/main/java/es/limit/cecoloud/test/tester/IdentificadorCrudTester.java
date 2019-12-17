@@ -6,9 +6,9 @@ package es.limit.cecoloud.test.tester;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
-import java.util.List;
 
 import es.limit.base.boot.logic.api.dto.util.Identificable;
+import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 
@@ -17,7 +17,7 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class IdentificadorCrudTester implements CrudTester<Identificador> {
+public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 
 	@Override
 	public Identificador createDto() {
@@ -54,7 +54,7 @@ public class IdentificadorCrudTester implements CrudTester<Identificador> {
 	}
 
 	@Override
-	public List<Class<? extends Identificable<?>>> toCreateBeforeTest() {
+	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return null;
 	}
 

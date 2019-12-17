@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.back.test;
 
+import org.junit.Test;
+import org.springframework.security.test.context.support.WithMockUser;
+
 import es.limit.base.boot.test.AbstractRestApiTest;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
@@ -18,6 +21,12 @@ public class IdentificadorRestApiTest extends AbstractRestApiTest<Identificador,
 	@Override
 	protected CrudTester<Identificador> getCrudTester() {
 		return new IdentificadorCrudTester();
+	}
+
+	@WithMockUser(value = "baseadmin")
+	@Test
+	public void crudTest() {
+		genericCrudTest();
 	}
 
 }

@@ -23,7 +23,7 @@ public class RegistreDiariServiceImpl extends AbstractGenericCompositePkServiceI
 
 	@Override
 	protected RegistreDiariPk getPkFromDto(RegistreDiari dto) {
-		CalendariPk pk = getPkFromDtoId(
+		CalendariPk pk = getPkFromSerializedId(
 				dto.getCalendari().getId(),
 				Calendari.class,
 				CalendariPk.class);

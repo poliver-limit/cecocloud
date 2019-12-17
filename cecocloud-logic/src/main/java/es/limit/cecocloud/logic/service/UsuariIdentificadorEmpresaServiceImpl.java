@@ -56,7 +56,7 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericCompos
 
 	@Override
 	protected UsuariIdentificadorEmpresaPk getPkFromDto(UsuariIdentificadorEmpresa dto) {
-		UsuariIdentificadorPk usuariIdentificadorPk = getPkFromDtoId(
+		UsuariIdentificadorPk usuariIdentificadorPk = getPkFromSerializedId(
 				dto.getUsuariIdentificador().getId(),
 				UsuariIdentificadorEmpresa.class,
 				UsuariIdentificadorPk.class);

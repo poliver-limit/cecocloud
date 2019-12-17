@@ -23,7 +23,7 @@ public class PerfilUsuariIdentificadorEmpresaServiceImpl extends AbstractGeneric
 
 	@Override
 	protected PerfilUsuariIdentificadorEmpresaPk getPkFromDto(PerfilUsuariIdentificadorEmpresa dto) {
-		UsuariIdentificadorEmpresaPk pk = getPkFromDtoId(
+		UsuariIdentificadorEmpresaPk pk = getPkFromSerializedId(
 				dto.getUsuariIdentificadorEmpresa().getId(),
 				UsuariIdentificadorEmpresa.class,
 				UsuariIdentificadorEmpresaPk.class);

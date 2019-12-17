@@ -33,10 +33,6 @@ export const routes: Routes = [{
     loadChildren: () => import('./pages/identificador/identificador.module').then(m => m.IdentificadorModule),
     canActivate: [BngAuthGuard]
 }, {
-    path: 'companyia-usuaris',
-    loadChildren: () => import('./pages/companyia-usuaris/companyia-usuaris.module').then(m => m.CompanyiaUsuarisModule),
-    canActivate: [BngAuthGuard]
-}, {
     path: 'rols',
     loadChildren: () => import('./pages/rols/rols.module').then(m => m.RolsModule),
     canActivate: [BngAuthGuard]

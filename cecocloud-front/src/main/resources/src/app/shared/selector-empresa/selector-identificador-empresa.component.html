@@ -4,7 +4,7 @@
 			? mobileScreen
 				? selectedIdentificadorEmpresa?.identificador.codi
 				: selectedIdentificadorEmpresa?.identificador.descripcio
-			: '?'
+			: '__'
 	}}
 	&nbsp;/&nbsp;
 	{{
@@ -12,7 +12,7 @@
 			? mobileScreen
 				? selectedIdentificadorEmpresa?.empresa.codi
 				: selectedIdentificadorEmpresa?.empresa.nom
-			: '?'
+			: '__'
 	}}
 	<mat-icon>arrow_drop_down</mat-icon>
 </button>
