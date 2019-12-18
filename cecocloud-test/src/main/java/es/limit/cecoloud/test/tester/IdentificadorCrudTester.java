@@ -7,9 +7,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
+import es.limit.base.boot.logic.api.dto.Usuari;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
+import es.limit.base.boot.test.tester.UsuariCrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 
 /**
@@ -20,6 +23,7 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
 public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Identificador createDto() {
 		Identificador dto = new Identificador();
 		dto.setDescripcio("Test");
@@ -29,6 +33,8 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		dto.setDataFi(new Date());
 		dto.setLlicencia("1");
 		dto.setLlicenciaOk(true);
+		dto.setPropietari(
+				(GenericReference<Usuari, Long>)getGenericReferenceFromParentCrudTester(Usuari.class));
 		return dto;
 	}
 	@Override
@@ -54,8 +60,11 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
-		return null;
+		return new CrudTester[] {
+				new UsuariCrudTester()
+		};
 	}
 
 }

@@ -33,5 +33,4 @@ public class ProvinciaServiceImpl extends AbstractGenericCompositePkServiceImpl<
 				dto.getCodi());
 	}
 
-
 }

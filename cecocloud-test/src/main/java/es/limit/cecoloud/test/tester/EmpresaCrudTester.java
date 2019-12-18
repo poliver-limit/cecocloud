@@ -49,8 +49,8 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		assertEquals(expected.isActiva(), actual.isActiva());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
 			new IdentificadorCrudTester(),
