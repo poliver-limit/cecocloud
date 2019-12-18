@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Provincia.ProvinciaPk;
 import lombok.AllArgsConstructor;
@@ -44,7 +44,7 @@ public class Provincia extends AbstractIdentificableAmbIdentificador<ProvinciaPk
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-	private GenericReference<Pais, String> pais;
+	private GenericReferenceWithCompositePk<Pais> pais;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

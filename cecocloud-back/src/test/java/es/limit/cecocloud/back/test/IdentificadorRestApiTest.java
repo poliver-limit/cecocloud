@@ -23,7 +23,7 @@ public class IdentificadorRestApiTest extends AbstractRestApiTest<Identificador,
 		return new IdentificadorCrudTester();
 	}
 
-	@WithMockUser(value = "baseadmin")
+	@WithMockUser(value = USUARI_TEST_ADMIN)
 	@Test
 	public void crudTest() {
 		genericCrudTest();

@@ -23,7 +23,7 @@ public class EmpresaServiceTest extends AbstractServiceTest<Empresa, Long> {
 		return new EmpresaCrudTester();
 	}
 
-	@WithMockUser(value = "baseadmin")
+	@WithMockUser(value = USUARI_TEST_ADMIN)
 	@Test
 	public void crudTest() {
 		genericCrudTest();

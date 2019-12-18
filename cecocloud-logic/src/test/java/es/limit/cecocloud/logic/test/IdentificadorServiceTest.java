@@ -23,7 +23,7 @@ public class IdentificadorServiceTest extends AbstractServiceTest<Identificador,
 		return new IdentificadorCrudTester();
 	}
 
-	@WithMockUser(value = "baseadmin")
+	@WithMockUser(value = USUARI_TEST_ADMIN)
 	@Test
 	public void crudTest() {
 		genericCrudTest();
