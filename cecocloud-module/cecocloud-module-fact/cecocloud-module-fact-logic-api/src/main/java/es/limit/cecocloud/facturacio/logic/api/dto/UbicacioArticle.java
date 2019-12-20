@@ -11,7 +11,9 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle.UbicacioArticlePk;
+import es.limit.cecocloud.facturacio.logic.api.dto.Ubicacio.UbicacioPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,8 +38,7 @@ public class UbicacioArticle extends AbstractIdentificableAmbIdentificador<Ubica
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<Ubicacio, String> ubicacio;
-	private GenericReferenceWithCompositePk<Ubicacio> ubicacio;
+	private GenericReferenceWithCompositePk<Ubicacio, UbicacioPk> ubicacio;
 	
 	@RestapiField(includeInQuickFilter = true)
 	@NotNull
@@ -49,8 +50,7 @@ public class UbicacioArticle extends AbstractIdentificableAmbIdentificador<Ubica
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Article, String> article;
-	private GenericReferenceWithCompositePk<Article> article;
+	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> article;
 	
 	@Transient
 	@RestapiField(
@@ -58,8 +58,7 @@ public class UbicacioArticle extends AbstractIdentificableAmbIdentificador<Ubica
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Magatzem, String> magatzem;
-	private GenericReferenceWithCompositePk<Magatzem> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

@@ -34,23 +34,22 @@ public class Node extends AbstractIdentificableAmbIdentificador<NodePk> {
 	private Integer numero;
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String tipus;
-	@Transient
-	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-//	private GenericReference<Zona, String> zonaOrigen;
-	private GenericReferenceWithCompositePk<Zona> zonaOrigen;
 	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-//	private GenericReference<Zona, String> zonaDesti;
-	private GenericReferenceWithCompositePk<Zona> zonaDesti;
+	private GenericReferenceWithCompositePk<Zona, AmbIdentificadorICodiPk<String>> zonaOrigen;
+	
 	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-//	private GenericReference<Servidor, String> servidor;
-	private GenericReferenceWithCompositePk<Servidor> servidor;
+	private GenericReferenceWithCompositePk<Zona, AmbIdentificadorICodiPk<String>> zonaDesti;
+	
+	@Transient
+	@NotNull
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	private GenericReferenceWithCompositePk<Servidor, AmbIdentificadorICodiPk<String>> servidor;
 	
 	@Size(max = 10)
 	@RestapiField()

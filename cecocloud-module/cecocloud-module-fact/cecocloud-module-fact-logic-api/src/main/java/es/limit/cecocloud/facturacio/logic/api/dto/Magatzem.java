@@ -103,8 +103,7 @@ public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-//	private GenericReference<CodiPostal, String> codiPostal;
-	private GenericReferenceWithCompositePk<CodiPostal> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull
@@ -112,7 +111,6 @@ public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String>
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
-//	private GenericReference<Divisa, String> divisa;
-	private GenericReferenceWithCompositePk<Divisa> divisa;
+	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
 
 }

@@ -151,14 +151,12 @@ public class ArticleFamilia extends AbstractIdentificableAmbIdentificadorICodi<S
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)	
-//	private GenericReference<FamiliaCost, String> familiaCost;
-	private GenericReferenceWithCompositePk<FamiliaCost> familiaCost;
+	private GenericReferenceWithCompositePk<FamiliaCost, AmbIdentificadorICodiPk<String>> familiaCost;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, 	
 			hiddenInGrid = true,hiddenInLov = true)	
-//	private GenericReference<RecursGrup, String> recursGrup;
-	private GenericReferenceWithCompositePk<RecursGrup> recursGrup;
+	private GenericReferenceWithCompositePk<RecursGrup, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk<String>> recursGrup;
 	
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,

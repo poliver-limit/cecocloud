@@ -15,6 +15,8 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SerieVenda.SerieVendaPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument.PeuDocumentPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.Departament.DepartamentPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.SerieFacturaRectificativaEnumDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -163,8 +165,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<PeuDocument, String> condicioPagamentPressupost;
-	private GenericReferenceWithCompositePk<PeuDocument> condicioPagamentPressupost;
+	private GenericReferenceWithCompositePk<PeuDocument, PeuDocumentPk> condicioPagamentPressupost;
 	
 	@Transient
 	@RestapiField(
@@ -172,8 +173,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<PeuDocument, String> peuDocument;
-	private GenericReferenceWithCompositePk<PeuDocument> peuDocument;
+	private GenericReferenceWithCompositePk<PeuDocument, PeuDocumentPk> peuDocument;
 	
  	@Size(max = 10)
 	@RestapiField(
@@ -195,8 +195,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<Magatzem, String> magatzem;
-	private GenericReferenceWithCompositePk<Magatzem> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 	
 	@Transient
 	@RestapiField(
@@ -204,8 +203,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<Empresa, String> empresaOp;
-	private GenericReferenceWithCompositePk<Empresa> empresaOp;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresaOp;
 	
 	@Transient
 	@RestapiField(
@@ -213,8 +211,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<Departament, String> departament;
-	private GenericReferenceWithCompositePk<Departament> departament;
+	private GenericReferenceWithCompositePk<Departament, DepartamentPk> departament;
 	
 	@Size(max = 20)
 	@RestapiField(
@@ -248,8 +245,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

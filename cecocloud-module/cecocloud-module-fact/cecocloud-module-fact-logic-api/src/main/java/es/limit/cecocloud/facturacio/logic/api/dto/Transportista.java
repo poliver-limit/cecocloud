@@ -100,8 +100,7 @@ public class Transportista extends AbstractIdentificableAmbIdentificadorICodi<St
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<CodiPostal, String> codiPostal;
-	private GenericReferenceWithCompositePk<CodiPostal> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull
@@ -109,15 +108,13 @@ public class Transportista extends AbstractIdentificableAmbIdentificadorICodi<St
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<Divisa, String> divisa;
-	private GenericReferenceWithCompositePk<Divisa> divisa;
+	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<Proveidor, String> proveidor;
-	private GenericReferenceWithCompositePk<Proveidor> proveidor;
+	private GenericReferenceWithCompositePk<Proveidor, AmbIdentificadorICodiPk<String>> proveidor;
 
 }

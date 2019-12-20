@@ -18,10 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.JoinColumnOrFormula;
-import org.hibernate.annotations.JoinColumnsOrFormulas;
-import org.hibernate.annotations.JoinFormula;
-
 import es.limit.cecocloud.facturacio.logic.api.dto.Article;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AccessLevel;
@@ -78,20 +74,28 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 
 	@Embedded
 	protected Article embedded;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "art_idf_cod", referencedColumnName = "far_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "art_far_cod", referencedColumnName = "far_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_art_far_fk"))	
+	private ArticleFamiliaEntity familia;
+	@Column(name = "art_far_cod", length = 6, nullable = false)
+	private String familiaCodi;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumnsOrFormulas(value= {
-		@JoinColumnOrFormula(formula = @JoinFormula(value = "art_idf_cod", referencedColumnName = "far_idf_cod")),
-		@JoinColumnOrFormula(column = @JoinColumn(name = "art_far_cod", referencedColumnName = "far_cod"))
-	}) // foreignKey = @ForeignKey(name = "rges_art_far_fk"))
-	protected ArticleFamiliaEntity familia;	
-	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumnsOrFormulas(value= {
-			@JoinColumnOrFormula(formula = @JoinFormula(value = "art_idf_cod", referencedColumnName = "iva_idf_cod")),
-			@JoinColumnOrFormula(column = @JoinColumn(name = "art_iva_cod", referencedColumnName = "iva_cod"))
-	}) // foreignKey = @ForeignKey(name = "rges_art_iva_fk"))	
-	protected IvaEntity iva;
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "art_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "art_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_art_iva_fk"))
+	private IvaEntity iva;
+	@Column(name = "art_iva_cod", length = 4, nullable = false)
+	private String ivaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -100,7 +104,10 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_mod_cod", referencedColumnName = "mod_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_mod_fk"))			
-	protected ArticleModelEntity model;	
+	private ArticleModelEntity model;	
+	@Column(name = "art_mod_cod", length = 6, nullable = false)
+	private String modelCodi;
+	
 	
 	@ManyToOne(optional = true,	fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -109,7 +116,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_gma_cod", referencedColumnName = "gma_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_gma_fk"))		
-	protected ArticleGammaEntity gamma;	
+	private ArticleGammaEntity gamma;	
 	
 	@ManyToOne(optional = true,	fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -118,8 +125,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_mca_cod", referencedColumnName = "mca_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_mca_fk"))		
-	protected ArticleMarcaEntity marca;
-		
+	private ArticleMarcaEntity marca;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -127,8 +134,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_emp_fk"))			
-	protected EmpresaEntity empresa;
-	
+	private EmpresaEntity empresa;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -137,7 +143,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_art_cod", referencedColumnName = "art_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_art_fk"))
-	protected ArticleEntity alternatiu;	
+	private ArticleEntity alternatiu;	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -146,7 +152,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_art_cod02", referencedColumnName = "art_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_art_cod02_fk"))
-	protected ArticleEntity alternatiu2;	
+	private ArticleEntity alternatiu2;	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -155,8 +161,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_codrae", referencedColumnName = "art_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_articleRaee_fk"))
-	protected ArticleEntity articleRaee;	
-	
+	private ArticleEntity articleRaee;	
+
 	@Builder
 	public ArticleEntity(			
 			AmbIdentificadorICodiPk<String> pk,
@@ -174,20 +180,32 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.familia = familia;	
-		this.iva = iva;	
-		this.model = model;	
-//		this.gamma = gamma;	
-//		this.marca = marca;	
-//		this.empresa = empresa;	
-//		this.alternatiu = alternatiu;
-//		this.alternatiu2 = alternatiu2;	
-//		this.articleRaee = articleRaee;	
+		this.familia = familia;
+		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
+		this.iva = iva;
+		this.ivaCodi = embedded.getIva().getPk().getCodi();
+		this.model = model;
+		this.modelCodi = embedded.getIva().getPk().getCodi();
+		this.gamma = gamma;
+		this.marca = marca;
+		this.empresa = empresa;
+		this.alternatiu = alternatiu;
+		this.alternatiu2 = alternatiu2;
+		this.articleRaee = articleRaee;
 	}
 
 	@Override
 	public void update(Article embedded) {
 		this.embedded = embedded;
+		
+		// Referencies sobre camsp obligatoris
+		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
+		this.ivaCodi = embedded.getIva().getPk().getCodi();
+		
+		// Referencies sobre camps no obligastoris		
+		if (embedded.getModel() != null) {
+			this.modelCodi = embedded.getModel().getPk().getCodi();
+		}
 	}
 
 }

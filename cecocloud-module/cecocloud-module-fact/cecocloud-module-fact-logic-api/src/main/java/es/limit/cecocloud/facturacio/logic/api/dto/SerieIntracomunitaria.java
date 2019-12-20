@@ -67,8 +67,7 @@ public class SerieIntracomunitaria extends AbstractIdentificableAmbIdentificador
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

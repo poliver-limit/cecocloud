@@ -46,16 +46,14 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-//	private GenericReference<ArticleFamilia, String> familia;
-	private GenericReferenceWithCompositePk<ArticleFamilia> familia;
+	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> familia;
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<Iva, String> iva;
-	private GenericReferenceWithCompositePk<Iva> iva;
+	private GenericReferenceWithCompositePk<Iva, AmbIdentificadorICodiPk<String>> iva;
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
@@ -103,42 +101,42 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<ArticleGamma> gamma;
+	private GenericReferenceWithCompositePk<ArticleGamma, AmbIdentificadorICodiPk<String>> gamma;
 
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<ArticleMarca> marca;
+	private GenericReferenceWithCompositePk<ArticleMarca, AmbIdentificadorICodiPk<String>> marca;
 
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article> alternatiu;
+	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> alternatiu;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article> alternatiu2;
+	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> alternatiu2;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article> articleRaee;
+	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> articleRaee;
 	
 	
 	
@@ -147,7 +145,6 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
-//	private GenericReference<ArticleModel, String> model;	
-	private GenericReferenceWithCompositePk<ArticleModel> model;
+	private GenericReferenceWithCompositePk<ArticleModel, AmbIdentificadorICodiPk<String>> model;
 
 }

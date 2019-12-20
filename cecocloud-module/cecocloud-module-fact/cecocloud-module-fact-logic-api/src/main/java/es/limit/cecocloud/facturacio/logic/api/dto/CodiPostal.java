@@ -11,6 +11,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.facturacio.logic.api.dto.Provincia.ProvinciaPk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,8 +50,7 @@ public class CodiPostal extends AbstractIdentificableAmbIdentificadorICodi<Strin
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<Pais, String> pais;
-	private GenericReferenceWithCompositePk<Pais> pais;
+	private GenericReferenceWithCompositePk<Pais, AmbIdentificadorICodiPk<String>> pais;
 	
 	@Transient
 	@NotNull
@@ -59,7 +59,6 @@ public class CodiPostal extends AbstractIdentificableAmbIdentificadorICodi<Strin
 			//lovParentField = "pais",
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<Provincia, String> provincia;
-	private GenericReferenceWithCompositePk<Provincia> provincia;
+	private GenericReferenceWithCompositePk<Provincia, ProvinciaPk> provincia;
 
 }

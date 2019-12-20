@@ -46,8 +46,7 @@ public class Ubicacio extends AbstractIdentificableAmbIdentificador<UbicacioPk> 
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Magatzem, String> magatzem;
-	private GenericReferenceWithCompositePk<Magatzem> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

@@ -44,7 +44,7 @@ public class RolUsuariIdentificadorEmpresa extends AbstractIdentificableWithComp
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
-	private GenericReferenceWithCompositePk<UsuariIdentificadorEmpresa> usuariIdentificadorEmpresa;
+	private GenericReferenceWithCompositePk<UsuariIdentificadorEmpresa, UsuariIdentificadorEmpresaPk> usuariIdentificadorEmpresa;
 	@Transient
 	@RestapiField(
 			hiddenInGrid = true,

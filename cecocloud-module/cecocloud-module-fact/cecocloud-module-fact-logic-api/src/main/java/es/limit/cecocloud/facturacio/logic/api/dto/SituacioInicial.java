@@ -13,6 +13,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioInicial.SituacioInicialPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -50,8 +51,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
-//	private GenericReference<Article, String> article;
-	private GenericReferenceWithCompositePk<Article> article;
+	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> article;
 	
 	@Transient
 	@NotNull
@@ -60,8 +60,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)	
-//	private GenericReference<Divisa, String> divisa;
-	private GenericReferenceWithCompositePk<Divisa> divisa;
+	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
 	
 	@Transient
 	@RestapiField(
@@ -69,8 +68,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			includeInQuickFilter = false,
 			disabledForCreate = true,
 			disabledForUpdate = true)	
-//	private GenericReference<ArticleFamilia, String> familia;
-	private GenericReferenceWithCompositePk<ArticleFamilia> familia;
+	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> familia;
 	
 	@Transient
 	@RestapiField(
@@ -78,8 +76,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Magatzem, String> magatzem;
-	private GenericReferenceWithCompositePk<Magatzem> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 	
 	@Transient
 	@RestapiField(			

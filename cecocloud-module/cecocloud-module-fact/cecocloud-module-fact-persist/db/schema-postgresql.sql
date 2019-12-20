@@ -247,6 +247,18 @@ create table tges_idf (
     primary key (idf_cod)
 );
 
+create table tges_idi (
+   idi_cod varchar(4) not null,
+    idi_idf_cod varchar(4) not null,
+    idi_usucre varchar(255),
+    idi_datcre timestamp,
+    idi_usumod varchar(255),
+    idi_datmod timestamp,
+    idi_codiso varchar(2) not null,
+    idi_des varchar(30) not null,
+    primary key (idi_cod, idi_idf_cod)
+);
+
 create table tges_iva (
    iva_cod varchar(4) not null,
     iva_idf_cod varchar(4) not null,
@@ -790,6 +802,7 @@ create index iges_far_idf_fk on tges_far (far_idf_cod);
 create index iges_fct_idf_fk on tges_fct (fct_idf_cod);
 create index iges_fpr_idf_fk on tges_fpr (fpr_idf_cod);
 create index iges_gma_idf_fk on tges_gma (gma_idf_cod);
+create index iges_idi_idf_fk on tges_idi (idi_idf_cod);
 create index iges_iva_idf_fk on tges_iva (iva_idf_cod);
 create index iges_mag_idf_fk on tges_mag (mag_idf_cod);
 create index iges_mca_idf_fk on tges_mca (mca_idf_cod);
@@ -1036,6 +1049,11 @@ alter table tges_fpr
 alter table tges_gma 
    add constraint rges_gma_idf_fk 
    foreign key (gma_idf_cod) 
+   references tges_idf;
+
+alter table tges_idi 
+   add constraint rges_idi_idf_fk 
+   foreign key (idi_idf_cod) 
    references tges_idf;
 
 alter table tges_iva 

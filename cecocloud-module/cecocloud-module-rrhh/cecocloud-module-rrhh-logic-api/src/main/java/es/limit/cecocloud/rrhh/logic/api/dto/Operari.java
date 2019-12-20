@@ -57,8 +57,7 @@ public class Operari extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Horari, String> horari;
-	private GenericReferenceWithCompositePk<Horari> horari;
+	private GenericReferenceWithCompositePk<Horari, AmbIdentificadorICodiPk<String>> horari;
 
 
 }

@@ -35,8 +35,7 @@ public class Subcategoria extends AbstractIdentificableAmbIdentificadorICodi<Str
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-//	private GenericReference<Categoria, String> categoria;
-	private GenericReferenceWithCompositePk<Categoria> categoria;
+	private GenericReferenceWithCompositePk<Categoria, AmbIdentificadorICodiPk<String>> categoria;
 	
 	@Size(max = 30)
 	private String nom;

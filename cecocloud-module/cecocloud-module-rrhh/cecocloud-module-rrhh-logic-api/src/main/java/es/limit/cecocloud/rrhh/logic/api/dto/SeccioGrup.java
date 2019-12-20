@@ -47,8 +47,7 @@ public class SeccioGrup extends AbstractIdentificableAmbIdentificador<SeccioGrup
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

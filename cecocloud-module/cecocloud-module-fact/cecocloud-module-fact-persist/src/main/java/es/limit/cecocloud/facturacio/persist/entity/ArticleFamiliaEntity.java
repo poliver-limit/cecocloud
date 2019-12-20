@@ -45,7 +45,7 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "far_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "far_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "far_cod", length = 6)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "far_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "far_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "far_tip", length = 1, nullable = false)),
@@ -68,8 +68,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.percentatgePenalitzacioDevolucio", column = @Column(name = "far_ptependev")),
 	@AttributeOverride(name = "embedded.descOperacio", column = @Column(name = "far_desope", length = 500)),
 	@AttributeOverride(name = "embedded.artExportables", column = @Column(name = "far_pda", length = 1)),
+	
 	@AttributeOverride(name = "embedded.familiaCostCodi", column = @Column(name = "far_fct_cod",  length = 4)),
 	@AttributeOverride(name = "embedded.recursGrupCodi", column = @Column(name = "far_gre_cod", length = 4)),
+	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "far_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "far_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "far_usumod")),

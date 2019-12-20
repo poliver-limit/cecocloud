@@ -54,8 +54,7 @@ public class MagatzemPeriode extends AbstractIdentificableAmbIdentificador<Magat
 			hiddenInForm = true, 
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<Magatzem, String> magatzem;
-	private GenericReferenceWithCompositePk<Magatzem> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

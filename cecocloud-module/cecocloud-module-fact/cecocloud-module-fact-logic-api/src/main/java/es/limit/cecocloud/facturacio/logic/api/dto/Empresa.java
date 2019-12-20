@@ -57,9 +57,8 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov = true)	
-//	private GenericReference<CodiPostal, String> codiPostalComercial;
-	private GenericReferenceWithCompositePk<CodiPostal> codiPostalComercial;
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostalComercial;
 	
 	@NotNull
 	@Size(max = 40)
@@ -77,9 +76,8 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
-			hiddenInLov = true)	
-//	private GenericReference<CodiPostal, String> codiPostalFiscal;
-	private GenericReferenceWithCompositePk<CodiPostal> codiPostalFiscal;
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostalFiscal;
 	
 	@Transient
 	@NotNull
@@ -92,8 +90,8 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<Divisa, String> divisa;
-	private GenericReferenceWithCompositePk<Divisa> divisa;
+	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
+	
 	
 	@NotNull
 	@RestapiField(
@@ -127,8 +125,7 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<Magatzem, String> magatzem;
-	private GenericReferenceWithCompositePk<Magatzem> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,

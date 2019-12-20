@@ -33,9 +33,8 @@ public class TipusDia extends AbstractIdentificableAmbIdentificadorICodi<String>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)	
-//	private GenericReference<Regim, String> regim;
-	private GenericReferenceWithCompositePk<Regim> regim;
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<Regim, AmbIdentificadorICodiPk<String>> regim;
 	
 	@Size(max = 30)
 	private String nom;

@@ -15,8 +15,10 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa.SeccioEmpresaPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
+import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,8 +44,7 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			toUpperCase = true,
 			includeInQuickFilter = true
 			)	
-//	private GenericReference<Seccio, String> seccio;
-	private GenericReferenceWithCompositePk<Seccio> seccio;
+	private GenericReferenceWithCompositePk<Seccio, SeccioPk> seccio;
 	
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
@@ -59,8 +60,7 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 	
 	@Transient
 	@RestapiField(
@@ -68,8 +68,7 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<ArticleFamilia, String> articleFamilia;
-	private GenericReferenceWithCompositePk<ArticleFamilia> articleFamilia;
+	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

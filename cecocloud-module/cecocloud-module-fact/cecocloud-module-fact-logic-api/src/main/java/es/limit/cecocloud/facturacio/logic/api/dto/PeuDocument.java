@@ -16,6 +16,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument.PeuDocumentPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.SerieCompra.SerieCompraPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -86,8 +87,7 @@ public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocume
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<SerieCompra, String> serieCompra;
-	private GenericReferenceWithCompositePk<SerieCompra> serieCompra;
+	private GenericReferenceWithCompositePk<SerieCompra, SerieCompraPk> serieCompra;	
 	
 	@Transient
 	@RestapiField(
@@ -95,8 +95,7 @@ public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocume
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

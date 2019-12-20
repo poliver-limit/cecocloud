@@ -57,8 +57,7 @@ public class Departament extends AbstractIdentificableAmbIdentificador<Departame
 			disabledForCreate = false,
 			disabledForUpdate = false,
 			hiddenInForm = false)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

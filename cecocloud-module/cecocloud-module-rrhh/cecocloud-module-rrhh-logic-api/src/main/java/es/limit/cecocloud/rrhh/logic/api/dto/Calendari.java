@@ -39,8 +39,7 @@ public class Calendari extends AbstractIdentificableAmbIdentificador<CalendariPk
 	@RestapiField(
 			type = RestapiFieldType.LOV, 			
 			hiddenInGrid = true)	
-//	private GenericReference<TipusDia, String> tipusDia;
-	private GenericReferenceWithCompositePk<TipusDia> tipusDia;
+	private GenericReferenceWithCompositePk<TipusDia, AmbIdentificadorICodiPk<String>> tipusDia;	
 	
 	@Size(max = 1000)
 	@RestapiField(			

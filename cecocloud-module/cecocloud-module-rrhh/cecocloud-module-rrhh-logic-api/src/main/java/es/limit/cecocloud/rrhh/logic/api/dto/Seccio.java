@@ -16,6 +16,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup.SeccioGrupPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -66,8 +67,7 @@ public class Seccio extends AbstractIdentificableAmbIdentificador<SeccioPk> {
 			hiddenInGrid = true,
 			hiddenInLov=true
 			)	
-//	private GenericReference<SeccioGrup, String> seccioGrup;
-	private GenericReferenceWithCompositePk<SeccioGrup> seccioGrup;
+	private GenericReferenceWithCompositePk<SeccioGrup, SeccioGrupPk> seccioGrup;
 	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Size(max = 1000)
@@ -82,8 +82,7 @@ public class Seccio extends AbstractIdentificableAmbIdentificador<SeccioPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

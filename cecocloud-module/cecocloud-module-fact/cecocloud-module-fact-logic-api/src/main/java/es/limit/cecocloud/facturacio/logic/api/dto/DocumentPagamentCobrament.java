@@ -142,23 +142,20 @@ public class DocumentPagamentCobrament extends AbstractIdentificableAmbIdentific
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-//	private GenericReference<NaturalesaPagamentCobrament, String> naturalesaPagamentCobrament;
-	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament> naturalesaPagamentCobrament;
+	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament, AmbIdentificadorICodiPk<String>> naturalesaPagamentCobrament;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-//	private GenericReference<Iva, String> iva;
-	private GenericReferenceWithCompositePk<Iva> iva;
+	private GenericReferenceWithCompositePk<Iva, AmbIdentificadorICodiPk<String>> iva;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			hiddenInLov = true)	
-//	private GenericReference<RegimIva, String> regimIva;
-	private GenericReferenceWithCompositePk<RegimIva> regimIva;
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<RegimIva, AmbIdentificadorICodiPk<String>> regimIva;
 
 }

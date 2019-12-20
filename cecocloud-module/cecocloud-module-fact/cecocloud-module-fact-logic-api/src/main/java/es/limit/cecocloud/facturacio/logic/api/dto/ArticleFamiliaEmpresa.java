@@ -12,6 +12,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa.ArticleFamiliaEmpresaPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,15 +37,13 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableAmbIdentificador
 	private boolean web;
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV)
-//	private GenericReference<ArticleFamilia, String> articleFamilia;
-	private GenericReferenceWithCompositePk<ArticleFamilia> articleFamilia;
+			type = RestapiFieldType.LOV)	
+	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

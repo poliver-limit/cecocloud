@@ -75,15 +75,13 @@ public class SerieCompra extends AbstractIdentificableAmbIdentificador<SerieComp
 	@RestapiField(type = RestapiFieldType.LOV,			
 			hiddenInLov = true,
 			hiddenInGrid = true)	
-//	private GenericReference<Magatzem, String> magatzem;
-	private GenericReferenceWithCompositePk<Magatzem> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV,			
 			hiddenInLov = true,
 			hiddenInGrid = true)	
-//	private GenericReference<Empresa, String> empresaOp;
-	private GenericReferenceWithCompositePk<Empresa> empresaOp;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresaOp;
 	
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String departament;
@@ -98,8 +96,7 @@ public class SerieCompra extends AbstractIdentificableAmbIdentificador<SerieComp
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-//	private GenericReference<Empresa, String> empresa;
-	private GenericReferenceWithCompositePk<Empresa> empresa;
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
