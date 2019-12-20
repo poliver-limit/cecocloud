@@ -117,6 +117,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			},
 			foreignKey = @ForeignKey(name = "rges_art_gma_fk"))		
 	private ArticleGammaEntity gamma;	
+	@Column(name = "art_gma_cod", length = 6)
+	private String gammaCodi;
 	
 	@ManyToOne(optional = true,	fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -126,6 +128,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			},
 			foreignKey = @ForeignKey(name = "rges_art_mca_fk"))		
 	private ArticleMarcaEntity marca;
+	@Column(name = "art_mca_cod", length = 6)
+	private String marcaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -135,6 +139,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			},
 			foreignKey = @ForeignKey(name = "rges_art_emp_fk"))			
 	private EmpresaEntity empresa;
+	@Column(name = "art_emp_cod", length = 4)
+	private String empresaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -144,6 +150,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			},
 			foreignKey = @ForeignKey(name = "rges_art_art_fk"))
 	private ArticleEntity alternatiu;	
+	@Column(name = "art_art_cod", length = 15)
+	private String alternatiuCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -153,6 +161,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			},
 			foreignKey = @ForeignKey(name = "rges_art_art_cod02_fk"))
 	private ArticleEntity alternatiu2;	
+	@Column(name = "art_art_cod02", length = 15)
+	private String alternatiu2Codi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -162,7 +172,9 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			},
 			foreignKey = @ForeignKey(name = "rges_art_articleRaee_fk"))
 	private ArticleEntity articleRaee;	
-
+	@Column(name = "art_codrae", length = 15)
+	private String articleRaeeCodi;
+	
 	@Builder
 	public ArticleEntity(			
 			AmbIdentificadorICodiPk<String> pk,
@@ -178,20 +190,36 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			EmpresaEntity empresa,			
 			IvaEntity iva) {
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
+		
 		this.familia = familia;
 		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
+		
 		this.iva = iva;
 		this.ivaCodi = embedded.getIva().getPk().getCodi();
+		
 		this.model = model;
-		this.modelCodi = embedded.getIva().getPk().getCodi();
+		this.modelCodi = embedded.getModel().getPk().getCodi();
+		
 		this.gamma = gamma;
+		this.gammaCodi = embedded.getGamma().getPk().getCodi();
+		
 		this.marca = marca;
+		this.marcaCodi = embedded.getMarca().getPk().getCodi();
+		
 		this.empresa = empresa;
+		this.empresaCodi = embedded.getEmpresa().getPk().getCodi();
+		
 		this.alternatiu = alternatiu;
+		this.alternatiuCodi = embedded.getAlternatiu().getPk().getCodi();
+		
 		this.alternatiu2 = alternatiu2;
+		this.alternatiu2Codi = embedded.getAlternatiu2().getPk().getCodi();
+		
 		this.articleRaee = articleRaee;
+		this.articleRaeeCodi = embedded.getArticleRaee().getPk().getCodi();
 	}
 
 	@Override
@@ -201,10 +229,26 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 		// Referencies sobre camsp obligatoris
 		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
 		this.ivaCodi = embedded.getIva().getPk().getCodi();
+		this.modelCodi = embedded.getModel().getPk().getCodi();
 		
 		// Referencies sobre camps no obligastoris		
-		if (embedded.getModel() != null) {
-			this.modelCodi = embedded.getModel().getPk().getCodi();
+		if (embedded.getGamma() != null) {
+			this.gammaCodi = embedded.getGamma().getPk().getCodi();
+		}		
+		if (embedded.getMarca() != null) {
+			this.marcaCodi = embedded.getMarca().getPk().getCodi();
+		}		
+		if (embedded.getEmpresa() != null) {
+			this.empresaCodi = embedded.getEmpresa().getPk().getCodi();
+		}		
+		if (embedded.getAlternatiu() != null) {
+			this.alternatiuCodi = embedded.getAlternatiu().getPk().getCodi();
+		}		
+		if (embedded.getAlternatiu2() != null) {
+			this.alternatiu2Codi = embedded.getAlternatiu2().getPk().getCodi();
+		}		
+		if (embedded.getArticleRaee() != null) {
+			this.articleRaeeCodi = embedded.getArticleRaee().getPk().getCodi();
 		}
 	}
 

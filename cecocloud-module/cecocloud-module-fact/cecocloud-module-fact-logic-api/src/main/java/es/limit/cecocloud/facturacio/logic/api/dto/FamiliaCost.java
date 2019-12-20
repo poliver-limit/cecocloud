@@ -51,7 +51,6 @@ public class FamiliaCost extends AbstractIdentificableAmbIdentificadorICodi<Stri
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-//	private GenericReference<ArticleFamilia, String> articleFamilia;
 	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
 
 }
