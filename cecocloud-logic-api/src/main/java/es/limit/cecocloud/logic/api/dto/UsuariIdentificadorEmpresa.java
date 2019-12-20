@@ -37,7 +37,7 @@ public class UsuariIdentificadorEmpresa extends AbstractIdentificableWithComposi
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
-	private GenericReferenceWithCompositePk<UsuariIdentificador> usuariIdentificador;
+	private GenericReferenceWithCompositePk<UsuariIdentificador, UsuariIdentificadorPk> usuariIdentificador;
 	@NotNull
 	@Transient
 	@RestapiField(

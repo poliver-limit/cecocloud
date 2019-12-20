@@ -47,8 +47,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "art_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "art_cod", length = 15, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "art_des", length = 2000, nullable = false)),
-	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "art_far_cod", length = 6, nullable = false)),
-	@AttributeOverride(name = "embedded.ivaCodi", column = @Column(name = "art_iva_cod", length = 6, nullable = false)),
 	@AttributeOverride(name = "embedded.pvp", column = @Column(name = "art_pvp", nullable = false, precision = 17, scale = 5)),
 	@AttributeOverride(name = "embedded.factorConversioEntrada", column = @Column(name = "art_fce", nullable = false, precision = 15, scale = 3)),
 	@AttributeOverride(name = "embedded.factorConversioSortida", column = @Column(name = "art_fcs", nullable = false, precision = 15, scale = 3)),
@@ -59,7 +57,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.crearReferencies", column = @Column(name = "art_creref", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "art_descur", length = 60)),
 	@AttributeOverride(name = "embedded.alies", column = @Column(name = "art_ali", length = 30)),
-	@AttributeOverride(name = "embedded.modelCodi", column = @Column(name = "art_mod_cod", length = 6, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "art_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "art_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "art_usumod")),
@@ -77,24 +74,32 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 
 	@Embedded
 	protected Article embedded;
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "art_idf_cod", referencedColumnName = "far_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "art_far_cod", referencedColumnName = "far_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_art_far_fk"))	
-	protected ArticleFamiliaEntity familia;	
-	
+			foreignKey = @ForeignKey(name = "rges_art_far_fk"))
+	/*@JoinColumnsOrFormulas(
+			value = {
+					@JoinColumnOrFormula(formula = @JoinFormula(value = "art_idf_cod", referencedColumnName = "far_idf_cod")),
+					@JoinColumnOrFormula(column = @JoinColumn(name = "art_far_cod", referencedColumnName = "far_cod"))
+			})*/
+	private ArticleFamiliaEntity familia;
+	@Column(name = "art_far_cod", length = 6, nullable = false)
+	private String familiaCodi;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "art_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "art_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_art_iva_fk"))	
-	protected IvaEntity iva;	
-	
+			foreignKey = @ForeignKey(name = "rges_art_iva_fk"))
+	private IvaEntity iva;
+	@Column(name = "art_iva_cod", length = 4, nullable = false)
+	private String ivaCodi;
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -102,8 +107,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_mod_cod", referencedColumnName = "mod_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_mod_fk"))			
-	protected ArticleModelEntity model;	
-	
+	private ArticleModelEntity model;	
 	@ManyToOne(optional = true,	fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -111,8 +115,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_gma_cod", referencedColumnName = "gma_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_gma_fk"))		
-	protected ArticleGammaEntity gamma;	
-	
+	private ArticleGammaEntity gamma;	
 	@ManyToOne(optional = true,	fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -120,8 +123,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_mca_cod", referencedColumnName = "mca_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_mca_fk"))		
-	protected ArticleMarcaEntity marca;
-		
+	private ArticleMarcaEntity marca;
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -129,9 +131,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_emp_fk"))			
-	protected EmpresaEntity empresa;
-	
-	
+	private EmpresaEntity empresa;
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -139,8 +139,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_art_cod", referencedColumnName = "art_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_art_fk"))
-	protected ArticleEntity alternatiu;	
-	
+	private ArticleEntity alternatiu;	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -148,8 +147,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_art_cod02", referencedColumnName = "art_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_art_cod02_fk"))
-	protected ArticleEntity alternatiu2;	
-	
+	private ArticleEntity alternatiu2;	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -157,8 +155,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 					@JoinColumn(name = "art_codrae", referencedColumnName = "art_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_art_articleRaee_fk"))
-	protected ArticleEntity articleRaee;	
-	
+	private ArticleEntity articleRaee;	
+
 	@Builder
 	public ArticleEntity(
 			AmbIdentificadorICodiPk<String> pk,
@@ -176,20 +174,24 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.familia = familia;	
-		this.iva = iva;	
-		this.model = model;	
-		this.gamma = gamma;	
-		this.marca = marca;	
-		this.empresa = empresa;	
+		this.familia = familia;
+		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
+		this.iva = iva;
+		this.ivaCodi = embedded.getIva().getPk().getCodi();
+		this.model = model;
+		this.gamma = gamma;
+		this.marca = marca;
+		this.empresa = empresa;
 		this.alternatiu = alternatiu;
-		this.alternatiu2 = alternatiu2;	
-		this.articleRaee = articleRaee;	
+		this.alternatiu2 = alternatiu2;
+		this.articleRaee = articleRaee;
 	}
 
 	@Override
 	public void update(Article embedded) {
 		this.embedded = embedded;
+		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
+		this.ivaCodi = embedded.getIva().getPk().getCodi();
 	}
 
 }
