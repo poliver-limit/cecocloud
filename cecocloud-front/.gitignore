@@ -3,3 +3,4 @@
 /.project
 /.settings/
 application.properties
+/skip_npm

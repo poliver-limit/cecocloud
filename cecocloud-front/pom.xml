@@ -11,6 +11,32 @@
 	<properties>
 		<angular.resources.path>src/main/resources</angular.resources.path>
 	</properties>
+	<profiles>
+		<profile>
+			<id>prod</id>
+			<activation>
+				<file>
+					<exists>skip_npm</exists>
+				</file>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<skip.npm>false</skip.npm>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<file>
+					<exists>skip_npm</exists>
+				</file>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<skip.npm>true</skip.npm>
+			</properties>
+		</profile>
+	</profiles>
 	<build>
 		<resources>
 			<resource>
