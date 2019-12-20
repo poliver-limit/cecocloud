@@ -54,6 +54,15 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			hiddenInGrid = true,
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Iva, AmbIdentificadorICodiPk<String>> iva;
+	
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,			
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<ArticleModel, AmbIdentificadorICodiPk<String>> model;
+	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
@@ -97,54 +106,41 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	private String alies;
 
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<ArticleGamma, AmbIdentificadorICodiPk<String>> gamma;
 
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<ArticleMarca, AmbIdentificadorICodiPk<String>> marca;
 
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> alternatiu;
 	
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> alternatiu2;
 	
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> articleRaee;
+	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> articleRaee;	
 	
-	
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<ArticleModel, AmbIdentificadorICodiPk<String>> model;
+
 
 }

@@ -97,7 +97,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 	@Column(name = "art_iva_cod", length = 4, nullable = false)
 	private String ivaCodi;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "art_idf_cod", referencedColumnName = "mod_idf_cod", insertable = false, updatable = false),
@@ -192,39 +192,33 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
-		
-		this.familia = familia;
-		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
-		
-		this.iva = iva;
-		this.ivaCodi = embedded.getIva().getPk().getCodi();
-		
-		this.model = model;
-		this.modelCodi = embedded.getModel().getPk().getCodi();
-		
-		this.gamma = gamma;
-		this.gammaCodi = embedded.getGamma().getPk().getCodi();
-		
-		this.marca = marca;
-		this.marcaCodi = embedded.getMarca().getPk().getCodi();
-		
-		this.empresa = empresa;
-		this.empresaCodi = embedded.getEmpresa().getPk().getCodi();
-		
-		this.alternatiu = alternatiu;
-		this.alternatiuCodi = embedded.getAlternatiu().getPk().getCodi();
-		
-		this.alternatiu2 = alternatiu2;
-		this.alternatiu2Codi = embedded.getAlternatiu2().getPk().getCodi();
-		
+		this.identificador = identificador;		
+		this.familia = familia;		
+		this.iva = iva;		
+		this.model = model;		
+		this.gamma = gamma;	
+		this.marca = marca;		
+		this.empresa = empresa;		
+		this.alternatiu = alternatiu;		
+		this.alternatiu2 = alternatiu2;		
 		this.articleRaee = articleRaee;
-		this.articleRaeeCodi = embedded.getArticleRaee().getPk().getCodi();
+		
+		this.setEmbeddedCodis();
 	}
 
 	@Override
 	public void update(Article embedded) {
-		this.embedded = embedded;
+		this.embedded = embedded;		
+		this.setEmbeddedCodis();
+	}
+	
+	private void setEmbeddedCodis () {
+		
+		// Referencies sobre camsp obligatoris
+		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
+		this.ivaCodi = embedded.getIva().getPk().getCodi();
+		this.modelCodi = embedded.getModel().getPk().getCodi();
+		
 		
 		// Referencies sobre camsp obligatoris
 		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
@@ -250,6 +244,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 		if (embedded.getArticleRaee() != null) {
 			this.articleRaeeCodi = embedded.getArticleRaee().getPk().getCodi();
 		}
+		
 	}
 
 }
