@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -100,7 +100,8 @@ public class Transportista extends AbstractIdentificableAmbIdentificadorICodi<St
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-	private GenericReference<CodiPostal, String> codiPostal;
+//	private GenericReference<CodiPostal, String> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal> codiPostal;
 	
 	@Transient
 	@NotNull
@@ -108,13 +109,15 @@ public class Transportista extends AbstractIdentificableAmbIdentificadorICodi<St
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<Divisa, String> divisa;
+//	private GenericReference<Divisa, String> divisa;
+	private GenericReferenceWithCompositePk<Divisa> divisa;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<Proveidor, String> proveidor;
+//	private GenericReference<Proveidor, String> proveidor;
+	private GenericReferenceWithCompositePk<Proveidor> proveidor;
 
 }

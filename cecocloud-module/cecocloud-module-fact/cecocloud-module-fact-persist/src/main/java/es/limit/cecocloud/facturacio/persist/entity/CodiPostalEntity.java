@@ -18,6 +18,10 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
+import org.hibernate.annotations.JoinFormula;
+
 import es.limit.cecocloud.facturacio.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AccessLevel;
@@ -67,13 +71,14 @@ public class CodiPostalEntity extends AbstractAmbIdentificadorEntity<CodiPostal,
 	protected CodiPostal embedded;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumns(
+	@JoinColumnsOrFormulas(
 			value = {
-				@JoinColumn(name = "cpo_idf_cod", referencedColumnName = "pas_idf_cod", insertable = false, updatable = false),
-				@JoinColumn(name = "cpo_pas_cod", referencedColumnName = "pas_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "rges_cpo_pas_fk"))
+					@JoinColumnOrFormula(formula = @JoinFormula(value = "cpo_idf_cod", referencedColumnName = "pas_idf_cod")),
+					@JoinColumnOrFormula(column = @JoinColumn(name = "cpo_pas_cod", referencedColumnName = "pas_cod"))
+			})
+//			foreignKey = @ForeignKey(name = "rges_cpo_pas_fk"))
 	protected PaisEntity pais;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {

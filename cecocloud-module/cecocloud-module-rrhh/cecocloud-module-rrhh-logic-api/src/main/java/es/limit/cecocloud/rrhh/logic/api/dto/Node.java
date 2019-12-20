@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
 import lombok.AllArgsConstructor;
@@ -37,15 +37,21 @@ public class Node extends AbstractIdentificableAmbIdentificador<NodePk> {
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Zona, String> zonaOrigen;
+//	private GenericReference<Zona, String> zonaOrigen;
+	private GenericReferenceWithCompositePk<Zona> zonaOrigen;
+	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Zona, String> zonaDesti;
+//	private GenericReference<Zona, String> zonaDesti;
+	private GenericReferenceWithCompositePk<Zona> zonaDesti;
+	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Servidor, String> servidor;
+//	private GenericReference<Servidor, String> servidor;
+	private GenericReferenceWithCompositePk<Servidor> servidor;
+	
 	@Size(max = 10)
 	@RestapiField()
 	private String tipus1;

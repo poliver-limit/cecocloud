@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.FacturacioTipusEnum;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusComptabilitatClientEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.TipusEstrangerEnumDto;
@@ -58,7 +58,8 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<CodiPostal, String> codiPostalComercial;
+//	private GenericReference<CodiPostal, String> codiPostalComercial;
+	private GenericReferenceWithCompositePk<CodiPostal> codiPostalComercial;
 	
 	@NotNull
 	@Size(max = 40)
@@ -77,7 +78,8 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<CodiPostal, String> codiPostalFiscal;
+//	private GenericReference<CodiPostal, String> codiPostalFiscal;
+	private GenericReferenceWithCompositePk<CodiPostal> codiPostalFiscal;
 	
 	@Transient
 	@NotNull
@@ -90,7 +92,8 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<Divisa, String> divisa;
+//	private GenericReference<Divisa, String> divisa;
+	private GenericReferenceWithCompositePk<Divisa> divisa;
 	
 	@NotNull
 	@RestapiField(
@@ -124,7 +127,8 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<Magatzem, String> magatzem;
+//	private GenericReference<Magatzem, String> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem> magatzem;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,

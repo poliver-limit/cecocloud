@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari.CalendariPk;
 import lombok.AllArgsConstructor;
@@ -39,7 +39,9 @@ public class Calendari extends AbstractIdentificableAmbIdentificador<CalendariPk
 	@RestapiField(
 			type = RestapiFieldType.LOV, 			
 			hiddenInGrid = true)	
-	private GenericReference<TipusDia, String> tipusDia;
+//	private GenericReference<TipusDia, String> tipusDia;
+	private GenericReferenceWithCompositePk<TipusDia> tipusDia;
+	
 	@Size(max = 1000)
 	@RestapiField(			
 			hiddenInGrid = true)

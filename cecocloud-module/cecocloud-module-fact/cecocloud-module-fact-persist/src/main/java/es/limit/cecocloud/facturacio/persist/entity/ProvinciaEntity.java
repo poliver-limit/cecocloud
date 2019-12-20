@@ -74,6 +74,15 @@ public class ProvinciaEntity extends AbstractAmbIdentificadorEntity<Provincia, P
 			},
 			foreignKey = @ForeignKey(name = "rges_prv_pas_fk"))
 	protected PaisEntity pais;
+	
+//	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+//	@JoinColumnsOrFormulas(
+//			value = {
+//					@JoinColumnOrFormula(formula = @JoinFormula(value = "prv_idf_cod", referencedColumnName = "pas_idf_cod")),
+//					@JoinColumnOrFormula(column = @JoinColumn(name = "prv_pas_cod", referencedColumnName = "pas_cod"))
+//			})
+////			foreignKey = @ForeignKey(name = "rges_prv_pas_fk"))
+//	protected PaisEntity pais;
 
 	@Builder
 	public ProvinciaEntity(

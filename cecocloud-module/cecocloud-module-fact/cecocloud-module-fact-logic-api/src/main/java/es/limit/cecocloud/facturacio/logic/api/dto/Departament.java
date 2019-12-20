@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Departament.DepartamentPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AllArgsConstructor;
@@ -57,7 +57,8 @@ public class Departament extends AbstractIdentificableAmbIdentificador<Departame
 			disabledForCreate = false,
 			disabledForUpdate = false,
 			hiddenInForm = false)
-	private GenericReference<Empresa, String> empresa;
+//	private GenericReference<Empresa, String> empresa;
+	private GenericReferenceWithCompositePk<Empresa> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

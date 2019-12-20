@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import lombok.AllArgsConstructor;
@@ -66,7 +66,9 @@ public class Seccio extends AbstractIdentificableAmbIdentificador<SeccioPk> {
 			hiddenInGrid = true,
 			hiddenInLov=true
 			)	
-	private GenericReference<SeccioGrup, String> seccioGrup;
+//	private GenericReference<SeccioGrup, String> seccioGrup;
+	private GenericReferenceWithCompositePk<SeccioGrup> seccioGrup;
+	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Size(max = 1000)
 	private String observaciones;
@@ -80,7 +82,8 @@ public class Seccio extends AbstractIdentificableAmbIdentificador<SeccioPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+//	private GenericReference<Empresa, String> empresa;
+	private GenericReferenceWithCompositePk<Empresa> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

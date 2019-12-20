@@ -18,6 +18,10 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
+import org.hibernate.annotations.JoinFormula;
+
 import es.limit.cecocloud.facturacio.logic.api.dto.Article;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import lombok.AccessLevel;
@@ -47,8 +51,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "art_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "art_cod", length = 15, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "art_des", length = 2000, nullable = false)),
-	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "art_far_cod", length = 6, nullable = false)),
-	@AttributeOverride(name = "embedded.ivaCodi", column = @Column(name = "art_iva_cod", length = 6, nullable = false)),
 	@AttributeOverride(name = "embedded.pvp", column = @Column(name = "art_pvp", nullable = false, precision = 17, scale = 5)),
 	@AttributeOverride(name = "embedded.factorConversioEntrada", column = @Column(name = "art_fce", nullable = false, precision = 15, scale = 3)),
 	@AttributeOverride(name = "embedded.factorConversioSortida", column = @Column(name = "art_fcs", nullable = false, precision = 15, scale = 3)),
@@ -59,7 +61,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.crearReferencies", column = @Column(name = "art_creref", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "art_descur", length = 60)),
 	@AttributeOverride(name = "embedded.alies", column = @Column(name = "art_ali", length = 30)),
-	@AttributeOverride(name = "embedded.modelCodi", column = @Column(name = "art_mod_cod", length = 6, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "art_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "art_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "art_usumod")),
@@ -77,23 +78,20 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 
 	@Embedded
 	protected Article embedded;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-					@JoinColumn(name = "art_idf_cod", referencedColumnName = "far_idf_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "art_far_cod", referencedColumnName = "far_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "rges_art_far_fk"))	
+	@JoinColumnsOrFormulas(value= {
+		@JoinColumnOrFormula(formula = @JoinFormula(value = "art_idf_cod", referencedColumnName = "far_idf_cod")),
+		@JoinColumnOrFormula(column = @JoinColumn(name = "art_far_cod", referencedColumnName = "far_cod"))
+	}) // foreignKey = @ForeignKey(name = "rges_art_far_fk"))
 	protected ArticleFamiliaEntity familia;	
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-					@JoinColumn(name = "art_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "art_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "rges_art_iva_fk"))	
-	protected IvaEntity iva;	
+	@JoinColumnsOrFormulas(value= {
+			@JoinColumnOrFormula(formula = @JoinFormula(value = "art_idf_cod", referencedColumnName = "iva_idf_cod")),
+			@JoinColumnOrFormula(column = @JoinColumn(name = "art_iva_cod", referencedColumnName = "iva_cod"))
+	}) // foreignKey = @ForeignKey(name = "rges_art_iva_fk"))	
+	protected IvaEntity iva;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -160,31 +158,31 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 	protected ArticleEntity articleRaee;	
 	
 	@Builder
-	public ArticleEntity(
+	public ArticleEntity(			
 			AmbIdentificadorICodiPk<String> pk,
 			Article embedded,
 			IdentificadorEntity identificador,
-			ArticleFamiliaEntity familia,
-			IvaEntity iva,
-			ArticleModelEntity model,
-			ArticleGammaEntity gamma,
-			ArticleMarcaEntity marca,
-			EmpresaEntity empresa,
 			ArticleEntity alternatiu,
 			ArticleEntity alternatiu2,	
-			ArticleEntity articleRaee) {
+			ArticleEntity articleRaee,
+			ArticleFamiliaEntity familia,
+			ArticleGammaEntity gamma,
+			ArticleMarcaEntity marca,
+			ArticleModelEntity model,			
+			EmpresaEntity empresa,			
+			IvaEntity iva) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.familia = familia;	
 		this.iva = iva;	
 		this.model = model;	
-		this.gamma = gamma;	
-		this.marca = marca;	
-		this.empresa = empresa;	
-		this.alternatiu = alternatiu;
-		this.alternatiu2 = alternatiu2;	
-		this.articleRaee = articleRaee;	
+//		this.gamma = gamma;	
+//		this.marca = marca;	
+//		this.empresa = empresa;	
+//		this.alternatiu = alternatiu;
+//		this.alternatiu2 = alternatiu2;	
+//		this.articleRaee = articleRaee;	
 	}
 
 	@Override

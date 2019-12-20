@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaAvisAlbaraClientEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaTipusEnumDto;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ArticleFamiliaTipusServeiEnumDto;
@@ -151,12 +151,14 @@ public class ArticleFamilia extends AbstractIdentificableAmbIdentificadorICodi<S
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)	
-	private GenericReference<FamiliaCost, String> familiaCost;
+//	private GenericReference<FamiliaCost, String> familiaCost;
+	private GenericReferenceWithCompositePk<FamiliaCost> familiaCost;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, 	
 			hiddenInGrid = true,hiddenInLov = true)	
-	private GenericReference<RecursGrup, String> recursGrup;
+//	private GenericReference<RecursGrup, String> recursGrup;
+	private GenericReferenceWithCompositePk<RecursGrup> recursGrup;
 	
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,

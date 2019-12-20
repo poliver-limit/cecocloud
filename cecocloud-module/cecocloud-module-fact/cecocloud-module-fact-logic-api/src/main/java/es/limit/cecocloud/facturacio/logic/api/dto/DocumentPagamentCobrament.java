@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -142,20 +142,23 @@ public class DocumentPagamentCobrament extends AbstractIdentificableAmbIdentific
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<NaturalesaPagamentCobrament, String> naturalesaPagamentCobrament;
+//	private GenericReference<NaturalesaPagamentCobrament, String> naturalesaPagamentCobrament;
+	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament> naturalesaPagamentCobrament;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReference<Iva, String> iva;
+//	private GenericReference<Iva, String> iva;
+	private GenericReferenceWithCompositePk<Iva> iva;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<RegimIva, String> regimIva;
+//	private GenericReference<RegimIva, String> regimIva;
+	private GenericReferenceWithCompositePk<RegimIva> regimIva;
 
 }

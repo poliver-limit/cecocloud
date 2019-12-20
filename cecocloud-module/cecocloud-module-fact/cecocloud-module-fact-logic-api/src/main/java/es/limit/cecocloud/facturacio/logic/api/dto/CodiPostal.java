@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,7 +49,8 @@ public class CodiPostal extends AbstractIdentificableAmbIdentificadorICodi<Strin
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-	private GenericReference<Pais, String> pais;
+//	private GenericReference<Pais, String> pais;
+	private GenericReferenceWithCompositePk<Pais> pais;
 	
 	@Transient
 	@NotNull
@@ -58,6 +59,7 @@ public class CodiPostal extends AbstractIdentificableAmbIdentificadorICodi<Strin
 			//lovParentField = "pais",
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-	private GenericReference<Provincia, String> provincia;
+//	private GenericReference<Provincia, String> provincia;
+	private GenericReferenceWithCompositePk<Provincia> provincia;
 
 }

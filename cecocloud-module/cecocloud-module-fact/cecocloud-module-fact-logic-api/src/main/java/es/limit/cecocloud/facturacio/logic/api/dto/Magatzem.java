@@ -12,7 +12,7 @@ import org.hibernate.annotations.Formula;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.ValoracioInventariTraspasEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -103,7 +103,8 @@ public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-	private GenericReference<CodiPostal, String> codiPostal;
+//	private GenericReference<CodiPostal, String> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal> codiPostal;
 	
 	@Transient
 	@NotNull
@@ -111,6 +112,7 @@ public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String>
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private GenericReference<Divisa, String> divisa;
+//	private GenericReference<Divisa, String> divisa;
+	private GenericReferenceWithCompositePk<Divisa> divisa;
 
 }

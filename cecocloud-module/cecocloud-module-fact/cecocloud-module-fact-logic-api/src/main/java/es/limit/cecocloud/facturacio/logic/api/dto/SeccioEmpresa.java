@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa.SeccioEmpresaPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
@@ -42,7 +42,8 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			toUpperCase = true,
 			includeInQuickFilter = true
 			)	
-	private GenericReference<Seccio, String> seccio;
+//	private GenericReference<Seccio, String> seccio;
+	private GenericReferenceWithCompositePk<Seccio> seccio;
 	
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
@@ -58,7 +59,8 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+//	private GenericReference<Empresa, String> empresa;
+	private GenericReferenceWithCompositePk<Empresa> empresa;
 	
 	@Transient
 	@RestapiField(
@@ -66,7 +68,8 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<ArticleFamilia, String> articleFamilia;
+//	private GenericReference<ArticleFamilia, String> articleFamilia;
+	private GenericReferenceWithCompositePk<ArticleFamilia> articleFamilia;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

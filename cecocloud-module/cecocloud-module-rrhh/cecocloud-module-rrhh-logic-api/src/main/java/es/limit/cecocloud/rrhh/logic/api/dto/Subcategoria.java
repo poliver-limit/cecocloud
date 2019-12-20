@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +35,8 @@ public class Subcategoria extends AbstractIdentificableAmbIdentificadorICodi<Str
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Categoria, String> categoria;
+//	private GenericReference<Categoria, String> categoria;
+	private GenericReferenceWithCompositePk<Categoria> categoria;
 	
 	@Size(max = 30)
 	private String nom;

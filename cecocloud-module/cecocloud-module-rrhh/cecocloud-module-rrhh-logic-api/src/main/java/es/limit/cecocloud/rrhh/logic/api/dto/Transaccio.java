@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,20 +36,24 @@ public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<Integ
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Operari, String> operari;
+//	private GenericReference<Operari, String> operari;
+	private GenericReferenceWithCompositePk<Operari> operari;
 	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<TipusTransaccio, String> tipusTransaccio;
+//	private GenericReference<TipusTransaccio, String> tipusTransaccio;
+	private GenericReferenceWithCompositePk<TipusTransaccio> tipusTransaccio;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Empresa, String> empresa;
+//	private GenericReference<Empresa, String> empresa;
+	private GenericReferenceWithCompositePk<Empresa> empresa;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReference<Node, String> node;
+//	private GenericReference<Node, String> node;
+	private GenericReferenceWithCompositePk<Node> node;
 	
 	@Size(max = 1000)
 	@RestapiField()

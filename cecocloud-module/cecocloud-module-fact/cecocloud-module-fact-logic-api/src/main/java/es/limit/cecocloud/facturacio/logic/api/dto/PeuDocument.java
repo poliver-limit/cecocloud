@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument.PeuDocumentPk;
 import lombok.AllArgsConstructor;
@@ -86,7 +86,8 @@ public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocume
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<SerieCompra, String> serieCompra;
+//	private GenericReference<SerieCompra, String> serieCompra;
+	private GenericReferenceWithCompositePk<SerieCompra> serieCompra;
 	
 	@Transient
 	@RestapiField(
@@ -94,7 +95,8 @@ public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocume
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReference<Empresa, String> empresa;
+//	private GenericReference<Empresa, String> empresa;
+	private GenericReferenceWithCompositePk<Empresa> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

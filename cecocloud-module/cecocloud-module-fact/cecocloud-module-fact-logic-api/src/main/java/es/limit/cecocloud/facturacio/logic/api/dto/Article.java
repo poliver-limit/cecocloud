@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,14 +46,16 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReference<ArticleFamilia, String> familia;
+//	private GenericReference<ArticleFamilia, String> familia;
+	private GenericReferenceWithCompositePk<ArticleFamilia> familia;
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReference<Iva, String> iva;
+//	private GenericReference<Iva, String> iva;
+	private GenericReferenceWithCompositePk<Iva> iva;
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
@@ -95,11 +97,57 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String alies;
+
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)	
+	private GenericReferenceWithCompositePk<ArticleGamma> gamma;
+
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)	
+	private GenericReferenceWithCompositePk<ArticleMarca> marca;
+
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)	
+	private GenericReferenceWithCompositePk<Empresa> empresa;
+
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)	
+	private GenericReferenceWithCompositePk<Article> alternatiu;
+	
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)	
+	private GenericReferenceWithCompositePk<Article> alternatiu2;
+	
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)	
+	private GenericReferenceWithCompositePk<Article> articleRaee;
+	
+	
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private GenericReference<ArticleModel, String> model;	
+//	private GenericReference<ArticleModel, String> model;	
+	private GenericReferenceWithCompositePk<ArticleModel> model;
 
 }

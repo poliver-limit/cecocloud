@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa.ArticleFamiliaEmpresaPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
 import lombok.AllArgsConstructor;
@@ -37,12 +37,14 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableAmbIdentificador
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-	private GenericReference<ArticleFamilia, String> articleFamilia;
+//	private GenericReference<ArticleFamilia, String> articleFamilia;
+	private GenericReferenceWithCompositePk<ArticleFamilia> articleFamilia;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-	private GenericReference<Empresa, String> empresa;
+//	private GenericReference<Empresa, String> empresa;
+	private GenericReferenceWithCompositePk<Empresa> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
