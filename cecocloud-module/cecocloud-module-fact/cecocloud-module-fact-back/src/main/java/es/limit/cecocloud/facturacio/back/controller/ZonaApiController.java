@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController("factZonaApiController")
 @RequestMapping(FacturacioModule.API_PATH + "/zones")
-public class ZonaApiController extends AbstractIdentificableAmbIdentificadorApiController<Zona> {
+public class ZonaApiController extends AbstractIdentificableWithIdentificadorApiController<Zona> {
 
 }

@@ -12,7 +12,7 @@ import { PerfilsFormComponent } from './perfils-form.component';
 import { PerfilsService } from './perfils.service';
 import { RolsService } from './rols.service';
 import { PerfilRolService } from './perfilRol.service';
-import { RecusrosPermisModule } from 'src/app/shared/recusros/recursos-permis.module';
+import { RecursPermisosModule } from '../../shared/recurs-permisos/recurs-permisos.module';
 
 @NgModule({
     imports: [
@@ -22,7 +22,7 @@ import { RecusrosPermisModule } from 'src/app/shared/recusros/recursos-permis.mo
         TranslateModule,
         BngModule,
         MaterialModule,
-        RecusrosPermisModule,
+        RecursPermisosModule,
         RouterModule.forChild([
             { path: '', component: PerfilsGridComponent },
             { path: 'create', component: PerfilsFormComponent, canDeactivate: [BngFormExitGuard] },

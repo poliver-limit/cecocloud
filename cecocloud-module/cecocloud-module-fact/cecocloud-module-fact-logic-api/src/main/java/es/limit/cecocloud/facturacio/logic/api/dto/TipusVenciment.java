@@ -26,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class TipusVenciment extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,

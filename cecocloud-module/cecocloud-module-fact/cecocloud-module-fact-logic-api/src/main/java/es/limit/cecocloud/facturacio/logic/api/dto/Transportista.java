@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Transportista extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Transportista extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 6)
 	@RestapiField(disabledForUpdate = true,
@@ -100,7 +100,7 @@ public class Transportista extends AbstractIdentificableAmbIdentificadorICodi<St
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull
@@ -108,13 +108,13 @@ public class Transportista extends AbstractIdentificableAmbIdentificadorICodi<St
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Proveidor, AmbIdentificadorICodiPk<String>> proveidor;
+	private GenericReferenceWithCompositePk<Proveidor, WithIdentificadorAndCodiPk<String>> proveidor;
 
 }

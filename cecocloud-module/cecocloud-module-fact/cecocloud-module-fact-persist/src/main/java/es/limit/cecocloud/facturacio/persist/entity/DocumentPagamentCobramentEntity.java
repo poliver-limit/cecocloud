@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.DocumentPagamentCobrament;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -80,7 +80,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_dpg_idf_fk"))
 })
-public class DocumentPagamentCobramentEntity extends AbstractAmbIdentificadorEntity<DocumentPagamentCobrament, AmbIdentificadorICodiPk<String>> {
+public class DocumentPagamentCobramentEntity extends AbstractWithIdentificadorEntity<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected DocumentPagamentCobrament embedded;
@@ -112,7 +112,7 @@ public class DocumentPagamentCobramentEntity extends AbstractAmbIdentificadorEnt
 
 	@Builder
 	public DocumentPagamentCobramentEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			DocumentPagamentCobrament embedded,
 			IdentificadorEntity identificador,
 			NaturalesaPagamentCobramentEntity naturalesaPagamentCobrament,

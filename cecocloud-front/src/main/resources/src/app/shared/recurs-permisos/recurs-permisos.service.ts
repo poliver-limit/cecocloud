@@ -10,7 +10,7 @@ export class Recurs extends Resource { }
 @Injectable({
 	providedIn: 'root'
 })
-export class RecursosService {
+export class RecursPermisosService {
 
 	public getRecursosAll(): Observable<any> {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/allowed');

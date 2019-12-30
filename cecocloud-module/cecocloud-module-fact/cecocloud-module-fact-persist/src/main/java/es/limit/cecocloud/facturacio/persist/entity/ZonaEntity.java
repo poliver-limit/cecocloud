@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -59,14 +59,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_zon_idf_fk"))
 })
-public class ZonaEntity extends AbstractAmbIdentificadorEntity<Zona, AmbIdentificadorICodiPk<String>> {
+public class ZonaEntity extends AbstractWithIdentificadorEntity<Zona, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Zona embedded;
 
 	@Builder
 	public ZonaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Zona embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

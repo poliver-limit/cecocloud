@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/regimsIva")
-public class RegimIvaApiController extends AbstractIdentificableAmbIdentificadorApiController<RegimIva> {
+public class RegimIvaApiController extends AbstractIdentificableWithIdentificadorApiController<RegimIva> {
 
 }

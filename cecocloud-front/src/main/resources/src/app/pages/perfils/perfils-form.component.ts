@@ -1,4 +1,3 @@
-import { RecursosPermisComponent } from '../../shared/recusros/recursos-permis.component';
 // (MGG) -> Els comentaris(//) son simplement resultat de proves
 // per inici formació en Angular. Es futuriblement per esborrar
 import { Component, ViewChild } from '@angular/core';
@@ -10,10 +9,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HalParam } from 'angular4-hal';
 //import { MatSelect } from '@angular/material/select';
 
-import { Perfil, PerfilsService } from './perfils.service';
-import { Rol, RolsService } from './rols.service';
+import { PerfilsService } from './perfils.service';
+import { RolsService } from './rols.service';
 import { PerfilRol, PerfilRolService } from './perfilRol.service';
 import { HttpClient } from '@angular/common/http';
+import { RecursPermisosComponent } from '../../shared/recurs-permisos/recurs-permisos.component';
 
 @Component({
 	template: `
@@ -31,22 +31,17 @@ import { HttpClient } from '@angular/common/http';
 					</mat-select>
 				</mat-form-field>
 			</form>
-
 			<ng-container *ngIf="id">
 				<cec-recursos
 					[perfil] = "id">
 				</cec-recursos>
 			</ng-container>
-
 		</bng-form>
 	`
 })
-
-export class PerfilsFormComponent
-//implements OnInit
-{
-	@ViewChild(RecursosPermisComponent, { static: false })
-	private recursosPermisComponent: RecursosPermisComponent;
+export class PerfilsFormComponent {
+	@ViewChild(RecursPermisosComponent, { static: false })
+	private recursPermisosComponent: RecursPermisosComponent;
 
 	id: any;
 	perfil: any;
@@ -60,53 +55,7 @@ export class PerfilsFormComponent
 		rols: ['']
 	});
 
-	constructor(
-		private formBuilder: FormBuilder,
-		activatedRoute: ActivatedRoute,
-		public perfilsService: PerfilsService,
-		public rolsService: RolsService,
-		public perfilRolService: PerfilRolService,
-		private http: HttpClient
-	) {
-		activatedRoute.params.subscribe((params) => {
-			if (params.id) {
-				this.id = params.id;
-				rolsService.whenReady().subscribe(() => {
-					rolsService.getAll().subscribe((resposta: any) => {
-						this.roleList = resposta;
-
-						perfilRolService.whenReady().subscribe(() => {
-							let requestParams: HalParam[] = [];
-							requestParams.push({
-								key: 'query',
-								value: 'perfil.id==' + this.id
-							});
-
-							perfilRolService.getAll({ params: requestParams }).subscribe((resposta: any) => {
-								this.profileRoleList = resposta;
-
-								let selectedIds = [];
-								this.profileRoleList.forEach((perfilRol: any) => {
-									selectedIds.push(perfilRol.rol.id);
-								});
-								this.formGroup.get('rols').setValue(selectedIds);
-
-								perfilsService.get(this.id).subscribe((resposta: any) => {
-									this.perfil = resposta;
-								})
-
-							});
-						});
-					});
-				});
-
-
-			}
-		});
-	}
-
 	onOptionClick(rol: any) {
-
 		let i = 0;
 		let found = false;
 		while (!found && i < this.profileRoleList.length) {
@@ -116,41 +65,65 @@ export class PerfilsFormComponent
 				i++;
 			}
 		}
-
 		if (found) {
-
 			// Eliminar perfilRol de la BBDD
 			//			this.http.delete (this.profileRoleList[i]._links.self.href).subscribe((resposta: any) => {
 			this.perfilRolService.deleteById(this.profileRoleList[i].id).subscribe((resposta: any) => {
-
 				// Eliminar perfilRol de l'estructura
 				this.profileRoleList.splice(i, 1);
-				this.recursosPermisComponent.ngOnInit();
-
+				this.recursPermisosComponent.ngOnInit();
 			});
-
 		} else {
-
 			// Creació perfilRol a la BBDD
 			let perfilRol: any = { rol: { id: rol.id }, perfil: { id: this.perfil.id } }
 			this.perfilRolService.create(<PerfilRol>perfilRol).subscribe((resposta: any) => {
-
 				// Creació del perfilRol a la estructura
 				let perfilRolObj = new PerfilRol;
 				perfilRolObj["id"] = resposta.id;
 				perfilRolObj["rol"] = { id: resposta.rol.id };
 				perfilRolObj["perfil"] = { id: resposta.perfil.id };
 				//				perfilRolObj["_links"] = resposta._links
-
 				this.profileRoleList.push(perfilRolObj);
-				this.recursosPermisComponent.ngOnInit();
-
+				this.recursPermisosComponent.ngOnInit();
 			});
-
-
-
 		}
+	}
 
+	constructor(
+		private formBuilder: FormBuilder,
+		activatedRoute: ActivatedRoute,
+		public perfilsService: PerfilsService,
+		public rolsService: RolsService,
+		public perfilRolService: PerfilRolService,
+		private http: HttpClient) {
+		activatedRoute.params.subscribe((params) => {
+			if (params.id) {
+				this.id = params.id;
+				rolsService.whenReady().subscribe(() => {
+					rolsService.getAll().subscribe((resposta: any) => {
+						this.roleList = resposta;
+						perfilRolService.whenReady().subscribe(() => {
+							let requestParams: HalParam[] = [];
+							requestParams.push({
+								key: 'query',
+								value: 'perfil.id==' + this.id
+							});
+							perfilRolService.getAll({ params: requestParams }).subscribe((resposta: any) => {
+								this.profileRoleList = resposta;
+								let selectedIds = [];
+								this.profileRoleList.forEach((perfilRol: any) => {
+									selectedIds.push(perfilRol.rol.id);
+								});
+								this.formGroup.get('rols').setValue(selectedIds);
+								perfilsService.get(this.id).subscribe((resposta: any) => {
+									this.perfil = resposta;
+								})
+							});
+						});
+					});
+				});
+			}
+		});
 	}
 
 }

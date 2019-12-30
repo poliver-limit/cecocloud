@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -29,7 +29,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
-public class MagatzemPeriode extends AbstractIdentificableAmbIdentificador<MagatzemPeriodePk> {
+public class MagatzemPeriode extends AbstractIdentificableWithIdentificador<MagatzemPeriodePk> {
 
 	@NotNull
 	@Size(max = 4)
@@ -54,14 +54,14 @@ public class MagatzemPeriode extends AbstractIdentificableAmbIdentificador<Magat
 			hiddenInForm = true, 
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class MagatzemPeriodePk extends AmbIdentificadorICodiPk<String> {
+	public static class MagatzemPeriodePk extends WithIdentificadorAndCodiPk<String> {
 		private String magatzemCodi;
 		public MagatzemPeriodePk(
 				String identificadorCodi,

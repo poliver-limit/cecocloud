@@ -39,11 +39,14 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	private UsuariRepository usuariRepository;
 	@Autowired
 	private UsuariIdentificadorRepository usuariIdentificadorRepository;
-	
 
 	@Override
+	protected void beforePermissionCreate(Long id, BaseBootPermission permission) {
+		permission.setAccessGranted(true);
+	}
+	@Override
 	protected void afterPermissionCreate(Long id, BaseBootPermission permission) {
-		if (PermissionSidType.PRINCIPAL == permission.getSidType() && hasAnyPermission(permission)) {
+		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<IdentificadorEntity> identificador = getRepository().findById(id);
 			UsuariIdentificadorPk usuariIdentificadorPk = new UsuariIdentificadorPk(
@@ -60,6 +63,10 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	}
 
 	@Override
+	protected void beforePermissionUpdate(Long id, BaseBootPermission permission) {
+		permission.setAccessGranted(true);
+	}
+	@Override
 	protected void afterPermissionUpdate(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
@@ -68,9 +75,9 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 					usuari.get().getId(),
 					identificador.get().getId());
 			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findById(usuariIdentificadorPk);
-			if (usuariIdentificador.isPresent() && !hasAnyPermission(permission)) {
+			if (usuariIdentificador.isPresent()) {
 				usuariIdentificadorRepository.delete(usuariIdentificador.get());
-			} else if (!usuariIdentificador.isPresent() && hasAnyPermission(permission)) {
+			} else if (!usuariIdentificador.isPresent()) {
 				UsuariIdentificadorEntity usuariIdentificadorPerCrear = UsuariIdentificadorEntity.builder().
 						pk(usuariIdentificadorPk).
 						embedded(new UsuariIdentificador()).
@@ -102,15 +109,13 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		super.beforeCreate(entity, dto);
 		generateLicense(dto);
 	}
-	
+
 	@Override
 	protected void beforeUpdate(IdentificadorEntity entity, Identificador dto) {
 		super.beforeUpdate(entity, dto);
 		generateLicense(dto);
 	}
-	
-	
-	
+
 	@Override
 	protected void beforeDelete(IdentificadorEntity entity) {
 		super.beforeDelete(entity);
@@ -119,91 +124,33 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		for (BaseBootPermission permis: permisos) {
 			permissionDelete(entity.getId(), permis.getId());
 		}
-		// Eliminar UsuariIdentificador
-		List<UsuariIdentificadorEntity> usuariIdfs = usuariIdentificadorRepository.findByIdentificadorId(entity.getId());
-		for(UsuariIdentificadorEntity usuariIdf: usuariIdfs) {
-			usuariIdentificadorRepository.delete(usuariIdf);
-		}
 	}
 
 	@Override
 	protected void afterCreate(IdentificadorEntity entity, Identificador dto) {
 		super.afterCreate(entity, dto);
-		
 		// Assignar permisos al propietari
 		BaseBootPermission permission = new BaseBootPermission(
 				PermissionSidType.PRINCIPAL,
 				entity.getPropietari().getEmbedded().getCodi());
-		permission.setAdminGranted(true);
 		permission.setAccessGranted(true);
-		permission.setSyncGranted(true);
+		permission.setAdminGranted(true);
 		permissionCreate(entity.getId(), permission);
 	}
 
 	@Override
 	protected void afterUpdate(IdentificadorEntity entity, Identificador dto) {
 		super.afterUpdate(entity, dto);
-		
 		// Assignar permisos al propietari
 		BaseBootPermission permission = new BaseBootPermission(
 				PermissionSidType.PRINCIPAL,
 				entity.getPropietari().getEmbedded().getCodi());
-		permission.setAdminGranted(true);
 		permission.setAccessGranted(true);
-		permission.setSyncGranted(true);
+		permission.setAdminGranted(true);
 		permissionCreate(entity.getId(), permission);
 	}
 
-	/*@Override
-	protected void beforeCreate(IdentificadorEntity entity, Identificador dto) {
-		BaseBootAuthenticationToken auth = (BaseBootAuthenticationToken)authenticationFacade.getAuthentication();
-		UserSession session = (UserSession)auth.getSession();
-		CompanyiaEntity companyia = companyiaRepository.getOne(session.getC());
-		entity.updateCompanyia(companyia);
-		String codi;
-		boolean exist = false;
-		do {
-			codi = generateCode();
-			Optional<IdentificadorEntity> idf = identificadorRepository.findById(codi);
-			exist = idf.isPresent();
-		} while (exist);
-		entity.setCodi(codi);
-	}
-	
-	private String generateCode() {
-		ReturningWork<Long> codeReturningWork = new ReturningWork<Long>() {
-			@Override
-			public Long execute(Connection connection) throws SQLException {
-				DialectResolver dialectResolver = new StandardDialectResolver();
-				Dialect dialect =  dialectResolver.resolveDialect(
-						new DatabaseMetaDataDialectResolutionInfoAdapter(connection.getMetaData()));
-				PreparedStatement preparedStatement = null;
-				ResultSet resultSet = null;
-				try {
-				    preparedStatement = connection.prepareStatement( dialect.getSequenceNextValString("identificador_sequence"));
-				    resultSet = preparedStatement.executeQuery();
-				    resultSet.next();
-				    return resultSet.getLong(1);
-				} catch (SQLException e) {
-			    	throw e;
-				} finally {
-				    if(preparedStatement != null) {
-			        	preparedStatement.close();
-				    }
-				    if(resultSet != null) {
-			        	resultSet.close();
-				    }
-				}
-			}
-		};
-		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
-		Long longCode = session.doReturningWork(codeReturningWork);
-		session.close();
-		return StringUtils.leftPad(Long.toString(longCode, 36).toUpperCase(), 4, "0");
-	}*/
-
 	private void generateLicense(Identificador dto) {
-		// General la llicència
 		Llicencia llicencia = new Llicencia(
 				dto.getCodi(),
 				dto.getDescripcio(),
@@ -221,10 +168,6 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		} catch (Exception e) {
 			throw new LicenseGenerationException("Error generating the license.", e);
 		}
-	}
-
-	private boolean hasAnyPermission(BaseBootPermission permission) {
-		return permission.isReadGranted() || permission.isAdminGranted();
 	}
 
 }

@@ -12,8 +12,8 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioInicial.SituacioInicialPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,7 +30,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "article"
 )
-public class SituacioInicial extends AbstractIdentificableAmbIdentificador<SituacioInicialPk> {
+public class SituacioInicial extends AbstractIdentificableWithIdentificador<SituacioInicialPk> {
 
 	@RestapiField()
 	private BigDecimal unitatsInicials;
@@ -51,7 +51,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
-	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> article;
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> article;
 	
 	@Transient
 	@NotNull
@@ -60,7 +60,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
 	@RestapiField(
@@ -68,7 +68,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			includeInQuickFilter = false,
 			disabledForCreate = true,
 			disabledForUpdate = true)	
-	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> familia;
+	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> familia;
 	
 	@Transient
 	@RestapiField(
@@ -76,7 +76,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
 	@Transient
 	@RestapiField(			
@@ -90,7 +90,7 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class SituacioInicialPk extends AmbIdentificadorPk {
+	public static class SituacioInicialPk extends WithIdentificadorPk {
 		private String articleCodi;
 		private String classe;
 		private String magatzemCodi;

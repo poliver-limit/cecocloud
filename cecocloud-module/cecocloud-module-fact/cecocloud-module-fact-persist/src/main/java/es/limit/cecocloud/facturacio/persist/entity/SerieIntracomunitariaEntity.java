@@ -62,7 +62,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_sei_idf_fk"))
 })
-public class SerieIntracomunitariaEntity extends AbstractAmbIdentificadorEntity<SerieIntracomunitaria, SerieIntracomunitariaPk> {
+public class SerieIntracomunitariaEntity extends AbstractWithIdentificadorEntity<SerieIntracomunitaria, SerieIntracomunitariaPk> {
 
 	@Embedded
 	protected SerieIntracomunitaria embedded;

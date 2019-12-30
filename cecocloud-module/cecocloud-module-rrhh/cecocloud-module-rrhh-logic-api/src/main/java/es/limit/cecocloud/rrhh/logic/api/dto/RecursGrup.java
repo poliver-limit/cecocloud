@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class RecursGrup extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class RecursGrup extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)

@@ -24,7 +24,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Zona extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Zona extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(

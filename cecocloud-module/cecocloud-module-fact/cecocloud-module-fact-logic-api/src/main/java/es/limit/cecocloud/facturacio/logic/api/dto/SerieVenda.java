@@ -13,7 +13,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SerieVenda.SerieVendaPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument.PeuDocumentPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Departament.DepartamentPk;
@@ -33,7 +33,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVendaPk> {
+public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVendaPk> {
 
 	@NotNull
 	@Size(max = 2)
@@ -195,7 +195,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
 	@Transient
 	@RestapiField(
@@ -203,7 +203,7 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			hiddenInGrid = true,
 					hiddenInLov = true,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresaOp;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresaOp;
 	
 	@Transient
 	@RestapiField(
@@ -245,14 +245,14 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class SerieVendaPk extends AmbIdentificadorICodiPk<String> {
+	public static class SerieVendaPk extends WithIdentificadorAndCodiPk<String> {
 		private String empresaCodi;
 		public SerieVendaPk(
 				String identificadorCodi,

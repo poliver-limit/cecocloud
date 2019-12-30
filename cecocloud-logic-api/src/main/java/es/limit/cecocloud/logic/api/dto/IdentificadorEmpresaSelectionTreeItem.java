@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @NoArgsConstructor
-public class IdentificadorEmpresaSelectionTreeItem extends AbstractIdentificable<Long> { //extends GenericReference<AbstractIdentificable<Long>, Long> {
+public class IdentificadorEmpresaSelectionTreeItem extends AbstractIdentificable<Long> {
 
 	private String codi;
 	private String descripcio;
@@ -26,8 +26,8 @@ public class IdentificadorEmpresaSelectionTreeItem extends AbstractIdentificable
 
 	public IdentificadorEmpresaSelectionTreeItem(
 			Long id,
-			String codi, 
-			String descripcio, 
+			String codi,
+			String descripcio,
 			boolean hasAdminPermission,
 			List<Empresa> empreses) {
 		super();

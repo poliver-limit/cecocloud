@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Horari;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -60,14 +60,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_hor_idf_fk"))
 })
-public class HorariEntity extends AbstractAmbIdentificadorEntity<Horari, AmbIdentificadorICodiPk<String>> {
+public class HorariEntity extends AbstractWithIdentificadorEntity<Horari, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Horari embedded;
 
 	@Builder
 	public HorariEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Horari embedded,
 			IdentificadorEntity identificador,
 			HorariEntity horari) {

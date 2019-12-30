@@ -14,7 +14,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup.SeccioGrupPk;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Seccio extends AbstractIdentificableAmbIdentificador<SeccioPk> {
+public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 
 	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
@@ -82,14 +82,14 @@ public class Seccio extends AbstractIdentificableAmbIdentificador<SeccioPk> {
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class SeccioPk extends AmbIdentificadorICodiPk<String> {
+	public static class SeccioPk extends WithIdentificadorAndCodiPk<String> {
 		private String empresaCodi;
 		public SeccioPk(
 				String identificadorCodi,

@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.FamiliaCost;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,7 +62,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_fct_idf_fk"))
 })
-public class FamiliaCostEntity extends AbstractAmbIdentificadorEntity<FamiliaCost, AmbIdentificadorICodiPk<String>> {
+public class FamiliaCostEntity extends AbstractWithIdentificadorEntity<FamiliaCost, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected FamiliaCost embedded;
@@ -79,7 +79,7 @@ public class FamiliaCostEntity extends AbstractAmbIdentificadorEntity<FamiliaCos
 
 	@Builder
 	public FamiliaCostEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			FamiliaCost embedded,
 			IdentificadorEntity identificador,
 			ArticleFamiliaEntity articleFamilia) {

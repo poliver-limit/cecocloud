@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/transportistes")
-public class TransportistaApiController extends AbstractIdentificableAmbIdentificadorApiController<Transportista> {
+public class TransportistaApiController extends AbstractIdentificableWithIdentificadorApiController<Transportista> {
 
 }

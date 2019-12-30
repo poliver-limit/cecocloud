@@ -30,7 +30,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class ArticleFamilia extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@RestapiField(disabledForUpdate = true, 
 			toUpperCase = true,
@@ -151,12 +151,12 @@ public class ArticleFamilia extends AbstractIdentificableAmbIdentificadorICodi<S
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<FamiliaCost, AmbIdentificadorICodiPk<String>> familiaCost;
+	private GenericReferenceWithCompositePk<FamiliaCost, WithIdentificadorAndCodiPk<String>> familiaCost;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, 	
 			hiddenInGrid = true,hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<RecursGrup, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk<String>> recursGrup;
+	private GenericReferenceWithCompositePk<RecursGrup, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> recursGrup;
 	
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,

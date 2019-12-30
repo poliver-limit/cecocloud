@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nomComercial"
 )
-public class Proveidor extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 6)
 	@RestapiField(disabledForUpdate = true,
@@ -61,7 +61,7 @@ public class Proveidor extends AbstractIdentificableAmbIdentificadorICodi<String
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<RegimIva, AmbIdentificadorICodiPk<String>> RegimIva;
+	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> RegimIva;
 	
 	@Transient
 	@NotNull
@@ -69,7 +69,7 @@ public class Proveidor extends AbstractIdentificableAmbIdentificadorICodi<String
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull
@@ -77,7 +77,7 @@ public class Proveidor extends AbstractIdentificableAmbIdentificadorICodi<String
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<TipusVenciment, AmbIdentificadorICodiPk<String>> tipusVenciment;
+	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 	
 	@Transient
 	@NotNull
@@ -85,7 +85,7 @@ public class Proveidor extends AbstractIdentificableAmbIdentificadorICodi<String
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
 	@NotNull
@@ -93,7 +93,7 @@ public class Proveidor extends AbstractIdentificableAmbIdentificadorICodi<String
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, AmbIdentificadorICodiPk<String>> documentPagamentCobrament;
+	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
 	
 	@Transient
 	@NotNull
@@ -101,6 +101,6 @@ public class Proveidor extends AbstractIdentificableAmbIdentificadorICodi<String
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<FamiliaProveidor, AmbIdentificadorICodiPk<String>> familiaProveidor;
+	private GenericReferenceWithCompositePk<FamiliaProveidor, WithIdentificadorAndCodiPk<String>> familiaProveidor;
 	
 }

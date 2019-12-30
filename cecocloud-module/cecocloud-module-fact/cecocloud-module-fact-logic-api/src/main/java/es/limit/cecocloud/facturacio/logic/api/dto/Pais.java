@@ -20,7 +20,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Pais extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Pais extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 5)
 	@RestapiField(

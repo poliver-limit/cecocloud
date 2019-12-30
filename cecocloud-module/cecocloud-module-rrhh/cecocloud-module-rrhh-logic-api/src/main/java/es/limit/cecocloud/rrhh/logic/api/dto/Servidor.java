@@ -17,7 +17,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Servidor extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Servidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;

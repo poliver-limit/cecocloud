@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/divises")
-public class DivisaApiController extends AbstractIdentificableAmbIdentificadorApiController<Divisa> {
+public class DivisaApiController extends AbstractIdentificableWithIdentificadorApiController<Divisa> {
 
 }

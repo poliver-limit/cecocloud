@@ -26,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
-public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Article extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 15)
@@ -46,14 +46,14 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> familia;
+	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> familia;
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Iva, AmbIdentificadorICodiPk<String>> iva;
+	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
 	@NotNull
@@ -61,7 +61,7 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<ArticleModel, AmbIdentificadorICodiPk<String>> model;
+	private GenericReferenceWithCompositePk<ArticleModel, WithIdentificadorAndCodiPk<String>> model;
 	
 	@NotNull
 	@RestapiField(
@@ -109,37 +109,37 @@ public class Article extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<ArticleGamma, AmbIdentificadorICodiPk<String>> gamma;
+	private GenericReferenceWithCompositePk<ArticleGamma, WithIdentificadorAndCodiPk<String>> gamma;
 
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<ArticleMarca, AmbIdentificadorICodiPk<String>> marca;
+	private GenericReferenceWithCompositePk<ArticleMarca, WithIdentificadorAndCodiPk<String>> marca;
 
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> alternatiu;
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> alternatiu;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> alternatiu2;
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> alternatiu2;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> articleRaee;	
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> articleRaee;	
 	
 
 

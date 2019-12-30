@@ -63,7 +63,7 @@ import lombok.Setter;
 			foreignKey = @ForeignKey(name = "rrhu_cln_idf_fk")
 	)
 })
-public class CalendariEntity extends AbstractAmbIdentificadorEntity<Calendari, CalendariPk> {
+public class CalendariEntity extends AbstractWithIdentificadorEntity<Calendari, CalendariPk> {
 
 	@Embedded
 	protected Calendari embedded;

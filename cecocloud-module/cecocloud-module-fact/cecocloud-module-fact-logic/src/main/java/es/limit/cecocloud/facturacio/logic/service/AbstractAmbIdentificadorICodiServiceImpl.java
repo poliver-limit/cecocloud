@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
 import es.limit.base.boot.persist.entity.AbstractCompositePkEntity;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 
 /**
  * Entitat de base de dades abstracta amb identificador i codi.
@@ -18,11 +18,11 @@ import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public abstract class AbstractAmbIdentificadorICodiServiceImpl<D extends IdentificableAmbIdentificadorICodi<ID>, E extends AbstractCompositePkEntity<D, AmbIdentificadorICodiPk<ID>>, ID extends Serializable> extends AbstractGenericCompositePkServiceImpl<D, E, AmbIdentificadorICodiPk<ID>> {
+public abstract class AbstractAmbIdentificadorICodiServiceImpl<D extends IdentificableWithIdentificadorAndCodi<ID>, E extends AbstractCompositePkEntity<D, WithIdentificadorAndCodiPk<ID>>, ID extends Serializable> extends AbstractGenericCompositePkServiceImpl<D, E, WithIdentificadorAndCodiPk<ID>> {
 
 	@Override
-	protected AmbIdentificadorICodiPk<ID> getPkFromDto(D dto) {
-		return new AmbIdentificadorICodiPk<ID>(
+	protected WithIdentificadorAndCodiPk<ID> getPkFromDto(D dto) {
+		return new WithIdentificadorAndCodiPk<ID>(
 				dto.getIdentificador().getId(),				
 				dto.getCodi());
 	}

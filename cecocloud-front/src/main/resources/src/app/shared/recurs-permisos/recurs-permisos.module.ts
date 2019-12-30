@@ -5,11 +5,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { PerfilRolService } from '../../pages/perfils/perfilRol.service';
 import { MaterialModule } from '../material.module';
-import { RecursosPermisComponent } from './recursos-permis.component';
-import { RecursosService } from './recusros.service';
-import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identificador-usuaris/perfil-usuari-identificador-empresa.service';
+import { RecursPermisosComponent } from './recurs-permisos.component';
+import { RecursPermisosService } from './recurs-permisos.service';
+import { PerfilRolService } from './perfil-rol.service';
+import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
 
 
 @NgModule({
@@ -21,15 +21,15 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
         MatSlideToggleModule
     ],
     declarations: [
-        RecursosPermisComponent
+        RecursPermisosComponent
     ],
     providers: [
-        RecursosService,
+        RecursPermisosService,
         PerfilRolService,
         PerfilUsuariIdentificadorEmpresaService
     ],
     exports: [
-        RecursosPermisComponent
+        RecursPermisosComponent
     ]
 })
-export class RecusrosPermisModule { }
+export class RecursPermisosModule { }

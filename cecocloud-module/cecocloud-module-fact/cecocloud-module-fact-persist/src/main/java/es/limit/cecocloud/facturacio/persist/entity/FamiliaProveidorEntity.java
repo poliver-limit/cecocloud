@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.FamiliaProveidor;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,14 +62,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_fpr_idf_fk"))
 })
-public class FamiliaProveidorEntity extends AbstractAmbIdentificadorEntity<FamiliaProveidor, AmbIdentificadorICodiPk<String>> {
+public class FamiliaProveidorEntity extends AbstractWithIdentificadorEntity<FamiliaProveidor, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected FamiliaProveidor embedded;
 
 	@Builder
 	public FamiliaProveidorEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			FamiliaProveidor embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

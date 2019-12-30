@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.logic.api.generic.dto;
+package es.limit.cecocloud.logic.api.dto;
 
 import java.io.Serializable;
 
@@ -11,7 +11,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.Identificador;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +20,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public abstract class AbstractIdentificableAmbIdentificador<ID extends Serializable> extends AbstractIdentificable<ID> implements IdentificableAmbIdentificador<ID> {
+public abstract class AbstractIdentificableWithIdentificador<ID extends Serializable> extends AbstractIdentificable<ID> implements IdentificableWithIdentificador<ID> {
 
 	@Transient
 	@RestapiField(

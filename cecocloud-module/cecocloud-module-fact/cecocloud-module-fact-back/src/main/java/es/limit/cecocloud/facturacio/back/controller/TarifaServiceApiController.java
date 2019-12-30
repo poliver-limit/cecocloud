@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/tarifes")
-public class TarifaServiceApiController extends AbstractIdentificableAmbIdentificadorApiController<Tarifa> {
+public class TarifaServiceApiController extends AbstractIdentificableWithIdentificadorApiController<Tarifa> {
 
 }

@@ -26,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class DocumentPagamentCobrament extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
@@ -142,20 +142,20 @@ public class DocumentPagamentCobrament extends AbstractIdentificableAmbIdentific
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament, AmbIdentificadorICodiPk<String>> naturalesaPagamentCobrament;
+	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament, WithIdentificadorAndCodiPk<String>> naturalesaPagamentCobrament;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<Iva, AmbIdentificadorICodiPk<String>> iva;
+	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<RegimIva, AmbIdentificadorICodiPk<String>> regimIva;
+	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 
 }

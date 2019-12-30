@@ -24,7 +24,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "poblacio"
 )
-public class CodiPostal extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 8)
 	@RestapiField(
@@ -50,7 +50,7 @@ public class CodiPostal extends AbstractIdentificableAmbIdentificadorICodi<Strin
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Pais, AmbIdentificadorICodiPk<String>> pais;
+	private GenericReferenceWithCompositePk<Pais, WithIdentificadorAndCodiPk<String>> pais;
 	
 	@Transient
 	@NotNull

@@ -12,7 +12,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Departament.DepartamentPk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,7 +28,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class Departament extends AbstractIdentificableAmbIdentificador<DepartamentPk> {
+public class Departament extends AbstractIdentificableWithIdentificador<DepartamentPk> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)
@@ -57,14 +57,14 @@ public class Departament extends AbstractIdentificableAmbIdentificador<Departame
 			disabledForCreate = false,
 			disabledForUpdate = false,
 			hiddenInForm = false)
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class DepartamentPk extends AmbIdentificadorICodiPk<String> {
+	public static class DepartamentPk extends WithIdentificadorAndCodiPk<String> {
 		private String empresaCodi;
 		public DepartamentPk(
 				String identificadorCodi,

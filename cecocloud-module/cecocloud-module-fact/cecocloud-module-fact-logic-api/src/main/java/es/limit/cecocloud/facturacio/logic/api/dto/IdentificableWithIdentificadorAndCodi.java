@@ -7,8 +7,8 @@ import java.io.Serializable;
 
 import javax.persistence.MappedSuperclass;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface IdentificableAmbIdentificadorICodi<ID extends Serializable> extends IdentificableAmbIdentificador<AmbIdentificadorICodiPk<ID>> {
+public interface IdentificableWithIdentificadorAndCodi<ID extends Serializable> extends IdentificableWithIdentificador<WithIdentificadorAndCodiPk<ID>> {
 
 	public ID getCodi();
 
@@ -27,9 +27,9 @@ public interface IdentificableAmbIdentificadorICodi<ID extends Serializable> ext
 	@Getter
 	@SuppressWarnings("serial")
 	@MappedSuperclass
-	public static class AmbIdentificadorICodiPk<C> extends AmbIdentificadorPk {
+	public static class WithIdentificadorAndCodiPk<C> extends WithIdentificadorPk {
 		private C codi;
-		public AmbIdentificadorICodiPk(
+		public WithIdentificadorAndCodiPk(
 				String identificadorCodi,
 				C codi) {
 			super(identificadorCodi);

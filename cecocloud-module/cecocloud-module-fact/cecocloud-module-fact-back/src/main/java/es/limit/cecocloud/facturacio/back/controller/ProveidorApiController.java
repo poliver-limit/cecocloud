@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/proveidors")
-public class ProveidorApiController extends AbstractIdentificableAmbIdentificadorApiController<Proveidor> {
+public class ProveidorApiController extends AbstractIdentificableWithIdentificadorApiController<Proveidor> {
 
 }

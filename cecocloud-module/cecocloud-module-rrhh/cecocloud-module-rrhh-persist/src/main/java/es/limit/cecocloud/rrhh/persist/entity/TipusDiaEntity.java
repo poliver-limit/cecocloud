@@ -18,7 +18,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusDia;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -61,7 +61,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_tdi_idf_fk"))
 })
-public class TipusDiaEntity extends AbstractAmbIdentificadorEntity<TipusDia, AmbIdentificadorICodiPk<String>> {
+public class TipusDiaEntity extends AbstractWithIdentificadorEntity<TipusDia, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected TipusDia embedded;
@@ -77,7 +77,7 @@ public class TipusDiaEntity extends AbstractAmbIdentificadorEntity<TipusDia, Amb
 
 	@Builder
 	public TipusDiaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			TipusDia embedded,
 			IdentificadorEntity identificador,
 			RegimEntity regim) {

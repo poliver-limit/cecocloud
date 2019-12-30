@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamilia;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.persist.entity.RecursGrupEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -85,7 +85,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_far_idf_fk"))
 })
-public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<ArticleFamilia, AmbIdentificadorICodiPk<String>> {
+public class ArticleFamiliaEntity extends AbstractWithIdentificadorEntity<ArticleFamilia, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected ArticleFamilia embedded;
@@ -110,7 +110,7 @@ public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<Article
 
 	@Builder
 	public ArticleFamiliaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			ArticleFamilia embedded,
 			IdentificadorEntity identificador,
 			RecursGrupEntity recursGrup,

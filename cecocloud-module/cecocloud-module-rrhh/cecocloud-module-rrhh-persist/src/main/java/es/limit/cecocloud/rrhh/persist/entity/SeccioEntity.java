@@ -71,7 +71,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_sec_idf_fk"))
 })
-public class SeccioEntity extends AbstractAmbIdentificadorEntity<Seccio, SeccioPk> {
+public class SeccioEntity extends AbstractWithIdentificadorEntity<Seccio, SeccioPk> {
 
 	@Embedded
 	protected Seccio embedded;

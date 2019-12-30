@@ -21,7 +21,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Operari extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	private String codi;
 	private String nom;
@@ -57,7 +57,7 @@ public class Operari extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Horari, AmbIdentificadorICodiPk<String>> horari;
+	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;
 
 
 }

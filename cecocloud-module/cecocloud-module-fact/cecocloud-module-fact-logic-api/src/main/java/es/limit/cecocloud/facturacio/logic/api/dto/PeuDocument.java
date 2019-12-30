@@ -14,7 +14,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.PeuDocument.PeuDocumentPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SerieCompra.SerieCompraPk;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocumentPk> {
+public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocumentPk> {
 
 	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
@@ -95,14 +95,14 @@ public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocume
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class PeuDocumentPk extends AmbIdentificadorICodiPk<String> {
+	public static class PeuDocumentPk extends WithIdentificadorAndCodiPk<String> {
 		private String empresaCodi;
 		public PeuDocumentPk(
 				String identificadorCodi,

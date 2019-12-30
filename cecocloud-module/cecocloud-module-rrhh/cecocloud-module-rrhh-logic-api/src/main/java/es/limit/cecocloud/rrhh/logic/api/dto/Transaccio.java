@@ -26,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<Integer> {
+public class Transaccio extends AbstractIdentificableWithIdentificadorAndCodi<Integer> {
 	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private Integer codi;
@@ -37,16 +37,16 @@ public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<Integ
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Operari, AmbIdentificadorICodiPk<String>> operari;
+	private GenericReferenceWithCompositePk<Operari, WithIdentificadorAndCodiPk<String>> operari;
 	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> tipusTransaccio;
+	private GenericReferenceWithCompositePk<TipusTransaccio, WithIdentificadorAndCodiPk<Integer>> tipusTransaccio;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	

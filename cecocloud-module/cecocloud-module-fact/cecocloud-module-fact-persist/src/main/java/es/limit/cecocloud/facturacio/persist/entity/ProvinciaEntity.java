@@ -61,7 +61,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_prv_idf_fk"))
 })
-public class ProvinciaEntity extends AbstractAmbIdentificadorEntity<Provincia, ProvinciaPk> {
+public class ProvinciaEntity extends AbstractWithIdentificadorEntity<Provincia, ProvinciaPk> {
 
 	@Embedded
 	protected Provincia embedded;

@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/documentsPagamentCobrament")
-public class DocumentPagamentCobramentApiController extends AbstractIdentificableAmbIdentificadorApiController<DocumentPagamentCobrament> {
+public class DocumentPagamentCobramentApiController extends AbstractIdentificableWithIdentificadorApiController<DocumentPagamentCobrament> {
 
 }

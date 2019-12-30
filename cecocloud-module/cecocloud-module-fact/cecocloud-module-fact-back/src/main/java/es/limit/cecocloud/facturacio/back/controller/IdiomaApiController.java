@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/idiomes")
-public class IdiomaApiController extends AbstractIdentificableAmbIdentificadorApiController<Idioma> {
+public class IdiomaApiController extends AbstractIdentificableWithIdentificadorApiController<Idioma> {
 
 }

@@ -22,7 +22,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class UnitatControl extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class UnitatControl extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@RestapiField(
 			disabledForUpdate = true,

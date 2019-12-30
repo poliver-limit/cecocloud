@@ -71,7 +71,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_ped_idf_fk"))
 })
-public class PeuDocumentEntity extends AbstractAmbIdentificadorEntity<PeuDocument, PeuDocumentPk> {
+public class PeuDocumentEntity extends AbstractWithIdentificadorEntity<PeuDocument, PeuDocumentPk> {
 
 	@Embedded
 	protected PeuDocument embedded;

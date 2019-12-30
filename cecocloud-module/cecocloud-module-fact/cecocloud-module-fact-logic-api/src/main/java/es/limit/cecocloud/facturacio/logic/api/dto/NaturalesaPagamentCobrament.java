@@ -21,7 +21,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class NaturalesaPagamentCobrament extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class NaturalesaPagamentCobrament extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,

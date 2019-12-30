@@ -59,21 +59,21 @@ export class IdentificadorsFormComponent {
 		paginationEnabled: false,
 		mode: 'form',
 		editable: true,
-		columns: [{
+		columns: [/*{
 			field: 'sidType',
 			width: 30
-		}, {
+		}, */{
 			field: 'sidName',
-			width: 40
-		}, {
+			width: 60
+		},/* {
 			field: 'accessGranted',
 			width: 10
-		}, {
+		}, */{
 			field: 'adminGranted',
-			width: 10
+			width: 20
 		}, {
 			field: 'syncGranted',
-			width: 10
+			width: 20
 		}]
 	};
 

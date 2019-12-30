@@ -3,8 +3,11 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.Set;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
@@ -53,6 +57,9 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 			name = "propietari_id",
 			foreignKey = @ForeignKey(name = "identificador_propietari_fk"))
 	protected UsuariEntity propietari;
+
+	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
+	protected Set<UsuariIdentificadorEntity> usuariIdentificadors;
 
 	@Builder
     public IdentificadorEntity(

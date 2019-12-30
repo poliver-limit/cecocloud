@@ -11,7 +11,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Provincia.ProvinciaPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -28,7 +28,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Provincia extends AbstractIdentificableAmbIdentificador<ProvinciaPk> {
+public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaPk> {
 
 	@Size(max = 3)
 	@RestapiField(
@@ -44,14 +44,14 @@ public class Provincia extends AbstractIdentificableAmbIdentificador<ProvinciaPk
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-	private GenericReferenceWithCompositePk<Pais, AmbIdentificadorICodiPk<String>> pais;
+	private GenericReferenceWithCompositePk<Pais, WithIdentificadorAndCodiPk<String>> pais;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class ProvinciaPk extends AmbIdentificadorICodiPk<String> {
+	public static class ProvinciaPk extends WithIdentificadorAndCodiPk<String> {
 		private String paisCodi;
 		public ProvinciaPk(
 				String identificadorCodi,

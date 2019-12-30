@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
+import es.limit.base.boot.back.controller.AbstractIdentificableWithCompositePkApiController;
 import es.limit.base.boot.back.controller.ApiControllerHelper.SelfLinkBuilder;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping(GenericController.API_PATH + "/usuariIdentificadorEmpreses")
-public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificableApiController<UsuariIdentificadorEmpresa, String> {
+public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificableWithCompositePkApiController<UsuariIdentificadorEmpresa> {
 
 	// Mètodes per a obtenir les empreses a les que té accés l'usuari autenticat
 	@GetMapping(

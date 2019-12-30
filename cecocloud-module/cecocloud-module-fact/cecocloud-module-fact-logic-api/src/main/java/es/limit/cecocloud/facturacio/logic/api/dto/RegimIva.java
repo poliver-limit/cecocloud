@@ -22,7 +22,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class RegimIva extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class RegimIva extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 2)
 	@RestapiField(disabledForUpdate = true,

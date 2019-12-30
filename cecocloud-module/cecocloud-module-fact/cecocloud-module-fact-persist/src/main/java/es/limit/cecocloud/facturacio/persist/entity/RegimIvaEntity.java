@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.RegimIva;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -60,14 +60,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_rgi_idf_fk"))
 })
-public class RegimIvaEntity extends AbstractAmbIdentificadorEntity<RegimIva, AmbIdentificadorICodiPk<String>> {
+public class RegimIvaEntity extends AbstractWithIdentificadorEntity<RegimIva, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected RegimIva embedded;
 
 	@Builder
 	public RegimIvaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			RegimIva embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

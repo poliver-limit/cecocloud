@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -59,14 +59,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_zon_idf_fk"))
 })
-public class ZonaEntity extends AbstractAmbIdentificadorEntity<Zona, AmbIdentificadorICodiPk<String>> {
+public class ZonaEntity extends AbstractWithIdentificadorEntity<Zona, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Zona embedded;
 
 	@Builder
 	public ZonaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Zona embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

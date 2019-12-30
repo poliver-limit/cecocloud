@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/paisos")
-public class PaisApiController extends AbstractIdentificableAmbIdentificadorApiController<Pais> {
+public class PaisApiController extends AbstractIdentificableWithIdentificadorApiController<Pais> {
 
 }

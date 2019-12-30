@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Empresa;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -84,14 +84,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_emp_idf_fk"))
 })
-public class EmpresaEntity extends AbstractAmbIdentificadorEntity<Empresa, AmbIdentificadorICodiPk<String>> {
+public class EmpresaEntity extends AbstractWithIdentificadorEntity<Empresa, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Empresa embedded;
 
 	@Builder
 	public EmpresaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Empresa embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

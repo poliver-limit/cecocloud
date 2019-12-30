@@ -64,7 +64,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_nod_idf_fk"))
 })
-public class NodeEntity extends AbstractAmbIdentificadorEntity<Node, NodePk> {
+public class NodeEntity extends AbstractWithIdentificadorEntity<Node, NodePk> {
 
 	@Embedded
 	protected Node embedded;
