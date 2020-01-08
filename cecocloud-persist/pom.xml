@@ -38,7 +38,7 @@
 		</dependency>
 		<dependency>
 			<groupId>es.limit</groupId>
-			<artifactId>base-boot-persistence</artifactId>
+			<artifactId>base-boot-persist</artifactId>
 			<version>${baseboot.version}</version>
 		</dependency>
 		<dependency>

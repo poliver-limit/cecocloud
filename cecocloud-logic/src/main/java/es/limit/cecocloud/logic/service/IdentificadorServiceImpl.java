@@ -58,6 +58,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 					usuari(usuari.get()).
 					identificador(identificador.get()).
 					build();
+			//updateAuditingInformation(usuariIdentificador, true);
 			usuariIdentificadorRepository.save(usuariIdentificador);
 		}
 	}
@@ -84,6 +85,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 						usuari(usuari.get()).
 						identificador(identificador.get()).
 						build();
+				//updateAuditingInformation(usuariIdentificadorPerCrear, true);
 				usuariIdentificadorRepository.save(usuariIdentificadorPerCrear);
 			}
 		}

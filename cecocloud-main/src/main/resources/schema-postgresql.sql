@@ -55,6 +55,7 @@ create sequence hibernate_sequence start 1 increment 1;
         llicencia_ok boolean not null,
         num_empreses int4 not null,
         num_usuaris int4 not null,
+        num_operaris int4 not null,
         propietari_id int8 not null,
         primary key (id)
     );

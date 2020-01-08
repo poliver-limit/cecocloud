@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.logic.api.dto.Identificador;
@@ -42,6 +44,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 40, nullable = false)),
 	@AttributeOverride(name = "embedded.numUsuaris", column = @Column(name = "num_usuaris", nullable = false)),
 	@AttributeOverride(name = "embedded.numEmpreses", column = @Column(name = "num_empreses", nullable = false)),
+	@AttributeOverride(name = "embedded.numOperaris", column = @Column(name = "num_operaris", nullable = false)),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "data_inici", nullable = false)),
 	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi", nullable = false)),
 	@AttributeOverride(name = "embedded.llicencia", column = @Column(name = "llicencia", length = 2000, nullable = false)),
@@ -60,6 +63,11 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 
 	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
 	protected Set<UsuariIdentificadorEntity> usuariIdentificadors;
+
+	@Formula(value="(select count(*) from empresa emp where emp.identificador_id = id)")
+	private int usuarisCount;
+	@Formula(value="(select count(*) from usuari_ident uid where uid.identificador_id = id)")
+	private int empresesCount;
 
 	@Builder
     public IdentificadorEntity(

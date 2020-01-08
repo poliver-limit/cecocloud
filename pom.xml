@@ -12,7 +12,7 @@
 		<relativePath/>
 	</parent>
 	<properties>
-		<baseboot.version>0.3</baseboot.version>
+		<baseboot.version>1.0.0</baseboot.version>
 		<node.version>v10.16.3</node.version>
 		<orika.starter.version>1.8.0</orika.starter.version>
 		<reflections.version>0.9.11</reflections.version>
@@ -36,4 +36,11 @@
  		<module>cecocloud-module</module>
  		<module>cecocloud-test</module>
 	</modules>
+	<repositories>
+		<repository>
+			<id>github_programari-limit_bb</id>
+			<name>GitHub programari-limit Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/programari-limit/base-boot</url>
+		</repository>
+	</repositories>
 </project>

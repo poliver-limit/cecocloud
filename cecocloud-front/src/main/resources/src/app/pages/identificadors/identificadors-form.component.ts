@@ -19,15 +19,16 @@ import { ActivatedRoute } from '@angular/router';
 		<bng-custom-field name="descripcio" style="width: 100%"></bng-custom-field>
 	</div>
 	<div style="display: flex">
-		<bng-custom-field name="numUsuaris" style="width: 50%; padding-right: 2em"></bng-custom-field>
-		<bng-custom-field name="numEmpreses" style="width: 50%"></bng-custom-field>
+		<bng-custom-field name="propietari" style="width: 50%; padding-right: 2em"></bng-custom-field>
+		<div style="width: 50%; display: flex">
+			<bng-custom-field name="numUsuaris" style="width: 33.3%; padding-right: 1em"></bng-custom-field>
+			<bng-custom-field name="numEmpreses" style="width: 33.3%; padding-right: 1em"></bng-custom-field>
+			<bng-custom-field name="numOperaris" style="width: 33.3%"></bng-custom-field>
+		</div>
 	</div>
 	<div style="display: flex">
 		<bng-custom-field name="dataInici" style="width: 50%; padding-right: 2em"></bng-custom-field>
 		<bng-custom-field name="dataFi" style="width: 50%"></bng-custom-field>
-	</div>
-	<div style="display: flex">
-		<bng-custom-field name="propietari" style="width: 100%"></bng-custom-field>
 	</div>
 	<ng-container *ngIf="id">
 		<mat-tab-group>
