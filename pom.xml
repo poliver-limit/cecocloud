@@ -38,7 +38,7 @@
 	</modules>
 	<repositories>
 		<repository>
-			<id>github_programari-limit_bb</id>
+			<id>github_base-boot</id>
 			<name>GitHub programari-limit Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/programari-limit/base-boot</url>
 		</repository>
