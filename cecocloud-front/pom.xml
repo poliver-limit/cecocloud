@@ -40,9 +40,9 @@
 	<build>
 		<resources>
 			<resource>
-		  		<directory>${angular.resources.path}</directory>
-		  		<excludes>
-		   			<exclude>/**</exclude>
+				<directory>${angular.resources.path}</directory>
+				<excludes>
+					<exclude>/**</exclude>
 				</excludes>
 			</resource>
 		</resources>

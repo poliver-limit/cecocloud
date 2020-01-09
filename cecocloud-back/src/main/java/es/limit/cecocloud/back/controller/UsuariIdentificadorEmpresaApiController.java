@@ -5,9 +5,11 @@ package es.limit.cecocloud.back.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.LinkRelation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +39,7 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 	@GetMapping(
 			value = "/selectionTree",
 			produces = "application/json")
-	public ResponseEntity<Resources<Resource<IdentificadorEmpresaSelectionTreeItem>>> selectionTree(
+	public ResponseEntity<CollectionModel<EntityModel<IdentificadorEmpresaSelectionTreeItem>>> selectionTree(
 			HttpServletRequest request) {
 		log.debug("Obtenint arbre de usuaris-idf-empreses");
 		return ResponseEntity.ok(
@@ -50,15 +52,15 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 								return getSelfLink(params);
 							}
 						},
-						getApiLink(Link.REL_SELF),
-						getProfileLink("profile")));
+						getApiLink(IanaLinkRelations.SELF),
+						getProfileLink(LinkRelation.of("profile"))));
 	}
 
 	// Mètodes per a configurar els permisos (perfils) a nivell d'usuari-empresa
 	@GetMapping(
 			value = "/perfilTree",
 			produces = "application/json")
-	public ResponseEntity<Resources<Resource<UsuariIdentificadorEmpresaPerfilTreeItem>>> perfilTree(
+	public ResponseEntity<CollectionModel<EntityModel<UsuariIdentificadorEmpresaPerfilTreeItem>>> perfilTree(
 			HttpServletRequest request) {
 		log.debug("Obtenint arbre de usuaris-idf-empreses");
 		return ResponseEntity.ok(
@@ -71,8 +73,8 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 								return getSelfLink(params);
 							}
 						},
-						getApiLink(Link.REL_SELF),
-						getProfileLink("profile")));
+						getApiLink(IanaLinkRelations.SELF),
+						getProfileLink(LinkRelation.of("profile"))));
 	}
 
 	@Override
