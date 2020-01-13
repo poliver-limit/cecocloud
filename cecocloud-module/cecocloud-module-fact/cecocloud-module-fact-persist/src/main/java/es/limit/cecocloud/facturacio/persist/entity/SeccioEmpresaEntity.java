@@ -47,7 +47,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "dfs_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "dfs_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.articleFamiliaCodi", column = @Column(name = "dfs_far_cod", length = 4)),
-	@AttributeOverride(name = "embedded.seccioCodi", column = @Column(name = "dfs_sec_cod", insertable = false, updatable = false)),
+//	@AttributeOverride(name = "embedded.seccioCodi", column = @Column(name = "dfs_sec_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "dfs_pte")),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "dfs_obs", length = 1000)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "dfs_usucre")),
@@ -67,16 +67,16 @@ public class SeccioEmpresaEntity extends AbstractAmbIdentificadorEntity<SeccioEm
 
 	@Embedded
 	protected SeccioEmpresa embedded;
-
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
-			value = {
-					@JoinColumn(name = "dfs_idf_cod", referencedColumnName = "fae_idf_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "dfs_far_cod", referencedColumnName = "fae_far_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "dfs_emp_cod", referencedColumnName = "fae_emp_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "rges_dfs_fae_fk"))
-	protected ArticleFamiliaEmpresaEntity familiaEmpresa;
+				value = {
+						@JoinColumn(name = "dfs_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "dfs_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+				},
+				foreignKey = @ForeignKey(name = "rges_dfs_emp_fk"))
+	protected EmpresaEntity empresa;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -84,7 +84,18 @@ public class SeccioEmpresaEntity extends AbstractAmbIdentificadorEntity<SeccioEm
 					@JoinColumn(name = "dfs_far_cod", referencedColumnName = "far_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_dfs_far_fk"))
-	protected ArticleFamiliaEntity familia;	
+	protected ArticleFamiliaEntity articleFamilia;	
+	
+//	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//					@JoinColumn(name = "dfs_idf_cod", referencedColumnName = "fae_idf_cod", insertable = false, updatable = false),
+//					@JoinColumn(name = "dfs_far_cod", referencedColumnName = "fae_far_cod", insertable = false, updatable = false),
+//					@JoinColumn(name = "dfs_emp_cod", referencedColumnName = "fae_emp_cod", insertable = false, updatable = false)
+//			},
+//			foreignKey = @ForeignKey(name = "rges_dfs_fae_fk"))
+//	protected ArticleFamiliaEmpresaEntity articleFamiliaEmpresa;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -94,26 +105,41 @@ public class SeccioEmpresaEntity extends AbstractAmbIdentificadorEntity<SeccioEm
 			},
 					foreignKey = @ForeignKey(name = "rges_dfs_sec_fk"))
 	protected SeccioEntity seccio;	
+	@Column(name = "dfs_sec_cod")
+	private String seccioCodi;
 
 	@Builder
 	public SeccioEmpresaEntity(
 			SeccioEmpresaPk pk,
 			SeccioEmpresa embedded,
 			IdentificadorEntity identificador,
-			ArticleFamiliaEmpresaEntity familiaEmpresa,
-			ArticleFamiliaEntity familia,
+			EmpresaEntity empresa,
+			ArticleFamiliaEntity articleFamilia,			
+//			ArticleFamiliaEmpresaEntity articleFamiliaEmpresa,			
 			SeccioEntity seccio) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.familiaEmpresa = familiaEmpresa;
-		this.familia = familia;
-		this.seccio = seccio;
+		this.empresa = empresa;
+		this.articleFamilia = articleFamilia;		
+//		this.articleFamiliaEmpresa = articleFamiliaEmpresa;
+		
+		this.seccioCodi = seccio.getEmbedded().getCodi();
 	}
 
 	@Override
 	public void update(SeccioEmpresa embedded) {
 		this.embedded = embedded;
+	}
+	
+//	public void updateArticleFamiliaEmpresa (ArticleFamiliaEmpresaEntity articleFamiliaEmpresa) {
+//		this.articleFamiliaEmpresa = articleFamiliaEmpresa;		
+//	}
+	
+	public void updateSeccio (SeccioEntity seccio) {
+		this.seccioCodi = seccio.getEmbedded().getCodi();
 	}
 
 }

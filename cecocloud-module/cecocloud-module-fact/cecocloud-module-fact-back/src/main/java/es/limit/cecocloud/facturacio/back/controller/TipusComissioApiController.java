@@ -15,7 +15,7 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(FacturacioModule.API_PATH + "/tipusComisions")
+@RequestMapping(FacturacioModule.API_PATH + "/tipusComissions")
 public class TipusComissioApiController extends AbstractIdentificableAmbIdentificadorApiController<TipusComissio> {
 
 }

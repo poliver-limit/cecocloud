@@ -22,9 +22,10 @@ public class SerieIntracomunitariaServiceImpl extends AbstractGenericCompositePk
 	@Override
 	protected SerieIntracomunitariaPk getPkFromDto(SerieIntracomunitaria dto) {
 		return new SerieIntracomunitariaPk(
-				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getEmpresa().getId());
+				dto.getIdentificador().getId(),
+				dto.getEmpresa().getPk().getCodi(),
+				dto.getCodi());
+				
 	}
 
 

@@ -32,11 +32,11 @@ export class ModuleInitService {
 				{ icon: 'room', label: 'Naturaleses de pagament/cobrament', route: '/fact/naturalesesPagamentCobrament' },
 				{ icon: 'room', label: 'Països', route: '/fact/paisos' },
 				{ icon: 'room', label: 'Peus de document', route: '/fact/peusDocument' },
-				{ icon: 'room', label: 'Proveïdors', route: '/fact/proveidors' },
+				{ icon: 'room', label: 'Proveidors', route: '/fact/proveidors' },
 				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },			
 				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },			
 				{ icon: 'room', label: 'Seccions empresa', route: '/fact/seccionsEmpresa' },		
-				{ icon: 'room', label: 'Sèries de compra', route: '/fact/seccionsCompra' },
+				{ icon: 'room', label: 'Sèries de compra', route: '/fact/seriesCompra' },
 				{ icon: 'room', label: 'Sèries intracomunitàries', route: '/fact/seriesIntracomunitaria' },
 				{ icon: 'room', label: 'Sèries de venda', route: '/fact/seriesVenda' },
 				{ icon: 'room', label: 'Situacions comercials', route: '/fact/situacionsComercial' },
@@ -55,7 +55,7 @@ export class ModuleInitService {
 				{ icon: 'room', label: 'Ubicacions articles', route: '/fact/ubicacionsArticle' },
 				{ icon: 'room', label: 'Unitats tipus', route: '/fact/unitatsTipus' },
 				{ icon: 'room', label: 'Vehicles', route: '/fact/vehicles' },				
-				{ icon: 'room', label: 'Zones (Facturació)', route: '/fact/zonesFact' }					
+				{ icon: 'room', label: 'Zones (Facturació)', route: '/fact/zones' }					
 				
 			]
 		});
@@ -83,11 +83,11 @@ export class ModuleInitService {
 				{ icon: 'room', label: 'Seccions', route: '/rrhh/seccions' },
 				{ icon: 'room', label: 'Seccions Grup', route: '/rrhh/seccionsGrup' },
 				{ icon: 'room', label: 'Servidors', route: '/rrhh/servidors' },
-				{ icon: 'room', label: 'Subcategories', route: '/rrhh/subcategorias' },
+				{ icon: 'room', label: 'Subcategories', route: '/rrhh/subcategories' },
 				{ icon: 'room', label: 'Tipus Dia', route: '/rrhh/tipusDies' },
 				{ icon: 'room', label: 'Tipus Transaccio', route: '/rrhh/tipusTransaccions' },
 				{ icon: 'room', label: 'Transaccions', route: '/rrhh/transaccions' },
-				{ icon: 'room', label: 'Zones', route: '/rrhh/zones' }									]
+				{ icon: 'room', label: 'Zones', route: '/rrhh/zonesRrhh' }									]
 		});
 		moduleService.register({
 			code: 'rrmm',

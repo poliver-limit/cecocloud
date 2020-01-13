@@ -48,7 +48,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "fct_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "fct_des", length = 60, nullable = false)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "fct_obs", length = 1000)),
-	@AttributeOverride(name = "embedded.articleFamiliaCodi", column = @Column(name = "fct_far_cod", insertable = false, updatable = false)),
+//	@AttributeOverride(name = "embedded.articleFamiliaCodi", column = @Column(name = "fct_far_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "fct_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "fct_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fct_usumod")),
@@ -76,6 +76,8 @@ public class FamiliaCostEntity extends AbstractAmbIdentificadorEntity<FamiliaCos
 			},
 			foreignKey = @ForeignKey(name = "rges_fct_far_fk"))
 	protected ArticleFamiliaEntity articleFamilia;
+	@Column(name = "fct_far_cod")
+	private String articleFamiliaCodi;
 
 	@Builder
 	public FamiliaCostEntity(
@@ -84,14 +86,36 @@ public class FamiliaCostEntity extends AbstractAmbIdentificadorEntity<FamiliaCos
 			IdentificadorEntity identificador,
 			ArticleFamiliaEntity articleFamilia) {
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.articleFamilia = articleFamilia;
+		
+//		this.setEmbeddedCodis();
+		if (articleFamilia != null) {
+			this.articleFamiliaCodi = articleFamilia.getEmbedded().getCodi();
+		}
 	}
 
 	@Override
 	public void update(FamiliaCost embedded) {
 		this.embedded = embedded;
+//		this.setEmbeddedCodis();
 	}
+	
+	public void updateArticleFamilia(ArticleFamiliaEntity articleFamilia) {
+		if (articleFamilia != null) {
+			this.articleFamiliaCodi = articleFamilia.getEmbedded().getCodi();
+		}
+	}
+	
+//	private void setEmbeddedCodis () {	
+//		
+//		// Referencies sobre camps no obligastoris		
+//		if (embedded.getArticleFamilia() != null) {
+//			this.articleFamiliaCodi = embedded.getArticleFamilia().getPk().getCodi();
+//		}
+//		
+//	}
 
 }

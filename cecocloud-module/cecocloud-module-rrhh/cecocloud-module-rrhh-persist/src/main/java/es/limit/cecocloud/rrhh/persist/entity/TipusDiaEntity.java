@@ -46,7 +46,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "tdi_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "tdi_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tdi_cod", length = 4, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.regimCodi", column = @Column(name = "tdi_reg_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.regimCodi", column = @Column(name = "tdi_reg_cod", length = 4)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "tdi_nom", length = 30, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "tdi_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "tdi_datcre")),
@@ -74,6 +74,8 @@ public class TipusDiaEntity extends AbstractAmbIdentificadorEntity<TipusDia, Amb
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tdi_reg_fk"))
 	protected RegimEntity regim;	
+	@Column(name = "tdi_reg_cod", length = 4)
+	private String regimCodi;
 
 	@Builder
 	public TipusDiaEntity(
@@ -84,7 +86,8 @@ public class TipusDiaEntity extends AbstractAmbIdentificadorEntity<TipusDia, Amb
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.regim = regim;		
+		
+		this.regimCodi = regim.getEmbedded().getCodi();		
 	}
 
 	@Override
@@ -92,4 +95,8 @@ public class TipusDiaEntity extends AbstractAmbIdentificadorEntity<TipusDia, Amb
 		this.embedded = embedded;
 	}
 
+	public void updateRegim (RegimEntity regim) {
+		this.regimCodi = regim.getEmbedded().getCodi();				
+	}
+	
 }

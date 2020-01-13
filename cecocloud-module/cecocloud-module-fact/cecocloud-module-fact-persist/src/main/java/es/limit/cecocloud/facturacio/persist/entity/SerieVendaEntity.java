@@ -67,14 +67,14 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.compteProformaPressupost", column = @Column(name = "ser_cteprfpre", length = 10)),
 	@AttributeOverride(name = "embedded.compteProformaEntPubPressupost", column = @Column(name = "ser_cteprfadmpre", length = 10)),
 	@AttributeOverride(name = "embedded.facturaTitol", column = @Column(name = "ser_titfac", length = 500)),
-	@AttributeOverride(name = "embedded.condicioPagamentPressupostCodi", column = @Column(name = "ser_ped_cod", length = 4)),
-	@AttributeOverride(name = "embedded.peuDocumentCodi", column = @Column(name = "ser_ped_codfac", length = 4)),
+//	@AttributeOverride(name = "embedded.condicioPagamentPressupostCodi", column = @Column(name = "ser_ped_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.peuDocumentCodi", column = @Column(name = "ser_ped_codfac", length = 4)),
 	@AttributeOverride(name = "embedded.compteVendesProforma", column = @Column(name = "ser_ctevenprfcmp", length = 10)),
 	@AttributeOverride(name = "embedded.validDesde", column = @Column(name = "ser_dia001", nullable = false)),
 	@AttributeOverride(name = "embedded.validFins", column = @Column(name = "ser_dia002", nullable = false)),
-	@AttributeOverride(name = "embedded.magatzemCodi", column = @Column(name = "ser_mag_cod", length = 4)),
-	@AttributeOverride(name = "embedded.empresaOpCodi", column = @Column(name = "ser_emp_codprn", length = 4)),
-	@AttributeOverride(name = "embedded.departamentCodi", column = @Column(name = "ser_dep_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.magatzemCodi", column = @Column(name = "ser_mag_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.empresaOpCodi", column = @Column(name = "ser_emp_codprn", length = 4)),
+//	@AttributeOverride(name = "embedded.departamentCodi", column = @Column(name = "ser_dep_cod", length = 4)),
 	@AttributeOverride(name = "embedded.ncf", column = @Column(name = "ser_ncf", length = 20)),
 	@AttributeOverride(name = "embedded.numeracioManual", column = @Column(name = "ser_man", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.aplicarDescompte", column = @Column(name = "ser_dte", length = 1, nullable = false)),
@@ -98,6 +98,15 @@ public class SerieVendaEntity extends AbstractAmbIdentificadorEntity<SerieVenda,
 	@Embedded
 	protected SerieVenda embedded;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+				value = {
+						@JoinColumn(name = "ser_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "ser_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+				},
+				foreignKey = @ForeignKey(name = "rges_ser_emp_fk"))
+	protected EmpresaEntity empresa;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -107,6 +116,9 @@ public class SerieVendaEntity extends AbstractAmbIdentificadorEntity<SerieVenda,
 			},
 			foreignKey = @ForeignKey(name = "rges_ser_pedcondicio_fk"))
 	protected PeuDocumentEntity condicioPagamentPressupost;	
+	@Column(name = "ser_ped_cod", length = 4)
+	private String condicioPagamentPressupostCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {					
@@ -116,6 +128,9 @@ public class SerieVendaEntity extends AbstractAmbIdentificadorEntity<SerieVenda,
 			},
 			foreignKey = @ForeignKey(name = "rges_ser_ped_fk"))			
 	protected PeuDocumentEntity peuDocument;	
+	@Column(name = "ser_ped_codfac", length = 4)
+	private String peuDocumentCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -124,6 +139,9 @@ public class SerieVendaEntity extends AbstractAmbIdentificadorEntity<SerieVenda,
 			},
 			foreignKey = @ForeignKey(name = "rges_ser_mag_fk"))			
 	protected MagatzemEntity magatzem;
+	@Column(name = "ser_mag_cod", length = 4)
+	private String magatzemCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -132,6 +150,9 @@ public class SerieVendaEntity extends AbstractAmbIdentificadorEntity<SerieVenda,
 			},
 			foreignKey = @ForeignKey(name = "rges_ser_emp_fk"))			
 	protected EmpresaEntity empresaOp;	
+	@Column(name = "ser_emp_codprn", length = 4)
+	private String empresaOpCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -141,30 +162,67 @@ public class SerieVendaEntity extends AbstractAmbIdentificadorEntity<SerieVenda,
 			},
 					foreignKey = @ForeignKey(name = "rges_ser_dep_fk"))			
 	protected DepartamentEntity departament;
-
+	@Column(name = "ser_dep_cod", length = 4)
+	private String departamentCodi;
+	
 	@Builder
 	public SerieVendaEntity(
 			SerieVendaPk pk,
 			SerieVenda embedded,
 			IdentificadorEntity identificador,
+			EmpresaEntity empresa,
+			DepartamentEntity departament,
+			EmpresaEntity empresaOp,
 			PeuDocumentEntity condicioPagamentPressupost,
 			PeuDocumentEntity peuDocument,
-			MagatzemEntity magatzem,
-			EmpresaEntity empresaOp,
-			DepartamentEntity departament) {
+			MagatzemEntity magatzem) {
+		
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.condicioPagamentPressupost = condicioPagamentPressupost;
-		this.peuDocument = peuDocument;
-		this.magatzem = magatzem;
-		this.empresaOp = empresaOp;
-		this.departament = departament;
+		this.empresa = empresa;
+		
+		if (condicioPagamentPressupost!=null) {
+			this.condicioPagamentPressupostCodi = condicioPagamentPressupost.getEmbedded().getCodi();
+		}
+		if (peuDocument!=null) {
+			this.peuDocumentCodi = peuDocument.getEmbedded().getCodi();
+		}
+		if (magatzem!=null) {
+			this.magatzemCodi = magatzem.getEmbedded().getCodi();
+		}
+		if (empresaOp!=null) {
+			this.empresaOpCodi = empresaOp.getEmbedded().getCodi();
+		}
+		if (departament!=null) {
+			this.departamentCodi = departament.getEmbedded().getCodi();
+		}			
+		
 	}
 
 	@Override
 	public void update(SerieVenda embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateCondicioPagamentPressupost (PeuDocumentEntity condicioPagamentPressupost) {
+		this.condicioPagamentPressupostCodi = condicioPagamentPressupost.getEmbedded().getCodi();
+	}
+	
+	public void updatePeuDocument (PeuDocumentEntity peuDocument) {
+		this.peuDocumentCodi = peuDocument.getEmbedded().getCodi();
+	}
+	
+	public void updateMagatzem (MagatzemEntity magatzem) {
+		this.magatzemCodi = magatzem.getEmbedded().getCodi();
+	}
+	
+	public void updateEmpresaOp (EmpresaEntity empresaOp) {
+		this.empresaOpCodi = empresaOp.getEmbedded().getCodi();
+	}
+	
+	public void updateDepartament (DepartamentEntity departament) {
+		this.departamentCodi = departament.getEmbedded().getCodi();
 	}
 
 }

@@ -22,9 +22,10 @@ public class SerieVendaServiceImpl extends AbstractGenericCompositePkServiceImpl
 	@Override
 	protected SerieVendaPk getPkFromDto(SerieVenda dto) {
 		return new SerieVendaPk(
-				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getEmpresa().getId());
+				dto.getIdentificador().getId(),
+				dto.getEmpresa().getPk().getCodi(),
+				dto.getCodi());
+				
 	}
 
 

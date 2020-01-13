@@ -93,6 +93,9 @@ public class DocumentPagamentCobramentEntity extends AbstractAmbIdentificadorEnt
 			},
 			foreignKey = @ForeignKey(name = "rges_dpg_npg_fk"))
 	private NaturalesaPagamentCobramentEntity naturalesaPagamentCobrament;
+	@Column(name = "dpg_npg_cod",  nullable = false)	
+	private String naturalesaPagamentCobramentCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -101,6 +104,9 @@ public class DocumentPagamentCobramentEntity extends AbstractAmbIdentificadorEnt
 			},
 			foreignKey = @ForeignKey(name = "rges_dpg_iva_fk"))
 	private IvaEntity iva;
+	@Column(name = "dpg_iva_cod",  nullable = false)
+	private String ivaCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -109,7 +115,9 @@ public class DocumentPagamentCobramentEntity extends AbstractAmbIdentificadorEnt
 			},
 			foreignKey = @ForeignKey(name = "rges_dpg_rgi_fk"))
 	private RegimIvaEntity regimIva;
-
+	@Column(name = "dpg_rgi_cod",  nullable = false)
+	private String regimIvaCodi;
+	
 	@Builder
 	public DocumentPagamentCobramentEntity(
 			AmbIdentificadorICodiPk<String> pk,
@@ -118,17 +126,36 @@ public class DocumentPagamentCobramentEntity extends AbstractAmbIdentificadorEnt
 			NaturalesaPagamentCobramentEntity naturalesaPagamentCobrament,
 			IvaEntity iva,
 			RegimIvaEntity regimIva) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.naturalesaPagamentCobrament = naturalesaPagamentCobrament;
 		this.iva = iva;
 		this.regimIva = regimIva;
+		
+		if (naturalesaPagamentCobrament!=null) this.naturalesaPagamentCobramentCodi = naturalesaPagamentCobrament.getEmbedded().getCodi();
+		if (iva!=null) this.ivaCodi = iva.getEmbedded().getCodi();
+		if (regimIva!=null) this.regimIvaCodi = regimIva.getEmbedded().getCodi();
+		
 	}
 
 	@Override
 	public void update(DocumentPagamentCobrament embedded) {
 		this.embedded = embedded;
 	}
+	
+	public void updateNaturalesaPagamentCobrament (NaturalesaPagamentCobramentEntity naturalesaPagamentCobrament) {
+		if (naturalesaPagamentCobrament!=null) this.naturalesaPagamentCobramentCodi = naturalesaPagamentCobrament.getEmbedded().getCodi();
+	}
+	
+	public void updateIva (IvaEntity iva) {
+		if (iva!=null) this.ivaCodi = iva.getEmbedded().getCodi();
+	}
+	
+	public void updateRegimIva (RegimIvaEntity regimIva) {
+		if (regimIva!=null) this.regimIvaCodi = regimIva.getEmbedded().getCodi();
+	}	
 
 }

@@ -55,8 +55,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.compteComptableCompresProformes", column = @Column(name = "scp_ctecprprfcmp", nullable = false)),
 	@AttributeOverride(name = "embedded.validDesde", column = @Column(name = "scp_diaini", nullable = false)),
 	@AttributeOverride(name = "embedded.validFins", column = @Column(name = "scp_diafin", nullable = false)),
-	@AttributeOverride(name = "embedded.magatzemCodi", column = @Column(name = "scp_mag_cod", length = 4)),
-	@AttributeOverride(name = "embedded.empresaOpCodi", column = @Column(name = "scp_emp_cod002", length = 4)),
+//	@AttributeOverride(name = "embedded.magatzemCodi", column = @Column(name = "scp_mag_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.empresaOpCodi", column = @Column(name = "scp_emp_cod002", length = 4)),
 	@AttributeOverride(name = "embedded.departament", column = @Column(name = "scp_departament")),
 	@AttributeOverride(name = "embedded.desglossarIva", column = @Column(name = "scp_dsgivacmp", length = 1, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "scp_usucre")),
@@ -76,6 +76,15 @@ public class SerieCompraEntity extends AbstractAmbIdentificadorEntity<SerieCompr
 
 	@Embedded
 	protected SerieCompra embedded;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+				value = {
+						@JoinColumn(name = "scp_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scp_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+				},
+				foreignKey = @ForeignKey(name = "rges_scp_emp_fk"))
+	protected EmpresaEntity empresa;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -85,32 +94,53 @@ public class SerieCompraEntity extends AbstractAmbIdentificadorEntity<SerieCompr
 			},
 			foreignKey = @ForeignKey(name = "rges_scp_mag_fk"))
 	protected MagatzemEntity magatzem;
+	@Column(name = "scp_mag_cod", length = 4)
+	private String magatzemCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "scp_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "scp_emp_od002", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+					@JoinColumn(name = "scp_emp_cod002", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_scp_emp_fk"))
+			foreignKey = @ForeignKey(name = "rges_scp_emp002_fk"))
 	protected EmpresaEntity empresaOp;
-
+	@Column(name = "scp_emp_cod002", length = 4)
+	private String empresaOpCodi;
+	
 	@Builder
 	public SerieCompraEntity(
 			SerieCompraPk pk,
 			SerieCompra embedded,
 			IdentificadorEntity identificador,
+			EmpresaEntity empresa,
 			MagatzemEntity magatzem,
 			EmpresaEntity empresaOp) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
+		this.empresa = empresa;
 		this.magatzem = magatzem;
 		this.empresaOp = empresaOp;
+		
+		if (magatzem!=null) magatzemCodi = magatzem.getEmbedded().getCodi();
+		if (empresaOp!=null) empresaOpCodi = empresaOp.getEmbedded().getCodi();
+		
 	}
 
 	@Override
 	public void update(SerieCompra embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateMagatzem (MagatzemEntity magatzem) {
+		if (magatzem!=null) magatzemCodi = magatzem.getEmbedded().getCodi();
+	}
+	
+	public void updateEmpresaOp (EmpresaEntity empresaOp) {
+		if (empresaOp!=null) empresaOpCodi = empresaOp.getEmbedded().getCodi();
 	}
 
 }

@@ -51,8 +51,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.unitatsInicials", column = @Column(name = "sui_uniini", nullable = false)),
 	@AttributeOverride(name = "embedded.unitatsMetriquesInicials", column = @Column(name = "sui_unimetini")),
 	@AttributeOverride(name = "embedded.preuCostUnitari", column = @Column(name = "sui_prucosuni", nullable = false)),
-	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "sui_div_cod", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "sui_far_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "sui_div_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.familiaCodi", column = @Column(name = "sui_far_cod", length = 4, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "sui_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "sui_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "sui_usumod")),
@@ -71,6 +71,15 @@ public class SituacioInicialEntity extends AbstractAmbIdentificadorEntity<Situac
 	@Embedded
 	protected SituacioInicial embedded;
 
+	@ManyToOne(optional = true)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "sui_idf_cod", referencedColumnName = "mag_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "sui_mag_cod", referencedColumnName = "mag_cod", insertable = false, updatable = false)
+			},
+					foreignKey = @ForeignKey(name = "rges_sui_mag_fk"))
+	private MagatzemEntity magatzem;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -79,6 +88,7 @@ public class SituacioInicialEntity extends AbstractAmbIdentificadorEntity<Situac
 			},
 			foreignKey = @ForeignKey(name = "rges_sui_art_fk"))			
 	protected ArticleEntity article;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -88,6 +98,10 @@ public class SituacioInicialEntity extends AbstractAmbIdentificadorEntity<Situac
 			},
 			foreignKey = @ForeignKey(name = "rges_sui_pmg_fk"))
 	protected MagatzemPeriodeEntity magatzemPeriode;
+	@Column(name = "sui_pmg_cod")
+	private String magatzemPeriodeCodi;
+	
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -96,6 +110,8 @@ public class SituacioInicialEntity extends AbstractAmbIdentificadorEntity<Situac
 			},
 			foreignKey = @ForeignKey(name = "rges_sui_div_fk"))
 	protected DivisaEntity divisa;	
+	@Column(name = "sui_div_cod", length = 4, nullable = false)
+	private String divisaCodi;
 	
 	@Builder
 	public SituacioInicialEntity(
@@ -103,19 +119,33 @@ public class SituacioInicialEntity extends AbstractAmbIdentificadorEntity<Situac
 			SituacioInicial embedded,
 			IdentificadorEntity identificador,
 			ArticleEntity article,
-			MagatzemPeriodeEntity magatzemPeriode,
-			DivisaEntity divisa) {
+			MagatzemEntity magatzem,
+			DivisaEntity divisa,
+			MagatzemPeriodeEntity magatzemPeriode) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.article = article;
-		this.magatzemPeriode = magatzemPeriode;
-		this.divisa = divisa;
+		this.magatzem = magatzem;
+		
+		this.divisaCodi = divisa.getEmbedded().getCodi();
+		this.magatzemPeriodeCodi = magatzemPeriode.getEmbedded().getCodi();
+		
 	}
 
 	@Override
 	public void update(SituacioInicial embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateDivisa (DivisaEntity divisa) {
+		this.divisaCodi = divisa.getEmbedded().getCodi();
+	}
+	
+	public void updateMagatzemPeriode (MagatzemPeriodeEntity magatzemPeriode) {
+		this.magatzemPeriodeCodi = magatzemPeriode.getEmbedded().getCodi();
 	}
 
 }

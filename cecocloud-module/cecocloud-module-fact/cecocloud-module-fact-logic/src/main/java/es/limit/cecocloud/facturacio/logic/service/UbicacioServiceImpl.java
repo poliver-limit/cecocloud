@@ -23,8 +23,8 @@ public class UbicacioServiceImpl extends AbstractGenericCompositePkServiceImpl<U
 	protected UbicacioPk getPkFromDto(Ubicacio dto) {
 		return new UbicacioPk(
 				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getMagatzem().getId());
+				dto.getMagatzem().getPk().getCodi(),
+				dto.getCodi());
 	}
 
 

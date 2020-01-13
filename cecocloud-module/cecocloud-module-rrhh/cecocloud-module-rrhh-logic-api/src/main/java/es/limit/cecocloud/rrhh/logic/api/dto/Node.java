@@ -11,12 +11,13 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
-import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+//import es.limit.base.boot.logic.api.dto.util.Identificable.OnCreate;
+//import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
+//import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
+//import lombok.AllArgsConstructor;
+//import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+//import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -26,12 +27,18 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "codi"
 )
-public class Node extends AbstractIdentificableAmbIdentificador<NodePk> {
+//public class Node extends AbstractIdentificableAmbIdentificador<NodePk> {
+public class Node extends AbstractIdentificableAmbIdentificadorICodi<String> {
 
+//	@RestapiField(disabledForUpdate = true, toUpperCase = true)
+//	private Integer numero;	
+	@NotNull(groups = { OnCreate.class })
+	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
-	private Integer numero;
+	private String codi;
+	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String tipus;
 	
@@ -55,19 +62,19 @@ public class Node extends AbstractIdentificableAmbIdentificador<NodePk> {
 	@RestapiField()
 	private String tipus1;
 
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode(callSuper = true)
-	@Getter
-	@SuppressWarnings("serial")
-	public static class NodePk extends AmbIdentificadorPk {
-		private Integer numero;
-		public NodePk(
-				String identificadorCodi,
-				Integer numero) {
-			super(identificadorCodi);
-			this.numero = numero;
-		}
-	}
+//	@NoArgsConstructor
+//	@AllArgsConstructor
+//	@EqualsAndHashCode(callSuper = true)
+//	@Getter
+//	@SuppressWarnings("serial")
+//	public static class NodePk extends AmbIdentificadorPk {
+//		private Integer numero;
+//		public NodePk(
+//				String identificadorCodi,
+//				Integer numero) {
+//			super(identificadorCodi);
+//			this.numero = numero;
+//		}
+//	}
 
 }

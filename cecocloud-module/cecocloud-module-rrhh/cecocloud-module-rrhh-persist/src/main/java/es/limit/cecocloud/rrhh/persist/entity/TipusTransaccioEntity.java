@@ -57,17 +57,20 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_ttr_idf_fk"))
 })
-public class TipusTransaccioEntity extends AbstractAmbIdentificadorEntity<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> {
+//public class TipusTransaccioEntity extends AbstractAmbIdentificadorEntity<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> {
+public class TipusTransaccioEntity extends AbstractAmbIdentificadorEntity<TipusTransaccio, AmbIdentificadorICodiPk<String>> {
 
 	@Embedded
 	protected TipusTransaccio embedded;
 
 	@Builder
 	public TipusTransaccioEntity(
-			AmbIdentificadorICodiPk<Integer> pk,
+//			AmbIdentificadorICodiPk<Integer> pk,
+			AmbIdentificadorICodiPk<String> pk,
 			TipusTransaccio embedded,
 			IdentificadorEntity identificador) {
-		setId(pk);
+		
+		setId(pk);		
 		this.embedded = embedded;
 		this.identificador = identificador;		
 	}

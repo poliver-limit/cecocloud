@@ -20,6 +20,8 @@ import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle;
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle.UbicacioArticlePk;
+import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -73,6 +75,16 @@ public class UbicacioArticleEntity extends AbstractAmbIdentificadorEntity<Ubicac
 			},
 			foreignKey = @ForeignKey(name = "rges_uba_art_fk"))
 	protected ArticleEntity article;
+	
+	@ManyToOne(optional = true)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "uba_idf_cod", referencedColumnName = "mag_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "uba_mag_cod", referencedColumnName = "mag_cod", insertable = false, updatable = false)
+			},
+					foreignKey = @ForeignKey(name = "rges_uba_mag_fk"))
+	private MagatzemEntity magatzem;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {	
@@ -82,6 +94,8 @@ public class UbicacioArticleEntity extends AbstractAmbIdentificadorEntity<Ubicac
 			},
 			foreignKey = @ForeignKey(name = "rges_uba_ubi_fk"))
 	protected UbicacioEntity ubicacio;
+	@Column(name = "uba_ubi_cod")
+	private String ubicacioCodi;
 
 	@Builder
 	public UbicacioArticleEntity(
@@ -89,17 +103,26 @@ public class UbicacioArticleEntity extends AbstractAmbIdentificadorEntity<Ubicac
 			UbicacioArticle embedded,
 			IdentificadorEntity identificador,
 			ArticleEntity article,
+			MagatzemEntity magatzem,
 			UbicacioEntity ubicacio) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.article = article;
-		this.ubicacio = ubicacio;
+		this.magatzem = magatzem;
+		
+		this.ubicacioCodi = ubicacio.getEmbedded().getCodi();
 	}
 
 	@Override
 	public void update(UbicacioArticle embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateUbicacio(UbicacioEntity ubicacio) {
+		this.ubicacioCodi = ubicacio.getEmbedded().getCodi();
 	}
 
 }

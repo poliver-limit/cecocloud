@@ -78,6 +78,15 @@ public class PeuDocumentEntity extends AbstractAmbIdentificadorEntity<PeuDocumen
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
+				value = {
+						@JoinColumn(name = "ped_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "ped_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+				},
+				foreignKey = @ForeignKey(name = "rges_ped_emp_fk"))
+	protected EmpresaEntity empresa;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ped_idf_cod", referencedColumnName = "scp_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ped_emp_cod", referencedColumnName = "scp_emp_cod", insertable = false, updatable = false),
@@ -85,21 +94,33 @@ public class PeuDocumentEntity extends AbstractAmbIdentificadorEntity<PeuDocumen
 			},
 			foreignKey = @ForeignKey(name = "rges_ped_scp_fk"))			
 	protected SerieCompraEntity serieCompra;
+	@Column(name = "ped_scp_codcom")
+	private String serieCompraCodi;
 
 	@Builder
 	public PeuDocumentEntity(
 			PeuDocumentPk pk,
 			PeuDocument embedded,
 			IdentificadorEntity identificador,
+			EmpresaEntity empresa,
 			SerieCompraEntity serieCompra) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
-		this.identificador = identificador;		
+		this.identificador = identificador;
+		
+		this.empresa = empresa;
+		this.serieCompraCodi = serieCompra.getEmbedded().getCodi();
 	}
 
 	@Override
 	public void update(PeuDocument embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateSerieCompra (SerieCompraEntity serieCompra) {
+		this.serieCompraCodi = serieCompra.getEmbedded().getCodi();
 	}
 
 }

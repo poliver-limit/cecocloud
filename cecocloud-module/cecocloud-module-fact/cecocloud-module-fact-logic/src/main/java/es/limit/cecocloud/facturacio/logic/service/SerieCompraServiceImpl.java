@@ -23,8 +23,8 @@ public class SerieCompraServiceImpl extends AbstractGenericCompositePkServiceImp
 	protected SerieCompraPk getPkFromDto(SerieCompra dto) {
 		return new SerieCompraPk(
 				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getEmpresa().getId());
+				dto.getEmpresa().getPk().getCodi(),
+				dto.getCodi());
 	}
 
 

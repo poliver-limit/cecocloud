@@ -48,16 +48,18 @@ public class UbicacioArticle extends AbstractIdentificableAmbIdentificador<Ubica
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
 	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> article;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
 	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
 
 	@NoArgsConstructor

@@ -76,6 +76,8 @@ public class CalendariEntity extends AbstractAmbIdentificadorEntity<Calendari, C
 					},
 			foreignKey = @ForeignKey(name = "rrhu_cln_tdi_fk"))
 	protected TipusDiaEntity tipusDia;	
+	@Column(name = "cln_tdi_cod", length = 4)
+	private String tipusDiaCodi;
 
 	@Builder
 	public CalendariEntity(
@@ -86,12 +88,17 @@ public class CalendariEntity extends AbstractAmbIdentificadorEntity<Calendari, C
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.tipusDia = tipusDia;		
+		
+		this.tipusDiaCodi = tipusDia.getEmbedded().getCodi();		
 	}
 
 	@Override
 	public void update(Calendari embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateTipusDia (TipusDiaEntity tipusDia) {
+		this.tipusDiaCodi = tipusDia.getEmbedded().getCodi();
 	}
 
 }

@@ -45,10 +45,12 @@ public class SerieCompra extends AbstractIdentificableAmbIdentificador<SerieComp
 	@Size(max = 30)
 	private String descripcio;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Size(max = 2)
 	private String tipusSeientComptable;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Size(max = 2)
 	private String diariComptable;
@@ -61,13 +63,16 @@ public class SerieCompra extends AbstractIdentificableAmbIdentificador<SerieComp
 	@Size(max = 2)
 	private String diariComptableProformes;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Size(max = 10)
 	private String compteComptableCompresProformes;
 	
+	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	private Date validDesde;
 	
+	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	private Date validFins;
 	
@@ -90,12 +95,13 @@ public class SerieCompra extends AbstractIdentificableAmbIdentificador<SerieComp
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true) 
 	private boolean desglossarIva;
 
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
-			hiddenInForm = true)
+			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor

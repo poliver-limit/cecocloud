@@ -55,7 +55,7 @@ public class Departament extends AbstractIdentificableAmbIdentificador<Departame
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,
-			disabledForUpdate = false,
+			disabledForUpdate = true,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 

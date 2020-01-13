@@ -22,8 +22,6 @@ import lombok.Setter;
 /**
  * DTO amb informació d'una seccio grup.
  * 
- * PROPI DEL MÒDUL DE RRHH (FUTURIBLEMENT MOVIBLE)
- * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
@@ -45,8 +43,9 @@ public class SeccioGrup extends AbstractIdentificableAmbIdentificador<SeccioGrup
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor

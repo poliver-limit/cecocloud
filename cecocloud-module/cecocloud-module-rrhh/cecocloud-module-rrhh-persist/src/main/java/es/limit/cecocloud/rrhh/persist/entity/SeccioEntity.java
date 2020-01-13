@@ -15,9 +15,11 @@ import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import es.limit.cecocloud.rrhh.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import lombok.AccessLevel;
@@ -75,6 +77,15 @@ public class SeccioEntity extends AbstractAmbIdentificadorEntity<Seccio, SeccioP
 
 	@Embedded
 	protected Seccio embedded;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+				value = {
+						@JoinColumn(name = "sec_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "sec_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+				},
+				foreignKey = @ForeignKey(name = "rrhu_sec_emp_fk"))
+	protected EmpresaEntity empresa;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -85,22 +96,33 @@ public class SeccioEntity extends AbstractAmbIdentificadorEntity<Seccio, SeccioP
 			},
 			foreignKey = @ForeignKey(name = "rrhu_sec_gse_fk"))
 	protected SeccioGrupEntity seccioGrup;	
+	@Column(name = "sec_gse_cod", length = 4)
+	private String seccioGrupCodi;
 
 	@Builder
 	public SeccioEntity(
 			SeccioPk pk,
 			Seccio embedded,
 			IdentificadorEntity identificador,
+			EmpresaEntity empresa,
 			SeccioGrupEntity seccioGrup) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.seccioGrup = seccioGrup;
+		this.empresa = empresa;
+				
+		this.seccioGrupCodi = seccioGrup.getEmbedded().getCodi();
 	}
 
 	@Override
 	public void update(Seccio embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateSeccioGrup(SeccioGrupEntity seccioGrup) {
+		this.seccioGrupCodi = seccioGrup.getEmbedded().getCodi();
 	}
 
 }

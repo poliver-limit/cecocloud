@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { BngFormConfig } from 'base-angular';
 
-import { ZonesService } from './zones.service';
+import { TipusComissionsService } from './tipusComissions.service';
 
 @Component( {
     template: `
     <bng-form
         bng-form-mant
         [config]="formConfig"
-        [restapiService]="zonesService"></bng-form>
+        [restapiService]="tipusComissionsService"></bng-form>
 `
 } )
-export class ZonesFormComponent {
+export class TipusComissionsFormComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public zonesService: ZonesService ) { }
+        public tipusComissionsService: TipusComissionsService ) { }
 
 }

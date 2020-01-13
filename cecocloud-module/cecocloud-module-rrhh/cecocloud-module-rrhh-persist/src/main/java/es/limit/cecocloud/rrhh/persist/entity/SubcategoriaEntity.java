@@ -49,7 +49,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "sct_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "sct_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "sct_cod", length = 4, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.categoriaCodi", column = @Column(name = "sct_cat_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.categoriaCodi", column = @Column(name = "sct_cat_cod", length = 4)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "sct_nom", length = 30)),
 	@AttributeOverride(name = "embedded.observacio", column = @Column(name = "sct_obs", length = 1000)),
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "sct_act")),
@@ -79,7 +79,10 @@ public class SubcategoriaEntity extends AbstractAmbIdentificadorEntity<Subcatego
 					},
 			foreignKey = @ForeignKey(name = "rrhu_sct_cat_fk"))
 	@NotFound(action = NotFoundAction.IGNORE)
-	protected CategoriaEntity categoria;	
+	protected CategoriaEntity categoria;
+	@Column(name = "sct_cat_cod", length = 4)
+	private String categoriaCodi;
+	
 
 	@Builder
 	public SubcategoriaEntity(
@@ -90,12 +93,17 @@ public class SubcategoriaEntity extends AbstractAmbIdentificadorEntity<Subcatego
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.categoria = categoria;		
+		
+		this.categoriaCodi = categoria.getEmbedded().getCodi();		
 	}
 
 	@Override
 	public void update(Subcategoria embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateCategoria (CategoriaEntity categoria) {
+		this.categoriaCodi = categoria.getEmbedded().getCodi();		
 	}
 
 }

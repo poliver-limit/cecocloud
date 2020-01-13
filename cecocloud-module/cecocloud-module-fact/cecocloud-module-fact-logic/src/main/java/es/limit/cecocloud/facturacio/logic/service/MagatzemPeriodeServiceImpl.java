@@ -23,8 +23,8 @@ public class MagatzemPeriodeServiceImpl extends AbstractGenericCompositePkServic
 	protected MagatzemPeriodePk getPkFromDto(MagatzemPeriode dto) {
 		return new MagatzemPeriodePk(
 				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getMagatzem().getId());
+				dto.getMagatzem().getPk().getCodi(),				
+				dto.getCodi());
 	}
 
 

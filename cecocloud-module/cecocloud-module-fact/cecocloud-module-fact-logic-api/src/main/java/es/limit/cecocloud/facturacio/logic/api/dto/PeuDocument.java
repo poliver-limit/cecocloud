@@ -82,6 +82,7 @@ public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocume
 			hiddenInLov = true)
 	private BigDecimal ordre;
 	
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
@@ -93,8 +94,8 @@ public class PeuDocument extends AbstractIdentificableAmbIdentificador<PeuDocume
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForUpdate = true
+			)
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor

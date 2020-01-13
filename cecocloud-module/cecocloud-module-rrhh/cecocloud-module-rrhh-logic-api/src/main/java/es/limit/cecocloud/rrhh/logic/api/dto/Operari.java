@@ -55,8 +55,9 @@ public class Operari extends AbstractIdentificableAmbIdentificadorICodi<String> 
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
 	private GenericReferenceWithCompositePk<Horari, AmbIdentificadorICodiPk<String>> horari;
 
 

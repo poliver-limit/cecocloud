@@ -74,15 +74,6 @@ public class ProvinciaEntity extends AbstractAmbIdentificadorEntity<Provincia, P
 			},
 			foreignKey = @ForeignKey(name = "rges_prv_pas_fk"))
 	protected PaisEntity pais;
-	
-//	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-//	@JoinColumnsOrFormulas(
-//			value = {
-//					@JoinColumnOrFormula(formula = @JoinFormula(value = "prv_idf_cod", referencedColumnName = "pas_idf_cod")),
-//					@JoinColumnOrFormula(column = @JoinColumn(name = "prv_pas_cod", referencedColumnName = "pas_cod"))
-//			})
-////			foreignKey = @ForeignKey(name = "rges_prv_pas_fk"))
-//	protected PaisEntity pais;
 
 	@Builder
 	public ProvinciaEntity(
@@ -90,15 +81,26 @@ public class ProvinciaEntity extends AbstractAmbIdentificadorEntity<Provincia, P
 			Provincia embedded,
 			IdentificadorEntity identificador,
 			PaisEntity pais) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.pais = pais;
+		
 	}
 
 	@Override
 	public void update(Provincia embedded) {
 		this.embedded = embedded;
+//		this.setEmbeddedCodis();
 	}
-
+	
+//	private void setEmbeddedCodis () {		
+//			
+//			// Referencies sobre camps obligatoris
+//			this.paisCodi = embedded.getPais().getPk().getCodi();
+//			
+//	}
+	
 }

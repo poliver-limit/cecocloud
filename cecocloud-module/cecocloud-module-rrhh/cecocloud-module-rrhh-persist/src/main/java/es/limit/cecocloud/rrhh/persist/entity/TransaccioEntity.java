@@ -47,10 +47,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "tra_cod")),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tra_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.dataHora", column = @Column(name = "tra_dathor")),
-	@AttributeOverride(name = "embedded.operariCodi", column = @Column(name = "tra_ope_cod", length = 6)),
-	@AttributeOverride(name = "embedded.tipusTransaccioCodi", column = @Column(name = "tra_ttr_cod", length = Integer.MAX_VALUE)),
-	@AttributeOverride(name = "embedded.empresaCodi", column = @Column(name = "tra_emp_cod", length = 4)),
-	@AttributeOverride(name = "embedded.nodeCodi", column = @Column(name = "tra_nod_num", length = 4)),
+//	@AttributeOverride(name = "embedded.operariCodi", column = @Column(name = "tra_ope_cod", length = 6)),
+//	@AttributeOverride(name = "embedded.tipusTransaccioCodi", column = @Column(name = "tra_ttr_cod", length = Integer.MAX_VALUE)),
+//	@AttributeOverride(name = "embedded.empresaCodi", column = @Column(name = "tra_emp_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.nodeCodi", column = @Column(name = "tra_nod_num", length = 4)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tra_obs", length = 1000)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "tra_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "tra_datcre")),
@@ -65,8 +65,9 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_tra_idf_fk"))
 })
-public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio, AmbIdentificadorICodiPk<Integer>> {
-
+//public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio, AmbIdentificadorICodiPk<Integer>> {
+public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio, AmbIdentificadorICodiPk<String>> {
+	
 	@Embedded
 	protected Transaccio embedded;
 
@@ -78,6 +79,9 @@ public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio,
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_ope_fk"))			
 	protected OperariEntity operari;
+	@Column(name = "tra_ope_cod", length = 6)
+	private String operariCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = { 
@@ -86,6 +90,10 @@ public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio,
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_ttr_fk"))	
 	protected TipusTransaccioEntity tipusTransaccio;
+//	@Column(name = "tra_ttr_cod", length = Integer.MAX_VALUE)
+	@Column(name = "tra_ttr_cod", length = 4)
+	private String tipusTransaccioCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = { 
@@ -94,6 +102,9 @@ public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio,
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_emp_fk"))			
 	protected EmpresaEntity empresa;	
+	@Column(name = "tra_emp_cod", length = 4)
+	private String empresaCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = { 
@@ -102,28 +113,54 @@ public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio,
 					},
 			foreignKey = @ForeignKey(name = "rrhu_tra_nod_fk"))			
 	protected NodeEntity node;	
+	@Column(name = "tra_nod_num", length = 4)
+	private String nodeCodi;
 
 	@Builder
 	public TransaccioEntity(
-			AmbIdentificadorICodiPk<Integer> pk,
+//			AmbIdentificadorICodiPk<Integer> pk,
+			AmbIdentificadorICodiPk<String> pk,
 			Transaccio embedded,
 			IdentificadorEntity identificador,
-			OperariEntity operari,
-			TipusTransaccioEntity tipusTransaccio,
+			
 			EmpresaEntity empresa,
-			NodeEntity node) {
+			NodeEntity node,
+			OperariEntity operari,
+			TipusTransaccioEntity tipusTransaccio		
+			) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.operari = operari;	
-		this.tipusTransaccio = tipusTransaccio;	
-		this.empresa = empresa;	
-		this.node = node;		
+		
+		this.empresaCodi = empresa.getEmbedded().getCodi();	
+		this.nodeCodi = node.getEmbedded().getCodi();		
+		this.operariCodi = operari.getEmbedded().getCodi();	
+		this.tipusTransaccioCodi = tipusTransaccio.getEmbedded().getCodi();	
+		
 	}
 
 	@Override
 	public void update(Transaccio embedded) {
 		this.embedded = embedded;
 	}
+	
+	public void updateEmpresa (EmpresaEntity empresa) {
+		this.empresaCodi = empresa.getEmbedded().getCodi();	
+	}
+	
+	public void updateNode (NodeEntity node) {
+		this.nodeCodi = node.getEmbedded().getCodi();	
+	}
+	
+	public void updateOperari (OperariEntity operari) {
+		this.operariCodi = operari.getEmbedded().getCodi();	
+	}
+	
+	public void updateTipusTransaccio (TipusTransaccioEntity tipusTransaccio) {
+		this.tipusTransaccioCodi = tipusTransaccio.getEmbedded().getCodi();	
+	}
+	
 
 }

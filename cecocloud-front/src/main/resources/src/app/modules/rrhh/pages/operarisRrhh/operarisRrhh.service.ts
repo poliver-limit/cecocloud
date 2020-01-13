@@ -8,7 +8,7 @@ export class OperariRrhh extends Resource {}
 export class OperarisRrhhService extends BngRestapiService<OperariRrhh> {
 
     constructor( injector: Injector ) {
-        super( OperariRrhh, 'operariRrhh', injector, 'rrhh' );
+        super( OperariRrhh, 'operari', injector, 'rrhh' );
     }
 
 }

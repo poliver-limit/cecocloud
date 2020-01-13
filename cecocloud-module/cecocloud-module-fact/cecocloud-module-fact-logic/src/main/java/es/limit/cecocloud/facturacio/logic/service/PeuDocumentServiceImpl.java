@@ -22,9 +22,10 @@ public class PeuDocumentServiceImpl extends AbstractGenericCompositePkServiceImp
 	@Override
 	protected PeuDocumentPk getPkFromDto(PeuDocument dto) {
 		return new PeuDocumentPk(
-				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getEmpresa().getId());
+				dto.getIdentificador().getId(),			
+				dto.getEmpresa().getPk().getCodi(),
+				dto.getCodi());
+		
 	}
 
 

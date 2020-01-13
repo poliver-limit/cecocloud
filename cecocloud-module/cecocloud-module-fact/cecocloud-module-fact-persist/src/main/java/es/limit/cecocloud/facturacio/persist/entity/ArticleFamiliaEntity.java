@@ -69,8 +69,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.descOperacio", column = @Column(name = "far_desope", length = 500)),
 	@AttributeOverride(name = "embedded.artExportables", column = @Column(name = "far_pda", length = 1)),
 	
-	@AttributeOverride(name = "embedded.familiaCostCodi", column = @Column(name = "far_fct_cod",  length = 4)),
-	@AttributeOverride(name = "embedded.recursGrupCodi", column = @Column(name = "far_gre_cod", length = 4)),
+//	@AttributeOverride(name = "embedded.familiaCostCodi", column = @Column(name = "far_fct_cod",  length = 4)),
+//	@AttributeOverride(name = "embedded.recursGrupCodi", column = @Column(name = "far_gre_cod", length = 4)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "far_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "far_datcre")),
@@ -98,6 +98,8 @@ public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<Article
 			},
 			foreignKey = @ForeignKey(name = "rges_far_gre_fk"))
 	protected RecursGrupEntity recursGrup;
+	@Column(name = "far_gre_cod", length = 4)
+	private String recursGrupCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -107,6 +109,8 @@ public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<Article
 			},
 			foreignKey = @ForeignKey(name = "rges_far_fct_fk"))
 	protected FamiliaCostEntity familiaCost;	
+	@Column(name = "far_fct_cod", length = 4)
+	private String familiaCostCodi;
 
 	@Builder
 	public ArticleFamiliaEntity(
@@ -116,15 +120,49 @@ public class ArticleFamiliaEntity extends AbstractAmbIdentificadorEntity<Article
 			RecursGrupEntity recursGrup,
 			FamiliaCostEntity familiaCost) {
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.recursGrup = recursGrup;
 		this.familiaCost = familiaCost;
+		
+//		this.setEmbeddedCodis();
+		if (recursGrup != null) {
+			this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
+		}	
+		if (familiaCost != null) {
+			this.familiaCostCodi = familiaCost.getEmbedded().getCodi();
+		}	
+		
 	}
 
 	@Override
 	public void update(ArticleFamilia embedded) {
 		this.embedded = embedded;
+//		this.setEmbeddedCodis();
 	}
+	
+	public void updateRecursGrup(RecursGrupEntity recursGrup) {
+		if (recursGrup != null) {
+			this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
+		}		
+	}
+	
+	public void updateFamiliaCost(FamiliaCostEntity familiaCost) {
+		if (familiaCost != null) {
+			this.familiaCostCodi = familiaCost.getEmbedded().getCodi();
+		}		
+	}
+	
+//	private void setEmbeddedCodis () {
+//		
+//		// Referencies sobre camps no obligastoris		
+//		if (embedded.getRecursGrup() != null) {
+//			this.recursGrupCodi = embedded.getRecursGrup().getPk().getCodi();
+//		}	
+//		if (embedded.getFamiliaCost() != null) {
+//			this.familiaCostCodi = embedded.getFamiliaCost().getPk().getCodi();
+//		}	
+//	}
 
 }

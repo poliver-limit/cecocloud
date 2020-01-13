@@ -23,8 +23,8 @@ public class SeccioEmpresaServiceImpl extends AbstractGenericCompositePkServiceI
 	protected SeccioEmpresaPk getPkFromDto(SeccioEmpresa dto) {
 		return new SeccioEmpresaPk(
 				dto.getIdentificador().getId(),				
-				dto.getArticleFamilia().getId(),
-				dto.getEmpresa().getId());				
+				dto.getArticleFamilia().getPk().getCodi(),
+				dto.getEmpresa().getPk().getCodi());				
 	}
 
 }

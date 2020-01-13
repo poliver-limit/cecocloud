@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { BngFormConfig } from 'base-angular';
 
-import { ZonesFactService } from './zonesFact.service';
+import { ZonesService } from './zones.service';
 
 @Component( {
     template: `
     <bng-form
         bng-form-mant
         [config]="formConfig"
-        [restapiService]="zonesFactService"></bng-form>
+        [restapiService]="zonesService"></bng-form>
 `
 } )
-export class ZonesFactFormComponent {
+export class ZonesFormComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public zonesFactService: ZonesFactService ) { }
+        public zonesService: ZonesService ) { }
 
 }

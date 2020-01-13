@@ -10,9 +10,12 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.SerieIntracomunitaria;
@@ -67,14 +70,28 @@ public class SerieIntracomunitariaEntity extends AbstractAmbIdentificadorEntity<
 	@Embedded
 	protected SerieIntracomunitaria embedded;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+				value = {
+						@JoinColumn(name = "sei_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "sei_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+				},
+				foreignKey = @ForeignKey(name = "rges_sei_emp_fk"))
+	protected EmpresaEntity empresa;
+	
 	@Builder
 	public SerieIntracomunitariaEntity(
 			SerieIntracomunitariaPk pk,
 			SerieIntracomunitaria embedded,
-			IdentificadorEntity identificador) {
+			IdentificadorEntity identificador,
+			EmpresaEntity empresa) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
+		this.empresa = empresa;
+		
 	}
 
 	@Override

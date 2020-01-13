@@ -243,8 +243,9 @@ public class SerieVenda extends AbstractIdentificableAmbIdentificador<SerieVenda
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor

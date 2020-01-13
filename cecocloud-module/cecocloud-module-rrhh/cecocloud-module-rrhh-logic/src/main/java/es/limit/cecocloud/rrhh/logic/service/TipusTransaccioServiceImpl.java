@@ -15,6 +15,6 @@ import es.limit.cecocloud.rrhh.persist.entity.TipusTransaccioEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class TipusTransaccioServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<TipusTransaccio, TipusTransaccioEntity, Integer> implements TipusTransaccioService {
-
+//public class TipusTransaccioServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<TipusTransaccio, TipusTransaccioEntity, Integer> implements TipusTransaccioService {
+public class TipusTransaccioServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<TipusTransaccio, TipusTransaccioEntity, String> implements TipusTransaccioService {
 }

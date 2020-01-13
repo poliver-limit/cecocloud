@@ -15,6 +15,8 @@ import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SituacioInicial.SituacioInicialPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode;
+import es.limit.cecocloud.facturacio.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -45,6 +47,15 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 	private String classe;
 	
 	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
+	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
+	
+	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
@@ -68,22 +79,15 @@ public class SituacioInicial extends AbstractIdentificableAmbIdentificador<Situa
 			includeInQuickFilter = false,
 			disabledForCreate = true,
 			disabledForUpdate = true)	
-	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> familia;
+	private GenericReferenceWithCompositePk<MagatzemPeriode, MagatzemPeriodePk> magatzemPeriode;	
 	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
-	
-	@Transient
-	@RestapiField(			
-			includeInQuickFilter = false,
-			disabledForCreate = true,
-			disabledForUpdate = true)
-	private Object ubicacionsReferencies;
+//	@Transient
+//	@RestapiField(			
+//			includeInQuickFilter = false,
+//			disabledForCreate = true,
+//			disabledForUpdate = true)
+//	private Object ubicacionsReferencies;
+	// NO EXISTEIX A LA ENTITY DE CECOGEST
 
 	@NoArgsConstructor
 	@AllArgsConstructor

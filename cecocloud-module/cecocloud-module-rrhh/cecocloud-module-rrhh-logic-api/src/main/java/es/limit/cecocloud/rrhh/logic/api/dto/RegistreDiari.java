@@ -39,7 +39,7 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true)	
-	private GenericReferenceWithCompositePk<Calendari, CalendariPk> calendari;
+	private GenericReferenceWithCompositePk<Calendari, CalendariPk> calendariData;
 	
 	@Transient
 	@NotNull
@@ -56,6 +56,7 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	private BigDecimal horesExtras;
 	@NotNull
 	private BigDecimal preuHoresExtras;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
@@ -100,10 +101,13 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	
 	@NotNull
 	private BigDecimal preuHoraNormal;
+	
 	@NotNull
 	private BigDecimal preuHoraNit;
+	
 	@NotNull
 	private BigDecimal horesNit;
+	
 
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -111,15 +115,16 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	@Getter
 	@SuppressWarnings("serial")
 	public static class RegistreDiariPk extends AmbIdentificadorPk {
-		private Date calendariData;
-		private String operariCodi;
+		private Date calendariDataCodi;
+//		private String operariCodi;
 		public RegistreDiariPk(
 				String identificadorCodi,
-				Date calendariData,
-				String operariCodi) {
+				Date calendariDataCodi
+//				,String operariCodi
+				) {
 			super(identificadorCodi);
-			this.calendariData = calendariData;
-			this.operariCodi = operariCodi;
+			this.calendariDataCodi = calendariDataCodi;
+//			this.operariCodi = operariCodi;
 		}
 	}
 

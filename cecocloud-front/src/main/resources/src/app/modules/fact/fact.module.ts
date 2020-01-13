@@ -140,8 +140,8 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/tarifesDescompte/tarifesDescompte.module').then(m => m.TarifesDescompteModule),
 				canActivate: [BngAuthGuard]
 			}, {
-				path: 'tipusComisions',
-				loadChildren: () => import('./pages/tipusComisions/tipusComisions.module').then(m => m.TipusComisionsModule),
+				path: 'tipusComissions',
+				loadChildren: () => import('./pages/tipusComissions/tipusComissions.module').then(m => m.TipusComissionsModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'tipusFacturacions',
@@ -160,7 +160,7 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/tipusRiscos/tipusRiscos.module').then(m => m.TipusRiscosModule),
 				canActivate: [BngAuthGuard]
 			}, {
-				path: 'tipusVenciment',
+				path: 'tipusVenciments',
 				loadChildren: () => import('./pages/tipusVenciments/tipusVenciments.module').then(m => m.TipusVencimentsModule),
 				canActivate: [BngAuthGuard]
 			}, {
@@ -184,8 +184,8 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/vehicles/vehicles.module').then(m => m.VehiclesModule),
 				canActivate: [BngAuthGuard]
 			}, {
-				path: 'zonesFact',
-				loadChildren: () => import('./pages/zonesFact/zonesFact.module').then(m => m.ZonesFactModule),
+				path: 'zones',
+				loadChildren: () => import('./pages/zones/zones.module').then(m => m.ZonesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: '**',

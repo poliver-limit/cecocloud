@@ -19,6 +19,9 @@ import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador
 import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa.SeccioEmpresaPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa;
+import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa.ArticleFamiliaEmpresaPk;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,9 +35,38 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "observacions"
 )
 public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioEmpresaPk> {
+	
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
+	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = true,
+			disabledForUpdate = true
+//			,hiddenInForm = true
+			)
+	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
+	
+//	@Transient	
+//	@RestapiField(
+//			type = RestapiFieldType.LOV,			
+//			disabledForUpdate = true,  
+//			toUpperCase = true,
+//			includeInQuickFilter = true
+//			)	
+//	private GenericReferenceWithCompositePk<ArticleFamiliaEmpresa, ArticleFamiliaEmpresaPk> articleFamiliaEmpresa;
 	
 	@Transient
 	@NotNull
@@ -51,24 +83,10 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 	private BigDecimal valorPercentual;
 	
 	@Size(max = 1000)
- 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+ 	@RestapiField(hiddenInGrid = true
+// 	, hiddenInForm = true
+ 	)
 	private String observacions;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

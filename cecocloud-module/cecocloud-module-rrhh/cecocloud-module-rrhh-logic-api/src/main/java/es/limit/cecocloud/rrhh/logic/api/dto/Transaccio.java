@@ -13,7 +13,8 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
+//import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+//import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,12 +25,14 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "observacions"
 )
-public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<Integer> {
+//public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<Integer> {
+public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<String> {
 	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
-	private Integer codi;
+//	private Integer codi;
+	private String codi;
 	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private Date dataHora;
@@ -42,15 +45,19 @@ public class Transaccio extends AbstractIdentificableAmbIdentificadorICodi<Integ
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> tipusTransaccio;
+//	private GenericReferenceWithCompositePk<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> tipusTransaccio;
+	private GenericReferenceWithCompositePk<TipusTransaccio, AmbIdentificadorICodiPk<String>> tipusTransaccio;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 	
-	@Transient
+//	@Transient
+//	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+//	private GenericReferenceWithCompositePk<Node, NodePk> node;
+	@Transient	
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Node, NodePk> node;
+	private GenericReferenceWithCompositePk<Node, AmbIdentificadorICodiPk<String>> node;
 	
 	@Size(max = 1000)
 	@RestapiField()

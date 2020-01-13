@@ -15,7 +15,7 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController("rrhhEmpresaController")
-@RequestMapping(RrhhModule.API_PATH + "/empreses")
+@RequestMapping(RrhhModule.API_PATH + "/empresesRrhh")
 public class EmpresaApiController extends AbstractIdentificableAmbIdentificadorApiController<Empresa> {
 
 }

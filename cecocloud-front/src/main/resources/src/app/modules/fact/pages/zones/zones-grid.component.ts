@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ZonesFactService } from './zonesFact.service';
+import { ZonesService } from './zones.service';
 
 @Component( {
     template: `
     <bng-datagrid
         bng-datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="zonesFactService"></bng-datagrid>`
+        [restapiService]="zonesService"></bng-datagrid>`
 } )
-export class ZonesFactGridComponent implements OnInit {
+export class ZonesGridComponent implements OnInit {
 
     datagridConfig = {
         //editable: true,
@@ -20,6 +20,6 @@ export class ZonesFactGridComponent implements OnInit {
     }
 
     constructor(
-        public zonesFactService: ZonesFactService ) { }
+        public zonesService: ZonesService ) { }
 
 }

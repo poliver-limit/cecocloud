@@ -28,7 +28,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "descripcio"
 )
 public class Calendari extends AbstractIdentificableAmbIdentificador<CalendariPk> {
 

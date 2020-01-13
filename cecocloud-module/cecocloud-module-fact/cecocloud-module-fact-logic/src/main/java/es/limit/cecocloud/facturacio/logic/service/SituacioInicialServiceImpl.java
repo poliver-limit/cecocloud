@@ -23,9 +23,9 @@ public class SituacioInicialServiceImpl extends AbstractGenericCompositePkServic
 	protected SituacioInicialPk getPkFromDto(SituacioInicial dto) {
 		return new SituacioInicialPk(
 				dto.getIdentificador().getId(),				
-				dto.getArticle().getId(),
+				dto.getArticle().getPk().getCodi(),
 				dto.getClasse(),
-				dto.getMagatzem().getId());
+				dto.getMagatzem().getPk().getCodi());
 	}
 
 }

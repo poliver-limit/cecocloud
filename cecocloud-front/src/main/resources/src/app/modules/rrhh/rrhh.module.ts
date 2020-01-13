@@ -24,7 +24,7 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule),
 				canActivate: [BngAuthGuard]
 			}, {
-				path: 'empreses',
+				path: 'empresesRrhh',
 				loadChildren: () => import('./pages/empresesRrhh/empresesRrhh.module').then(m => m.EmpresesRrhhModule),
 				canActivate: [BngAuthGuard]
 			}, {
@@ -88,8 +88,8 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/transaccions/transaccions.module').then(m => m.TransaccionsModule),
 				canActivate: [BngAuthGuard]
 			}, {
-				path: 'zones',
-				loadChildren: () => import('./pages/zones/zones.module').then(m => m.ZonesModule),
+				path: 'zonesRrhh',
+				loadChildren: () => import('./pages/zonesRrhh/zonesRrhh.module').then(m => m.ZonesRrhhModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: '**',

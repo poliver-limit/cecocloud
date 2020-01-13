@@ -35,14 +35,19 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableAmbIdentificador
 			hiddenInLov=true,
 			includeInQuickFilter = true)
 	private boolean web;
+	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV)	
+			type = RestapiFieldType.LOV,
+			disabledForUpdate = true,
+			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV)
+			type = RestapiFieldType.LOV,
+			disabledForUpdate = true,
+			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
 
 	@NoArgsConstructor

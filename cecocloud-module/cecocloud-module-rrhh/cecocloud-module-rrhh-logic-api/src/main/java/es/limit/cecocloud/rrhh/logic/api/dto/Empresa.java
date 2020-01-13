@@ -18,7 +18,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "codi"
 )
 public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> {
 

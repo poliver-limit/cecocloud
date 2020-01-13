@@ -27,10 +27,7 @@ public class Subcategoria extends AbstractIdentificableAmbIdentificadorICodi<Str
 	
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
-	private String codi;	
-	
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true, hiddenInLov = true)
-	private String categoriaCodi;
+	private String codi;
 	
 	@Transient
 	@NotNull

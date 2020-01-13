@@ -3,11 +3,13 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
-import javax.validation.constraints.Max;
+//import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+//import es.limit.base.boot.logic.api.dto.util.Identificable.OnCreate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,13 +20,19 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "descripcio"
 )
-public class TipusTransaccio extends AbstractIdentificableAmbIdentificadorICodi<Integer> {
+//public class TipusTransaccio extends AbstractIdentificableAmbIdentificadorICodi<Integer> {
+public class TipusTransaccio extends AbstractIdentificableAmbIdentificadorICodi<String> {
 	
-	@Max(Integer.MAX_VALUE)
+//	@Max(Integer.MAX_VALUE)
+//	@RestapiField(disabledForUpdate = true, toUpperCase = true)
+//	private Integer codi;
+	
+	@NotNull(groups = { OnCreate.class })
+	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
-	private Integer codi;
+	private String codi;
 	
 	@Size(max = 1000)
 	@RestapiField()

@@ -8,7 +8,7 @@ export class Zona extends Resource {}
 export class ZonesService extends BngRestapiService<Zona> {
 
     constructor( injector: Injector ) {
-        super( Zona, 'zona', injector, 'rrhh' );
+        super( Zona, 'zona', injector, 'fact' );
     }
 
 }

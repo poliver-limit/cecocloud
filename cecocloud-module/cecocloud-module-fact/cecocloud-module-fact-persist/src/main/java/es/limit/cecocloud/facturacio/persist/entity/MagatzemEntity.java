@@ -84,6 +84,9 @@ public class MagatzemEntity extends AbstractAmbIdentificadorEntity<Magatzem, Amb
 			},
 			foreignKey = @ForeignKey(name = "rges_mag_cpo_fk"))
 	protected CodiPostalEntity codiPostal;
+	@Column(name = "mag_cpo_cod", length = 10)
+	private String codiPostalCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -92,6 +95,8 @@ public class MagatzemEntity extends AbstractAmbIdentificadorEntity<Magatzem, Amb
 			},
 			foreignKey = @ForeignKey(name = "rges_mag_div_fk"))
 	protected DivisaEntity divisa;
+	@Column(name = "mag_div_cod", length = 10)
+	private String divisaCodi;
 
 	@Builder
 	public MagatzemEntity(
@@ -100,16 +105,42 @@ public class MagatzemEntity extends AbstractAmbIdentificadorEntity<Magatzem, Amb
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostal,
 			DivisaEntity divisa) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.codiPostal = codiPostal;
 		this.divisa = divisa;
+		
+//		this.setEmbeddedCodis();
+		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
+		this.divisaCodi = divisa.getEmbedded().getCodi();	
 	}
 
 	@Override
 	public void update(Magatzem embedded) {
+		
 		this.embedded = embedded;
+//		this.setEmbeddedCodis();
 	}
+	
+	public void updateCodiPostal(CodiPostalEntity codiPostal) {
+		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();	
+	}
+	
+	public void updateDivisa(DivisaEntity divisa) {
+		this.divisaCodi = divisa.getEmbedded().getCodi();	
+	}
+	
+	
+//	private void setEmbeddedCodis () {		
+//		
+//		// Referencies sobre camps obligatoris
+//		this.divisaCodi = embedded.getDivisa().getPk().getCodi();
+//		this.codiPostalCodi = embedded.getCodiPostal().getPk().getCodi();	
+//		
+//	}
+
 
 }

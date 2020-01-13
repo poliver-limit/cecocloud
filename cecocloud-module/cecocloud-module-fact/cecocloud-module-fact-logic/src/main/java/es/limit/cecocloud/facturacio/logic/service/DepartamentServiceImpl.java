@@ -22,9 +22,10 @@ public class DepartamentServiceImpl extends AbstractGenericCompositePkServiceImp
 	@Override
 	protected DepartamentPk getPkFromDto(Departament dto) {
 		return new DepartamentPk(
-				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getEmpresa().getId());
+				dto.getIdentificador().getId(),	
+				dto.getEmpresa().getPk().getCodi(),
+				dto.getCodi());
+				
 	}
 
 

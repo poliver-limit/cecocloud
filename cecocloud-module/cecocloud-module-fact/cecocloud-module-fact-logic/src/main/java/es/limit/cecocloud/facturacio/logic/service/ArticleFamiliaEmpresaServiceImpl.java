@@ -23,8 +23,8 @@ public class ArticleFamiliaEmpresaServiceImpl extends AbstractGenericCompositePk
 	protected ArticleFamiliaEmpresaPk getPkFromDto(ArticleFamiliaEmpresa dto) {
 		return new ArticleFamiliaEmpresaPk(
 				dto.getIdentificador().getId(),				
-				dto.getArticleFamilia().getId(),
-				dto.getEmpresa().getId());
+				dto.getArticleFamilia().getPk().getCodi(),
+				dto.getEmpresa().getPk().getCodi());
 	}
 
 }

@@ -51,7 +51,7 @@ public class MagatzemPeriode extends AbstractIdentificableAmbIdentificador<Magat
 	@Transient
 	@RestapiField(
 			includeInQuickFilter = true, 
-			hiddenInForm = true, 
+			hiddenInForm = false, 
 			hiddenInGrid = true,
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;

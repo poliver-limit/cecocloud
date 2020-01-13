@@ -12,5 +12,6 @@ import es.limit.cecocloud.rrhh.persist.entity.TipusTransaccioEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface TipusTransaccioRepository extends BaseRepository<TipusTransaccioEntity, AmbIdentificadorICodiPk<Integer>> {
+//public interface TipusTransaccioRepository extends BaseRepository<TipusTransaccioEntity, AmbIdentificadorICodiPk<Integer>> {
+public interface TipusTransaccioRepository extends BaseRepository<TipusTransaccioEntity, AmbIdentificadorICodiPk<String>> {
 }

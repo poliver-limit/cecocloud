@@ -189,7 +189,8 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 			ArticleModelEntity model,			
 			EmpresaEntity empresa,			
 			IvaEntity iva) {
-		setId(pk);
+		
+		setId(pk);		
 		
 		this.embedded = embedded;
 		this.identificador = identificador;		
@@ -203,48 +204,112 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 		this.alternatiu2 = alternatiu2;		
 		this.articleRaee = articleRaee;
 		
-		this.setEmbeddedCodis();
+//		this.setEmbeddedCodis();
+		this.familiaCodi = familia.getEmbedded().getCodi();
+		this.ivaCodi = iva.getEmbedded().getCodi();
+		this.modelCodi = model.getEmbedded().getCodi();
+		
+		if (gamma!=null) {
+			this.gammaCodi = gamma.getEmbedded().getCodi();
+		}
+		if (marca!=null) {
+			this.marcaCodi = marca.getEmbedded().getCodi();
+		}
+		if (empresa!=null) {
+			this.empresaCodi = empresa.getEmbedded().getCodi();
+		}
+		if (alternatiu!=null) {
+			this.alternatiuCodi = alternatiu.getEmbedded().getCodi();
+		}
+		if (alternatiu2!=null) {
+			this.alternatiu2Codi = alternatiu2.getEmbedded().getCodi();
+		}
+		if (articleRaee!=null) {
+			this.articleRaeeCodi = articleRaee.getEmbedded().getCodi();
+		}
 	}
 
 	@Override
 	public void update(Article embedded) {
 		this.embedded = embedded;		
-		this.setEmbeddedCodis();
+//		this.setEmbeddedCodis();
 	}
 	
-	private void setEmbeddedCodis () {
-		
-		// Referencies sobre camsp obligatoris
-		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
-		this.ivaCodi = embedded.getIva().getPk().getCodi();
-		this.modelCodi = embedded.getModel().getPk().getCodi();
-		
-		
-		// Referencies sobre camsp obligatoris
-		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
-		this.ivaCodi = embedded.getIva().getPk().getCodi();
-		this.modelCodi = embedded.getModel().getPk().getCodi();
-		
-		// Referencies sobre camps no obligastoris		
-		if (embedded.getGamma() != null) {
-			this.gammaCodi = embedded.getGamma().getPk().getCodi();
-		}		
-		if (embedded.getMarca() != null) {
-			this.marcaCodi = embedded.getMarca().getPk().getCodi();
-		}		
-		if (embedded.getEmpresa() != null) {
-			this.empresaCodi = embedded.getEmpresa().getPk().getCodi();
-		}		
-		if (embedded.getAlternatiu() != null) {
-			this.alternatiuCodi = embedded.getAlternatiu().getPk().getCodi();
-		}		
-		if (embedded.getAlternatiu2() != null) {
-			this.alternatiu2Codi = embedded.getAlternatiu2().getPk().getCodi();
-		}		
-		if (embedded.getArticleRaee() != null) {
-			this.articleRaeeCodi = embedded.getArticleRaee().getPk().getCodi();
-		}
-		
+	public void updateFamilia(ArticleFamiliaEntity familia) {
+		this.familiaCodi = familia.getEmbedded().getCodi();
 	}
+	
+	public void updateIva(IvaEntity iva) {
+		this.ivaCodi = iva.getEmbedded().getCodi();
+	}
+	
+	public void updateModel(ArticleModelEntity model) {
+		this.modelCodi = model.getEmbedded().getCodi();
+	}
+	
+	public void updateGamma(ArticleGammaEntity gamma) {
+		if (gamma!=null) {
+			this.gammaCodi = gamma.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateMarca(ArticleMarcaEntity marca) {
+		if (marca!=null) {
+			this.marcaCodi = marca.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateEmpresa(EmpresaEntity empresa) {
+		if (empresa!=null) {
+			this.empresaCodi = empresa.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateAlternatiu(ArticleEntity alternatiu) {
+		if (alternatiu!=null) {
+			this.alternatiuCodi = alternatiu.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateAlternatiu2(ArticleEntity alternatiu2) {
+		if (alternatiu2!=null) {
+			this.alternatiu2Codi = alternatiu2.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateArticleRaee(ArticleEntity articleRaee) {
+		if (articleRaee!=null) {
+			this.articleRaeeCodi = articleRaee.getEmbedded().getCodi();
+		}
+	}
+	
+//	private void setEmbeddedCodis () {		
+//		
+//		// Referencies sobre camps obligatoris
+//		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
+//		this.ivaCodi = embedded.getIva().getPk().getCodi();
+//		this.modelCodi = embedded.getModel().getPk().getCodi();
+//		
+//		// Referencies sobre camps no obligastoris		
+//		if (embedded.getGamma() != null) {
+//			this.gammaCodi = embedded.getGamma().getPk().getCodi();
+//		}		
+//		if (embedded.getMarca() != null) {
+//			this.marcaCodi = embedded.getMarca().getPk().getCodi();
+//		}		
+//		if (embedded.getEmpresa() != null) {
+//			this.empresaCodi = embedded.getEmpresa().getPk().getCodi();
+//		}		
+//		if (embedded.getAlternatiu() != null) {
+//			this.alternatiuCodi = embedded.getAlternatiu().getPk().getCodi();
+//		}		
+//		if (embedded.getAlternatiu2() != null) {
+//			this.alternatiu2Codi = embedded.getAlternatiu2().getPk().getCodi();
+//		}		
+//		if (embedded.getArticleRaee() != null) {
+//			this.articleRaeeCodi = embedded.getArticleRaee().getPk().getCodi();
+//		}
+//		
+//	}
 
 }

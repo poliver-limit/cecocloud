@@ -72,7 +72,7 @@ public class ArticleFamiliaEmpresaEntity extends AbstractAmbIdentificadorEntity<
 					@JoinColumn(name = "fae_far_cod", referencedColumnName = "far_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_fae_far_fk"))			
-	protected ArticleFamiliaEntity familia;	
+	protected ArticleFamiliaEntity articleFamilia;	
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -88,18 +88,22 @@ public class ArticleFamiliaEmpresaEntity extends AbstractAmbIdentificadorEntity<
 			ArticleFamiliaEmpresaPk pk,			
 			IdentificadorEntity identificador,
 			ArticleFamiliaEmpresa embedded,
-			ArticleFamiliaEntity familia,
+			ArticleFamiliaEntity articleFamilia,
 			EmpresaEntity empresa) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.familia = familia;
-		this.empresa = empresa;
+		this.articleFamilia = articleFamilia;
+		this.empresa = empresa;		
+
 	}
 
 	@Override
 	public void update(ArticleFamiliaEmpresa embedded) {
 		this.embedded = embedded;
 	}
+
 
 }

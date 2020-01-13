@@ -44,14 +44,14 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "rdi_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.calendariData", column = @Column(name = "rdi_cln_dat")),
-	@AttributeOverride(name = "id.operariCodi", column = @Column(name = "rdi_ope_cod", length = 6)),
-	@AttributeOverride(name = "embedded.calendariData", column = @Column(name = "rdi_cln_dat", insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.operariCodi", column = @Column(name = "rdi_ope_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "id.calendariDataCodi", column = @Column(name = "rdi_cln_dat")),
+//	@AttributeOverride(name = "id.operariCodi", column = @Column(name = "rdi_ope_cod", length = 6)),
+//	@AttributeOverride(name = "embedded.calendariData", column = @Column(name = "rdi_cln_dat", insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.horesTeoriques", column = @Column(name = "rdi_horteo", length = 22, precision = 22, scale = 0, nullable = false)),
 	@AttributeOverride(name = "embedded.horesNormals", column = @Column(name = "rdi_hornor", length = 22, precision = 22, scale = 0, nullable = false)),
 	@AttributeOverride(name = "embedded.horesExtras", column = @Column(name = "rdi_horext", length = 22, precision = 22, scale = 0, nullable = false)),
 	@AttributeOverride(name = "embedded.preuHoresExtras", column = @Column(name = "rdi_pruext", length = 22, precision = 22, scale = 0, nullable = false)),
+	@AttributeOverride(name = "embedded.operariCodi", column = @Column(name = "rdi_ope_cod", nullable = false)),
 	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "rdi_hor_cod", nullable = false)),
 	@AttributeOverride(name = "embedded.regimCodi", column = @Column(name = "rdi_reg_cod", length = 4, nullable = false)),
 	@AttributeOverride(name = "embedded.seccioCodi", column = @Column(name = "rdi_sec_cod", length = 4, nullable = false)),
@@ -86,7 +86,8 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 						@JoinColumn(name = "rdi_cln_dat", referencedColumnName = "cln_dat", insertable = false, updatable = false)
 				},
 				foreignKey = @ForeignKey(name = "rrhu_rdi_cln_fk"))
-	protected CalendariEntity calendari;
+	protected CalendariEntity calendariData;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -94,7 +95,10 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 					@JoinColumn(name = "rdi_ope_cod", referencedColumnName = "ope_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_ope_fk"))
-	protected OperariEntity operari;	
+	protected OperariEntity operari;
+	@Column(name = "rdi_ope_cod", length = 6, nullable = false)
+	private String operariCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -103,6 +107,9 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_hor_fk"))
 	protected HorariEntity horari;	
+	@Column(name = "rdi_hor_cod", nullable = false)
+	private String horariCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -111,6 +118,9 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_reg_fk"))
 	protected RegimEntity regim;	
+	@Column(name = "rdi_reg_cod", length = 4, nullable = false)
+	private String regimCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -120,6 +130,9 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_sec_fk"))
 	protected SeccioEntity seccio;	
+	@Column(name = "rdi_sec_cod", length = 4, nullable = false)
+	private String seccioCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -128,6 +141,9 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_emp_fk"))
 	protected EmpresaEntity empresa;
+	@Column(name = "rdi_emp_cod", length = 4, nullable = false)
+	private String empresaCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -136,6 +152,9 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_cat_fk"))
 	protected CategoriaEntity categoria;
+	@Column(name = "rdi_cat_cod", length = 4, nullable = false)
+	private String categoriaCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -144,36 +163,69 @@ public class RegistreDiariEntity extends AbstractAmbIdentificadorEntity<Registre
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_sct_fk"))
 	protected SubcategoriaEntity subcategoria;
-
+	@Column(name = "rdi_sct_cod", length = 4, nullable = false)
+	private String subcategoriaCodi;
+	
 	@Builder
 	public RegistreDiariEntity(
 			RegistreDiariPk pk,
 			RegistreDiari embedded,
 			IdentificadorEntity identificador,
-			CalendariEntity calendari,
-			OperariEntity operari,
-			HorariEntity horari,
-			RegimEntity regim,
-			SeccioEntity seccio,
-			EmpresaEntity empresa,
+			CalendariEntity calendariData,	
 			CategoriaEntity categoria,
+			EmpresaEntity empresa,
+			HorariEntity horari,
+			OperariEntity operari,
+			RegimEntity regim,
+			SeccioEntity seccio,		
 			SubcategoriaEntity subcategoria) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.calendari = calendari;
-		this.operari = operari;
-		this.horari = horari;
-		this.regim = regim;
-		this.seccio = seccio;
-		this.empresa = empresa;
-		this.categoria = categoria;
-		this.subcategoria = subcategoria;
+		this.calendariData = calendariData;		
+		
+		this.operariCodi = operari.getEmbedded().getCodi();
+		this.horariCodi = horari.getEmbedded().getCodi();
+		this.regimCodi = regim.getEmbedded().getCodi();
+		this.seccioCodi = seccio.getEmbedded().getCodi();
+		this.empresaCodi = empresa.getEmbedded().getCodi();
+		this.categoriaCodi = categoria.getEmbedded().getCodi();
+		this.subcategoriaCodi = subcategoria.getEmbedded().getCodi();
 	}
 
 	@Override
 	public void update(RegistreDiari embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateOperari (OperariEntity operari) {
+		this.operariCodi = operari.getEmbedded().getCodi();
+	}
+	
+	public void updateHorari (HorariEntity horari) {
+		this.horariCodi = horari.getEmbedded().getCodi();
+	}
+	
+	public void updateRegim (RegimEntity regim) {
+		this.regimCodi = regim.getEmbedded().getCodi();
+	}
+	
+	public void updateSeccio (SeccioEntity seccio) {
+		this.seccioCodi = seccio.getEmbedded().getCodi();
+	}
+	
+	public void updateEmpresa (EmpresaEntity empresa) {
+		this.empresaCodi = empresa.getEmbedded().getCodi();
+	}
+	
+	public void updateCategoria (CategoriaEntity categoria) {
+		this.categoriaCodi = categoria.getEmbedded().getCodi();
+	}
+	
+	public void updateSubcategoria (SubcategoriaEntity subCategoria) {
+		this.subcategoriaCodi = subcategoria.getEmbedded().getCodi();
 	}
 
 }

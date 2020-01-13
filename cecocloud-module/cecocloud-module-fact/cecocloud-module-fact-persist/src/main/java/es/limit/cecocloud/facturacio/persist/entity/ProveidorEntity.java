@@ -51,12 +51,12 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.bloquetjat", column = @Column(name = "pro_blo", length = 1)),
 	@AttributeOverride(name = "embedded.subcontratista", column = @Column(name = "pro_scn", length = 1)),
 	@AttributeOverride(name = "embedded.dhm", column = @Column(name = "pro_dhm", length = 1)),
-	@AttributeOverride(name = "embedded.regimIvaCodi", column = @Column(name = "pro_rgi_cod", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.codiPostalCodi", column = @Column(name = "pro_cpo_cod", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.tipusVencimentCodi", column = @Column(name = "pro_tve_cod", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "pro_div_cod", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.documentPagamentCobramentCodi", column = @Column(name = "pro_dpg_cod", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.familiaProveidorCodi", column = @Column(name = "pro_fpr_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.regimIvaCodi", column = @Column(name = "pro_rgi_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.codiPostalCodi", column = @Column(name = "pro_cpo_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.tipusVencimentCodi", column = @Column(name = "pro_tve_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "pro_div_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.documentPagamentCobramentCodi", column = @Column(name = "pro_dpg_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.familiaProveidorCodi", column = @Column(name = "pro_fpr_cod", length = 4, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "pro_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "pro_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "pro_usumod")),
@@ -83,6 +83,9 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_rgi_fk"))
 	private RegimIvaEntity regimIva;
+	@Column(name = "pro_rgi_cod", length = 4, nullable = false)
+	private String regimIvaCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -91,6 +94,9 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_cpo_fk"))
 	private CodiPostalEntity codiPostal;
+	@Column(name = "pro_cpo_cod", length = 4, nullable = false)
+	private String codiPostalCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -99,6 +105,9 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_tve_fk"))
 	private TipusVencimentEntity tipusVenciment;
+	@Column(name = "pro_tve_cod", length = 4, nullable = false)
+	private String tipusVencimentCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -107,6 +116,9 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_div_fk"))
 	private DivisaEntity divisa;
+	@Column(name = "pro_div_cod", length = 4, nullable = false)
+	private String divisaCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -115,6 +127,9 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_dpg_fk"))
 	private DocumentPagamentCobramentEntity documentPagamentCobrament;	
+	@Column(name = "pro_dpg_cod", length = 4, nullable = false)
+	private String documentPagamentCobramentCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -123,6 +138,8 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_fpr_fk"))
 	private FamiliaProveidorEntity familiaProveidor;
+	@Column(name = "pro_fpr_cod", length = 4, nullable = false)
+	private String familiaProveidorCodi;
 
 	@Builder
 	public ProveidorEntity(
@@ -130,12 +147,14 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 			Proveidor embedded,
 			IdentificadorEntity identificador,
 			RegimIvaEntity regimIva,
-			CodiPostalEntity codiPostal,
-			TipusVencimentEntity tipusVenciment,
+			CodiPostalEntity codiPostal,			
 			DivisaEntity divisa,
 			DocumentPagamentCobramentEntity documentPagamentCobrament,
-			FamiliaProveidorEntity familiaProveidor) {
+			FamiliaProveidorEntity familiaProveidor,
+			TipusVencimentEntity tipusVenciment) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.regimIva = regimIva;
@@ -144,11 +163,42 @@ public class ProveidorEntity extends AbstractAmbIdentificadorEntity<Proveidor, A
 		this.divisa = divisa;
 		this.documentPagamentCobrament = documentPagamentCobrament;
 		this.familiaProveidor = familiaProveidor;
+		
+		this.regimIvaCodi = regimIva.getEmbedded().getCodi();
+		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
+		this.tipusVencimentCodi = tipusVenciment.getEmbedded().getCodi();
+		this.divisaCodi = divisa.getEmbedded().getCodi();
+		this.documentPagamentCobramentCodi = documentPagamentCobrament.getEmbedded().getCodi();
+		this.familiaProveidorCodi = familiaProveidor.getEmbedded().getCodi();
 	}
 
 	@Override
 	public void update(Proveidor embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateRegimIva(RegimIvaEntity regimIva) {
+		this.regimIvaCodi = regimIva.getEmbedded().getCodi();
+	}
+	
+	public void updateCodiPostal(CodiPostalEntity codiPostal) {
+		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
+	}
+	
+	public void updateTipusVenciment(TipusVencimentEntity tipusVenciment) {
+		this.tipusVencimentCodi = tipusVenciment.getEmbedded().getCodi();
+	}
+	
+	public void updateDivisa(DivisaEntity divisa) {
+		this.divisaCodi = divisa.getEmbedded().getCodi();
+	}
+	
+	public void updateDocumentPagamentCobrament(DocumentPagamentCobramentEntity documentPagamentCobrament) {
+		this.documentPagamentCobramentCodi = documentPagamentCobrament.getEmbedded().getCodi();
+	}
+	
+	public void updateFamiliaProveidor(FamiliaProveidorEntity familiaProveidor) {
+		this.familiaProveidorCodi = familiaProveidor.getEmbedded().getCodi();
 	}
 
 }

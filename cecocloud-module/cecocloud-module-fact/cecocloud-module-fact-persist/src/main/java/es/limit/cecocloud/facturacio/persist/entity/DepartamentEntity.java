@@ -10,9 +10,12 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.Departament;
@@ -63,15 +66,28 @@ public class DepartamentEntity extends AbstractAmbIdentificadorEntity<Departamen
 
 	@Embedded
 	protected Departament embedded;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "dep_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "dep_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_dep_emp_fk"))
+	protected EmpresaEntity empresa;
 
 	@Builder
 	public DepartamentEntity(
 			DepartamentPk pk,
 			Departament embedded,
-			IdentificadorEntity identificador) {
+			IdentificadorEntity identificador,
+			EmpresaEntity empresa) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
-		this.identificador = identificador;		
+		this.identificador = identificador;
+		this.empresa = empresa;
 	}
 
 	@Override

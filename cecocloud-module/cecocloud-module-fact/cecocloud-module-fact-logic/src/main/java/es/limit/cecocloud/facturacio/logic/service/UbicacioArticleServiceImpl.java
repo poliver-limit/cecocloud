@@ -23,8 +23,8 @@ public class UbicacioArticleServiceImpl extends AbstractGenericCompositePkServic
 	protected UbicacioArticlePk getPkFromDto(UbicacioArticle dto) {
 		return new UbicacioArticlePk(
 				dto.getIdentificador().getId(),				
-				dto.getArticle().getId(),
-				dto.getMagatzem().getId());
+				dto.getArticle().getPk().getCodi(),
+				dto.getMagatzem().getPk().getCodi());
 	}
 
 

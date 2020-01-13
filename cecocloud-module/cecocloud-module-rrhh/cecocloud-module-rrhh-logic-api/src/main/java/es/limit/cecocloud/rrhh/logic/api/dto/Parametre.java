@@ -18,7 +18,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "descripcio"
 )
 public class Parametre extends AbstractIdentificableAmbIdentificadorICodi<String> {	
 
@@ -26,10 +26,14 @@ public class Parametre extends AbstractIdentificableAmbIdentificadorICodi<String
 	@Size(max = 15)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
+	
 	@NotNull
+	@RestapiField()
 	@Size(max = 100)
 	private String valor;
+	
 	@NotNull
+	@RestapiField()
 	@Size(max = 1000)
 	private String descripcio;
 
