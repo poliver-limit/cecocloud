@@ -111,14 +111,18 @@
 	"error.validation.constraint.MarcatgeData": "Data incorrecta",
 	"error.validation.constraint.UsuariEmailNotExists": "Ja existeix un altre usuari amb la mateixa adreça de correu",
 
-	"resource.label": "Recurs",
-	"resource.permis.access": "Accés",
-	"resource.permis.read": "Consultar",
-	"resource.permis.write": "Modificar",
-	"resource.permis.create": "Crear",
-	"resource.permis.delete": "Borrar",
-	"resource.permis.administration": "Admin",
-	"resource.permis.print": "Imprimir",
+	"resource.baseBootPermission": "Permís",
+	"resource.baseBootPermission.plural": "Permisos",
+	"resource.baseBootPermission.field.sidType": "Tipus",
+	"resource.baseBootPermission.field.sidName": "Nom",
+	"resource.baseBootPermission.field.readGranted": "Consulta",
+	"resource.baseBootPermission.field.writeGranted": "Modificació",
+	"resource.baseBootPermission.field.createGranted": "Creació",
+	"resource.baseBootPermission.field.deleteGranted": "Eliminació",
+	"resource.baseBootPermission.field.adminGranted": "Administració",
+	"resource.baseBootPermission.field.syncGranted": "Sincronització",
+	"resource.baseBootPermission.field.printGranted": "Impressió",
+	"resource.baseBootPermission.field.accessGranted": "Accés",
 
 	"resource.usuari": "Usuari",
 	"resource.usuari.plural": "Usuaris",
@@ -142,6 +146,11 @@
 	"resource.identificador.field.dataInici": "Data inici",
 	"resource.identificador.field.dataFi": "Data fi",
 	"resource.identificador.field.propietari": "Propietari",
+
+	"resource.usuariIdentificador": "Usuari",
+	"resource.usuariIdentificador.plural": "Usuaris",
+	"resource.usuariIdentificador.field.usuari": "Usuari",
+	"resource.usuariIdentificador.field.identificador": "Grup d'empreses",
 
 	"resource.empresa": "Empresa",
 	"resource.empresa.plural": "Empreses",
@@ -239,10 +248,9 @@
 	"resource.unitatTipus": "Tipus d'unitat",
 	"resource.vehicle": "Vehicle",
 	"resource.zona": "Zona",
-	
-	
+
 	"//* FACTURACIO": "FACTURACIO *\\",
-	
+
 	"resource.articleDuplicat": "Article",
 	"resource.article.plural": "Articles",
 	"resource.article.field.codi": "Codi",
@@ -267,7 +275,7 @@
 	"resource.article.field.alternatiu2": "Alternatiu 2",	
 	"resource.article.field.articleRaee": "Article Raee",				
 	"resource.article.field.identificador": "Identificador",
-	
+
 	"resource.articleFamiliaDuplicat": "Artícle familia",
 	"resource.articleFamilia.plural": "Artícles familia",
 	"resource.articleFamilia.field.codi": "Codi",
@@ -295,33 +303,33 @@
 	"resource.articleFamilia.field.descOperacio": "Descripció operació",
 	"resource.articleFamilia.field.artExportables": "Articles exportables",	
 	"resource.articleFamilia.field.identificador": "Identificador",
-	
+
 	"resource.articleFamiliaEmpresaDuplicat": "Article família empresa",
 	"resource.articleFamiliaEmpresa.plural": "Articles família empresa",
 	"resource.articleFamiliaEmpresa.field.web": "Web",
 	"resource.articleFamiliaEmpresa.field.articleFamilia": "Article família",
 	"resource.articleFamiliaEmpresa.field.empresa": "Empresa",
 	"resource.articleFamiliaEmpresa.field.identificador": "Identificador",
-	
+
 	"resource.articleGammaDuplicat": "Article gamma",
 	"resource.articleGamma.plural": "Articles gamma",
 	"resource.articleGamma.field.codi": "Codi",
 	"resource.articleGamma.field.descripcio": "Descripció",
 	"resource.articleGamma.field.identificador": "Identificador",		
-	
+
 	"resource.articleMarcaDuplicat": "Article marca",
 	"resource.articleMarca.plural": "Articles marca",
 	"resource.articleMarca.field.codi": "Codi",
 	"resource.articleMarca.field.descripcio": "Descripció",
 	"resource.articleMarca.field.identificador": "Identificador",	
-	
+
 	"resource.articleModelDuplicat": "Article model",
 	"resource.articleModel.plural": "Articles model",
 	"resource.articleModel.field.codi": "Codi",
 	"resource.articleModel.field.descripcio": "Descripció",
 	"resource.articleModel.field.control": "Control",
 	"resource.articleModel.field.identificador": "Identificador",			
-	
+
 	"resource.codiPostalDuplicat": "Codi postal",
 	"resource.codiPostal.plural": "Codis postal",
 	"resource.codiPostal.field.codi": "Codi",
@@ -330,7 +338,7 @@
 	"resource.codiPostal.field.pais": "Pais",
 	"resource.codiPostal.field.provincia": "Província",
 	"resource.codiPostal.field.identificador": "Identificador",		
-	
+
 	"resource.departamentDuplicat": "Departament",
 	"resource.departament.plural": "Departaments",
 	"resource.departament.field.codi": "Codi",
@@ -338,7 +346,7 @@
 	"resource.departament.field.empresa": "Empresa",
 	"resource.departament.field.observacions": "Observacions",
 	"resource.departament.field.identificador": "Identificador",	
-	
+
 	"resource.divisaDuplicat": "Divisa",
 	"resource.divisa.plural": "Divises",
 	"resource.divisa.field.codi": "Codi",
@@ -349,7 +357,7 @@
 	"resource.divisa.field.decimalsImports": "Decimals imports",
 	"resource.divisa.field.codiComptabilitat": "Codi comptabilitat",	
 	"resource.divisa.field.identificador": "Identificador",	
-	
+
 	"resource.documentPagamentCobramentDuplicat": "Document pagament / cobrament",
 	"resource.documentPagamentCobrament.plural": "Documents pagament / cobrament",
 	"resource.documentPagamentCobrament.field.codi": "Codi",
@@ -378,7 +386,7 @@
 	"resource.documentPagamentCobrament.field.iva": "I.V.A.",
 	"resource.documentPagamentCobrament.field.regimIva": "Règim d''I.V.A.",	
 	"resource.documentPagamentCobrament.field.identificador": "Identificador",	
-	
+
 	"resource.empresaDuplicat": "Empresa",
 	"resource.empresa.pluralDuplicat": "Empreses",
 	"resource.empresa.field.codiDuplicat": "Codi",
@@ -1000,11 +1008,7 @@
 	"page.usuaris.canvi.contrasenya.button.canviar": "Canviar",
 	"page.usuaris.canvi.contrasenya.no.coincideix": "La contrasenya i la repetició no coincideixen",
 	"page.usuaris.canvi.contrasenya.ok": "La contrasenya s'ha modificat correctament",
+	
+	"page.rols.form.recurs": "Recurs"
 
-	"page.companyia-usuaris.modal.titol": "Afegir usuari",
-	"page.companyia-usuaris.modal.button.cancelar": "Cancel·lar",
-	"page.companyia-usuaris.modal.button.afegir": "Afegir",
-
-	"page.componyia-usuari-empresa.permisos": "Permisos per empresa",
-	"page.componyia-usuari-empresa.preferencies": "Preferències"
 }

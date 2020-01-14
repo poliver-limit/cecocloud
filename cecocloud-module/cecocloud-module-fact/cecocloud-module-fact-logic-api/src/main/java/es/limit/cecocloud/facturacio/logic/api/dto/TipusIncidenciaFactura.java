@@ -20,7 +20,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class TipusIncidenciaFactura extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class TipusIncidenciaFactura extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)

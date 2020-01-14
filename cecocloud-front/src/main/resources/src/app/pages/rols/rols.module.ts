@@ -1,4 +1,3 @@
-import { RecusrosPermisModule } from '../../shared/recusros/recursos-permis.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,7 +9,7 @@ import { MaterialModule } from '../../shared/material.module';
 import { RolsGridComponent } from './rols-grid.component';
 import { RolsFormComponent } from './rols-form.component';
 import { RolsService } from './rols.service';
-
+import { RecursPermisosModule } from '../../shared/recurs-permisos/recurs-permisos.module';
 
 @NgModule({
     imports: [
@@ -18,7 +17,7 @@ import { RolsService } from './rols.service';
         TranslateModule,
         BngModule,
         MaterialModule,
-        RecusrosPermisModule,
+        RecursPermisosModule,
         // MatTableModule,
         // MatSlideToggleModule,
         RouterModule.forChild([

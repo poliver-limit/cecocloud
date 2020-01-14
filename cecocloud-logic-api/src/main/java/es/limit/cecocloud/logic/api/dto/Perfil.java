@@ -8,7 +8,8 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.cecocloud.logic.api.generic.dto.AbstractIdentificableAmbIdentificador;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +20,16 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio"
+		descriptionField = "descripcio",
+		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(
+						type = RestapiPermissionConstraintType.ACL_ID, 
+						resourceClass = "es.limit.cecocloud.logic.api.dto.Identificador",
+						resourceSessionField = "i",
+						resourcePermission = "ADMINISTRATION"),
+		}
 )
-public class Perfil extends AbstractIdentificableAmbIdentificador<Long> {
+public class Perfil extends AbstractIdentificableWithIdentificador<Long> {
 
 	@NotNull
 	@Size(max = 10)

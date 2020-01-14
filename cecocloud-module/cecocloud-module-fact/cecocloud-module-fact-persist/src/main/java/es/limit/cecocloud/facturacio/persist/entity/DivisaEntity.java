@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.Divisa;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,14 +62,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_div_idf_fk"))
 })
-public class DivisaEntity extends AbstractAmbIdentificadorEntity<Divisa, AmbIdentificadorICodiPk<String>> {
+public class DivisaEntity extends AbstractWithIdentificadorEntity<Divisa, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Divisa embedded;
 
 	@Builder
 	public DivisaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Divisa embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

@@ -10,8 +10,8 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle.UbicacioArticlePk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Ubicacio.UbicacioPk;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "unitat"
 )
-public class UbicacioArticle extends AbstractIdentificableAmbIdentificador<UbicacioArticlePk> {
+public class UbicacioArticle extends AbstractIdentificableWithIdentificador<UbicacioArticlePk> {
 
 	@Transient
 	@NotNull
@@ -51,7 +51,8 @@ public class UbicacioArticle extends AbstractIdentificableAmbIdentificador<Ubica
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)
-	private GenericReferenceWithCompositePk<Article, AmbIdentificadorICodiPk<String>> article;
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> article;
+
 	
 	@Transient
 	@RestapiField(
@@ -60,14 +61,14 @@ public class UbicacioArticle extends AbstractIdentificableAmbIdentificador<Ubica
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)
-	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class UbicacioArticlePk extends AmbIdentificadorPk {
+	public static class UbicacioArticlePk extends WithIdentificadorPk {
 		private String articleCodi;
 		private String magatzemCodi;
 		public UbicacioArticlePk(

@@ -47,6 +47,10 @@ public class Identificador extends AbstractIdentificable<Long> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private int numEmpreses;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private int numOperaris;
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
@@ -79,5 +83,18 @@ public class Identificador extends AbstractIdentificable<Long> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReference<Usuari, Long> propietari;
+
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private int usuarisCount;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private int empresesCount;
 
 }

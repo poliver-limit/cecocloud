@@ -20,7 +20,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class ArticleGamma extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class ArticleGamma extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 6)

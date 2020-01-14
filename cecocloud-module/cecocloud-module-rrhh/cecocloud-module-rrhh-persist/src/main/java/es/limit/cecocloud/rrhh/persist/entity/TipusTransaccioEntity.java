@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusTransaccio;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -58,7 +58,8 @@ import lombok.Setter;
 			foreignKey = @ForeignKey(name = "rrhu_ttr_idf_fk"))
 })
 //public class TipusTransaccioEntity extends AbstractAmbIdentificadorEntity<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> {
-public class TipusTransaccioEntity extends AbstractAmbIdentificadorEntity<TipusTransaccio, AmbIdentificadorICodiPk<String>> {
+public class TipusTransaccioEntity extends AbstractWithIdentificadorEntity<TipusTransaccio, WithIdentificadorAndCodiPk<String>> {
+
 
 	@Embedded
 	protected TipusTransaccio embedded;
@@ -66,7 +67,8 @@ public class TipusTransaccioEntity extends AbstractAmbIdentificadorEntity<TipusT
 	@Builder
 	public TipusTransaccioEntity(
 //			AmbIdentificadorICodiPk<Integer> pk,
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
+
 			TipusTransaccio embedded,
 			IdentificadorEntity identificador) {
 		

@@ -17,6 +17,7 @@ import {
 	MatDialogModule,
 	MatCardModule,
 	MatTabsModule,
+	MatBadgeModule,
 	MAT_DATE_FORMATS
 } from '@angular/material';
 
@@ -41,6 +42,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 		MatDialogModule,
 		MatCardModule,
 		MatTabsModule,
+		MatBadgeModule,
         MomentDateModule
     ],
     providers: [

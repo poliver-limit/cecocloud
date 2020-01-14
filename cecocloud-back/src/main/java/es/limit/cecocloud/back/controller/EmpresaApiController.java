@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.logic.api.controller.GenericController;
-import es.limit.cecocloud.back.generic.controller.AbstractIdentificableAmbIdentificadorWithPermissionsApiController;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 
 /**
@@ -17,6 +16,6 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
  */
 @RestController
 @RequestMapping(GenericController.API_PATH + "/empreses")
-public class EmpresaApiController extends AbstractIdentificableAmbIdentificadorWithPermissionsApiController<Empresa, Long> {
+public class EmpresaApiController extends AbstractIdentificableWithPermissionsAndIdentificadorApiController<Empresa, Long> {
 
 }

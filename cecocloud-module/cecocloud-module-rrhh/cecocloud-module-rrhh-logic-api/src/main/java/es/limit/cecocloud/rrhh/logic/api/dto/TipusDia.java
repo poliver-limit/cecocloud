@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class TipusDia extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class TipusDia extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 	
 	@Size(max = 22)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
@@ -34,7 +34,7 @@ public class TipusDia extends AbstractIdentificableAmbIdentificadorICodi<String>
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<Regim, AmbIdentificadorICodiPk<String>> regim;
+	private GenericReferenceWithCompositePk<Regim, WithIdentificadorAndCodiPk<String>> regim;
 	
 	@Size(max = 30)
 	private String nom;

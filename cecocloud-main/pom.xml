@@ -11,10 +11,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
@@ -76,12 +72,6 @@
 		<profile>
 			<id>oracle</id>
 			<dependencies>
-				<!--dependency>
-					<groupId>com.oracle</groupId>
-					<artifactId>ojdbc8</artifactId>
-					<version>${ojdbc8.version}</version>
-					<scope>runtime</scope>
-				</dependency-->
 				<dependency>
 					<groupId>com.oracle</groupId>
 					<artifactId>ojdbc6</artifactId>

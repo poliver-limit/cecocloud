@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class FamiliaCost extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class FamiliaCost extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
@@ -51,6 +51,6 @@ public class FamiliaCost extends AbstractIdentificableAmbIdentificadorICodi<Stri
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
+	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> articleFamilia;
 
 }

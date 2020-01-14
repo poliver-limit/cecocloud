@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleGamma;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,14 +57,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_gma_idf_fk"))
 })
-public class ArticleGammaEntity extends AbstractAmbIdentificadorEntity<ArticleGamma, AmbIdentificadorICodiPk<String>> {
+public class ArticleGammaEntity extends AbstractWithIdentificadorEntity<ArticleGamma, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected ArticleGamma embedded;
 
 	@Builder
 	public ArticleGammaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			ArticleGamma embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

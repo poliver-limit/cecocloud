@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Subcategoria;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -66,7 +66,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_sct_idf_fk"))
 })
-public class SubcategoriaEntity extends AbstractAmbIdentificadorEntity<Subcategoria, AmbIdentificadorICodiPk<String>> {
+public class SubcategoriaEntity extends AbstractWithIdentificadorEntity<Subcategoria, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Subcategoria embedded;
@@ -86,7 +86,7 @@ public class SubcategoriaEntity extends AbstractAmbIdentificadorEntity<Subcatego
 
 	@Builder
 	public SubcategoriaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Subcategoria embedded,
 			IdentificadorEntity identificador,
 			CategoriaEntity categoria) {

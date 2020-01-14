@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.ArticleMarca;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,14 +57,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_mca_idf_fk"))
 })
-public class ArticleMarcaEntity extends AbstractAmbIdentificadorEntity<ArticleMarca, AmbIdentificadorICodiPk<String>> {
+public class ArticleMarcaEntity extends AbstractWithIdentificadorEntity<ArticleMarca, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected ArticleMarca embedded;
 
 	@Builder
 	public ArticleMarcaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			ArticleMarca embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

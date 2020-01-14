@@ -20,7 +20,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class TipusProveidorClient extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class TipusProveidorClient extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)

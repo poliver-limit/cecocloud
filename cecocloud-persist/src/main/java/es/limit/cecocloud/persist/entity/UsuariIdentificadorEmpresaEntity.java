@@ -55,7 +55,11 @@ public class UsuariIdentificadorEmpresaEntity extends AbstractAuditableVersionab
 	)
 	protected UsuariIdentificadorEntity usuariIdentificador;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "empresa_id", foreignKey = @ForeignKey(name = "usuidfemp_empresa_fk"), insertable = false, updatable = false)
+	@JoinColumn(
+			name = "empresa_id",
+			insertable = false,
+			updatable = false,
+			foreignKey = @ForeignKey(name = "usuidfemp_empresa_fk"))
 	protected EmpresaEntity empresa;
 
 	@Builder

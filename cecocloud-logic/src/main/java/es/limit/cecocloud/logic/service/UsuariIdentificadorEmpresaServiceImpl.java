@@ -80,12 +80,8 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericCompos
 			List<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdOrderByEmpresaEmbeddedNom(
 					usuariCodi,
 					identificador.getId());
-//			List<Empresa> empreses = toDto(
-//					usuariIdentificadorEmpreses.stream().map(usuariIdentificadorEmpresa -> usuariIdentificadorEmpresa.getEmpresa()).collect(Collectors.toList()),
-//					Empresa.class);
 			List<Empresa> empreses = usuariIdentificadorEmpreses.stream().map(usuariIdentificadorEmpresa -> {
 						Empresa empresa = new Empresa();
-//						return usuariIdentificadorEmpresa.getEmpresa();
 						empresa.setId(usuariIdentificadorEmpresa.getEmpresa().getId());
 						empresa.setCodi(usuariIdentificadorEmpresa.getEmpresa().getEmbedded().getCodi());
 						empresa.setNom(usuariIdentificadorEmpresa.getEmpresa().getEmbedded().getNom());
@@ -101,13 +97,12 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericCompos
 						identificador.getEmbedded().getDescripcio(),
 						hasAdminPermission,
 						empreses);
-				//toDto(identificador, IdentificadorEmpresaSelectionTreeItem.class);
 				selectionTree.add(dto);
 			}
 		}
 		return selectionTree;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<UsuariIdentificadorEmpresaPerfilTreeItem> buildPerfilTree() {

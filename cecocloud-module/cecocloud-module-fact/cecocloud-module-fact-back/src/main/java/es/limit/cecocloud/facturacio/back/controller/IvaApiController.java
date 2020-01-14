@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/ives")
-public class IvaApiController extends AbstractIdentificableAmbIdentificadorApiController<Iva> {
+public class IvaApiController extends AbstractIdentificableWithIdentificadorApiController<Iva> {
 
 }

@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Subcategoria extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Subcategoria extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 	
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
@@ -32,7 +32,7 @@ public class Subcategoria extends AbstractIdentificableAmbIdentificadorICodi<Str
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Categoria, AmbIdentificadorICodiPk<String>> categoria;
+	private GenericReferenceWithCompositePk<Categoria, WithIdentificadorAndCodiPk<String>> categoria;
 	
 	@Size(max = 30)
 	private String nom;

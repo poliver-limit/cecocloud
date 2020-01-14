@@ -20,7 +20,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class Parametre extends AbstractIdentificableAmbIdentificadorICodi<String> {	
+public class Parametre extends AbstractIdentificableWithIdentificadorAndCodi<String> {	
 
 	@NotNull(groups = { OnCreate.class })
 	@Size(max = 15)

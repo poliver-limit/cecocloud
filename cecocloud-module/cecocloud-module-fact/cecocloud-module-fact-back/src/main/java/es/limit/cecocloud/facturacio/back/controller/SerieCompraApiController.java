@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/seriesCompra")
-public class SerieCompraApiController extends AbstractIdentificableAmbIdentificadorApiController<SerieCompra> {
+public class SerieCompraApiController extends AbstractIdentificableWithIdentificadorApiController<SerieCompra> {
 
 }

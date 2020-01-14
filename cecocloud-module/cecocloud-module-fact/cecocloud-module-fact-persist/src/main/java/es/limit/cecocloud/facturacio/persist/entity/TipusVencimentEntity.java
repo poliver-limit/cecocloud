@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.TipusVenciment;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -81,14 +81,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_tve_idf_fk"))
 })
-public class TipusVencimentEntity extends AbstractAmbIdentificadorEntity<TipusVenciment, AmbIdentificadorICodiPk<String>> {
+public class TipusVencimentEntity extends AbstractWithIdentificadorEntity<TipusVenciment, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected TipusVenciment embedded;
 
 	@Builder
 	public TipusVencimentEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			TipusVenciment embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

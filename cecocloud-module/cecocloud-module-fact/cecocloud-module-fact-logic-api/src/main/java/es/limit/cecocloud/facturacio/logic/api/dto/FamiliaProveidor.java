@@ -21,7 +21,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class FamiliaProveidor extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class FamiliaProveidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(

@@ -4,7 +4,7 @@
 package es.limit.cecocloud.rrhh.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.persist.entity.TransaccioEntity;
 
 /**
@@ -12,6 +12,8 @@ import es.limit.cecocloud.rrhh.persist.entity.TransaccioEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+
 //public interface TransaccioRepository extends BaseRepository<TransaccioEntity, AmbIdentificadorICodiPk<Integer>> {
-public interface TransaccioRepository extends BaseRepository<TransaccioEntity, AmbIdentificadorICodiPk<String>> {
+public interface TransaccioRepository extends BaseRepository<TransaccioEntity, WithIdentificadorAndCodiPk<String>> {
+
 }

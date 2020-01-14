@@ -93,7 +93,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_ser_idf_fk"))
 })
-public class SerieVendaEntity extends AbstractAmbIdentificadorEntity<SerieVenda, SerieVendaPk> {
+public class SerieVendaEntity extends AbstractWithIdentificadorEntity<SerieVenda, SerieVendaPk> {
 
 	@Embedded
 	protected SerieVenda embedded;

@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.CodiPostal;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -61,7 +61,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_cpo_idf_fk"))
 })
-public class CodiPostalEntity extends AbstractAmbIdentificadorEntity<CodiPostal, AmbIdentificadorICodiPk<String>> {
+public class CodiPostalEntity extends AbstractWithIdentificadorEntity<CodiPostal, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected CodiPostal embedded;
@@ -97,7 +97,7 @@ public class CodiPostalEntity extends AbstractAmbIdentificadorEntity<CodiPostal,
 
 	@Builder
 	public CodiPostalEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			CodiPostal embedded,
 			IdentificadorEntity identificador,
 			PaisEntity pais,

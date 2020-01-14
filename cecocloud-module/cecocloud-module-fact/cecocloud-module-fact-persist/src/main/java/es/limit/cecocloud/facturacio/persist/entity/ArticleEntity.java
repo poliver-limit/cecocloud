@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.Article;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -70,7 +70,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_art_idf_fk"))
 })
-public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbIdentificadorICodiPk<String>> {
+public class ArticleEntity extends AbstractWithIdentificadorEntity<Article, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Article embedded;
@@ -177,7 +177,7 @@ public class ArticleEntity extends AbstractAmbIdentificadorEntity<Article, AmbId
 	
 	@Builder
 	public ArticleEntity(			
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Article embedded,
 			IdentificadorEntity identificador,
 			ArticleEntity alternatiu,

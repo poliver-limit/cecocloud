@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -60,14 +60,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_gre_idf_fk"))
 })
-public class RecursGrupEntity extends AbstractAmbIdentificadorEntity<RecursGrup, AmbIdentificadorICodiPk<String>> {
+public class RecursGrupEntity extends AbstractWithIdentificadorEntity<RecursGrup, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected RecursGrup embedded;
 
 	@Builder
 	public RecursGrupEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			RecursGrup embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);

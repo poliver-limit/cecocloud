@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Subvencio extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Subvencio extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)

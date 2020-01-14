@@ -12,7 +12,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificador.WithIdentificadorPk;
 //import es.limit.cecocloud.rrhh.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -26,7 +26,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public abstract class AbstractIdentificableAmbIdentificador<PK extends AmbIdentificadorPk> extends AbstractIdentificableWithCompositePk<PK> implements IdentificableAmbIdentificador<PK> {
+public abstract class AbstractIdentificableWithIdentificador<PK extends WithIdentificadorPk> extends AbstractIdentificableWithCompositePk<PK> implements IdentificableWithIdentificador<PK> {
 
 	@Transient
 	@RestapiField(
@@ -44,23 +44,8 @@ public abstract class AbstractIdentificableAmbIdentificador<PK extends AmbIdenti
 	@Getter
 	@SuppressWarnings("serial")
 	@MappedSuperclass
-	public static class AmbIdentificadorPk implements Serializable {
+	public static class WithIdentificadorPk implements Serializable {
 		private String identificadorCodi;
-	}
-
-	@NoArgsConstructor
-	@EqualsAndHashCode(callSuper = true)
-	@Getter
-	@SuppressWarnings("serial")
-	@MappedSuperclass
-	public static class AmbIdentificadorICodiPk<C> extends AmbIdentificadorPk {
-		private C codi;
-		public AmbIdentificadorICodiPk(
-				String identificadorCodi,
-				C codi) {
-			super(identificadorCodi);
-			this.codi = codi;
-		}
 	}
 
 }

@@ -17,7 +17,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -67,7 +67,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_mtr_idf_fk"))
 })
-public class VehicleEntity extends AbstractAmbIdentificadorEntity<Vehicle, AmbIdentificadorICodiPk<String>> {
+public class VehicleEntity extends AbstractWithIdentificadorEntity<Vehicle, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Vehicle embedded;
@@ -83,7 +83,7 @@ public class VehicleEntity extends AbstractAmbIdentificadorEntity<Vehicle, AmbId
 
 	@Builder
 	public VehicleEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Vehicle embedded,
 			IdentificadorEntity identificador,
 			TransportistaEntity transportista) {

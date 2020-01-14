@@ -14,13 +14,11 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.SeccioEmpresa.SeccioEmpresaPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
-import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa;
-import es.limit.cecocloud.facturacio.logic.api.dto.ArticleFamiliaEmpresa.ArticleFamiliaEmpresaPk;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,7 +35,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "observacions"
 )
-public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioEmpresaPk> {
+public class SeccioEmpresa extends AbstractIdentificableWithIdentificador<SeccioEmpresaPk> {
 	
 	@Transient
 	@NotNull
@@ -47,7 +45,7 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
 	@Transient
 	@NotNull
@@ -57,7 +55,7 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)
-	private GenericReferenceWithCompositePk<ArticleFamilia, AmbIdentificadorICodiPk<String>> articleFamilia;
+	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> articleFamilia;
 	
 //	@Transient	
 //	@RestapiField(
@@ -93,7 +91,7 @@ public class SeccioEmpresa extends AbstractIdentificableAmbIdentificador<SeccioE
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class SeccioEmpresaPk extends AmbIdentificadorPk {
+	public static class SeccioEmpresaPk extends WithIdentificadorPk {
 		private String articleFamiliaCodi;
 		private String empresaCodi;
 		public SeccioEmpresaPk(

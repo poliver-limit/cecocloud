@@ -26,7 +26,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull
 	@Size(max = 4)
@@ -103,7 +103,7 @@ public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV)
-	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull
@@ -111,6 +111,6 @@ public class Magatzem extends AbstractIdentificableAmbIdentificadorICodi<String>
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 
 }

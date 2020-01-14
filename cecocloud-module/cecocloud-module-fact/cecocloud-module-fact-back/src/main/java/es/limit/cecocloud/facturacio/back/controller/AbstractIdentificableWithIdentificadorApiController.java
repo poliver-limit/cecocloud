@@ -7,17 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificador;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.IdentificadorService;
 
 /**
- * Controlador per al servei REST de gestió de articles.
+ * Controlador base pels serveis REST dels recursos amb identificador.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class AbstractIdentificableAmbIdentificadorApiController<D extends IdentificableAmbIdentificador<?>> extends AbstractIdentificableApiController<D, String> {
+public class AbstractIdentificableWithIdentificadorApiController<D extends IdentificableWithIdentificador<?>> extends AbstractIdentificableApiController<D, String> {
 
 	@Autowired
 	private IdentificadorService identificadorService;

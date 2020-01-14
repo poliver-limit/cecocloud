@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.base.boot.logic.api.dto.util.IdentificableWithCompositePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface IdentificableAmbIdentificador<PK extends AmbIdentificadorPk> extends IdentificableWithCompositePk<PK> {
+public interface IdentificableWithIdentificador<PK extends WithIdentificadorPk> extends IdentificableWithCompositePk<PK> {
 
 	public GenericReference<Identificador, String> getIdentificador();
 
@@ -32,7 +32,7 @@ public interface IdentificableAmbIdentificador<PK extends AmbIdentificadorPk> ex
 	@Getter
 	@SuppressWarnings("serial")
 	@MappedSuperclass
-	public static class AmbIdentificadorPk implements Serializable {
+	public static class WithIdentificadorPk implements Serializable {
 		private String identificadorCodi;
 	}
 

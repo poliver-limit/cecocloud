@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.Empresa;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -90,7 +90,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_emp_idf_fk"))
 })
-public class EmpresaEntity extends AbstractAmbIdentificadorEntity<Empresa, AmbIdentificadorICodiPk<String>> {
+public class EmpresaEntity extends AbstractWithIdentificadorEntity<Empresa, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Empresa embedded;
@@ -141,7 +141,7 @@ public class EmpresaEntity extends AbstractAmbIdentificadorEntity<Empresa, AmbId
 
 	@Builder
 	public EmpresaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Empresa embedded,
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostalComercial,

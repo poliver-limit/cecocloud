@@ -20,7 +20,6 @@ import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle;
 import es.limit.cecocloud.facturacio.logic.api.dto.UbicacioArticle.UbicacioArticlePk;
-import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -62,7 +61,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_uba_idf_fk"))
 })
-public class UbicacioArticleEntity extends AbstractAmbIdentificadorEntity<UbicacioArticle, UbicacioArticlePk> {
+public class UbicacioArticleEntity extends AbstractWithIdentificadorEntity<UbicacioArticle, UbicacioArticlePk> {
 
 	@Embedded
 	protected UbicacioArticle embedded;

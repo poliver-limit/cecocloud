@@ -21,7 +21,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class TarifaDescompte extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class TarifaDescompte extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)

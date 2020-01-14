@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Divisa extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Divisa extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(

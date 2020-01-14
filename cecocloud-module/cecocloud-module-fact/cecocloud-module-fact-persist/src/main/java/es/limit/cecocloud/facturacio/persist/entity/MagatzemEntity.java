@@ -18,7 +18,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -71,7 +71,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_mag_idf_fk"))
 })
-public class MagatzemEntity extends AbstractAmbIdentificadorEntity<Magatzem, AmbIdentificadorICodiPk<String>> {
+public class MagatzemEntity extends AbstractWithIdentificadorEntity<Magatzem, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Magatzem embedded;
@@ -100,7 +100,7 @@ public class MagatzemEntity extends AbstractAmbIdentificadorEntity<Magatzem, Amb
 
 	@Builder
 	public MagatzemEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Magatzem embedded,
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostal,

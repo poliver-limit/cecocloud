@@ -13,7 +13,8 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari.CalendariPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,7 +31,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-public class Calendari extends AbstractIdentificableAmbIdentificador<CalendariPk> {
+public class Calendari extends AbstractIdentificableWithIdentificador<CalendariPk> {
 
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private Date data;
@@ -39,7 +40,7 @@ public class Calendari extends AbstractIdentificableAmbIdentificador<CalendariPk
 	@RestapiField(
 			type = RestapiFieldType.LOV, 			
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<TipusDia, AmbIdentificadorICodiPk<String>> tipusDia;	
+	private GenericReferenceWithCompositePk<TipusDia, WithIdentificadorAndCodiPk<String>> tipusDia;	
 	
 	@Size(max = 1000)
 	@RestapiField(			
@@ -55,7 +56,7 @@ public class Calendari extends AbstractIdentificableAmbIdentificador<CalendariPk
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class CalendariPk extends AmbIdentificadorPk {
+	public static class CalendariPk extends WithIdentificadorPk {
 		private Date data;
 		public CalendariPk(
 				String identificadorCodi,

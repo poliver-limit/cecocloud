@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.logic.api.controller.GenericController;
-import es.limit.cecocloud.back.generic.controller.AbstractIdentificableAmbIdentificadorApiController;
 import es.limit.cecocloud.logic.api.dto.Rol;
 
 /**
@@ -17,6 +16,6 @@ import es.limit.cecocloud.logic.api.dto.Rol;
  */
 @RestController
 @RequestMapping(GenericController.API_PATH + "/rols")
-public class RolApiController extends AbstractIdentificableAmbIdentificadorApiController<Rol, Long> {
+public class RolApiController extends AbstractIdentificableWithIdentificadorApiController<Rol, Long> {
 
 }

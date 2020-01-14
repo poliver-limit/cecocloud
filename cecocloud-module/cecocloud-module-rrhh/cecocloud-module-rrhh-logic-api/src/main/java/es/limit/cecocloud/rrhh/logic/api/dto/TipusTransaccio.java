@@ -22,8 +22,10 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
+
 //public class TipusTransaccio extends AbstractIdentificableAmbIdentificadorICodi<Integer> {
-public class TipusTransaccio extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class TipusTransaccio extends AbstractIdentificableWithIdentificadorAndCodi<String> {
+
 	
 //	@Max(Integer.MAX_VALUE)
 //	@RestapiField(disabledForUpdate = true, toUpperCase = true)

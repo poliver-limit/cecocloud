@@ -13,10 +13,11 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.Calendari.CalendariPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.RegistreDiari.RegistreDiariPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
-import es.limit.cecocloud.rrhh.logic.api.dto.Calendari.CalendariPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +33,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class RegistreDiari extends AbstractIdentificableAmbIdentificador<RegistreDiariPk> {
+public class RegistreDiari extends AbstractIdentificableWithIdentificador<RegistreDiariPk> {
 
 	@Transient
 	@NotNull(groups = {OnCreate.class}) 
@@ -46,7 +47,7 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Operari, AmbIdentificadorICodiPk<String>> operari;
+	private GenericReferenceWithCompositePk<Operari, WithIdentificadorAndCodiPk<String>> operari;
 	
 	@NotNull
 	private BigDecimal horesTeoriques;
@@ -62,14 +63,14 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Horari, AmbIdentificadorICodiPk<String>> horari;
+	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Regim, AmbIdentificadorICodiPk<String>> regim;
+	private GenericReferenceWithCompositePk<Regim, WithIdentificadorAndCodiPk<String>> regim;
 	
 	@Transient
 	@NotNull
@@ -83,21 +84,21 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Empresa, AmbIdentificadorICodiPk<String>> empresa;
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Categoria, AmbIdentificadorICodiPk<String>> categoria;
+	private GenericReferenceWithCompositePk<Categoria, WithIdentificadorAndCodiPk<String>> categoria;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Subcategoria, AmbIdentificadorICodiPk<String>> subcategoria;
+	private GenericReferenceWithCompositePk<Subcategoria, WithIdentificadorAndCodiPk<String>> subcategoria;
 	
 	@NotNull
 	private BigDecimal preuHoraNormal;
@@ -114,7 +115,7 @@ public class RegistreDiari extends AbstractIdentificableAmbIdentificador<Registr
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class RegistreDiariPk extends AmbIdentificadorPk {
+	public static class RegistreDiariPk extends WithIdentificadorPk {
 		private Date calendariDataCodi;
 //		private String operariCodi;
 		public RegistreDiariPk(

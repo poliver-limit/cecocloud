@@ -31,7 +31,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nomComercial"
 )
-public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true,
@@ -58,7 +58,7 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostalComercial;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostalComercial;
 	
 	@NotNull
 	@Size(max = 40)
@@ -77,7 +77,7 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<CodiPostal, AmbIdentificadorICodiPk<String>> codiPostalFiscal;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostalFiscal;
 	
 	@Transient
 	@NotNull
@@ -90,7 +90,7 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Divisa, AmbIdentificadorICodiPk<String>> divisa;
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	
 	@NotNull
@@ -125,7 +125,7 @@ public class Empresa extends AbstractIdentificableAmbIdentificadorICodi<String> 
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Magatzem, AmbIdentificadorICodiPk<String>> magatzem;
+	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,

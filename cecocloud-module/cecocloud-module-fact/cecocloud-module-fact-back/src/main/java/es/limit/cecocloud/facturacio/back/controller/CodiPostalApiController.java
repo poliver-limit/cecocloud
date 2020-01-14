@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/codisPostal")
-public class CodiPostalApiController extends AbstractIdentificableAmbIdentificadorApiController<CodiPostal> {
+public class CodiPostalApiController extends AbstractIdentificableWithIdentificadorApiController<CodiPostal> {
 
 }

@@ -9,7 +9,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +19,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public abstract class AbstractIdentificableAmbIdentificador<PK extends AmbIdentificadorPk> extends AbstractIdentificableWithCompositePk<PK> implements IdentificableAmbIdentificador<PK> {
+public abstract class AbstractIdentificableWithIdentificador<PK extends WithIdentificadorPk> extends AbstractIdentificableWithCompositePk<PK> implements IdentificableWithIdentificador<PK> {
 
 	@Transient
 	@RestapiField(

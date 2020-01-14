@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/articlesGamma")
-public class ArticleGammaApiController extends AbstractIdentificableAmbIdentificadorApiController<ArticleGamma> {
+public class ArticleGammaApiController extends AbstractIdentificableWithIdentificadorApiController<ArticleGamma> {
 
 }

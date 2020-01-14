@@ -62,7 +62,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_pmg_idf_fk"))
 })
-public class MagatzemPeriodeEntity extends AbstractAmbIdentificadorEntity<MagatzemPeriode, MagatzemPeriodePk> {
+public class MagatzemPeriodeEntity extends AbstractWithIdentificadorEntity<MagatzemPeriode, MagatzemPeriodePk> {
 
 	@Embedded
 	protected MagatzemPeriode embedded;

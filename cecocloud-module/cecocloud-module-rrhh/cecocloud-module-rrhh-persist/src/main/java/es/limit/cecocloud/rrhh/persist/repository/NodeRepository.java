@@ -4,7 +4,7 @@
 package es.limit.cecocloud.rrhh.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 //import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
 import es.limit.cecocloud.rrhh.persist.entity.NodeEntity;
 
@@ -14,5 +14,5 @@ import es.limit.cecocloud.rrhh.persist.entity.NodeEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 //public interface NodeRepository extends BaseRepository<NodeEntity, NodePk> {
-public interface NodeRepository extends BaseRepository<NodeEntity, AmbIdentificadorICodiPk<String>> {
+public interface NodeRepository extends BaseRepository<NodeEntity, WithIdentificadorAndCodiPk<String>> {
 }

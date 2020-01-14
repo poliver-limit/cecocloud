@@ -1,4 +1,5 @@
 import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +16,9 @@ import { RestapiConfigService } from './shared/restapi-config.service';
 import { SelectorIdentificadorEmpresaComponent } from './shared/selector-empresa/selector-identificador-empresa.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import localeCa from '@angular/common/locales/ca';
+
+registerLocaleData(localeCa);
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');

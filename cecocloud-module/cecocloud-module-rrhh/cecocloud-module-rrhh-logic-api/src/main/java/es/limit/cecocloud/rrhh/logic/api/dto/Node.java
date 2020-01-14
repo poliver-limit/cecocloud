@@ -11,11 +11,13 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+
 //import es.limit.base.boot.logic.api.dto.util.Identificable.OnCreate;
 //import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorPk;
 //import es.limit.cecocloud.rrhh.logic.api.dto.Node.NodePk;
 //import lombok.AllArgsConstructor;
 //import lombok.EqualsAndHashCode;
+
 import lombok.Getter;
 //import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +32,8 @@ import lombok.Setter;
 		descriptionField = "codi"
 )
 //public class Node extends AbstractIdentificableAmbIdentificador<NodePk> {
-public class Node extends AbstractIdentificableAmbIdentificadorICodi<String> {
+public class Node extends AbstractIdentificableWithIdentificadorAndCodi<String> {
+
 
 //	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 //	private Integer numero;	
@@ -45,18 +48,18 @@ public class Node extends AbstractIdentificableAmbIdentificadorICodi<String> {
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Zona, AmbIdentificadorICodiPk<String>> zonaOrigen;
+	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zonaOrigen;
 	
 	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Zona, AmbIdentificadorICodiPk<String>> zonaDesti;
+	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zonaDesti;
 	
 	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
-	private GenericReferenceWithCompositePk<Servidor, AmbIdentificadorICodiPk<String>> servidor;
+	private GenericReferenceWithCompositePk<Servidor, WithIdentificadorAndCodiPk<String>> servidor;
 	
 	@Size(max = 10)
 	@RestapiField()
@@ -76,5 +79,6 @@ public class Node extends AbstractIdentificableAmbIdentificadorICodi<String> {
 //			this.numero = numero;
 //		}
 //	}
+
 
 }

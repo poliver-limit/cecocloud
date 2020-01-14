@@ -111,14 +111,18 @@
 	"error.validation.constraint.MarcatgeData": "Fecha incorrecta",
 	"error.validation.constraint.UsuariEmailNotExists": "Ya existe otro usuario con la misma dirección de correo",
 
-	"resource.label": "Recurso",
-	"resource.permis.access": "Acceso",
-	"resource.permis.read": "Consultar",
-	"resource.permis.write": "Modificar",
-	"resource.permis.create": "Crear",
-	"resource.permis.delete": "Borrar",
-	"resource.permis.administration": "Admin",
-	"resource.permis.print": "Imprimir",
+	"resource.baseBootPermission": "Permiso",
+	"resource.baseBootPermission.plural": "Permisos",
+	"resource.baseBootPermission.field.sidType": "Tipo",
+	"resource.baseBootPermission.field.sidName": "Nombre",
+	"resource.baseBootPermission.field.readGranted": "Consulta",
+	"resource.baseBootPermission.field.writeGranted": "Modificación",
+	"resource.baseBootPermission.field.createGranted": "Creación",
+	"resource.baseBootPermission.field.deleteGranted": "Eliminación",
+	"resource.baseBootPermission.field.adminGranted": "Administración",
+	"resource.baseBootPermission.field.syncGranted": "Sincronización",
+	"resource.baseBootPermission.field.printGranted": "Impresión",
+	"resource.baseBootPermission.field.accessGranted": "Acceso",
 
 	"resource.usuari": "Usuario",
 	"resource.usuari.plural": "Usuarios",
@@ -142,6 +146,11 @@
 	"resource.identificador.field.dataInici": "Fecha inicio",
 	"resource.identificador.field.dataFi": "Fecha fin",
 	"resource.identificador.field.propietari": "Propietario",
+
+	"resource.usuariIdentificador": "Usuario",
+	"resource.usuariIdentificador.plural": "Usuarios",
+	"resource.usuariIdentificador.field.usuari": "Usuario",
+	"resource.usuariIdentificador.field.identificador": "Grupo de empresas",
 
 	"resource.companyia": "Compañía",
 	"resource.companyia.plural": "Compañías",
@@ -1008,11 +1017,7 @@
 	"page.usuaris.canvi.contrasenya.button.canviar": "Cambiar",
 	"page.usuaris.canvi.contrasenya.no.coincideix": "La contraseña y la repetición no coinciden",
 	"page.usuaris.canvi.contrasenya.ok": "La contraseña se ha modificado correctamente",
+	
+	"page.rols.form.recurs": "Recurs"
 
-	"page.companyia-usuaris.modal.titol": "Añadir usuario",
-	"page.companyia-usuaris.modal.button.cancelar": "Cancelar",
-	"page.companyia-usuaris.modal.button.afegir": "Añadir",
-
-	"page.componyia-usuari-empresa.permisos": "Permisos por empresa",
-	"page.componyia-usuari-empresa.preferencies": "Preferencias"
 }

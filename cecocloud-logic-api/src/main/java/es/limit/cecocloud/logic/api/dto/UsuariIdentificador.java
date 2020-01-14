@@ -15,7 +15,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.Usuari;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
 import lombok.AllArgsConstructor;
@@ -35,12 +34,12 @@ import lombok.Setter;
 		resourceAccessConstraints = {
 				@RestapiResourceAccessConstraint(
 						type = RestapiPermissionConstraintType.ACL_ID, 
-						resourceClass = "es.limit.cecocloud.logic.api.dto.Companyia",
-						resourceSessionField = "c",
+						resourceClass = "es.limit.cecocloud.logic.api.dto.Identificador",
+						resourceSessionField = "i",
 						resourcePermission = "ADMINISTRATION"),
 		}
 )
-public class UsuariIdentificador extends AbstractIdentificableWithCompositePk<UsuariIdentificadorPk> {
+public class UsuariIdentificador extends AbstractIdentificableWithCompositePkAndIdentificador<UsuariIdentificadorPk> {
 
 	@NotNull
 	@Transient
@@ -49,13 +48,6 @@ public class UsuariIdentificador extends AbstractIdentificableWithCompositePk<Us
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
-	@NotNull
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
-	private GenericReference<Identificador, Long> identificador;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

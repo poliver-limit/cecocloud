@@ -1,12 +1,12 @@
-import { PerfilRolService } from '../../pages/perfils/perfilRol.service';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { RecursosService } from 'src/app/shared/recusros/recusros.service';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/base-angular';
 import { HalParam } from 'angular4-hal';
-import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identificador-usuaris/perfil-usuari-identificador-empresa.service';
+import { RecursPermisosService } from './recurs-permisos.service';
+import { PerfilRolService } from './perfil-rol.service';
+import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
 
 @Component({
     selector: "cec-recursos",
@@ -19,13 +19,13 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
                         <table mat-table [dataSource]="recursosModul.resources" class="mat-elevation-z8" style="width:100%;">
                                 <!-- Columna de nom Recurs -->
                                 <ng-container matColumnDef="label">
-                                    <th mat-header-cell *matHeaderCellDef style=""> {{'resource.label' | translate}} </th>
+                                    <th mat-header-cell *matHeaderCellDef style=""> {{'page.rols.form.recurs' | translate}} </th>
                                     <td mat-cell *matCellDef="let recurs"> {{recurs.label | translate}} </td>
                                 </ng-container>
                                 <!-- Columna de access -->
                                 <ng-container matColumnDef="access">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.access' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.accessGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">ACC</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
@@ -40,7 +40,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
                                 <!-- Columna de read -->
                                 <ng-container matColumnDef="read">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.read' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.readGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">CON</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
@@ -55,7 +55,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
                                 <!-- Columna de write -->
                                 <ng-container matColumnDef="write">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.write' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.writeGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">MOD</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
@@ -70,7 +70,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
                                 <!-- Columna de create -->
                                 <ng-container matColumnDef="create">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.create' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.createGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">CRE</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
@@ -85,7 +85,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
                                 <!-- Columna de delete -->
                                 <ng-container matColumnDef="delete">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.delete' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.deleteGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">BOR</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
@@ -100,7 +100,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
                                 <!-- Columna de administration -->
                                 <ng-container matColumnDef="administration">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.administration' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.adminGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">ADM</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
@@ -115,7 +115,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
                                 <!-- Columna de print -->
                                 <ng-container matColumnDef="print">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.permis.print' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.printGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">IMP</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
@@ -157,7 +157,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
         }
     `]
 })
-export class RecursosPermisComponent implements OnInit {
+export class RecursPermisosComponent implements OnInit {
 
     @Input() rol: number;
     @Input() perfil: number;
@@ -179,7 +179,7 @@ export class RecursosPermisComponent implements OnInit {
         let permis = event.currentTarget.attributes['name'].value;
         let check = !resourceInfo.permission[permis];
         resourceInfo.permission[permis] = check;
-        this.recursosService.saveRecurs(resourceInfo).subscribe(
+        this.recursPermisosService.saveRecurs(resourceInfo).subscribe(
             () => {
                 this.recursosModuls[indexModul].resources[indexRecurs].permission[permis] = check;
                 this.disableToggles = false;
@@ -215,7 +215,7 @@ export class RecursosPermisComponent implements OnInit {
         this.disableToggles = true;
         if (this.rol) {
             this.disableToggles = false;
-            this.recursosService.getRecursosByRol(this.rol).subscribe((recursosModuls) => {
+            this.recursPermisosService.getRecursosByRol(this.rol).subscribe((recursosModuls) => {
                 this.recursosModuls = recursosModuls;
             });
         } else if (this.perfil) {
@@ -235,7 +235,7 @@ export class RecursosPermisComponent implements OnInit {
                         } else {
                             rols = perfilRols.map(perfilRol => perfilRol.rol.id);
                         }
-                        this.recursosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
+                        this.recursPermisosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
                             this.recursosModuls = recursosModuls;
                         }),
                             error => console.log(error);
@@ -257,7 +257,7 @@ export class RecursosPermisComponent implements OnInit {
                 let perfilsUsuari: string[];
                 debugger;
                 if (perfilUsuariIdentificadorEmpreses == null || perfilUsuariIdentificadorEmpreses.length == 0) {
-                    this.recursosService.getRecursosByRol(-1).subscribe((recursosModuls) => {
+                    this.recursPermisosService.getRecursosByRol(-1).subscribe((recursosModuls) => {
                         this.recursosModuls = recursosModuls;
                     });
                 } else {
@@ -281,7 +281,7 @@ export class RecursosPermisComponent implements OnInit {
                         } else {
                             rols = perfilRols.map(perfilRol => perfilRol['rol'].id);
                         }
-                        this.recursosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
+                        this.recursPermisosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
                             console.log("RecursosRol: ", recursosModuls);
                             this.recursosModuls = recursosModuls;
                         });
@@ -292,7 +292,7 @@ export class RecursosPermisComponent implements OnInit {
     }
 
     constructor(
-        public recursosService: RecursosService,
+        public recursPermisosService: RecursPermisosService,
         public perfilRolService: PerfilRolService,
         public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
         translate: TranslateService,

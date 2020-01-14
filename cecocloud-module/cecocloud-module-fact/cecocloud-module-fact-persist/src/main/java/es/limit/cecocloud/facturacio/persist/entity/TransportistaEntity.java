@@ -18,7 +18,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableAmbIdentificadorICodi.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Transportista;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -74,7 +74,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_tra_idf_fk"))
 })
-public class TransportistaEntity extends AbstractAmbIdentificadorEntity<Transportista, AmbIdentificadorICodiPk<String>> {
+public class TransportistaEntity extends AbstractWithIdentificadorEntity<Transportista, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Transportista embedded;
@@ -106,7 +106,7 @@ public class TransportistaEntity extends AbstractAmbIdentificadorEntity<Transpor
 
 	@Builder
 	public TransportistaEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Transportista embedded,
 			IdentificadorEntity identificador,
 			CodiPostalEntity codiPostal,

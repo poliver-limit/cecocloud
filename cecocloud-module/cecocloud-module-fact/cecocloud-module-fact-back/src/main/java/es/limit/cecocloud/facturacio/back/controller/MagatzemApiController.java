@@ -16,6 +16,6 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  */
 @RestController
 @RequestMapping(FacturacioModule.API_PATH + "/magatzems")
-public class MagatzemApiController extends AbstractIdentificableAmbIdentificadorApiController<Magatzem> {
+public class MagatzemApiController extends AbstractIdentificableWithIdentificadorApiController<Magatzem> {
 
 }

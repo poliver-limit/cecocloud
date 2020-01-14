@@ -15,7 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableAmbIdentificador.AmbIdentificadorICodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Regim;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -63,14 +63,14 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_reg_idf_fk"))
 })
-public class RegimEntity extends AbstractAmbIdentificadorEntity<Regim, AmbIdentificadorICodiPk<String>> {
+public class RegimEntity extends AbstractWithIdentificadorEntity<Regim, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Regim embedded;
 
 	@Builder
 	public RegimEntity(
-			AmbIdentificadorICodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk,
 			Regim embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);
