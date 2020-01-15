@@ -45,6 +45,7 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@Size(max = 60)
 	@RestapiField(hiddenInLov = true)
 	private String domicili;
+	
 	@NotNull
 	@RestapiField(hiddenInLov = true)
 	private ValoracioInventariTraspasEnum valoracioInventariTraspas;

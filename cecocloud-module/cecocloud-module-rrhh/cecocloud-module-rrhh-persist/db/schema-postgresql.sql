@@ -91,7 +91,7 @@
     );
 
     create table trhu_hor (
-       hor_cod varchar(4) not null,
+       	hor_cod varchar(4) not null,
         hor_idf_cod varchar(4) not null,
         hor_usucre varchar(255),
         hor_datcre timestamp,
@@ -100,6 +100,7 @@
         hor_des varchar(1000),
         hor_hor numeric(19, 2),
         hor_nom varchar(30) not null,
+        hor_tip int4 not null,
         primary key (hor_cod, hor_idf_cod)
     );
 

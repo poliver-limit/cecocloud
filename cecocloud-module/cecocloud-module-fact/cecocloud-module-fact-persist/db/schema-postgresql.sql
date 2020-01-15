@@ -120,9 +120,9 @@
         dpg_rgi_cod varchar(255) not null,
         primary key (dpg_cod, dpg_idf_cod)
     );
-
+    
     create table tges_emp (
-       emp_cod varchar(4) not null,
+       	emp_cod varchar(4) not null,
         emp_idf_cod varchar(4) not null,
         emp_usucre varchar(255),
         emp_datcre timestamp,
@@ -132,12 +132,15 @@
         emp_cpo_codfis varchar(8) not null,
         emp_div_cod varchar(4) not null,
         emp_tipasicmp varchar(2),
+        emp_clicmp int4,
         emp_codcmp varchar(60),
+        emp_procmp int4,
         emp_dricmp varchar(2),
         emp_driprfcmp varchar(2),
         emp_domcom varchar(60) not null,
         emp_domfis varchar(60) not null,
         emp_eml varchar(60),
+        emp_tipfac int4,
         emp_fax varchar(60),
         emp_llnfis001 varchar(40),
         emp_llnfis002 varchar(40),
@@ -146,11 +149,13 @@
         emp_nomcom varchar(40) not null,
         emp_nomfis varchar(40) not null,
         emp_nomfis001 varchar(40),
+        emp_tipper int4,
         emp_rec boolean,
         emp_regcricxa boolean,
         emp_rgtmtl varchar(250),
         emp_dattan timestamp,
         emp_tel varchar(60),
+        emp_tipext int4,
         emp_valfac numeric(19, 2),
         emp_www varchar(60),
         emp_mag_cod varchar(4),
@@ -167,8 +172,8 @@
         fae_datmod timestamp,
         fae_web boolean,
         primary key (fae_far_cod, fae_emp_cod, fae_idf_cod)
-    );
-
+    );   
+    
     create table tges_far (
        far_cod varchar(6) not null,
         far_idf_cod varchar(4) not null,
@@ -177,6 +182,7 @@
         far_usumod varchar(255),
         far_datmod timestamp,
         far_pda boolean,
+        far_avialb int4 not null,
         far_ctacprcmp varchar(10),
         far_ctecmpexi varchar(500),
         far_ctavencmp varchar(10),
@@ -192,12 +198,15 @@
         far_pop boolean,
         far_seqord int8,
         far_fabunimet boolean,
+        far_tip int4 not null,
+        far_tipser int4,
         far_ubinav boolean not null,
         far_cmiven float4,
         far_fct_cod varchar(4),
         far_gre_cod varchar(4),
         primary key (far_cod, far_idf_cod)
     );
+
 
     create table tges_fct (
        fct_cod varchar(4) not null,
@@ -492,7 +501,7 @@
     );
 
     create table tges_ser (
-       ser_emp_cod varchar(4) not null,
+       	ser_emp_cod varchar(4) not null,
         ser_cod varchar(4) not null,
         ser_idf_cod varchar(4) not null,
         ser_usucre varchar(255),
@@ -521,6 +530,7 @@
         ser_dsgivacmp boolean not null,
         ser_dricmp varchar(2),
         ser_driprfcmp varchar(2),
+        ser_facrct int4,
         ser_titfac varchar(500),
         ser_ncf varchar(20),
         ser_man boolean not null,
@@ -576,8 +586,8 @@
         primary key (sui_art_cod, sui_cls, sui_mag_cod, sui_idf_cod)
     );
 
-    create table tges_tar (
-       tar_cod varchar(4) not null,
+	create table tges_tar (
+      	tar_cod varchar(4) not null,
         tar_idf_cod varchar(4) not null,
         tar_usucre varchar(255),
         tar_datcre timestamp,
@@ -588,9 +598,11 @@
         tar_diaini timestamp,
         tar_dtegen boolean,
         tar_des varchar(30) not null,
+        tar_calpvp int4,
         tar_ptemanobr numeric(19, 2) not null,
         tar_ptemat numeric(19, 2) not null,
         tar_ofr boolean,
+        tar_tip int4,
         primary key (tar_cod, tar_idf_cod)
     );
 

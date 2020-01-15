@@ -42,6 +42,7 @@ import lombok.Setter;
 				@Index(name = "irges_emp_pk", columnList = "emp_idf_cod,emp_cod", unique = true)
 		}
 )
+
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "emp_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "emp_cod", length = 4)),

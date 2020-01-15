@@ -34,9 +34,8 @@ public class Horari extends AbstractIdentificableWithIdentificadorAndCodi<String
 	
 	@NotNull
 	@Size(max = 30)
-	private String nom;
+	private String nom;	
 	
-	@Transient
 	@NotNull
 	@RestapiField(hiddenInGrid = false)
 	private TipusHorariEnumDto tipus;

@@ -43,9 +43,8 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 			includeInQuickFilter = true)
 	@NotNull
 	@Size(max = 30)
-	private String descripcio;
-	
-	@Transient
+	private String descripcio;	
+
 	@RestapiField(type = RestapiFieldType.ENUM,
 			includeInQuickFilter = true)
 	@NotNull
@@ -61,7 +60,6 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 			hiddenInGrid = true)
 	private boolean ubicacioNavegable;
 	
-	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM,
 			hiddenInLov = true,
 			includeInQuickFilter = true)
@@ -135,9 +133,8 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@Min(value = -100)
 	@Max(value = 100)
 	@Digits(integer = 5, fraction = 2)
-	private Float margeMinim;
+	private Float margeMinim;	
 	
-	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM,
 			includeInQuickFilter = true)
 	private ArticleFamiliaTipusServeiEnumDto tipusServei;
