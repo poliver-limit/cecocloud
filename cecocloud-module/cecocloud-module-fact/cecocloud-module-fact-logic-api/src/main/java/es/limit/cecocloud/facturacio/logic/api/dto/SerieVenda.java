@@ -60,11 +60,13 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInLov = true)
 	private Integer darreraFactura;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Integer darrerPressupost;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -229,7 +231,6 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInLov = true)
 	private boolean aplicarDescompte;
 	
-	@Transient
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)

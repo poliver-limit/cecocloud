@@ -56,13 +56,11 @@ public class Tarifa extends AbstractIdentificableWithIdentificadorAndCodi<String
 			hiddenInLov = true)
 	private BigDecimal percentatgeMaObra;
 	
-	@Transient
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private TarifaTipusEnumDto tarifaTipus;
 	
-	@Transient
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private TarifaFormaCalculEnumDto formaCalcul;

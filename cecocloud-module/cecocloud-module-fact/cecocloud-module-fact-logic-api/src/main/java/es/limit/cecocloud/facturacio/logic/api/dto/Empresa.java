@@ -79,7 +79,6 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostalFiscal;
 	
-	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInGrid = true, hiddenInLov = true)
 	private FacturacioTipusEnum facturacioTipus;
@@ -127,12 +126,10 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
-	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,
 			hiddenInGrid = true)
 	private TipusComptabilitatClientEnumDto comptabilitatClients;
 	
-	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,
 			hiddenInGrid = true)
 	private TipusComptabilitatClientEnumDto comptabilitatProveidors;
@@ -171,16 +168,14 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean regimCriteriCaixa;
+	private boolean regimCriteriCaixa;	
 	
-	@Transient
 	@RestapiField(
 			type = RestapiFieldType.ENUM,
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private TipusPersonaEnumDto personaTipus;
 	
-	@Transient
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,
 			hiddenInGrid = true)
 	private TipusEstrangerEnumDto tipoResidencia;
