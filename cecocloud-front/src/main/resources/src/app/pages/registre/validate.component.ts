@@ -4,12 +4,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
+import { BngAuthService, BngAuthResponse, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 import { RegistreService } from '../registre/registre.service';
 
-@Component( {
-    template: `
+@Component({
+	template: `
 <div [ngClass]="{'formContentDesktop centered': !mobileScreen, 'formContentMobile': mobileScreen}">
 	<h1 class="mat-display-1 formTitle">{{(tokenPayload.aud=='validation')?('validate.titol.validar'|translate):('validate.titol.recuperarContrasenya'|translate)}}</h1>
     <form [formGroup]="formGroup">
@@ -37,7 +37,7 @@ import { RegistreService } from '../registre/registre.service';
 		</ng-container>
 		<ng-container *ngIf="tokenExpired">
 			<br/>
-			<div style="padding:1em;color:#d8000c;background-color: #ffbaba; text-align: center">{{'validate.link.expired'|translate}}</div>
+			<div style="padding:1em;color:#d8000c;background-color:#ffbaba;text-align: center">{{'validate.link.expired'|translate}}</div>
 			<br/>
 		</ng-container>
 		<button (click)="onValidateButtonClick()" style="display:none"></button>
@@ -48,7 +48,7 @@ import { RegistreService } from '../registre/registre.service';
     </form>
 </div>
 `,
-    styles: [`
+	styles: [`
 .formContentDesktop {
     padding: 2em;
     background-color: white;
@@ -64,7 +64,7 @@ import { RegistreService } from '../registre/registre.service';
     text-align: center;
 }
 `]
-} )
+})
 export class ValidateComponent {
 
 	token: string;
@@ -77,15 +77,16 @@ export class ValidateComponent {
 	mobileScreen: boolean;
 
 	onCancelButtonClick() {
-		this.router.navigate( ['login'] )
+		this.router.navigate(['login'])
 	}
 
 	onValidateButtonClick() {
 		this.formGroup.updateValueAndValidity();
 		if (this.formGroup.valid) {
-			this.registreService.userValidate( this.token, this.formGroup ).subscribe(( response: any ) => {
+			this.registreService.userValidate(this.token, this.formGroup).subscribe((authResponse: BngAuthResponse) => {
 				this.showSnack('validate.snack.validated.ok');
-				this.router.navigate( ['login'] );
+				this.authService.loginWithAuthResponse(authResponse);
+				this.router.navigate(['home']);
 			}, (error: Error) => {
 				let processed = false;
 				if (error instanceof HttpErrorResponse) {
@@ -103,17 +104,17 @@ export class ValidateComponent {
 				if (!processed) {
 					throw error;
 				}
-	        });
+			});
 		}
 	}
 
 	showSnack(message: string) {
-		 let snackBarRef = this.snackbar.open(
-            this.translate.instant(message),
-            this.translateKey( 'component.restapi.form.manteniment.button.close' ), {
-            } );
+		let snackBarRef = this.snackbar.open(
+			this.translate.instant(message),
+			this.translateKey('component.restapi.form.manteniment.button.close'), {
+			});
 		snackBarRef.afterDismissed().subscribe(() => {
-		} );
+		});
 	}
 
 	getErrorMessage(fieldName: string): string {
@@ -139,22 +140,22 @@ export class ValidateComponent {
 
 	constructor(
 		private registreService: RegistreService,
+		private authService: BngAuthService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private formBuilder: FormBuilder,
 		private snackbar: MatSnackBar,
-		authService: BngAuthService,
 		private translate: TranslateService,
-		private screenSizeService: BngScreenSizeService ) {
-		this.activatedRoute.params.subscribe( params => {
+		private screenSizeService: BngScreenSizeService) {
+		this.activatedRoute.params.subscribe(params => {
 			this.token = params['token'];
 			this.tokenPayload = authService.tokenToObject(this.token);
 			this.tokenExpired = Date.now() > this.tokenPayload.exp * 1000;
-		} );
+		});
 		this.mobileScreen = this.screenSizeService.isMobile();
-		this.screenSizeService.getScreenSizeChangeSubject().subscribe(( event: BngScreenSizeChangeEvent ) => {
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
 			this.mobileScreen = event.mobile
-		} );
+		});
 	}
 
 }
