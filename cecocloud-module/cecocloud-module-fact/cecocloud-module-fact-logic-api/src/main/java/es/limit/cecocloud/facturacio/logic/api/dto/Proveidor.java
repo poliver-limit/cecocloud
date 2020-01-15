@@ -61,7 +61,7 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov=true)	
-	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> RegimIva;
+	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
 	@Transient
 	@NotNull
