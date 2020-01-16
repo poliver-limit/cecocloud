@@ -110,6 +110,7 @@
 	"error.validation.constraint.MarcatgeOperariValid": "Operario inválido",
 	"error.validation.constraint.MarcatgeData": "Fecha incorrecta",
 	"error.validation.constraint.UsuariEmailNotExists": "Ya existe otro usuario con la misma dirección de correo",
+	"error.validation.constraint.FieldsMatch": "El valor de los campos no coincide",
 
 	"resource.baseBootPermission": "Permiso",
 	"resource.baseBootPermission.plural": "Permisos",
