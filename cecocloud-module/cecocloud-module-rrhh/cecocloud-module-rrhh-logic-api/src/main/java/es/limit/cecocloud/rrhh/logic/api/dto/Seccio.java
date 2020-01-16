@@ -61,7 +61,9 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Digits(integer = 5, fraction = 2)
 	private BigDecimal horesLaboralesDia;
+	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInGrid = true,
@@ -77,6 +79,7 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	private String rolVistas;
 
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

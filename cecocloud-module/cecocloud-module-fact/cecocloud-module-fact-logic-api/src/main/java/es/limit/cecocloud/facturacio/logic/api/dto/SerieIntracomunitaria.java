@@ -52,9 +52,11 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 	@Digits(integer=4, fraction=3)
 	private BigDecimal ultimaFactura;
 	
+	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	private Date dia1;
 	
+	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	private Date dia2;
 	
@@ -62,6 +64,7 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 	private boolean serieDefecto;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

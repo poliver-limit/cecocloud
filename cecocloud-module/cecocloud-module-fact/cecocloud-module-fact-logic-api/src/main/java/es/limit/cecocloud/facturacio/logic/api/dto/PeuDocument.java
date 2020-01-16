@@ -39,30 +39,37 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@RestapiField(disabledForUpdate = true, toUpperCase = true,includeInQuickFilter = true)
 	private String codi;
 	
+	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean factura;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean albara;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean pre;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean com;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean imprimirPeuCertificacio;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean familiaCliProv;
@@ -72,6 +79,7 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@Size(max = 1000)
 	private String pie;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean impCls;
@@ -91,6 +99,7 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	private GenericReferenceWithCompositePk<SerieCompra, SerieCompraPk> serieCompra;	
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

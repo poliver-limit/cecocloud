@@ -40,24 +40,29 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	@Size(max = 30)
 	private String descripcio;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean controlarEfectes;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean agruparVencimentsRemeses;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=3,
 			hiddenInLov = true)
 	private Integer numeroDias;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=3,
 			hiddenInLov = true)
 	private Integer diaEfectosNegociados;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean aplicarDescuentosProntoPago;
@@ -72,72 +77,86 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	@NotNull
 	private boolean asientoCompuesto;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 4)
 	private String codigoContable;
 	
+	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codigoFacturaElectronica;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer = 2, fraction = 2)
 	private BigDecimal percentatgeComisio;
 	
+	@NotNull
 	@Size(max = 64)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableComissio;
 	
+	@NotNull
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String concepteContable;
 	
+	@NotNull
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableOrigenIngressos;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 2)
 	private String tipusSeientIngressos;
 	
+	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContableIngressos;
 	
+	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContableIngressos2;
 	
+	@NotNull
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableDestiPagos;
 	
+	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String tipusSeientPagos;
 	
+	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContablePagos;
 	
+	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContablePagos2;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
@@ -145,6 +164,7 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament, WithIdentificadorAndCodiPk<String>> naturalesaPagamentCobrament;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
@@ -152,6 +172,7 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,

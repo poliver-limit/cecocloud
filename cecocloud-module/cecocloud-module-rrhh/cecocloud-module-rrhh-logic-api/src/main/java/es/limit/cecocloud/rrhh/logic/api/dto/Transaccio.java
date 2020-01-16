@@ -52,6 +52,7 @@ public class Transaccio extends AbstractIdentificableWithIdentificadorAndCodi<St
 
 	
 	@Transient
+	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	

@@ -45,6 +45,7 @@ public class UbicacioArticle extends AbstractIdentificableWithIdentificador<Ubic
 	private String unitat;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

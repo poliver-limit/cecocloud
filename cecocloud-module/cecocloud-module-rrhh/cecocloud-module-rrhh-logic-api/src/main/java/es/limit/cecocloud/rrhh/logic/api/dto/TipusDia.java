@@ -36,6 +36,7 @@ public class TipusDia extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Regim, WithIdentificadorAndCodiPk<String>> regim;
 	
+	@NotNull
 	@Size(max = 30)
 	private String nom;
 

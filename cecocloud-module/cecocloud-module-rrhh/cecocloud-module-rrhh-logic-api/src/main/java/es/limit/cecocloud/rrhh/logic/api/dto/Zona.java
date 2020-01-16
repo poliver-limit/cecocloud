@@ -28,6 +28,7 @@ public class Zona extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 	private String codi;
 	
 	@RestapiField()
+	@NotNull
 	private Boolean zonaTreball;
 	
 	@Size(max = 30)

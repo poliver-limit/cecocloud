@@ -37,14 +37,15 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificado
 	private boolean web;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> articleFamilia;
-
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,

@@ -40,6 +40,7 @@ public class SeccioGrup extends AbstractIdentificableWithIdentificador<SeccioGru
 	private String nom;
 
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

@@ -41,6 +41,7 @@ public class Ubicacio extends AbstractIdentificableWithIdentificador<UbicacioPk>
 	private String descripcio;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

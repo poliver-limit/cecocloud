@@ -50,7 +50,7 @@ import lombok.Setter;
 //	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
 //	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
 //	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
-	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
+//	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
 //	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor",  nullable = false)),			
 //	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin", length = 25, nullable = false)),			
 //	@AttributeOverride(name = "embedded.enc", column = @Column(name = "ope_enc",  nullable = false)),			

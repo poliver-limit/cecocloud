@@ -34,9 +34,11 @@ public class RecursGrup extends AbstractIdentificableWithIdentificadorAndCodi<St
 	@Size(max = 30)
 	private String nom;
 	
+	@NotNull
 	@Size(max = 1000)
 	private String descripcio;
 	
+	@NotNull
 	@Digits(integer=7, fraction=2) 
 	private BigDecimal numHor;
 

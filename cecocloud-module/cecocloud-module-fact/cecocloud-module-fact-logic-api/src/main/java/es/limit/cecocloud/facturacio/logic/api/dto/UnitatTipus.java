@@ -37,6 +37,7 @@ public class UnitatTipus extends AbstractIdentificableWithIdentificadorAndCodi<S
 	@Size(max = 60)
 	private String descripcio;
 	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	private BigDecimal factorConversio;

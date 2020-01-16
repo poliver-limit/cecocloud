@@ -6,7 +6,6 @@ package es.limit.cecocloud.facturacio.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

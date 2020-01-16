@@ -34,12 +34,14 @@ import lombok.Setter;
 )
 public class SituacioInicial extends AbstractIdentificableWithIdentificador<SituacioInicialPk> {
 
+	@NotNull
 	@RestapiField()
 	private BigDecimal unitatsInicials;
 	
 	@RestapiField()
 	private BigDecimal unitatsMetriquesInicials;
 	
+	@NotNull
 	@RestapiField()
 	private BigDecimal preuCostUnitari;
 	
@@ -74,6 +76,7 @@ public class SituacioInicial extends AbstractIdentificableWithIdentificador<Situ
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			includeInQuickFilter = false,

@@ -31,12 +31,16 @@ public class Regim extends AbstractIdentificableWithIdentificadorAndCodi<String>
 			toUpperCase = true)
 	private String codi;
 	
+	@NotNull
 	private boolean presencia;
 	
+	@NotNull
 	private boolean contarHores;
 	
+	@NotNull
 	private boolean mantenirProximaEntrada;
 	
+	@NotNull
 	private boolean mostrarLlistatPlanificacio;
 	
 	@Size(max = 30)

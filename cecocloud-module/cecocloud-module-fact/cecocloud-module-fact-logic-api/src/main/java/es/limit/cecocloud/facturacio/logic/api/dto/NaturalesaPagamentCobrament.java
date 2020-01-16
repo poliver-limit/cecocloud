@@ -35,6 +35,7 @@ public class NaturalesaPagamentCobrament extends AbstractIdentificableWithIdenti
 			includeInQuickFilter = true)
 	private String descripcio;
 	
+	@NotNull
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,

@@ -36,6 +36,7 @@ public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaP
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)
@@ -43,6 +44,7 @@ public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaP
 	private String nom;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,

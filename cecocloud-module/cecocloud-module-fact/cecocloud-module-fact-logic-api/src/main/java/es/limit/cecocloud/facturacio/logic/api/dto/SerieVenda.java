@@ -221,11 +221,13 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInLov = true)
 	private String ncf;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean numeracioManual;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -241,6 +243,7 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	private boolean desglossarIva;
 
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

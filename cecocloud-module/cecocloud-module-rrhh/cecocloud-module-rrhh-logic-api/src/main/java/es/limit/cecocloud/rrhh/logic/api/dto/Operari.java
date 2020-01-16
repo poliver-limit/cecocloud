@@ -4,6 +4,8 @@
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -23,8 +25,17 @@ import lombok.Setter;
 )
 public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
+	@NotNull(groups = { OnCreate.class })
+	@Size(max = 4)
+	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
+	
+	@NotNull
+	@RestapiField(
+			includeInQuickFilter = true)
+	@Size(max = 30)	
 	private String nom;
+	
 	/*private boolean actiu;
 	private boolean entsor;
 	private boolean comercial;
@@ -52,6 +63,7 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String usuariCodi;*/
 
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,

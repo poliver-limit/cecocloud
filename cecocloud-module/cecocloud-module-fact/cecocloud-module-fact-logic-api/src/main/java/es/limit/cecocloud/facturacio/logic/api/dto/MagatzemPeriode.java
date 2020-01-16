@@ -48,6 +48,7 @@ public class MagatzemPeriode extends AbstractIdentificableWithIdentificador<Maga
 	@RestapiField(includeInQuickFilter = true, disabledForUpdate = true)	
 	private Date dataInici;
 	
+	@NotNull
 	@Transient
 	@RestapiField(
 			includeInQuickFilter = true, 

@@ -35,18 +35,21 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 2000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			includeInQuickFilter = true)
 	private String descripcio;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> familia;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
@@ -69,33 +72,45 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)
 	@Digits(integer=12, fraction=3)
 	private BigDecimal pvp;
+	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer=12, fraction=3)
 	private BigDecimal factorConversioEntrada;
+	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer=12, fraction=3)
 	private BigDecimal factorConversioSortida;
+	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 				sizeMax=1,
 				hiddenInLov = true)
 	private int decimalsPreu;
+	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean bloquejat;
+	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean compost;
+	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean controlStock;
+	
+	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean crearReferencies;
+	
 	@Size(max = 60)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)

@@ -52,6 +52,7 @@ public class Departament extends AbstractIdentificableWithIdentificador<Departam
 	private String observacions;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,

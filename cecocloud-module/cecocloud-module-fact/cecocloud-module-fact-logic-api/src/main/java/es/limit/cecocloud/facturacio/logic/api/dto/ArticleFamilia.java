@@ -39,6 +39,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@Size(max = 6)
 	private String codi;
 	
+	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)
 	@NotNull
@@ -50,11 +51,13 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@NotNull
 	private ArticleFamiliaTipusEnumDto tipus;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	private boolean lotNavegable;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
@@ -66,6 +69,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@NotNull
 	private ArticleFamiliaAvisAlbaraClientEnumDto avisAlbaraClient;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
