@@ -643,6 +643,7 @@
 	"resource.situacioInicial.field.divisa": "Divisa",
 	"resource.situacioInicial.field.familia": "Família",
 	"resource.situacioInicial.field.magatzem": "Magatzem",
+	"resource.situacioInicial.field.magatzemPeriode": "Magatzem periode",
 	"resource.situacioInicial.field.ubicacionsReferencies": "Ubicacions referències",			
 	"resource.situacioInicial.field.identificador": "Identificador",
 	
@@ -864,7 +865,8 @@
 	"resource.empresa.field.compteTerminacioOrganismesSSEmpresa": "Compte terminació organismes S.S. empresa",
 	"resource.empresa.field.comptePagoNomina": "Compte pagament nòmina",
 	"resource.empresa.field.asientoProrrateoPagaExtra": "Assentamet prorrateig paga extra",
-	"resource.empresaDuplicat.field.logoImprimir": "Logo imprimir",	
+	"resource.empresaDuplicat.field.logoImprimir": "Logo imprimir",
+	"resource.empresa.field.poble": "Poble",		
 	"resource.empresaDuplicat.field.identificador": "Identificador",	
 	
 	"resource.horari": "Horari",
@@ -938,6 +940,7 @@
 	"resource.registreDiari.field.subcategoria": "Subcategoria",
 	"resource.registreDiari.field.preuHoraNormal": "Preu hora normal",
 	"resource.registreDiari.field.preuHoraNit": "Preu hora nocturna",
+	"resource.registreDiari.field.calendariData": "Calendari data",
 	"resource.registreDiari.field.identificador": "Identificador",		
 	
 	"resource.seccio": "Secció",

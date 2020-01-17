@@ -568,7 +568,7 @@
 	"resource.seccioEmpresa.field.identificador": "Identificador",
 	
 	"resource.serieIntracomunitariaDuplicat": "Serie intracomunitaria",
-	"resource.serieIntracomunitaria.plural": "Seriee intracomunitarias",	
+	"resource.serieIntracomunitaria.plural": "Series intracomunitarias",	
 	"resource.serieIntracomunitaria.field.codi": "Código",
 	"resource.serieIntracomunitaria.field.descripcio": "Descripción",	
 	"resource.serieIntracomunitaria.field.ultimaFactura": "Última factura",
@@ -652,6 +652,7 @@
 	"resource.situacioInicial.field.divisa": "Divisa",
 	"resource.situacioInicial.field.familia": "Familia",
 	"resource.situacioInicial.field.magatzem": "Almacén",
+	"resource.situacioInicial.field.magatzemPeriode": "Almacén periodo",
 	"resource.situacioInicial.field.ubicacionsReferencies": "Ubicaciones referencias",			
 	"resource.situacioInicial.field.identificador": "Identificador",
 	
@@ -874,6 +875,7 @@
 	"resource.empresa.field.comptePagoNomina": "Cuenta pago nómina",
 	"resource.empresa.field.asientoProrrateoPagaExtra": "Asiento prorrateo paga extra",
 	"resource.empresaDuplicat.field.logoImprimir": "Logo imprimir",	
+	"resource.empresa.field.poble": "Pueblo",
 	"resource.empresaDuplicat.field.identificador": "Identificador",	
 	
 	"resource.horari": "Horario",
@@ -947,6 +949,7 @@
 	"resource.registreDiari.field.subcategoria": "Subcategoría",
 	"resource.registreDiari.field.preuHoraNormal": "Precio hora normal",
 	"resource.registreDiari.field.preuHoraNit": "Precio hora nocturna",
+	"resource.registreDiari.field.calendariData": "Calendario fecha",
 	"resource.registreDiari.field.identificador": "Identificador",		
 	
 	"resource.seccio": "Sección",
