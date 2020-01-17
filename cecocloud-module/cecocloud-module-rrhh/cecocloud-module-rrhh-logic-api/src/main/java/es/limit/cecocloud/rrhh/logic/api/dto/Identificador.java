@@ -24,6 +24,7 @@ import lombok.Setter;
 public class Identificador extends AbstractIdentificable<String> {
 
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,

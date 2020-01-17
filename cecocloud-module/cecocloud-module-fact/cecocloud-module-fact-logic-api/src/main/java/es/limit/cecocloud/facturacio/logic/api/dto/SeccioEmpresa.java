@@ -77,6 +77,7 @@ public class SeccioEmpresa extends AbstractIdentificableWithIdentificador<Seccio
 	private GenericReferenceWithCompositePk<Seccio, SeccioPk> seccio;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	@Digits(integer = 5, fraction = 2)
 	private BigDecimal valorPercentual;
 	

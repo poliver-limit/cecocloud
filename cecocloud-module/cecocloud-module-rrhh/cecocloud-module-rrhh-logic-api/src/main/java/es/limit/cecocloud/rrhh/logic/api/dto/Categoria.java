@@ -29,12 +29,22 @@ public class Categoria extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
+	
 	@NotNull
 	private String nom;
+	
 	@Size(max = 1000)
+	@RestapiField(		
+			hiddenInGrid = true)
 	private String observacio;
+	
 	@Digits(integer = 15, fraction = 3)
+	@RestapiField(		
+			hiddenInGrid = true)
 	private BigDecimal souBase;
+	
+	@RestapiField(		
+			hiddenInGrid = true)
 	private boolean actiu;
 
 }

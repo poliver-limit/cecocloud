@@ -34,6 +34,7 @@ public class SeccioGrup extends AbstractIdentificableWithIdentificador<SeccioGru
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true, includeInQuickFilter = true)
 	private String codi;
+	
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	@NotNull
@@ -44,6 +45,7 @@ public class SeccioGrup extends AbstractIdentificableWithIdentificador<SeccioGru
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
+			hiddenInGrid = true,
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)

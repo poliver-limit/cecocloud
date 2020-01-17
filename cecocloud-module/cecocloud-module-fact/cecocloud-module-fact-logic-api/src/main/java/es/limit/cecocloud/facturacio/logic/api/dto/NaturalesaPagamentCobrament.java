@@ -24,6 +24,7 @@ import lombok.Setter;
 public class NaturalesaPagamentCobrament extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(disabledForUpdate = true,
 			toUpperCase=true,
 			includeInQuickFilter = true)

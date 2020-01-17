@@ -39,6 +39,7 @@ public class TarifaDescompte extends AbstractIdentificableWithIdentificadorAndCo
 	
 	@Size(max = 1000)
 	@RestapiField(
+			hiddenInGrid = true,
 			type = RestapiFieldType.TEXTAREA,
 			hiddenInLov = true)
 	private String observacions;

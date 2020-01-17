@@ -184,11 +184,11 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	private String compteVendesProforma;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validDesde;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validFins;
 	
 	@Transient
@@ -239,7 +239,7 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	private SerieFacturaRectificativaEnumDto facturaRectificativa;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private boolean desglossarIva;
 
 	@Transient
@@ -247,6 +247,7 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
+			hiddenInGrid = true,
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)

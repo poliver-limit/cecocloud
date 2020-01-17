@@ -27,14 +27,16 @@ public class Zona extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
 	
-	@RestapiField()
+	@RestapiField(hiddenInGrid = true)
 	@NotNull
 	private Boolean zonaTreball;
 	
 	@Size(max = 30)
+	@NotNull
 	private String nom;
 	
 	@Size(max = 1000)
+	@RestapiField(hiddenInGrid = true)
 	private String observacio;
 
 }

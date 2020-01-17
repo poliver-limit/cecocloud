@@ -48,19 +48,19 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 	private String descripcio;
 	
 	@Digits(integer=2, fraction=3)
-	@RestapiField(includeInQuickFilter = true, hiddenInLov = true)
+	@RestapiField(includeInQuickFilter = true, hiddenInGrid = true, hiddenInLov = true)
 	@Digits(integer=4, fraction=3)
 	private BigDecimal ultimaFactura;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date dia1;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date dia2;
 	
-	@RestapiField(includeInQuickFilter = true, hiddenInLov = true) 
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true, hiddenInLov = true) 
 	private boolean serieDefecto;
 	
 	@Transient
@@ -68,6 +68,7 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
+			hiddenInGrid = true,
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)

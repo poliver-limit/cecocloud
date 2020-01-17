@@ -42,27 +42,27 @@ public class Node extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
 	
-	@RestapiField(disabledForUpdate = true, toUpperCase = true)
+	@RestapiField(disabledForUpdate = true, toUpperCase = true, hiddenInGrid = true)
 	private String tipus;
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	@RestapiField(type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zonaOrigen;
 	
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	@RestapiField(type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zonaDesti;
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	@RestapiField(type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Servidor, WithIdentificadorAndCodiPk<String>> servidor;
 	
 	@Size(max = 10)
-	@RestapiField()
+	@RestapiField(hiddenInGrid = true)
 	private String tipus1;
 
 //	@NoArgsConstructor

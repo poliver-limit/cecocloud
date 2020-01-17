@@ -40,9 +40,9 @@ public class TipusComissio extends AbstractIdentificableWithIdentificadorAndCodi
 			includeInQuickFilter = true)
 	private String nom;
 	
+	@NotNull
 	@Size(max = 1000)
-	@RestapiField(
-			hiddenInGrid = true,
+	@RestapiField(			
 			hiddenInLov = true)
 	private String descripcio;
 	

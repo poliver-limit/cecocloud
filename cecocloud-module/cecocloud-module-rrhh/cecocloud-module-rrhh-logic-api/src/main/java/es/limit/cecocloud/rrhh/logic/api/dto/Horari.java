@@ -37,13 +37,13 @@ public class Horari extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private String nom;	
 	
 	@NotNull
-	@RestapiField(hiddenInGrid = false)
+	@RestapiField(hiddenInGrid = true)
 	private TipusHorariEnumDto tipus;
 	
+	@NotNull
 	@Size(max = 1000)
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			hiddenInGrid = true,
+			type = RestapiFieldType.TEXTAREA,			
 			hiddenInLov = true)
 	private String descripcio;
 	

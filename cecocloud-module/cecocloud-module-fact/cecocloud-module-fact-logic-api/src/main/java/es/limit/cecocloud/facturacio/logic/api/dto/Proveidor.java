@@ -26,6 +26,7 @@ import lombok.Setter;
 public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 6)
+	@NotNull
 	@RestapiField(disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private String codi;
@@ -36,7 +37,7 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	private String nomComercial;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	@Size(max = 40)
 	private String nomFiscal;
 	
@@ -58,48 +59,42 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<FamiliaProveidor, WithIdentificadorAndCodiPk<String>> familiaProveidor;
 	

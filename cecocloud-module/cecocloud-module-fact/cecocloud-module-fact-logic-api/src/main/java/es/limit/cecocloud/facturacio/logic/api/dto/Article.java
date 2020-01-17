@@ -53,8 +53,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,		
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
@@ -62,7 +61,6 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<ArticleModel, WithIdentificadorAndCodiPk<String>> model;
 	
@@ -135,6 +133,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
+					hiddenInGrid = true,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 

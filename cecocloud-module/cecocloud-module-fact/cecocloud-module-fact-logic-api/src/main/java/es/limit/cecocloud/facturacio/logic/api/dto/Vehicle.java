@@ -34,6 +34,7 @@ import lombok.Setter;
 public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
@@ -46,6 +47,7 @@ public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 	private String descripcio;
 	
 	@NotNull
+	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	@Size(max = 10)
 	private String matricula;
 	

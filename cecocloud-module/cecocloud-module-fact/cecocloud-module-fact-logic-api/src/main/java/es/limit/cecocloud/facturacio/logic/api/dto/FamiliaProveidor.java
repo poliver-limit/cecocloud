@@ -24,6 +24,7 @@ import lombok.Setter;
 public class FamiliaProveidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,

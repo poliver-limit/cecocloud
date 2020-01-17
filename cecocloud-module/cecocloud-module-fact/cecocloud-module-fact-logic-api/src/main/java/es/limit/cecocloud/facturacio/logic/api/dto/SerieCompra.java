@@ -69,11 +69,11 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 	private String compteComptableCompresProformes;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validDesde;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validFins;
 	
 	@Transient
@@ -101,6 +101,7 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
+			hiddenInGrid = true,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 

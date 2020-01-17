@@ -38,26 +38,34 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	@Size(max = 4)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true, includeInQuickFilter = true)
 	private String codi;
+	
 	@Size(max = 30)
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	private String nom;
+	
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	private String compteSous;
+	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	private boolean controlPartes;
+	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	private boolean controlHoresExtras;
+	
 	@Size(max = 4)
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	private String depcmp;
+	
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	private String discos;
+	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Digits(integer = 5, fraction = 3)
 	private BigDecimal dtehor;
+	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Digits(integer = 5, fraction = 2)
 	private BigDecimal horesLaboralesDia;
@@ -66,7 +74,6 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true,
 			hiddenInLov=true
 			)	
 	private GenericReferenceWithCompositePk<SeccioGrup, SeccioGrupPk> seccioGrup;
@@ -74,6 +81,7 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Size(max = 1000)
 	private String observaciones;
+	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Size(max = 15)
 	private String rolVistas;
@@ -83,6 +91,7 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
+			hiddenInGrid = true,
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)

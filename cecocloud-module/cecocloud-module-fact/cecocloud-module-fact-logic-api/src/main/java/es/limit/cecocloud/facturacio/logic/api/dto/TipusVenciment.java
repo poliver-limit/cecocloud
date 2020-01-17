@@ -29,24 +29,27 @@ import lombok.Setter;
 public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase=true,
 				includeInQuickFilter = true)
 	private String codi;
 	
+	@RestapiField(
+			hiddenInLov=true
+	)
 	@NotNull
-	@RestapiField(type = RestapiFieldType.ENUM)
+	@Size(max = 30)
+	private String descripcio;
+	
+	@NotNull
+	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.ENUM)
 	private TipusVencimentEnumDto tipus;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private boolean generarCobramentPagament;
-	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov=true)
-	@Size(max = 30)
-	private String descripcio;
 	
 	@Digits(integer = 12, fraction = 3)
 	@RestapiField(hiddenInGrid = true,
@@ -105,6 +108,7 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=3,
 			hiddenInLov = true)
+	
 	private Integer diesTercerTermini;
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=3,

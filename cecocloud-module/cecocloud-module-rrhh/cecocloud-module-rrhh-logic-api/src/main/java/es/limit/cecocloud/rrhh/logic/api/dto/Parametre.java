@@ -28,7 +28,7 @@ public class Parametre extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	private String codi;
 	
 	@NotNull
-	@RestapiField()
+	@RestapiField(hiddenInGrid = true)
 	@Size(max = 100)
 	private String valor;
 	

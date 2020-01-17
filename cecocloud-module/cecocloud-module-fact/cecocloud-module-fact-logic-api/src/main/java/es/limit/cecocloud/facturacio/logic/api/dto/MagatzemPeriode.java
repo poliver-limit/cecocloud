@@ -45,15 +45,14 @@ public class MagatzemPeriode extends AbstractIdentificableWithIdentificador<Maga
 	private String descripcio;
 	
 	@NotNull
-	@RestapiField(includeInQuickFilter = true, disabledForUpdate = true)	
+	@RestapiField(includeInQuickFilter = true, hiddenInGrid = true, disabledForUpdate = true)	
 	private Date dataInici;
 	
 	@NotNull
 	@Transient
 	@RestapiField(
 			includeInQuickFilter = true, 
-			hiddenInForm = false, 
-			hiddenInGrid = true,
+			hiddenInForm = false,			
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 

@@ -167,6 +167,9 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)
 	protected boolean compteTerminacioOrganismesSSEmpresa;
 	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	@Size(max = 10)
 	protected String comptePagoNomina;
 	

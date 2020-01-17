@@ -25,6 +25,7 @@ import lombok.Setter;
 public class RegimIva extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 2)
+	@NotNull
 	@RestapiField(disabledForUpdate = true,
 			toUpperCase=true,
 			includeInQuickFilter = true)

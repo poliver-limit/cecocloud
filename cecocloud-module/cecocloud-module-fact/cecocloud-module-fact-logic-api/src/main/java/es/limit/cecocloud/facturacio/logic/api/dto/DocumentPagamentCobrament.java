@@ -29,6 +29,7 @@ import lombok.Setter;
 public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase = true,
 				includeInQuickFilter = true)
@@ -158,24 +159,21 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament, WithIdentificadorAndCodiPk<String>> naturalesaPagamentCobrament;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 

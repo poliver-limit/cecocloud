@@ -40,12 +40,12 @@ public class Subvencio extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	
 	@NotNull
 	@Size(max = 20)
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private String origen;
 	
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private BigDecimal preuPerKilo;
 
 }

@@ -38,6 +38,7 @@ public class RecursGrup extends AbstractIdentificableWithIdentificadorAndCodi<St
 	@Size(max = 1000)
 	private String descripcio;
 	
+	@RestapiField(hiddenInGrid = true)
 	@NotNull
 	@Digits(integer=7, fraction=2) 
 	private BigDecimal numHor;

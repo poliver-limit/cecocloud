@@ -45,38 +45,41 @@ public class RegistreDiari extends AbstractIdentificableWithIdentificador<Regist
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Operari, WithIdentificadorAndCodiPk<String>> operari;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private BigDecimal horesTeoriques;
+	
+	@RestapiField(hiddenInGrid = true)
 	@NotNull
 	private BigDecimal horesNormals;
+	
+	@RestapiField(hiddenInGrid = true)
 	@NotNull
 	private BigDecimal horesExtras;
+	
+	@RestapiField(hiddenInGrid = true)
 	@NotNull
 	private BigDecimal preuHoresExtras;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,		
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Regim, WithIdentificadorAndCodiPk<String>> regim;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Seccio, SeccioPk> seccio;
 	
 	@Transient
@@ -89,24 +92,25 @@ public class RegistreDiari extends AbstractIdentificableWithIdentificador<Regist
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,		
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Categoria, WithIdentificadorAndCodiPk<String>> categoria;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,		
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Subcategoria, WithIdentificadorAndCodiPk<String>> subcategoria;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private BigDecimal preuHoraNormal;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private BigDecimal preuHoraNit;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private BigDecimal horesNit;
 	
 

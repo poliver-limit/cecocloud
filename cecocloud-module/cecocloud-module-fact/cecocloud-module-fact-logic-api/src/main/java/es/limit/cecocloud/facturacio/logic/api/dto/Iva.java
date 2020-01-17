@@ -26,6 +26,7 @@ import lombok.Setter;
 public class Iva extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,

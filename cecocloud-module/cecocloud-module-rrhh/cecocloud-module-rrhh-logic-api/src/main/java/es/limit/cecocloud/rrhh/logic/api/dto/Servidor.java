@@ -5,6 +5,7 @@ package es.limit.cecocloud.rrhh.logic.api.dto;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +20,11 @@ import lombok.Setter;
 )
 public class Servidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 	
+	@NotNull
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
 	
+	@NotNull
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String descripcio;
 

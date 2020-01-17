@@ -32,26 +32,33 @@ public class Regim extends AbstractIdentificableWithIdentificadorAndCodi<String>
 	private String codi;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private boolean presencia;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private boolean contarHores;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private boolean mantenirProximaEntrada;
 	
 	@NotNull
+	@RestapiField(hiddenInGrid = true)
 	private boolean mostrarLlistatPlanificacio;
 	
 	@Size(max = 30)
+	@NotNull
 	@RestapiField(
-			includeInQuickFilter = true)
+			includeInQuickFilter = true, hiddenInGrid = true)
 	private String nom;
 	
 	@Digits(integer = 3, fraction = 0)
+	@RestapiField(hiddenInGrid = true)
 	private BigDecimal numHoresLaborals;
 	
 	@Digits(integer = 3, fraction = 0)
+	@RestapiField(hiddenInGrid = true)
 	private BigDecimal numMinHoresLaborals;
 
 }

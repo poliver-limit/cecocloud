@@ -57,6 +57,7 @@ public class Departament extends AbstractIdentificableWithIdentificador<Departam
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,
 			disabledForUpdate = true,
+					hiddenInGrid = true,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 

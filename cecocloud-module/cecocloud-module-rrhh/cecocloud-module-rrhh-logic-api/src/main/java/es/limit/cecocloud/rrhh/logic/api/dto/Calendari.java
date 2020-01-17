@@ -33,19 +33,21 @@ import lombok.Setter;
 )
 public class Calendari extends AbstractIdentificableWithIdentificador<CalendariPk> {
 
+	@NotNull
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private Date data;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV, 			
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<TipusDia, WithIdentificadorAndCodiPk<String>> tipusDia;	
 	
+	@NotNull
 	@Size(max = 1000)
-	@RestapiField(			
-			hiddenInGrid = true)
+	@RestapiField()
 	private String descripcio;
+	
 	@Size(max = 1000)
 	@RestapiField(		
 			hiddenInGrid = true)

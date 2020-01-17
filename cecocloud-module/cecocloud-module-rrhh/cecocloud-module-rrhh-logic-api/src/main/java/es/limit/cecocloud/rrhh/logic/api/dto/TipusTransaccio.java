@@ -37,6 +37,7 @@ public class TipusTransaccio extends AbstractIdentificableWithIdentificadorAndCo
 	private String codi;
 	
 	@Size(max = 1000)
+	@NotNull
 	@RestapiField()
 	private String descripcio;
 

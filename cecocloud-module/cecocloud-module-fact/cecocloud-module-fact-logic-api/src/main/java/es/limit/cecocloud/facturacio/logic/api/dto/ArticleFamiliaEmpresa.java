@@ -33,6 +33,7 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificado
 	@NotNull
 	@RestapiField(
 			hiddenInLov=true,
+					hiddenInGrid = true,
 			includeInQuickFilter = true)
 	private boolean web;
 	
@@ -48,6 +49,7 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificado
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
+					hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;

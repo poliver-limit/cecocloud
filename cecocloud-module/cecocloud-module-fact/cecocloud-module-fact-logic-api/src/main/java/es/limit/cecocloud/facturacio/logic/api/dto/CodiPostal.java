@@ -27,6 +27,7 @@ import lombok.Setter;
 public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 8)
+	@NotNull
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
@@ -36,19 +37,20 @@ public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<St
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true)
 	private String poblacio;
 	
 	@Size(max = 30)
 	@RestapiField(
+			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String municipi;
 
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Pais, WithIdentificadorAndCodiPk<String>> pais;
 	
@@ -56,8 +58,7 @@ public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<St
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			//lovParentField = "pais",
-			hiddenInGrid = true,
+			//lovParentField = "pais",			
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Provincia, ProvinciaPk> provincia;
 

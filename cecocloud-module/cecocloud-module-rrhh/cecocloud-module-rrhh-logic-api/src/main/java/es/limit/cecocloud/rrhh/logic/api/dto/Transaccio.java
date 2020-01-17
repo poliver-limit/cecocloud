@@ -33,6 +33,7 @@ public class Transaccio extends AbstractIdentificableWithIdentificadorAndCodi<St
 
 	
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
+	@NotNull
 //	private Integer codi;
 	private String codi;
 	
@@ -41,12 +42,12 @@ public class Transaccio extends AbstractIdentificableWithIdentificadorAndCodi<St
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	@RestapiField(type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Operari, WithIdentificadorAndCodiPk<String>> operari;
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	@RestapiField(type = RestapiFieldType.LOV)	
 //	private GenericReferenceWithCompositePk<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> tipusTransaccio;
 	private GenericReferenceWithCompositePk<TipusTransaccio, WithIdentificadorAndCodiPk<String>> tipusTransaccio;
 
@@ -60,11 +61,11 @@ public class Transaccio extends AbstractIdentificableWithIdentificadorAndCodi<St
 //	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
 //	private GenericReferenceWithCompositePk<Node, NodePk> node;
 	@Transient	
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	@RestapiField(type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Node, WithIdentificadorAndCodiPk<String>> node;
 	
-	@Size(max = 1000)
-	@RestapiField()
+	@Size(max = 1000)	
+	@RestapiField(hiddenInGrid = true)
 	private String observacions;
 
 }

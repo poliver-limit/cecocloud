@@ -94,13 +94,13 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true,
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<SerieCompra, SerieCompraPk> serieCompra;	
 	
 	@Transient
 	@NotNull
 	@RestapiField(
+			hiddenInGrid = true,
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true

@@ -43,28 +43,40 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	
 	@NotNull
 	@Size(max = 60)
-	@RestapiField(hiddenInLov = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	private String domicili;
 	
 	@NotNull
-	@RestapiField(hiddenInLov = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	private ValoracioInventariTraspasEnum valoracioInventariTraspas;
 	
 	@Size(max = 60)
-	@RestapiField(hiddenInLov = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	private String telefon;
 	
 	@Size(max = 60)
-	@RestapiField(hiddenInLov = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	private String fax;
 	
 	@Size(max = 60)
 	@javax.validation.constraints.Email
-	@RestapiField(hiddenInLov = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	private String email;
 	
 	@Size(max = 30)
-	@RestapiField(hiddenInLov = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	private String responsable;
 	
 	@Size(max = 1000)
@@ -109,8 +121,7 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 

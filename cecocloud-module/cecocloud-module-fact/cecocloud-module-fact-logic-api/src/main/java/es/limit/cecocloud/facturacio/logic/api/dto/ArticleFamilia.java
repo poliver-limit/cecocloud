@@ -47,6 +47,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	private String descripcio;	
 
 	@RestapiField(type = RestapiFieldType.ENUM,
+			hiddenInGrid = true,
 			includeInQuickFilter = true)
 	@NotNull
 	private ArticleFamiliaTipusEnumDto tipus;
@@ -65,6 +66,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@RestapiField(type = RestapiFieldType.ENUM,
 			hiddenInLov = true,
+					hiddenInGrid = true,
 			includeInQuickFilter = true)
 	@NotNull
 	private ArticleFamiliaAvisAlbaraClientEnumDto avisAlbaraClient;
@@ -140,6 +142,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	private Float margeMinim;	
 	
 	@RestapiField(type = RestapiFieldType.ENUM,
+			hiddenInGrid = true,
 			includeInQuickFilter = true)
 	private ArticleFamiliaTipusServeiEnumDto tipusServei;
 	
@@ -150,13 +153,12 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)	
+			type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<FamiliaCost, WithIdentificadorAndCodiPk<String>> familiaCost;
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, 	
-			hiddenInGrid = true,hiddenInLov = true)	
+			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<RecursGrup, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> recursGrup;
 	
 	@RestapiField(

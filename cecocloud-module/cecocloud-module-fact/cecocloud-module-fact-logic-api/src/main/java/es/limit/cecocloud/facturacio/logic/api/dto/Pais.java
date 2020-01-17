@@ -23,6 +23,7 @@ import lombok.Setter;
 public class Pais extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 5)
+	@NotNull
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,

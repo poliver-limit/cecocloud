@@ -59,6 +59,7 @@ public class UbicacioArticle extends AbstractIdentificableWithIdentificador<Ubic
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
+			hiddenInGrid = true,
 			disabledForUpdate = true
 //			,hiddenInForm = true
 			)

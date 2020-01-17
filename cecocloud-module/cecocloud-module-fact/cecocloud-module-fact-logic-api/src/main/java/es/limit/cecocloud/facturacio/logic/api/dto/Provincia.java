@@ -31,6 +31,7 @@ import lombok.Setter;
 public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaPk> {
 
 	@Size(max = 3)
+	@NotNull
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,

@@ -26,14 +26,15 @@ import lombok.Setter;
 public class TipusDia extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 	
 	@Size(max = 22)
+	@NotNull
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,			
-			hiddenInGrid = true)
+			type = RestapiFieldType.LOV			
+			)
 	private GenericReferenceWithCompositePk<Regim, WithIdentificadorAndCodiPk<String>> regim;
 	
 	@NotNull

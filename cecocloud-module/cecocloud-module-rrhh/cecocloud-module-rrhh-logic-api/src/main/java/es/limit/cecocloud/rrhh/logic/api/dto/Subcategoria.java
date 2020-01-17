@@ -26,20 +26,24 @@ import lombok.Setter;
 public class Subcategoria extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 	
 	@Size(max = 4)
+	@NotNull
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
 	
 	@Transient
 	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)	
+	@RestapiField(type = RestapiFieldType.LOV)	
 	private GenericReferenceWithCompositePk<Categoria, WithIdentificadorAndCodiPk<String>> categoria;
 	
+	@NotNull
 	@Size(max = 30)
 	private String nom;
 	
 	@Size(max = 1000)
+	@RestapiField(hiddenInGrid = true)
 	private String observacio;
 	
+	@RestapiField(hiddenInGrid = true)
 	private boolean actiu;
 
 }
