@@ -111,6 +111,7 @@ public class Transportista extends AbstractIdentificableWithIdentificadorAndCodi
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,

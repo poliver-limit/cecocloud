@@ -19,7 +19,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio"
+		descriptionField = "nom"
 )
 public class FamiliaProveidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 

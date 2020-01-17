@@ -333,23 +333,25 @@
         primary key (mod_cod, mod_idf_cod)
     );
 
-    create table tges_mtr (
-       mtr_cod varchar(4) not null,
+     create table tges_mtr (
+       	mtr_tra_cod varchar(4) not null,
+        mtr_cod varchar(4) not null,
         mtr_idf_cod varchar(4) not null,
         mtr_usucre varchar(255),
         mtr_datcre timestamp,
         mtr_usumod varchar(255),
         mtr_datmod timestamp,
-        mtr_nif varchar(255),
-        mtr_cdu varchar(255),
-        mtr_des varchar(1000),
-        mtr_mtr001 varchar(255),
-        mtr_mtr002 varchar(255),
-        mtr_obs varchar(255),
+        mtr_act boolean,
+        mtr_cdu varchar(30),
+        mtr_nif varchar(12),
+        mtr_des varchar(60),
+        mtr_mtr001 varchar(10),
+        matricula_remolc varchar(255),
+        mtr_obs varchar(1000),
         mtr_pesmax numeric(19, 2),
         mtr_tara numeric(19, 2),
-        mtr_tra_cod varchar(4) not null,
-        primary key (mtr_cod, mtr_idf_cod)
+        mtr_vehemp boolean,
+        primary key (mtr_tra_cod, mtr_cod, mtr_idf_cod)
     );
 
     create table tges_npg (
@@ -666,13 +668,15 @@
         primary key (tip_cod, tip_idf_cod)
     );
 
-    create table tges_tra (
+        create table tges_tra (
        tra_cod varchar(4) not null,
         tra_idf_cod varchar(4) not null,
         tra_usucre varchar(255),
         tra_datcre timestamp,
         tra_usumod varchar(255),
         tra_datmod timestamp,
+        tra_cpo_cod varchar(8) not null,
+        tra_div_cod varchar(4) not null,
         tra_www varchar(255),
         tra_con varchar(255),
         tra_dom varchar(255),
@@ -685,9 +689,7 @@
         tra_obs varchar(255),
         tra_tel varchar(255),
         tra_vehemp boolean,
-        tra_cpo_cod varchar(4),
-        tra_div_cod varchar(4),
-        tra_pro_cod varchar(4),
+        tra_pro_cod varchar(6),
         primary key (tra_cod, tra_idf_cod)
     );
 

@@ -255,7 +255,7 @@
 	"resource.ubicacio": "Ubicación",
 	"resource.ubicacioArticle": "Ubicación de artículo",
 	"resource.unitatTipus": "Tipo de unidad",
-	"resource.vehicle": "Vehícolo",
+	"resource.vehicle": "Vehículo",
 	"resource.zona": "Zona",
 	
 	
@@ -800,14 +800,17 @@
 	"resource.vehicleDuplicat": "Vehículo",
 	"resource.vehicle.plural": "Vehículos",	
 	"resource.vehicle.field.codi": "Código",
-	"resource.vehicle.field.dNI": "D.N.I.",	
+	"resource.vehicle.field.nif": "D.N.I.",	
 	"resource.vehicle.field.descripcio": "Descripción",
 	"resource.vehicle.field.matricula": "Matrícula",
 	"resource.vehicle.field.matriculaRemolc": "Matrícula remolque",
 	"resource.vehicle.field.conductorHabitual": "Conductor habitual",
 	"resource.vehicle.field.observacions": "Observaciones",
 	"resource.vehicle.field.tara": "Tara",
-	"resource.vehicle.field.pesMaxim": "Peso máximo",			
+	"resource.vehicle.field.transportista": "Transportista",
+	"resource.vehicle.field.pesMaxim": "Peso máximo",
+	"resource.vehicle.field.actiu": "Activo",
+	"resource.vehicle.field.vehicleEmpresa": "Vehículo de empresa",					
 	"resource.vehicle.field.identificador": "Identificador",
 		
 	"resource.zonaDuplicat": "Zona",

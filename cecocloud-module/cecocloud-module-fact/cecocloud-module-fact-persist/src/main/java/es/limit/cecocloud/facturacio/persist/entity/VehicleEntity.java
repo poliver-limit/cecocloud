@@ -17,8 +17,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle;
+import es.limit.cecocloud.facturacio.logic.api.dto.Vehicle.VehiclePk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,16 +44,19 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "mtr_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "mtr_cod", length = 4)),
+	@AttributeOverride(name = "id.transportistaCodi", column = @Column(name = "mtr_tra_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "mtr_cod", length = 4, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "mtr_des", length = 1000)),
-	@AttributeOverride(name = "embedded.matricula", column = @Column(name = "mtr_mtr001")),
-	@AttributeOverride(name = "embedded.matriculaRemolc", column = @Column(name = "mtr_mtr002")),
-	@AttributeOverride(name = "embedded.DNI", column = @Column(name = "mtr_nif")),
-	@AttributeOverride(name = "embedded.conductorHabitual", column = @Column(name = "mtr_cdu")),
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "mtr_obs")),
-	@AttributeOverride(name = "embedded.tara", column = @Column(name = "mtr_tara")),
-	@AttributeOverride(name = "embedded.pesMaxim", column = @Column(name = "mtr_pesmax")),
-	@AttributeOverride(name = "embedded.transportistaCodi", column = @Column(name = "mtr_tra_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "mtr_des", length = 60)),
+	@AttributeOverride(name = "embedded.matricula", column = @Column(name = "mtr_mtr001", length = 10)),
+	@AttributeOverride(name = "embedded.matriculaRemolc", column = @Column(name = "mtr_mtr002", length = 10)),
+	@AttributeOverride(name = "embedded.nif", column = @Column(name = "mtr_nif", length = 12)),
+	@AttributeOverride(name = "embedded.conductorHabitual", column = @Column(name = "mtr_cdu", length = 30)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "mtr_obs", length = 1000)),
+	@AttributeOverride(name = "embedded.tara", column = @Column(name = "mtr_tara", length = 10)),
+	@AttributeOverride(name = "embedded.pesMaxim", column = @Column(name = "mtr_pesmax", length = 10)),	
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "mtr_act", length = 1)),
+	@AttributeOverride(name = "embedded.vehicleEmpresa", column = @Column(name = "mtr_vehemp", length = 1)),
+//	@AttributeOverride(name = "embedded.transportistaCodi", column = @Column(name = "mtr_tra_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "mtr_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "mtr_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mtr_usumod")),
@@ -67,7 +70,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_mtr_idf_fk"))
 })
-public class VehicleEntity extends AbstractWithIdentificadorEntity<Vehicle, WithIdentificadorAndCodiPk<String>> {
+public class VehicleEntity extends AbstractWithIdentificadorEntity<Vehicle, VehiclePk> {
 
 	@Embedded
 	protected Vehicle embedded;
@@ -83,7 +86,7 @@ public class VehicleEntity extends AbstractWithIdentificadorEntity<Vehicle, With
 
 	@Builder
 	public VehicleEntity(
-			WithIdentificadorAndCodiPk<String> pk,
+			VehiclePk pk,
 			Vehicle embedded,
 			IdentificadorEntity identificador,
 			TransportistaEntity transportista) {

@@ -58,9 +58,9 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.horariRepartiment", column = @Column(name = "tra_hri")),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tra_obs")),
 	@AttributeOverride(name = "embedded.vehicleEmpresa", column = @Column(name = "tra_vehemp")),
-	@AttributeOverride(name = "embedded.codiPostalCodi", column = @Column(name = "tra_cpo_cod", length = 8, nullable = false)),
-	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "tra_div_cod", length = 4, nullable = false)),
-	@AttributeOverride(name = "embedded.proveidorCodi", column = @Column(name = "tra_pro_cod")),
+//	@AttributeOverride(name = "embedded.codiPostalCodi", column = @Column(name = "tra_cpo_cod", length = 8, nullable = false)),
+//	@AttributeOverride(name = "embedded.divisaCodi", column = @Column(name = "tra_div_cod", length = 4, nullable = false)),
+//	@AttributeOverride(name = "embedded.proveidorCodi", column = @Column(name = "tra_pro_cod")),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "tra_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "tra_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "tra_usumod")),
@@ -79,7 +79,7 @@ public class TransportistaEntity extends AbstractWithIdentificadorEntity<Transpo
 	@Embedded
 	protected Transportista embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "tra_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
@@ -87,7 +87,10 @@ public class TransportistaEntity extends AbstractWithIdentificadorEntity<Transpo
 			},
 			foreignKey = @ForeignKey(name = "rges_tra_cpo_fk"))
 	private CodiPostalEntity codiPostal;
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@Column(name = "tra_cpo_cod", length = 8, nullable = false)
+	private String codiPostalCodi;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "tra_idf_cod", referencedColumnName = "div_idf_cod", insertable = false, updatable = false),
@@ -95,7 +98,10 @@ public class TransportistaEntity extends AbstractWithIdentificadorEntity<Transpo
 			},
 			foreignKey = @ForeignKey(name = "rges_tra_div_fk"))
 	private DivisaEntity divisa;
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@Column(name = "tra_div_cod", length = 4, nullable = false)
+	private String divisaCodi;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "tra_idf_cod", referencedColumnName = "pro_idf_cod", insertable = false, updatable = false),
@@ -103,7 +109,9 @@ public class TransportistaEntity extends AbstractWithIdentificadorEntity<Transpo
 			},
 			foreignKey = @ForeignKey(name = "rges_tra_pro_fk"))
 	private ProveidorEntity proveidor;
-
+	@Column(name = "tra_pro_cod", length = 6)
+	private String proveidorCodi;
+	
 	@Builder
 	public TransportistaEntity(
 			WithIdentificadorAndCodiPk<String> pk,
@@ -112,17 +120,32 @@ public class TransportistaEntity extends AbstractWithIdentificadorEntity<Transpo
 			CodiPostalEntity codiPostal,
 			DivisaEntity divisa,
 			ProveidorEntity proveidor) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.codiPostal = codiPostal;
-		this.divisa = divisa;
-		this.proveidor = proveidor;
+		
+		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
+		this.divisaCodi = divisa.getEmbedded().getCodi();
+		this.proveidorCodi = proveidor.getEmbedded().getCodi();
 	}
 
 	@Override
 	public void update(Transportista embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateCodiPostal (CodiPostalEntity codiPostal) {
+		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
+	}
+	
+	public void updateDivisa (DivisaEntity divisa) {
+		this.divisaCodi = divisa.getEmbedded().getCodi();
+	}
+	
+	public void updateProveidor (ProveidorEntity proveidor) {
+		this.proveidorCodi = proveidor.getEmbedded().getCodi();
 	}
 
 }
