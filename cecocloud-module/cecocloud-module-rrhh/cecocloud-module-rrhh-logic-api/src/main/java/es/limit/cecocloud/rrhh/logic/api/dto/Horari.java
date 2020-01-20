@@ -5,7 +5,6 @@ package es.limit.cecocloud.rrhh.logic.api.dto;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
