@@ -11,6 +11,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.rrhh.logic.api.dto.enums.OperariEnumDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,42 +37,79 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Size(max = 30)	
 	private String nom;
 	
-	/*private boolean actiu;
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
+	private boolean actiu;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean entsor;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean comercial;
-	private String horariCodi;
+	
+//	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
+//	private String horariCodi;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean mostrTurno;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String pin;
-	private boolean enc;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
+	private boolean enc;	
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean incidencia;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean horesp;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean aplicaDiesLab;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean laboralDilluns;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean laboralDimarts;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean laboralDimecres;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean laboralDijous;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean laboralDivendres;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean laboralDissabte;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private boolean laboralDiumenge;
-	private boolean nonGrato; 
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
+	private boolean nonGrato;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Integer ptenmn;
-	private boolean ado;
-	@Transient
-	private OperariEnumDto controlPartes;
-	@Transient
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
+	private boolean ado;	
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
+	private OperariEnumDto controlPartes;	
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private OperariEnumDto controlHoresExtras;
-	private String usuariCodi;*/
 
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true
-//			,hiddenInForm = true
+			disabledForUpdate = true			
 			)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;
-
-
-
+	
 }

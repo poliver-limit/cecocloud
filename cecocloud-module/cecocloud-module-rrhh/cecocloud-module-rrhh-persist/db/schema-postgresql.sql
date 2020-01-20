@@ -136,7 +136,28 @@
         ope_datcre timestamp,
         ope_usumod varchar(255),
         ope_datmod timestamp,
+        ope_act boolean not null,
+        ope_ado boolean not null,
+        ope_apldia boolean not null,
+        ope_cml boolean not null,
+        ope_ctlhoe int4,
+        ope_ctlffo int4,
+        ope_enc boolean not null,
+        ope_entsor boolean not null,
+        ope_horesp boolean not null,
+        ope_ind boolean not null,
+        ope_djs boolean not null,
+        ope_dls boolean not null,
+        ope_dms boolean not null,
+        ope_dcs boolean not null,
+        ope_dse boolean not null,
+        ope_dme boolean not null,
+        ope_dvs boolean not null,
+        ope_tor boolean not null,
         ope_nom varchar(40) not null,
+        ope_ngr boolean not null,
+        ope_pin varchar(25) not null,
+        ope_ptenmn int4 not null,
         ope_hor_cod varchar(4) not null,
         primary key (ope_cod, ope_idf_cod)
     );
@@ -393,15 +414,15 @@ create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
        foreign key (nod_zon_codori, nod_idf_cod) 
        references trhu_zon;
 
+    alter table trhu_nod 
+       add constraint rrhu_nod_zon_ori_fk 
+       foreign key (nod_zon_codori, nod_idf_cod) 
+       references trhu_zon;
+
     alter table trhu_ope 
        add constraint rrhu_ope_idf_fk 
        foreign key (ope_idf_cod) 
        references trhu_idf;
-
-    alter table trhu_ope 
-       add constraint rrhu_ope_hor_fk 
-       foreign key (ope_hor_cod, ope_idf_cod) 
-       references trhu_hor;
 
     alter table trhu_par 
        add constraint rrhu_par_idf_fk 

@@ -47,29 +47,29 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", length = 4, insertable = false, updatable = false)),		
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 40, nullable = false)),	
-//	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
-//	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
-//	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
+	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
+	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
 //	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
-//	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor",  nullable = false)),			
-//	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin", length = 25, nullable = false)),			
-//	@AttributeOverride(name = "embedded.enc", column = @Column(name = "ope_enc",  nullable = false)),			
-//	@AttributeOverride(name = "embedded.incidencia", column = @Column(name = "ope_ind",  nullable = false)),			
-//	@AttributeOverride(name = "embedded.horesp", column = @Column(name = "ope_horesp", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.aplicaDiesLab", column = @Column(name = "ope_apldia", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.laboralDilluns", column = @Column(name = "ope_dls", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.laboralDimarts", column = @Column(name = "ope_dms", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.laboralDimecres", column = @Column(name = "ope_dcs", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.laboralDijous", column = @Column(name = "ope_djs", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.laboralDivendres", column = @Column(name = "ope_dvs", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.laboralDissabte", column = @Column(name = "ope_dse", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.laboralDiumenge", column = @Column(name = "ope_dme", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.nonGrato", column = @Column(name = "ope_ngr", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.ptenmn", column = @Column(name = "ope_ptenmn", nullable = false)),			
-//	@AttributeOverride(name = "embedded.ado", column = @Column(name = "ope_ado", length = 1, nullable = false)),			
-//	@AttributeOverride(name = "embedded.controlPartes", column = @Column(name = "ope_ctlffo", length = 1)),			
-//	@AttributeOverride(name = "embedded.controlHoresExtras", column = @Column(name = "ope_ctlhoe", length = 1)),			
-//	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),
+	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor",  nullable = false)),			
+	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin", length = 25, nullable = false)),			
+	@AttributeOverride(name = "embedded.enc", column = @Column(name = "ope_enc",  nullable = false)),			
+	@AttributeOverride(name = "embedded.incidencia", column = @Column(name = "ope_ind",  nullable = false)),			
+	@AttributeOverride(name = "embedded.horesp", column = @Column(name = "ope_horesp", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.aplicaDiesLab", column = @Column(name = "ope_apldia", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.laboralDilluns", column = @Column(name = "ope_dls", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.laboralDimarts", column = @Column(name = "ope_dms", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.laboralDimecres", column = @Column(name = "ope_dcs", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.laboralDijous", column = @Column(name = "ope_djs", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.laboralDivendres", column = @Column(name = "ope_dvs", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.laboralDissabte", column = @Column(name = "ope_dse", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.laboralDiumenge", column = @Column(name = "ope_dme", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.nonGrato", column = @Column(name = "ope_ngr", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.ptenmn", column = @Column(name = "ope_ptenmn", nullable = false)),			
+	@AttributeOverride(name = "embedded.ado", column = @Column(name = "ope_ado", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.controlPartes", column = @Column(name = "ope_ctlffo", length = 1)),			
+	@AttributeOverride(name = "embedded.controlHoresExtras", column = @Column(name = "ope_ctlhoe", length = 1)),			
+	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ope_usumod")),
@@ -104,7 +104,8 @@ public class OperariEntity extends AbstractWithIdentificadorEntity<Operari, With
 			WithIdentificadorAndCodiPk<String> pk,
 			Operari embedded,
 			IdentificadorEntity identificador,
-			HorariEntity horari) {
+			HorariEntity horari
+			) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
@@ -119,6 +120,6 @@ public class OperariEntity extends AbstractWithIdentificadorEntity<Operari, With
 	
 	public void updateHorari (HorariEntity horari) {
 		this.horariCodi = horari.getEmbedded().getCodi();	
-	}
+	}	
 
 }
