@@ -37,13 +37,12 @@ import lombok.Setter;
 )
 public class SeccioEmpresa extends AbstractIdentificableWithIdentificador<SeccioEmpresaPk> {
 	
-	@Transient
-	@NotNull
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
-			disabledForUpdate = true
-//			,hiddenInForm = true
+			disabledForUpdate = true,
+			hiddenInForm = true
 			)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	

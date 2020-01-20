@@ -40,14 +40,13 @@ public class SeccioGrup extends AbstractIdentificableWithIdentificador<SeccioGru
 	@NotNull
 	private String nom;
 
-	@Transient
-	@NotNull
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			hiddenInGrid = true,
-			disabledForUpdate = true
-//			,hiddenInForm = true
+			disabledForUpdate = true,
+			hiddenInForm = true
 			)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 

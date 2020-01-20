@@ -57,7 +57,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.discos", column = @Column(name = "sec_discos", length = 2)),			
 	@AttributeOverride(name = "embedded.dtehor", column = @Column(name = "sec_dtehor", length = 2)),			
 	@AttributeOverride(name = "embedded.horesLaboralesDia", column = @Column(name = "sec_fct")),			
-	@AttributeOverride(name = "embedded.seccioGrupCodi", column = @Column(name = "sec_gse_cod", length = 4)),			
+//	@AttributeOverride(name = "embedded.seccioGrupCodi", column = @Column(name = "sec_gse_cod", length = 4)),			
 	@AttributeOverride(name = "embedded.observaciones", column = @Column(name = "sec_obs", length = 1000)),			
 	@AttributeOverride(name = "embedded.rolVistas", column = @Column(name = "sec_rolvis", length = 15)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "sec_usucre")),

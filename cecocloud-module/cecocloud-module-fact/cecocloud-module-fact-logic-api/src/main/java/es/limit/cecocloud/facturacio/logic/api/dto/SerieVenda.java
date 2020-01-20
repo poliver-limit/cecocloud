@@ -242,14 +242,13 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private boolean desglossarIva;
 
-	@Transient
-	@NotNull
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			hiddenInGrid = true,
-			disabledForUpdate = true
-//			,hiddenInForm = true
+			disabledForUpdate = true,
+			hiddenInForm = true
 			)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 

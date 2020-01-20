@@ -25,6 +25,7 @@ public class ArticleModel extends AbstractIdentificableWithIdentificadorAndCodi<
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 6)
 	@RestapiField(
+			disabledForCreate = false,
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)

@@ -45,15 +45,14 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificado
 			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> articleFamilia;
 	
-	@Transient
-	@NotNull
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-					hiddenInGrid = true,
+			hiddenInGrid = true,
+			hiddenInForm = true,
 			disabledForUpdate = true,
 			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
-
 
 	@NoArgsConstructor
 	@AllArgsConstructor

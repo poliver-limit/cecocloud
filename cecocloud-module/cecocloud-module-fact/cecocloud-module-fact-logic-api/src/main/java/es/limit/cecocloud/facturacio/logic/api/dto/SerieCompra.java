@@ -94,15 +94,14 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true) 
 	private boolean desglossarIva;
-
-	@NotNull
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = false)
+			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 

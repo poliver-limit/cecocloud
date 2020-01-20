@@ -17,6 +17,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Formula;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.Magatzem;
@@ -96,7 +99,13 @@ public class MagatzemEntity extends AbstractWithIdentificadorEntity<Magatzem, Wi
 			foreignKey = @ForeignKey(name = "rges_mag_div_fk"))
 	protected DivisaEntity divisa;
 	@Column(name = "mag_div_cod", length = 10)
-	private String divisaCodi;
+	private String divisaCodi;	
+	
+	@Formula(value="( SELECT r.pmg_cod FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
+	private String periodeActualCodi;	
+	
+	@Formula(value="( SELECT r.pmg_diaini FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
+	private String periodeActualData;
 
 	@Builder
 	public MagatzemEntity(

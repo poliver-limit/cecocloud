@@ -63,14 +63,13 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true, hiddenInLov = true) 
 	private boolean serieDefecto;
 	
-	@Transient
-	@NotNull
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			hiddenInGrid = true,
-			disabledForUpdate = true
-//			,hiddenInForm = true
+			disabledForUpdate = true,
+			hiddenInForm = true
 			)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 

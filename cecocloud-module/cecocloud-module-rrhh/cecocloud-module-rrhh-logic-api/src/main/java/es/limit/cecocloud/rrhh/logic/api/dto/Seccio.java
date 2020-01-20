@@ -87,13 +87,12 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	private String rolVistas;
 
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			hiddenInGrid = true,
-			disabledForUpdate = true
-//			,hiddenInForm = true
+			disabledForUpdate = true,
+			hiddenInForm = true
 			)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 

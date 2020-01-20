@@ -105,14 +105,6 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 //	private String periodeActualData;
 	
 	@Transient
-	@Formula(value="( SELECT r.pmg_cod FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
-	private String periodeActualCodi;
-	
-	@Transient
-	@Formula(value="( SELECT r.pmg_diaini FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
-	private String periodeActualData;
-	
-	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV)
@@ -124,5 +116,19 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = false,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String periodeActualCodi;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = false,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String periodeActualData;
 
 }
