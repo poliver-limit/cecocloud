@@ -5,11 +5,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import { AngularHalModule } from 'angular4-hal';
 import { NgxMaskModule } from 'ngx-mask';
-import { BngJwtInterceptor, BngErrorModule, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
+import { BngBaseAppModule, BngErrorModule, BngJwtInterceptor, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
 
+import { AppService } from './shared/app.service';
 import { MaterialModule } from './shared/material.module';
 import { LocaleService } from './shared/locale.service';
 import { RestapiConfigService } from './shared/restapi-config.service';
@@ -20,8 +21,12 @@ import localeCa from '@angular/common/locales/ca';
 
 registerLocaleData(localeCa);
 
-export function createTranslateLoader(http: HttpClient) {
-	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+export function HttpLoaderFactory(http: HttpClient) {
+	return new MultiTranslateHttpLoader(
+		http, [
+			{ prefix: "./assets/i18n/baseapp/", suffix: ".json" },
+			{ prefix: "./assets/i18n/", suffix: ".json"}
+		]);
 }
 
 @NgModule({
@@ -34,12 +39,13 @@ export function createTranslateLoader(http: HttpClient) {
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
-				useFactory: (createTranslateLoader),
+				useFactory: HttpLoaderFactory,
 				deps: [HttpClient]
 			}
 		}),
 		AngularHalModule.forRoot(),
 		NgxMaskModule.forRoot(),
+		BngBaseAppModule,
 		BngErrorModule,
 		AppRoutingModule
 	],
@@ -58,4 +64,8 @@ export function createTranslateLoader(http: HttpClient) {
 		AppComponent
 	]
 })
-export class AppModule { }
+export class AppModule {
+
+	constructor(appService: AppService) {}
+
+}
