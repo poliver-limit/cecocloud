@@ -27,20 +27,18 @@ public class DepartamentServiceImpl extends AbstractGenericCompositePkServiceImp
 
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
-	
+
 	@Autowired
 	private EmpresaRepository empresaRepository;
 
 	@Override
 	protected DepartamentPk getPkFromDto(Departament dto) {
-		UserSession userSession = (UserSession)authenticationHelper.getSession();		
-		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());		
+		UserSession userSession = (UserSession)authenticationHelper.getSession();
+		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());
 		return new DepartamentPk(
-				dto.getIdentificador().getId(),	
+				dto.getIdentificador().getId(),
 				empresa.getEmbedded().getCodi(),
 				dto.getCodi());
-				
 	}
-
 
 }

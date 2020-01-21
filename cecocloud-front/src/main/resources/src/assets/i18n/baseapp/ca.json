@@ -97,6 +97,7 @@
 	"error.validation.constraint.MarcatgeOperariValid": "Operari invàlid",
 	"error.validation.constraint.MarcatgeData": "Data incorrecta",
 	"error.validation.constraint.UsuariEmailNotExists": "Ja existeix un altre usuari amb la mateixa adreça de correu",
+	"error.validation.constraint.PrimaryKeyNotExists": "Ja existeix un altre registre amb el mateix valor",
 
 	"resource.usuari": "Usuari",
 	"resource.usuari.plural": "Usuaris",
