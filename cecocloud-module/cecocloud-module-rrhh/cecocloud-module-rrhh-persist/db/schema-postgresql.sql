@@ -64,6 +64,18 @@
         emp_vacdianat boolean,
         primary key (emp_cod, emp_idf_cod)
     );
+    
+    create table trhu_gfe (
+       gfe_cod varchar(4) not null,
+        gfe_idf_cod varchar(4) not null,
+        gfe_usucre varchar(255),
+        gfe_datcre timestamp,
+        gfe_usumod varchar(255),
+        gfe_datmod timestamp,
+        gfe_nom varchar(60) not null,
+        gfe_cte varchar(1000),
+        primary key (gfe_cod, gfe_idf_cod)
+    );
 
     create table trhu_gre (
        gre_cod varchar(4) not null,
@@ -112,6 +124,27 @@
         lastmod_date timestamp,
         idf_nom varchar(40) not null,
         primary key (idf_cod)
+    );
+    
+     create table trhu_inr (
+       inr_cod varchar(4) not null,
+        inr_idf_cod varchar(4) not null,
+        inr_usucre varchar(255),
+        inr_datcre timestamp,
+        inr_usumod varchar(255),
+        inr_datmod timestamp,
+        inr_cln_dat timestamp,
+        inr_cof_cod varchar(4),
+        inr_dat timestamp,
+        inr_fin timestamp,
+        inr_ini timestamp,
+        inr_ff0_cod int4,
+        inr_nod_nument int4,
+        inr_nod_numsor int4,
+        inr_obs varchar(1000),
+        inr_ope_cod varchar(4) not null,
+        inr_zon_cod varchar(4),
+        primary key (inr_cod, inr_idf_cod)
     );
 
     create table trhu_nod (
@@ -172,6 +205,19 @@
         par_des varchar(1000),
         par_val varchar(1000),
         primary key (par_cod, par_idf_cod)
+    );
+    
+     create table trhu_pni (
+       pni_cod varchar(4) not null,
+        pni_idf_cod varchar(4) not null,
+        pni_usucre varchar(255),
+        pni_datcre timestamp,
+        pni_usumod varchar(255),
+        pni_datmod timestamp,
+        pni_nom varchar(40),
+        pni_tamnif varchar(15),
+        pni_tipnif int4 not null,
+        primary key (pni_cod, pni_idf_cod)
     );
 
     create table trhu_rdi (
@@ -322,15 +368,18 @@ create index irhu_cln_idf_fk on trhu_cln (cln_idf_cod);
     alter table trhu_cln 
        add constraint irrhu_cln_pk unique (cln_idf_cod);
 create index irhu_emp_idf_fk on trhu_emp (emp_idf_cod);
+create index irhu_gfe_idf_fk on trhu_gfe (gfe_idf_cod);
 create index irhu_gre_idf_fk on trhu_gre (gre_idf_cod);
 create index irhu_gse_idf_fk on trhu_gse (gse_idf_cod);
 
     alter table trhu_gse 
        add constraint irrhu_gse_pk unique (gse_idf_cod, gse_cod);
 create index irhu_hor_idf_fk on trhu_hor (hor_idf_cod);
+create index irhu_inr_idf_fk on trhu_inr (inr_idf_cod);
 create index irhu_nod_idf_fk on trhu_nod (nod_idf_cod);
 create index irhu_ope_idf_fk on trhu_ope (ope_idf_cod);
 create index irhu_par_idf_fk on trhu_par (par_idf_cod);
+create index irhu_pni_idf_fk on trhu_pni (pni_idf_cod);
 create index irhu_rdi_idf_fk on trhu_rdi (rdi_idf_cod);
 
     alter table trhu_rdi 
@@ -373,6 +422,11 @@ create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
        add constraint rrhu_emp_idf_fk 
        foreign key (emp_idf_cod) 
        references trhu_idf;
+       
+   alter table trhu_gfe 
+       add constraint rrhu_gfe_idf_fk 
+       foreign key (gfe_idf_cod) 
+       references trhu_idf;
 
     alter table trhu_gre 
        add constraint rrhu_gre_idf_fk 
@@ -393,6 +447,26 @@ create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
        add constraint rrhu_hor_idf_fk 
        foreign key (hor_idf_cod) 
        references trhu_idf;
+       
+    alter table trhu_inr 
+       add constraint rrhu_inr_idf_fk 
+       foreign key (inr_idf_cod) 
+       references trhu_idf;
+
+    alter table trhu_inr 
+       add constraint rrhu_inr_cln_fk 
+       foreign key (inr_cln_dat, inr_idf_cod) 
+       references trhu_cln;
+
+    alter table trhu_inr 
+       add constraint rrhu_inr_ope_fk 
+       foreign key (inr_ope_cod, inr_idf_cod) 
+       references trhu_ope;
+
+    alter table trhu_inr 
+       add constraint rrhu_inr_zon_fk 
+       foreign key (inr_zon_cod, inr_idf_cod) 
+       references trhu_zon;
 
     alter table trhu_nod 
        add constraint rrhu_nod_idf_fk 
@@ -427,6 +501,11 @@ create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
     alter table trhu_par 
        add constraint rrhu_par_idf_fk 
        foreign key (par_idf_cod) 
+       references trhu_idf;
+       
+   alter table trhu_pni 
+       add constraint rrhu_pni_idf_fk 
+       foreign key (pni_idf_cod) 
        references trhu_idf;
 
     alter table trhu_rdi 

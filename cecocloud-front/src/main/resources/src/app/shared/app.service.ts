@@ -141,7 +141,7 @@ export class AppService {
 				{ icon: 'room', label: 'Ubicacions articles', route: '/fact/ubicacionsArticle' },
 				{ icon: 'room', label: 'Unitats tipus', route: '/fact/unitatsTipus' },
 				{ icon: 'room', label: 'Vehicles', route: '/fact/vehicles' },				
-				{ icon: 'room', label: 'Zones (Facturació)', route: '/fact/zones' }					
+				{ icon: 'room', label: 'Zones (Facturació)', route: '/fact/zones' }	
 				
 			]
 		});
@@ -158,11 +158,14 @@ export class AppService {
 				{ icon: 'room', label: 'Calendaris', route: '/rrhh/calendaris' },
 				{ icon: 'room', label: 'Categories', route: '/rrhh/categories' },
 				{ icon: 'room', label: 'Empreses', route: '/rrhh/empresesRrhh' },
+				{ icon: 'room', label: 'Grups festius', route: '/rrhh/grupsFestiu' },
 				{ icon: 'room', label: 'Horaris', route: '/rrhh/horaris' },
 				{ icon: 'room', label: 'Identificadors (Recursos humans)', route: '/rrhh/identificadorsRrhh' },
+				{ icon: 'room', label: 'Intervals', route: '/rrhh/intervals' },
 				{ icon: 'room', label: 'Nodes', route: '/rrhh/nodes' },
 				{ icon: 'room', label: 'Operaris (Recursos humans)', route: '/rrhh/operarisRrhh' },
 				{ icon: 'room', label: 'Parametres', route: '/rrhh/parametres' },
+				{ icon: 'room', label: 'Països N.I.F.', route: '/rrhh/paisosNif' },
 				{ icon: 'room', label: 'Recursos Grup', route: '/rrhh/recursosGrup' },
 				{ icon: 'room', label: 'Regims', route: '/rrhh/regims' },
 				{ icon: 'room', label: 'Registres Diaris', route: '/rrhh/registresDiari' },

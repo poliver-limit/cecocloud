@@ -28,6 +28,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/empresesRrhh/empresesRrhh.module').then(m => m.EmpresesRrhhModule),
 				canActivate: [BngAuthGuard]
 			}, {
+				path: 'grupsFestiu',
+				loadChildren: () => import('./pages/grupsFestiu/grupsFestiu.module').then(m => m.GrupsFestiuModule),
+				canActivate: [BngAuthGuard]
+			}, {
 				path: 'horaris',
 				loadChildren: () => import('./pages/horaris/horaris.module').then(m => m.HorarisModule),
 				canActivate: [BngAuthGuard]
@@ -36,12 +40,20 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/identificadorsRrhh/identificadorsRrhh.module').then(m => m.IdentificadorsRrhhModule),
 				canActivate: [BngAuthGuard]
 			}, {
+				path: 'intervals',
+				loadChildren: () => import('./pages/intervals/intervals.module').then(m => m.IntervalsModule),
+				canActivate: [BngAuthGuard]
+			}, {
 				path: 'nodes',
 				loadChildren: () => import('./pages/nodes/nodes.module').then(m => m.NodesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'operarisRrhh',
 				loadChildren: () => import('./pages/operarisRrhh/operarisRrhh.module').then(m => m.OperarisRrhhModule),
+				canActivate: [BngAuthGuard]
+			}, {
+				path: 'paisosNif',
+				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'parametres',
