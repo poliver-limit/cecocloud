@@ -7,7 +7,7 @@
 	http://mcg.mbitson.com/
 */
 
-$cecocloud-primary: (
+$theme-primary: (
     50 : #f1ebef,
     100 : #dbced7,
     200 : #c3adbd,
@@ -40,7 +40,7 @@ $cecocloud-primary: (
     )
 );
 
-$cecocloud-accent: (
+$theme-accent: (
     50 : #e0f4f3,
     100 : #b3e3e2,
     200 : #80d0ce,
@@ -77,7 +77,7 @@ $cecocloud-accent: (
 
 Amb colors de Límit
 
-$cecocloud-primary: (
+$theme-primary: (
      50 : #e7eff3,
     100 : #c3d7e2,
     200 : #9bbccf,
@@ -110,7 +110,7 @@ $cecocloud-primary: (
     )
 );
 
-$cecocloud-accent: (
+$theme-accent: (
     50 : #fcf6ec,
     100 : #f6e7cf,
     200 : #f1d8b0,
@@ -144,11 +144,11 @@ $cecocloud-accent: (
 );
 */
 
-$cecocloud-app-primary: mat-palette($cecocloud-primary);
-$cecocloud-app-accent: mat-palette($cecocloud-accent);
-$cecocloud-app-warn: mat-palette($mat-red);
+$theme-app-primary: mat-palette($theme-primary);
+$theme-app-accent: mat-palette($theme-accent);
+$theme-app-warn: mat-palette($mat-red);
 
-$cecocloud-app-theme: mat-light-theme($cecocloud-app-primary, $cecocloud-app-accent, $cecocloud-app-warn);
+$theme-app-theme: mat-light-theme($theme-app-primary, $theme-app-accent, $theme-app-warn);
 
-@include angular-material-theme($cecocloud-app-theme);
+@include angular-material-theme($theme-app-theme);
 

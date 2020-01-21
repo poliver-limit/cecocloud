@@ -1,14 +1,100 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BngAuthService, BngModuleService, BngMenu, BngMenuItem, BngModuleItem } from 'base-angular';
 
-import { BngModuleService } from 'base-angular';
+import { IdentificadorsService } from '../pages/identificadors/identificadors.service';
 
-@Injectable( {
-    providedIn: 'root'
-} )
-export class ModuleInitService {
+@Injectable({
+	providedIn: 'root'
+})
+export class AppService {
 
-    constructor(moduleService: BngModuleService) {
-		moduleService.register({
+	adminMenu: BngMenu = {
+		icon: 'build',
+		label: 'Administració',
+		labelKey: 'app.menu.admin',
+		menuItems: [
+			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
+			{ icon: 'domain', label: 'Grups d\'empreses', labelKey: 'app.menu.identificadors', route: '/identificadors' }
+		]
+	}
+
+	adminIdentificadorMenu: BngMenu = {
+		icon: 'build',
+		label: '...',
+		menuItems: [
+			{ icon: 'domain', label: 'Grups d\'empreses', labelKey: 'app.menu.identificador', route: '/identificador' },
+			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuari-identificadors' },
+			{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' },
+			{ icon: 'portrait', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' },
+			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols' }
+		]
+	}
+
+	public getAdminMenu(): BngMenu {
+		return this.adminMenu;
+	}
+
+	public getAdminIdentificadorMenu(): BngMenu {
+		return this.adminIdentificadorMenu;
+	}
+
+	public getCurrentRouteMenu(): BngMenu {
+		let found: boolean = false;
+		if (this.router.url.startsWith('/admin-app')) {
+			found = true;
+		} else {
+			this.adminMenu.menuItems.forEach((menuItem: BngMenuItem) => {
+				if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
+					found = true;
+				}
+			});
+		}
+		if (found) {
+			return this.adminMenu;
+		} else {
+			found = false;
+			if (this.router.url.startsWith('/admin-identificador')) {
+				found = true;
+			} else {
+				this.adminIdentificadorMenu.menuItems.forEach((menuItem: BngMenuItem) => {
+					if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
+						found = true;
+					}
+				});
+			}
+		}
+		if (found) {
+			let session: any = this.authService.getSession();
+			if (session) {
+				this.identificadorsService.whenReady().subscribe(() => {
+					this.identificadorsService.get(session.i).subscribe((resposta: any) => {
+						this.adminIdentificadorMenu.label = resposta.descripcio;
+					});
+				});
+			}
+			return this.adminIdentificadorMenu;
+		} else {
+			let routerUrl = this.router.url.substring(1);
+			let modul = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+			return this.getModuleMenu(modul);
+		}
+	}
+
+	public getModuleMenu(module: string): BngMenu {
+		let moduleItem: BngModuleItem = this.moduleService.getModuleItem(module);
+		if (moduleItem) {
+			return <BngMenu>{
+				icon: moduleItem.icon,
+				label: moduleItem.label,
+				labelKey: 'app.module.' + module,
+				menuItems: moduleItem.menuItems
+			};
+		}
+	}
+
+	private registerAvailableModules() {
+		this.moduleService.register({
 			code: 'fact',
 			icon: 'assignment',
 			label: 'Facturació',
@@ -59,12 +145,12 @@ export class ModuleInitService {
 				
 			]
 		});
-		moduleService.register({
+		this.moduleService.register({
 			code: 'comp',
 			icon: 'assessment',
 			label: 'Comptabilitat'
 		});
-		moduleService.register({
+		this.moduleService.register({
 			code: 'rrhh',
 			icon: 'people_alt',
 			label: 'Recursos humans',
@@ -89,22 +175,22 @@ export class ModuleInitService {
 				{ icon: 'room', label: 'Transaccions', route: '/rrhh/transaccions' },
 				{ icon: 'room', label: 'Zones', route: '/rrhh/zonesRrhh' }									]
 		});
-		moduleService.register({
+		this.moduleService.register({
 			code: 'rrmm',
 			icon: 'commute',
 			label: 'Recursos de maquinària'
 		});
-		moduleService.register({
+		this.moduleService.register({
 			code: 'banc',
 			icon: 'account_balance',
 			label: 'Gestió bancària'
 		});
-		moduleService.register({
+		this.moduleService.register({
 			code: 'lici',
 			icon: 'work',
 			label: 'Licitacions'
 		});
-		moduleService.register({
+		this.moduleService.register({
 			code: 'marc',
 			icon: 'touch_app',
 			label: 'Marcatges',
@@ -113,7 +199,25 @@ export class ModuleInitService {
 		    	{ icon: 'timer', label: 'Marcatges', route: '/marc/marcatges' }
 			]
 		});
-		moduleService.refreshAllowedModuleItems();
-    }
+		this.moduleService.register({
+			code: 'comd',
+			icon: 'touch_app',
+			label: 'Comandes'
+		});
+		this.moduleService.refreshAllowedModuleItems();
+	}
+
+	private configureMainMenu() {
+		//this.menuService.setActiveMenu(this.adminMenu);
+	}
+
+	constructor(
+		private router: Router,
+		private authService: BngAuthService,
+		private moduleService: BngModuleService,
+		private identificadorsService: IdentificadorsService) {
+		this.registerAvailableModules();
+		this.configureMainMenu();
+	}
 
 }

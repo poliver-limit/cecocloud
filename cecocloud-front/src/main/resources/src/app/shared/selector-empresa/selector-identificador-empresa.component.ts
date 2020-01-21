@@ -39,8 +39,8 @@ import { UsuariIdentificadorEmpresaService } from '../usuari-identificador-empre
 })
 export class SelectorIdentificadorEmpresaComponent {
 
-	@Output() selectedIdentificadorEmpresaChange: EventEmitter<SelectedIdentificadorEmpresa> = new EventEmitter();
-	@Output() identificadorAdmin: EventEmitter<any> = new EventEmitter();
+	@Output() identificadorEmpresaSelected: EventEmitter<SelectedIdentificadorEmpresa> = new EventEmitter();
+	@Output() identificadorAdminSelected: EventEmitter<any> = new EventEmitter();
 
 	selectionTree: any[];
 	selectedIdentificadorEmpresa: SelectedIdentificadorEmpresa;
@@ -65,7 +65,7 @@ export class SelectorIdentificadorEmpresaComponent {
 				empresa: undefined
 			}, true);
 		}
-		this.identificadorAdmin.emit(selectedIdentificadorFromTree);
+		this.identificadorAdminSelected.emit(selectedIdentificadorFromTree);
 	}
 
 	private changeSelectedIdentificadorEmpresa(selectedIdentificadorEmpresa: SelectedIdentificadorEmpresa, triggerSessioUpdate: boolean) {
@@ -85,7 +85,7 @@ export class SelectorIdentificadorEmpresaComponent {
 			});
 		}
 		this.selectedIdentificadorEmpresaService.setSelectedIdentificadorEmpresa(selectedIdentificadorEmpresa);
-		this.selectedIdentificadorEmpresaChange.emit(selectedIdentificadorEmpresa);
+		this.identificadorEmpresaSelected.emit(selectedIdentificadorEmpresa);
 	}
 
 	private refreshSelectionTree() {

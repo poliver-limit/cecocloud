@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
+import { Component } from '@angular/core';
 
 @Component( {
     template: `

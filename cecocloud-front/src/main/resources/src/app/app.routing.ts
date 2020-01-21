@@ -7,18 +7,8 @@ export const routes: Routes = [{
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
     canActivate: [BngAuthGuard]
 }, {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
-}, {
-    path: 'registre',
-    loadChildren: () => import('./pages/registre/registre.module').then(m => m.RegistreModule)
-}, {
     path: 'admin-app',
     loadChildren: () => import('./pages/admin-app/admin-app.module').then(m => m.AdminAppModule),
-    canActivate: [BngAuthGuard]
-}, {
-    path: 'usuaris',
-    loadChildren: () => import('./pages/usuaris/usuaris.module').then(m => m.UsuarisModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'admin-identificador',
