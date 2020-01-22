@@ -9,8 +9,8 @@ import { HalParam } from 'angular4-hal';
 import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identificador-usuaris/perfil-usuari-identificador-empresa.service';
 
 @Component({
-    selector: "cec-recursos",
-    template: `
+	selector: "cec-recursos",
+	template: `
         <div style="display: flex">
 			<div style="width: 100%; margin-top: 40px;">
                 <mat-tab-group animationDuration="0ms">
@@ -136,7 +136,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
             </div>
         </div>
     `,
-    styles: [`
+	styles: [`
         .rcheck {
             text-align: center;
         }
@@ -159,151 +159,153 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/pages/identific
 })
 export class RecursosPermisComponent implements OnInit {
 
-    @Input() rol: number;
-    @Input() perfil: number;
-    @Input() usuariIdentificadorEmpresa: any;
+	@Input() rol: number;
+	@Input() perfil: number;
+	@Input() usuariIdentificadorEmpresa: any;
 
-    public translate: TranslateService;
-    recursosModuls: any;
-    columnsToDisplay: string[] = ['label', 'access', 'read', 'write', 'create', 'delete', 'administration', 'print'];
+	public translate: TranslateService;
+	recursosModuls: any;
+	columnsToDisplay: string[] = ['label', 'access', 'read', 'write', 'create', 'delete', 'administration', 'print'];
 
-    disableToggles: boolean;
+	disableToggles: boolean;
 
-    mobileScreen: boolean;
-    tableHeight: number;
+	mobileScreen: boolean;
+	tableHeight: number;
 
-    onPermisChange(event, indexModul, indexRecurs) {
-        // Deshabilitar els checks mentres es desen els permisos
-        this.disableToggles = true;
-        let resourceInfo = JSON.parse(JSON.stringify(this.recursosModuls[indexModul].resources[indexRecurs]));
-        let permis = event.currentTarget.attributes['name'].value;
-        let check = !resourceInfo.permission[permis];
-        resourceInfo.permission[permis] = check;
-        this.recursosService.saveRecurs(resourceInfo).subscribe(
-            () => {
-                this.recursosModuls[indexModul].resources[indexRecurs].permission[permis] = check;
-                this.disableToggles = false;
-                //this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
-            },
-            error => {
-                event.preventDefault();
-                this.disableToggles = false;
-                console.error(error);
-            }
-        );
-    }
+	onPermisChange(event, indexModul, indexRecurs) {
+		if (!this.disableToggles) {
+			// Deshabilitar els checks mentres es desen els permisos
+			this.disableToggles = true;
+			let resourceInfo = JSON.parse(JSON.stringify(this.recursosModuls[indexModul].resources[indexRecurs]));
+			let permis = event.currentTarget.attributes['name'].value;
+			let check = !resourceInfo.permission[permis];
+			resourceInfo.permission[permis] = check;
+			this.recursosService.saveRecurs(resourceInfo).subscribe(
+				() => {
+					this.recursosModuls[indexModul].resources[indexRecurs].permission[permis] = check;
+					this.disableToggles = false;
+					//this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
+				},
+				error => {
+					event.preventDefault();
+					this.disableToggles = false;
+					console.error(error);
+				}
+			);
+		}
+	}
 
-    private showMessage(message: string) {
-        const snackbarRef = this.snackbar.open(
-            message,
-            this.translateKey('component.restapi.form.manteniment.button.close'), {
-            duration: 1000
-        });
-    }
+	private showMessage(message: string) {
+		const snackbarRef = this.snackbar.open(
+			message,
+			this.translateKey('component.restapi.form.manteniment.button.close'), {
+			duration: 1000
+		});
+	}
 
-    translateKey(key: string, params?: any, defaultValue?: string) {
-        let translatedKey = this.translate.instant(key, params);
-        if (defaultValue) {
-            return (translatedKey !== key) ? translatedKey : defaultValue;
-        } else {
-            return translatedKey;
-        }
-    }
+	translateKey(key: string, params?: any, defaultValue?: string) {
+		let translatedKey = this.translate.instant(key, params);
+		if (defaultValue) {
+			return (translatedKey !== key) ? translatedKey : defaultValue;
+		} else {
+			return translatedKey;
+		}
+	}
 
-    ngOnInit(): void {
-        // Càrrega de permisos
-        this.disableToggles = true;
-        if (this.rol) {
-            this.disableToggles = false;
-            this.recursosService.getRecursosByRol(this.rol).subscribe((recursosModuls) => {
-                this.recursosModuls = recursosModuls;
-            });
-        } else if (this.perfil) {
-            this.perfilRolService.whenReady().subscribe((res) => {
-                let requestParams: HalParam[] = [];
-                requestParams.push({
-                    key: 'query',
-                    value: 'perfil.id==' + this.perfil
-                });
+	ngOnInit(): void {
+		// Càrrega de permisos
+		this.disableToggles = true;
+		if (this.rol) {
+			this.disableToggles = false;
+			this.recursosService.getRecursosByRol(this.rol).subscribe((recursosModuls) => {
+				this.recursosModuls = recursosModuls;
+			});
+		} else if (this.perfil) {
+			this.perfilRolService.whenReady().subscribe((res) => {
+				let requestParams: HalParam[] = [];
+				requestParams.push({
+					key: 'query',
+					value: 'perfil.id==' + this.perfil
+				});
 
-                this.perfilRolService.getAll({ params: requestParams }).subscribe(
-                    (perfilRols: any) => {
-                        let rols: number[];
+				this.perfilRolService.getAll({ params: requestParams }).subscribe(
+					(perfilRols: any) => {
+						let rols: number[];
 
-                        if (perfilRols == null || perfilRols.length == 0) {
-                            rols = [-1];
-                        } else {
-                            rols = perfilRols.map(perfilRol => perfilRol.rol.id);
-                        }
-                        this.recursosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
-                            this.recursosModuls = recursosModuls;
-                        }),
-                            error => console.log(error);
-                    },
-                    error => console.log(error)
-                );
-            },
-                error => console.log(error)
-            );
-        } else if (this.usuariIdentificadorEmpresa) {
-            let requestParams: HalParam[] = [];
-            requestParams.push({
-                key: 'query',
-                value: 'usuariIdentificadorEmpresa.usuariIdentificador.usuari.codi=="' + this.usuariIdentificadorEmpresa.usuariCodi + '";' +
-                    ' usuariIdentificadorEmpresa.usuariIdentificador.identificador.id=="' + this.usuariIdentificadorEmpresa.identificadorId + '";' +
-                    ' usuariIdentificadorEmpresa.empresa.id==' + this.usuariIdentificadorEmpresa.empresaId
-            });
-            this.perfilUsuariIdentificadorEmpresaService.getAll({ params: requestParams }).subscribe((perfilUsuariIdentificadorEmpreses) => {
-                let perfilsUsuari: string[];
-                debugger;
-                if (perfilUsuariIdentificadorEmpreses == null || perfilUsuariIdentificadorEmpreses.length == 0) {
-                    this.recursosService.getRecursosByRol(-1).subscribe((recursosModuls) => {
-                        this.recursosModuls = recursosModuls;
-                    });
-                } else {
-                    let requestParams: HalParam[] = [];
-                    if (perfilUsuariIdentificadorEmpreses.length == 1) {
-                        requestParams.push({
-                            key: 'query',
-                            value: 'perfil.id==' + perfilUsuariIdentificadorEmpreses[0]['perfil'].id
-                        });
-                    } else {
-                        perfilsUsuari = perfilUsuariIdentificadorEmpreses.map(perfilUsuariEmpresa => perfilUsuariEmpresa['perfil'].id);
-                        requestParams.push({
-                            key: 'query',
-                            value: 'perfil.id =in= (' + perfilsUsuari.join(',') + ')'
-                        });
-                    }
-                    this.perfilRolService.getAll({ params: requestParams }).subscribe((perfilRols) => {
-                        let rols: number[];
-                        if (perfilRols == null || perfilRols.length == 0) {
-                            rols = [-1];
-                        } else {
-                            rols = perfilRols.map(perfilRol => perfilRol['rol'].id);
-                        }
-                        this.recursosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
-                            console.log("RecursosRol: ", recursosModuls);
-                            this.recursosModuls = recursosModuls;
-                        });
-                    });
-                }
-            });
-        }
-    }
+						if (perfilRols == null || perfilRols.length == 0) {
+							rols = [-1];
+						} else {
+							rols = perfilRols.map(perfilRol => perfilRol.rol.id);
+						}
+						this.recursosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
+							this.recursosModuls = recursosModuls;
+						}),
+							error => console.log(error);
+					},
+					error => console.log(error)
+				);
+			},
+				error => console.log(error)
+			);
+		} else if (this.usuariIdentificadorEmpresa) {
+			let requestParams: HalParam[] = [];
+			requestParams.push({
+				key: 'query',
+				value: 'usuariIdentificadorEmpresa.usuariIdentificador.usuari.codi=="' + this.usuariIdentificadorEmpresa.usuariCodi + '";' +
+					' usuariIdentificadorEmpresa.usuariIdentificador.identificador.id=="' + this.usuariIdentificadorEmpresa.identificadorId + '";' +
+					' usuariIdentificadorEmpresa.empresa.id==' + this.usuariIdentificadorEmpresa.empresaId
+			});
+			this.perfilUsuariIdentificadorEmpresaService.getAll({ params: requestParams }).subscribe((perfilUsuariIdentificadorEmpreses) => {
+				let perfilsUsuari: string[];
+				debugger;
+				if (perfilUsuariIdentificadorEmpreses == null || perfilUsuariIdentificadorEmpreses.length == 0) {
+					this.recursosService.getRecursosByRol(-1).subscribe((recursosModuls) => {
+						this.recursosModuls = recursosModuls;
+					});
+				} else {
+					let requestParams: HalParam[] = [];
+					if (perfilUsuariIdentificadorEmpreses.length == 1) {
+						requestParams.push({
+							key: 'query',
+							value: 'perfil.id==' + perfilUsuariIdentificadorEmpreses[0]['perfil'].id
+						});
+					} else {
+						perfilsUsuari = perfilUsuariIdentificadorEmpreses.map(perfilUsuariEmpresa => perfilUsuariEmpresa['perfil'].id);
+						requestParams.push({
+							key: 'query',
+							value: 'perfil.id =in= (' + perfilsUsuari.join(',') + ')'
+						});
+					}
+					this.perfilRolService.getAll({ params: requestParams }).subscribe((perfilRols) => {
+						let rols: number[];
+						if (perfilRols == null || perfilRols.length == 0) {
+							rols = [-1];
+						} else {
+							rols = perfilRols.map(perfilRol => perfilRol['rol'].id);
+						}
+						this.recursosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
+							console.log("RecursosRol: ", recursosModuls);
+							this.recursosModuls = recursosModuls;
+						});
+					});
+				}
+			});
+		}
+	}
 
-    constructor(
-        public recursosService: RecursosService,
-        public perfilRolService: PerfilRolService,
-        public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
-        translate: TranslateService,
-        private screenSizeService: BngScreenSizeService,
-        private snackbar: MatSnackBar) {
-        this.translate = translate;
-        this.mobileScreen = this.screenSizeService.isMobile();
-        this.tableHeight = Math.max(window.innerHeight - 120, 200);
-        this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
-            this.mobileScreen = event.mobile;
-            this.tableHeight = Math.max(event.height - 120, 200);
-        });
-    }
+	constructor(
+		public recursosService: RecursosService,
+		public perfilRolService: PerfilRolService,
+		public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
+		translate: TranslateService,
+		private screenSizeService: BngScreenSizeService,
+		private snackbar: MatSnackBar) {
+		this.translate = translate;
+		this.mobileScreen = this.screenSizeService.isMobile();
+		this.tableHeight = Math.max(window.innerHeight - 120, 200);
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
+			this.mobileScreen = event.mobile;
+			this.tableHeight = Math.max(event.height - 120, 200);
+		});
+	}
 }

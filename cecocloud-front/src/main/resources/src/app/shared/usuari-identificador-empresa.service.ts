@@ -10,9 +10,9 @@ export class UsuariIdentificadorEmpresa extends Resource { }
 })
 export class UsuariIdentificadorEmpresaService extends BngRestapiService<UsuariIdentificadorEmpresa> {
 
-	// public getPerfilTree(): Observable<any> {
-	// 	return this.getHttpClient().get(this.getApiBaseUrl() + '/perfilTree');
-	// }
+	public getPerfilTree(): Observable<any> {
+		return this.getHttpClient().get(this.getApiBaseUrl() + '/perfilTree');
+	}
 
 	public getSelectionTree(): Observable<any> {
 		return this.getHttpClient().get(this.getApiBaseUrl() + '/selectionTree');

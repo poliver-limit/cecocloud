@@ -1,0 +1,100 @@
+# Valors permesos:
+# -------------------------------------------------------
+#
+# modul: [fact, comp, rrhh, rrmm, lici, marc]
+# tipus: [MANTENIMENT, ACCIO, REPORT]
+# permis (segons el tipus): 
+#    - MANTENIMENT: [ACCES, READ, WRITE, DELETE, ADMIN]
+#    - ACCIO:       [ACCES, EXECUTE]
+#    - REPORT:      [ACCES, PRINT]
+# granted: [ 'E' --> ACCESS
+#            'R' --> READ
+#            'W' --> WRITE
+#            'C' --> CREATE
+#            'D' --> DELETE
+#            'A' --> ADMINISTRATION
+#            'S' --> SYNC
+#            'P' --> PRINT
+#          ]
+
+---
+
+id: 1
+codi: articles
+descripcio: Articles
+modul: fact
+tipus: MANTENIMENT
+permisRecursos:
+  - permis: ACCES
+    recursPermisos:
+    - { recursModul: fact, recursName: Article, granted: ['E','R']}
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['R']}
+    - { recursModul: fact, recursName: ArticleModel, granted: ['R']}
+  - permis: READ
+    recursPermisos:
+    - { recursModul: fact, recursName: Article, granted: ['E','R','P'] }
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['R'] }
+    - { recursModul: fact, recursName: Iva, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleModel, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleGamma, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleMarca, granted: ['R'] }
+    - { recursModul: fact, recursName: Empresa, granted: ['R'] }
+  - permis: WRITE
+    recursPermisos:
+    - { recursModul: fact, recursName: Article, granted: ['E','R','W','C'] }
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['R'] }
+    - { recursModul: fact, recursName: Iva, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleModel, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleGamma, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleMarca, granted: ['R'] }
+    - { recursModul: fact, recursName: Empresa, granted: ['R'] }
+  - permis: DELETE
+    recursPermisos:
+    - { recursModul: fact, recursName: Article, granted: ['E','R','D'] }
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['R'] }
+    - { recursModul: fact, recursName: Iva, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleModel, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleGamma, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleMarca, granted: ['R'] }
+    - { recursModul: fact, recursName: Empresa, granted: ['R'] }
+  - permis: ADMIN
+    recursPermisos:
+    - { recursModul: fact, recursName: Article, granted: ['A'] }
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['R'] }
+    - { recursModul: fact, recursName: Iva, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleModel, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleGamma, granted: ['R'] }
+    - { recursModul: fact, recursName: ArticleMarca, granted: ['R'] }
+    - { recursModul: fact, recursName: Empresa, granted: ['R'] }
+
+---
+
+id: 2
+codi: articleFamilia
+descripcio: Famílies d'articles
+modul: fact
+tipus: MANTENIMENT
+permisRecursos:
+  - permis: ACCES
+    recursPermisos:
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['E','R'] }
+  - permis: READ
+    recursPermisos:
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['E','R','P'] }
+    - { recursModul: fact, recursName: FamiliaCost, granted: ['R'] }
+    - { recursModul: rrhh, recursName: RecursGrup, granted: ['R'] }
+  - permis: WRITE
+    recursPermisos:
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['E','R','W','C'] }
+    - { recursModul: fact, recursName: FamiliaCost, granted: ['R'] }
+    - { recursModul: rrhh, recursName: RecursGrup, granted: ['R'] }
+  - permis: DELETE
+    recursPermisos:
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['E','R','D'] }
+    - { recursModul: fact, recursName: FamiliaCost, granted: ['R'] }
+    - { recursModul: rrhh, recursName: RecursGrup, granted: ['R'] }
+  - permis: ADMIN
+    recursPermisos:
+    - { recursModul: fact, recursName: ArticleFamilia, granted: ['A'] }
+    - { recursModul: fact, recursName: FamiliaCost, granted: ['R'] }
+    - { recursModul: rrhh, recursName: RecursGrup, granted: ['R'] }
