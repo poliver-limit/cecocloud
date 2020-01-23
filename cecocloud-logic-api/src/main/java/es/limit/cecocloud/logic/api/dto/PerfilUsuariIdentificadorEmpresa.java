@@ -11,15 +11,9 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
-import es.limit.cecocloud.logic.api.dto.PerfilUsuariIdentificadorEmpresa.PerfilUsuariIdentificadorEmpresaPk;
-import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa.UsuariIdentificadorEmpresaPk;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -38,7 +32,7 @@ import lombok.Setter;
 						resourcePermission = "ADMINISTRATION"),
 		}
 )
-public class PerfilUsuariIdentificadorEmpresa extends AbstractIdentificableWithCompositePk<PerfilUsuariIdentificadorEmpresaPk> {
+public class PerfilUsuariIdentificadorEmpresa extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Transient
@@ -53,7 +47,7 @@ public class PerfilUsuariIdentificadorEmpresa extends AbstractIdentificableWithC
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
-	private GenericReferenceWithCompositePk<UsuariIdentificadorEmpresa, UsuariIdentificadorEmpresaPk> usuariIdentificadorEmpresa;
+	private GenericReference<UsuariIdentificadorEmpresa, Long> usuariIdentificadorEmpresa;
 	@Transient
 	@RestapiField(
 			hiddenInGrid = true,
@@ -66,23 +60,6 @@ public class PerfilUsuariIdentificadorEmpresa extends AbstractIdentificableWithC
 			return ((perfil != null) ? perfil.getDescription() : "") + " - " + ((usuariIdentificadorEmpresa != null) ? usuariIdentificadorEmpresa.getDescription() : "");
 		} else {
 			return null;
-		}
-	}
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode(callSuper = true)
-	@Getter
-	@SuppressWarnings("serial")
-	public static class PerfilUsuariIdentificadorEmpresaPk extends UsuariIdentificadorEmpresaPk {
-		private Long perfilId;
-		public PerfilUsuariIdentificadorEmpresaPk(
-				Long perfilId,
-				Long usuariId,
-				Long identificadorId,
-				Long empresaId) {
-			super(usuariId, identificadorId, empresaId);
-			this.perfilId = perfilId;
 		}
 	}
 

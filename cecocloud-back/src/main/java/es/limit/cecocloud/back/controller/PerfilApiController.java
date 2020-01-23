@@ -10,7 +10,7 @@ import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.Perfil;
 
 /**
- * Controlador per al servei REST de gestió de perfils.
+ * Controlador per al servei REST de gestió de recursos de tipus perfil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

@@ -5,17 +5,17 @@ package es.limit.cecocloud.logic.api.service;
 
 import java.util.List;
 
-import es.limit.base.boot.logic.api.service.GenericCompositePkService;
+import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresaPerfilTreeItem;
 
 /**
- * Servei encarregat de gestionar les relacions (usuari-identificador)-empresa
+ * Servei encarregat de gestionar relacions (usuari-identificador)-empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface UsuariIdentificadorEmpresaService extends GenericCompositePkService<UsuariIdentificadorEmpresa> {
+public interface UsuariIdentificadorEmpresaService extends GenericService<UsuariIdentificadorEmpresa, Long> {
 
 	/**
 	 * Retorna la llista de perfils d'un usuari per empresa.

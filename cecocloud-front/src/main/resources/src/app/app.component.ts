@@ -18,8 +18,7 @@ import { AppService } from './shared/app.service';
 		(identificadorEmpresaSelected)="onIdentificadorEmpresaSelected($event)"
 		(identificadorAdminSelected)="onIdentificadorAdminSelected($event)">
 	</selector-identificador-empresa>
-</bng-base-app>
-`
+</bng-base-app>`
 })
 export class AppComponent {
 

@@ -3,14 +3,14 @@
  */
 package es.limit.cecocloud.logic.api.service;
 
-import es.limit.base.boot.logic.api.service.GenericCompositePkService;
+import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.PerfilUsuariIdentificadorEmpresa;
 
 /**
- * Servei encarregat de gestionar les relacions perfil-(usuari-identificaodr-empresa).
+ * Servei encarregat de gestionar relacions perfil-(usuari-identificaodr-empresa).
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface PerfilUsuariIdentificadorEmpresaService extends GenericCompositePkService<PerfilUsuariIdentificadorEmpresa> {
+public interface PerfilUsuariIdentificadorEmpresaService extends GenericService<PerfilUsuariIdentificadorEmpresa, Long> {
 
 }

@@ -15,6 +15,7 @@ import es.limit.cecocloud.facturacio.persist.entity.IdiomaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class IdiomaServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Idioma, IdiomaEntity, String> implements IdiomaService {
+public class IdiomaServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Idioma, IdiomaEntity, String>
+		implements IdiomaService {
 
 }

@@ -3,9 +3,6 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
-import java.io.Serializable;
-
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -15,12 +12,9 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.Usuari;
+import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -30,7 +24,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "usuari",
+		descriptionField = "description",
 		resourceAccessConstraints = {
 				@RestapiResourceAccessConstraint(
 						type = RestapiPermissionConstraintType.ACL_ID, 
@@ -39,7 +33,7 @@ import lombok.Setter;
 						resourcePermission = "ADMINISTRATION"),
 		}
 )
-public class UsuariIdentificador extends AbstractIdentificableWithCompositePkAndIdentificador<UsuariIdentificadorPk> {
+public class UsuariIdentificador extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Transient
@@ -48,16 +42,26 @@ public class UsuariIdentificador extends AbstractIdentificableWithCompositePkAnd
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForUpdate = true,
+			includeInQuickFilter = true)
+	private GenericReference<Usuari, Long> identificador;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String description;
 
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@Getter
-	@SuppressWarnings("serial")
-	@MappedSuperclass
-	public static class UsuariIdentificadorPk implements Serializable {
-		protected Long usuariId;
-		protected Long identificadorId;
+	public String getDescription() {
+		if (usuari != null || identificador != null) {
+			return ((usuari != null) ? usuari.getDescription() : "") + " - " + ((identificador != null) ? identificador.getDescription() : "");
+		} else {
+			return null;
+		}
 	}
 
 }

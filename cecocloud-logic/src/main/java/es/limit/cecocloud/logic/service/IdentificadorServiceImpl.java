@@ -20,7 +20,6 @@ import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.Llicencia;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
-import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
 import es.limit.cecocloud.logic.api.service.IdentificadorService;
 import es.limit.cecocloud.logic.helper.AsymmetricCryptographyHelper;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
@@ -28,7 +27,7 @@ import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
 /**
- * Implementació del servei de gestió d'identificadors.
+ * Implementació del servei encarregat de gestionar identificadors.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -49,11 +48,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<IdentificadorEntity> identificador = getRepository().findById(id);
-			UsuariIdentificadorPk usuariIdentificadorPk = new UsuariIdentificadorPk(
-					usuari.get().getId(),
-					identificador.get().getId());
 			UsuariIdentificadorEntity usuariIdentificador = UsuariIdentificadorEntity.builder().
-					pk(usuariIdentificadorPk).
 					embedded(new UsuariIdentificador()).
 					usuari(usuari.get()).
 					identificador(identificador.get()).
@@ -72,15 +67,13 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<IdentificadorEntity> identificador = getRepository().findById(id);
-			UsuariIdentificadorPk usuariIdentificadorPk = new UsuariIdentificadorPk(
-					usuari.get().getId(),
-					identificador.get().getId());
-			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findById(usuariIdentificadorPk);
+			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findByUsuariAndIdentificador(
+					usuari.get(),
+					identificador.get());
 			if (usuariIdentificador.isPresent()) {
 				usuariIdentificadorRepository.delete(usuariIdentificador.get());
 			} else if (!usuariIdentificador.isPresent()) {
 				UsuariIdentificadorEntity usuariIdentificadorPerCrear = UsuariIdentificadorEntity.builder().
-						pk(usuariIdentificadorPk).
 						embedded(new UsuariIdentificador()).
 						usuari(usuari.get()).
 						identificador(identificador.get()).
@@ -96,10 +89,9 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		if (PermissionSidType.PRINCIPAL == permission.getSidType() && permission.isAdminGranted()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<IdentificadorEntity> identificador = getRepository().findById(id);
-			UsuariIdentificadorPk usuariIdentificadorPk = new UsuariIdentificadorPk(
-					usuari.get().getId(),
-					identificador.get().getId());
-			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findById(usuariIdentificadorPk);
+			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findByUsuariAndIdentificador(
+					usuari.get(),
+					identificador.get());
 			if (usuariIdentificador.isPresent()) {
 				usuariIdentificadorRepository.delete(usuariIdentificador.get());
 			}

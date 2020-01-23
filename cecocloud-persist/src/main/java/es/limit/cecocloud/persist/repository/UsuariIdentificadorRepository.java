@@ -4,11 +4,13 @@
 package es.limit.cecocloud.persist.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 
 /**
@@ -17,9 +19,11 @@ import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository
-public interface UsuariIdentificadorRepository extends BaseRepository<UsuariIdentificadorEntity, UsuariIdentificadorPk> {
+public interface UsuariIdentificadorRepository extends BaseRepository<UsuariIdentificadorEntity, Long> {
 
+	Optional<UsuariIdentificadorEntity> findByUsuariAndIdentificador(UsuariEntity usuari, IdentificadorEntity identificador);
 	List<UsuariIdentificadorEntity> findByUsuariEmbeddedCodiOrderByIdentificadorEmbeddedDescripcio(String usuariCodi);
 	List<UsuariIdentificadorEntity> findByIdentificadorId(Long identificadorId);
+	
 
 }
