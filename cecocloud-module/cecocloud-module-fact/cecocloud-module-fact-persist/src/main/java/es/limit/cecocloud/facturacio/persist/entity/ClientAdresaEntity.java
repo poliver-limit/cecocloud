@@ -15,12 +15,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.facturacio.logic.api.dto.AreaNegoci;
 import es.limit.cecocloud.facturacio.logic.api.dto.ClientAdresa;
-import es.limit.cecocloud.facturacio.logic.api.dto.AreaNegoci.AreaNegociPk;
 import es.limit.cecocloud.facturacio.logic.api.dto.ClientAdresa.ClientAdresaPk;
-import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

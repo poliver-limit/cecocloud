@@ -12,7 +12,10 @@ public enum ComptabilitzacioTipusEnumDto {
 
 	private ComptabilitzacioTipusEnumDto(String dbValue) {
 		this.dbValue = dbValue;
+	}
 
+	public String toDbValue() {
+		return dbValue;
 	}
 
 }

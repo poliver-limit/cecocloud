@@ -16,14 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import es.limit.base.boot.logic.api.permission.ExtendedPermission;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.helper.PermissionHelper;
-import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
+import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.UserSession;
-import es.limit.cecocloud.logic.api.dto.UsuariIdentificador.UsuariIdentificadorPk;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
-import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa.UsuariIdentificadorEmpresaPk;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresaPerfilTreeItem;
 import es.limit.cecocloud.logic.api.service.UsuariIdentificadorEmpresaService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
@@ -36,12 +34,12 @@ import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepositor
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
 /**
- * Implementació del servei de gestió d'usuari-empresa.
+ * Implementació del servei encarregat de gestionar relacions (usuari-indentificador)-empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericCompositePkServiceImpl<UsuariIdentificadorEmpresa, UsuariIdentificadorEmpresaEntity, UsuariIdentificadorEmpresaPk> implements UsuariIdentificadorEmpresaService {
+public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServiceImpl<UsuariIdentificadorEmpresa, UsuariIdentificadorEmpresaEntity, Long> implements UsuariIdentificadorEmpresaService {
 
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
@@ -53,18 +51,6 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericCompos
 	private PerfilUsuariIdentificadorEmpresaRepository perfilUsuariIdentificadorEmpresaRepository;
 	@Autowired
 	private PermissionHelper permissionHelper;
-
-	@Override
-	protected UsuariIdentificadorEmpresaPk getPkFromDto(UsuariIdentificadorEmpresa dto) {
-		UsuariIdentificadorPk usuariIdentificadorPk = getPkFromSerializedId(
-				dto.getUsuariIdentificador().getId(),
-				UsuariIdentificadorEmpresa.class,
-				UsuariIdentificadorPk.class);
-		return new UsuariIdentificadorEmpresaPk(
-				usuariIdentificadorPk.getUsuariId(),
-				usuariIdentificadorPk.getIdentificadorId(),
-				dto.getEmpresa().getId());
-	}
 
 	@Override
 	public List<IdentificadorEmpresaSelectionTreeItem> buildSelectionTree() {

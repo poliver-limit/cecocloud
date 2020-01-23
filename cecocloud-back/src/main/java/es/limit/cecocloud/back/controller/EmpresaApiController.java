@@ -10,7 +10,7 @@ import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 
 /**
- * Controlador per al servei REST de gestió d'empreses.
+ * Controlador per al servei REST de gestió de recursos de tipus empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

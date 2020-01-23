@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.logic.api.dto.PerfilUsuariIdentificadorEmpresa.PerfilUsuariIdentificadorEmpresaPk;
 import es.limit.cecocloud.persist.entity.PerfilUsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
 
@@ -18,7 +17,7 @@ import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Repository
-public interface PerfilUsuariIdentificadorEmpresaRepository extends BaseRepository<PerfilUsuariIdentificadorEmpresaEntity, PerfilUsuariIdentificadorEmpresaPk> {
+public interface PerfilUsuariIdentificadorEmpresaRepository extends BaseRepository<PerfilUsuariIdentificadorEmpresaEntity, Long> {
 
 	List<PerfilUsuariIdentificadorEmpresaEntity> findByUsuariIdentificadorEmpresa(UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresa);
 

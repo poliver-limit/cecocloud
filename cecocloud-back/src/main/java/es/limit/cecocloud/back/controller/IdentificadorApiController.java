@@ -16,7 +16,7 @@ import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 
 /**
- * Controlador per al servei REST de gestió d'identificadors.
+ * Controlador per al servei REST de gestió de recursos de tipus identificador.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

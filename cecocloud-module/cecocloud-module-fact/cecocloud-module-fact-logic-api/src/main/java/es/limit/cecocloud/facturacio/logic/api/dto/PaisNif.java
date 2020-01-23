@@ -3,9 +3,7 @@ package es.limit.cecocloud.facturacio.logic.api.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.cecocloud.facturacio.logic.api.dto.enums.PaisNifTipusEnumDto;
 import es.limit.cecocloud.logic.api.dto.AbstractIdentificableWithIdentificador;
 import lombok.Getter;

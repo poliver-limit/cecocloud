@@ -16,9 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.Client;
-import es.limit.cecocloud.facturacio.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.facturacio.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-import es.limit.cecocloud.facturacio.persist.entity.FamiliaClientEntity.FamiliaClientEntityBuilder;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
