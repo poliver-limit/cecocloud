@@ -165,7 +165,7 @@ export class AppService {
 				{ icon: 'room', label: 'Nodes', route: '/rrhh/nodes' },
 				{ icon: 'room', label: 'Operaris (Recursos humans)', route: '/rrhh/operarisRrhh' },
 				{ icon: 'room', label: 'Parametres', route: '/rrhh/parametres' },
-				{ icon: 'room', label: 'Països N.I.F.', route: '/rrhh/paisosNif' },
+//				{ icon: 'room', label: 'Països N.I.F.', route: '/rrhh/paisosNif' },
 				{ icon: 'room', label: 'Recursos Grup', route: '/rrhh/recursosGrup' },
 				{ icon: 'room', label: 'Regims', route: '/rrhh/regims' },
 				{ icon: 'room', label: 'Registres Diaris', route: '/rrhh/registresDiari' },

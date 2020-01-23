@@ -45,10 +45,11 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fct_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "fct_cod", length = 4)),
+
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "fct_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "fct_des", length = 60, nullable = false)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "fct_obs", length = 1000)),
-//	@AttributeOverride(name = "embedded.articleFamiliaCodi", column = @Column(name = "fct_far_cod", insertable = false, updatable = false)),
+
 	@AttributeOverride(name = "createdBy", column = @Column(name = "fct_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "fct_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fct_usumod")),
@@ -85,13 +86,12 @@ public class FamiliaCostEntity extends AbstractWithIdentificadorEntity<FamiliaCo
 			FamiliaCost embedded,
 			IdentificadorEntity identificador,
 			ArticleFamiliaEntity articleFamilia) {
+		
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
-		this.articleFamilia = articleFamilia;
-		
-//		this.setEmbeddedCodis();
+		this.identificador = identificador;		
+
 		if (articleFamilia != null) {
 			this.articleFamiliaCodi = articleFamilia.getEmbedded().getCodi();
 		}
@@ -100,7 +100,6 @@ public class FamiliaCostEntity extends AbstractWithIdentificadorEntity<FamiliaCo
 	@Override
 	public void update(FamiliaCost embedded) {
 		this.embedded = embedded;
-//		this.setEmbeddedCodis();
 	}
 	
 	public void updateArticleFamilia(ArticleFamiliaEntity articleFamilia) {
@@ -108,14 +107,5 @@ public class FamiliaCostEntity extends AbstractWithIdentificadorEntity<FamiliaCo
 			this.articleFamiliaCodi = articleFamilia.getEmbedded().getCodi();
 		}
 	}
-	
-//	private void setEmbeddedCodis () {	
-//		
-//		// Referencies sobre camps no obligastoris		
-//		if (embedded.getArticleFamilia() != null) {
-//			this.articleFamiliaCodi = embedded.getArticleFamilia().getPk().getCodi();
-//		}
-//		
-//	}
 
 }
