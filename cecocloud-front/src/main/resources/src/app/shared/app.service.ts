@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BngAuthService, BngModuleService, BngMenu, BngMenuItem, BngModuleItem } from 'base-angular';
+import { BngAuthService, BngModuleService, BngMenu, BngAppModule } from 'base-angular';
 
 import { IdentificadorsService } from '../pages/identificadors/identificadors.service';
 
@@ -44,7 +44,7 @@ export class AppService {
 		if (this.router.url.startsWith('/admin-app')) {
 			found = true;
 		} else {
-			this.adminMenu.menuItems.forEach((menuItem: BngMenuItem) => {
+			this.adminMenu.menuItems.forEach((menuItem: BngMenu) => {
 				if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 					found = true;
 				}
@@ -57,7 +57,7 @@ export class AppService {
 			if (this.router.url.startsWith('/admin-identificador')) {
 				found = true;
 			} else {
-				this.adminIdentificadorMenu.menuItems.forEach((menuItem: BngMenuItem) => {
+				this.adminIdentificadorMenu.menuItems.forEach((menuItem: BngMenu) => {
 					if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 						found = true;
 					}
@@ -82,7 +82,7 @@ export class AppService {
 	}
 
 	public getModuleMenu(module: string): BngMenu {
-		let moduleItem: BngModuleItem = this.moduleService.getModuleItem(module);
+		let moduleItem: BngAppModule = this.moduleService.getModuleItem(module);
 		if (moduleItem) {
 			return <BngMenu>{
 				icon: moduleItem.icon,
