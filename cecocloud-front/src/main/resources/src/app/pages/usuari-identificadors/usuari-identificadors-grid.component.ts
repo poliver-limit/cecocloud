@@ -8,8 +8,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { BngAuthService, BngDatagrid } from 'base-angular';
 
 import { UsuariIdentificadorsService } from './usuari-identificadors.service';
-import { UsuarisService } from './usuaris.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UsuarisService } from '../usuaris/usuaris.service';
 
 @Component({
 	template: `
@@ -18,7 +18,8 @@ import { Router, ActivatedRoute } from '@angular/router';
         [config]="datagridConfig"
         [restapiService]="usuariIdentificadorsService"
 		(headerActionCreate)="onGridActionCreate()"
-		(headerActionDelete)="onGridActionDelete($event)"></bng-datagrid>`
+		(headerActionDelete)="onGridActionDelete($event)"
+		(rowClicked)="onRowClicked($event)"></bng-datagrid>`
 })
 export class UsuariIdentificadorsGridComponent {
 

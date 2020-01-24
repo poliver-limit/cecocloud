@@ -27,10 +27,6 @@ export const routes: Routes = [{
     loadChildren: () => import('./pages/usuari-identificadors/usuari-identificadors.module').then(m => m.UsuariIdentificadorsModule),
     canActivate: [BngAuthGuard]
 }, {
-    path: 'rols',
-    loadChildren: () => import('./pages/rols/rols.module').then(m => m.RolsModule),
-    canActivate: [BngAuthGuard]
-}, {
     path: 'perfils',
     loadChildren: () => import('./pages/perfils/perfils.module').then(m => m.PerfilsModule),
     canActivate: [BngAuthGuard]

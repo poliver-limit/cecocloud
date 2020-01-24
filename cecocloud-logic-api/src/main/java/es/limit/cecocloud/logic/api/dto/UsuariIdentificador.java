@@ -48,7 +48,7 @@ public class UsuariIdentificador extends AbstractIdentificable<Long> {
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
-	private GenericReference<Usuari, Long> identificador;
+	private GenericReference<Identificador, Long> identificador;
 	@Transient
 	@RestapiField(
 			hiddenInGrid = true,
