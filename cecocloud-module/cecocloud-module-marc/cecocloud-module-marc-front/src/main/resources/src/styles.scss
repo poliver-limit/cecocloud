@@ -1,0 +1,73 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~ag-grid-community/src/styles/ag-grid.scss';
+@import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
+
+/* Estils Angular Material */
+.mat-form-field:not(.mat-form-field-has-label) .mat-form-field-infix {
+	border-top-width: 0;
+}
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+	height: 1.5em !important;
+	width: 1.5em !important;
+}
+mat-form-field.mat-form-field-sm .mat-form-field-wrapper {
+	padding-bottom: 0;
+}
+mat-form-field.mat-form-field-sm .mat-form-field-infix {
+	padding-bottom: 0;
+}
+mat-checkbox .mat-checkbox-layout {
+	padding-top: 0.9em;
+}
+
+/* Per a fer que els camps disabled no es mostrin amb una linia de punts a davall*/
+.bng-form-field.mat-form-field-disabled .mat-form-field-underline {
+    background-color: rgba(0, 0, 0, 0.42) !important;
+    background-image: none !important;
+}
+
+/* Estils agGrid */
+.ag-theme-material .ag-cell.ag-cell-inline-editing,
+.ag-theme-material .ag-cell.ag-popup-editor {
+	border-radius: 0;
+	box-shadow: none;
+	padding: 0 23px;
+}
+.ag-theme-material .ag-cell.ag-cell-inline-editing {
+	height: 100%;
+}
+.ag-theme-material .ag-cell.ag-cell-inline-editing .mat-form-field-flex,
+.ag-theme-material .ag-cell.ag-cell-inline-editing .mat-checkbox-layout {
+	padding-top: 0;
+}
+.ag-theme-material .ag-header-cell .mat-form-field .mat-form-field-prefix,
+.ag-theme-material .ag-header-cell .mat-form-field .mat-form-field-suffix,
+.ag-theme-material .ag-header-cell .mat-form-field .mat-select-trigger {
+	top: 0.5em;
+}
+.ag-theme-material .ag-body-viewport.ag-layout-auto-height .ag-center-cols-clipper,
+.ag-body-viewport.ag-layout-auto-height .ag-center-cols-container {
+	min-height: 0;
+}
+.ag-theme-material .ag-header-row .ag-floating-filter-body {
+	width: 100%;
+}
+
+/* Per a centrar les pantalles de login i les homes */
+.centered {
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	-webkit-transform: translate(-50%, -40%);
+	transform: translate(-50%, -40%);
+}
+
+* {
+	font-family: Lato, 'Roboto', Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	margin: 0;
+}
