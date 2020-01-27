@@ -10,21 +10,21 @@ export class Recurs extends Resource { }
 @Injectable({
 	providedIn: 'root'
 })
-export class RecursPermisosService {
+export class FuncionalitatsPermisosService {
 
-	public getRecursosAll(): Observable<any> {
+	public getFuncionalitatsAll(): Observable<any> {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/allowed');
 	}
 
-	public getRecursosByModul(codi: string): Observable<any> {
+	public getFuncionalitatsByModul(codi: string): Observable<any> {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/modul/' + codi);
 	}
 
-	public getRecursosByRol(rolId: number): Observable<any> {
+	public getFuncionalitatsByPerfil(rolId: number): Observable<any> {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/rol/' + rolId);
 	}
 
-	public getRecursosByRols(rolsId: number[]): Observable<any> {
+	public getFuncionalitatsByPerfils(rolsId: number[]): Observable<any> {
 		let params = new HttpParams();
 		rolsId.forEach((rolId: number) => {
 			params = params.append(`rolsID[]`, rolId.toString());
@@ -34,7 +34,7 @@ export class RecursPermisosService {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/rols/' + rolIdparams); //, { params: params });
 	}
 
-	public saveRecurs(resourceInfo: any) {
+	public saveFuncionalitat(resourceInfo: any) {
 		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/recursos/permissions/save', resourceInfo);
 	}
 

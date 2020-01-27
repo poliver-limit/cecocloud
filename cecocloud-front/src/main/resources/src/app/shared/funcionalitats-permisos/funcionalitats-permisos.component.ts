@@ -4,38 +4,22 @@ import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limit/base-angular';
 import { HalParam } from 'angular4-hal';
-import { RecursPermisosService } from './recurs-permisos.service';
-import { PerfilRolService } from './perfil-rol.service';
+import { FuncionalitatsPermisosService } from './funcionalitats-permisos.service';
 import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
 
 @Component({
-    selector: "cec-recursos",
+    selector: "cec-funcionalitats",
     template: `
         <div style="display: flex">
 			<div style="width: 100%; margin-top: 40px;">
                 <mat-tab-group animationDuration="0ms">
-                    <mat-tab *ngFor="let recursosModul of recursosModuls; let indexModul = index" label="{{'app.module.' + recursosModul.module.code |translate}}">
+                    <mat-tab *ngFor="let funcionalitatsModuls of funcionalitatsModuls; let indexModul = index" label="{{'app.module.' + funcionalitatsModuls.module.code |translate}}">
                     <div [style.height.px]="tableHeight" class="permisos-container">
-                        <table mat-table [dataSource]="recursosModul.resources" class="mat-elevation-z8" style="width:100%;">
-                                <!-- Columna de nom Recurs -->
+                        <table mat-table [dataSource]="funcionalitatsModuls.funcionalitat" class="mat-elevation-z8" style="width:100%;">
+                                <!-- Columna de nom de la funcionalitat -->
                                 <ng-container matColumnDef="label">
                                     <th mat-header-cell *matHeaderCellDef style=""> {{'page.rols.form.recurs' | translate}} </th>
                                     <td mat-cell *matCellDef="let recurs"> {{recurs.label | translate}} </td>
-                                </ng-container>
-                                <!-- Columna de access -->
-                                <ng-container matColumnDef="access">
-                                    <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.accessGranted' | translate}}</ng-container>
-                                        <ng-container *ngIf="mobileScreen">ACC</ng-container>
-                                    </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
-                                        <mat-checkbox
-                                            name = 'accessGranted'
-                                            [checked]="recurs.permission.accessGranted"
-                                            [disabled]="disableToggles"
-                                            (click) = "onPermisChange($event, indexModul, index)">
-                                        </mat-checkbox>
-                                    </td>
                                 </ng-container>
                                 <!-- Columna de read -->
                                 <ng-container matColumnDef="read">
@@ -97,31 +81,16 @@ import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identif
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
-                                <!-- Columna de administration -->
-                                <ng-container matColumnDef="administration">
+                                <!-- Columna de execute -->
+                                <ng-container matColumnDef="execute">
                                     <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.adminGranted' | translate}}</ng-container>
+                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.executeGranted' | translate}}</ng-container>
                                         <ng-container *ngIf="mobileScreen">ADM</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
                                         <mat-checkbox
-                                            name = 'adminGranted'
-                                            [checked]="recurs.permission.adminGranted"
-                                            [disabled]="disableToggles"
-                                            (click) = "onPermisChange($event, indexModul, index)">
-                                        </mat-checkbox>
-                                    </td>
-                                </ng-container>
-                                <!-- Columna de print -->
-                                <ng-container matColumnDef="print">
-                                    <th mat-header-cell *matHeaderCellDef [ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-                                        <ng-container *ngIf="!mobileScreen"> {{'resource.baseBootPermission.field.printGranted' | translate}}</ng-container>
-                                        <ng-container *ngIf="mobileScreen">IMP</ng-container>
-                                    </th>
-                                    <td mat-cell *matCellDef="let recurs; let index = index" class="rcheck">
-                                        <mat-checkbox
-                                            name = 'printGranted'
-                                            [checked]="recurs.permission.printGranted"
+                                            name = 'executeGranted'
+                                            [checked]="recurs.permission.executeGranted"
                                             [disabled]="disableToggles"
                                             (click) = "onPermisChange($event, indexModul, index)">
                                         </mat-checkbox>
@@ -157,15 +126,14 @@ import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identif
         }
     `]
 })
-export class RecursPermisosComponent implements OnInit {
+export class FuncionalitatsPermisosComponent implements OnInit {
 
-    @Input() rol: number;
     @Input() perfil: number;
     @Input() usuariIdentificadorEmpresa: any;
 
     public translate: TranslateService;
-    recursosModuls: any;
-    columnsToDisplay: string[] = ['label', 'access', 'read', 'write', 'create', 'delete', 'administration', 'print'];
+    funcionalitatsModuls: any;
+    columnsToDisplay: string[] = ['label', 'read', 'write', 'create', 'delete', 'execute'];
 
     disableToggles: boolean;
 
@@ -175,13 +143,13 @@ export class RecursPermisosComponent implements OnInit {
     onPermisChange(event, indexModul, indexRecurs) {
         // Deshabilitar els checks mentres es desen els permisos
         this.disableToggles = true;
-        let resourceInfo = JSON.parse(JSON.stringify(this.recursosModuls[indexModul].resources[indexRecurs]));
+        let funcionalitatInfo = JSON.parse(JSON.stringify(this.funcionalitatsModuls[indexModul].resources[indexRecurs]));
         let permis = event.currentTarget.attributes['name'].value;
-        let check = !resourceInfo.permission[permis];
-        resourceInfo.permission[permis] = check;
-        this.recursPermisosService.saveRecurs(resourceInfo).subscribe(
+        let check = !funcionalitatInfo.permission[permis];
+        funcionalitatInfo.permission[permis] = check;
+        this.funcionalitatsPermisosService.saveFuncionalitat(funcionalitatInfo).subscribe(
             () => {
-                this.recursosModuls[indexModul].resources[indexRecurs].permission[permis] = check;
+                this.funcionalitatsModuls[indexModul].resources[indexRecurs].permission[permis] = check;
                 this.disableToggles = false;
                 //this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
             },
@@ -213,38 +181,11 @@ export class RecursPermisosComponent implements OnInit {
     ngOnInit(): void {
         // Càrrega de permisos
         this.disableToggles = true;
-        if (this.rol) {
+        if (this.perfil) {
             this.disableToggles = false;
-            this.recursPermisosService.getRecursosByRol(this.rol).subscribe((recursosModuls) => {
-                this.recursosModuls = recursosModuls;
+            this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(this.perfil).subscribe((funcionalitatsModuls) => {
+                this.funcionalitatsModuls = funcionalitatsModuls;
             });
-        } else if (this.perfil) {
-            this.perfilRolService.whenReady().subscribe((res) => {
-                let requestParams: HalParam[] = [];
-                requestParams.push({
-                    key: 'query',
-                    value: 'perfil.id==' + this.perfil
-                });
-
-                this.perfilRolService.getAll({ params: requestParams }).subscribe(
-                    (perfilRols: any) => {
-                        let rols: number[];
-
-                        if (perfilRols == null || perfilRols.length == 0) {
-                            rols = [-1];
-                        } else {
-                            rols = perfilRols.map(perfilRol => perfilRol.rol.id);
-                        }
-                        this.recursPermisosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
-                            this.recursosModuls = recursosModuls;
-                        }),
-                            error => console.log(error);
-                    },
-                    error => console.log(error)
-                );
-            },
-                error => console.log(error)
-            );
         } else if (this.usuariIdentificadorEmpresa) {
             let requestParams: HalParam[] = [];
             requestParams.push({
@@ -254,37 +195,21 @@ export class RecursPermisosComponent implements OnInit {
                     ' usuariIdentificadorEmpresa.empresa.id==' + this.usuariIdentificadorEmpresa.empresaId
             });
             this.perfilUsuariIdentificadorEmpresaService.getAll({ params: requestParams }).subscribe((perfilUsuariIdentificadorEmpreses) => {
-                let perfilsUsuari: string[];
-                debugger;
                 if (perfilUsuariIdentificadorEmpreses == null || perfilUsuariIdentificadorEmpreses.length == 0) {
-                    this.recursPermisosService.getRecursosByRol(-1).subscribe((recursosModuls) => {
-                        this.recursosModuls = recursosModuls;
+                    this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(-1).subscribe((funcionalitatsModuls) => {
+                        this.funcionalitatsModuls = funcionalitatsModuls;
                     });
                 } else {
-                    let requestParams: HalParam[] = [];
-                    if (perfilUsuariIdentificadorEmpreses.length == 1) {
-                        requestParams.push({
-                            key: 'query',
-                            value: 'perfil.id==' + perfilUsuariIdentificadorEmpreses[0]['perfil'].id
-                        });
+                    let perfils: number[];
+                    if (perfilUsuariIdentificadorEmpreses == null || perfilUsuariIdentificadorEmpreses.length == 0) {
+                        perfils = [-1];
                     } else {
-                        perfilsUsuari = perfilUsuariIdentificadorEmpreses.map(perfilUsuariEmpresa => perfilUsuariEmpresa['perfil'].id);
-                        requestParams.push({
-                            key: 'query',
-                            value: 'perfil.id =in= (' + perfilsUsuari.join(',') + ')'
-                        });
+                        perfils = perfilUsuariIdentificadorEmpreses.map(perfilUsuariIdentificadorEmpreses => perfilUsuariIdentificadorEmpreses['perfil'].id);
                     }
-                    this.perfilRolService.getAll({ params: requestParams }).subscribe((perfilRols) => {
-                        let rols: number[];
-                        if (perfilRols == null || perfilRols.length == 0) {
-                            rols = [-1];
-                        } else {
-                            rols = perfilRols.map(perfilRol => perfilRol['rol'].id);
-                        }
-                        this.recursPermisosService.getRecursosByRols(rols).subscribe((recursosModuls) => {
-                            console.log("RecursosRol: ", recursosModuls);
-                            this.recursosModuls = recursosModuls;
-                        });
+
+                    this.funcionalitatsPermisosService.getFuncionalitatsByPerfils(perfils).subscribe((funcionalitatsModuls) => {
+                        console.log("FuncionalitatsPerfil: ", funcionalitatsModuls);
+                        this.funcionalitatsModuls = funcionalitatsModuls;
                     });
                 }
             });
@@ -292,8 +217,7 @@ export class RecursPermisosComponent implements OnInit {
     }
 
     constructor(
-        public recursPermisosService: RecursPermisosService,
-        public perfilRolService: PerfilRolService,
+        public funcionalitatsPermisosService: FuncionalitatsPermisosService,
         public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
         translate: TranslateService,
         private screenSizeService: BngScreenSizeService,

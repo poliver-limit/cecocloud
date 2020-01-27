@@ -6,9 +6,8 @@ import { MatTableModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { MaterialModule } from '../material.module';
-import { RecursPermisosComponent } from './recurs-permisos.component';
-import { RecursPermisosService } from './recurs-permisos.service';
-import { PerfilRolService } from './perfil-rol.service';
+import { FuncionalitatsPermisosComponent } from './funcionalitats-permisos.component';
+import { FuncionalitatsPermisosService } from './funcionalitats-permisos.service';
 import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
 
 
@@ -21,15 +20,14 @@ import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identif
         MatSlideToggleModule
     ],
     declarations: [
-        RecursPermisosComponent
+        FuncionalitatsPermisosComponent
     ],
     providers: [
-        RecursPermisosService,
-        PerfilRolService,
+        FuncionalitatsPermisosService,
         PerfilUsuariIdentificadorEmpresaService
     ],
     exports: [
-        RecursPermisosComponent
+        FuncionalitatsPermisosComponent
     ]
 })
-export class RecursPermisosModule { }
+export class FuncionalitatsPermisosModule { }

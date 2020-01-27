@@ -1,3 +1,4 @@
+import { FuncionalitatsPermisosComponent } from './../../shared/recurs-permisos/recurs-permisos.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,19 +11,15 @@ import { MaterialModule } from '../../shared/material.module';
 import { PerfilsGridComponent } from './perfils-grid.component';
 import { PerfilsFormComponent } from './perfils-form.component';
 import { PerfilsService } from './perfils.service';
-import { RolsService } from './rols.service';
-import { PerfilRolService } from './perfilRol.service';
-import { RecursPermisosModule } from '../../shared/recurs-permisos/recurs-permisos.module';
+import { FuncionalitatsPermisosModule } from '../../shared/funcionalitats-permisos/funcionalitats-permisos.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
         TranslateModule,
         BngModule,
         MaterialModule,
-        RecursPermisosModule,
+        FuncionalitatsPermisosModule,
         RouterModule.forChild([
             { path: '', component: PerfilsGridComponent },
             { path: 'create', component: PerfilsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -34,9 +31,7 @@ import { RecursPermisosModule } from '../../shared/recurs-permisos/recurs-permis
         PerfilsFormComponent
     ],
     providers: [
-        PerfilsService,
-        RolsService,
-        PerfilRolService
+        PerfilsService
     ]
 })
 export class PerfilsModule { }
