@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
 
@@ -153,9 +156,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV)
-	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;	
 	
-	@Size(max = 60)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -263,7 +265,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private String direccioTecnica;
 	
-	@Size(max = 1)
+	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -279,19 +281,19 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private AlbaraClientProjecteTipusEnumDto albaransClientProjecteTipus;
 	
-	@Size(max = 1)
+	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Boolean dietes;
 	
-	@Size(max = 1)
+	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Boolean plusPerillositat;
 	
-	@Size(max = 1)
+	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -317,7 +319,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private BigDecimal estudiTasaPercent;
 	
-	@Size(max = 1)
+	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -343,7 +345,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private BigDecimal retencioPercent;
 	
-	@Size(max = 1)
+	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)

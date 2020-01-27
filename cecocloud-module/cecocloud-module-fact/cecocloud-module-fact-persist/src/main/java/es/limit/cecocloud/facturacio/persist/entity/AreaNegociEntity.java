@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.persist.entity;
 
 import javax.persistence.AssociationOverride;

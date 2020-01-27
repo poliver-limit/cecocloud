@@ -16,7 +16,7 @@
 			<id>prod</id>
 			<activation>
 				<file>
-					<exists>skip_npm</exists>
+					<missing>skip_npm</missing>
 				</file>
 				<activeByDefault>true</activeByDefault>
 			</activation>

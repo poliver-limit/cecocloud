@@ -117,6 +117,7 @@ export class AppService {
 				{ icon: 'room', label: 'Naturaleses de pagament/cobrament', route: '/fact/naturalesesPagamentCobrament' },
 				{ icon: 'room', label: 'Països', route: '/fact/paisos' },
 				{ icon: 'room', label: 'Peus de document', route: '/fact/peusDocument' },
+				{ icon: 'room', label: 'Projectes', route: '/fact/projectes' },
 				{ icon: 'room', label: 'Proveidors', route: '/fact/proveidors' },
 				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },
 				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },
