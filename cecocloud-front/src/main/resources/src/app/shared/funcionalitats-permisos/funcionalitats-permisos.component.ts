@@ -6,6 +6,7 @@ import { BngScreenSizeService, BngScreenSizeChangeEvent } from '@programari-limi
 import { HalParam } from 'angular4-hal';
 import { FuncionalitatsPermisosService } from './funcionalitats-permisos.service';
 import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
+import { FuncionalitatsIdentificadorService, FuncionalitatIdentificador } from './funcionalitats-identificador.service';
 
 @Component({
     selector: "cec-funcionalitats",
@@ -133,6 +134,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 
     public translate: TranslateService;
     funcionalitatsModuls: any;
+    funcionalitats: FuncionalitatIdentificador[];
     columnsToDisplay: string[] = ['label', 'read', 'write', 'create', 'delete', 'execute'];
 
     disableToggles: boolean;
@@ -181,8 +183,22 @@ export class FuncionalitatsPermisosComponent implements OnInit {
     ngOnInit(): void {
         // Càrrega de permisos
         this.disableToggles = true;
+
+        // Obtenim totes les funcionalitatas del identificador
+        let requestParams: HalParam[] = [];
+        requestParams.push({
+            key: 'sort',
+            value: 'funcionalitat.descripcio,desc'
+        });
+        this.funcionalitatsIdentificadorService.getAll({ params: requestParams }).subscribe((funcionalitats) => {
+            console.log("Funcionalitats: ", funcionalitats);
+            this.funcionalitats = funcionalitats;
+        });
+
         if (this.perfil) {
             this.disableToggles = false;
+
+
             this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(this.perfil).subscribe((funcionalitatsModuls) => {
                 this.funcionalitatsModuls = funcionalitatsModuls;
             });
@@ -219,6 +235,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
     constructor(
         public funcionalitatsPermisosService: FuncionalitatsPermisosService,
         public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
+        public funcionalitatsIdentificadorService: FuncionalitatsIdentificadorService,
         translate: TranslateService,
         private screenSizeService: BngScreenSizeService,
         private snackbar: MatSnackBar) {
