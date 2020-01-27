@@ -11,7 +11,7 @@ import { BngRestapiProfile } from '@programari-limit/base-angular/lib/restapi/re
 
 import { MatTable, MatSnackBar } from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { UsuarisService } from '../usuaris/usuaris.service';
+import { UsuarisService } from './usuaris.service';
 import { UsuariIdentificadorEmpresaService, UsuariIdentificadorEmpresa } from 'src/app/shared/usuari-identificador-empresa.service';
 import { UsuariIdentificadorsService } from './usuari-identificadors.service';
 import { PerfilUsuariIdentificadorEmpresaService, PerfilUsuariIdentificadorEmpresa } from 'src/app/shared/recurs-permisos/perfil-usuari-identificador-empresa.service';
