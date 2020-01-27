@@ -919,9 +919,11 @@
 	"resource.zonaDuplicat.field.nom": "Nombre",
 	"resource.zona.field.observacio": "Observación",
 	"resource.zonaDuplicat.field.identificador": "Identificador",
-	
+
 	"//* FIN RECURSOS HUMANOS": "FIN RECURSOS HUMANOS *\\",
 
-	"page.rols.form.recurs": "Recurs"
+	"page.companyia-usuaris.modal.titol": "Añadir usuario",
+	"page.companyia-usuaris.modal.button.cancelar": "Cancelar",
+	"page.companyia-usuaris.modal.button.afegir": "Añadir"
 
 }

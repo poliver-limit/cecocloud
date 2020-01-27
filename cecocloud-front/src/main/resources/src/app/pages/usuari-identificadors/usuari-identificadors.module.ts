@@ -12,7 +12,7 @@ import { UsuariIdentificadorsFormComponent } from './usuari-identificadors-form-
 import { UsuariIdentificadorsGridComponent, UsuariIdentificadorsAddDialog } from './usuari-identificadors-grid.component';
 import { UsuariIdentificadorEmpresaService } from 'src/app/shared/usuari-identificador-empresa.service';
 import { PerfilsService } from '../perfils/perfils.service';
-import { UsuarisService } from '../usuaris/usuaris.service';
+import { UsuarisService } from './usuaris.service';
 import { EmpresesService } from '../empreses/empreses.service';
 import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/shared/funcionalitats-permisos/perfil-usuari-identificador-empresa.service';
 
