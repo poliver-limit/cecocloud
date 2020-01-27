@@ -52,6 +52,7 @@ create table funcionalitat (
     codi varchar(8) not null,
     descripcio varchar(100) not null,
     modul varchar(4) not null,
+    tipus int4 not null,
     pare_id int8 not null,
     primary key (id)
 );
