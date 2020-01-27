@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
 
-import { MaterialModule } from '../../shared/material.module';
+import { MaterialModule } from '../../../../shared/material.module';
 
 import { ArticlesMarcaGridComponent } from './articlesMarca-grid.component';
 import { ArticlesMarcaFormComponent } from './articlesMarca-form.component';

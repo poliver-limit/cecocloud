@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BngModule, BngFormExitGuard } from 'base-angular';
 
-import { MaterialModule } from '../../shared/material.module';
+import { MaterialModule } from '../../../../shared/material.module';
 
 import { CpktestGridComponent } from './cpktest-grid.component';
 import { CpktestFormComponent } from './cpktest-form.component';
