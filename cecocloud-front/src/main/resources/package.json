@@ -9,7 +9,7 @@
 		"lint": "ng lint",
 		"e2e": "ng e2e",
 		"postinstall": "rm -fr node_modules/angular4-hal/node_modules/@angular",
-		"prepare": "ln -s ../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/app/modules/marc src/app/modules/marc"
+		"prepare": "echo 'n' | ln -sfi ../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/app/modules/marc src/app/modules/marc 2> /dev/null"
 	},
 	"private": true,
 	"dependencies": {
