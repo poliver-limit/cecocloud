@@ -9,7 +9,7 @@ import { BngAuthService, BngDatagrid } from 'base-angular';
 
 import { UsuariIdentificadorsService } from './usuari-identificadors.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UsuarisService } from '../usuaris/usuaris.service';
+import { UsuarisService } from './usuaris.service';
 
 @Component({
 	template: `

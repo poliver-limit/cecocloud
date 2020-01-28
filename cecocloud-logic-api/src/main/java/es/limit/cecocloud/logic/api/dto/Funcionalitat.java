@@ -31,6 +31,10 @@ public class Funcionalitat extends AbstractIdentificable<Long> {
 			includeInQuickFilter = true)
 	private String codi;
 	@NotNull
+	@RestapiField(
+			includeInQuickFilter = true)
+	private FuncionalitatTipus tipus;
+	@NotNull
 	@Size(max = 100)
 	@RestapiField(
 			includeInQuickFilter = true)

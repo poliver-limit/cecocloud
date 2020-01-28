@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
 
-import { MaterialModule } from '../../shared/material.module';
+import { MaterialModule } from '../../../../shared/material.module';
 
 import { TipusVencimentsGridComponent } from './tipusVenciments-grid.component';
 import { TipusVencimentsFormComponent } from './tipusVenciments-form.component';

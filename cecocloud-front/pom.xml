@@ -13,6 +13,7 @@
 	</properties>
 	<profiles>
 		<profile>
+<<<<<<< HEAD
 			<id>prod</id>
 			<activation>
 				<file>
@@ -25,6 +26,8 @@
 			</properties>
 		</profile>
 		<profile>
+=======
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 			<id>dev</id>
 			<activation>
 				<file>

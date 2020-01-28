@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
-
+import { MatCardModule } from '@angular/material/card';
 import { MaterialModule } from '../../shared/material.module';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatDividerModule } from '@angular/material/divider'
 import { ProjectesGridComponent } from './projectes-grid.component';
 import { ProjectesFormComponent } from './projectes-form.component';
 import { ProjectesService } from './projectes.service';
@@ -18,6 +18,8 @@ import { ProjectesService } from './projectes.service';
 		BngModule,
         MaterialModule,
         MatTabsModule,
+        MatDividerModule,
+        MatCardModule,
         RouterModule.forChild( [
             { path: '', component: ProjectesGridComponent },
             { path: 'create', component: ProjectesFormComponent, canDeactivate: [BngFormExitGuard] },

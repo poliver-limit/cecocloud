@@ -1,0 +1,25 @@
+{
+
+	"app.menu.usuaris": "Usuaris",
+	"app.menu.operaris": "Operaris",
+	"app.menu.marcatges": "Marcatges",
+
+	"resource.operari": "Operari",
+	"resource.operari.plural": "Operaris",
+	"resource.operari.field.usuari": "Usuari",
+	"resource.operari.field.empresa": "Empresa",
+	"resource.operari.field.codi": "Codi",
+	"resource.operari.field.dataInici": "Data inici",
+	"resource.operari.field.dataFi": "Data fi",
+	"resource.operari.field.descripcio": "Codi + empresa",
+
+	"resource.marcatge": "Marcatge",
+	"resource.marcatge.plural": "Marcatges",
+	"resource.marcatge.field.operari": "Operari",
+	"resource.marcatge.field.data": "Data i hora",
+	"resource.marcatge.field.origen": "Orígen",
+	"resource.marcatge.field.latitud": "Latitud",
+	"resource.marcatge.field.longitud": "Longitud",
+	"resource.marcatge.field.ubicacio": "Ubicació"
+
+}

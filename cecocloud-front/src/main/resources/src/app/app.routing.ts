@@ -35,12 +35,12 @@ export const routes: Routes = [{
     loadChildren: () => import('./pages/empreses/empreses.module').then(m => m.EmpresesModule),
     canActivate: [BngAuthGuard]
 }, {
-    path: 'marc',
-    loadChildren: () => import('./modules/marc/marc.module').then(m => m.MarcModule),
-    canActivate: [BngAuthGuard]
-}, {
     path: 'fact',
     loadChildren: () => import('./modules/fact/fact.module').then(m => m.FactModule),
+    canActivate: [BngAuthGuard]
+}, {
+    path: 'marc',
+    loadChildren: () => import('./modules/marc/marc.module').then(m => m.MarcModule),
     canActivate: [BngAuthGuard]
 }, {
     path: 'rrhh',
