@@ -45,12 +45,6 @@ public class FuncionalitatIdentificador extends AbstractIdentificable<Long> {
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private String description;
-	@Transient
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private String modul;
 
 	public String getDescription() {
 		return funcionalitat.getDescription() + " - " + identificador.getDescription();

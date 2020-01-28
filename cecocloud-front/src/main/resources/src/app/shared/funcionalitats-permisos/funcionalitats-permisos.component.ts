@@ -184,24 +184,26 @@ export class FuncionalitatsPermisosComponent implements OnInit {
         // Càrrega de permisos
         this.disableToggles = true;
 
-        // Obtenim totes les funcionalitatas del identificador
-        let requestParams: HalParam[] = [];
-        requestParams.push({
-            key: 'sort',
-            value: 'funcionalitat.descripcio,desc'
-        });
-        this.funcionalitatsIdentificadorService.getAll({ params: requestParams }).subscribe((funcionalitats) => {
-            console.log("Funcionalitats: ", funcionalitats);
-            this.funcionalitats = funcionalitats;
-        });
 
         if (this.perfil) {
             this.disableToggles = false;
 
-
             this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(this.perfil).subscribe((funcionalitatsModuls) => {
                 this.funcionalitatsModuls = funcionalitatsModuls;
             });
+
+
+            // let requestParams: HalParam[] = [];
+            // requestParams.push({
+            //     key: 'sort',
+            //     value: 'funcionalitat.descripcio,desc'
+            // });
+            // this.funcionalitatsIdentificadorService.getAll({ params: requestParams }).subscribe((funcionalitats) => {
+            //     console.log("Funcionalitats: ", funcionalitats);
+            //     this.funcionalitats = funcionalitats;
+            // });
+
+
         } else if (this.usuariIdentificadorEmpresa) {
             let requestParams: HalParam[] = [];
             requestParams.push({

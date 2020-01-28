@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.persist.repository;
 
+import java.util.List;
+
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.persist.entity.FuncionalitatPerfilEntity;
 
@@ -13,4 +15,5 @@ import es.limit.cecocloud.persist.entity.FuncionalitatPerfilEntity;
  */
 public interface FuncionalitatPerfilRepository extends BaseRepository<FuncionalitatPerfilEntity, Long> {
 
+	List<FuncionalitatPerfilEntity> findByPerfilIdOrderByFuncionalitatEmbeddedDescripcio(Long perfilId);
 }

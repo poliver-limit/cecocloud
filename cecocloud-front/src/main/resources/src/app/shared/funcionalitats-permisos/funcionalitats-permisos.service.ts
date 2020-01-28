@@ -12,18 +12,18 @@ export class Recurs extends Resource { }
 })
 export class FuncionalitatsPermisosService {
 
-	public getFuncionalitatsAll(perfilId: number): Observable<any> {
-		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadors');
-	}
+	// public getFuncionalitatsAll(perfilId: number): Observable<any> {
+	// 	return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadors');
+	// }
 
-	public getFuncionalitatsByModul(modul: string): Observable<any> {
-		let requestParams: HalParam[] = [];
-		requestParams.push({
-			key: 'query',
-			value: 'funcionalitat.modul==' + modul
-		});
-		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadors' + codi);
-	}
+	// public getFuncionalitatsByModul(modul: string): Observable<any> {
+	// 	let requestParams: HalParam[] = [];
+	// 	requestParams.push({
+	// 		key: 'query',
+	// 		value: 'funcionalitat.modul==' + modul
+	// 	});
+	// 	return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadors' + codi);
+	// }
 
 	public getFuncionalitatsByPerfil(rolId: number): Observable<any> {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/recursos/rol/' + rolId);
