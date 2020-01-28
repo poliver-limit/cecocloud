@@ -1,7 +1,5 @@
-import { FuncionalitatsPermisosComponent } from './../../shared/recurs-permisos/recurs-permisos.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';

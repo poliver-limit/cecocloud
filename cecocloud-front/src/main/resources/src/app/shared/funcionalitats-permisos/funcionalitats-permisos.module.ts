@@ -9,7 +9,7 @@ import { MaterialModule } from '../material.module';
 import { FuncionalitatsPermisosComponent } from './funcionalitats-permisos.component';
 import { FuncionalitatsPermisosService } from './funcionalitats-permisos.service';
 import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
-import { FuncionalitatsIdentificadorService } from './funcionalitats-identificador.service';
+// import { FuncionalitatsIdentificadorService } from './funcionalitats-identificador.service';
 
 
 @NgModule({
@@ -25,8 +25,8 @@ import { FuncionalitatsIdentificadorService } from './funcionalitats-identificad
     ],
     providers: [
         FuncionalitatsPermisosService,
-        PerfilUsuariIdentificadorEmpresaService,
-        FuncionalitatsIdentificadorService
+        PerfilUsuariIdentificadorEmpresaService
+        // FuncionalitatsIdentificadorService
     ],
     exports: [
         FuncionalitatsPermisosComponent

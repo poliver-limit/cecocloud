@@ -48,7 +48,7 @@ public class AgrupacioEntity extends AbstractAuditableVersionableEntity<Agrupaci
 	@Embedded
 	protected Agrupacio embedded;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "pare_id",
 			foreignKey = @ForeignKey(name = "agrupacio_pare_fk"))

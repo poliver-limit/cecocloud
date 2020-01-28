@@ -49,11 +49,15 @@ public class FuncionalitatEntity extends AbstractAuditableVersionableEntity<Func
 	@Embedded
 	protected Funcionalitat embedded;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "pare_id",
 			foreignKey = @ForeignKey(name = "funcionalitat_pare_fk"))
 	protected FuncionalitatEntity pare;
+	
+	// TODO: Afegir traduccions per a les funcionalitats
+	// @OneToMany(mappedBy = "funcionalitat", cascade = CascadeType.ALL)
+	// protected Set<FuncionalitatTraduccioEntity> traduccions;
 
 	@Builder
     public FuncionalitatEntity(
