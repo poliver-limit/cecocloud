@@ -148,7 +148,7 @@ public class SerieVendaEntity extends AbstractWithIdentificadorEntity<SerieVenda
 					@JoinColumn(name = "ser_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ser_emp_codprn", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_ser_emp_fk"))			
+			foreignKey = @ForeignKey(name = "rges_ser_empOp_fk"))			
 	protected EmpresaEntity empresaOp;	
 	@Column(name = "ser_emp_codprn", length = 4)
 	private String empresaOpCodi;

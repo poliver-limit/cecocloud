@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BngAuthService, BngModuleService, BngMenu, BngMenuItem, BngModuleItem } from 'base-angular';
+import { BngAuthService, BngModuleService, BngMenu, BngAppModule } from 'base-angular';
 
 import { IdentificadorsService } from '../pages/identificadors/identificadors.service';
 
@@ -26,8 +26,7 @@ export class AppService {
 			{ icon: 'domain', label: 'Grups d\'empreses', labelKey: 'app.menu.identificador', route: '/identificador' },
 			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuari-identificadors' },
 			{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' },
-			{ icon: 'portrait', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' },
-			{ icon: 'person_pin', label: 'Rols', labelKey: 'app.menu.rols', route: '/rols' }
+			{ icon: 'portrait', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' }
 		]
 	}
 
@@ -44,7 +43,7 @@ export class AppService {
 		if (this.router.url.startsWith('/admin-app')) {
 			found = true;
 		} else {
-			this.adminMenu.menuItems.forEach((menuItem: BngMenuItem) => {
+			this.adminMenu.menuItems.forEach((menuItem: BngMenu) => {
 				if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 					found = true;
 				}
@@ -57,7 +56,7 @@ export class AppService {
 			if (this.router.url.startsWith('/admin-identificador')) {
 				found = true;
 			} else {
-				this.adminIdentificadorMenu.menuItems.forEach((menuItem: BngMenuItem) => {
+				this.adminIdentificadorMenu.menuItems.forEach((menuItem: BngMenu) => {
 					if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 						found = true;
 					}
@@ -82,7 +81,7 @@ export class AppService {
 	}
 
 	public getModuleMenu(module: string): BngMenu {
-		let moduleItem: BngModuleItem = this.moduleService.getModuleItem(module);
+		let moduleItem: BngAppModule = this.moduleService.getModuleItem(module);
 		if (moduleItem) {
 			return <BngMenu>{
 				icon: moduleItem.icon,
@@ -119,9 +118,9 @@ export class AppService {
 				{ icon: 'room', label: 'Països', route: '/fact/paisos' },
 				{ icon: 'room', label: 'Peus de document', route: '/fact/peusDocument' },
 				{ icon: 'room', label: 'Proveidors', route: '/fact/proveidors' },
-				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },			
-				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },			
-				{ icon: 'room', label: 'Seccions empresa', route: '/fact/seccionsEmpresa' },		
+				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },
+				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },
+				{ icon: 'room', label: 'Seccions empresa', route: '/fact/seccionsEmpresa' },
 				{ icon: 'room', label: 'Sèries de compra', route: '/fact/seriesCompra' },
 				{ icon: 'room', label: 'Sèries intracomunitàries', route: '/fact/seriesIntracomunitaria' },
 				{ icon: 'room', label: 'Sèries de venda', route: '/fact/seriesVenda' },
@@ -140,9 +139,9 @@ export class AppService {
 				{ icon: 'room', label: 'Ubicacions', route: '/fact/ubicacions' },
 				{ icon: 'room', label: 'Ubicacions articles', route: '/fact/ubicacionsArticle' },
 				{ icon: 'room', label: 'Unitats tipus', route: '/fact/unitatsTipus' },
-				{ icon: 'room', label: 'Vehicles', route: '/fact/vehicles' },				
-				{ icon: 'room', label: 'Zones (Facturació)', route: '/fact/zones' }	
-				
+				{ icon: 'room', label: 'Vehicles', route: '/fact/vehicles' },
+				{ icon: 'room', label: 'Zones (Facturació)', route: '/fact/zones' }
+
 			]
 		});
 		this.moduleService.register({
@@ -176,7 +175,7 @@ export class AppService {
 				{ icon: 'room', label: 'Tipus Dia', route: '/rrhh/tipusDies' },
 				{ icon: 'room', label: 'Tipus Transaccio', route: '/rrhh/tipusTransaccions' },
 				{ icon: 'room', label: 'Transaccions', route: '/rrhh/transaccions' },
-				{ icon: 'room', label: 'Zones', route: '/rrhh/zonesRrhh' }									]
+				{ icon: 'room', label: 'Zones', route: '/rrhh/zonesRrhh' }]
 		});
 		this.moduleService.register({
 			code: 'rrmm',
@@ -199,7 +198,7 @@ export class AppService {
 			label: 'Marcatges',
 			menuItems: [
 				{ icon: 'people_alt', label: 'Operaris', route: '/marc/operaris' },
-		    	{ icon: 'timer', label: 'Marcatges', route: '/marc/marcatges' }
+				{ icon: 'timer', label: 'Marcatges', route: '/marc/marcatges' }
 			]
 		});
 		this.moduleService.register({

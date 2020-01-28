@@ -56,7 +56,9 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.formaPago", column = @Column(name = "alb_fpa", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.facturable", column = @Column(name = "alb_fbl", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.desti", column = @Column(name = "alb_dti", length = 1, nullable = false)),
-	@AttributeOverride(name = "embedded.divisaValorEuros", column = @Column(name = "alb_valdiveur")),
+	@AttributeOverride(name = "embedded.divisaValorEuros", column = @Column(name = "alb_valdiveur")),	
+	@AttributeOverride(name = "embedded.facturaNumero", column = @Column(name = "alb_fac_num")),
+	@AttributeOverride(name = "embedded.facturaClasse", column = @Column(name = "alb_fac_cls")),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "alb_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "alb_datcre")),
