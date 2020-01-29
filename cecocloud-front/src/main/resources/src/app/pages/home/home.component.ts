@@ -3,7 +3,7 @@ import { BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
 
 @Component({
 	template: `
-<div *ngIf="!mobileScreen" class="mat-display-3 centered" style="text-align: center">
+<div *ngIf="!mobileScreen" class="mat-display-3 bng-centered" style="text-align: center">
 	<p style="margin:0"><mat-icon inline="true" style="font-size:100px;">cloud_queue</mat-icon></p>
     <p style="margin:.4em">{{'home.salutacio'|translate}}</p>
 	<!--div class="example-button-row">
