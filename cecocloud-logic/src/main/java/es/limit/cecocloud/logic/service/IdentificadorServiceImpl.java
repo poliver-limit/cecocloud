@@ -41,26 +41,20 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 
 	@Override
 	protected void beforePermissionCreate(Long id, BaseBootPermission permission) {
-		permission.setAccessGranted(true);
+		permission.setReadGranted(true);
 	}
 	@Override
 	protected void afterPermissionCreate(Long id, BaseBootPermission permission) {
 		if (PermissionSidType.PRINCIPAL == permission.getSidType()) {
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(permission.getSidName());
 			Optional<IdentificadorEntity> identificador = getRepository().findById(id);
-			UsuariIdentificadorEntity usuariIdentificador = UsuariIdentificadorEntity.builder().
-					embedded(new UsuariIdentificador()).
-					usuari(usuari.get()).
-					identificador(identificador.get()).
-					build();
-			//updateAuditingInformation(usuariIdentificador, true);
-			usuariIdentificadorRepository.save(usuariIdentificador);
+			createUsuariIdentificadorIfNotExists(usuari.get(), identificador.get());
 		}
 	}
 
 	@Override
 	protected void beforePermissionUpdate(Long id, BaseBootPermission permission) {
-		permission.setAccessGranted(true);
+		permission.setReadGranted(true);
 	}
 	@Override
 	protected void afterPermissionUpdate(Long id, BaseBootPermission permission) {
@@ -73,13 +67,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 			if (usuariIdentificador.isPresent()) {
 				usuariIdentificadorRepository.delete(usuariIdentificador.get());
 			} else if (!usuariIdentificador.isPresent()) {
-				UsuariIdentificadorEntity usuariIdentificadorPerCrear = UsuariIdentificadorEntity.builder().
-						embedded(new UsuariIdentificador()).
-						usuari(usuari.get()).
-						identificador(identificador.get()).
-						build();
-				//updateAuditingInformation(usuariIdentificadorPerCrear, true);
-				usuariIdentificadorRepository.save(usuariIdentificadorPerCrear);
+				createUsuariIdentificadorIfNotExists(usuari.get(), identificador.get());
 			}
 		}
 	}
@@ -127,7 +115,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		BaseBootPermission permission = new BaseBootPermission(
 				PermissionSidType.PRINCIPAL,
 				entity.getPropietari().getEmbedded().getCodi());
-		permission.setAccessGranted(true);
+		permission.setReadGranted(true);
 		permission.setAdminGranted(true);
 		permissionCreate(entity.getId(), permission);
 	}
@@ -139,7 +127,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		BaseBootPermission permission = new BaseBootPermission(
 				PermissionSidType.PRINCIPAL,
 				entity.getPropietari().getEmbedded().getCodi());
-		permission.setAccessGranted(true);
+		permission.setReadGranted(true);
 		permission.setAdminGranted(true);
 		permissionCreate(entity.getId(), permission);
 	}
@@ -162,6 +150,24 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		} catch (Exception e) {
 			throw new LicenseGenerationException("Error generating the license.", e);
 		}
+	}
+
+	private void createUsuariIdentificadorIfNotExists(
+			UsuariEntity usuari,
+			IdentificadorEntity identificador) {
+		Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findByUsuariAndIdentificador(
+				usuari,
+				identificador);
+		if (!usuariIdentificador.isPresent()) {
+			UsuariIdentificadorEntity usuariIdentificadorPerCrear = UsuariIdentificadorEntity.builder().
+					embedded(new UsuariIdentificador()).
+					usuari(usuari).
+					identificador(identificador).
+					build();
+			//updateAuditingInformation(usuariIdentificadorPerCrear, true);
+			usuariIdentificadorRepository.save(usuariIdentificadorPerCrear);
+		}
+		
 	}
 
 }

@@ -3,14 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BngAuthGuard } from 'base-angular';
 
-import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-empresa.guard';
-
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild([{
 			path: '',
-			canActivate: [SelectedEmpresaGuard],
 			children: [{
 				path: '',
 				loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule),
