@@ -36,13 +36,8 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(
-		name = "tges_fmc", 
-		indexes = { 
-				@Index(name = "iges_fmc_idf_fk", columnList = "fmc_idf_cod"),
-				@Index(name = "irges_fmc_pk", columnList = "fmc_idf_cod,fmc_cod", unique = true) 
-		}
-)
+@Table(name = "tges_fmc", indexes = { @Index(name = "iges_fmc_idf_fk", columnList = "fmc_idf_cod"),
+		@Index(name = "irges_fmc_pk", columnList = "fmc_idf_cod,fmc_cod", unique = true) })
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fmc_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.codi", column = @Column(name = "fmc_cod", length = 4)),
@@ -55,14 +50,13 @@ import lombok.Setter;
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fmc_usumod")),
 		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "fmc_datmod")) 
 })
-@AssociationOverrides({ 
+@AssociationOverrides({
 	@AssociationOverride(
 			name = "identificador", 
 			joinColumns = {
-					@JoinColumn(name = "fmc_idf_cod", insertable = false, updatable = false) 
-			},
-			foreignKey = @ForeignKey(name = "rges_fmc_idf_fk")) 
-	})
+					@JoinColumn(name = "fmc_idf_cod", insertable = false, updatable = false) }, 
+			foreignKey = @ForeignKey(name = "rges_fmc_idf_fk"))
+})
 
 public class FamiliaClientEntity
 		extends AbstractWithIdentificadorEntity<FamiliaClient, WithIdentificadorAndCodiPk<String>> {
@@ -71,27 +65,21 @@ public class FamiliaClientEntity
 	protected FamiliaClient embedded;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(
-				name = "fmc_idf_cod",
-				referencedColumnName = "tri_idf_cod",
-				insertable = false,
-				updatable = false),
-		@JoinColumn(
-				name = "fmc_tri_cod",
-				referencedColumnName = "tri_cod",
-				insertable = false,
-				updatable = false)
-	})
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "fmc_idf_cod", referencedColumnName = "tri_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "fmc_tri_cod", referencedColumnName = "tri_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "fmc_tri_cod_fk"))
 	private TipusRiscEntity tipusRisc;
 	@Column(name = "fmc_tri_cod", length = 4, nullable = false)
 	private String tipusRiscCodi;
 
 	@Builder
 	public FamiliaClientEntity(
-			WithIdentificadorAndCodiPk<String> pk,
+			WithIdentificadorAndCodiPk<String> pk, 
 			FamiliaClient embedded,
-			IdentificadorEntity identificador,
+			IdentificadorEntity identificador, 
 			TipusRiscEntity tipusRisc) {
 		setId(pk);
 		this.embedded = embedded;
@@ -103,6 +91,7 @@ public class FamiliaClientEntity
 	public void update(FamiliaClient embedded) {
 		this.embedded = embedded;
 	}
+
 	public void updateTipusRisc(TipusRiscEntity tipusRisc) {
 		this.tipusRisc = tipusRisc;
 		if (tipusRisc != null) {

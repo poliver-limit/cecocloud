@@ -30,13 +30,8 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(
-		name = "tges_acc", 
-		indexes = { 
-				@Index(name = "iges_acc_idf_fk", columnList = "acc_idf_cod"),
-				@Index(name = "irges_acc_pk", columnList = "acc_idf_cod,acc_cod", unique = true) 
-		}
-)
+@Table(name = "tges_acc", indexes = { @Index(name = "iges_acc_idf_fk", columnList = "acc_idf_cod"),
+		@Index(name = "irges_acc_pk", columnList = "acc_idf_cod,acc_cod", unique = true) })
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "acc_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.clientCodi", column = @Column(name = "acc_cli_cod", length = 4)),
@@ -50,40 +45,33 @@ import lombok.Setter;
 		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "acc_datmod")) 
 })
 @AssociationOverrides({ 
-	@AssociationOverride(
-			name = "identificador", 
-			joinColumns = {
-					@JoinColumn(name = "acc_idf_cod", insertable = false, updatable = false) 
-			}, 
-			foreignKey = @ForeignKey(name = "rges_acc_idf_fk")) 
-})
+		@AssociationOverride(
+					name = "identificador",
+					joinColumns = {
+							@JoinColumn(name = "acc_idf_cod", insertable = false, updatable = false) }, 
+					foreignKey = @ForeignKey(name = "rges_acc_idf_fk")) 
+		})
 
 public class ClientAdresaEntity extends AbstractWithIdentificadorEntity<ClientAdresa, ClientAdresaPk> {
 
 	@Embedded
 	protected ClientAdresa embedded;
-	
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumns(
-				value = {
+	@JoinColumns(value = {
 						@JoinColumn(name = "acc_idf_cod", referencedColumnName = "cli_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "acc_cli_cod", referencedColumnName = "cli_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "acc_cli_cod", referencedColumnName = "cli_cod", insertable = false, updatable = false) 
 				},
 				foreignKey = @ForeignKey(name = "rges_acc_cli_fk"))
 	protected ClientEntity client;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(
-					name = "acc_idf_cod", 
-					referencedColumnName = "cpo_idf_cod", 
-					insertable = false, 
-					updatable = false),
-			@JoinColumn(
-					name = "acc_cpo_cod", 
-					referencedColumnName = "cpo_cod", 
-					insertable = false, 
-					updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "acc_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "acc_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "acc_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
 	@Column(name = "acc_cpo_cod")
 	private String codiPostalCodi;
@@ -91,22 +79,21 @@ public class ClientAdresaEntity extends AbstractWithIdentificadorEntity<ClientAd
 	@Builder
 	public ClientAdresaEntity(
 			ClientAdresaPk pk, 
-			ClientAdresa embedded,
-			IdentificadorEntity identificador, 
-			ClientEntity client,
+			ClientAdresa embedded, 
+			IdentificadorEntity identificador,
+			ClientEntity client, 
 			CodiPostalEntity codiPostal) {
 		setId(pk);
 		this.embedded = embedded;
-		this.identificador = identificador;	
+		this.identificador = identificador;
 		this.client = client;
 		updateCodiPostal(codiPostal);
 	}
 
 	@Override
 	public void update(ClientAdresa embedded) {
-		this.embedded = embedded;	
+		this.embedded = embedded;
 	}
-
 
 	public void updateCodiPostal(CodiPostalEntity codiPostal) {
 		this.codiPostal = codiPostal;

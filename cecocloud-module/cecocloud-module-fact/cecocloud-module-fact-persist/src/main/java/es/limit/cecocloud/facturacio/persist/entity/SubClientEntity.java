@@ -85,135 +85,180 @@ public class SubClientEntity extends AbstractWithIdentificadorEntity<SubClient, 
 	protected  SubClient embedded;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "cli_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_cli_cod", referencedColumnName = "cli_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "cli_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_cli_cod", referencedColumnName = "cli_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "scl_cli_cod_fk"))
 	private ClientEntity client;
 	@Column(name = "scl_cli_cod", length = 4, insertable = false, updatable = false)
 	private String clientCodi;
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "scl_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
 	@Column(name = "scl_cpo_cod", length = 4, nullable = false)
 	private String codiPostalCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tar_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_tar_cod001", referencedColumnName = "tar_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tar_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_tar_cod001", referencedColumnName = "tar_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "scl_tar_cod001_fk"))
 	private TarifaEntity tarifa1;
 	@Column(name = "scl_tar_cod001", length = 4)
 	private String tarifa1Codi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tar_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_tar_cod002", referencedColumnName = "tar_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tar_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_tar_cod002", referencedColumnName = "tar_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "scl_tar_cod002_fk"))
 	private TarifaEntity tarifa2;
 	@Column(name = "scl_tar_cod002", length = 4)
 	private String tarifa2Codi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tds_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_tds_cod", referencedColumnName = "tds_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tds_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_tds_cod", referencedColumnName = "tds_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "scl_tds_cod_fk"))
 	private TarifaDescompteEntity tarifaDescompte;
 	@Column(name = "scl_tds_cod", length = 6)
 	private String tarifaDescompteCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "scl_iva_cod_fk"))
 	private IvaEntity iva;
 	@Column(name = "scl_iva_cod", length = 6)
 	private String ivaCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tcs_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_tcs_cod", referencedColumnName = "tcs_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tcs_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_tcs_cod", referencedColumnName = "tcs_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "scl_tcs_cod_fk"))
 	private TipusComissioEntity tipusComissio;
 	@Column(name = "scl_tcs_cod", length = 4)
 	private String tipusComissioCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "rgi_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_rgi_cod", referencedColumnName = "rgi_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "rgi_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_rgi_cod", referencedColumnName = "rgi_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "scl_rgi_cod_fk"))
 	private RegimIvaEntity regimIva;
 	@Column(name = "scl_rgi_cod", length = 2)
 	private String regimIvaCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tve_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_tve_cod", referencedColumnName = "tve_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tve_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_tve_cod", referencedColumnName = "tve_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "scl_tve_cod_fk"))
 	private TipusVencimentEntity tipusVenciment;
 	@Column(name = "scl_tve_cod", length = 4)
 	private String tipusVencimentCodi; 
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tve_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_tve_cod001", referencedColumnName = "tve_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "tve_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_tve_cod001", referencedColumnName = "tve_cod", insertable = false, updatable = false) 
+					},
+			foreignKey = @ForeignKey(name = "scl_tve_cod001_fk"))
 	private TipusVencimentEntity tipusVenciment1;
 	@Column(name = "scl_tve_cod001", length = 4)
 	private String tipusVenciment1Codi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "clr_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_clr_cod", referencedColumnName = "clr_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "clr_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_clr_cod", referencedColumnName = "clr_cod", insertable = false, updatable = false) 
+					},
+			foreignKey = @ForeignKey(name = "scl_clr_cod_fk"))
 	private ClasseRetencioEntity claseRetencio;
 	@Column(name = "scl_clr_cod", length = 4)
 	private String claseRetencioCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "zon_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_zon_cod", referencedColumnName = "zon_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "zon_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_zon_cod", referencedColumnName = "zon_cod", insertable = false, updatable = false)
+					},
+			foreignKey = @ForeignKey(name = "scl_zon_cod_fk"))
 	private ZonaEntity zona;
 	@Column(name = "scl_zon_cod", length = 4)
 	private String zonaCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_ope_codenc", referencedColumnName = "ope_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_ope_codenc", referencedColumnName = "ope_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "scl_ope_codenc_fk"))
 	private OperariEntity operarioEncargado;
 	@Column(name = "scl_ope_codenc", length = 6)
 	private String operarioEncargadoCodi; 
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_ope_codres", referencedColumnName = "ope_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_ope_codres", referencedColumnName = "ope_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "scl_ope_codres_fk"))
 	private OperariEntity operarioResp;
 	@Column(name = "scl_ope_codres", length = 6)
 	private String operarioRespCodi; 
 	 
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "scl_idf_cod", referencedColumnName = "acc_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_cli_cod", referencedColumnName = "acc_cli_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "scl_acc_cod", referencedColumnName = "acc_cod", insertable = false, updatable = false)})
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "scl_idf_cod", referencedColumnName = "acc_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_cli_cod", referencedColumnName = "acc_cli_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "scl_acc_cod", referencedColumnName = "acc_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "scl_acc_cod_fk"))
 	private ClientAdresaEntity adresaComercialClient;
 	@Column(name = "scl_acc_cod", length = 4)
 	private String adresaComercialClientCodi;

@@ -33,13 +33,8 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(
-		name = "tges_clr", 
-		indexes = { 
-				@Index(name = "iges_clr_idf_fk", columnList = "clr_idf_cod"),
-				@Index(name = "irges_clr_pk", columnList = "clr_idf_cod,clr_cod", unique = true) 
-				}
-)
+@Table(name = "tges_clr", indexes = { @Index(name = "iges_clr_idf_fk", columnList = "clr_idf_cod"),
+		@Index(name = "irges_clr_pk", columnList = "clr_idf_cod,clr_cod", unique = true) })
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "clr_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.codi", column = @Column(name = "clr_cod", length = 4)),
@@ -51,18 +46,19 @@ import lombok.Setter;
 		@AttributeOverride(name = "createdBy", column = @Column(name = "clr_usucre")),
 		@AttributeOverride(name = "createdDate", column = @Column(name = "clr_datcre")),
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "clr_usumod")),
-		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "clr_datmod")) })
-@AssociationOverrides({ 
-	@AssociationOverride(
-			name = "identificador", 
-			joinColumns = {
-					@JoinColumn(name = "clr_idf_cod", insertable = false, updatable = false) 
-			}, 
-			foreignKey = @ForeignKey(name = "rges_clr_idf_fk")) 
-	})
+		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "clr_datmod"))
+})
+@AssociationOverrides({
+		@AssociationOverride(
+					name = "identificador", 
+					joinColumns = {
+							@JoinColumn(name = "clr_idf_cod", insertable = false, updatable = false) }, 
+					foreignKey = @ForeignKey(name = "rges_clr_idf_fk"))
+})
 
-public class ClasseRetencioEntity extends AbstractWithIdentificadorEntity<ClasseRetencio, WithIdentificadorAndCodiPk<String>> {
-	
+public class ClasseRetencioEntity
+		extends AbstractWithIdentificadorEntity<ClasseRetencio, WithIdentificadorAndCodiPk<String>> {
+
 	@Embedded
 	protected ClasseRetencio embedded;
 

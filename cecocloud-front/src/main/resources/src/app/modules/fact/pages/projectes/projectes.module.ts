@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
 import { MatCardModule } from '@angular/material/card';
-import { MaterialModule } from '../../shared/material.module';
+import { MaterialModule } from '../../../../shared/material.module';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatDividerModule } from '@angular/material/divider'
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ProjectesGridComponent } from './projectes-grid.component';
 import { ProjectesFormComponent } from './projectes-form.component';
 import { ProjectesService } from './projectes.service';
@@ -20,6 +21,7 @@ import { ProjectesService } from './projectes.service';
         MatTabsModule,
         MatDividerModule,
         MatCardModule,
+        MatExpansionModule,
         RouterModule.forChild( [
             { path: '', component: ProjectesGridComponent },
             { path: 'create', component: ProjectesFormComponent, canDeactivate: [BngFormExitGuard] },

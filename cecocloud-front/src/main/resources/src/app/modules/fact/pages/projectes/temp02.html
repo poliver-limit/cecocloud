@@ -125,22 +125,27 @@
 
   <ng-template #fieldsCard3>
     <div style="display: flex">
-      <div style="width: 25%; padding-right: 1em">
+      <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="direccioTecnica"></bng-custom-field>
       </div>
-      <div style="width: 25%; padding-right: 1em">
+      <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="importFianca"></bng-custom-field>
       </div>
-      <div style="width: 25%; padding-right: 1em">
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dipositFianca"></bng-custom-field>
       </div>
-      <div style="width: 25%; padding-right: 1em">
+      <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataDevolucioAval"></bng-custom-field>
       </div>
     </div>
     <div style="display: flex">
-      <div style="width: 25%; padding-right: 1em">
+      <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="estat">Estado</bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataFiPrevist"></bng-custom-field>
       </div>
     </div>
     <div style="display: flex">
@@ -150,12 +155,6 @@
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataFi"></bng-custom-field>
       </div>
-      <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="dataFiPrevist"></bng-custom-field>
-      </div>
-      <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="dataAdjudicacio"></bng-custom-field>
-      </div>
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -164,6 +163,8 @@
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="operariCapGrup"></bng-custom-field>
       </div>
+    </div>
+    <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="operariEncarregat"></bng-custom-field>
       </div>
@@ -178,6 +179,8 @@
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="contacteTelefon"></bng-custom-field>
       </div>
+    </div>
+    <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="codiPostal"></bng-custom-field>
       </div>
@@ -187,14 +190,21 @@
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataAdjudicacio"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataExecucio"></bng-custom-field>
       </div>
+    </div>
+    <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataRecepcioProvisional"></bng-custom-field>
       </div>
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataRecepcioFinal"></bng-custom-field>
       </div>
+    </div>
+    <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataIniciGarantia"></bng-custom-field>
       </div>
@@ -279,18 +289,22 @@
 
   <ng-template #fieldsCard5>
     <div style="display: flex">
-      <div style="width: 50%; padding-right: 1em">
+      <div style="width: 50%; padding-right: 1em; margin-bottom: 20px;">
         <bng-custom-field name="albaransClientCrear"></bng-custom-field>
       </div>
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="albaransClientPreu"></bng-custom-field>
+        <bng-custom-field name="albaransClientPreu"
+          >Precio albarán cliente</bng-custom-field
+        >
       </div>
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="albaransClientProjecteTipus"></bng-custom-field>
+        <bng-custom-field name="albaransClientProjecteTipus"
+          >Tipo de proyecto</bng-custom-field
+        >
       </div>
     </div>
   </ng-template>
@@ -308,7 +322,9 @@
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="retencioTipus"></bng-custom-field>
+        <bng-custom-field name="retencioTipus"
+          >Tipo de retención</bng-custom-field
+        >
       </div>
     </div>
   </ng-template>

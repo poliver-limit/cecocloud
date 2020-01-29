@@ -13,21 +13,6 @@
 	</properties>
 	<profiles>
 		<profile>
-<<<<<<< HEAD
-			<id>prod</id>
-			<activation>
-				<file>
-					<missing>skip_npm</missing>
-				</file>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<skip.npm>false</skip.npm>
-			</properties>
-		</profile>
-		<profile>
-=======
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 			<id>dev</id>
 			<activation>
 				<file>
