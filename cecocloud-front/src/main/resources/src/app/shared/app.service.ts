@@ -98,6 +98,7 @@ export class AppService {
 			icon: 'assignment',
 			label: 'Facturació',
 			menuItems: [
+				{ icon: 'room', label: 'Albarans', route: '/fact/albarans' },
 				{ icon: 'room', label: 'Articles', route: '/fact/articles' },
 				{ icon: 'room', label: 'Articles família', route: '/fact/articlesFamilia' },
 				{ icon: 'room', label: 'Articles família empresa', route: '/fact/articlesFamiliaEmpresa' },

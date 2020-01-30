@@ -15,6 +15,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				path: '',
 				loadChildren: () => import('./pages/index/index-fact.module').then(m => m.IndexFactModule),
 				canActivate: [BngAuthGuard]
+			}, {
+				path: 'albarans',
+				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule),
+				canActivate: [BngAuthGuard]
 	        }, {
 				path: 'articles',
 				loadChildren: () => import('./pages/articles/articles.module').then(m => m.ArticlesModule),
