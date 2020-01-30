@@ -1,0 +1,413 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="projectesService"
+>
+  <div style="display: flex; margin-bottom:20px;">
+    <div style="width: 50%; padding-right: 1em">
+      <bng-custom-field name="codi"></bng-custom-field>
+    </div>
+    <div style="width: 50%; padding-right: 1em">
+      <bng-custom-field name="nom"></bng-custom-field>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------------------- -->
+
+  <mat-tab-group>
+    <mat-tab label="Datos del proyecto">
+      <ng-container *ngTemplateOutlet="fieldsTab1"></ng-container>
+    </mat-tab>
+    <mat-tab label="Datos técnicos">
+      <ng-container *ngTemplateOutlet="fieldsTab2"></ng-container>
+    </mat-tab>
+    <mat-tab label="Más">
+      <ng-container *ngTemplateOutlet="fieldsTab3"></ng-container>
+    </mat-tab>
+  </mat-tab-group>
+
+  <!-- -------------------------------------------------------------------------- -->
+
+  <ng-template #fieldsTab1>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Datos generales
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion1"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Datos cliente
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion2"></ng-container>
+    </mat-expansion-panel>
+  </ng-template>
+
+  <ng-template #fieldsExpansion1>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="serie"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="referencia"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="codiAlternatiu"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 100%; padding-right: 1em">
+        <bng-custom-field name="descripcio"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="responsable"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="divisa"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="divisaValorEuros"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="valorEstimat"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="finalFactura"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="projecteTipus"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="magatzem"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion2>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="client"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="subClient"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="clientAdresa"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 100%; padding-right: 1em">
+        <bng-custom-field name="observacions"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- -------------------------------------------------------------------------- -->
+
+  <ng-template #fieldsTab2>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Datos técnicos
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion3"></ng-container>
+    </mat-expansion-panel>
+  </ng-template>
+
+  <ng-template #fieldsExpansion3>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="direccioTecnica"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="importFianca"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dipositFianca"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataDevolucioAval"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="estat">Estado</bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataFiPrevist"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataInici"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataFi"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="operariResponsable"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="operariCapGrup"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="operariEncarregat"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="operariAdministratiu"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="contactePersona"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="contacteTelefon"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="codiPostal"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="adreca"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataAdjudicacio"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataExecucio"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataRecepcioProvisional"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataRecepcioFinal"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dataIniciGarantia"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- -------------------------------------------------------------------------- -->
+
+  <ng-template #fieldsTab3>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Partes de trabajo
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion4"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Crear albaranes
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion5"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Retención
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion6"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Contabilidad
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion7"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Estudio proyecto
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion8"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Zona
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion9"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Global
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion10"></ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Construcción y garantía
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="fieldsExpansion11"></ng-container>
+    </mat-expansion-panel>
+  </ng-template>
+
+  <ng-template #fieldsExpansion4>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="dietes"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="plusPerillositat"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="controlarCostos"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="horesCami"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion5>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="albaransClientCrear"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em;margin-top: 20px;">
+        <bng-custom-field name="albaransClientPreu"
+          >Precio albarán cliente</bng-custom-field
+        >
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="albaransClientProjecteTipus"
+          >Tipo proyecto</bng-custom-field
+        >
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion6>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="retencioClasse"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="retencioPercent"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="retencioTipus"
+          >Tipo de retención</bng-custom-field
+        >
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion7>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="comptabilitatCodiProjecte"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="areaNegoci"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion8>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="estudiDespesesGenerals"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="estudiBaixaPercent"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="estudiTasaPercent"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="estudiSumarValoracioEnExces"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion9>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="zona"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion10>
+    <div style="display: flex">
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="percentExecucioLliure"></bng-custom-field>
+      </div>
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="horesEquiv"></bng-custom-field>
+      </div>
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="mesosGarantia"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #fieldsExpansion11>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="percentExecucioConstruccio"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="horesEquivConstruccio"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="percentExecucioGarantia"></bng-custom-field>
+      </div>
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="horesEquivGarantia"></bng-custom-field>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="width: 50%; padding-right: 1em">
+        <bng-custom-field name="tipusInversio"></bng-custom-field>
+      </div>
+    </div>
+  </ng-template>
+</bng-form>

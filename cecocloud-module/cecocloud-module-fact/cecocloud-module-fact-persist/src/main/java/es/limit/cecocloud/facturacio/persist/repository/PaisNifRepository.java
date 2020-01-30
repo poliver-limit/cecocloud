@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.persist.repository;
 
 import org.springframework.stereotype.Repository;
