@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.logic.service;
 
 import org.springframework.stereotype.Service;

@@ -91,6 +91,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule),
 				canActivate: [BngAuthGuard]
+			},{
+				path: 'projectes',
+				loadChildren: () => import('./pages/projectes/projectes.module').then(m => m.ProjectesModule),
+				canActivate: [BngAuthGuard]
 			}, {
 				path: 'proveidors',
 				loadChildren: () => import('./pages/proveidors/proveidors.module').then(m => m.ProveidorsModule),

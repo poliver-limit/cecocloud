@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.persist.entity;
 
 import javax.persistence.AssociationOverride;
@@ -58,13 +61,13 @@ import lombok.Setter;
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ane_usumod")),
 		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ane_datmod")) 
 })
-@AssociationOverrides({ 
-	@AssociationOverride(
-			name = "identificador", 
-			joinColumns = {
-					@JoinColumn(name = "ane_idf_cod", insertable = false, updatable = false) 
+		@AssociationOverrides({ 
+				@AssociationOverride(
+						name = "identificador", 
+						joinColumns = {
+								@JoinColumn(name = "ane_idf_cod", insertable = false, updatable = false) 
 			},
-			foreignKey = @ForeignKey(name = "rges_ane_idf_fk")) 
+						foreignKey = @ForeignKey(name = "rges_ane_idf_fk")) 
 	})
 
 
