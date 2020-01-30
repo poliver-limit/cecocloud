@@ -142,6 +142,7 @@ export class AppService {
 				{ icon: 'room', label: 'Empreses (Facturació)', route: '/fact/empreses' },
 				{ icon: 'room', label: 'Famílies cost', route: '/fact/familiesCost' },
 				{ icon: 'room', label: 'Famílies proveidor', route: '/fact/familiesProveidor' },
+				{ icon: 'room', label: 'Idiomes', route: '/fact/idiomes' },
 				{ icon: 'room', label: 'Iva', route: '/fact/ives' },
 				{ icon: 'room', label: 'Magatzems', route: '/fact/magatzems' },
 				{ icon: 'room', label: 'Magatzems període', route: '/fact/magatzemsPeriode' },

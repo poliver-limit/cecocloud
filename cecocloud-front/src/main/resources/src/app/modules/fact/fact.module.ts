@@ -72,6 +72,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/familiesProveidor/familiesProveidor.module').then(m => m.FamiliesProveidorModule),
 				canActivate: [BngAuthGuard]
 			}, {
+				path: 'idiomes',
+				loadChildren: () => import('./pages/idiomes/idiomes.module').then(m => m.IdiomesModule),
+				canActivate: [BngAuthGuard]
+			}, {
 				path: 'ives',
 				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule),
 				canActivate: [BngAuthGuard]

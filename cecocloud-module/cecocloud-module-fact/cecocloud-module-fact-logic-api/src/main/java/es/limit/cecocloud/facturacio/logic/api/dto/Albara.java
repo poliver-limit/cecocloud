@@ -43,11 +43,11 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
-	private int numeroDocument;
+	private Integer numeroDocument;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
-	private int numero;
+	private Integer numero;
 	
 	@NotNull
 	@Size(max = 1)
