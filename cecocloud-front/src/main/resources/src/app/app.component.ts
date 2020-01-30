@@ -31,8 +31,7 @@ export class AppComponent {
 	}
 
 	onAdminButtonClick() {
-		let menu: BngMenu = this.appService.getAdminMenu();
-		this.menuService.setActiveMenu(menu);
+		this.menuService.setActiveGlobalMenu('admin');
 		this.router.navigate(['/admin-app']);
 	}
 

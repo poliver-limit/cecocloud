@@ -17,11 +17,18 @@ import { IdentificadorsService } from './identificadors.service';
 		TranslateModule,
 		BngModule,
 		MaterialModule,
-		RouterModule.forChild([
-			{ path: '', component: IdentificadorsGridComponent },
-			{ path: 'create', component: IdentificadorsFormComponent, canDeactivate: [BngFormExitGuard] },
-			{ path: 'update/:id', component: IdentificadorsFormComponent, canDeactivate: [BngFormExitGuard] }
-		])
+		RouterModule.forChild([{
+			path: '',
+			component: IdentificadorsGridComponent
+		}, {
+			path: 'create',
+			component: IdentificadorsFormComponent,
+			canDeactivate: [BngFormExitGuard]
+		}, {
+			path: 'update/:id',
+			component: IdentificadorsFormComponent,
+			canDeactivate: [BngFormExitGuard]
+		}])
 	],
 	declarations: [
 		IdentificadorsGridComponent,

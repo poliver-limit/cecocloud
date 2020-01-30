@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BngAuthService, BngModuleService, BngMenu, BngAppModule } from 'base-angular';
+import { BngAuthService, BngMenuService, BngModuleService, BngMenu, BngAppModule } from 'base-angular';
 
 import { IdentificadorsService } from '../pages/identificadors/identificadors.service';
 
@@ -13,21 +13,46 @@ export class AppService {
 		icon: 'build',
 		label: 'Administració',
 		labelKey: 'app.menu.admin',
-		menuItems: [
-			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
-			{ icon: 'domain', label: 'Grups d\'empreses', labelKey: 'app.menu.identificadors', route: '/identificadors' }
-		]
+		items: [{
+			icon: 'people',
+			label: 'Usuaris',
+			labelKey: 'app.menu.usuaris',
+			resource: 'usuari',
+			route: '/usuaris'
+		}, {
+			icon: 'domain',
+			label: 'Grups d\'empreses',
+			labelKey: 'app.menu.identificadors',
+			resource: 'identificador',
+			route: '/identificadors'
+		}]
 	}
 
 	adminIdentificadorMenu: BngMenu = {
 		icon: 'build',
 		label: '...',
-		menuItems: [
-			{ icon: 'domain', label: 'Grups d\'empreses', labelKey: 'app.menu.identificador', route: '/identificador' },
-			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuari-identificadors' },
-			{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' },
-			{ icon: 'portrait', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' }
-		]
+		items: [{
+			icon: 'domain',
+			label: 'Grups d\'empreses',
+			labelKey: 'app.menu.identificador',
+			route: '/identificador'
+		}, {
+			icon: 'people',
+			label: 'Usuaris',
+			labelKey: 'app.menu.usuaris',
+			route: '/usuari-identificadors'
+		}, {
+			icon: 'business_center',
+			label: 'Empreses',
+			labelKey: 'app.menu.empreses',
+			resource: 'empresa',
+			route: '/empreses'
+		}, {
+			icon: 'portrait',
+			label: 'Perfils',
+			labelKey: 'app.menu.perfils',
+			route: '/perfils'
+		}]
 	}
 
 	public getAdminMenu(): BngMenu {
@@ -43,7 +68,7 @@ export class AppService {
 		if (this.router.url.startsWith('/admin-app')) {
 			found = true;
 		} else {
-			this.adminMenu.menuItems.forEach((menuItem: BngMenu) => {
+			this.adminMenu.items.forEach((menuItem: BngMenu) => {
 				if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 					found = true;
 				}
@@ -56,7 +81,7 @@ export class AppService {
 			if (this.router.url.startsWith('/admin-identificador')) {
 				found = true;
 			} else {
-				this.adminIdentificadorMenu.menuItems.forEach((menuItem: BngMenu) => {
+				this.adminIdentificadorMenu.items.forEach((menuItem: BngMenu) => {
 					if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 						found = true;
 					}
@@ -87,9 +112,14 @@ export class AppService {
 				icon: moduleItem.icon,
 				label: moduleItem.label,
 				labelKey: 'app.module.' + module,
-				menuItems: moduleItem.menuItems
+				items: moduleItem.menuItems
 			};
 		}
+	}
+
+	private registerGlobalMenus() {
+		this.menuService.registerGlobal('admin', this.adminMenu);
+		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);
 	}
 
 	private registerAvailableModules() {
@@ -209,17 +239,15 @@ export class AppService {
 		this.moduleService.refreshAllowedModuleItems();
 	}
 
-	private configureMainMenu() {
-		//this.menuService.setActiveMenu(this.adminMenu);
-	}
-
 	constructor(
 		private router: Router,
 		private authService: BngAuthService,
+		private menuService: BngMenuService,
 		private moduleService: BngModuleService,
 		private identificadorsService: IdentificadorsService) {
+		this.registerGlobalMenus();
 		this.registerAvailableModules();
-		this.configureMainMenu();
+		this.menuService.setActiveGlobalMenu('admin');
 	}
 
 }

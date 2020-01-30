@@ -185,9 +185,7 @@ export class UsuariIdentificadorsFormComponent implements OnDestroy {
 
 	id: any;
 	formConfig: BngFormConfig = {
-		readOnlyStateEnabled: true,
-		isButtonSave: false,
-		isUpdateShow: false
+		readOnlyStateEnabled: true
 	};
 
 	public translate: TranslateService;
