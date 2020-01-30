@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.limit.cecocloud.facturacio.logic.api.dto.enums;
 
 public enum ComptabilitzacioTipusEnumDto {
@@ -22,3 +19,4 @@ public enum ComptabilitzacioTipusEnumDto {
 	}
 
 }
+

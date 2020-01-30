@@ -4,7 +4,7 @@ import { BngFormConfig } from "base-angular";
 import { ProjectesService } from "./projectes.service";
 
 @Component({
-  templateUrl: 'temp03.html'
+  templateUrl: 'temp02.html'
 })
 export class ProjectesFormComponent {
   formConfig: BngFormConfig = {};
