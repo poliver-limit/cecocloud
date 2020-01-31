@@ -38,7 +38,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 	@Query(	"from" +
 			"    MarcatgeEntity m " +
 			"where " +
-			"    m.embedded.origen = es.limit.cecocloud.marcatges.logic.api.dto.MarcatgeOrigen.MOBIL " +
+			"    m.embedded.origen = es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen.MOBIL " +
 			"and m.operari.empresa in (:empreses) " +
 			"and m.createdDate >= :dataInici " +
 			"and (:esNullDataFi = true or m.createdDate <= :dataFi) " +
