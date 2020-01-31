@@ -13,6 +13,6 @@ import es.limit.cecocloud.rrhh.persist.entity.IdentificadorEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Repository("IdentificadorRrhhRepository")
-public interface IdentificadorRrhhRepository extends BaseRepository<IdentificadorEntity, String> {
+@Repository("rrhhIdentificadorRepository")
+public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, String> {
 }

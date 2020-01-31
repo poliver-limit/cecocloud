@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
-import es.limit.cecocloud.marcatges.logic.api.module.MarcatgesModule;
+import es.limit.cecocloud.marcatges.logic.api.module.MarcModule;
 
 /**
  * Controlador per al servei REST de gestió de marcatges.
@@ -18,7 +18,7 @@ import es.limit.cecocloud.marcatges.logic.api.module.MarcatgesModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(MarcatgesModule.API_PATH + "/marcatges")
+@RequestMapping(MarcModule.API_PATH + "/marcatges")
 public class MarcatgeApiController extends AbstractIdentificableApiController<Marcatge, Long> {
 
 	/*@Autowired

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.Zona;
-import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
+import es.limit.cecocloud.facturacio.logic.api.module.FactModuleConfig;
 
 /**
  * Controlador per al servei REST de gestió de zones.
@@ -15,7 +15,7 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController("factZonaApiController")
-@RequestMapping(FacturacioModule.API_PATH + "/zones")
+@RequestMapping(FactModuleConfig.API_PATH + "/zones")
 public class ZonaApiController extends AbstractIdentificableWithIdentificadorApiController<Zona> {
 
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.Banc;
-import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
+import es.limit.cecocloud.facturacio.logic.api.module.FactModuleConfig;
 
 /**
  * Controlador per al servei REST de gestió de Banc.
@@ -15,7 +15,7 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(FacturacioModule.API_PATH + "/bancs")
+@RequestMapping(FactModuleConfig.API_PATH + "/bancs")
 public class BancApiController extends AbstractIdentificableWithIdentificadorApiController<Banc> {
 
 }

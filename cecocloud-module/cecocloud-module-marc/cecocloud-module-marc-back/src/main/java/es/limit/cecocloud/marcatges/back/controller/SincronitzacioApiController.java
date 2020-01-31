@@ -23,7 +23,7 @@ import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioMarcatgesEnviament;
 import es.limit.cecocloud.marcatges.logic.api.dto.SincronitzacioResposta;
-import es.limit.cecocloud.marcatges.logic.api.module.MarcatgesModule;
+import es.limit.cecocloud.marcatges.logic.api.module.MarcModule;
 import es.limit.cecocloud.marcatges.logic.api.service.SincronitzacioService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(MarcatgesModule.API_PATH + "/sync")
+@RequestMapping(MarcModule.API_PATH + "/sync")
 public class SincronitzacioApiController {
 
 	@Autowired

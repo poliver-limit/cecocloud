@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.facturacio.logic.api.dto.SerieIntracomunitaria;
-import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
+import es.limit.cecocloud.facturacio.logic.api.module.FactModuleConfig;
 
 /**
  * Controlador per al servei REST de gestió de seriesIntracomunitaria.
@@ -15,7 +15,7 @@ import es.limit.cecocloud.facturacio.logic.api.module.FacturacioModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(FacturacioModule.API_PATH + "/seriesIntracomunitaria")
+@RequestMapping(FactModuleConfig.API_PATH + "/seriesIntracomunitaria")
 public class SerieIntracomunitariaApiController extends AbstractIdentificableWithIdentificadorApiController<SerieIntracomunitaria> {
 
 }

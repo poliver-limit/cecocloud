@@ -1,30 +1,29 @@
 /**
  * 
  */
-package es.limit.cecocloud.rrhh.logic.api.module;
+package es.limit.cecocloud.marcatges.logic.api.module;
 
 import org.springframework.stereotype.Component;
 
 import es.limit.base.boot.logic.api.controller.GenericController;
-import es.limit.base.boot.logic.api.module.ModuleInfo;
+import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
-import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
-
+import es.limit.cecocloud.marcatges.logic.api.dto.Marcatge;
 
 /**
- * Configuració del mòdul de rrhh.
+ * Configuració del mòdul de marcatges.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Component
-public class RrhhModule {
+public class MarcModule {
 
-	public static final String CODE = "rrhh";
+	public static final String CODE = "marc";
 	public static final String API_PATH = GenericController.API_PATH + "/" + CODE;
 
 	private static ModuleInfo moduleInfo = new ModuleInfo(
 			CODE,
-			Zona.class.getPackage().getName());
+			Marcatge.class.getPackage().getName());
 
 	static {
 		Modules.registerModule(moduleInfo);

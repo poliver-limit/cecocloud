@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.cecocloud.rrhh.logic.api.dto.Identificador;
-import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
+import es.limit.cecocloud.rrhh.logic.api.module.RrhhModuleConfig;
 
 /**
  * Controlador per al servei REST de gestió de la entitat Identificador.
@@ -16,7 +16,7 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController("IdentificadorRrhhController")
-@RequestMapping(RrhhModule.API_PATH + "/identificadors")
+@RequestMapping(RrhhModuleConfig.API_PATH + "/identificadors")
 public class IdentificadorApiController extends AbstractIdentificableApiController<Identificador, String> {
 
 }

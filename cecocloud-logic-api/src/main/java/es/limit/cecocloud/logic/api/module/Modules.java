@@ -5,11 +5,10 @@ package es.limit.cecocloud.logic.api.module;
 
 import es.limit.base.boot.logic.api.dto.Profile;
 import es.limit.base.boot.logic.api.module.AbstractModules;
-import es.limit.base.boot.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 
 /**
- * Classe que gestiona els diferents mòduls disponibles.
+ * Classe que gestiona els diferents mòduls disponibles a Cecocloud.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
