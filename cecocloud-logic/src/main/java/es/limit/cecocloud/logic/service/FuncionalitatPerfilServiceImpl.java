@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.PermissionFactory;
 import org.springframework.security.acls.model.Permission;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
@@ -66,6 +67,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 	// Obtenció de informació de funcionalitats
 	// ____________________________________________________________________________________________________________
 	@Override
+	@Transactional(readOnly = true)
 	public List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilOrderByModule(Long perfilId) {
 
 		// Obtenim tots els permisos actuals sobre les funcionalitats del perfil
@@ -76,6 +78,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilsOrderByModule(List<Long> perfilsId) {
 		
 		// Obtenim tots els permisos actuals sobre les funcionalitats dels perfils
@@ -111,9 +114,8 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 						funcModul.getEmbedded().getDescripcio(),
 						funcModul.getEmbedded().getTipus(),
 						new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, ""));
-				
 				List<FuncionalitatPerfilEntity> funcionalitatsPerfilModul = funcionalitatsPerfil.stream()
-						.filter(func -> func.getFuncionalitat().equals(funcModul)
+						.filter(func -> func.getFuncionalitat().getId().equals(funcModul.getId())
 								).collect(Collectors.toList());
 				
 				for (FuncionalitatPerfilEntity funcPerfil: funcionalitatsPerfilModul) {
@@ -134,7 +136,8 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 	// ____________________________________________________________________________________________________________
 	
 	@Override
-	public void savePermisos(Long perfilId, FuncionalitatInfo funcionalitatInfo) throws ClassNotFoundException {
+	@Transactional
+	public void savePermisos(Long perfilId, FuncionalitatInfo funcionalitatInfo) throws Exception {
 		BaseBootPermission permisos = funcionalitatInfo.getPermission();
 		
 		// Obtenim els permisos actuals
@@ -162,7 +165,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 			List<FuncionalitatEntity> funcionalitatsAltres = funcionalitatPerfilRepository
 					.findByPerfilIdOrderByFuncionalitatEmbeddedDescripcio(perfilId)
 					.stream()
-					.filter(funcionalitatPerf -> !funcionalitatPerf.getFuncionalitat().equals(funcionalitat))
+					.filter(funcionalitatPerf -> !funcionalitatPerf.getFuncionalitat().getId().equals(funcionalitat.getId()))
 					.map(funcionalitatPerf -> funcionalitatPerf.getFuncionalitat()).collect(Collectors.toList());
 
 			// Afegir permis 
@@ -170,7 +173,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				
 				// 1. afegim FuncionalitatPerfilEntity amb el permís
 				FuncionalitatPerfil embedded = new FuncionalitatPerfil();
-				embedded.setPermis(permis.toString());
+				embedded.setPermis(ExtendedPermission.getName(permis.getMask()));
 				FuncionalitatPerfilEntity funcionalitatPerfil = FuncionalitatPerfilEntity.builder()
 					.funcionalitat(funcionalitat)
 					.perfil(perfil)
@@ -181,13 +184,14 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				for (FuncionalitatRecursEntity recurs: funcionalitatsRecurs) {
 					BaseBootPermission permisRecurs = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
 					
-					funcionalitatRecursRepository.findPermisosByFuncionalitatsAndRecurs(
-							funcionalitatsTotes, 
-							recurs.getEmbedded().getResourceClassName()
-							).forEach(funcRecurs -> permisRecurs.setGranted(
-									funcRecurs.isPrincipal() ? 
-											permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
-											ExtendedPermission.READ.getMask()));
+					if (!funcionalitatsTotes.isEmpty())
+						funcionalitatRecursRepository.findPermisosByFuncionalitatsAndRecurs(
+								funcionalitatsTotes, 
+								recurs.getEmbedded().getResourceClassName()
+								).forEach(funcRecurs -> permisRecurs.setGranted(
+										funcRecurs.isPrincipal() ? 
+												permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
+												ExtendedPermission.READ.getMask()));
 					
 					permisRecurs.setGranted(recurs.getEmbedded().isPrincipal() ? permis.getMask() : ExtendedPermission.READ.getMask());
 					resourcePermissionService.savePermission(recurs.getEmbedded().getResourceClassName(), permisRecurs);
@@ -201,7 +205,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				FuncionalitatPerfilEntity funcionalitatPerfil = funcionalitatPerfilRepository.findByPerfilAndFuncionalitatAndEmbeddedPermis(
 						perfil, 
 						funcionalitat,
-						permis.toString());
+						ExtendedPermission.getName(permis.getMask()));
 				funcionalitatPerfilRepository.delete(funcionalitatPerfil);
 				
 				// 2. comprovam si hem d'eliminar els permisos
@@ -209,21 +213,23 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 					BaseBootPermission permisRecursActual = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
 					BaseBootPermission permisRecursAltres = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
 					
-					funcionalitatRecursRepository.findPermisosByFuncionalitatsAndRecurs(
-							funcionalitatsTotes, 
-							recurs.getEmbedded().getResourceClassName()
-							).forEach(funcRecurs -> permisRecursActual.setGranted(
-									funcRecurs.isPrincipal() ? 
-											permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
-											ExtendedPermission.READ.getMask()));
+					if (!funcionalitatsTotes.isEmpty())
+						funcionalitatRecursRepository.findPermisosByFuncionalitatsAndRecurs(
+								funcionalitatsTotes, 
+								recurs.getEmbedded().getResourceClassName()
+								).forEach(funcRecurs -> permisRecursActual.setGranted(
+										funcRecurs.isPrincipal() ? 
+												permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
+												ExtendedPermission.READ.getMask()));
 					
-					funcionalitatRecursRepository.findPermisosByFuncionalitatsAndRecurs(
-							funcionalitatsAltres, 
-							recurs.getEmbedded().getResourceClassName()
-							).forEach(funcRecurs -> permisRecursAltres.setGranted(
-									funcRecurs.isPrincipal() ? 
-											permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
-											ExtendedPermission.READ.getMask()));
+					if (!funcionalitatsAltres.isEmpty())
+						funcionalitatRecursRepository.findPermisosByFuncionalitatsAndRecurs(
+								funcionalitatsAltres, 
+								recurs.getEmbedded().getResourceClassName()
+								).forEach(funcRecurs -> permisRecursAltres.setGranted(
+										funcRecurs.isPrincipal() ? 
+												permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
+												ExtendedPermission.READ.getMask()));
 					
 					if (recurs.getEmbedded().isPrincipal()) {
 						if (!permisRecursAltres.isGranted(permis.getMask()))

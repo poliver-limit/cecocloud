@@ -149,7 +149,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
         let permis = event.currentTarget.attributes['name'].value;
         let check = !funcionalitatInfo.permission[permis];
         funcionalitatInfo.permission[permis] = check;
-        this.funcionalitatsPermisosService.saveFuncionalitat(funcionalitatInfo).subscribe(
+        this.funcionalitatsPermisosService.saveFuncionalitat(this.perfil, funcionalitatInfo).subscribe(
             () => {
                 this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission[permis] = check;
                 this.disableToggles = false;

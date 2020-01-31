@@ -60,12 +60,12 @@ public class FuncionalitatPerfilApiController extends AbstractIdentificableApiCo
 	}
 	
 	@PostMapping(
-			value = "/perfil/{perfilId}/permissions/save",
+			value = "/perfil/{perfilId}/permission/save",
 			produces = "application/json")
 	public ResponseEntity<EntityModel<BaseBootPermission>> permissionSave(
 			HttpServletRequest request,
 			@RequestBody @Valid final FuncionalitatInfo funcionalitat,
-			@PathVariable Long perfilId) throws ClassNotFoundException {
+			@PathVariable Long perfilId) throws Exception {
 		log.debug("Creant permisos de la funcionalitat (" +
 				"Funcionalitat=" + funcionalitat.getDescripcio() + ", " +
 				"tipus= " + funcionalitat.getTipus() + ", " +

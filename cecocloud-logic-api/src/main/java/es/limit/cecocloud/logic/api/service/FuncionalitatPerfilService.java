@@ -5,7 +5,6 @@ package es.limit.cecocloud.logic.api.service;
 
 import java.util.List;
 
-import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatPerfil;
@@ -20,6 +19,6 @@ public interface FuncionalitatPerfilService extends GenericService<Funcionalitat
 
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilOrderByModule(Long perfilId);
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilsOrderByModule(List<Long> perfilsId);
-	void savePermisos(Long perfilId, FuncionalitatInfo funcionalitat) throws ClassNotFoundException;
+	void savePermisos(Long perfilId, FuncionalitatInfo funcionalitat) throws Exception;
 
 }

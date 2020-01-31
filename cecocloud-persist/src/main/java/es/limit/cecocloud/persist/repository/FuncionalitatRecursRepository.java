@@ -23,12 +23,12 @@ public interface FuncionalitatRecursRepository extends BaseRepository<Funcionali
 	List<FuncionalitatRecursEntity> findByFuncionalitat(FuncionalitatEntity funcionalitat);
 	List<FuncionalitatRecursEntity> findByFuncionalitatInAndEmbeddedResourceClassName(List<FuncionalitatEntity> funcionalitats, String resourceName);
 	
-	@Query(	"select fr.embedded.resourceClassName," +
+	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(fr.embedded.resourceClassName," +
 			" 		fr.embedded.principal, " +
-			" 		fp.embedded.permis, " +
+			" 		fp.embedded.permis) " +
 			" from " +
-			"    FuncionalitatEntity f " +
-			"    FuncionalitatRecursEntity fr " +
+			"    FuncionalitatEntity f, " +
+			"    FuncionalitatRecursEntity fr, " +
 			"    FuncionalitatPerfilEntity fp " +
 			"where " +
 			"    f in :funcionalitats " +
