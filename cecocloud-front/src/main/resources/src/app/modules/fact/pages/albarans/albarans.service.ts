@@ -2,13 +2,13 @@ import { Injectable, Injector } from '@angular/core';
 import { Resource } from 'angular4-hal';
 import { BngRestapiService } from 'base-angular';
 
-export class PaisNif extends Resource {}
+export class Albara extends Resource {}
 
 @Injectable()
-export class PaisosNifService extends BngRestapiService<PaisNif> {
+export class AlbaransService extends BngRestapiService<Albara> {
 
     constructor( injector: Injector ) {
-        super( PaisNif, 'paisNif', injector, 'rrhh' );
+        super( Albara, 'albara', injector, 'fact' );
     }
 
 }

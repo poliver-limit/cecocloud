@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.logic.api.service;
 
 import es.limit.base.boot.logic.api.service.GenericService;

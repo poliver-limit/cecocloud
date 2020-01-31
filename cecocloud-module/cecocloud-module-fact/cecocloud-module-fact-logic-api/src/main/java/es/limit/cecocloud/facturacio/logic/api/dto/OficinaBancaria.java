@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.logic.api.dto;
 
 import javax.persistence.Transient;

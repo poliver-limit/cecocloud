@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PaisosNifService } from './paisosNif.service';
+import { AlbaransService } from './albarans.service';
 
 @Component( {
     template: `
     <bng-datagrid
         bng-datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="paisosNifService"></bng-datagrid>`
+        [restapiService]="albaransService"></bng-datagrid>`
 } )
-export class PaisosNifGridComponent implements OnInit {
+export class AlbaransGridComponent implements OnInit {
 
     datagridConfig = {
         //editable: true,
@@ -20,6 +20,6 @@ export class PaisosNifGridComponent implements OnInit {
     }
 
     constructor(
-        public paisosNifService: PaisosNifService ) { }
+        public albaransService: AlbaransService ) { }
 
 }

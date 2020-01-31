@@ -51,10 +51,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				path: 'operarisRrhh',
 				loadChildren: () => import('./pages/operarisRrhh/operarisRrhh.module').then(m => m.OperarisRrhhModule),
 				canActivate: [BngAuthGuard]
-			}, {
-				path: 'paisosNif',
-				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule),
-				canActivate: [BngAuthGuard]
+//			}, {
+//				path: 'paisosNif',
+//				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule),
+//				canActivate: [BngAuthGuard]
 			}, {
 				path: 'parametres',
 				loadChildren: () => import('./pages/parametres/parametres.module').then(m => m.ParametresModule),

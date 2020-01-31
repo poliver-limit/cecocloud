@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { BngFormConfig } from 'base-angular';
 
-import { PaisosNifService } from './paisosNif.service';
+import { IdiomesService } from './idiomes.service';
 
 @Component( {
     template: `
     <bng-form
         bng-form-mant
         [config]="formConfig"
-        [restapiService]="paisosNifService"></bng-form>
+        [restapiService]="idiomesService"></bng-form>
 `
 } )
-export class PaisosNifFormComponent {
+export class IdiomesFormComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public paisosNifService: PaisosNifService ) { }
+        public idiomesService: IdiomesService ) { }
 
 }

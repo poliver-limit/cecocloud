@@ -15,6 +15,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				path: '',
 				loadChildren: () => import('./pages/index/index-fact.module').then(m => m.IndexFactModule),
 				canActivate: [BngAuthGuard]
+			}, {
+				path: 'albarans',
+				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule),
+				canActivate: [BngAuthGuard]
 	        }, {
 				path: 'articles',
 				loadChildren: () => import('./pages/articles/articles.module').then(m => m.ArticlesModule),
@@ -68,6 +72,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 				loadChildren: () => import('./pages/familiesProveidor/familiesProveidor.module').then(m => m.FamiliesProveidorModule),
 				canActivate: [BngAuthGuard]
 			}, {
+				path: 'idiomes',
+				loadChildren: () => import('./pages/idiomes/idiomes.module').then(m => m.IdiomesModule),
+				canActivate: [BngAuthGuard]
+			}, {
 				path: 'ives',
 				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule),
 				canActivate: [BngAuthGuard]
@@ -90,6 +98,10 @@ import { SelectedEmpresaGuard } from '../../shared/selector-empresa/selected-emp
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule),
+				canActivate: [BngAuthGuard]
+			},{
+				path: 'projectes',
+				loadChildren: () => import('./pages/projectes/projectes.module').then(m => m.ProjectesModule),
 				canActivate: [BngAuthGuard]
 			}, {
 				path: 'proveidors',

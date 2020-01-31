@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.limit.cecocloud.facturacio.persist.entity;
 
 import javax.persistence.AssociationOverride;
@@ -47,15 +50,16 @@ import lombok.Setter;
 		@AttributeOverride(name = "createdBy", column = @Column(name = "ofb_usucre")),
 		@AttributeOverride(name = "createdDate", column = @Column(name = "ofb_datcre")),
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ofb_usumod")),
-		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ofb_datmod")) })
+		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ofb_datmod")) 
+})
 
-		@AssociationOverrides({ 
-			@AssociationOverride(
+@AssociationOverrides({ 
+		@AssociationOverride(
 					name = "identificador", 
 					joinColumns = {
 							@JoinColumn(name = "ofb_idf_cod", insertable = false, updatable = false) }, 
-							foreignKey = @ForeignKey(name = "rges_ofb_idf_fk"))
-			})
+					foreignKey = @ForeignKey(name = "rges_ofb_idf_fk"))
+})
 
 public class OficinaBancariaEntity extends AbstractWithIdentificadorEntity<OficinaBancaria, OficinaBancariaPk> {
 
@@ -63,24 +67,34 @@ public class OficinaBancariaEntity extends AbstractWithIdentificadorEntity<Ofici
 	protected OficinaBancaria embedded;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "ofb_idf_cod", referencedColumnName = "ban_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "ofb_ban_cod", referencedColumnName = "ban_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "ofb_idf_cod", referencedColumnName = "ban_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "ofb_ban_cod", referencedColumnName = "ban_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "ofb_ban_cod_fk"))
 	private BancEntity banc;
 	@Column(name = "ofb_ban_cod", length = 4, insertable = false, updatable = false)
 	private Integer bancCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "ofb_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
-			@JoinColumn(name = "ofb_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false) })
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "ofb_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "ofb_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "ofb_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
 	@Column(name = "ofb_cpo_cod", length = 4, nullable = false)
 	private String codiPostalCodi;
 
 	@Builder
-	public OficinaBancariaEntity(OficinaBancariaPk pk, OficinaBancaria embedded, IdentificadorEntity identificador,
-			BancEntity banc, CodiPostalEntity codiPostal) {
+	public OficinaBancariaEntity(
+			OficinaBancariaPk pk, 
+			OficinaBancaria embedded, 
+			IdentificadorEntity identificador,
+			BancEntity banc,
+			CodiPostalEntity codiPostal) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;

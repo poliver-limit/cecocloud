@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BngAuthService, BngModuleService, BngMenu, BngAppModule } from 'base-angular';
+import { BngAuthService, BngMenuService, BngModuleService, BngMenu, BngAppModule } from 'base-angular';
 
 import { IdentificadorsService } from '../pages/identificadors/identificadors.service';
 
@@ -13,21 +13,46 @@ export class AppService {
 		icon: 'build',
 		label: 'Administració',
 		labelKey: 'app.menu.admin',
-		menuItems: [
-			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuaris' },
-			{ icon: 'domain', label: 'Grups d\'empreses', labelKey: 'app.menu.identificadors', route: '/identificadors' }
-		]
+		items: [{
+			icon: 'people',
+			label: 'Usuaris',
+			labelKey: 'app.menu.usuaris',
+			resource: 'usuari',
+			route: '/usuaris'
+		}, {
+			icon: 'domain',
+			label: 'Grups d\'empreses',
+			labelKey: 'app.menu.identificadors',
+			resource: 'identificador',
+			route: '/identificadors'
+		}]
 	}
 
 	adminIdentificadorMenu: BngMenu = {
 		icon: 'build',
 		label: '...',
-		menuItems: [
-			{ icon: 'domain', label: 'Grups d\'empreses', labelKey: 'app.menu.identificador', route: '/identificador' },
-			{ icon: 'people', label: 'Usuaris', labelKey: 'app.menu.usuaris', route: '/usuari-identificadors' },
-			{ icon: 'business_center', label: 'Empreses', labelKey: 'app.menu.empreses', route: '/empreses' },
-			{ icon: 'portrait', label: 'Perfils', labelKey: 'app.menu.perfils', route: '/perfils' }
-		]
+		items: [{
+			icon: 'domain',
+			label: 'Grups d\'empreses',
+			labelKey: 'app.menu.identificador',
+			route: '/identificador'
+		}, {
+			icon: 'people',
+			label: 'Usuaris',
+			labelKey: 'app.menu.usuaris',
+			route: '/usuari-identificadors'
+		}, {
+			icon: 'business_center',
+			label: 'Empreses',
+			labelKey: 'app.menu.empreses',
+			resource: 'empresa',
+			route: '/empreses'
+		}, {
+			icon: 'portrait',
+			label: 'Perfils',
+			labelKey: 'app.menu.perfils',
+			route: '/perfils'
+		}]
 	}
 
 	public getAdminMenu(): BngMenu {
@@ -43,7 +68,7 @@ export class AppService {
 		if (this.router.url.startsWith('/admin-app')) {
 			found = true;
 		} else {
-			this.adminMenu.menuItems.forEach((menuItem: BngMenu) => {
+			this.adminMenu.items.forEach((menuItem: BngMenu) => {
 				if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 					found = true;
 				}
@@ -56,7 +81,7 @@ export class AppService {
 			if (this.router.url.startsWith('/admin-identificador')) {
 				found = true;
 			} else {
-				this.adminIdentificadorMenu.menuItems.forEach((menuItem: BngMenu) => {
+				this.adminIdentificadorMenu.items.forEach((menuItem: BngMenu) => {
 					if (menuItem.route && this.router.url.startsWith(menuItem.route)) {
 						found = true;
 					}
@@ -87,9 +112,14 @@ export class AppService {
 				icon: moduleItem.icon,
 				label: moduleItem.label,
 				labelKey: 'app.module.' + module,
-				menuItems: moduleItem.menuItems
+				items: moduleItem.menuItems
 			};
 		}
+	}
+
+	private registerGlobalMenus() {
+		this.menuService.registerGlobal('admin', this.adminMenu);
+		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);
 	}
 
 	private registerAvailableModules() {
@@ -98,6 +128,7 @@ export class AppService {
 			icon: 'assignment',
 			label: 'Facturació',
 			menuItems: [
+				{ icon: 'room', label: 'Albarans', route: '/fact/albarans' },
 				{ icon: 'room', label: 'Articles', route: '/fact/articles' },
 				{ icon: 'room', label: 'Articles família', route: '/fact/articlesFamilia' },
 				{ icon: 'room', label: 'Articles família empresa', route: '/fact/articlesFamiliaEmpresa' },
@@ -111,12 +142,14 @@ export class AppService {
 				{ icon: 'room', label: 'Empreses (Facturació)', route: '/fact/empreses' },
 				{ icon: 'room', label: 'Famílies cost', route: '/fact/familiesCost' },
 				{ icon: 'room', label: 'Famílies proveidor', route: '/fact/familiesProveidor' },
+				{ icon: 'room', label: 'Idiomes', route: '/fact/idiomes' },
 				{ icon: 'room', label: 'Iva', route: '/fact/ives' },
 				{ icon: 'room', label: 'Magatzems', route: '/fact/magatzems' },
 				{ icon: 'room', label: 'Magatzems període', route: '/fact/magatzemsPeriode' },
 				{ icon: 'room', label: 'Naturaleses de pagament/cobrament', route: '/fact/naturalesesPagamentCobrament' },
 				{ icon: 'room', label: 'Països', route: '/fact/paisos' },
 				{ icon: 'room', label: 'Peus de document', route: '/fact/peusDocument' },
+				{ icon: 'room', label: 'Projectes', route: '/fact/projectes' },
 				{ icon: 'room', label: 'Proveidors', route: '/fact/proveidors' },
 				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },
 				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },
@@ -164,7 +197,7 @@ export class AppService {
 				{ icon: 'room', label: 'Nodes', route: '/rrhh/nodes' },
 				{ icon: 'room', label: 'Operaris (Recursos humans)', route: '/rrhh/operarisRrhh' },
 				{ icon: 'room', label: 'Parametres', route: '/rrhh/parametres' },
-				{ icon: 'room', label: 'Països N.I.F.', route: '/rrhh/paisosNif' },
+//				{ icon: 'room', label: 'Països N.I.F.', route: '/rrhh/paisosNif' },
 				{ icon: 'room', label: 'Recursos Grup', route: '/rrhh/recursosGrup' },
 				{ icon: 'room', label: 'Regims', route: '/rrhh/regims' },
 				{ icon: 'room', label: 'Registres Diaris', route: '/rrhh/registresDiari' },
@@ -209,17 +242,15 @@ export class AppService {
 		this.moduleService.refreshAllowedModuleItems();
 	}
 
-	private configureMainMenu() {
-		//this.menuService.setActiveMenu(this.adminMenu);
-	}
-
 	constructor(
 		private router: Router,
 		private authService: BngAuthService,
+		private menuService: BngMenuService,
 		private moduleService: BngModuleService,
 		private identificadorsService: IdentificadorsService) {
+		this.registerGlobalMenus();
 		this.registerAvailableModules();
-		this.configureMainMenu();
+		this.menuService.setActiveGlobalMenu('admin');
 	}
 
 }

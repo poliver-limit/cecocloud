@@ -8,8 +8,8 @@ import { AppService } from './shared/app.service';
 	selector: 'app-root',
 	template: `
 <bng-base-app
-	title="Cecocloud"
-	icon="cloud_queue"
+	appTitle="Cecocloud"
+	appIcon="cloud_queue"
 	(moduleSelected)="onModuleSelected($event)">
 	<button mat-icon-button *ngIf="tokenPayload?.rol.includes('ADMIN')" (click)="onAdminButtonClick()" style="margin-right:.5em">
 		<mat-icon>build</mat-icon>
@@ -31,8 +31,7 @@ export class AppComponent {
 	}
 
 	onAdminButtonClick() {
-		let menu: BngMenu = this.appService.getAdminMenu();
-		this.menuService.setActiveMenu(menu);
+		this.menuService.setActiveGlobalMenu('admin');
 		this.router.navigate(['/admin-app']);
 	}
 
