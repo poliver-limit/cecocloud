@@ -252,7 +252,7 @@
     );
 
     create table tges_cpo (
-       cpo_cod varchar(4) not null,
+       cpo_cod varchar(8) not null,
         cpo_idf_cod varchar(4) not null,
         cpo_usucre varchar(255),
         cpo_datcre timestamp,

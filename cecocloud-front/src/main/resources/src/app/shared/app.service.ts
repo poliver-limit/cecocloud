@@ -128,6 +128,7 @@ export class AppService {
 			icon: 'assignment',
 			label: 'Facturació',
 			menuItems: [
+				{ icon: 'room', label: 'Albarans', route: '/fact/albarans' },
 				{ icon: 'room', label: 'Articles', route: '/fact/articles' },
 				{ icon: 'room', label: 'Articles família', route: '/fact/articlesFamilia' },
 				{ icon: 'room', label: 'Articles família empresa', route: '/fact/articlesFamiliaEmpresa' },
@@ -141,6 +142,7 @@ export class AppService {
 				{ icon: 'room', label: 'Empreses (Facturació)', route: '/fact/empreses' },
 				{ icon: 'room', label: 'Famílies cost', route: '/fact/familiesCost' },
 				{ icon: 'room', label: 'Famílies proveidor', route: '/fact/familiesProveidor' },
+				{ icon: 'room', label: 'Idiomes', route: '/fact/idiomes' },
 				{ icon: 'room', label: 'Iva', route: '/fact/ives' },
 				{ icon: 'room', label: 'Magatzems', route: '/fact/magatzems' },
 				{ icon: 'room', label: 'Magatzems període', route: '/fact/magatzemsPeriode' },
