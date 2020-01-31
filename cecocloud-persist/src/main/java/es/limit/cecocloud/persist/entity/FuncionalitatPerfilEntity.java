@@ -35,7 +35,7 @@ import lombok.Setter;
 @Table(
 		name = "funcionalitat_perfil",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "funcperf_uk", columnNames = {"funcionalitat_id", "perfil_id"})
+				@UniqueConstraint(name = "funcperf_uk", columnNames = {"funcionalitat_id", "perfil_id", "permis"})
 		}
 )
 @AttributeOverrides({
@@ -59,8 +59,12 @@ public class FuncionalitatPerfilEntity extends AbstractAuditableVersionableEntit
 
 	@Builder
     public FuncionalitatPerfilEntity(
-    		FuncionalitatPerfil embedded) {
+    		FuncionalitatPerfil embedded,
+    		FuncionalitatEntity funcionalitat,
+    		PerfilEntity perfil) {
         this.embedded = embedded;
+        this.funcionalitat = funcionalitat;
+        this.perfil = perfil;
     }
 
 	@Override

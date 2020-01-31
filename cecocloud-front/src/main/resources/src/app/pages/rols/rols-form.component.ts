@@ -10,11 +10,11 @@ import { ActivatedRoute } from '@angular/router';
         bng-form-mant
         [config]="formConfig"
         [restapiService]="rolsService">
-        <ng-container *ngIf="id">
+        <!-- <ng-container *ngIf="id">
             <cec-recursos
                 [rol] = "id">
             </cec-recursos>
-        </ng-container>
+        </ng-container> -->
     </bng-form>
 `
 })
