@@ -107,8 +107,8 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true			
+			disabledForCreate = false,
+			disabledForUpdate = false			
 			)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;
 	
