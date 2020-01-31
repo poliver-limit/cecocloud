@@ -1,8 +1,7 @@
 {
 
-	"app.menu.usuaris": "Usuarios",
-	"app.menu.operaris": "Operarios",
-	"app.menu.marcatges": "Marcajes",
+	"app.menu.marc.operaris": "Operarios",
+	"app.menu.marc.marcatges": "Marcajes",
 
 	"resource.operari": "Operario",
 	"resource.operari.plural": "Operarios",
