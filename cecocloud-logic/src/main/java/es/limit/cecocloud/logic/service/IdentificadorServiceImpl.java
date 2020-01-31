@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,9 @@ import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.Llicencia;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
+import es.limit.cecocloud.logic.api.module.ModuleInfo;
+import es.limit.cecocloud.logic.api.module.Modules;
+import es.limit.cecocloud.logic.api.service.EmpresaIdentificadorSyncService;
 import es.limit.cecocloud.logic.api.service.IdentificadorService;
 import es.limit.cecocloud.logic.helper.AsymmetricCryptographyHelper;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
@@ -38,6 +42,8 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	private UsuariRepository usuariRepository;
 	@Autowired
 	private UsuariIdentificadorRepository usuariIdentificadorRepository;
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	@Override
 	protected void beforePermissionCreate(Long id, BaseBootPermission permission) {
@@ -99,37 +105,55 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	}
 
 	@Override
-	protected void beforeDelete(IdentificadorEntity entity) {
-		super.beforeDelete(entity);
-		// Eliminar permisos
-		List<BaseBootPermission> permisos = permissionFind(entity.getId());
-		for (BaseBootPermission permis: permisos) {
-			permissionDelete(entity.getId(), permis.getId());
-		}
-	}
-
-	@Override
 	protected void afterCreate(IdentificadorEntity entity, Identificador dto) {
 		super.afterCreate(entity, dto);
-		// Assignar permisos al propietari
-		BaseBootPermission permission = new BaseBootPermission(
-				PermissionSidType.PRINCIPAL,
-				entity.getPropietari().getEmbedded().getCodi());
-		permission.setReadGranted(true);
-		permission.setAdminGranted(true);
-		permissionCreate(entity.getId(), permission);
+		assignarPermisosPropietari(entity);
+		// Propagar creació de l'entitat als demès mòduls
+		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
+			if (module instanceof ModuleInfo) {
+				ModuleInfo cecocloudModule = (ModuleInfo)module;
+				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
+					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
+					syncService.identificadorCreate(dto);
+				}
+			}
+		}
 	}
 
 	@Override
 	protected void afterUpdate(IdentificadorEntity entity, Identificador dto) {
 		super.afterUpdate(entity, dto);
-		// Assignar permisos al propietari
-		BaseBootPermission permission = new BaseBootPermission(
-				PermissionSidType.PRINCIPAL,
-				entity.getPropietari().getEmbedded().getCodi());
-		permission.setReadGranted(true);
-		permission.setAdminGranted(true);
-		permissionCreate(entity.getId(), permission);
+		assignarPermisosPropietari(entity);
+		// Propagar modificació de l'entitat als demès mòduls
+		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
+			if (module instanceof ModuleInfo) {
+				ModuleInfo cecocloudModule = (ModuleInfo)module;
+				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
+					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
+					syncService.identificadorUpdate(dto);
+				}
+			}
+		}
+	}
+
+	@Override
+	protected void afterDelete(IdentificadorEntity entity) {
+		super.afterDelete(entity);
+		// Eliminar permisos
+		List<BaseBootPermission> permisos = permissionFind(entity.getId());
+		for (BaseBootPermission permis: permisos) {
+			permissionDelete(entity.getId(), permis.getId());
+		}
+		// Propagar eliminació de l'entitat als demès mòduls
+		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
+			if (module instanceof ModuleInfo) {
+				ModuleInfo cecocloudModule = (ModuleInfo)module;
+				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
+					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
+					syncService.identificadorDelete(entity.getEmbedded());
+				}
+			}
+		}
 	}
 
 	private void generateLicense(Identificador dto) {
@@ -140,8 +164,8 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 				dto.getNumUsuaris(),
 				dto.getDataInici(),
 				dto.getDataFi(),
-				null,	// Moduls
-				null);	// Caracteristiques
+				null,  // Moduls
+				null); // Caracteristiques
 		ObjectMapper mapper = new ObjectMapper();
 		String llicenciaJson;
 		try {
@@ -164,10 +188,17 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 					usuari(usuari).
 					identificador(identificador).
 					build();
-			//updateAuditingInformation(usuariIdentificadorPerCrear, true);
 			usuariIdentificadorRepository.save(usuariIdentificadorPerCrear);
 		}
-		
+	}
+
+	private void assignarPermisosPropietari(IdentificadorEntity entity) {
+		BaseBootPermission permission = new BaseBootPermission(
+				PermissionSidType.PRINCIPAL,
+				entity.getPropietari().getEmbedded().getCodi());
+		permission.setReadGranted(true);
+		permission.setAdminGranted(true);
+		permissionCreate(entity.getId(), permission);
 	}
 
 }

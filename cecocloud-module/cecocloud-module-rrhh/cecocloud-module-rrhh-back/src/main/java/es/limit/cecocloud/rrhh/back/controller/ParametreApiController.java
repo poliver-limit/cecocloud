@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.rrhh.logic.api.dto.Parametre;
-import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
+import es.limit.cecocloud.rrhh.logic.api.module.RrhhModuleConfig;
 
 /**
  * Controlador per al servei REST de gestió de la entitat Parametre.
@@ -15,7 +15,7 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModule;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(RrhhModule.API_PATH + "/parametres")
+@RequestMapping(RrhhModuleConfig.API_PATH + "/parametres")
 public class ParametreApiController extends AbstractIdentificableAmbIdentificadorApiController<Parametre> {
 
 }
