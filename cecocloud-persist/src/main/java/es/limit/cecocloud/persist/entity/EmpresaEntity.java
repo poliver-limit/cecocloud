@@ -59,15 +59,24 @@ public class EmpresaEntity extends AbstractAuditableVersionableEntity<Empresa, L
 			name = "identificador_id",
 			foreignKey = @ForeignKey(name = "empresa_identificador_fk"))
 	protected IdentificadorEntity identificador;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "empresa_comptable_id",
+			foreignKey = @ForeignKey(name = "empresa_comptable_fk"))
+	protected EmpresaEntity empresaComptable;
+	
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
 	protected Set<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses;
 
 	@Builder
     public EmpresaEntity(
     		Empresa embedded,
-    		IdentificadorEntity identificador) {
+    		IdentificadorEntity identificador,
+    		EmpresaEntity empresaComptable) {
         this.embedded = embedded;
         this.identificador = identificador;
+        this.empresaComptable = empresaComptable;
     }
 
 	@Override
@@ -76,6 +85,9 @@ public class EmpresaEntity extends AbstractAuditableVersionableEntity<Empresa, L
 	}
 	public void updateIdentificador(IdentificadorEntity identificador) {
 		this.identificador = identificador;
+	}
+	public void updateEmpresaComptable(EmpresaEntity empresaComptable) {
+		this.empresaComptable = empresaComptable;
 	}
 
 }

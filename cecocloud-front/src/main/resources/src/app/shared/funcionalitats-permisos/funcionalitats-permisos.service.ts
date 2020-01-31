@@ -39,8 +39,8 @@ export class FuncionalitatsPermisosService {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatPerfils/perfils/' + perfilIdparams); //, { params: params });
 	}
 
-	public saveFuncionalitat(resourceInfo: any) {
-		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/recursos/permissions/save', resourceInfo);
+	public saveFuncionalitat(funcionalitatInfo: any) {
+		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/funcionalitatPerfils/permissions/save', funcionalitatInfo);
 	}
 
 	constructor(

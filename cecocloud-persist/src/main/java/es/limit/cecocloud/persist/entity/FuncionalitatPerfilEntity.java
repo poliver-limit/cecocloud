@@ -59,7 +59,9 @@ public class FuncionalitatPerfilEntity extends AbstractAuditableVersionableEntit
 
 	@Builder
     public FuncionalitatPerfilEntity(
-    		FuncionalitatPerfil embedded) {
+    		FuncionalitatPerfil embedded,
+    		FuncionalitatEntity funcionalitat,
+    		PerfilEntity perfil) {
         this.embedded = embedded;
     }
 

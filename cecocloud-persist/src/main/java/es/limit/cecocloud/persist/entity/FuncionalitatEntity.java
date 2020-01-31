@@ -3,8 +3,11 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -35,7 +40,8 @@ import lombok.Setter;
 @Table(
 		name = "funcionalitat",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "funcionalitat_uk", columnNames = {"codi", "modul"})
+				@UniqueConstraint(name = "funcionalitat_uk", columnNames = {"codi", "modul"}),
+				@UniqueConstraint(name = "funcionalitat_recprincipal_uk", columnNames = {"recurs_principal_id"})
 		}
 )
 @AttributeOverrides({
@@ -55,14 +61,25 @@ public class FuncionalitatEntity extends AbstractAuditableVersionableEntity<Func
 			foreignKey = @ForeignKey(name = "funcionalitat_pare_fk"))
 	protected FuncionalitatEntity pare;
 	
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(
+			name = "recurs_principal_id",
+			foreignKey = @ForeignKey(name = "funcrecu_principal_fk"))
+	protected FuncionalitatRecursEntity recursPrincipal;
+	
+	@OneToMany(mappedBy = "funcionalitat", cascade = CascadeType.ALL)
+	protected List<FuncionalitatRecursEntity> recursosAuxiliars;
+	
 	// TODO: Afegir traduccions per a les funcionalitats
 	// @OneToMany(mappedBy = "funcionalitat", cascade = CascadeType.ALL)
 	// protected Set<FuncionalitatTraduccioEntity> traduccions;
 
 	@Builder
     public FuncionalitatEntity(
-    		Funcionalitat embedded) {
+    		Funcionalitat embedded,
+    		FuncionalitatRecursEntity recursPrincipal) {
         this.embedded = embedded;
+        this.recursPrincipal = recursPrincipal;
     }
 
 	@Override
@@ -71,6 +88,9 @@ public class FuncionalitatEntity extends AbstractAuditableVersionableEntity<Func
 	}
 	public void updatePare(FuncionalitatEntity pare) {
 		this.pare = pare;
+	}
+	public void updateRecursPrincipal(FuncionalitatRecursEntity recursPrincipal) {
+		this.recursPrincipal = recursPrincipal;
 	}
 
 }

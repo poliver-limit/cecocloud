@@ -38,6 +38,7 @@ create table empresa (
     nif varchar(12) not null,
     nom varchar(30) not null,
     tipus int4 not null,
+    empresa_comptable_id int8,
     identificador_id int8 not null,
     primary key (id)
 );
@@ -54,6 +55,7 @@ create table funcionalitat (
     modul varchar(4) not null,
     tipus int4 not null,
     pare_id int8 not null,
+    recurs_principal_id int8 not null,
     primary key (id)
 );
 
@@ -195,9 +197,12 @@ alter table agrupacio_ident
 
 alter table empresa 
    add constraint empresa_uk unique (identificador_id, codi);
-
+   
 alter table funcionalitat 
    add constraint funcionalitat_uk unique (codi, modul);
+   
+alter table funcionalitat 
+   add constraint funcionalitat_recprincipal_uk unique (recurs_principal_id);
 
 alter table funcionalitat_ident 
    add constraint funcident_uk unique (funcionalitat_id, identificador_id);
@@ -245,11 +250,21 @@ alter table empresa
    add constraint empresa_identificador_fk 
    foreign key (identificador_id) 
    references identificador;
+   
+alter table empresa 
+   add constraint empresa_comptable_fk 
+   foreign key (empresa_comptable_id) 
+   references empresa;
 
 alter table funcionalitat 
    add constraint funcionalitat_pare_fk 
    foreign key (pare_id) 
    references funcionalitat;
+  
+alter table funcionalitat 
+   add constraint funcrecu_principal_fk 
+   foreign key (recurs_principal_id) 
+   references funcionalitat_recurs;
 
 alter table funcionalitat_ident 
    add constraint funcident_funcionalitat_fk 

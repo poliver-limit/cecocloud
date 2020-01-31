@@ -29,14 +29,12 @@ import { FuncionalitatsIdentificadorService, FuncionalitatIdentificador } from '
                                         <ng-container *ngIf="mobileScreen">ACC</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
-                                        <ng-container *ngIf="funcionalitat.tipus == 'MANTENIMENT'">
-                                            <mat-checkbox
-                                                name = 'readGranted'
-                                                [checked]="funcionalitat.permission.readGranted"
-                                                [disabled]="disableToggles"
-                                                (click) = "onPermisChange($event, indexModul, index)">
-                                            </mat-checkbox>
-                                        </ng-container>
+                                        <mat-checkbox
+                                            name = 'readGranted'
+                                            [checked]="funcionalitat.permission.readGranted"
+                                            [disabled]="disableToggles"
+                                            (click) = "!disableToggles && funcionalitat.tipus == 'MANTENIMENT' && onPermisChange($event, indexModul, index)">
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de write -->
@@ -46,14 +44,12 @@ import { FuncionalitatsIdentificadorService, FuncionalitatIdentificador } from '
                                         <ng-container *ngIf="mobileScreen">MOD</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
-                                        <ng-container *ngIf="funcionalitat.tipus == 'MANTENIMENT'">
-                                            <mat-checkbox
-                                                name = 'writeGranted'
-                                                [checked]="funcionalitat.permission.writeGranted"
-                                                [disabled]="disableToggles"
-                                                (click) = "onPermisChange($event, indexModul, index)">
-                                            </mat-checkbox>
-                                        </ng-container>
+                                        <mat-checkbox
+                                            name = 'writeGranted'
+                                            [checked]="funcionalitat.permission.writeGranted"
+                                            [disabled]="disableToggles"
+                                            (click) = "!disableToggles && funcionalitat.tipus == 'MANTENIMENT' && onPermisChange($event, indexModul, index)">
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de create -->
@@ -63,14 +59,12 @@ import { FuncionalitatsIdentificadorService, FuncionalitatIdentificador } from '
                                         <ng-container *ngIf="mobileScreen">CRE</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
-                                        <ng-container *ngIf="funcionalitat.tipus == 'MANTENIMENT'">
-                                            <mat-checkbox
-                                                name='createGranted'
-                                                [checked]="funcionalitat.permission.createGranted"
-                                                [disabled]="disableToggles"
-                                                (click) = "onPermisChange($event, indexModul, index)">
-                                            </mat-checkbox>
-                                        </ng-container>
+                                        <mat-checkbox
+                                            name='createGranted'
+                                            [checked]="funcionalitat.permission.createGranted"
+                                            [disabled]="disableToggles"
+                                            (click) = "!disableToggles && funcionalitat.tipus == 'MANTENIMENT' && onPermisChange($event, indexModul, index)">
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de delete -->
@@ -80,14 +74,12 @@ import { FuncionalitatsIdentificadorService, FuncionalitatIdentificador } from '
                                         <ng-container *ngIf="mobileScreen">BOR</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
-                                        <ng-container *ngIf="funcionalitat.tipus == 'MANTENIMENT'">
-                                            <mat-checkbox
-                                                name = 'deleteGranted'
-                                                [checked]="funcionalitat.permission.deleteGranted"
-                                                [disabled]="disableToggles"
-                                                (click) = "onPermisChange($event, indexModul, index)">
-                                            </mat-checkbox>
-                                        </ng-container>
+                                        <mat-checkbox
+                                            name = 'deleteGranted'
+                                            [checked]="funcionalitat.permission.deleteGranted"
+                                            [disabled]="disableToggles"
+                                            (click) = "!disableToggles && funcionalitat.tipus == 'MANTENIMENT' && onPermisChange($event, indexModul, index)">
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <!-- Columna de execute -->
@@ -97,14 +89,12 @@ import { FuncionalitatsIdentificadorService, FuncionalitatIdentificador } from '
                                         <ng-container *ngIf="mobileScreen">EXE</ng-container>
                                     </th>
                                     <td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
-                                        <ng-container *ngIf="funcionalitat.tipus != 'MANTENIMENT'">
-                                            <mat-checkbox
-                                                name = 'executeGranted'
-                                                [checked]="funcionalitat.permission.executeGranted"
-                                                [disabled]="disableToggles"
-                                                (click) = "onPermisChange($event, indexModul, index)">
-                                            </mat-checkbox>
-                                        </ng-container>
+                                        <mat-checkbox
+                                            name = 'executeGranted'
+                                            [checked]="funcionalitat.permission.executeGranted"
+                                            [disabled]="disableToggles || funcionalitat.tipus == 'MANTENIMENT' "
+                                            (click) = "!disableToggles && funcionalitat.tipus != 'MANTENIMENT' && onPermisChange($event, indexModul, index)">
+                                        </mat-checkbox>
                                     </td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
@@ -155,31 +145,31 @@ export class FuncionalitatsPermisosComponent implements OnInit {
     onPermisChange(event, indexModul, indexRecurs) {
         // Deshabilitar els checks mentres es desen els permisos
         this.disableToggles = true;
-        let funcionalitatInfo = JSON.parse(JSON.stringify(this.funcionalitatsModuls[indexModul].resources[indexRecurs]));
+        let funcionalitatInfo = JSON.parse(JSON.stringify(this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs]));
         let permis = event.currentTarget.attributes['name'].value;
         let check = !funcionalitatInfo.permission[permis];
         funcionalitatInfo.permission[permis] = check;
         this.funcionalitatsPermisosService.saveFuncionalitat(funcionalitatInfo).subscribe(
             () => {
-                this.funcionalitatsModuls[indexModul].resources[indexRecurs].permission[permis] = check;
+                this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission[permis] = check;
                 this.disableToggles = false;
-                //this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
             },
             error => {
                 event.preventDefault();
                 this.disableToggles = false;
                 console.error(error);
+                //this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
             }
         );
     }
 
-    private showMessage(message: string) {
-        const snackbarRef = this.snackbar.open(
-            message,
-            this.translateKey('component.restapi.form.manteniment.button.close'), {
-            duration: 1000
-        });
-    }
+    // private showMessage(message: string) {
+    //     const snackbarRef = this.snackbar.open(
+    //         message,
+    //         this.translateKey('component.restapi.form.manteniment.button.close'), {
+    //         duration: 5000
+    //     });
+    // }
 
     translateKey(key: string, params?: any, defaultValue?: string) {
         let translatedKey = this.translate.instant(key, params);
@@ -194,7 +184,6 @@ export class FuncionalitatsPermisosComponent implements OnInit {
         // Càrrega de permisos
         this.disableToggles = true;
 
-        debugger;
         if (this.perfil) {
             this.disableToggles = false;
 

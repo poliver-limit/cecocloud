@@ -4,6 +4,7 @@
 package es.limit.cecocloud.logic.api.dto;
 
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,6 +12,8 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,6 +55,11 @@ public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 	protected EmpresaTipusEnum tipus;
 	@RestapiField(hiddenInLov = true)
 	private boolean activa;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)
+	private GenericReference<Empresa, Long> empresaComptable;
 
 	public enum EmpresaTipusEnum {
 		COMPTABLE,
