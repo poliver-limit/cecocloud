@@ -15,13 +15,13 @@
   <!-- -------------------------------------------------------------------------- -->
 
   <mat-tab-group>
-    <mat-tab label="Datos del proyecto">
+    <mat-tab label="{{'resource.projecte.field.titolDadesProjecte'|translate}}>
       <ng-container *ngTemplateOutlet="fieldsTab1"></ng-container>
     </mat-tab>
-    <mat-tab label="Datos técnicos">
+    <mat-tab label="{{'resource.projecte.field.titolDadesTecniques'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab2"></ng-container>
     </mat-tab>
-    <mat-tab label="Más">
+    <mat-tab label="{{'resource.projecte.field.titolMes'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab3"></ng-container>
     </mat-tab>
   </mat-tab-group>
@@ -31,13 +31,13 @@
   <ng-template #fieldsTab1>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Datos generales
+        {{'resource.projecte.field.titolDadesGenerals'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion1"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Datos cliente
+        {{'resource.projecte.field.titolDadesClient'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion2"></ng-container>
     </mat-expansion-panel>
@@ -119,7 +119,7 @@
   <ng-template #fieldsTab2>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Datos técnicos
+        {{'resource.projecte.field.titolDadesTecniques'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion3"></ng-container>
     </mat-expansion-panel>
@@ -144,7 +144,7 @@
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="estat">Estado</bng-custom-field>
+        <bng-custom-field name="estat">{{'resource.projecte.field.estat'|translate}}</bng-custom-field>
       </div>
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataFiPrevist"></bng-custom-field>
@@ -218,49 +218,49 @@
   <ng-template #fieldsTab3>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Partes de trabajo
+        {{'resource.projecte.field.titolPartsFeina'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion4"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Crear albaranes
+        {{'resource.projecte.field.titolCrearAlbarans'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion5"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Retención
+        {{'resource.projecte.field.titolRetencio'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion6"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Contabilidad
+        {{'resource.projecte.field.titolComptabilitat'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion7"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Estudio proyecto
+        {{'resource.projecte.field.titolEstudiProjecte'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion8"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Zona
+        {{'resource.projecte.field.titolZona'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion9"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Global
+        {{'resource.projecte.field.titolGlobal'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion10"></ng-container>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        Construcción y garantía
+        {{'resource.projecte.field.titolConstruccioGarantia'|translate}}
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="fieldsExpansion11"></ng-container>
     </mat-expansion-panel>
@@ -298,14 +298,14 @@
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em;margin-top: 20px;">
         <bng-custom-field name="albaransClientPreu"
-          >Precio albarán cliente</bng-custom-field
+          >{{'resource.projecte.field.albaransClientPreu'|translate}}</bng-custom-field
         >
       </div>
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="albaransClientProjecteTipus"
-          >Tipo proyecto</bng-custom-field
+          >{{'resource.projecte.field.albaransClientProjecteTipus'|translate}}</bng-custom-field
         >
       </div>
     </div>

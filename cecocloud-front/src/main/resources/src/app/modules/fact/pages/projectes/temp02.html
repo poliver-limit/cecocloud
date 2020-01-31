@@ -15,13 +15,13 @@
   <!-- -------------------------------------------------------------------------- -->
 
   <mat-tab-group>
-    <mat-tab label="Datos del proyecto">
+    <mat-tab label="{{'resource.projecte.field.titolDadesProjecte'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab1"></ng-container>
     </mat-tab>
-    <mat-tab label="Datos técnicos">
+    <mat-tab label="{{'resource.projecte.field.titolDadesTecniques'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab2"></ng-container>
     </mat-tab>
-    <mat-tab label="Más">
+    <mat-tab label="{{'resource.projecte.field.titolMes'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab3"></ng-container>
     </mat-tab>
   </mat-tab-group>
@@ -29,13 +29,13 @@
   <!-- -------------------------------------------------------------------------- -->
   <ng-template #fieldsTab1>
     <mat-card>
-      <mat-card-title>Datos generales</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolDadesGenerals'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard1"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Datos cliente</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolDadesClient'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard2"></ng-container>
       </mat-card-content>
@@ -116,7 +116,7 @@
 
   <ng-template #fieldsTab2>
     <mat-card>
-      <mat-card-title>Datos técnicos</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolDadesTecniques'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard3"></ng-container>
       </mat-card-content>
@@ -142,7 +142,7 @@
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="estat">Estado</bng-custom-field>
+        <bng-custom-field name="estat">{{'resource.projecte.field.estat'|translate}}</bng-custom-field>
       </div>
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataFiPrevist"></bng-custom-field>
@@ -215,49 +215,49 @@
 
   <ng-template #fieldsTab3>
     <mat-card>
-      <mat-card-title>Partes de trabajo</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolPartsFeina'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard4"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Crear albaranes</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolCrearAlbarans'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard5"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Retención</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolRetencio'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard6"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Contabilidad</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolComptabilitat'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard7"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Estudio proyecto</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolEstudiProjecte'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard8"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Zona</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolZona'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard9"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Global</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolGlobal'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard10"></ng-container>
       </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Construcción y garantía</mat-card-title>
+      <mat-card-title>{{'resource.projecte.field.titolConstruccioGarantia'|translate}}</mat-card-title>
       <mat-card-content>
         <ng-container *ngTemplateOutlet="fieldsCard11"></ng-container>
       </mat-card-content>
@@ -296,14 +296,14 @@
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="albaransClientPreu"
-          >Precio albarán cliente</bng-custom-field
+          >{{'resource.projecte.field.albaransClientPreu'|translate}}</bng-custom-field
         >
       </div>
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="albaransClientProjecteTipus"
-          >Tipo de proyecto</bng-custom-field
+          >{{'resource.projecte.field.albaransClientProjecteTipus'|translate}}</bng-custom-field
         >
       </div>
     </div>
@@ -323,7 +323,7 @@
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="retencioTipus"
-          >Tipo de retención</bng-custom-field
+          >{{'resource.projecte.field.retencioTipus'|translate}}</bng-custom-field
         >
       </div>
     </div>

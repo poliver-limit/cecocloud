@@ -505,6 +505,22 @@
 	"resource.projecte.field.magatzem": "Almacén",
 	"resource.projecte.field.zona": "Zona",
 	"resource.projecte.field.finalFactura": "Factura final",
+	"resource.projecte.field.titolDadesProjecte": "Datos del proyecto",
+	"resource.projecte.field.titolMes": "Más",
+	"resource.projecte.field.titolDadesGenerals": "Datos generales",
+	"resource.projecte.field.titolDadesClient": "Datos cliente",
+	"resource.projecte.field.titolDadesTecniques": "Datos técnicos",
+	"resource.projecte.field.titolPartsFeina": "Partes de trabajo",
+	"resource.projecte.field.titolCrearAlbarans": "Crear albaranes",
+	"resource.projecte.field.titolRetencio": "Retención",
+	"resource.projecte.field.titolComptabilitat": "Contabilidad",
+	"resource.projecte.field.titolEstudiProjecte": "Estudio proyecto",
+	"resource.projecte.field.titolZona": "Zona",
+	"resource.projecte.field.titolGlobal": "Global",
+	"resource.projecte.field.titolConstruccioGarantia": "Construcción y garantía",
+	
+	
+	
 	
 	"resource.proveidorDuplicat": "Proveïdor",
 	"resource.proveidor.plural": "Proveïdors",

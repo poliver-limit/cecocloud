@@ -39,7 +39,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@RestapiResource(descriptionField = "nom")
+@RestapiResource(descriptionField = "nomComercial")
 
 public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
