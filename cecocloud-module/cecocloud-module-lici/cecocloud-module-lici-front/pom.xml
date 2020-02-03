@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>es.limit.cecogest</groupId>
-		<artifactId>cecocloud-module-comd</artifactId>
+		<artifactId>cecocloud-module-lici</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-module-comd-front</artifactId>
+	<artifactId>cecocloud-module-lici-front</artifactId>
 </project>
