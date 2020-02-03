@@ -15,7 +15,7 @@ import es.limit.cecocloud.persist.entity.OperariEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service("OperariMarcService")
+@Service("OperariServiceImpl")
 public class OperariServiceImpl extends AbstractGenericServiceImpl<Operari, OperariEntity, Long> implements OperariService {
 
 	/*private Date toHoraIniciDia(Date data) {

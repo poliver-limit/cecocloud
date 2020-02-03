@@ -24,7 +24,7 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service
+@Service("marcSincronitzacioServiceImpl")
 public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Autowired

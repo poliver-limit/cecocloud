@@ -3,12 +3,9 @@
  */
 package es.limit.cecocloud.marc.persist.repository;
 
-import java.util.Date;
-
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
-import es.limit.cecocloud.persist.entity.OperariEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus marcatge.
@@ -50,8 +47,8 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 
 	MarcatgeEntity findFirstByOperariEmpresaOrderByEmbeddedDataDesc(OperariEmpresaEntity operariEmpresa);
 
-	MarcatgeEntity findByOperariAndEmbeddedData(
-			OperariEntity operari,
-			Date data);
+	/*MarcatgeEntity findByOperariEmpresaAndEmbeddedData(
+			OperariEmpresaEntity operariEmpresa,
+			Date data);*/
 
 }
