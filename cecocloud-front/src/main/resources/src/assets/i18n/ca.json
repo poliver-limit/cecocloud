@@ -165,6 +165,20 @@
 	"resource.albara.field.facturaNumero": "Factura número",	
 	"resource.albara.field.facturaClasse": "Factura classe",				
 	"resource.albara.field.identificador": "Identificador",
+
+	"resource.areaNegoci" : "Área Negoci",
+	"resource.areaNegociDuplicat" : "Área Negoci",
+	"resource.areaNegoci.plural" : "Área de negocis",
+	"resource.areaNegoci.field.codi": "Codi",
+	"resource.areaNegoci.field.nom": "Nom",
+	"resource.areaNegoci.field.empresa": "Empresa",
+	"resource.areaNegoci.field.comptabilitatCodi": "Códi de comptabilidad",
+	"resource.areaNegoci.field.comptabilitatCompteExistencies": "Comptabilidad compte existencies",
+	"resource.areaNegoci.field.comptabilitatCompteCostos": "Comptabilidad compte costos",
+	"resource.areaNegoci.field.comptabilitatCompteProveidors": "Comptabilidad compte proveidors",
+	"resource.areaNegoci.field.comptabilitatCompteClients": "Comptabilidad compte clients",
+	"resource.areaNegoci.field.compteMagatzem": "Compte magatzem",
+	"resource.areaNegoci.field.compteObraExecutada": "Compte obra executada",
 	
 	"resource.articleDuplicat": "Article",
 	"resource.article.plural": "Articles",
@@ -356,6 +370,14 @@
 	"resource.familiaProveidor.field.driprfcmp": "Driprfcmp",
 	"resource.familiaProveidor.field.observacions": "Observacions",
 	"resource.familiaProveidor.field.identificador": "Identificador",	
+
+	"resource.finalFactura" : "Final factura",
+	"resource.finalFacturaDuplicat" : "Final factura",
+	"resource.finalFactura.plural" : "Final factures",
+	"resource.finalFactura.field.codi": "Códi",
+	"resource.finalFactura.field.nom": "Nom",
+	"resource.finalFactura.field.descripcio": "Descripció",
+	"resource.finalFactura.field.actiu": "Actiu",
 	
 	"resource.idioma": "Idioma",
 	"resource.idioma.plural": "Idiomes",
@@ -440,7 +462,7 @@
 
 	"resource.projecteDuplicat" : "Projecte",
 	"resource.projecte.plural" : "Projectes",
-	"resource.projecte.codi" : "Códi",
+	"resource.projecte.field.codi" : "Códi",
 	"resource.projecte.field.empresa" : "Empresa",
 	"resource.projecte.field.numero" : "Número",
 	"resource.projecte.field.nom" : "Nom",
@@ -518,7 +540,13 @@
 	"resource.projecte.field.titolZona": "Zona",
 	"resource.projecte.field.titolGlobal": "Global",
 	"resource.projecte.field.titolConstruccioGarantia": "Construcció i garantía",
-	
+
+	"resource.projecteTipus" : "Projecte tipus",
+	"resource.projecteTipusDuplicat" : "Projecte tipus",
+	"resource.projecteTipus.plural" : "Projectes tipus",
+	"resource.projecteTipus.field.codi": "Códi",
+	"resource.projecteTipus.field.nom": "Nom",
+	"resource.projecteTipus.field.descripcio": "Descripció",
 
 	"resource.proveidorDuplicat": "Proveïdor",
 	"resource.proveidor.plural": "Proveïdors",

@@ -103,6 +103,8 @@
 	"resource.usuariCompanyia.plural": "Usuarios de la compañia",
 	"resource.usuariCompanyia.field.usuari": "Usuario",
 
+
+
 	"resource.article": "Artículo",
 	"resource.articleFamilia": "Família de artículos",
 	"resource.articleFamiliaEmpresa": "Familia de empresas",
@@ -165,6 +167,20 @@
 	"resource.albara.field.facturaNumero": "Factura número",	
 	"resource.albara.field.facturaClasse": "Factura clase",				
 	"resource.albara.field.identificador": "Identificador",
+
+	"resource.areaNegoci" : "Área Negocio",
+	"resource.areaNegociDuplicat" : "Área Negocio",
+	"resource.areaNegoci.plural" : "Área de negocios",
+	"resource.areaNegoci.field.codi": "Código",
+	"resource.areaNegoci.field.nom": "Nombre",
+	"resource.areaNegoci.field.empresa": "Empresa",
+	"resource.areaNegoci.field.comptabilitatCodi": "Código de contabilidad",
+	"resource.areaNegoci.field.comptabilitatCompteExistencies": "Contabilidad cuenta existencias",
+	"resource.areaNegoci.field.comptabilitatCompteCostos": "Contabilidad cuenta costes",
+	"resource.areaNegoci.field.comptabilitatCompteProveidors": "Contabilidad cuenta proveedores",
+	"resource.areaNegoci.field.comptabilitatCompteClients": "Contabilidad cuenta clientes",
+	"resource.areaNegoci.field.compteMagatzem": "Cuenta almacén",
+	"resource.areaNegoci.field.compteObraExecutada": "Cuenta obra ejecutada",
 	
 	"resource.articleDuplicat": "Artículo",
 	"resource.article.plural": "Artículos",
@@ -356,6 +372,14 @@
 	"resource.familiaProveidor.field.driprfcmp": "Driprfcmp",
 	"resource.familiaProveidor.field.observacions": "Observaciones",
 	"resource.familiaProveidor.field.identificador": "Identificador",
+
+	"resource.finalFactura" : "Final factura",
+	"resource.finalFacturaDuplicat" : "Final factura",
+	"resource.finalFactura.plural" : "Final facturas",
+	"resource.finalFactura.field.codi": "Código",
+	"resource.finalFactura.field.nom": "Nombre",
+	"resource.finalFactura.field.descripcio": "Descripción",
+	"resource.finalFactura.field.actiu": "Activo",
 	
 	"resource.idioma": "Idioma",
 	"resource.idioma.plural": "Idiomas",
@@ -440,7 +464,7 @@
 	
 	"resource.projecteDuplicat" : "Proyecto",
 	"resource.projecte.plural" : "Proyectos",
-	"resource.projecte.codi" : "Código",
+	"resource.projecte.field.codi" : "Código",
 	"resource.projecte.field.empresa" : "Empresa",
 	"resource.projecte.field.numero" : "Número",
 	"resource.projecte.field.nom" : "Nombre",
@@ -519,8 +543,12 @@
 	"resource.projecte.field.titolGlobal": "Global",
 	"resource.projecte.field.titolConstruccioGarantia": "Construcción y garantía",
 	
-	
-	
+	"resource.projecteTipus" : "Proyecto tipo",
+	"resource.projecteTipusDuplicat" : "Proyecto tipo",
+	"resource.projecteTipus.plural" : "Proyecto tipos",
+	"resource.projecteTipus.field.codi": "Código",
+	"resource.projecteTipus.field.nom": "Nombre",
+	"resource.projecteTipus.field.descripcio": "Descripción",	
 	
 	"resource.proveidorDuplicat": "Proveïdor",
 	"resource.proveidor.plural": "Proveïdors",
