@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     template: `
 <div class="mat-display-3 bng-centered" style="text-align: center">
 	<p style="margin:0"><mat-icon inline="true" style="font-size:100px;">touch_app</mat-icon></p>
-    <p style="margin:.4em">Marcatges</p>
+    <p style="margin:.4em">Marcatges {{'test.marc' | translate}}@{{'login.field.usuari' | translate}}</p>
 </div>`
 } )
 export class IndexComponent {

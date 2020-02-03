@@ -49,6 +49,7 @@ public class AreaNegoci extends AbstractIdentificableWithIdentificador<AreaNegoc
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,
 			disabledForUpdate = false,
+			hiddenInGrid = true,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 		

@@ -5,8 +5,8 @@ import { BngAuthService, BngAuthTokenPayload } from 'base-angular';
 	selector: 'app-root',
 	template: `
 <bng-base-app
-	title="Marcatges"
-	icon="touch_app">
+	appTitle="Marcatges"
+	appIcon="touch_app">
 </bng-base-app>`
 })
 export class AppComponent {

@@ -297,7 +297,7 @@ export class UsuariIdentificadorsFormComponent implements OnDestroy {
 		});
 	}
 
-	private usuariTeImatge() {
+	usuariTeImatge() {
 		return this.usuari != null && this.usuari.imatgeUrl != null && this.usuari.imatgeUrl != '';
 	}
 

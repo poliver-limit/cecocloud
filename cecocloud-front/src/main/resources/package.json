@@ -9,7 +9,7 @@
 		"lint": "ng lint",
 		"e2e": "ng e2e",
 		"postinstall": "cp -a node_modules/@programari-limit/base-angular/assets/i18n/baseapp src/assets/i18n/baseapp && rm -fr node_modules/angular4-hal/node_modules/@angular",
-		"prepare": "rm -fr src/app/modules/marc && ln -s ../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/app/modules/marc src/app/modules/marc"
+		"prepare": "rm -fr src/app/modules/marc && ln -s ../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/app/modules/marc src/app/modules/marc && rm -fr src/app/modules/rrhh && ln -s ../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/app/modules/rrhh src/app/modules/rrhh"
 	},
 	"private": true,
 	"dependencies": {

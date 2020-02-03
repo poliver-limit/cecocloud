@@ -19,13 +19,20 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import localeCa from '@angular/common/locales/ca';
 
+import { FactModule } from './modules/fact/fact.module';
+import { MarcModule } from './modules/marc/marc.module';
+import { RrhhModule } from './modules/rrhh/rrhh.module';
+
 registerLocaleData(localeCa);
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new MultiTranslateHttpLoader(
 		http, [
 			{ prefix: "./assets/i18n/baseapp/", suffix: ".json" },
-			{ prefix: "./assets/i18n/", suffix: ".json"}
+			{ prefix: "./assets/i18n/", suffix: ".json"},
+			{ prefix: "./assets/i18n/fact/", suffix: ".json"},
+			{ prefix: "./assets/i18n/marc/", suffix: ".json"},
+			{ prefix: "./assets/i18n/rrhh/", suffix: ".json"}
 		]);
 }
 
@@ -47,6 +54,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 		NgxMaskModule.forRoot(),
 		BngBaseAppModule,
 		BngErrorModule,
+		FactModule,
+		MarcModule,
+		RrhhModule,
 		AppRoutingModule
 	],
 	declarations: [
