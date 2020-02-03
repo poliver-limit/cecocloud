@@ -8,16 +8,16 @@ import { BngMenuService, BngMenu } from 'base-angular';
 export class AppService {
 
 	private mainMenu: BngMenu = {
-		menuItems: [{
+		items: [{
 			icon: 'people_alt',
 			label: 'Operaris',
-			labelKey: 'app.menu.operaris',
+			labelKey: 'app.menu.marc.operaris',
 			resource: 'operari',
 			route: '/marc/operaris'
 		}, {
 			icon: 'timer',
 			label: 'Marcatges',
-			labelKey: 'app.menu.marcatges',
+			labelKey: 'app.menu.marc.marcatges',
 			resource: 'marcatge',
 			route: '/marc/marcatges'
 		}]

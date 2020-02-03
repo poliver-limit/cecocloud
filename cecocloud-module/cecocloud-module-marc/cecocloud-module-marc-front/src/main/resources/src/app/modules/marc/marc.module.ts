@@ -1,18 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+/*import { HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';*/
 import { BngAuthGuard } from 'base-angular';
+
+/*export function HttpLoaderFactory(http: HttpClient) {
+	return new TranslateHttpLoader(http, "./assets/i18n/marc/", ".json");
+}*/
 
 @NgModule({
 	imports: [
 		CommonModule,
+		/*TranslateModule.forChild({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			},
+			isolate: true
+		}),*/
 		RouterModule.forChild([{
 			path: '',
 			children: [{
 				path: '',
 				loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule),
 				canActivate: [BngAuthGuard]
-	        },{
+			}, {
 				path: 'operaris',
 				loadChildren: () => import('./pages/operaris/operaris.module').then(m => m.OperarisModule),
 				canActivate: [BngAuthGuard]
@@ -25,6 +40,6 @@ import { BngAuthGuard } from 'base-angular';
 				redirectTo: ''
 			}]
 		}])
-    ]
+	]
 })
-export class MarcModule {}
+export class MarcModule { }

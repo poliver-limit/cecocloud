@@ -15,13 +15,13 @@
   <!-- -------------------------------------------------------------------------- -->
 
   <mat-tab-group>
-    <mat-tab label="Datos del proyecto">
+    <mat-tab label="{{'resource.projecte.field.titolDadesProjecte'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab1"></ng-container>
     </mat-tab>
-    <mat-tab label="Datos técnicos">
+    <mat-tab label="{{'resource.projecte.field.titolDadesTecniques'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab2"></ng-container>
     </mat-tab>
-    <mat-tab label="Más">
+    <mat-tab label="{{'resource.projecte.field.titolMes'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTab3"></ng-container>
     </mat-tab>
   </mat-tab-group>
@@ -29,7 +29,7 @@
   <!-- -------------------------------------------------------------------------- -->
 
   <ng-template #fieldsTab1>
-    <h3 style="color: #875a7b;">Datos generales</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolDadesGenerals'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Datos cliente</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolDadesClient'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -112,7 +112,7 @@
   <!-- -------------------------------------------------------------------------- -->
 
   <ng-template #fieldsTab2>
-    <h3 style="color: #875a7b;">Datos técnicos</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolDadesTecniques'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -132,7 +132,7 @@
     </div>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
-        <bng-custom-field name="estat">Estado</bng-custom-field>
+        <bng-custom-field name="estat">{{'resource.projecte.field.estat'|translate}}</bng-custom-field>
       </div>
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="dataFiPrevist"></bng-custom-field>
@@ -204,7 +204,7 @@
   <!-- -------------------------------------------------------------------------- -->
 
   <ng-template #fieldsTab3>
-    <h3 style="color: #875a7b;">Partes de trabajo</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolPartsFeina'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -230,7 +230,7 @@
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Crear albaranes</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolCrearAlbarans'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -241,7 +241,7 @@
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="albaransClientPreu"
-          >Precio albarán cliente</bng-custom-field
+          >{{'resource.projecte.field.albaransClientPreu'|translate}}</bng-custom-field
         >
       </div>
     </div>
@@ -249,12 +249,12 @@
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="albaransClientProjecteTipus"
-          >Tipo de proyecto</bng-custom-field
+          >{{'resource.projecte.field.albaransClientProjecteTipus'|translate}}</bng-custom-field
         >
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Retención</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolRetencio'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -276,7 +276,7 @@
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Contabilidad</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolComptabilitat'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -287,7 +287,7 @@
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Estudio proyecto</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolEstudiProjecte'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -313,7 +313,7 @@
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Zona</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolZona'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">
@@ -321,7 +321,7 @@
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Global</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolGlobal'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 25%; padding-right: 1em">
@@ -335,7 +335,7 @@
       </div>
     </div>
 
-    <h3 style="color: #875a7b;">Construcción y garantía</h3>
+    <h3 style="color: #875a7b;">{{'resource.projecte.field.titolConstruccioGarantia'|translate}}</h3>
     <mat-divider></mat-divider>
     <div style="display: flex">
       <div style="width: 50%; padding-right: 1em">

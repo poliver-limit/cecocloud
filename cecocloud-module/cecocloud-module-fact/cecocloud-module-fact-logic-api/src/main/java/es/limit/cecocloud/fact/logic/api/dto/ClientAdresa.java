@@ -26,7 +26,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "identificador"
+		descriptionField = "domicili"
 )
 
 public class ClientAdresa extends AbstractIdentificableWithIdentificador<ClientAdresaPk> {

@@ -9,7 +9,7 @@ import { MaterialModule } from '../../shared/material.module';
 import { RolsGridComponent } from './rols-grid.component';
 import { RolsFormComponent } from './rols-form.component';
 import { RolsService } from './rols.service';
-import { RecursPermisosModule } from '../../shared/recurs-permisos/recurs-permisos.module';
+import { FuncionalitatsPermisosModule } from '../../shared/funcionalitats-permisos/funcionalitats-permisos.module';
 
 @NgModule({
     imports: [
@@ -17,7 +17,7 @@ import { RecursPermisosModule } from '../../shared/recurs-permisos/recurs-permis
         TranslateModule,
         BngModule,
         MaterialModule,
-        RecursPermisosModule,
+        FuncionalitatsPermisosModule,
         // MatTableModule,
         // MatSlideToggleModule,
         RouterModule.forChild([

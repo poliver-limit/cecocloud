@@ -55,5 +55,10 @@ public class Funcionalitat extends AbstractIdentificable<Long> {
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)
 	private GenericReference<Funcionalitat, Long> pare;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)
+	private GenericReference<FuncionalitatRecurs, Long> recursPrincipal;
 
 }

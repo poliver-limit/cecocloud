@@ -14,7 +14,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { UsuarisService } from './usuaris.service';
 import { UsuariIdentificadorEmpresaService, UsuariIdentificadorEmpresa } from 'src/app/shared/usuari-identificador-empresa.service';
 import { UsuariIdentificadorsService } from './usuari-identificadors.service';
-import { PerfilUsuariIdentificadorEmpresaService, PerfilUsuariIdentificadorEmpresa } from 'src/app/shared/recurs-permisos/perfil-usuari-identificador-empresa.service';
+import { PerfilUsuariIdentificadorEmpresaService, PerfilUsuariIdentificadorEmpresa } from 'src/app/shared/funcionalitats-permisos/perfil-usuari-identificador-empresa.service';
 
 
 export interface EmpresaPerfil {
