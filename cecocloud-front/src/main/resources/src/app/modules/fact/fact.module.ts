@@ -227,6 +227,7 @@ export class FactModule {
 			label: 'Facturació',
 			menuItems: [
 				{ icon: 'room', label: 'Albarans', route: '/fact/albarans' },
+				{ icon: 'room', label: 'Àrea negocis', route: '/fact/areaNegocis' },
 				{ icon: 'room', label: 'Articles', route: '/fact/articles' },
 				{ icon: 'room', label: 'Articles família', route: '/fact/articlesFamilia' },
 				{ icon: 'room', label: 'Articles família empresa', route: '/fact/articlesFamiliaEmpresa' },
@@ -240,6 +241,7 @@ export class FactModule {
 				{ icon: 'room', label: 'Empreses (Facturació)', route: '/fact/empreses' },
 				{ icon: 'room', label: 'Famílies cost', route: '/fact/familiesCost' },
 				{ icon: 'room', label: 'Famílies proveidor', route: '/fact/familiesProveidor' },
+				{ icon: 'room', label: 'Final factures', route: '/fact/finalFactures' },
 				{ icon: 'room', label: 'Idiomes', route: '/fact/idiomes' },
 				{ icon: 'room', label: 'Iva', route: '/fact/ives' },
 				{ icon: 'room', label: 'Magatzems', route: '/fact/magatzems' },
@@ -248,6 +250,7 @@ export class FactModule {
 				{ icon: 'room', label: 'Països', route: '/fact/paisos' },
 				{ icon: 'room', label: 'Peus de document', route: '/fact/peusDocument' },
 				{ icon: 'room', label: 'Projectes', route: '/fact/projectes' },
+				{ icon: 'room', label: 'Projectes Tipus', route: '/fact/projectesTipus' },
 				{ icon: 'room', label: 'Proveidors', route: '/fact/proveidors' },
 				{ icon: 'room', label: 'Províncies', route: '/fact/provincies' },
 				{ icon: 'room', label: 'Règims d\'iva', route: '/fact/regimsIva' },
