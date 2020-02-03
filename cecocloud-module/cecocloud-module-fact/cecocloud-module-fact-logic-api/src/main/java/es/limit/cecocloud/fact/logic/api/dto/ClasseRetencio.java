@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RestapiResource(
-		descriptionField = "nom")
+		descriptionField = "descripcio")
 public class ClasseRetencio extends AbstractIdentificableWithIdentificadorAndCodi<String>{
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 4)
