@@ -141,13 +141,13 @@ export interface EmpresaPerfil {
 		height: 0;
 	}
 
-	tr.empresa-permisos-row:not(.example-expanded-row):hover {
+	/* tr.empresa-permisos-row:not(.example-expanded-row):hover {
 	background: #777;
 	}
 
 	tr.empresa-permisos-row:not(.example-expanded-row):active {
 	background: #efefef;
-	}
+	} */
 
 	.empresa-permisos-row td {
 	border-bottom-width: 0;
