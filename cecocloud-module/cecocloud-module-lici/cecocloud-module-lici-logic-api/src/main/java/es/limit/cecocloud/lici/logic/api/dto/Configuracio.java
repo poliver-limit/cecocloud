@@ -19,7 +19,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class LicitacioConfig extends AbstractIdentificable<Long> {
+public class Configuracio extends AbstractIdentificable<Long> {
 
 	private boolean sincronitzacioActiva;
 	private String filtreProvincia;

@@ -31,9 +31,7 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(
-		name = "tlic_document"
-)
+@Table(name = "tlic_document")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 5, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "descripcio", length = 200, nullable = false)),

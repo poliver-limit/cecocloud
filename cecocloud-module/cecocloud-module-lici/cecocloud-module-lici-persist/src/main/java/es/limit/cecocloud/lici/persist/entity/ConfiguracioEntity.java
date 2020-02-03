@@ -15,7 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
-import es.limit.cecocloud.lici.logic.api.dto.Cpv;
+import es.limit.cecocloud.lici.logic.api.dto.Configuracio;
+import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,36 +32,37 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "tlic_cpv")
+@Table(name = "tlic_config")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 10, nullable = false)),
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 255, nullable = false))
+	@AttributeOverride(name = "embedded.sincronitzacioActiva", column = @Column(name = "sinact", nullable = false)),
+	@AttributeOverride(name = "embedded.filtreProvincia", column = @Column(name = "filprv", length = 1000)),
+	@AttributeOverride(name = "embedded.filtreCpv", column = @Column(name = "filcpv", length = 1000))
 })
-public class CpvEntity extends AbstractAuditableVersionableEntity<Cpv, Long> {
+public class ConfiguracioEntity extends AbstractAuditableVersionableEntity<Configuracio, Long> {
 
 	@Embedded
-	protected Cpv embedded;
+	protected Configuracio embedded;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "licitacio_id",
-			foreignKey = @ForeignKey(name = "cpv_licitacio_fk"))
-	private LicitacioEntity licitacio;
+			name = "empresa_id",
+			foreignKey = @ForeignKey(name = "configuracio_empresa_fk"))
+	protected EmpresaEntity empresa;
 
 	@Builder
-    public CpvEntity(
-    		Cpv embedded,
-    		LicitacioEntity licitacio) {
+    public ConfiguracioEntity(
+    		Configuracio embedded,
+    		EmpresaEntity empresa) {
         this.embedded = embedded;
-        this.licitacio = licitacio;
+        this.empresa = empresa;
     }
 
 	@Override
-	public void update(Cpv embedded) {
+	public void update(Configuracio embedded) {
 		this.embedded = embedded;
 	}
-	public void updateLicitacio(LicitacioEntity licitacio) {
-		this.licitacio = licitacio;
+	public void updateEmpresa(EmpresaEntity empresa) {
+		this.empresa = empresa;
 	}
 
 }
