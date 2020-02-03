@@ -10,7 +10,7 @@ create table agrupacio (
     codi varchar(8) not null,
     descripcio varchar(100) not null,
     modul varchar(4) not null,
-    pare_id int8 not null,
+    pare_id int8,
     primary key (id)
 );
 
@@ -117,6 +117,32 @@ create table identificador (
     primary key (id)
 );
 
+create table operari (
+   id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
+    version int8 not null,
+    actiu boolean not null,
+    codi varchar(6) not null,
+    identificador_id int8 not null,
+    usuari_id int8 not null,
+    primary key (id)
+);
+
+create table operari_empresa (
+   id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
+    version int8 not null,
+    empresa_id int8 not null,
+    operari_id int8 not null,
+    primary key (id)
+);
+
 create table perfil (
    id int8 not null,
     created_by varchar(64) not null,
@@ -172,6 +198,7 @@ create table usuari_ident (
     lastmod_by varchar(64),
     lastmod_date timestamp,
     version int8 not null,
+    actiu boolean not null,
     identificador_id int8 not null,
     usuari_id int8 not null,
     primary key (id)
@@ -197,10 +224,10 @@ alter table agrupacio_ident
 
 alter table empresa 
    add constraint empresa_uk unique (identificador_id, codi);
-   
+
 alter table funcionalitat 
    add constraint funcionalitat_uk unique (codi, modul);
-   
+
 alter table funcionalitat 
    add constraint funcionalitat_recprincipal_uk unique (recurs_principal_id);
 
@@ -212,6 +239,12 @@ alter table funcionalitat_perfil
 
 alter table funcionalitat_recurs 
    add constraint funcrecu_uk unique (funcionalitat_id, resource_classname);
+
+alter table operari 
+   add constraint operari_codi_uk unique (codi, identificador_id);
+
+alter table operari_empresa 
+   add constraint operariemp_uk unique (operari_id, empresa_id);
 
 alter table perfil 
    add constraint perfil_uk unique (identificador_id, codi);
@@ -247,20 +280,20 @@ alter table agrupacio_ident
    references identificador;
 
 alter table empresa 
-   add constraint empresa_identificador_fk 
-   foreign key (identificador_id) 
-   references identificador;
-   
-alter table empresa 
    add constraint empresa_comptable_fk 
    foreign key (empresa_comptable_id) 
    references empresa;
+
+alter table empresa 
+   add constraint empresa_identificador_fk 
+   foreign key (identificador_id) 
+   references identificador;
 
 alter table funcionalitat 
    add constraint funcionalitat_pare_fk 
    foreign key (pare_id) 
    references funcionalitat;
-  
+
 alter table funcionalitat 
    add constraint funcrecu_principal_fk 
    foreign key (recurs_principal_id) 
@@ -295,6 +328,26 @@ alter table identificador
    add constraint identificador_propietari_fk 
    foreign key (propietari_id) 
    references usuari;
+
+alter table operari 
+   add constraint operari_identificador_fk 
+   foreign key (identificador_id) 
+   references identificador;
+
+alter table operari 
+   add constraint operari_usuari_fk 
+   foreign key (usuari_id) 
+   references usuari;
+
+alter table operari_empresa 
+   add constraint operariemp_empresa_fk 
+   foreign key (empresa_id) 
+   references empresa;
+
+alter table operari_empresa 
+   add constraint operariemp_operari_fk 
+   foreign key (operari_id) 
+   references operari;
 
 alter table perfil 
    add constraint perfil_identificador_fk 
@@ -335,43 +388,3 @@ alter table usuari_ident_empresa
    add constraint usuidentemp_usuidf_fk 
    foreign key (usuident_id) 
    references usuari_ident;
-
-create table acl_sid(
-    id bigserial not null primary key,
-    principal boolean not null,
-    sid varchar(100) not null,
-    constraint aclsid_uk unique(sid,principal)
-);
-
-create table acl_class(
-    id bigserial not null primary key,
-    class varchar(100) not null,
-    constraint aclclass_uk unique(class)
-);
-
-create table acl_object_identity(
-    id bigserial primary key,
-    object_id_class bigint not null,
-    object_id_identity varchar(36) not null,
-    parent_object bigint,
-    owner_sid bigint,
-    entries_inheriting boolean not null,
-    constraint acloid_uk unique(object_id_class,object_id_identity),
-    constraint acloid_acloid_fk_1 foreign key(parent_object)references acl_object_identity(id),
-    constraint acloid_aclclass_fk_2 foreign key(object_id_class)references acl_class(id),
-    constraint acloid_aclsid_fk_3 foreign key(owner_sid)references acl_sid(id)
-);
-
-create table acl_entry(
-    id bigserial primary key,
-    acl_object_identity bigint not null,
-    ace_order int not null,
-    sid bigint not null,
-    mask integer not null,
-    granting boolean not null,
-    audit_success boolean not null,
-    audit_failure boolean not null,
-    constraint aclentry_uk unique(acl_object_identity,ace_order),
-    constraint aclentry_acloid_fk foreign key(acl_object_identity) references acl_object_identity(id),
-    constraint aclentry_aclsid_fk foreign key(sid) references acl_sid(id)
-);

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioIdentificadorPeticio;
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioIdentificadorResposta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatgesEnviament;
@@ -39,19 +37,6 @@ public class SincronitzacioApiController {
 
 	@Autowired
 	private SincronitzacioService sincronitzacioService;
-
-	@PostMapping(
-			path = "/empreses_operaris",
-			produces = "application/json")
-	@PreAuthorize("hasPermission(getCompanyia(#dto.companyiaCodi), 'SYNC')")
-	public ResponseEntity<SincronitzacioIdentificadorResposta> sincronitzarIdentificador(
-			HttpServletRequest request,
-			@RequestBody @Valid final SincronitzacioIdentificadorPeticio dto) {
-		log.debug("Nova sincronització(" +
-				"dto=" + dto + ")");
-		return ResponseEntity.ok(
-				sincronitzacioService.sincronitzarIdentificador(dto));
-	}
 
 	@GetMapping(
 			path = "/marcatges",

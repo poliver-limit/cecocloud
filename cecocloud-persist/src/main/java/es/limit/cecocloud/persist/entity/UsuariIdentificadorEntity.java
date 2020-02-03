@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,6 +39,9 @@ import lombok.Setter;
 				@UniqueConstraint(name = "usuident_uk", columnNames = {"usuari_id", "identificador_id"})
 		}
 )
+@AttributeOverrides({
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "actiu", nullable = false))
+})
 public class UsuariIdentificadorEntity extends AbstractAuditableVersionableEntity<UsuariIdentificador, Long> {
 
 	@Embedded

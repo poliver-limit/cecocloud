@@ -35,6 +35,7 @@ import lombok.Setter;
 )
 public class UsuariIdentificador extends AbstractIdentificable<Long> {
 
+	private boolean actiu;
 	@NotNull
 	@Transient
 	@RestapiField(

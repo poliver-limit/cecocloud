@@ -8,8 +8,11 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import es.limit.cecocloud.logic.api.dto.Operari;
+import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
+import es.limit.cecocloud.logic.api.service.OperariEmpresaService;
+import es.limit.cecocloud.logic.api.service.OperariService;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
-import es.limit.cecocloud.marc.logic.api.service.OperariService;
 
 /**
  * Validador dels operaris dels marcatges.
@@ -23,6 +26,8 @@ public class MarcatgeOperariValidValidator implements ConstraintValidator<Marcat
 
 	@Autowired
 	private OperariService operariService;
+	@Autowired
+	private OperariEmpresaService operariEmpresaService;
 
 	@Override
 	public void initialize(MarcatgeOperariValid constraintAnnotation) {
@@ -32,12 +37,11 @@ public class MarcatgeOperariValidValidator implements ConstraintValidator<Marcat
 	public boolean isValid(
 			Marcatge marcatge,
 			ConstraintValidatorContext context) {
-		if (marcatge.getOperari() != null && marcatge.getData() != null) {
+		if (marcatge.getOperariEmpresa() != null && marcatge.getData() != null) {
 			try {
-				boolean actiu = operariService.isOperariActiu(
-						marcatge.getOperari().getId(),
-						marcatge.getData());
-				if (!actiu) {
+				OperariEmpresa operariEmpresa = operariEmpresaService.getOne(marcatge.getOperariEmpresa().getId());
+				Operari operari = operariService.getOne(operariEmpresa.getOperari().getId());
+				if (!operari.isActiu()) {
 					context.disableDefaultConstraintViolation();
 					context.buildConstraintViolationWithTemplate(
 			                "{cecocloud.validation.constraints.MarcatgeOperariValid.not.active}").

@@ -21,18 +21,19 @@ import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen;
-import es.limit.cecocloud.marc.logic.api.dto.Operari;
 import es.limit.cecocloud.marc.logic.api.service.MobileMarcatgeService;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
-import es.limit.cecocloud.marc.persist.entity.OperariEntity;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
-import es.limit.cecocloud.marc.persist.repository.OperariRepository;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.OperariEmpresaRepository;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
@@ -48,12 +49,12 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	@Autowired
 	private UsuariRepository usuariRepository;
 	@Autowired
-	private OperariRepository operariRepository;
+	private OperariEmpresaRepository operariEmpresaRepository;
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
-	
+
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
 	@Autowired
@@ -61,26 +62,28 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Override
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
-		OperariEntity operari = getOperariPerMarcatge(marcatgeMobil);
+		OperariEmpresaEntity operariEmpresa = getOperariEmpresaPerMarcatge(marcatgeMobil);
 		Marcatge marcatge = new Marcatge();
 		log.info("Rebut marcatge de l'app mòbil (" +
-				"operari=" + operari.getEmbedded().getDescripcio() + ", " +
+				"operari=" + /*operariEmpresa.getEmbedded().getDescripcio() + */", " +
 				"data=" + marcatgeMobil.getData() + ", " +
 				"dataActual=" + new Date() + ")");
-		marcatge.setData(marcatgeMobil.getData());
+		/*marcatge.setData(marcatgeMobil.getData());
 		marcatge.setOrigen(MarcatgeOrigen.MOBIL);
 		marcatge.setLatitud(marcatgeMobil.getLatitud());
 		marcatge.setLongitud(marcatgeMobil.getLongitud());
 		MarcatgeEntity entity = MarcatgeEntity.builder().
-				operari(operari).
+				operariEmpresa(operariEmpresa).
 				embedded(marcatge).
 				build();
-		return toMarcatgeMobil(marcatgeRepository.save(entity));
+		return toMarcatgeMobil(marcatgeRepository.save(entity));*/
+		// TODO
+		return null;
 	}
 
 	@Override
 	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
-		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(authenticationHelper.getPrincipalName());
+		/*Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(authenticationHelper.getPrincipalName());
 		EmpresaEntity empresa = empresaRepository.getOne(consulta.getEmpresaId());
 		Optional<OperariEntity> operari = operariRepository.findByUsuariAndEmpresaAndEmbeddedDataFiNull(
 				usuari.get(),
@@ -96,20 +99,24 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 				consulta.getData(),
 				false,
 				dataFi.getTime());
-		return marcatges.stream().map(marcatge -> toMarcatgeMobil(marcatge)).collect(Collectors.toList());
+		return marcatges.stream().map(marcatge -> toMarcatgeMobil(marcatge)).collect(Collectors.toList());*/
+		// TODO
+		return null;
 	}
 
 	@Override
 	public List<Empresa> empresesFindDisponiblesPerUsuariActual() {
-		List<OperariEntity> operaris = findOperarisActiusIAmbEmpresaActivaPerUsuariActual();
+		/*List<OperariEntity> operaris = findOperarisActiusIAmbEmpresaActivaPerUsuariActual();
 		// TODO: Controlar si es retornen empreses repetides
 		return orikaMapperFacade.mapAsList(
 				operaris.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()),
-				Empresa.class);
+				Empresa.class);*/
+		// TODO
+		return null;
 	}
 
-	private OperariEntity getOperariPerMarcatge(MarcatgeMobil marcatgeMobil) {
-		if (marcatgeMobil.getEmpresa() != null) {
+	private OperariEmpresaEntity getOperariEmpresaPerMarcatge(MarcatgeMobil marcatgeMobil) {
+		/*if (marcatgeMobil.getEmpresa() != null) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String currentUserName = auth.getName();
 			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
@@ -133,28 +140,34 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			}
 		} else {
 			throw new IllegalArgumentException("S'ha enviat un marcatge sense empresa");
-		}
+		}*/
+		// TODO
+		return null;
 	}
 
 	private List<OperariEntity> findOperarisActiusIAmbEmpresaActivaPerUsuariActual() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		/*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = auth.getName();
 		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
 		return operariRepository.findByUsuariAndDataFiNullAndEmpresaActiva(
 				usuari.get(),
 				new Date(),
-				true);
+				true);*/
+		// TODO
+		return null;
 	}
 
 	private MarcatgeMobil toMarcatgeMobil(MarcatgeEntity marcatge) {
-		MarcatgeMobil marcatgeMobil = new MarcatgeMobil();
+		/*MarcatgeMobil marcatgeMobil = new MarcatgeMobil();
 		marcatgeMobil.setEmpresa(
 				GenericReference.toGenericReference(
 						marcatge.getOperari().getEmpresa().getId()));
 		marcatgeMobil.setData(marcatge.getEmbedded().getData());
 		marcatgeMobil.setLatitud(marcatge.getEmbedded().getLatitud());
 		marcatgeMobil.setLongitud(marcatge.getEmbedded().getLongitud());
-		return marcatgeMobil;
+		return marcatgeMobil;*/
+		// TODO
+		return null;
 	}
 
 }

@@ -6,30 +6,19 @@ package es.limit.cecocloud.marc.logic.api.service;
 import java.util.Date;
 import java.util.List;
 
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioIdentificadorPeticio;
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioIdentificadorResposta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioResposta;
 
 /**
- * Servei encarregat de gestionar la sincronització de la informació provinent de CECOGEST.
+ * Servei encarregat de gestionar la sincronització d'informació entre
+ * CECOCLOUD i CECOGEST.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 public interface SincronitzacioService {
 
 	/**
-	 * Sincronitza la informació (empreses i operaris) d'un identificador.
-	 * 
-	 * @param peticio
-	 *            informació de l'identificador a sincronitzar.
-	 * @return el resultat de la sincronització.
-	 */
-	public SincronitzacioIdentificadorResposta sincronitzarIdentificador(
-			SincronitzacioIdentificadorPeticio peticio);
-
-	/**
-	 * Consulta els marcatges d'un identificador disponibles a cecocloud.
+	 * Consulta els marcatges d'un identificador disponibles a CECOCLOUD.
 	 * 
 	 * @param companyiaId
 	 *            identificador de la companyia.
@@ -46,7 +35,7 @@ public interface SincronitzacioService {
 			Date dataFi);
 
 	/**
-	 * Crea els marcatges de cecogest a dins cecocloud.
+	 * Crea els marcatges de cecogest a dins CECOCLOUD.
 	 * 
 	 * @param identificadorCodi
 	 *            codi de l'identificador a sincronitzar.
