@@ -60,6 +60,8 @@
 	"resource.perfil.field.descripcio": "Descripción",
 	"resource.perfil.field.companyia": "Compañía",
 
+	"resource.usuariIdentificador.perfils": "Perfiles",
+
 	"resource.usuariCompanyia": "Usuario",
 	"resource.usuariCompanyia.plural": "Usuarios de la compañia",
 	"resource.usuariCompanyia.field.usuari": "Usuario",
