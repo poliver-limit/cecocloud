@@ -41,8 +41,8 @@ public class MarcatgeDataValidator implements ConstraintValidator<MarcatgeData, 
 			ConstraintValidatorContext context) {
 		Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 		if (!authorities.contains(new SimpleGrantedAuthority(Authority.ADMIN.name()))) {
-			if (marcatge.getOperari() != null) {
-				Marcatge darrerMarcatge = marcatgeService.findDarrerMarcatgePerOperari(marcatge.getOperari().getId());
+			if (marcatge.getOperariEmpresa() != null) {
+				Marcatge darrerMarcatge = marcatgeService.findDarrerMarcatgePerOperariEmpresa(marcatge.getOperariEmpresa().getId());
 				if (darrerMarcatge != null) {
 					if (marcatge.getData().before(darrerMarcatge.getData())) {
 						context.disableDefaultConstraintViolation();
