@@ -35,19 +35,7 @@ import { BngAuthGuard } from 'base-angular';
 		}, {
 			path: 'empreses',
 			loadChildren: () => import('./pages/empreses/empreses.module').then(m => m.EmpresesModule),
-			canActivate: [BngAuthGuard]/*
-		}, {
-			path: 'fact',
-			loadChildren: () => import('./modules/fact/fact.module').then(m => m.FactModule),
 			canActivate: [BngAuthGuard]
-		}, {
-			path: 'marc',
-			loadChildren: () => import('./modules/marc/marc.module').then(m => m.MarcModule),
-			canActivate: [BngAuthGuard]
-		}, {
-			path: 'rrhh',
-			loadChildren: './modules/rrhh/rrhh.module#RrhhModule',
-			canActivate: [BngAuthGuard]*/
 		}, {
 			path: '**',
 			redirectTo: ''

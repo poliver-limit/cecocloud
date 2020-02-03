@@ -45,7 +45,6 @@ import { BngAuthGuard, BngModuleService } from 'base-angular';
 export class MarcModule {
 
 	constructor(moduleService: BngModuleService) {
-		console.log('>>> Registrant mòdul marc')
 		moduleService.register({
 			code: 'marc',
 			icon: 'touch_app',
