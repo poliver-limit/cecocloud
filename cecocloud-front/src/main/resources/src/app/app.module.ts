@@ -19,6 +19,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import localeCa from '@angular/common/locales/ca';
 
+import { FactModule } from './modules/fact/fact.module';
+import { MarcModule } from './modules/marc/marc.module';
+import { RrhhModule } from './modules/rrhh/rrhh.module';
+
 registerLocaleData(localeCa);
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -50,6 +54,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 		NgxMaskModule.forRoot(),
 		BngBaseAppModule,
 		BngErrorModule,
+		FactModule,
+		MarcModule,
+		RrhhModule,
 		AppRoutingModule
 	],
 	declarations: [
