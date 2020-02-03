@@ -254,6 +254,10 @@ export class UsuariIdentificadorsFormComponent implements OnDestroy {
 		}
 	}
 
+	usuariTeImatge() {
+		return this.usuari != null && this.usuari.imatgeUrl != null && this.usuari.imatgeUrl !== '';
+	}
+
 	private deletePerfilEmpresa(perfilUsuariIdentificadorEmpresaId, index, pos, ultim) {
 		// Eliminar el perfil-usuari-empresa
 		this.perfilUsuariIdentificadorEmpresaService.deleteById(perfilUsuariIdentificadorEmpresaId).subscribe((resposta: any) => {
@@ -289,9 +293,6 @@ export class UsuariIdentificadorsFormComponent implements OnDestroy {
 		});
 	}
 
-	private usuariTeImatge() {
-		return this.usuari != null && this.usuari.imatgeUrl != null && this.usuari.imatgeUrl !== '';
-	}
 
 	private generateTableData() {
 		this.empresaPerfils = [];
