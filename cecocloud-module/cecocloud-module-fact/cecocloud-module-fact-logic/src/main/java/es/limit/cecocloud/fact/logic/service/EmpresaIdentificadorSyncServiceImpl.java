@@ -46,7 +46,9 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void identificadorDelete(Identificador identificador) {
-		indentificadorRepository.deleteById(identificador.getCodi());
+		if (indentificadorRepository.existsById(identificador.getCodi())) {
+			indentificadorRepository.deleteById(identificador.getCodi());
+		}
 	}
 
 	@Override

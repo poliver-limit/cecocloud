@@ -105,26 +105,28 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV)
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInLov = true)
+			hiddenInLov = true,
+			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
 	@RestapiField(
-			hiddenInGrid = false,
+			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private String periodeActualCodi;
 	
 	@Transient
 	@RestapiField(
-			hiddenInGrid = false,
+			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private String periodeActualData;
