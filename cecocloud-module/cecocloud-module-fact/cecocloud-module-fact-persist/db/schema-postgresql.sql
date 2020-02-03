@@ -95,7 +95,7 @@
     );
 
     create table tges_cli (
-       cli_cod varchar(4) not null,
+       	cli_cod varchar(4) not null,
         cli_idf_cod varchar(4) not null,
         cli_usucre varchar(255),
         cli_datcre timestamp,
@@ -839,7 +839,7 @@
     );
 
     create table tges_scl (
-       scl_cli_cod varchar(6) not null,
+       	scl_cli_cod varchar(6) not null,
         scl_cod varchar(4) not null,
         scl_idf_cod varchar(4) not null,
         scl_usucre varchar(255),
