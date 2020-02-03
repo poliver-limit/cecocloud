@@ -4,15 +4,11 @@
 package es.limit.cecocloud.marc.persist.repository;
 
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
-import es.limit.cecocloud.marc.persist.entity.OperariEntity;
-import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus marcatge.
@@ -21,7 +17,7 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
  */
 public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long> {
 
-	@Query(	"from" +
+	/*@Query(	"from" +
 			"    MarcatgeEntity m " +
 			"where " +
 			"    m.operari = :operari " +
@@ -50,9 +46,9 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("empreses") List<EmpresaEntity> empreses,
 			@Param("dataInici") Date dataInici,
 			@Param("esNullDataFi") boolean esNullDataFi,
-			@Param("dataFi") Date dataFi);
+			@Param("dataFi") Date dataFi);*/
 
-	MarcatgeEntity findFirstByOperariOrderByEmbeddedDataDesc(OperariEntity operari);
+	MarcatgeEntity findFirstByOperariEmpresaOrderByEmbeddedDataDesc(OperariEmpresaEntity operariEmpresa);
 
 	MarcatgeEntity findByOperariAndEmbeddedData(
 			OperariEntity operari,

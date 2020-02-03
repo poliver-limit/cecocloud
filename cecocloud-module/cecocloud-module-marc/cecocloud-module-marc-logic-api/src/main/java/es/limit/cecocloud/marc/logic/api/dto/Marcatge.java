@@ -13,6 +13,8 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GeoPosition;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.marc.logic.api.validation.MarcatgeData;
 import es.limit.cecocloud.marc.logic.api.validation.MarcatgeOperariValid;
 import lombok.Getter;
@@ -30,10 +32,6 @@ import lombok.Setter;
 public class Marcatge extends AbstractIdentificable<Long> {
 
 	@NotNull
-	@Transient
-	@RestapiField(includeInQuickFilter = true)
-	private Operari operari;
-	@NotNull
 	@RestapiField(type = RestapiFieldType.DATETIME)
 	private Date data;
 	@NotNull
@@ -45,6 +43,12 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	private Double latitud;
 	@RestapiField(hiddenInGrid = true)
 	private Double longitud;
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)
+	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 
 	@Transient
 	@RestapiField(

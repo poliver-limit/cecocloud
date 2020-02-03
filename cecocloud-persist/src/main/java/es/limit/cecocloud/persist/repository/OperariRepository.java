@@ -1,33 +1,27 @@
 /**
  * 
  */
-package es.limit.cecocloud.marc.persist.repository;
+package es.limit.cecocloud.persist.repository;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.marc.persist.entity.OperariEntity;
-import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import es.limit.cecocloud.persist.entity.OperariEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus operari.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Repository("OperariMarcRepository")
+@Repository
 public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
-	List<OperariEntity> findByEmpresaIdentificador(IdentificadorEntity identificador);
+	List<OperariEntity> findByIdentificador(IdentificadorEntity identificador);
 
-	@Query(	"from" +
+	/*@Query(	"from" +
 			"    OperariEntity op " +
 			"where " +
 			"    op.usuari = :usuari " +
@@ -54,6 +48,6 @@ public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
 	List<OperariEntity> findByUsuariAndEmpresa(UsuariEntity usuari, EmpresaEntity empresa);
 
-	Optional<OperariEntity> findByUsuariAndEmpresaAndEmbeddedDataFiNull(UsuariEntity usuari, EmpresaEntity empresa);
-
+	Optional<OperariEntity> findByUsuariAndEmpresaAndEmbeddedDataFiNull(UsuariEntity usuari, EmpresaEntity empresa);*/
+	
 }
