@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 /*import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';*/
-import { BngAuthGuard } from 'base-angular';
+import { BngAuthGuard, BngModuleService } from 'base-angular';
 
 /*export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/marc/", ".json");
@@ -22,7 +22,7 @@ import { BngAuthGuard } from 'base-angular';
 			isolate: true
 		}),*/
 		RouterModule.forChild([{
-			path: '',
+			path: 'marc',
 			children: [{
 				path: '',
 				loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule),
@@ -42,4 +42,26 @@ import { BngAuthGuard } from 'base-angular';
 		}])
 	]
 })
-export class MarcModule { }
+export class MarcModule {
+
+	constructor(moduleService: BngModuleService) {
+		console.log('>>> Registrant mòdul marc')
+		moduleService.register({
+			code: 'marc',
+			icon: 'touch_app',
+			label: 'Marcatges',
+			menuItems: [{
+				icon: 'people_alt',
+				label: 'Operaris',
+				labelKey: 'app.menu.marc.operaris',
+				route: '/marc/operaris'
+			},{
+				icon: 'timer',
+				label: 'Marcatges',
+				labelKey: 'app.menu.marc.marcatges',
+				route: '/marc/marcatges'
+			}]
+		});
+	}
+
+}
