@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
+import { MatTableModule } from '@angular/material';
 
 import { MaterialModule } from '../../shared/material.module';
 
@@ -15,6 +16,7 @@ import { PerfilsService } from '../perfils/perfils.service';
 import { UsuarisService } from './usuaris.service';
 import { EmpresesService } from '../empreses/empreses.service';
 import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/shared/funcionalitats-permisos/perfil-usuari-identificador-empresa.service';
+import { FuncionalitatsPermisosModule } from 'src/app/shared/funcionalitats-permisos/funcionalitats-permisos.module';
 
 @NgModule({
 	imports: [
@@ -24,6 +26,8 @@ import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/shared/funciona
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		MatTableModule,
+		FuncionalitatsPermisosModule,
 		RouterModule.forChild([
 			{ path: '', component: UsuariIdentificadorsGridComponent, canDeactivate: [BngFormExitGuard] },
 			{ path: 'update/:id', component: UsuariIdentificadorsFormComponent, canDeactivate: [BngFormExitGuard] }

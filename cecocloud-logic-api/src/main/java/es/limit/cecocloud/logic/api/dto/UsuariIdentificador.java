@@ -49,16 +49,20 @@ public class UsuariIdentificador extends AbstractIdentificable<Long> {
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Identificador, Long> identificador;
-	@Transient
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private String description;
+//	@Transient
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInForm = true,
+//			hiddenInLov = true)
+//	private String description;
 
 	public String getDescription() {
 		if (usuari != null || identificador != null) {
-			return ((usuari != null) ? usuari.getDescription() : "") + " - " + ((identificador != null) ? identificador.getDescription() : "");
+			String usuariDesc = (usuari != null) ? usuari.getDescription() : "";
+			String identificadorDesc = (identificador != null) ? identificador.getDescription() : "";
+			String description = usuariDesc + " - " + identificadorDesc;
+			return description;
+			// return ((usuari != null) ? usuari.getDescription() : "") + " - " + ((identificador != null) ? identificador.getDescription() : "");
 		} else {
 			return null;
 		}

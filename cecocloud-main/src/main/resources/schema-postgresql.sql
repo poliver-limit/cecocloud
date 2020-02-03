@@ -54,7 +54,7 @@ create table funcionalitat (
     descripcio varchar(100) not null,
     modul varchar(4) not null,
     tipus int4 not null,
-    pare_id int8 not null,
+    pare_id int8,
     recurs_principal_id int8 not null,
     primary key (id)
 );
@@ -208,7 +208,7 @@ alter table funcionalitat_ident
    add constraint funcident_uk unique (funcionalitat_id, identificador_id);
 
 alter table funcionalitat_perfil 
-   add constraint funcperf_uk unique (funcionalitat_id, perfil_id);
+   add constraint funcperf_uk unique (funcionalitat_id, perfil_id, permis);
 
 alter table funcionalitat_recurs 
    add constraint funcrecu_uk unique (funcionalitat_id, resource_classname);

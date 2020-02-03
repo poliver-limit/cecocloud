@@ -99,6 +99,8 @@
 	"resource.perfil.field.descripcio": "Descripció",
 	"resource.perfil.field.companyia": "Companyia",
 
+	"resource.usuariIdentificador.perfils": "Perfils",
+
 	"resource.usuariCompanyia": "Usuari",
 	"resource.usuariCompanyia.plural": "Usuaris de la companyia",
 	"resource.usuariCompanyia.field.usuari": "Usuari",
