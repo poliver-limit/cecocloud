@@ -12,7 +12,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.Usuari;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,9 +32,8 @@ import lombok.Setter;
 						resourcePermission = "ADMINISTRATION"),
 		}
 )
-public class UsuariIdentificador extends AbstractIdentificable<Long> {
+public class UsuariIdentificador extends AbstractIdentificableWithIdentificador<Long> {
 
-	private boolean actiu;
 	@NotNull
 	@Transient
 	@RestapiField(
@@ -43,19 +41,13 @@ public class UsuariIdentificador extends AbstractIdentificable<Long> {
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
-	@NotNull
+	private boolean actiu;
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
-	private GenericReference<Identificador, Long> identificador;
-//	@Transient
-//	@RestapiField(
-//			hiddenInGrid = true,
-//			hiddenInForm = true,
-//			hiddenInLov = true)
-//	private String description;
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String description;
 
 	public String getDescription() {
 		if (usuari != null || identificador != null) {

@@ -11,7 +11,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.Usuari;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +24,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "description"
 )
-public class Operari extends AbstractIdentificable<Long> {
+public class Operari extends AbstractIdentificableWithIdentificador<Long> {
 
 	@NotNull
 	@Size(max = 6)
@@ -33,20 +32,20 @@ public class Operari extends AbstractIdentificable<Long> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)
+	private GenericReference<Usuari, Long> usuari;
 	private boolean actiu = true;
 	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
-	private GenericReference<Usuari, Long> usuari;
-	@NotNull
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
 	private GenericReference<Identificador, Long> identificador;
 	@Transient
 	@RestapiField(

@@ -48,12 +48,12 @@ public class UsuariIdentificadorEmpresa extends AbstractIdentificable<Long> {
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Empresa, Long> empresa;
-//	@Transient
-//	@RestapiField(
-//			hiddenInGrid = true,
-//			hiddenInForm = true,
-//			hiddenInLov = true)
-//	private String description;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String description;
 
 	public String getDescription() {
 		if (usuariIdentificador != null || empresa != null) {

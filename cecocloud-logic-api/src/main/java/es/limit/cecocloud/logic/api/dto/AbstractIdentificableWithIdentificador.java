@@ -30,6 +30,6 @@ public abstract class AbstractIdentificableWithIdentificador<ID extends Serializ
 			hiddenInGrid = true,			
 			hiddenInForm = true,			
 			hiddenInLov = true)
-	private GenericReference<Identificador, Long> identificador;
+	protected GenericReference<Identificador, Long> identificador;
 
 }

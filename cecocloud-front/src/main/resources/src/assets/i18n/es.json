@@ -9,6 +9,7 @@
 	"app.menu.companyia": "Compañía",
 	"app.menu.identificador": "Grupo de empresas",
 	"app.menu.identificadors": "Grupos de empresas",
+	"app.menu.operaris": "Operarios",
 	"app.menu.empreses": "Empresas",
 	"app.menu.perfils": "Perfiles",
 	"app.menu.rols": "Roles",
@@ -32,6 +33,7 @@
 	"resource.usuariIdentificador": "Usuario",
 	"resource.usuariIdentificador.plural": "Usuarios",
 	"resource.usuariIdentificador.field.usuari": "Usuario",
+	"resource.usuariIdentificador.field.actiu": "Activo",
 	"resource.usuariIdentificador.field.identificador": "Grupo de empresas",
 
 	"resource.empresa": "Empresa",

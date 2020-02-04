@@ -22,7 +22,7 @@ public abstract class AbstractIdentificableWithPermissionsAndIdentificadorApiCon
 	protected void completeDtoWithSession(D dto, Object userSession) {
 		dto.setIdentificador(GenericReference.toGenericReference(((UserSession)userSession).getI()));
 	}
-	
+
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
 		return "identificador.id==" + ((UserSession)userSession).getI();

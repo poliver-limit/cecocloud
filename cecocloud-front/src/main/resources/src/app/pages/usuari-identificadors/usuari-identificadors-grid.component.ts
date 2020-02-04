@@ -1,4 +1,5 @@
 import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HalParam } from 'angular4-hal';
@@ -8,7 +9,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { BngAuthService, BngDatagrid } from 'base-angular';
 
 import { UsuariIdentificadorsService } from './usuari-identificadors.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarisService } from './usuaris.service';
 
 @Component({
@@ -30,7 +30,6 @@ export class UsuariIdentificadorsGridComponent {
 	};
 
 	onGridActionCreate() {
-
 		const dialogRef = this.dialog.open(UsuariIdentificadorsAddDialog, {
 			width: '500px'
 		});
