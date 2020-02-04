@@ -31,33 +31,4 @@ public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
 	List<OperariEntity> findByUsuariEmbeddedCodiAndEmbeddedActiu(String usuariCodi, boolean actiu);
 
-	/*@Query(	"from" +
-			"    OperariEntity op " +
-			"where " +
-			"    op.usuari = :usuari " +
-			"and op.embedded.dataInici <= :dataInicial " +
-			"and op.embedded.dataFi is null " +
-			"and op.empresa.embedded.activa = :activa")
-	List<OperariEntity> findByUsuariAndDataFiNullAndEmpresaActiva(
-			@Param("usuari") UsuariEntity usuari,
-			@Param("dataInicial") Date dataInicial,
-			@Param("activa") boolean activa);
-
-	@Query(	"from" +
-			"    OperariEntity op " +
-			"where " +
-			"    op.empresa = :empresa " +
-			"and op.embedded.dataFi is null")
-	List<OperariEntity> findByEmpresaAndDataFiNull(
-			@Param("empresa") EmpresaEntity empresa);
-
-	Optional<OperariEntity> findByEmpresaIdentificadorAndEmpresaEmbeddedCodiAndEmbeddedCodi(
-			IdentificadorEntity identificador,
-			String empresaCodi,
-			String codi);
-
-	List<OperariEntity> findByUsuariAndEmpresa(UsuariEntity usuari, EmpresaEntity empresa);
-
-	Optional<OperariEntity> findByUsuariAndEmpresaAndEmbeddedDataFiNull(UsuariEntity usuari, EmpresaEntity empresa);*/
-
 }

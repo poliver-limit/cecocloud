@@ -1,15 +1,14 @@
 {
-	"name": "cecocloud",
+	"name": "fact",
 	"version": "0.0.0",
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build": "ng build --prod",
+		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
-		"postinstall": "cp -a node_modules/@programari-limit/base-angular/assets/i18n/baseapp src/assets/i18n/baseapp && rm -fr node_modules/angular4-hal/node_modules/@angular",
-		"prepare": "rm -fr src/app/modules/fact && ln -s ../../../../../../../cecocloud-module/cecocloud-module-fact/cecocloud-module-fact-front/src/main/resources/src/app/modules/fact src/app/modules/fact && rm -fr src/app/modules/marc && ln -s ../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/app/modules/marc src/app/modules/marc && rm -fr src/app/modules/rrhh && ln -s ../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/app/modules/rrhh src/app/modules/rrhh"
+		"postinstall": "rm -fr node_modules/angular4-hal/node_modules/@angular"
 	},
 	"private": true,
 	"dependencies": {
@@ -27,7 +26,6 @@
 		"@ngx-translate/http-loader": "^4.0.0",
 		"@programari-limit/base-angular": "^0.0.44",
 		"ngx-translate-multi-http-loader": "^3.0.0",
-		"npm-check-updates": "^3.1.20",
 		"rxjs": "~6.4.0",
 		"tslib": "^1.9.0",
 		"zone.js": "~0.9.1"
