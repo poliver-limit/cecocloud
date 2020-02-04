@@ -1,0 +1,10 @@
+#!/bin/sh
+cd $(dirname $0)
+rm -fr src/app/modules/fact
+ln -s ../../../../../../../cecocloud-module/cecocloud-module-fact/cecocloud-module-fact-front/src/main/resources/src/app/modules/fact src/app/modules/fact
+rm -fr src/app/modules/lici
+ln -s ../../../../../../../cecocloud-module/cecocloud-module-lici/cecocloud-module-lici-front/src/main/resources/src/app/modules/lici src/app/modules/lici
+rm -fr src/app/modules/marc
+ln -s ../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/app/modules/marc src/app/modules/marc
+rm -fr src/app/modules/rrhh
+ln -s ../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/app/modules/rrhh src/app/modules/rrhh

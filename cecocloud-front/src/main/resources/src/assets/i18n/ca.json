@@ -41,6 +41,7 @@
 	"resource.empresa.field.nom": "Nom",
 	"resource.empresa.field.activa": "Activa",
 	"resource.empresa.field.companyia": "Companyia",
+	"resource.empresa.field.empresaComptable": "Empresa comptable",
 
 	"resource.permission": "Permís",
 	"resource.permission.plural": "Permisos",

@@ -54,7 +54,7 @@ public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 	@Enumerated
 	protected EmpresaTipusEnum tipus;
 	@RestapiField(hiddenInLov = true)
-	private boolean activa;
+	private boolean activa = true;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
