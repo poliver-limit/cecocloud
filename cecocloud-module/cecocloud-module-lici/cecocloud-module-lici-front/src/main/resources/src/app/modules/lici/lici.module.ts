@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-/*import { HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';*/
 import { BngAuthGuard, BngModuleService } from 'base-angular';
 
 import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
@@ -12,11 +9,11 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 	imports: [
 		CommonModule,
 		RouterModule.forChild([{
-			path: 'marc',
+			path: 'lici',
 			canActivate: [BngAuthGuard, SelectedEmpresaGuard],
 			children: [{
 				path: '',
-				loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule)
+				loadChildren: () => import('./pages/index/index-lici.module').then(m => m.IndexLiciModule)
 			}, {
 				path: '**',
 				redirectTo: ''
@@ -29,7 +26,7 @@ export class LiciModule {
 	constructor(moduleService: BngModuleService) {
 		moduleService.register({
 			code: 'lici',
-			icon: 'touch_app',
+			icon: 'folder_special',
 			label: 'Licitacions',
 			/*menuItems: [{
 				icon: 'timer',

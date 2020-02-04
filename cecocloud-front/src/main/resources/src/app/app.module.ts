@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app.routing';
 import localeCa from '@angular/common/locales/ca';
 
 import { FactModule } from './modules/fact/fact.module';
+import { LiciModule } from './modules/lici/lici.module';
 import { MarcModule } from './modules/marc/marc.module';
 import { RrhhModule } from './modules/rrhh/rrhh.module';
 
@@ -31,6 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 			{ prefix: "./assets/i18n/baseapp/", suffix: ".json" },
 			{ prefix: "./assets/i18n/", suffix: ".json"},
 			{ prefix: "./assets/i18n/fact/", suffix: ".json"},
+			{ prefix: "./assets/i18n/lici/", suffix: ".json"},
 			{ prefix: "./assets/i18n/marc/", suffix: ".json"},
 			{ prefix: "./assets/i18n/rrhh/", suffix: ".json"}
 		]);
@@ -55,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		BngBaseAppModule,
 		BngErrorModule,
 		FactModule,
+		LiciModule,
 		MarcModule,
 		RrhhModule,
 		AppRoutingModule

@@ -34,10 +34,10 @@ import lombok.Setter;
 @Table(name = "tlic_document")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 5, nullable = false)),
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "descripcio", length = 200, nullable = false)),
-	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "descripcio", nullable = false)),
-	@AttributeOverride(name = "embedded.uri", column = @Column(name = "descripcio", length = 255, nullable = false)),
-	@AttributeOverride(name = "embedded.hash", column = @Column(name = "descripcio", length = 30, nullable = false))
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 200, nullable = false)),
+	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "tipus", nullable = false)),
+	@AttributeOverride(name = "embedded.uri", column = @Column(name = "uri", length = 255, nullable = false)),
+	@AttributeOverride(name = "embedded.hash", column = @Column(name = "hash", length = 30, nullable = false))
 })
 public class DocumentEntity extends AbstractAuditableVersionableEntity<Document, Long> {
 

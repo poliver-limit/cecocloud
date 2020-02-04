@@ -16,6 +16,7 @@
 	"app.module.fact": "Facturación",
 	"app.module.marc": "Marcajes",
 	"app.module.rrhh": "Recursos humanos",
+	"app.module.lici": "Licitaciones",
 
 	"resource.identificador": "Grupo de empresas",
 	"resource.identificador.plural": "Grupos de empresas",

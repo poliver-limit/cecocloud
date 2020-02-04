@@ -14,8 +14,9 @@
 	"app.menu.rols": "Rols",
 
 	"app.module.fact": "Facturació",
-	"app.module.marc": "Marcatges",
 	"app.module.rrhh": "Recursos humans",
+	"app.module.marc": "Marcatges",
+	"app.module.lici": "Licitacions",
 
 	"resource.identificador": "Grup d'empreses",
 	"resource.identificador.plural": "Grups d'empreses",
