@@ -4,6 +4,7 @@
 package es.limit.cecocloud.persist.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,15 @@ import es.limit.cecocloud.persist.entity.OperariEntity;
 public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 
 	List<OperariEntity> findByIdentificador(IdentificadorEntity identificador);
+
+	Optional<OperariEntity> findByIdentificadorAndEmbeddedCodi(IdentificadorEntity identificador, String codi);
+
+	Optional<OperariEntity> findByIdentificadorAndEmbeddedActiuAndUsuariEmbeddedCodi(
+			IdentificadorEntity identificador,
+			boolean actiu,
+			String usuariCodi);
+
+	List<OperariEntity> findByUsuariEmbeddedCodiAndEmbeddedActiu(String usuariCodi, boolean actiu);
 
 	/*@Query(	"from" +
 			"    OperariEntity op " +
@@ -49,5 +59,5 @@ public interface OperariRepository extends BaseRepository<OperariEntity, Long> {
 	List<OperariEntity> findByUsuariAndEmpresa(UsuariEntity usuari, EmpresaEntity empresa);
 
 	Optional<OperariEntity> findByUsuariAndEmpresaAndEmbeddedDataFiNull(UsuariEntity usuari, EmpresaEntity empresa);*/
-	
+
 }

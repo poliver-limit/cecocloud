@@ -5,7 +5,7 @@ package es.limit.cecocloud.marc.logic.api.service;
 
 import java.util.List;
 
-import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.marc.logic.api.dto.EmpresaMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
 
@@ -40,6 +40,6 @@ public interface MobileMarcatgeService {
 	 * 
 	 * @return la llista d'empreses.
 	 */
-	public List<Empresa> empresesFindDisponiblesPerUsuariActual();
+	public List<EmpresaMobil> empresesFindDisponiblesPerUsuariActual();
 
 }

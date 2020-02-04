@@ -25,6 +25,7 @@ import lombok.Setter;
 )
 public class OperariEmpresa extends AbstractIdentificable<Long> {
 
+	private boolean actiu = true;
 	@NotNull
 	@Transient
 	@RestapiField(

@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,6 +39,9 @@ import lombok.Setter;
 				@UniqueConstraint(name = "operariemp_uk", columnNames = {"operari_id", "empresa_id"})
 		}
 )
+@AttributeOverrides({
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "actiu", nullable = false))
+})
 public class OperariEmpresaEntity extends AbstractAuditableVersionableEntity<OperariEmpresa, Long> {
 
 	@Embedded

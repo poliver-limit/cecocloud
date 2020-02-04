@@ -33,7 +33,7 @@ public class Operari extends AbstractIdentificable<Long> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	private boolean actiu;
+	private boolean actiu = true;
 	@NotNull
 	@Transient
 	@RestapiField(

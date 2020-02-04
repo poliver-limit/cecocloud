@@ -138,6 +138,7 @@ create table operari_empresa (
     lastmod_by varchar(64),
     lastmod_date timestamp,
     version int8 not null,
+    actiu boolean not null,
     empresa_id int8 not null,
     operari_id int8 not null,
     primary key (id)
