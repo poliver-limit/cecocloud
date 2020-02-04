@@ -6,6 +6,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';*/
 import { BngAuthGuard, BngModuleService } from 'base-angular';
 
+import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
+
 /*export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/marc/", ".json");
 }*/
@@ -23,18 +25,13 @@ import { BngAuthGuard, BngModuleService } from 'base-angular';
 		}),*/
 		RouterModule.forChild([{
 			path: 'marc',
+			canActivate: [BngAuthGuard, SelectedEmpresaGuard],
 			children: [{
 				path: '',
-				loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule),
-				canActivate: [BngAuthGuard]
-			}, {
-				path: 'operaris',
-				loadChildren: () => import('./pages/operaris/operaris.module').then(m => m.OperarisModule),
-				canActivate: [BngAuthGuard]
+				loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule)
 			}, {
 				path: 'marcatges',
-				loadChildren: () => import('./pages/marcatges/marcatges.module').then(m => m.MarcatgesModule),
-				canActivate: [BngAuthGuard]
+				loadChildren: () => import('./pages/marcatges/marcatges.module').then(m => m.MarcatgesModule)
 			}, {
 				path: '**',
 				redirectTo: ''
@@ -49,12 +46,12 @@ export class MarcModule {
 			code: 'marc',
 			icon: 'touch_app',
 			label: 'Marcatges',
-			menuItems: [{
+			menuItems: [/*{
 				icon: 'people_alt',
 				label: 'Operaris',
 				labelKey: 'app.menu.marc.operaris',
 				route: '/marc/operaris'
-			},{
+			}, */{
 				icon: 'timer',
 				label: 'Marcatges',
 				labelKey: 'app.menu.marc.marcatges',

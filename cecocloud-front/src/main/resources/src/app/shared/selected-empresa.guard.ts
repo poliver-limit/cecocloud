@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { SelectedIdentificadorEmpresaService, SelectedIdentificadorEmpresa } from './selected-identificador-empresa.service';
+import { SelectedIdentificadorEmpresaService, SelectedIdentificadorEmpresa } from './selector-empresa/selected-identificador-empresa.service';
 
 @Injectable({
 	providedIn: 'root',
