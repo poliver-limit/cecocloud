@@ -25,7 +25,6 @@ import lombok.Setter;
 )
 public class OperariEmpresa extends AbstractIdentificable<Long> {
 
-	private boolean actiu = true;
 	@NotNull
 	@Transient
 	@RestapiField(
@@ -40,6 +39,7 @@ public class OperariEmpresa extends AbstractIdentificable<Long> {
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Empresa, Long> empresa;
+	private boolean actiu = true;
 	@Transient
 	@RestapiField(
 			hiddenInGrid = true,

@@ -36,17 +36,10 @@ public class Operari extends AbstractIdentificableWithIdentificador<Long> {
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
+			//disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
 	private boolean actiu = true;
-	@NotNull
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private GenericReference<Identificador, Long> identificador;
 	@Transient
 	@RestapiField(
 			hiddenInGrid = true,

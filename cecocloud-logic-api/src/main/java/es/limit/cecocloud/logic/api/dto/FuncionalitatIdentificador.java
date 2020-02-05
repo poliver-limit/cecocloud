@@ -47,7 +47,11 @@ public class FuncionalitatIdentificador extends AbstractIdentificable<Long> {
 	private String description;
 
 	public String getDescription() {
-		return funcionalitat.getDescription() + " - " + identificador.getDescription();
+		if (funcionalitat != null && identificador != null) {
+			return funcionalitat.getDescription() + " - " + identificador.getDescription();
+		} else {
+			return null;
+		}
 	}
 
 }

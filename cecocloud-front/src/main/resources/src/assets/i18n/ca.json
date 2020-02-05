@@ -36,14 +36,27 @@
 	"resource.usuariIdentificador.field.actiu": "Actiu",
 	"resource.usuariIdentificador.field.identificador": "Grup d'empreses",
 
+	"resource.operari": "Operari",
+	"resource.operari.plural": "Operaris",
+	"resource.operari.field.codi": "Codi",
+	"resource.operari.field.usuari": "Usuari",
+	"resource.operari.field.identificador": "Grup d'empreses",
+	"resource.operari.field.actiu": "Actiu",
+
+	"resource.operariEmpresa": "Operari",
+	"resource.operariEmpresa.plural": "Operaris",
+	"resource.operariEmpresa.field.operari": "Operari",
+	"resource.operariEmpresa.field.empresa": "Empresa",
+	"resource.operariEmpresa.field.actiu": "Actiu",
+
 	"resource.empresa": "Empresa",
 	"resource.empresa.plural": "Empreses",
 	"resource.empresa.field.identificadorCodi": "Codi idf.",
 	"resource.empresa.field.codi": "Codi",
 	"resource.empresa.field.nif": "NIF",
 	"resource.empresa.field.nom": "Nom",
+	"resource.empresa.field.tipus": "Tipus",
 	"resource.empresa.field.activa": "Activa",
-	"resource.empresa.field.companyia": "Companyia",
 	"resource.empresa.field.empresaComptable": "Empresa comptable",
 
 	"resource.permission": "Permís",
@@ -65,10 +78,6 @@
 	"resource.perfil.field.companyia": "Companyia",
 
 	"resource.usuariIdentificador.perfils": "Perfils",
-
-	"resource.usuariCompanyia": "Usuari",
-	"resource.usuariCompanyia.plural": "Usuaris de la companyia",
-	"resource.usuariCompanyia.field.usuari": "Usuari",
 
 	"resource.article": "Article",
 	"resource.articleFamilia": "Família d'articles",
@@ -116,6 +125,20 @@
 	"resource.zona": "Zona",
 
 	"page.companyia-usuaris.modal.titol": "Afegir usuari",
+	"page.companyia-usuaris.modal.instruccions": "Seleccioni un usuari especificant la seva adreça de correu electrònic.",
+	"page.companyia-usuaris.modal.field.email": "Correu-e",
+	"page.companyia-usuaris.modal.usuari.trobat": "Usuari trobat",
 	"page.companyia-usuaris.modal.button.cancelar": "Cancel·lar",
-	"page.companyia-usuaris.modal.button.afegir": "Afegir"
+	"page.companyia-usuaris.modal.button.afegir": "Afegir",
+
+	"page.operaris.modal.titol": "Afegir operari",
+	"page.operaris.modal.instruccions": "Seleccioni un operari especificant l'adreça de correu electrònic del seu usuari.",
+	"page.operaris.modal.field.email": "Correu-e",
+	"page.operaris.modal.field.codi": "Codi",
+	"page.operaris.modal.usuari.trobat": "Usuari trobat",
+	"page.operaris.modal.especifiqui.codi": "Especifiqui el codi que vol assignar a l'operari",
+	"page.operaris.modal.button.cancelar": "Cancel·lar",
+	"page.operaris.modal.button.afegir": "Afegir"
+	
+
 }
