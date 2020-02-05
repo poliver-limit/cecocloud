@@ -1,4 +1,3 @@
-import { IdentificadorsPermissionService } from './identificadors-permission.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,6 +9,8 @@ import { MaterialModule } from '../../shared/material.module';
 import { IdentificadorsGridComponent } from './identificadors-grid.component';
 import { IdentificadorsFormComponent } from './identificadors-form.component';
 import { IdentificadorsService } from './identificadors.service';
+import { FuncionalitatsIdentificadorsService } from './funcionalitats-identificadors.service';
+import { IdentificadorsPermissionService } from './identificadors-permission.service';
 
 @NgModule({
 	imports: [
@@ -36,6 +37,7 @@ import { IdentificadorsService } from './identificadors.service';
 	],
 	providers: [
 		IdentificadorsService,
+		FuncionalitatsIdentificadorsService,
 		IdentificadorsPermissionService
 	]
 })

@@ -1,8 +1,9 @@
-import { IdentificadorsPermissionService } from './identificadors-permission.service';
 import { Component } from '@angular/core';
-import { BngFormBaseComponent, BngUsuarisForm } from 'base-angular';
+import { BngFormBaseComponent, BngUsuarisForm, BngDatagridConfig } from 'base-angular';
 
 import { IdentificadorsService } from './identificadors.service';
+import { FuncionalitatsIdentificadorsService } from './funcionalitats-identificadors.service';
+import { IdentificadorsPermissionService } from './identificadors-permission.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -38,7 +39,14 @@ import { ActivatedRoute } from '@angular/router';
 				<bng-datagrid
 					[config]="permisosDatagridConfig"
 					[restapiService]="identificadorsPermissionService"
-					[editable]="permisosEditable"></bng-datagrid>
+					[editable]="gridsEditables"></bng-datagrid>
+			</mat-tab>
+			<mat-tab label="Funcionalitats">
+				<br/>
+				<bng-datagrid
+					[config]="funcionalitatsIdentificadorsDatagridConfig"
+					[restapiService]="funcionalitatsIdentificadorsService"
+					[editable]="gridsEditables"></bng-datagrid>
 			</mat-tab>
 		</mat-tab-group>
 	</ng-container>
@@ -46,13 +54,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class IdentificadorsFormComponent extends BngFormBaseComponent {
 
-	permisosEditable: boolean;
+	gridsEditables: boolean;
 
-	permisosDatagridConfig = {
-		adjustHeight: false,
-		paginationEnabled: false,
+	permisosDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
-		editable: true,
 		columns: [{
 			field: 'sidName',
 			width: 60
@@ -65,13 +70,21 @@ export class IdentificadorsFormComponent extends BngFormBaseComponent {
 		}]
 	};
 
+	funcionalitatsIdentificadorsDatagridConfig: BngDatagridConfig = {
+		mode: 'form',
+		columns: [{
+			field: 'funcionalitat'
+		}]
+	};
+
 	onReadonlyStateChange(readonlyStateActive: boolean) {
-		this.permisosEditable = !readonlyStateActive;
+		this.gridsEditables = !readonlyStateActive;
 	}
 
 	constructor(
 		activatedRoute: ActivatedRoute,
 		public identificadorsService: IdentificadorsService,
+		public funcionalitatsIdentificadorsService: FuncionalitatsIdentificadorsService,
 		public identificadorsPermissionService: IdentificadorsPermissionService) {
 		super(activatedRoute);
 		this.setConfigExternalFormComponents([
@@ -79,6 +92,15 @@ export class IdentificadorsFormComponent extends BngFormBaseComponent {
 		]);
 		activatedRoute.params.subscribe((params) => {
 			identificadorsPermissionService.setPermissionResourceId(params.id);
+			if (params.id) {
+				this.funcionalitatsIdentificadorsDatagridConfig.fixedFilter = 'identificador.id==' + params.id;
+				this.funcionalitatsIdentificadorsDatagridConfig.fixedRowData = {
+					identificador: {
+						id: params.id,
+						description: undefined
+					}
+				}
+			}
 		});
 	}
 

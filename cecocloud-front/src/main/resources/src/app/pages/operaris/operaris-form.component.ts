@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BngFormBaseComponent } from 'base-angular';
+import { BngFormBaseComponent, BngDatagridConfig } from 'base-angular';
 
 import { OperarisService } from './operaris.service';
 import { OperarisEmpresesService } from './operaris-empreses.service';
@@ -32,10 +32,15 @@ import { OperarisEmpresesService } from './operaris-empreses.service';
 })
 export class OperarisFormComponent extends BngFormBaseComponent {
 
-	empresesDatagridConfig = {
+	empresesDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
-		fixedFilter: 'bon',
-		fixedRowData: 'dia'
+		columns: [{
+			field: 'empresa',
+			width: 80
+		}, {
+			field: 'actiu',
+			width: 20
+		}]
 	};
 
 	constructor(
@@ -43,6 +48,17 @@ export class OperarisFormComponent extends BngFormBaseComponent {
 		public operarisService: OperarisService,
 		public operarisEmpresesService: OperarisEmpresesService) {
 		super(activatedRoute);
+		activatedRoute.params.subscribe((params) => {
+			if (params.id) {
+				this.empresesDatagridConfig.fixedFilter = 'operari.id==' + params.id;
+				this.empresesDatagridConfig.fixedRowData = {
+					operari: {
+						id: params.id,
+						description: undefined
+					}
+				}
+			}
+		});
 		this.formConfig.readOnlyStateEnabled = false;
 	}
 
