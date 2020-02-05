@@ -7,8 +7,22 @@
         acc_usumod varchar(255),
         acc_datmod timestamp,
         acc_cpo_cod varchar(255),
+        acc_ref002 varchar(50),
+        acc_ref003 varchar(50),
+        acc_blo varchar(1) not null,
+        acc_ref001 varchar(50),
+        acc_con varchar(60),
         acc_env varchar(10),
         acc_dom varchar(30) not null,
+        acc_def varchar(1) not null,
+        acc_eml varchar(60),
+        acc_fax varchar(60),
+        acc_lat float4,
+        acc_lon float4,
+        acc_obs varchar(1000),
+        acc_tel varchar(60),
+        acc_telmov varchar(60),
+        acc_scl_cod varchar(255),
         primary key (acc_cli_cod, acc_cod, acc_idf_cod)
     );
 
@@ -93,6 +107,38 @@
         ban_nom varchar(30) not null,
         primary key (ban_cod, ban_idf_cod)
     );
+
+  create table tges_cbc (
+       cbc_ban_cod int4 not null,
+        cbc_cli_cod varchar(6) not null,
+        cbc_emp_cod varchar(4) not null,
+        cbc_ofb_cod int4 not null,
+        cbc_idf_cod varchar(4) not null,
+        cbc_usucre varchar(255),
+        cbc_datcre timestamp,
+        cbc_usumod varchar(255),
+        cbc_datmod timestamp,
+        cbc_ibnbic varchar(11),
+        cbc_dcc varchar(2),
+        cbc_ibndcc varchar(2),
+        cbc_ccr int4,
+        cbc_obs varchar(1000),
+        cbc_ibnpai varchar(2),
+        primary key (cbc_ban_cod, cbc_cli_cod, cbc_emp_cod, cbc_ofb_cod, cbc_idf_cod)
+    );
+
+    create table tges_cce (
+       cce_cli_cod varchar(6) not null,
+        cce_emp_cod varchar(4) not null,
+        cce_idf_cod varchar(4) not null,
+        cce_usucre varchar(255),
+        cce_datcre timestamp,
+        cce_usumod varchar(255),
+        cce_datmod timestamp,
+        cce_ctecmp varchar(10),
+        cce_cteven varchar(10),
+        primary key (cce_cli_cod, cce_emp_cod, cce_idf_cod)
+    );						   
 
     create table tges_cli (
        	cli_cod varchar(4) not null,
@@ -236,6 +282,17 @@
         cli_zon_cod varchar(4),
         primary key (cli_cod, cli_idf_cod)
     );
+    
+    create table tges_clm (
+       clm_man_cne varchar(30) not null,
+        clm_cli_cod varchar(6) not null,
+        clm_idf_cod varchar(4) not null,
+        clm_usucre varchar(255),
+        clm_datcre timestamp,
+        clm_usumod varchar(255),
+        clm_datmod timestamp,
+        primary key (clm_man_cne, clm_cli_cod, clm_idf_cod)
+    );
 
     create table tges_clr (
        clr_cod varchar(4) not null,
@@ -263,6 +320,17 @@
         cpo_pas_cod varchar(4) not null,
         cpo_prv_cod varchar(4) not null,
         primary key (cpo_cod, cpo_idf_cod)
+    );
+    
+     create table tges_ctp (
+       ctp_cli_cod varchar(6) not null,
+        ctp_tip_cod varchar(4) not null,
+        ctp_idf_cod varchar(4) not null,
+        ctp_usucre varchar(255),
+        ctp_datcre timestamp,
+        ctp_usumod varchar(255),
+        ctp_datmod timestamp,
+        primary key (ctp_cli_cod, ctp_tip_cod, ctp_idf_cod)
     );
 
     create table tges_dep (
@@ -306,6 +374,32 @@
         div_nom varchar(30) not null,
         div_valdiveur numeric(15, 8) not null,
         primary key (div_cod, div_idf_cod)
+    );
+
+    create table tges_dpc (
+       dpc_cli_cod varchar(6) not null,
+        dpc_cod varchar(4) not null,
+        dpc_idf_cod varchar(4) not null,
+        dpc_usucre varchar(255),
+        dpc_datcre timestamp,
+        dpc_usumod varchar(255),
+        dpc_datmod timestamp,
+        dpc_cpo_cod varchar(10),
+        dpc_ref002 varchar(50),
+        dpc_www varchar(60),
+        dpc_blo varchar(1),
+        dpc_ref001 varchar(50),
+        dpc_dom varchar(60),
+        dpc_eml varchar(60),
+        dpc_fax001 varchar(60),
+        dpc_fax002 varchar(60),
+        dpc_nom varchar(30) not null,
+        dpc_obs varchar(1000),
+        dpc_con varchar(60),
+        dpc_tel001 varchar(60),
+        dpc_tel002 varchar(60),
+        dpc_scl_cod varchar(10),
+        primary key (dpc_cli_cod, dpc_cod, dpc_idf_cod)
     );
 
     create table tges_dpg (
@@ -506,7 +600,7 @@
     );
 
     create table tges_idi (
-       idi_cod varchar(4) not null,
+      	idi_cod varchar(4) not null,
         idi_idf_cod varchar(4) not null,
         idi_usucre varchar(255),
         idi_datcre timestamp,
@@ -534,7 +628,7 @@
     );
 
     create table tges_mag (
-       mag_cod varchar(4) not null,
+        mag_cod varchar(4) not null,
         mag_idf_cod varchar(4) not null,
         mag_usucre varchar(255),
         mag_datcre timestamp,
@@ -556,9 +650,30 @@
         mag_valinvtrs int4 not null,
         primary key (mag_cod, mag_idf_cod)
     );
+    
+    create table tges_man (
+        man_cne varchar(30) not null,
+        man_idf_cod varchar(4) not null,
+        man_usucre varchar(255),
+        man_datcre timestamp,
+        man_usumod varchar(255),
+        man_datmod timestamp,
+        man_act varchar(1),
+        man_cat varchar(1),
+        man_ape varchar(60) not null,
+        man_datcdc timestamp,
+        man_datexd timestamp,
+        man_dom varchar(100),
+        man_eml varchar(60),
+        man_nif varchar(15),
+        man_nom varchar(30) not null,
+        man_obs varchar(1000),
+        man_tel varchar(60),
+        primary key (man_cne, man_idf_cod)
+    );
 
     create table tges_mca (
-       mca_cod varchar(4) not null,
+        mca_cod varchar(4) not null,
         mca_idf_cod varchar(4) not null,
         mca_usucre varchar(255),
         mca_datcre timestamp,
@@ -569,7 +684,7 @@
     );
 
     create table tges_mod (
-       mod_cod varchar(4) not null,
+        mod_cod varchar(4) not null,
         mod_idf_cod varchar(4) not null,
         mod_usucre varchar(255),
         mod_datcre timestamp,
@@ -764,9 +879,9 @@
         prj_mag_cod varchar(4),
         prj_ope_codadm varchar(6),
         prj_ope_codcgr varchar(6),
-        prj_ope_enccod varchar(6),
+        prj_ope_enccod varchar(6),						   
         prj_clr_cod varchar(4),
-        prj_ser_cod varchar(2),
+        prj_ser_cod varchar(2),						   
         prj_zon_cod varchar(4),
         prj_acc_cod varchar(4),
         prj_cpo_cod varchar(4),
@@ -838,8 +953,8 @@
         primary key (rgi_cod, rgi_idf_cod)
     );
 
-    create table tges_scl (
-       	scl_cli_cod varchar(6) not null,
+     create table tges_scl (
+       scl_cli_cod varchar(6) not null,
         scl_cod varchar(4) not null,
         scl_idf_cod varchar(4) not null,
         scl_usucre varchar(255),
@@ -852,18 +967,36 @@
         scl_act varchar(60),
         scl_albcls int4,
         scl_blo boolean,
+        scl_oficmp varchar(30),
+        scl_orgges varchar(30),
+        scl_unitrm varchar(30),
+        scl_confacele varchar(255),
+        scl_cpo_codoficmp varchar(8),
+        scl_cpo_codorgges varchar(8),
+        scl_codunitrm varchar(8),
         scl_dom varchar(60) not null,
+        scl_domoficmp varchar(60),
+        scl_domorgges varchar(60),
+        scl_domunitrm varchar(60),
+        scl_emlfacele varchar(60),
         scl_remlfac varchar(100),
+        scl_emlfac varchar(100),
         scl_fax varchar(60),
         scl_lat numeric(19, 2),
         scl_lon numeric(19, 2),
         scl_nom varchar(30) not null,
+        scl_obs varchar(2000),
         scl_ret float4,
         scl_pvl boolean,
         scl_pubweb boolean,
         scl_reb int4,
+        scl_rgi_codinv varchar(2),
+        scl_sei_codinv varchar(2),
+        scl_tds_cod002 varchar(6),
         scl_tel varchar(60),
+        scl_telfacele varchar(60),
         scl_tipdte int4,
+        scl_tipinv varchar(1),
         scl_tipret int4,
         scl_iva_cod varchar(6),
         scl_ope_codenc varchar(6),
@@ -1247,7 +1380,7 @@
         tad_des varchar(30) not null,
         primary key (tad_cod, tad_idf_cod)
     );
-
+	  
 create index iges_acc_idf_fk on tges_acc (acc_idf_cod);
 
     alter table tges_acc 
@@ -1262,9 +1395,25 @@ create index iges_ane_idf_fk on tges_ane (ane_idf_cod);
        add constraint irges_ane_pk unique (ane_idf_cod, ane_cod);
 create index iges_art_idf_fk on tges_art (art_idf_cod);
 create index iges_ban_idf_fk on tges_ban (ban_idf_cod);
+create index iges_cbc_idf_fk on tges_cbc (cbc_idf_cod);
+
+    alter table tges_cbc 
+       add constraint irges_cbc_pk unique (cbc_idf_cod);
+create index iges_cce_idf_fk on tges_cce (cce_idf_cod);
+
+    alter table tges_cce 
+       add constraint irges_cce_pk unique (cce_idf_cod);
 create index iges_cli_idf_fk on tges_cli (cli_idf_cod);
+create index iges_clm_idf_fk on tges_clm (clm_idf_cod);
+
+    alter table tges_clm 
+       add constraint irges_clm_pk unique (clm_idf_cod);
 create index iges_clr_idf_fk on tges_clr (clr_idf_cod);
-create index iges_cpo_idf_fk on tges_cpo (cpo_idf_cod);
+create index iges_cpo_idf_fk on tges_cpo (cpo_idf_cod); 
+create index iges_ctp_idf_fk on tges_ctp (ctp_idf_cod);
+
+    alter table tges_ctp 
+       add constraint irges_ctp_pk unique (ctp_idf_cod);
 create index iges_dep_idf_fk on tges_dep (dep_idf_cod);
 
     alter table tges_dep 
@@ -1274,6 +1423,10 @@ create index iges_dfs_idf_fk on tges_dfs (dfs_idf_cod);
     alter table tges_dfs 
        add constraint irges_dfs_pk unique (dfs_idf_cod);
 create index iges_div_idf_fk on tges_div (div_idf_cod);
+create index iges_dpc_idf_fk on tges_dpc (dpc_idf_cod);
+
+    alter table tges_dpc 
+       add constraint irges_dpc_pk unique (dpc_idf_cod, dpc_cod);						 
 create index iges_dpg_idf_fk on tges_dpg (dpg_idf_cod);
 create index iges_emp_idf_fk on tges_emp (emp_idf_cod);
 create index iges_fae_idf_fk on tges_fae (fae_idf_cod);
@@ -1289,6 +1442,7 @@ create index iges_gma_idf_fk on tges_gma (gma_idf_cod);
 create index iges_idi_idf_fk on tges_idi (idi_idf_cod);
 create index iges_iva_idf_fk on tges_iva (iva_idf_cod);
 create index iges_mag_idf_fk on tges_mag (mag_idf_cod);
+create index iges_man_idf_fk on tges_man (man_idf_cod);
 create index iges_mca_idf_fk on tges_mca (mca_idf_cod);
 create index iges_mod_idf_fk on tges_mod (mod_idf_cod);
 create index iges_npg_idf_fk on tges_npg (npg_idf_cod);
@@ -1375,9 +1529,14 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        references tges_cli;
 
     alter table tges_acc 
-       add constraint FK48dqb7eg1u6mkq2j7282epird 
+       add constraint acc_cpo_cod_fk 
        foreign key (acc_cpo_cod, acc_idf_cod) 
        references tges_cpo;
+
+    alter table tges_acc 
+       add constraint acc_scl_cod_fk 
+       foreign key (acc_cli_cod, acc_scl_cod, acc_idf_cod) 
+       references tges_scl;
 
     alter table tges_alb 
        add constraint rges_alb_idf_fk 
@@ -1454,150 +1613,205 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        foreign key (ban_idf_cod) 
        references tges_idf;
 
+    alter table tges_cbc 
+       add constraint rges_cbc_idf_fk 
+       foreign key (cbc_idf_cod) 
+       references tges_idf;
+
+    alter table tges_cbc 
+       add constraint rges_cbc_ban_fk 
+       foreign key (cbc_ban_cod, cbc_idf_cod) 
+       references tges_ban;
+
+    alter table tges_cbc 
+       add constraint rges_cbc_cli_fk 
+       foreign key (cbc_cli_cod, cbc_idf_cod) 
+       references tges_cli;
+
+    alter table tges_cbc 
+       add constraint rges_cbc_emp_fk 
+       foreign key (cbc_emp_cod, cbc_idf_cod) 
+       references tges_emp;
+
+    alter table tges_cbc 
+       add constraint rges_cbc_ofb_fk 
+       foreign key (cbc_ban_cod, cbc_ofb_cod, cbc_idf_cod) 
+       references tges_ofb;
+
+    alter table tges_cce 
+       add constraint rges_cce_idf_fk 
+       foreign key (cce_idf_cod) 
+       references tges_idf;
+
+    alter table tges_cce 
+       add constraint rges_cce_cli_fk 
+       foreign key (cce_cli_cod, cce_idf_cod) 
+       references tges_cli;
+
+    alter table tges_cce 
+       add constraint rges_cce_emp_fk 
+       foreign key (cce_emp_cod, cce_idf_cod) 
+       references tges_emp;
+
     alter table tges_cli 
        add constraint rges_cli_idf_fk 
        foreign key (cli_idf_cod) 
        references tges_idf;
 
-    alter table tges_cli 
-       add constraint FK8tvogk2hfevf6435ytbtn49n4 
+  alter table tges_cli 
+       add constraint cli_acc_cod_fk 
        foreign key (cli_cod, cli_acc_cod, cli_idf_cod) 
        references tges_acc;
 
     alter table tges_cli 
-       add constraint FK69cu4g6nulkjbxqjnuprap6im 
+       add constraint cli_ban_cod_fk 
        foreign key (cli_ban_cod, cli_idf_cod) 
        references tges_ban;
 
     alter table tges_cli 
-       add constraint FKcppdmrodpr22u02mjsym97pa0 
+       add constraint cli_clr_cod_fk 
        foreign key (cli_clr_cod, cli_idf_cod) 
        references tges_clr;
 
     alter table tges_cli 
-       add constraint FK4rv8t60mkrnc49v3w5fw8prlv 
+       add constraint cli_cpo_cod_fk 
        foreign key (cli_cpo_cod, cli_idf_cod) 
        references tges_cpo;
 
     alter table tges_cli 
-       add constraint FK1fr1xajw8jhbkxn7w4a2241su 
+       add constraint cli_cpo_codoficmp_fk 
        foreign key (cli_cpo_codoficmp, cli_idf_cod) 
        references tges_cpo;
 
     alter table tges_cli 
-       add constraint FKgrk4dvr17mock674ak3xd146e 
+       add constraint cli_cpo_codunitrm_fk 
        foreign key (cli_cpo_codorgges, cli_idf_cod) 
        references tges_cpo;
 
     alter table tges_cli 
-       add constraint FK96l2wcmccga3v0hrq671rj824 
+       add constraint cli_div_cod_fk 
        foreign key (cli_div_cod, cli_idf_cod) 
        references tges_div;
 
     alter table tges_cli 
-       add constraint FKcxkyjfgcnht4tpw5x2qlnwv01 
+       add constraint cli_dpg_cod_fk 
        foreign key (cli_dpg_cod, cli_idf_cod) 
        references tges_dpg;
 
     alter table tges_cli 
-       add constraint FK16lo1q51t4tf844xdurgv1ibf 
+       add constraint cli_emp_codser_fk 
        foreign key (cli_emp_codser, cli_idf_cod) 
        references tges_emp;
 
     alter table tges_cli 
-       add constraint FK70kdtxcnijvxseup4q7kmgkov 
+       add constraint cli_fmc_cod_fk 
        foreign key (cli_fmc_cod, cli_idf_cod) 
        references tges_fmc;
 
     alter table tges_cli 
-       add constraint FK69bfo1mg3m947471sflug7e7x 
+       add constraint cli_idi_cod_fk 
        foreign key (cli_idi_cod, cli_idf_cod) 
        references tges_idi;
 
     alter table tges_cli 
-       add constraint FK6t4j8pq21lgdd6qhnpjqs97yo 
+       add constraint cli_iva_cod_fk 
        foreign key (cli_iva_cod, cli_idf_cod) 
        references tges_iva;
 
     alter table tges_cli 
-       add constraint FKc9qiaijmef0koi1p748klkuu4 
+       add constraint cli_ofb_cod_fk 
        foreign key (cli_ban_cod, cli_ofb_cod, cli_idf_cod) 
        references tges_ofb;
 
     alter table tges_cli 
-       add constraint FK8cg9rhaa30tmsuu00cb5mejw2 
+       add constraint cli_ope_cod_fk 
        foreign key (cli_ope_cod, cli_idf_cod) 
        references trhu_ope;
 
     alter table tges_cli 
-       add constraint FKiv3o2h79p2oerulwbg37ykdop 
+       add constraint cli_org_cod_fk 
        foreign key (cli_org_cod, cli_idf_cod) 
        references tges_org;
 
     alter table tges_cli 
-       add constraint FK8oipx7kstoentvp4v007mn86x 
+       add constraint cli_rap_cod_fk 
        foreign key (cli_rap_cod, cli_idf_cod) 
        references tges_rap;
 
     alter table tges_cli 
-       add constraint FKea03dgeggwo08re2js4l32qpc 
+       add constraint cli_rgi_cod_fk 
        foreign key (cli_rgi_cod, cli_idf_cod) 
        references tges_rgi;
 
     alter table tges_cli 
-       add constraint FKb56fa37y3ng131c5p692vrb5i 
+       add constraint cli_ser_cod_fk 
        foreign key (cli_emp_codser, cli_ser_cod, cli_idf_cod) 
        references tges_ser;
 
     alter table tges_cli 
-       add constraint FKml5skiheedrd1vemamytabwa5 
+       add constraint cli_tar_cod001_fk 
        foreign key (cli_tar_cod001, cli_idf_cod) 
        references tges_tar;
 
     alter table tges_cli 
-       add constraint FK49eiuk7ks63odd1id9ngtq387 
+       add constraint cli_tar_cod002_fk 
        foreign key (cli_tar_cod002, cli_idf_cod) 
        references tges_tar;
 
     alter table tges_cli 
-       add constraint FK61y5q4a20bsgan9s6ahhqg560 
+       add constraint cli_tds_cod_fk 
        foreign key (cli_tds_cod, cli_idf_cod) 
        references tges_tds;
 
     alter table tges_cli 
-       add constraint FKjsq6i8jbk1bk75rx5ann5ighc 
+       add constraint cli_tds_cod002_fk 
        foreign key (cli_tds_cod002, cli_idf_cod) 
        references tges_tds;
 
     alter table tges_cli 
-       add constraint FKbuimlqcb1rk3fnhkwf7y1cuya 
+       add constraint cli_tcs_cod_fk 
        foreign key (cli_tcs_cod, cli_idf_cod) 
        references tges_tcs;
 
     alter table tges_cli 
-       add constraint FK7vhwee2a2rg9uqotqeoxcjimd 
+       add constraint cli_tfc_cod_fk 
        foreign key (cli_tfc_cod, cli_idf_cod) 
        references tges_tfc;
 
     alter table tges_cli 
-       add constraint FKkvhnxjc233b5lh9vr61hd129t 
+       add constraint cli_tve_cod_fk 
        foreign key (cli_tve_cod, cli_idf_cod) 
        references tges_tve;
 
     alter table tges_cli 
-       add constraint FKdw90katwa8lqqwxjj1njdlm0 
+       add constraint cli_tve_cod001_fk 
        foreign key (cli_tve_cod001, cli_idf_cod) 
        references tges_tve;
 
     alter table tges_cli 
-       add constraint FK386ngbcd3iwg1byhhd8w32dl4 
+       add constraint cli_tra_cod_fk 
        foreign key (cli_tra_cod, cli_idf_cod) 
        references tges_tra;
 
     alter table tges_cli 
-       add constraint FK1t6tcgub0c6pommuutbeua8tu 
+       add constraint cli_zon_cod_fk 
        foreign key (cli_zon_cod, cli_idf_cod) 
        references tges_zon;
+       
+    alter table tges_clm 
+       add constraint rges_clm_idf_fk 
+       foreign key (clm_idf_cod) 
+       references tges_idf;
+
+    alter table tges_clm 
+       add constraint rges_clm_man_fk 
+       foreign key (clm_man_cne, clm_idf_cod) 
+       references tges_man;
+
+    alter table tges_clm 
+       add constraint rges_clm_cli_fk 
+       foreign key (clm_cli_cod, clm_idf_cod) 
+       references tges_cli;
 
     alter table tges_clr 
        add constraint rges_clr_idf_fk 
@@ -1619,6 +1833,21 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        foreign key (cpo_pas_cod, cpo_prv_cod, cpo_idf_cod) 
        references tges_prv;
 
+    alter table tges_ctp 
+       add constraint rges_ctp_idf_fk 
+       foreign key (ctp_idf_cod) 
+       references tges_idf;
+
+    alter table tges_ctp 
+       add constraint rges_ctp_cli_fk 
+       foreign key (ctp_cli_cod, ctp_idf_cod) 
+       references tges_cli;
+
+    alter table tges_ctp 
+       add constraint rges_ctp_tip_fk 
+       foreign key (ctp_tip_cod, ctp_idf_cod) 
+       references tges_tip;
+       
     alter table tges_dep 
        add constraint rges_dep_idf_fk 
        foreign key (dep_idf_cod) 
@@ -1653,6 +1882,27 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        add constraint rges_div_idf_fk 
        foreign key (div_idf_cod) 
        references tges_idf;
+
+    alter table tges_dpc 
+       add constraint rges_dpc_idf_fk 
+       foreign key (dpc_idf_cod) 
+       references tges_idf;
+
+    alter table tges_dpc 
+       add constraint rges_dpc_cli_fk 
+       foreign key (dpc_cli_cod, dpc_idf_cod) 
+       references tges_cli;
+
+    alter table tges_dpc 
+       add constraint rges_dpc_cpo_fk 
+       foreign key (dpc_cpo_cod, dpc_idf_cod) 
+       references tges_cpo;
+
+    alter table tges_dpc 
+       add constraint rges_dpc_scl_fk 
+       foreign key (dpc_cli_cod, dpc_scl_cod, dpc_idf_cod) 
+       references tges_scl;
+					 
 
     alter table tges_dpg 
        add constraint rges_dpg_idf_fk 
@@ -1749,8 +1999,8 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        foreign key (fmc_idf_cod) 
        references tges_idf;
 
-    alter table tges_fmc 
-       add constraint FK1n78xaaihy14sll06gx4e0tjt 
+     alter table tges_fmc 
+       add constraint fmc_tri_cod_fk 
        foreign key (fmc_tri_cod, fmc_idf_cod) 
        references tges_tri;
 
@@ -1789,6 +2039,11 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        foreign key (mag_div_cod, mag_idf_cod) 
        references tges_div;
 
+	alter table tges_man 
+       add constraint rges_man_idf_fk 
+       foreign key (man_idf_cod) 
+       references tges_idf;
+       
     alter table tges_mca 
        add constraint rges_mca_idf_fk 
        foreign key (mca_idf_cod) 
@@ -1819,13 +2074,13 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        foreign key (ofb_idf_cod) 
        references tges_idf;
 
-    alter table tges_ofb 
-       add constraint FKihv3ygxweuwu3ncn3sxuo9icp 
+   alter table tges_ofb 
+       add constraint ofb_ban_cod_fk 
        foreign key (ofb_ban_cod, ofb_idf_cod) 
        references tges_ban;
 
     alter table tges_ofb 
-       add constraint FKnxjr44xmwa9v0p0b8vactwk72 
+       add constraint ofb_cpo_cod_fk 
        foreign key (ofb_cpo_cod, ofb_idf_cod) 
        references tges_cpo;
 
@@ -1835,7 +2090,7 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        references tges_idf;
 
     alter table tges_org 
-       add constraint FK2njyvqp4g2oxr3lva6yyyvdvi 
+       add constraint org_cpo_cod_fk 
        foreign key (org_cpo_cod, org_idf_cod) 
        references tges_cpo;
 
@@ -1874,88 +2129,88 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        foreign key (prj_idf_cod) 
        references tges_idf;
 
-    alter table tges_prj 
-       add constraint FKgomdmsmy4cctnqybccugx9xi1 
+   alter table tges_prj 
+       add constraint prj_ane_cod_fk 
        foreign key (prj_emp_cod, prj_ane_cod, prj_idf_cod) 
        references tges_ane;
 
     alter table tges_prj 
-       add constraint FKtrcmhsmh30029mso04ctl6yjd 
+       add constraint prj_cli_cod_fk 
        foreign key (prj_cli_cod, prj_idf_cod) 
        references tges_cli;
 
     alter table tges_prj 
-       add constraint FKfq24ll7w4wai65svvgehqtrtn 
+       add constraint prj_acc_cod_fk 
        foreign key (prj_cli_cod, prj_acc_cod, prj_idf_cod) 
        references tges_acc;
 
     alter table tges_prj 
-       add constraint FKbo7yrjd366kdun6ujtjux49x7 
+       add constraint prj_cpo_cod_fk 
        foreign key (prj_cpo_cod, prj_idf_cod) 
        references tges_cpo;
 
     alter table tges_prj 
-       add constraint FKowfv4j29nu5n3datylcpos053 
+       add constraint prj_div_cod_fk 
        foreign key (prj_div_cod, prj_idf_cod) 
        references tges_div;
 
     alter table tges_prj 
-       add constraint FKbpjerm2fnb7191pum3lijc071 
+       add constraint prj_emp_cod_fk 
        foreign key (prj_emp_cod, prj_idf_cod) 
        references tges_emp;
 
     alter table tges_prj 
-       add constraint FKafgo2otwke1ulsgqvced4ptj7 
+       add constraint prj_ffa_cod_fk 
        foreign key (prj_ffa_cod, prj_idf_cod) 
        references tges_ffa;
 
     alter table tges_prj 
-       add constraint FKq35fmvk1ypee8gk384p26c78t 
+       add constraint prj_mag_cod_fk 
        foreign key (prj_mag_cod, prj_idf_cod) 
        references tges_mag;
 
     alter table tges_prj 
-       add constraint FKlgb5k78ffv0o478w09rue3n2y 
+       add constraint prj_ope_codadm_fk 
        foreign key (prj_ope_codadm, prj_idf_cod) 
        references trhu_ope;
 
     alter table tges_prj 
-       add constraint FKm96lqhbxkljwlni6j6tvsnb7 
+       add constraint prj_ope_codcgr_fk 
        foreign key (prj_ope_codcgr, prj_idf_cod) 
        references trhu_ope;
 
     alter table tges_prj 
-       add constraint FKsi4bi84yq0vig92i7prcoctg 
+       add constraint prj_ope_enccod_fk 
        foreign key (prj_ope_enccod, prj_idf_cod) 
        references trhu_ope;
 
     alter table tges_prj 
-       add constraint FKmwne1uqcahbgepgu91exmtifw 
+       add constraint prj_ope_cod_fk 
        foreign key (prj_ope_cod, prj_idf_cod) 
        references trhu_ope;
 
     alter table tges_prj 
-       add constraint FKgugkgdk37jbrycpifxowtg1tb 
+       add constraint prj_tpj_cod_fk 
        foreign key (prj_tpj_cod, prj_idf_cod) 
        references tges_tpj;
 
     alter table tges_prj 
-       add constraint FKo9x1un79u11h34c7vbmakw4s5 
+       add constraint prj_clr_cod_fk 
        foreign key (prj_clr_cod, prj_idf_cod) 
        references tges_clr;
 
     alter table tges_prj 
-       add constraint FKhmwj1aas0dtuq5fqh06gjs1l 
+       add constraint prj_ser_cod_fk 
        foreign key (prj_emp_cod, prj_ser_cod, prj_idf_cod) 
        references tges_ser;
 
     alter table tges_prj 
-       add constraint FKmqyx9emn1a44s5tvk8qfc7vy6 
+       add constraint prj_scl_cod_fk 
        foreign key (prj_cli_cod, prj_scl_cod, prj_idf_cod) 
        references tges_scl;
 
     alter table tges_prj 
-       add constraint FKoxch4s2vgb81yg801egbkgjgg 
+       add constraint prj_zon_cod_fk 
        foreign key (prj_zon_cod, prj_idf_cod) 
        references tges_zon;
 
@@ -2018,79 +2273,79 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        add constraint rges_scl_idf_fk 
        foreign key (scl_idf_cod) 
        references tges_idf;
-
+	   
     alter table tges_scl 
-       add constraint FKise7ic8ta8cim42c8icqlu7kr 
+       add constraint scl_acc_cod_fk 
        foreign key (scl_cli_cod, scl_acc_cod, scl_idf_cod) 
        references tges_acc;
 
     alter table tges_scl 
-       add constraint FKerccqbx2ekixb89mr4g1n2gmi 
+       add constraint scl_clr_cod_fk 
        foreign key (scl_clr_cod, scl_idf_cod) 
        references tges_clr;
 
     alter table tges_scl 
-       add constraint FKnju6nm4t8og1uloyob37trdm8 
+       add constraint scl_cli_cod_fk 
        foreign key (scl_cli_cod, scl_idf_cod) 
        references tges_cli;
 
     alter table tges_scl 
-       add constraint FKt74s2itqf5pb70megpu53gbv8 
+       add constraint scl_cpo_cod_fk 
        foreign key (scl_cpo_cod, scl_idf_cod) 
        references tges_cpo;
 
     alter table tges_scl 
-       add constraint FKqdc44rywcokmnlxkokueextiw 
+       add constraint scl_iva_cod_fk 
        foreign key (scl_iva_cod, scl_idf_cod) 
        references tges_iva;
 
     alter table tges_scl 
-       add constraint FKi8qocwdiks857tjnbt93q8r6w 
+       add constraint scl_ope_codenc_fk 
        foreign key (scl_ope_codenc, scl_idf_cod) 
        references trhu_ope;
 
     alter table tges_scl 
-       add constraint FK9snpvpqsffx8f3j7luo2jjf3k 
+       add constraint scl_ope_codres_fk 
        foreign key (scl_ope_codres, scl_idf_cod) 
        references trhu_ope;
 
     alter table tges_scl 
-       add constraint FKrmsy1t1tligq2haeo0kw8ghk5 
+       add constraint scl_rgi_cod_fk 
        foreign key (scl_rgi_cod, scl_idf_cod) 
        references tges_rgi;
 
     alter table tges_scl 
-       add constraint FKe3lx3fxgusvi177hgqobtyiej 
+       add constraint scl_tar_cod001_fk 
        foreign key (scl_tar_cod001, scl_idf_cod) 
        references tges_tar;
 
     alter table tges_scl 
-       add constraint FKesu1dnqpkjcq4scgjhkp2desw 
+       add constraint scl_tar_cod002_fk 
        foreign key (scl_tar_cod002, scl_idf_cod) 
        references tges_tar;
 
     alter table tges_scl 
-       add constraint FK5o1wycsays3llcq9plmam81p3 
+       add constraint scl_tds_cod_fk 
        foreign key (scl_tds_cod, scl_idf_cod) 
        references tges_tds;
 
     alter table tges_scl 
-       add constraint FKo85s2g4nsc0gte8fitklt6vhu 
+       add constraint scl_tcs_cod_fk 
        foreign key (scl_tcs_cod, scl_idf_cod) 
        references tges_tcs;
 
     alter table tges_scl 
-       add constraint FKpxw7x0e20cp6x6opm4pmclc5b 
+       add constraint scl_tve_cod_fk 
        foreign key (scl_tve_cod, scl_idf_cod) 
        references tges_tve;
 
     alter table tges_scl 
-       add constraint FKpgfoip4h1jiivgh4tedvvim83 
+       add constraint scl_tve_cod001_fk 
        foreign key (scl_tve_cod001, scl_idf_cod) 
        references tges_tve;
 
     alter table tges_scl 
-       add constraint FKhxrt44pwpeqe2e3b3cdp9s22f 
+       add constraint scl_zon_cod_fk 
        foreign key (scl_zon_cod, scl_idf_cod) 
        references tges_zon;
 

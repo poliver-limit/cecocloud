@@ -203,8 +203,131 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	@RestapiField(type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<ClientAdresa,ClientAdresaPk > adresaComercialClient;
 	
+	@Size (max = 255)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String contacte;
 	
-	
+	@Size (max = 8)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String cpOficinaComptable;
+	          
+	@Size (max = 8)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String cpOrganGestor;
+	               
+	@Size (max = 8)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String cpUnitatTramitadora;
+	         
+	@Size (max = 60)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String domiciliOficinaComptable;
+	    
+	@Size (max = 60)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String domiciliOrganGestor;
+	         
+	@Size (max = 60)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String domiciliUnitatTramitadora;
+	   
+	@Size (max = 100)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String emailFactures;
+	               
+	@Size (max = 60)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String email;
+	                       
+	@Size (max = 2000)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String observacions;
+	                
+	@Size (max = 30)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String codiOficinaComptable;
+	        
+	@Size (max = 30)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String codiOrganGestor;
+	             
+	@Size (max = 2)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String rgiInversio;
+	                 
+	@Size (max = 2)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String seiInversio;
+	                 
+	@Size (max = 6)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String tarifaDescompte2;
+	            
+	@Size (max = 60)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String telefonFactura;
+	                     
+	@Size (max = 1)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String tipusInversio;
+	               
+	@Size (max = 30)
+	@RestapiField(
+		hiddenInGrid = true,
+		hiddenInLov = true
+	)
+	private String codiUnitatTramitadora;
+	       
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
