@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HalParam } from 'angular4-hal';
 import { of } from 'rxjs';
@@ -14,7 +14,7 @@ import { UsuarisService } from './usuaris.service';
 @Component({
 	template: `
     <bng-datagrid
-        bng-datagrid-mant
+        #datagrid
         [config]="datagridConfig"
         [restapiService]="operarisService"
 		(headerActionCreate)="onGridActionCreate()"
@@ -31,12 +31,13 @@ export class OperarisGridComponent {
 
 	onGridActionCreate() {
 		const dialogRef = this.dialog.open(OperarisAddDialog, {
-			width: '500px'
+			width: '600px'
 		});
-		dialogRef.afterClosed().subscribe(usuari => {
-			if (usuari) {
+		dialogRef.afterClosed().subscribe((usuariCodi: any) => {
+			if (usuariCodi) {
 				let operari: any = {
-					usuari: { id: usuari.id }
+					usuari: { id: usuariCodi.usuari.id },
+					codi: usuariCodi.codi
 				};
 				this.operarisService.create(operari).subscribe(() => {
 					this.datagrid.refresh();
@@ -99,39 +100,52 @@ export class OperarisGridComponent {
 
 @Component({
 	template: `
-<h1 mat-dialog-title>{{'page.companyia-usuaris.modal.titol' | translate}}</h1>
+<h1 mat-dialog-title>{{'page.operaris.modal.titol' | translate}}</h1>
 <div mat-dialog-content>
+	<form [formGroup]="formGroup">
+	<p>{{'page.operaris.modal.instruccions' | translate}}</p>
 	<mat-form-field appearance="outline" style="width:100%">
-		<mat-label>Correu-e</mat-label>
-		<input matInput type="email" [formControl]="email" cdkFocusInitial/>
-		<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+		<mat-label>{{'page.operaris.modal.field.email' | translate}}</mat-label>
+		<input matInput type="email" formControlName="email" cdkFocusInitial/>
+		<mat-error *ngIf="formGroup.controls['email'].invalid">{{getErrorMessage('email')}}</mat-error>
 	</mat-form-field>
-	<mat-card *ngIf="usuari">
-		<mat-card-header>
-			<ng-container mat-card-avatar>
-				<button mat-mini-fab>{{usuari.nom.charAt(0).toUpperCase()}}</button>
-			</ng-container>
-			<mat-card-title>{{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
-			<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>
-		</mat-card-header>
-	</mat-card>
-	<br/>
+	<ng-container *ngIf="usuari">
+		<p>{{'page.operaris.modal.usuari.trobat' | translate}}:</p>
+		<mat-card>
+			<mat-card-header>
+				<ng-container mat-card-avatar>
+					<button mat-mini-fab>{{usuari.nom.charAt(0).toUpperCase()}}</button>
+				</ng-container>
+				<mat-card-title>{{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
+				<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>
+			</mat-card-header>
+		</mat-card>
+		<p>{{'page.operaris.modal.especifiqui.codi'| translate}}:</p>
+		<mat-form-field appearance="outline" style="width:100%">
+			<mat-label>{{'page.operaris.modal.field.codi' | translate}}</mat-label>
+			<input matInput type="codi" formControlName="codi" maxlength="6"/>
+			<mat-error *ngIf="formGroup.controls['codi'].invalid">{{getErrorMessage('codi')}}</mat-error>
+		</mat-form-field>
+	</ng-container>
+	</form>
 </div>
 <div mat-dialog-actions style="justify-content:space-between">
-	<button mat-raised-button (click)="onCancelButtonClick()">{{'page.companyia-usuaris.modal.button.cancelar' | translate}}</button>
-	<button mat-raised-button color="primary" [mat-dialog-close]="usuari" [disabled]="!usuari">{{'page.companyia-usuaris.modal.button.afegir' | translate}}</button>
+	<button mat-raised-button (click)="onCancelButtonClick()">{{'page.operaris.modal.button.cancelar' | translate}}</button>
+	<button mat-raised-button color="primary" [mat-dialog-close]="{usuari: usuari, codi:formGroup.controls['codi'].value}" [disabled]="!formGroup.valid">{{'page.operaris.modal.button.afegir' | translate}}</button>
 </div>
 `,
 })
 export class OperarisAddDialog implements AfterViewInit {
 
-	email = new FormControl('', [Validators.required, Validators.email]);
-
+	formGroup: FormGroup = this.formBuilder.group({
+		email: ['', [Validators.required, Validators.email]],
+		codi: ['', Validators.required]
+	});
 	usuari: any;
 	isLoading: boolean;
 
 	ngAfterViewInit() {
-		this.email.valueChanges.pipe(
+		this.formGroup.controls['email'].valueChanges.pipe(
 			debounceTime(500),
 			distinctUntilChanged(),
 			tap(() => {
@@ -139,7 +153,7 @@ export class OperarisAddDialog implements AfterViewInit {
 				this.isLoading = true;
 			}),
 			switchMap((value: string) => {
-				if (!this.email.invalid) {
+				if (!this.formGroup.controls['email'].invalid) {
 					let requestParams: HalParam[] = [];
 					requestParams.push({
 						key: 'query',
@@ -159,10 +173,10 @@ export class OperarisAddDialog implements AfterViewInit {
 			});
 	}
 
-	getErrorMessage() {
-		if (this.email.hasError('required')) {
+	getErrorMessage(field: string) {
+		if (this.formGroup.controls[field].hasError('required')) {
 			return this.translate.instant('error.validation.constraint.required');
-		} else if (this.email.hasError('email')) {
+		} else if (this.formGroup.controls[field].hasError('email')) {
 			return this.translate.instant('error.validation.constraint.email');
 		}
 	}
@@ -171,6 +185,7 @@ export class OperarisAddDialog implements AfterViewInit {
 	}
 
 	constructor(
+		private formBuilder: FormBuilder,
 		private translate: TranslateService,
 		private usuarisService: UsuarisService,
 		public dialogRef: MatDialogRef<OperarisAddDialog>,

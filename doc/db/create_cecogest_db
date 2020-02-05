@@ -1,0 +1,9 @@
+#!/bin/sh
+cd $(dirname $0)
+cat ./cecogest/LIMIT.SQL \
+./cecogest/GUSUARIS.SQL \
+./cecogest/RRHH.SQL \
+./cecogest/CECOGEST.SQL \
+./cecogest/RRMM.SQL \
+./cecogest/CECOBANC.SQL \
+./cecogest/CONTACEC.SQL > cecogest_db.sql

@@ -41,7 +41,7 @@ public class UsuariIdentificador extends AbstractIdentificableWithIdentificador<
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
-	private boolean actiu;
+	private boolean actiu = true;
 	@Transient
 	@RestapiField(
 			hiddenInGrid = true,

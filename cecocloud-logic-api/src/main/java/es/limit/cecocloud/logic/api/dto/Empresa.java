@@ -58,7 +58,9 @@ public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			includeInQuickFilter = false)
 	private GenericReference<Empresa, Long> empresaComptable;
 
 	public enum EmpresaTipusEnum {

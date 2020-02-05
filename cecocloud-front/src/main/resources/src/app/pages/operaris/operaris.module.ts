@@ -11,6 +11,7 @@ import { OperarisGridComponent, OperarisAddDialog } from './operaris-grid.compon
 import { OperarisFormComponent } from './operaris-form.component';
 import { OperarisService } from './operaris.service';
 import { UsuarisService } from './usuaris.service';
+import { OperarisEmpresesService } from './operaris-empreses.service';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { UsuarisService } from './usuaris.service';
     ],
     providers: [
         OperarisService,
-		UsuarisService
+		UsuarisService,
+		OperarisEmpresesService
     ],
 	entryComponents: [
 		OperarisAddDialog
