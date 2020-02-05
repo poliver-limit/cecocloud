@@ -1,8 +1,8 @@
 #!/bin/sh
 cd $(dirname $0)
 cat ../../cecocloud-main/src/main/resources/schema-postgresql.sql \
+../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-persist/db/schema-postgresql.sql \
 ../../cecocloud-module/cecocloud-module-fact/cecocloud-module-fact-persist/db/schema-postgresql.sql \
 ../../cecocloud-module/cecocloud-module-lici/cecocloud-module-lici-persist/db/schema-postgresql.sql \
 ../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-persist/db/schema-postgresql.sql \
-../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-persist/db/schema-postgresql.sql \
 ../../cecocloud-main/src/main/resources/data-postgresql.sql > cecocloud_db.sql

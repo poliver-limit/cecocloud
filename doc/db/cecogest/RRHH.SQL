@@ -1238,21 +1238,6 @@ CREATE TABLE TRMA_CMB002
 ;
 
 
-CREATE INDEX CDDU_1 ON CDDU_MODTABS
-(MODREF, TABREF)
-;
-
-
-CREATE INDEX CDDU_2 ON CDDU_MODCOLS
-(MODREF, TABREF, COLREF)
-;
-
-
-CREATE INDEX CDDU_3 ON CDDU_ERRORS
-(MODREF, SEQNO)
-;
-
-
 CREATE INDEX IRHU_COV_IDF_FK ON TRHU_COV
 (COV_IDF_COD)
 ;
@@ -1350,36 +1335,6 @@ CREATE INDEX IRHU_ZON_IDF_FK ON TRHU_ZON
 
 CREATE INDEX IRMA_CMB002_IDF_FK ON TRMA_CMB002
 (CMB_IDF_COD)
-;
-
-
-CREATE INDEX RFO1 ON RF_RETROFITTED_OBJECTS
-(NAME, TYPE)
-;
-
-
-CREATE INDEX RFO2 ON RF_RETROFITTED_OBJECTS
-(PARENT_NAME, PARENT_TYPE)
-;
-
-
-CREATE INDEX RFO3 ON RF_RETROFITTED_OBJECTS
-(PARENT_NAME, TYPE)
-;
-
-
-CREATE INDEX RFO4 ON RF_RETROFITTED_OBJECTS
-(PARENT_REF)
-;
-
-
-CREATE INDEX RFO5 ON RF_SPEC_ARGS
-(SPEC_REF)
-;
-
-
-CREATE INDEX RF_1 ON RF_RETROFITTED_OBJECTS
-(TYPE, REASON_NO_RETRO)
 ;
 
 
@@ -1565,53 +1520,6 @@ CREATE UNIQUE INDEX RRMA_CMB002_PK ON TRMA_CMB002
 CREATE INDEX X_RRHH_REF_CODES_1 ON RRHH_REF_CODES
 (RV_DOMAIN, RV_LOW_VALUE)
 ;
-
-
-
-CREATE OR REPLACE FORCE VIEW VGES_PREAVI
-AS 
-select PRE_IDF_COD, PRE_EMP_COD, PRE_COD,
- PRE_SER_COD, PRE_NUM, PRE_VER, PRE_SERNUMVER,
- PRE_REF, PRE_CLI_COD, PRE_PRJ_NUM, PRE_OPE_COD,
- DES, UNI, LPR_CAP_COD, LPR_PDA_COD,
- OPE_DES, AVI_TIP, SECCIO
-from
-(select pre_idf_cod, pre_emp_cod, pre_cod, pre_ser_cod, pre_num, pre_Ver,
-pre_ser_cod || '/' || pre_num || '/' || pre_ver as pre_sernumver,
-pre_ref, pre_cli_cod, pre_prj_num, pre_ope_cod, lpr_des as des,
-sum(lpr_uni) as uni, lpr_cap_cod, lpr_pda_cod,
-art_partxt004 as ope_des, art_partxt005 as avi_tip, FRHU_SEC_OPE(pre_idf_cod, art_partxt004, 'T') Seccio
-from tges_pre, tges_lpr, tges_art, tges_far
-where lpr_idf_cod = pre_idf_cod and lpr_emp_cod = pre_emp_cod and lpr_pre_cod = pre_cod
-and art_idf_cod = lpr_idf_cod and art_cod = lpr_art_cod and art_cst = 'N'
-and far_idf_cod = art_idf_cod and  far_cod = art_far_cod and far_tip = 'O' and lpr_uni <> 0 and pre_est = 'A'
-group by pre_idf_cod, pre_emp_cod, pre_cod, pre_ser_cod, pre_num, pre_Ver,
-pre_ser_cod || '/' || pre_num || '/' || pre_ver, pre_ref, pre_cli_cod, pre_prj_num, pre_ope_cod,
-lpr_des, lpr_cap_cod, lpr_pda_cod, art_partxt004, art_partxt005
-union all
-select pre_idf_cod, pre_emp_cod, pre_cod, pre_ser_cod, pre_num, pre_Ver,
-pre_ser_cod || '/' || pre_num || '/' || pre_ver as pre_sernumver,
-pre_ref, pre_cli_cod, pre_prj_num, pre_ope_cod,
-lpr_Des as des, sum(nvl(lpr_uni * esp_uni, 0)) as uni, lpr_cap_cod, lpr_pda_cod,
-art2.art_partxt004 as ope_des, art2.art_partxt005 as avi_tip, FRHU_SEC_OPE(pre_idf_cod, art2.art_partxt004, 'T') Seccio
-from tges_pre, tges_lpr, tges_esp, tges_art art1, tges_far far1, tges_art art2, tges_far far2
-where lpr_idf_cod = pre_idf_cod and lpr_emp_cod = pre_emp_cod and lpr_pre_cod = pre_cod and
-      --
-      art1.art_idf_cod = lpr_idf_cod and art1.art_cod = lpr_art_cod and art1.art_cst = 'S' and
-      --
-      far1.far_idf_cod = art1.art_idf_cod and far1.far_cod = art1.art_far_cod and far1.far_tip = 'O' and
-      --
-      esp_idf_cod = lpr_idf_cod and esp_emp_cod = lpr_emp_cod and esp_pre_cod = lpr_pre_cod and esp_lpr_num = lpr_num and
-      --
-      art2.art_idf_cod = esp_idf_cod and art2.art_cod = esp_art_cod and
-      --
-      far2.far_idf_cod = art2.art_idf_cod and far2.far_cod = art2.art_far_cod and far2.far_tip = 'O' and
-	  --
-      lpr_uni <> 0 and esp_uni <> 0  and pre_est = 'A'
-group by pre_idf_cod, pre_emp_cod, pre_cod, pre_ser_cod, pre_num, pre_Ver,
-pre_ser_cod || '/' || pre_num || '/' || pre_ver, pre_ref, pre_cli_cod, pre_prj_num, pre_ope_cod,
-lpr_des, lpr_cap_cod, lpr_pda_cod, art2.art_partxt004, art2.art_partxt005
-);
 
 
 CREATE TABLE TRHU_ANL
@@ -3175,32 +3083,6 @@ CREATE UNIQUE INDEX RRHU_TRA_PK ON TRHU_TRA
 CREATE UNIQUE INDEX SRHU_RVM ON TRHU_RVM
 (RVM_COD)
 ;
-
-
-CREATE OR REPLACE FORCE VIEW SMCLIENT_FOLDER_MAP_V
-AS 
-select
-     f.id folder_id,
-     h.id client_id
-from SMclient_only_folder_v f,
-     SMBreakableLinks b,
-     SMclient_v h
-where
-     f.id = b.lhsid
-and  h.id = b.rhsid;
-
-
-CREATE OR REPLACE FORCE VIEW SMHOST_FOLDER_MAP_V
-AS 
-select
-     f.id folder_id,
-     h.id host_id
-from SMhost_only_folder_v f,
-     SMBreakableLinks b,
-     SMhost_v h
-where
-     f.id = b.lhsid
-and  h.id = b.rhsid;
 
 
 CREATE OR REPLACE FORCE VIEW VRHU_OPEPDA
