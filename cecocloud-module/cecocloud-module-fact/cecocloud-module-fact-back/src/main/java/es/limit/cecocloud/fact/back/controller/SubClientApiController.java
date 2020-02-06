@@ -15,7 +15,7 @@ import es.limit.cecocloud.fact.logic.api.module.FactModuleConfig;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(FactModuleConfig.API_PATH + "/subsClients")
+@RequestMapping(FactModuleConfig.API_PATH + "/subClients")
 public class SubClientApiController extends AbstractIdentificableWithIdentificadorApiController<SubClient> {
 
 }

@@ -13,6 +13,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.dto.SubClient.SubClientPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -57,11 +58,109 @@ public class ClientAdresa extends AbstractIdentificableWithIdentificador<ClientA
 			disabledForCreate = false,
 			disabledForUpdate = false,
 			hiddenInForm = false)
-	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;	
+	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
+	
+	@NotNull
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 1)
+	private String domiciliDefecte;
+	   
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 60)
+	private String telefon;
+	           
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 60)
+	private String fax;
+	               
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 60)
+	private String email;
+	             
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 60)
+	private String contacte;
+	          
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 1000)
+	private String observacions;
+	      
+	@NotNull
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 1)
+	private String bloquejada;
+	        
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 60)
+	private String telefonMovil;
+	      
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 50)
+	private String cif;
+	               
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 50)
+	private String activitat;
+	         
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 50)
+	private String adressaWeb;
+	        
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 10)
+	private Float latitut;
+	           
+	@RestapiField(
+		includeInQuickFilter = true,
+		hiddenInGrid = true
+	)
+	@Size(max = 10)
+	private Float longitut;
+		          
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
+	
+	@Transient
+	@RestapiField(type = RestapiFieldType.LOV)
+	private GenericReferenceWithCompositePk<SubClient, SubClientPk> subClient;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

@@ -14,153 +14,252 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			children: [{
 				path: '',
 				loadChildren: () => import('./pages/index/index-fact.module').then(m => m.IndexFactModule)
+							   
 			}, {
 				path: 'albarans',
 				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
+							   
 	        }, {
+				path: 'aplicadors',
+				loadChildren: () => import('./pages/aplicadors/aplicadors.module').then(m => m.AplicadorsModule)
+							   
+			}, {
+				path: 'aplicadorsClient',
+				loadChildren: () => import('./pages/aplicadorsClient/aplicadorsClient.module').then(m => m.AplicadorsClientModule)			
+	        }, {					   
+			
 				path: 'areaNegocis',
 				loadChildren: () => import('./pages/areaNegocis/areaNegocis.module').then(m => m.AreaNegocisModule)
+							   
 	        }, {
 				path: 'articles',
 				loadChildren: () => import('./pages/articles/articles.module').then(m => m.ArticlesModule)
+							   
 			}, {
 				path: 'articlesFamilia',
 				loadChildren: () => import('./pages/articlesFamilia/articlesFamilia.module').then(m => m.ArticlesFamiliaModule)
+							   
 			}, {
 				path: 'articlesFamiliaEmpresa',
 				loadChildren: () => import('./pages/articlesFamiliaEmpresa/articlesFamiliaEmpresa.module').then(m => m.ArticlesFamiliaEmpresaModule)
+							   
 			}, {
 				path: 'articlesGamma',
 				loadChildren: () => import('./pages/articlesGamma/articlesGamma.module').then(m => m.ArticlesGammaModule)
+							   
 			}, {
 				path: 'articlesMarca',
 				loadChildren: () => import('./pages/articlesMarca/articlesMarca.module').then(m => m.ArticlesMarcaModule)
+							   
 			}, {
 				path: 'articlesModel',
 				loadChildren: () => import('./pages/articlesModel/articlesModel.module').then(m => m.ArticlesModelModule)
+							   
+			}, {
+				path: 'bancs',
+				loadChildren: () => import('./pages/bancs/bancs.module').then(m => m.BancsModule)				
+							   
+			}, {
+				path: 'comptesComptablesEmpresa',
+				loadChildren: () => import('./pages/comptesComptablesEmpresa/comptesComptablesEmpresa.module').then(m => m.ComptesComptablesEmpresaModule)				
+								
+			}, {
+				path: 'comptesCorrentsEmpresa',
+				loadChildren: () => import('./pages/comptesCorrentsEmpresa/comptesCorrentsEmpresa.module').then(m => m.ComptesCorrentsEmpresaModule)				
+								
+			}, {
+				path: 'clients',
+				loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)				
+							   
+			}, {
+				path: 'clientsAdresa',
+				loadChildren: () => import('./pages/clientsAdresa/clientsAdresa.module').then(m => m.ClientsAdresaModule)				
+									
 			}, {
 				path: 'codisPostal',
 				loadChildren: () => import('./pages/codisPostal/codisPostal.module').then(m => m.CodisPostalModule)
+							   
 			}, {
 				path: 'departaments',
 				loadChildren: () => import('./pages/departaments/departaments.module').then(m => m.DepartamentsModule)
+							   
+	   		}, {
+				path: 'departamentsClient',
+				loadChildren: () => import('./pages/departamentsClient/departamentsClient.module').then(m => m.DepartamentsClientModule)
+							   
 			}, {
 				path: 'divises',
 				loadChildren: () => import('./pages/divises/divises.module').then(m => m.DivisesModule)
+							   
 			}, {
 				path: 'documentsPagamentCobrament',
 				loadChildren: () => import('./pages/documentsPagamentCobrament/documentsPagamentCobrament.module').then(m => m.DocumentsPagamentCobramentModule)
+							   
 			}, {
 				path: 'empreses',
-				loadChildren: () => import('./pages/empresesFact/empresesFact.module').then(m => m.EmpresesFactModule),
+				loadChildren: () => import('./pages/empresesFact/empresesFact.module').then(m => m.EmpresesFactModule)
+							   
+			}, {
+				path: 'familiesClient',
+				loadChildren: () => import('./pages/familiesClient/familiesClient.module').then(m => m.FamiliesClientModule)							   
+							   
 			}, {
 				path: 'familiesCost',
 				loadChildren: () => import('./pages/familiesCost/familiesCost.module').then(m => m.FamiliesCostModule)
+							   
 			}, {
 				path: 'familiesProveidor',
 				loadChildren: () => import('./pages/familiesProveidor/familiesProveidor.module').then(m => m.FamiliesProveidorModule)
+							   
 			}, {
 				path: 'finalFactures',
 				loadChildren: () => import('./pages/finalFactures/finalFactures.module').then(m => m.FinalFacturesModule)
+							   
 			}, {
 				path: 'idiomes',
 				loadChildren: () => import('./pages/idiomes/idiomes.module').then(m => m.IdiomesModule)
+							   
 			}, {
 				path: 'ives',
 				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule)
+							   
 			}, {
 				path: 'magatzems',
 				loadChildren: () => import('./pages/magatzems/magatzems.module').then(m => m.MagatzemsModule)
+							   
 			}, {
 				path: 'magatzemsPeriode',
 				loadChildren: () => import('./pages/magatzemsPeriode/magatzemsPeriode.module').then(m => m.MagatzemsPeriodeModule)
+							   
 			}, {
 				path: 'naturalesesPagamentCobrament',
 				loadChildren: () => import('./pages/naturalesesPagamentCobrament/naturalesesPagamentCobrament.module').then(m => m.NaturalesesPagamentCobramentModule)
 			}, {
+				path: 'oficinesBancaries',
+				loadChildren: () => import('./pages/oficinesBancaries/oficinesBancaries.module').then(m => m.OficinesBancariesModule)							  
+			}, {
 				path: 'paisos',
 				loadChildren: () => import('./pages/paisos/paisos.module').then(m => m.PaisosModule)
+							   
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
+							   
 			},{
 				path: 'projectes',
 				loadChildren: () => import('./pages/projectes/projectes.module').then(m => m.ProjectesModule)
+							   
 			},{
 				path: 'projectesTipus',
 				loadChildren: () => import('./pages/projectesTipus/projectesTipus.module').then(m => m.ProjectesTipusModule)
+							   
 			}, {
 				path: 'proveidors',
 				loadChildren: () => import('./pages/proveidors/proveidors.module').then(m => m.ProveidorsModule)
+							   
 			}, {
 				path: 'provincies',
 				loadChildren: () => import('./pages/provincies/provincies.module').then(m => m.ProvinciesModule)
+							   
+			}, {
+				path: 'rappels',
+				loadChildren: () => import('./pages/rappels/rappels.module').then(m => m.RappelsModule)
+							   
 			}, {
 				path: 'regimsIva',
 				loadChildren: () => import('./pages/regimsIva/regimsIva.module').then(m => m.RegimsIvaModule)
+							   
 			}, {
 				path: 'seccionsEmpresa',
 				loadChildren: () => import('./pages/seccionsEmpresa/seccionsEmpresa.module').then(m => m.SeccionsEmpresaModule)
+							   
 			}, {
 				path: 'seriesCompra',
 				loadChildren: () => import('./pages/seriesCompra/seriesCompra.module').then(m => m.SeriesCompraModule)
+							   
 			}, {
 				path: 'seriesIntracomunitaria',
 				loadChildren: () => import('./pages/seriesIntracomunitaria/seriesIntracomunitaria.module').then(m => m.SeriesIntracomunitariaModule)
+							   
 			}, {
 				path: 'seriesVenda',
 				loadChildren: () => import('./pages/seriesVenda/seriesVenda.module').then(m => m.SeriesVendaModule)
+							   
 			}, {
 				path: 'situacionsComercial',
 				loadChildren: () => import('./pages/situacionsComercial/situacionsComercial.module').then(m => m.SituacionsComercialModule)
+							   
 			}, {
 				path: 'situacionsInicial',
 				loadChildren: () => import('./pages/situacionsInicial/situacionsInicial.module').then(m => m.SituacionsInicialModule)
 			}, {
+				path: 'subClients',
+				loadChildren: () => import('./pages/subClients/subClients.module').then(m => m.SubClientsModule)
+								   
+			}, {
 				path: 'subvencions',
 				loadChildren: () => import('./pages/subvencions/subvencions.module').then(m => m.SubvencionsModule)
+							   
 			}, {
 				path: 'tarifes',
 				loadChildren: () => import('./pages/tarifes/tarifes.module').then(m => m.TarifesModule)
+							   
 			}, {
 				path: 'tarifesDescompte',
 				loadChildren: () => import('./pages/tarifesDescompte/tarifesDescompte.module').then(m => m.TarifesDescompteModule)
+							   
+			}, {
+				path: 'tipusClients',
+				loadChildren: () => import('./pages/tipusClients/tipusClients.module').then(m => m.TipusClientsModule)
+				   
 			}, {
 				path: 'tipusComissions',
 				loadChildren: () => import('./pages/tipusComissions/tipusComissions.module').then(m => m.TipusComissionsModule)
+							   
 			}, {
 				path: 'tipusFacturacions',
 				loadChildren: () => import('./pages/tipusFacturacions/tipusFacturacions.module').then(m => m.TipusFacturacionsModule)
+							   
 			}, {
 				path: 'tipusIncidenciesFactura',
 				loadChildren: () => import('./pages/tipusIncidenciesFactura/tipusIncidenciesFactura.module').then(m => m.TipusIncidenciesFacturaModule)
+							   
 			}, {
 				path: 'tipusProveidorsClient',
 				loadChildren: () => import('./pages/tipusProveidorsClient/tipusProveidorsClient.module').then(m => m.TipusProveidorsClientModule)
+							   
 			}, {
 				path: 'tipusRiscos',
 				loadChildren: () => import('./pages/tipusRiscos/tipusRiscos.module').then(m => m.TipusRiscosModule)
+							   
 			}, {
 				path: 'tipusVenciments',
 				loadChildren: () => import('./pages/tipusVenciments/tipusVenciments.module').then(m => m.TipusVencimentsModule)
+							   
 			}, {
 				path: 'transportistes',
 				loadChildren: () => import('./pages/transportistes/transportistes.module').then(m => m.TransportistesModule)
+							   
 			}, {
 				path: 'ubicacions',
 				loadChildren: () => import('./pages/ubicacions/ubicacions.module').then(m => m.UbicacionsModule)
+							   
 			}, {
 				path: 'ubicacionsArticle',
 				loadChildren: () => import('./pages/ubicacionsArticle/ubicacionsArticle.module').then(m => m.UbicacionsArticleModule)
+							   
 			}, {
 				path: 'unitatsTipus',
 				loadChildren: () => import('./pages/unitatsTipus/unitatsTipus.module').then(m => m.UnitatsTipusModule)
+							   
 			}, {
 				path: 'vehicles',
 				loadChildren: () => import('./pages/vehicles/vehicles.module').then(m => m.VehiclesModule)
+							   
 			}, {
 				path: 'zones',
 				loadChildren: () => import('./pages/zones/zones.module').then(m => m.ZonesModule)
+							   
 			}, {
 				path: '**',
 				redirectTo: ''
@@ -180,6 +279,16 @@ export class FactModule {
 				label: 'Albarans',
 				labelKey: 'app.menu.fact.albarans',
 				route: '/fact/albarans'
+			}, {
+				icon: 'room',
+				label: 'Aplicadors',
+				labelKey: 'app.menu.fact.aplicadors',
+				route: '/fact/aplicadors'
+			}, {
+				icon: 'room',
+				label: 'Aplicadors-Client',
+				labelKey: 'app.menu.fact.aplicadorsClient',
+				route: '/fact/aplicadorsClient'
 			}, {
 				icon: 'room',
 				label: 'Àrea negocis',
@@ -217,14 +326,44 @@ export class FactModule {
 				route: '/fact/articlesModel'
 			}, {
 				icon: 'room',
+				label: 'Bancs',
+				labelKey: 'app.menu.fact.bancs',
+				route: '/fact/bancs'
+			}, {
+				icon: 'room',
+				label: 'Clients',
+				labelKey: 'app.menu.fact.clients',
+				route: '/fact/clients'
+			}, {
+				icon: 'room',
+				label: 'ClientsAdresa',
+				labelKey: 'app.menu.fact.clientsAdresa',
+				route: '/fact/clientsAdresa'
+			}, {
+				icon: 'room',
 				label: 'Codis postals',
 				labelKey: 'app.menu.fact.codisPostal',
 				route: '/fact/codisPostal'
 			}, {
 				icon: 'room',
+				label: 'Comptes comptables empresa',
+				labelKey: 'app.menu.fact.comptesComptablesEmpresa',
+				route: '/fact/comptesComptablesEmpresa'
+			}, {
+				icon: 'room',
+				label: 'Comptes corrents empresa',
+				labelKey: 'app.menu.fact.comptesCorrentsEmpresa',
+				route: '/fact/comptesCorrentsEmpresa'
+			}, {
+				icon: 'room',
 				label: 'Departaments',
 				labelKey: 'app.menu.fact.departaments',
 				route: '/fact/departaments'
+			}, {
+				icon: 'room',
+				label: 'DepartamentsClient',
+				labelKey: 'app.menu.fact.departamentsClient',
+				route: '/fact/departamentsClient'
 			}, {
 				icon: 'room',
 				label: 'Divises',
@@ -240,6 +379,21 @@ export class FactModule {
 				label: 'Empreses (Facturació)',
 				labelKey: 'app.menu.fact.empreses',
 				route: '/fact/empreses'
+			}, {
+				icon: 'room',
+				label: 'Famílies client',
+				labelKey: 'app.menu.fact.familiesClient',
+				route: '/fact/familiesClient'
+			}, {
+				icon: 'room',
+				label: 'Famílies cost',
+				labelKey: 'app.menu.fact.familiesCost',
+				route: '/fact/familiesCost'
+			}, {
+				icon: 'room',
+				label: 'Famílies proveidor',
+				labelKey: 'app.menu.fact.familiesProveidor',
+				route: '/fact/familiesProveidor'
 			}, {
 				icon: 'room',
 				label: 'Famílies cost',
@@ -282,6 +436,11 @@ export class FactModule {
 				route: '/fact/naturalesesPagamentCobrament'
 			}, {
 				icon: 'room',
+				label: 'Oficines bancaries',
+				labelKey: 'app.menu.fact.oficinesBancaries',
+				route: '/fact/oficinesBancaries'
+			}, {
+				icon: 'room',
 				label: 'Països',
 				labelKey: 'app.menu.fact.paisos',
 				route: '/fact/paisos'
@@ -310,6 +469,11 @@ export class FactModule {
 				label: 'Províncies',
 				labelKey: 'app.menu.fact.provincies',
 				route: '/fact/provincies'
+			}, {
+				icon: 'room',
+				label: 'Rappels',
+				labelKey: 'app.menu.fact.rappels',
+				route: '/fact/rappels'
 			}, {
 				icon: 'room',
 				label: 'Règims d\'iva',
@@ -345,6 +509,11 @@ export class FactModule {
 				label: 'Situacions inicials',
 				labelKey: 'app.menu.fact.situacionsInicial',
 				route: '/fact/situacionsInicial'
+			}, {
+				icon: 'room',
+				label: 'Subclients',
+				labelKey: 'app.menu.fact.subClients',
+				route: '/fact/subClients'
 			}, {
 				icon: 'room',
 				label: 'Subvencions',
