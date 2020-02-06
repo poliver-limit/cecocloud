@@ -1,30 +1,27 @@
 /**
  * 
  */
-package es.limit.cecocloud.lici.logic.api.module;
+package es.limit.cecocloud.lici.logic.module;
 
 import org.springframework.stereotype.Component;
 
-import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.lici.logic.api.dto.Licitacio;
+import es.limit.cecocloud.lici.logic.api.module.LiciModuleConfig;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 
 /**
- * Configuració del mòdul de licitacions.
+ * Registre del mòdul de licitació.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Component
-public class LiciModule {
-
-	public static final String CODE = "lici";
-	public static final String API_PATH = GenericController.API_PATH + "/" + CODE;
-
+public class LiciModuleRegister {
+	
 	private static ModuleInfo moduleInfo = new ModuleInfo(
-			CODE,
+			LiciModuleConfig.CODE,
 			Licitacio.class.getPackage().getName());
-
+	
 	static {
 		Modules.registerModule(moduleInfo);
 	}
@@ -32,5 +29,6 @@ public class LiciModule {
 	public static ModuleInfo getModuleInfo() {
 		return moduleInfo;
 	}
+	
 
 }

@@ -15,6 +15,9 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: '',
 				loadChildren: () => import('./pages/index/index-lici.module').then(m => m.IndexLiciModule)
 			}, {
+				path: 'configuracions',
+				loadChildren: () => import('./pages/configuracions/configuracions.module').then(m => m.ConfiguracionsModule)
+			},{
 				path: '**',
 				redirectTo: ''
 			}]
@@ -28,12 +31,12 @@ export class LiciModule {
 			code: 'lici',
 			icon: 'folder_special',
 			label: 'Licitacions',
-			/*menuItems: [{
-				icon: 'timer',
-				label: 'Marcatges',
-				labelKey: 'app.menu.marc.marcatges',
-				route: '/marc/marcatges'
-			}]*/
+			menuItems: [{
+				icon: 'room',
+				label: 'Configuracions',
+				labelKey: 'app.menu.lici.configuracions',
+				route: '/lici/configuracions'
+			}]
 		});
 	}
 

@@ -9,7 +9,7 @@
 		"lint": "ng lint",
 		"e2e": "ng e2e",
 		"postinstall": "cp -a node_modules/@programari-limit/base-angular/assets/i18n/baseapp src/assets/i18n/baseapp && rm -fr node_modules/angular4-hal/node_modules/@angular",
-		"prepare": "./link_module_resources"
+		"prepare": "sh link_module_resources"
 	},
 	"private": true,
 	"dependencies": {
