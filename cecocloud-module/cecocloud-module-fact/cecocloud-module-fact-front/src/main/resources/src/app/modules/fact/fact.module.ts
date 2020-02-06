@@ -83,7 +83,7 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: 'departaments',
 				loadChildren: () => import('./pages/departaments/departaments.module').then(m => m.DepartamentsModule)
 							   
-	   
+	   		}, {
 				path: 'departamentsClient',
 				loadChildren: () => import('./pages/departamentsClient/departamentsClient.module').then(m => m.DepartamentsClientModule)
 							   
@@ -279,11 +279,17 @@ export class FactModule {
 				label: 'Albarans',
 				labelKey: 'app.menu.fact.albarans',
 				route: '/fact/albarans'
-			},
-	{ icon: 'room', label: 'Aplicadors', route: '/fact/aplicadors' },
-				{ icon: 'room', label: 'Aplicadors-Client', route: '/fact/aplicadorsClient' },
-			
-			{
+			}, {
+				icon: 'room',
+				label: 'Aplicadors',
+				labelKey: 'app.menu.fact.aplicadors',
+				route: '/fact/aplicadors'
+			}, {
+				icon: 'room',
+				label: 'Aplicadors-Client',
+				labelKey: 'app.menu.fact.aplicadorsClient',
+				route: '/fact/aplicadorsClient'
+			}, {
 				icon: 'room',
 				label: 'Àrea negocis',
 				labelKey: 'app.menu.fact.areaNegocis',
@@ -318,29 +324,47 @@ export class FactModule {
 				label: 'Articles model',
 				labelKey: 'app.menu.fact.articlesModel',
 				route: '/fact/articlesModel'
-			}, 
-				{ icon: 'room', label: 'Bancs', route: '/fact/bancs' },
-				{ icon: 'room', label: 'Clients', route: '/fact/clients' },
-				{ icon: 'room', label: 'ClientsAdresa', route: '/fact/clientsAdresa' },
-				
-			{
+			}, {
+				icon: 'room',
+				label: 'Bancs',
+				labelKey: 'app.menu.fact.bancs',
+				route: '/fact/bancs'
+			}, {
+				icon: 'room',
+				label: 'Clients',
+				labelKey: 'app.menu.fact.clients',
+				route: '/fact/clients'
+			}, {
+				icon: 'room',
+				label: 'ClientsAdresa',
+				labelKey: 'app.menu.fact.clientsAdresa',
+				route: '/fact/clientsAdresa'
+			}, {
 				icon: 'room',
 				label: 'Codis postals',
 				labelKey: 'app.menu.fact.codisPostal',
 				route: '/fact/codisPostal'
-			}, 
-			{ icon: 'room', label: 'Comptes comptables empresa', route: '/fact/comptesComptablesEmpresa' },
-				{ icon: 'room', label: 'Comptes corrents empresa', route: '/fact/comptesCorrentsEmpresa' },
-	   
-			{
+			}, {
+				icon: 'room',
+				label: 'Comptes comptables empresa',
+				labelKey: 'app.menu.fact.comptesComptablesEmpresa',
+				route: '/fact/comptesComptablesEmpresa'
+			}, {
+				icon: 'room',
+				label: 'Comptes corrents empresa',
+				labelKey: 'app.menu.fact.comptesCorrentsEmpresa',
+				route: '/fact/comptesCorrentsEmpresa'
+			}, {
 				icon: 'room',
 				label: 'Departaments',
 				labelKey: 'app.menu.fact.departaments',
 				route: '/fact/departaments'
-			}, 
-			{ icon: 'room', label: 'DepartamentsClient', route: '/fact/departamentsClient' },
-				
-			{
+			}, {
+				icon: 'room',
+				label: 'DepartamentsClient',
+				labelKey: 'app.menu.fact.departamentsClient',
+				route: '/fact/departamentsClient'
+			}, {
 				icon: 'room',
 				label: 'Divises',
 				labelKey: 'app.menu.fact.divises',
@@ -355,12 +379,22 @@ export class FactModule {
 				label: 'Empreses (Facturació)',
 				labelKey: 'app.menu.fact.empreses',
 				route: '/fact/empreses'
-			}, 
-			{ icon: 'room', label: 'Famílies client', route: '/fact/familiesClient' },
-				{ icon: 'room', label: 'Famílies cost', route: '/fact/familiesCost' },
-				{ icon: 'room', label: 'Famílies proveidor', route: '/fact/familiesProveidor' },
-				 
-			{
+			}, {
+				icon: 'room',
+				label: 'Famílies client',
+				labelKey: 'app.menu.fact.familiesClient',
+				route: '/fact/familiesClient'
+			}, {
+				icon: 'room',
+				label: 'Famílies cost',
+				labelKey: 'app.menu.fact.familiesCost',
+				route: '/fact/familiesCost'
+			}, {
+				icon: 'room',
+				label: 'Famílies proveidor',
+				labelKey: 'app.menu.fact.familiesProveidor',
+				route: '/fact/familiesProveidor'
+			}, {
 				icon: 'room',
 				label: 'Famílies cost',
 				labelKey: 'app.menu.fact.familiesCost',
@@ -400,11 +434,12 @@ export class FactModule {
 				label: 'Naturaleses de pagament/cobrament',
 				labelKey: 'app.menu.fact.naturalesesPagamentCobrament',
 				route: '/fact/naturalesesPagamentCobrament'
-			}, 
-			{ icon: 'room', label: 'Oficines bancaries', route: '/fact/oficinesBancaries' },
-											   
-	   
-			{
+			}, {
+				icon: 'room',
+				label: 'Oficines bancaries',
+				labelKey: 'app.menu.fact.oficinesBancaries',
+				route: '/fact/oficinesBancaries'
+			}, {
 				icon: 'room',
 				label: 'Països',
 				labelKey: 'app.menu.fact.paisos',
@@ -434,11 +469,12 @@ export class FactModule {
 				label: 'Províncies',
 				labelKey: 'app.menu.fact.provincies',
 				route: '/fact/provincies'
-			}, 
-			{ icon: 'room', label: 'Rappels', route: '/fact/rappels' },
-											 
-						
-			{
+			}, {
+				icon: 'room',
+				label: 'Rappels',
+				labelKey: 'app.menu.fact.rappels',
+				route: '/fact/rappels'
+			}, {
 				icon: 'room',
 				label: 'Règims d\'iva',
 				labelKey: 'app.menu.fact.regimsIva',
@@ -473,10 +509,12 @@ export class FactModule {
 				label: 'Situacions inicials',
 				labelKey: 'app.menu.fact.situacionsInicial',
 				route: '/fact/situacionsInicial'
-			},
-{ icon: 'room', label: 'Subclients', route: '/fact/subClients' },
-				
-			{
+			}, {
+				icon: 'room',
+				label: 'Subclients',
+				labelKey: 'app.menu.fact.subClients',
+				route: '/fact/subClients'
+			}, {
 				icon: 'room',
 				label: 'Subvencions',
 				labelKey: 'app.menu.fact.subvencions',
