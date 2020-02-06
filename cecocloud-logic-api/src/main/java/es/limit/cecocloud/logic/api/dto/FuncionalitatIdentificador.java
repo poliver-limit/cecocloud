@@ -21,7 +21,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "description"
+		descriptionField = "descripcio"
 )
 public class FuncionalitatIdentificador extends AbstractIdentificable<Long> {
 
@@ -44,9 +44,9 @@ public class FuncionalitatIdentificador extends AbstractIdentificable<Long> {
 			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
-	private String description;
+	private String descripcio;
 
-	public String getDescription() {
+	public String getDescricio() {
 		if (funcionalitat != null && identificador != null) {
 			return funcionalitat.getDescription() + " - " + identificador.getDescription();
 		} else {

@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
+import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatRecursEntity;
 
 /**
@@ -23,20 +24,24 @@ public interface FuncionalitatRecursRepository extends BaseRepository<Funcionali
 	List<FuncionalitatRecursEntity> findByFuncionalitat(FuncionalitatEntity funcionalitat);
 	List<FuncionalitatRecursEntity> findByFuncionalitatInAndEmbeddedResourceClassName(List<FuncionalitatEntity> funcionalitats, String resourceName);
 	
-	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(fr.embedded.resourceClassName," +
+	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(" + 
+			"		fr.embedded.resourceClassName," +
 			" 		fr.embedded.principal, " +
-			" 		fp.embedded.permis) " +
+			" 		fip.embedded.permis) " +
 			" from " +
-			"    FuncionalitatEntity f, " +
+//			"    FuncionalitatEntity f, " +
 			"    FuncionalitatRecursEntity fr, " +
-			"    FuncionalitatPerfilEntity fp " +
+			"    FuncionalitatIdentificadorEntity fi, " +
+			"    FuncionalitatIdentificadorPerfilEntity fip " +
 			"where " +
-			"    f in :funcionalitats " +
-			"and fr.funcionalitat = f " +
-			"and fp.funcionalitat = f " +
+			"    fi in :funcionalitatsIdentificador " +
+//			"and f = fi.funcionalitat " +
+//			"and fr.funcionalitat = f " +
+			"and fr.funcionalitat = fi.funcionalitat " +
+			"and fip.funcionalitatIdentificador = fi " +
 			"and fr.embedded.resourceClassName = :resourceName")
-	List<FuncionalitatRecursInfo> findPermisosByFuncionalitatsAndRecurs(
-			@Param("funcionalitats") List<FuncionalitatEntity> funcionalitats, 
+	List<FuncionalitatRecursInfo> findPermisosByFuncionalitatsIdentificadorAndRecurs(
+			@Param("funcionalitatsIdentificador") List<FuncionalitatIdentificadorEntity> funcionalitatsIdentificador, 
 			@Param("resourceName") String resourceName);
 	
 }
