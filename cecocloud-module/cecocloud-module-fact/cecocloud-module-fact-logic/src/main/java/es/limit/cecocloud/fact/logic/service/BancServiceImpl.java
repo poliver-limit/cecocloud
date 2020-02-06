@@ -15,8 +15,6 @@ import es.limit.cecocloud.fact.persist.entity.BancEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class BancServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Banc, BancEntity, Integer>
-		implements BancService {
+public class BancServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Banc, BancEntity, Integer> implements BancService {
 
 }
-
