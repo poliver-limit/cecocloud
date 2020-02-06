@@ -65,8 +65,12 @@ public class FuncionalitatRecursEntity extends AbstractAuditableVersionableEntit
 
 	@Builder
     public FuncionalitatRecursEntity(
-    		FuncionalitatRecurs embedded) {
+    		FuncionalitatRecurs embedded,
+    		FuncionalitatEntity funcionalitat,
+    		RecursEntity recurs) {
         this.embedded = embedded;
+        this.funcionalitat = funcionalitat;
+        this.recurs = recurs;
     }
 
 	@Override
