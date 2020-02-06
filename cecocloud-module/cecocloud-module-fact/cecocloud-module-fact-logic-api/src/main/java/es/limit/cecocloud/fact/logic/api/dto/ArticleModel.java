@@ -23,7 +23,7 @@ import lombok.Setter;
 public class ArticleModel extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
-	@Size(max = 6)
+	@Size(max = 4)
 	@RestapiField(
 			disabledForCreate = false,
 			disabledForUpdate = true,

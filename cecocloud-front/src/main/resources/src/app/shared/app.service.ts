@@ -42,7 +42,12 @@ export class AppService {
 			labelKey: 'app.menu.usuaris',
 			route: '/usuari-identificadors'
 		}, {
-			icon: 'business_center',
+			icon: 'perm_contact_calendar',
+			label: 'Operaris',
+			labelKey: 'app.menu.operaris',
+			route: '/operaris'
+		}, {
+			icon: 'apartment',
 			label: 'Empreses',
 			labelKey: 'app.menu.empreses',
 			resource: 'empresa',

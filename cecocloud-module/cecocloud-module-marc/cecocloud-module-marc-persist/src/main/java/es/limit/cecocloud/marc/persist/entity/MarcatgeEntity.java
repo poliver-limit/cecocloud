@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
+import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,24 +45,24 @@ public class MarcatgeEntity extends AbstractAuditableVersionableEntity<Marcatge,
 	protected Marcatge embedded;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "operari_id",
-			foreignKey = @ForeignKey(name = "marcatge_operari_fk"))
-	protected OperariEntity operari;
+			name = "operariemp_id",
+			foreignKey = @ForeignKey(name = "marcatge_operariemp_fk"))
+	protected OperariEmpresaEntity operariEmpresa;
 
 	@Builder
     public MarcatgeEntity(
     		Marcatge embedded,
-    		OperariEntity operari) {
+    		OperariEmpresaEntity operariEmpresa) {
         this.embedded = embedded;
-		this.operari = operari;
+		this.operariEmpresa = operariEmpresa;
     }
 
 	@Override
 	public void update(Marcatge embedded) {
 		this.embedded = embedded;
 	}
-	public void updateOperari(OperariEntity operari) {
-		this.operari = operari;
+	public void updateOperariEmpresa(OperariEmpresaEntity operariEmpresa) {
+		this.operariEmpresa = operariEmpresa;
 	}
 
 }

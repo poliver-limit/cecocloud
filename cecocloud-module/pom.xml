@@ -7,11 +7,12 @@
 		<artifactId>cecocloud</artifactId>
 		<version>0.1</version>
 	</parent>
-	<artifactId>cecocloud-modules</artifactId>
+	<artifactId>cecocloud-module</artifactId>
 	<packaging>pom</packaging>
 	<modules>
 		<module>cecocloud-module-fact</module>
-		<module>cecocloud-module-rrhh</module>
+		<module>cecocloud-module-lici</module>
 		<module>cecocloud-module-marc</module>
+		<module>cecocloud-module-rrhh</module>
 	</modules>
 </project>

@@ -40,7 +40,7 @@ public class FuncionalitatPerfilApiController extends AbstractIdentificableApiCo
 
 	@Autowired
 	FuncionalitatPerfilService funcionalitatPerfilService;
-	
+
 	@GetMapping(value = "/perfil/{perfilId}",
 			produces = "application/json")
 	public ResponseEntity<List<ModuleFuncionalitatInfo>> findAllFuncionalitatsByPerfillOrderByModule(
@@ -49,7 +49,7 @@ public class FuncionalitatPerfilApiController extends AbstractIdentificableApiCo
 		
 		return ResponseEntity.ok(funcionalitatPerfilService.findAllFuncionalitatsByPerfilOrderByModule(perfilId));
 	}
-	
+
 	@GetMapping(value = "/perfils/{perfilsId}",
 			produces = "application/json")
 	public ResponseEntity<List<ModuleFuncionalitatInfo>> findAllFuncionalitatsByPerfillOrderByModule(
@@ -58,7 +58,7 @@ public class FuncionalitatPerfilApiController extends AbstractIdentificableApiCo
 		
 		return ResponseEntity.ok(funcionalitatPerfilService.findAllFuncionalitatsByPerfilsOrderByModule(Arrays.asList(perfilsId)));
 	}
-	
+
 	@PostMapping(
 			value = "/perfil/{perfilId}/permission/save",
 			produces = "application/json")
@@ -83,5 +83,5 @@ public class FuncionalitatPerfilApiController extends AbstractIdentificableApiCo
 			return ResponseEntity.ok().build();
 //		}
 	}
-	
+
 }

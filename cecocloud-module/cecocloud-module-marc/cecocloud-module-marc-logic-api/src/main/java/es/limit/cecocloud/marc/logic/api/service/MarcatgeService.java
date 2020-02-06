@@ -24,6 +24,6 @@ public interface MarcatgeService extends GenericService<Marcatge, Long> {
 	 * @throws EntityNotFoundException
 	 *             si no s'ha trobat l'operari especificat.
 	 */
-	public Marcatge findDarrerMarcatgePerOperari(Long operariId) throws EntityNotFoundException;
+	public Marcatge findDarrerMarcatgePerOperariEmpresa(Long operariEmpresaId) throws EntityNotFoundException;
 
 }

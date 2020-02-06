@@ -54,11 +54,13 @@ public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 	@Enumerated
 	protected EmpresaTipusEnum tipus;
 	@RestapiField(hiddenInLov = true)
-	private boolean activa;
+	private boolean activa = true;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			includeInQuickFilter = false)
 	private GenericReference<Empresa, Long> empresaComptable;
 
 	public enum EmpresaTipusEnum {

@@ -12,27 +12,24 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
-import es.limit.base.boot.persist.entity.UsuariEntity;
-import es.limit.base.boot.persist.repository.UsuariRepository;
-import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.marc.logic.api.dto.EmpresaMobil;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen;
-import es.limit.cecocloud.marc.logic.api.dto.Operari;
 import es.limit.cecocloud.marc.logic.api.service.MobileMarcatgeService;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
-import es.limit.cecocloud.marc.persist.entity.OperariEntity;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
-import es.limit.cecocloud.marc.persist.repository.OperariRepository;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
+import es.limit.cecocloud.persist.entity.OperariEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.OperariEmpresaRepository;
+import es.limit.cecocloud.persist.repository.OperariRepository;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
@@ -46,14 +43,14 @@ import ma.glasnost.orika.MapperFacade;
 public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Autowired
-	private UsuariRepository usuariRepository;
-	@Autowired
 	private OperariRepository operariRepository;
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	@Autowired
+	private OperariEmpresaRepository operariEmpresaRepository;
+	@Autowired
 	private MarcatgeRepository marcatgeRepository;
-	
+
 	@Autowired
 	protected MapperFacade orikaMapperFacade;
 	@Autowired
@@ -61,96 +58,84 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 
 	@Override
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
-		OperariEntity operari = getOperariPerMarcatge(marcatgeMobil);
-		Marcatge marcatge = new Marcatge();
-		log.info("Rebut marcatge de l'app mòbil (" +
-				"operari=" + operari.getEmbedded().getDescripcio() + ", " +
-				"data=" + marcatgeMobil.getData() + ", " +
-				"dataActual=" + new Date() + ")");
-		marcatge.setData(marcatgeMobil.getData());
-		marcatge.setOrigen(MarcatgeOrigen.MOBIL);
-		marcatge.setLatitud(marcatgeMobil.getLatitud());
-		marcatge.setLongitud(marcatgeMobil.getLongitud());
-		MarcatgeEntity entity = MarcatgeEntity.builder().
-				operari(operari).
-				embedded(marcatge).
-				build();
-		return toMarcatgeMobil(marcatgeRepository.save(entity));
-	}
-
-	@Override
-	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
-		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(authenticationHelper.getPrincipalName());
-		EmpresaEntity empresa = empresaRepository.getOne(consulta.getEmpresaId());
-		Optional<OperariEntity> operari = operariRepository.findByUsuariAndEmpresaAndEmbeddedDataFiNull(
-				usuari.get(),
-				empresa);
-		Calendar dataFi = Calendar.getInstance();
-		dataFi.setTime(consulta.getData());
-		dataFi.set(Calendar.HOUR_OF_DAY, 23);
-		dataFi.set(Calendar.MINUTE, 59);
-		dataFi.set(Calendar.SECOND, 59);
-		dataFi.set(Calendar.MILLISECOND, 999);
-		List<MarcatgeEntity> marcatges = marcatgeRepository.findByOperariAndBetweenDatesMobile(
-				operari.get(),
-				consulta.getData(),
-				false,
-				dataFi.getTime());
-		return marcatges.stream().map(marcatge -> toMarcatgeMobil(marcatge)).collect(Collectors.toList());
-	}
-
-	@Override
-	public List<Empresa> empresesFindDisponiblesPerUsuariActual() {
-		List<OperariEntity> operaris = findOperarisActiusIAmbEmpresaActivaPerUsuariActual();
-		// TODO: Controlar si es retornen empreses repetides
-		return orikaMapperFacade.mapAsList(
-				operaris.stream().map(OperariEntity::getEmpresa).collect(Collectors.toList()),
-				Empresa.class);
-	}
-
-	private OperariEntity getOperariPerMarcatge(MarcatgeMobil marcatgeMobil) {
-		if (marcatgeMobil.getEmpresa() != null) {
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			String currentUserName = auth.getName();
-			Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
-			Optional<EmpresaEntity> empresa = empresaRepository.findById(marcatgeMobil.getEmpresa().getId());
-			if (empresa.get().getEmbedded().isActiva()) {
-				List<OperariEntity> operaris = operariRepository.findByUsuariAndEmpresa(
-						usuari.get(),
-						empresa.get());
-				OperariEntity trobat = null;
-				for (OperariEntity operari: operaris) {
-					Operari embedded = operari.getEmbedded();
-					Date marcatgeData = marcatgeMobil.getData();
-					if (marcatgeData.after(embedded.getDataInici()) && (embedded.getDataFi() == null || marcatgeData.before(embedded.getDataFi()))) {
-						trobat = operari;
-						break;
-					}
-				}
-				return trobat;
-			} else {
-				throw new EntityNotFoundException("Empresa autoritzada amb id " + marcatgeMobil.getEmpresa().getId());
-			}
+		if (marcatgeMobil.getEmpresa() != null && marcatgeMobil.getEmpresa().getId() != null) {
+			OperariEmpresaEntity operariEmpresa = getOperariEmpresaPerMarcatge(marcatgeMobil.getEmpresa().getId());
+			log.info("Rebut marcatge de l'app mòbil (" +
+					"operari=" + operariEmpresa.getEmbedded().getDescription() + ", " +
+					"data=" + marcatgeMobil.getData() + ", " +
+					"dataActual=" + new Date() + ")");
+			Marcatge marcatge = new Marcatge();
+			marcatge.setData(marcatgeMobil.getData());
+			marcatge.setOrigen(MarcatgeOrigen.MOBIL);
+			marcatge.setLatitud(marcatgeMobil.getLatitud());
+			marcatge.setLongitud(marcatgeMobil.getLongitud());
+			MarcatgeEntity entity = MarcatgeEntity.builder().
+					operariEmpresa(operariEmpresa).
+					embedded(marcatge).
+					build();
+			return toMarcatgeMobil(marcatgeRepository.save(entity));
 		} else {
 			throw new IllegalArgumentException("S'ha enviat un marcatge sense empresa");
 		}
 	}
 
-	private List<OperariEntity> findOperarisActiusIAmbEmpresaActivaPerUsuariActual() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String currentUserName = auth.getName();
-		Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(currentUserName);
-		return operariRepository.findByUsuariAndDataFiNullAndEmpresaActiva(
-				usuari.get(),
-				new Date(),
+	@Override
+	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
+		if (consulta.getEmpresaId() != null) {
+			OperariEmpresaEntity operariEmpresa = getOperariEmpresaPerMarcatge(consulta.getEmpresaId());
+			Calendar dataFi = Calendar.getInstance();
+			dataFi.setTime(consulta.getData());
+			dataFi.set(Calendar.HOUR_OF_DAY, 23);
+			dataFi.set(Calendar.MINUTE, 59);
+			dataFi.set(Calendar.SECOND, 59);
+			dataFi.set(Calendar.MILLISECOND, 999);
+			List<MarcatgeEntity> marcatges = marcatgeRepository.findByOperariEmpresaAndBetweenDatesMobile(
+					operariEmpresa,
+					consulta.getData(),
+					false,
+					dataFi.getTime());
+			return marcatges.stream().map(marcatge -> toMarcatgeMobil(marcatge)).collect(Collectors.toList());
+		} else {
+			throw new IllegalArgumentException("S'ha enviat una consulta sense empresa");
+		}
+	}
+
+	@Override
+	public List<EmpresaMobil> empresesFindDisponiblesPerUsuariActual() {
+		List<OperariEntity> operaris = operariRepository.findByUsuariEmbeddedCodiAndEmbeddedActiu(
+				authenticationHelper.getPrincipalName(),
 				true);
+		List<OperariEmpresaEntity> operarisEmpreses = operariEmpresaRepository.findByOperariInAndEmbeddedActiuAndEmpresaEmbeddedActiva(
+				operaris,
+				true,
+				true);
+		return orikaMapperFacade.mapAsList(
+				operarisEmpreses.stream().map(OperariEmpresaEntity::getEmpresa).collect(Collectors.toList()),
+				EmpresaMobil.class);
+	}
+
+	private OperariEmpresaEntity getOperariEmpresaPerMarcatge(Long empresaId) {
+		Optional<EmpresaEntity> empresa = empresaRepository.findById(empresaId);
+		if (empresa.get().getEmbedded().isActiva()) {
+			Optional<OperariEntity> operari = operariRepository.findByIdentificadorAndEmbeddedActiuAndUsuariEmbeddedCodi(
+					empresa.get().getIdentificador(),
+					true,
+					authenticationHelper.getPrincipalName());
+			Optional<OperariEmpresaEntity> operariEmpresa = operariEmpresaRepository.findByOperariAndEmpresaAndEmbeddedActiu(
+					operari.get(),
+					empresa.get(),
+					true);
+			return operariEmpresa.get();
+		} else {
+			throw new EntityNotFoundException("Empresa autoritzada amb id " + empresaId);
+		}
 	}
 
 	private MarcatgeMobil toMarcatgeMobil(MarcatgeEntity marcatge) {
 		MarcatgeMobil marcatgeMobil = new MarcatgeMobil();
 		marcatgeMobil.setEmpresa(
 				GenericReference.toGenericReference(
-						marcatge.getOperari().getEmpresa().getId()));
+						marcatge.getOperariEmpresa().getEmpresa().getId()));
 		marcatgeMobil.setData(marcatge.getEmbedded().getData());
 		marcatgeMobil.setLatitud(marcatge.getEmbedded().getLatitud());
 		marcatgeMobil.setLongitud(marcatge.getEmbedded().getLongitud());

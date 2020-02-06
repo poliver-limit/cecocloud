@@ -1,4 +1,5 @@
 import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HalParam } from 'angular4-hal';
@@ -8,7 +9,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { BngAuthService, BngDatagrid } from 'base-angular';
 
 import { UsuariIdentificadorsService } from './usuari-identificadors.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarisService } from './usuaris.service';
 
 @Component({
@@ -30,9 +30,8 @@ export class UsuariIdentificadorsGridComponent {
 	};
 
 	onGridActionCreate() {
-
 		const dialogRef = this.dialog.open(UsuariIdentificadorsAddDialog, {
-			width: '500px'
+			width: '600px'
 		});
 		dialogRef.afterClosed().subscribe(usuari => {
 			if (usuari) {
@@ -105,20 +104,24 @@ export class UsuariIdentificadorsGridComponent {
 	template: `
 <h1 mat-dialog-title>{{'page.companyia-usuaris.modal.titol' | translate}}</h1>
 <div mat-dialog-content>
+	<p>{{'page.companyia-usuaris.modal.instruccions' | translate}}</p>
 	<mat-form-field appearance="outline" style="width:100%">
-		<mat-label>Correu-e</mat-label>
+		<mat-label>{{'page.companyia-usuaris.modal.field.email' | translate}}</mat-label>
 		<input matInput type="email" [formControl]="email" cdkFocusInitial/>
 		<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
 	</mat-form-field>
-	<mat-card *ngIf="usuari">
-		<mat-card-header>
-			<ng-container mat-card-avatar>
-				<button mat-mini-fab>{{usuari.nom.charAt(0).toUpperCase()}}</button>
-			</ng-container>
-			<mat-card-title>{{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
-			<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>
-		</mat-card-header>
-	</mat-card>
+	<ng-container *ngIf="usuari">
+		<p>{{'page.companyia-usuaris.modal.usuari.trobat' | translate}}:</p>
+		<mat-card>
+			<mat-card-header>
+				<ng-container mat-card-avatar>
+					<button mat-mini-fab>{{usuari.nom.charAt(0).toUpperCase()}}</button>
+				</ng-container>
+				<mat-card-title>{{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
+				<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>
+			</mat-card-header>
+		</mat-card>
+	</ng-container>
 	<br/>
 </div>
 <div mat-dialog-actions style="justify-content:space-between">

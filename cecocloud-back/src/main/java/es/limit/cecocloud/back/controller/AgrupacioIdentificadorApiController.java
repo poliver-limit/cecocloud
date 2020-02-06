@@ -25,4 +25,5 @@ public class AgrupacioIdentificadorApiController extends AbstractIdentificableAp
 		Long identificadorId = ((UserSession)userSession).getI();
 		return "identificador.id==" + identificadorId;
 	}
+
 }

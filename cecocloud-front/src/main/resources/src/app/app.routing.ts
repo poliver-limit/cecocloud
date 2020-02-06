@@ -29,12 +29,16 @@ import { BngAuthGuard } from 'base-angular';
 			loadChildren: () => import('./pages/usuari-identificadors/usuari-identificadors.module').then(m => m.UsuariIdentificadorsModule),
 			canActivate: [BngAuthGuard]
 		}, {
-			path: 'perfils',
-			loadChildren: () => import('./pages/perfils/perfils.module').then(m => m.PerfilsModule),
+			path: 'operaris',
+			loadChildren: () => import('./pages/operaris/operaris.module').then(m => m.OperarisModule),
 			canActivate: [BngAuthGuard]
 		}, {
 			path: 'empreses',
 			loadChildren: () => import('./pages/empreses/empreses.module').then(m => m.EmpresesModule),
+			canActivate: [BngAuthGuard]
+		}, {
+			path: 'perfils',
+			loadChildren: () => import('./pages/perfils/perfils.module').then(m => m.PerfilsModule),
 			canActivate: [BngAuthGuard]
 		}, {
 			path: '**',

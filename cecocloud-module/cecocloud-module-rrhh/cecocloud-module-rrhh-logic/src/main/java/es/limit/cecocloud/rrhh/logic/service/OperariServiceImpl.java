@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service("OperariRrhhService")
+@Service("rrhhOperariServiceImpl")
 public class OperariServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Operari, OperariEntity, String> implements OperariService {
 
 }

@@ -6,6 +6,8 @@ package es.limit.cecocloud.logic.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,8 +16,20 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.limit.base.boot.logic.api.permission.ExternalGrantedAuthority;
 import es.limit.base.boot.logic.api.service.SessionService;
+import es.limit.base.boot.persist.entity.UsuariEntity;
+import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.UserSession;
+import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import es.limit.cecocloud.persist.entity.PerfilUsuariIdentificadorEmpresaEntity;
+import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
+import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
+import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
+import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
+import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
 /**
  * Implementació del servei encarregat de gestionar les sessions d'usuari del front.
@@ -27,6 +41,16 @@ public class SessionServiceImpl implements SessionService {
 
 	@Autowired
 	private ObjectMapper jacksonObjectMapper;
+	@Autowired
+	private PerfilUsuariIdentificadorEmpresaRepository perfilUsuariIdentificadorEmpresaRepository;
+	@Autowired
+	private UsuariIdentificadorEmpresaRepository usuariIdentificadorEmpresaRepository;
+	@Autowired
+	private UsuariIdentificadorRepository usuariIdentificadorRepository;
+	@Autowired
+	private EmpresaRepository empresaRepository;
+	@Autowired
+	private UsuariRepository usuariRepository;
 
 	@Override
 	public Object parseJsonSession(JsonNode jsonNode) {
@@ -57,8 +81,8 @@ public class SessionServiceImpl implements SessionService {
 				empresaId = userSession.getE();
 			}
 			if (empresaId != null) { // && identificadorCodi != null) {
-				// TODO retornar les funcionalitats associades a l'usuari com a GrantedAuthority
-				/*Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariCodi);
+				// Retorna els perfils associats a l'usuari com a GrantedAuthority
+				Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariCodi);
 				Optional<EmpresaEntity> empresa = empresaRepository.findById(empresaId);
 				IdentificadorEntity identificador = empresa.get().getIdentificador();
 				Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findByUsuariAndIdentificador(
@@ -67,11 +91,12 @@ public class SessionServiceImpl implements SessionService {
 				Optional<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpresa = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
 						usuariIdentificador.get(),
 						empresa.get());
-				List<PerfilUsuariIdentificadorEmpresaEntity> perfils = perfilUsuariIdentificadorEmpresaRepository.findByUsuariIdentificadorEmpresa(
+				List<PerfilUsuariIdentificadorEmpresaEntity> perfilsUsuariIdentificadorEmpresa = perfilUsuariIdentificadorEmpresaRepository.findByUsuariIdentificadorEmpresa(
 						usuariIdentificadorEmpresa.get());
-				if (perfils != null && !perfils.isEmpty()) {
-					//grantedAuthorities = rols.stream().map(rol -> new ExternalGrantedAuthority(rol.getId().toString())).collect(Collectors.toList()); 
-				}*/
+				if (perfilsUsuariIdentificadorEmpresa != null && !perfilsUsuariIdentificadorEmpresa.isEmpty()) {
+					grantedAuthorities = perfilsUsuariIdentificadorEmpresa.stream().map(
+							perfilUsuariIdentificadorEmpresa -> new ExternalGrantedAuthority(perfilUsuariIdentificadorEmpresa.getPerfil().getId().toString())).collect(Collectors.toList()); 
+				}
 			}
 		}
 		return grantedAuthorities;
