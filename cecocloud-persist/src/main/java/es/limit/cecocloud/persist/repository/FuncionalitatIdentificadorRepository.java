@@ -16,5 +16,5 @@ import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 public interface FuncionalitatIdentificadorRepository extends BaseRepository<FuncionalitatIdentificadorEntity, Long> {
 
 	List<FuncionalitatIdentificadorEntity> findByIdentificadorIdOrderByFuncionalitatEmbeddedDescripcio(Long identificadorId);
-	
+
 }
