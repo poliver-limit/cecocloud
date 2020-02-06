@@ -1,11 +1,11 @@
 import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HalParam } from 'angular4-hal';
 import { of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, finalize } from 'rxjs/operators';
-import { BngDatagrid } from 'base-angular';
+import { BngDatagrid, BngDatagridConfig } from 'base-angular';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { OperarisService } from './operaris.service';
@@ -25,7 +25,7 @@ export class OperarisGridComponent {
 
 	@ViewChild('datagrid', { static: false }) datagrid: BngDatagrid;
 
-	datagridConfig = {
+	datagridConfig: BngDatagridConfig = {
 		columnFiltersEnabled: true
 	};
 

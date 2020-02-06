@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatRecurs;
 import lombok.AccessLevel;
@@ -35,7 +37,7 @@ import lombok.Setter;
 @Table(
 		name = "funcionalitat_recurs",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "funcrecu_uk", columnNames = {"funcionalitat_id", "resource_classname"})
+				@UniqueConstraint(name = "funcrecu_uk", columnNames = {"funcionalitat_id", "recurs_id"})
 		}
 )
 @AttributeOverrides({
@@ -52,6 +54,14 @@ public class FuncionalitatRecursEntity extends AbstractAuditableVersionableEntit
 			name = "funcionalitat_id",
 			foreignKey = @ForeignKey(name = "funcrecu_funcionalitat_fk"))
 	protected FuncionalitatEntity funcionalitat;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "recurs_id",
+			foreignKey = @ForeignKey(name = "funcrecu_recurs_fk"))
+	protected RecursEntity recurs;
+
+	@Formula(value="(select rec.class_name from recurs rec where rec.id = recurs_id)")
+	private String recursClassName;
 
 	@Builder
     public FuncionalitatRecursEntity(
@@ -65,6 +75,9 @@ public class FuncionalitatRecursEntity extends AbstractAuditableVersionableEntit
 	}
 	public void updateFuncionalitat(FuncionalitatEntity funcionalitat) {
 		this.funcionalitat = funcionalitat;
+	}
+	public void updateRecurs(RecursEntity recurs) {
+		this.recurs = recurs;
 	}
 
 }

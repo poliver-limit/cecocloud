@@ -25,6 +25,7 @@ import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
 import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
 import es.limit.cecocloud.logic.api.dto.UserSession;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.service.FuncionalitatPerfilService;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorPerfilEntity;
@@ -103,7 +104,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 			
 			List<FuncionalitatInfo> funcionalitatsInfo = new ArrayList<FuncionalitatInfo>(); 
 			List<FuncionalitatIdentificadorEntity> funcionalitatsIdentificadorModul = funcionalitatIdentificadors.stream()
-					.filter(funcidf -> funcidf.getFuncionalitat().getEmbedded().getModul().equals(modul.getCode())
+					.filter(funcidf -> funcidf.getFuncionalitat().getEmbedded().getModul().equals(Modul.valueOf(modul.getCode()))
 							).collect(Collectors.toList());
 			
 			for (FuncionalitatIdentificadorEntity funcidfModul: funcionalitatsIdentificadorModul) {
@@ -179,20 +180,20 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				funcionalitatIdentificadorPerfilRepository.save(funcionalitatIdentificadorPerfil);
 				
 				// 2. Assignam permisos a recursos
-				for (FuncionalitatRecursEntity recurs: funcionalitatsRecurs) {
+				for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatsRecurs) {
 					BaseBootPermission permisRecurs = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
 					
 					if (!funcionalitatsIdentificadorTotes.isEmpty())
 						funcionalitatRecursRepository.findPermisosByFuncionalitatsIdentificadorAndRecurs(
 								funcionalitatsIdentificadorTotes, 
-								recurs.getEmbedded().getResourceClassName()
+								funcionalitatRecurs.getRecursClassName()
 								).forEach(funcRecurs -> permisRecurs.setGranted(
 										funcRecurs.isPrincipal() ? 
 												permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
 												ExtendedPermission.READ.getMask()));
 					
-					permisRecurs.setGranted(recurs.getEmbedded().isPrincipal() ? permis.getMask() : ExtendedPermission.READ.getMask());
-					resourcePermissionService.savePermission(recurs.getEmbedded().getResourceClassName(), permisRecurs);
+					permisRecurs.setGranted(funcionalitatRecurs.getEmbedded().isPrincipal() ? permis.getMask() : ExtendedPermission.READ.getMask());
+					resourcePermissionService.savePermission(funcionalitatRecurs.getRecursClassName(), permisRecurs);
 				}
 			}
 			
@@ -207,14 +208,14 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				funcionalitatIdentificadorPerfilRepository.delete(funcionalitatIdentificadorPerfil);
 				
 				// 2. comprovam si hem d'eliminar els permisos
-				for (FuncionalitatRecursEntity recurs: funcionalitatsRecurs) {
+				for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatsRecurs) {
 					BaseBootPermission permisRecursActual = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
 					BaseBootPermission permisRecursAltres = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
 					
 					if (!funcionalitatsIdentificadorTotes.isEmpty())
 						funcionalitatRecursRepository.findPermisosByFuncionalitatsIdentificadorAndRecurs(
 								funcionalitatsIdentificadorTotes, 
-								recurs.getEmbedded().getResourceClassName()
+								funcionalitatRecurs.getRecursClassName()
 								).forEach(funcRecurs -> permisRecursActual.setGranted(
 										funcRecurs.isPrincipal() ? 
 												permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
@@ -223,20 +224,20 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 					if (!funcionalitatsIdentificadorAltres.isEmpty())
 						funcionalitatRecursRepository.findPermisosByFuncionalitatsIdentificadorAndRecurs(
 								funcionalitatsIdentificadorAltres, 
-								recurs.getEmbedded().getResourceClassName()
+								funcionalitatRecurs.getRecursClassName()
 								).forEach(funcRecurs -> permisRecursAltres.setGranted(
 										funcRecurs.isPrincipal() ? 
 												permissionFactory.buildFromName(funcRecurs.getPermis()).getMask() : 
 												ExtendedPermission.READ.getMask()));
 					
-					if (recurs.getEmbedded().isPrincipal()) {
+					if (funcionalitatRecurs.getEmbedded().isPrincipal()) {
 						if (!permisRecursAltres.isGranted(permis.getMask()))
 							permisRecursActual.setNotGranted(permis.getMask());
 					} else {
 						if (!permisRecursAltres.isGranted(ExtendedPermission.READ.getMask()))
 							permisRecursActual.setNotGranted(ExtendedPermission.READ.getMask());
 					}
-					resourcePermissionService.savePermission(recurs.getEmbedded().getResourceClassName(), permisRecursActual);
+					resourcePermissionService.savePermission(funcionalitatRecurs.getRecursClassName(), permisRecursActual);
 				}
 			}
 			

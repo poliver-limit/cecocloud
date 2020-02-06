@@ -22,10 +22,12 @@ import es.limit.cecocloud.persist.entity.FuncionalitatRecursEntity;
 public interface FuncionalitatRecursRepository extends BaseRepository<FuncionalitatRecursEntity, Long> {
 
 	List<FuncionalitatRecursEntity> findByFuncionalitat(FuncionalitatEntity funcionalitat);
-	List<FuncionalitatRecursEntity> findByFuncionalitatInAndEmbeddedResourceClassName(List<FuncionalitatEntity> funcionalitats, String resourceName);
+	/*List<FuncionalitatRecursEntity> findByFuncionalitatInAndRecursEmbeddedClassName(
+			List<FuncionalitatEntity> funcionalitats,
+			String className);*/
 	
 	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(" + 
-			"		fr.embedded.resourceClassName," +
+			"		fr.recurs.embedded.className," +
 			" 		fr.embedded.principal, " +
 			" 		fip.embedded.permis) " +
 			" from " +
@@ -39,9 +41,9 @@ public interface FuncionalitatRecursRepository extends BaseRepository<Funcionali
 //			"and fr.funcionalitat = f " +
 			"and fr.funcionalitat = fi.funcionalitat " +
 			"and fip.funcionalitatIdentificador = fi " +
-			"and fr.embedded.resourceClassName = :resourceName")
+			"and fr.recurs.embedded.className = :recursClassName")
 	List<FuncionalitatRecursInfo> findPermisosByFuncionalitatsIdentificadorAndRecurs(
 			@Param("funcionalitatsIdentificador") List<FuncionalitatIdentificadorEntity> funcionalitatsIdentificador, 
-			@Param("resourceName") String resourceName);
+			@Param("recursClassName") String recursClassName);
 	
 }
