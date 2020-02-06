@@ -71,7 +71,7 @@ create table funcionalitat_ident (
     primary key (id)
 );
 
-create table funcionalitat_perfil (
+create table funcionalitat_ident_perfil (
    id int8 not null,
     created_by varchar(64) not null,
     created_date timestamp not null,
@@ -79,7 +79,7 @@ create table funcionalitat_perfil (
     lastmod_date timestamp,
     version int8 not null,
     permis varchar(20) not null,
-    funcionalitat_id int8 not null,
+    funcionalitat_identificador_id int8 not null,
     perfil_id int8 not null,
     primary key (id)
 );
@@ -235,8 +235,8 @@ alter table funcionalitat
 alter table funcionalitat_ident 
    add constraint funcident_uk unique (funcionalitat_id, identificador_id);
 
-alter table funcionalitat_perfil 
-   add constraint funcperf_uk unique (funcionalitat_id, perfil_id, permis);
+alter table funcionalitat_ident_perfil 
+   add constraint funcidfperf_uk unique (funcionalitat_identificador_id, perfil_id, permis);
 
 alter table funcionalitat_recurs 
    add constraint funcrecu_uk unique (funcionalitat_id, resource_classname);
@@ -310,13 +310,13 @@ alter table funcionalitat_ident
    foreign key (identificador_id) 
    references identificador;
 
-alter table funcionalitat_perfil 
-   add constraint funcperf_funcionalitat_fk 
-   foreign key (funcionalitat_id) 
-   references funcionalitat;
+alter table funcionalitat_ident_perfil 
+   add constraint funcidfperf_funcidf_fk 
+   foreign key (funcionalitat_identificador_id) 
+   references funcionalitat_ident;
 
-alter table funcionalitat_perfil 
-   add constraint funcperf_perfil_fk 
+alter table funcionalitat_ident_perfil 
+   add constraint funcidfperf_perfil_fk 
    foreign key (perfil_id) 
    references perfil;
 
