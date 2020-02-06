@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
-import es.limit.cecocloud.logic.api.dto.FuncionalitatPerfil;
+import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Entitat de base de dades que representa una relacio funcionalitat-perfil.
+ * Entitat de base de dades que representa una relacio funcionalitatIdentificador-perfil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -33,46 +33,46 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "funcionalitat_perfil",
+		name = "funcionalitat_ident_perfil",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "funcperf_uk", columnNames = {"funcionalitat_id", "perfil_id", "permis"})
+				@UniqueConstraint(name = "funcidfperf_uk", columnNames = {"funcionalitat_identificador_id", "perfil_id", "permis"})
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.permis", column = @Column(name = "permis", length = 20, nullable = false))
 })
-public class FuncionalitatPerfilEntity extends AbstractAuditableVersionableEntity<FuncionalitatPerfil, Long> {
+public class FuncionalitatIdentificadorPerfilEntity extends AbstractAuditableVersionableEntity<FuncionalitatIdentificadorPerfil, Long> {
 
 	@Embedded
-	protected FuncionalitatPerfil embedded;
+	protected FuncionalitatIdentificadorPerfil embedded;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "funcionalitat_id",
-			foreignKey = @ForeignKey(name = "funcperf_funcionalitat_fk"))
-	protected FuncionalitatEntity funcionalitat;
+			name = "funcionalitat_identificador_id",
+			foreignKey = @ForeignKey(name = "funcidfperf_funcidf_fk"))
+	protected FuncionalitatIdentificadorEntity funcionalitatIdentificador;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "perfil_id",
-			foreignKey = @ForeignKey(name = "funcperf_perfil_fk"))
+			foreignKey = @ForeignKey(name = "funcidfperf_perfil_fk"))
 	protected PerfilEntity perfil;
 
 	@Builder
-    public FuncionalitatPerfilEntity(
-    		FuncionalitatPerfil embedded,
-    		FuncionalitatEntity funcionalitat,
+    public FuncionalitatIdentificadorPerfilEntity(
+    		FuncionalitatIdentificadorPerfil embedded,
+    		FuncionalitatIdentificadorEntity funcionalitatIdentificador,
     		PerfilEntity perfil) {
         this.embedded = embedded;
-        this.funcionalitat = funcionalitat;
+        this.funcionalitatIdentificador = funcionalitatIdentificador;
         this.perfil = perfil;
     }
 
 	@Override
-	public void update(FuncionalitatPerfil embedded) {
+	public void update(FuncionalitatIdentificadorPerfil embedded) {
 		this.embedded = embedded;
 	}
-	public void updateFuncionalitat(FuncionalitatEntity funcionalitat) {
-		this.funcionalitat = funcionalitat;
+	public void updateFuncionalitatIdentificador(FuncionalitatIdentificadorEntity funcionalitatIdentificador) {
+		this.funcionalitatIdentificador = funcionalitatIdentificador;
 	}
 	public void updatePerfil(PerfilEntity perfil) {
 		this.perfil = perfil;
