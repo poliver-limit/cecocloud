@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,6 +14,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.logic.api.module.Modul;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,7 +42,8 @@ public class Agrupacio extends AbstractIdentificable<Long> {
 	@Size(max = 4)
 	@RestapiField(
 			includeInQuickFilter = true)
-	private String modul;
+	@Enumerated(EnumType.STRING)
+	private Modul modul;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
