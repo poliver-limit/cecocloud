@@ -16,6 +16,7 @@ import es.limit.cecocloud.lici.persist.entity.ConfiguracioEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class ConfiguracioServiceImpl extends AbstractGenericServiceImpl<Configuracio, ConfiguracioEntity, Long> implements ConfiguracioService {
+public class ConfiguracioServiceImpl extends AbstractGenericServiceImpl<Configuracio, ConfiguracioEntity, Long>
+		implements ConfiguracioService {
 
 }
