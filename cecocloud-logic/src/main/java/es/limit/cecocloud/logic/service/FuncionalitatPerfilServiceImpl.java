@@ -181,7 +181,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				
 				// 2. Assignam permisos a recursos
 				for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatsRecurs) {
-					BaseBootPermission permisRecurs = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
+					BaseBootPermission permisRecurs = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, "Perfil_" + perfil.getId());
 					
 					if (!funcionalitatsIdentificadorTotes.isEmpty())
 						funcionalitatRecursRepository.findPermisosByFuncionalitatsIdentificadorAndRecurs(
@@ -209,8 +209,8 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				
 				// 2. comprovam si hem d'eliminar els permisos
 				for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatsRecurs) {
-					BaseBootPermission permisRecursActual = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
-					BaseBootPermission permisRecursAltres = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, perfil.getId().toString());
+					BaseBootPermission permisRecursActual = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, "Perfil_" + perfil.getId());
+					BaseBootPermission permisRecursAltres = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, "Perfil_" + perfil.getId());
 					
 					if (!funcionalitatsIdentificadorTotes.isEmpty())
 						funcionalitatRecursRepository.findPermisosByFuncionalitatsIdentificadorAndRecurs(
