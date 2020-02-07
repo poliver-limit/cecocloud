@@ -197,7 +197,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean logoImprimir;
+	private Boolean logoImprimir;
 	
 	@RestapiField(hiddenInLov = true,
 			hiddenInGrid = true)

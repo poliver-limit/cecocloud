@@ -5,7 +5,6 @@ package es.limit.cecocloud.logic.api.dto;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -21,33 +20,19 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-@RestapiResource(
-		descriptionField = "descripcio")
+@RestapiResource
 public class FuncionalitatRecurs extends AbstractIdentificable<Long> {
 
 	@NotNull
-	private boolean principal;
-	@NotNull
-	@Size(max = 100)
-	@RestapiField(
-			includeInQuickFilter = true)
-	private String resourceClassName;
-	@NotNull
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
+			type = RestapiFieldType.LOV)
 	private GenericReference<Funcionalitat, Long> funcionalitat;
+	@NotNull
 	@Transient
 	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private String description;
-
-	public String getDescription() {
-		return funcionalitat.getDescription() + " - " + resourceClassName + (principal ? "(P)": "");
-	}
+			type = RestapiFieldType.LOV)
+	private GenericReference<Recurs, Long> recurs;
+	private boolean principal;
 
 }

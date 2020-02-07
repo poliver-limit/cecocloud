@@ -7,7 +7,7 @@ import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.Perfil;
 
 /**
- * Servei encarregat de gestionar pefils.
+ * Servei encarregat de gestionar perfils.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

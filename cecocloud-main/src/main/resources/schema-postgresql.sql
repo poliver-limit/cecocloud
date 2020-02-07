@@ -55,7 +55,6 @@ create table funcionalitat (
     modul varchar(4) not null,
     tipus int4 not null,
     pare_id int8,
-    recurs_principal_id int8 not null,
     primary key (id)
 );
 
@@ -71,7 +70,7 @@ create table funcionalitat_ident (
     primary key (id)
 );
 
-create table funcionalitat_perfil (
+create table funcionalitat_ident_perfil (
    id int8 not null,
     created_by varchar(64) not null,
     created_date timestamp not null,
@@ -79,7 +78,7 @@ create table funcionalitat_perfil (
     lastmod_date timestamp,
     version int8 not null,
     permis varchar(20) not null,
-    funcionalitat_id int8 not null,
+    funcionalitat_identificador_id int8 not null,
     perfil_id int8 not null,
     primary key (id)
 );
@@ -92,8 +91,8 @@ create table funcionalitat_recurs (
     lastmod_date timestamp,
     version int8 not null,
     principal boolean not null,
-    resource_classname varchar(100) not null,
     funcionalitat_id int8 not null,
+    recurs_id int8 not null,
     primary key (id)
 );
 
@@ -169,6 +168,18 @@ create table perfil_usuidentemp (
     primary key (id)
 );
 
+create table recurs (
+   id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
+    version int8 not null,
+    class_name varchar(1024) not null,
+    nom varchar(100) not null,
+    primary key (id)
+);
+
 create table usuari (
    id int8 not null,
     created_by varchar(64) not null,
@@ -229,17 +240,14 @@ alter table empresa
 alter table funcionalitat 
    add constraint funcionalitat_uk unique (codi, modul);
 
-alter table funcionalitat 
-   add constraint funcionalitat_recprincipal_uk unique (recurs_principal_id);
-
 alter table funcionalitat_ident 
    add constraint funcident_uk unique (funcionalitat_id, identificador_id);
 
-alter table funcionalitat_perfil 
-   add constraint funcperf_uk unique (funcionalitat_id, perfil_id, permis);
+alter table funcionalitat_ident_perfil 
+   add constraint funcidfperf_uk unique (funcionalitat_identificador_id, perfil_id, permis);
 
 alter table funcionalitat_recurs 
-   add constraint funcrecu_uk unique (funcionalitat_id, resource_classname);
+   add constraint funcrecu_uk unique (funcionalitat_id, recurs_id);
 
 alter table operari 
    add constraint operari_codi_uk unique (codi, identificador_id);
@@ -252,6 +260,9 @@ alter table perfil
 
 alter table perfil_usuidentemp 
    add constraint perfusuidentemp_uk unique (perfil_id, usuidentemp_id);
+
+alter table recurs 
+   add constraint UK_byygig6iys9sraj7oua9nnd74 unique (class_name);
 
 alter table usuari 
    add constraint usuari_codi_uk unique (codi);
@@ -295,11 +306,6 @@ alter table funcionalitat
    foreign key (pare_id) 
    references funcionalitat;
 
-alter table funcionalitat 
-   add constraint funcrecu_principal_fk 
-   foreign key (recurs_principal_id) 
-   references funcionalitat_recurs;
-
 alter table funcionalitat_ident 
    add constraint funcident_funcionalitat_fk 
    foreign key (funcionalitat_id) 
@@ -310,13 +316,13 @@ alter table funcionalitat_ident
    foreign key (identificador_id) 
    references identificador;
 
-alter table funcionalitat_perfil 
-   add constraint funcperf_funcionalitat_fk 
-   foreign key (funcionalitat_id) 
-   references funcionalitat;
+alter table funcionalitat_ident_perfil 
+   add constraint funcidfperf_funcidf_fk 
+   foreign key (funcionalitat_identificador_id) 
+   references funcionalitat_ident;
 
-alter table funcionalitat_perfil 
-   add constraint funcperf_perfil_fk 
+alter table funcionalitat_ident_perfil 
+   add constraint funcidfperf_perfil_fk 
    foreign key (perfil_id) 
    references perfil;
 
@@ -324,6 +330,11 @@ alter table funcionalitat_recurs
    add constraint funcrecu_funcionalitat_fk 
    foreign key (funcionalitat_id) 
    references funcionalitat;
+
+alter table funcionalitat_recurs 
+   add constraint funcrecu_recurs_fk 
+   foreign key (recurs_id) 
+   references recurs;
 
 alter table identificador 
    add constraint identificador_propietari_fk 

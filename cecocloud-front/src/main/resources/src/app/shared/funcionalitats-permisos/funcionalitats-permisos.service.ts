@@ -13,7 +13,7 @@ export class Recurs extends Resource { }
 export class FuncionalitatsPermisosService {
 
 	public getFuncionalitatsByPerfil(perfilId: number): Observable<any> {
-		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatPerfils/perfil/' + perfilId);
+		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfil/' + perfilId);
 	}
 
 	public getFuncionalitatsByPerfils(perfilsId: number[]): Observable<any> {
@@ -23,11 +23,11 @@ export class FuncionalitatsPermisosService {
 		})
 		let perfilIdparams = perfilsId.join(', ');
 		//console.log("Params: ", params.toString());
-		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatPerfils/perfils/' + perfilIdparams); //, { params: params });
+		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfils/' + perfilIdparams); //, { params: params });
 	}
 
 	public saveFuncionalitat(perfilId: number, funcionalitatInfo: any) {
-		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/funcionalitatPerfils/perfil/' + perfilId + '/permission/save', funcionalitatInfo);
+		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfil/' + perfilId + '/permission/save', funcionalitatInfo);
 	}
 
 	constructor(

@@ -20,9 +20,8 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-
 public class Banc extends AbstractIdentificableWithIdentificadorAndCodi<Integer> {
-	
+
 	@NotNull(groups = {OnCreate.class})
 	@RestapiField(
 			disabledForUpdate = true,
@@ -33,6 +32,5 @@ public class Banc extends AbstractIdentificableWithIdentificadorAndCodi<Integer>
 		includeInQuickFilter = true)
 	@Size(max = 30)
 	private String nom;
-
 
 }

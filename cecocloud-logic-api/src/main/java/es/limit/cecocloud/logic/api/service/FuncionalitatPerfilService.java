@@ -7,7 +7,7 @@ import java.util.List;
 
 import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
-import es.limit.cecocloud.logic.api.dto.FuncionalitatPerfil;
+import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
 import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
 
 /**
@@ -15,7 +15,7 @@ import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface FuncionalitatPerfilService extends GenericService<FuncionalitatPerfil, Long> {
+public interface FuncionalitatPerfilService extends GenericService<FuncionalitatIdentificadorPerfil, Long> {
 
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilOrderByModule(Long perfilId);
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilsOrderByModule(List<Long> perfilsId);

@@ -21,6 +21,14 @@ import { BngAuthGuard } from 'base-angular';
 			loadChildren: () => import('./pages/identificadors/identificadors.module').then(m => m.IdentificadorsModule),
 			canActivate: [BngAuthGuard]
 		}, {
+			path: 'funcionalitats',
+			loadChildren: () => import('./pages/funcionalitats/funcionalitats.module').then(m => m.FuncionalitatsModule),
+			canActivate: [BngAuthGuard]
+		}, {
+			path: 'recursos',
+			loadChildren: () => import('./pages/recursos/recursos.module').then(m => m.RecursosModule),
+			canActivate: [BngAuthGuard]
+		}, {
 			path: 'identificador',
 			loadChildren: () => import('./pages/identificador/identificador.module').then(m => m.IdentificadorModule),
 			canActivate: [BngAuthGuard]

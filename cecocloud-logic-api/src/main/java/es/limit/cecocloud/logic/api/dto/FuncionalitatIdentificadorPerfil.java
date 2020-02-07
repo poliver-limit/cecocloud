@@ -33,7 +33,7 @@ import lombok.Setter;
 						resourcePermission = "ADMINISTRATION"),
 		}
 )
-public class FuncionalitatPerfil extends AbstractIdentificable<Long> {
+public class FuncionalitatIdentificadorPerfil extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Size(max = 20)
@@ -44,7 +44,7 @@ public class FuncionalitatPerfil extends AbstractIdentificable<Long> {
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
-	private GenericReference<Funcionalitat, Long> funcionalitat;
+	private GenericReference<FuncionalitatIdentificador, Long> funcionalitatIdentificador;
 	@NotNull
 	@Transient
 	@RestapiField(
@@ -52,15 +52,13 @@ public class FuncionalitatPerfil extends AbstractIdentificable<Long> {
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Perfil, Long> perfil;
-	@Transient
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private String description;
 
 	public String getDescription() {
-		return funcionalitat.getDescription() + " - " + perfil.getDescription() + " - " + permis;
+		if (funcionalitatIdentificador != null && perfil != null) {
+			return funcionalitatIdentificador.getDescription() + " - " + perfil.getDescription() + " - " + permis;
+		} else {
+			return null;
+		}
 	}
 
 }

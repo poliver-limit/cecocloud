@@ -23,7 +23,7 @@ import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
-import es.limit.cecocloud.logic.api.dto.FuncionalitatPerfil;
+import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
 import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
 import es.limit.cecocloud.logic.api.service.FuncionalitatPerfilService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping(GenericController.API_PATH + "/funcionalitatPerfils")
-public class FuncionalitatPerfilApiController extends AbstractIdentificableApiController<FuncionalitatPerfil, Long> {
+@RequestMapping(GenericController.API_PATH + "/funcionalitatIdentificadorPerfils")
+public class FuncionalitatIdentificadorPerfilApiController extends AbstractIdentificableApiController<FuncionalitatIdentificadorPerfil, Long> {
 
 	@Autowired
 	FuncionalitatPerfilService funcionalitatPerfilService;

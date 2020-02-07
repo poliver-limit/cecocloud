@@ -4,6 +4,7 @@
 package es.limit.cecocloud.rrhh.logic.api.module;
 
 import es.limit.base.boot.logic.api.controller.GenericController;
+import es.limit.cecocloud.logic.api.module.Modul;
 
 /**
  * Configuració del mòdul de recursos humans.
@@ -12,7 +13,7 @@ import es.limit.base.boot.logic.api.controller.GenericController;
  */
 public class RrhhModuleConfig {
 
-	public static final String CODE = "rrhh";
-	public static final String API_PATH = GenericController.API_PATH + "/" + CODE;
+	public static final String CODE = Modul.rrhh.name();
+	public static final String API_PATH = GenericController.API_PATH + "/rrhh";
 
 }

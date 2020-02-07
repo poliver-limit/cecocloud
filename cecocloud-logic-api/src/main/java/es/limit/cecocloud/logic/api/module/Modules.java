@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.logic.api.module;
 
+import java.util.Arrays;
+
 import es.limit.base.boot.logic.api.dto.Profile;
 import es.limit.base.boot.logic.api.module.AbstractModules;
 import es.limit.cecocloud.logic.api.dto.Identificador;
@@ -17,14 +19,7 @@ public class Modules extends AbstractModules {
 	public static void registerModule(ModuleInfo moduleInfo) {
 		if (!isInitialized()) {
 			init(
-					new String[] {
-							"fact",
-							"comp",
-							"rrhh",
-							"rrmm",
-							"lici",
-							"marc"
-					},
+					Arrays.stream(Modul.values()).map(value -> value.name()).toArray(String[]::new),
 					new String[] {
 							Profile.class.getPackage().getName(),
 							Identificador.class.getPackage().getName()

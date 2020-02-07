@@ -25,6 +25,18 @@ export class AppService {
 			labelKey: 'app.menu.identificadors',
 			resource: 'identificador',
 			route: '/identificadors'
+		}, {
+			icon: 'format_list_bulleted',
+			label: 'Funcionalitats',
+			labelKey: 'app.menu.funcionalitats',
+			resource: 'funcionalitat',
+			route: '/funcionalitats'
+		}, {
+			icon: 'widgets',
+			label: 'Recursos',
+			labelKey: 'app.menu.recursos',
+			resource: 'recurs',
+			route: '/recursos'
 		}]
 	}
 
