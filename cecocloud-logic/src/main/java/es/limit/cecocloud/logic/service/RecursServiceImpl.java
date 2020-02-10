@@ -56,6 +56,7 @@ public class RecursServiceImpl extends AbstractGenericServiceImpl<Recurs, Recurs
 					}
 					if (!trobat) {
 						recursRepository.delete(recursEntity);
+						// TODO propagar eliminació de recurs als ACLs
 					}
 				}
 				// Crea o modifica els demés recursos
