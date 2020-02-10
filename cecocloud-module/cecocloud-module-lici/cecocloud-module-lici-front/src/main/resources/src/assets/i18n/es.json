@@ -1,3 +1,8 @@
 {
-
+  "resource.configuracio": "Configuración",
+  "resource.configuracioDuplicat": "Configuración",
+  "resource.configuracio.plural": "Configuraciones",
+  "resource.configuracio.field.sincronitzacioActiva": "Sincronización activa",
+  "resource.configuracio.field.filtreProvincia": "Filtro provincia",
+  "resource.configuracio.field.filtreCpv": "Filtro Cpv"
 }

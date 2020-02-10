@@ -62,10 +62,6 @@ public class FuncionalitatEntity extends AbstractAuditableVersionableEntity<Func
 	@OneToMany(mappedBy = "funcionalitat", cascade = CascadeType.ALL)
 	protected List<FuncionalitatRecursEntity> recursosAuxiliars;
 	
-	// TODO: Afegir traduccions per a les funcionalitats
-	// @OneToMany(mappedBy = "funcionalitat", cascade = CascadeType.ALL)
-	// protected Set<FuncionalitatTraduccioEntity> traduccions;
-
 	@Builder
     public FuncionalitatEntity(
     		Funcionalitat embedded) {

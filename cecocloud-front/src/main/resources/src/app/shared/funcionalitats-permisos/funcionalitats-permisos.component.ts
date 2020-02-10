@@ -42,7 +42,7 @@ import {
 										{{ "resource.funcionalitat" | translate }}
 									</th>
 									<td mat-cell *matCellDef="let funcionalitat">
-										{{ funcionalitat.descripcio }}
+										{{ ("funcionalitat." + funcionalitat.codi) | translate }}
 									</td>
 								</ng-container>
 								<!-- Columna de read -->
