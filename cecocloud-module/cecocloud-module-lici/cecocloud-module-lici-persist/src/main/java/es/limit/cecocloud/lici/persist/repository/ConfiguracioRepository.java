@@ -16,5 +16,6 @@ import es.limit.cecocloud.lici.persist.entity.ConfiguracioEntity;
 
 @Repository
 public interface ConfiguracioRepository extends BaseRepository<ConfiguracioEntity, Long>{
-
+	
+	
 }

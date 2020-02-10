@@ -19,11 +19,10 @@ import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 @Component
 public class MarcModule {
 
-	public static final String CODE = Modul.marc.name();
 	public static final String API_PATH = GenericController.API_PATH + "/marc";
 
 	private static ModuleInfo moduleInfo = new ModuleInfo(
-			CODE,
+			Modul.marc,
 			Marcatge.class.getPackage().getName());
 
 	static {

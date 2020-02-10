@@ -5,12 +5,8 @@ package es.limit.cecocloud.lici.logic.api.dto;
 
 import javax.persistence.Transient;
 
-import es.limit.base.boot.logic.api.annotation.RestapiAuthoritiesWithPermission;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
-import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
-import es.limit.base.boot.logic.api.dto.Authority;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
@@ -38,7 +34,6 @@ import lombok.Setter;
 //				)
 //		}
 	)
-
 public class Configuracio extends AbstractIdentificable<Long> {
 
 	private boolean sincronitzacioActiva;

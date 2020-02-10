@@ -13,5 +13,5 @@ import es.limit.cecocloud.lici.logic.api.dto.Configuracio;
  */
 
 public interface ConfiguracioService extends GenericService<Configuracio, Long>  {
-
+	
 }
