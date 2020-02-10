@@ -6,5 +6,6 @@ public interface FuncionalitatAcl {
 	public void updatePermisosFuncionalitatRecurs(Long funcionalitatId) throws ClassNotFoundException;
 	public void refreshPermisosIdentificador(Long identificadorId) throws ClassNotFoundException;
 	public void refreshPermisosPerfil(Long perfilId) throws ClassNotFoundException;
+	public void refreshPermisosAplicacio() throws ClassNotFoundException;
 
 }
