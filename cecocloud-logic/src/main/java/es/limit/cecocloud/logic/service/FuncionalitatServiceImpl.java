@@ -16,6 +16,7 @@ import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatRecurs;
+import es.limit.cecocloud.logic.api.helper.FuncionalitatAcl;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
@@ -33,6 +34,8 @@ import es.limit.cecocloud.persist.repository.FuncionalitatRepository;
 @Service
 public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcionalitat, FuncionalitatEntity, Long> implements FuncionalitatService {
 
+	@Autowired
+	private FuncionalitatAcl funcionalitatAcl;
 	@Autowired
 	private FuncionalitatRepository funcionalitatRepository;
 	@Autowired
@@ -163,6 +166,16 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			}
 		}
 		return hiHaCanvisRecursos;
+	}
+
+	@Override
+	protected void afterDelete(FuncionalitatEntity entity) {
+		super.afterDelete(entity);
+		try {
+			funcionalitatAcl.updatePermisosFuncionalitatRecurs(entity.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -42,5 +42,7 @@ public interface PerfilRepository extends BaseRepository<PerfilEntity, Long> {
 			"and fip.funcionalitatIdentificador = fi")
 	List<PerfilEntity> findByFuncionalitatId(
 			@Param("funcionalitatId") Long funcionalitatId);
+	
+	List<PerfilEntity> findByIdentificadorId(Long funcionalitatId);
 
 }

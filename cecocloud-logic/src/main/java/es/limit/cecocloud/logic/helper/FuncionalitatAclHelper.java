@@ -44,6 +44,12 @@ public class FuncionalitatAclHelper implements FuncionalitatAcl{
 			refreshPermisosPerfil(perfil.getId());
 	}
 	
+	public void refreshPermisosIdentificador(Long identificadorId) throws ClassNotFoundException {
+		List<PerfilEntity> perfils = perfilRepository.findByIdentificadorId(identificadorId);
+		for (PerfilEntity perfil: perfils)
+			refreshPermisosPerfil(perfil.getId());
+	}
+	
 	public void refreshPermisosPerfil(Long perfilId) throws ClassNotFoundException {
 		
 		// 1. Eliminam els permisos del perfil
