@@ -20,16 +20,6 @@ import lombok.Setter;
 @Getter @Setter
 public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 
-	/*static {
-		new FuncionalitatCodiFontImpl(
-				"TEST",
-				FuncionalitatTipus.MANTENIMENT,
-				"Test",
-				Modul.fact,
-				Arrays.asList(Empresa.class),
-				Arrays.asList(Empresa.class));
-	}*/
-
 	protected String codi;
 	protected FuncionalitatTipus tipus;
 	protected String descripcio;

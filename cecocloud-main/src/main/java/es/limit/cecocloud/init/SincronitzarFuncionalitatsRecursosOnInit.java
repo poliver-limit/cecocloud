@@ -3,9 +3,15 @@
  */
 package es.limit.cecocloud.init;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.logic.api.service.FuncionalitatService;
@@ -22,25 +28,32 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class SincronitzarFuncionalitatsRecursosOnInit {
 
-	private static final boolean SINCRONITZAR = false;
+	private static final boolean SINCRONITZAR = true;
 
 	@Autowired
-	private FuncionalitatService funcionalitatService;
-	@Autowired
 	private RecursService recursService;
+	@Autowired
+	private FuncionalitatService funcionalitatService;
 
 	@EventListener(ApplicationStartedEvent.class)
 	public void handleApplicationStartedEvent() {
-		log.info("Sincronitzant les funcionalitats...");
-		if (SINCRONITZAR) {
-			funcionalitatService.execute("sync", null);
-		}
-		log.info("...funcionalitats sincronitzades correctament");
+		// Per a crear o modificar funcionalitats i recursos és necessari
+		// que hi hagi un usuari autenticat.
+		Authentication auth = new UsernamePasswordAuthenticationToken(
+				"cecocloud",
+				null,
+				Arrays.asList(new SimpleGrantedAuthority("ADMIN")));
+		SecurityContextHolder.getContext().setAuthentication(auth);
 		log.info("Sincronitzant els recursos");
 		if (SINCRONITZAR) {
 			recursService.execute("sync", null);
 		}
 		log.info("...recursos sincronitzats correctament");
+		log.info("Sincronitzant les funcionalitats...");
+		if (SINCRONITZAR) {
+			funcionalitatService.execute("sync", null);
+		}
+		log.info("...funcionalitats sincronitzades correctament");
 	}
 
 }

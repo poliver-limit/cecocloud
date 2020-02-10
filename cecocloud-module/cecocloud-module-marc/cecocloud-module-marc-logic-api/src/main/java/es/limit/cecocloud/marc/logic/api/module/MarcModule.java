@@ -3,9 +3,13 @@
  */
 package es.limit.cecocloud.marc.logic.api.module;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Component;
 
 import es.limit.base.boot.logic.api.controller.GenericController;
+import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
+import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFontImpl;
 import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
@@ -23,7 +27,17 @@ public class MarcModule {
 
 	private static ModuleInfo moduleInfo = new ModuleInfo(
 			Modul.marc,
-			Marcatge.class.getPackage().getName());
+			Marcatge.class.getPackage().getName(),
+			null,
+			Arrays.asList(
+					new FuncionalitatCodiFontImpl(
+							"MARC",
+							FuncionalitatTipus.MANTENIMENT,
+							"Marcatges",
+							Modul.marc,
+							Arrays.asList(Marcatge.class),
+							Arrays.asList())
+					));
 
 	static {
 		Modules.registerModule(moduleInfo);

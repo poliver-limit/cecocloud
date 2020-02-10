@@ -18,13 +18,14 @@ import lombok.Setter;
 public class ModuleInfo extends es.limit.base.boot.logic.api.module.ModuleInfo {
 
 	private Modul modul;
-	private List<FuncionalitatCodiFont> funcionalitats;
 	private Class<? extends EmpresaIdentificadorSyncService> empresaIdentificadorSyncServiceClass;
+	private List<FuncionalitatCodiFont> funcionalitats;
 
 	public ModuleInfo(
 			Modul modul,
 			String dtoPackage) {
 		super(modul.name(), dtoPackage);
+		this.modul = modul;
 	}
 
 	public ModuleInfo(
@@ -33,6 +34,7 @@ public class ModuleInfo extends es.limit.base.boot.logic.api.module.ModuleInfo {
 			Class<? extends EmpresaIdentificadorSyncService> empresaIdentificadorSyncServiceClass,
 			List<FuncionalitatCodiFont> funcionalitats) {
 		super(modul.name(), dtoPackage);
+		this.modul = modul;
 		this.empresaIdentificadorSyncServiceClass = empresaIdentificadorSyncServiceClass;
 		this.funcionalitats = funcionalitats;
 	}
