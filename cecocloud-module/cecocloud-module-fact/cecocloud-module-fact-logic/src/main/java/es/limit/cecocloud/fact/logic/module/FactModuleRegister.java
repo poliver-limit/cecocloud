@@ -6,8 +6,8 @@ package es.limit.cecocloud.fact.logic.module;
 import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.fact.logic.api.dto.Zona;
-import es.limit.cecocloud.fact.logic.api.module.FactModuleConfig;
 import es.limit.cecocloud.fact.logic.service.EmpresaIdentificadorSyncServiceImpl;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 
@@ -20,9 +20,10 @@ import es.limit.cecocloud.logic.api.module.Modules;
 public class FactModuleRegister {
 
 	private static ModuleInfo moduleInfo = new ModuleInfo(
-			FactModuleConfig.CODE,
+			Modul.fact,
 			Zona.class.getPackage().getName(),
-			EmpresaIdentificadorSyncServiceImpl.class);
+			EmpresaIdentificadorSyncServiceImpl.class,
+			null); // TODO definir funcionalitats
 
 	static {
 		Modules.registerModule(moduleInfo);

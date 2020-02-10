@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.logic.api.module;
 
+import java.util.List;
+
 import es.limit.cecocloud.logic.api.service.EmpresaIdentificadorSyncService;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,20 +17,24 @@ import lombok.Setter;
 @Getter @Setter
 public class ModuleInfo extends es.limit.base.boot.logic.api.module.ModuleInfo {
 
+	private Modul modul;
+	private List<FuncionalitatCodiFont> funcionalitats;
 	private Class<? extends EmpresaIdentificadorSyncService> empresaIdentificadorSyncServiceClass;
 
 	public ModuleInfo(
-			String code,
+			Modul modul,
 			String dtoPackage) {
-		super(code, dtoPackage);
+		super(modul.name(), dtoPackage);
 	}
 
 	public ModuleInfo(
-			String code,
+			Modul modul,
 			String dtoPackage,
-			Class<? extends EmpresaIdentificadorSyncService> empresaIdentificadorSyncServiceClass) {
-		super(code, dtoPackage);
+			Class<? extends EmpresaIdentificadorSyncService> empresaIdentificadorSyncServiceClass,
+			List<FuncionalitatCodiFont> funcionalitats) {
+		super(modul.name(), dtoPackage);
 		this.empresaIdentificadorSyncServiceClass = empresaIdentificadorSyncServiceClass;
+		this.funcionalitats = funcionalitats;
 	}
 
 }

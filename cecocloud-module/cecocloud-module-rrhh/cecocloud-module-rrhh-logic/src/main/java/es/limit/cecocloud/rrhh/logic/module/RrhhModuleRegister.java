@@ -5,10 +5,10 @@ package es.limit.cecocloud.rrhh.logic.module;
 
 import org.springframework.stereotype.Component;
 
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
-import es.limit.cecocloud.rrhh.logic.api.module.RrhhModuleConfig;
 import es.limit.cecocloud.rrhh.logic.service.EmpresaIdentificadorSyncServiceImpl;
 
 /**
@@ -20,9 +20,10 @@ import es.limit.cecocloud.rrhh.logic.service.EmpresaIdentificadorSyncServiceImpl
 public class RrhhModuleRegister {
 
 	private static ModuleInfo moduleInfo = new ModuleInfo(
-			RrhhModuleConfig.CODE,
+			Modul.rrhh,
 			Zona.class.getPackage().getName(),
-			EmpresaIdentificadorSyncServiceImpl.class);
+			EmpresaIdentificadorSyncServiceImpl.class,
+			null); // TODO definir funcionalitats
 
 	static {
 		Modules.registerModule(moduleInfo);
