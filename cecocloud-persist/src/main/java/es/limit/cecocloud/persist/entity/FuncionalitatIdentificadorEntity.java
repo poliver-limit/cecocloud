@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -19,7 +18,6 @@ import javax.persistence.UniqueConstraint;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificador;
-import es.limit.cecocloud.persist.listener.FuncionalitatIdentificadorListener;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
