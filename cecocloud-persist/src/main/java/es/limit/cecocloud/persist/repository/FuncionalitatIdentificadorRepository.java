@@ -6,6 +6,7 @@ package es.limit.cecocloud.persist.repository;
 import java.util.List;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
+import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 
 /**
@@ -16,5 +17,6 @@ import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 public interface FuncionalitatIdentificadorRepository extends BaseRepository<FuncionalitatIdentificadorEntity, Long> {
 
 	List<FuncionalitatIdentificadorEntity> findByIdentificadorIdOrderByFuncionalitatEmbeddedDescripcio(Long identificadorId);
+	List<FuncionalitatIdentificadorEntity> findByFuncionalitatOrderByIdentificador(FuncionalitatEntity funcionalitat);
 
 }

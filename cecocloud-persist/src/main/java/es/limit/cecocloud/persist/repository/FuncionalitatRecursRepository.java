@@ -13,6 +13,8 @@ import es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatRecursEntity;
+import es.limit.cecocloud.persist.entity.PerfilEntity;
+import es.limit.cecocloud.persist.entity.RecursEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus funcionalitat-recurs.
@@ -22,9 +24,27 @@ import es.limit.cecocloud.persist.entity.FuncionalitatRecursEntity;
 public interface FuncionalitatRecursRepository extends BaseRepository<FuncionalitatRecursEntity, Long> {
 
 	List<FuncionalitatRecursEntity> findByFuncionalitat(FuncionalitatEntity funcionalitat);
-	/*List<FuncionalitatRecursEntity> findByFuncionalitatInAndRecursEmbeddedClassName(
-			List<FuncionalitatEntity> funcionalitats,
-			String className);*/
+//	FuncionalitatRecursEntity findByFuncionalitatInAndRecursEmbeddedClassName(
+//			List<FuncionalitatEntity> funcionalitats,
+//			String className);
+	FuncionalitatRecursEntity findByFuncionalitatAndRecurs(
+			FuncionalitatEntity funcionalitat,
+			RecursEntity recurs);
+	
+	@Query(	"select fr " +
+			" from " +
+//			"    FuncionalitatEntity f, " +
+			"    FuncionalitatRecursEntity fr, " +
+			"    FuncionalitatIdentificadorEntity fi, " +
+			"    FuncionalitatIdentificadorPerfilEntity fip " +
+			"where " +
+//			"    fr.funcionalitat =  f " +
+//			"and f = fi.funcionalitat " +
+//			"and fr.funcionalitat = f " +
+			"fi.funcionalitat = fr.funcionalitat " +
+			"and fip.funcionalitatIdentificador = fi " +
+			"and fip.perfil = :perfil")	
+	List<FuncionalitatRecursEntity> findByPerfil(PerfilEntity perfil);
 	
 	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(" + 
 			"		fr.recurs.embedded.className," +

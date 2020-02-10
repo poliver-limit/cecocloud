@@ -262,7 +262,7 @@ alter table perfil_usuidentemp
    add constraint perfusuidentemp_uk unique (perfil_id, usuidentemp_id);
 
 alter table recurs 
-   add constraint UK_byygig6iys9sraj7oua9nnd74 unique (class_name);
+   add constraint recurs_classname_uk unique (class_name);
 
 alter table usuari 
    add constraint usuari_codi_uk unique (codi);

@@ -18,4 +18,14 @@ import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 @Service
 public class FuncionalitatIdentificadorServiceImpl extends AbstractGenericServiceImpl<FuncionalitatIdentificador, FuncionalitatIdentificadorEntity, Long> implements FuncionalitatIdentificadorService {
 
+//	@Override
+//	protected void beforeDelete(FuncionalitatIdentificadorEntity entity) {
+//		super.beforeDelete(entity);
+//		
+//		for (FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil : entity.getFuncionalitatIdentificadorPerfils()) {
+//			
+//		}
+//		
+//	}
+
 }
