@@ -83,5 +83,17 @@ public class FuncionalitatIdentificadorPerfilApiController extends AbstractIdent
 			return ResponseEntity.ok().build();
 //		}
 	}
+	
+	@GetMapping(
+			value = "/perfil/{perfilId}/permission/refresh",
+			produces = "application/json")
+	public ResponseEntity<EntityModel<BaseBootPermission>> permissionRefresh(
+			HttpServletRequest request,
+			@PathVariable Long perfilId) throws Exception {
+		log.debug("Refrescant permisos del perfil (" + perfilId + ")");
+		
+		funcionalitatPerfilService.refreshPermisos(perfilId);
+		return ResponseEntity.ok().build();
+	}
 
 }

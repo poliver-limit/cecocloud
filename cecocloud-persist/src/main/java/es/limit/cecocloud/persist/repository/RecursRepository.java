@@ -3,6 +3,11 @@
  */
 package es.limit.cecocloud.persist.repository;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.persist.entity.RecursEntity;
 
@@ -13,4 +18,18 @@ import es.limit.cecocloud.persist.entity.RecursEntity;
  */
 public interface RecursRepository extends BaseRepository<RecursEntity, Long> {
 
+	@Query(	"select distinct fr.recurs " +
+			" from " +
+//			"    FuncionalitatEntity f, " +
+			"    FuncionalitatRecursEntity fr, " +
+			"    FuncionalitatIdentificadorEntity fi, " +
+			"    FuncionalitatIdentificadorPerfilEntity fip " +
+			"where " +
+//			"    fr.funcionalitat =  f " +
+//			"and f = fi.funcionalitat " +
+//			"and fr.funcionalitat = f " +
+			"fi.funcionalitat = fr.funcionalitat " +
+			"and fip.funcionalitatIdentificador = fi " +
+			"and fip.perfil.id = :perfilId")	
+	List<RecursEntity> findByPerfilId(@Param("perfilId") Long perfilId);
 }

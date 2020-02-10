@@ -32,5 +32,15 @@ public interface PerfilRepository extends BaseRepository<PerfilEntity, Long> {
 			@Param("usuariCodi") String usuariCodi,
 			@Param("identificadorId") Long identificadorId,
 			@Param("empresaId") Long empresaId);
+	
+	@Query(	"select distinct fip.perfil " +
+			" from " +
+			"    FuncionalitatIdentificadorPerfilEntity fip, " +
+			" 	 FuncionalitatIdentificadorEntity fi " +
+			"where " +
+			"	fi.funcionalitat.id = :funcionalitatId " +
+			"and fip.funcionalitatIdentificador = fi")
+	List<PerfilEntity> findByFuncionalitatId(
+			@Param("funcionalitatId") Long funcionalitatId);
 
 }

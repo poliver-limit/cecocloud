@@ -20,5 +20,6 @@ public interface FuncionalitatIdentificadorPerfilService extends GenericService<
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilOrderByModule(Long perfilId);
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilsOrderByModule(List<Long> perfilsId);
 	void savePermisos(Long perfilId, FuncionalitatInfo funcionalitat) throws Exception;
+	void refreshPermisos(Long perfilId) throws Exception;
 
 }

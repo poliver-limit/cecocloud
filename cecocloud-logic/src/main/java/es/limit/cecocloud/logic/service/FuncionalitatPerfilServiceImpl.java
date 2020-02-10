@@ -169,13 +169,15 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				funcionalitatIdentificadorPerfilRepository.delete(funcionalitatIdentificadorPerfil);
 			}
 			
-			funcionalitatAclHelper.updatePermisosFuncionalitatIdentificadorPerfil(
-					perfilId, 
-					funcionalitatIdentificador, 
-					permissionAdded, 
-					permissionRemoved);
+			funcionalitatAclHelper.refreshPermisosPerfil(perfilId);
 		}
 		
+	}
+	
+	@Override
+	@Transactional
+	public void refreshPermisos(Long perfilId) throws Exception {
+		funcionalitatAclHelper.refreshPermisosPerfil(perfilId);
 	}
 	
 }

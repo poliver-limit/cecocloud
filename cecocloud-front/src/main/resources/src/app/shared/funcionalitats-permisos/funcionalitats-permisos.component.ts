@@ -17,8 +17,15 @@ import {
 @Component({
 	selector: "cec-funcionalitats",
 	template: `
+		<!-- <div class="ample-complet" style="display: flex; text-align: right;">
+			<button *ngIf="perfil" mat-button>
+				<mat-icon aria-hidden="false"
+					aria-label="Example home icon"
+					(click)="onRefreshPermisos()">refresh</mat-icon>
+			</button>
+		</div> -->
 		<div style="display: flex">
-			<div style="width: 100%; margin-top: 40px;">
+			<div class="ample-complet">
 				<mat-tab-group animationDuration="0ms">
 					<mat-tab
 						*ngFor="
@@ -257,6 +264,10 @@ import {
 			.mat-checkbox-disabled {
 				opacity: 0.78;
 			}
+			.ample-complet {
+				width: 100%;
+				margin-top: 40px;
+			}
 		`
 	]
 })
@@ -308,6 +319,13 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 					// this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
 				}
 			);
+	}
+
+	onRefreshPermisos() {
+		console.log("onRefreshPermisos", this.perfil);
+		this.funcionalitatsPermisosService.refreshPermisosPerfil(this.perfil).subscribe(() => {
+
+		});
 	}
 
 	// private showMessage(message: string) {
