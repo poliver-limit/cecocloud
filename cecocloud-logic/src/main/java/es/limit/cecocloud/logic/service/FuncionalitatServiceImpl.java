@@ -15,13 +15,16 @@ import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatRecurs;
+import es.limit.cecocloud.logic.api.helper.FuncionalitatAcl;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.logic.api.service.FuncionalitatService;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
+import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorPerfilEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatRecursEntity;
 import es.limit.cecocloud.persist.entity.RecursEntity;
+import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorPerfilRepository;
 import es.limit.cecocloud.persist.repository.FuncionalitatRecursRepository;
 import es.limit.cecocloud.persist.repository.FuncionalitatRepository;
 import es.limit.cecocloud.persist.repository.RecursRepository;
@@ -37,9 +40,13 @@ import lombok.extern.slf4j.Slf4j;
 public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcionalitat, FuncionalitatEntity, Long> implements FuncionalitatService {
 
 	@Autowired
+	private FuncionalitatAcl funcionalitatAcl;
+	@Autowired
 	private FuncionalitatRepository funcionalitatRepository;
 	@Autowired
 	private FuncionalitatRecursRepository funcionalitatRecursRepository;
+	@Autowired
+	private FuncionalitatIdentificadorPerfilRepository funcionalitatIdentificadorPerfilRepository;
 	@Autowired
 	private RecursRepository recursRepository;
 
@@ -66,6 +73,15 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						}
 					}
 					if (!trobada) {
+						// Eliminam permisos dels perfils
+						List<FuncionalitatIdentificadorPerfilEntity> fips = funcionalitatIdentificadorPerfilRepository.findByFuncionalitatIdentificadorFuncionalitat(funcionalitatEntity);
+						funcionalitatIdentificadorPerfilRepository.deleteAll(fips);
+						try {
+							funcionalitatAcl.updatePermisosFuncionalitatRecurs(funcionalitatEntity.getId());
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						funcionalitatRepository.delete(funcionalitatEntity);
 					}
 				}
@@ -119,23 +135,32 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 							}
 						}
 						// Refresca els recursos principals de la funcionalitat
-						refrescarRecursos(
+						if (refrescarRecursos(
 								funcionalitatSaved,
 								funcionalitatCodiFont.getRecursosPrincipals(),
 								funcionalitatRecursos,
-								true);
+								true))
+							hiHaCanvisRecursos = true;
+						
 						// Refresca els recursos secundaris de la funcionalitat
-						refrescarRecursos(
+						if (refrescarRecursos(
 								funcionalitatSaved,
 								funcionalitatCodiFont.getRecursosSecundaris(),
 								funcionalitatRecursos,
-								false);
+								false)
+							)
+							hiHaCanvisRecursos = true;
 						if (hiHaCanvisRecursos) {
-							// TODO propagar canvis en els recursos als ACLs
+							try {
+								funcionalitatAcl.updatePermisosFuncionalitatRecurs(funcionalitatSaved.getId());
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
 						}
 					}
 				}
 			}
+			
 			return new ActionExecutionResult(ActionExecutionState.OK, null, 0);
 		} else {
 			return super.execute(action, id);
@@ -176,6 +201,16 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			}
 		}
 		return hiHaCanvisRecursos;
+	}
+
+	@Override
+	protected void afterDelete(FuncionalitatEntity entity) {
+		super.afterDelete(entity);
+		try {
+			funcionalitatAcl.updatePermisosFuncionalitatRecurs(entity.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

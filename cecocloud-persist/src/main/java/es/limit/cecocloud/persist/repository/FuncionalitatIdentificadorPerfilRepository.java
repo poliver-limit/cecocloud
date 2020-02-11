@@ -28,6 +28,7 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdInOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(List<Long> perfilId);
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatOrderByFuncionalitatIdentificadorIdentificador(FuncionalitatEntity funcionalitat);
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorOrderByPerfil(FuncionalitatIdentificadorEntity funcionalitatIdentificador);
+	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitat(FuncionalitatEntity funcionalitat);
 	
 	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(" + 
 			"		fr.recurs.embedded.className," +
