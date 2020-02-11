@@ -47,12 +47,4 @@ public class OperariEmpresa extends AbstractIdentificable<Long> {
 			hiddenInLov = true)
 	private String description;
 
-	public String getDescription() {
-		if (operari != null) {
-			return operari.getDescription();
-		} else {
-			return null;
-		}
-	}
-
 }

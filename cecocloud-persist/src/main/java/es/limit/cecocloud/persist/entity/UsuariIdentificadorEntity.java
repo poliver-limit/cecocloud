@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
@@ -57,6 +59,9 @@ public class UsuariIdentificadorEntity extends AbstractAuditableVersionableEntit
 			name = "identificador_id",
 			foreignKey = @ForeignKey(name = "usuident_identificador_fk"))
 	protected IdentificadorEntity identificador;
+
+	@Formula(value="(select (usu.nom || ' ' || usu.llinatges) from usuari usu where usu.id = usuari_id)")
+	private String description;
 
 	@Builder
 	public UsuariIdentificadorEntity(

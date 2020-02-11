@@ -48,9 +48,7 @@ public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 	@RestapiField(includeInQuickFilter = true)
 	private String nom;
 	@NotNull
-	@RestapiField(
-			hiddenInLov = true,
-			disabledForUpdate = true)
+	@RestapiField(hiddenInLov = true)
 	@Enumerated
 	protected EmpresaTipusEnum tipus;
 	@RestapiField(hiddenInLov = true)

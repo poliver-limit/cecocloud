@@ -16,8 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificador;
+import es.limit.cecocloud.logic.api.module.Modul;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,10 +58,12 @@ public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionab
 			name = "identificador_id",
 			foreignKey = @ForeignKey(name = "funcident_identificador_fk"))
 	protected IdentificadorEntity identificador;
-	
 	@OneToMany(mappedBy = "funcionalitatIdentificador", cascade = CascadeType.ALL)
 	protected List<FuncionalitatIdentificadorPerfilEntity> funcionalitatIdentificadorPerfils;
-	
+
+	@Formula(value="(select fun.modul from funcionalitat fun where fun.id = identificador_id)")
+	private Modul funcionalitatModul;
+
 	@Builder
 	public FuncionalitatIdentificadorEntity(
 			FuncionalitatIdentificador embedded,

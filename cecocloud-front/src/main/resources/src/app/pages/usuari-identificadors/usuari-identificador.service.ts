@@ -5,7 +5,7 @@ import { BngRestapiService } from 'base-angular';
 export class UsuariIdentificador extends Resource {}
 
 @Injectable()
-export class UsuariIdentificadorsService extends BngRestapiService<UsuariIdentificador> {
+export class UsuariIdentificadorService extends BngRestapiService<UsuariIdentificador> {
 
     constructor( injector: Injector ) {
         super( UsuariIdentificador, 'usuariIdentificador', injector );

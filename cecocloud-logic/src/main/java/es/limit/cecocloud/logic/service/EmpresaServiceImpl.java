@@ -3,27 +3,12 @@
  */
 package es.limit.cecocloud.logic.service;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import es.limit.base.boot.logic.api.dto.BaseBootPermission;
-import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
-import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
-import es.limit.base.boot.persist.entity.UsuariEntity;
-import es.limit.base.boot.persist.repository.UsuariRepository;
+import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Empresa;
-import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import es.limit.cecocloud.logic.api.service.EmpresaService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
-import es.limit.cecocloud.persist.entity.IdentificadorEntity;
-import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
-import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
-import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
-import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
 /**
  * Implementació del servei encarregat de gestionar empreses.
@@ -31,9 +16,9 @@ import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service
-public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImpl<Empresa, EmpresaEntity, Long> implements EmpresaService {
+public class EmpresaServiceImpl extends AbstractGenericServiceImpl<Empresa, EmpresaEntity, Long> implements EmpresaService {
 
-	@Autowired
+	/*@Autowired
 	private UsuariRepository usuariRepository;
 	@Autowired
 	private UsuariIdentificadorRepository usuariIdentificadorRepository;
@@ -115,6 +100,6 @@ public class EmpresaServiceImpl extends AbstractGenericServiceWithPermissionsImp
 
 	private boolean hasAnyPermission(BaseBootPermission permission) {
 		return permission.isReadGranted();
-	}
+	}*/
 
 }

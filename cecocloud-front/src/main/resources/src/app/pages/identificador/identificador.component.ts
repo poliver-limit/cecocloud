@@ -1,118 +1,92 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BngAuthService, BngFormConfig, BngFormFieldConfig, BngForm } from 'base-angular';
+import { Component } from '@angular/core';
+import { BngAuthService, BngRestapiProfile, BngRestapiResource } from 'base-angular';
 
 import { IdentificadorsService } from '../identificadors/identificadors.service';
-import { IdentificadorsPermissionService } from '../identificadors/identificadors-permission.service';
 
 @Component({
 	template: `
-<bng-form
-	bng-form-mant
-	[id]="id"
-	[config]="formConfig"
-	[restapiService]="identificadorsService"
-	(resourceChange)="onResourceLoaded($event)">
-	<!--ng-container *ngIf="identificador">
-		<h2 class="mat-display-1" style="margin-bottom:16px">
-			{{identificador.codi}}<br/>
-			<span class="mat-h1">{{identificador.descripcio}}&nbsp;</span>
-			<span class="mat-h4" style="color: rgba(0, 0, 0, 0.54)">(llicència vàlida fins el {{identificador.dataFi | date:'dd/MM/yyyy'}})</span>
-		</h2>
-	</ng-container>
-	<mat-tab-group animationDuration="0">
-		<mat-tab>
-			<ng-template matTabLabel>
-				<span [matBadge]="identificador?.usuarisCount" matBadgeOverlap="false" matBadgeSize="small">Usuaris</span>
-			</ng-template>
-			<p class="mat-elevation-z4" style="margin: 1em; padding: 1em">
-				<mat-icon style="position: relative; margin-top: -6px; top: 6px;">info</mat-icon>
-				La seva llicència permet crear fins a un màxim de {{identificador?.numUsuaris}} usuaris.
-			</p>
-		</mat-tab>
-		<mat-tab>
-			<ng-template matTabLabel>
-				<span [matBadge]="identificador?.empresesCount" matBadgeOverlap="false" matBadgeSize="small">Empreses</span>
-			</ng-template>
-			<p class="mat-elevation-z4" style="margin: 1em; padding: 1em">
-				<mat-icon style="position: relative; margin-top: -6px; top: 6px;">info</mat-icon>
-				La seva llicència permet crear fins a un màxim de {{identificador?.numEmpreses}} empreses.
-			</p>
-		</mat-tab>
-	</mat-tab-group-->
-	<div style="display: flex">
-		<bng-custom-field name="codi" style="width: 30%; padding-right: 2em"></bng-custom-field>
-	</div>
-	<div style="display: flex">
-		<bng-custom-field name="descripcio" style="width: 100%"></bng-custom-field>
-	</div>
-	<div style="display: flex">
-		<bng-custom-field name="propietari" style="width: 50%; padding-right: 2em"></bng-custom-field>
+<bng-header>
+	<span>{{'resource.identificador' | translate}}</span>
+	<span class="toolbar-fill"></span>
+</bng-header>
+<div *ngIf="identificador" class="mat-elevation-z4 page-like">
+	<h2 class="mat-display-1" style="margin-bottom:16px">
+		{{identificador.codi}}<br/>
+		<span class="mat-h1">{{identificador.descripcio}}&nbsp;</span>
+		<span class="mat-h4" style="color: rgba(0, 0, 0, 0.54)">(llicència vàlida fins el {{identificador.dataFi | date:'dd/MM/yyyy'}})</span>
+	</h2>
+	<div *ngIf="restapiResource" style="display: flex">
+		<bng-form-field-readonly
+			fieldName="propietari"
+			[resourceInstance]="identificador"
+			[restapiResource]="restapiResource"
+			style="width: 50%; padding-right: 2em"></bng-form-field-readonly>
 		<div style="width: 50%; display: flex">
-			<bng-custom-field name="numUsuaris" style="width: 33.3%; padding-right: 1em"></bng-custom-field>
-			<bng-custom-field name="numEmpreses" style="width: 33.3%; padding-right: 1em"></bng-custom-field>
-			<bng-custom-field name="numOperaris" style="width: 33.3%"></bng-custom-field>
+			<bng-form-field-readonly
+				fieldName="numUsuaris"
+				[resourceInstance]="identificador"
+				[restapiResource]="restapiResource"
+				style="width: 33.3%; padding-right: 1em"></bng-form-field-readonly>
+			<bng-form-field-readonly
+				fieldName="numEmpreses"
+				[resourceInstance]="identificador"
+				[restapiResource]="restapiResource"
+				style="width: 33.3%; padding-right: 1em"></bng-form-field-readonly>
+			<bng-form-field-readonly
+				fieldName="numOperaris"
+				[resourceInstance]="identificador"
+				[restapiResource]="restapiResource"
+				style="width: 33.3%"></bng-form-field-readonly>
 		</div>
 	</div>
-	<div style="display: flex">
-		<bng-custom-field name="dataInici" style="width: 50%; padding-right: 2em"></bng-custom-field>
-		<bng-custom-field name="dataFi" style="width: 50%"></bng-custom-field>
+	<div *ngIf="restapiResource" style="display: flex">
+		<bng-form-field-readonly
+			fieldName="dataInici"
+			[resourceInstance]="identificador"
+			[restapiResource]="restapiResource"
+			style="width: 50%; padding-right: 2em"></bng-form-field-readonly>
+		<bng-form-field-readonly
+			fieldName="dataFi"
+			[resourceInstance]="identificador"
+			[restapiResource]="restapiResource"
+			style="width: 50%"></bng-form-field-readonly>
 	</div>
-	<mat-tab-group>
-		<mat-tab label="Permisos">
-			<br/>
-			<bng-datagrid
-				[config]="permisosDatagridConfig"
-				[restapiService]="identificadorsPermissionService"
-				editable="true"></bng-datagrid>
-		</mat-tab>
-	</mat-tab-group>
-</bng-form>
-`
+	<h2 class="mat-display-1" style="display:flex;justify-content:space-between;margin:1em 0">
+		<div style="padding-right: 1em">
+			<mat-icon>apartment</mat-icon> {{identificador.empresesCount}} / {{identificador.numEmpreses}}
+		</div>
+		<div style="padding-right: 1em">
+			<mat-icon>people</mat-icon> {{identificador.usuarisCount}} / {{identificador.numUsuaris}}
+		</div>
+		<div>
+			<mat-icon>perm_contact_calendar</mat-icon> {{identificador.operarisCount}} / {{identificador.numOperaris}}
+		</div>
+	</h2>
+</div>`,
+	styles: [`
+.page-like {
+	margin: 1em;
+	padding: 2em;
+	background-color: white;
+}
+`]
 })
 export class IdentificadorComponent {
 
-	// TODO: Fer que els camps siguin disabled
 	id: any;
-
 	identificador: any;
-
-	formConfig: BngFormConfig = {
-		mode: 'isolated'
-	}
-	permisosDatagridConfig = {
-		adjustHeight: false,
-		paginationEnabled: false,
-		mode: 'form',
-		columns: [{
-			field: 'sidType',
-			width: 30
-		}, {
-			field: 'sidName',
-			width: 40
-		}, {
-			field: 'accessGranted',
-			width: 10
-		}, {
-			field: 'adminGranted',
-			width: 10
-		}, {
-			field: 'syncGranted',
-			width: 10
-		}]
-	};
-
-	onResourceLoaded(resource: any) {
-		this.identificador = resource;
-	}
+	restapiResource: BngRestapiResource;
 
 	constructor(
-		private authService: BngAuthService,
-		activatedRoute: ActivatedRoute,
-		public identificadorsService: IdentificadorsService,
-		public identificadorsPermissionService: IdentificadorsPermissionService) {
+		authService: BngAuthService,
+		public identificadorsService: IdentificadorsService) {
 		this.id = authService.getSession().i;
-		identificadorsPermissionService.setPermissionResourceId(this.id);
+		this.identificadorsService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
+			this.restapiResource = restapiProfile.resource;
+			this.identificadorsService.get(this.id).subscribe((identificador: any) => {
+				this.identificador = identificador;
+			});
+		});
 	}
 
 }

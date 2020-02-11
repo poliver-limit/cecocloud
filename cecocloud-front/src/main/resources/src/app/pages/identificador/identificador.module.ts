@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
 
 import { MaterialModule } from '../../shared/material.module';
@@ -15,6 +16,7 @@ import { IdentificadorComponent } from './identificador.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+		TranslateModule,
         BngModule,
         MaterialModule,
         RouterModule.forChild([

@@ -114,7 +114,7 @@ export class OperarisGridComponent {
 		<mat-card>
 			<mat-card-header>
 				<ng-container mat-card-avatar>
-					<button mat-mini-fab>{{usuari.nom.charAt(0).toUpperCase()}}</button>
+					<button mat-icon-button><mat-icon style="font-size:50px;width:50px">account_circle</mat-icon></button>
 				</ng-container>
 				<mat-card-title>{{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
 				<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>

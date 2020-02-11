@@ -60,7 +60,6 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 			name = "propietari_id",
 			foreignKey = @ForeignKey(name = "identificador_propietari_fk"))
 	protected UsuariEntity propietari;
-
 	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
 	protected Set<UsuariIdentificadorEntity> usuariIdentificadors;
 
@@ -68,9 +67,8 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 	private int usuarisCount;
 	@Formula(value="(select count(*) from usuari_ident uid where uid.identificador_id = id)")
 	private int empresesCount;
-	/*//@ElementCollection(targetClass = String.class)
-    @Formula("select distinct fun.modul from funcionalitat fun, funcionalitat_ident fid where fun.id = fid.funcionalitat_id and fid.identificador_id = id")
-    private List<String> moduls;*/
+	@Formula(value="(select count(*) from operari ope where ope.identificador_id = id)")
+	private int operarisCount;
 
 	@Builder
     public IdentificadorEntity(

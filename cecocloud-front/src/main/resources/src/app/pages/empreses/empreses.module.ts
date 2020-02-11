@@ -9,7 +9,8 @@ import { MaterialModule } from '../../shared/material.module';
 import { EmpresesGridComponent } from './empreses-grid.component';
 import { EmpresesFormComponent } from './empreses-form.component';
 import { EmpresesService } from './empreses.service';
-import { EmpresesPermissionService } from './empreses-permission.service';
+import { UsuarisIdentificadorsEmpresesService } from './usuaris-identificadors-empreses.service';
+import { OperarisEmpresesService } from './operaris-empreses.service';
 
 @NgModule( {
     imports: [
@@ -29,7 +30,8 @@ import { EmpresesPermissionService } from './empreses-permission.service';
     ],
     providers: [
         EmpresesService,
-        EmpresesPermissionService
+		UsuarisIdentificadorsEmpresesService,
+        OperarisEmpresesService
     ]
 } )
 export class EmpresesModule {}
