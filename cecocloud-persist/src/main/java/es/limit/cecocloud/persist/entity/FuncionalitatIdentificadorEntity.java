@@ -29,6 +29,7 @@ import lombok.Setter;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+//@EntityListeners(FuncionalitatIdentificadorListener.class)
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -40,7 +41,7 @@ import lombok.Setter;
 		}
 )
 public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionableEntity<FuncionalitatIdentificador, Long> {
-
+	
 	@Embedded
 	protected FuncionalitatIdentificador embedded;
 
@@ -78,5 +79,5 @@ public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionab
 	public void updateIdentificador(IdentificadorEntity identificador) {
 		this.identificador = identificador;
 	}
-
+	
 }

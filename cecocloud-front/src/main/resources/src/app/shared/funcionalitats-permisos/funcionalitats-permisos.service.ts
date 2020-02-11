@@ -30,6 +30,10 @@ export class FuncionalitatsPermisosService {
 		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfil/' + perfilId + '/permission/save', funcionalitatInfo);
 	}
 
+	public refreshPermisosPerfil(perfilId: number) {
+		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfil/' + perfilId + '/permission/refresh');
+	}
+
 	constructor(
 		private restapiConfigService: BngRestapiConfigService,
 		private httpClient: HttpClient) {
