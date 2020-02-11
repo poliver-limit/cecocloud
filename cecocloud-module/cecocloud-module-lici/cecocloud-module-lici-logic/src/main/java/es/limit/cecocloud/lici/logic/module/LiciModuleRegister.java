@@ -6,7 +6,7 @@ package es.limit.cecocloud.lici.logic.module;
 import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.lici.logic.api.dto.Licitacio;
-import es.limit.cecocloud.lici.logic.api.module.LiciModuleConfig;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 
@@ -19,7 +19,7 @@ import es.limit.cecocloud.logic.api.module.Modules;
 public class LiciModuleRegister {
 	
 	private static ModuleInfo moduleInfo = new ModuleInfo(
-			LiciModuleConfig.CODE,
+			Modul.lici,
 			Licitacio.class.getPackage().getName());
 	
 	static {

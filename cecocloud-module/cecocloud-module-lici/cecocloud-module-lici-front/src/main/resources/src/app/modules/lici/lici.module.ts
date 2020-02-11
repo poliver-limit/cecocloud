@@ -28,6 +28,13 @@ import { SelectedEmpresaGuard } from "../../shared/selected-empresa.guard";
               )
           },
           {
+            path: "licitacions",
+            loadChildren: () =>
+              import("./pages/licitacions/licitacions.module").then(
+                m => m.LicitacionsModule
+              )
+          },
+          {
             path: "**",
             redirectTo: ""
           }
@@ -48,6 +55,12 @@ export class LiciModule {
           label: "Configuracions",
           labelKey: "app.menu.lici.configuracions",
           route: "/lici/configuracions"
+        },
+        {
+          icon: "room",
+          label: "Licitacions",
+          labelKey: "app.menu.lici.licitacions",
+          route: "/lici/licitacions"
         }
       ]
     });
