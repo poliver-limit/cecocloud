@@ -3,10 +3,12 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificador;
+import es.limit.cecocloud.logic.api.helper.FuncionalitatAcl;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorService;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 
@@ -18,14 +20,17 @@ import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 @Service
 public class FuncionalitatIdentificadorServiceImpl extends AbstractGenericServiceImpl<FuncionalitatIdentificador, FuncionalitatIdentificadorEntity, Long> implements FuncionalitatIdentificadorService {
 
-//	@Override
-//	protected void beforeDelete(FuncionalitatIdentificadorEntity entity) {
-//		super.beforeDelete(entity);
-//		
-//		for (FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil : entity.getFuncionalitatIdentificadorPerfils()) {
-//			
-//		}
-//		
-//	}
+	@Autowired
+	private FuncionalitatAcl funcionalitatAcl;
+	
+	@Override
+	protected void afterDelete(FuncionalitatIdentificadorEntity entity) {
+		super.afterDelete(entity);
+		try {
+			funcionalitatAcl.refreshPermisosIdentificador(entity.getIdentificador().getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

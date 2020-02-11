@@ -167,7 +167,8 @@
 	"page.operaris.modal.button.cancelar": "Cancel·lar",
 	"page.operaris.modal.button.afegir": "Afegir",
 
-	"funcionalitat.art": "Articles",
-	"funcionalitat.fart": "Famílies d'articles",
-	"funcionalitat.gart": "Gammes d'articles"
+	"funcionalitat.ART": "Articles",
+	"funcionalitat.FART": "Famílies d'articles",
+	"funcionalitat.GART": "Gammes d'articles",
+	"funcionalitat.IVA": "Ivas"
 }
