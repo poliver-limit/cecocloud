@@ -30,7 +30,7 @@ import es.limit.cecocloud.persist.repository.PerfilRepository;
 public class ModuleServiceImpl implements ModuleService {
 
 	// Si es posa a true es veuran tots els mòduls disponibles
-	private static final boolean DEV_MODE = true;
+	private static final boolean DEV_MODE = false;
 
 	@Autowired
 	private PerfilRepository perfilRepository;

@@ -191,6 +191,26 @@ import {
 										</mat-checkbox>
 									</td>
 								</ng-container>
+								<!-- Columna de admin -->
+								<ng-container matColumnDef="admin">
+									<th
+										mat-header-cell
+										*matHeaderCellDef
+										[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
+										<ng-container *ngIf="!mobileScreen">{{'resource.permission.field.adminGranted' | translate}}</ng-container>
+										<ng-container *ngIf="mobileScreen">ADM</ng-container>
+									</th>
+									<td
+										mat-cell
+										*matCellDef="let funcionalitat; let index = index"
+										class="rcheck">
+										<mat-checkbox
+											name="adminGranted"
+											[checked]="funcionalitat.permission.adminGranted"
+											[disabled]="disableToggles"
+											(click)="!disableToggles && funcionalitat.tipus == 'MANTENIMENT' && onPermisChange($event, indexModul, index)"></mat-checkbox>
+									</td>
+								</ng-container>
 								<!-- Columna de execute -->
 								<ng-container matColumnDef="execute">
 									<th
@@ -283,6 +303,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		"write",
 		"create",
 		"delete",
+		"admin",
 		"execute"
 	];
 

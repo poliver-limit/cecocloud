@@ -44,16 +44,16 @@ public class SincronitzarFuncionalitatsRecursosOnInit {
 				null,
 				Arrays.asList(new SimpleGrantedAuthority("ADMIN")));
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		log.info("Sincronitzant els recursos");
+		log.debug("Sincronitzant els recursos");
 		if (SINCRONITZAR) {
 			recursService.execute("sync", null);
 		}
-		log.info("...recursos sincronitzats correctament");
-		log.info("Sincronitzant les funcionalitats...");
+		log.debug("...recursos sincronitzats correctament");
+		log.debug("Sincronitzant les funcionalitats...");
 		if (SINCRONITZAR) {
 			funcionalitatService.execute("sync", null);
 		}
-		log.info("...funcionalitats sincronitzades correctament");
+		log.debug("...funcionalitats sincronitzades correctament");
 	}
 
 }

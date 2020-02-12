@@ -58,7 +58,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			List<es.limit.base.boot.logic.api.module.ModuleInfo> modules = Modules.registeredFindAll();
 			for (es.limit.base.boot.logic.api.module.ModuleInfo moduleInfo: modules) {
 				ModuleInfo cecocloudModuleInfo = (ModuleInfo)moduleInfo;
-				log.info("    Sincronitzant funcionalitats del mòdul " + cecocloudModuleInfo.getModul());
+				log.debug("    Sincronitzant funcionalitats del mòdul " + cecocloudModuleInfo.getModul());
 				List<FuncionalitatCodiFont> funcionalitats = cecocloudModuleInfo.getFuncionalitats();
 				// Elimina les funcionalitats no utilitzades
 				List<FuncionalitatEntity> funcionalitatEntities = funcionalitatRepository.findByEmbeddedModul(cecocloudModuleInfo.getModul());
@@ -98,7 +98,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 							funcionalitat.setDescripcio(funcionalitatCodiFont.getDescripcio());
 							funcionalitatSaved = funcionalitatEntity.get();
 						} else {
-							log.info("        Afegint funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
+							log.debug("        Afegint funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
 							Funcionalitat funcionalitat = new Funcionalitat();
 							funcionalitat.setCodi(funcionalitatCodiFont.getCodi());
 							funcionalitat.setTipus(funcionalitatCodiFont.getTipus());
@@ -129,7 +129,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 								}
 							}
 							if (!trobada) {
-								log.info("        Eliminant recurs " + funcionalitatRecurs.getRecursClassName() + " de la funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
+								log.debug("        Eliminant recurs " + funcionalitatRecurs.getRecursClassName() + " de la funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
 								funcionalitatRecursRepository.delete(funcionalitatRecurs);
 								hiHaCanvisRecursos = true;
 							}
@@ -190,7 +190,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 				Optional<RecursEntity> recursEntity = recursRepository.findByEmbeddedClassName(recursClass.getName());
 				FuncionalitatRecurs funcionalitatRecurs = new FuncionalitatRecurs();
 				funcionalitatRecurs.setPrincipal(principal);
-				log.info("        Afegint recurs " + (principal ? "principal " : "") + recursClass.getName() + " a la funcionalitat \"" + funcionalitat.getEmbedded().getDescripcio() + "\" (" + funcionalitat.getEmbedded().getCodi() + ") del mòdul " + funcionalitat.getEmbedded().getModul());
+				log.debug("        Afegint recurs " + (principal ? "principal " : "") + recursClass.getName() + " a la funcionalitat \"" + funcionalitat.getEmbedded().getDescripcio() + "\" (" + funcionalitat.getEmbedded().getCodi() + ") del mòdul " + funcionalitat.getEmbedded().getModul());
 				funcionalitatRecursRepository.save(
 						FuncionalitatRecursEntity.builder().
 						embedded(funcionalitatRecurs).

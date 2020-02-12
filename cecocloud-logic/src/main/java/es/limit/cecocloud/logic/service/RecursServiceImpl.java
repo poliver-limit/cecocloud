@@ -44,7 +44,7 @@ public class RecursServiceImpl extends AbstractGenericServiceImpl<Recurs, Recurs
 			List<es.limit.base.boot.logic.api.module.ModuleInfo> modules = Modules.registeredFindAll();
 			for (es.limit.base.boot.logic.api.module.ModuleInfo moduleInfo: modules) {
 				ModuleInfo cecocloudModuleInfo = (ModuleInfo)moduleInfo;
-				log.info("    Sincronitzant recursos del mòdul " + cecocloudModuleInfo.getModul());
+				log.debug("    Sincronitzant recursos del mòdul " + cecocloudModuleInfo.getModul());
 				Reflections reflections = new Reflections(moduleInfo.getDtoPackage());
 				Set<Class<? extends Identificable>> dtoClasses = reflections.getSubTypesOf(Identificable.class);
 				// Elimina els recursos no utilitzats
@@ -58,7 +58,7 @@ public class RecursServiceImpl extends AbstractGenericServiceImpl<Recurs, Recurs
 						}
 					}
 					if (!trobat) {
-						log.info("        Eliminant recurs " + recursEntity.getEmbedded().getClassName());
+						log.debug("        Eliminant recurs " + recursEntity.getEmbedded().getClassName());
 						recursRepository.delete(recursEntity);
 						// TODO propagar eliminació del recurs als ACLs
 					}
@@ -69,7 +69,7 @@ public class RecursServiceImpl extends AbstractGenericServiceImpl<Recurs, Recurs
 					if (recursEntity.isPresent()) {
 						recursEntity.get().getEmbedded().setNom(dtoClass.getSimpleName());
 					} else {
-						log.info("        Afegint recurs " + dtoClass.getName());
+						log.debug("        Afegint recurs " + dtoClass.getName());
 						Recurs recurs = new Recurs();
 						recurs.setNom(dtoClass.getSimpleName());
 						recurs.setClassName(dtoClass.getName());

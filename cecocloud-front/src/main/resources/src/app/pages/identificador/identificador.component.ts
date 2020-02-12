@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BngAuthService, BngRestapiProfile, BngRestapiResource } from 'base-angular';
 
-import { IdentificadorsService } from '../identificadors/identificadors.service';
+import { IdentificadorsService, Funcionalitat } from './identificadors.service';
 
 @Component({
 	template: `
@@ -51,17 +51,32 @@ import { IdentificadorsService } from '../identificadors/identificadors.service'
 			[restapiResource]="restapiResource"
 			style="width: 50%"></bng-form-field-readonly>
 	</div>
-	<h2 class="mat-display-1" style="display:flex;justify-content:space-between;margin:1em 0">
-		<div style="padding-right: 1em">
+	<h2 class="mat-display-1" style="display:flex;justify-content:space-around;margin:1em 0">
+		<div>
 			<mat-icon>apartment</mat-icon> {{identificador.empresesCount}} / {{identificador.numEmpreses}}
 		</div>
-		<div style="padding-right: 1em">
+		<div>
 			<mat-icon>people</mat-icon> {{identificador.usuarisCount}} / {{identificador.numUsuaris}}
 		</div>
 		<div>
 			<mat-icon>perm_contact_calendar</mat-icon> {{identificador.operarisCount}} / {{identificador.numOperaris}}
 		</div>
 	</h2>
+	<mat-tab-group animationDuration="0">
+		<mat-tab label="{{'resource.funcionalitat.plural' | translate}}">
+			<mat-accordion>
+				<mat-expansion-panel *ngFor="let modulCodi of modulsCodis">
+					<mat-expansion-panel-header>
+						<mat-panel-title class="mat-h2" style="margin:0">{{'app.module.' + modulCodi | translate}}</mat-panel-title>
+						<!--mat-panel-description>Type your description</mat-panel-description-->
+					</mat-expansion-panel-header>
+					<mat-list>
+						<mat-list-item *ngFor="let funcionalitat of funcionalitats[modulCodi]">{{funcionalitat.codi}} {{funcionalitat.descripcio}}</mat-list-item>
+					</mat-list>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</mat-tab>
+	</mat-tab-group>
 </div>`,
 	styles: [`
 .page-like {
@@ -74,8 +89,10 @@ import { IdentificadorsService } from '../identificadors/identificadors.service'
 export class IdentificadorComponent {
 
 	id: any;
-	identificador: any;
 	restapiResource: BngRestapiResource;
+	identificador: any;
+	funcionalitats: any = {};
+	modulsCodis: string[];
 
 	constructor(
 		authService: BngAuthService,
@@ -85,6 +102,22 @@ export class IdentificadorComponent {
 			this.restapiResource = restapiProfile.resource;
 			this.identificadorsService.get(this.id).subscribe((identificador: any) => {
 				this.identificador = identificador;
+				identificador.getRelationArray(Funcionalitat, 'funcionalitats').subscribe((funcionalitats: any[]) => {
+					// Obté els diferents mòduls de les funcionalitats d'aquest identificador
+					let modulsCodis: string[] = funcionalitats.filter((value, index, array) => {
+						return array.findIndex((element) => {
+							return element.modul == value.modul;
+						}) === index;
+					}).map((value) => {
+						return value.modul;
+					});
+					this.modulsCodis = modulsCodis;
+					modulsCodis.forEach((modulCodi: string) => {
+						this.funcionalitats[modulCodi] = funcionalitats.filter((element: any) => {
+							return element.modul === modulCodi;
+						});
+					});
+				});
 			});
 		});
 	}

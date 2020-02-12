@@ -33,15 +33,15 @@ import { ActivatedRoute } from '@angular/router';
 		<bng-custom-field name="dataFi" style="width: 50%"></bng-custom-field>
 	</div>
 	<ng-container *ngIf="id">
-		<mat-tab-group>
-			<mat-tab label="Permisos">
+		<mat-tab-group animationDuration="0">
+			<mat-tab label="{{'resource.permission.plural' | translate}}">
 				<br/>
 				<bng-datagrid
 					[config]="permisosDatagridConfig"
 					[restapiService]="identificadorsPermissionService"
 					[editable]="gridsEditables"></bng-datagrid>
 			</mat-tab>
-			<mat-tab label="Funcionalitats">
+			<mat-tab label="{{'resource.funcionalitat.plural' | translate}}">
 				<br/>
 				<bng-datagrid
 					[config]="funcionalitatsIdentificadorsDatagridConfig"

@@ -25,5 +25,5 @@ public class PerfilUsuariIdentificadorEmpresaApiController extends AbstractIdent
 		Long identificadorId = ((UserSession)userSession).getI();
 		return "perfil.identificador.id==" + identificadorId;
 	}
-	
+
 }
