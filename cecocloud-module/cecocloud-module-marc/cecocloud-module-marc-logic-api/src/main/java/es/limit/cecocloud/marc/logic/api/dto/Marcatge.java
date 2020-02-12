@@ -32,6 +32,12 @@ import lombok.Setter;
 public class Marcatge extends AbstractIdentificable<Long> {
 
 	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)
+	private GenericReference<OperariEmpresa, Long> operariEmpresa;
+	@NotNull
 	@RestapiField(type = RestapiFieldType.DATETIME)
 	private Date data;
 	@NotNull
@@ -43,12 +49,6 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	private Double latitud;
 	@RestapiField(hiddenInGrid = true)
 	private Double longitud;
-	@NotNull
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)
-	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 
 	@Transient
 	@RestapiField(

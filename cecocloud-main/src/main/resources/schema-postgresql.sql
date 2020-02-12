@@ -250,7 +250,10 @@ alter table funcionalitat_recurs
    add constraint funcrecu_uk unique (funcionalitat_id, recurs_id);
 
 alter table operari 
-   add constraint operari_codi_uk unique (codi, identificador_id);
+   add constraint operari_codi_uk unique (identificador_id, codi);
+
+alter table operari 
+   add constraint operari_usuari_uk unique (identificador_id, usuari_id);
 
 alter table operari_empresa 
    add constraint operariemp_uk unique (operari_id, empresa_id);
@@ -262,7 +265,7 @@ alter table perfil_usuidentemp
    add constraint perfusuidentemp_uk unique (perfil_id, usuidentemp_id);
 
 alter table recurs 
-   add constraint recurs_classname_uk unique (class_name);
+   add constraint UK_byygig6iys9sraj7oua9nnd74 unique (class_name);
 
 alter table usuari 
    add constraint usuari_codi_uk unique (codi);

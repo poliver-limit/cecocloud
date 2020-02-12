@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 
 /**
  * Controlador per al servei REST de gestió de recursos de tipus operari-empresa.
@@ -18,5 +19,12 @@ import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 @RestController
 @RequestMapping(GenericController.API_PATH + "/operariEmpreses")
 public class OperariEmpresaApiController extends AbstractIdentificableApiController<OperariEmpresa, Long> {
+
+	@Override
+	protected String additionalRsqlFilterFromSession(Object userSession) {
+		return
+				"operari.identificador.id==" + ((UserSession)userSession).getI() + ";" +
+				"empresa.identificador.id==" + ((UserSession)userSession).getI();
+	}
 
 }
