@@ -96,5 +96,11 @@ public class Identificador extends AbstractIdentificable<Long> {
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private int empresesCount;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private int operarisCount;
 
 }

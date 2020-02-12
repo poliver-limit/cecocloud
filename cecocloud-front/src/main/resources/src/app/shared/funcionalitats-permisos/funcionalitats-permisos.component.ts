@@ -10,7 +10,6 @@ import { HalParam } from "angular4-hal";
 import { FuncionalitatsPermisosService } from "./funcionalitats-permisos.service";
 import { PerfilUsuariIdentificadorEmpresaService } from "./perfil-usuari-identificador-empresa.service";
 import {
-	FuncionalitatsIdentificadorService,
 	FuncionalitatIdentificador
 } from "./funcionalitats-identificador.service";
 
@@ -351,12 +350,9 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 
 		if (this.perfil) {
 			this.disableToggles = false;
-
-			this.funcionalitatsPermisosService
-				.getFuncionalitatsByPerfil(this.perfil)
-				.subscribe(funcionalitatsModuls => {
-					this.funcionalitatsModuls = funcionalitatsModuls;
-				});
+			this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(this.perfil).subscribe(funcionalitatsModuls => {
+				this.funcionalitatsModuls = funcionalitatsModuls;
+			});
 		} else if (this.usuariIdentificadorEmpresa) {
 			const requestParams: HalParam[] = [];
 			requestParams.push({
@@ -371,18 +367,15 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 					" usuariIdentificadorEmpresa.empresa.id==" +
 					this.usuariIdentificadorEmpresa.empresaId
 			});
-			this.perfilUsuariIdentificadorEmpresaService
-				.getAll({ params: requestParams })
-				.subscribe(perfilUsuariIdentificadorEmpreses => {
+			this.perfilUsuariIdentificadorEmpresaService.whenReady().subscribe(() => {
+				this.perfilUsuariIdentificadorEmpresaService.getAll({ params: requestParams }).subscribe(perfilUsuariIdentificadorEmpreses => {
 					if (
 						perfilUsuariIdentificadorEmpreses == null ||
 						perfilUsuariIdentificadorEmpreses.length === 0
 					) {
-						this.funcionalitatsPermisosService
-							.getFuncionalitatsByPerfil(-1)
-							.subscribe(funcionalitatsModuls => {
-								this.funcionalitatsModuls = funcionalitatsModuls;
-							});
+						this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(-1).subscribe(funcionalitatsModuls => {
+							this.funcionalitatsModuls = funcionalitatsModuls;
+						});
 					} else {
 						let perfils: number[];
 						if (
@@ -395,15 +388,13 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 								puie => puie.perfil.id
 							);
 						}
-
-						this.funcionalitatsPermisosService
-							.getFuncionalitatsByPerfils(perfils)
-							.subscribe(funcionalitatsModuls => {
-								console.log("FuncionalitatsPerfil: ", funcionalitatsModuls);
-								this.funcionalitatsModuls = funcionalitatsModuls;
-							});
+						this.funcionalitatsPermisosService.getFuncionalitatsByPerfils(perfils).subscribe(funcionalitatsModuls => {
+							//console.log("FuncionalitatsPerfil: ", funcionalitatsModuls);
+							this.funcionalitatsModuls = funcionalitatsModuls;
+						});
 					}
 				});
+			});
 		}
 	}
 
@@ -413,16 +404,14 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		// public funcionalitatsIdentificadorService: FuncionalitatsIdentificadorService,
 		translate: TranslateService,
 		private screenSizeService: BngScreenSizeService,
-		private snackbar: MatSnackBar
-	) {
+		private snackbar: MatSnackBar) {
 		this.translate = translate;
 		this.mobileScreen = this.screenSizeService.isMobile();
 		this.tableHeight = Math.max(window.innerHeight - 490, 200);
-		this.screenSizeService
-			.getScreenSizeChangeSubject()
-			.subscribe((event: BngScreenSizeChangeEvent) => {
-				this.mobileScreen = event.mobile;
-				this.tableHeight = Math.max(event.height - 120, 200);
-			});
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
+			this.mobileScreen = event.mobile;
+			this.tableHeight = Math.max(event.height - 120, 200);
+		});
 	}
+
 }

@@ -49,17 +49,4 @@ public class UsuariIdentificador extends AbstractIdentificableWithIdentificador<
 			hiddenInLov = true)
 	private String description;
 
-	public String getDescription() {
-		if (usuari != null || identificador != null) {
-			String usuariDesc = (usuari != null) ? usuari.getDescription() : "";
-			String identificadorDesc = (identificador != null) ? identificador.getDescription() : "";
-			String description = usuariDesc + " - " + identificadorDesc;
-			return description;
-			// return ((usuari != null) ? usuari.getDescription() : "") + " - " + ((identificador != null) ? identificador.getDescription() : "");
-		} else {
-			return null;
-		}
-	}
-
 }
-

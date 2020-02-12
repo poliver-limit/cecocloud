@@ -3,7 +3,7 @@
  */
 package es.limit.cecocloud.logic.api.service;
 
-import es.limit.base.boot.logic.api.service.GenericServiceWithPermissions;
+import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 
 /**
@@ -11,6 +11,6 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface EmpresaService extends GenericServiceWithPermissions<Empresa, Long> {
+public interface EmpresaService extends GenericService<Empresa, Long> {
 
 }

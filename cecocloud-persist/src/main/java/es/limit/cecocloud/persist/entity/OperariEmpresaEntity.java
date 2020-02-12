@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import lombok.AccessLevel;
@@ -57,6 +59,9 @@ public class OperariEmpresaEntity extends AbstractAuditableVersionableEntity<Ope
 			name = "empresa_id",
 			foreignKey = @ForeignKey(name = "operariemp_empresa_fk"))
 	protected EmpresaEntity empresa;
+
+	@Formula(value="(select ('[' || ope.codi || '] ' || usu.nom || ' ' || usu.llinatges) from operari ope, usuari usu where ope.id = operari_id and usu.id = ope.usuari_id)")
+	private String description;
 
 	@Builder
 	public OperariEmpresaEntity(

@@ -16,6 +16,6 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
  */
 @RestController
 @RequestMapping(GenericController.API_PATH + "/empreses")
-public class EmpresaApiController extends AbstractIdentificableWithPermissionsAndIdentificadorApiController<Empresa, Long> {
+public class EmpresaApiController extends AbstractIdentificableWithIdentificadorApiController<Empresa, Long> {
 
 }

@@ -8,15 +8,15 @@ import { debounceTime, distinctUntilChanged, tap, switchMap, finalize } from 'rx
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BngAuthService, BngDatagrid } from 'base-angular';
 
-import { UsuariIdentificadorsService } from './usuari-identificadors.service';
-import { UsuarisService } from './usuaris.service';
+import { UsuariIdentificadorService } from './usuari-identificador.service';
+import { UsuariService } from './usuari.service';
 
 @Component({
 	template: `
     <bng-datagrid
 		#datagrid
         [config]="datagridConfig"
-        [restapiService]="usuariIdentificadorsService"
+        [restapiService]="usuariIdentificadorService"
 		(headerActionCreate)="onGridActionCreate()"
 		(headerActionDelete)="onGridActionDelete($event)"
 		(rowClicked)="onRowClicked($event)"></bng-datagrid>`
@@ -40,7 +40,7 @@ export class UsuariIdentificadorsGridComponent {
 					usuari: { id: usuari.id },
 					identificador: { id: session.i }
 				};
-				this.usuariIdentificadorsService.create(usuariIdentificador).subscribe(() => {
+				this.usuariIdentificadorService.create(usuariIdentificador).subscribe(() => {
 					this.datagrid.refresh();
 				});
 			}
@@ -57,7 +57,7 @@ export class UsuariIdentificadorsGridComponent {
 					'component.datagrid.manteniment.delete.single.confirm',
 					{ description: resourceName + ' ' + rowDescription });
 				if (confirm(confirmMessageTranslated)) {
-					this.usuariIdentificadorsService.deleteById(event.selectedRows[0].id).subscribe(() => {
+					this.usuariIdentificadorService.deleteById(event.selectedRows[0].id).subscribe(() => {
 						this.datagrid.refresh();
 					});
 				}
@@ -68,7 +68,7 @@ export class UsuariIdentificadorsGridComponent {
 					{ count: event.selectedRows.length, description: resourceNamePlural });
 				if (confirm(confirmMessageTranslated)) {
 					let ids = event.selectedRows.map((resource: any) => { return resource.id });
-					this.usuariIdentificadorsService.deleteBulk(ids).subscribe(() => {
+					this.usuariIdentificadorService.deleteBulk(ids).subscribe(() => {
 						this.datagrid.refresh();
 					});
 				}
@@ -95,7 +95,7 @@ export class UsuariIdentificadorsGridComponent {
 		private authService: BngAuthService,
 		private router: Router,
 		private route: ActivatedRoute,
-		public usuariIdentificadorsService: UsuariIdentificadorsService) {
+		public usuariIdentificadorService: UsuariIdentificadorService) {
 	}
 
 }
@@ -115,7 +115,7 @@ export class UsuariIdentificadorsGridComponent {
 		<mat-card>
 			<mat-card-header>
 				<ng-container mat-card-avatar>
-					<button mat-mini-fab>{{usuari.nom.charAt(0).toUpperCase()}}</button>
+					<button mat-icon-button><mat-icon style="font-size:50px;width:50px">account_circle</mat-icon></button>
 				</ng-container>
 				<mat-card-title>{{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
 				<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>
@@ -152,7 +152,7 @@ export class UsuariIdentificadorsAddDialog implements AfterViewInit {
 						key: 'query',
 						value: 'email==' + value
 					});
-					return this.usuarisService.getAll({ params: requestParams });
+					return this.usuariService.getAll({ params: requestParams });
 				} else {
 					return of(null);
 				}
@@ -179,7 +179,7 @@ export class UsuariIdentificadorsAddDialog implements AfterViewInit {
 
 	constructor(
 		private translate: TranslateService,
-		private usuarisService: UsuarisService,
+		private usuariService: UsuariService,
 		public dialogRef: MatDialogRef<UsuariIdentificadorsAddDialog>,
 		@Inject(MAT_DIALOG_DATA) public data: any) {
 	}

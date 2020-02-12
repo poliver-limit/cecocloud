@@ -8,14 +8,14 @@ import { MatTableModule } from '@angular/material';
 
 import { MaterialModule } from '../../shared/material.module';
 
-import { UsuariIdentificadorsService } from './usuari-identificadors.service';
+import { UsuariIdentificadorService } from './usuari-identificador.service';
+import { UsuariIdentificadorEmpresaService } from './usuari-identificador-empresa.service';
+import { UsuariService } from './usuari.service';
+import { EmpresaService } from './empresa.service';
+import { PerfilService } from './perfil.service';
+import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
 import { UsuariIdentificadorsFormComponent } from './usuari-identificadors-form-component';
 import { UsuariIdentificadorsGridComponent, UsuariIdentificadorsAddDialog } from './usuari-identificadors-grid.component';
-import { UsuariIdentificadorEmpresaService } from 'src/app/shared/usuari-identificador-empresa.service';
-import { PerfilsService } from '../perfils/perfils.service';
-import { UsuarisService } from './usuaris.service';
-import { EmpresesService } from '../empreses/empreses.service';
-import { PerfilUsuariIdentificadorEmpresaService } from 'src/app/shared/funcionalitats-permisos/perfil-usuari-identificador-empresa.service';
 import { FuncionalitatsPermisosModule } from 'src/app/shared/funcionalitats-permisos/funcionalitats-permisos.module';
 
 @NgModule({
@@ -39,11 +39,11 @@ import { FuncionalitatsPermisosModule } from 'src/app/shared/funcionalitats-perm
 		UsuariIdentificadorsAddDialog
 	],
 	providers: [
-		UsuariIdentificadorsService,
-		UsuarisService,
+		UsuariIdentificadorService,
 		UsuariIdentificadorEmpresaService,
-		PerfilsService,
-		EmpresesService,
+		UsuariService,
+		EmpresaService,
+		PerfilService,
 		PerfilUsuariIdentificadorEmpresaService
 	],
 	entryComponents: [

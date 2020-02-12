@@ -55,12 +55,12 @@ public class UsuariIdentificadorEmpresa extends AbstractIdentificable<Long> {
 			hiddenInLov = true)
 	private String description;
 
-	public String getDescription() {
+	/*public String getDescription() {
 		if (usuariIdentificador != null || empresa != null) {
 			return ((usuariIdentificador != null) ? usuariIdentificador.getDescription() : "") + " - " + ((empresa != null) ? empresa.getDescription() : "");
 		} else {
 			return null;
 		}
-	}
+	}*/
 
 }
