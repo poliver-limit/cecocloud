@@ -7,16 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.LinkRelation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
-import es.limit.base.boot.back.controller.ApiControllerHelper.SelfLinkBuilder;
+import es.limit.base.boot.back.controller.ApiControllerHelper.ResourceLinksBuilder;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -46,14 +44,16 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 				toResources(
 						((UsuariIdentificadorEmpresaService)getService()).buildSelectionTree(),
 						getClass(),
-						new SelfLinkBuilder() {
+						new ResourceLinksBuilder() {
 							@Override
-							public Link build(Class<?> apiControllerClass, Object... params) {
-								return getSelfLink(params);
+							public Link[] build(Class<?> apiControllerClass, Object... params) {
+								return new Link[] {
+										getSelfLink(params),
+										getApiLink(),
+										getProfileLink()
+								};
 							}
-						},
-						getApiLink(IanaLinkRelations.SELF),
-						getProfileLink(LinkRelation.of("profile"))));
+						}));
 	}
 
 	// Mètodes per a configurar els permisos (perfils) a nivell d'usuari-empresa
@@ -67,14 +67,16 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 				toResources(
 						((UsuariIdentificadorEmpresaService)getService()).buildPerfilTree(),
 						getClass(),
-						new SelfLinkBuilder() {
+						new ResourceLinksBuilder() {
 							@Override
-							public Link build(Class<?> apiControllerClass, Object... params) {
-								return getSelfLink(params);
+							public Link[] build(Class<?> apiControllerClass, Object... params) {
+								return new Link[] {
+										getSelfLink(params),
+										getApiLink(),
+										getProfileLink()
+								};
 							}
-						},
-						getApiLink(IanaLinkRelations.SELF),
-						getProfileLink(LinkRelation.of("profile"))));
+						}));
 	}
 
 	@Override

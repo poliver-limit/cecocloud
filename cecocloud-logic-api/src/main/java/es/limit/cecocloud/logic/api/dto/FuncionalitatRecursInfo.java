@@ -21,4 +21,11 @@ public class FuncionalitatRecursInfo {
 	private String resourceClassName;
 	private boolean principal;
 	private String permis;
+	
+	public String getPermisFinal() {
+		if (principal)
+			return permis;
+		else
+			return "READ";
+	}
 }

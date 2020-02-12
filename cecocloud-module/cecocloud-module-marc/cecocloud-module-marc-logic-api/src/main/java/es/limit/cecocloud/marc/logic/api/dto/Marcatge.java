@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.GeoPosition;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
@@ -28,9 +30,22 @@ import lombok.Setter;
 @Getter @Setter
 @MarcatgeOperariValid
 @MarcatgeData
-@RestapiResource()
+@RestapiResource(
+		descriptionField = "data",
+		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(
+						type = RestapiPermissionConstraintType.ACL_RESOURCE,
+						resourceClass = "es.limit.cecocloud.marc.logic.api.dto.Marcatge")
+		}
+)
 public class Marcatge extends AbstractIdentificable<Long> {
 
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			includeInQuickFilter = true)
+	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 	@NotNull
 	@RestapiField(type = RestapiFieldType.DATETIME)
 	private Date data;
@@ -43,12 +58,6 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	private Double latitud;
 	@RestapiField(hiddenInGrid = true)
 	private Double longitud;
-	@NotNull
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)
-	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 
 	@Transient
 	@RestapiField(

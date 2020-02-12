@@ -38,6 +38,7 @@ export class AppComponent {
 	onIdentificadorEmpresaSelected(identificadorEmpresa: any) {
 		//console.log('>>> onIdentificadorEmpresaSelected', identificadorEmpresa)
 		//this.currentEmpresa = identificadorEmpresa.empresa;
+		this.router.navigate(['/']);
 	}
 
 	onIdentificadorAdminSelected(identificador: any) {

@@ -3,17 +3,24 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificador;
+import es.limit.cecocloud.logic.api.module.Modul;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,7 +43,7 @@ import lombok.Setter;
 		}
 )
 public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionableEntity<FuncionalitatIdentificador, Long> {
-
+	
 	@Embedded
 	protected FuncionalitatIdentificador embedded;
 
@@ -50,6 +57,11 @@ public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionab
 			name = "identificador_id",
 			foreignKey = @ForeignKey(name = "funcident_identificador_fk"))
 	protected IdentificadorEntity identificador;
+	@OneToMany(mappedBy = "funcionalitatIdentificador", cascade = CascadeType.ALL)
+	protected List<FuncionalitatIdentificadorPerfilEntity> funcionalitatIdentificadorPerfils;
+
+	@Formula(value="(select fun.modul from funcionalitat fun where fun.id = identificador_id)")
+	private Modul funcionalitatModul;
 
 	@Builder
 	public FuncionalitatIdentificadorEntity(
@@ -71,5 +83,5 @@ public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionab
 	public void updateIdentificador(IdentificadorEntity identificador) {
 		this.identificador = identificador;
 	}
-
+	
 }

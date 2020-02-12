@@ -3,8 +3,11 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.Set;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,8 +15,11 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Formula;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.base.boot.persist.entity.UsuariEntity;
@@ -36,7 +42,8 @@ import lombok.Setter;
 @Table(
 		name = "operari",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "operari_codi_uk", columnNames = {"codi", "identificador_id"})
+				@UniqueConstraint(name = "operari_codi_uk", columnNames = {"identificador_id", "codi"}),
+				@UniqueConstraint(name = "operari_usuari_uk", columnNames = {"identificador_id", "usuari_id"})
 		}
 )
 @AttributeOverrides({
@@ -58,6 +65,11 @@ public class OperariEntity extends AbstractAuditableVersionableEntity<Operari, L
 			name = "identificador_id",
 			foreignKey = @ForeignKey(name = "operari_identificador_fk"))
 	protected IdentificadorEntity identificador;
+	@OneToMany(mappedBy = "operari", cascade = CascadeType.ALL)
+	protected Set<OperariEmpresaEntity> operarisEmpreses;
+
+	@Formula(value="(select ('[' || codi || '] ' || usu.nom || ' ' || usu.llinatges) from usuari usu where usu.id = usuari_id)")
+	private String description;
 
 	@Builder
 	public OperariEntity(

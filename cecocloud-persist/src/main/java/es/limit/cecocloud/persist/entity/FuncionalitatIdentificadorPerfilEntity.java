@@ -28,6 +28,7 @@ import lombok.Setter;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+//@EntityListeners(FuncionalitatIdentificadorPerfilListener.class)
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -77,5 +78,5 @@ public class FuncionalitatIdentificadorPerfilEntity extends AbstractAuditableVer
 	public void updatePerfil(PerfilEntity perfil) {
 		this.perfil = perfil;
 	}
-
+	
 }

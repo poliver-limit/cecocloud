@@ -10,7 +10,7 @@ import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
 
 /**
- * Conversor cap a DTO de les entitats de tipus UsuariIdentificadorEmpresa.
+ * Conversor cap a DTO de les entitats de tipus (usuari-identificador)-empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

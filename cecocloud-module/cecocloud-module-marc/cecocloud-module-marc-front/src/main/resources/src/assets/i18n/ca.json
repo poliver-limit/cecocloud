@@ -5,7 +5,7 @@
 
 	"resource.marcatge": "Marcatge",
 	"resource.marcatge.plural": "Marcatges",
-	"resource.marcatge.field.operari": "Operari",
+	"resource.marcatge.field.operariEmpresa": "Operari",
 	"resource.marcatge.field.data": "Data i hora",
 	"resource.marcatge.field.origen": "Orígen",
 	"resource.marcatge.field.latitud": "Latitud",

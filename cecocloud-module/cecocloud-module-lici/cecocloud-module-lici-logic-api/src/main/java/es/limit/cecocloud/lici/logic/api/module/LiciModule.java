@@ -19,11 +19,10 @@ import es.limit.cecocloud.logic.api.module.Modules;
 @Component
 public class LiciModule {
 
-	public static final String CODE = Modul.lici.name();
 	public static final String API_PATH = GenericController.API_PATH + "/lici";
 
 	private static ModuleInfo moduleInfo = new ModuleInfo(
-			CODE,
+			Modul.lici,
 			Licitacio.class.getPackage().getName());
 
 	static {

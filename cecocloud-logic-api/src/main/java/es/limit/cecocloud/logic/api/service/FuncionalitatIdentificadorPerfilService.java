@@ -15,10 +15,11 @@ import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface FuncionalitatPerfilService extends GenericService<FuncionalitatIdentificadorPerfil, Long> {
+public interface FuncionalitatIdentificadorPerfilService extends GenericService<FuncionalitatIdentificadorPerfil, Long> {
 
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilOrderByModule(Long perfilId);
 	List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilsOrderByModule(List<Long> perfilsId);
 	void savePermisos(Long perfilId, FuncionalitatInfo funcionalitat) throws Exception;
+	void refreshPermisos(Long perfilId) throws Exception;
 
 }

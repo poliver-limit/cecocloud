@@ -38,6 +38,9 @@ public class CecocloudApp {
 	// Filtre per a processar les capçaleres HTTP X-Forwarded-* i permetre que Spring
 	// Data REST generi correctament els links dels recursos quan l'aplicació està
 	// desplegada darrera un proxy HTTP.
-	@Bean public Filter forwardedHeaderFilter() { return new ForwardedHeaderFilter(); }
+	@Bean
+	public Filter forwardedHeaderFilter() {
+		return new ForwardedHeaderFilter();
+	}
 
 }

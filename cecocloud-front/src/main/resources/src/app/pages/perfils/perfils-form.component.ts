@@ -1,36 +1,31 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BngFormConfig } from 'base-angular';
+import { BngFormBaseComponent } from 'base-angular';
 
 import { PerfilsService } from './perfils.service';
 
 @Component({
 	template: `
-		<bng-form
-		    bng-form-mant
-		    [config]="formConfig"
-		    [restapiService]="perfilsService">
-			<ng-container *ngIf="id">
-				<cec-funcionalitats
-					[perfil] = "id">
-				</cec-funcionalitats>
-			</ng-container>
-		</bng-form>
-	`
+<bng-form
+    bng-form-mant
+    [config]="formConfig"
+    [restapiService]="perfilsService">
+	<div style="display: flex">
+		<bng-custom-field name="codi" style="width: 30%"></bng-custom-field>
+	</div>
+	<bng-custom-field name="descripcio"></bng-custom-field>
+	<ng-container *ngIf="id">
+		<cec-funcionalitats [perfil]="id"></cec-funcionalitats>
+	</ng-container>
+</bng-form>`
 })
-export class PerfilsFormComponent {
-
-	id: any;
-	formConfig: BngFormConfig = {}
+export class PerfilsFormComponent extends BngFormBaseComponent {
 
 	constructor(
 		activatedRoute: ActivatedRoute,
 		public perfilsService: PerfilsService) {
-		activatedRoute.params.subscribe((params) => {
-			if (params.id) {
-				this.id = params.id;
-			}
-		});
+		super(activatedRoute);
+		this.formConfig.readOnlyStateEnabled = false;
 	}
 
 }

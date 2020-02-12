@@ -13,6 +13,8 @@ import es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatRecursEntity;
+import es.limit.cecocloud.persist.entity.PerfilEntity;
+import es.limit.cecocloud.persist.entity.RecursEntity;
 
 /**
  * Repository per a gestionar les entitats de tipus funcionalitat-recurs.
@@ -22,10 +24,30 @@ import es.limit.cecocloud.persist.entity.FuncionalitatRecursEntity;
 public interface FuncionalitatRecursRepository extends BaseRepository<FuncionalitatRecursEntity, Long> {
 
 	List<FuncionalitatRecursEntity> findByFuncionalitat(FuncionalitatEntity funcionalitat);
-	List<FuncionalitatRecursEntity> findByFuncionalitatInAndEmbeddedResourceClassName(List<FuncionalitatEntity> funcionalitats, String resourceName);
+//	FuncionalitatRecursEntity findByFuncionalitatInAndRecursEmbeddedClassName(
+//			List<FuncionalitatEntity> funcionalitats,
+//			String className);
+	FuncionalitatRecursEntity findByFuncionalitatAndRecurs(
+			FuncionalitatEntity funcionalitat,
+			RecursEntity recurs);
+	
+	@Query(	"select fr " +
+			" from " +
+//			"    FuncionalitatEntity f, " +
+			"    FuncionalitatRecursEntity fr, " +
+			"    FuncionalitatIdentificadorEntity fi, " +
+			"    FuncionalitatIdentificadorPerfilEntity fip " +
+			"where " +
+//			"    fr.funcionalitat =  f " +
+//			"and f = fi.funcionalitat " +
+//			"and fr.funcionalitat = f " +
+			"fi.funcionalitat = fr.funcionalitat " +
+			"and fip.funcionalitatIdentificador = fi " +
+			"and fip.perfil = :perfil")	
+	List<FuncionalitatRecursEntity> findByPerfil(PerfilEntity perfil);
 	
 	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(" + 
-			"		fr.embedded.resourceClassName," +
+			"		fr.recurs.embedded.className," +
 			" 		fr.embedded.principal, " +
 			" 		fip.embedded.permis) " +
 			" from " +
@@ -39,9 +61,9 @@ public interface FuncionalitatRecursRepository extends BaseRepository<Funcionali
 //			"and fr.funcionalitat = f " +
 			"and fr.funcionalitat = fi.funcionalitat " +
 			"and fip.funcionalitatIdentificador = fi " +
-			"and fr.embedded.resourceClassName = :resourceName")
+			"and fr.recurs.embedded.className = :recursClassName")
 	List<FuncionalitatRecursInfo> findPermisosByFuncionalitatsIdentificadorAndRecurs(
 			@Param("funcionalitatsIdentificador") List<FuncionalitatIdentificadorEntity> funcionalitatsIdentificador, 
-			@Param("resourceName") String resourceName);
+			@Param("recursClassName") String recursClassName);
 	
 }

@@ -11,7 +11,7 @@ import es.limit.cecocloud.logic.api.service.PerfilService;
 import es.limit.cecocloud.persist.entity.PerfilEntity;
 
 /**
- * Implementació del servei de gestió de Perfils.
+ * Implementació del servei encarregat de gestionar perfils.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

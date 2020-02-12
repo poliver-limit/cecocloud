@@ -2,13 +2,13 @@ import { Injectable, Injector } from '@angular/core';
 import { Resource } from 'angular4-hal';
 import { BngRestapiService } from 'base-angular';
 
-export class PerfilRol extends Resource {}
+export class Licitacio extends Resource {}
 
 @Injectable()
-export class PerfilRolService extends BngRestapiService<PerfilRol> {
+export class LicitacionsService extends BngRestapiService<Licitacio> {
 
     constructor( injector: Injector ) {
-        super( PerfilRol, 'perfilRol', injector );
+        super( Licitacio, 'licitacio', injector, 'lici' );
     }
 
 }

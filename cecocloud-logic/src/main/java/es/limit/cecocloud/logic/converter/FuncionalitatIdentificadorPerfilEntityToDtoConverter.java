@@ -10,7 +10,7 @@ import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorPerfilEntity;
 
 /**
- * Conversor cap a DTO de les entitats de tipus funcionalitatIdentificadorPerfil.
+ * Conversor cap a DTO de les entitats de tipus (funcionalitat-identificador)-perfil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

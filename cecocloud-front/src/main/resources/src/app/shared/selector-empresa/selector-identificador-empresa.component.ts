@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent } from 'base-angular';
+import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent, BngAuthTokenPayload } from 'base-angular';
 
 import { SelectedIdentificadorEmpresaService, SelectedIdentificadorEmpresa } from './selected-identificador-empresa.service';
 import { UsuariIdentificadorEmpresaService } from '../usuari-identificador-empresa.service';
@@ -44,6 +44,7 @@ export class SelectorIdentificadorEmpresaComponent {
 
 	selectionTree: any[];
 	selectedIdentificadorEmpresa: SelectedIdentificadorEmpresa;
+	tokenPayload: BngAuthTokenPayload;
 	mobileScreen: boolean;
 
 	onEmpresaButtonClick(indexIdentificador: number, indexEmpresa: number) {
@@ -89,8 +90,7 @@ export class SelectorIdentificadorEmpresaComponent {
 	}
 
 	private refreshSelectionTree() {
-		let authToken: string = this.authService.getAuthToken();
-		if (authToken) {
+		if (this.authService.isAuthenticated()) {
 			this.usuariIdentificadorEmpresaService.whenReady().subscribe(() => {
 				this.usuariIdentificadorEmpresaService.getSelectionTree().subscribe((resposta: any) => {
 					if (resposta && resposta._embedded) {
@@ -123,7 +123,7 @@ export class SelectorIdentificadorEmpresaComponent {
 		private usuariIdentificadorEmpresaService: UsuariIdentificadorEmpresaService,
 		private selectedIdentificadorEmpresaService: SelectedIdentificadorEmpresaService,
 		private screenSizeService: BngScreenSizeService) {
-		/*authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
+		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			if (tokenPayload) {
 				// Només refresca l'arbre si l'usuari ha canviat
 				if (!this.tokenPayload || this.tokenPayload.sub !== tokenPayload.sub) {
@@ -131,7 +131,7 @@ export class SelectorIdentificadorEmpresaComponent {
 				}
 			}
 			this.tokenPayload = tokenPayload;
-		});*/
+		});
 		// Es subscriu al subject de canvi de tamany de la pantalla
 		this.mobileScreen = this.screenSizeService.isMobile();
 		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {

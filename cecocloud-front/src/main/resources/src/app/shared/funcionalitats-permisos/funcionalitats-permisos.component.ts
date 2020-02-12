@@ -10,15 +10,21 @@ import { HalParam } from "angular4-hal";
 import { FuncionalitatsPermisosService } from "./funcionalitats-permisos.service";
 import { PerfilUsuariIdentificadorEmpresaService } from "./perfil-usuari-identificador-empresa.service";
 import {
-	FuncionalitatsIdentificadorService,
 	FuncionalitatIdentificador
 } from "./funcionalitats-identificador.service";
 
 @Component({
 	selector: "cec-funcionalitats",
 	template: `
+		<!-- <div class="ample-complet" style="display: flex; text-align: right;">
+			<button *ngIf="perfil" mat-button>
+				<mat-icon aria-hidden="false"
+					aria-label="Example home icon"
+					(click)="onRefreshPermisos()">refresh</mat-icon>
+			</button>
+		</div> -->
 		<div style="display: flex">
-			<div style="width: 100%; margin-top: 40px;">
+			<div class="ample-complet">
 				<mat-tab-group animationDuration="0ms">
 					<mat-tab
 						*ngFor="
@@ -42,7 +48,7 @@ import {
 										{{ "resource.funcionalitat" | translate }}
 									</th>
 									<td mat-cell *matCellDef="let funcionalitat">
-										{{ funcionalitat.descripcio }}
+										{{ ("funcionalitat." + funcionalitat.codi) | translate }}
 									</td>
 								</ng-container>
 								<!-- Columna de read -->
@@ -185,6 +191,26 @@ import {
 										</mat-checkbox>
 									</td>
 								</ng-container>
+								<!-- Columna de admin -->
+								<ng-container matColumnDef="admin">
+									<th
+										mat-header-cell
+										*matHeaderCellDef
+										[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
+										<ng-container *ngIf="!mobileScreen">{{'resource.permission.field.adminGranted' | translate}}</ng-container>
+										<ng-container *ngIf="mobileScreen">ADM</ng-container>
+									</th>
+									<td
+										mat-cell
+										*matCellDef="let funcionalitat; let index = index"
+										class="rcheck">
+										<mat-checkbox
+											name="adminGranted"
+											[checked]="funcionalitat.permission.adminGranted"
+											[disabled]="disableToggles"
+											(click)="!disableToggles && funcionalitat.tipus == 'MANTENIMENT' && onPermisChange($event, indexModul, index)"></mat-checkbox>
+									</td>
+								</ng-container>
 								<!-- Columna de execute -->
 								<ng-container matColumnDef="execute">
 									<th
@@ -257,6 +283,10 @@ import {
 			.mat-checkbox-disabled {
 				opacity: 0.78;
 			}
+			.ample-complet {
+				width: 100%;
+				margin-top: 40px;
+			}
 		`
 	]
 })
@@ -273,6 +303,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		"write",
 		"create",
 		"delete",
+		"admin",
 		"execute"
 	];
 
@@ -310,6 +341,13 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 			);
 	}
 
+	onRefreshPermisos() {
+		console.log("onRefreshPermisos", this.perfil);
+		this.funcionalitatsPermisosService.refreshPermisosPerfil(this.perfil).subscribe(() => {
+
+		});
+	}
+
 	// private showMessage(message: string) {
 	//     const snackbarRef = this.snackbar.open(
 	//         message,
@@ -333,12 +371,9 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 
 		if (this.perfil) {
 			this.disableToggles = false;
-
-			this.funcionalitatsPermisosService
-				.getFuncionalitatsByPerfil(this.perfil)
-				.subscribe(funcionalitatsModuls => {
-					this.funcionalitatsModuls = funcionalitatsModuls;
-				});
+			this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(this.perfil).subscribe(funcionalitatsModuls => {
+				this.funcionalitatsModuls = funcionalitatsModuls;
+			});
 		} else if (this.usuariIdentificadorEmpresa) {
 			const requestParams: HalParam[] = [];
 			requestParams.push({
@@ -353,18 +388,15 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 					" usuariIdentificadorEmpresa.empresa.id==" +
 					this.usuariIdentificadorEmpresa.empresaId
 			});
-			this.perfilUsuariIdentificadorEmpresaService
-				.getAll({ params: requestParams })
-				.subscribe(perfilUsuariIdentificadorEmpreses => {
+			this.perfilUsuariIdentificadorEmpresaService.whenReady().subscribe(() => {
+				this.perfilUsuariIdentificadorEmpresaService.getAll({ params: requestParams }).subscribe(perfilUsuariIdentificadorEmpreses => {
 					if (
 						perfilUsuariIdentificadorEmpreses == null ||
 						perfilUsuariIdentificadorEmpreses.length === 0
 					) {
-						this.funcionalitatsPermisosService
-							.getFuncionalitatsByPerfil(-1)
-							.subscribe(funcionalitatsModuls => {
-								this.funcionalitatsModuls = funcionalitatsModuls;
-							});
+						this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(-1).subscribe(funcionalitatsModuls => {
+							this.funcionalitatsModuls = funcionalitatsModuls;
+						});
 					} else {
 						let perfils: number[];
 						if (
@@ -377,15 +409,13 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 								puie => puie.perfil.id
 							);
 						}
-
-						this.funcionalitatsPermisosService
-							.getFuncionalitatsByPerfils(perfils)
-							.subscribe(funcionalitatsModuls => {
-								console.log("FuncionalitatsPerfil: ", funcionalitatsModuls);
-								this.funcionalitatsModuls = funcionalitatsModuls;
-							});
+						this.funcionalitatsPermisosService.getFuncionalitatsByPerfils(perfils).subscribe(funcionalitatsModuls => {
+							//console.log("FuncionalitatsPerfil: ", funcionalitatsModuls);
+							this.funcionalitatsModuls = funcionalitatsModuls;
+						});
 					}
 				});
+			});
 		}
 	}
 
@@ -395,16 +425,14 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		// public funcionalitatsIdentificadorService: FuncionalitatsIdentificadorService,
 		translate: TranslateService,
 		private screenSizeService: BngScreenSizeService,
-		private snackbar: MatSnackBar
-	) {
+		private snackbar: MatSnackBar) {
 		this.translate = translate;
 		this.mobileScreen = this.screenSizeService.isMobile();
 		this.tableHeight = Math.max(window.innerHeight - 490, 200);
-		this.screenSizeService
-			.getScreenSizeChangeSubject()
-			.subscribe((event: BngScreenSizeChangeEvent) => {
-				this.mobileScreen = event.mobile;
-				this.tableHeight = Math.max(event.height - 120, 200);
-			});
+		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
+			this.mobileScreen = event.mobile;
+			this.tableHeight = Math.max(event.height - 120, 200);
+		});
 	}
+
 }

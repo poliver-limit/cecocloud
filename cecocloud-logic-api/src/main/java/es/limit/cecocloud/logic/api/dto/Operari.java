@@ -30,13 +30,14 @@ public class Operari extends AbstractIdentificableWithIdentificador<Long> {
 	@Size(max = 6)
 	@RestapiField(
 			toUpperCase = true,
-			includeInQuickFilter = true)
+			includeInQuickFilter = true,
+			disabledForUpdate = true)
 	private String codi;
 	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			//disabledForUpdate = true,
+			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
 	private boolean actiu = true;
@@ -46,16 +47,6 @@ public class Operari extends AbstractIdentificableWithIdentificador<Long> {
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private String description;
-
-	public String getDescription() {
-		if (codi != null && usuari != null) {
-			return "(" + codi + ") " + usuari.getDescription();
-		} else if (codi != null) {
-			return "(" + codi + ") ???";
-		} else {
-			return null;
-		}
-	}
 
 }
 

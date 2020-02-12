@@ -95,7 +95,7 @@ public class SessionServiceImpl implements SessionService {
 						usuariIdentificadorEmpresa.get());
 				if (perfilsUsuariIdentificadorEmpresa != null && !perfilsUsuariIdentificadorEmpresa.isEmpty()) {
 					grantedAuthorities = perfilsUsuariIdentificadorEmpresa.stream().map(
-							perfilUsuariIdentificadorEmpresa -> new ExternalGrantedAuthority(perfilUsuariIdentificadorEmpresa.getPerfil().getId().toString())).collect(Collectors.toList()); 
+							perfilUsuariIdentificadorEmpresa -> new ExternalGrantedAuthority("Perfil_" + perfilUsuariIdentificadorEmpresa.getPerfil().getId().toString())).collect(Collectors.toList()); 
 				}
 			}
 		}
