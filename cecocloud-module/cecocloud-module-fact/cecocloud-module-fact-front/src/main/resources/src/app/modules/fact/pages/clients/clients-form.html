@@ -1,0 +1,561 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="clientsService"
+>
+  <div style="display: flex;">
+    <div style="width: 35%; padding-right: 1em">
+      <bng-custom-field name="codi"></bng-custom-field>
+    </div>
+    <div style="width: 35%; padding-right: 1em">
+<!--       <bng-custom-field name="nomComercial"></bng-custom-field> -->
+    </div>
+    <div style="width: 10%; display: inline-block;"></div>
+    <div style="width: 10%; padding-top: 1em; padding-right: 1em">
+      <bng-custom-field name="potencial"></bng-custom-field>
+    </div>
+    <div style="width: 10%; padding-top: 1em; padding-right: 1em">
+      <bng-custom-field name="bloquejat"></bng-custom-field>
+    </div>
+  </div>
+  
+  <mat-tab-group>
+    <mat-tab label="{{'resource.projecte.field.titolGeneralClients'|translate}}">
+      <ng-container *ngTemplateOutlet="generalTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolContactesClients'|translate}}">
+      <ng-container *ngTemplateOutlet="contactesTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolFacturaElectronicaClients'|translate}}">
+      <ng-container *ngTemplateOutlet="facturaElectronicaTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolComptabilitatClients'|translate}}">
+      <ng-container *ngTemplateOutlet="comptabilitatTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolFacturacioClients'|translate}}">
+      <ng-container *ngTemplateOutlet="facturacioTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolFacturacio2Clients'|translate}}">
+      <ng-container *ngTemplateOutlet="facturacio2Tab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolPersonalitzacioClients'|translate}}">
+      <ng-container *ngTemplateOutlet="personalitzacioTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolDocumentsClients'|translate}}">
+      <ng-container *ngTemplateOutlet="documentsTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolSubclientsClients'|translate}}">
+      <ng-container *ngTemplateOutlet="subClientsTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolAdrecesComercialsClients'|translate}}">
+      <ng-container *ngTemplateOutlet="adrecesComercialsTab"></ng-container>
+    </mat-tab>
+  </mat-tab-group>
+  
+  <ng-template #generalTab>
+  	<div style="display: flex">
+      <div style="width: 25%; padding-top: 0.8em; padding-right: 1em">
+        <bng-custom-field name="tipusPersona"></bng-custom-field>
+      </div>  
+   	  <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="nomFiscal001"></bng-custom-field>
+      </div>
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="llinatgeFiscal001"></bng-custom-field>
+      </div>
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="llinatgeFiscal002"></bng-custom-field>
+      </div>
+    </div>    
+    <div style="display: flex">
+    	<div style="width: 50%; padding-right: 1em">
+        	<bng-custom-field name="nomComercial"></bng-custom-field>
+      	</div>
+      	<div style="width: 50%; padding-right: 1em">
+        	<bng-custom-field name="nomFiscal"></bng-custom-field>
+      	</div>
+    </div> 
+    <div style="display: flex">
+    	<div style="width: 33%; padding-right: 1em">
+        	<bng-custom-field name="paisNif"></bng-custom-field>
+      </div>
+      <div style="width: 33%; padding-top: 0.9em; padding-right: 1em">
+        	<bng-custom-field name="tipusNif"></bng-custom-field>
+      </div>
+	  <div style="width: 33%; padding-right: 1em">
+      		<bng-custom-field name="nif"></bng-custom-field>
+      </div>
+    </div>  
+    <div style="display: flex">
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="tipusAdresa"></bng-custom-field>
+      </div>
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="nomDomicili"></bng-custom-field>
+      </div>
+	  <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="numeroDomicili"></bng-custom-field>
+      </div>    
+      <div style="width: 25%; padding-right: 1em">
+        <bng-custom-field name="escalaDomicili"></bng-custom-field>
+      </div>
+    </div>      
+    <div style="display: flex">
+    	<div style="width: 25%; padding-right: 1em">
+        	<bng-custom-field name="pisDomicili"></bng-custom-field>
+      	</div>
+      	<div style="width: 25%; padding-right: 1em">
+        	<bng-custom-field name="portaDomicili"></bng-custom-field>
+      	</div>
+	    <div style="width: 25%; padding-right: 1em">
+        	<bng-custom-field name="domiciliFiscal"></bng-custom-field>
+      	</div>     
+      	<div style="width: 25%; padding-right: 1em">
+        	<bng-custom-field name="codiPostal"></bng-custom-field>
+     	</div>
+    </div>    
+    <div style="display: flex">
+    	<div style="width: 20%; padding-right: 1em">
+        	<bng-custom-field name="alias"></bng-custom-field>
+      	</div>
+      	<div style="width: 20%; padding-right: 1em">
+        	<bng-custom-field name="familiaClient"></bng-custom-field>
+      	</div>
+	    <div style="width: 20%; padding-right: 1em">
+        	<bng-custom-field name="organitzacio"></bng-custom-field>
+      	</div>     
+      	<div style="width: 20%; padding-right: 1em">
+        	<bng-custom-field name="idioma"></bng-custom-field>
+     	</div>
+     	<div style="width: 20%; padding-right: 1em">
+        	<bng-custom-field name="operari"></bng-custom-field>
+     	</div>
+    </div>   
+    <div style="display: flex">
+    	<div style="width: 25%;  padding-top: 1em; padding-right: 1em">
+        	<bng-custom-field name="entitatPublica"></bng-custom-field>
+      	</div>
+      	<div style="width: 25%;  padding-top: 1em; padding-right: 1em">
+        	<bng-custom-field name="censadoAEAT"></bng-custom-field>
+      	</div>
+	    <div style="width: 25%; padding-top: 0.9em; padding-right: 1em">
+        	<bng-custom-field name="tipusEstranger"></bng-custom-field>
+      	</div>     
+      	<div style="width: 25%; padding-right: 1em">
+        	<bng-custom-field name="observacions"></bng-custom-field>
+     	</div>
+    </div>    
+  </ng-template>
+  
+  <ng-template #contactesTab>
+		<mat-card>
+			<mat-card-title>{{'resource.projecte.field.titolContactesClients'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="contactesFields"></ng-container>
+			</mat-card-content>
+		</mat-card>
+		<mat-card>
+			<mat-card-title>{{'resource.projecte.field.titolDepartamentClients'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="departamentClientFields"></ng-container>
+			</mat-card-content>
+		</mat-card>
+	</ng-template>
+	
+	<ng-template #contactesFields>
+		<div style="display: flex">
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="personaContacte"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="telefon"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="fax"></bng-custom-field>
+			</div>
+		</div>
+		<div style="display: flex">
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="email"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="adresaWeb"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="zona"></bng-custom-field>
+			</div>
+		</div>
+		<div style="display: flex">
+			<div style="width: 33%; padding-top: 0.9em; padding-right: 1em">
+				<bng-custom-field name="tipusMissatge"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="latitud"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="longitud"></bng-custom-field>
+			</div>
+		</div>
+	</ng-template>
+	<ng-template #departamentClientFields>
+<!-- 		<bng-datagrid -->
+<!-- 			bng-datagrid-mant -->
+<!-- 			[config]="datagridConfig" -->
+<!-- 			[restapiService]="departamentsClientService"> -->
+<!-- 		</bng-datagrid>    -->	 		
+	</ng-template>
+	
+	<ng-template #facturaElectronicaTab>
+	  	<div style="display: flex">
+	      <div style="width: 33%; padding-right: 1em">
+	        <bng-custom-field name="contacteFacturaElectronica"></bng-custom-field>
+	      </div>  
+	   	  <div style="width: 33%; padding-right: 1em">
+	        <bng-custom-field name="telefonFacturaElectronica"></bng-custom-field>
+	      </div>
+	      <div style="width: 33%; padding-right: 1em">
+	        <bng-custom-field name="emailFacturaElectronica"></bng-custom-field>
+	      </div> 
+	    </div>  
+	    <mat-card>
+			<mat-card-title>{{'resource.projecte.field.titolOficinaComptableClients'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="oficinaComptableFields"></ng-container>
+			</mat-card-content>
+		</mat-card>
+		<mat-card>
+			<mat-card-title>{{'resource.projecte.field.titolOrganGestorClients'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="organGestorFields"></ng-container>
+			</mat-card-content>
+		</mat-card>
+		<mat-card>
+			<mat-card-title>{{'resource.projecte.field.titolUnitatTramitadoraClients'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="unitatTramitadoraFields"></ng-container>
+			</mat-card-content>
+		</mat-card>		
+    </ng-template> 
+    
+    <ng-template #oficinaComptableFields>
+		<div style="display: flex">
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="oficinaComptable"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="codiPostalOficinaComptable"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="domiciliOficinaComptable"></bng-custom-field>
+			</div>
+		</div>
+	</ng-template>
+	
+	<ng-template #organGestorFields>
+		<div style="display: flex">
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="organGestor"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="codiPostalOrganGestor"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="domiciliOrganGestor"></bng-custom-field>
+			</div>
+		</div>
+	</ng-template>
+	
+	<ng-template #unitatTramitadoraFields>
+		<div style="display: flex">
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="unitatTramitadora"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="codiPostalUnitatTramitadora"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="domiciliUnitatTramitadora"></bng-custom-field>
+			</div>
+		</div>
+	</ng-template>
+     
+  	<ng-template #comptabilitatTab>
+  		<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="paisIban"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="digitsControlIban"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="banc"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="oficinaBancaria"></bng-custom-field>
+      		</div>
+    	</div>
+    	<div style="display: flex">
+  			<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="digitsControl"></bng-custom-field>
+      		</div>
+     		<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="numeroCC"></bng-custom-field>
+      		</div>
+      		<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="bicIban"></bng-custom-field>
+      		</div>     		
+    	</div>
+    	<div style="display: flex">
+  			<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="iva"></bng-custom-field>
+      		</div>
+     		<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="regimIva"></bng-custom-field>
+      		</div>
+      		<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="claseRetencio"></bng-custom-field>
+      		</div>     		
+    	</div>
+    	<div style="display: flex">
+  			<div style="width: 33%; padding-top: 0.8em; padding-right: 1em">
+        		<bng-custom-field name="tipusRetencio"></bng-custom-field>
+      		</div>
+     		<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="percentatgeRetencio"></bng-custom-field>
+      		</div>
+      		<div style="width: 33%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="recarrecEquivalencia"></bng-custom-field>
+      		</div>     		
+    	</div>
+    	<div style="display: flex">
+  			<div style="width: 50%; padding-right: 1em">
+        		<bng-custom-field name="compteContable"></bng-custom-field>
+      		</div>
+     		<div style="width: 50%; padding-right: 1em">
+        		<bng-custom-field name="compteVentesComptabilitat"></bng-custom-field>
+      		</div>      		 		
+    	</div>
+   	</ng-template>    
+   	<ng-template #facturacioTab>
+  		<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tarifa1"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tarifa2"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="empresa"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="serie"></bng-custom-field>
+      		</div>
+    	</div>
+    	<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="divisa"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="albaraValorat"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="facturesSenseDescompte"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="copiesFactura"></bng-custom-field>
+      		</div>
+    	</div>
+ 	    <div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tipusFacturacio"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 0.8em; padding-right: 1em">
+        		<bng-custom-field name="tipusFactura"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-top: 0.8em; padding-right: 1em">
+        		<bng-custom-field name="enviamentFactura"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 0.8em; padding-right: 1em">
+        		<bng-custom-field name="rebuts"></bng-custom-field>
+      		</div>
+    	</div>
+		<div style="display: flex">
+  			<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="noImprimirPaletsRetornats"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tipusVenciment"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tipusVenciment1"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="documentPagament"></bng-custom-field>
+      		</div>
+    	</div>
+		<div style="display: flex">
+  			<div style="width: 25%; padding-top: 0.8em; padding-right: 1em">
+        		<bng-custom-field name="albaraClientSubtipus"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 0.8em; padding-right: 1em">
+        		<bng-custom-field name="tipusDescompte"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tarifaDescompte"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="descompteFinalFacturesComptatClase1"></bng-custom-field>
+      		</div>
+    	</div>
+   		<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="descompteFinalFacturesTerminiClase1"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="aplicarPreusPerVolum"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tarifaDescompte2"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="adresaComercialClient"></bng-custom-field>
+      		</div>
+    	</div>
+  	   	<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="descompteComptats"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="descompteTermini"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="publicarDocumentsWeb"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="noImprimirSubclient"></bng-custom-field>
+      		</div>
+    	</div>
+  	  	<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="percentatgePermesFacturesClase1"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="mostrarPercentatgeFacturacioClase1"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="emailFactura"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="tipusComissio"></bng-custom-field>
+      		</div>
+    	</div>
+    	<div style="display: flex">
+  			<div style="width: 50%; padding-right: 1em">
+        		<bng-custom-field name="emailEnviamentAlbarans"></bng-custom-field>
+      		</div>
+     		<div style="width: 50%; padding-right: 1em">
+        		<bng-custom-field name="observacionsFactura"></bng-custom-field>
+      		</div>      	
+    	</div>
+    </ng-template>   
+    <ng-template #facturacio2Tab>
+  		<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="rappel"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="transportista"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="riscMaxim"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="facturacioMinima"></bng-custom-field>
+      		</div>
+    	</div> 
+    	<div style="display: flex">
+  			<div style="width: 25%; padding-right: 1em">
+        		<bng-custom-field name="riscLimit"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="aplicarImpostPuntVerd"></bng-custom-field>
+      		</div>
+      		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="aplicarImpostServei"></bng-custom-field>
+      		</div>
+     		<div style="width: 25%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="impostInclos"></bng-custom-field>
+      		</div>
+    	</div>
+ 	    <div style="display: flex">
+  			<div style="width: 20%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="permesEntrarPartes"></bng-custom-field>
+      		</div>
+     		<div style="width: 20%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="cobrarDiesLloguer"></bng-custom-field>
+      		</div>
+      		<div style="width: 20%; padding-right: 1em">
+        		<bng-custom-field name="referenciaUnicaMandat"></bng-custom-field>
+      		</div>
+     		<div style="width: 20%; padding-right: 1em">
+        		<bng-custom-field name="dataFirmaMandat"></bng-custom-field>
+      		</div>
+      		<div style="width: 20%; padding-top: 1em; padding-right: 1em">
+        		<bng-custom-field name="facturaElectronica"></bng-custom-field>
+      		</div>
+    	</div>
+    </ng-template>
+    <ng-template #personalitzacioTab>    	
+    	<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
+		<mat-card>
+			<mat-card-title>{{'resource.projecte.field.titolParametresAlfanumericsClients'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="parametresAlfanumerics"></ng-container>
+			</mat-card-content>
+		</mat-card>		
+		</div>
+		<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
+		<mat-card>
+			<mat-card-title>{{'resource.projecte.field.titolParametresNumericsClients'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="parametresNumerics"></ng-container>
+			</mat-card-content>
+		</mat-card>
+		</div>		
+	</ng-template>	
+	<ng-template #parametresAlfanumerics>		
+		<bng-custom-field name="parametreTxt1"></bng-custom-field>
+		<bng-custom-field name="parametreTxt2"></bng-custom-field>	
+		<bng-custom-field name="parametreTxt3"></bng-custom-field>	
+		<bng-custom-field name="parametreTxt4"></bng-custom-field>	
+		<bng-custom-field name="parametreTxt5"></bng-custom-field>		
+	</ng-template>	
+	<ng-template #parametresNumerics>		
+		<bng-custom-field name="parametreNum1"></bng-custom-field>
+		<bng-custom-field name="parametreNum2"></bng-custom-field>	
+		<bng-custom-field name="parametreNum3"></bng-custom-field>	
+		<bng-custom-field name="parametreNum4"></bng-custom-field>	
+		<bng-custom-field name="parametreNum5"></bng-custom-field>		
+	</ng-template>	
+	<ng-template #documentsTab>
+	</ng-template>
+	<ng-template #subClientsTab>
+	<!-- 		<bng-datagrid -->
+<!-- 			bng-datagrid-mant -->
+<!-- 			[config]="datagridConfig" -->
+<!-- 			[restapiService]="subClientsService"> -->
+<!-- 		</bng-datagrid>    -->	
+<!-- 		<subClient> -->
+<!-- 		</subClient> -->
+	</ng-template>
+	<ng-template #adrecesComercialsTab>
+	<!-- 		<bng-datagrid -->
+<!-- 			bng-datagrid-mant -->
+<!-- 			[config]="datagridConfig" -->
+<!-- 			[restapiService]="clientsAdresaService"> -->
+<!-- 		</bng-datagrid>    -->	
+<!-- 		<clientAdresa> -->
+<!-- 		</clientAdresa> -->
+	</ng-template>      
+	
+</bng-form>
