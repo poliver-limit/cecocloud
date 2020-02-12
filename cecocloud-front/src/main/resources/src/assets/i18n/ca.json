@@ -138,7 +138,10 @@
 	"page.operaris.modal.usuari.trobat": "Usuari trobat",
 	"page.operaris.modal.especifiqui.codi": "Especifiqui el codi que vol assignar a l'operari",
 	"page.operaris.modal.button.cancelar": "Cancel·lar",
-	"page.operaris.modal.button.afegir": "Afegir"
+	"page.operaris.modal.button.afegir": "Afegir",
+	
+	"filters.filter" : "Filtrar",
+	"filters.cleanFilters" : "Netejar filtres"
 	
 
 }

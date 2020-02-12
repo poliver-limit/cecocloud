@@ -137,6 +137,9 @@
 	"page.operaris.modal.usuari.trobat": "Usuario encontrado",
 	"page.operaris.modal.especifiqui.codi": "Especifique el código que quiere asignar al operario",
 	"page.operaris.modal.button.cancelar": "Cancelar",
-	"page.operaris.modal.button.afegir": "Añadir"
+	"page.operaris.modal.button.afegir": "Añadir",
+		
+	"filters.filter" : "Filtrar",
+	"filters.cleanFilters" : "Limpiar filtros"
 
 }

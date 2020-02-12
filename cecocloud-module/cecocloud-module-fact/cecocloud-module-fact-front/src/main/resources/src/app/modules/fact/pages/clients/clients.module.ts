@@ -17,13 +17,13 @@ import { ClientsService } from './clients.service';
 		BngModule,
 		MaterialModule,
         RouterModule.forChild( [
-            { path: '', component: ClientsGridComponent },
-            { path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },
+            { path: '', component: ClientsGridComponent },            
+			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },
             { path: 'update/:id', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] }
         ] )
     ],
     declarations: [
-        ClientsGridComponent,
+        ClientsGridComponent,	
         ClientsFormComponent
     ],
     providers: [

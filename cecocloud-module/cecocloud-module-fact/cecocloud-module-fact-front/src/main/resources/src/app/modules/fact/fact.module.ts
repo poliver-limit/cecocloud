@@ -14,7 +14,11 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			children: [{
 				path: '',
 				loadChildren: () => import('./pages/index/index-fact.module').then(m => m.IndexFactModule)
-							   
+												   
+			}, {
+				path: 'cercadorClients',
+				loadChildren: () => import('./pages/cercadorClients/cercadorClients.module').then(m => m.CercadorClientsModule)
+						 
 			}, {
 				path: 'albarans',
 				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
@@ -275,6 +279,11 @@ export class FactModule {
 			icon: 'assignment',
 			label: 'Facturació',
 			menuItems: [{
+				icon: 'room',
+				label: 'Cercador clients',
+				labelKey: 'app.menu.fact.cercadorClients',
+				route: '/fact/cercadorClients'
+			}, {
 				icon: 'room',
 				label: 'Albarans',
 				labelKey: 'app.menu.fact.albarans',
