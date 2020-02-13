@@ -49,6 +49,12 @@ export class AppService {
 			labelKey: 'app.menu.identificador',
 			route: '/identificador'
 		}, {
+			icon: 'apartment',
+			label: 'Empreses',
+			labelKey: 'app.menu.empreses',
+			resource: 'empresa',
+			route: '/empreses'
+		}, {
 			icon: 'people',
 			label: 'Usuaris',
 			labelKey: 'app.menu.usuaris',
@@ -58,12 +64,6 @@ export class AppService {
 			label: 'Operaris',
 			labelKey: 'app.menu.operaris',
 			route: '/operaris'
-		}, {
-			icon: 'apartment',
-			label: 'Empreses',
-			labelKey: 'app.menu.empreses',
-			resource: 'empresa',
-			route: '/empreses'
 		}, {
 			icon: 'portrait',
 			label: 'Perfils',

@@ -403,3 +403,43 @@ alter table usuari_ident_empresa
    add constraint usuidentemp_usuidf_fk 
    foreign key (usuident_id) 
    references usuari_ident;
+
+create table acl_sid(
+    id bigserial not null primary key,
+    principal boolean not null,
+    sid varchar(100) not null,
+    constraint aclsid_uk unique(sid,principal)
+);
+
+create table acl_class(
+    id bigserial not null primary key,
+    class varchar(100) not null,
+    constraint aclclass_uk unique(class)
+);
+
+create table acl_object_identity(
+    id bigserial primary key,
+    object_id_class bigint not null,
+    object_id_identity varchar(36) not null,
+    parent_object bigint,
+    owner_sid bigint,
+    entries_inheriting boolean not null,
+    constraint acloid_uk unique(object_id_class,object_id_identity),
+    constraint acloid_acloid_fk_1 foreign key(parent_object)references acl_object_identity(id),
+    constraint acloid_aclclass_fk_2 foreign key(object_id_class)references acl_class(id),
+    constraint acloid_aclsid_fk_3 foreign key(owner_sid)references acl_sid(id)
+);
+
+create table acl_entry(
+    id bigserial primary key,
+    acl_object_identity bigint not null,
+    ace_order int not null,
+    sid bigint not null,
+    mask integer not null,
+    granting boolean not null,
+    audit_success boolean not null,
+    audit_failure boolean not null,
+    constraint aclentry_uk unique(acl_object_identity,ace_order),
+    constraint aclentry_acloid_fk foreign key(acl_object_identity) references acl_object_identity(id),
+    constraint aclentry_aclsid_fk foreign key(sid) references acl_sid(id)
+);
