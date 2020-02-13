@@ -233,5 +233,25 @@
 	"funcionalitat.MAR_MARCAT": "Marcajes",
 
 	"funcionalitat.LIC_CONFIG": "Configuraciones",
-	"funcionalitat.LIC_LICITA": "Licitaciones"
+	"funcionalitat.LIC_LICITA": "Licitaciones",
+
+	"funcionalitat.REH_CALEND": "Calendarios",
+	"funcionalitat.REH_CATEGO": "Categorias",
+	"funcionalitat.REH_GRUFES": "Grupos festivos",
+	"funcionalitat.REH_HORARI": "Horarios",
+	"funcionalitat.REH_INTERV": "Intervalos",
+	"funcionalitat.REH_NODE": "Nodos",
+	"funcionalitat.REH_OPERAR": "Operarios",
+	"funcionalitat.REH_PARAME": "Parámetros",
+	"funcionalitat.REH_RECGRU": "Grupos de recursos",
+	"funcionalitat.REH_REGIM": "Regímenes",
+	"funcionalitat.REH_REGDIA": "Registros diarios",
+	"funcionalitat.REH_SECCIO": "Secciones",
+	"funcionalitat.REH_SECGRU": "Grupos de secciones",
+	"funcionalitat.REH_SERVID": "Servidores",
+	"funcionalitat.REH_SUBCAT": "Subcategorias",
+	"funcionalitat.REH_TIPDIA": "Tipos de dias",
+	"funcionalitat.REH_TIPTRA": "Tipos de transacciones",
+	"funcionalitat.REH_TRANSA": "Transacciones",
+	"funcionalitat.REH_ZONA": "Zonas"
 }
