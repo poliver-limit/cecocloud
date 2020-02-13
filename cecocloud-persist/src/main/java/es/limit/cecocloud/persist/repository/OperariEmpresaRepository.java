@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
 
@@ -36,5 +37,12 @@ public interface OperariEmpresaRepository extends BaseRepository<OperariEmpresaE
 			OperariEntity operari,
 			EmpresaEntity empresa,
 			boolean actiu);
+
+	Optional<OperariEmpresaEntity> findByOperariIdentificadorAndOperariEmbeddedActiuAndOperariUsuariEmbeddedCodiAndEmpresaAndEmpresaEmbeddedActiva(
+			IdentificadorEntity identificador,
+			boolean actiu,
+			String usuariCodi,
+			EmpresaEntity empresa,
+			boolean activa);
 
 }

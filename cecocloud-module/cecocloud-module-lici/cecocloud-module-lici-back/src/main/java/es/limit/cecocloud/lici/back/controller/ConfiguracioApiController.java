@@ -22,8 +22,8 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
 public class ConfiguracioApiController extends AbstractIdentificableApiController<Configuracio,Long> {
 
 	@Override
-	protected void completeDtoWithSession(Configuracio dto, Object userSession) {
-		super.completeDtoWithSession(dto, userSession);
+	protected void completeDtoWithSession(Configuracio dto, Object userSession, boolean isNew) {
+		super.completeDtoWithSession(dto, userSession, isNew);
 		dto.setEmpresa(GenericReference.toGenericReference(((UserSession)userSession).getE()));
 	}
 

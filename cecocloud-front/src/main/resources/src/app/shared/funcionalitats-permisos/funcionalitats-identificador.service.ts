@@ -1,9 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
-import { Resource, HalParam } from 'angular4-hal';
-import { BngRestapiService } from 'base-angular';
+import { Resource, HalParam } from '@lagoshny/ngx-hal-client';
+import { RestapiResource, BngRestapiService } from 'base-angular';
 import { Observable } from 'rxjs';
 
-export class FuncionalitatIdentificador extends Resource { }
+export class FuncionalitatIdentificador extends RestapiResource { }
 
 @Injectable()
 export class FuncionalitatsIdentificadorService extends BngRestapiService<FuncionalitatIdentificador> {

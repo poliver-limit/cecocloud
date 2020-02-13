@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BngFormBaseComponent, BngUsuarisForm, BngDatagridConfig } from 'base-angular';
 
 import { IdentificadorsService } from './identificadors.service';
 import { FuncionalitatsIdentificadorsService } from './funcionalitats-identificadors.service';
 import { IdentificadorsPermissionService } from './identificadors-permission.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	template: `

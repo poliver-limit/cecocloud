@@ -1,8 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
-import { Resource } from 'angular4-hal';
-import { BngRestapiService } from 'base-angular';
 
-export class NaturalesaPagamentCobrament extends Resource {}
+import { RestapiResource, BngRestapiService } from 'base-angular';
+
+export class NaturalesaPagamentCobrament extends RestapiResource {}
 
 @Injectable()
 export class NaturalesesPagamentCobramentService extends BngRestapiService<NaturalesaPagamentCobrament> {

@@ -23,7 +23,7 @@ public class AbstractIdentificableWithIdentificadorApiController<D extends Ident
 	private IdentificadorService identificadorService;
 
 	@Override
-	protected void completeDtoWithSession(D dto, Object userSession) {
+	protected void completeDtoWithSession(D dto, Object userSession, boolean isNew) {
 		Identificador identificador = identificadorService.getOne(((UserSession)userSession).getI());
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 	}

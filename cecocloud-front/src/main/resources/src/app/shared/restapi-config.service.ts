@@ -10,9 +10,9 @@ export class RestapiConfigService extends BngRestapiConfigService {
 	getContextPath(): string {
 		if (this.contextPath === undefined) {
 			var baseHref: string = (document.querySelector('base') || {})['href'];
+			let fullPath = baseHref + ((baseHref.endsWith('/')) ? 'api' : '/api');
 			var location = window.location;
 			let protocolHostPort = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
-			let fullPath = baseHref + ((baseHref.endsWith('/')) ? 'api' : '/api');
 			this.contextPath = fullPath.replace(protocolHostPort, '');
 		}
 		return this.contextPath;

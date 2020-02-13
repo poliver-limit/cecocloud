@@ -9,8 +9,6 @@ import { IdentificadorsService } from '../pages/identificadors/identificadors.se
 })
 export class AppService {
 
-	private _isModuleCurrentMenu: boolean = false;
-
 	adminMenu: BngMenu = {
 		icon: 'build',
 		label: 'Administració',
@@ -51,6 +49,12 @@ export class AppService {
 			labelKey: 'app.menu.identificador',
 			route: '/identificador'
 		}, {
+			icon: 'apartment',
+			label: 'Empreses',
+			labelKey: 'app.menu.empreses',
+			resource: 'empresa',
+			route: '/empreses'
+		}, {
 			icon: 'people',
 			label: 'Usuaris',
 			labelKey: 'app.menu.usuaris',
@@ -61,12 +65,6 @@ export class AppService {
 			labelKey: 'app.menu.operaris',
 			route: '/operaris'
 		}, {
-			icon: 'apartment',
-			label: 'Empreses',
-			labelKey: 'app.menu.empreses',
-			resource: 'empresa',
-			route: '/empreses'
-		}, {
 			icon: 'portrait',
 			label: 'Perfils',
 			labelKey: 'app.menu.perfils',
@@ -75,12 +73,10 @@ export class AppService {
 	}
 
 	public getAdminMenu(): BngMenu {
-		this._isModuleCurrentMenu = false;
 		return this.adminMenu;
 	}
 
 	public getAdminIdentificadorMenu(): BngMenu {
-		this._isModuleCurrentMenu = false;
 		return this.adminIdentificadorMenu;
 	}
 
@@ -118,7 +114,6 @@ export class AppService {
 					});
 				});
 			}
-			this._isModuleCurrentMenu = false;
 			return this.adminIdentificadorMenu;
 		} else {
 			let routerUrl = this.router.url.substring(1);
@@ -128,7 +123,6 @@ export class AppService {
 	}
 
 	public getModuleMenu(module: string): BngMenu {
-		this._isModuleCurrentMenu = true;
 		let moduleItem: BngAppModule = this.moduleService.getModuleItem(module);
 		if (moduleItem) {
 			return <BngMenu>{
@@ -143,10 +137,6 @@ export class AppService {
 	private registerGlobalMenus() {
 		this.menuService.registerGlobal('admin', this.adminMenu);
 		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);
-	}
-
-	get isModuleCurrentMenu(): boolean {
-		return this._isModuleCurrentMenu;
 	}
 
 	/*private registerAvailableModules() {
@@ -186,7 +176,7 @@ export class AppService {
 		private identificadorsService: IdentificadorsService) {
 		this.registerGlobalMenus();
 		//this.registerAvailableModules();
-		this.menuService.setActiveGlobalMenu('admin');
+		//this.menuService.setActiveGlobalMenu('admin');
 	}
 
 }

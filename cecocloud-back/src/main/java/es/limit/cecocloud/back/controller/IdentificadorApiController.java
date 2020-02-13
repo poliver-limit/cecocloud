@@ -47,8 +47,8 @@ public class IdentificadorApiController extends AbstractIdentificableWithPermiss
 	private AuthenticationHelper authenticationHelper;
 
 	@Override
-	protected void completeDtoWithSession(Identificador dto, Object userSession) {
-		super.completeDtoWithSession(dto, userSession);
+	protected void completeDtoWithSession(Identificador dto, Object userSession, boolean isNew) {
+		super.completeDtoWithSession(dto, userSession, isNew);
 		// Afegim l'usuari propietari
 		if (dto.getPropietari() == null) {
 			String usuariCodi = authenticationHelper.getPrincipalName();

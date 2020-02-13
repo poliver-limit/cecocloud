@@ -1,18 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Resource } from 'angular4-hal';
-import { BngRestapiService } from 'base-angular';
+import { RestapiResource, BngRestapiService } from 'base-angular';
 
-export class UsuariIdentificadorEmpresa extends Resource { }
+export class UsuariIdentificadorEmpresa extends RestapiResource { }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class UsuariIdentificadorEmpresaService extends BngRestapiService<UsuariIdentificadorEmpresa> {
-
-	// public getPerfilTree(): Observable<any> {
-	// 	return this.getHttpClient().get(this.getApiBaseUrl() + '/perfilTree');
-	// }
 
 	public getSelectionTree(): Observable<any> {
 		return this.getHttpClient().get(this.getApiBaseUrl() + '/selectionTree');

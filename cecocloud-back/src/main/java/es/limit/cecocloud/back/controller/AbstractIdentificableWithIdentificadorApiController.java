@@ -18,7 +18,7 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
 public class AbstractIdentificableWithIdentificadorApiController<D extends IdentificableWithIdentificador<ID>, ID extends Serializable> extends AbstractIdentificableApiController<D, ID> {
 
 	@Override
-	protected void completeDtoWithSession(D dto, Object userSession) {
+	protected void completeDtoWithSession(D dto, Object userSession, boolean isNew) {
 		dto.setIdentificador(GenericReference.toGenericReference(((UserSession)userSession).getI()));
 	}
 

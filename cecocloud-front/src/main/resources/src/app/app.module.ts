@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
-import { AngularHalModule } from 'angular4-hal';
+import { NgxHalClientModule } from '@lagoshny/ngx-hal-client';
 import { NgxMaskModule } from 'ngx-mask';
 import { BngBaseAppModule, BngErrorModule, BngJwtInterceptor, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
 
@@ -14,7 +14,7 @@ import { AppService } from './shared/app.service';
 import { MaterialModule } from './shared/material.module';
 import { LocaleService } from './shared/locale.service';
 import { RestapiConfigService } from './shared/restapi-config.service';
-import { SelectorIdentificadorEmpresaComponent } from './shared/selector-empresa/selector-identificador-empresa.component';
+import { SelectorIdentificadorEmpresaComponent } from './shared/selector-identificador-empresa/selector-identificador-empresa.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import localeCa from '@angular/common/locales/ca';
@@ -52,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 				deps: [HttpClient]
 			}
 		}),
-		AngularHalModule.forRoot(),
+		NgxHalClientModule.forRoot(),
 		NgxMaskModule.forRoot(),
 		BngBaseAppModule,
 		BngErrorModule,
