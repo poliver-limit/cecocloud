@@ -9,6 +9,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { MarcatgesGridComponent } from './marcatges-grid.component';
 import { MarcatgesFormComponent } from './marcatges-form.component';
 import { MarcatgesService } from './marcatges.service';
+import { OperarisEmpresesService } from './operaris-empreses.service';
 
 @NgModule( {
     imports: [
@@ -27,7 +28,8 @@ import { MarcatgesService } from './marcatges.service';
         MarcatgesFormComponent
     ],
     providers: [
-        MarcatgesService
+        MarcatgesService,
+		OperarisEmpresesService
     ]
 } )
 export class MarcatgesModule {}
