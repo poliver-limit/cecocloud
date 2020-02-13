@@ -14,7 +14,7 @@ import { AppService } from './shared/app.service';
 import { MaterialModule } from './shared/material.module';
 import { LocaleService } from './shared/locale.service';
 import { RestapiConfigService } from './shared/restapi-config.service';
-import { SelectorIdentificadorEmpresaComponent } from './shared/selector-empresa/selector-identificador-empresa.component';
+import { SelectorIdentificadorEmpresaComponent } from './shared/selector-identificador-empresa/selector-identificador-empresa.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import localeCa from '@angular/common/locales/ca';

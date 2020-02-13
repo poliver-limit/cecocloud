@@ -2,40 +2,83 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { BngAuthService, BngScreenSizeService, BngScreenSizeChangeEvent, BngAuthTokenPayload } from 'base-angular';
 
 import { SelectedIdentificadorEmpresaService, SelectedIdentificadorEmpresa } from './selected-identificador-empresa.service';
-import { UsuariIdentificadorEmpresaService } from '../usuari-identificador-empresa.service';
+import { UsuariIdentificadorEmpresaService } from './usuari-identificador-empresa.service';
 
 @Component({
 	selector: 'selector-identificador-empresa',
-	templateUrl: './selector-identificador-empresa.component.html',
+	template: `
+<button mat-button *ngIf="selectionTree" [matMenuTriggerFor]="identificadorMenu">
+	{{
+		selectedIdentificadorEmpresa?.identificador
+			? mobileScreen
+				? selectedIdentificadorEmpresa?.identificador.codi
+				: selectedIdentificadorEmpresa?.identificador.descripcio
+			: '__'
+	}}
+	&nbsp;/&nbsp;
+	{{
+		selectedIdentificadorEmpresa?.empresa
+			? mobileScreen
+				? selectedIdentificadorEmpresa?.empresa.codi
+				: selectedIdentificadorEmpresa?.empresa.nom
+			: '__'
+	}}
+	<mat-icon>arrow_drop_down</mat-icon>
+</button>
+<mat-menu #identificadorMenu="matMenu" xPosition="before">
+	<ng-container *ngFor="let treeItem of selectionTree; let i = index">
+		<mat-divider></mat-divider>
+		<button mat-menu-item style="background-color: #ddd; cursor: default;">
+			<mat-icon class="iconcom">domain</mat-icon>
+			<span class="nomcom">{{ treeItem.descripcio }}</span>
+			<button
+				*ngIf="treeItem.hasAdminPermission"
+				mat-icon-button
+				color="primary"
+				aria-label="Botó d'edició del grup d'empreses"
+				(click)="onAdministrarButtonClick(i)"
+				class="btn_adm">
+				<mat-icon class="icon_adm">build</mat-icon>
+			</button>
+		</button>
+		<mat-divider></mat-divider>
+		<button mat-menu-item *ngFor="let empresa of treeItem.empreses; let j = index" (click)="onEmpresaButtonClick(i, j)">
+			<span style="padding-left:1em">{{ empresa.nom }}</span>
+		</button>
+	</ng-container>
+</mat-menu>`,
 	styles: [`
-	.btn_adm {
-		float: right;
-		margin-left:1em;
-		padding: 0;
-		width: 30px;
-		min-width: 40px;
-		height:26px;
-		line-height: 32px;
-		top: 6px;
-	}
-	.icon_adm {
-		font-size:1.2em;
-		margin: 0 !important;
-		color: #875A7B;
-	}
-	.nomcom {
-		width: 154px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display:inline-block;
-	}
-	.iconcom {
-		float: left;
-    	position: relative;
-    	top: 10px;
-	}
-`]
+.btn_adm {
+	float: right;
+	margin-left:1em;
+	padding: 0;
+	width: 30px;
+	min-width: 40px;
+	height:26px;
+	line-height: 32px;
+	top: 6px;
+}
+.icon_adm {
+	font-size:1.2em;
+	margin: 0 !important;
+	color: #875A7B;
+}
+.nomcom {
+	width: 154px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display:inline-block;
+}
+.iconcom {
+	float: left;
+	position: relative;
+	top: 10px;
+}`],
+	providers : [
+		SelectedIdentificadorEmpresaService,
+		UsuariIdentificadorEmpresaService
+	]
 })
 export class SelectorIdentificadorEmpresaComponent {
 

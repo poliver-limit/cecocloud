@@ -58,8 +58,6 @@ export class AppComponent {
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
-			/*let menu: BngMenu = this.appService.getCurrentRouteMenu();
-			this.menuService.setActiveMenu(menu);*/
 		});
 		// Canvia la ruta quan canviam la selecció identificador/empresa i s'han acabat de refrescar els mòduls
 		this.moduleService.getAllowedModuleItemsChangeSubject().subscribe((modules: BngAppModule[]) => {
@@ -82,7 +80,6 @@ export class AppComponent {
 				this.initialMenuSelected = true;
 			}
 		});
-		
 	}
 
 }

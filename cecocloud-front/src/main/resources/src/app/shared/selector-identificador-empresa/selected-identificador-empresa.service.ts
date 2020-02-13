@@ -7,9 +7,7 @@ export class SelectedIdentificadorEmpresa {
 	empresa: any;
 }
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable()
 export class SelectedIdentificadorEmpresaService {
 
 	selectedIdentificadorEmpresa: SelectedIdentificadorEmpresa;

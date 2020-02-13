@@ -4,14 +4,8 @@ import { RestapiResource, BngRestapiService } from 'base-angular';
 
 export class UsuariIdentificadorEmpresa extends RestapiResource { }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class UsuariIdentificadorEmpresaService extends BngRestapiService<UsuariIdentificadorEmpresa> {
-
-	// public getPerfilTree(): Observable<any> {
-	// 	return this.getHttpClient().get(this.getApiBaseUrl() + '/perfilTree');
-	// }
 
 	public getSelectionTree(): Observable<any> {
 		return this.getHttpClient().get(this.getApiBaseUrl() + '/selectionTree');
