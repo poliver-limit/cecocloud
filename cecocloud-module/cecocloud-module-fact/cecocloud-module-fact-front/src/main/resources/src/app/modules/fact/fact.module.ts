@@ -309,7 +309,7 @@ export class FactModule {
 				label: 'Articles família',
 				labelKey: 'app.menu.fact.articlesFamilia',
 				route: '/fact/articlesFamilia',
-				resource: 'AC_FAMART'
+				resource: 'FAC_FAMART'
 			}, {
 				icon: 'room',
 				label: 'Articles família empresa',
