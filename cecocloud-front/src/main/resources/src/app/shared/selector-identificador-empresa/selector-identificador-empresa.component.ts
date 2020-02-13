@@ -76,7 +76,6 @@ import { UsuariIdentificadorEmpresaService } from './usuari-identificador-empres
 	top: 10px;
 }`],
 	providers : [
-		SelectedIdentificadorEmpresaService,
 		UsuariIdentificadorEmpresaService
 	]
 })
