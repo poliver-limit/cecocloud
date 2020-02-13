@@ -27,12 +27,14 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorPerfilService;
 import es.limit.cecocloud.logic.helper.FuncionalitatAclHelper;
+import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorPerfilEntity;
 import es.limit.cecocloud.persist.entity.PerfilEntity;
 import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorPerfilRepository;
 import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorRepository;
 import es.limit.cecocloud.persist.repository.PerfilRepository;
+import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
 
 /**
  * Implementació del servei encarregat de gestionar relacions funcionalitat-perfil.
@@ -50,6 +52,8 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 //	private FuncionalitatRepository funcionalitatRepository;
 	@Autowired
 	private PerfilRepository perfilRepository;
+	@Autowired
+	private PerfilUsuariIdentificadorEmpresaRepository perfilUsuariIdentificadorEmpresaRepository;
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
 	@Autowired
@@ -124,6 +128,24 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 		return modulsFuncionalitats;
 	}
 
+	@Override
+	@Transactional
+	public List<String> findAllowedFuncionalitatsByModul(Modul modul) {
+		
+		UserSession session = (UserSession)authenticationHelper.getSession();
+		Long identificadorId = session.getI();
+		Long empresaId = session.getE();
+		String usuariCodi = authenticationHelper.getPrincipalName();
+		
+		List<PerfilEntity> perfils = perfilUsuariIdentificadorEmpresaRepository.findPerfilsByUsuariCodiAndIdentificadorIdAndEmpresaId(
+				usuariCodi, 
+				identificadorId, 
+				empresaId);
+		List<FuncionalitatEntity> funcionalitats = funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfilsAndModul(perfils, modul);
+		
+		return funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getCodi()).collect(Collectors.toList());
+	}
+	
 	
 	// Assignació de permisos a funcionalitats
 	// ____________________________________________________________________________________________________________
@@ -179,5 +201,5 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 	public void refreshPermisos(Long perfilId) throws Exception {
 		funcionalitatAclHelper.refreshPermisosPerfil(perfilId);
 	}
-	
+
 }

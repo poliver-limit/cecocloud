@@ -9,6 +9,8 @@ import { IdentificadorsService } from '../pages/identificadors/identificadors.se
 })
 export class AppService {
 
+	private _isModuleCurrentMenu: boolean = false;
+
 	adminMenu: BngMenu = {
 		icon: 'build',
 		label: 'Administració',
@@ -73,10 +75,12 @@ export class AppService {
 	}
 
 	public getAdminMenu(): BngMenu {
+		this._isModuleCurrentMenu = false;
 		return this.adminMenu;
 	}
 
 	public getAdminIdentificadorMenu(): BngMenu {
+		this._isModuleCurrentMenu = false;
 		return this.adminIdentificadorMenu;
 	}
 
@@ -114,6 +118,7 @@ export class AppService {
 					});
 				});
 			}
+			this._isModuleCurrentMenu = false;
 			return this.adminIdentificadorMenu;
 		} else {
 			let routerUrl = this.router.url.substring(1);
@@ -123,6 +128,7 @@ export class AppService {
 	}
 
 	public getModuleMenu(module: string): BngMenu {
+		this._isModuleCurrentMenu = true;
 		let moduleItem: BngAppModule = this.moduleService.getModuleItem(module);
 		if (moduleItem) {
 			return <BngMenu>{
@@ -137,6 +143,10 @@ export class AppService {
 	private registerGlobalMenus() {
 		this.menuService.registerGlobal('admin', this.adminMenu);
 		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);
+	}
+
+	get isModuleCurrentMenu(): boolean {
+		return this._isModuleCurrentMenu;
 	}
 
 	/*private registerAvailableModules() {
