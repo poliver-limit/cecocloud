@@ -22,8 +22,8 @@ import es.limit.cecocloud.lici.logic.api.module.LiciModule;
 public class LicitacioApiController extends AbstractIdentificableApiController<Licitacio, Long> {
 
 	@Override
-	protected void completeDtoWithSession(Licitacio dto, Object userSession) {
-		super.completeDtoWithSession(dto, userSession);
+	protected void completeDtoWithSession(Licitacio dto, Object userSession, boolean isNew) {
+		super.completeDtoWithSession(dto, userSession, isNew);
 		dto.setEmpresa(GenericReference.toGenericReference(((UserSession) userSession).getE()));
 	}
 

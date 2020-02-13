@@ -3,11 +3,18 @@
  */
 package es.limit.cecocloud.marc.back.controller;
 
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
+import es.limit.base.boot.logic.api.dto.ProfileResourcePermissions;
+import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.logic.api.dto.UserSession;
+import es.limit.cecocloud.logic.api.service.OperariEmpresaService;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.module.MarcModule;
 
@@ -20,29 +27,42 @@ import es.limit.cecocloud.marc.logic.api.module.MarcModule;
 @RequestMapping(MarcModule.API_PATH + "/marcatges")
 public class MarcatgeApiController extends AbstractIdentificableApiController<Marcatge, Long> {
 
+	@Autowired
+	private OperariEmpresaService operariEmpresaService;
+
 	@Override
 	protected String additionalRsqlFilterFromSession(Object userSession) {
-		return 
+		ProfileResourcePermissions resourcePermissions = getResourcePermissions();
+		String filtreOperari = null;
+		if (!resourcePermissions.isHasAdminPermission()) {
+			try {
+				OperariEmpresa operariEmpresa = operariEmpresaService.findByCurrentUserAndSession();
+				filtreOperari = "operariEmpresa.id==" + operariEmpresa.getId();
+			} catch (NoSuchElementException ex) {
+				// No s'ha trobat cap operari-empresa
+			}
+		}
+		return
+				(filtreOperari != null) ? filtreOperari : "" + 
 				"operariEmpresa.empresa.id==" + ((UserSession)userSession).getE() + ";" +
 				"operariEmpresa.empresa.identificador.id==" + ((UserSession)userSession).getI() + ";" +
 				"operariEmpresa.operari.identificador.id==" + ((UserSession)userSession).getI();
-		/*String usuariCodi = authenticationFacade.getAuthentication().getName();
-		String rsqlUsuari = "operari.usuari.codi==" + usuariCodi + ";";
-		UserSession session = (UserSession)userSession;
-		if (session != null) {
-			if (session.getC() != null && session.getE() != null) {
-				return rsqlUsuari + "operari.empresa.identificador.companyia.id==" + session.getC() + ";operari.empresa.id==" + session.getE();
-			} else if (session.getC() != null) {
-				return rsqlUsuari + "operari.empresa.identificador.companyia.id==" + session.getC();
-			} else {
-				// Si no hi ha cap companyia seleccionada no retorna resultats
-				return "operari.id==0";
+	}
+
+	protected void completeDtoWithSession(Marcatge dto, Object userSession, boolean isNew) {
+		ProfileResourcePermissions resourcePermissions = getResourcePermissions();
+		// - Quan cream un nou marcatge sempre es configura l'operari de l'usuari actual.
+		// - Quan es guarda/modifica un marcatge només es força l'operari de l'usuari actual
+		// si no es tenen permisos d'administració a damunt els marcatges.
+		if (isNew || !resourcePermissions.isHasAdminPermission()) {
+			try {
+				OperariEmpresa operariEmpresa = operariEmpresaService.findByCurrentUserAndSession();
+				dto.setOperariEmpresa(GenericReference.toGenericReference(operariEmpresa));
+			} catch (NoSuchElementException ex) {
+				// No s'ha trobat cap operari-empresa
+				dto.setOperariEmpresa(null);
 			}
-		} else {
-			// Si no hi ha sessió no retorna resultats
-			return "operari.id==0";
 		}
-		return null;*/
 	}
 
 }
