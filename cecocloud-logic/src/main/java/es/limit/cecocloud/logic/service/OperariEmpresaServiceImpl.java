@@ -41,7 +41,7 @@ public class OperariEmpresaServiceImpl extends AbstractGenericServiceImpl<Operar
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findById(session.getI());
 		Optional<EmpresaEntity> empresa = empresaRepository.findById(session.getE());
 		return toDto(
-				((OperariEmpresaRepository)getRepository()).findByOperariIdentificadorAndOperariEmbeddedActiuAndOperariUsuariEmbeddedCodiAndEmpresaAndEmpresaActiva(
+				((OperariEmpresaRepository)getRepository()).findByOperariIdentificadorAndOperariEmbeddedActiuAndOperariUsuariEmbeddedCodiAndEmpresaAndEmpresaEmbeddedActiva(
 						identificador.get(),
 						true,
 						authenticationHelper.getPrincipalName(),

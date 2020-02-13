@@ -38,7 +38,7 @@ public interface OperariEmpresaRepository extends BaseRepository<OperariEmpresaE
 			EmpresaEntity empresa,
 			boolean actiu);
 
-	Optional<OperariEmpresaEntity> findByOperariIdentificadorAndOperariEmbeddedActiuAndOperariUsuariEmbeddedCodiAndEmpresaAndEmpresaActiva(
+	Optional<OperariEmpresaEntity> findByOperariIdentificadorAndOperariEmbeddedActiuAndOperariUsuariEmbeddedCodiAndEmpresaAndEmpresaEmbeddedActiva(
 			IdentificadorEntity identificador,
 			boolean actiu,
 			String usuariCodi,
