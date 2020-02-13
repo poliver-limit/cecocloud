@@ -1,9 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
-import { Resource } from 'angular4-hal';
-import { BngRestapiService } from 'base-angular';
 
-export class Identificador extends Resource { }
-export class Funcionalitat extends Resource { }
+import { RestapiResource, BngRestapiService } from 'base-angular';
+
+export class Identificador extends RestapiResource { }
+export class Funcionalitat extends RestapiResource { }
 
 @Injectable({
     providedIn: 'root'

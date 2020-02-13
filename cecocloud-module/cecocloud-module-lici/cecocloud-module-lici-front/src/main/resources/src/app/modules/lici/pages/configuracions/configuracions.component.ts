@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HalParam } from 'angular4-hal';
+import { HalParam } from '@lagoshny/ngx-hal-client';
 import { BngAuthService, BngFormConfig, BngFormFieldConfig, BngForm } from 'base-angular';
 
 import { ConfiguracionsService } from '../configuracions/configuracions.service';

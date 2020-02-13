@@ -1,11 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Resource, HalParam } from 'angular4-hal';
 
-import { BngRestapiConfigService } from '@programari-limit/base-angular';
+import { RestapiResource, BngRestapiConfigService } from '@programari-limit/base-angular';
 
-export class Recurs extends Resource { }
+export class Recurs extends RestapiResource { }
 
 @Injectable({
 	providedIn: 'root'

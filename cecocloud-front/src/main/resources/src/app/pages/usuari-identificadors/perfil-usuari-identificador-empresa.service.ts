@@ -1,8 +1,7 @@
-import { Injectable, Injector } from "@angular/core";
-import { Resource } from "angular4-hal";
-import { BngRestapiService } from "base-angular";
+import { Injectable, Injector } from '@angular/core';
+import { RestapiResource, BngRestapiService } from 'base-angular';
 
-export class PerfilUsuariIdentificadorEmpresa extends Resource {}
+export class PerfilUsuariIdentificadorEmpresa extends RestapiResource {}
 
 @Injectable()
 export class PerfilUsuariIdentificadorEmpresaService extends BngRestapiService<PerfilUsuariIdentificadorEmpresa> {

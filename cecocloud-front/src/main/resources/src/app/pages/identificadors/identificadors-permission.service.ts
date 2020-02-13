@@ -1,8 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
-import { Resource } from 'angular4-hal';
-import { BngRestapiPermissionService } from 'base-angular';
 
-export class Permission extends Resource { }
+import { RestapiResource, BngRestapiPermissionService } from 'base-angular';
+
+export class Permission extends RestapiResource { }
 
 @Injectable()
 export class IdentificadorsPermissionService extends BngRestapiPermissionService {

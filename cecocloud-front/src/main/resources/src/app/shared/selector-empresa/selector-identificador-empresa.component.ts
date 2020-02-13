@@ -80,13 +80,22 @@ export class SelectorIdentificadorEmpresaComponent {
 			if (selectedIdentificadorEmpresa && selectedIdentificadorEmpresa.empresa) {
 				empresa = selectedIdentificadorEmpresa.empresa.id;
 			}
-			this.authService.sessionSave({
-				i: identificador,
-				e: empresa
-			});
+			let session: any = this.authService.getSession();
+			if (!this.selectedIdentificadorEmpresaEqualsSession(identificador, empresa, session)) {
+				this.authService.sessionSave({
+					i: identificador,
+					e: empresa
+				});
+			}
 		}
 		this.selectedIdentificadorEmpresaService.setSelectedIdentificadorEmpresa(selectedIdentificadorEmpresa);
 		this.identificadorEmpresaSelected.emit(selectedIdentificadorEmpresa);
+	}
+
+	private selectedIdentificadorEmpresaEqualsSession(identificador: any, empresa: any, session: any): boolean {
+		let sessionIdentificador: any = session ? session.i : undefined;
+		let sessionEmpresa: any = session ? session.e : undefined;
+		return identificador === sessionIdentificador && empresa === sessionEmpresa;
 	}
 
 	private refreshSelectionTree() {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { BngAuthService, BngAuthTokenPayload, BngMenuService, BngMenu } from 'base-angular';
+import { Router, NavigationEnd } from '@angular/router';
+import { BngAuthService, BngAuthTokenPayload, BngMenuService, BngMenu, BngModuleService, BngAppModule } from 'base-angular';
 
 import { AppService } from './shared/app.service';
 
@@ -23,6 +23,8 @@ import { AppService } from './shared/app.service';
 export class AppComponent {
 
 	tokenPayload: BngAuthTokenPayload;
+	initialMenuSelected: boolean;
+	changeRouteWhenAllowedModulesChanged: boolean;
 
 	onModuleSelected(module: string) {
 		let menu: BngMenu = this.appService.getModuleMenu(module);
@@ -36,9 +38,7 @@ export class AppComponent {
 	}
 
 	onIdentificadorEmpresaSelected(identificadorEmpresa: any) {
-		//console.log('>>> onIdentificadorEmpresaSelected', identificadorEmpresa)
-		//this.currentEmpresa = identificadorEmpresa.empresa;
-		this.router.navigate(['/']);
+		this.changeRouteWhenAllowedModulesChanged = true;
 	}
 
 	onIdentificadorAdminSelected(identificador: any) {
@@ -52,14 +52,37 @@ export class AppComponent {
 		authService: BngAuthService,
 		private router: Router,
 		private appService: AppService,
-		private menuService: BngMenuService) {
+		private menuService: BngMenuService,
+		private moduleService: BngModuleService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
-			let menu: BngMenu = this.appService.getCurrentRouteMenu();
-			this.menuService.setActiveMenu(menu);
+			/*let menu: BngMenu = this.appService.getCurrentRouteMenu();
+			this.menuService.setActiveMenu(menu);*/
 		});
+		// Canvia la ruta quan canviam la selecció identificador/empresa i s'han acabat de refrescar els mòduls
+		this.moduleService.getAllowedModuleItemsChangeSubject().subscribe((modules: BngAppModule[]) => {
+			if (this.changeRouteWhenAllowedModulesChanged) {
+				if (modules && modules.length === 1) {
+					this.moduleService.selectionSet(modules[0].code);
+					this.onModuleSelected(modules[0].code);
+				} else {
+					this.moduleService.selectionClear();
+					this.menuService.setActiveMenu(undefined);
+					this.router.navigate(['/']);
+				}
+			}
+		});
+		// Configura el menu inicial al carregar l'aplicació
+		this.router.events.subscribe((event) => {
+			if (!this.initialMenuSelected && event instanceof NavigationEnd) {
+				let menu: BngMenu = this.appService.getCurrentRouteMenu();
+				this.menuService.setActiveMenu(menu);
+				this.initialMenuSelected = true;
+			}
+		});
+		
 	}
 
 }

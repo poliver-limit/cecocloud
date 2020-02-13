@@ -176,7 +176,7 @@ export class AppService {
 		private identificadorsService: IdentificadorsService) {
 		this.registerGlobalMenus();
 		//this.registerAvailableModules();
-		this.menuService.setActiveGlobalMenu('admin');
+		//this.menuService.setActiveGlobalMenu('admin');
 	}
 
 }
