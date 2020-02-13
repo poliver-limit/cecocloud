@@ -1,8 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
-import { Resource } from 'angular4-hal';
-import { BngRestapiService } from 'base-angular';
 
-export class TarifaDescompte extends Resource {}
+import { RestapiResource, BngRestapiService } from 'base-angular';
+
+export class TarifaDescompte extends RestapiResource {}
 
 @Injectable()
 export class TarifesDescompteService extends BngRestapiService<TarifaDescompte> {

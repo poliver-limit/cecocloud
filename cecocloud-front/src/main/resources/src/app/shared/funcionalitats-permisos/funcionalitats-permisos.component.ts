@@ -6,7 +6,7 @@ import {
 	BngScreenSizeService,
 	BngScreenSizeChangeEvent
 } from "@programari-limit/base-angular";
-import { HalParam } from "angular4-hal";
+import { HalParam } from '@lagoshny/ngx-hal-client';
 import { FuncionalitatsPermisosService } from "./funcionalitats-permisos.service";
 import { PerfilUsuariIdentificadorEmpresaService } from "./perfil-usuari-identificador-empresa.service";
 import {

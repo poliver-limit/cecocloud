@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
-import { AngularHalModule } from 'angular4-hal';
+import { NgxHalClientModule } from '@lagoshny/ngx-hal-client';
 import { NgxMaskModule } from 'ngx-mask';
 import { BngBaseAppModule, BngErrorModule, BngJwtInterceptor, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
 
@@ -52,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 				deps: [HttpClient]
 			}
 		}),
-		AngularHalModule.forRoot(),
+		NgxHalClientModule.forRoot(),
 		NgxMaskModule.forRoot(),
 		BngBaseAppModule,
 		BngErrorModule,
