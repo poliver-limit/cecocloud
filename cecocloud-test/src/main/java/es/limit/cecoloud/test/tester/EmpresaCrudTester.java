@@ -53,8 +53,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
-			new IdentificadorCrudTester(),
-			new EmpresaCrudTester()
+			new IdentificadorCrudTester()
 		};
 	}
 
