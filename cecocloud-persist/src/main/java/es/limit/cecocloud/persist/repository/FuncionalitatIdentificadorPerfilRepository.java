@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorPerfilEntity;
@@ -29,6 +30,18 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatOrderByFuncionalitatIdentificadorIdentificador(FuncionalitatEntity funcionalitat);
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorOrderByPerfil(FuncionalitatIdentificadorEntity funcionalitatIdentificador);
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitat(FuncionalitatEntity funcionalitat);
+	
+	@Query(	"select distinct f " +
+			" from " +
+			"    FuncionalitatIdentificadorPerfilEntity fip " +
+			"    left outer join fip.funcionalitatIdentificador as fi " +
+			"    left outer join fi.funcionalitat as f " +
+			"where " +
+			"	 fip.perfil in :perfils " +
+			"and (UPPER(fip.embedded.permis) = 'READ' or UPPER(fip.embedded.permis) = 'ADMINISTRATION') " +
+			"and f.embedded.modul = :modul ")
+	List<FuncionalitatEntity> findAllowedFuncionalitatsByPerfilsAndModul(List<PerfilEntity> perfils, Modul modul);
+//	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilInAndEmbeddedPermisIgnoreCase(List<PerfilEntity> perfils, String permis);
 	
 	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(" + 
 			"		fr.recurs.embedded.className," +
