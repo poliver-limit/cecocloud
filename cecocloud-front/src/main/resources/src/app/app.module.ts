@@ -8,6 +8,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import { NgxHalClientModule } from '@lagoshny/ngx-hal-client';
 import { NgxMaskModule } from 'ngx-mask';
+import { ModuleRegistry } from '@ag-grid-community/all-modules';
+import { InfiniteRowModelModule } from '@ag-grid-community/infinite-row-model';
 import { BngBaseAppModule, BngErrorModule, BngJwtInterceptor, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
 
 import { AppService } from './shared/app.service';
@@ -24,6 +26,7 @@ import { LiciModule } from './modules/lici/lici.module';
 import { MarcModule } from './modules/marc/marc.module';
 import { RrhhModule } from './modules/rrhh/rrhh.module';
 
+ModuleRegistry.register(InfiniteRowModelModule);
 registerLocaleData(localeCa);
 
 export function HttpLoaderFactory(http: HttpClient) {
