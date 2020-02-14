@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.logic.api.dto.Operari;
-import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen;
+import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marc.logic.api.service.SincronitzacioService;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
@@ -63,6 +63,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		List<SincronitzacioEmpresa> resposta = new ArrayList<SincronitzacioEmpresa>();
 		for (EmpresaEntity empresa: empreses) {
 			SincronitzacioEmpresa empresaSync = new SincronitzacioEmpresa();
+			empresaSync.setId(empresa.getId());
 			empresaSync.setCodi(empresa.getEmbedded().getCodi());
 			empresaSync.setNom(empresa.getEmbedded().getNom());
 			empresaSync.setNif(empresa.getEmbedded().getNif());

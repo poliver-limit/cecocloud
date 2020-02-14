@@ -6,8 +6,8 @@ package es.limit.cecocloud.marc.logic.api.service;
 import java.util.Date;
 import java.util.List;
 
-import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
+import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 
 /**
