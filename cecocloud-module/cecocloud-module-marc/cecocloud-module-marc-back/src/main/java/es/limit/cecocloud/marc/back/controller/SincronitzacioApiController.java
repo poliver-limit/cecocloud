@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
-@RestController
+@RestController("marcSincronitzacioApiController")
 @RequestMapping(MarcModule.API_PATH + "/sync")
 public class SincronitzacioApiController {
 
