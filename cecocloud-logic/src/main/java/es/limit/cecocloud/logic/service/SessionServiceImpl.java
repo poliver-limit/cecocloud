@@ -91,8 +91,9 @@ public class SessionServiceImpl implements SessionService {
 				Optional<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpresa = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
 						usuariIdentificador.get(),
 						empresa.get());
-				List<PerfilUsuariIdentificadorEmpresaEntity> perfilsUsuariIdentificadorEmpresa = perfilUsuariIdentificadorEmpresaRepository.findByUsuariIdentificadorEmpresa(
-						usuariIdentificadorEmpresa.get());
+				List<PerfilUsuariIdentificadorEmpresaEntity> perfilsUsuariIdentificadorEmpresa = null;
+				if (usuariIdentificadorEmpresa.isPresent())
+					perfilsUsuariIdentificadorEmpresa = perfilUsuariIdentificadorEmpresaRepository.findByUsuariIdentificadorEmpresa(usuariIdentificadorEmpresa.get());
 				if (perfilsUsuariIdentificadorEmpresa != null && !perfilsUsuariIdentificadorEmpresa.isEmpty()) {
 					grantedAuthorities = perfilsUsuariIdentificadorEmpresa.stream().map(
 							perfilUsuariIdentificadorEmpresa -> new ExternalGrantedAuthority("Perfil_" + perfilUsuariIdentificadorEmpresa.getPerfil().getId().toString())).collect(Collectors.toList()); 

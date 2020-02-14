@@ -35,7 +35,7 @@ import {
 							'app.module.' + funcionalitatsModul.module.code | translate
 						}}"
 					>
-						<div [style.height.px]="tableHeight" class="permisos-container">
+						<!-- <div [style.height.px]="tableHeight" class="permisos-container"> -->
 							<table
 								mat-table
 								[dataSource]="funcionalitatsModul.funcionalitats"
@@ -257,7 +257,7 @@ import {
 									*matRowDef="let rows; columns: columnsToDisplay"
 								></tr>
 							</table>
-						</div>
+						<!-- </div> -->
 					</mat-tab>
 				</mat-tab-group>
 			</div>
@@ -286,6 +286,10 @@ import {
 			.ample-complet {
 				width: 100%;
 				margin-top: 40px;
+			}
+			.mat-elevation-z8 {
+				box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0) !important;
+				overflow: hidden !important;
 			}
 		`
 	]
@@ -428,10 +432,10 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		private snackbar: MatSnackBar) {
 		this.translate = translate;
 		this.mobileScreen = this.screenSizeService.isMobile();
-		this.tableHeight = Math.max(window.innerHeight - 490, 200);
+		// this.tableHeight = Math.max(window.innerHeight - 490, 200);
 		this.screenSizeService.getScreenSizeChangeSubject().subscribe((event: BngScreenSizeChangeEvent) => {
 			this.mobileScreen = event.mobile;
-			this.tableHeight = Math.max(event.height - 120, 200);
+			// this.tableHeight = Math.max(event.height - 120, 200);
 		});
 	}
 

@@ -55,6 +55,15 @@ export class AppComponent {
 		this.router.navigate(['/admin-identificador']);
 	}
 
+	private getUrlModule(): string {
+		const routerUrl = this.router.url.substring(1);
+		const module = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+		const allowedModules = this.moduleService.getAllowedModuleItems().map(modul => modul.code);
+		if (allowedModules.includes(module)) {
+			return module;
+		}
+	} 
+	
 	constructor(
 		authService: BngAuthService,
 		private router: Router,
@@ -85,11 +94,9 @@ export class AppComponent {
 			if (!this.initialMenuSelected && event instanceof NavigationEnd) {
 				let menu: BngMenu = this.appService.getCurrentRouteMenu();
 				this.menuService.setActiveMenu(menu);
-				const routerUrl = this.router.url.substring(1);
-				const module = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
-				const allowedModules = this.moduleService.getAllowedModuleItems().map(modul => modul.code);
-				if (allowedModules.includes(module)) {
-					this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(module).subscribe((funcionalitats: string[]) => {
+				const urlModule = this.getUrlModule();
+				if (urlModule != null) {
+					this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(urlModule).subscribe((funcionalitats: string[]) => {
 						let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
 						menu.items = menuItems;
 						this.menuService.setActiveMenu(menu);
