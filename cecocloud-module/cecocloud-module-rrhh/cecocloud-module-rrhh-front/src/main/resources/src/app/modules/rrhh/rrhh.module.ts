@@ -41,9 +41,9 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'operarisRrhh',
 				loadChildren: () => import('./pages/operarisRrhh/operarisRrhh.module').then(m => m.OperarisRrhhModule)
-//			}, {
-//				path: 'paisosNif',
-//				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)
+				//			}, {
+				//				path: 'paisosNif',
+				//				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)
 			}, {
 				path: 'parametres',
 				loadChildren: () => import('./pages/parametres/parametres.module').then(m => m.ParametresModule)
@@ -98,99 +98,118 @@ export class RrhhModule {
 				icon: 'room',
 				label: 'Calendaris',
 				labelKey: 'app.menu.rrhh.calendaris',
-				route: '/rrhh/calendaris'
+				route: '/rrhh/calendaris',
+				resource: 'REH_CALEND'
 			}, {
 				icon: 'room',
 				label: 'Categories',
 				labelKey: 'app.menu.rrhh.categories',
-				route: '/rrhh/categories'
+				route: '/rrhh/categories',
+				resource: 'REH_CATEGO'
 			}, {
 				icon: 'room',
 				label: 'Grups festius',
 				labelKey: 'app.menu.rrhh.grupsFestius',
-				route: '/rrhh/grupsFestiu'
+				route: '/rrhh/grupsFestiu',
+				resource: 'REH_GRUFES'
 			}, {
 				icon: 'room',
 				label: 'Horaris',
 				labelKey: 'app.menu.rrhh.horaris',
-				route: '/rrhh/horaris'
+				route: '/rrhh/horaris',
+				resource: 'REH_HORARI'
 			}, {
 				icon: 'room',
 				label: 'Intervals',
 				labelKey: 'app.menu.rrhh.intervals',
-				route: '/rrhh/intervals'
+				route: '/rrhh/intervals',
+				resource: 'REH_INTERV'
 			}, {
 				icon: 'room',
 				label: 'Nodes',
 				labelKey: 'app.menu.rrhh.nodes',
-				route: '/rrhh/nodes'
+				route: '/rrhh/nodes',
+				resource: 'REH_NODE'
 			}, {
 				icon: 'room',
 				label: 'Operaris',
 				labelKey: 'app.menu.rrhh.operaris',
-				route: '/rrhh/operarisRrhh'
+				route: '/rrhh/operarisRrhh',
+				resource: 'REH_OPERAR'
 			}, {
 				icon: 'room',
 				label: 'Parametres',
 				labelKey: 'app.menu.rrhh.parametres',
-				route: '/rrhh/parametres'
+				route: '/rrhh/parametres',
+				resource: 'REH_PARAME'
 			}, {
 				icon: 'room',
 				label: 'Recursos Grup',
 				labelKey: 'app.menu.rrhh.recursosGrups',
-				route: '/rrhh/recursosGrup'
+				route: '/rrhh/recursosGrup',
+				resource: 'REH_RECGRU'
 			}, {
 				icon: 'room',
 				label: 'Regims',
 				labelKey: 'app.menu.rrhh.regims',
-				route: '/rrhh/regims'
+				route: '/rrhh/regims',
+				resource: 'REH_REGIM'
 			}, {
 				icon: 'room',
 				label: 'Registres Diaris',
 				labelKey: 'app.menu.rrhh.registresDiaris',
-				route: '/rrhh/registresDiari'
+				route: '/rrhh/registresDiari',
+				resource: 'REH_REGDIA'
 			}, {
 				icon: 'room',
 				label: 'Seccions',
 				labelKey: 'app.menu.rrhh.seccions',
-				route: '/rrhh/seccions'
+				route: '/rrhh/seccions',
+				resource: 'REH_SECCIO'
 			}, {
 				icon: 'room',
 				label: 'Seccions Grup',
 				labelKey: 'app.menu.rrhh.seccionsGrups',
-				route: '/rrhh/seccionsGrup'
+				route: '/rrhh/seccionsGrup',
+				resource: 'REH_SECGRU'
 			}, {
 				icon: 'room',
 				label: 'Servidors',
 				labelKey: 'app.menu.rrhh.servidors',
-				route: '/rrhh/servidors'
+				route: '/rrhh/servidors',
+				resource: 'REH_SERVID'
 			}, {
 				icon: 'room',
 				label: 'Subcategories',
 				labelKey: 'app.menu.rrhh.subcategories',
-				route: '/rrhh/subcategories'
+				route: '/rrhh/subcategories',
+				resource: 'REH_SUBCAT'
 			}, {
 				icon: 'room',
 				label: 'Tipus Dia',
 				labelKey: 'app.menu.rrhh.tipusDies',
-				route: '/rrhh/tipusDies'
+				route: '/rrhh/tipusDies',
+				resource: 'REH_TIPDIA'
 			}, {
 				icon: 'room',
 				label: 'Tipus Transaccio',
 				labelKey: 'app.menu.rrhh.tipusTransaccions',
-				route: '/rrhh/tipusTransaccions'
+				route: '/rrhh/tipusTransaccions',
+				resource: 'REH_TIPTRA'
 			}, {
 				icon: 'room',
 				label: 'Transaccions',
 				labelKey: 'app.menu.rrhh.transaccions',
-				route: '/rrhh/transaccions'
+				route: '/rrhh/transaccions',
+				resource: 'REH_TRANSA'
 			}, {
 				icon: 'room',
 				label: 'Zones',
 				labelKey: 'app.menu.rrhh.zones',
-				route: '/rrhh/zonesRrhh'
+				route: '/rrhh/zonesRrhh',
+				resource: 'REH_ZONA'
 			}]
 		});
 	}
-	
+
 }

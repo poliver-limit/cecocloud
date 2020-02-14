@@ -22,9 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
-import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
+import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
 import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorPerfilService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,6 +95,15 @@ public class FuncionalitatIdentificadorPerfilApiController extends AbstractIdent
 		
 		funcionalitatPerfilService.refreshPermisos(perfilId);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(value = "/usuari/{modul}",
+			produces = "application/json")
+	public ResponseEntity<List<String>> findAllowedFuncionalitatsByUsuariAndModule(
+			HttpServletRequest request,
+			@PathVariable Modul modul) {
+		
+		return ResponseEntity.ok(funcionalitatPerfilService.findAllowedFuncionalitatsByModul(modul));
 	}
 
 }
