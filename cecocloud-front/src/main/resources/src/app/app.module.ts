@@ -26,8 +26,11 @@ import { LiciModule } from './modules/lici/lici.module';
 import { MarcModule } from './modules/marc/marc.module';
 import { RrhhModule } from './modules/rrhh/rrhh.module';
 
-ModuleRegistry.register(InfiniteRowModelModule);
 registerLocaleData(localeCa);
+
+// Si no es registra aquí el mòdul InfiniteRowModelModule dona un error a la consola Javascript dient
+// que el mòdul InfiniteRowModelModule no està carregat.
+ModuleRegistry.register(InfiniteRowModelModule);
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new MultiTranslateHttpLoader(
