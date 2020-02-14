@@ -59,12 +59,12 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	public SincronitzacioIdentificadorResposta sincronitzarIdentificador(SincronitzacioIdentificadorPeticio peticio) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(peticio.getCodi());
 		if (identificador.isPresent()) {
-			SincronitzacioResposta operarisResposta = sincronitzarOperaris(
-					identificador.get(),
-					peticio.getOperaris());
 			SincronitzacioResposta empresesResposta = sincronitzarEmpreses(
 					identificador.get(),
 					peticio.getEmpreses());
+			SincronitzacioResposta operarisResposta = sincronitzarOperaris(
+					identificador.get(),
+					peticio.getOperaris());
 			sincronitzarOperarisEmpreses(
 					identificador.get(),
 					peticio.getEmpreses());
@@ -74,6 +74,72 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		} else {
 			throw new EntityNotFoundException("IdentificadorEntity#codi=" + peticio.getCodi());
 		}
+	}
+
+	private SincronitzacioResposta sincronitzarEmpreses(
+			IdentificadorEntity identificador,
+			List<SincronitzacioEmpresa> empreses) {
+		int createCount = 0;
+		int updateCount = 0;
+		int deleteCount = 0;
+		int errorCount = 0;
+		// TODO controlar el màxim autoritzat d'empreses segons la llicència
+		List<EmpresaEntity> emps = empresaRepository.findByIdentificador(identificador);
+		for (EmpresaEntity empresa: emps) {
+			SincronitzacioEmpresa syncFound = null;
+			for (SincronitzacioEmpresa empresaSync: empreses) {
+				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
+					syncFound = empresaSync;
+					break;
+				}
+			}
+			if (syncFound != null) {
+				// Si l'empresa existeix a la BBDD i a la informació de sincronització
+				// actualitza la informació de l'empresa
+				empresa.getEmbedded().setNif(syncFound.getNif());
+				empresa.getEmbedded().setNom(syncFound.getNom());
+				empresa.getEmbedded().setActiva(true);
+				updateCount++;
+			} else {
+				// Si l'empresa existeix a la BBDD i no a la informació de sincronització
+				// desactiva l'empresa
+				empresa.getEmbedded().setActiva(false);
+				for (OperariEmpresaEntity operariEmpresa: operariEmpresaRepository.findByEmpresa(empresa)) {
+					operariEmpresa.getEmbedded().setActiu(false);
+				}
+				deleteCount++;
+			}
+		}
+		for (SincronitzacioEmpresa empresaSync: empreses) {
+			EmpresaEntity dbFound = null;
+			for (EmpresaEntity empresa: emps) {
+				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
+					dbFound = empresa;
+					break;
+				}
+			}
+			if (dbFound == null) {
+				// Si l'empresa no existeix a la BBDD i si a la informació de sincronització
+				// crea l'empresa a la BBDD
+				Empresa empresa = new Empresa();
+				empresa.setCodi(empresaSync.getCodi());
+				empresa.setNif(empresaSync.getNif());
+				empresa.setNom(empresaSync.getNom());
+				empresa.setTipus(EmpresaTipusEnum.GESTIO);
+				empresa.setActiva(true);
+				empresaRepository.save(
+						EmpresaEntity.builder().
+						embedded(empresa).
+						identificador(identificador).
+						build());
+				createCount++;
+			}
+		}
+		return new SincronitzacioResposta(
+				createCount,
+				updateCount,
+				deleteCount,
+				errorCount);
 	}
 
 	private SincronitzacioResposta sincronitzarOperaris(
@@ -134,72 +200,6 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				} else {
 					errorCount++;
 				}
-			}
-		}
-		return new SincronitzacioResposta(
-				createCount,
-				updateCount,
-				deleteCount,
-				errorCount);
-	}
-
-	private SincronitzacioResposta sincronitzarEmpreses(
-			IdentificadorEntity identificador,
-			List<SincronitzacioEmpresa> empreses) {
-		int createCount = 0;
-		int updateCount = 0;
-		int deleteCount = 0;
-		int errorCount = 0;
-		// TODO controlar el màxim autoritzat d'empreses segons la llicència
-		List<EmpresaEntity> emps = empresaRepository.findByIdentificador(identificador);
-		for (EmpresaEntity empresa: emps) {
-			SincronitzacioEmpresa syncFound = null;
-			for (SincronitzacioEmpresa empresaSync: empreses) {
-				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
-					syncFound = empresaSync;
-					break;
-				}
-			}
-			if (syncFound != null) {
-				// Si l'empresa existeix a la BBDD i a la informació de sincronització
-				// actualitza la informació de l'empresa
-				empresa.getEmbedded().setNif(syncFound.getNif());
-				empresa.getEmbedded().setNom(syncFound.getNom());
-				empresa.getEmbedded().setActiva(true);
-				updateCount++;
-			} else {
-				// Si l'empresa existeix a la BBDD i no a la informació de sincronització
-				// desactiva l'empresa
-				empresa.getEmbedded().setActiva(false);
-				for (OperariEmpresaEntity operariEmpresa: operariEmpresaRepository.findByEmpresa(empresa)) {
-					operariEmpresa.getEmbedded().setActiu(false);
-				}
-				deleteCount++;
-			}
-		}
-		for (SincronitzacioEmpresa empresaSync: empreses) {
-			EmpresaEntity dbFound = null;
-			for (EmpresaEntity empresa: emps) {
-				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
-					dbFound = empresa;
-					break;
-				}
-			}
-			if (dbFound == null) {
-				// Si l'empresa no existeix a la BBDD i si a la informació de sincronització
-				// crea l'empresa a la BBDD
-				Empresa empresa = new Empresa();
-				empresa.setCodi(empresaSync.getCodi());
-				empresa.setNif(empresaSync.getNif());
-				empresa.setNom(empresaSync.getNom());
-				empresa.setTipus(EmpresaTipusEnum.GESTIO);
-				empresa.setActiva(true);
-				empresaRepository.save(
-						EmpresaEntity.builder().
-						embedded(empresa).
-						identificador(identificador).
-						build());
-				createCount++;
 			}
 		}
 		return new SincronitzacioResposta(
