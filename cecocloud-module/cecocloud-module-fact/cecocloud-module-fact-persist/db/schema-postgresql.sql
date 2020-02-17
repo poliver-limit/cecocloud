@@ -140,8 +140,8 @@
         primary key (cce_cli_cod, cce_emp_cod, cce_idf_cod)
     );						   
 
-    create table tges_cli (
-       	cli_cod varchar(4) not null,
+ create table tges_cli (
+       cli_cod varchar(4) not null,
         cli_idf_cod varchar(4) not null,
         cli_usucre varchar(255),
         cli_datcre timestamp,
@@ -273,7 +273,7 @@
         cli_tar_cod002 varchar(4),
         cli_tds_cod002 varchar(6),
         cli_tds_cod varchar(6),
-        cli_sgl varchar(2),
+        cli_tad_cod varchar(4),
         cli_tcs_cod varchar(4),
         cli_tfc_cod varchar(4),
         cli_tve_cod001 varchar(4),
@@ -736,7 +736,7 @@
         ofb_datcre timestamp,
         ofb_usumod varchar(255),
         ofb_datmod timestamp,
-        ofb_cpo_cod varchar(4) not null,
+        ofb_cpo_cod varchar(8) not null,
         ofb_con varchar(60),
         ofb_dom varchar(60),
         ofb_fax varchar(60),
@@ -752,7 +752,7 @@
         org_datcre timestamp,
         org_usumod varchar(255),
         org_datmod timestamp,
-        org_cpo_cod varchar(4) not null,
+        org_cpo_cod varchar(8) not null,
         org_www varchar(60),
         org_con varchar(30),
         org_dom varchar(60),
@@ -896,7 +896,7 @@
         pro_datcre timestamp,
         pro_usumod varchar(255),
         pro_datmod timestamp,
-        pro_cpo_cod varchar(4) not null,
+        pro_cpo_cod varchar(8) not null,
         pro_div_cod varchar(4) not null,
         pro_dpg_cod varchar(4) not null,
         pro_blo boolean,
@@ -963,7 +963,7 @@
         scl_datmod timestamp,
         scl_acc_cod varchar(4),
         scl_clr_cod varchar(4),
-        scl_cpo_cod varchar(4) not null,
+        scl_cpo_cod varchar(8) not null,
         scl_act varchar(60),
         scl_albcls int4,
         scl_blo boolean,
@@ -1768,6 +1768,11 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        foreign key (cli_tds_cod002, cli_idf_cod) 
        references tges_tds;
 
+   alter table tges_cli 
+       add constraint cli_tad_cod_fk 
+       foreign key (cli_tad_cod, cli_idf_cod) 
+       references tlim_tad;
+       
     alter table tges_cli 
        add constraint cli_tcs_cod_fk 
        foreign key (cli_tcs_cod, cli_idf_cod) 

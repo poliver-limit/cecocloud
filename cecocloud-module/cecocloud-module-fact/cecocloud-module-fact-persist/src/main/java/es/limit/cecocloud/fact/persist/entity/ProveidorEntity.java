@@ -94,7 +94,7 @@ public class ProveidorEntity extends AbstractWithIdentificadorEntity<Proveidor, 
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_cpo_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "pro_cpo_cod", length = 4, nullable = false)
+	@Column(name = "pro_cpo_cod", length = 8, nullable = false)
 	private String codiPostalCodi;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)

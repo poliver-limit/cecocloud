@@ -259,7 +259,7 @@ public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithId
 			},
 			foreignKey = @ForeignKey(name = "cli_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "cli_cpo_cod", length = 4)
+	@Column(name = "cli_cpo_cod", length = 8)
 	private String codiPostalCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -441,28 +441,28 @@ public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithId
 	@Column(name = "cli_tcs_cod", length = 4)
 	private String tipusComissioCodi;
 
-	/*
-	 * @ManyToOne(optional = true, fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumns({
-	 * 
-	 * @JoinColumn( name = "cli_sgl", referencedColumnName = "tad_cod", insertable =
-	 * false, updatable = false) }) private TipusAdresaEntity tipusAdresa;
-	 */
-	@Column(name = "cli_sgl", length = 2)
+	 @ManyToOne(optional = true, fetch = FetchType.LAZY)	  
+	 @JoinColumns(
+			 value = {
+					 @JoinColumn(name = "cli_idf_cod", referencedColumnName = "tad_idf_cod", insertable = false, updatable = false),
+					 @JoinColumn(name = "cli_tad_cod", referencedColumnName = "tad_cod", insertable = false, updatable = false)
+			 },
+			 foreignKey = @ForeignKey(name = "cli_tad_cod_fk"))
+	private TipusAdresaEntity tipusAdresa;
+	@Column(name = "cli_tad_cod", length = 4)
 	private String tipusAdresaCodi;
 
-	/*
-	 * @ManyToOne(optional = true, fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumns({
-	 * 
-	 * @JoinColumn( name = "cli_painif", referencedColumnName = "pni_cod",
-	 * insertable = false, updatable = false) }) private PaisNifEntity paisNif;
-	 */
-	@Column(name = "cli_painif", length = 2)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "cli_painif", referencedColumnName = "pni_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "cli_pni_cod_fk"))
+	private PaisNifEntity paisNif;
+	@Column(name = "cli_painif", length = 4)
 	private String paisNifCodi;
 
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -587,187 +587,187 @@ public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithId
 	public void updateDivisa(DivisaEntity divisa) {
 		this.divisa = divisa;
 		if (divisa != null) {
-			this.divisaCodi = divisa.getId().getCodi();
+			this.divisaCodi = divisa.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTipusVenciment(TipusVencimentEntity tipusVenciment) {
 		this.tipusVenciment = tipusVenciment;
 		if (tipusVenciment != null) {
-			this.tipusVencimentCodi = tipusVenciment.getId().getCodi();
+			this.tipusVencimentCodi = tipusVenciment.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTipusVenciment1(TipusVencimentEntity tipusVenciment1) {
 		this.tipusVenciment1 = tipusVenciment1;
 		if (tipusVenciment1 != null) {
-			this.tipusVenciment1Codi = tipusVenciment1.getId().getCodi();
+			this.tipusVenciment1Codi = tipusVenciment1.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateRegimIva(RegimIvaEntity regimIva) {
 		this.regimIva = regimIva;
 		if (regimIva != null) {
-			this.regimIvaCodi = regimIva.getId().getCodi();
+			this.regimIvaCodi = regimIva.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateRappel(RappelEntity rappel) {
 		this.rappel = rappel;
 		if (rappel != null) {
-			this.rappelCodi = rappel.getId().getCodi();
+			this.rappelCodi = rappel.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateDocumentPagament(DocumentPagamentCobramentEntity documentPagament) {
 		this.documentPagament = documentPagament;
 		if (documentPagament != null) {
-			this.documentPagamentCodi = documentPagament.getId().getCodi();
+			this.documentPagamentCodi = documentPagament.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTipusFacturacio(TipusFacturacioEntity tipusFacturacio) {
 		this.tipusFacturacio = tipusFacturacio;
 		if (tipusFacturacio != null) {
-			this.tipusFacturacioCodi = tipusFacturacio.getId().getCodi();
+			this.tipusFacturacioCodi = tipusFacturacio.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateFamiliaClient(FamiliaClientEntity familiaClient) {
 		this.familiaClient = familiaClient;
 		if (familiaClient != null) {
-			this.familiaClientCodi = familiaClient.getId().getCodi();
+			this.familiaClientCodi = familiaClient.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateCodiPostal(CodiPostalEntity codiPostal) {
 		this.codiPostal = codiPostal;
 		if (codiPostal != null) {
-			this.codiPostalCodi = codiPostal.getId().getCodi();
+			this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateIdioma(IdiomaEntity idioma) {
 		this.idioma = idioma;
 		if (idioma != null) {
-			this.idiomaCodi = idioma.getId().getCodi();
+			this.idiomaCodi = idioma.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateZona(ZonaEntity zona) {
 		this.zona = zona;
 		if (zona != null) {
-			this.zonaCodi = zona.getId().getCodi();
+			this.zonaCodi = zona.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 		if (empresa != null) {
-			this.empresaCodi = empresa.getId().getCodi();
+			this.empresaCodi = empresa.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateSerie(SerieVendaEntity serie) {
 		this.serie = serie;
 		if (serie != null) {
-			this.serieCodi = serie.getId().getCodi();
+			this.serieCodi = serie.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateIva(IvaEntity iva) {
 		this.iva = iva;
 		if (iva != null) {
-			this.ivaCodi = iva.getId().getCodi();
+			this.ivaCodi = iva.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTarifa1(TarifaEntity tarifa1) {
 		this.tarifa1 = tarifa1;
 		if (tarifa1 != null) {
-			this.tarifa1Codi = tarifa1.getId().getCodi();
+			this.tarifa1Codi = tarifa1.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTarifa2(TarifaEntity tarifa2) {
 		this.tarifa2 = tarifa2;
 		if (tarifa2 != null) {
-			this.tarifa2Codi = tarifa2.getId().getCodi();
+			this.tarifa2Codi = tarifa2.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateBanc(BancEntity banc) {
 		this.banc = banc;
 		if (banc != null) {
-			this.bancCodi = banc.getId().getCodi();
+			this.bancCodi = banc.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateOficinaBancaria(OficinaBancariaEntity oficinaBancaria) {
 		this.oficinaBancaria = oficinaBancaria;
 		if (oficinaBancaria != null) {
-			this.oficinaBancariaCodi = oficinaBancaria.getId().getCodi();
+			this.oficinaBancariaCodi = oficinaBancaria.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTransportista(TransportistaEntity transportista) {
 		this.transportista = transportista;
 		if (transportista != null) {
-			this.transportistaCodi = transportista.getId().getCodi();
+			this.transportistaCodi = transportista.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateOperari(OperariEntity operari) {
 		this.operari = operari;
 		if (operari != null) {
-			this.operariCodi = operari.getId().getCodi();
+			this.operariCodi = operari.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateClasseRetencio(ClasseRetencioEntity claseRetencio) {
 		this.claseRetencio = claseRetencio;
 		if (claseRetencio != null) {
-			this.claseRetencioCodi = claseRetencio.getId().getCodi();
+			this.claseRetencioCodi = claseRetencio.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateAdresaComercialClient(ClientAdresaEntity adresaComercialClient) {
 		this.adresaComercialClient = adresaComercialClient;
 		if (adresaComercialClient != null) {
-			this.adresaComercialClientCodi = adresaComercialClient.getId().getCodi();
+			this.adresaComercialClientCodi = adresaComercialClient.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateOrganitzacio(OrganitzacioEntity organitzacio) {
 		this.organitzacio = organitzacio;
 		if (organitzacio != null) {
-			this.organitzacioCodi = organitzacio.getId().getCodi();
+			this.organitzacioCodi = organitzacio.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTarifaDescompte(TarifaDescompteEntity tarifaDescompte) {
 		this.tarifaDescompte = tarifaDescompte;
 		if (tarifaDescompte != null) {
-			this.tarifaDescompteCodi = tarifaDescompte.getId().getCodi();
+			this.tarifaDescompteCodi = tarifaDescompte.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTipusComissio(TipusComissioEntity tipusComissio) {
 		this.tipusComissio = tipusComissio;
 		if (tipusComissio != null) {
-			this.tipusComissioCodi = tipusComissio.getId().getCodi();
+			this.tipusComissioCodi = tipusComissio.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateTipusAdresa(TipusAdresaEntity tipusAdresa) {
-		// this.tipusAdresa = tipusAdresa;
+		this.tipusAdresa = tipusAdresa;
 		if (tipusAdresa != null) {
-			this.tipusAdresaCodi = tipusAdresa.getId().getCodi();
+			this.tipusAdresaCodi = tipusAdresa.getEmbedded().getCodi();
 		}
 	}
 
 	public void updatePaisNif(PaisNifEntity paisNif) {
-		// this.paisNif = paisNif;
+		this.paisNif = paisNif;
 		if (paisNif != null) {
 			this.paisNifCodi = paisNif.getId();
 		}
@@ -776,28 +776,28 @@ public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithId
 	public void updateTarifaDescompte2(TarifaDescompteEntity tarifaDescompte2) {
 		this.tarifaDescompte2 = tarifaDescompte2;
 		if (tarifaDescompte2 != null) {
-			this.tarifaDescompte2Codi = tarifaDescompte2.getId().getCodi();
+			this.tarifaDescompte2Codi = tarifaDescompte2.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateCodiPostalOficinaComptable(CodiPostalEntity codiPostalOficinaComptable) {
 		this.codiPostalOficinaComptable = codiPostalOficinaComptable;
 		if (codiPostalOficinaComptable != null) {
-			this.codiPostalOficinaComptableCodi = codiPostalOficinaComptable.getId().getCodi();
+			this.codiPostalOficinaComptableCodi = codiPostalOficinaComptable.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateCodiPostalOrganGestor(CodiPostalEntity codiPostalOrganGestor) {
 		this.codiPostalOrganGestor = codiPostalOrganGestor;
 		if (codiPostalOrganGestor != null) {
-			this.codiPostalOrganGestorCodi = codiPostalOrganGestor.getId().getCodi();
+			this.codiPostalOrganGestorCodi = codiPostalOrganGestor.getEmbedded().getCodi();
 		}
 	}
 
 	public void updateCodiPostalUnitatTramitadora(CodiPostalEntity codiPostalUnitatTramitadora) {
 		this.codiPostalUnitatTramitadora = codiPostalUnitatTramitadora;
 		if (codiPostalUnitatTramitadora != null) {
-			this.codiPostalUnitatTramitadoraCodi = codiPostalUnitatTramitadora.getId().getCodi();
+			this.codiPostalUnitatTramitadoraCodi = codiPostalUnitatTramitadora.getEmbedded().getCodi();
 		}
 	}
 

@@ -51,7 +51,7 @@ public class OficinaBancaria extends AbstractIdentificableWithIdentificador<Ofic
 			disabledForCreate = false,
 			disabledForUpdate = false,
 			hiddenInForm = false)
-	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codipostal;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
 	@NotNull

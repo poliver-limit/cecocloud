@@ -50,6 +50,9 @@
     <mat-tab label="{{'resource.projecte.field.titolAdrecesComercialsClients'|translate}}">
       <ng-container *ngTemplateOutlet="adrecesComercialsTab"></ng-container>
     </mat-tab>
+    <mat-tab label="{{'resource.projecte.field.titolComercialClients'|translate}}">
+      <ng-container *ngTemplateOutlet="comercialTab"></ng-container>
+    </mat-tab>
   </mat-tab-group>
   
   <ng-template #generalTab>
@@ -557,5 +560,47 @@
 <!-- 		<clientAdresa> -->
 <!-- 		</clientAdresa> -->
 	</ng-template>      
-	
+	<ng-template #comercialTab>
+  		<div style="display: flex">
+  			<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="operari"></bng-custom-field>
+      		</div>
+     		<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="situacioComercialCodi"></bng-custom-field>
+      		</div>
+      		<div style="width: 33%; padding-right: 1em">
+        		<bng-custom-field name="proximaVisitaComercial"></bng-custom-field>
+      		</div>     	
+    	</div> 
+ 		<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
+			<mat-card>
+				<mat-card-title>{{'resource.projecte.field.titolParametresAlfanumericsClients'|translate}}</mat-card-title>
+				<mat-card-content>
+					<ng-container *ngTemplateOutlet="parametresAlfanumericsComercial"></ng-container>
+				</mat-card-content>
+			</mat-card>		
+			</div>
+			<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
+			<mat-card>
+				<mat-card-title>{{'resource.projecte.field.titolParametresNumericsClients'|translate}}</mat-card-title>
+				<mat-card-content>
+					<ng-container *ngTemplateOutlet="parametresNumericsComercial"></ng-container>
+				</mat-card-content>
+			</mat-card>
+		</div>	
+	</ng-template>
+	<ng-template #parametresAlfanumericsComercial>		
+		<bng-custom-field name="parametreTxtComercial1"></bng-custom-field>
+		<bng-custom-field name="parametreTxtComercial2"></bng-custom-field>	
+		<bng-custom-field name="parametreTxtComercial3"></bng-custom-field>	
+		<bng-custom-field name="parametreTxtComercial4"></bng-custom-field>	
+		<bng-custom-field name="parametreTxtComercial5"></bng-custom-field>		
+	</ng-template>	
+	<ng-template #parametresNumericsComercial>		
+		<bng-custom-field name="parametreNumComercial1"></bng-custom-field>
+		<bng-custom-field name="parametreNumComercial2"></bng-custom-field>	
+		<bng-custom-field name="parametreNumComercial3"></bng-custom-field>	
+		<bng-custom-field name="parametreNumComercial4"></bng-custom-field>	
+		<bng-custom-field name="parametreNumComercial5"></bng-custom-field>		
+	</ng-template>		
 </bng-form>

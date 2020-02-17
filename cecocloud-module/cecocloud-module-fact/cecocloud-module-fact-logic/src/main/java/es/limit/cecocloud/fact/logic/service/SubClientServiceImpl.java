@@ -23,7 +23,7 @@ public class SubClientServiceImpl extends AbstractGenericCompositePkServiceImpl<
 	protected SubClientPk getPkFromDto(SubClient dto) {
 		return new SubClientPk(
 				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getClient().getId());
+				dto.getClient().getPk().getCodi(),			
+				dto.getCodi());
 	}
 }

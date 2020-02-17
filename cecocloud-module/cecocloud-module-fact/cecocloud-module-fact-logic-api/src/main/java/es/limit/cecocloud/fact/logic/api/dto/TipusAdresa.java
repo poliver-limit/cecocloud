@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RestapiResource(
-		descriptionField = "nom")
+		descriptionField = "descripcio")
 
 public class TipusAdresa extends AbstractIdentificableWithIdentificadorAndCodi<String>{
 	

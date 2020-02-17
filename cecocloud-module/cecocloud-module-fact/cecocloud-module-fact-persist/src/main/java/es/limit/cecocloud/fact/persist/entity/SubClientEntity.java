@@ -124,7 +124,7 @@ public class SubClientEntity extends AbstractWithIdentificadorEntity<SubClient, 
 			},
 			foreignKey = @ForeignKey(name = "scl_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "scl_cpo_cod", length = 4, nullable = false)
+	@Column(name = "scl_cpo_cod", length = 8, nullable = false)
 	private String codiPostalCodi; 
 	
 	

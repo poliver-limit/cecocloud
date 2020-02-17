@@ -62,6 +62,9 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'bancs',
 				loadChildren: () => import('./pages/bancs/bancs.module').then(m => m.BancsModule)				
+			}, {
+				path: 'classesRetencions',
+				loadChildren: () => import('./pages/classesRetencions/classesRetencions.module').then(m => m.ClassesRetencionsModule)
 							   
 			}, {
 				path: 'comptesComptablesEmpresa',
@@ -140,11 +143,16 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/naturalesesPagamentCobrament/naturalesesPagamentCobrament.module').then(m => m.NaturalesesPagamentCobramentModule)
 			}, {
 				path: 'oficinesBancaries',
-				loadChildren: () => import('./pages/oficinesBancaries/oficinesBancaries.module').then(m => m.OficinesBancariesModule)							  
+				loadChildren: () => import('./pages/oficinesBancaries/oficinesBancaries.module').then(m => m.OficinesBancariesModule)		
+			}, {
+				path: 'organitzacions',
+				loadChildren: () => import('./pages/organitzacions/organitzacions.module').then(m => m.OrganitzacionsModule)						  
 			}, {
 				path: 'paisos',
 				loadChildren: () => import('./pages/paisos/paisos.module').then(m => m.PaisosModule)
-							   
+			}, {
+				path: 'paisosNif',
+				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)			   
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
@@ -211,6 +219,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'tarifesDescompte',
 				loadChildren: () => import('./pages/tarifesDescompte/tarifesDescompte.module').then(m => m.TarifesDescompteModule)
+				
+			}, {
+				path: 'tipusAdreces',
+				loadChildren: () => import('./pages/tipusAdreces/tipusAdreces.module').then(m => m.TipusAdrecesModule)
 							   
 			}, {
 				path: 'tipusClients',
@@ -340,6 +352,11 @@ export class FactModule {
 				route: '/fact/bancs'
 			}, {
 				icon: 'room',
+				label: 'Classes retencions',
+				labelKey: 'app.menu.fact.classesRetencions',
+				route: '/fact/classesRetencions'
+			}, {
+				icon: 'room',
 				label: 'Clients',
 				labelKey: 'app.menu.fact.clients',
 				route: '/fact/clients'
@@ -450,9 +467,19 @@ export class FactModule {
 				route: '/fact/oficinesBancaries'
 			}, {
 				icon: 'room',
+				label: 'Organitzacions',
+				labelKey: 'app.menu.fact.organitzacions',
+				route: '/fact/organitzacions'
+			}, {
+				icon: 'room',
 				label: 'Països',
 				labelKey: 'app.menu.fact.paisos',
 				route: '/fact/paisos'
+			}, {
+				icon: 'room',
+				label: 'Països Nif',
+				labelKey: 'app.menu.fact.paisosNif',
+				route: '/fact/paisosNif'
 			}, {
 				icon: 'room',
 				label: 'Peus de document',
@@ -538,6 +565,16 @@ export class FactModule {
 				label: 'Tarifes descompte',
 				labelKey: 'app.menu.fact.tarifesDescompte',
 				route: '/fact/tarifesDescompte'
+			}, {
+				icon: 'room',
+				label: "Tipus d'adreça",
+				labelKey: 'app.menu.fact.tipusAdreces',
+				route: '/fact/tipusAdreces'
+			}, {
+				icon: 'room',
+				label: 'Tipus de comissió',
+				labelKey: 'app.menu.fact.tipusComissions',
+				route: '/fact/tipusComissions'
 			}, {
 				icon: 'room',
 				label: 'Tipus de comissió',

@@ -71,13 +71,13 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	@RestapiField(type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Boolean bloquejat;
 	
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -95,7 +95,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	@RestapiField(type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<TarifaDescompte, WithIdentificadorAndCodiPk<String>> tarifaDescompte;
 	
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -126,7 +126,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 			hiddenInLov = true)
 	private Float percentatgeRetencio;
 	
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -145,7 +145,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 			hiddenInLov = true)
 	private AlbaraClientSubtipusEnumDto albaraClientSubtipus;
 	
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -157,7 +157,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 			hiddenInLov = true)
 	private String emailFactura;
 	
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)

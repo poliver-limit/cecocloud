@@ -85,7 +85,7 @@ public class OficinaBancariaEntity extends AbstractWithIdentificadorEntity<Ofici
 			},
 			foreignKey = @ForeignKey(name = "ofb_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "ofb_cpo_cod", length = 4, nullable = false)
+	@Column(name = "ofb_cpo_cod", length = 8, nullable = false)
 	private String codiPostalCodi;
 
 	@Builder

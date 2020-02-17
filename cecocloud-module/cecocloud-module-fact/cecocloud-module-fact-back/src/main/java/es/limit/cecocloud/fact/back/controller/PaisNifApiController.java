@@ -6,8 +6,8 @@ package es.limit.cecocloud.fact.back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
-import es.limit.cecocloud.back.controller.AbstractIdentificableWithIdentificadorApiController;
 import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 
 /**
@@ -17,6 +17,6 @@ import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
  */
 @RestController("factPaisNifApicontroller")
 @RequestMapping(GenericController.API_PATH + "/paisosNif")
-public class PaisNifApiController extends AbstractIdentificableWithIdentificadorApiController<PaisNif,String> {
+public class PaisNifApiController extends AbstractIdentificableApiController<PaisNif,String> {
 
 }

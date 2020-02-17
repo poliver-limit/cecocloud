@@ -49,31 +49,31 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private String codi;
 
 	@NotNull
-	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = true, disabledForUpdate = true)
+	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = false)
 	@Size(max = 40)
 	private String nomComercial;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean bloquejat;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean potencial;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private RebutsEnumDto rebuts;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean recarrecEquivalencia;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean albaraValorat;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusFacturaEnumDto tipusFactura;
 
@@ -113,7 +113,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String personaContacte;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private EnviamentFacturaEnumDto enviamentFactura;
 
@@ -135,7 +135,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Float percentatgeRetencio;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusRetencioEnumDto tipusRetencio;
 
@@ -193,18 +193,18 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private BigDecimal parametreNum5;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean facturesSenseDescompte;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Integer copiesFactura;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean entitatPublica;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean censadoAEAT;
 
@@ -262,7 +262,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean mostrarPercentatgeFacturacioClase1;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean aplicarPreusPerVolum;
 
@@ -289,7 +289,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private BigDecimal riscLimit;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusMissatgeEnumDto tipusMissatge;
 
@@ -300,7 +300,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String emailFactura;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean publicarDocumentsWeb;
 
@@ -308,23 +308,23 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String observacionsFactura;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean aplicarImpostPuntVerd;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean aplicarImpostServei;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean impostInclos;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean permesEntrarPartes;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusNifEnumDto tipusNif;
 
@@ -344,11 +344,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String emailEnviamentAlbarans;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean noImprimirSubclient;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean noImprimirPaletsRetornats;
 
@@ -358,11 +358,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private BigDecimal longitud;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusPersonaEnumDto tipusPersona;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusEstrangerEnumDto tipusEstranger;
 
@@ -421,11 +421,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Date dataFirmaMandat;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean facturaElectronica;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean cobrarDiesLloguer;	
 
@@ -515,7 +515,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> adresaComecialClient;
+	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> adresaComercialClient;
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV)
