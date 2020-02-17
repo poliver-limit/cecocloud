@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -21,6 +22,7 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeBodyPart;
 
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,252 +39,342 @@ import es.limit.cecocloud.lici.logic.api.dto.Licitacio;
 public class LicitacioInfonaliaHelper {
 
 	// Propietats de la connexió
-	@Value("${cecogest.infonalia.email.servidor:}")
+	@Value("${cecocloud.infonalia.email.servidor:}")
 	private String servidor;
-	@Value("${cecogest.infonalia.email.usuari:}")
+	@Value("${cecocloud.infonalia.email.usuari:}")
 	private String usuariCorreu;
-	@Value("${cecogest.infonalia.email.contrasenya:}")
+	@Value("${cecocloud.infonalia.email.contrasenya:}")
 	private String passCorreu;
-	@Value("${cecogest.infonalia.email.protocol:imaps}")
+	@Value("${cecocloud.infonalia.email.protocol:imaps}")
 	private String protocolConexio;
-	@Value("${cecogest.infonalia.email.carpeta:}")
-	private String carpeta;
-	@Value("${cecogest.infonalia.email.origen:}")
+	@Value("${cecocloud.infonalia.email.origen:}")
 	private String origen;
 
 	// --------------------------------------------------------------------------------------------
 
 	// 1. Llegir correu
-	public List<Licitacio> obtenirNovesLicitacions() {
+		public List<Licitacio> obtenirNovesLicitacions() {
 
-		List<Licitacio> licitacions = new ArrayList<Licitacio>();
+			List<Licitacio> licitacions = new ArrayList<Licitacio>();
 
-		if (servidor == null || usuariCorreu == null || passCorreu == null)
-			return licitacions;
+			// si no tè cualque properti per la conexió, torna una array buida
+			if (servidor == null || usuariCorreu == null || passCorreu == null)
+				return licitacions;
 
-		try {
-			// Propietats necessàries per a la connexió
-			Properties props = new Properties();
-			props.put("mail.store.protocol", protocolConexio);
-			props.put("mail.imaps.ssl.trust", "*");
+			try {
+				// Propietats necessàries per a la connexió
+				Properties props = new Properties();
+				props.put("mail.store.protocol", protocolConexio);
+				props.put("mail.imaps.ssl.trust", "*");
 
-			// Connexió amb el servidor de correu i al contenidor de missatges
-			Session session = Session.getDefaultInstance(props, null);
-			Store store = session.getStore(protocolConexio);
-			store.connect(servidor, usuariCorreu, passCorreu);
+				// Connexió amb el servidor de correu i al contenidor de missatges
+				Session session = Session.getDefaultInstance(props, null);
+				Store store = session.getStore(protocolConexio);
+				store.connect(servidor, usuariCorreu, passCorreu);
 
-			// Examina la carpeta d'inbox (conté el emails rebuts)
-			Folder inbox = store.getFolder("INBOX");
+				// Examina la carpeta d'inbox (conté el emails rebuts)
+				Folder inbox = store.getFolder("INBOX");
+				inbox.open(Folder.READ_WRITE);
 
-			// Examina la carpeta d'infonalia creada per a proves en inbox
-			Folder infonalia = inbox;
-			if (carpeta != null)
-				infonalia = inbox.getFolder(carpeta);
+				// Emmagatzema el nombre de missatges que hi ha a la carpeta d'inbox / infonalia
+				int count = inbox.getMessageCount();
 
-			// Obre la carpeta d'infonalia
-			infonalia.open(Folder.READ_WRITE);
+				// Array que emmagatzemarà els missatges de la carpeta
+				// (comença a comptar per 1 en comptes de 0)
+				Message[] mensajes = inbox.getMessages(1, count);
 
-			// Emmagatzema el nombre de missatges que hi ha a la carpeta d'inbox / infonalia
-			int count = infonalia.getMessageCount();
-			// System.out.println("Total de mensajes en la bandeja de entrada de Infonalia:
-			// " + count);
+				// Recorrem l'array de missatges
+				for (Message message : mensajes) {
 
-			// Array que emmagatzemarà els missatges de la carpeta inbox / infonalia
-			// (comença a comptar per 1 en comptes de 0)
-			Message[] mensajes = infonalia.getMessages(1, count);
+					// Si el missatge és diferent a llegit (no llegit) i
+					// contè l'origen (application.properties)
+					if (!message.getFlags().contains(Flags.Flag.SEEN)
+							&& (message.getFrom()[0].toString().contains(origen))) {
 
-			// Recorrem l'array de missatges
-			for (Message message : mensajes) {
+						// Per pintar la capcelera amb la informació del remitent
+						// System.out.println("...................");
+						// System.out.println("\t From: " + message.getFrom()[0].toString());
+						// System.out.println("\t Subject: " + message.getSubject());
+						// System.out.println("\t Sent Date:" + message.getSentDate().toString());
+						// System.out.println("...................");
 
-				// Si el missatge és diferent a llegit (no llegit) Y
-				// contiene el origen que le indicamos en las application.properties
-				if (!message.getFlags().contains(Flags.Flag.SEEN) && message.getFrom()[0].toString().contains(origen)) {
+						String contentType = message.getContentType();
+						String messageContent = "";
 
-					// Per pintar la capcelera amb la informació del remitent
-//					System.out.println("...................");
-//					System.out.println("\t From: " + message.getFrom()[0].toString());
-//					System.out.println("\t Subject: " + message.getSubject());
-//					System.out.println("\t Sent Date:" + message.getSentDate().toString());
-//					System.out.println("...................");
+						if (contentType.contains("multipart")) {
 
-					String contentType = message.getContentType();
-					String messageContent = "";
+							Multipart multiPart = (Multipart) message.getContent();
+							int numberOfParts = multiPart.getCount();
 
-					if (contentType.contains("multipart")) {
+							for (int partCount = 0; partCount < numberOfParts; partCount++) {
 
-						Multipart multiPart = (Multipart) message.getContent();
-						int numberOfParts = multiPart.getCount();
+								MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
 
-						for (int partCount = 0; partCount < numberOfParts; partCount++) {
+								if (part.getContentType().contains("text/plain")) {
 
-							MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
+									messageContent = part.getContent().toString();// contingut correu-e
 
-							if (part.getContentType().contains("text/plain")) {
+									licitacions = processarLicitacions(messageContent);
+								}
+							}
+						}
 
-								messageContent = part.getContent().toString();// contingut correu-e
+						// *****************************************************************************
 
-								licitacions = processarLicitacions(messageContent);
+						// si el códi del contingut del missatge es en html
+						if (contentType.indexOf("text/html") != -1) {
+
+							// s'extreu en contingut (text) del document html (es treuen les etiquetes)
+							DataHandler dh = message.getDataHandler();
+							String cadena = dh.getContent().toString();
+							String nohtml = Jsoup.parse(cadena).text();
+
+							// almacena una licitación y la procesa
+							List<String> lineasHtml = new ArrayList<String>();
+
+							if (message.getSubject().contains("LICITACIONES")) {
+
+								String contenido = nohtml.split("alertas Infonalia.")[1].trim();
+
+								String[] trozos = contenido.split("[_]{5,}");
+
+								for (String trozo : trozos) {
+
+									if (trozo.contains("Ref. Infonalia")) {
+										String id = trozo.split("Nº Expedient")[0].trim();
+										lineasHtml.add(id);
+									}
+									if (trozo.contains("Nº")) {
+										String exp = trozo.split("Nº")[1].trim();
+										String expid = "Nº " + exp.split("Organismo")[0].trim();
+										lineasHtml.add(expid);
+									}
+									if (trozo.contains("Organismo:")) {
+										String unidad = trozo.split("Organismo:")[1].trim();
+										String unidadNom = "Organismo: " + unidad.split("Resumen del objeto")[0].trim();
+										lineasHtml.add(unidadNom);
+									}
+									if (trozo.contains("Resumen del Objeto")) {
+										String res = trozo.split("Resumen del Objeto:")[1].trim();
+										String resum = res.split("Provincia de Ejecución")[0].trim();
+										String resumObj = "Resumen del Objeto: " + resum;
+										lineasHtml.add(resumObj);
+									}
+									if (trozo.contains("Provincia de Ejecución")) {
+										String prov = trozo.split("Provincia de Ejecución:")[1].trim();
+										String provincia = "Provincia de Ejecución: " + prov.split("Presupuesto")[0].trim();
+										lineasHtml.add(provincia);
+									}
+									if (trozo.contains("Presupuesto")) {
+										String pres = trozo.split("Presupuesto:")[1].trim();
+										String presupuesto = "Presupuesto:" + pres.split("Plazo Presentación")[0].trim();
+										lineasHtml.add(presupuesto);
+									}
+									if (trozo.contains("Plazo Presentación")) {
+										String plazo = trozo.split("Plazo Presentación:")[1].trim();
+										String plazoPres = "Plazo Presentación: " + plazo.split("Ver el texto")[0].trim();
+										lineasHtml.add(plazoPres);
+									}
+									if (trozo.contains("Perfil del")) {
+										String ur = trozo.split("Perfil del")[1].trim();
+										String uri = "Perfil del " + ur.split("Información extraída")[0].trim();
+										lineasHtml.add(uri);
+									}
+									if (trozo.contains("Información extraída")) {
+										String fechaAct = trozo.split("Información extraída")[1].trim();
+										String fechaActualizacion = "Información extraída " + fechaAct;
+										lineasHtml.add(fechaActualizacion);
+									}
+
+									Licitacio licitacio = processaLicitacio(lineasHtml);
+
+									if (licitacio != null)
+										licitacions.add(licitacio);
+									lineasHtml.clear();
+								}
+
 							}
 						}
 					}
 				}
-			}
-			infonalia.close(true);// se cierra la carpeta
-			store.close();// se cierra la sesión
+				inbox.close(true);// se cierra la carpeta
+				store.close();// se cierra la sesión
+			} catch (
 
-		} catch (Exception e) {
-			System.out.println("ERROR => " + e);
-			e.printStackTrace();
+			Exception e) {
+				System.out.println("ERROR => " + e);
+				e.printStackTrace();
+			}
+			return licitacions;
 		}
-		return licitacions;
-	}
 
 	// --------------------------------------------------------------------------------------------
 
-	// 2. Tractar entrades del correu
-	public List<Licitacio> processarLicitacions(String messageContent) {
+		// 2. Tractar entrades del correu
+		public List<Licitacio> processarLicitacions(String messageContent) {
 
-		List<Licitacio> licitacions = new ArrayList<Licitacio>();
+			List<Licitacio> licitacions = new ArrayList<Licitacio>();
 
-		try (StringReader sr = new StringReader(messageContent); BufferedReader br = new BufferedReader(sr)) {
+			try (StringReader sr = new StringReader(messageContent); BufferedReader br = new BufferedReader(sr)) {
 
-			List<String> lineasLicitacions = new ArrayList<String>();
-			String linea;
+				List<String> lineasLicitacions = new ArrayList<String>();
+				String linea;
 
-			while (!(linea = br.readLine()).startsWith("Ref. Infonalia")) {
+				while (!(linea = br.readLine()).contains("Ref. Infonalia")) {
+				}
+
+				do {
+					// Llegim una linea, concatenant si està truncada
+					boolean lineaLeida = false;
+
+					while (lineaLeida == false) {
+						String lineaSiguiente = br.readLine();
+
+						if (lineaSiguiente == null || lineaSiguiente.isEmpty()) {
+
+							System.out.println(linea);
+
+							lineaLeida = true;
+
+							if (linea.matches("[_]{5,}")) {
+								Licitacio licitacio = processaLicitacio(lineasLicitacions);
+								if (licitacio != null)
+									licitacions.add(licitacio);
+								lineasLicitacions.clear();
+							} else {
+								lineasLicitacions.add(linea);
+							}
+							if (lineaSiguiente == null)
+								break;
+						} else {
+							linea += lineaSiguiente;
+						}
+					}
+
+				} while ((linea = br.readLine()) != null);
+
+			} catch (Exception e) {
+				System.out.println("ERROR =>" + e);
+				e.printStackTrace();
 			}
 
-			do {
-				// Llegim una linea, concatenant si està truncada
-				boolean lineaLeida = false;
-				while (lineaLeida == false) {
-					String lineaSiguiente = br.readLine();
-					if (lineaSiguiente == null || lineaSiguiente.isEmpty()) {
-//						System.out.println(linea);
-						lineaLeida = true;
-						if (linea.contains(
-								"______________________________________________________________________________________________________________________**")) {
-							Licitacio licitacio = processaLicitacio(lineasLicitacions);
-							if (licitacio != null)
-								licitacions.add(licitacio);
-							lineasLicitacions.clear();
-						} else {
-							lineasLicitacions.add(linea);
-						}
-						if (lineaSiguiente == null)
-							break;
+			return licitacions;
+		}
+
+	// --------------------------------------------------------------------------------------------
+
+		// 3. Desglossar el contingut i extreure la informació necessària del missatge
+		private Licitacio processaLicitacio(List<String> lineasLicitacions) {
+
+			Licitacio licitacio = new Licitacio();
+
+			for (int numLinia = 0; numLinia < lineasLicitacions.size(); numLinia++) {
+
+				String liniaLicitacio = lineasLicitacions.get(numLinia);
+
+				// Si la licitació prové de l'estat, no es processa
+
+				if (liniaLicitacio.startsWith("Ref. Infonalia")) {
+					String id = liniaLicitacio.split(":")[1].trim();
+					licitacio.setId(Long.parseLong(id));
+					licitacio.setCodi("Infonalia_" + id); // ID
+				}
+
+				if (liniaLicitacio.startsWith("Nº Expediente")) {
+					String expedient = liniaLicitacio.split(":")[1].trim();
+					licitacio.setExpedientId(expedient); // EXPID
+				}
+
+				if (liniaLicitacio.startsWith("Organismo")) {
+					String organismo = liniaLicitacio.split(":")[1].trim();
+					licitacio.setUnitatNom(organismo); // UNINOM
+				}
+
+				if (liniaLicitacio.startsWith("Resumen del Objeto")) {
+					String resumenObj = liniaLicitacio.split(":")[1].trim();
+					licitacio.setProjecteTitol(resumenObj); // PRJTIT
+					licitacio.setResum(resumenObj); // RESUM
+				}
+
+				if (liniaLicitacio.startsWith("Provincia de Ejecución")) {
+					String provincia = liniaLicitacio.split(":")[1].trim();
+					provincia = provincia.replace(".", "");
+
+					if (provincia.endsWith(")")) {
+						provincia = provincia.split("\\(")[1].trim();
+						provincia = provincia.replace(")", "");
+
+						licitacio.setProjecteProvinciaDescripcio(getCodiProvinciaByName(provincia).getNom()); // PRVDES
+						licitacio.setProjecteProvinciaCodi(getCodiProvinciaByName(provincia).getCodi()); // PRVCOD
+
 					} else {
-						linea += lineaSiguiente;
+						licitacio.setProjecteProvinciaDescripcio(getCodiProvinciaByName(provincia).getNom()); // PRVDES
+						licitacio.setProjecteProvinciaCodi(getCodiProvinciaByName(provincia).getCodi()); // PRVCOD
 					}
 				}
 
-			} while ((linea = br.readLine()) != null);
+				if (liniaLicitacio.startsWith("Presupuesto")) {
+					String aux1 = liniaLicitacio.split(":")[1].trim();
+					String aux2 = aux1.split("€")[0].trim();
 
-		} catch (Exception e) {
-			System.out.println("ERROR =>" + e);
-		}
+					try {
+						String formato_valido = aux2.replace(".", "").replace(",", ".");
+						BigDecimal bigD = new BigDecimal(formato_valido);
+						licitacio.setProjecteImportSenseTaxes(bigD); // IMPNOT
 
-		return licitacions;
-	}
-
-	// --------------------------------------------------------------------------------------------
-
-	// 3. Desglossar el contingut i extreure la informació necessària del missatge
-	private Licitacio processaLicitacio(List<String> lineasLicitacions) {
-
-		Licitacio licitacio = new Licitacio();
-
-		for (int numLinia = 0; numLinia < lineasLicitacions.size(); numLinia++) {
-
-			String liniaLicitacio = lineasLicitacions.get(numLinia);
-
-			// Si la licitació prové de l'estat, no es processa
-			if (liniaLicitacio.startsWith("Perfil del Contratante (Pliegos)")) {
-				String[] uri_split = liniaLicitacio.split(":");
-				String uri = uri_split[1].trim();
-				if (uri.contains("contrataciondelestado.es")) {
-//					System.out.println("Perfil del Contratante : contrataciondelestado.es, no se procesa");			
-					return null;
-
-				} else {
-					licitacio.setUri(uri); // URI
-					licitacio.setUrl(uri); // URL
+					} catch (Exception e) {
+						System.out.println("ERROR => " + e);
+					}
 				}
 
-			} else if (liniaLicitacio.startsWith("Ref. Infonalia")) {
-				String id = liniaLicitacio.split(":")[1].trim();
-				licitacio.setCodi("Infonalia_" + id); // ID
+				if (liniaLicitacio.startsWith("Plazo Presentación")) {
+					String fecha = liniaLicitacio.split("día")[1].trim();
 
-			} else if (liniaLicitacio.startsWith("Nº Expediente")) {
-				String expedient = liniaLicitacio.split(":")[1].trim();
-				licitacio.setExpedientId(expedient); // EXPID
+					try {
+						SimpleDateFormat fechaFormato = new SimpleDateFormat("dd/MM/yy");
+						Date f = fechaFormato.parse(fecha);
+						licitacio.setDataLimit(f); // DATLIM
 
-			} else if (liniaLicitacio.startsWith("Organismo")) {
-				String organismo = liniaLicitacio.split(":")[1].trim();
-				licitacio.setUnitatNom(organismo); // UNINOM
+						Date fecha_actual = new Date();
+						if (f.after(fecha_actual)) {
+							licitacio.setExpedientEstat("NOV"); // EXPEST
+						} else {
+							licitacio.setExpedientEstat("CAD");
+						}
 
-			} else if (liniaLicitacio.startsWith("Resumen del Objeto")) {
-				String resumenObj = liniaLicitacio.split(":")[1].trim();
-				licitacio.setProjecteTitol(resumenObj); // PRJTIT
-				licitacio.setResum(resumenObj); // RESUM
-
-			} else if (liniaLicitacio.startsWith("Provincia de Ejecución")) {
-				String provincia = liniaLicitacio.split(":")[1].trim();
-				provincia = provincia.replace(".", "");
-
-				if (provincia.endsWith(")")) {
-					provincia = provincia.split("\\(")[1].trim();
-					provincia = provincia.replace(")", "");
-
-					licitacio.setProjecteProvinciaDescripcio(getCodiProvinciaByName(provincia).getNom().toUpperCase()); // PRVDES
-					licitacio.setProjecteProvinciaCodi(getCodiProvinciaByName(provincia).getCodi().toUpperCase()); // PRVCOD
-
-				} else {
-					licitacio.setProjecteProvinciaDescripcio(getCodiProvinciaByName(provincia).getNom().toUpperCase()); // PRVDES
-					licitacio.setProjecteProvinciaCodi(getCodiProvinciaByName(provincia).getCodi().toUpperCase()); // PRVCOD
+					} catch (Exception e) {
+						System.out.println("ERROR => " + e);
+					}
 				}
 
-			} else if (liniaLicitacio.startsWith("Presupuesto")) {
-				String aux1 = liniaLicitacio.split(":")[1].trim();
-				String aux2 = aux1.split("€")[0].trim();
+				if (liniaLicitacio.startsWith("Perfil del Contratante (Pliegos)")) {
+					String[] uri_split = liniaLicitacio.split(":");
+					String uri = uri_split[1].trim();
+					if (uri.contains("contrataciondelestado.es")) {
+						// System.out.println("Perfil del Contratante : contrataciondelestado.es, no se
+						// procesa");
+						return null;
 
-				try {
-					String formato_valido = aux2.replace(".", "").replace(",", ".");
-					BigDecimal bigD = new BigDecimal(formato_valido);
-					licitacio.setProjecteImportSenseTaxes(bigD); // IMPNOT
-
-				} catch (Exception e) {
-					System.out.println("ERROR => " + e);
-				}
-			} else if (liniaLicitacio.startsWith("Plazo Presentación")) {
-				String[] linea_split = liniaLicitacio.split("día");
-				String fecha = linea_split[1].trim();
-
-				try {
-					SimpleDateFormat fechaFormato = new SimpleDateFormat("dd/MM/yy");
-					Date f = fechaFormato.parse(fecha);
-					licitacio.setDataLimit(f); // DATLIM
-
-				} catch (Exception e) {
-					System.out.println("ERROR => " + e);
+					} else {
+						licitacio.setUri(uri); // URI
+						licitacio.setUrl(uri); // URL
+					}
 				}
 
-			} else if (numLinia == lineasLicitacions.size() - 1) {
-				String[] linea_split = liniaLicitacio.split("día");
-				String fecha = linea_split[1].trim();
+				if (numLinia == lineasLicitacions.size() - 1 || liniaLicitacio.contains("Información extraída")) {
+					String fecha = liniaLicitacio.split("día")[1].trim();
 
-				try {
-					SimpleDateFormat fechaFormato = new SimpleDateFormat("dd/MM/yy");
-					Date f = fechaFormato.parse(fecha);
-					licitacio.setDataActualitzacio(f); // DATACT
+					try {
+						SimpleDateFormat fechaFormato = new SimpleDateFormat("dd/MM/yy");
+						Date f = fechaFormato.parse(fecha);
+						licitacio.setDataActualitzacio(f); // DATACT
 
-				} catch (Exception e) {
-					System.out.println("ERROR => " + e);
+					} catch (Exception e) {
+						System.out.println("ERROR => " + e);
+					}
 				}
 
-			} else {
 				BigDecimal tot = new BigDecimal(-1);
-				licitacio.setExpedientEstat("NOV"); // EXPEST
 				licitacio.setExpedientEstatDescripcio("NOV"); // EXPEDS
 				licitacio.setProcedimentTipus("0"); // setProjecteTipus("0"); // PRCTIP
 				licitacio.setProcedimentTipusDescripcio("No disponible"); // PRCTDS
@@ -301,11 +393,12 @@ public class LicitacioInfonaliaHelper {
 				licitacio.setUnitatTipusDescripcio("No disponible"); // UNITDS
 				licitacio.setUrgenciaTipus("0"); // URGTIP
 				licitacio.setUrgenciaTipusDescripcio("No disponible"); // URGTDS
-				licitacio.setNota(null); // NOTA
+				licitacio.setNota("No disponible"); // NOTA
+
 			}
+			return licitacio;
 		}
-		return licitacio;
-	}
+
 
 	// --------------------------------------------------------------------------------------------
 

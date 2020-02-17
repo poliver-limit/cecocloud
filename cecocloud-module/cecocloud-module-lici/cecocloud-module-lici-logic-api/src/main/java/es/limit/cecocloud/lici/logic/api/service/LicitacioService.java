@@ -13,5 +13,8 @@ import es.limit.cecocloud.lici.logic.api.dto.Licitacio;
  */
 
 public interface LicitacioService extends GenericService<Licitacio, Long> {
+	
+	//métode de proves de Licitacions Infonalia i les de la plataforma de contractació
+		public void mail();
 
 }

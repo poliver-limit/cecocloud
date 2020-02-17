@@ -99,7 +99,7 @@ public class PlataformaContractacioHelper {
 				return null;
 			}
 		});
-	}
+	}	
 
 	public List<LicitacioPlataformaContractacio> getLicitacionsPerActualitzar(
 			String url,
@@ -135,6 +135,8 @@ public class PlataformaContractacioHelper {
 				}
 			}
 		});
+		
+		
 		return licitacionsList;
 	}
 

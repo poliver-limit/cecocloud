@@ -149,27 +149,9 @@ public class LicitacioServiceImpl extends AbstractGenericServiceImpl<Licitacio, 
 					@SuppressWarnings("unused")
 					int errorCount = 0;
 					log.debug("Refrescant " + licitacions.size() + " licitacions");
-					for (Licitacio licitacio : licitacions) {
-						if (!filtrar || licitacio.getProjecteProvinciaCodi().equals(filtreProvincia)) {
-							try {
-								
-								boolean created = false;
-								Optional<LicitacioEntity> optionalLicitacioEntity = licitacioRepository.findById(licitacio.getId());
-								LicitacioEntity licitacioEntity = null;
-								if (!optionalLicitacioEntity.isPresent()) {
-									log.debug("Creant licitació (resum=" + licitacio.getResum() + ", dataActualitzacio=" + licitacio.getDataActualitzacio() + ")");
-									licitacioEntity = licitacioRepository.save(
-											LicitacioEntity.builder().
-											embedded(licitacio).
-											empresa(empresa).
-											build());
-									created = true;
-								} else {
-									log.debug("Actualitzant licitació (resum=" + licitacio.getResum() + ", dataActualitzacio=" + licitacio.getDataActualitzacio() + ")");
-									licitacioEntity = optionalLicitacioEntity.get();
-									licitacioEntity.update(licitacio);
-								}
-								
+					for (Licitacio licitacio : licitacions) {						
+							try {								 
+								licitacioHelper.updateLicitacioInfonalia(empresa, licitacio);
 
 							} catch (Exception ex) {
 								log.error("Error al actualitzar la licitació " + licitacio.getResum(), ex);
@@ -177,8 +159,7 @@ public class LicitacioServiceImpl extends AbstractGenericServiceImpl<Licitacio, 
 						}
 					}
 				}
-			}
-		}	
+			}		
 
 	private Date getDataAvuiMitjanit() {
 		Calendar cal = Calendar.getInstance();
@@ -187,6 +168,16 @@ public class LicitacioServiceImpl extends AbstractGenericServiceImpl<Licitacio, 
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
+	}
+	
+	// proves Licitacions de Infonalia i les licitacions de la plataforma de contractació
+	@Override
+	public void mail() {
+
+		scheduledUpdate();
+		// this.licitacioInfonaliaHelper.obtenirNovesLicitacions();
+		//scheduledUpdateInfonalia();
+
 	}
 
 }
