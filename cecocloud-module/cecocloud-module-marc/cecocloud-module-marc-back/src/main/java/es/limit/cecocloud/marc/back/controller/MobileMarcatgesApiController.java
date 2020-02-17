@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.cecocloud.marc.logic.api.dto.EmpresaMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
+import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.module.MarcModule;
 import es.limit.cecocloud.marc.logic.api.service.MobileMarcatgeService;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +60,7 @@ public class MobileMarcatgesApiController {
 	@GetMapping(
 			path = "/empreses",
 			produces = "application/json")
-	public ResponseEntity<List<EmpresaMobil>> empresesFind(
+	public ResponseEntity<List<SincronitzacioEmpresa>> empresesFind(
 			HttpServletRequest request) {
 		log.debug("Consulta d'empreses disponibles");
 		return ResponseEntity.ok(mobileMarcatgeService.empresesFindDisponiblesPerUsuariActual());

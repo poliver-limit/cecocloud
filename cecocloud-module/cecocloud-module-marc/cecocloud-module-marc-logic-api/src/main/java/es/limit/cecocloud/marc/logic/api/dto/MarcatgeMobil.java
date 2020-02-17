@@ -7,8 +7,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.cecocloud.logic.api.dto.Empresa;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,10 +19,12 @@ import lombok.Setter;
 public class MarcatgeMobil {
 
 	@NotNull
+	private String identificadorCodi;
+	@NotNull
+	private String empresaCodi;
+	@NotNull
 	private Date data;
 	private Date dataCreacio;
-	@NotNull
-	private GenericReference<Empresa, Long> empresa;
 	private Double latitud;
 	private Double longitud;
 

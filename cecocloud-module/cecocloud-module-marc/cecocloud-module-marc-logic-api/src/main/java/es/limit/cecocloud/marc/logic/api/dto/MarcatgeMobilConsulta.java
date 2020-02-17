@@ -21,7 +21,9 @@ import lombok.Setter;
 public class MarcatgeMobilConsulta {
 
 	@NotNull
-	private Long empresaId;
+	private String identificadorCodi;
+	@NotNull
+	private String empresaCodi;
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date data;

@@ -60,9 +60,11 @@ public class OperariEmpresaEntity extends AbstractAuditableVersionableEntity<Ope
 			foreignKey = @ForeignKey(name = "operariemp_empresa_fk"))
 	protected EmpresaEntity empresa;
 
+	@Formula(value="(select ope.codi from operari ope where ope.id = operari_id)")
+	private String operariCodi;
 	@Formula(value="(select ('[' || ope.codi || '] ' || usu.nom || ' ' || usu.llinatges) from operari ope, usuari usu where ope.id = operari_id and usu.id = ope.usuari_id)")
 	private String description;
-
+	
 	@Builder
 	public OperariEmpresaEntity(
 			OperariEmpresa embedded,

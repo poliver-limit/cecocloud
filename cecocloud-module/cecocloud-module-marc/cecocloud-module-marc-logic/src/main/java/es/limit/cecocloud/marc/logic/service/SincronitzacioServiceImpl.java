@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -14,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen;
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marc.logic.api.service.SincronitzacioService;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
@@ -52,30 +51,12 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private OperariEmpresaRepository operariEmpresaRepository;
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
-	@Autowired
-	private AuthenticationHelper authenticationHelper;
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<SincronitzacioEmpresa> empresaFind() {
-		List<EmpresaEntity> empreses = operariEmpresaRepository.findByOperariUsuariEmbeddedCodiAndEmpresaEmbeddedActivaTrue(
-				authenticationHelper.getPrincipalName());
-		List<SincronitzacioEmpresa> resposta = new ArrayList<SincronitzacioEmpresa>();
-		for (EmpresaEntity empresa: empreses) {
-			SincronitzacioEmpresa empresaSync = new SincronitzacioEmpresa();
-			empresaSync.setId(empresa.getId());
-			empresaSync.setCodi(empresa.getEmbedded().getCodi());
-			empresaSync.setNom(empresa.getEmbedded().getNom());
-			empresaSync.setNif(empresa.getEmbedded().getNif());
-			resposta.add(empresaSync);
-		}
-		return resposta;
-	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<SincronitzacioMarcatge> marcatgeFind(
 			String identificadorCodi,
+			String empresaCodi,
 			Date dataInici,
 			Date dataFi) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(identificadorCodi);
@@ -84,7 +65,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			List<EmpresaEntity> empreses = empresaRepository.findByIdentificador(identificador.get());
 			if (!empreses.isEmpty()) {
 				List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDatesSync(
-						empreses,
+						empreses.stream().filter(empresa -> empresaCodi == null || empresa.getEmbedded().getCodi().equals(empresaCodi)).collect(Collectors.toList()),
 						dataInici,
 						dataFi == null,
 						dataFi);
