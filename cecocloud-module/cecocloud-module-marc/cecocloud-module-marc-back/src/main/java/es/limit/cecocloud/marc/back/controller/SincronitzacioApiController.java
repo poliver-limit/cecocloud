@@ -62,6 +62,7 @@ public class SincronitzacioApiController {
 		return ResponseEntity.ok(
 				sincronitzacioService.marcatgeFind(
 						consulta.getIdentificadorCodi(),
+						consulta.getEmpresaCodi(),
 						consulta.getDataInici(),
 						consulta.getDataFi()));
 	}

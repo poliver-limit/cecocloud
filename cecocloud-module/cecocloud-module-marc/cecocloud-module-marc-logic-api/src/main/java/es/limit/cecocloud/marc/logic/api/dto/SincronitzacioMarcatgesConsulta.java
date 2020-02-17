@@ -25,6 +25,9 @@ public class SincronitzacioMarcatgesConsulta {
 	@Size(max = 4)
 	private String identificadorCodi;
 	@NotNull
+	@Size(max = 4)
+	private String empresaCodi;
+	@NotNull
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date dataInici;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

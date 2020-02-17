@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -63,7 +64,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 		List<SincronitzacioEmpresa> resposta = new ArrayList<SincronitzacioEmpresa>();
 		for (EmpresaEntity empresa: empreses) {
 			SincronitzacioEmpresa empresaSync = new SincronitzacioEmpresa();
-			empresaSync.setId(empresa.getId());
+			empresaSync.setIdentificadorCodi(empresa.getIdentificador().getEmbedded().getCodi());
 			empresaSync.setCodi(empresa.getEmbedded().getCodi());
 			empresaSync.setNom(empresa.getEmbedded().getNom());
 			empresaSync.setNif(empresa.getEmbedded().getNif());
@@ -76,6 +77,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	@Transactional(readOnly = true)
 	public List<SincronitzacioMarcatge> marcatgeFind(
 			String identificadorCodi,
+			String empresaCodi,
 			Date dataInici,
 			Date dataFi) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(identificadorCodi);
@@ -84,7 +86,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			List<EmpresaEntity> empreses = empresaRepository.findByIdentificador(identificador.get());
 			if (!empreses.isEmpty()) {
 				List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDatesSync(
-						empreses,
+						empreses.stream().filter(empresa -> empresaCodi == null || empresa.getEmbedded().getCodi().equals(empresaCodi)).collect(Collectors.toList()),
 						dataInici,
 						dataFi == null,
 						dataFi);

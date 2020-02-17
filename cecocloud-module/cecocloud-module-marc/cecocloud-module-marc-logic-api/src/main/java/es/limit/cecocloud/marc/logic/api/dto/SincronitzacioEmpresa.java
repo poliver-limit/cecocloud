@@ -17,6 +17,6 @@ import lombok.Setter;
 public class SincronitzacioEmpresa extends es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa {
 
 	@NotNull
-	private Long id;
+	private String identificadorCodi;
 
 }

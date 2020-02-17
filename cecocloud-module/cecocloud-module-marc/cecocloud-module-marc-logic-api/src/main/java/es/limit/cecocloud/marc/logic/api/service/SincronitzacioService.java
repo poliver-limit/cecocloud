@@ -28,8 +28,10 @@ public interface SincronitzacioService {
 	/**
 	 * Consulta els marcatges d'un identificador disponibles a CECOCLOUD.
 	 * 
-	 * @param companyiaId
-	 *            identificador de la companyia.
+	 * @param identificadorCodi
+	 *            codi de l'identificador.
+	 * @param empresaCodi
+	 *            codi de l'empresa (opcional).
 	 * @param dataInici
 	 *            data inicial per a la consulta.
 	 * @param dataFi
@@ -39,6 +41,7 @@ public interface SincronitzacioService {
 	 */
 	public List<SincronitzacioMarcatge> marcatgeFind(
 			String identificadorCodi,
+			String empresaCodi,
 			Date dataInici,
 			Date dataFi);
 

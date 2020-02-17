@@ -17,6 +17,6 @@ import lombok.Setter;
 public class SincronitzacioIdentificadorResposta {
 
 	private SincronitzacioResposta operarisResposta;
-	private SincronitzacioResposta empresesResposta;
+	private SincronitzacioEmpresesResposta empresesResposta;
 
 }
