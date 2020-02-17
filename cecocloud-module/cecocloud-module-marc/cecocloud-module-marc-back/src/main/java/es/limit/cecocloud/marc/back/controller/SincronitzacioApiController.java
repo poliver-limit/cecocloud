@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatgesEnviament;
@@ -38,17 +37,6 @@ public class SincronitzacioApiController {
 
 	@Autowired
 	private SincronitzacioService sincronitzacioService;
-
-	@GetMapping(
-			path = "/marcatges/empreses",
-			produces = "application/json")
-	@PreAuthorize("hasPermission(getCompanyia(#consulta.companyiaCodi), 'SYNC')")
-	public ResponseEntity<List<SincronitzacioEmpresa>> consultaEmpreses(
-			HttpServletRequest request) {
-		log.debug("Consulta d'empreses");
-		return ResponseEntity.ok(
-				sincronitzacioService.empresaFind());
-	}
 
 	@GetMapping(
 			path = "/marcatges",

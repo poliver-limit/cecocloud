@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.marc.logic.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
-import es.limit.cecocloud.marc.logic.api.dto.EmpresaMobil;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen;
+import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.service.MobileMarcatgeService;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
@@ -111,17 +112,19 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	}
 
 	@Override
-	public List<EmpresaMobil> empresesFindDisponiblesPerUsuariActual() {
-		List<OperariEntity> operaris = operariRepository.findByUsuariEmbeddedCodiAndEmbeddedActiu(
-				authenticationHelper.getPrincipalName(),
-				true);
-		List<OperariEmpresaEntity> operarisEmpreses = operariEmpresaRepository.findByOperariInAndEmbeddedActiuAndEmpresaEmbeddedActiva(
-				operaris,
-				true,
-				true);
-		return orikaMapperFacade.mapAsList(
-				operarisEmpreses.stream().map(OperariEmpresaEntity::getEmpresa).collect(Collectors.toList()),
-				EmpresaMobil.class);
+	public List<SincronitzacioEmpresa> empresesFindDisponiblesPerUsuariActual() {
+		List<EmpresaEntity> empreses = operariEmpresaRepository.findByOperariUsuariEmbeddedCodiAndEmpresaEmbeddedActivaTrue(
+				authenticationHelper.getPrincipalName());
+		List<SincronitzacioEmpresa> resposta = new ArrayList<SincronitzacioEmpresa>();
+		for (EmpresaEntity empresa: empreses) {
+			SincronitzacioEmpresa empresaSync = new SincronitzacioEmpresa();
+			empresaSync.setIdentificadorCodi(empresa.getIdentificador().getEmbedded().getCodi());
+			empresaSync.setCodi(empresa.getEmbedded().getCodi());
+			empresaSync.setNom(empresa.getEmbedded().getNom());
+			empresaSync.setNif(empresa.getEmbedded().getNif());
+			resposta.add(empresaSync);
+		}
+		return resposta;
 	}
 
 	private OperariEmpresaEntity getOperariEmpresaPerMarcatge(EmpresaEntity empresa) {

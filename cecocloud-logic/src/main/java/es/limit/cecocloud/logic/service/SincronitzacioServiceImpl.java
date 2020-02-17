@@ -69,7 +69,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			SincronitzacioResposta operarisEmpresesResposta = sincronitzarOperarisEmpreses(
 					identificador.get(),
 					peticio.getEmpreses());
-			empresesResposta.setOperarisResposta(operarisEmpresesResposta);
+			empresesResposta.setOperaris(operarisEmpresesResposta);
 			return new SincronitzacioIdentificadorResposta(
 					operarisResposta,
 					empresesResposta);

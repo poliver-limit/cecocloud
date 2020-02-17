@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 
 /**
@@ -17,13 +16,6 @@ import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
  * @author Limit Tecnologies <limit@limit.es>
  */
 public interface SincronitzacioService {
-
-	/**
-	 * Consulta la llista d'empreses amb les quals es poden fer marcatges.
-	 * 
-	 * @return la llista d'empreses
-	 */
-	public List<SincronitzacioEmpresa> empresaFind();
 
 	/**
 	 * Consulta els marcatges d'un identificador disponibles a CECOCLOUD.

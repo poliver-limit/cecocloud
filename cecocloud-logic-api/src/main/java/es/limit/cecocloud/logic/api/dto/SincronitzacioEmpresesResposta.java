@@ -19,11 +19,11 @@ public class SincronitzacioEmpresesResposta extends SincronitzacioResposta {
 			int updateCount,
 			int deleteCount,
 			int errorCount,
-			SincronitzacioResposta operarisResposta) {
+			SincronitzacioResposta operaris) {
 		super(createCount, updateCount, deleteCount, errorCount);
-		this.operarisResposta = operarisResposta;
+		this.operaris = operaris;
 	}
 
-	private SincronitzacioResposta operarisResposta;
+	private SincronitzacioResposta operaris;
 
 }
