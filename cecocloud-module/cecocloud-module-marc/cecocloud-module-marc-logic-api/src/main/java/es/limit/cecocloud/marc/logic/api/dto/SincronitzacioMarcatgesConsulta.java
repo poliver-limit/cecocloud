@@ -24,7 +24,6 @@ public class SincronitzacioMarcatgesConsulta {
 	@NotNull
 	@Size(max = 4)
 	private String identificadorCodi;
-	@NotNull
 	@Size(max = 4)
 	private String empresaCodi;
 	@NotNull

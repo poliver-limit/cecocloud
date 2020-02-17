@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +40,6 @@ public class SincronitzacioApiController {
 	@GetMapping(
 			path = "/marcatges",
 			produces = "application/json")
-	@PreAuthorize("hasPermission(getCompanyia(#consulta.companyiaCodi), 'SYNC')")
 	public ResponseEntity<List<SincronitzacioMarcatge>> consultaMarcatges(
 			HttpServletRequest request,
 			@Valid final SincronitzacioMarcatgesConsulta consulta) {
@@ -58,7 +56,6 @@ public class SincronitzacioApiController {
 	@PostMapping(
 			path = "/marcatges",
 			produces = "application/json")
-	@PreAuthorize("hasPermission(getCompanyia(#marcatges.companyiaCodi), 'SYNC')")
 	public ResponseEntity<SincronitzacioResposta> sincronitzarMarcatges(
 			HttpServletRequest request,
 			@RequestBody @Valid final SincronitzacioMarcatgesEnviament marcatges) {
