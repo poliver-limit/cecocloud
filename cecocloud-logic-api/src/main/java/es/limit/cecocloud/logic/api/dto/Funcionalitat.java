@@ -29,7 +29,7 @@ import lombok.Setter;
 public class Funcionalitat extends AbstractIdentificable<Long> {
 
 	@NotNull
-	@Size(max = 4)
+	@Size(max = 12)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String codi;

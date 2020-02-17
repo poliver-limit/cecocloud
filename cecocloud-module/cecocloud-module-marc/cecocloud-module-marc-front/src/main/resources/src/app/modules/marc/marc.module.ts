@@ -37,11 +37,12 @@ export class MarcModule {
 				labelKey: 'app.menu.marc.operaris',
 				route: '/marc/operaris'
 			}, */{
-				icon: 'timer',
-				label: 'Marcatges',
-				labelKey: 'app.menu.marc.marcatges',
-				route: '/marc/marcatges'
-			}]
+					icon: 'timer',
+					label: 'Marcatges',
+					labelKey: 'app.menu.marc.marcatges',
+					route: '/marc/marcatges',
+					resource: 'MAR_MARCAT'
+				}]
 		});
 	}
 

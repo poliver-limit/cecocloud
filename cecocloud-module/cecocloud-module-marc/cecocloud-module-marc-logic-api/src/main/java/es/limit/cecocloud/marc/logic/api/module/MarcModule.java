@@ -31,7 +31,7 @@ public class MarcModule {
 			null,
 			Arrays.asList(
 					new FuncionalitatCodiFontImpl(
-							"MARC",
+							"MAR_MARCAT",
 							FuncionalitatTipus.MANTENIMENT,
 							"Marcatges",
 							Modul.marc,

@@ -8,6 +8,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import { NgxHalClientModule } from '@lagoshny/ngx-hal-client';
 import { NgxMaskModule } from 'ngx-mask';
+import { ModuleRegistry } from '@ag-grid-community/all-modules';
+import { InfiniteRowModelModule } from '@ag-grid-community/infinite-row-model';
 import { BngBaseAppModule, BngErrorModule, BngJwtInterceptor, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
 
 import { AppService } from './shared/app.service';
@@ -25,6 +27,10 @@ import { MarcModule } from './modules/marc/marc.module';
 import { RrhhModule } from './modules/rrhh/rrhh.module';
 
 registerLocaleData(localeCa);
+
+// Si no es registra aquí el mòdul InfiniteRowModelModule dona un error a la consola Javascript dient
+// que el mòdul InfiniteRowModelModule no està carregat.
+ModuleRegistry.register(InfiniteRowModelModule);
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new MultiTranslateHttpLoader(

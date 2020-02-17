@@ -27,13 +27,14 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		dto.setNom("Test");
 		dto.setTipus(EmpresaTipusEnum.GESTIO);
 		dto.setActiva(true);
-		getResourceFromParentCrudTester(Identificador.class);
+		dto.setIdentificador(
+				getGenericReferenceFromParentCrudTester(Identificador.class));
 		return dto;
 	}
 
 	@Override
 	public void updateDto(Empresa dto) {
-		dto.setCodi("TEST2");
+		dto.setCodi("TES2");
 		dto.setNif("00000000T");
 		dto.setNom("Test2");
 		dto.setTipus(EmpresaTipusEnum.COMPTABLE);
@@ -53,8 +54,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
-			new IdentificadorCrudTester(),
-			new EmpresaCrudTester()
+			new IdentificadorCrudTester()
 		};
 	}
 

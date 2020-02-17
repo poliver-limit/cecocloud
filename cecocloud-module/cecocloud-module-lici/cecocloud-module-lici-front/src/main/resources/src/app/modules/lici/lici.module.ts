@@ -54,13 +54,15 @@ export class LiciModule {
           icon: "room",
           label: "Configuracions",
           labelKey: "app.menu.lici.configuracions",
-          route: "/lici/configuracions"
+          route: "/lici/configuracions",
+          resource: 'LIC_CONFIG'
         },
         {
           icon: "room",
           label: "Licitacions",
           labelKey: "app.menu.lici.licitacions",
-          route: "/lici/licitacions"
+          route: "/lici/licitacions",
+          resource: 'LIC_LICITA'
         }
       ]
     });

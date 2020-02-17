@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { BngAuthService, BngAuthTokenPayload, BngMenuService, BngMenu, BngModuleService, BngAppModule } from 'base-angular';
 
 import { AppService } from './shared/app.service';
+import { FuncionalitatsPermisosService } from './shared/funcionalitats-permisos/funcionalitats-permisos.service';
 
 @Component({
 	selector: 'app-root',
@@ -28,7 +29,13 @@ export class AppComponent {
 
 	onModuleSelected(module: string) {
 		let menu: BngMenu = this.appService.getModuleMenu(module);
-		this.menuService.setActiveMenu(menu);
+		console.log("Menu:", menu);
+		this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(module).subscribe((funcionalitats: string[]) => {
+			console.log("Funcionalitats: ", funcionalitats);
+			let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
+			menu.items = menuItems;
+			this.menuService.setActiveMenu(menu);
+		});
 		this.router.navigate(['/' + module]);
 	}
 
@@ -48,11 +55,21 @@ export class AppComponent {
 		this.router.navigate(['/admin-identificador']);
 	}
 
+	private getUrlModule(): string {
+		const routerUrl = this.router.url.substring(1);
+		const module = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+		const allowedModules = this.moduleService.getAllowedModuleItems().map(modul => modul.code);
+		if (allowedModules.includes(module)) {
+			return module;
+		}
+	} 
+	
 	constructor(
 		authService: BngAuthService,
 		private router: Router,
 		private appService: AppService,
 		private menuService: BngMenuService,
+		private funcionalitatsPermisosService: FuncionalitatsPermisosService,
 		private moduleService: BngModuleService) {
 		// Manten actualitzada la informació de l'usuari autenticat
 		this.tokenPayload = authService.getAuthTokenPayload();
@@ -77,6 +94,14 @@ export class AppComponent {
 			if (!this.initialMenuSelected && event instanceof NavigationEnd) {
 				let menu: BngMenu = this.appService.getCurrentRouteMenu();
 				this.menuService.setActiveMenu(menu);
+				const urlModule = this.getUrlModule();
+				if (urlModule != null) {
+					this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(urlModule).subscribe((funcionalitats: string[]) => {
+						let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
+						menu.items = menuItems;
+						this.menuService.setActiveMenu(menu);
+					});
+				}
 				this.initialMenuSelected = true;
 			}
 		});

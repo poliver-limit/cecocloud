@@ -6,8 +6,8 @@ package es.limit.cecocloud.marc.logic.api.service;
 import java.util.Date;
 import java.util.List;
 
+import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
-import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioResposta;
 
 /**
  * Servei encarregat de gestionar la sincronització d'informació entre
@@ -20,8 +20,10 @@ public interface SincronitzacioService {
 	/**
 	 * Consulta els marcatges d'un identificador disponibles a CECOCLOUD.
 	 * 
-	 * @param companyiaId
-	 *            identificador de la companyia.
+	 * @param identificadorCodi
+	 *            codi de l'identificador.
+	 * @param empresaCodi
+	 *            codi de l'empresa (opcional).
 	 * @param dataInici
 	 *            data inicial per a la consulta.
 	 * @param dataFi
@@ -31,6 +33,7 @@ public interface SincronitzacioService {
 	 */
 	public List<SincronitzacioMarcatge> marcatgeFind(
 			String identificadorCodi,
+			String empresaCodi,
 			Date dataInici,
 			Date dataFi);
 
