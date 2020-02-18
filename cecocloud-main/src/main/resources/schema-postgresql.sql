@@ -50,7 +50,7 @@ create table funcionalitat (
     lastmod_by varchar(64),
     lastmod_date timestamp,
     version int8 not null,
-    codi varchar(8) not null,
+    codi varchar(12) not null,
     descripcio varchar(100) not null,
     modul varchar(4) not null,
     tipus int4 not null,

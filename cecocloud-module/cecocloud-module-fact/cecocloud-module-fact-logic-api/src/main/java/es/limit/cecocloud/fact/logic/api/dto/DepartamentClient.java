@@ -94,8 +94,8 @@ public class DepartamentClient extends AbstractIdentificableWithIdentificador<De
 			hiddenInGrid = false,
 			hiddenInForm = false,
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
-			disabledForUpdate = true
+			disabledForCreate = false,
+			disabledForUpdate = false
 			)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;	
 	

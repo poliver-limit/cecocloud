@@ -9,6 +9,8 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { ClientsGridComponent } from './clients-grid.component';
 import { ClientsFormComponent } from './clients-form.component';
 import { ClientsService } from './clients.service';
+import { DepartamentsClientService } from '../departamentsClient/departamentsClient.service';
+import { DepartamentsClientFormComponent } from '../departamentsClient/departamentsClient-form.component';
 
 @NgModule( {
     imports: [
@@ -17,17 +19,19 @@ import { ClientsService } from './clients.service';
 		BngModule,
 		MaterialModule,
         RouterModule.forChild( [
-            { path: '', component: ClientsGridComponent },
-            { path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },
+            { path: '', component: ClientsGridComponent },            
+			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },
             { path: 'update/:id', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] }
         ] )
     ],
     declarations: [
-        ClientsGridComponent,
+        ClientsGridComponent,	
         ClientsFormComponent
     ],
     providers: [
-        ClientsService
+        ClientsService,
+		DepartamentsClientService,
+		DepartamentsClientFormComponent
     ]
 } )
 export class ClientsModule {}

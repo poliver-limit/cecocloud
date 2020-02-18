@@ -78,7 +78,7 @@ public class OrganitzacioEntity
 			},
 			foreignKey = @ForeignKey(name = "org_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "org_cpo_cod", length = 4, nullable = false)
+	@Column(name = "org_cpo_cod", length = 8, nullable = false)
 	private String codiPostalCodi;
 
 	@Builder

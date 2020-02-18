@@ -20,6 +20,7 @@ import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaOperari;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresesResposta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorPeticio;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorResposta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
@@ -59,91 +60,25 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	public SincronitzacioIdentificadorResposta sincronitzarIdentificador(SincronitzacioIdentificadorPeticio peticio) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(peticio.getCodi());
 		if (identificador.isPresent()) {
+			SincronitzacioEmpresesResposta empresesResposta = sincronitzarEmpreses(
+					identificador.get(),
+					peticio.getEmpreses());
 			SincronitzacioResposta operarisResposta = sincronitzarOperaris(
 					identificador.get(),
 					peticio.getOperaris());
-			SincronitzacioResposta empresesResposta = sincronitzarEmpreses(
+			SincronitzacioResposta operarisEmpresesResposta = sincronitzarOperarisEmpreses(
 					identificador.get(),
 					peticio.getEmpreses());
-			sincronitzarOperarisEmpreses(
-					identificador.get(),
-					peticio.getEmpreses());
+			empresesResposta.setOperaris(operarisEmpresesResposta);
 			return new SincronitzacioIdentificadorResposta(
-					empresesResposta,
-					operarisResposta);
+					operarisResposta,
+					empresesResposta);
 		} else {
 			throw new EntityNotFoundException("IdentificadorEntity#codi=" + peticio.getCodi());
 		}
 	}
 
-	private SincronitzacioResposta sincronitzarOperaris(
-			IdentificadorEntity identificador,
-			List<SincronitzacioOperari> operaris) {
-		int createCount = 0;
-		int updateCount = 0;
-		int deleteCount = 0;
-		int errorCount = 0;
-		List<OperariEntity> opes = operariRepository.findByIdentificador(identificador);
-		for (OperariEntity operari: opes) {
-			SincronitzacioOperari syncFound = null;
-			for (SincronitzacioOperari operariSync: operaris) {
-				if (operariDbEqualsOperariSync(operari, operariSync)) {
-					syncFound = operariSync;
-					break;
-				}
-			}
-			if (syncFound != null) {
-				// Si l'operari existeix a la BBDD i a la informació de sincronització
-				// actualitza la informació de l'operari
-				operari.getEmbedded().setActiu(true);
-				updateCount++;
-			} else {
-				// Si l'operari existeix a la BBDD i no a la informació de sincronització
-				// desactiva l'operari
-				operari.getEmbedded().setActiu(false);
-				for (OperariEmpresaEntity operariEmpresa: operariEmpresaRepository.findByOperari(operari)) {
-					operariEmpresa.getEmbedded().setActiu(false);
-				}
-				deleteCount++;
-			}
-		}
-		for (SincronitzacioOperari operariSync: operaris) {
-			OperariEntity dbFound = null;
-			for (OperariEntity operari: opes) {
-				if (operariDbEqualsOperariSync(operari, operariSync)) {
-					dbFound = operari;
-					break;
-				}
-			}
-			if (dbFound == null) {
-				// Si l'operari no existeix a la BBDD i si a la informació de sincronització
-				// crea l'operari a la BBDD
-				Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(operariSync.getUsuariCodi());
-				if (usuari.isPresent()) {
-					Operari operari = new Operari();
-					operari.setCodi(operariSync.getCodi());
-					operari.setActiu(true);
-					
-					operariRepository.save(
-							OperariEntity.builder().
-							embedded(operari).
-							usuari(usuari.get()).
-							identificador(identificador).
-							build());
-					createCount++;
-				} else {
-					errorCount++;
-				}
-			}
-		}
-		return new SincronitzacioResposta(
-				createCount,
-				updateCount,
-				deleteCount,
-				errorCount);
-	}
-
-	private SincronitzacioResposta sincronitzarEmpreses(
+	private SincronitzacioEmpresesResposta sincronitzarEmpreses(
 			IdentificadorEntity identificador,
 			List<SincronitzacioEmpresa> empreses) {
 		int createCount = 0;
@@ -202,6 +137,73 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				createCount++;
 			}
 		}
+		return new SincronitzacioEmpresesResposta(
+				createCount,
+				updateCount,
+				deleteCount,
+				errorCount,
+				null);
+	}
+
+	private SincronitzacioResposta sincronitzarOperaris(
+			IdentificadorEntity identificador,
+			List<SincronitzacioOperari> operaris) {
+		int createCount = 0;
+		int updateCount = 0;
+		int deleteCount = 0;
+		int errorCount = 0;
+		List<OperariEntity> opes = operariRepository.findByIdentificador(identificador);
+		for (OperariEntity operari: opes) {
+			SincronitzacioOperari syncFound = null;
+			for (SincronitzacioOperari operariSync: operaris) {
+				if (operariDbEqualsOperariSync(operari, operariSync)) {
+					syncFound = operariSync;
+					break;
+				}
+			}
+			if (syncFound != null) {
+				// Si l'operari existeix a la BBDD i a la informació de sincronització
+				// actualitza la informació de l'operari
+				operari.getEmbedded().setActiu(true);
+				updateCount++;
+			} else {
+				// Si l'operari existeix a la BBDD i no a la informació de sincronització
+				// desactiva l'operari
+				operari.getEmbedded().setActiu(false);
+				for (OperariEmpresaEntity operariEmpresa: operariEmpresaRepository.findByOperari(operari)) {
+					operariEmpresa.getEmbedded().setActiu(false);
+				}
+				deleteCount++;
+			}
+		}
+		for (SincronitzacioOperari operariSync: operaris) {
+			OperariEntity dbFound = null;
+			for (OperariEntity operari: opes) {
+				if (operariDbEqualsOperariSync(operari, operariSync)) {
+					dbFound = operari;
+					break;
+				}
+			}
+			if (dbFound == null) {
+				// Si l'operari no existeix a la BBDD i si a la informació de sincronització
+				// crea l'operari a la BBDD
+				Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(operariSync.getUsuariCodi());
+				if (usuari.isPresent()) {
+					Operari operari = new Operari();
+					operari.setCodi(operariSync.getCodi());
+					operari.setActiu(true);
+					operariRepository.save(
+							OperariEntity.builder().
+							embedded(operari).
+							usuari(usuari.get()).
+							identificador(identificador).
+							build());
+					createCount++;
+				} else {
+					errorCount++;
+				}
+			}
+		}
 		return new SincronitzacioResposta(
 				createCount,
 				updateCount,
@@ -209,9 +211,13 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				errorCount);
 	}
 
-	private void sincronitzarOperarisEmpreses(
+	private SincronitzacioResposta sincronitzarOperarisEmpreses(
 			IdentificadorEntity identificador,
 			List<SincronitzacioEmpresa> empreses) {
+		int createCount = 0;
+		int updateCount = 0;
+		int deleteCount = 0;
+		int errorCount = 0;
 		List<EmpresaEntity> emps = empresaRepository.findByIdentificador(identificador);
 		for (SincronitzacioEmpresa empresaSync: empreses) {
 			EmpresaEntity empresaDb = null;
@@ -222,8 +228,20 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				}
 			}
 			if (empresaDb != null) {
-				List<SincronitzacioEmpresaOperari> operarisSync = empresaSync.getOperaris();
-				for (SincronitzacioEmpresaOperari operariSync: operarisSync) {
+				for (OperariEmpresaEntity operariEmpresaDb: operariEmpresaRepository.findByEmpresa(empresaDb)) {
+					boolean trobat = false;
+					for (SincronitzacioEmpresaOperari operariSync: empresaSync.getOperaris()) {
+						if (operariEmpresaDb.getOperariCodi().equals(operariSync.getCodi())) {
+							trobat = true;
+							break;
+						}
+					}
+					if (!trobat) {
+						operariEmpresaDb.getEmbedded().setActiu(false);
+						deleteCount++;
+					}
+				}
+				for (SincronitzacioEmpresaOperari operariSync: empresaSync.getOperaris()) {
 					Optional<OperariEntity> operariDb = operariRepository.findByIdentificadorAndEmbeddedCodi(
 							identificador,
 							operariSync.getCodi());
@@ -238,6 +256,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 							if (!operariEmpresaDb.get().getEmbedded().isActiu()) {
 								operariEmpresaDb.get().getEmbedded().setActiu(true);
 							}
+							updateCount++;
 						} else {
 							// Si l'operari-empresa no existeix a la BBDD i si a la informació de sincronització
 							// crea l'operari-empresa a la BBDD
@@ -247,11 +266,17 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 									operari(operariDb.get()).
 									empresa(empresaDb).
 									build());
+							createCount++;
 						}
 					}
 				}
 			}
 		}
+		return new SincronitzacioResposta(
+				createCount,
+				updateCount,
+				deleteCount,
+				errorCount);
 	}
 
 	private boolean operariDbEqualsOperariSync(

@@ -23,7 +23,7 @@ public class ClientAdresaServiceImpl extends AbstractGenericCompositePkServiceIm
 	protected ClientAdresaPk getPkFromDto(ClientAdresa dto) {
 		return new ClientAdresaPk(
 				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getClient().getId());
+				dto.getClient().getPk().getCodi(),
+				dto.getCodi());
 	}
 }

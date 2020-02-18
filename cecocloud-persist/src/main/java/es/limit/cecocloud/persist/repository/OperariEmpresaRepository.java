@@ -6,6 +6,7 @@ package es.limit.cecocloud.persist.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
@@ -44,5 +45,14 @@ public interface OperariEmpresaRepository extends BaseRepository<OperariEmpresaE
 			String usuariCodi,
 			EmpresaEntity empresa,
 			boolean activa);
+
+	@Query(	"select " +
+			"    oem.empresa " +
+			"from " +
+			"    OperariEmpresaEntity oem " +
+			"where " +
+			"	 oem.operari.usuari.embedded.codi = :usuariCodi " +
+			"and oem.empresa.embedded.activa = true ")
+	List<EmpresaEntity> findByOperariUsuariEmbeddedCodiAndEmpresaEmbeddedActivaTrue(String usuariCodi);
 
 }

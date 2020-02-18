@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubClientsService } from './subClients.service';
 
 @Component( {
+	selector: 'subClient',
     template: `
     <bng-datagrid
         bng-datagrid-mant

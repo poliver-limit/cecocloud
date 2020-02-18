@@ -31,10 +31,11 @@ export class AppComponent {
 		let menu: BngMenu = this.appService.getModuleMenu(module);
 		console.log("Menu:", menu);
 		this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(module).subscribe((funcionalitats: string[]) => {
-			console.log("Funcionalitats: ", funcionalitats);
-			let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
-			menu.items = menuItems;
-			this.menuService.setActiveMenu(menu);
+			let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
+			// console.log("--- SELECT MODULE ---");
+			// console.log("Funcionalitats: ", funcionalitats);
+			// console.log("Menu filtrat: ", filteredMenu);
+			this.menuService.setActiveMenu(filteredMenu);
 		});
 		this.router.navigate(['/' + module]);
 	}
@@ -53,6 +54,37 @@ export class AppComponent {
 		menu.label = identificador.descripcio;
 		this.menuService.setActiveMenu(menu);
 		this.router.navigate(['/admin-identificador']);
+	}
+
+	private getUrlModule(): string {
+		const routerUrl = this.router.url.substring(1);
+		const module = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+		const allowedModules = this.moduleService.getAllowedModuleItems().map(modul => modul.code);
+		if (allowedModules.includes(module)) {
+			return module;
+		}
+	}
+
+	private filterMenuFuncionalitatsPermeses(menu: BngMenu, funcionalitats: string[]): BngMenu {
+		let menuFiltrat: BngMenu;
+		if (menu.items && menu.items.length) {
+			let childMenuFiltrat: BngMenu[] = [];
+			for (let item of menu.items) {
+				let subMenu = this.filterMenuFuncionalitatsPermeses(item, funcionalitats);
+				if (subMenu != null) {
+					childMenuFiltrat.push(subMenu);
+				}
+			}
+			if (childMenuFiltrat != null && childMenuFiltrat.length > 0) {
+				menuFiltrat = menu;
+				menuFiltrat.items = childMenuFiltrat;
+			}
+		} else {
+			if (menu.resource != null && funcionalitats.includes(menu.resource)) {
+				menuFiltrat = menu;
+			}
+		}
+		return menuFiltrat;
 	}
 
 	constructor(
@@ -85,14 +117,17 @@ export class AppComponent {
 			if (!this.initialMenuSelected && event instanceof NavigationEnd) {
 				let menu: BngMenu = this.appService.getCurrentRouteMenu();
 				this.menuService.setActiveMenu(menu);
-				const routerUrl = this.router.url.substring(1);
-				const module = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
-				const allowedModules = this.moduleService.getAllowedModuleItems().map(modul => modul.code);
-				if (allowedModules.includes(module)) {
-					this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(module).subscribe((funcionalitats: string[]) => {
-						let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
-						menu.items = menuItems;
-						this.menuService.setActiveMenu(menu);
+				const urlModule = this.getUrlModule();
+				if (urlModule != null) {
+					this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(urlModule).subscribe((funcionalitats: string[]) => {
+						// let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
+						// menu.items = menuItems;
+						// this.menuService.setActiveMenu(menu);
+						let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
+						// console.log("--- CONSTRUCTOR ---");
+						// console.log("Funcionalitats: ", funcionalitats);
+						// console.log("Menu filtrat: ", filteredMenu);
+						this.menuService.setActiveMenu(filteredMenu);
 					});
 				}
 				this.initialMenuSelected = true;

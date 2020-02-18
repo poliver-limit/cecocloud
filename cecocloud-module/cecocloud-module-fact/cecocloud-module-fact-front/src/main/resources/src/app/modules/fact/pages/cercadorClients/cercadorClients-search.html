@@ -1,0 +1,89 @@
+<!-- <h3> Cercador de Clients </h3> -->
+<!-- <label> -->
+<!--   Name: -->
+<!--   <input type="text" [formControl]="nameControl"> -->
+<!-- </label> -->
+
+<bng-form bng-form-mant	[config]="formConfig" [restapiService]="cercadorClientsService">
+	<div class="mainFilters">
+		<div style="display: flex;">
+			<div style="width: 25%; padding-right: 1em">
+		    	<bng-custom-field name="codi"></bng-custom-field>
+		   	</div>
+			<div style="width: 25%; padding-right: 1em">
+				<bng-custom-field name="familiaClient"></bng-custom-field>
+			</div>
+		   	<div style="width: 25%; padding-right: 1em">
+				<bng-custom-field name="nomComercial"></bng-custom-field>
+			</div>
+				<div style="width: 25%; padding-right: 1em">
+		    	<bng-custom-field name="nomFiscal"></bng-custom-field>
+		   	</div>
+		</div>
+		<div style="display: flex;">	
+		   		<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="nif"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+		    	<bng-custom-field name="organitzacio"></bng-custom-field>
+		   	</div>
+		   	<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="alias"></bng-custom-field>
+			</div>	
+		</div>
+	</div>
+	
+	<div style="display: flex; margin-bottom:10px; margin-top:20px; padding-right: 20px; padding-left: 20px; text-align:center;">
+		<div style="width: 15%; display: flex; float: left;">
+			<a [routerLink]="" (click)="extraFiltersShowHide()">+ Opcions de cerca</a>
+		</div>
+		<div style="width: 70%; display: inline-block;"></div>
+		<div style="width: 15%; display: flex; float: left;">
+			<button  mat-raised-button (click)="extraFiltersShowHide()">{{'filters.cleanFilters' | translate}}</button>		
+			<div style="width: 10px; display: inline-block;"></div>
+			<button  mat-raised-button (click)="extraFiltersShowHide()">{{'filters.filter' | translate}}</button>
+		</div>
+	</div>	
+
+	<div class="extraFilters" [hidden]="extraFiltersHide">		
+		<div style="display: flex;">
+			<div style="width: 33%; padding-right: 1em">
+		    	<bng-custom-field name="codiPostal"></bng-custom-field>
+		   	</div>
+			<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="operari"></bng-custom-field>
+			</div>
+		   	<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="zona"></bng-custom-field>
+			</div>	
+		</div>
+		<div style="display: flex;">	
+			<div style="width: 33%; padding-right: 1em">
+		    	<bng-custom-field name="telefon"></bng-custom-field>
+		   	</div>
+		   	<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="iva"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+		    	<bng-custom-field name="regimIva"></bng-custom-field>
+		   	</div>	  
+		</div>
+		<div style="display: flex;">	
+		 	<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="claseRetencio"></bng-custom-field>
+			</div>			
+	   		<div style="width: 33%; padding-right: 1em">
+				<bng-custom-field name="tipusVenciment"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+		    	<bng-custom-field name="documentPagament"></bng-custom-field>
+		   	</div>	   
+		</div>	
+	</div>
+</bng-form>
+
+<bng-datagrid
+	bng-datagrid-mant
+	[config]="datagridConfig"
+	[restapiService]="cercadorClientsService">
+</bng-datagrid>

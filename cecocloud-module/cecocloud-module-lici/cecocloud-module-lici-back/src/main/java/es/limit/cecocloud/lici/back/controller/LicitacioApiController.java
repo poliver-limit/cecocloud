@@ -37,14 +37,4 @@ public class LicitacioApiController extends AbstractIdentificableApiController<L
 		dto.setEmpresa(GenericReference.toGenericReference(((UserSession) userSession).getE()));
 	}
 	
-	// métode per provar el tractament de les licitacions rebudes per correu i les
-	// de la plataforma de contractació
-	@GetMapping(value = "/tst", produces = "application/json")
-	public ResponseEntity<Object> tst(HttpServletRequest request) {
-		licitacioService.mail();
-
-		return ResponseEntity.ok(new Integer(1));
-
-	}
-
 }

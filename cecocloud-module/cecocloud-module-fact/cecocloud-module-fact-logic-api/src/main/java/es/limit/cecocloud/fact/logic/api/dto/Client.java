@@ -49,44 +49,44 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private String codi;
 
 	@NotNull
-	@RestapiField(includeInQuickFilter = true)
+	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = false)
 	@Size(max = 40)
 	private String nomComercial;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean bloquejat;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean potencial;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private RebutsEnumDto rebuts;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean recarrecEquivalencia;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean albaraValorat;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusFacturaEnumDto tipusFactura;
 
 	@Size(max = 40)
-	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@RestapiField(hiddenInLov = true)
 	private String nomFiscal;
 
 	@Size(max = 30)
-	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@RestapiField(hiddenInLov = true)
 	private String alias;
 
 	@Size(max = 12)
-	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@RestapiField(hiddenInLov = true)
 	private String nif;
 
 	@Size(max = 60)
@@ -113,7 +113,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String personaContacte;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private EnviamentFacturaEnumDto enviamentFactura;
 
@@ -135,7 +135,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Float percentatgeRetencio;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusRetencioEnumDto tipusRetencio;
 
@@ -193,18 +193,18 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private BigDecimal parametreNum5;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean facturesSenseDescompte;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Integer copiesFactura;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean entitatPublica;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean censadoAEAT;
 
@@ -262,7 +262,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean mostrarPercentatgeFacturacioClase1;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean aplicarPreusPerVolum;
 
@@ -289,7 +289,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private BigDecimal riscLimit;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusMissatgeEnumDto tipusMissatge;
 
@@ -300,7 +300,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String emailFactura;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean publicarDocumentsWeb;
 
@@ -308,23 +308,23 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String observacionsFactura;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean aplicarImpostPuntVerd;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean aplicarImpostServei;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean impostInclos;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean permesEntrarPartes;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusNifEnumDto tipusNif;
 
@@ -344,11 +344,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String emailEnviamentAlbarans;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean noImprimirSubclient;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean noImprimirPaletsRetornats;
 
@@ -358,11 +358,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private BigDecimal longitud;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusPersonaEnumDto tipusPersona;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private TipusEstrangerEnumDto tipusEstranger;
 
@@ -421,43 +421,40 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Date dataFirmaMandat;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Boolean facturaElectronica;
 
-	@Size(max = 1)
+//	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
-	private Boolean cobrarDiesLloguer;
-	
-	
-	
+	private Boolean cobrarDiesLloguer;	
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment1;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Rappel, WithIdentificadorAndCodiPk<String>> rappel;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagament;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusFacturacio, WithIdentificadorAndCodiPk<String>> tipusFacturacio;
 
 	@Transient
@@ -465,95 +462,95 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<FamiliaClient, WithIdentificadorAndCodiPk<String>> familiaClient;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Idioma, WithIdentificadorAndCodiPk<String>> idioma;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Tarifa, WithIdentificadorAndCodiPk<String>> tarifa1;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Tarifa, WithIdentificadorAndCodiPk<String>> tarifa2;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Banc, WithIdentificadorAndCodiPk<Integer>> banc;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<OficinaBancaria, OficinaBancariaPk> oficinaBancaria;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Transportista, WithIdentificadorAndCodiPk<String>> transportista;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operari;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<ClasseRetencio, WithIdentificadorAndCodiPk<String>> claseRetencio;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
-	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> adresaComecialClient;
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> adresaComercialClient;
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<Organitzacio, WithIdentificadorAndCodiPk<String>> organitzacio;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TarifaDescompte, WithIdentificadorAndCodiPk<String>> tarifaDescompte;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusComissio, WithIdentificadorAndCodiPk<String>> tipusComissio;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusAdresa, WithIdentificadorAndCodiPk<String>> tipusAdresa;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReference<PaisNif, String> paisNif;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TarifaDescompte, WithIdentificadorAndCodiPk<String>> tarifaDescompte2;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostalOficinaComptable;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostalOrganGestor;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostalUnitatTramitadora;
 
 }

@@ -614,6 +614,49 @@ public class FactModuleRegister {
 							"Zones",
 							Modul.fact,
 							Arrays.asList(Zona.class),
+							Arrays.asList()),
+					
+					new FuncionalitatCodiFontImpl(
+							"FAC_CERCLI",
+							FuncionalitatTipus.MANTENIMENT,
+							"Cercador clients",
+							Modul.fact,
+							Arrays.asList(Client.class),
+							Arrays.asList()),
+					new FuncionalitatCodiFontImpl(
+							"FAC_CLARET",
+							FuncionalitatTipus.MANTENIMENT,
+							"Classes de retencions",
+							Modul.fact,
+							Arrays.asList(ClasseRetencio.class),
+							Arrays.asList()),
+					new FuncionalitatCodiFontImpl(
+							"FAC_ORG",
+							FuncionalitatTipus.MANTENIMENT,
+							"Organitzacions",
+							Modul.fact,
+							Arrays.asList(Organitzacio.class),
+							Arrays.asList()),
+//					new FuncionalitatCodiFontImpl(
+//							"FAC_PAINIF",
+//							FuncionalitatTipus.MANTENIMENT,
+//							"Països NIF",
+//							Modul.fact,
+//							Arrays.asList(PaisNif.class),
+//							Arrays.asList()),
+//					new FuncionalitatCodiFontImpl(
+//							"FAC_TIPADR",
+//							FuncionalitatTipus.MANTENIMENT,
+//							"Tipus adreça",
+//							Modul.fact,
+//							Arrays.asList(TipusAdresa.class),
+//							Arrays.asList()),
+					new FuncionalitatCodiFontImpl(
+							"FAC_TIPCOM",
+							FuncionalitatTipus.MANTENIMENT,
+							"Tipus comissions",
+							Modul.fact,
+							Arrays.asList(TipusComissio.class),
 							Arrays.asList())
 					));
 

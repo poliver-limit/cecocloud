@@ -123,7 +123,8 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 				funcionalitatsInfo.add(funcionalitatInfo);
 			}
 			
-			modulsFuncionalitats.add(new ModuleFuncionalitatInfo(modul, funcionalitatsInfo));
+			if (!funcionalitatsInfo.isEmpty())
+				modulsFuncionalitats.add(new ModuleFuncionalitatInfo(modul, funcionalitatsInfo));
 		}
 		return modulsFuncionalitats;
 	}

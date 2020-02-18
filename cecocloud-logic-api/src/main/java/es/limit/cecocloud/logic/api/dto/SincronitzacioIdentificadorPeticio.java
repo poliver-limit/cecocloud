@@ -25,7 +25,7 @@ public class SincronitzacioIdentificadorPeticio {
 	@NotNull
 	@Size(max = 40)
 	private String nom;
-	private List<SincronitzacioOperari> operaris;
 	private List<SincronitzacioEmpresa> empreses;
+	private List<SincronitzacioOperari> operaris;
 
 }

@@ -170,14 +170,4 @@ public class LicitacioServiceImpl extends AbstractGenericServiceImpl<Licitacio, 
 		return cal.getTime();
 	}
 	
-	// proves Licitacions de Infonalia i les licitacions de la plataforma de contractació
-	@Override
-	public void mail() {
-
-		scheduledUpdate();
-		// this.licitacioInfonaliaHelper.obtenirNovesLicitacions();
-		//scheduledUpdateInfonalia();
-
-	}
-
 }

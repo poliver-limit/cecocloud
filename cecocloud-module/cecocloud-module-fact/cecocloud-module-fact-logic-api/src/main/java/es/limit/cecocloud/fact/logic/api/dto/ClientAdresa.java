@@ -143,14 +143,14 @@ public class ClientAdresa extends AbstractIdentificableWithIdentificador<ClientA
 		includeInQuickFilter = true,
 		hiddenInGrid = true
 	)
-	@Size(max = 10)
+//	@Size(max = 10)
 	private Float latitut;
 	           
 	@RestapiField(
 		includeInQuickFilter = true,
 		hiddenInGrid = true
 	)
-	@Size(max = 10)
+//	@Size(max = 10)
 	private Float longitut;
 		          
 

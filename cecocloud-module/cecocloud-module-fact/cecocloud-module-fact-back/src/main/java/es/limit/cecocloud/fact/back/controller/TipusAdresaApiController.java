@@ -15,7 +15,7 @@ import es.limit.cecocloud.fact.logic.api.module.FactModuleConfig;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @RestController
-@RequestMapping(FactModuleConfig.API_PATH + "/tipusAdresa")
+@RequestMapping(FactModuleConfig.API_PATH + "/tipusAdreces")
 public class TipusAdresaApiController extends AbstractIdentificableWithIdentificadorApiController<TipusAdresa> {
 
 }

@@ -18,7 +18,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "descripcio"
 )
 public class Idioma extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 

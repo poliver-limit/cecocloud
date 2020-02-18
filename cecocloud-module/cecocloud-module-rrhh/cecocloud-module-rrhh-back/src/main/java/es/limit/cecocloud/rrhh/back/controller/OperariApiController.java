@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModuleConfig;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController("OperariRrhhController")
+@RestController("rrhhOperariApiController")
 @RequestMapping(RrhhModuleConfig.API_PATH + "/operaris")
 public class OperariApiController extends AbstractIdentificableAmbIdentificadorApiController<Operari> {
 

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientsAdresaService } from './clientsAdresa.service';
 
 @Component( {
+	selector: 'clientAdresa',
     template: `
     <bng-datagrid
         bng-datagrid-mant

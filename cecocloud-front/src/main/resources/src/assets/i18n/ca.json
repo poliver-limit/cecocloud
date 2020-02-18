@@ -173,6 +173,19 @@
 	"page.operaris.modal.especifiqui.codi": "Especifiqui el codi que vol assignar a l'operari",
 	"page.operaris.modal.button.cancelar": "Cancel·lar",
 	"page.operaris.modal.button.afegir": "Afegir",
+	
+	"filters.filter" : "Filtrar",
+	"filters.cleanFilters" : "Netejar filtres",
+
+	"funcionalitat.menu.t-generals": "Taules generals",
+	"funcionalitat.menu.articles": "Articles",
+	"funcionalitat.menu.facturacio": "Facturacio",
+	"funcionalitat.menu.clients-proveidors": "Clients i proveidors",
+	"funcionalitat.menu.t-auxiliars": "Taules auxiliars",
+	"funcionalitat.menu.t-empreses": "Taules d'empreses",
+	"funcionalitat.menu.ventes": "Ventes",
+	"funcionalitat.menu.compres": "Compres",
+	"funcionalitat.menu.magatzem": "Magatzems",
 
 	"funcionalitat.FAC_ALBARA": "Albarans",
 	"funcionalitat.FAC_APLICA": "Aplicadors",

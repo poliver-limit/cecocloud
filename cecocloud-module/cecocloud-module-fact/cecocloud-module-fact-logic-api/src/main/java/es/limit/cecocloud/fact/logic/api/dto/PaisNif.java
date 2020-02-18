@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,7 +30,7 @@ public class PaisNif extends AbstractIdentificableWithIdentificador<String> {
 	private String codi;
 	
 	@NotNull
-	@Size(max = 1)
+//	@Size(max = 1)
 	private PaisNifTipusEnumDto tipusNif;
 	
 	@NotNull
