@@ -9,6 +9,8 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { ClientsGridComponent } from './clients-grid.component';
 import { ClientsFormComponent } from './clients-form.component';
 import { ClientsService } from './clients.service';
+import { DepartamentsClientService } from '../departamentsClient/departamentsClient.service';
+import { DepartamentsClientFormComponent } from '../departamentsClient/departamentsClient-form.component';
 
 @NgModule( {
     imports: [
@@ -27,7 +29,9 @@ import { ClientsService } from './clients.service';
         ClientsFormComponent
     ],
     providers: [
-        ClientsService
+        ClientsService,
+		DepartamentsClientService,
+		DepartamentsClientFormComponent
     ]
 } )
 export class ClientsModule {}
