@@ -38,7 +38,7 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 			"    left outer join fi.funcionalitat as f " +
 			"where " +
 			"	 fip.perfil in :perfils " +
-			"and (UPPER(fip.embedded.permis) = 'READ' or UPPER(fip.embedded.permis) = 'ADMINISTRATION') " +
+			"and UPPER(fip.embedded.permis) = 'READ' " + // or UPPER(fip.embedded.permis) = 'ADMINISTRATION') " +
 			"and f.embedded.modul = :modul ")
 	List<FuncionalitatEntity> findAllowedFuncionalitatsByPerfilsAndModul(List<PerfilEntity> perfils, Modul modul);
 //	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilInAndEmbeddedPermisIgnoreCase(List<PerfilEntity> perfils, String permis);
