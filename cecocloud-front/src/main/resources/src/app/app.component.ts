@@ -31,10 +31,11 @@ export class AppComponent {
 		let menu: BngMenu = this.appService.getModuleMenu(module);
 		console.log("Menu:", menu);
 		this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(module).subscribe((funcionalitats: string[]) => {
-			console.log("Funcionalitats: ", funcionalitats);
-			let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
-			menu.items = menuItems;
-			this.menuService.setActiveMenu(menu);
+			let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
+			// console.log("--- SELECT MODULE ---");
+			// console.log("Funcionalitats: ", funcionalitats);
+			// console.log("Menu filtrat: ", filteredMenu);
+			this.menuService.setActiveMenu(filteredMenu);
 		});
 		this.router.navigate(['/' + module]);
 	}
@@ -62,8 +63,30 @@ export class AppComponent {
 		if (allowedModules.includes(module)) {
 			return module;
 		}
-	} 
-	
+	}
+
+	private filterMenuFuncionalitatsPermeses(menu: BngMenu, funcionalitats: string[]): BngMenu {
+		let menuFiltrat: BngMenu;
+		if (menu.items && menu.items.length) {
+			let childMenuFiltrat: BngMenu[] = [];
+			for (let item of menu.items) {
+				let subMenu = this.filterMenuFuncionalitatsPermeses(item, funcionalitats);
+				if (subMenu != null) {
+					childMenuFiltrat.push(subMenu);
+				}
+			}
+			if (childMenuFiltrat != null && childMenuFiltrat.length > 0) {
+				menuFiltrat = menu;
+				menuFiltrat.items = childMenuFiltrat;
+			}
+		} else {
+			if (menu.resource != null && funcionalitats.includes(menu.resource)) {
+				menuFiltrat = menu;
+			}
+		}
+		return menuFiltrat;
+	}
+
 	constructor(
 		authService: BngAuthService,
 		private router: Router,
@@ -97,9 +120,14 @@ export class AppComponent {
 				const urlModule = this.getUrlModule();
 				if (urlModule != null) {
 					this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(urlModule).subscribe((funcionalitats: string[]) => {
-						let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
-						menu.items = menuItems;
-						this.menuService.setActiveMenu(menu);
+						// let menuItems = menu.items.filter(item => (item.resource == null || funcionalitats.includes(item.resource)));
+						// menu.items = menuItems;
+						// this.menuService.setActiveMenu(menu);
+						let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
+						// console.log("--- CONSTRUCTOR ---");
+						// console.log("Funcionalitats: ", funcionalitats);
+						// console.log("Menu filtrat: ", filteredMenu);
+						this.menuService.setActiveMenu(filteredMenu);
 					});
 				}
 				this.initialMenuSelected = true;

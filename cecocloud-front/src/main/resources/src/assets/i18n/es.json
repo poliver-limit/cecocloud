@@ -171,6 +171,16 @@
 	"filters.filter" : "Filtrar",
 	"filters.cleanFilters" : "Limpiar filtros",
 
+	"funcionalitat.menu.t-generals": "Tablas generales",
+	"funcionalitat.menu.articles": "Artículos",
+	"funcionalitat.menu.facturacio": "Facturación",
+	"funcionalitat.menu.clients-proveidors": "Clientes y proveedores",
+	"funcionalitat.menu.t-auxiliars": "Tablas auxiliares",
+	"funcionalitat.menu.t-empreses": "Tablas de empresas",
+	"funcionalitat.menu.ventes": "Ventas",
+	"funcionalitat.menu.compres": "Compras",
+	"funcionalitat.menu.magatzem": "Almacenes",
+
 	"funcionalitat.FAC_ALBARA": "Albaranes",
 	"funcionalitat.FAC_APLICA": "Aplicadores",
 	"funcionalitat.FAC_APLCLI": "Aplicadores por cliente",

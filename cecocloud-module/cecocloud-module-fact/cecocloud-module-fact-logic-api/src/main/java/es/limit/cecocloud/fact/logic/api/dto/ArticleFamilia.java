@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ArticleFamiliaAvisAlbaraClientEnumDto;
@@ -28,7 +30,10 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio"
+		descriptionField = "descripcio",
+		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(type = RestapiPermissionConstraintType.ACL_RESOURCE)
+		}
 )
 public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
