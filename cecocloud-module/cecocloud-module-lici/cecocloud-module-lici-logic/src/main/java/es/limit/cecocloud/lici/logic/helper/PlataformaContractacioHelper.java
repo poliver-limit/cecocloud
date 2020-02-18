@@ -181,7 +181,7 @@ public class PlataformaContractacioHelper {
 				if (filtreOk) {
 					LicitacioPlataformaContractacio licitacio = nodeToLicitacio(entry);
 					LicitacioHelper.printLicitacio(licitacio);
-					licitacionsMap.put(LicitacioHelper.getIdFromLicitacio(licitacio), licitacio);
+					licitacionsMap.put(licitacio.getCodi(), licitacio);
 					okCount++;
 				}
 			}
@@ -276,8 +276,12 @@ public class PlataformaContractacioHelper {
 	}
 
 	private LicitacioPlataformaContractacio nodeToLicitacio(Node node) throws XPathExpressionException, ParseException, ParserConfigurationException, SAXException, IOException, TransformerException {
-		LicitacioPlataformaContractacio licitacio = new LicitacioPlataformaContractacio();
+		LicitacioPlataformaContractacio licitacio = new LicitacioPlataformaContractacio();		
 		licitacio.setCodi(getId(node));
+		licitacio.setUrl(getXpathAttribute(
+						node,
+						"atom:link",
+						"href"));
 		licitacio.setUri(
 				getXpathAttribute(
 						node,
