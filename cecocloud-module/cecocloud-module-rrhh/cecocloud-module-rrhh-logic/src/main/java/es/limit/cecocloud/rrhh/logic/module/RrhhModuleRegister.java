@@ -16,7 +16,23 @@ import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari;
+import es.limit.cecocloud.rrhh.logic.api.dto.Categoria;
+import es.limit.cecocloud.rrhh.logic.api.dto.GrupFestiu;
+import es.limit.cecocloud.rrhh.logic.api.dto.Horari;
+import es.limit.cecocloud.rrhh.logic.api.dto.Interval;
+import es.limit.cecocloud.rrhh.logic.api.dto.Node;
+import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
+import es.limit.cecocloud.rrhh.logic.api.dto.Parametre;
+import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
+import es.limit.cecocloud.rrhh.logic.api.dto.Regim;
+import es.limit.cecocloud.rrhh.logic.api.dto.RegistreDiari;
+import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
+import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup;
+import es.limit.cecocloud.rrhh.logic.api.dto.Servidor;
+import es.limit.cecocloud.rrhh.logic.api.dto.Subcategoria;
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusDia;
+import es.limit.cecocloud.rrhh.logic.api.dto.TipusTransaccio;
+import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
 import es.limit.cecocloud.rrhh.logic.service.EmpresaIdentificadorSyncServiceImpl;
 
@@ -42,27 +58,35 @@ public class RrhhModuleRegister {
 						Modul.rrhh,
 						Arrays.asList(Calendari.class),
 						Arrays.asList(TipusDia.class)));
-				/*new FuncionalitatCodiFontImpl(
+		funcionalitats.put(
+				"REH_CATEGO",
+				new FuncionalitatCodiFontImpl(
 						"REH_CATEGO",
 						FuncionalitatTipus.MANTENIMENT,
 						"Categories",
 						Modul.rrhh,
 						Arrays.asList(Categoria.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_GRUFES",
 				new FuncionalitatCodiFontImpl(
 						"REH_GRUFES",
 						FuncionalitatTipus.MANTENIMENT,
 						"Grups festius",
 						Modul.rrhh,
 						Arrays.asList(GrupFestiu.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_HORARI",
 				new FuncionalitatCodiFontImpl(
 						"REH_HORARI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Horaris",
 						Modul.rrhh,
 						Arrays.asList(Horari.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_INTERV",
 				new FuncionalitatCodiFontImpl(
 						"REH_INTERV",
 						FuncionalitatTipus.MANTENIMENT,
@@ -72,7 +96,9 @@ public class RrhhModuleRegister {
 						Arrays.asList(
 								Calendari.class,
 								Zona.class,
-								Operari.class)),
+								Operari.class)));
+		funcionalitats.put(
+				"REH_NODE",
 				new FuncionalitatCodiFontImpl(
 						"REH_NODE",
 						FuncionalitatTipus.MANTENIMENT,
@@ -81,35 +107,45 @@ public class RrhhModuleRegister {
 						Arrays.asList(Node.class),
 						Arrays.asList(
 								Zona.class,
-								Servidor.class)),
+								Servidor.class)));
+		funcionalitats.put(
+				"REH_OPERAR",
 				new FuncionalitatCodiFontImpl(
 						"REH_OPERAR",
 						FuncionalitatTipus.MANTENIMENT,
 						"Operaris",
 						Modul.rrhh,
 						Arrays.asList(Operari.class),
-						Arrays.asList(Horari.class)),
+						Arrays.asList(Horari.class)));
+		funcionalitats.put(
+				"REH_PARAME",
 				new FuncionalitatCodiFontImpl(
 						"REH_PARAME",
 						FuncionalitatTipus.MANTENIMENT,
 						"Parametres",
 						Modul.rrhh,
 						Arrays.asList(Parametre.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_RECGRU",
 				new FuncionalitatCodiFontImpl(
 						"REH_RECGRU",
 						FuncionalitatTipus.MANTENIMENT,
 						"Recursos Grup",
 						Modul.rrhh,
 						Arrays.asList(RecursGrup.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_REGIM",
 				new FuncionalitatCodiFontImpl(
 						"REH_REGIM",
 						FuncionalitatTipus.MANTENIMENT,
 						"Regims",
 						Modul.rrhh,
 						Arrays.asList(Regim.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_REGDIA",
 				new FuncionalitatCodiFontImpl(
 						"REH_REGDIA",
 						FuncionalitatTipus.MANTENIMENT,
@@ -123,49 +159,63 @@ public class RrhhModuleRegister {
 								Regim.class,
 								Seccio.class,
 								Categoria.class,
-								Subcategoria.class)),
+								Subcategoria.class)));
+		funcionalitats.put(
+				"REH_SECCIO",
 				new FuncionalitatCodiFontImpl(
 						"REH_SECCIO",
 						FuncionalitatTipus.MANTENIMENT,
 						"Seccions",
 						Modul.rrhh,
 						Arrays.asList(Seccio.class),
-						Arrays.asList(SeccioGrup.class)),
+						Arrays.asList(SeccioGrup.class)));
+		funcionalitats.put(
+				"REH_SECGRU",
 				new FuncionalitatCodiFontImpl(
 						"REH_SECGRU",
 						FuncionalitatTipus.MANTENIMENT,
 						"Seccions Grup",
 						Modul.rrhh,
 						Arrays.asList(SeccioGrup.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_SERVID",
 				new FuncionalitatCodiFontImpl(
 						"REH_SERVID",
 						FuncionalitatTipus.MANTENIMENT,
 						"Servidors",
 						Modul.rrhh,
 						Arrays.asList(Servidor.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_SUBCAT",
 				new FuncionalitatCodiFontImpl(
 						"REH_SUBCAT",
 						FuncionalitatTipus.MANTENIMENT,
 						"Subcategories",
 						Modul.rrhh,
 						Arrays.asList(Subcategoria.class),
-						Arrays.asList(Categoria.class)),
+						Arrays.asList(Categoria.class)));
+		funcionalitats.put(
+				"REH_TIPDIA",
 				new FuncionalitatCodiFontImpl(
 						"REH_TIPDIA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus Dia",
 						Modul.rrhh,
 						Arrays.asList(TipusDia.class),
-						Arrays.asList(Regim.class)),
+						Arrays.asList(Regim.class)));
+		funcionalitats.put(
+				"REH_TIPTRA",
 				new FuncionalitatCodiFontImpl(
 						"REH_TIPTRA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus Transaccio",
 						Modul.rrhh,
 						Arrays.asList(TipusTransaccio.class),
-						Arrays.asList()),
+						Arrays.asList()));
+		funcionalitats.put(
+				"REH_TRANSA",
 				new FuncionalitatCodiFontImpl(
 						"REH_TRANSA",
 						FuncionalitatTipus.MANTENIMENT,
@@ -175,15 +225,17 @@ public class RrhhModuleRegister {
 						Arrays.asList(
 								Operari.class,
 								TipusTransaccio.class,
-								Node.class)),
+								Node.class)));
+		funcionalitats.put(
+				"REH_ZONA",
 				new FuncionalitatCodiFontImpl(
 						"REH_ZONA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Zones",
 						Modul.rrhh,
 						Arrays.asList(Zona.class),
-						Arrays.asList())
-				));*/
+						Arrays.asList()));
+
 		moduleInfo = new ModuleInfo(
 				Modul.rrhh,
 				Zona.class.getPackage().getName(),
