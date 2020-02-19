@@ -636,7 +636,7 @@ public class FactModuleRegister {
 							"Organitzacions",
 							Modul.fact,
 							Arrays.asList(Organitzacio.class),
-							Arrays.asList()),
+							Arrays.asList())
 //					new FuncionalitatCodiFontImpl(
 //							"FAC_PAINIF",
 //							FuncionalitatTipus.MANTENIMENT,
@@ -651,13 +651,13 @@ public class FactModuleRegister {
 //							Modul.fact,
 //							Arrays.asList(TipusAdresa.class),
 //							Arrays.asList()),
-					new FuncionalitatCodiFontImpl(
-							"FAC_TIPCOM",
-							FuncionalitatTipus.MANTENIMENT,
-							"Tipus comissions",
-							Modul.fact,
-							Arrays.asList(TipusComissio.class),
-							Arrays.asList())
+//					new FuncionalitatCodiFontImpl(
+//							"FAC_TIPCOM",
+//							FuncionalitatTipus.MANTENIMENT,
+//							"Tipus comissions",
+//							Modul.fact,
+//							Arrays.asList(TipusComissio.class),
+//							Arrays.asList())
 					));
 
 	static {
