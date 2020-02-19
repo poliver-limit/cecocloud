@@ -115,8 +115,6 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatRecursos) {
 							boolean trobada = false;
 							for (Class<? extends Identificable<?>> recursClass: funcionalitatCodiFont.getRecursosPrincipals()) {
-								System.out.println(">>> 1: " + funcionalitatRecurs.getRecurs().getEmbedded().getClassName());
-								System.out.println(">>> 2: " + funcionalitatRecurs.getRecursClassName());
 								String recursClassName = funcionalitatRecurs.getRecurs().getEmbedded().getClassName();
 								// TODO mirar per què la següent assignació és sempre null
 								//String recursClassName = funcionalitatRecurs.getRecursClassName();
