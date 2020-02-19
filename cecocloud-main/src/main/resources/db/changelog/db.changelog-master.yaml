@@ -1,0 +1,8 @@
+databaseChangeLog:
+- include:
+    file: db/changelog/initial_schema.yaml
+- include:
+    file: db/changelog/spring_security_acl.yaml
+- includeAll:
+    path: db/changelog/changes
+    errorIfMissingOrEmpty: false

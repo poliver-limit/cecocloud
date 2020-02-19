@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

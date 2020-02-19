@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.liquibase</groupId>
+  <artifactId>liquibase-core</artifactId>
+  <versioning>
+    <release>3.8.6_limit</release>
+    <versions>
+      <version>3.8.6_limit</version>
+    </versions>
+    <lastUpdated>20200218141130</lastUpdated>
+  </versioning>
+</metadata>
