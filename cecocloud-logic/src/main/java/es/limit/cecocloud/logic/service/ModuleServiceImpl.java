@@ -18,6 +18,7 @@ import es.limit.base.boot.logic.api.service.ModuleService;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
+import es.limit.cecocloud.persist.entity.PerfilEntity;
 import es.limit.cecocloud.persist.repository.FuncionalitatRepository;
 import es.limit.cecocloud.persist.repository.PerfilRepository;
 
@@ -56,13 +57,15 @@ public class ModuleServiceImpl implements ModuleService {
 				Long identificadorId = (Long)userSession.getI();
 				Long empresaId = (Long)userSession.getE();
 				if (identificadorId != null && empresaId != null) {
-					List<FuncionalitatEntity> funcionalitats = funcionalitatRepository.findByPerfilIn(
-							perfilRepository.findByUsuariCodiAndIdentificadorIdAndEmpresaId(
-									authenticationHelper.getPrincipalName(),
-									identificadorId,
-									empresaId));
-					Set<String> moduleCodes = funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getModul().name()).collect(Collectors.toSet());
-					return registeredModules.stream().filter(module -> moduleCodes.contains(module.getCode())).collect(Collectors.toList());
+					List<PerfilEntity> perfils = perfilRepository.findByUsuariCodiAndIdentificadorIdAndEmpresaId(
+							authenticationHelper.getPrincipalName(),
+							identificadorId,
+							empresaId);
+					if (!perfils.isEmpty()) {
+						List<FuncionalitatEntity> funcionalitats = funcionalitatRepository.findByPerfilIn(perfils);
+						Set<String> moduleCodes = funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getModul().name()).collect(Collectors.toSet());
+						return registeredModules.stream().filter(module -> moduleCodes.contains(module.getCode())).collect(Collectors.toList());
+					}
 				}
 			}
 			return new ArrayList<ModuleInfo>();
