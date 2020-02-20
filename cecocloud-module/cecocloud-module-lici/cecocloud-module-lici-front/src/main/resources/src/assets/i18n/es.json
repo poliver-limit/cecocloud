@@ -45,5 +45,7 @@
   "resource.licitacio.field.nota": "Nota",
   "resource.licitacio.field.dataLimit": "Fecha límite",
   "resource.licitacio.field.destacada": "Destacada",
-  "resource.licitacio.field.esborrada": "Borrada"
+  "resource.licitacio.field.esborrada": "Borrada",
+  "resource.licitacio.field.titolCardInformacio": "Información"
+
 }

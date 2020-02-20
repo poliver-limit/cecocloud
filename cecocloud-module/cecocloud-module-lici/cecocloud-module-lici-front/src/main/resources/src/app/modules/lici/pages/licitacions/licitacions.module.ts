@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
+import { MatCardModule } from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
 
 import { MaterialModule } from '../../../../shared/material.module';
 
@@ -15,7 +17,9 @@ import { LicitacionsService } from './licitacions.service';
         CommonModule,
 		TranslateModule,
 		BngModule,
-		MaterialModule,
+        MaterialModule,
+        MatCardModule,
+        MatTableModule,
         RouterModule.forChild( [
             { path: '', component: LicitacionsGridComponent },
             { path: 'create', component: LicitacionsFormComponent, canDeactivate: [BngFormExitGuard] },

@@ -4,13 +4,9 @@ import { BngFormConfig } from 'base-angular';
 import { LicitacionsService } from './licitacions.service';
 
 @Component( {
-    template: `
-    <bng-form
-        bng-form-mant
-        [config]="formConfig"
-        [restapiService]="licitacionsService"></bng-form>
-`
-} )
+    templateUrl: 'licitacio.html'
+})
+
 export class LicitacionsFormComponent {
 
     formConfig: BngFormConfig = {
