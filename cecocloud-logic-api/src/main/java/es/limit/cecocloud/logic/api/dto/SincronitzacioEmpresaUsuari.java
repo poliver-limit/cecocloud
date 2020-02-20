@@ -10,15 +10,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació per a sincronitzar un operari d'una empresa de CECOGEST.
+ * Informació per a sincronitzar un usuari d'una empresa de CECOGEST.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class SincronitzacioEmpresaOperari {
+public class SincronitzacioEmpresaUsuari {
 
 	@NotNull
 	@Size(max = 6)
-	private String codi;
+	private String usuariCodi;
 
 }
