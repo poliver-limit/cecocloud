@@ -12,11 +12,11 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import es.limit.cecocloud.fact.logic.api.dto.AplicadorClient;
 import es.limit.cecocloud.fact.logic.api.dto.AplicadorClient.AplicadorClientPk;
@@ -36,10 +36,9 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tges_clm",
-		indexes = {
-				@Index(name = "iges_clm_idf_fk", columnList = "clm_idf_cod"),
-				@Index(name = "irges_clm_pk", columnList = "clm_idf_cod", unique = true)
+		name = "tges_clm",		
+		uniqueConstraints = {
+				@UniqueConstraint(name = "mancli_uk", columnNames = {"clm_man_cne", "clm_cli_cod"})
 		}
 )
 @AttributeOverrides({

@@ -454,6 +454,12 @@ export class FactModule {
 									resource: 'FAC_DOCP-C'
 								}, {
 									icon: 'room',
+									label: 'Tipus de client',
+									labelKey: 'app.menu.fact.tipusClients',
+									route: '/fact/tipusClients',
+									resource: 'FAC_TIP-C'
+								}, {
+									icon: 'room',
 									label: 'Tipus de proveïdor/client',
 									labelKey: 'app.menu.fact.tipusProveidorsClient',
 									route: '/fact/tipusProveidorsClient',

@@ -552,7 +552,7 @@ public class FactModuleRegister {
 							"Tipus de proveïdor/client",
 							Modul.fact,
 							Arrays.asList(TipusProveidorClient.class),
-							Arrays.asList()),
+							Arrays.asList()),					
 					new FuncionalitatCodiFontImpl(
 							"FAC_TIPRIS",
 							FuncionalitatTipus.MANTENIMENT,

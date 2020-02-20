@@ -43,7 +43,9 @@ public class CompteCorrentEmpresaServiceImpl extends AbstractGenericCompositePkS
 				dto.getBanc().getPk().getCodi(),
 				dto.getClient().getPk().getCodi(),
 				empresa.getEmbedded().getCodi(),
-				dto.getOficinaBancaria().getPk().getCodi());
+				dto.getOficinaBancaria().getPk().getCodi(),
+				dto.getNumeroCompteCorrent(),
+				dto.getDigitControl());
 	}
 
 }

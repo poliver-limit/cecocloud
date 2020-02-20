@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import es.limit.cecocloud.fact.logic.api.dto.TipusClient;
 import es.limit.cecocloud.fact.logic.api.dto.TipusClient.TipusClientPk;
@@ -37,9 +38,8 @@ import lombok.Setter;
 @Entity
 @Table(
 		name = "tges_ctp",
-		indexes = {
-				@Index(name = "iges_ctp_idf_fk", columnList = "ctp_idf_cod"),
-				@Index(name = "irges_ctp_pk", columnList = "ctp_idf_cod", unique = true)
+		uniqueConstraints = {
+				@UniqueConstraint(name = "tipusr_uk", columnNames = {"ctp_cli_cod", "ctp_tip_cod"})
 		}
 )
 @AttributeOverrides({

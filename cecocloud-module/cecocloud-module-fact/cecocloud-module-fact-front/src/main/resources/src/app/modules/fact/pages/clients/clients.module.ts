@@ -8,9 +8,15 @@ import { MaterialModule } from '../../../../shared/material.module';
 
 import { ClientsGridComponent } from './clients-grid.component';
 import { ClientsFormComponent } from './clients-form.component';
+
 import { ClientsService } from './clients.service';
 import { DepartamentsClientService } from '../departamentsClient/departamentsClient.service';
-import { DepartamentsClientFormComponent } from '../departamentsClient/departamentsClient-form.component';
+import { TipusClientsService } from '../tipusClients/tipusClients.service';
+import { ComptesCorrentsEmpresaService } from '../comptesCorrentsEmpresa/comptesCorrentsEmpresa.service';
+import { ComptesComptablesEmpresaService } from '../comptesComptablesEmpresa/comptesComptablesEmpresa.service';
+import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.service';
+import { SubClientsService } from '../subClients/subClients.service';
+import { ClientsAdresaService } from '../clientsAdresa/clientsAdresa.service';
 
 @NgModule( {
     imports: [
@@ -31,7 +37,14 @@ import { DepartamentsClientFormComponent } from '../departamentsClient/departame
     providers: [
         ClientsService,
 		DepartamentsClientService,
-		DepartamentsClientFormComponent
+		TipusClientsService,
+		ComptesCorrentsEmpresaService,
+		ComptesComptablesEmpresaService,
+		AplicadorsClientService,
+		SubClientsService,
+		ClientsAdresaService,
+		DepartamentsClientService		
     ]
 } )
+
 export class ClientsModule {}

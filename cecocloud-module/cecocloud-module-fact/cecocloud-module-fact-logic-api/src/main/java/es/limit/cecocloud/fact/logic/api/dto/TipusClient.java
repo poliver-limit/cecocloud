@@ -5,7 +5,6 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -32,7 +31,6 @@ import lombok.Setter;
 public class TipusClient extends AbstractIdentificableWithIdentificador<TipusClientPk> {
 
 	@Transient
-	@Size (max = 6)
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -41,7 +39,6 @@ public class TipusClient extends AbstractIdentificableWithIdentificador<TipusCli
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
 	@Transient
-	@Size (max = 4)
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
