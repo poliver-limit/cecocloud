@@ -41,6 +41,7 @@ import lombok.Setter;
 @Table(name = "identificador")
 @AttributeOverrides({
 	@AttributeOverride(name = "id", column = @Column(name = "id", length = 4, nullable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 4, nullable = false, unique = true)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "descripcio", length = 40, nullable = false)),
 	@AttributeOverride(name = "embedded.numUsuaris", column = @Column(name = "num_usuaris", nullable = false)),
 	@AttributeOverride(name = "embedded.numEmpreses", column = @Column(name = "num_empreses", nullable = false)),
@@ -64,9 +65,9 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 	protected Set<UsuariIdentificadorEntity> usuariIdentificadors;
 
 	@Formula(value="(select count(*) from empresa emp where emp.identificador_id = id)")
-	private int usuarisCount;
-	@Formula(value="(select count(*) from usuari_ident uid where uid.identificador_id = id)")
 	private int empresesCount;
+	@Formula(value="(select count(*) from usuari_ident uid where uid.identificador_id = id)")
+	private int usuarisCount;
 	@Formula(value="(select count(*) from operari ope where ope.identificador_id = id)")
 	private int operarisCount;
 

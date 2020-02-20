@@ -8,13 +8,13 @@ import { ConfiguracionsService } from '../configuracions/configuracions.service'
 @Component({
 	template: `
 <bng-form
-	*ngIf="id"
-	bng-form-mant	
+	*ngIf="mostrar"
+	bng-form-mant
 	[config]="formConfig"
 	[restapiService]="configuracionsService"
 	[id]="id"
 	(resourceChange)="onResourceLoaded($event)">
-	
+
 	<div style="display: flex">
 		<bng-custom-field name="sincronitzacioActiva" style="width: 50%; padding-right: 2em"></bng-custom-field>
 	</div>
@@ -22,18 +22,18 @@ import { ConfiguracionsService } from '../configuracions/configuracions.service'
 		<bng-custom-field name="filtreProvincia" style="width: 100%"></bng-custom-field>
 	</div>
 	<div style="display: flex">
-		<bng-custom-field name="filtreCpv" style="width: 100%"></bng-custom-field>		
-	</div>	
-	
+		<bng-custom-field name="filtreCpv" style="width: 100%"></bng-custom-field>
+	</div>
+
 </bng-form>
 `
 })
 export class ConfiguracionsComponent {
 
-	// TODO: Fer que els camps siguin disabled
 	id: any;
+	mostrar: boolean = false;
 
-	 configuracio: any;
+	configuracio: any;
 
 	formConfig: BngFormConfig = {
 		mode: 'isolated'
@@ -67,15 +67,18 @@ export class ConfiguracionsComponent {
 	constructor(
 		private authService: BngAuthService,
 		activatedRoute: ActivatedRoute,
-		public configuracionsService: ConfiguracionsService){
-			this.configuracionsService.whenReady().subscribe(() => {
-				const cRequestParams: HalParam[] = [];
-				cRequestParams.push({ key: 'query', value: 'empresa.id==' + this.authService.getSession().e });
-				this.configuracionsService.getAll({ params: cRequestParams }).subscribe((configuracio: any) => {
+		public configuracionsService: ConfiguracionsService) {
+		this.configuracionsService.whenReady().subscribe(() => {
+			const cRequestParams: HalParam[] = [];
+			cRequestParams.push({ key: 'query', value: 'empresa.id==' + this.authService.getSession().e });
+			this.configuracionsService.getAll({ params: cRequestParams }).subscribe((configuracio: any[]) => {
+				if (configuracio && configuracio.length) {
 					console.log("Id:", configuracio[0].id);
 					this.id = configuracio[0].id;
-				})
+				}
+				this.mostrar = true;
 			})
+		})
 	}
 
 }

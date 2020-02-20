@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació per a sincronitzar una empresa de CECOGEST.
+ * Informació per a sincronitzar un operari d'una empresa de CECOGEST.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

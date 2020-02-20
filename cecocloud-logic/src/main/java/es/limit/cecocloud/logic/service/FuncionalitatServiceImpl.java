@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +60,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			for (es.limit.base.boot.logic.api.module.ModuleInfo moduleInfo: modules) {
 				ModuleInfo cecocloudModuleInfo = (ModuleInfo)moduleInfo;
 				log.debug("    Sincronitzant funcionalitats del mòdul " + cecocloudModuleInfo.getModul());
-				List<FuncionalitatCodiFont> funcionalitats = cecocloudModuleInfo.getFuncionalitats();
+				Collection<FuncionalitatCodiFont> funcionalitats = cecocloudModuleInfo.getFuncionalitats().values();
 				// Elimina les funcionalitats no utilitzades
 				List<FuncionalitatEntity> funcionalitatEntities = funcionalitatRepository.findByEmbeddedModul(cecocloudModuleInfo.getModul());
 				for (FuncionalitatEntity funcionalitatEntity: funcionalitatEntities) {
@@ -78,9 +79,8 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						funcionalitatIdentificadorPerfilRepository.deleteAll(fips);
 						try {
 							funcionalitatAcl.updatePermisosFuncionalitatRecurs(funcionalitatEntity.getId());
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						} catch (ClassNotFoundException ex) {
+							log.error("No s'han pogut actualitzar els permisos de la funcionalitat " + funcionalitatEntity.getEmbedded().getCodi(), ex);
 						}
 						funcionalitatRepository.delete(funcionalitatEntity);
 					}
@@ -115,7 +115,10 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatRecursos) {
 							boolean trobada = false;
 							for (Class<? extends Identificable<?>> recursClass: funcionalitatCodiFont.getRecursosPrincipals()) {
-								if (funcionalitatRecurs.getRecursClassName().equals(recursClass.getName())) {
+								String recursClassName = funcionalitatRecurs.getRecurs().getEmbedded().getClassName();
+								// TODO mirar per què la següent assignació és sempre null
+								//String recursClassName = funcionalitatRecurs.getRecursClassName();
+								if (recursClassName.equals(recursClass.getName())) {
 									trobada = true;
 									break;
 								}
@@ -139,28 +142,27 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 								funcionalitatSaved,
 								funcionalitatCodiFont.getRecursosPrincipals(),
 								funcionalitatRecursos,
-								true))
+								true)) {
 							hiHaCanvisRecursos = true;
-						
+						}
 						// Refresca els recursos secundaris de la funcionalitat
 						if (refrescarRecursos(
 								funcionalitatSaved,
 								funcionalitatCodiFont.getRecursosSecundaris(),
 								funcionalitatRecursos,
-								false)
-							)
+								false)) {
 							hiHaCanvisRecursos = true;
+						}
 						if (hiHaCanvisRecursos) {
 							try {
 								funcionalitatAcl.updatePermisosFuncionalitatRecurs(funcionalitatSaved.getId());
-							} catch (Exception e) {
-								// TODO: handle exception
+							} catch (ClassNotFoundException ex) {
+								log.error("No s'han pogut actualitzar els permisos de la funcionalitat " + funcionalitatSaved.getEmbedded().getCodi(), ex);
 							}
 						}
 					}
 				}
 			}
-			
 			return new ActionExecutionResult(ActionExecutionState.OK, null, 0);
 		} else {
 			return super.execute(action, id);
@@ -191,6 +193,10 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 				FuncionalitatRecurs funcionalitatRecurs = new FuncionalitatRecurs();
 				funcionalitatRecurs.setPrincipal(principal);
 				log.debug("        Afegint recurs " + (principal ? "principal " : "") + recursClass.getName() + " a la funcionalitat \"" + funcionalitat.getEmbedded().getDescripcio() + "\" (" + funcionalitat.getEmbedded().getCodi() + ") del mòdul " + funcionalitat.getEmbedded().getModul());
+				FuncionalitatRecursEntity repetida = funcionalitatRecursRepository.findByFuncionalitatAndRecurs(funcionalitat, recursEntity.get());
+				if (repetida != null) {
+					log.warn("Funcionalitat repetida!");
+				}
 				funcionalitatRecursRepository.save(
 						FuncionalitatRecursEntity.builder().
 						embedded(funcionalitatRecurs).
@@ -208,8 +214,8 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 		super.afterDelete(entity);
 		try {
 			funcionalitatAcl.updatePermisosFuncionalitatRecurs(entity.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ClassNotFoundException ex) {
+			log.error("No s'han pogut esborrar els permisos de la funcionalitat " + entity.getEmbedded().getCodi(), ex);
 		}
 	}
 

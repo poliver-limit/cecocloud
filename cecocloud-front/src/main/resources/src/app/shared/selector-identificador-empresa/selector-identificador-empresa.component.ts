@@ -28,18 +28,10 @@ import { UsuariIdentificadorEmpresaService } from './usuari-identificador-empres
 <mat-menu #identificadorMenu="matMenu" xPosition="before">
 	<ng-container *ngFor="let treeItem of selectionTree; let i = index">
 		<mat-divider></mat-divider>
-		<button mat-menu-item style="background-color: #ddd; cursor: default;">
+		<button mat-menu-item (click)="treeItem.hasAdminPermission && onAdministrarButtonClick(i)" style="background-color: #ddd" [ngStyle]="{'cursor': treeItem.hasAdminPermission ? 'pointer': 'default'}">
 			<mat-icon class="iconcom">domain</mat-icon>
 			<span class="nomcom">{{ treeItem.descripcio }}</span>
-			<button
-				*ngIf="treeItem.hasAdminPermission"
-				mat-icon-button
-				color="primary"
-				aria-label="Botó d'edició del grup d'empreses"
-				(click)="onAdministrarButtonClick(i)"
-				class="btn_adm">
-				<mat-icon class="icon_adm">build</mat-icon>
-			</button>
+			<mat-icon *ngIf="treeItem.hasAdminPermission" class="icon_adm">build</mat-icon>
 		</button>
 		<mat-divider></mat-divider>
 		<button mat-menu-item *ngFor="let empresa of treeItem.empreses; let j = index" (click)="onEmpresaButtonClick(i, j)">
@@ -48,20 +40,11 @@ import { UsuariIdentificadorEmpresaService } from './usuari-identificador-empres
 	</ng-container>
 </mat-menu>`,
 	styles: [`
-.btn_adm {
-	float: right;
-	margin-left:1em;
-	padding: 0;
-	width: 30px;
-	min-width: 40px;
-	height:26px;
-	line-height: 32px;
-	top: 6px;
-}
 .icon_adm {
+	position: relative;
+	top: -1em;
 	font-size:1.2em;
 	margin: 0 !important;
-	color: #875A7B;
 }
 .nomcom {
 	width: 154px;
@@ -149,13 +132,24 @@ export class SelectorIdentificadorEmpresaComponent {
 					} else {
 						this.selectionTree = undefined;
 					}
+					let empresaUnica: any;
+					if (this.selectionTree && this.selectionTree.length === 1) {
+						if (this.selectionTree[0].empreses && this.selectionTree[0].empreses.length === 1) {
+							empresaUnica = this.selectionTree[0].empreses[0];
+						}
+					}
 					let selectedIdentificador: any;
 					let selectedEmpresa: any;
-					let session: any = this.authService.getSession();
-					if (session && session.i && this.selectionTree) {
-						selectedIdentificador = this.selectionTree.find((identificador: any) => { return identificador.id === session.i });
-						if (session.e && selectedIdentificador && selectedIdentificador.empreses) {
-							selectedEmpresa = selectedIdentificador.empreses.find((empresa: any) => { return empresa.id === session.e });
+					if (empresaUnica) {
+						selectedIdentificador = this.selectionTree[0];
+						selectedEmpresa = empresaUnica;
+					} else {
+						let session: any = this.authService.getSession();
+						if (session && session.i && this.selectionTree) {
+							selectedIdentificador = this.selectionTree.find((identificador: any) => { return identificador.id === session.i });
+							if (session.e && selectedIdentificador && selectedIdentificador.empreses) {
+								selectedEmpresa = selectedIdentificador.empreses.find((empresa: any) => { return empresa.id === session.e });
+							}
 						}
 					}
 					this.changeSelectedIdentificadorEmpresa({

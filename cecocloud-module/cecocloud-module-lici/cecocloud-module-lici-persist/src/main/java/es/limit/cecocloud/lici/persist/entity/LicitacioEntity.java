@@ -69,7 +69,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.procedimentTipusDescripcio", column = @Column(name = "prctds", length = 1000, nullable = false)),
 	@AttributeOverride(name = "embedded.urgenciaTipus", column = @Column(name = "urgtip", length = 2, nullable = false)),
 	@AttributeOverride(name = "embedded.urgenciaTipusDescripcio", column = @Column(name = "urgtds", length = 1000, nullable = false)),
-	@AttributeOverride(name = "embedded.nota", column = @Column(name = "nota", length = 2000, nullable = false)),
+	@AttributeOverride(name = "embedded.nota", column = @Column(name = "nota", length = 2000)),
 	@AttributeOverride(name = "embedded.dataLimit", column = @Column(name = "datlim")),
 	@AttributeOverride(name = "embedded.destacada", column = @Column(name = "destac", nullable = false)),
 	@AttributeOverride(name = "embedded.esborrada", column = @Column(name = "esborr", nullable = false))

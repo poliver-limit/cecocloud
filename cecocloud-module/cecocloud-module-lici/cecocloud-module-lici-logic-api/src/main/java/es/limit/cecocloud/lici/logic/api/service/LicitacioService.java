@@ -13,5 +13,5 @@ import es.limit.cecocloud.lici.logic.api.dto.Licitacio;
  */
 
 public interface LicitacioService extends GenericService<Licitacio, Long> {
-
+	
 }

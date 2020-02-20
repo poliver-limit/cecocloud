@@ -17,6 +17,7 @@ import es.limit.cecocloud.lici.logic.api.dto.Licitacio;
 import es.limit.cecocloud.lici.logic.api.dto.MergeResult;
 import es.limit.cecocloud.lici.logic.api.service.LicitacioService;
 import es.limit.cecocloud.lici.logic.helper.LicitacioHelper;
+import es.limit.cecocloud.lici.logic.helper.LicitacioInfonaliaHelper;
 import es.limit.cecocloud.lici.logic.helper.PlataformaContractacioHelper;
 import es.limit.cecocloud.lici.logic.helper.PlataformaContractacioHelper.LicitacioPlataformaContractacio;
 import es.limit.cecocloud.lici.persist.entity.ConfiguracioEntity;
@@ -43,12 +44,29 @@ public class LicitacioServiceImpl extends AbstractGenericServiceImpl<Licitacio, 
 	private PlataformaContractacioHelper plataformaContractacioHelper;
 	@Autowired
 	private LicitacioHelper licitacioHelper;
+	@Autowired
+	private LicitacioInfonaliaHelper licitacioInfonaliaHelper;
 
-	@Scheduled(cron = "0 0 4 * * *") // Cada dia a les 4 de la matinada
+	// Cada dia a les 4 de la matinada
+	@Scheduled(cron = "0 0 4 * * *")
 	public void scheduledUpdate() {
 		List<EmpresaEntity> empreses = empresaRepository.findAll();
 		for (EmpresaEntity empresa: empreses) {
 			updateLicitacionsDiaActual(empresa);
+		}
+	}
+
+	// Cada dia a les 5 de la matinada i cada dues hores
+	@Scheduled(cron = "0 0 5/2 * * *") 
+	public void scheduledUpdateInfonalia() {
+		// 1. Obtenir noves licitacions de infonalia
+		List<Licitacio> licitacions = licitacioInfonaliaHelper.obtenirNovesLicitacions();
+		if (!licitacions.isEmpty()) {
+			// 2. Assignam les licitacions a les empreses
+			List<EmpresaEntity> empreses = empresaRepository.findAll();
+			for (EmpresaEntity empresa: empreses) {
+				updateLicitacionsInfonalia(licitacions, empresa);
+			}
 		}
 	}
 
@@ -79,9 +97,47 @@ public class LicitacioServiceImpl extends AbstractGenericServiceImpl<Licitacio, 
 				log.debug("Refrescant " + licitacions.size() + " licitacions");
 				for (LicitacioPlataformaContractacio licitacio: licitacions) {
 					try {
-						boolean created = licitacioHelper.updateLicitacio(
-								empresa,
-								licitacio);
+						boolean created = licitacioHelper.updateLicitacio(empresa, licitacio);
+						if (created) {
+							createdCount++;
+						} else {
+							updatedCount++;
+						}
+					} catch (Exception ex) {
+						log.error("Error al actualitzar la licitació " + licitacio.getResum(), ex);
+						errorCount++;
+					}
+				}
+				mergeResult.setCreated(createdCount);
+				mergeResult.setUpdated(updatedCount);
+				mergeResult.setError(errorCount);
+				mergeResult.setTotal(licitacions.size());
+				mergeResult.setTimeElapsedMs(System.currentTimeMillis() - t0);
+			}
+		}
+		return mergeResult;
+	}
+
+	private MergeResult updateLicitacionsInfonalia(List<Licitacio> licitacions, EmpresaEntity empresa) {
+		MergeResult mergeResult = new MergeResult();
+		long t0 = System.currentTimeMillis();
+		Optional<ConfiguracioEntity> configuracio = configuracioRepository.findByEmpresa(empresa);
+		if (configuracio.isPresent() && configuracio.get().getEmbedded().isSincronitzacioActiva()) {
+			String filtreProvincia = configuracio.get().getEmbedded().getFiltreProvincia();
+			@SuppressWarnings("unused")
+			boolean filtrar = false;
+			if (filtreProvincia != null) {
+				filtreProvincia = filtreProvincia.toUpperCase();
+				filtrar = filtreProvincia.startsWith("ES");
+			}
+			if (licitacions != null) {
+				int createdCount = 0;
+				int updatedCount = 0;
+				int errorCount = 0;
+				log.debug("Refrescant " + licitacions.size() + " licitacions");
+				for (Licitacio licitacio : licitacions) {						
+					try {								 
+						boolean created = licitacioHelper.updateLicitacioInfonalia(empresa, licitacio);
 						if (created) {
 							createdCount++;
 						} else {

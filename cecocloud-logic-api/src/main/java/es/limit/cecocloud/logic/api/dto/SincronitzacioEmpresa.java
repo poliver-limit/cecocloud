@@ -28,6 +28,7 @@ public class SincronitzacioEmpresa {
 	@NotNull
 	@Size(max = 30)
 	private String nom;
+	private List<SincronitzacioEmpresaUsuari> usuaris;
 	private List<SincronitzacioEmpresaOperari> operaris;
 
 }

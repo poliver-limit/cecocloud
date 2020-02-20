@@ -46,7 +46,9 @@ public class LicitacioHelper {
 			EmpresaEntity empresa,
 			LicitacioPlataformaContractacio licitacio) {
 		boolean created = false;
-		Optional<LicitacioEntity> optionalLicitacioEntity = licitacioRepository.findById(licitacio.getId());
+		Optional<LicitacioEntity> optionalLicitacioEntity = licitacioRepository.findByEmpresaAndEmbeddedCodi(
+				empresa,
+				licitacio.getCodi());
 		LicitacioEntity licitacioEntity = null;
 		if (!optionalLicitacioEntity.isPresent()) {
 			logger.debug("Creant licitació (resum=" + licitacio.getResum() + ", dataActualitzacio=" + licitacio.getDataActualitzacio() + ")");
@@ -239,13 +241,39 @@ public class LicitacioHelper {
 		// TODO
 	}
 
-	public static String getIdFromLicitacio(Licitacio licitacio) {
+	/*public static String getIdFromLicitacio(Licitacio licitacio) {
 		if (licitacio != null) {
 			return licitacio.getCodi().substring(licitacio.getCodi().lastIndexOf("/") + 1);
 		} else {
 			return null;
 		}
-	}
+	}*/
+	
+	
+	// MÉTODES PER AFEGUIR LES LICITACIONS REBUDES DE LA PLATAFORMA DE INFONALIA /////////////////////////
+	
+	@Transactional
+	public boolean updateLicitacioInfonalia(
+			EmpresaEntity empresa,
+			Licitacio licitacio) {
+		boolean created = false;
+		Optional<LicitacioEntity> optionalLicitacioEntity = licitacioRepository.findById(licitacio.getId());
+		LicitacioEntity licitacioEntity = null;
+		if (!optionalLicitacioEntity.isPresent()) {
+			logger.debug("Creant licitació (resum=" + licitacio.getResum() + ", dataActualitzacio=" + licitacio.getDataActualitzacio() + ")");
+			licitacioEntity = licitacioRepository.save(
+					LicitacioEntity.builder().
+					embedded(licitacio).
+					empresa(empresa).
+					build());
+			created = true;
+		} else {
+			logger.debug("Actualitzant licitació (resum=" + licitacio.getResum() + ", dataActualitzacio=" + licitacio.getDataActualitzacio() + ")");
+			licitacioEntity = optionalLicitacioEntity.get();
+			licitacioEntity.update(licitacio);
+		}		
+		return created;
+	}	
 
 	private static final Logger logger = LoggerFactory.getLogger(LicitacioHelper.class);
 
