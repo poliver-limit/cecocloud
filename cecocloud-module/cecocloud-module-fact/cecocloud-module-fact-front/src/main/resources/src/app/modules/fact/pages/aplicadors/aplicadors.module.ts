@@ -9,6 +9,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { AplicadorsGridComponent } from './aplicadors-grid.component';
 import { AplicadorsFormComponent } from './aplicadors-form.component';
 import { AplicadorsService } from './aplicadors.service';
+import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.service';
 
 @NgModule( {
     imports: [
@@ -27,7 +28,8 @@ import { AplicadorsService } from './aplicadors.service';
         AplicadorsFormComponent
     ],
     providers: [
-        AplicadorsService
+        AplicadorsService,
+		AplicadorsClientService
     ]
 } )
 export class AplicadorsModule {}

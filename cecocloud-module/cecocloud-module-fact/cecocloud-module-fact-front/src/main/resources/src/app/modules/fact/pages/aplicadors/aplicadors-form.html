@@ -1,0 +1,78 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="aplicadorsService"
+  (resourceLoad)="onResourceLoad($event)"
+>
+  <div style="display: flex;">
+    <div style="width: 26%; padding-right: 1em">
+      <bng-custom-field name="nom"></bng-custom-field>
+    </div>        
+    <div style="width: 11%; display: inline-block;"></div>    
+    <div style="width: 26%; padding-right: 1em">
+      <bng-custom-field name="cognoms"></bng-custom-field>
+    </div>   
+    <div style="width: 11%; display: inline-block;"></div>    
+    	<div style="width: 26%; padding-right: 1em">
+      <bng-custom-field name="nif"></bng-custom-field>
+    </div>   
+  </div>
+  
+  <mat-tab-group (selectedTabChange)="onLinkClick($event)">    
+    <mat-tab label="{{'resource.aplicador.field.titol'|translate}}">    
+      <ng-container *ngTemplateOutlet="aplicadorsTab"></ng-container>
+    </mat-tab>  
+    <mat-tab [disabled]="!modificant" label="{{'resource.aplicador.field.titolClients'|translate}}">
+      <ng-container *ngTemplateOutlet="aplicadorsClientTab"></ng-container>
+    </mat-tab>
+  </mat-tab-group>
+  
+	<ng-template #aplicadorsTab>
+	  	<div style="display: flex">
+	  		<div style="width: 100%">
+	  			<bng-custom-field name="contracte"></bng-custom-field>
+			</div>
+	    </div>
+	    <div style="display: flex"> 
+		   	<div style="width: 33%; padding-right: 1em">
+		        <bng-custom-field name="domicili"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+			  <bng-custom-field name="telefon"></bng-custom-field>
+			</div>
+			<div style="width: 33%; padding-right: 1em">
+			  <bng-custom-field name="email"></bng-custom-field>
+		  	</div>
+	 	</div>
+	 	<div style="display: flex">
+	  		<div style="width: 100%">
+	  			<bng-custom-field name="categoria"></bng-custom-field>
+			</div>
+	    </div>
+	    <div style="display: flex"> 
+		   	<div style="width: 50%; padding-right: 1em">
+		        <bng-custom-field name="dataExpedicio"></bng-custom-field>
+			</div>
+			<div style="width: 50%; padding-right: 1em">
+			  <bng-custom-field name="dataCaducitat"></bng-custom-field>
+			</div>		
+	 	</div>
+	    <div style="display: flex"> 
+		   	<div style="width: 50%; padding-top: 1em; padding-right: 1em">
+		        <bng-custom-field name="actiu"></bng-custom-field>
+			</div>
+			<div style="width: 50%; padding-right: 1em">
+			  <bng-custom-field name="observacions"></bng-custom-field>
+			</div> 	
+	 	</div>
+	</ng-template> 
+	<ng-template #aplicadorsClientTab>	  	
+		<bng-datagrid	
+			*ngIf="aplicadorsClientSelected"				
+			[config]="aplicadorsClientDatagridConfig"
+			[restapiService]="aplicadorsClientService"
+			[editable]="gridsEditables"
+			>
+		</bng-datagrid>		
+    </ng-template>   
+</bng-form>
