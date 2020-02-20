@@ -86,41 +86,6 @@ import {
 										</mat-checkbox>
 									</td>
 								</ng-container>
-								<!-- Columna de write -->
-								<ng-container matColumnDef="write">
-									<th
-										mat-header-cell
-										*matHeaderCellDef
-										[ngClass]="{
-											'htoggle-mobile': mobileScreen,
-											'htoggle-desktop': !mobileScreen
-										}"
-									>
-										<ng-container *ngIf="!mobileScreen">
-											{{
-												"resource.permission.field.writeGranted" | translate
-											}}</ng-container
-										>
-										<ng-container *ngIf="mobileScreen">MOD</ng-container>
-									</th>
-									<td
-										mat-cell
-										*matCellDef="let funcionalitat; let index = index"
-										class="rcheck"
-									>
-										<mat-checkbox
-											name="writeGranted"
-											[checked]="funcionalitat.permission.writeGranted"
-											[disabled]="disableToggles"
-											(click)="
-												!disableToggles &&
-													funcionalitat.tipus == 'MANTENIMENT' &&
-													onPermisChange($event, indexModul, index)
-											"
-										>
-										</mat-checkbox>
-									</td>
-								</ng-container>
 								<!-- Columna de create -->
 								<ng-container matColumnDef="create">
 									<th
@@ -146,6 +111,41 @@ import {
 										<mat-checkbox
 											name="createGranted"
 											[checked]="funcionalitat.permission.createGranted"
+											[disabled]="disableToggles"
+											(click)="
+												!disableToggles &&
+													funcionalitat.tipus == 'MANTENIMENT' &&
+													onPermisChange($event, indexModul, index)
+											"
+										>
+										</mat-checkbox>
+									</td>
+								</ng-container>
+								<!-- Columna de write -->
+								<ng-container matColumnDef="write">
+									<th
+										mat-header-cell
+										*matHeaderCellDef
+										[ngClass]="{
+											'htoggle-mobile': mobileScreen,
+											'htoggle-desktop': !mobileScreen
+										}"
+									>
+										<ng-container *ngIf="!mobileScreen">
+											{{
+												"resource.permission.field.writeGranted" | translate
+											}}</ng-container
+										>
+										<ng-container *ngIf="mobileScreen">MOD</ng-container>
+									</th>
+									<td
+										mat-cell
+										*matCellDef="let funcionalitat; let index = index"
+										class="rcheck"
+									>
+										<mat-checkbox
+											name="writeGranted"
+											[checked]="funcionalitat.permission.writeGranted"
 											[disabled]="disableToggles"
 											(click)="
 												!disableToggles &&

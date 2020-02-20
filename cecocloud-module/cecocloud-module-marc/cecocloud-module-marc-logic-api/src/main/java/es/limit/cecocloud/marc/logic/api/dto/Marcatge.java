@@ -54,9 +54,17 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private MarcatgeOrigen origen = MarcatgeOrigen.CECOCLOUD;
-	@RestapiField(hiddenInGrid = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
 	private Double latitud;
-	@RestapiField(hiddenInGrid = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
 	private Double longitud;
 
 	@Transient
