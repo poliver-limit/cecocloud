@@ -28,4 +28,6 @@ public interface UsuariIdentificadorEmpresaRepository extends BaseRepository<Usu
 
 	List<UsuariIdentificadorEmpresaEntity> findByUsuariIdentificador(UsuariIdentificadorEntity usuariIdentificador);
 
+	List<UsuariIdentificadorEmpresaEntity> findByEmpresa(EmpresaEntity empresa);
+
 }

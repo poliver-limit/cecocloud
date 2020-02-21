@@ -5,6 +5,8 @@ package es.limit.cecocloud.marc.back.controller;
 
 import java.util.NoSuchElementException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +33,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	private OperariEmpresaService operariEmpresaService;
 
 	@Override
-	protected String additionalRsqlFilterFromSession(Object userSession) {
+	protected String additionalRsqlFilter(HttpServletRequest request, Object userSession) {
 		ProfileResourcePermissions resourcePermissions = getResourcePermissions();
 		String filtreOperari = null;
 		if (!resourcePermissions.isHasAdminPermission()) {
@@ -49,6 +51,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 				"operariEmpresa.operari.identificador.id==" + ((UserSession)userSession).getI();
 	}
 
+	@Override
 	protected void completeDtoWithSession(Marcatge dto, Object userSession, boolean isNew) {
 		ProfileResourcePermissions resourcePermissions = getResourcePermissions();
 		// - Quan cream un nou marcatge sempre es configura l'operari de l'usuari actual.
