@@ -5,6 +5,8 @@ package es.limit.cecocloud.back.controller;
 
 import java.util.NoSuchElementException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +30,7 @@ import es.limit.cecocloud.logic.api.service.OperariEmpresaService;
 public class OperariEmpresaApiController extends AbstractIdentificableApiController<OperariEmpresa, Long> {
 
 	@Override
-	protected String additionalRsqlFilterFromSession(Object userSession) {
+	protected String additionalRsqlFilter(HttpServletRequest request, Object userSession) {
 		return
 				"operari.identificador.id==" + ((UserSession)userSession).getI() + ";" +
 				"empresa.identificador.id==" + ((UserSession)userSession).getI();

@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.back.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,7 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
 public class PerfilUsuariIdentificadorEmpresaApiController extends AbstractIdentificableApiController<PerfilUsuariIdentificadorEmpresa, Long> {
 
 	@Override
-	protected String additionalRsqlFilterFromSession(Object userSession) {
+	protected String additionalRsqlFilter(HttpServletRequest request, Object userSession) {
 		Long identificadorId = ((UserSession)userSession).getI();
 		return "perfil.identificador.id==" + identificadorId;
 	}

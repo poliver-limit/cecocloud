@@ -20,6 +20,7 @@ import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaOperari;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaUsuari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresesResposta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorPeticio;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorResposta;
@@ -27,6 +28,7 @@ import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioUsuari;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
+import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
@@ -79,9 +81,13 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			SincronitzacioResposta operarisResposta = sincronitzarOperaris(
 					identificador.get(),
 					peticio.getOperaris());
+			SincronitzacioResposta usuarisEmpresesResposta = sincronitzarUsuarisEmpreses(
+					identificador.get(),
+					peticio.getEmpreses());
 			SincronitzacioResposta operarisEmpresesResposta = sincronitzarOperarisEmpreses(
 					identificador.get(),
 					peticio.getEmpreses());
+			empresesResposta.setUsuaris(usuarisEmpresesResposta);
 			empresesResposta.setOperaris(operarisEmpresesResposta);
 			return new SincronitzacioIdentificadorResposta(
 					empresesResposta,
@@ -156,6 +162,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				updateCount,
 				deleteCount,
 				errorCount,
+				null,
 				null);
 	}
 
@@ -281,6 +288,70 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 					createCount++;
 				} else {
 					errorCount++;
+				}
+			}
+		}
+		return new SincronitzacioResposta(
+				createCount,
+				updateCount,
+				deleteCount,
+				errorCount);
+	}
+
+	private SincronitzacioResposta sincronitzarUsuarisEmpreses(
+			IdentificadorEntity identificador,
+			List<SincronitzacioEmpresa> empreses) {
+		int createCount = 0;
+		int updateCount = 0;
+		int deleteCount = 0;
+		int errorCount = 0;
+		List<EmpresaEntity> emps = empresaRepository.findByIdentificador(identificador);
+		for (SincronitzacioEmpresa empresaSync: empreses) {
+			EmpresaEntity empresaDb = null;
+			for (EmpresaEntity empresa: emps) {
+				if (empresaDbEqualsEmpresaSync(empresa, empresaSync)) {
+					empresaDb = empresa;
+					break;
+				}
+			}
+			if (empresaDb != null) {
+				for (UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresaDb: usuariIdentificadorEmpresaRepository.findByEmpresa(empresaDb)) {
+					boolean trobat = false;
+					for (SincronitzacioEmpresaOperari operariSync: empresaSync.getOperaris()) {
+						if (usuariIdentificadorEmpresaDb.getUsuariCodi().equals(operariSync.getCodi())) {
+							trobat = true;
+							break;
+						}
+					}
+					if (!trobat) {
+						usuariIdentificadorEmpresaRepository.delete(usuariIdentificadorEmpresaDb);
+						deleteCount++;
+					}
+				}
+				for (SincronitzacioEmpresaUsuari usuariSync: empresaSync.getUsuaris()) {
+					Optional<UsuariIdentificadorEntity> usuariIdentificadorDb = usuariIdentificadorRepository.findByIdentificadorAndUsuariEmbeddedCodi(
+							identificador,
+							usuariSync.getUsuariCodi());
+					// Només realitza alguna acció si l'usuari-identificador està actiu a la base de dades
+					if (usuariIdentificadorDb.isPresent() && usuariIdentificadorDb.get().getEmbedded().isActiu()) {
+						Optional<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpresaDb = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
+								usuariIdentificadorDb.get(),
+								empresaDb);
+						if (!usuariIdentificadorEmpresaDb.isPresent()) {
+							// Si l'usuari-identificador-empresa existeix a la BBDD i a la informació de sincronització
+							// No fa res
+						} else {
+							// Si l'usuari-identificador-empresa no existeix a la BBDD i si a la informació de sincronització
+							// crea l'usuari-identificador-empresa a la BBDD
+							usuariIdentificadorEmpresaRepository.save(
+									UsuariIdentificadorEmpresaEntity.builder().
+									embedded(new UsuariIdentificadorEmpresa()).
+									usuariIdentificador(usuariIdentificadorDb.get()).
+									empresa(empresaDb).
+									build());
+							createCount++;
+						}
+					}
 				}
 			}
 		}

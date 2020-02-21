@@ -3,14 +3,20 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Formula;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
@@ -51,6 +57,12 @@ public class UsuariIdentificadorEmpresaEntity extends AbstractAuditableVersionab
 			name = "empresa_id",
 			foreignKey = @ForeignKey(name = "usuidentemp_empresa_fk"))
 	protected EmpresaEntity empresa;
+
+	@OneToMany(mappedBy = "usuariIdentificadorEmpresa", cascade = CascadeType.ALL)
+	protected List<PerfilUsuariIdentificadorEmpresaEntity> perfilsUsuarisIdentificadorsEmpreses;
+
+	@Formula(value="(select usu.codi from usuari_ident usi, usuari usu where usi.id = usuident_id and usu.id = usi.usuari_id)")
+	private String usuariCodi;
 
 	@Builder
 	public UsuariIdentificadorEmpresaEntity(
