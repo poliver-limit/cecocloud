@@ -16,6 +16,7 @@ export class LicitacionsGridComponent implements OnInit {
 
 	datagridConfig: BngDatagridConfig = {
 		//editable: true,
+		resizable: true,
 		columnFiltersEnabled: true,
 		columns: [{
 			field: 'projecteTitol',
