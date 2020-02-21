@@ -38,10 +38,14 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 	@Override
 	public void identificadorUpdate(Identificador identificador) {
 		Optional<IdentificadorEntity> entity = indentificadorRepository.findById(identificador.getCodi());
-		es.limit.cecocloud.rrhh.logic.api.dto.Identificador identificadorFact = new es.limit.cecocloud.rrhh.logic.api.dto.Identificador();
-		identificadorFact.setCodi(identificador.getCodi());
-		identificadorFact.setNom(identificador.getDescripcio());
-		entity.get().update(identificadorFact);
+		if (entity.isPresent()) {
+			es.limit.cecocloud.rrhh.logic.api.dto.Identificador identificadorFact = new es.limit.cecocloud.rrhh.logic.api.dto.Identificador();
+			identificadorFact.setCodi(identificador.getCodi());
+			identificadorFact.setNom(identificador.getDescripcio());
+			entity.get().update(identificadorFact);
+		} else {
+			identificadorCreate(identificador);
+		}
 	}
 
 	@Override
