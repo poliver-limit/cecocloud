@@ -43,7 +43,7 @@ import lombok.Setter;
 		}
 )
 public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionableEntity<FuncionalitatIdentificador, Long> {
-	
+
 	@Embedded
 	protected FuncionalitatIdentificador embedded;
 
@@ -83,5 +83,5 @@ public class FuncionalitatIdentificadorEntity extends AbstractAuditableVersionab
 	public void updateIdentificador(IdentificadorEntity identificador) {
 		this.identificador = identificador;
 	}
-	
+
 }
