@@ -25,6 +25,6 @@ public interface UsuariIdentificadorRepository extends BaseRepository<UsuariIden
 
 	List<UsuariIdentificadorEntity> findByUsuariEmbeddedCodiOrderByIdentificadorEmbeddedDescripcio(String usuariCodi);
 
-	List<UsuariIdentificadorEntity> findByIdentificadorId(Long identificadorId);
+	List<UsuariIdentificadorEntity> findByIdentificador(IdentificadorEntity identificador);
 
 }

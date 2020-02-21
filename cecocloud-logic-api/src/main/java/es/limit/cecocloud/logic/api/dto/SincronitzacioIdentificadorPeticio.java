@@ -26,6 +26,7 @@ public class SincronitzacioIdentificadorPeticio {
 	@Size(max = 40)
 	private String nom;
 	private List<SincronitzacioEmpresa> empreses;
+	private List<SincronitzacioUsuari> usuaris;
 	private List<SincronitzacioOperari> operaris;
 
 }

@@ -57,15 +57,15 @@ public class ModuleServiceImpl implements ModuleService {
 				Long identificadorId = (Long)userSession.getI();
 				Long empresaId = (Long)userSession.getE();
 				if (identificadorId != null && empresaId != null) {
-					List<FuncionalitatEntity> funcionalitats = new ArrayList<FuncionalitatEntity>(); 
 					List<PerfilEntity> perfils = perfilRepository.findByUsuariCodiAndIdentificadorIdAndEmpresaId(
 							authenticationHelper.getPrincipalName(),
 							identificadorId,
 							empresaId);
-					if (perfils != null && !perfils.isEmpty())
-						funcionalitats =funcionalitatRepository.findByPerfilIn(perfils);
-					Set<String> moduleCodes = funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getModul().name()).collect(Collectors.toSet());
-					return registeredModules.stream().filter(module -> moduleCodes.contains(module.getCode())).collect(Collectors.toList());
+					if (!perfils.isEmpty()) {
+						List<FuncionalitatEntity> funcionalitats = funcionalitatRepository.findByPerfilIn(perfils);
+						Set<String> moduleCodes = funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getModul().name()).collect(Collectors.toSet());
+						return registeredModules.stream().filter(module -> moduleCodes.contains(module.getCode())).collect(Collectors.toList());
+					}
 				}
 			}
 			return new ArrayList<ModuleInfo>();

@@ -29,7 +29,6 @@ export class AppComponent {
 
 	onModuleSelected(module: string) {
 		let menu: BngMenu = this.appService.getModuleMenu(module);
-		console.log("Menu:", menu);
 		this.funcionalitatsPermisosService.getAllowedFuncionalitatsByModul(module).subscribe((funcionalitats: string[]) => {
 			let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
 			// console.log("--- SELECT MODULE ---");
@@ -53,7 +52,7 @@ export class AppComponent {
 		let menu: BngMenu = this.appService.getAdminIdentificadorMenu();
 		menu.label = identificador.descripcio;
 		this.menuService.setActiveMenu(menu);
-		this.router.navigate(['/admin-identificador']);
+		this.router.navigate(['/identificador']);
 	}
 
 	private getUrlModule(): string {

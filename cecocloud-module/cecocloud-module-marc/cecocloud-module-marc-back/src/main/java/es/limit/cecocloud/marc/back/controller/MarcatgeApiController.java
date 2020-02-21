@@ -57,7 +57,9 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 		if (isNew || !resourcePermissions.isHasAdminPermission()) {
 			try {
 				OperariEmpresa operariEmpresa = operariEmpresaService.findByCurrentUserAndSession();
-				dto.setOperariEmpresa(GenericReference.toGenericReference(operariEmpresa));
+				GenericReference<OperariEmpresa, Long> operariEmpresaRef = GenericReference.toGenericReference(operariEmpresa);
+				operariEmpresaRef.setDescription(operariEmpresa.getDescription());
+				dto.setOperariEmpresa(operariEmpresaRef);
 			} catch (NoSuchElementException ex) {
 				// No s'ha trobat cap operari-empresa
 				dto.setOperariEmpresa(null);

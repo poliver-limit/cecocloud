@@ -25,15 +25,21 @@ import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorPeticio;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorResposta;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
+import es.limit.cecocloud.logic.api.dto.SincronitzacioUsuari;
+import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
+import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
+import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 import es.limit.cecocloud.persist.repository.OperariEmpresaRepository;
 import es.limit.cecocloud.persist.repository.OperariRepository;
+import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
+import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
 /**
  * Implementació del servei encarregat de gestionar la sincronització de la informació provinent
@@ -45,15 +51,19 @@ import es.limit.cecocloud.persist.repository.OperariRepository;
 public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Autowired
+	private UsuariRepository usuariRepository;
+	@Autowired
 	private IdentificadorRepository identificadorRepository;
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	@Autowired
+	private UsuariIdentificadorRepository usuariIdentificadorRepository;
+	@Autowired
+	private UsuariIdentificadorEmpresaRepository usuariIdentificadorEmpresaRepository;
+	@Autowired
 	private OperariRepository operariRepository;
 	@Autowired
 	private OperariEmpresaRepository operariEmpresaRepository;
-	@Autowired
-	private UsuariRepository usuariRepository;
 
 	@Override
 	@Transactional
@@ -63,6 +73,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			SincronitzacioEmpresesResposta empresesResposta = sincronitzarEmpreses(
 					identificador.get(),
 					peticio.getEmpreses());
+			SincronitzacioResposta usuarisResposta = sincronitzarUsuaris(
+					identificador.get(),
+					peticio.getUsuaris());
 			SincronitzacioResposta operarisResposta = sincronitzarOperaris(
 					identificador.get(),
 					peticio.getOperaris());
@@ -71,8 +84,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 					peticio.getEmpreses());
 			empresesResposta.setOperaris(operarisEmpresesResposta);
 			return new SincronitzacioIdentificadorResposta(
-					operarisResposta,
-					empresesResposta);
+					empresesResposta,
+					usuarisResposta,
+					operarisResposta);
 		} else {
 			throw new EntityNotFoundException("IdentificadorEntity#codi=" + peticio.getCodi());
 		}
@@ -143,6 +157,72 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				deleteCount,
 				errorCount,
 				null);
+	}
+
+	private SincronitzacioResposta sincronitzarUsuaris(
+			IdentificadorEntity identificador,
+			List<SincronitzacioUsuari> usuaris) {
+		int createCount = 0;
+		int updateCount = 0;
+		int deleteCount = 0;
+		int errorCount = 0;
+		List<UsuariIdentificadorEntity> usuidfs = usuariIdentificadorRepository.findByIdentificador(identificador);
+		for (UsuariIdentificadorEntity usuariIdentificador: usuidfs) {
+			SincronitzacioUsuari syncFound = null;
+			for (SincronitzacioUsuari usuariSync: usuaris) {
+				if (usuariIdentificadorDbEqualsOperariSync(usuariIdentificador, usuariSync)) {
+					syncFound = usuariSync;
+					break;
+				}
+			}
+			if (syncFound != null) {
+				// Si l'operari existeix a la BBDD i a la informació de sincronització
+				// actualitza la informació de l'operari
+				usuariIdentificador.getEmbedded().setActiu(true);
+				updateCount++;
+			} else {
+				// Si l'operari existeix a la BBDD i no a la informació de sincronització
+				// desactiva l'usuariIdentificador de l'empresa
+				usuariIdentificador.getEmbedded().setActiu(false);
+				for (UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresa: usuariIdentificadorEmpresaRepository.findByUsuariIdentificador(usuariIdentificador)) {
+					usuariIdentificadorEmpresaRepository.delete(usuariIdentificadorEmpresa);
+					//usuariIdentificadorEmpresa.getEmbedded().setActiu(false);
+				}
+				deleteCount++;
+			}
+		}
+		for (SincronitzacioUsuari usuariSync: usuaris) {
+			UsuariIdentificadorEntity dbFound = null;
+			for (UsuariIdentificadorEntity usuariIdentificador: usuidfs) {
+				if (usuariIdentificadorDbEqualsOperariSync(usuariIdentificador, usuariSync)) {
+					dbFound = usuariIdentificador;
+					break;
+				}
+			}
+			if (dbFound == null) {
+				// Si l'usuariIdentificador no existeix a la BBDD i si a la informació de sincronització
+				// crea l'usuariIdentificador a la BBDD
+				Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariSync.getUsuariCodi());
+				if (usuari.isPresent()) {
+					UsuariIdentificador usuariIdentificador = new UsuariIdentificador();
+					usuariIdentificador.setActiu(true);
+					usuariIdentificadorRepository.save(
+							UsuariIdentificadorEntity.builder().
+							embedded(usuariIdentificador).
+							usuari(usuari.get()).
+							identificador(identificador).
+							build());
+					createCount++;
+				} else {
+					errorCount++;
+				}
+			}
+		}
+		return new SincronitzacioResposta(
+				createCount,
+				updateCount,
+				deleteCount,
+				errorCount);
 	}
 
 	private SincronitzacioResposta sincronitzarOperaris(
@@ -279,16 +359,22 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				errorCount);
 	}
 
-	private boolean operariDbEqualsOperariSync(
-			OperariEntity operariDb,
-			SincronitzacioOperari operariSync) {
-		return operariDb.getEmbedded().getCodi().equals(operariSync.getCodi());
-	}
-
 	private boolean empresaDbEqualsEmpresaSync(
 			EmpresaEntity empresaDb,
 			SincronitzacioEmpresa empresaSync) {
 		return empresaDb.getEmbedded().getCodi().equals(empresaSync.getCodi());
+	}
+
+	private boolean usuariIdentificadorDbEqualsOperariSync(
+			UsuariIdentificadorEntity usuariIdentificadorDb,
+			SincronitzacioUsuari usuariSync) {
+		return usuariIdentificadorDb.getUsuari().getEmbedded().getCodi().equals(usuariSync.getUsuariCodi());
+	}
+
+	private boolean operariDbEqualsOperariSync(
+			OperariEntity operariDb,
+			SincronitzacioOperari operariSync) {
+		return operariDb.getEmbedded().getCodi().equals(operariSync.getCodi());
 	}
 
 }

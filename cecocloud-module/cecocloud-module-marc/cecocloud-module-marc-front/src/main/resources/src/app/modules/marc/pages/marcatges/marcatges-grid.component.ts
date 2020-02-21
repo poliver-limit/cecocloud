@@ -13,10 +13,23 @@ export class MarcatgesGridComponent implements OnInit {
 
 	datagridConfig = {
 		columnFiltersEnabled: true,
-		sort: [
-			{ fieldName: 'operari', direction: 'asc' },
-			{ fieldName: 'data', direction: 'desc' }
-		]
+		columns: [{
+			field: 'operariEmpresa'
+		}, {
+			field: 'data'
+		}, {
+			field: 'origen'
+		}, {
+			field: 'ubicacio',
+			sortable: false
+		}],
+		sort: [{
+			fieldName: 'operariEmpresa',
+			direction: 'asc'
+		}, {
+			fieldName: 'data',
+			direction: 'desc'
+		}]
 	};
 
 	ngOnInit() {

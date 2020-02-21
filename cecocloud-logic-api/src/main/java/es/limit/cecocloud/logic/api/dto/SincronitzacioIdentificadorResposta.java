@@ -16,7 +16,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SincronitzacioIdentificadorResposta {
 
-	private SincronitzacioResposta operaris;
 	private SincronitzacioEmpresesResposta empreses;
+	private SincronitzacioResposta usuaris;
+	private SincronitzacioResposta operaris;
 
 }
