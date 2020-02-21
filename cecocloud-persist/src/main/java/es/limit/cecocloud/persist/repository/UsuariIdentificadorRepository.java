@@ -23,6 +23,8 @@ public interface UsuariIdentificadorRepository extends BaseRepository<UsuariIden
 
 	Optional<UsuariIdentificadorEntity> findByUsuariAndIdentificador(UsuariEntity usuari, IdentificadorEntity identificador);
 
+	Optional<UsuariIdentificadorEntity> findByIdentificadorAndUsuariEmbeddedCodi(IdentificadorEntity identificador, String usuariCodi);
+
 	List<UsuariIdentificadorEntity> findByUsuariEmbeddedCodiOrderByIdentificadorEmbeddedDescripcio(String usuariCodi);
 
 	List<UsuariIdentificadorEntity> findByIdentificador(IdentificadorEntity identificador);

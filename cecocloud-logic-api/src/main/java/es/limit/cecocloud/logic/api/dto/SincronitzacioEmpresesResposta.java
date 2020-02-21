@@ -19,11 +19,14 @@ public class SincronitzacioEmpresesResposta extends SincronitzacioResposta {
 			int updateCount,
 			int deleteCount,
 			int errorCount,
+			SincronitzacioResposta usuaris,
 			SincronitzacioResposta operaris) {
 		super(createCount, updateCount, deleteCount, errorCount);
+		this.usuaris = usuaris;
 		this.operaris = operaris;
 	}
 
+	private SincronitzacioResposta usuaris;
 	private SincronitzacioResposta operaris;
 
 }

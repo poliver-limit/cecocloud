@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import lombok.AccessLevel;
@@ -51,6 +53,9 @@ public class UsuariIdentificadorEmpresaEntity extends AbstractAuditableVersionab
 			name = "empresa_id",
 			foreignKey = @ForeignKey(name = "usuidentemp_empresa_fk"))
 	protected EmpresaEntity empresa;
+
+	@Formula(value="(select usu.codi from usuari_ident usi, usuari usu where usi.id = usuident_id and usu.id = usi.usuari_id)")
+	private String usuariCodi;
 
 	@Builder
 	public UsuariIdentificadorEmpresaEntity(
