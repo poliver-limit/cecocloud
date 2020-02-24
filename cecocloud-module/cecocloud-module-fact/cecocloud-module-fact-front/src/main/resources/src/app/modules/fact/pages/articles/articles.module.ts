@@ -9,8 +9,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { ArticlesGridComponent } from './articles-grid.component';
 import { ArticlesFormComponent } from './articles-form.component';
 import { ArticlesService } from './articles.service';
-import { IvesFormComponent } from '../ives/ives-form.component'
-import { IvesService } from '../ives/ives.service'
+import { IvesFormModule } from '../ives/ives-form.module'
 
 @NgModule( {
     imports: [
@@ -18,6 +17,7 @@ import { IvesService } from '../ives/ives.service'
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		IvesFormModule,
         RouterModule.forChild( [
             { path: '', component: ArticlesGridComponent },
             { path: 'create', component: ArticlesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -26,15 +26,10 @@ import { IvesService } from '../ives/ives.service'
     ],
     declarations: [
         ArticlesGridComponent,
-        ArticlesFormComponent,
-		IvesFormComponent
+        ArticlesFormComponent
     ],
     providers: [
-        ArticlesService,
-		IvesService
-    ],
-	entryComponents: [
-		IvesFormComponent
-	]
+        ArticlesService
+    ]
 } )
 export class ArticlesModule {}
