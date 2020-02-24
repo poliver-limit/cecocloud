@@ -33,8 +33,7 @@ public class OficinaBancaria extends AbstractIdentificableWithIdentificador<Ofic
 	
 	@NotNull(groups = {OnCreate.class})
 	@RestapiField(
-			disabledForUpdate = true,
-			toUpperCase = true,
+			disabledForUpdate = true,			
 			includeInQuickFilter = true)
 	private Integer codi;
 	

@@ -4,7 +4,7 @@
 <!--   <input type="text" [formControl]="nameControl"> -->
 <!-- </label> -->
 
-<bng-form bng-form-mant	[config]="formConfig" [restapiService]="cercadorClientsService">
+<bng-form bng-form-mant	[config]="formConfig" [restapiService]="cercadorClientsService"  >
 	<div class="mainFilters">
 		<div style="display: flex;">
 			<div style="width: 25%; padding-right: 1em">
@@ -39,9 +39,9 @@
 		</div>
 		<div style="width: 70%; display: inline-block;"></div>
 		<div style="width: 15%; display: flex; float: left;">
-			<button  mat-raised-button (click)="extraFiltersShowHide()">{{'filters.cleanFilters' | translate}}</button>		
+			<button  mat-raised-button (click)="cleanFilters($event)">{{'filters.cleanFilters' | translate}}</button>		
 			<div style="width: 10px; display: inline-block;"></div>
-			<button  mat-raised-button (click)="extraFiltersShowHide()">{{'filters.filter' | translate}}</button>
+			<button  mat-raised-button (click)="toFilter()">{{'filters.filter' | translate}}</button>
 		</div>
 	</div>	
 

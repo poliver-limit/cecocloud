@@ -11,7 +11,33 @@ import { CercadorClientsService } from './cercadorClients.service';
 
 export class CercadorClientsSearchComponent {
 
-//	nameControl = new FormControl('');
+//	onResourceLoad(client: any) {
+//		this.client = client;
+//		this.client.codi = '';
+//		this.client.familiaClient = '';
+//		this.client.nomComercial = '';
+//		this.client.nomFiscal = '';
+//		this.client.nif = '';
+//		this.client.organitzacio = '';
+//		this.client.alias = '';
+//		this.client.codiPostal = '';
+//		this.client.operari = '';
+//		this.client.zona = '';
+//		this.client.telefon = '';
+//		this.client.iva = '';
+//		this.client.regimIva = '';
+//		this.client.claseRetencio = '';
+//		this.client.tipusVenciment = '';
+//		this.client.documentPagament = '';
+//	}
+	
+	cleanFilters(event: any) {
+		
+	}
+	
+	toFilter () {
+		
+	}
 
 	extraFiltersHide = true;
 	

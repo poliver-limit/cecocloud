@@ -111,7 +111,9 @@
     create table tges_cbc (
        cbc_ban_cod int4 not null,
         cbc_cli_cod varchar(6) not null,
+        cbc_dcc varchar(2) not null,
         cbc_emp_cod varchar(4) not null,
+        cbc_ccr varchar(10) not null,
         cbc_ofb_cod int4 not null,
         cbc_idf_cod varchar(4) not null,
         cbc_usucre varchar(255),
@@ -119,12 +121,10 @@
         cbc_usumod varchar(255),
         cbc_datmod timestamp,
         cbc_ibnbic varchar(11),
-        cbc_dcc varchar(2),
         cbc_ibndcc varchar(2),
-        cbc_ccr int4,
         cbc_obs varchar(1000),
         cbc_ibnpai varchar(2),
-        primary key (cbc_ban_cod, cbc_cli_cod, cbc_emp_cod, cbc_ofb_cod, cbc_idf_cod)
+        primary key (cbc_ban_cod, cbc_cli_cod, cbc_dcc, cbc_emp_cod, cbc_ccr, cbc_ofb_cod, cbc_idf_cod)
     );
 
     create table tges_cce (
@@ -659,7 +659,7 @@
         man_usumod varchar(255),
         man_datmod timestamp,
         man_act varchar(1),
-        man_cat varchar(1),
+        man_cat int4,
         man_ape varchar(60) not null,
         man_datcdc timestamp,
         man_datexd timestamp,
@@ -1379,8 +1379,7 @@
         tad_des varchar(30) not null,
         primary key (tad_cod, tad_idf_cod)
     );
-
- 
+   
 create index iges_acc_idf_fk on tges_acc (acc_idf_cod);
 
     alter table tges_acc 
@@ -1404,16 +1403,14 @@ create index iges_cce_idf_fk on tges_cce (cce_idf_cod);
     alter table tges_cce 
        add constraint irges_cce_pk unique (cce_idf_cod);
 create index iges_cli_idf_fk on tges_cli (cli_idf_cod);
-create index iges_clm_idf_fk on tges_clm (clm_idf_cod);
 
     alter table tges_clm 
-       add constraint irges_clm_pk unique (clm_idf_cod);
+       add constraint mancli_uk unique (clm_man_cne, clm_cli_cod);
 create index iges_clr_idf_fk on tges_clr (clr_idf_cod);
 create index iges_cpo_idf_fk on tges_cpo (cpo_idf_cod);
-create index iges_ctp_idf_fk on tges_ctp (ctp_idf_cod);
 
     alter table tges_ctp 
-       add constraint irges_ctp_pk unique (ctp_idf_cod);
+       add constraint tipusr_uk unique (ctp_cli_cod, ctp_tip_cod);
 create index iges_dep_idf_fk on tges_dep (dep_idf_cod);
 
     alter table tges_dep 
@@ -2564,3 +2561,4 @@ create index iges_tad_idf_fk on tlim_tad (tad_idf_cod);
        add constraint rges_tad_idf_fk 
        foreign key (tad_idf_cod) 
        references tges_idf;
+

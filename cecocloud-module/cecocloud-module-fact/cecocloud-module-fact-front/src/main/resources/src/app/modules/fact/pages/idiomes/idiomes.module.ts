@@ -8,7 +8,9 @@ import { MaterialModule } from '../../../../shared/material.module';
 
 import { IdiomesGridComponent } from './idiomes-grid.component';
 import { IdiomesFormComponent } from './idiomes-form.component';
-import { IdiomesService } from './idiomes.service';
+import { IdiomesService } from './idiomes.service'; // No l'hem posat als Ives
+
+import { IdiomesFormModule } from './idiomes-form.module';
 
 @NgModule( {
     imports: [
@@ -16,6 +18,7 @@ import { IdiomesService } from './idiomes.service';
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		IdiomesFormModule,
         RouterModule.forChild( [
             { path: '', component: IdiomesGridComponent },
             { path: 'create', component: IdiomesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { IdiomesService } from './idiomes.service';
         ] )
     ],
     declarations: [
-        IdiomesGridComponent,
-        IdiomesFormComponent
+        IdiomesGridComponent        
     ],
     providers: [
         IdiomesService

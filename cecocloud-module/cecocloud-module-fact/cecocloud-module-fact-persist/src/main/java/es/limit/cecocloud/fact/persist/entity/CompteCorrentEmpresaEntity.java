@@ -121,7 +121,8 @@ public class CompteCorrentEmpresaEntity extends AbstractWithIdentificadorEntity<
 			BancEntity banc,
 			ClientEntity client,
 			EmpresaEntity empresa,			
-			OficinaBancariaEntity oficinaBancaria) {
+			OficinaBancariaEntity oficinaBancaria
+			) {
 		
 		setId(pk);
 		
@@ -130,8 +131,7 @@ public class CompteCorrentEmpresaEntity extends AbstractWithIdentificadorEntity<
 		this.banc = banc;
 		this.client = client;
 		this.empresa = empresa;
-		this.oficinaBancaria = oficinaBancaria;
-		
+		this.oficinaBancaria = oficinaBancaria;		
 	}
 
 	@Override
