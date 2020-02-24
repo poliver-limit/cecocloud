@@ -26,6 +26,8 @@ import lombok.Setter;
 )
 public class OperariEmpresa extends AbstractIdentificable<Long> {
 
+	public static final String FILTER_MARC_ALLOWED = "marc-allowed";
+
 	@NotNull
 	@Transient
 	@RestapiField(
