@@ -8,7 +8,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 
 import { IvesGridComponent } from './ives-grid.component';
 import { IvesFormComponent } from './ives-form.component';
-import { IvesService } from './ives.service';
+import { IvesFormModule } from './ives-form.module';
 
 @NgModule( {
     imports: [
@@ -16,6 +16,7 @@ import { IvesService } from './ives.service';
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		IvesFormModule,
         RouterModule.forChild( [
             { path: '', component: IvesGridComponent },
             { path: 'create', component: IvesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,11 +24,7 @@ import { IvesService } from './ives.service';
         ] )
     ],
     declarations: [
-        IvesGridComponent,
-        IvesFormComponent
-    ],
-    providers: [
-        IvesService
+        IvesGridComponent
     ]
 } )
 export class IvesModule {}

@@ -34,8 +34,6 @@ public class Funcionalitat extends AbstractIdentificable<Long> {
 			includeInQuickFilter = true)
 	private String codi;
 	@NotNull
-	@RestapiField(
-			includeInQuickFilter = true)
 	private FuncionalitatTipus tipus;
 	@NotNull
 	@Size(max = 100)
@@ -43,8 +41,6 @@ public class Funcionalitat extends AbstractIdentificable<Long> {
 			includeInQuickFilter = true)
 	private String descripcio;
 	@NotNull
-	@RestapiField(
-			includeInQuickFilter = true)
 	@Enumerated(EnumType.STRING)
 	private Modul modul;
 	@Transient

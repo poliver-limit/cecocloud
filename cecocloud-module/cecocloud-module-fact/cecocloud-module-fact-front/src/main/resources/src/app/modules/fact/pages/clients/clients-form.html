@@ -18,10 +18,10 @@
     <div style="width: 10%; padding-top: 1em; padding-right: 1em">
       <bng-custom-field name="bloquejat"></bng-custom-field>
     </div>
-  </div>
-  
+  </div> 
+
   <mat-tab-group (selectedTabChange)="onLinkClick($event)">    
-    <mat-tab label="{{'resource.client.field.titolGeneral'|translate}}">    
+    <mat-tab label="{{'resource.client.field.titolGeneral'|translate}}">
       <ng-container *ngTemplateOutlet="generalTab"></ng-container>
     </mat-tab>    
     <mat-tab label="{{'resource.client.field.titolContactes'|translate}}">

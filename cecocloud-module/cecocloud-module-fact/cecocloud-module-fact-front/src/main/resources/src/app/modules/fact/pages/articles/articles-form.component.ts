@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormBaseComponent } from 'base-angular';
 
 import { ArticlesService } from './articles.service';
+import { IvesFormComponent } from '../ives/ives-form.component'
 
 @Component( {
     template: `
@@ -11,12 +13,15 @@ import { ArticlesService } from './articles.service';
         [restapiService]="articlesService"></bng-form>
 `
 } )
-export class ArticlesFormComponent {
-
-    formConfig: BngFormConfig = {
-    }
+export class ArticlesFormComponent extends BngFormBaseComponent {
 
     constructor(
-        public articlesService: ArticlesService ) { }
+		activatedRoute: ActivatedRoute,
+        public articlesService: ArticlesService) {
+		super(activatedRoute);
+		this.setConfigExternalFormComponents([
+			{ resourceName: 'iva', component: IvesFormComponent }
+		]);
+	}
 
 }

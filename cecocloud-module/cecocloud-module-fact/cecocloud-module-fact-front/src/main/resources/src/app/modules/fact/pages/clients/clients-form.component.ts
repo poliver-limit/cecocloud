@@ -10,8 +10,9 @@ import { ComptesComptablesEmpresaService } from '../comptesComptablesEmpresa/com
 import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.service';
 import { SubClientsService } from '../subClients/subClients.service';
 import { ClientsAdresaService } from '../clientsAdresa/clientsAdresa.service';
-
 import { MatTabChangeEvent } from '@angular/material';
+
+import { IdiomesFormComponent } from '../idiomes/idiomes-form.component'
 
 @Component( {
 	templateUrl: 'clients-form.html'
@@ -165,6 +166,9 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 		public adrecesComercialsService: ClientsAdresaService
 		 ) {
 			super(activatedRoute);
+			this.setConfigExternalFormComponents([
+				{ resourceName: 'idioma', component: IdiomesFormComponent }
+			]);
 			activatedRoute.params.subscribe((params) => {				
 				if (params.id) {
 					this.modificant = true;

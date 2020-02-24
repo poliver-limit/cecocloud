@@ -18,12 +18,15 @@ import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.se
 import { SubClientsService } from '../subClients/subClients.service';
 import { ClientsAdresaService } from '../clientsAdresa/clientsAdresa.service';
 
+import { IdiomesFormModule } from '../idiomes/idiomes-form.module'
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		IdiomesFormModule,
         RouterModule.forChild( [
             { path: '', component: ClientsGridComponent },            
 			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },
