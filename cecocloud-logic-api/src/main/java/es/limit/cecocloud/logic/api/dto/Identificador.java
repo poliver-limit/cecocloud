@@ -9,9 +9,13 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import es.limit.base.boot.logic.api.annotation.RestapiAuthoritiesWithPermission;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.dto.Authority;
 import es.limit.base.boot.logic.api.dto.Usuari;
 import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
@@ -25,7 +29,26 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio")
+		descriptionField = "descripcio",
+				resourceAccessConstraints = {
+						@RestapiResourceAccessConstraint(
+								type = RestapiPermissionConstraintType.AUTHORITY,
+								authoritiesWithPermissions = {
+										@RestapiAuthoritiesWithPermission(permission = "READ", authorities = {Authority.ADMIN}),
+										@RestapiAuthoritiesWithPermission(permission = "WRITE", authorities = {Authority.ADMIN}),
+										@RestapiAuthoritiesWithPermission(permission = "CREATE", authorities = {Authority.ADMIN}),
+										@RestapiAuthoritiesWithPermission(permission = "DELETE", authorities = {Authority.ADMIN})
+								},
+								mandatory = false),
+						@RestapiResourceAccessConstraint(
+								type = RestapiPermissionConstraintType.ACL_ID, 
+								resourceClass = "es.limit.cecocloud.logic.api.dto.Identificador",
+								resourceSessionField = "i",
+								resourcePermission = "ADMINISTRATION",
+								resourceActionsAllowed = {"READ", "UPDATE"},
+								mandatory = false)
+				}
+)
 public class Identificador extends AbstractIdentificable<Long> {
 
 	@NotNull

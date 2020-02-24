@@ -26,7 +26,7 @@ import lombok.Setter;
 						type = RestapiPermissionConstraintType.ACL_ID, 
 						resourceClass = "es.limit.cecocloud.logic.api.dto.Identificador",
 						resourceSessionField = "i",
-						resourcePermission = "ADMINISTRATION"),
+						resourcePermission = "ADMINISTRATION")
 		}
 )
 public class Perfil extends AbstractIdentificableWithIdentificador<Long> {

@@ -8,6 +8,7 @@ import { BngModule, BngFormExitGuard } from 'base-angular';
 import { MaterialModule } from '../../shared/material.module';
 import { IdentificadorComponent } from './identificador.component';
 import { IdentificadorsService } from './identificadors.service';
+import { IdentificadorsPermissionService } from './identificadors-permission.service';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { IdentificadorsService } from './identificadors.service';
         IdentificadorComponent
     ],
     providers: [
-        IdentificadorsService
+        IdentificadorsService,
+		IdentificadorsPermissionService
     ]
 })
 export class IdentificadorModule { }
