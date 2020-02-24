@@ -317,8 +317,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			if (empresaDb != null) {
 				for (UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresaDb: usuariIdentificadorEmpresaRepository.findByEmpresa(empresaDb)) {
 					boolean trobat = false;
-					for (SincronitzacioEmpresaOperari operariSync: empresaSync.getOperaris()) {
-						if (usuariIdentificadorEmpresaDb.getUsuariCodi().equals(operariSync.getCodi())) {
+					for (SincronitzacioEmpresaUsuari usuariSync: empresaSync.getUsuaris()) {
+						if (usuariIdentificadorEmpresaDb.getUsuariCodi().equals(usuariSync.getUsuariCodi())) {
 							trobat = true;
 							break;
 						}
