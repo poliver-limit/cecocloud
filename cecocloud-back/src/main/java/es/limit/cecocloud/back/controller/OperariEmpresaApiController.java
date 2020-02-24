@@ -44,17 +44,20 @@ public class OperariEmpresaApiController extends AbstractIdentificableApiControl
 	@Override
 	protected String namedRsqlFilter(HttpServletRequest request, Object userSession, String filterName) {
 		if (OperariEmpresa.FILTER_MARC_ALLOWED.equals(filterName)) {
-			System.out.println(">>> Filter " + OperariEmpresa.FILTER_MARC_ALLOWED);
+			//System.out.println(">>> Filter " + OperariEmpresa.FILTER_MARC_ALLOWED);
 			OperariEmpresa operariEmpresa = null;
 			ProfileResourcePermissions resourcePermissions = getResourcePermissions();
 			if (!resourcePermissions.isHasAdminPermission()) {
+				//System.out.println(">>> no te admin");
 				try {
 					operariEmpresa = operariEmpresaService.findByCurrentUserAndSession();
 				} catch (NoSuchElementException ex) {
 					// No s'ha trobat cap operari-empresa
 				}
+			} else {
+				//System.out.println(">>> Te admin");
 			}
-			System.out.println(">>> operariEmpresa: " + operariEmpresa);
+			//System.out.println(">>> operariEmpresa: " + operariEmpresa);
 			if (operariEmpresa != null) {
 				return "id==" + operariEmpresa.getId();
 			}
