@@ -1,22 +1,23 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormBaseComponent } from 'base-angular';
 
 import { IvesService } from './ives.service';
 
-@Component( {
-    template: `
+@Component({
+	template: `
     <bng-form
         bng-form-mant
         [config]="formConfig"
         [restapiService]="ivesService"></bng-form>
 `
-} )
-export class IvesFormComponent {
+})
+export class IvesFormComponent extends BngFormBaseComponent {
 
-    formConfig: BngFormConfig = {
-    }
-
-    constructor(
-        public ivesService: IvesService ) { }
+	constructor(
+		activatedRoute: ActivatedRoute,
+		public ivesService: IvesService) {
+		super(activatedRoute);
+	}
 
 }

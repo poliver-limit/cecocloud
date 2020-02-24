@@ -9,6 +9,8 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { ArticlesGridComponent } from './articles-grid.component';
 import { ArticlesFormComponent } from './articles-form.component';
 import { ArticlesService } from './articles.service';
+import { IvesFormComponent } from '../ives/ives-form.component'
+import { IvesService } from '../ives/ives.service'
 
 @NgModule( {
     imports: [
@@ -24,10 +26,15 @@ import { ArticlesService } from './articles.service';
     ],
     declarations: [
         ArticlesGridComponent,
-        ArticlesFormComponent
+        ArticlesFormComponent,
+		IvesFormComponent
     ],
     providers: [
-        ArticlesService
-    ]
+        ArticlesService,
+		IvesService
+    ],
+	entryComponents: [
+		IvesFormComponent
+	]
 } )
 export class ArticlesModule {}
