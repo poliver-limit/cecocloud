@@ -87,9 +87,11 @@ export class IdentificadorsFormComponent extends BngFormBaseComponent {
 		public funcionalitatsIdentificadorsService: FuncionalitatsIdentificadorsService,
 		public identificadorsPermissionService: IdentificadorsPermissionService) {
 		super(activatedRoute);
+		/**** */
 		this.setConfigExternalFormComponents([
 			{ resourceName: 'usuari', component: BngUsuarisForm }
 		]);
+		/**** */
 		activatedRoute.params.subscribe((params) => {
 			identificadorsPermissionService.setPermissionResourceId(params.id);
 			if (params.id) {

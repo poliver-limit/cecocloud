@@ -17,8 +17,9 @@ import { MatTabChangeEvent } from '@angular/material';
 	templateUrl: 'clients-form.html'
 } )
 
+/**** */
 export class ClientsFormComponent extends BngFormBaseComponent {
-	
+/**** */	
 	public modificant: boolean = false;
 	
 	client: any;
