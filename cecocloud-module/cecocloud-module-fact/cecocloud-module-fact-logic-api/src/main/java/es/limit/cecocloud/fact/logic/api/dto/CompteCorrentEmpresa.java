@@ -67,7 +67,8 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)	
-	private String numeroCompteCorrent;
+//	private String numeroCompteCorrent;
+	private Integer numeroCompteCorrent;
 	
 	@NotNull
 	@RestapiField(
@@ -114,7 +115,8 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 		private String empresaCodi;
 		private Integer bancCodi;
 		private Integer oficinaBancariaCodi;
-		private String numeroCompteCorrent;
+//		private String numeroCompteCorrent;
+		private Integer numeroCompteCorrent;
 		private String digitControl;
 		public CompteCorrentEmpresaPk(
 				String identificadorCodi,
@@ -122,7 +124,8 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 				String clientCodi,
 				String empresaCodi,				
 				Integer oficinaBancariaCodi,
-				String numeroCompteCorrent,
+//				String numeroCompteCorrent,
+				Integer numeroCompteCorrent,
 				String digitControl) {
 			super(identificadorCodi);
 			this.clientCodi = clientCodi;

@@ -43,6 +43,7 @@ import es.limit.cecocloud.fact.logic.api.dto.NaturalesaPagamentCobrament;
 import es.limit.cecocloud.fact.logic.api.dto.OficinaBancaria;
 import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
+import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
@@ -60,6 +61,7 @@ import es.limit.cecocloud.fact.logic.api.dto.SubClient;
 import es.limit.cecocloud.fact.logic.api.dto.Subvencio;
 import es.limit.cecocloud.fact.logic.api.dto.Tarifa;
 import es.limit.cecocloud.fact.logic.api.dto.TarifaDescompte;
+import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
 import es.limit.cecocloud.fact.logic.api.dto.TipusComissio;
 import es.limit.cecocloud.fact.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.fact.logic.api.dto.TipusIncidenciaFactura;
@@ -768,20 +770,24 @@ public class FactModuleRegister {
 						Modul.fact,
 						Arrays.asList(Organitzacio.class),
 						Arrays.asList()));
-		//		new FuncionalitatCodiFontImpl(
-		//				"FAC_PAINIF",
-		//				FuncionalitatTipus.MANTENIMENT,
-		//				"Països NIF",
-		//				Modul.fact,
-		//				Arrays.asList(PaisNif.class),
-		//				Arrays.asList()),
-		//		new FuncionalitatCodiFontImpl(
-		//				"FAC_TIPADR",
-		//				FuncionalitatTipus.MANTENIMENT,
-		//				"Tipus adreça",
-		//				Modul.fact,
-		//				Arrays.asList(TipusAdresa.class),
-		//				Arrays.asList()),
+		funcionalitats.put(
+				"FAC_PAINIF",
+				new FuncionalitatCodiFontImpl(
+					"FAC_PAINIF",
+					FuncionalitatTipus.MANTENIMENT,
+					"Paisos per Nif",
+					Modul.fact,
+					Arrays.asList(PaisNif.class),
+					Arrays.asList()));
+		funcionalitats.put(
+				"FAC_TIPADR",
+				new FuncionalitatCodiFontImpl(
+					"FAC_TIPADR",
+					FuncionalitatTipus.MANTENIMENT,
+					"Tipus adreça",
+					Modul.fact,
+					Arrays.asList(TipusAdresa.class),
+					Arrays.asList()));
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
 				Zona.class.getPackage().getName(),
