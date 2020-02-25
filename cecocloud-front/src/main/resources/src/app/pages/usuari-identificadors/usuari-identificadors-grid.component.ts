@@ -23,7 +23,7 @@ import { UsuariService } from './usuari.service';
 })
 export class UsuariIdentificadorsGridComponent {
 
-	@ViewChild('datagrid', { static: false }) datagrid: BngDatagrid;
+	@ViewChild('datagrid') datagrid: BngDatagrid;
 
 	datagridConfig = {
 		columFiltersEnable: true
