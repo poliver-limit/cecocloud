@@ -33,8 +33,6 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 		identificadorFact.setNom(identificador.getDescripcio());
 		IdentificadorEntity entity = IdentificadorEntity.builder().id(identificador.getCodi()).embedded(identificadorFact).build();
 		indentificadorRepository.save(entity);
-		indentificadorRepository.save(
-				IdentificadorEntity.builder().embedded(identificadorFact).build());
 	}
 
 	@Override
