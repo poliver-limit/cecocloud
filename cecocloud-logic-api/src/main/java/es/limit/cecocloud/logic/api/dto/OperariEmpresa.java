@@ -21,9 +21,12 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "description"
+		descriptionField = "description",
+		sortFields = {"operari.codi", "operari.usuari.nom", "operari.usuari.llinatges"}
 )
 public class OperariEmpresa extends AbstractIdentificable<Long> {
+
+	public static final String FILTER_MARC_ALLOWED = "marc-allowed";
 
 	@NotNull
 	@Transient

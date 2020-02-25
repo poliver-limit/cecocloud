@@ -2,6 +2,7 @@
   bng-form-mant
   [config]="formConfig"
   [restapiService]="clientsService"
+  (resourceLoad)="onResourceLoad($event)"
 >
   <div style="display: flex;">
     <div style="width: 35%; padding-right: 1em">
@@ -17,43 +18,46 @@
     <div style="width: 10%; padding-top: 1em; padding-right: 1em">
       <bng-custom-field name="bloquejat"></bng-custom-field>
     </div>
-  </div>
-  
-  <mat-tab-group>
-    <mat-tab label="{{'resource.projecte.field.titolGeneralClients'|translate}}">
+  </div> 
+
+  <mat-tab-group (selectedTabChange)="onLinkClick($event)">    
+    <mat-tab label="{{'resource.client.field.titolGeneral'|translate}}">
       <ng-container *ngTemplateOutlet="generalTab"></ng-container>
-    </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolContactesClients'|translate}}">
+    </mat-tab>    
+    <mat-tab label="{{'resource.client.field.titolContactes'|translate}}">
       <ng-container *ngTemplateOutlet="contactesTab"></ng-container>
     </mat-tab>
-<!--     <mat-tab label="{{'resource.projecte.field.titolDepartamentClients'|translate}}"> -->
-<!--       <ng-container *ngTemplateOutlet="departamentsTab"></ng-container> -->
-<!--     </mat-tab> -->
-    <mat-tab label="{{'resource.projecte.field.titolFacturaElectronicaClients'|translate}}">
+    <mat-tab label="{{'resource.client.field.titolFacturaElectronica'|translate}}">
       <ng-container *ngTemplateOutlet="facturaElectronicaTab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolComptabilitatClients'|translate}}">
+    <mat-tab [disabled]="!modificant" label="{{'resource.client.field.titolTipus'|translate}}">
+      <ng-container *ngTemplateOutlet="tipusClientTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.client.field.titolComptabilitat'|translate}}">
       <ng-container *ngTemplateOutlet="comptabilitatTab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolFacturacioClients'|translate}}">
+    <mat-tab label="{{'resource.client.field.titolFacturacio'|translate}}">
       <ng-container *ngTemplateOutlet="facturacioTab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolFacturacio2Clients'|translate}}">
+    <mat-tab label="{{'resource.client.field.titolFacturacio2'|translate}}">
       <ng-container *ngTemplateOutlet="facturacio2Tab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolPersonalitzacioClients'|translate}}">
+    <mat-tab label="{{'resource.client.field.titolPersonalitzacio'|translate}}">
       <ng-container *ngTemplateOutlet="personalitzacioTab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolDocumentsClients'|translate}}">
+    <mat-tab [disabled]="!modificant" label="{{'resource.client.field.titolAplicadors'|translate}}">
+      <ng-container *ngTemplateOutlet="aplicadorsClientTab"></ng-container>
+    </mat-tab>
+    <mat-tab label="{{'resource.client.field.titolDocuments'|translate}}">
       <ng-container *ngTemplateOutlet="documentsTab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolSubclientsClients'|translate}}">
+    <mat-tab [disabled]="!modificant" label="{{'resource.client.field.titolSubclients'|translate}}">
       <ng-container *ngTemplateOutlet="subClientsTab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolAdrecesComercialsClients'|translate}}">
+    <mat-tab [disabled]="!modificant" label="{{'resource.client.field.titolAdrecesComercials'|translate}}">
       <ng-container *ngTemplateOutlet="adrecesComercialsTab"></ng-container>
     </mat-tab>
-    <mat-tab label="{{'resource.projecte.field.titolComercialClients'|translate}}">
+    <mat-tab label="{{'resource.client.field.titolComercial'|translate}}">
       <ng-container *ngTemplateOutlet="comercialTab"></ng-container>
     </mat-tab>
   </mat-tab-group>
@@ -155,14 +159,14 @@
   
   <ng-template #contactesTab>
 		<mat-card>
-			<mat-card-title>{{'resource.projecte.field.titolContactesClients'|translate}}</mat-card-title>
+<!-- 			<mat-card-title>{{'resource.client.field.titolContactes'|translate}}</mat-card-title> -->
 			<mat-card-content>
 				<ng-container *ngTemplateOutlet="contactesFields"></ng-container>
 			</mat-card-content>
 		</mat-card>
 		<mat-card>
-<!-- 			<mat-card-title>{{'resource.projecte.field.titolDepartamentClients'|translate}}</mat-card-title> -->
-			<mat-card-content>
+			<mat-card-title>{{'resource.client.field.titolDepartament'|translate}}</mat-card-title>
+			<mat-card-content *ngIf="modificant" >
 				<ng-container *ngTemplateOutlet="departamentClientFields"></ng-container>
 			</mat-card-content>
 		</mat-card>
@@ -202,23 +206,16 @@
 				<bng-custom-field name="longitud"></bng-custom-field>
 			</div>
 		</div>
-	</ng-template>
-	<ng-template #departamentClientFields>
-		<bng-datagrid			
-			[config]="datagridConfig"
-			[restapiService]="departamentsService"
+	</ng-template>			
+	<ng-template #departamentClientFields>	  	
+		<bng-datagrid	
+			*ngIf="contactesSelected"				
+			[config]="departamentsClientDatagridConfig"
+			[restapiService]="departamentsClientService"
+			[editable]="gridsEditables"
 			>
-		</bng-datagrid>   	 		
-	</ng-template>
-		
-	
-	<ng-template #departamentsTab>
-		<bng-datagrid			
-			[config]="datagridConfig"
-			[restapiService]="departamentsService"
-			>
-		</bng-datagrid>   	 
-	</ng-template>
+		</bng-datagrid>		
+    </ng-template>
 	
 	<ng-template #facturaElectronicaTab>
 	  	<div style="display: flex">
@@ -233,19 +230,19 @@
 	      </div> 
 	    </div>  
 	    <mat-card>
-			<mat-card-title>{{'resource.projecte.field.titolOficinaComptableClients'|translate}}</mat-card-title>
+			<mat-card-title>{{'resource.client.field.titolOficinaComptable'|translate}}</mat-card-title>
 			<mat-card-content>
 				<ng-container *ngTemplateOutlet="oficinaComptableFields"></ng-container>
 			</mat-card-content>
 		</mat-card>
 		<mat-card>
-			<mat-card-title>{{'resource.projecte.field.titolOrganGestorClients'|translate}}</mat-card-title>
+			<mat-card-title>{{'resource.client.field.titolOrganGestor'|translate}}</mat-card-title>
 			<mat-card-content>
 				<ng-container *ngTemplateOutlet="organGestorFields"></ng-container>
 			</mat-card-content>
 		</mat-card>
 		<mat-card>
-			<mat-card-title>{{'resource.projecte.field.titolUnitatTramitadoraClients'|translate}}</mat-card-title>
+			<mat-card-title>{{'resource.client.field.titolUnitatTramitadora'|translate}}</mat-card-title>
 			<mat-card-content>
 				<ng-container *ngTemplateOutlet="unitatTramitadoraFields"></ng-container>
 			</mat-card-content>
@@ -293,8 +290,38 @@
 			</div>
 		</div>
 	</ng-template>
+	
+	<ng-template #tipusClientTab>	  	
+		<bng-datagrid	
+			*ngIf="tipusClientsSelected"				
+			[config]="tipusClientsDatagridConfig"
+			[restapiService]="tipusClientsService"
+			[editable]="gridsEditables"
+			>
+		</bng-datagrid>		
+    </ng-template>
+    
+     <ng-template #comptabilitatTab>
+		<mat-card>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="comptabilitatFields"></ng-container>
+			</mat-card-content>
+		</mat-card>		
+		<mat-card *ngIf="modificant" >
+			<mat-card-title>{{'resource.client.field.titolComptesCorrents'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="comptesCorrentsFields"></ng-container>
+			</mat-card-content>
+		</mat-card>
+		<mat-card *ngIf="modificant" >
+			<mat-card-title>{{'resource.client.field.titolComptesComptables'|translate}}</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="comptesComptablesFields"></ng-container>
+			</mat-card-content>
+		</mat-card>
+	</ng-template>
      
-  	<ng-template #comptabilitatTab>
+  	<ng-template #comptabilitatFields>
   		<div style="display: flex">
   			<div style="width: 25%; padding-right: 1em">
         		<bng-custom-field name="paisIban"></bng-custom-field>
@@ -350,7 +377,28 @@
         		<bng-custom-field name="compteVentesComptabilitat"></bng-custom-field>
       		</div>      		 		
     	</div>
-   	</ng-template>    
+   	</ng-template>   
+   	
+   	<ng-template #comptesCorrentsFields>
+  		<bng-datagrid			
+  			*ngIf="comptabilitatSelected"		
+			[config]="comptesCorrentsDatagridConfig"
+			[restapiService]="comptesCorrentsEmpresaService"
+			[editable]="gridsEditables"			>
+		</bng-datagrid>		
+	</ng-template>
+	
+   	<ng-template #comptesComptablesFields>
+  		<bng-datagrid
+  			*ngIf="comptabilitatSelected"				
+			[config]="comptesComptablesDatagridConfig"
+			[restapiService]="comptesComptablesEmpresaService"
+			[editable]="gridsEditables"			>
+		</bng-datagrid>		
+	</ng-template>
+	
+      		
+      		 
    	<ng-template #facturacioTab>
   		<div style="display: flex">
   			<div style="width: 25%; padding-right: 1em">
@@ -523,7 +571,7 @@
     <ng-template #personalitzacioTab>    	
     	<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
 		<mat-card>
-			<mat-card-title>{{'resource.projecte.field.titolParametresAlfanumericsClients'|translate}}</mat-card-title>
+			<mat-card-title>{{'resource.client.field.titolParametresAlfanumerics'|translate}}</mat-card-title>
 			<mat-card-content>
 				<ng-container *ngTemplateOutlet="parametresAlfanumerics"></ng-container>
 			</mat-card-content>
@@ -531,7 +579,7 @@
 		</div>
 		<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
 		<mat-card>
-			<mat-card-title>{{'resource.projecte.field.titolParametresNumericsClients'|translate}}</mat-card-title>
+			<mat-card-title>{{'resource.client.field.titolParametresNumerics'|translate}}</mat-card-title>
 			<mat-card-content>
 				<ng-container *ngTemplateOutlet="parametresNumerics"></ng-container>
 			</mat-card-content>
@@ -552,26 +600,39 @@
 		<bng-custom-field name="parametreNum4"></bng-custom-field>	
 		<bng-custom-field name="parametreNum5"></bng-custom-field>		
 	</ng-template>	
+	
+	<ng-template #aplicadorsClientTab>	  	
+		<bng-datagrid	
+			*ngIf="aplicadorsClientSelected"				
+			[config]="aplicadorsClientDatagridConfig"
+			[restapiService]="aplicadorsClientService"
+			[editable]="gridsEditables"
+			>
+		</bng-datagrid>		
+    </ng-template>
+    
 	<ng-template #documentsTab>
 	</ng-template>
-	<ng-template #subClientsTab>
-	<!-- 		<bng-datagrid -->
-<!-- 			bng-datagrid-mant -->
-<!-- 			[config]="datagridConfig" -->
-<!-- 			[restapiService]="subClientsService"> -->
-<!-- 		</bng-datagrid>    -->	
-<!-- 		<subClient> -->
-<!-- 		</subClient> -->
-	</ng-template>
-	<ng-template #adrecesComercialsTab>
-	<!-- 		<bng-datagrid -->
-<!-- 			bng-datagrid-mant -->
-<!-- 			[config]="datagridConfig" -->
-<!-- 			[restapiService]="clientsAdresaService"> -->
-<!-- 		</bng-datagrid>    -->	
-<!-- 		<clientAdresa> -->
-<!-- 		</clientAdresa> -->
-	</ng-template>      
+	<ng-template #subClientsTab>	  	
+		<bng-datagrid	
+			*ngIf="subClientsSelected"				
+			[config]="subClientsDatagridConfig"
+			[restapiService]="subClientsService"
+			[editable]="gridsEditables"
+			>
+		</bng-datagrid>		
+    </ng-template>
+	
+	<ng-template #adrecesComercialsTab>	  	
+		<bng-datagrid	
+			*ngIf="adrecesComercialsSelected"				
+			[config]="adrecesComercialsDatagridConfig"
+			[restapiService]="adrecesComercialsService"
+			[editable]="gridsEditables"
+			>
+		</bng-datagrid>		
+    </ng-template>   
+	
 	<ng-template #comercialTab>
   		<div style="display: flex">
   			<div style="width: 33%; padding-right: 1em">
@@ -586,7 +647,7 @@
     	</div> 
  		<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
 			<mat-card>
-				<mat-card-title>{{'resource.projecte.field.titolParametresAlfanumericsClients'|translate}}</mat-card-title>
+				<mat-card-title>{{'resource.client.field.titolParametresAlfanumerics'|translate}}</mat-card-title>
 				<mat-card-content>
 					<ng-container *ngTemplateOutlet="parametresAlfanumericsComercial"></ng-container>
 				</mat-card-content>
@@ -594,7 +655,7 @@
 			</div>
 			<div style="display: flex; width: 50%; padding-top: 1em; padding-right: 1em">
 			<mat-card>
-				<mat-card-title>{{'resource.projecte.field.titolParametresNumericsClients'|translate}}</mat-card-title>
+				<mat-card-title>{{'resource.client.field.titolParametresNumerics'|translate}}</mat-card-title>
 				<mat-card-content>
 					<ng-container *ngTemplateOutlet="parametresNumericsComercial"></ng-container>
 				</mat-card-content>

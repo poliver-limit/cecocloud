@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { IdiomesService } from './idiomes.service';
 
@@ -11,12 +12,15 @@ import { IdiomesService } from './idiomes.service';
         [restapiService]="idiomesService"></bng-form>
 `
 } )
-export class IdiomesFormComponent {
+export class IdiomesFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public idiomesService: IdiomesService ) { }
+		activatedRoute: ActivatedRoute,
+        public idiomesService: IdiomesService ) { 
+		super(activatedRoute);
+		}
 
 }

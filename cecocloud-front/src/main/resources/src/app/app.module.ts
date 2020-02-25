@@ -20,6 +20,7 @@ import { SelectorIdentificadorEmpresaComponent } from './shared/selector-identif
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import localeCa from '@angular/common/locales/ca';
+import localeEs from '@angular/common/locales/es';
 
 import { FactModule } from './modules/fact/fact.module';
 import { LiciModule } from './modules/lici/lici.module';
@@ -27,6 +28,7 @@ import { MarcModule } from './modules/marc/marc.module';
 import { RrhhModule } from './modules/rrhh/rrhh.module';
 
 registerLocaleData(localeCa);
+registerLocaleData(localeEs);
 
 // Si no es registra aquí el mòdul InfiniteRowModelModule dona un error a la consola Javascript dient
 // que el mòdul InfiniteRowModelModule no està carregat.

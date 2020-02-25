@@ -78,5 +78,5 @@ public class FuncionalitatIdentificadorPerfilEntity extends AbstractAuditableVer
 	public void updatePerfil(PerfilEntity perfil) {
 		this.perfil = perfil;
 	}
-	
+
 }

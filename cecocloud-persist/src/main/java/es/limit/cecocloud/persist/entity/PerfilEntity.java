@@ -3,8 +3,11 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -52,6 +56,12 @@ public class PerfilEntity extends AbstractAuditableVersionableEntity<Perfil, Lon
 			name = "identificador_id",
 			foreignKey = @ForeignKey(name = "perfil_identificador_fk"))
 	protected IdentificadorEntity identificador;
+
+	@OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL)
+	protected List<PerfilUsuariIdentificadorEmpresaEntity> perfilsUsuarisIdentificadorsEmpreses;
+
+	@OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL)
+	protected List<FuncionalitatIdentificadorPerfilEntity> funcionalitatsIdentificadorsPerfils;
 
 	@Builder
 	public PerfilEntity(

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { BngAuthService, BngRestapiProfile, BngRestapiResource } from 'base-angular';
+import { BngAuthService, BngRestapiProfile, BngRestapiResource, BngDatagridConfig } from 'base-angular';
 
 import { IdentificadorsService, Funcionalitat } from './identificadors.service';
+import { IdentificadorsPermissionService } from './identificadors-permission.service';
 
 @Component({
 	template: `
@@ -63,6 +64,13 @@ import { IdentificadorsService, Funcionalitat } from './identificadors.service';
 		</div>
 	</h2>
 	<mat-tab-group animationDuration="0">
+		<mat-tab label="{{'resource.permission.plural' | translate}}">
+			<br/>
+			<bng-datagrid
+				[config]="permisosDatagridConfig"
+				[restapiService]="identificadorsPermissionService"
+				[editable]="true"></bng-datagrid>
+		</mat-tab>
 		<mat-tab label="{{'resource.funcionalitat.plural' | translate}}">
 			<mat-accordion>
 				<mat-expansion-panel *ngFor="let modulCodi of modulsCodis">
@@ -94,10 +102,26 @@ export class IdentificadorComponent {
 	funcionalitats: any = {};
 	modulsCodis: string[];
 
+	permisosDatagridConfig: BngDatagridConfig = {
+		mode: 'form',
+		columns: [{
+			field: 'sidName',
+			width: 60
+		}, {
+			field: 'adminGranted',
+			width: 20
+		}, {
+			field: 'syncGranted',
+			width: 20
+		}]
+	};
+
 	constructor(
 		authService: BngAuthService,
-		public identificadorsService: IdentificadorsService) {
+		public identificadorsService: IdentificadorsService,
+		public identificadorsPermissionService: IdentificadorsPermissionService) {
 		this.id = authService.getSession().i;
+		identificadorsPermissionService.setPermissionResourceId(this.id);
 		this.identificadorsService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
 			this.restapiResource = restapiProfile.resource;
 			this.identificadorsService.get(this.id).subscribe((identificador: any) => {

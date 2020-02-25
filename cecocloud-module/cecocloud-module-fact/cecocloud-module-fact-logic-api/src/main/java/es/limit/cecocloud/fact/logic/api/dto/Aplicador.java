@@ -13,6 +13,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.Aplicador.AplicadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.fact.logic.api.dto.enums.AplicadorCategoriaEnumDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -59,9 +60,8 @@ public class Aplicador extends AbstractIdentificableWithIdentificador<AplicadorP
 	
 	@RestapiField(
 			includeInQuickFilter = true,
-			hiddenInGrid = true)
-	@Size(max = 1)
-	private String categoria;
+			hiddenInGrid = true)	
+	private AplicadorCategoriaEnumDto categoria;
 	
 	@RestapiField(
 			includeInQuickFilter = true,

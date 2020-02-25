@@ -80,7 +80,7 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 	}
 
 	@Override
-	protected String additionalRsqlFilterFromSession(Object userSession) {
+	protected String additionalRsqlFilter(HttpServletRequest request, Object userSession) {
 		Long identificadorId = ((UserSession)userSession).getI();
 		return "empresa.identificador.id==" + identificadorId;
 	}

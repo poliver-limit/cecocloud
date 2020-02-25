@@ -44,7 +44,8 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)
+			includeInQuickFilter = true,
+			lovNamedFilter = OperariEmpresa.FILTER_MARC_ALLOWED)
 	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 	@NotNull
 	@RestapiField(type = RestapiFieldType.DATETIME)
