@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from "@ngx-translate/core";
 import { HalParam } from '@lagoshny/ngx-hal-client';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BngFormBaseComponent, BngDatagridConfig } from 'base-angular';
 
