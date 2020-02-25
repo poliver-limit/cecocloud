@@ -1,143 +1,132 @@
-<bng-form
-  bng-form-mant
-  [config]="formConfig"
-  [restapiService]="licitacionsService"
->
-<mat-card>
+<bng-form [config]="formConfig" [restapiService]="licitacionsService">
+  <bng-custom-field name="codi" style="display: none;"></bng-custom-field>
+  <mat-card>
     <mat-card-title>{{'resource.licitacio'|translate}}</mat-card-title>
     <mat-card-content>
       <ng-container *ngTemplateOutlet="fieldsCard1"></ng-container>
     </mat-card-content>
   </mat-card>
   <mat-card>
-    <mat-card-title>{{'resource.licitacio.field.titolCardInformacio'|translate}}</mat-card-title>
+    <mat-card-title
+      >{{'resource.licitacio.field.titolCardDoc'|translate}}</mat-card-title
+    >
     <mat-card-content>
       <ng-container *ngTemplateOutlet="fieldsCard2"></ng-container>
     </mat-card-content>
   </mat-card>
+  <mat-card>
+    <mat-card-title
+      >{{'resource.licitacio.field.nota'|translate}}</mat-card-title
+    >
+    <mat-card-content>
+      <ng-container *ngTemplateOutlet="fieldsCard3"></ng-container>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- -------------------------------------------------------------------------- -->
 
   <ng-template #fieldsCard1>
-    <!--table>
-        <tr>
-            <td>{{'resource.licitacio.field.expedientId' | translate}}</td>
-            <td>{{resource.licitacio.field.expedientId}}</td>
-        </tr>
-        <tr>
-            <td>{{'resource.licitacio.field.expedientId' | translate}}</td>
-            <td>{{resource.licitacio.field.expedientId}}</td>
-        </tr>
-    </table-->
+    <table *ngIf="tLic.length" mat-table [dataSource]="tLic">
+      <!-- Label Column -->
+      <ng-container matColumnDef="label">
+        <!-- <th mat-header-cell *matHeaderCellDef> Label </th> -->
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="width: 30%; font-weight: bold; background-color: #f4ecf7;"
+        >
+          {{element.label | translate}}
+        </td>
+      </ng-container>
 
-    <mat-list role="list">
-        <mat-list-item role="listitem">Item 1</mat-list-item>
-        <mat-list-item role="listitem">Item 2</mat-list-item>
-        <mat-list-item role="listitem">Item 3</mat-list-item>
-    </mat-list>
+      <!-- Descricio Column -->
+      <ng-container matColumnDef="descripcio">
+        <!-- <th mat-header-cell *matHeaderCellDef> Descricio </th> -->
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="width: 70%; padding-left: 1em;"
+        >
+          <a
+            *ngIf="element.label == 'licitacio.camp.url'; else desc"
+            href="{{element.descripcio}}"  target="_blank">
+            {{element.descripcio}}
+            </a>
+          <ng-template #desc>
+            {{element.descripcio}}
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </ng-template>
 
- 
+  <!-- -------------------------------------------------------------------------- -->
 
-            <!-- <ng-container *ngTemplateOutlet="formTemplate"></ng-container>
-            </ng-container>
-            <div class="card" *ngIf="isUiThemeCoreui()">
-          
-            <div class="card-body"> 
-            <h4 class="mb-3">{{ translateByKey("resource.licitacio.field.expedientId") + ': ' + licitacioInfo.expedientId }}
-            <i [ngClass]="{'fa-star text-warning': licitacioInfo.destacat, 'fa-star-o': !licitacioInfo.destacat}"
-            (click)="changeDestacat(licitacioInfo.destacat)" class="fa fa-lg float-right" style="cursor: pointer;"></i>
-            </h4>
-            <table class="table table-striped mb-3">
-                <tbody>
-                <tr *ngIf="licitacioInfo.unitatNom !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.unitatNom") }}</th>
-                    <td>{{ licitacioInfo.unitatNom }}</td>
-                </tr>
-                <tr *ngIf="licitacioInfo.expedientEstatDescripcio !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.expedientEstatDescripcio") }}</th>
-                    <td>{{ licitacioInfo.expedientEstatDescripcio }}</td>
-                </tr>
-                <tr *ngIf="licitacioInfo.projecteTitol !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.projecteTitol") }}</th>
-                    <td>{{ licitacioInfo.projecteTitol }}</td>
-                </tr>
-                <tr *ngIf="licitacioInfo.projecteImportSenseTaxes !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.projecteImportSenseTaxes") }}</th>
-                    <td>{{ currencyConverter(licitacioInfo.projecteImportSenseTaxes) + ' ' + licitacioInfo.projecteMoneda}}</td>
-                </tr>
-                <tr *ngIf="licitacioInfo.projecteImportTotal !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.projecteImportTotal") }}</th>
-                    <td>{{ currencyConverter(licitacioInfo.projecteImportTotal) + ' ' + licitacioInfo.projecteMoneda}}</td>
-                </tr>
-                <tr *ngIf="licitacioInfo.projecteTipusDescripcio !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.projecteTipusDescripcio") }}</th>
-                    <td>{{ licitacioInfo.projecteTipusDescripcio }}</td>
-                </tr>
-                <tr *ngIf="licitacioInfo.cpvs !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.cpvs") }}</th>
-                    <td>
-                    <ul class="p-0 m-0">
-                        <li *ngFor="let cpv of licitacioInfo.cpvs; let isLast=last" class="list-unstyled m-0">
-                        {{ cpv.codi + ' - ' + cpv.descripcio}}
-                        </li>
-                    </ul>
-                    </td>
-                </tr>
-                <tr *ngIf="licitacioInfo.projectePaisDescripcio !== undefined || licitacioInfo.projecteProvinciaDescripcio !==undefined">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.llocExecucio") }}</th>
-                    <td>
-                        <span *ngIf="licitacioInfo.projectePaisDescripcio !==undefined">
-                            {{ licitacioInfo.projectePaisDescripcio }}
-                        </span>
-                        <span *ngIf="licitacioInfo.projectePaisDescripcio !== undefined
-                                && licitacioInfo.projecteProvinciaDescripcio !==undefined "> - </span>
-                        <span *ngIf="licitacioInfo.projecteProvinciaDescripcio !==undefined">
-                            {{ licitacioInfo.projecteProvinciaDescripcio }} <span class="pull-right">({{ licitacioInfo.projecteProvinciaCodi }})</span>
-                        </span>
-                    </td>
-                </tr>
-                <tr *ngIf="licitacioInfo.procedimentTipusDescripcio">
-                    <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.procedimentTipusDescripcio") }}</th>
-                    <td>{{ licitacioInfo.procedimentTipusDescripcio }}</td>
-                </tr>
-                </tbody>
-            </table>
-            <h4 class="mb-3">{{ translateByKey("restapi.lici.licitacio.field.informacio") }}</h4>
-            <table class="table table-striped">
-                <tbody>
-                    <tr *ngIf="licitacioInfo.dataLimit">
-                        <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.dataLimitSolicitut") }}</th>
-                        <td>{{ dateTimeConverter(licitacioInfo.dataLimit) }}</td>
-                    </tr>
-                    <tr *ngIf="licitacioInfo.dataLimit">
-                        <th scope="row">{{ translateByKey("restapi.lici.licitacio.field.dataLimitOferta") }}</th>
-                        <td>{{ dateTimeConverter(licitacioInfo.dataLimit) }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h4 class="mb-3">{{ translateByKey("restapi.lici.licitacio.field.documents") }}</h4>
-            <table class="table table-bordered" *ngIf="licitacioInfo.documentsAddicionals && licitacioInfo.documentsAddicionals.length > 0">
-                <tbody>
-                    <tr>
-                        <th class="text-center">{{ translateByKey("restapi.lici.licitacio.field.documentTipus") }}</th>
-                        <th class="text-center">{{ translateByKey("restapi.lici.licitacio.field.documentNom") }}</th>
-                        <th class="text-center">{{ translateByKey("restapi.lici.licitacio.field.documentVeure") }}</th>
-                    </tr>
-                    <tr *ngFor="let doc of sortDocuments(licitacioInfo.documentsAddicionals)">
-                        <td>{{doc.tipus}}</td>
-                        <td>{{doc.nom}}</td>
-                        <td class="text-center">
-                                <a target="_blank" [href]="doc.uri" class="btn btn-primary btn-sm"><span class="fa fa-download"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-                </table>
-                <h4 class="mb-3">Nota</h4>
-                <textarea class="form-control form-control-sm" maxlength="2000" id="nota" name="nota" [(ngModel)]="nota" [value]='nota'></textarea><br>
-                <p>
-                    EnllaÃ§ a la licitaciÃ³: <a target="_blank" [href]="licitacioInfo.uri">{{ licitacioInfo.uri }}</a><br>
-                    Darrera actualitzaciÃ³: {{ dateTimeConverter(licitacioInfo.dataActualitzacio) }}
-                </p>
-            </div>
-        </div> -->
-        
+  <ng-template #fieldsCard2>
+    <table *ngIf="tDocs.length" mat-table [dataSource]="tDocs">
+      <!-- Tipus Column -->
+      <ng-container matColumnDef="nom">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="font-weight: bold; font-size: large;"
+        >
+          Nombre
+        </th>
+        <td mat-cell *matCellDef="let element" style="width: 50%;">
+          {{element.nom}}
+        </td>
+      </ng-container>
+
+      <!-- Nom Column -->
+      <ng-container matColumnDef="tipus">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="font-weight: bold; font-size: large;"
+        >
+          Tipo
+        </th>
+        <td mat-cell *matCellDef="let element" style="width: 50%; ">
+          {{element.tipus}}
+        </td>
+      </ng-container>
+
+      <!-- Descargar Column -->
+      <ng-container matColumnDef="uri">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="font-weight: bold; font-size: large;"
+        >
+          Descargar
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="width: 50%; padding-left: 1em;"
+        >
+          <a href="{{element.uri}}">
+           Descargar
+          </a>
+        </td>       
+       
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsDoc"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsDoc;"></tr>
+    </table>
+  </ng-template>
+
+  <!-- -------------------------------------------------------------------------- -->
+
+  <ng-template #fieldsCard3>
+    <textarea
+      ng-model="myTextarea"
+      style="resize: none;width: 100%;"
+    ></textarea>
+  </ng-template>
 </bng-form>

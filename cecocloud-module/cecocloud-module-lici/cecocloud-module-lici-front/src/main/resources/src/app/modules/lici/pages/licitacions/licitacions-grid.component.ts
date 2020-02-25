@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { LicitacionsService } from './licitacions.service';
-import { BngDatagridConfig, BngDatagridColumn } from '@programari-limit/base-angular';
+import { BngDatagridConfig } from '@programari-limit/base-angular';
 
 @Component({
 	template: `

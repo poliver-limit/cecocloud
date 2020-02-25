@@ -5,6 +5,8 @@ package es.limit.cecocloud.lici.logic.api.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -151,12 +153,11 @@ public class Licitacio extends AbstractIdentificable<Long> {
 	@Size(max = 2000)
 	private String nota;	
 	@RestapiField(hiddenInLov = true, disabledForUpdate = true, hiddenInGrid = true)
-	private boolean esborrada;	
+	private boolean esborrada;		
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = false,
 			hiddenInGrid = true)
 	private GenericReference<Empresa, Long> empresa;
-
 }

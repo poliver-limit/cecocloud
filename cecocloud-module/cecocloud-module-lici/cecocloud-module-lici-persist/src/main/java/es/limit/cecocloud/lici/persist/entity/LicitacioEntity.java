@@ -79,10 +79,10 @@ public class LicitacioEntity extends AbstractAuditableVersionableEntity<Licitaci
 	@Embedded
 	protected Licitacio embedded;
 
-	@OneToMany(mappedBy="licitacio", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy="licitacio", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@OrderBy("codi asc")
 	private Set<CpvEntity> cpvs;
-	@OneToMany(mappedBy="licitacio", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy="licitacio", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@OrderBy("codi asc")
 	private Set<DocumentEntity> documentsAddicionals;
 	/*@Formula(value = " CASE WHEN ((SELECT "
