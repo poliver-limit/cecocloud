@@ -20,7 +20,7 @@
     </div>
   </div> 
 
-  <mat-tab-group (selectedTabChange)="onLinkClick($event)">    
+  <mat-tab-group (selectedTabChange)="onLinkClick($event)" animationDuration="0">    
     <mat-tab label="{{'resource.client.field.titolGeneral'|translate}}">
       <ng-container *ngTemplateOutlet="generalTab"></ng-container>
     </mat-tab>    
