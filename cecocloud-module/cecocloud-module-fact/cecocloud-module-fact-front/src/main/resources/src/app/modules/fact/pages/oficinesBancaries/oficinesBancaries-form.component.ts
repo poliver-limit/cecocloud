@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { OficinesBancariesService } from './oficinesBancaries.service';
 
@@ -11,12 +12,14 @@ import { OficinesBancariesService } from './oficinesBancaries.service';
         [restapiService]="oficinesBancariesService"></bng-form>
 `
 } )
-export class OficinesBancariesFormComponent {
+export class OficinesBancariesFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public oficinesBancariesService: OficinesBancariesService ) { }
-
+		activatedRoute: ActivatedRoute,
+        public oficinesBancariesService: OficinesBancariesService ) {
+			super(activatedRoute);
+		}
 }

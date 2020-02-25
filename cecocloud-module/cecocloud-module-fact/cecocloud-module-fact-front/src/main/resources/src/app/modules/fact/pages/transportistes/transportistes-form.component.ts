@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { TransportistesService } from './transportistes.service';
 
@@ -11,12 +12,14 @@ import { TransportistesService } from './transportistes.service';
         [restapiService]="transportistesService"></bng-form>
 `
 } )
-export class TransportistesFormComponent {
+export class TransportistesFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
-    constructor(
-        public transportistesService: TransportistesService ) { }
-
+     constructor(
+		activatedRoute: ActivatedRoute,
+        public transportistesService: TransportistesService ) {
+			super(activatedRoute);
+		}
 }

@@ -10,12 +10,15 @@ import { DocumentsPagamentCobramentGridComponent } from './documentsPagamentCobr
 import { DocumentsPagamentCobramentFormComponent } from './documentsPagamentCobrament-form.component';
 import { DocumentsPagamentCobramentService } from './documentsPagamentCobrament.service';
 
+import { DocumentsPagamentCobramentFormModule } from './documentsPagamentCobrament-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		DocumentsPagamentCobramentFormModule,
         RouterModule.forChild( [
             { path: '', component: DocumentsPagamentCobramentGridComponent },
             { path: 'create', component: DocumentsPagamentCobramentFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { DocumentsPagamentCobramentService } from './documentsPagamentCobrament.
         ] )
     ],
     declarations: [
-        DocumentsPagamentCobramentGridComponent,
-        DocumentsPagamentCobramentFormComponent
+        DocumentsPagamentCobramentGridComponent        
     ],
     providers: [
         DocumentsPagamentCobramentService

@@ -10,12 +10,15 @@ import { OficinesBancariesGridComponent } from './oficinesBancaries-grid.compone
 import { OficinesBancariesFormComponent } from './oficinesBancaries-form.component';
 import { OficinesBancariesService } from './oficinesBancaries.service';
 
+import { OficinesBancariesFormModule } from './oficinesBancaries-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		OficinesBancariesFormModule,
         RouterModule.forChild( [
             { path: '', component: OficinesBancariesGridComponent },
             { path: 'create', component: OficinesBancariesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { OficinesBancariesService } from './oficinesBancaries.service';
         ] )
     ],
     declarations: [
-        OficinesBancariesGridComponent,
-        OficinesBancariesFormComponent
+        OficinesBancariesGridComponent        
     ],
     providers: [
         OficinesBancariesService

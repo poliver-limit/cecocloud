@@ -10,12 +10,15 @@ import { EmpresesFactGridComponent } from './empresesFact-grid.component';
 import { EmpresesFactFormComponent } from './empresesFact-form.component';
 import { EmpresesFactService } from './empresesFact.service';
 
+import { EmpresesFactFormModule } from './empresesFact-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		EmpresesFactFormModule,
         RouterModule.forChild( [
             { path: '', component: EmpresesFactGridComponent },
             { path: 'create', component: EmpresesFactFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { EmpresesFactService } from './empresesFact.service';
         ] )
     ],
     declarations: [
-        EmpresesFactGridComponent,
-        EmpresesFactFormComponent
+        EmpresesFactGridComponent        
     ],
     providers: [
         EmpresesFactService

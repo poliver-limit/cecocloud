@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { ClassesRetencionsService } from './classesRetencions.service';
 
@@ -11,12 +12,14 @@ import { ClassesRetencionsService } from './classesRetencions.service';
         [restapiService]="classesRetencionsService"></bng-form>
 `
 } )
-export class ClassesRetencionsFormComponent {
+export class ClassesRetencionsFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
-    constructor(
-        public classesRetencionsService: ClassesRetencionsService ) { }
-
+     constructor(
+		activatedRoute: ActivatedRoute,
+        public classesRetencionsService: ClassesRetencionsService ) {
+			super(activatedRoute);
+		}
 }

@@ -10,12 +10,15 @@ import { DivisesGridComponent } from './divises-grid.component';
 import { DivisesFormComponent } from './divises-form.component';
 import { DivisesService } from './divises.service';
 
+import { DivisesFormModule } from './divises-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		DivisesFormModule,
         RouterModule.forChild( [
             { path: '', component: DivisesGridComponent },
             { path: 'create', component: DivisesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { DivisesService } from './divises.service';
         ] )
     ],
     declarations: [
-        DivisesGridComponent,
-        DivisesFormComponent
+        DivisesGridComponent        
     ],
     providers: [
         DivisesService

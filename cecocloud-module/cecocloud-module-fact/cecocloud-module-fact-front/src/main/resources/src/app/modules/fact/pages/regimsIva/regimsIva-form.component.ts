@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { RegimsIvaService } from './regimsIva.service';
 
@@ -11,12 +12,16 @@ import { RegimsIvaService } from './regimsIva.service';
         [restapiService]="regimsIvaService"></bng-form>
 `
 } )
-export class RegimsIvaFormComponent {
+export class RegimsIvaFormComponent extends BngFormBaseComponent {
+
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public regimsIvaService: RegimsIvaService ) { }
+		activatedRoute: ActivatedRoute,
+        public regimsIvaService: RegimsIvaService ) {
+			super(activatedRoute);
+		}
 
 }

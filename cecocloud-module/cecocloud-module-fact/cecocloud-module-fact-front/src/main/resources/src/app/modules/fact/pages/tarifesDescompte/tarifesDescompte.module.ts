@@ -10,12 +10,15 @@ import { TarifesDescompteGridComponent } from './tarifesDescompte-grid.component
 import { TarifesDescompteFormComponent } from './tarifesDescompte-form.component';
 import { TarifesDescompteService } from './tarifesDescompte.service';
 
+import { TarifesDescompteFormModule } from './tarifesDescompte-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		TarifesDescompteFormModule,
         RouterModule.forChild( [
             { path: '', component: TarifesDescompteGridComponent },
             { path: 'create', component: TarifesDescompteFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { TarifesDescompteService } from './tarifesDescompte.service';
         ] )
     ],
     declarations: [
-        TarifesDescompteGridComponent,
-        TarifesDescompteFormComponent
+        TarifesDescompteGridComponent        
     ],
     providers: [
         TarifesDescompteService

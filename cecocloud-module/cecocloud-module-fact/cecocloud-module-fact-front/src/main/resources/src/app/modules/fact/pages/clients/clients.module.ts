@@ -18,7 +18,28 @@ import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.se
 import { SubClientsService } from '../subClients/subClients.service';
 import { ClientsAdresaService } from '../clientsAdresa/clientsAdresa.service';
 
+import { DivisesFormModule } from '../divises/divises-form.module'
+import { TipusVencimentsFormModule } from '../tipusVenciments/tipusVenciments-form.module'
+import { RegimsIvaFormModule } from '../regimsIva/regimsIva-form.module'
+import { RappelsFormModule } from '../rappels/rappels-form.module'
+import { DocumentsPagamentCobramentFormModule } from '../documentsPagamentCobrament/documentsPagamentCobrament-form.module'
+import { TipusFacturacionsFormModule } from '../tipusFacturacions/tipusFacturacions-form.module'
+import { FamiliesClientFormModule } from '../familiesClient/familiesClient-form.module'
+import { CodisPostalFormModule } from '../codisPostal/codisPostal-form.module'
 import { IdiomesFormModule } from '../idiomes/idiomes-form.module'
+import { ZonesFormModule } from '../zones/zones-form.module'
+import { EmpresesFactFormModule } from '../empresesFact/empresesFact-form.module'
+import { SeriesVendaFormModule } from '../seriesVenda/seriesVenda-form.module'
+import { IvesFormModule } from '../ives/ives-form.module'
+import { TarifesFormModule } from '../tarifes/tarifes-form.module'
+import { BancsFormModule } from '../bancs/bancs-form.module'
+import { OficinesBancariesFormModule } from '../oficinesBancaries/oficinesBancaries-form.module'
+import { TransportistesFormModule } from '../transportistes/transportistes-form.module'
+//import { OperarisFormModule } from '../operaris/operaris-form.module'
+import { ClassesRetencionsFormModule } from '../classesRetencions/classesRetencions-form.module'
+import { ClientsAdresaFormModule } from '../clientsAdresa/clientsAdresa-form.module'
+import { OrganitzacionsFormModule } from '../organitzacions/organitzacions-form.module'
+import { TarifesDescompteFormModule } from '../tarifesDescompte/tarifesDescompte-form.module'
 
 @NgModule( {
     imports: [
@@ -26,7 +47,28 @@ import { IdiomesFormModule } from '../idiomes/idiomes-form.module'
 		TranslateModule,
 		BngModule,
 		MaterialModule,
-		IdiomesFormModule,
+		DivisesFormModule,                   
+		TipusVencimentsFormModule,           
+		RegimsIvaFormModule,                 
+		RappelsFormModule,                   
+		DocumentsPagamentCobramentFormModule,
+		TipusFacturacionsFormModule,         
+		FamiliesClientFormModule,            
+		CodisPostalFormModule,               
+		IdiomesFormModule,                   
+		ZonesFormModule,                     
+		EmpresesFactFormModule,              
+		SeriesVendaFormModule,               
+		IvesFormModule,                      
+		TarifesFormModule,                   
+		BancsFormModule,                     
+		OficinesBancariesFormModule,         
+		TransportistesFormModule,            
+		//OperarisFormModule,                
+		ClassesRetencionsFormModule,         
+		ClientsAdresaFormModule,             
+		OrganitzacionsFormModule,            
+		TarifesDescompteFormModule,
         RouterModule.forChild( [
             { path: '', component: ClientsGridComponent },            
 			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },

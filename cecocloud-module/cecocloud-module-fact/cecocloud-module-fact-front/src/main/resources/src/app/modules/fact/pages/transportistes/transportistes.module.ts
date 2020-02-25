@@ -10,12 +10,15 @@ import { TransportistesGridComponent } from './transportistes-grid.component';
 import { TransportistesFormComponent } from './transportistes-form.component';
 import { TransportistesService } from './transportistes.service';
 
+import { TransportistesFormModule } from './transportistes-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		TransportistesFormModule,
         RouterModule.forChild( [
             { path: '', component: TransportistesGridComponent },
             { path: 'create', component: TransportistesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { TransportistesService } from './transportistes.service';
         ] )
     ],
     declarations: [
-        TransportistesGridComponent,
-        TransportistesFormComponent
+        TransportistesGridComponent        
     ],
     providers: [
         TransportistesService

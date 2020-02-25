@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { SeriesVendaService } from './seriesVenda.service';
 
@@ -11,12 +12,14 @@ import { SeriesVendaService } from './seriesVenda.service';
         [restapiService]="seriesVendaService"></bng-form>
 `
 } )
-export class SeriesVendaFormComponent {
+export class SeriesVendaFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
-    constructor(
-        public seriesVendaService: SeriesVendaService ) { }
-
+   constructor(
+		activatedRoute: ActivatedRoute,
+        public seriesVendaService: SeriesVendaService ) {
+			super(activatedRoute);
+		}
 }

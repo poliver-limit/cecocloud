@@ -10,12 +10,15 @@ import { FamiliesClientGridComponent } from './familiesClient-grid.component';
 import { FamiliesClientFormComponent } from './familiesClient-form.component';
 import { FamiliesClientService } from './familiesClient.service';
 
+import { FamiliesClientFormModule } from './familiesClient-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		FamiliesClientFormModule,
         RouterModule.forChild( [
             { path: '', component: FamiliesClientGridComponent },
             { path: 'create', component: FamiliesClientFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { FamiliesClientService } from './familiesClient.service';
         ] )
     ],
     declarations: [
-        FamiliesClientGridComponent,
-        FamiliesClientFormComponent
+        FamiliesClientGridComponent        
     ],
     providers: [
         FamiliesClientService

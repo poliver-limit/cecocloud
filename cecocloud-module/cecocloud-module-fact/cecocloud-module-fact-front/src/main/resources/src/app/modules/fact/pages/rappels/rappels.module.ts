@@ -10,12 +10,15 @@ import { RappelsGridComponent } from './rappels-grid.component';
 import { RappelsFormComponent } from './rappels-form.component';
 import { RappelsService } from './rappels.service';
 
+import { RappelsFormModule } from './rappels-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		RappelsFormModule,
         RouterModule.forChild( [
             { path: '', component: RappelsGridComponent },
             { path: 'create', component: RappelsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { RappelsService } from './rappels.service';
         ] )
     ],
     declarations: [
-        RappelsGridComponent,
-        RappelsFormComponent
+        RappelsGridComponent        
     ],
     providers: [
         RappelsService

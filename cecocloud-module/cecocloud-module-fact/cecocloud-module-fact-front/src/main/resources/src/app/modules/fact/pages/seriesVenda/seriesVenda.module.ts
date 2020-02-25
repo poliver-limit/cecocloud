@@ -10,12 +10,15 @@ import { SeriesVendaGridComponent } from './seriesVenda-grid.component';
 import { SeriesVendaFormComponent } from './seriesVenda-form.component';
 import { SeriesVendaService } from './seriesVenda.service';
 
+import { SeriesVendaFormModule } from './seriesVenda-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		SeriesVendaFormModule,
         RouterModule.forChild( [
             { path: '', component: SeriesVendaGridComponent },
             { path: 'create', component: SeriesVendaFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { SeriesVendaService } from './seriesVenda.service';
         ] )
     ],
     declarations: [
-        SeriesVendaGridComponent,
-        SeriesVendaFormComponent
+        SeriesVendaGridComponent        
     ],
     providers: [
         SeriesVendaService

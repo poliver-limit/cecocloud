@@ -10,12 +10,15 @@ import { TarifesGridComponent } from './tarifes-grid.component';
 import { TarifesFormComponent } from './tarifes-form.component';
 import { TarifesService } from './tarifes.service';
 
+import { TarifesFormModule } from './tarifes-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		TarifesFormModule,
         RouterModule.forChild( [
             { path: '', component: TarifesGridComponent },
             { path: 'create', component: TarifesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { TarifesService } from './tarifes.service';
         ] )
     ],
     declarations: [
-        TarifesGridComponent,
-        TarifesFormComponent
+        TarifesGridComponent        
     ],
     providers: [
         TarifesService

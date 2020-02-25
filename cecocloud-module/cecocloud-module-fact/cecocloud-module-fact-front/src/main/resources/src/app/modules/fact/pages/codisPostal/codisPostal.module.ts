@@ -10,12 +10,15 @@ import { CodisPostalGridComponent } from './codisPostal-grid.component';
 import { CodisPostalFormComponent } from './codisPostal-form.component';
 import { CodisPostalService } from './codisPostal.service';
 
+import { CodisPostalFormModule } from './codisPostal-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		CodisPostalFormModule,
         RouterModule.forChild( [
             { path: '', component: CodisPostalGridComponent },
             { path: 'create', component: CodisPostalFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { CodisPostalService } from './codisPostal.service';
         ] )
     ],
     declarations: [
-        CodisPostalGridComponent,
-        CodisPostalFormComponent
+        CodisPostalGridComponent        
     ],
     providers: [
         CodisPostalService
