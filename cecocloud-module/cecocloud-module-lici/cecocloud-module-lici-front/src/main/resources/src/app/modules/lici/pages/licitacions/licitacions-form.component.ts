@@ -27,6 +27,9 @@ export class LicitacionsFormComponent implements OnInit {
     this.licitacionsService.whenReady().subscribe(() => {
       this.licitacionsService.get(this.id).subscribe(licitacio => {
         this.licitacio = licitacio;
+
+        console.log("LICITACIÓN: " , this.licitacio);
+
          if((this.licitacio.url).includes('https://') ){
            this.licitacio.url = this.licitacio.uri;
          }else{
@@ -102,7 +105,6 @@ export class LicitacionsFormComponent implements OnInit {
             this.tDocs = docs;
             for(var i=0;i<this.tDocs.length;i++){           
               this.documentos.push(this.tDocs[i].nom, this.tDocs[i].tipus, this.tDocs[i].uri);
-              console.log("array documentos: " , this.documentos)
             }
           });
         });

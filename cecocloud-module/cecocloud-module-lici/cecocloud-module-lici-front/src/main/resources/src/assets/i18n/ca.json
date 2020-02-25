@@ -47,6 +47,11 @@
   "resource.licitacio.field.destacada": "Destacada",
   "resource.licitacio.field.esborrada": "Esborrada",
 
+  "resource.licitacio.field.titolCardDoc": "Documents",
+  "resource.licitacio.field.linkPeuPagina": "Enllaç a la licitació",
   "licitacio.camp.expedient": "Expedient",
-  "licitacio.camp.url": "Enllaç a la licitació"
+  "licitacio.camp.url": "Enllaç a la licitació",
+  "licitacio.camp.DocNom": "Nom",
+  "licitacio.camp.DocTipus": "Tipus",
+  "licitacio.camp.DocLinkDescarraga": "Descarragar"
 }
