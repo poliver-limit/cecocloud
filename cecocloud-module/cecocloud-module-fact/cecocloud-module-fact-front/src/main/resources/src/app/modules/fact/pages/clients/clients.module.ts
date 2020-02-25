@@ -42,6 +42,7 @@ import { OrganitzacionsFormModule } from '../organitzacions/organitzacions-form.
 import { TarifesDescompteFormModule } from '../tarifesDescompte/tarifesDescompte-form.module'
 import { PaisosNifFormModule } from '../paisosNif/paisosNif-form.module'
 import { TipusAdrecesFormModule } from '../tipusAdreces/tipusAdreces-form.module'
+import { TipusComissionsFormModule } from '../tipusComissions/tipusComissions-form.module'
 
 @NgModule( {
     imports: [
@@ -73,6 +74,7 @@ import { TipusAdrecesFormModule } from '../tipusAdreces/tipusAdreces-form.module
 		TarifesDescompteFormModule,
 		PaisosNifFormModule,
 		TipusAdrecesFormModule,
+		TipusComissionsFormModule,
         RouterModule.forChild( [
             { path: '', component: ClientsGridComponent },            
 			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },

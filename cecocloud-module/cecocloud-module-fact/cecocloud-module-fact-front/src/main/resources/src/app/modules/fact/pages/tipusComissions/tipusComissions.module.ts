@@ -10,12 +10,15 @@ import { TipusComissionsGridComponent } from './tipusComissions-grid.component';
 import { TipusComissionsFormComponent } from './tipusComissions-form.component';
 import { TipusComissionsService } from './tipusComissions.service';
 
+import { TipusComissionsFormModule } from './tipusComissions-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		TipusComissionsFormModule,
         RouterModule.forChild( [
             { path: '', component: TipusComissionsGridComponent },
             { path: 'create', component: TipusComissionsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { TipusComissionsService } from './tipusComissions.service';
         ] )
     ],
     declarations: [
-        TipusComissionsGridComponent,
-        TipusComissionsFormComponent
+        TipusComissionsGridComponent        
     ],
     providers: [
         TipusComissionsService

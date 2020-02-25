@@ -36,6 +36,7 @@ import { OrganitzacionsFormComponent } from '../organitzacions/organitzacions-fo
 import { TarifesDescompteFormComponent } from '../tarifesDescompte/tarifesDescompte-form.component';
 import { PaisosNifFormComponent } from '../paisosNif/paisosNif-form.component';
 import { TipusAdrecesFormComponent } from '../tipusAdreces/tipusAdreces-form.component';
+import { TipusComissionsFormComponent } from '../tipusComissions/tipusComissions-form.component';
 
 @Component( {
 	templateUrl: 'clients-form.html'
@@ -213,7 +214,8 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 				{ resourceName: 'organitzacio', component: OrganitzacionsFormComponent },            
 				{ resourceName: 'tarifaDescompte', component: TarifesDescompteFormComponent },
 				{ resourceName: 'paisNif', component: PaisosNifFormComponent },
-				{ resourceName: 'tipusAdresa', component: TipusAdrecesFormComponent }								
+				{ resourceName: 'tipusAdresa', component: TipusAdrecesFormComponent },
+				{ resourceName: 'tipusComissio', component: TipusComissionsFormComponent }									
 			]);
 			activatedRoute.params.subscribe((params) => {				
 				if (params.id) {
