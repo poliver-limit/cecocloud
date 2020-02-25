@@ -41,6 +41,7 @@ import { ClientsAdresaFormModule } from '../clientsAdresa/clientsAdresa-form.mod
 import { OrganitzacionsFormModule } from '../organitzacions/organitzacions-form.module'
 import { TarifesDescompteFormModule } from '../tarifesDescompte/tarifesDescompte-form.module'
 import { PaisosNifFormModule } from '../paisosNif/paisosNif-form.module'
+import { TipusAdrecesFormModule } from '../tipusAdreces/tipusAdreces-form.module'
 
 @NgModule( {
     imports: [
@@ -71,6 +72,7 @@ import { PaisosNifFormModule } from '../paisosNif/paisosNif-form.module'
 		OrganitzacionsFormModule,            
 		TarifesDescompteFormModule,
 		PaisosNifFormModule,
+		TipusAdrecesFormModule,
         RouterModule.forChild( [
             { path: '', component: ClientsGridComponent },            
 			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },
