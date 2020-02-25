@@ -317,8 +317,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			if (empresaDb != null) {
 				for (UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresaDb: usuariIdentificadorEmpresaRepository.findByEmpresa(empresaDb)) {
 					boolean trobat = false;
-					for (SincronitzacioEmpresaOperari operariSync: empresaSync.getOperaris()) {
-						if (usuariIdentificadorEmpresaDb.getUsuariCodi().equals(operariSync.getCodi())) {
+					for (SincronitzacioEmpresaUsuari usuariSync: empresaSync.getUsuaris()) {
+						if (usuariIdentificadorEmpresaDb.getUsuariCodi().equals(usuariSync.getUsuariCodi())) {
 							trobat = true;
 							break;
 						}
@@ -338,9 +338,6 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 								usuariIdentificadorDb.get(),
 								empresaDb);
 						if (!usuariIdentificadorEmpresaDb.isPresent()) {
-							// Si l'usuari-identificador-empresa existeix a la BBDD i a la informació de sincronització
-							// No fa res
-						} else {
 							// Si l'usuari-identificador-empresa no existeix a la BBDD i si a la informació de sincronització
 							// crea l'usuari-identificador-empresa a la BBDD
 							usuariIdentificadorEmpresaRepository.save(
@@ -350,6 +347,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 									empresa(empresaDb).
 									build());
 							createCount++;
+						} else {
+							// Si l'usuari-identificador-empresa existeix a la BBDD i a la informació de sincronització
+							// No fa res
 						}
 					}
 				}

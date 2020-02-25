@@ -45,5 +45,8 @@
   "resource.licitacio.field.nota": "Nota",
   "resource.licitacio.field.dataLimit": "Data límit",
   "resource.licitacio.field.destacada": "Destacada",
-  "resource.licitacio.field.esborrada": "Esborrada"
+  "resource.licitacio.field.esborrada": "Esborrada",
+
+  "licitacio.camp.expedient": "Expedient",
+  "licitacio.camp.url": "Enllaç a la licitació"
 }
