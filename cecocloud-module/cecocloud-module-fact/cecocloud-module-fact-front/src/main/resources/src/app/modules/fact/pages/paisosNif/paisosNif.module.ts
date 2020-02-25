@@ -10,12 +10,15 @@ import { PaisosNifGridComponent } from './paisosNif-grid.component';
 import { PaisosNifFormComponent } from './paisosNif-form.component';
 import { PaisosNifService } from './paisosNif.service';
 
+import { PaisosNifFormModule } from './paisosNif-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		PaisosNifFormModule,
         RouterModule.forChild( [
             { path: '', component: PaisosNifGridComponent },
             { path: 'create', component: PaisosNifFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { PaisosNifService } from './paisosNif.service';
         ] )
     ],
     declarations: [
-        PaisosNifGridComponent,
-        PaisosNifFormComponent
+        PaisosNifGridComponent        
     ],
     providers: [
         PaisosNifService

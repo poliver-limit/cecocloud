@@ -40,6 +40,9 @@ import { ClassesRetencionsFormModule } from '../classesRetencions/classesRetenci
 import { ClientsAdresaFormModule } from '../clientsAdresa/clientsAdresa-form.module'
 import { OrganitzacionsFormModule } from '../organitzacions/organitzacions-form.module'
 import { TarifesDescompteFormModule } from '../tarifesDescompte/tarifesDescompte-form.module'
+import { PaisosNifFormModule } from '../paisosNif/paisosNif-form.module'
+import { TipusAdrecesFormModule } from '../tipusAdreces/tipusAdreces-form.module'
+import { TipusComissionsFormModule } from '../tipusComissions/tipusComissions-form.module'
 
 @NgModule( {
     imports: [
@@ -69,6 +72,9 @@ import { TarifesDescompteFormModule } from '../tarifesDescompte/tarifesDescompte
 		ClientsAdresaFormModule,             
 		OrganitzacionsFormModule,            
 		TarifesDescompteFormModule,
+		PaisosNifFormModule,
+		TipusAdrecesFormModule,
+		TipusComissionsFormModule,
         RouterModule.forChild( [
             { path: '', component: ClientsGridComponent },            
 			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },

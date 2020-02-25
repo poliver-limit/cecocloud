@@ -281,7 +281,7 @@
 	"resource.client.field.descompteFinalFacturesTerminiClase1": "Descompte final factura a termini",
 	"resource.client.field.aplicarPreusPerVolum": "Aplicar preus per volum",
 	"resource.client.field.tarifaDescompte2": "Segona tarifa descompte",
-	"resource.client.field.adresaComercialClient": "Adressa d'enviament",
+	"resource.client.field.adresaComercialClient": "Adreça d'enviament",
 	"resource.client.field.descompteComptats": "Descompte final factura en comptat 2",
 	"resource.client.field.descompteTermini": "Descompte final factura a termini 2",
 	"resource.client.field.publicarDocumentsWeb": "Publicar documents al web",
