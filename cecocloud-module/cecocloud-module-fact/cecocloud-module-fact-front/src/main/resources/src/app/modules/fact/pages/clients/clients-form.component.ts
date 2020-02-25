@@ -201,7 +201,7 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 				{ resourceName: 'codiPostal', component: CodisPostalFormComponent },               
 				{ resourceName: 'idioma', component: IdiomesFormComponent },                   
 				{ resourceName: 'zona', component: ZonesFormComponent },                     
-				{ resourceName: 'empresaFact', component: EmpresesFactFormComponent },              
+				{ resourceName: 'empresa', component: EmpresesFactFormComponent },              
 				{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },               
 				{ resourceName: 'iva', component: IvesFormComponent },                      
 				{ resourceName: 'tarifa', component: TarifesFormComponent },                   
