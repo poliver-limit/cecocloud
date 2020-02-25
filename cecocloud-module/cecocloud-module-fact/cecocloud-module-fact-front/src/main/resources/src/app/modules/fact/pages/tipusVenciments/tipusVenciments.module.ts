@@ -10,12 +10,15 @@ import { TipusVencimentsGridComponent } from './tipusVenciments-grid.component';
 import { TipusVencimentsFormComponent } from './tipusVenciments-form.component';
 import { TipusVencimentsService } from './tipusVenciments.service';
 
+import { TipusVencimentsFormModule } from './tipusVenciments-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		TipusVencimentsFormModule,
         RouterModule.forChild( [
             { path: '', component: TipusVencimentsGridComponent },
             { path: 'create', component: TipusVencimentsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { TipusVencimentsService } from './tipusVenciments.service';
         ] )
     ],
     declarations: [
-        TipusVencimentsGridComponent,
-        TipusVencimentsFormComponent
+        TipusVencimentsGridComponent        
     ],
     providers: [
         TipusVencimentsService

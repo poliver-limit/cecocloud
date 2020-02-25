@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { TipusFacturacionsService } from './tipusFacturacions.service';
 
@@ -11,12 +12,14 @@ import { TipusFacturacionsService } from './tipusFacturacions.service';
         [restapiService]="tipusFacturacionsService"></bng-form>
 `
 } )
-export class TipusFacturacionsFormComponent {
+export class TipusFacturacionsFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public tipusFacturacionsService: TipusFacturacionsService ) { }
-
+		activatedRoute: ActivatedRoute,
+        public tipusFacturacionsService: TipusFacturacionsService ) {
+			super(activatedRoute);
+		}
 }

@@ -10,12 +10,15 @@ import { ClassesRetencionsGridComponent } from './classesRetencions-grid.compone
 import { ClassesRetencionsFormComponent } from './classesRetencions-form.component';
 import { ClassesRetencionsService } from './classesRetencions.service';
 
+import { ClassesRetencionsFormModule } from './classesRetencions-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		ClassesRetencionsFormModule,
         RouterModule.forChild( [
             { path: '', component: ClassesRetencionsGridComponent },
             { path: 'create', component: ClassesRetencionsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { ClassesRetencionsService } from './classesRetencions.service';
         ] )
     ],
     declarations: [
-        ClassesRetencionsGridComponent,
-        ClassesRetencionsFormComponent
+        ClassesRetencionsGridComponent        
     ],
     providers: [
         ClassesRetencionsService

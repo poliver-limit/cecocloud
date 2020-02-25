@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: CEC-569_modifyDataType_tgesMan_manCat_varcharToInteger
+    author: mgomez
+    changes:
+    - modifyDataType:
+        columnName: man_cat
+        newDataType: INTEGER
+        tableName: tges_man

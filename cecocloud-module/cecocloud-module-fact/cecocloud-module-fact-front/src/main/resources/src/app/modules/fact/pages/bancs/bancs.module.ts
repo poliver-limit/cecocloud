@@ -10,12 +10,15 @@ import { BancsGridComponent } from './bancs-grid.component';
 import { BancsFormComponent } from './bancs-form.component';
 import { BancsService } from './bancs.service';
 
+import { BancsFormModule } from './bancs-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		BancsFormModule,
         RouterModule.forChild( [
             { path: '', component: BancsGridComponent },
             { path: 'create', component: BancsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { BancsService } from './bancs.service';
         ] )
     ],
     declarations: [
-        BancsGridComponent,
-        BancsFormComponent
+        BancsGridComponent        
     ],
     providers: [
         BancsService

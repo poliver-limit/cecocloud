@@ -10,12 +10,15 @@ import { OrganitzacionsGridComponent } from './organitzacions-grid.component';
 import { OrganitzacionsFormComponent } from './organitzacions-form.component';
 import { OrganitzacionsService } from './organitzacions.service';
 
+import { OrganitzacionsFormModule } from './organitzacions-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		OrganitzacionsFormModule,
         RouterModule.forChild( [
             { path: '', component: OrganitzacionsGridComponent },
             { path: 'create', component: OrganitzacionsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { OrganitzacionsService } from './organitzacions.service';
         ] )
     ],
     declarations: [
-        OrganitzacionsGridComponent,
-        OrganitzacionsFormComponent
+        OrganitzacionsGridComponent        
     ],
     providers: [
         OrganitzacionsService

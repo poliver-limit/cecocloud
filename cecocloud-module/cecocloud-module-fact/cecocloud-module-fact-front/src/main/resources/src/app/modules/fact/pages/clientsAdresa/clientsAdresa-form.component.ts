@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { ClientsAdresaService } from './clientsAdresa.service';
 
@@ -11,12 +12,14 @@ import { ClientsAdresaService } from './clientsAdresa.service';
         [restapiService]="clientsAdresaService"></bng-form>
 `
 } )
-export class ClientsAdresaFormComponent {
+export class ClientsAdresaFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public clientsAdresaService: ClientsAdresaService ) { }
-
+		activatedRoute: ActivatedRoute,
+        public clientsAdresaService: ClientsAdresaService ) {
+			super(activatedRoute);
+		}
 }

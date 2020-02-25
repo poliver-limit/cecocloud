@@ -10,12 +10,15 @@ import { TipusFacturacionsGridComponent } from './tipusFacturacions-grid.compone
 import { TipusFacturacionsFormComponent } from './tipusFacturacions-form.component';
 import { TipusFacturacionsService } from './tipusFacturacions.service';
 
+import { TipusFacturacionsFormModule } from './tipusFacturacions-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		TipusFacturacionsFormModule,
         RouterModule.forChild( [
             { path: '', component: TipusFacturacionsGridComponent },
             { path: 'create', component: TipusFacturacionsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { TipusFacturacionsService } from './tipusFacturacions.service';
         ] )
     ],
     declarations: [
-        TipusFacturacionsGridComponent,
-        TipusFacturacionsFormComponent
+        TipusFacturacionsGridComponent        
     ],
     providers: [
         TipusFacturacionsService

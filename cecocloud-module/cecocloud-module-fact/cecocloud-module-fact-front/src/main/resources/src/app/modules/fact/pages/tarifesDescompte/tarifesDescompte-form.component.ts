@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { TarifesDescompteService } from './tarifesDescompte.service';
 
@@ -11,12 +12,14 @@ import { TarifesDescompteService } from './tarifesDescompte.service';
         [restapiService]="tarifesDescompteService"></bng-form>
 `
 } )
-export class TarifesDescompteFormComponent {
+export class TarifesDescompteFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public tarifesDescompteService: TarifesDescompteService ) { }
-
+		activatedRoute: ActivatedRoute,
+        public tarifesDescompteService: TarifesDescompteService ) {
+			super(activatedRoute);
+		}
 }

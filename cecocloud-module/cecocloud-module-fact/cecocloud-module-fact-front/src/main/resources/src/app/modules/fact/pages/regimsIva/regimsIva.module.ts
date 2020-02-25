@@ -10,12 +10,15 @@ import { RegimsIvaGridComponent } from './regimsIva-grid.component';
 import { RegimsIvaFormComponent } from './regimsIva-form.component';
 import { RegimsIvaService } from './regimsIva.service';
 
+import { RegimsIvaFormModule } from './regimsIva-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		RegimsIvaFormModule,
         RouterModule.forChild( [
             { path: '', component: RegimsIvaGridComponent },
             { path: 'create', component: RegimsIvaFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { RegimsIvaService } from './regimsIva.service';
         ] )
     ],
     declarations: [
-        RegimsIvaGridComponent,
-        RegimsIvaFormComponent
+        RegimsIvaGridComponent
     ],
     providers: [
         RegimsIvaService

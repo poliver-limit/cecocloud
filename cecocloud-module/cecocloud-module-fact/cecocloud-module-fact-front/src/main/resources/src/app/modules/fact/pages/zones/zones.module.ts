@@ -10,12 +10,15 @@ import { ZonesGridComponent } from './zones-grid.component';
 import { ZonesFormComponent } from './zones-form.component';
 import { ZonesService } from './zones.service';
 
+import { ZonesFormModule } from './zones-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		ZonesFormModule,
         RouterModule.forChild( [
             { path: '', component: ZonesGridComponent },
             { path: 'create', component: ZonesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { ZonesService } from './zones.service';
         ] )
     ],
     declarations: [
-        ZonesGridComponent,
-        ZonesFormComponent
+        ZonesGridComponent        
     ],
     providers: [
         ZonesService

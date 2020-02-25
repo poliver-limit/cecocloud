@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { DocumentsPagamentCobramentService } from './documentsPagamentCobrament.service';
 
@@ -11,12 +12,14 @@ import { DocumentsPagamentCobramentService } from './documentsPagamentCobrament.
         [restapiService]="documentsPagamentCobramentService"></bng-form>
 `
 } )
-export class DocumentsPagamentCobramentFormComponent {
+export class DocumentsPagamentCobramentFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public documentsPagamentCobramentService: DocumentsPagamentCobramentService ) { }
-
+		activatedRoute: ActivatedRoute,
+        public documentsPagamentCobramentService: DocumentsPagamentCobramentService ) {
+			super(activatedRoute);
+		}
 }
