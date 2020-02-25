@@ -46,9 +46,12 @@
   "resource.licitacio.field.dataLimit": "Fecha límite",
   "resource.licitacio.field.destacada": "Destacada",
   "resource.licitacio.field.esborrada": "Borrada",
+  
   "resource.licitacio.field.titolCardDoc": "Documentos",
   "resource.licitacio.field.linkPeuPagina": "Enlace a la licitación",
-
   "licitacio.camp.expedient": "Expediente",
-  "licitacio.camp.url": "Enlace a la licitación"
+  "licitacio.camp.url": "Enlace a la licitación",
+  "licitacio.camp.DocNom": "Nombre",
+  "licitacio.camp.DocTipus": "Tipo",
+  "licitacio.camp.DocLinkDescarraga": "Descargar"
 }

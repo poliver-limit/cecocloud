@@ -49,9 +49,11 @@
         >
           <a
             *ngIf="element.label == 'licitacio.camp.url'; else desc"
-            href="{{element.descripcio}}"  target="_blank">
+            href="{{element.descripcio}}"
+            target="_blank"
+          >
             {{element.descripcio}}
-            </a>
+          </a>
           <ng-template #desc>
             {{element.descripcio}}
           </ng-template>
@@ -74,7 +76,7 @@
           *matHeaderCellDef
           style="font-weight: bold; font-size: large;"
         >
-          Nombre
+          {{'licitacio.camp.DocNom' | translate}}
         </th>
         <td mat-cell *matCellDef="let element" style="width: 50%;">
           {{element.nom}}
@@ -88,7 +90,7 @@
           *matHeaderCellDef
           style="font-weight: bold; font-size: large;"
         >
-          Tipo
+          {{'licitacio.camp.DocTipus' | translate}}
         </th>
         <td mat-cell *matCellDef="let element" style="width: 50%; ">
           {{element.tipus}}
@@ -102,18 +104,18 @@
           *matHeaderCellDef
           style="font-weight: bold; font-size: large;"
         >
-          Descargar
+          {{'licitacio.camp.DocLinkDescarraga' | translate}}
         </th>
         <td
           mat-cell
           *matCellDef="let element"
           style="width: 50%; padding-left: 1em;"
         >
-          <a href="{{element.uri}}">
-           Descargar
+          <a href="{{element.uri}}" target="_blank">
+            <mat-icon>cloud_download</mat-icon>
+            <!-- {{'licitacio.camp.DocLinkDescarraga' | translate}} -->
           </a>
-        </td>       
-       
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsDoc"></tr>
