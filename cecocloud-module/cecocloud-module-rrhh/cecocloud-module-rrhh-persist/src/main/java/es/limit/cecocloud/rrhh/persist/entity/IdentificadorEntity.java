@@ -40,7 +40,9 @@ public class IdentificadorEntity extends AbstractAuditableEntity<Identificador, 
 
 	@Builder
 	public IdentificadorEntity(
-			Identificador embedded) {		
+			String id,
+			Identificador embedded) {
+		setId(id);
 		this.embedded = embedded;
 	}
 

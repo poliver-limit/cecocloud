@@ -12,7 +12,7 @@ import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecoloud.test.tester.EmpresaCrudTester;
 
 /**
- * Test pels objectes de tipus companyia.
+ * Test pels objectes de tipus empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -23,7 +23,7 @@ public class EmpresaRestApiTest extends AbstractRestApiTest<Empresa, Long> {
 		return new EmpresaCrudTester();
 	}
 
-	@WithMockUser(value = USUARI_TEST_ADMIN)
+	@WithMockUser(value = USUARI_TEST_NOADMIN)
 	@Test
 	public void crudTest() {
 		genericCrudTest();

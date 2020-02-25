@@ -24,26 +24,30 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 	@Override
 	public Identificador createDto() {
 		Identificador dto = new Identificador();
+		dto.setCodi("TST");
 		dto.setDescripcio("Test");
 		dto.setNumUsuaris(1);
 		dto.setNumEmpreses(2);
 		dto.setDataInici(new Date());
 		dto.setDataFi(new Date());
-		dto.setLlicencia("1");
-		dto.setLlicenciaOk(true);
 		dto.setPropietari(
-				GenericReference.toGenericReference(getUsuariAdminCreat().getId()));
+				GenericReference.toGenericReference(getUsuariTestCreat().getId()));
+		//dto.setLlicencia("1");
+		//dto.setLlicenciaOk(true);
 		return dto;
 	}
 	@Override
 	public void updateDto(Identificador dto) {
+		dto.setCodi("TST2");
 		dto.setDescripcio("Test2");
 		dto.setNumUsuaris(2);
 		dto.setNumEmpreses(3);
 		dto.setDataInici(new Date());
 		dto.setDataFi(new Date());
-		dto.setLlicencia("1234");
-		dto.setLlicenciaOk(false);
+		dto.setPropietari(
+				GenericReference.toGenericReference(getUsuariAdminCreat().getId()));
+		//dto.setLlicencia("1234");
+		//dto.setLlicenciaOk(false);
 	}
 	@Override
 	public void compareDto(Identificador expected, Identificador actual) {
@@ -53,8 +57,9 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		assertEquals(expected.getNumEmpreses(), actual.getNumEmpreses());
 		assertEquals(expected.getDataInici(), actual.getDataInici());
 		assertEquals(expected.getDataFi(), actual.getDataFi());
-		assertEquals(expected.getLlicencia(), actual.getLlicencia());
-		assertEquals(expected.isLlicenciaOk(), actual.isLlicenciaOk());
+		assertEquals(expected.getPropietari(), actual.getPropietari());
+		//assertEquals(expected.getLlicencia(), actual.getLlicencia());
+		//assertEquals(expected.isLlicenciaOk(), actual.isLlicenciaOk());
 	}
 
 	@Override
