@@ -10,12 +10,15 @@ import { TipusAdrecesGridComponent } from './tipusAdreces-grid.component';
 import { TipusAdrecesFormComponent } from './tipusAdreces-form.component';
 import { TipusAdrecesService } from './tipusAdreces.service';
 
+import { TipusAdrecesFormModule } from './tipusAdreces-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		TipusAdrecesFormModule,
         RouterModule.forChild( [
             { path: '', component: TipusAdrecesGridComponent },
             { path: 'create', component: TipusAdrecesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { TipusAdrecesService } from './tipusAdreces.service';
         ] )
     ],
     declarations: [
-        TipusAdrecesGridComponent,
-        TipusAdrecesFormComponent
+        TipusAdrecesGridComponent        
     ],
     providers: [
         TipusAdrecesService

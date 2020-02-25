@@ -10,7 +10,7 @@ import { ComptesComptablesEmpresaService } from '../comptesComptablesEmpresa/com
 import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.service';
 import { SubClientsService } from '../subClients/subClients.service';
 import { ClientsAdresaService } from '../clientsAdresa/clientsAdresa.service';
-import { MatTabChangeEvent } from '@angular/material';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 import { DivisesFormComponent } from '../divises/divises-form.component';
 import { TipusVencimentsFormComponent } from '../tipusVenciments/tipusVenciments-form.component';
@@ -35,6 +35,8 @@ import { ClientsAdresaFormComponent } from '../clientsAdresa/clientsAdresa-form.
 import { OrganitzacionsFormComponent } from '../organitzacions/organitzacions-form.component';
 import { TarifesDescompteFormComponent } from '../tarifesDescompte/tarifesDescompte-form.component';
 import { PaisosNifFormComponent } from '../paisosNif/paisosNif-form.component';
+import { TipusAdrecesFormComponent } from '../tipusAdreces/tipusAdreces-form.component';
+import { TipusComissionsFormComponent } from '../tipusComissions/tipusComissions-form.component';
 
 @Component( {
 	templateUrl: 'clients-form.html'
@@ -199,7 +201,7 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 				{ resourceName: 'codiPostal', component: CodisPostalFormComponent },               
 				{ resourceName: 'idioma', component: IdiomesFormComponent },                   
 				{ resourceName: 'zona', component: ZonesFormComponent },                     
-				{ resourceName: 'empresaFact', component: EmpresesFactFormComponent },              
+				{ resourceName: 'empresa', component: EmpresesFactFormComponent },              
 				{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },               
 				{ resourceName: 'iva', component: IvesFormComponent },                      
 				{ resourceName: 'tarifa', component: TarifesFormComponent },                   
@@ -211,7 +213,9 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 				{ resourceName: 'clientAdresa', component: ClientsAdresaFormComponent },             
 				{ resourceName: 'organitzacio', component: OrganitzacionsFormComponent },            
 				{ resourceName: 'tarifaDescompte', component: TarifesDescompteFormComponent },
-				{ resourceName: 'paisNif', component: PaisosNifFormComponent }					
+				{ resourceName: 'paisNif', component: PaisosNifFormComponent },
+				{ resourceName: 'tipusAdresa', component: TipusAdrecesFormComponent },
+				{ resourceName: 'tipusComissio', component: TipusComissionsFormComponent }									
 			]);
 			activatedRoute.params.subscribe((params) => {				
 				if (params.id) {
