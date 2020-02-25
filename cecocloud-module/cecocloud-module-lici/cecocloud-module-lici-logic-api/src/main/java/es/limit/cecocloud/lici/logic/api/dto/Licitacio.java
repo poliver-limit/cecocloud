@@ -5,8 +5,6 @@ package es.limit.cecocloud.lici.logic.api.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
