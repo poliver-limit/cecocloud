@@ -51,6 +51,7 @@ import es.limit.cecocloud.fact.logic.api.dto.Proveidor;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
 import es.limit.cecocloud.fact.logic.api.dto.Rappel;
 import es.limit.cecocloud.fact.logic.api.dto.RegimIva;
+import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial;
 import es.limit.cecocloud.fact.logic.api.dto.SeccioEmpresa;
 import es.limit.cecocloud.fact.logic.api.dto.SerieCompra;
 import es.limit.cecocloud.fact.logic.api.dto.SerieIntracomunitaria;
@@ -787,6 +788,15 @@ public class FactModuleRegister {
 					"Tipus adreça",
 					Modul.fact,
 					Arrays.asList(TipusAdresa.class),
+					Arrays.asList()));
+		funcionalitats.put(
+				"FAC_REGCOM",
+				new FuncionalitatCodiFontImpl(
+					"FAC_REGCOM",
+					FuncionalitatTipus.MANTENIMENT,
+					"Registre comercial",
+					Modul.fact,
+					Arrays.asList(RegistreComercial.class),
 					Arrays.asList()));
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
