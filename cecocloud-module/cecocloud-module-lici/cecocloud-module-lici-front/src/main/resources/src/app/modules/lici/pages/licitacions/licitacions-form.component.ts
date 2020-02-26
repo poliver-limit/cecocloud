@@ -1,12 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { BngFormConfig } from "base-angular";
 
 import { LicitacionsService } from "./licitacions.service";
-import { DocumentsService} from "./documents.service";
-import { ActivatedRoute } from "@angular/router";
+import { DocumentsService } from "./documents.service";
+import { ActivatedRoute, Router } from "@angular/router";
 import { formatDate } from "@angular/common";
-import { HalParam } from '@lagoshny/ngx-hal-client';
-import { MatCardModule } from '@angular/material/card';
+import { HalParam } from "@lagoshny/ngx-hal-client";
 
 @Component({
   templateUrl: "licitacio.html"
@@ -16,26 +14,23 @@ export class LicitacionsFormComponent implements OnInit {
   licitacio: any;
   tLic: any[] = [];
   tDocs: any[] = [];
-  documentos: any[]=[];
+  documentos: any[] = [];
   displayedColumns: string[] = ["label", "descripcio"];
-  displayedColumnsDoc: string[] = ["nom","tipus", "uri"];
-
-  formConfig: BngFormConfig = {
-    readOnlyStateEnabled: true
-  };
+  displayedColumnsDoc: string[] = ["nom", "tipus", "uri"];
 
   ngOnInit(): void {
     this.licitacionsService.whenReady().subscribe(() => {
       this.licitacionsService.get(this.id).subscribe(licitacio => {
         this.licitacio = licitacio;
 
-        console.log("LICITACIÓN: " , this.licitacio);
+        console.log("LICITACIÓN: ", this.licitacio);
+        console.log("NOTA: ", this.licitacio.nota);
 
-         if((this.licitacio.url).includes('https://') ){
-           this.licitacio.url = this.licitacio.uri;
-         }else{
-           this.licitacio.url = "https://" + this.licitacio.url;
-         }
+        if (this.licitacio.url.includes("https://")) {
+          this.licitacio.url = this.licitacio.uri;
+        } else {
+          this.licitacio.url = "https://" + this.licitacio.url;
+        }
         this.tLic.push({
           label: "Expediente",
           descripcio: this.licitacio.expedientId
@@ -92,31 +87,42 @@ export class LicitacionsFormComponent implements OnInit {
           )
         });
         this.tLic.push({
-          label: "licitacio.camp.url",          
+          label: "licitacio.camp.url",
           descripcio: this.licitacio.url
         });
 
         this.documentsService.whenReady().subscribe(() => {
           const requestDocParams: HalParam[] = [];
           requestDocParams.push({
-			    	key: "query",
-				    value: 'licitacio.id=="' + this.licitacio.id + '"'
-			    });
-          this.documentsService.getAll({ params: requestDocParams }).subscribe((docs) => {
-            this.tDocs = docs;
-            for(var i=0;i<this.tDocs.length;i++){           
-              this.documentos.push(this.tDocs[i].nom, this.tDocs[i].tipus, this.tDocs[i].uri);
-            }
+            key: "query",
+            value: 'licitacio.id=="' + this.licitacio.id + '"'
           });
+          this.documentsService
+            .getAll({ params: requestDocParams })
+            .subscribe(docs => {
+              this.tDocs = docs;
+              for (var i = 0; i < this.tDocs.length; i++) {
+                this.documentos.push(
+                  this.tDocs[i].nom,
+                  this.tDocs[i].tipus,
+                  this.tDocs[i].uri
+                );
+              }
+            });
         });
       });
     });
   }
 
+  volver() {
+    this.router.navigate(["/lici/licitacio"]);
+  }
+
   constructor(
     public licitacionsService: LicitacionsService,
     public documentsService: DocumentsService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    public router: Router
   ) {
     activatedRoute.params.subscribe(params => {
       if (params.id) {
