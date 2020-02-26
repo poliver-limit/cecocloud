@@ -5,7 +5,7 @@ import { BngFormBaseComponent, BngFormConfig, BngDatagridConfig } from 'base-ang
 import { AplicadorsService } from './aplicadors.service';
 import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.service';
 
-import { MatTabChangeEvent } from '@angular/material';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component( {
 	templateUrl: 'aplicadors-form.html'

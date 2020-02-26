@@ -31,8 +31,8 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 		es.limit.cecocloud.rrhh.logic.api.dto.Identificador identificadorFact = new es.limit.cecocloud.rrhh.logic.api.dto.Identificador();
 		identificadorFact.setCodi(identificador.getCodi());
 		identificadorFact.setNom(identificador.getDescripcio());
-		indentificadorRepository.save(
-				IdentificadorEntity.builder().embedded(identificadorFact).build());
+		IdentificadorEntity entity = IdentificadorEntity.builder().id(identificador.getCodi()).embedded(identificadorFact).build();
+		indentificadorRepository.save(entity);
 	}
 
 	@Override

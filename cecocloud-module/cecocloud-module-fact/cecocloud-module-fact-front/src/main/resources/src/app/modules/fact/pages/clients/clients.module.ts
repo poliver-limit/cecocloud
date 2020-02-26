@@ -75,11 +75,18 @@ import { TipusComissionsFormModule } from '../tipusComissions/tipusComissions-fo
 		PaisosNifFormModule,
 		TipusAdrecesFormModule,
 		TipusComissionsFormModule,
-        RouterModule.forChild( [
-            { path: '', component: ClientsGridComponent },            
-			{ path: 'create', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] },
-            { path: 'update/:id', component: ClientsFormComponent, canDeactivate: [BngFormExitGuard] }
-        ] )
+        RouterModule.forChild([{
+			path: '',
+			component: ClientsGridComponent
+		}, {
+			path: 'create',
+			component: ClientsFormComponent,
+			canDeactivate: [BngFormExitGuard]
+		}, {
+			path: 'update/:id',
+			component: ClientsFormComponent,
+			canDeactivate: [BngFormExitGuard]
+		}])
     ],
     declarations: [
         ClientsGridComponent,	

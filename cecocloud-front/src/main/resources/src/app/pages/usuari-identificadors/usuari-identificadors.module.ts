@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BngModule, BngFormExitGuard } from 'base-angular';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 
 import { MaterialModule } from '../../shared/material.module';
 

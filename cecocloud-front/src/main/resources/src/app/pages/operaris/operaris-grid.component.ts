@@ -23,7 +23,7 @@ import { UsuarisService } from './usuaris.service';
 })
 export class OperarisGridComponent {
 
-	@ViewChild('datagrid', { static: false }) datagrid: BngDatagrid;
+	@ViewChild('datagrid') datagrid: BngDatagrid;
 
 	datagridConfig: BngDatagridConfig = {
 		columnFiltersEnabled: true

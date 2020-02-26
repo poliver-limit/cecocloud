@@ -6,6 +6,7 @@ import { DocumentsService} from "./documents.service";
 import { ActivatedRoute } from "@angular/router";
 import { formatDate } from "@angular/common";
 import { HalParam } from '@lagoshny/ngx-hal-client';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   templateUrl: "licitacio.html"

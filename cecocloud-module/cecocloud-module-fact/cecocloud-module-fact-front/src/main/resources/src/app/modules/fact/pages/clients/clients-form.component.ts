@@ -10,7 +10,7 @@ import { ComptesComptablesEmpresaService } from '../comptesComptablesEmpresa/com
 import { AplicadorsClientService } from '../aplicadorsClient/aplicadorsClient.service';
 import { SubClientsService } from '../subClients/subClients.service';
 import { ClientsAdresaService } from '../clientsAdresa/clientsAdresa.service';
-import { MatTabChangeEvent } from '@angular/material';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 import { DivisesFormComponent } from '../divises/divises-form.component';
 import { TipusVencimentsFormComponent } from '../tipusVenciments/tipusVenciments-form.component';
