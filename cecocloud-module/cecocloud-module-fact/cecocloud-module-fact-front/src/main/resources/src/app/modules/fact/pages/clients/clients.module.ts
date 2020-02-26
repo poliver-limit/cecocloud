@@ -89,8 +89,7 @@ import { TipusComissionsFormModule } from '../tipusComissions/tipusComissions-fo
 		}])
     ],
     declarations: [
-        ClientsGridComponent,	
-        ClientsFormComponent
+        ClientsGridComponent        
     ],
     providers: [
         ClientsService,

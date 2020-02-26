@@ -64,7 +64,8 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 	
 	@RestapiField(
 			hiddenInLov = true, 
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			hiddenInForm = true)
 	private Date data;
 	
 	@Transient	
@@ -80,7 +81,7 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,
-			disabledForUpdate = true,
+			disabledForUpdate = false,
 			hiddenInGrid = true,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;

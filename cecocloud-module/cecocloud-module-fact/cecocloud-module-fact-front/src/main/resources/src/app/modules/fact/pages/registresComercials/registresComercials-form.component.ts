@@ -4,6 +4,8 @@ import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { RegistresComercialsService } from './registresComercials.service';
 
+import { ClientsFormComponent } from '../clients/clients-form.component';
+
 @Component( {
     template: `
     <bng-form
@@ -21,5 +23,8 @@ export class RegistresComercialsFormComponent extends BngFormBaseComponent {
 		activatedRoute: ActivatedRoute,
         public registresComercialsService: RegistresComercialsService ) { 
 			super(activatedRoute);
+			this.setConfigExternalFormComponents([
+				{ resourceName: 'client', component: ClientsFormComponent }
+			])
 		}
 }

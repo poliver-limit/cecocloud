@@ -5,10 +5,11 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
 
 public enum RegistreComercialTipusEnumDto {
 	
-	TIPUS1("1"),
-	TIPUS2("2"),
-	TIPUS3("3"),
-	TIPUS4("4")	
+	CRIDADA("C"),
+	CORREU("M"),
+	VISITA("V"),
+	PRESENCIAL("P"),
+	INTERMEDIARI("I")
 	;
 	
 	private final String dbValue;
