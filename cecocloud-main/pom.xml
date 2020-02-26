@@ -17,6 +17,7 @@
 		<liquibase-property.file>${project.basedir}/liquibase/liquibase-acl.properties</liquibase-property.file>
 		<!--liquibase-persist.module>cecocloud-module-fact-persist</liquibase-persist.module>
 		<liquibase-property.file>${project.basedir}/liquibase/liquibase-fact.properties</liquibase-property.file-->
+		<ojdbc6.version>11.2.0.4</ojdbc6.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -66,9 +67,12 @@
 	</dependencies>
 	<profiles>
 		<profile>
-			<id>postgresql</id>
+			<id>postgres</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<file>
+					<missing>db_oracle</missing>
+				</file>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<dependencies>
 				<dependency>
@@ -80,6 +84,12 @@
 		</profile>
 		<profile>
 			<id>oracle</id>
+			<activation>
+				<file>
+					<exists>db_oracle</exists>
+				</file>
+				<activeByDefault>false</activeByDefault>
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>com.oracle</groupId>

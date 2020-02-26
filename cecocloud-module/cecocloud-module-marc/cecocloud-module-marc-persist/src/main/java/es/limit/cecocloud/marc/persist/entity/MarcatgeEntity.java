@@ -36,8 +36,8 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "data", nullable = false)),
 	@AttributeOverride(name = "embedded.origen", column = @Column(name = "origen", nullable = false)),
-	@AttributeOverride(name = "embedded.latitud", column = @Column(name = "latitud")),
-	@AttributeOverride(name = "embedded.longitud", column = @Column(name = "longitud"))
+	@AttributeOverride(name = "embedded.latitud", column = @Column(name = "latitud", precision = 12, scale = 8)),
+	@AttributeOverride(name = "embedded.longitud", column = @Column(name = "longitud", precision = 12, scale = 8))
 })
 public class MarcatgeEntity extends AbstractAuditableVersionableEntity<Marcatge, Long> {
 

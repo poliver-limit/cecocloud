@@ -66,7 +66,7 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 
 	@Formula(value="(select count(*) from empresa emp where emp.identificador_id = id)")
 	private int empresesCount;
-	@Formula(value="(select count(*) from usuari_ident uid where uid.identificador_id = id)")
+	@Formula(value="(select count(*) from usuari_ident uidnt where uidnt.identificador_id = id)")
 	private int usuarisCount;
 	@Formula(value="(select count(*) from operari ope where ope.identificador_id = id)")
 	private int operarisCount;

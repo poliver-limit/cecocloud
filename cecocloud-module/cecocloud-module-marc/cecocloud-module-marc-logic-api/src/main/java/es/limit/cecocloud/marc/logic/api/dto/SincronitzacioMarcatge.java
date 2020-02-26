@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.marc.logic.api.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
@@ -28,7 +29,7 @@ public class SincronitzacioMarcatge {
 	@NotNull
 	private Date data;
 	private Date dataCreacio;
-	private Double latitud;
-	private Double longitud;
+	private BigDecimal latitud;
+	private BigDecimal longitud;
 
 }

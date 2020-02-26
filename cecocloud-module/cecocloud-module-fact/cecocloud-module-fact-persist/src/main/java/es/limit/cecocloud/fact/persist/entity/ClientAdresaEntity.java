@@ -30,8 +30,13 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table(name = "tges_acc", indexes = { @Index(name = "iges_acc_idf_fk", columnList = "acc_idf_cod"),
-		@Index(name = "irges_acc_pk", columnList = "acc_idf_cod,acc_cod", unique = true) })
+@Table(
+		name = "tges_acc",
+		indexes = {
+				@Index(name = "iges_acc_idf_fk", columnList = "acc_idf_cod"),
+				@Index(name = "irges_acc_pk", columnList = "acc_idf_cod,acc_cod", unique = true)
+		}
+)
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "acc_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.clientCodi", column = @Column(name = "acc_cli_cod", length = 4)),

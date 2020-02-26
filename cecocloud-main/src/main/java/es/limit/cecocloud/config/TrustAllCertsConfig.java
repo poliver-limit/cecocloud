@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.main.config;
+package es.limit.cecocloud.config;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;

@@ -31,7 +31,11 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "id", column = @Column(name = "idf_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "idf_cod", insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "idf_nom", length = 40, nullable = false))
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "idf_nom", length = 40, nullable = false)),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "idf_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "idf_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "idf_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "idf_datmod"))
 })
 public class IdentificadorEntity extends AbstractAuditableEntity<Identificador, String> {
 

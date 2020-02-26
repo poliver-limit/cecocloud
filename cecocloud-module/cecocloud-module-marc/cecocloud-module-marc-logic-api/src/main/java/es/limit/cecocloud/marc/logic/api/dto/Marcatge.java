@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.marc.logic.api.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Transient;
@@ -60,13 +61,13 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			hiddenInForm = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
-	private Double latitud;
+	private BigDecimal latitud;
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
-	private Double longitud;
+	private BigDecimal longitud;
 
 	@Transient
 	@RestapiField(
