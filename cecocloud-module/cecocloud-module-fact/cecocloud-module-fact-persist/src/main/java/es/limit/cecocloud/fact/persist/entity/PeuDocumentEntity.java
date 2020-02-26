@@ -46,6 +46,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ped_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "ped_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "ped_cod", length = 4)),
+	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ped_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "ped_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.factura", column = @Column(name = "ped_fac", nullable = false)),
@@ -58,6 +59,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.impCls", column = @Column(name = "ped_impcls", nullable = false)),
 	@AttributeOverride(name = "embedded.ordre", column = @Column(name = "ped_ord")),
 	@AttributeOverride(name = "embedded.serieCompraCodi", column = @Column(name = "ped_scp_codcom", insertable = false, updatable = false)),
+	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ped_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "ped_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ped_usumod")),

@@ -1,0 +1,111 @@
+databaseChangeLog:
+- changeSet:
+    id: CEC-597_createTable_tgesRgc
+    author: mgomez
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: tges_rgcPK
+            name: rgc_emp_cod
+            type: VARCHAR(4)
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: tges_rgcPK
+            name: rgc_cod
+            type: VARCHAR(4)
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: tges_rgcPK
+            name: rgc_idf_cod
+            type: VARCHAR(4)
+        - column:                       
+            name: rgc_cli_cod
+            type: VARCHAR(4)
+        - column:
+            name: rgc_usucre
+            type: VARCHAR(255)
+        - column:
+            name: rgc_datcre
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: rgc_usumod
+            type: VARCHAR(255)
+        - column:
+            name: rgc_datmod
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+           constraints:
+              nullable: false
+           name: rgc_tip
+           type: INTEGER
+        - column:
+           constraints:
+              nullable: false
+           name: rgc_mtj
+           type: INTEGER
+        - column:
+           constraints:
+              nullable: false
+           name: rgc_desmtj
+           type: VARCHAR(60)
+        - column:
+           constraints:
+              nullable: false
+           name: rgc_int
+           type: VARCHAR(60)
+        - column:
+            name: rgc_dat
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: tges_rgc
+- changeSet:
+    id: CEC-597_createIndex_tgesRgc
+    author: mgomez
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: rgc_idf_cod
+        indexName: iges_rgc_idf_fk
+        tableName: tges_rgc	   
+- changeSet:
+    id: CEC-597_addUniqueContraint_tgesRgc
+    author: mgomez
+    changes:
+    - addUniqueConstraint:
+        columnNames: rgc_idf_cod, rgc_cod
+        constraintName: irges_rgc_pk
+        tableName: tges_rgc	   
+- changeSet:
+    id: CEC-597_addForeignKeyConstraint_tgesCli
+    author: mgomez
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: rgc_cli_cod,rgc_idf_cod
+        baseTableName: tges_rgc
+        constraintName: rges_rgc_cli_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: cli_cod,cli_idf_cod
+        referencedTableName: tges_cli
+        validate: true	   
+- changeSet:
+    id: CEC-597_addForeignKeyConstraint_tgesEmp
+    author: mgomez
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: rgc_emp_cod,rgc_idf_cod
+        baseTableName: tges_rgc
+        constraintName: rges_rgc_emp_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: emp_cod,emp_idf_cod
+        referencedTableName: tges_emp
+        validate: true
