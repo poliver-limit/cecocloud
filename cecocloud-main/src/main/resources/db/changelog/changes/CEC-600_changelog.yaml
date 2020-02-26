@@ -1,0 +1,53 @@
+databaseChangeLog:
+- changeSet:
+    id: 1582731609123-1
+    author: josepg
+    changes:
+    - modifyDataType:
+        columnName: latitud
+        newDataType: number(12,8)
+        tableName: marcatge
+    - modifyDataType:
+        columnName: longitud
+        newDataType: number(12,8)
+        tableName: marcatge
+- changeSet:
+    id: 1582731609123-2
+    author: josepg
+    changes:
+    - renameColumn:
+        oldColumnName: created_by
+        newColumnName: idf_usucre
+        tableName: tges_idf
+    - renameColumn:
+        oldColumnName: created_date
+        newColumnName: idf_datcre
+        tableName: tges_idf
+    - renameColumn:
+        oldColumnName: lastmod_by
+        newColumnName: idf_usumod
+        tableName: tges_idf
+    - renameColumn:
+        oldColumnName: lastmod_date
+        newColumnName: idf_datmod
+        tableName: tges_idf
+- changeSet:
+    id: 1582731609123-3
+    author: josepg
+    changes:
+    - renameColumn:
+        oldColumnName: created_by
+        newColumnName: idf_usucre
+        tableName: trhu_idf
+    - renameColumn:
+        oldColumnName: created_date
+        newColumnName: idf_datcre
+        tableName: trhu_idf
+    - renameColumn:
+        oldColumnName: lastmod_by
+        newColumnName: idf_usumod
+        tableName: trhu_idf
+    - renameColumn:
+        oldColumnName: lastmod_date
+        newColumnName: idf_datmod
+        tableName: trhu_idf
