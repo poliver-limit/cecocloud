@@ -5,6 +5,7 @@ import { DocumentsService } from "./documents.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { formatDate } from "@angular/common";
 import { HalParam } from "@lagoshny/ngx-hal-client";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
   templateUrl: "licitacio.html"
@@ -17,14 +18,13 @@ export class LicitacionsFormComponent implements OnInit {
   documentos: any[] = [];
   displayedColumns: string[] = ["label", "descripcio"];
   displayedColumnsDoc: string[] = ["nom", "tipus", "uri"];
+  private url = window.location.pathname.split("/");
+  public licitacioInfo = <any>{};
 
   ngOnInit(): void {
     this.licitacionsService.whenReady().subscribe(() => {
       this.licitacionsService.get(this.id).subscribe(licitacio => {
         this.licitacio = licitacio;
-
-        console.log("LICITACIÓN: ", this.licitacio);
-        console.log("NOTA: ", this.licitacio.nota);
 
         if (this.licitacio.url.includes("https://")) {
           this.licitacio.url = this.licitacio.uri;
@@ -32,46 +32,42 @@ export class LicitacionsFormComponent implements OnInit {
           this.licitacio.url = "https://" + this.licitacio.url;
         }
         this.tLic.push({
-          label: "Expediente",
-          descripcio: this.licitacio.expedientId
-        });
-        this.tLic.push({
-          label: "Órgano contratación",
+          label: "resource.licitacio.field.unitatNom",
           descripcio: this.licitacio.unitatNom
         });
         this.tLic.push({
-          label: "Estado",
+          label: "resource.licitacio.field.expedientEstat",
           descripcio: this.licitacio.expedientEstat
         });
         this.tLic.push({
-          label: "Título",
+          label: "resource.licitacio.field.projecteTitol",
           descripcio: this.licitacio.projecteTitol
         });
         this.tLic.push({
-          label: "Importe sin tasas",
+          label: "resource.licitacio.field.projecteImportSenseTaxes",
           descripcio: this.licitacio.projecteImportSenseTaxes
         });
         this.tLic.push({
-          label: "Importe total",
+          label: "resource.licitacio.field.projecteImportTotal",
           descripcio: this.licitacio.projecteImportTotal
         });
         this.tLic.push({
-          label: "Tipo de contrato",
+          label: "resource.licitacio.field.projecteTipusDescripcio",
           descripcio: this.licitacio.projecteTipusDescripcio
         });
         this.tLic.push({
-          label: "Lugar de ejecución",
+          label: "licitacio.camp.llocExecucio",
           descripcio:
             this.licitacio.projectePaisDescripcio +
             "/" +
             this.licitacio.projecteProvinciaDescripcio
         });
         this.tLic.push({
-          label: "Procedimiento",
+          label: "resource.licitacio.field.procedimentTipus",
           descripcio: this.licitacio.procedimentTipus
         });
         this.tLic.push({
-          label: "Fecha actualización",
+          label: "resource.licitacio.field.dataActualitzacio",
           descripcio: formatDate(
             this.licitacio.dataActualitzacio,
             "dd/MM/yyyy",
@@ -79,7 +75,7 @@ export class LicitacionsFormComponent implements OnInit {
           )
         });
         this.tLic.push({
-          label: "Fecha límite",
+          label: "resource.licitacio.field.dataLimit",
           descripcio: formatDate(
             this.licitacio.dataLimit,
             "dd/MM/yyyy",
@@ -114,20 +110,50 @@ export class LicitacionsFormComponent implements OnInit {
     });
   }
 
-  volver() {
+  onButtonBackClick() {
     this.router.navigate(["/lici/licitacio"]);
+  }
+
+  changeDestacat(destacada: boolean) {
+    const request = this.http
+      .patch("/api/lici/licitacions/" + this.url[this.url.length - 1], [
+        { op: "replace", path: "/destacada", value: !destacada }
+      ])
+      .subscribe(
+        val => {
+          console.log("PATCH call successful, destacat: ", val["destacada"]);
+        },
+        error => console.log(error),
+        () => this.getLicitacio()
+      );
+  }
+
+  private getLicitacio() {
+    const request = this.http
+      .get("/api/lici/licitacions/" + this.url[this.url.length - 1])
+      .subscribe(res => {
+        this.licitacioInfo = res;
+      });
+
+    return request;
   }
 
   constructor(
     public licitacionsService: LicitacionsService,
     public documentsService: DocumentsService,
     public activatedRoute: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private http: HttpClient
   ) {
     activatedRoute.params.subscribe(params => {
       if (params.id) {
         this.id = params.id;
       }
     });
+
+    this.getLicitacio();
   }
 }
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
+};
