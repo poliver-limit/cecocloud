@@ -53,5 +53,6 @@
   "licitacio.camp.url": "Enllaç a la licitació",
   "licitacio.camp.DocNom": "Nom",
   "licitacio.camp.DocTipus": "Tipus",
-  "licitacio.camp.DocLinkDescarraga": "Descarragar"
+  "licitacio.camp.DocLinkDescarraga": "Descarregar",
+  "licitacio.camp.llocExecucio":"Lloc d'execució"
 }

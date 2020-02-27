@@ -53,5 +53,6 @@
   "licitacio.camp.url": "Enlace a la licitación",
   "licitacio.camp.DocNom": "Nombre",
   "licitacio.camp.DocTipus": "Tipo",
-  "licitacio.camp.DocLinkDescarraga": "Descargar"
+  "licitacio.camp.DocLinkDescarraga": "Descargar",
+  "licitacio.camp.llocExecucio":"Lugar de ejecución"
 }
