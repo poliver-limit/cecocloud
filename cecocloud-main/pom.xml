@@ -14,7 +14,7 @@
 		<liquibase-spring.version>5.2.2.RELEASE</liquibase-spring.version>
 		<liquibase-spring-data-jpa.version>2.2.3.RELEASE</liquibase-spring-data-jpa.version>
 		<liquibase-postgresql.version>42.2.10</liquibase-postgresql.version>
-		<liquibase-property.file>${project.basedir}/liquibase/liquibase-changelogSync.properties</liquibase-property.file>
+		<liquibase-property.file>${project.basedir}/liquibase/liquibase.properties</liquibase-property.file>
 		<ojdbc6.version>11.2.0.4</ojdbc6.version>
 	</properties>
 	<dependencies>
