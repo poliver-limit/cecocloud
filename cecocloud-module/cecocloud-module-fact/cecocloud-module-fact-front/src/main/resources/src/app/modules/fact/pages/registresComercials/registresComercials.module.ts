@@ -10,12 +10,15 @@ import { RegistresComercialsGridComponent } from './registresComercials-grid.com
 import { RegistresComercialsFormComponent } from './registresComercials-form.component';
 import { RegistresComercialsService } from './registresComercials.service';
 
+import { ClientsFormModule } from '../clients/clients-form.module'
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		ClientsFormModule,
         RouterModule.forChild( [
             { path: '', component: RegistresComercialsGridComponent },
             { path: 'create', component: RegistresComercialsFormComponent, canDeactivate: [BngFormExitGuard] },

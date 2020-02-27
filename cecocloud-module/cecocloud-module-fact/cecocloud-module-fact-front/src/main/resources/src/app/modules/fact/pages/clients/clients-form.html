@@ -165,7 +165,7 @@
 			</mat-card-content>
 		</mat-card>
 		<mat-card>
-			<mat-card-title>{{'resource.client.field.titolDepartament'|translate}}</mat-card-title>
+			<mat-card-title *ngIf="modificant">{{'resource.client.field.titolDepartament'|translate}}</mat-card-title>
 			<mat-card-content *ngIf="modificant" >
 				<ng-container *ngTemplateOutlet="departamentClientFields"></ng-container>
 			</mat-card-content>
@@ -551,19 +551,21 @@
       		</div>
     	</div>
  	    <div style="display: flex">
-  			<div style="width: 20%; padding-top: 1em; padding-right: 1em">
+  			<div style="width: 50%; padding-top: 1em; padding-right: 1em">
         		<bng-custom-field name="permesEntrarPartes"></bng-custom-field>
       		</div>
-     		<div style="width: 20%; padding-top: 1em; padding-right: 1em">
+     		<div style="width: 50%; padding-top: 1em; padding-right: 1em">
         		<bng-custom-field name="cobrarDiesLloguer"></bng-custom-field>
-      		</div>
-      		<div style="width: 20%; padding-right: 1em">
+      		</div>      		
+   		</div>
+   		<div style="display: flex">     	
+   			<div style="width: 33%; padding-right: 1em">
         		<bng-custom-field name="referenciaUnicaMandat"></bng-custom-field>
       		</div>
-     		<div style="width: 20%; padding-right: 1em">
+      		<div style="width: 33%; padding-right: 1em">
         		<bng-custom-field name="dataFirmaMandat"></bng-custom-field>
-      		</div>
-      		<div style="width: 20%; padding-top: 1em; padding-right: 1em">
+      		</div>	
+      		<div style="width: 33%; padding-top: 1em; padding-right: 1em">
         		<bng-custom-field name="facturaElectronica"></bng-custom-field>
       		</div>
     	</div>

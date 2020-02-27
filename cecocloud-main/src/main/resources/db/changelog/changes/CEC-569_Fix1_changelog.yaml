@@ -1,0 +1,9 @@
+databaseChangeLog:        
+- changeSet:
+    id: CEC-569_dropUniqueConstraint_tgesClm_irgesClmPk
+    author: mgomez
+    changes:
+    - dropUniqueConstraint:      
+         constraintName: irges_clm_pk      
+         tableName: tges_clm
+         uniqueColumns: clm_idf_cod
