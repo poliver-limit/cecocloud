@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1582098773213-1
+    id: 1582807068213-1
     author: josepg (generated)
     changes:
     - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: acl_object_identity_pkey
+              primaryKeyName: acl_object_identity_pk
             name: id
             type: BIGINT
         - column:
@@ -36,7 +36,7 @@ databaseChangeLog:
             type: BOOLEAN
         tableName: acl_object_identity
 - changeSet:
-    id: 1582098773213-2
+    id: 1582807068213-2
     author: josepg (generated)
     changes:
     - createTable:
@@ -46,7 +46,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: acl_sid_pkey
+              primaryKeyName: acl_sid_pk
             name: id
             type: BIGINT
         - column:
@@ -61,7 +61,7 @@ databaseChangeLog:
             type: VARCHAR(100)
         tableName: acl_sid
 - changeSet:
-    id: 1582098773213-3
+    id: 1582807068213-3
     author: josepg (generated)
     changes:
     - createTable:
@@ -71,7 +71,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: acl_entry_pkey
+              primaryKeyName: acl_entry_pk
             name: id
             type: BIGINT
         - column:
@@ -111,7 +111,7 @@ databaseChangeLog:
             type: BOOLEAN
         tableName: acl_entry
 - changeSet:
-    id: 1582098773213-4
+    id: 1582807068213-4
     author: josepg (generated)
     changes:
     - createTable:
@@ -121,7 +121,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: acl_class_pkey
+              primaryKeyName: acl_class_pk
             name: id
             type: BIGINT
         - column:
@@ -131,7 +131,7 @@ databaseChangeLog:
             type: VARCHAR(100)
         tableName: acl_class
 - changeSet:
-    id: 1582098773213-5
+    id: 1582807068213-5
     author: josepg (generated)
     changes:
     - addForeignKeyConstraint:
@@ -146,7 +146,7 @@ databaseChangeLog:
         referencedTableName: acl_object_identity
         validate: true
 - changeSet:
-    id: 1582098773213-6
+    id: 1582807068213-6
     author: josepg (generated)
     changes:
     - addUniqueConstraint:
@@ -154,7 +154,7 @@ databaseChangeLog:
         constraintName: acloid_uk
         tableName: acl_object_identity
 - changeSet:
-    id: 1582098773213-7
+    id: 1582807068213-7
     author: josepg (generated)
     changes:
     - addUniqueConstraint:
@@ -162,7 +162,7 @@ databaseChangeLog:
         constraintName: aclsid_uk
         tableName: acl_sid
 - changeSet:
-    id: 1582098773213-8
+    id: 1582807068213-8
     author: josepg (generated)
     changes:
     - addForeignKeyConstraint:
@@ -177,7 +177,7 @@ databaseChangeLog:
         referencedTableName: acl_object_identity
         validate: true
 - changeSet:
-    id: 1582098773213-9
+    id: 1582807068213-9
     author: josepg (generated)
     changes:
     - addForeignKeyConstraint:
@@ -192,7 +192,7 @@ databaseChangeLog:
         referencedTableName: acl_sid
         validate: true
 - changeSet:
-    id: 1582098773213-10
+    id: 1582807068213-10
     author: josepg (generated)
     changes:
     - addUniqueConstraint:
@@ -200,7 +200,7 @@ databaseChangeLog:
         constraintName: aclentry_uk
         tableName: acl_entry
 - changeSet:
-    id: 1582098773213-11
+    id: 1582807068213-11
     author: josepg (generated)
     changes:
     - addUniqueConstraint:
@@ -208,7 +208,7 @@ databaseChangeLog:
         constraintName: aclclass_uk
         tableName: acl_class
 - changeSet:
-    id: 1582098773213-12
+    id: 1582807068213-12
     author: josepg (generated)
     changes:
     - addForeignKeyConstraint:
@@ -223,7 +223,7 @@ databaseChangeLog:
         referencedTableName: acl_class
         validate: true
 - changeSet:
-    id: 1582098773213-13
+    id: 1582807068213-13
     author: josepg (generated)
     changes:
     - addForeignKeyConstraint:

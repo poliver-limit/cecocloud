@@ -9,14 +9,12 @@
 	</parent>
 	<artifactId>cecocloud-main</artifactId>
 	<properties>
-		<liquibase.version>3.8.6</liquibase.version>
-		<liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
+		<liquibase.version>3.8.7</liquibase.version>
+		<liquibase-hibernate5.version>3.8</liquibase-hibernate5.version>
 		<liquibase-spring.version>5.2.2.RELEASE</liquibase-spring.version>
 		<liquibase-spring-data-jpa.version>2.2.3.RELEASE</liquibase-spring-data-jpa.version>
 		<liquibase-postgresql.version>42.2.10</liquibase-postgresql.version>
-		<liquibase-property.file>${project.basedir}/liquibase/liquibase-acl.properties</liquibase-property.file>
-		<!--liquibase-persist.module>cecocloud-module-fact-persist</liquibase-persist.module>
-		<liquibase-property.file>${project.basedir}/liquibase/liquibase-fact.properties</liquibase-property.file-->
+		<liquibase-property.file>${project.basedir}/liquibase/liquibase-changelogSync.properties</liquibase-property.file>
 		<ojdbc6.version>11.2.0.4</ojdbc6.version>
 	</properties>
 	<dependencies>

@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1582105215123-1
+    id: 1582807068223-1
     author: josepg
     changes:
     - sql:
@@ -9,3 +9,13 @@ databaseChangeLog:
     - sql:
         dbms: postgresql
         sql: INSERT INTO usuari_authority VALUES(currval('hibernate_sequence'),'ADMIN');
+- changeSet:
+    id: 1582807068223-2
+    author: josepg
+    changes:
+    - sql:
+        dbms: oracle
+        sql: INSERT INTO usuari(id, codi, contrasenya, email, imatge_url, nom, llinatges, validat, actiu, created_by, created_date, version) VALUES(hibernate_sequence.nextval,'admin','$2a$10$lLGi1t0OT7ftruz8ieC2B.ImwpGTlkVCHDiYrQKTYdlOr6fN/CFMa','admin@limit.es',NULL,'Administrador','Admin',1,1,'init',current_timestamp,0);
+    - sql:
+        dbms: oracle
+        sql: INSERT INTO usuari_authority VALUES(hibernate_sequence.currval,'ADMIN');
