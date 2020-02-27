@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,6 +12,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.ValoracioInventariTraspasConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ValoracioInventariTraspasEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +52,7 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = ValoracioInventariTraspasConverter.class)
 	private ValoracioInventariTraspasEnum valoracioInventariTraspas;
 	
 	@Size(max = 60)

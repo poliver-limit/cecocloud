@@ -58,7 +58,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_idi_idf_fk"))
 })
-public class IdiomaEntity extends AbstractWithIdentificadorEntity<Idioma, WithIdentificadorAndCodiPk<String>> {
+public class IdiomaEntity extends AbstractWithIdentificadorAuditableEntity<Idioma, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Idioma embedded;

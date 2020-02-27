@@ -65,7 +65,7 @@ import lombok.Setter;
 			foreignKey = @ForeignKey(name = "rges_rap_idf_fk"))
 })
 
-public class RappelEntity extends AbstractWithIdentificadorEntity<Rappel, WithIdentificadorAndCodiPk<String>> {
+public class RappelEntity extends AbstractWithIdentificadorAuditableEntity<Rappel, WithIdentificadorAndCodiPk<String>> {
 	
 	@Embedded
 	protected Rappel embedded;

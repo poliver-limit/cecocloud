@@ -12,6 +12,7 @@ import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCo
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Interfície pels DTOs amb identificador i codi.
@@ -27,6 +28,7 @@ public interface IdentificableWithIdentificadorAndCodi<ID extends Serializable> 
 	@Getter
 	@SuppressWarnings("serial")
 	@MappedSuperclass
+	@ToString
 	public static class WithIdentificadorAndCodiPk<C> extends WithIdentificadorPk {
 		private C codi;
 		public WithIdentificadorAndCodiPk(

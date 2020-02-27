@@ -58,7 +58,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_mod_idf_fk"))
 })
-public class ArticleModelEntity extends AbstractWithIdentificadorEntity<ArticleModel, WithIdentificadorAndCodiPk<String>> {
+public class ArticleModelEntity extends AbstractWithIdentificadorAuditableEntity<ArticleModel, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected ArticleModel embedded;

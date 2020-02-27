@@ -58,7 +58,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_stc_idf_fk"))
 })
-public class SituacioComercialEntity extends AbstractWithIdentificadorEntity<SituacioComercial, WithIdentificadorAndCodiPk<String>> {
+public class SituacioComercialEntity extends AbstractWithIdentificadorAuditableEntity<SituacioComercial, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected SituacioComercial embedded;

@@ -69,7 +69,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_rgc_idf_fk"))
 })
-public class RegistreComercialEntity extends AbstractWithIdentificadorEntity<RegistreComercial, RegistreComercialPk> {
+public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableEntity<RegistreComercial, RegistreComercialPk> {
 
 	@Embedded
 	protected RegistreComercial embedded;

@@ -60,7 +60,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_uba_idf_fk"))
 })
-public class UbicacioArticleEntity extends AbstractWithIdentificadorEntity<UbicacioArticle, UbicacioArticlePk> {
+public class UbicacioArticleEntity extends AbstractWithIdentificadorAuditableEntity<UbicacioArticle, UbicacioArticlePk> {
 
 	@Embedded
 	protected UbicacioArticle embedded;

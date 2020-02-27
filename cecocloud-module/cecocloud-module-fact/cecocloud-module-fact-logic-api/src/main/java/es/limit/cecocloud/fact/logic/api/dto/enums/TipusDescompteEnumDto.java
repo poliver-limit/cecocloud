@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus de descompte.
  * 
@@ -29,7 +31,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * @author Limit Tecnologies <limit@limit.es>
  */
 
-public enum TipusDescompteEnumDto {
+public enum TipusDescompteEnumDto implements ConvertedEnumInterface<Integer> {
 
 	/** Primer descompte = 1 */
 	PRIMER_DESCOMPTE(1),

@@ -65,7 +65,7 @@ import lombok.Setter;
 })
 
 public class OrganitzacioEntity
-		extends AbstractWithIdentificadorEntity<Organitzacio, WithIdentificadorAndCodiPk<String>> {
+		extends AbstractWithIdentificadorAuditableEntity<Organitzacio, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Organitzacio embedded;

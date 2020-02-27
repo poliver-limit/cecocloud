@@ -59,7 +59,7 @@ import lombok.Setter;
 })
 
 public class FamiliaClientEntity
-		extends AbstractWithIdentificadorEntity<FamiliaClient, WithIdentificadorAndCodiPk<String>> {
+		extends AbstractWithIdentificadorAuditableEntity<FamiliaClient, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected FamiliaClient embedded;

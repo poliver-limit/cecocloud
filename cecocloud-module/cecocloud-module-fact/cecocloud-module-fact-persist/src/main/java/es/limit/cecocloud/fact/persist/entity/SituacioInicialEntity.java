@@ -66,7 +66,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_sui_idf_fk"))
 })
-public class SituacioInicialEntity extends AbstractWithIdentificadorEntity<SituacioInicial, SituacioInicialPk> {
+public class SituacioInicialEntity extends AbstractWithIdentificadorAuditableEntity<SituacioInicial, SituacioInicialPk> {
 
 	@Embedded
 	protected SituacioInicial embedded;

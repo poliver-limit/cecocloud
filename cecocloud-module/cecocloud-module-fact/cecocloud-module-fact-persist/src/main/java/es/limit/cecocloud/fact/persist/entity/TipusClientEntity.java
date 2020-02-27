@@ -59,7 +59,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_ctp_idf_fk"))
 })
-public class TipusClientEntity extends AbstractWithIdentificadorEntity<TipusClient, TipusClientPk> {
+public class TipusClientEntity extends AbstractWithIdentificadorAuditableEntity<TipusClient, TipusClientPk> {
 
 	@Embedded
 	protected TipusClient embedded;

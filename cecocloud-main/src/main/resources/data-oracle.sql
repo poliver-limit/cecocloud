@@ -21,5 +21,29 @@ from tges_idf;
 */
 
 --
+-- Importar empreses associades amb un IDF
+--
+/*
+insert into empresa(
+id, codi, nif, nom, tipus, activa, IDENTIFICADOR_id, created_by, created_date, version)
+select
+hibernate_sequence.nextval,
+emp_cod, emp_nif, emp_nomcom, 0, 1,
+(select id from identificador where codi = emp_idf_cod),
+'admin', sysdate, 0
+from tges_emp
+WHERE emp_idf_cod = 'LIM';
+*/
+
+--
 -- Associar totes les funcionalitats amb un IDF
 --
+/*
+insert into funcionalitat_ident(
+id, funcionalitat_id, identificador_id, created_by, created_date, version)
+select
+hibernate_sequence.nextval,
+id, (select id from identificador where codi = 'LIM'),
+'admin', sysdate, 0
+from funcionalitat;
+*/

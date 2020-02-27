@@ -3,12 +3,14 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.fact.logic.api.converter.ComptabilitzacioTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ComptabilitzacioTipusEnumDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,5 +50,6 @@ public class ClasseRetencio extends AbstractIdentificableWithIdentificadorAndCod
 			type = RestapiFieldType.ENUM,
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = ComptabilitzacioTipusConverter.class)
 	private ComptabilitzacioTipusEnumDto tipusComptabilitzacio;
 }

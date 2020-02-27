@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus de retenció.
  * 
@@ -29,7 +31,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * @author Limit Tecnologies <limit@limit.es>
  */
 
-public enum TipusRetencioEnumDto {
+public enum TipusRetencioEnumDto implements ConvertedEnumInterface<Integer> {
 
 	/** Sobre base imposable = 1 */
 	SOBRE_BASE(1),

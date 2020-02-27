@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,11 +14,13 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.SerieFacturaRectificativaConverter;
 import es.limit.cecocloud.fact.logic.api.dto.Departament.DepartamentPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument.PeuDocumentPk;
 import es.limit.cecocloud.fact.logic.api.dto.SerieVenda.SerieVendaPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.SerieFacturaRectificativaEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -88,12 +91,14 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean traspassarAComptabilitat;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean traspassarAComptabilitat;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean combinarCompteVendaAmbClient;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean combinarCompteVendaAmbClient;
 	
 	@Size(max = 2)	
 	@RestapiField(
@@ -225,21 +230,25 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean numeracioManual;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean aplicarDescompte;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = SerieFacturaRectificativaConverter.class)
 	private SerieFacturaRectificativaEnumDto facturaRectificativa;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean desglossarIva;
 
 	@Transient	

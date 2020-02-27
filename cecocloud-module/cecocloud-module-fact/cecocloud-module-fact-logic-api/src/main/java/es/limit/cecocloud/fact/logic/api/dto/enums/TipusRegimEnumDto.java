@@ -3,7 +3,9 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
-public enum TipusRegimEnumDto {
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
+public enum TipusRegimEnumDto implements ConvertedEnumInterface<Integer> {
 	/** General = 1*/
 	GENERAL(1),
 	/** intracomunitari = 2*/

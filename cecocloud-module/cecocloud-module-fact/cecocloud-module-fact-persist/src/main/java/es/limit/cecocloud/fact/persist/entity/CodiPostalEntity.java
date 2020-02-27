@@ -61,7 +61,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_cpo_idf_fk"))
 })
-public class CodiPostalEntity extends AbstractWithIdentificadorEntity<CodiPostal, WithIdentificadorAndCodiPk<String>> {
+public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<CodiPostal, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected CodiPostal embedded;

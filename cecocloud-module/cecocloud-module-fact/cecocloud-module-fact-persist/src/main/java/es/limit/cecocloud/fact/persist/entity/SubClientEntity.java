@@ -57,7 +57,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.tipusRetencio", column = @Column(name = "scl_tipret", length = 1)),
 	@AttributeOverride(name = "embedded.albaraClientSubtipus", column = @Column(name = "scl_albcls")),
 	@AttributeOverride(name = "embedded.rebuts", column = @Column(name = "scl_reb", length = 1)),
-	@AttributeOverride(name = "embedded.emailFactura", column = @Column(name = "scl_remlfac", length = 100)),
 	@AttributeOverride(name = "embedded.publicarDocumentsWeb", column = @Column(name = "scl_pubweb", length = 1)),
 	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "scl_tel", length = 60)),
 	@AttributeOverride(name = "embedded.fax", column = @Column(name = "scl_fax", length = 60)),
@@ -69,7 +68,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.contacte", column = @Column(name = "scl_confacele", length = 255)),
 	@AttributeOverride(name = "embedded.cpOficinaComptable", column = @Column(name = "scl_cpo_codoficmp", length = 8)),
 	@AttributeOverride(name = "embedded.cpOrganGestor", column = @Column(name = "scl_cpo_codorgges", length = 8)),
-	@AttributeOverride(name = "embedded.cpUnitatTramitadora", column = @Column(name = "scl_codunitrm", length = 8)),
+	@AttributeOverride(name = "embedded.cpUnitatTramitadora", column = @Column(name = "scl_cpo_codunitrm", length = 8)),
 	@AttributeOverride(name = "embedded.domiciliOficinaComptable", column = @Column(name = "scl_domoficmp", length = 60)),
 	@AttributeOverride(name = "embedded.domiciliOrganGestor", column = @Column(name = "scl_domorgges", length = 60)),
 	@AttributeOverride(name = "embedded.domiciliUnitatTramitadora", column = @Column(name = "scl_domunitrm", length = 60)),
@@ -99,7 +98,7 @@ import lombok.Setter;
 			foreignKey = @ForeignKey(name = "rges_scl_idf_fk"))
 })
 
-public class SubClientEntity extends AbstractWithIdentificadorEntity<SubClient, SubClientPk>{
+public class SubClientEntity extends AbstractWithIdentificadorAuditableEntity<SubClient, SubClientPk>{
 
 	@Embedded
 	protected  SubClient embedded;

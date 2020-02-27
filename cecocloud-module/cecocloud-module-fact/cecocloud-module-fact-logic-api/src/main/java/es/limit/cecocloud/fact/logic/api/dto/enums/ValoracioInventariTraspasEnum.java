@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb les possibles valoracions de inventari.
  * 
@@ -28,7 +30,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * @author sion
  *
  */
-public enum ValoracioInventariTraspasEnum {
+public enum ValoracioInventariTraspasEnum implements ConvertedEnumInterface<String> {
 	/**Precio medio coste global = 1*/
 	PREU_MITJA_COST_GLOBAL("1"),
 	/**Ultimo precio de coste = 2*/

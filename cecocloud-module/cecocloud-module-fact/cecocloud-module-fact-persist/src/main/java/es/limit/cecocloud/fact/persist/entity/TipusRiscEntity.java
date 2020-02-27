@@ -63,7 +63,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_tri_idf_fk"))
 })
-public class TipusRiscEntity extends AbstractWithIdentificadorEntity<TipusRisc, WithIdentificadorAndCodiPk<String>> {
+public class TipusRiscEntity extends AbstractWithIdentificadorAuditableEntity<TipusRisc, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected TipusRisc embedded;

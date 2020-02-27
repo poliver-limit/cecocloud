@@ -57,7 +57,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_gma_idf_fk"))
 })
-public class ArticleGammaEntity extends AbstractWithIdentificadorEntity<ArticleGamma, WithIdentificadorAndCodiPk<String>> {
+public class ArticleGammaEntity extends AbstractWithIdentificadorAuditableEntity<ArticleGamma, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected ArticleGamma embedded;

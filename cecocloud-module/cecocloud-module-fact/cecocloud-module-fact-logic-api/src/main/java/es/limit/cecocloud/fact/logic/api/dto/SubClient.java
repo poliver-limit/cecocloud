@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,6 +14,10 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientSubtipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.RebutsConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusDescompteConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusRetencioConverter;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.SubClient.SubClientPk;
@@ -20,6 +25,7 @@ import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientSubtipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RebutsEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusDescompteEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusRetencioEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -75,12 +81,14 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean bloquejat;
 	
 //	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean preusPerVolum;
 	
 	@Transient
@@ -99,6 +107,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = TipusDescompteConverter.class)
 	private TipusDescompteEnumDto tipusDescompte;
 	
 	@Transient
@@ -130,6 +139,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = TipusRetencioConverter.class)
 	private TipusRetencioEnumDto tipusRetencio;
 	
 	@Transient
@@ -143,24 +153,21 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = AlbaraClientSubtipusConverter.class)
 	private AlbaraClientSubtipusEnumDto albaraClientSubtipus;
 	
 //	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = RebutsConverter.class)
 	private RebutsEnumDto rebuts;
-	
-	@Size(max = 100)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String emailFactura;
 	
 //	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean publicarDocumentsWeb;
 	
 	@Size(max = 60)

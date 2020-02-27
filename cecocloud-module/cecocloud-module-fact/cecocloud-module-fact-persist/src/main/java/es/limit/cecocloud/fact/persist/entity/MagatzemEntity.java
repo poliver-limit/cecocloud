@@ -73,7 +73,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_mag_idf_fk"))
 })
-public class MagatzemEntity extends AbstractWithIdentificadorEntity<Magatzem, WithIdentificadorAndCodiPk<String>> {
+public class MagatzemEntity extends AbstractWithIdentificadorAuditableEntity<Magatzem, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Magatzem embedded;

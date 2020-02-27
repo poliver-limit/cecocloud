@@ -59,7 +59,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_ffa_idf_fk"))
 })
-public class FinalFacturaEntity extends AbstractWithIdentificadorEntity<FinalFactura, WithIdentificadorAndCodiPk<String>> {
+public class FinalFacturaEntity extends AbstractWithIdentificadorAuditableEntity<FinalFactura, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected FinalFactura embedded;

@@ -6,14 +6,18 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.fact.logic.api.converter.TarifaFormaCalculConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TarifaTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TarifaFormaCalculEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TarifaTipusEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -58,23 +62,28 @@ public class Tarifa extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = TarifaTipusConverter.class)
 	private TarifaTipusEnumDto tarifaTipus;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = TarifaFormaCalculConverter.class)
 	private TarifaFormaCalculEnumDto formaCalcul;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean actualitzarPreu;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean tarifaOferta;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean descomptesGenerals;
 	
 	@RestapiField(hiddenInGrid = true,

@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus de tarifes.
  * 
@@ -27,7 +29,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public enum TarifaFormaCalculEnumDto {
+public enum TarifaFormaCalculEnumDto implements ConvertedEnumInterface<String> {
 	/** Aplicar marges sobre cost = 1*/
 	COST("1"),
 	/** Aplicar marges sobre venta = 2*/

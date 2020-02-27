@@ -59,7 +59,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_clm_idf_fk"))
 })
-public class AplicadorClientEntity extends AbstractWithIdentificadorEntity<AplicadorClient, AplicadorClientPk> {
+public class AplicadorClientEntity extends AbstractWithIdentificadorAuditableEntity<AplicadorClient, AplicadorClientPk> {
 
 	@Embedded
 	protected AplicadorClient embedded;

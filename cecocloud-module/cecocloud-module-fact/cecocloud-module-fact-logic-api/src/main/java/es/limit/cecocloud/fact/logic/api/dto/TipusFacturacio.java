@@ -3,11 +3,13 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,6 +39,7 @@ public class TipusFacturacio extends AbstractIdentificableWithIdentificadorAndCo
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean concedimCredit;
 
 }

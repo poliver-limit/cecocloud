@@ -70,7 +70,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_pro_idf_fk"))
 })
-public class ProveidorEntity extends AbstractWithIdentificadorEntity<Proveidor, WithIdentificadorAndCodiPk<String>> {
+public class ProveidorEntity extends AbstractWithIdentificadorAuditableEntity<Proveidor, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Proveidor embedded;

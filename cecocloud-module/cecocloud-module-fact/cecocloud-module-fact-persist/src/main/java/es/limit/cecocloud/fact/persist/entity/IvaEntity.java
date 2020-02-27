@@ -62,7 +62,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_iva_idf_fk"))
 })
-public class IvaEntity extends AbstractWithIdentificadorEntity<Iva, WithIdentificadorAndCodiPk<String>> {
+public class IvaEntity extends AbstractWithIdentificadorAuditableEntity<Iva, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Iva embedded;

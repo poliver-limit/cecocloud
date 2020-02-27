@@ -6,6 +6,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,6 +16,16 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientSubtipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.EnviamentFacturaConverter;
+import es.limit.cecocloud.fact.logic.api.converter.RebutsConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusDescompteConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusEstrangerConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusFacturaConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusMissatgeConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusNifConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusPersonaConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusRetencioConverter;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.OficinaBancaria.OficinaBancariaPk;
 import es.limit.cecocloud.fact.logic.api.dto.SerieVenda.SerieVendaPk;
@@ -28,6 +39,7 @@ import es.limit.cecocloud.fact.logic.api.dto.enums.TipusMissatgeEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusNifEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusPersonaEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusRetencioEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,26 +67,32 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean bloquejat;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean potencial;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = RebutsConverter.class)
 	private RebutsEnumDto rebuts;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean recarrecEquivalencia;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean albaraValorat;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = TipusFacturaConverter.class)
 	private TipusFacturaEnumDto tipusFactura;
 
 	@Size(max = 40)
@@ -115,6 +133,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = EnviamentFacturaConverter.class)
 	private EnviamentFacturaEnumDto enviamentFactura;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -127,6 +146,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private Float descompteTermini;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = TipusDescompteConverter.class)
 	private TipusDescompteEnumDto tipusDescompte;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -137,6 +157,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = TipusRetencioConverter.class)
 	private TipusRetencioEnumDto tipusRetencio;
 
 	@Size(max = 10)
@@ -195,6 +216,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean facturesSenseDescompte;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -202,10 +224,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean entitatPublica;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean censadoAEAT;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -260,10 +284,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private Float percentatgePermesFacturesClase1;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean mostrarPercentatgeFacturacioClase1;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean aplicarPreusPerVolum;
 
 	@Size(max = 30)
@@ -291,9 +317,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = TipusMissatgeConverter.class)
 	private TipusMissatgeEnumDto tipusMissatge;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = AlbaraClientSubtipusConverter.class)
 	private AlbaraClientSubtipusEnumDto albaraClientSubtipus;
 
 	@Size(max = 100)
@@ -302,6 +330,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean publicarDocumentsWeb;
 
 	@Size(max = 1000)
@@ -310,22 +339,27 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean aplicarImpostPuntVerd;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean aplicarImpostServei;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean impostInclos;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean permesEntrarPartes;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = TipusNifConverter.class)
 	private TipusNifEnumDto tipusNif;
 
 	@Size(max = 2)
@@ -346,10 +380,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean noImprimirSubclient;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean noImprimirPaletsRetornats;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -360,10 +396,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = TipusPersonaConverter.class)
 	private TipusPersonaEnumDto tipusPersona;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = TipusEstrangerConverter.class)
 	private TipusEstrangerEnumDto tipusEstranger;
 
 	@Size(max = 40)
@@ -423,10 +461,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean facturaElectronica;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean cobrarDiesLloguer;	
 
 	@Transient
@@ -528,10 +568,6 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusComissio, WithIdentificadorAndCodiPk<String>> tipusComissio;
-
-	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<TipusAdresa, WithIdentificadorAndCodiPk<String>> tipusAdresa;
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)

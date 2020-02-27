@@ -73,7 +73,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_alb_idf_fk"))
 })
-public class AlbaraEntity extends AbstractWithIdentificadorEntity<Albara, AlbaraPk> {
+public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albara, AlbaraPk> {
 
 	@Embedded
 	protected Albara embedded;

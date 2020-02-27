@@ -61,7 +61,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_pas_idf_fk"))
 })
-public class PaisEntity extends AbstractWithIdentificadorEntity<Pais, WithIdentificadorAndCodiPk<String>> {
+public class PaisEntity extends AbstractWithIdentificadorAuditableEntity<Pais, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Pais embedded;

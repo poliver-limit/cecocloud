@@ -57,7 +57,7 @@ import lombok.Setter;
 })
 
 public class ClasseRetencioEntity
-		extends AbstractWithIdentificadorEntity<ClasseRetencio, WithIdentificadorAndCodiPk<String>> {
+		extends AbstractWithIdentificadorAuditableEntity<ClasseRetencio, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected ClasseRetencio embedded;

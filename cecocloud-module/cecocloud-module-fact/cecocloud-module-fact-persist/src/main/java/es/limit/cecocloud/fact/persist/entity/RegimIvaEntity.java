@@ -60,7 +60,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_rgi_idf_fk"))
 })
-public class RegimIvaEntity extends AbstractWithIdentificadorEntity<RegimIva, WithIdentificadorAndCodiPk<String>> {
+public class RegimIvaEntity extends AbstractWithIdentificadorAuditableEntity<RegimIva, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected RegimIva embedded;

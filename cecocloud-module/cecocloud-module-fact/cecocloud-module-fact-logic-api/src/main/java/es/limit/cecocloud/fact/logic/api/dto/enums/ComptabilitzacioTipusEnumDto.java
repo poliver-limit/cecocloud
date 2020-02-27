@@ -1,6 +1,8 @@
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
-public enum ComptabilitzacioTipusEnumDto {
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
+public enum ComptabilitzacioTipusEnumDto implements ConvertedEnumInterface<String> {
 	/** Comptabilitzar = S */
 	COMPTABILITZAR("S"),
 	/** Nomes venciment = N */

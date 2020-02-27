@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles subtipus d'un albarà de client.
  * 
@@ -29,7 +31,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * @author Limit Tecnologies <limit@limit.es>
  */
 
-public enum AlbaraClientSubtipusEnumDto {
+public enum AlbaraClientSubtipusEnumDto implements ConvertedEnumInterface<Integer> {
 
 	/** Subtipus d'albarà 0 = 0 */
 	CLASE_0(0),

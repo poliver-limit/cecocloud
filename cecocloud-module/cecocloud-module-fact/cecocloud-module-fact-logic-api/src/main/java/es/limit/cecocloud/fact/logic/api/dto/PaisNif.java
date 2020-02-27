@@ -3,10 +3,12 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.fact.logic.api.converter.PaisNifTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.PaisNifTipusEnumDto;
 import es.limit.cecocloud.logic.api.dto.AbstractIdentificableWithIdentificador;
 import lombok.Getter;
@@ -28,7 +30,7 @@ public class PaisNif extends AbstractIdentificableWithIdentificador<String> {
 	private String codi;
 	
 	@NotNull
-//	@Size(max = 1)
+	@Convert(converter = PaisNifTipusConverter.class)
 	private PaisNifTipusEnumDto tipusNif;
 	
 	@NotNull

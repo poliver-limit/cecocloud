@@ -58,7 +58,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_npg_idf_fk"))
 })
-public class NaturalesaPagamentCobramentEntity extends AbstractWithIdentificadorEntity<NaturalesaPagamentCobrament, WithIdentificadorAndCodiPk<String>> {
+public class NaturalesaPagamentCobramentEntity extends AbstractWithIdentificadorAuditableEntity<NaturalesaPagamentCobrament, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected NaturalesaPagamentCobrament embedded;

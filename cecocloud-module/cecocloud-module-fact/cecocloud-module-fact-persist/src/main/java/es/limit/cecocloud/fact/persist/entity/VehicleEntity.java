@@ -70,7 +70,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_mtr_idf_fk"))
 })
-public class VehicleEntity extends AbstractWithIdentificadorEntity<Vehicle, VehiclePk> {
+public class VehicleEntity extends AbstractWithIdentificadorAuditableEntity<Vehicle, VehiclePk> {
 
 	@Embedded
 	protected Vehicle embedded;

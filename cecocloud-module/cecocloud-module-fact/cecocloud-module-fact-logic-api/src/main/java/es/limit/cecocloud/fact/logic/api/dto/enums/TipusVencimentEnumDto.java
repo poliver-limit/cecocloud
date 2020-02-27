@@ -3,7 +3,9 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
-public enum TipusVencimentEnumDto {
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
+public enum TipusVencimentEnumDto implements ConvertedEnumInterface<String> {
 	/** import fixe = 1*/
 	IMPORT_FIXE("1"),
 	/** import porcentual = 2*/

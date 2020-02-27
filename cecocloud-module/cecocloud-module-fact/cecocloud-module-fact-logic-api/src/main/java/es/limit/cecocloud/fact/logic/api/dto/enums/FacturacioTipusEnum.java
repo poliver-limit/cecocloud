@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus de factura..
  * 
@@ -27,7 +29,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public enum FacturacioTipusEnum {
+public enum FacturacioTipusEnum implements ConvertedEnumInterface<Integer> {
 
 	ADMINISTRACIO(1),
 	PRESSUPOST(2);

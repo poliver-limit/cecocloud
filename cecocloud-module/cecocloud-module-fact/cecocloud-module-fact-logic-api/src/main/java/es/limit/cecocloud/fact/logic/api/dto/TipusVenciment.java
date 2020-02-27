@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,8 +13,11 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.fact.logic.api.converter.MesosConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusVencimentConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.MesosEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusVencimentEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,11 +48,13 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.ENUM)
+	@Convert(converter = TipusVencimentConverter.class)
 	private TipusVencimentEnumDto tipus;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean generarCobramentPagament;
 	
 	@Digits(integer = 12, fraction = 3)
@@ -63,7 +69,8 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean terminiAMesosComplets;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean terminiAMesosComplets;
 	
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=2,
@@ -132,6 +139,7 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = MesosConverter.class)
 	private MesosEnumDto mesTan;
 	
 	@RestapiField(hiddenInGrid = true,
@@ -141,14 +149,17 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = MesosConverter.class)
 	private MesosEnumDto mesPagament;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean darrerDiaMesVentes;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean darrerDiaMesCompres;
 	
 	@RestapiField(hiddenInGrid = true,

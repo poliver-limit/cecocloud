@@ -6,6 +6,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -15,10 +16,15 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.FacturacioTipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusComptabilitatClientConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusEstrangerConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusPersonaConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.FacturacioTipusEnum;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusComptabilitatClientEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusEstrangerEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusPersonaEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -81,6 +87,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	
 	@NotNull
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = FacturacioTipusConverter.class)
 	private FacturacioTipusEnum facturacioTipus;
 	
 	@Transient
@@ -95,6 +102,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean recarrecEquivalencia;
 	
 	@Size(max = 60)
@@ -127,10 +135,12 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,
 			hiddenInGrid = true)
+	@Convert(converter = TipusComptabilitatClientConverter.class)
 	private TipusComptabilitatClientEnumDto comptabilitatClients;
 	
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,
 			hiddenInGrid = true)
+	@Convert(converter = TipusComptabilitatClientConverter.class)
 	private TipusComptabilitatClientEnumDto comptabilitatProveidors;
 	
 	@Size(max = 2)
@@ -167,16 +177,19 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean regimCriteriCaixa;	
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean regimCriteriCaixa;	
 	
 	@RestapiField(
 			type = RestapiFieldType.ENUM,
 			hiddenInGrid = true,
 			hiddenInLov=true)
+	@Convert(converter = TipusPersonaConverter.class)
 	private TipusPersonaEnumDto personaTipus;
 	
 	@RestapiField(type = RestapiFieldType.ENUM, hiddenInLov = true,
 			hiddenInGrid = true)
+	@Convert(converter = TipusEstrangerConverter.class)
 	private TipusEstrangerEnumDto tipoResidencia;
 	
 	@RestapiField(hiddenInLov = true,
@@ -197,6 +210,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean logoImprimir;
 	
 	@RestapiField(hiddenInLov = true,

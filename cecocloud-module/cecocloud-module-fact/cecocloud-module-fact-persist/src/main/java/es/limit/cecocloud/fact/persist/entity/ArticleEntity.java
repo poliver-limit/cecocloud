@@ -70,7 +70,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_art_idf_fk"))
 })
-public class ArticleEntity extends AbstractWithIdentificadorEntity<Article, WithIdentificadorAndCodiPk<String>> {
+public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Article, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Article embedded;

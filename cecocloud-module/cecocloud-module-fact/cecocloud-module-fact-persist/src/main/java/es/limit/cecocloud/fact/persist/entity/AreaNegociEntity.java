@@ -72,7 +72,7 @@ import lombok.Setter;
 
 
 
-public class AreaNegociEntity extends AbstractWithIdentificadorEntity<AreaNegoci, AreaNegociPk>{
+public class AreaNegociEntity extends AbstractWithIdentificadorAuditableEntity<AreaNegoci, AreaNegociPk>{
 	
 	@Embedded
 	protected  AreaNegoci embedded;

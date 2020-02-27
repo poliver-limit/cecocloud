@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus de PaisNif.
  * 
@@ -27,7 +29,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public enum PaisNifTipusEnumDto {
+public enum PaisNifTipusEnumDto implements ConvertedEnumInterface<String> {
 
 	/** NUMERIC = N */
 	NUMERIC("N"),

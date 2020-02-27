@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
 
 /**
  * DTO enumerat amb els possibles tipus de tarifes.
@@ -28,7 +29,7 @@ package es.limit.cecocloud.rrhh.logic.api.dto.enums;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public enum OperariEnumDto {
+public enum OperariEnumDto implements ConvertedEnumInterface<String> {
 	/** SI = S*/
 	SI("S"),
 	/** NO = N*/

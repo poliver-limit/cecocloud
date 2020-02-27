@@ -5,12 +5,14 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.fact.logic.api.converter.AplicadorCategoriaConverter;
 import es.limit.cecocloud.fact.logic.api.dto.Aplicador.AplicadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AplicadorCategoriaEnumDto;
@@ -29,7 +31,6 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-
 public class Aplicador extends AbstractIdentificableWithIdentificador<AplicadorPk>{
 	
 	@NotNull(groups = {OnCreate.class})
@@ -61,6 +62,7 @@ public class Aplicador extends AbstractIdentificableWithIdentificador<AplicadorP
 	@RestapiField(
 			includeInQuickFilter = true,
 			hiddenInGrid = true)	
+	@Convert(converter = AplicadorCategoriaConverter.class)
 	private AplicadorCategoriaEnumDto categoria;
 	
 	@RestapiField(

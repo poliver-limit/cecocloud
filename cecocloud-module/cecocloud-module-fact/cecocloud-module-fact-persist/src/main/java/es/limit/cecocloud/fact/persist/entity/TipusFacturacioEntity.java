@@ -58,7 +58,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_tfc_idf_fk"))
 })
-public class TipusFacturacioEntity extends AbstractWithIdentificadorEntity<TipusFacturacio, WithIdentificadorAndCodiPk<String>> {
+public class TipusFacturacioEntity extends AbstractWithIdentificadorAuditableEntity<TipusFacturacio, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected TipusFacturacio embedded;

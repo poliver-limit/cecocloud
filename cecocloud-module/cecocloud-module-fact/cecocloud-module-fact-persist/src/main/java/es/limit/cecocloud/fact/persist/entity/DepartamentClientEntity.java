@@ -75,7 +75,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_dpc_idf_fk"))
 })
-public class DepartamentClientEntity extends AbstractWithIdentificadorEntity<DepartamentClient, DepartamentClientPk> {
+public class DepartamentClientEntity extends AbstractWithIdentificadorAuditableEntity<DepartamentClient, DepartamentClientPk> {
 
 	@Embedded
 	protected DepartamentClient embedded;

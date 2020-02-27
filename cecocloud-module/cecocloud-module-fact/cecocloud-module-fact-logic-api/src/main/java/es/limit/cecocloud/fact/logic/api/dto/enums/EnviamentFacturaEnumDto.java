@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus d'enviament de factura.
  * 
@@ -29,7 +31,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * @author Limit Tecnologies <limit@limit.es>
  */
 
-public enum EnviamentFacturaEnumDto {
+public enum EnviamentFacturaEnumDto implements ConvertedEnumInterface<String> {
 
 	/** En mà = M */
 	EN_MA("M"),

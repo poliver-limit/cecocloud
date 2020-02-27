@@ -58,7 +58,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_tds_idf_fk"))
 })
-public class TarifaDescompteEntity extends AbstractWithIdentificadorEntity<TarifaDescompte, WithIdentificadorAndCodiPk<String>> {
+public class TarifaDescompteEntity extends AbstractWithIdentificadorAuditableEntity<TarifaDescompte, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected TarifaDescompte embedded;

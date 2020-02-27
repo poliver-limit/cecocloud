@@ -57,7 +57,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_ban_idf_fk"))
 })
-public class BancEntity extends AbstractWithIdentificadorEntity<Banc, WithIdentificadorAndCodiPk<Integer>> {
+public class BancEntity extends AbstractWithIdentificadorAuditableEntity<Banc, WithIdentificadorAndCodiPk<Integer>> {
 
 	@Embedded
 	protected Banc embedded;

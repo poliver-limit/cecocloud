@@ -46,14 +46,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cce_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.clientCodi", column = @Column(name = "cce_cli_cod", length = 6)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "cce_emp_cod", length = 4)),	
-
 	@AttributeOverride(name = "embedded.compteComptable", column = @Column(name = "cce_ctecmp", length = 10)),
-	@AttributeOverride(name = "embedded.compteVendes", column = @Column(name = "cce_cteven", length = 10)),
-	
-	@AttributeOverride(name = "createdBy", column = @Column(name = "cce_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "cce_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cce_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "cce_datmod"))
+	@AttributeOverride(name = "embedded.compteVendes", column = @Column(name = "cce_cteven", length = 10))
 })
 @AssociationOverrides({
 	@AssociationOverride(
@@ -76,7 +70,7 @@ public class CompteComptableEmpresaEntity extends AbstractWithIdentificadorEntit
 			},
 			foreignKey = @ForeignKey(name = "rges_cce_cli_fk"))
 	protected ClientEntity client;
-	
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -93,19 +87,16 @@ public class CompteComptableEmpresaEntity extends AbstractWithIdentificadorEntit
 			IdentificadorEntity identificador,			
 			ClientEntity client,
 			EmpresaEntity empresa) {
-		
 		setId(pk);
-		
 		this.embedded = embedded;
 		this.identificador = identificador;	
 		this.client = client;
 		this.empresa = empresa;		
-		
 	}
 
 	@Override
 	public void update(CompteComptableEmpresa embedded) {
 		this.embedded = embedded;
 	}
-	
+
 }

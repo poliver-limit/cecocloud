@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,12 +46,14 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean controlarEfectes;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean controlarEfectes;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean agruparVencimentsRemeses;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean agruparVencimentsRemeses;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
@@ -66,16 +70,19 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean aplicarDescuentosProntoPago;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean aplicarDescuentosProntoPago;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@NotNull
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean transpasar;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@NotNull
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean asientoCompuesto;
 	
 	@NotNull

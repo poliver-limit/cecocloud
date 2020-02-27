@@ -158,7 +158,7 @@ import lombok.Setter;
 						foreignKey = @ForeignKey(name = "rges_cli_idf_fk")) 
 })
 
-public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithIdentificadorAndCodiPk<String>> {
+public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Client, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Client embedded;
@@ -441,17 +441,6 @@ public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithId
 	@Column(name = "cli_tcs_cod", length = 4)
 	private String tipusComissioCodi;
 
-	 @ManyToOne(optional = true, fetch = FetchType.LAZY)	  
-	 @JoinColumns(
-			 value = {
-					 @JoinColumn(name = "cli_idf_cod", referencedColumnName = "tad_idf_cod", insertable = false, updatable = false),
-					 @JoinColumn(name = "cli_tad_cod", referencedColumnName = "tad_cod", insertable = false, updatable = false)
-			 },
-			 foreignKey = @ForeignKey(name = "cli_tad_cod_fk"))
-	private TipusAdresaEntity tipusAdresa;
-	@Column(name = "cli_tad_cod", length = 4)
-	private String tipusAdresaCodi;
-
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -571,7 +560,6 @@ public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithId
 		updateOrganitzacio(organitzacio);
 		updateTarifaDescompte(tarifaDescompte);
 		updateTipusComissio(tipusComissio);
-		updateTipusAdresa(tipusAdresa);
 		updatePaisNif(paisNif);
 		updateTarifaDescompte2(tarifaDescompte2);
 		updateCodiPostalOficinaComptable(codiPostalOficinaComptable);
@@ -756,13 +744,6 @@ public class ClientEntity extends AbstractWithIdentificadorEntity<Client, WithId
 		this.tipusComissio = tipusComissio;
 		if (tipusComissio != null) {
 			this.tipusComissioCodi = tipusComissio.getEmbedded().getCodi();
-		}
-	}
-
-	public void updateTipusAdresa(TipusAdresaEntity tipusAdresa) {
-		this.tipusAdresa = tipusAdresa;
-		if (tipusAdresa != null) {
-			this.tipusAdresaCodi = tipusAdresa.getEmbedded().getCodi();
 		}
 	}
 

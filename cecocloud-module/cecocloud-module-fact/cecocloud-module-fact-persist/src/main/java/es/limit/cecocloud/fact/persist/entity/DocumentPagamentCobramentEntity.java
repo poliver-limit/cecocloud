@@ -80,7 +80,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_dpg_idf_fk"))
 })
-public class DocumentPagamentCobramentEntity extends AbstractWithIdentificadorEntity<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> {
+public class DocumentPagamentCobramentEntity extends AbstractWithIdentificadorAuditableEntity<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected DocumentPagamentCobrament embedded;

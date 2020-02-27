@@ -59,7 +59,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_sue_idf_fk"))
 })
-public class SubvencioEntity extends AbstractWithIdentificadorEntity<Subvencio, WithIdentificadorAndCodiPk<String>> {
+public class SubvencioEntity extends AbstractWithIdentificadorAuditableEntity<Subvencio, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Subvencio embedded;

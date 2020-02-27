@@ -61,7 +61,7 @@ import lombok.Setter;
 					foreignKey = @ForeignKey(name = "rges_ofb_idf_fk"))
 })
 
-public class OficinaBancariaEntity extends AbstractWithIdentificadorEntity<OficinaBancaria, OficinaBancariaPk> {
+public class OficinaBancariaEntity extends AbstractWithIdentificadorAuditableEntity<OficinaBancaria, OficinaBancariaPk> {
 
 	@Embedded
 	protected OficinaBancaria embedded;

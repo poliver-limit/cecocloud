@@ -74,7 +74,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_tra_idf_fk"))
 })
-public class TransportistaEntity extends AbstractWithIdentificadorEntity<Transportista, WithIdentificadorAndCodiPk<String>> {
+public class TransportistaEntity extends AbstractWithIdentificadorAuditableEntity<Transportista, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Transportista embedded;

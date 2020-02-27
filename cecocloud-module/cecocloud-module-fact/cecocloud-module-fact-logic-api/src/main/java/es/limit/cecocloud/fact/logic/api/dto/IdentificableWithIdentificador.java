@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Interfície pels DTOs amb identificador.
@@ -32,6 +33,7 @@ public interface IdentificableWithIdentificador<PK extends WithIdentificadorPk> 
 	@Getter
 	@SuppressWarnings("serial")
 	@MappedSuperclass
+	@ToString
 	public static class WithIdentificadorPk implements Serializable {
 		private String identificadorCodi;
 	}

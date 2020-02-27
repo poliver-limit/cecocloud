@@ -71,7 +71,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_cbc_idf_fk"))
 })
-public class CompteCorrentEmpresaEntity extends AbstractWithIdentificadorEntity<CompteCorrentEmpresa, CompteCorrentEmpresaPk> {
+public class CompteCorrentEmpresaEntity extends AbstractWithIdentificadorAuditableEntity<CompteCorrentEmpresa, CompteCorrentEmpresaPk> {
 
 	@Embedded
 	protected CompteCorrentEmpresa embedded;

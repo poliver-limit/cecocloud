@@ -3,7 +3,9 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
-public enum MesosEnumDto {
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
+public enum MesosEnumDto implements ConvertedEnumInterface<String> {
 	/** Gener = 1*/
 	GENER("1"),
 	/** Febrer = 2*/

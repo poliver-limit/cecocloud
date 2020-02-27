@@ -62,7 +62,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_div_idf_fk"))
 })
-public class DivisaEntity extends AbstractWithIdentificadorEntity<Divisa, WithIdentificadorAndCodiPk<String>> {
+public class DivisaEntity extends AbstractWithIdentificadorAuditableEntity<Divisa, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Divisa embedded;
