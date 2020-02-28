@@ -318,7 +318,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 
 	onPermisChange(event, indexModul, indexRecurs) {
 		// Deshabilitar els checks mentres es desen els permisos
-		this.disableToggles = true;
+		// this.disableToggles = true;
 		const funcionalitatInfo = JSON.parse(
 			JSON.stringify(
 				this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs]
@@ -334,11 +334,11 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 					this.funcionalitatsModuls[indexModul].funcionalitats[
 						indexRecurs
 					].permission[permis] = check;
-					this.disableToggles = false;
+					// this.disableToggles = false;
 				},
 				error => {
 					event.preventDefault();
-					this.disableToggles = false;
+					// this.disableToggles = false;
 					console.error(error);
 					// this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
 				}
