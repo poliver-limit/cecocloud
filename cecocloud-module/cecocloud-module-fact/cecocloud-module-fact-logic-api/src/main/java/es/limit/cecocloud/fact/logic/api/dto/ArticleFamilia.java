@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -16,9 +17,13 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.ArticleFamiliaAvisAlbaraClientConverter;
+import es.limit.cecocloud.fact.logic.api.converter.ArticleFamiliaTipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.ArticleFamiliaTipusServeiConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ArticleFamiliaAvisAlbaraClientEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ArticleFamiliaTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ArticleFamiliaTipusServeiEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,32 +60,37 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 			hiddenInGrid = true,
 			includeInQuickFilter = true)
 	@NotNull
+	@Convert(converter = ArticleFamiliaTipusConverter.class)
 	private ArticleFamiliaTipusEnumDto tipus;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
-	private boolean lotNavegable;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean lotNavegable;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
-	private boolean ubicacioNavegable;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean ubicacioNavegable;
 	
 	@RestapiField(type = RestapiFieldType.ENUM,
 			hiddenInLov = true,
 					hiddenInGrid = true,
 			includeInQuickFilter = true)
 	@NotNull
+	@Convert(converter = ArticleFamiliaAvisAlbaraClientConverter.class)
 	private ArticleFamiliaAvisAlbaraClientEnumDto avisAlbaraClient;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
-	private boolean excloureAlGenerarAlbara;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean excloureAlGenerarAlbara;
 	
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(hiddenInLov = true,
@@ -121,17 +131,20 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@RestapiField(hiddenInLov = true,
 			hiddenInGrid = true)
-	private boolean productePropi;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean productePropi;
 	
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
-	private boolean tempsFabricacioUnitatsMetriques;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean tempsFabricacioUnitatsMetriques;
 	
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
-	private boolean distribuirCostAdicional;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean distribuirCostAdicional;
 	
 	@RestapiField(
 			hiddenInLov = true,
@@ -149,6 +162,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(type = RestapiFieldType.ENUM,
 			hiddenInGrid = true,
 			includeInQuickFilter = true)
+	@Convert(converter = ArticleFamiliaTipusServeiConverter.class)
 	private ArticleFamiliaTipusServeiEnumDto tipusServei;
 	
 	@RestapiField(hiddenInLov = true,
@@ -174,6 +188,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	
 	@RestapiField(
 			hiddenInLov = true,hiddenInGrid = true)
-	private boolean artExportables;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean artExportables;
 
 }

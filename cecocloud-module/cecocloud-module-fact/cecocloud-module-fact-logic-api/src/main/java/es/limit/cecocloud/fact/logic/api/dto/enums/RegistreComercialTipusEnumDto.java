@@ -3,7 +3,9 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
-public enum RegistreComercialTipusEnumDto {
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
+public enum RegistreComercialTipusEnumDto implements ConvertedEnumInterface<String>{
 	
 	CRIDADA("C"),
 	CORREU("M"),

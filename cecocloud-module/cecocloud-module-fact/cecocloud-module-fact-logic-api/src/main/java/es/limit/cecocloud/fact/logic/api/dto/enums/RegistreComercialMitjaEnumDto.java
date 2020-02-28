@@ -3,7 +3,9 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
-public enum RegistreComercialMitjaEnumDto {
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
+public enum RegistreComercialMitjaEnumDto implements ConvertedEnumInterface<String>{
 	
 	WEB("W"),
 	CERCADOR("B"),

@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +14,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleFamiliaEmpresa.ArticleFamiliaEmpresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,7 +37,8 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificado
 			hiddenInLov=true,
 					hiddenInGrid = true,
 			includeInQuickFilter = true)
-	private boolean web;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean web;
 	
 	@Transient
 	@NotNull

@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,6 +14,8 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.RegistreComercialMitjaConverter;
+import es.limit.cecocloud.fact.logic.api.converter.RegistreComercialTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial.RegistreComercialPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RegistreComercialMitjaEnumDto;
@@ -44,10 +47,12 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)	
+	@Convert(converter = RegistreComercialTipusConverter.class)
 	private RegistreComercialTipusEnumDto tipus;
 	
 	@NotNull
-	@RestapiField(hiddenInGrid = true, hiddenInLov = true)	
+	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	@Convert(converter = RegistreComercialMitjaConverter.class)
 	private RegistreComercialMitjaEnumDto mitja;
 	
 	@NotNull

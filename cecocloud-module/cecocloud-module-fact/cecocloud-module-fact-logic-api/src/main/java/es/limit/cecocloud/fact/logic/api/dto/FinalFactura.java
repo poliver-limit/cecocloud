@@ -3,12 +3,14 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,20 +31,24 @@ public class FinalFactura extends AbstractIdentificableWithIdentificadorAndCodi<
 				toUpperCase=true,
 				includeInQuickFilter = true)
 	private String codi;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String nom;
+	
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String descripcio;
+	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
-	private boolean actiu;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean actiu;
 
 
 }
