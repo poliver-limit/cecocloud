@@ -103,7 +103,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean recarrecEquivalencia;
+	private Boolean recarrecEquivalencia;
 	
 	@Size(max = 60)
 	@RestapiField(

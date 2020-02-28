@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus d'avís a l'albarà de client.
  * 
@@ -27,7 +29,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  *  
  * @author Limit Tecnologies <limit@limit.es>
  */
-public enum ArticleFamiliaAvisAlbaraClientEnumDto {
+public enum ArticleFamiliaAvisAlbaraClientEnumDto implements ConvertedEnumInterface<String>{
 
 	/** No Avisar = 0*/
 	NO_AVISAR("0"),

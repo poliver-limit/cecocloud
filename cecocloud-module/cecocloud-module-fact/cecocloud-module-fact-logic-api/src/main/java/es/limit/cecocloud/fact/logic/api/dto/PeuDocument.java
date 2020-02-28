@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument.PeuDocumentPk;
 import es.limit.cecocloud.fact.logic.api.dto.SerieCompra.SerieCompraPk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -47,32 +49,38 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean factura;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean factura;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean albara;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean albara;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean pre;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean pre;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean com;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean com;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean imprimirPeuCertificacio;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean imprimirPeuCertificacio;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean familiaCliProv;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean familiaCliProv;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
@@ -82,7 +90,8 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean impCls;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean impCls;
 	
 	@Digits(integer=3, fraction=3)
 	@RestapiField(
