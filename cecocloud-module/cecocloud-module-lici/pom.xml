@@ -11,9 +11,9 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>cecocloud-module-lici-back</module>
-		<module>cecocloud-module-lici-front</module>
 		<module>cecocloud-module-lici-logic</module>
 		<module>cecocloud-module-lici-logic-api</module>
 		<module>cecocloud-module-lici-persist</module>
+		<!--module>cecocloud-module-lici-front</module-->
 	</modules>
 </project>
