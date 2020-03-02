@@ -51,6 +51,8 @@ public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 	@RestapiField(hiddenInLov = true)
 	@Enumerated
 	protected EmpresaTipusEnum tipus;
+	@NotNull
+	private IdentificadorRecursOrigen origen;
 	@RestapiField(hiddenInLov = true)
 	private boolean activa = true;
 	@Transient

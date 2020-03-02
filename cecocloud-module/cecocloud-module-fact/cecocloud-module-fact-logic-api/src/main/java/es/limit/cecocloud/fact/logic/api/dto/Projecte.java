@@ -7,6 +7,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,6 +16,10 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientPreuConverter;
+import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientProjecteTipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.ProjecteEstatConverter;
+import es.limit.cecocloud.fact.logic.api.converter.RetencioTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci.AreaNegociPk;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -25,6 +30,7 @@ import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientPreuEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientProjecteTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ProjecteEstatEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RetencioTipusEnumDto;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -185,6 +191,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = ProjecteEstatConverter.class)
 	private ProjecteEstatEnumDto estat;
 	
 	@RestapiField(
@@ -293,34 +300,40 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean albaransClientCrear;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = AlbaraClientPreuConverter.class)
 	private AlbaraClientPreuEnumDto albaransClientPreu;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = AlbaraClientProjecteTipusConverter.class)
 	private AlbaraClientProjecteTipusEnumDto albaransClientProjecteTipus;
 	
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean dietes;
 	
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean plusPerillositat;
 	
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean controlarCostos;
 	
 	@RestapiField(
@@ -347,6 +360,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private Boolean estudiSumarValoracioEnExces;
 	
 	@RestapiField(
@@ -375,6 +389,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = RetencioTipusConverter.class)
 	private RetencioTipusEnumDto retencioTipus;
 	
 	@Size(max = 4)

@@ -10,10 +10,10 @@
 	<artifactId>cecocloud-module-marc</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>cecocloud-module-marc-front</module>
 		<module>cecocloud-module-marc-back</module>
 		<module>cecocloud-module-marc-logic-api</module>
 		<module>cecocloud-module-marc-logic</module>
 		<module>cecocloud-module-marc-persist</module>
+		<!--module>cecocloud-module-marc-front</module-->
 	</modules>
 </project>

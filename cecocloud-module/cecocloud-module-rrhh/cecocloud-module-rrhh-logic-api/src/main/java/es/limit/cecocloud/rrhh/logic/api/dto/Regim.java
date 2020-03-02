@@ -5,12 +5,14 @@ package es.limit.cecocloud.rrhh.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,19 +35,23 @@ public class Regim extends AbstractIdentificableWithIdentificadorAndCodi<String>
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
-	private boolean presencia;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean presencia;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
-	private boolean contarHores;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean contarHores;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
-	private boolean mantenirProximaEntrada;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean mantenirProximaEntrada;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
-	private boolean mostrarLlistatPlanificacio;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean mostrarLlistatPlanificacio;
 	
 	@Size(max = 30)
 	@NotNull

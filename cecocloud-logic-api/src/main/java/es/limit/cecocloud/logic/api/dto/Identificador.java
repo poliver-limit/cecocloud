@@ -84,21 +84,6 @@ public class Identificador extends AbstractIdentificable<Long> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Date dataFi;
-	@Size(max = 4000)
-	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private String llicencia;
-	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private boolean llicenciaOk;
 	@NotNull
 	@Transient
 	@RestapiField(
@@ -106,6 +91,12 @@ public class Identificador extends AbstractIdentificable<Long> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReference<Usuari, Long> propietari;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private GenericReference<Perfil, Long> perfilDefecte;
 
 	@Transient
 	@RestapiField(

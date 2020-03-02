@@ -43,6 +43,8 @@ public class Operari extends AbstractIdentificableWithIdentificador<Long> {
 			disabledForUpdate = true)
 	private String codi;
 	@NotNull
+	private IdentificadorRecursOrigen origen;
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

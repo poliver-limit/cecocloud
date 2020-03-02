@@ -24,4 +24,6 @@ public interface EmpresaRepository extends BaseRepository<EmpresaEntity, Long> {
 
 	Optional<EmpresaEntity> findByIdentificadorAndEmbeddedCodi(IdentificadorEntity identificador, String codi);
 
+	Optional<EmpresaEntity> findByIdentificadorAndId(IdentificadorEntity identificador, Long id);
+
 }

@@ -5,6 +5,7 @@ package es.limit.cecocloud.rrhh.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup.SeccioGrupPk;
@@ -49,9 +51,11 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	private String compteSous;
 	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean controlPartes;
 	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
+	@Convert(converter = StringBooleanConverter.class)
 	private boolean controlHoresExtras;
 	
 	@Size(max = 4)

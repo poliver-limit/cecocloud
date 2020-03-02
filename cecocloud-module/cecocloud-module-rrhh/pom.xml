@@ -14,6 +14,6 @@
 		<module>cecocloud-module-rrhh-logic-api</module>
 		<module>cecocloud-module-rrhh-logic</module>
 		<module>cecocloud-module-rrhh-persist</module>
-		<module>cecocloud-module-rrhh-front</module>
+		<!--module>cecocloud-module-rrhh-front</module-->
 	</modules>
 </project>

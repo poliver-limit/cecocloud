@@ -1,0 +1,53 @@
+databaseChangeLog:
+- changeSet:
+    id: 1582886374321-1
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: origen
+            type: INTEGER
+            defaultValueNumeric: 0
+            constraints:
+                nullable: false
+        tableName: empresa
+    - addColumn:
+        columns:
+        - column:
+            name: origen
+            type: INTEGER
+            defaultValueNumeric: 0
+            constraints:
+                nullable: false
+        tableName: usuari_ident
+    - addColumn:
+        columns:
+        - column:
+            name: origen
+            type: INTEGER
+            defaultValueNumeric: 0
+            constraints:
+                nullable: false
+        tableName: operari
+- changeSet:
+    id: 1582886374321-2
+    author: josepg
+    changes:
+    - dropColumn:
+        columns:
+        - column:
+            name: llicencia
+        - column:
+            name: llicencia_ok
+        tableName: identificador
+- changeSet:
+    id: 1582886374321-3
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: perfildef_id
+            type: BIGINT
+        tableName: identificador

@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,6 +12,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,6 +46,7 @@ public class Subcategoria extends AbstractIdentificableWithIdentificadorAndCodi<
 	private String observacio;
 	
 	@RestapiField(hiddenInGrid = true)
-	private boolean actiu;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean actiu;
 
 }

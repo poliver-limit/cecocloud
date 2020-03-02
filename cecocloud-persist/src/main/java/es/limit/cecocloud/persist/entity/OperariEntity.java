@@ -48,6 +48,7 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "codi", length = 6, nullable = false)),
+	@AttributeOverride(name = "embedded.origen", column = @Column(name = "origen", nullable = false)),
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "actiu", nullable = false))
 })
 public class OperariEntity extends AbstractAuditableVersionableEntity<Operari, Long> {
