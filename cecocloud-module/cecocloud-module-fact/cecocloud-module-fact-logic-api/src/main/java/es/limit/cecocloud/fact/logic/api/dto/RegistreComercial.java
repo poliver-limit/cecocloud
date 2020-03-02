@@ -14,6 +14,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.dto.Producte.ProductePk;
 import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial.RegistreComercialPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RegistreComercialMitjaEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RegistreComercialTipusEnumDto;
@@ -86,14 +87,14 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
-//	@Transient	
-//	@RestapiField(
-//			type = RestapiFieldType.LOV,
-//			disabledForCreate = false,
-//			disabledForUpdate = true,
-//			hiddenInGrid = true,
-//			hiddenInForm = false)
-//	private GenericReferenceWithCompositePk<Producte, WithIdentificadorAndCodiPk<String>> producte;
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInGrid = true,
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<Producte, ProductePk> producte;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

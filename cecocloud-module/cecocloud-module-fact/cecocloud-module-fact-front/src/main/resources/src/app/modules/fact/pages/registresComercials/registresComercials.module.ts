@@ -11,6 +11,7 @@ import { RegistresComercialsFormComponent } from './registresComercials-form.com
 import { RegistresComercialsService } from './registresComercials.service';
 
 import { ClientsFormModule } from '../clients/clients-form.module'
+import { ProductesFormModule } from '../productes/productes-form.module'
 
 @NgModule( {
     imports: [
@@ -19,6 +20,7 @@ import { ClientsFormModule } from '../clients/clients-form.module'
 		BngModule,
 		MaterialModule,
 		ClientsFormModule,
+		ProductesFormModule,
         RouterModule.forChild( [
             { path: '', component: RegistresComercialsGridComponent },
             { path: 'create', component: RegistresComercialsFormComponent, canDeactivate: [BngFormExitGuard] },
