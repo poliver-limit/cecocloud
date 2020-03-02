@@ -16,6 +16,7 @@ import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
+import es.limit.cecocloud.logic.api.dto.IdentificadorRecursOrigen;
 import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
@@ -122,9 +123,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				empresa.getEmbedded().setNom(syncFound.getNom());
 				empresa.getEmbedded().setActiva(true);
 				updateCount++;
-			} else {
-				// Si l'empresa existeix a la BBDD i no a la informació de sincronització
-				// desactiva l'empresa
+			} else if (IdentificadorRecursOrigen.SYNC.equals(empresa.getEmbedded().getOrigen())) {
+				// Si l'empresa existeix a la BBDD i no a la informació de sincronització i el seu orígen
+				// és SYNC -> desactiva l'empresa
 				empresa.getEmbedded().setActiva(false);
 				for (OperariEmpresaEntity operariEmpresa: operariEmpresaRepository.findByEmpresa(empresa)) {
 					operariEmpresa.getEmbedded().setActiu(false);
@@ -148,6 +149,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				empresa.setNif(empresaSync.getNif());
 				empresa.setNom(empresaSync.getNom());
 				empresa.setTipus(EmpresaTipusEnum.GESTIO);
+				empresa.setOrigen(IdentificadorRecursOrigen.SYNC);
 				empresa.setActiva(true);
 				empresaRepository.save(
 						EmpresaEntity.builder().
@@ -187,9 +189,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				// actualitza la informació de l'operari
 				usuariIdentificador.getEmbedded().setActiu(true);
 				updateCount++;
-			} else {
-				// Si l'operari existeix a la BBDD i no a la informació de sincronització
-				// desactiva l'usuariIdentificador de l'empresa
+			} else if (IdentificadorRecursOrigen.SYNC.equals(usuariIdentificador.getEmbedded().getOrigen())) {
+				// Si l'usuari-identificador existeix a la BBDD i no a la informació de sincronització i el seu orígen
+				// és SYNC -> desactiva l'usuari-identificador de l'empresa
 				usuariIdentificador.getEmbedded().setActiu(false);
 				for (UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresa: usuariIdentificadorEmpresaRepository.findByUsuariIdentificador(usuariIdentificador)) {
 					usuariIdentificadorEmpresaRepository.delete(usuariIdentificadorEmpresa);
@@ -212,6 +214,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariSync.getUsuariCodi());
 				if (usuari.isPresent()) {
 					UsuariIdentificador usuariIdentificador = new UsuariIdentificador();
+					usuariIdentificador.setOrigen(IdentificadorRecursOrigen.SYNC);
 					usuariIdentificador.setActiu(true);
 					usuariIdentificadorRepository.save(
 							UsuariIdentificadorEntity.builder().
@@ -253,9 +256,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				// actualitza la informació de l'operari
 				operari.getEmbedded().setActiu(true);
 				updateCount++;
-			} else {
-				// Si l'operari existeix a la BBDD i no a la informació de sincronització
-				// desactiva l'operari
+			} else if (IdentificadorRecursOrigen.SYNC.equals(operari.getEmbedded().getOrigen())) {
+				// Si l'operari existeix a la BBDD i no a la informació de sincronització i el seu orígen
+				// és SYNC -> desactiva l'operari de l'empresa
 				operari.getEmbedded().setActiu(false);
 				for (OperariEmpresaEntity operariEmpresa: operariEmpresaRepository.findByOperari(operari)) {
 					operariEmpresa.getEmbedded().setActiu(false);
@@ -278,6 +281,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 				if (usuari.isPresent()) {
 					Operari operari = new Operari();
 					operari.setCodi(operariSync.getCodi());
+					operari.setOrigen(IdentificadorRecursOrigen.SYNC);
 					operari.setActiu(true);
 					operariRepository.save(
 							OperariEntity.builder().

@@ -47,6 +47,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.nif", column = @Column(name = "nif", length = 12, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "nom", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "tipus", nullable = false)),
+	@AttributeOverride(name = "embedded.origen", column = @Column(name = "origen", nullable = false)),
 	@AttributeOverride(name = "embedded.activa", column = @Column(name = "activa", nullable = false))
 })
 public class EmpresaEntity extends AbstractAuditableVersionableEntity<Empresa, Long> {

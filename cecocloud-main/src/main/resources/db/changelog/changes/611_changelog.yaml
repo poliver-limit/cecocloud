@@ -1,0 +1,32 @@
+databaseChangeLog:
+- changeSet:
+    id: 1582886374321-1
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: origen
+            type: INTEGER
+            defaultValueNumeric: 0
+            constraints:
+                nullable: false
+        tableName: empresa
+    - addColumn:
+        columns:
+        - column:
+            name: origen
+            type: INTEGER
+            defaultValueNumeric: 0
+            constraints:
+                nullable: false
+        tableName: usuari_ident
+    - addColumn:
+        columns:
+        - column:
+            name: origen
+            type: INTEGER
+            defaultValueNumeric: 0
+            constraints:
+                nullable: false
+        tableName: operari

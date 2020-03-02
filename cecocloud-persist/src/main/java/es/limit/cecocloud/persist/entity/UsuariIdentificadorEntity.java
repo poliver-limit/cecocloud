@@ -46,6 +46,7 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
+	@AttributeOverride(name = "embedded.origen", column = @Column(name = "origen", nullable = false)),
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "actiu", nullable = false))
 })
 public class UsuariIdentificadorEntity extends AbstractAuditableVersionableEntity<UsuariIdentificador, Long> {
