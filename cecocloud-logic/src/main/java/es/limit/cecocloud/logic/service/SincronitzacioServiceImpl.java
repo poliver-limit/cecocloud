@@ -19,6 +19,7 @@ import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
 import es.limit.cecocloud.logic.api.dto.IdentificadorRecursOrigen;
 import es.limit.cecocloud.logic.api.dto.Operari;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
+import es.limit.cecocloud.logic.api.dto.PerfilUsuariIdentificadorEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaOperari;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioEmpresaUsuari;
@@ -35,12 +36,14 @@ import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
 import es.limit.cecocloud.persist.entity.OperariEntity;
+import es.limit.cecocloud.persist.entity.PerfilUsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 import es.limit.cecocloud.persist.repository.OperariEmpresaRepository;
 import es.limit.cecocloud.persist.repository.OperariRepository;
+import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 
@@ -67,6 +70,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private OperariRepository operariRepository;
 	@Autowired
 	private OperariEmpresaRepository operariEmpresaRepository;
+	@Autowired
+	private PerfilUsuariIdentificadorEmpresaRepository perfilUsuariIdentificadorEmpresaRepository;
 
 	@Override
 	@Transactional
@@ -344,12 +349,20 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 						if (!usuariIdentificadorEmpresaDb.isPresent()) {
 							// Si l'usuari-identificador-empresa no existeix a la BBDD i si a la informació de sincronització
 							// crea l'usuari-identificador-empresa a la BBDD
-							usuariIdentificadorEmpresaRepository.save(
+							UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresa = usuariIdentificadorEmpresaRepository.save(
 									UsuariIdentificadorEmpresaEntity.builder().
 									embedded(new UsuariIdentificadorEmpresa()).
 									usuariIdentificador(usuariIdentificadorDb.get()).
 									empresa(empresaDb).
 									build());
+							if (identificador.getPerfilDefecte() != null) {
+								perfilUsuariIdentificadorEmpresaRepository.save(
+										PerfilUsuariIdentificadorEmpresaEntity.builder().
+										embedded(new PerfilUsuariIdentificadorEmpresa()).
+										perfil(identificador.getPerfilDefecte()).
+										usuariIdentificadorEmpresa(usuariIdentificadorEmpresa).
+										build());
+							}
 							createCount++;
 						} else {
 							// Si l'usuari-identificador-empresa existeix a la BBDD i a la informació de sincronització
