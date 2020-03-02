@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus de horari..
  * 
@@ -27,7 +29,7 @@ package es.limit.cecocloud.rrhh.logic.api.dto.enums;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public enum TipusHorariEnumDto  {
+public enum TipusHorariEnumDto implements ConvertedEnumInterface<String> {
 	/** R = R*/
 	RIGID("R"),
 	/** F = F*/

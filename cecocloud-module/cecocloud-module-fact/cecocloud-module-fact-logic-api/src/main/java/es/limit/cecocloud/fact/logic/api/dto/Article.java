@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -97,27 +99,32 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean bloquejat;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean bloquejat;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean compost;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean compost;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean controlStock;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean controlStock;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private boolean crearReferencies;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean crearReferencies;
 	
 	@Size(max = 60)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String descripcioCurta;
+	
 	@Size(max = 30)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)

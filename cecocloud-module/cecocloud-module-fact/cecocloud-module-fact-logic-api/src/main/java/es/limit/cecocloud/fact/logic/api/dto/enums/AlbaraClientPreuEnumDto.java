@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles preus d'un albarà de client.
  * 
@@ -29,7 +31,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  * @author Limit Tecnologies <limit@limit.es>
  */
 
-public enum AlbaraClientPreuEnumDto {
+public enum AlbaraClientPreuEnumDto implements ConvertedEnumInterface<Integer>{
 
 	/** Albarà de proveidor amb descompte = 1 */
 	ALBARA_PROVEIDOR_AMB_DTE(1),

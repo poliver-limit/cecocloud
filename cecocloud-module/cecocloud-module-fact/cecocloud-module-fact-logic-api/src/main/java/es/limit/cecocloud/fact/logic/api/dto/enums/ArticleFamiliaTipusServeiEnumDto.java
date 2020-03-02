@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto.enums;
 
+import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
+
 /**
  * DTO enumerat amb els possibles tipus de família d'un article.
  * 
@@ -16,7 +18,7 @@ package es.limit.cecocloud.fact.logic.api.dto.enums;
  *    
  * @author Limit Tecnologies <limit@limit.es>
  */
-public enum ArticleFamiliaTipusServeiEnumDto {
+public enum ArticleFamiliaTipusServeiEnumDto implements ConvertedEnumInterface<String>{
 	/** OBRA/SERVEI = 1*/
 	OBRA_SERVEI("1"),
 	/** TALLER = 2*/

@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Vehicle.VehiclePk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -78,10 +80,12 @@ public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 	private BigDecimal pesMaxim;
 	
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
-	private boolean actiu=true;	
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean actiu=true;	
 	
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
-	private boolean vehicleEmpresa;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean vehicleEmpresa;
 	
 	@Transient
 	@NotNull

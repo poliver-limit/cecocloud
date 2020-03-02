@@ -6,6 +6,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.SerieIntracomunitaria.SerieIntracomunitariaPk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,7 +63,8 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 	private Date dia2;
 	
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true, hiddenInLov = true) 
-	private boolean serieDefecto;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean serieDefecto;
 	
 	@Transient	
 	@RestapiField(
