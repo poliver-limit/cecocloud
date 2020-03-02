@@ -6,6 +6,7 @@ package es.limit.cecocloud.logic.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -18,15 +19,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.limit.base.boot.logic.api.permission.ExternalGrantedAuthority;
 import es.limit.base.boot.logic.api.service.SessionService;
+import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.UserSession;
+import es.limit.cecocloud.logic.api.exception.InvalidSessionDataException;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.PerfilUsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
@@ -42,6 +46,8 @@ public class SessionServiceImpl implements SessionService {
 	@Autowired
 	private ObjectMapper jacksonObjectMapper;
 	@Autowired
+	private IdentificadorRepository identificadorRepository;
+	@Autowired
 	private PerfilUsuariIdentificadorEmpresaRepository perfilUsuariIdentificadorEmpresaRepository;
 	@Autowired
 	private UsuariIdentificadorEmpresaRepository usuariIdentificadorEmpresaRepository;
@@ -51,10 +57,45 @@ public class SessionServiceImpl implements SessionService {
 	private EmpresaRepository empresaRepository;
 	@Autowired
 	private UsuariRepository usuariRepository;
+	@Autowired
+	private AuthenticationHelper authenticationHelper;
 
 	@Override
-	public Object parseJsonSession(JsonNode jsonNode) {
-		return jacksonObjectMapper.convertValue(jsonNode, UserSession.class);
+	public Object parseJsonSession(
+			JsonNode jsonNode,
+			boolean validate) {
+		UserSession session = jacksonObjectMapper.convertValue(jsonNode, UserSession.class);
+		if (validate) {
+			try {
+				// Verificar que es te accés a l'identificador
+				IdentificadorEntity identificador = identificadorRepository.findById(session.getI()).get();
+				UsuariIdentificadorEntity usuariIdentificador = usuariIdentificadorRepository.findByUsuariAndIdentificador(
+						usuariRepository.findByEmbeddedCodi(authenticationHelper.getPrincipalName()).get(),
+						identificador).get();
+				if (usuariIdentificador.getEmbedded().isActiu()) {
+					// Verificar que l'empresa pertany a l'identificador
+					EmpresaEntity empresa = empresaRepository.findByIdentificadorAndId(
+							identificador,
+							session.getE()).get();
+					if (empresa.getEmbedded().isActiva()) {
+						// Verificar que es te accés a l'empresa
+						usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
+								usuariIdentificador,
+								empresa).get();
+					} else {
+						// No es te accés a l'empresa perquè no està activa
+						throw new InvalidSessionDataException();
+					}
+				} else {
+					// No es te accés a l'identificador perquè no està actiu
+					throw new InvalidSessionDataException();
+				}
+			} catch (NoSuchElementException ex) {
+				// No es te accés
+				throw new InvalidSessionDataException();
+			}
+		}
+		return session;
 	}
 
 	@Override

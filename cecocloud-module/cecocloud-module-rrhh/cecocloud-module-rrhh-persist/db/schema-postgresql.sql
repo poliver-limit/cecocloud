@@ -1,4 +1,3 @@
-
 create table trhu_cat (
    cat_cod varchar(4) not null,
     cat_idf_cod varchar(4) not null,
@@ -6,7 +5,7 @@ create table trhu_cat (
     cat_datcre timestamp,
     cat_usumod varchar(255),
     cat_datmod timestamp,
-    cat_act boolean,
+    cat_act varchar(255),
     cat_nom varchar(255) not null,
     cat_obs varchar(1000),
     cat_soubas numeric(19, 2),
@@ -111,7 +110,7 @@ create table trhu_hor (
     hor_des varchar(1000),
     hor_hor numeric(19, 2),
     hor_nom varchar(30) not null,
-    hor_tip int4 not null,
+    hor_tip varchar(1) not null,
     primary key (hor_cod, hor_idf_cod)
 );
 
@@ -237,13 +236,13 @@ create table trhu_reg (
     reg_datcre timestamp,
     reg_usumod varchar(255),
     reg_datmod timestamp,
-    reg_hor boolean not null,
-    reg_mntreg boolean not null,
-    reg_pln boolean not null,
+    reg_hor varchar(255) not null,
+    reg_mntreg varchar(255) not null,
+    reg_pln varchar(255) not null,
     reg_nom varchar(30),
     reg_maxhorlab numeric(19, 2),
     reg_minhorlab numeric(19, 2),
-    reg_prs boolean not null,
+    reg_prs varchar(255) not null,
     primary key (reg_cod, reg_idf_cod)
 );
 
@@ -255,7 +254,7 @@ create table trhu_sct (
     sct_usumod varchar(255),
     sct_datmod timestamp,
     sct_cat_cod varchar(4),
-    sct_act boolean,
+    sct_act varchar(255),
     sct_nom varchar(30),
     sct_obs varchar(1000),
     primary key (sct_cod, sct_idf_cod)
@@ -270,8 +269,8 @@ create table trhu_sec (
     sec_usumod varchar(255),
     sec_datmod timestamp,
     sec_cte varchar(10),
-    sec_ctlhoe boolean,
-    sec_ctlffo boolean,
+    sec_ctlhoe varchar(255),
+    sec_ctlffo varchar(255),
     sec_depcmp varchar(4),
     sec_discos varchar(2),
     sec_dtehor numeric(19, 2),
@@ -342,7 +341,7 @@ create table trhu_zon (
     zon_datmod timestamp,
     zon_nom varchar(30),
     zon_obs varchar(1000),
-    zon_zontre boolean not null,
+    zon_zontre varchar(255) not null,
     primary key (zon_cod, zon_idf_cod)
 );
 
