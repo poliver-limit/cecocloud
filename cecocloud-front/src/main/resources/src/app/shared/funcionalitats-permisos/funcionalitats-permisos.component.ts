@@ -319,6 +319,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 	onPermisChange(event, indexModul, indexRecurs) {
 		// Deshabilitar els checks mentres es desen els permisos
 		// this.disableToggles = true;
+		const modulCodi = this.funcionalitatsModuls[indexModul].module.code;
 		const funcionalitatInfo = JSON.parse(
 			JSON.stringify(
 				this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs]
@@ -328,7 +329,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		const check = !funcionalitatInfo.permission[permis];
 		funcionalitatInfo.permission[permis] = check;
 		this.funcionalitatsPermisosService
-			.saveFuncionalitat(this.perfil, funcionalitatInfo)
+			.saveFuncionalitat(this.perfil, funcionalitatInfo, modulCodi)
 			.subscribe(
 				() => {
 					this.funcionalitatsModuls[indexModul].funcionalitats[

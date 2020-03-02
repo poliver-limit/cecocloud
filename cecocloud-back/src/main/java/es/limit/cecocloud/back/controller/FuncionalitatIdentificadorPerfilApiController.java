@@ -61,19 +61,20 @@ public class FuncionalitatIdentificadorPerfilApiController extends AbstractIdent
 	}
 
 	@PostMapping(
-			value = "/perfil/{perfilId}/permission/save",
+			value = "/perfil/{perfilId}/{modulCodi}/permission/save",
 			produces = "application/json")
 	public ResponseEntity<EntityModel<BaseBootPermission>> permissionSave(
 			HttpServletRequest request,
 			@RequestBody @Valid final FuncionalitatInfo funcionalitat,
-			@PathVariable Long perfilId) throws Exception {
+			@PathVariable Long perfilId,
+			@PathVariable String modulCodi) throws Exception {
 		log.debug("Creant permisos de la funcionalitat (" +
 				"Funcionalitat=" + funcionalitat.getDescripcio() + ", " +
 				"tipus= " + funcionalitat.getTipus() + ", " +
 				"permission=" + funcionalitat.getPermission() + ")");
 		
 		//BaseBootPermission creat = 
-		funcionalitatPerfilService.savePermisos(perfilId, funcionalitat);
+		funcionalitatPerfilService.savePermisos(perfilId, funcionalitat, modulCodi);
 		
 //		if (creat != null) {
 //			return ResponseEntity.ok(

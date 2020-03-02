@@ -5,6 +5,8 @@ package es.limit.cecocloud.logic.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
-import es.limit.base.boot.logic.api.module.AbstractModules;
-import es.limit.base.boot.logic.api.module.ModuleInfo;
 import es.limit.base.boot.logic.api.permission.ExtendedPermission;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
@@ -24,7 +24,10 @@ import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
 import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
 import es.limit.cecocloud.logic.api.dto.UserSession;
+import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
 import es.limit.cecocloud.logic.api.module.Modul;
+import es.limit.cecocloud.logic.api.module.ModuleInfo;
+import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorPerfilService;
 import es.limit.cecocloud.logic.helper.FuncionalitatAclHelper;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
@@ -90,7 +93,8 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 		
 		// Obtenim els mòduls
 		List<ModuleFuncionalitatInfo> modulsFuncionalitats = new ArrayList<ModuleFuncionalitatInfo>();
-		List<ModuleInfo> moduls = AbstractModules.registeredFindAll();
+		@SuppressWarnings("unchecked")
+		List<ModuleInfo> moduls = (List<ModuleInfo>)(List<?>)Modules.registeredFindAll();
 		
 		// Obtenimm totes les funcionalitats de l'identificador actual
 		UserSession session = (UserSession)authenticationHelper.getSession();
@@ -105,20 +109,26 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 					.filter(funcidf -> funcidf.getFuncionalitat().getEmbedded().getModul().equals(Modul.valueOf(modul.getCode()))
 							).collect(Collectors.toList());
 			
+			Map<String, FuncionalitatCodiFont> funcionalitatsCodi = modul.getFuncionalitats();
+			
 			for (FuncionalitatIdentificadorEntity funcidfModul: funcionalitatsIdentificadorModul) {
 				FuncionalitatInfo funcionalitatInfo =  new  FuncionalitatInfo(
 						funcidfModul.getId(),
 						funcidfModul.getFuncionalitat().getEmbedded().getCodi(),
 						funcidfModul.getFuncionalitat().getEmbedded().getDescripcio(),
 						funcidfModul.getFuncionalitat().getEmbedded().getTipus(),
+						new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, ""),
 						new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, ""));
 				List<FuncionalitatIdentificadorPerfilEntity> funcionalitatsIdentificadorPerfilModul = funcionalitatIdentificadorPerfils.stream()
 						.filter(funcidf -> funcidf.getFuncionalitatIdentificador().getId().equals(funcidfModul.getId())
 								).collect(Collectors.toList());
 				
-				for (FuncionalitatIdentificadorPerfilEntity funcPerfil: funcionalitatsIdentificadorPerfilModul) {
-					funcionalitatInfo.getPermission().setGranted(
-							permissionFactory.buildFromName(funcPerfil.getEmbedded().getPermis()).getMask());
+				funcionalitatsIdentificadorPerfilModul.forEach(funcPerfil -> funcionalitatInfo.getPermission().setGranted(
+							permissionFactory.buildFromName(funcPerfil.getEmbedded().getPermis()).getMask())
+				);
+				FuncionalitatCodiFont funcionalitatCodi = funcionalitatsCodi.get(funcionalitatInfo.getCodi());
+				if (funcionalitatCodi != null) {
+					funcionalitatCodi.getAllowedPermission().forEach(permis -> funcionalitatInfo.getAllowedPermission().setGranted(permis.getMask()));
 				}
 				funcionalitatsInfo.add(funcionalitatInfo);
 			}
@@ -153,46 +163,55 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 	
 	@Override
 	@Transactional
-	public void savePermisos(Long perfilId, FuncionalitatInfo funcionalitatInfo) throws Exception {
-		BaseBootPermission permisos = funcionalitatInfo.getPermission();
+	public void savePermisos(Long perfilId, FuncionalitatInfo funcionalitatInfo, String modulCodi) throws Exception {
+		Optional<es.limit.base.boot.logic.api.module.ModuleInfo> opModul = Modules.registeredGetOne(modulCodi);
+		if (opModul.isPresent()) {
+			ModuleInfo modul = (ModuleInfo)opModul.get();
+			FuncionalitatCodiFont funcionalitatCodi = modul.getFuncionalitats().get(funcionalitatInfo.getCodi());
+			if (funcionalitatCodi != null) {
+				BaseBootPermission permisos = funcionalitatInfo.getPermission();
+				
+				// Obtenim els permisos actuals
+				BaseBootPermission permisosActuals = new BaseBootPermission();
+				funcionalitatIdentificadorPerfilRepository.findByPerfilIdAndFuncionalitatIdentificadorId(perfilId, funcionalitatInfo.getId())
+						.forEach(funcidfPerfil -> permisosActuals.setGranted(permissionFactory.buildFromName(funcidfPerfil.getEmbedded().getPermis()).getMask()));
+				
+				// Comparar permisos antics amb nous
+				List<Permission> permissionAdded = permisos.getPermissionAdded(permisosActuals);
+				List<Permission> permissionRemoved =  permisos.getPermissionRemoved(permisosActuals);
 		
-		// Obtenim els permisos actuals
-		BaseBootPermission permisosActuals = new BaseBootPermission();
-		funcionalitatIdentificadorPerfilRepository.findByPerfilIdAndFuncionalitatIdentificadorId(perfilId, funcionalitatInfo.getId())
-				.forEach(funcidfPerfil -> permisosActuals.setGranted(permissionFactory.buildFromName(funcidfPerfil.getEmbedded().getPermis()).getMask()));
+				if (!permissionAdded.isEmpty() || !permissionRemoved.isEmpty()) {
+					
+					PerfilEntity perfil = perfilRepository.getOne(perfilId);
+					FuncionalitatIdentificadorEntity funcionalitatIdentificador = funcionalitatIdentificadorRepository.getOne(funcionalitatInfo.getId());
 		
-		// Comparar permisos antics amb nous
-		List<Permission> permissionAdded = permisos.getPermissionAdded(permisosActuals);
-		List<Permission> permissionRemoved =  permisos.getPermissionRemoved(permisosActuals);
-
-		if (!permissionAdded.isEmpty() || !permissionRemoved.isEmpty()) {
-			
-			PerfilEntity perfil = perfilRepository.getOne(perfilId);
-			FuncionalitatIdentificadorEntity funcionalitatIdentificador = funcionalitatIdentificadorRepository.getOne(funcionalitatInfo.getId());
-
-			// Afegir permis 
-			for(Permission permis : permissionAdded) {
-				FuncionalitatIdentificadorPerfil embedded = new FuncionalitatIdentificadorPerfil();
-				embedded.setPermis(ExtendedPermission.getName(permis.getMask()));
-				FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil = FuncionalitatIdentificadorPerfilEntity.builder()
-					.funcionalitatIdentificador(funcionalitatIdentificador)
-					.perfil(perfil)
-					.embedded(embedded).build();
-				funcionalitatIdentificadorPerfilRepository.save(funcionalitatIdentificadorPerfil);
+					// Afegir permis 
+					for(Permission permis : permissionAdded) {
+						// Comprovam que el permis es pugui assignar
+						if (funcionalitatCodi.getAllowedPermission().contains(permis)) {
+							FuncionalitatIdentificadorPerfil embedded = new FuncionalitatIdentificadorPerfil();
+							embedded.setPermis(ExtendedPermission.getName(permis.getMask()));
+							FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil = FuncionalitatIdentificadorPerfilEntity.builder()
+								.funcionalitatIdentificador(funcionalitatIdentificador)
+								.perfil(perfil)
+								.embedded(embedded).build();
+							funcionalitatIdentificadorPerfilRepository.save(funcionalitatIdentificadorPerfil);
+						}
+					}
+					
+					// Eliminar permis
+					for(Permission permis : permissionRemoved) {
+						// 1. elimina, FuncionalitatPerfilEntity
+						FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil = funcionalitatIdentificadorPerfilRepository.findByPerfilAndFuncionalitatIdentificadorAndEmbeddedPermis(
+								perfil, 
+								funcionalitatIdentificador,
+								ExtendedPermission.getName(permis.getMask()));
+						funcionalitatIdentificadorPerfilRepository.delete(funcionalitatIdentificadorPerfil);
+					}
+					
+					funcionalitatAclHelper.refreshPermisosPerfil(perfilId);
+				}
 			}
-			
-			// Eliminar permis
-			for(Permission permis : permissionRemoved) {
-
-				// 1. elimina, FuncionalitatPerfilEntity
-				FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil = funcionalitatIdentificadorPerfilRepository.findByPerfilAndFuncionalitatIdentificadorAndEmbeddedPermis(
-						perfil, 
-						funcionalitatIdentificador,
-						ExtendedPermission.getName(permis.getMask()));
-				funcionalitatIdentificadorPerfilRepository.delete(funcionalitatIdentificadorPerfil);
-			}
-			
-			funcionalitatAclHelper.refreshPermisosPerfil(perfilId);
 		}
 		
 	}
