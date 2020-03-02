@@ -47,9 +47,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.numEmpreses", column = @Column(name = "num_empreses", nullable = false)),
 	@AttributeOverride(name = "embedded.numOperaris", column = @Column(name = "num_operaris", nullable = false)),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "data_inici", nullable = false)),
-	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi", nullable = false)),
-	@AttributeOverride(name = "embedded.llicencia", column = @Column(name = "llicencia", length = 2000, nullable = false)),
-	@AttributeOverride(name = "embedded.llicenciaOk", column = @Column(name = "llicencia_ok", nullable = false))
+	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "data_fi", nullable = false))
 })
 public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Identificador, Long> {
 
@@ -61,6 +59,11 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 			name = "propietari_id",
 			foreignKey = @ForeignKey(name = "identificador_propietari_fk"))
 	protected UsuariEntity propietari;
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "perfildef_id",
+			foreignKey = @ForeignKey(name = "identificador_perfildef_fk"))
+	protected PerfilEntity perfilDefecte;
 	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
 	protected Set<UsuariIdentificadorEntity> usuariIdentificadors;
 
@@ -74,9 +77,11 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 	@Builder
     public IdentificadorEntity(
     		Identificador embedded,
-    		UsuariEntity propietari) {
+    		UsuariEntity propietari,
+    		PerfilEntity perfilDefecte) {
         this.embedded = embedded;
         this.propietari = propietari;
+        this.perfilDefecte = perfilDefecte;
 	}
 
 	@Override
@@ -85,6 +90,9 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 	}
 	public void updatePropietari(UsuariEntity propietari) {
 		this.propietari = propietari;
+	}
+	public void updatePerfilDefecte(PerfilEntity perfilDefecte) {
+		this.perfilDefecte = perfilDefecte;
 	}
 
 }

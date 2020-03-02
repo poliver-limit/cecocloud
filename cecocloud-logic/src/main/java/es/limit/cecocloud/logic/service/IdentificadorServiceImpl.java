@@ -10,22 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
-import es.limit.base.boot.logic.api.exception.LicenseGenerationException;
 import es.limit.base.boot.logic.service.AbstractGenericServiceWithPermissionsImpl;
 import es.limit.base.boot.persist.entity.UsuariEntity;
 import es.limit.base.boot.persist.repository.UsuariRepository;
 import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.logic.api.dto.Llicencia;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificador;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.logic.api.service.EmpresaIdentificadorSyncService;
 import es.limit.cecocloud.logic.api.service.IdentificadorService;
-import es.limit.cecocloud.logic.helper.AsymmetricCryptographyHelper;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
@@ -93,18 +88,6 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 	}
 
 	@Override
-	protected void beforeCreate(IdentificadorEntity entity, Identificador dto) {
-		super.beforeCreate(entity, dto);
-		generateLicense(dto);
-	}
-
-	@Override
-	protected void beforeUpdate(IdentificadorEntity entity, Identificador dto) {
-		super.beforeUpdate(entity, dto);
-		generateLicense(dto);
-	}
-
-	@Override
 	protected void afterCreate(IdentificadorEntity entity, Identificador dto) {
 		super.afterCreate(entity, dto);
 		assignarPermisosPropietari(entity);
@@ -156,7 +139,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		}
 	}
 
-	private void generateLicense(Identificador dto) {
+	/*private void generateLicense(Identificador dto) {
 		Llicencia llicencia = new Llicencia(
 				dto.getCodi(),
 				dto.getDescripcio(),
@@ -174,7 +157,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 		} catch (Exception e) {
 			throw new LicenseGenerationException("Error generating the license.", e);
 		}
-	}
+	}*/
 
 	private void createUsuariIdentificadorIfNotExists(
 			UsuariEntity usuari,
