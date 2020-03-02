@@ -13,4 +13,8 @@ package es.limit.cecocloud.logic.api.exception;
 @SuppressWarnings("serial")
 public class InvalidSessionDataException extends RuntimeException {
 
+	public InvalidSessionDataException(String message) {
+		super(message);
+	}
+
 }

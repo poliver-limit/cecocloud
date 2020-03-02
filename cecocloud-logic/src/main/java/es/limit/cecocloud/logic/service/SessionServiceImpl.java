@@ -84,15 +84,15 @@ public class SessionServiceImpl implements SessionService {
 								empresa).get();
 					} else {
 						// No es te accés a l'empresa perquè no està activa
-						throw new InvalidSessionDataException();
+						throw new InvalidSessionDataException("L'empresa està desactivada");
 					}
 				} else {
 					// No es te accés a l'identificador perquè no està actiu
-					throw new InvalidSessionDataException();
+					throw new InvalidSessionDataException("L'identificador està desactivat");
 				}
 			} catch (NoSuchElementException ex) {
 				// No es te accés
-				throw new InvalidSessionDataException();
+				throw new InvalidSessionDataException("Informació de sessió no vàlida");
 			}
 		}
 		return session;

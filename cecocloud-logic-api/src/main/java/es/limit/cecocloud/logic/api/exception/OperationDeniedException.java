@@ -14,4 +14,5 @@ public class OperationDeniedException extends RuntimeException {
 	public OperationDeniedException(String message) {
 		super("Operació no permesa: " + message);
 	}
+
 }
