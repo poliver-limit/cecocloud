@@ -4,7 +4,6 @@ import { BngFormBaseComponent, BngDatagridConfig } from 'base-angular';
 
 import { OperarisService } from './operaris.service';
 import { OperarisEmpresesService } from './operaris-empreses.service';
-import { UsuarisService } from './usuaris.service';
 
 @Component({
 	template: `
@@ -16,13 +15,13 @@ import { UsuarisService } from './usuaris.service';
 	<!--h2 *ngIf="operari" class="mat-display-1" style="margin-bottom:16px">
 		{{operari.codi}}<br/>
 	</h2-->
-	<mat-card *ngIf="usuari">
+	<mat-card *ngIf="operari">
 		<mat-card-header>
 			<ng-container mat-card-avatar>
 				<button mat-icon-button><mat-icon style="font-size:50px;width:50px">account_circle</mat-icon></button>
 			</ng-container>
-			<mat-card-title>{{operari.codi}} - {{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
-			<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>
+			<mat-card-title>{{operari.description}}</mat-card-title>
+			<mat-card-subtitle>{{operari.usuariEmail}}</mat-card-subtitle>
 		</mat-card-header>
 	</mat-card>
 	<!--div style="display: flex">
@@ -47,7 +46,6 @@ import { UsuarisService } from './usuaris.service';
 export class OperarisFormComponent extends BngFormBaseComponent {
 
 	operari: any;
-	usuari: any;
 	empresesDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
 		columns: [{
@@ -61,18 +59,12 @@ export class OperarisFormComponent extends BngFormBaseComponent {
 
 	onResourceLoad(operari: any) {
 		this.operari = operari;
-		this.usuarisService.whenReady().subscribe(() => {
-			this.usuarisService.get(this.operari.usuari.id).subscribe((usuari: any) => {
-				this.usuari = usuari;
-			});
-		});
 	}
 
 	constructor(
 		activatedRoute: ActivatedRoute,
 		public operarisService: OperarisService,
-		public operarisEmpresesService: OperarisEmpresesService,
-		public usuarisService: UsuarisService) {
+		public operarisEmpresesService: OperarisEmpresesService) {
 		super(activatedRoute);
 		activatedRoute.params.subscribe((params) => {
 			if (params.id) {
