@@ -37,6 +37,7 @@ create table empresa (
     codi varchar(4) not null,
     nif varchar(12) not null,
     nom varchar(30) not null,
+    origen int4 not null,
     tipus int4 not null,
     empresa_comptable_id int8,
     identificador_id int8 not null,
@@ -103,15 +104,14 @@ create table identificador (
     lastmod_by varchar(64),
     lastmod_date timestamp,
     version int8 not null,
-    codi varchar(255),
+    codi varchar(4) not null,
     data_fi timestamp not null,
     data_inici timestamp not null,
     descripcio varchar(40) not null,
-    llicencia varchar(2000) not null,
-    llicencia_ok boolean not null,
     num_empreses int4 not null,
     num_operaris int4 not null,
     num_usuaris int4 not null,
+    perfildef_id int8,
     propietari_id int8 not null,
     primary key (id)
 );
@@ -125,6 +125,7 @@ create table operari (
     version int8 not null,
     actiu boolean not null,
     codi varchar(6) not null,
+    origen int4 not null,
     identificador_id int8 not null,
     usuari_id int8 not null,
     primary key (id)
@@ -211,6 +212,7 @@ create table usuari_ident (
     lastmod_date timestamp,
     version int8 not null,
     actiu boolean not null,
+    origen int4 not null,
     identificador_id int8 not null,
     usuari_id int8 not null,
     primary key (id)
@@ -240,6 +242,9 @@ alter table empresa
 alter table funcionalitat 
    add constraint funcionalitat_uk unique (codi, modul);
 
+alter table funcionalitat 
+   add constraint UK_9aqspr95hqb6mrebw71voe6k8 unique (codi);
+
 alter table funcionalitat_ident 
    add constraint funcident_uk unique (funcionalitat_id, identificador_id);
 
@@ -248,6 +253,9 @@ alter table funcionalitat_ident_perfil
 
 alter table funcionalitat_recurs 
    add constraint funcrecu_uk unique (funcionalitat_id, recurs_id);
+
+alter table identificador 
+   add constraint UK_c8mx10mybbuxdqkxre2xw40sn unique (codi);
 
 alter table operari 
    add constraint operari_codi_uk unique (identificador_id, codi);
@@ -338,6 +346,11 @@ alter table funcionalitat_recurs
    add constraint funcrecu_recurs_fk 
    foreign key (recurs_id) 
    references recurs;
+
+alter table identificador 
+   add constraint identificador_perfildef_fk 
+   foreign key (perfildef_id) 
+   references perfil;
 
 alter table identificador 
    add constraint identificador_propietari_fk 

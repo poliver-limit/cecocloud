@@ -44,11 +44,36 @@ public class UsuariIdentificador extends AbstractIdentificableWithIdentificador<
 	@NotNull
 	private IdentificadorRecursOrigen origen = IdentificadorRecursOrigen.CECOCLOUD;
 	private boolean actiu = true;
+
 	@Transient
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private String description;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String usuariCodi;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String usuariNom;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String usuariLlinatges;
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	private String usuariEmail;
 
 }
