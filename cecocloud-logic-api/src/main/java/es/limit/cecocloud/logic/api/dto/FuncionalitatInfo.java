@@ -20,19 +20,22 @@ public class FuncionalitatInfo {
 	private String descripcio;
 	private FuncionalitatTipus tipus;
 	private BaseBootPermission permission;
+	private BaseBootPermission allowedPermission;
 
 	public FuncionalitatInfo(
 			Long id,
 			String codi,
 			String descripcio,
 			FuncionalitatTipus tipus,
-			BaseBootPermission permission) {
+			BaseBootPermission permission,
+			BaseBootPermission allowedPermission) {
 		super();
 		this.id = id;
 		this.codi = codi;
 		this.descripcio = descripcio;
 		this.tipus = tipus;
 		this.permission = permission;
+		this.allowedPermission = allowedPermission;
 	}
 	
 	public FuncionalitatInfo(

@@ -40,18 +40,11 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "gfe_idf_cod", length = 4)),	
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "gfe_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "gfe_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "gfe_cod", length = 4, insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "gfe_nom", length = 60, nullable = false)),	
-	//@AttributeOverride(name = "embedded.observacions", column = @Column(name = "gfe_cte", length = 1000)),	
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "gfe_obs", length = 1000)),
-
-	/*@AttributeOverride(name = "createdBy", column = @Column(name = "gfe_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "gfe_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "gfe_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "gfe_datmod"))*/
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "gfe_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "gfe_nom", length = 60, nullable = false)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "gfe_obs", length = 1000))
 })
 @AssociationOverrides({
 	@AssociationOverride(

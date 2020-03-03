@@ -10,6 +10,9 @@
 	"resource.marcatge.field.origen": "Orígen",
 	"resource.marcatge.field.latitud": "Latitud",
 	"resource.marcatge.field.longitud": "Longitud",
-	"resource.marcatge.field.ubicacio": "Ubicación"
+	"resource.marcatge.field.ubicacio": "Ubicación",
+	"resource.marcatge.enum.origen.MOBIL": "Móvil",
+	"resource.marcatge.enum.origen.CECOGEST": "Cecogest",
+	"resource.marcatge.enum.origen.CECOCLOUD": "Cecocloud"
 
 }

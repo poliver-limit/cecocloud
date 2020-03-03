@@ -83,7 +83,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_ope_idf_fk"))
 })
-public class OperariEntity extends AbstractWithIdentificadorEntity<Operari, WithIdentificadorAndCodiPk<String>> {
+public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Operari, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Operari embedded;

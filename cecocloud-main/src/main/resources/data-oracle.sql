@@ -10,12 +10,12 @@ VALUES(hibernate_sequence.nextval,'test','$2a$10$DOpxYy8VGZcKnW6aA9y4uO17KpIMFCp
 --
 /*
 insert into identificador(
-id, codi, descripcio, propietari_id, llicencia, llicencia_ok, 
+id, codi, descripcio, propietari_id,
 data_inici, data_fi, num_empreses, num_usuaris, num_operaris, created_by, created_date, version)
 select 
     hibernate_sequence.nextval,
     idf_cod, idf_nom,
-    1, '123', 1, sysdate, sysdate + 10000, 10, 10, 10,
+    1, sysdate, sysdate + 10000, 10, 10, 10,
     'admin', idf_datcre, 0
 from tges_idf;
 */
@@ -25,14 +25,14 @@ from tges_idf;
 --
 /*
 insert into empresa(
-id, codi, nif, nom, tipus, activa, IDENTIFICADOR_id, created_by, created_date, version)
+id, codi, nif, nom, tipus, origen, activa, identificador_id, created_by, created_date, version)
 select
 hibernate_sequence.nextval,
-emp_cod, emp_nif, emp_nomcom, 0, 1,
+emp_cod, emp_nif, emp_nomcom, 0, 0, 1,
 (select id from identificador where codi = emp_idf_cod),
 'admin', sysdate, 0
 from tges_emp
-WHERE emp_idf_cod = 'LIM';
+WHERE emp_idf_cod = '0000';
 */
 
 --
@@ -43,7 +43,7 @@ insert into funcionalitat_ident(
 id, funcionalitat_id, identificador_id, created_by, created_date, version)
 select
 hibernate_sequence.nextval,
-id, (select id from identificador where codi = 'LIM'),
+id, (select id from identificador where codi = '0000'),
 'admin', sysdate, 0
 from funcionalitat;
 */

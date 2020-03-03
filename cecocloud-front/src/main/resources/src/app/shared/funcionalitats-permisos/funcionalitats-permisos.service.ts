@@ -25,8 +25,8 @@ export class FuncionalitatsPermisosService {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfils/' + perfilIdparams); //, { params: params });
 	}
 
-	public saveFuncionalitat(perfilId: number, funcionalitatInfo: any) {
-		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfil/' + perfilId + '/permission/save', funcionalitatInfo);
+	public saveFuncionalitat(perfilId: number, funcionalitatInfo: any, modulCodi: any) {
+		return this.restapiConfigService.getHttp().post(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfil/' + perfilId + '/' + modulCodi + '/permission/save', funcionalitatInfo);
 	}
 
 	public getAllowedFuncionalitatsByModul(modul: string): Observable<any> {

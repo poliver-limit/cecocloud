@@ -59,7 +59,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_zon_idf_fk"))
 })
-public class ZonaEntity extends AbstractWithIdentificadorEntity<Zona, WithIdentificadorAndCodiPk<String>> {
+public class ZonaEntity extends AbstractWithIdentificadorAuditableEntity<Zona, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Zona embedded;

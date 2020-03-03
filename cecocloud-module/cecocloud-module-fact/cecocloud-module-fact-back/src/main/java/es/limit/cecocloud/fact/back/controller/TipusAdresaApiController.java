@@ -24,4 +24,3 @@ public class TipusAdresaApiController extends AbstractIdentificableApiController
 
 }
 
-

@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,28 +62,25 @@ public class FuncionalitatIdentificadorPerfilApiController extends AbstractIdent
 	}
 
 	@PostMapping(
-			value = "/perfil/{perfilId}/permission/save",
+			value = "/perfil/{perfilId}/{modulCodi}/permission/save",
 			produces = "application/json")
 	public ResponseEntity<EntityModel<BaseBootPermission>> permissionSave(
 			HttpServletRequest request,
 			@RequestBody @Valid final FuncionalitatInfo funcionalitat,
-			@PathVariable Long perfilId) throws Exception {
+			@PathVariable Long perfilId,
+			@PathVariable String modulCodi) throws Exception {
 		log.debug("Creant permisos de la funcionalitat (" +
 				"Funcionalitat=" + funcionalitat.getDescripcio() + ", " +
 				"tipus= " + funcionalitat.getTipus() + ", " +
 				"permission=" + funcionalitat.getPermission() + ")");
 		
-		//BaseBootPermission creat = 
-		funcionalitatPerfilService.savePermisos(perfilId, funcionalitat);
-		
-//		if (creat != null) {
-//			return ResponseEntity.ok(
-//					new EntityModel<BaseBootPermission>(
-//							creat,
-//							linkTo(methodOn(ResourceApiController.class).findAllRolModuleResources(null, null)).withSelfRel()));
-//		} else {
+		try {
+			funcionalitatPerfilService.savePermisos(perfilId, funcionalitat, modulCodi);
 			return ResponseEntity.ok().build();
-//		}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		
 	}
 	
 	@GetMapping(

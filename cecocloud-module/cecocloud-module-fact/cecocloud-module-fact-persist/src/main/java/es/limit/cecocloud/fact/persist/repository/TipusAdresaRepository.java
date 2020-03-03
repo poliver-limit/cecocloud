@@ -14,9 +14,10 @@ import es.limit.cecocloud.fact.persist.entity.TipusAdresaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Repository("factTipusAdresaRepository")
 /*public interface TipusAdresaRepository extends BaseRepository<TipusAdresaEntity, WithIdentificadorAndCodiPk<String>> {
 }*/
+
+@Repository("factTipusAdresaRepository")
 public interface TipusAdresaRepository extends BaseRepository<TipusAdresaEntity, String> {
 
 }

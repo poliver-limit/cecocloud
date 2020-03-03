@@ -71,7 +71,15 @@ public class OperariEntity extends AbstractAuditableVersionableEntity<Operari, L
 
 	@Formula(value="(select ('[' || codi || '] ' || usu.nom || ' ' || usu.llinatges) from usuari usu where usu.id = usuari_id)")
 	private String description;
-
+	@Formula(value="(select usu.codi from usuari usu where usu.id = usuari_id)")
+	private String usuariCodi;
+	@Formula(value="(select usu.nom from usuari usu where usu.id = usuari_id)")
+	private String usuariNom;
+	@Formula(value="(select usu.llinatges from usuari usu where usu.id = usuari_id)")
+	private String usuariLlinatges;
+	@Formula(value="(select usu.email from usuari usu where usu.id = usuari_id)")
+	private String usuariEmail;
+	
 	@Builder
 	public OperariEntity(
 			Operari embedded,

@@ -161,7 +161,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
-
+			}, {
+				path: 'productes',
+				loadChildren: () => import('./pages/productes/productes.module').then(m => m.ProductesModule)
+				
 			}, {
 				path: 'projectes',
 				loadChildren: () => import('./pages/projectes/projectes.module').then(m => m.ProjectesModule)
@@ -456,6 +459,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.documentsPagamentCobrament',
 									route: '/fact/documentsPagamentCobrament',
 									resource: 'FAC_DOCP-C'
+								}, {
+									icon: 'room',
+									label: 'Productes',
+									labelKey: 'app.menu.fact.productes',
+									route: '/fact/productes',
+									resource: 'FAC_PROD'
 								}, {
 									icon: 'room',
 									label: 'Registres comercials',

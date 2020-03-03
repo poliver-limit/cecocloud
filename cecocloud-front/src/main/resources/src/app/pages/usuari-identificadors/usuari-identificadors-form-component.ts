@@ -8,7 +8,6 @@ import { BngFormBaseComponent, BngDatagridConfig } from 'base-angular';
 
 import { UsuariIdentificadorService } from './usuari-identificador.service';
 import { UsuariIdentificadorEmpresaService, UsuariIdentificadorEmpresa } from './usuari-identificador-empresa.service';
-import { UsuariService } from './usuari.service';
 import { EmpresaService } from './empresa.service';
 import { PerfilService } from './perfil.service';
 import { PerfilUsuariIdentificadorEmpresaService, PerfilUsuariIdentificadorEmpresa } from './perfil-usuari-identificador-empresa.service';
@@ -28,13 +27,13 @@ export interface EmpresaPerfil {
 	[config]="formConfig"
 	[restapiService]="usuariIdentificadorService"
 	(resourceLoad)="onResourceLoad($event)">
-	<mat-card *ngIf="usuari">
+	<mat-card *ngIf="usuariIdentificador">
 		<mat-card-header>
 			<ng-container mat-card-avatar>
 				<button mat-icon-button><mat-icon style="font-size:50px;width:50px">account_circle</mat-icon></button>
 			</ng-container>
-			<mat-card-title>{{usuari.llinatges}}, {{usuari.nom}}</mat-card-title>
-			<mat-card-subtitle>{{usuari.email}}</mat-card-subtitle>
+			<mat-card-title>{{usuariIdentificador.description}}</mat-card-title>
+			<mat-card-subtitle>{{usuariIdentificador.usuariEmail}}</mat-card-subtitle>
 		</mat-card-header>
 	</mat-card>
 	<bng-custom-field name="actiu"></bng-custom-field>
@@ -45,11 +44,11 @@ export interface EmpresaPerfil {
 		<div style="display: flex; flex-wrap: wrap; width: calc(100% - 110px);">
 			<mat-form-field style="width:100%;">
 				<mat-label>{{'resource.usuari.field.nom'|translate}}</mat-label>
-				<input matInput type="text" readonly="true"	value='{{usuari?.nom}}' />
+				<input matInput type="text" readonly="true"	value='{{usuariIdentificador.usuariNom}}' />
 			</mat-form-field>
 			<mat-form-field style="width:100%;">
 				<mat-label>{{'resource.usuari.field.llinatges'|translate}}</mat-label>
-				<input matInput type="text" readonly="true" value='{{usuari?.llinatges}}' />
+				<input matInput type="text" readonly="true" value='{{usuariIdentificador.usuariLlinatges}}' />
 			</mat-form-field>
 		</div>
 		<div *ngIf="usuariTeImatge(); else icona" style="width: 110px; display: flex;">
@@ -106,7 +105,7 @@ export interface EmpresaPerfil {
 						<ng-container matColumnDef="expandedDetail">
 							<td mat-cell *matCellDef="let empresa" [attr.colspan]="columnsToDisplay.length">
 								<div class="empresa-permisos-detail" [@detailExpand]="empresa == expandedEmpresa ? 'expanded' : 'collapsed'">
-									<cec-funcionalitats [usuariIdentificadorEmpresa] = "{'identificadorId': usuariIdentificador.identificador.id,'empresaId': empresa.empresaId, 'usuariCodi': usuari.codi}" style="width:100%;"></cec-funcionalitats>
+									<cec-funcionalitats [usuariIdentificadorEmpresa] = "{'identificadorId': usuariIdentificador.identificador.id,'empresaId': empresa.empresaId, 'usuariCodi': usuariIdentificador.usuariCodi}" style="width:100%;"></cec-funcionalitats>
 								</div>
 							</td>
 						</ng-container>
@@ -181,7 +180,6 @@ border-bottom-width: 0;
 export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 
 	usuariIdentificador: any;
-	usuari: any;
 	empresesDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
 		columns: [{
@@ -205,12 +203,6 @@ export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 
 	onResourceLoad(usuariIdentificador: any) {
 		this.usuariIdentificador = usuariIdentificador;
-		this.usuarisService.whenReady().subscribe(() => {
-			this.usuarisService.get(this.usuariIdentificador.usuari.id).subscribe((usuari: any) => {
-				this.usuari = usuari;
-				this.carregarInformacioPerfils();
-			});
-		});
 	}
 
 	onPerfilChange(event, index) {
@@ -258,7 +250,7 @@ export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 	}
 
 	usuariTeImatge() {
-		return this.usuari != null && this.usuari.imatgeUrl != null && this.usuari.imatgeUrl !== '';
+		return false;
 	}
 
 	private deletePerfilEmpresa(perfilUsuariIdentificadorEmpresaId, index, pos, ultim) {
@@ -381,7 +373,6 @@ export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 
 	constructor(
 		public usuariIdentificadorService: UsuariIdentificadorService,
-		public usuarisService: UsuariService,
 		public usuariIdentificadorEmpresaService: UsuariIdentificadorEmpresaService,
 		public empresaService: EmpresaService,
 		public perfilService: PerfilService,
