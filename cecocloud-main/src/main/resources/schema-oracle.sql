@@ -37,6 +37,7 @@ create table empresa (
     codi varchar2(4 char) not null,
     nif varchar2(12 char) not null,
     nom varchar2(30 char) not null,
+    origen number(10,0) not null,
     tipus number(10,0) not null,
     empresa_comptable_id number(19,0),
     identificador_id number(19,0) not null,
@@ -107,11 +108,10 @@ create table identificador (
     data_fi timestamp not null,
     data_inici timestamp not null,
     descripcio varchar2(40 char) not null,
-    llicencia varchar2(2000 char) not null,
-    llicencia_ok number(1,0) not null,
     num_empreses number(10,0) not null,
     num_operaris number(10,0) not null,
     num_usuaris number(10,0) not null,
+    perfildef_id number(19,0),
     propietari_id number(19,0) not null,
     primary key (id)
 );
@@ -125,6 +125,7 @@ create table operari (
     version number(19,0) not null,
     actiu number(1,0) not null,
     codi varchar2(6 char) not null,
+    origen number(10,0) not null,
     identificador_id number(19,0) not null,
     usuari_id number(19,0) not null,
     primary key (id)
@@ -211,6 +212,7 @@ create table usuari_ident (
     lastmod_date timestamp,
     version number(19,0) not null,
     actiu number(1,0) not null,
+    origen number(10,0) not null,
     identificador_id number(19,0) not null,
     usuari_id number(19,0) not null,
     primary key (id)
@@ -344,6 +346,11 @@ alter table funcionalitat_recurs
    add constraint funcrecu_recurs_fk 
    foreign key (recurs_id) 
    references recurs;
+
+alter table identificador 
+   add constraint identificador_perfildef_fk 
+   foreign key (perfildef_id) 
+   references perfil;
 
 alter table identificador 
    add constraint identificador_propietari_fk 
