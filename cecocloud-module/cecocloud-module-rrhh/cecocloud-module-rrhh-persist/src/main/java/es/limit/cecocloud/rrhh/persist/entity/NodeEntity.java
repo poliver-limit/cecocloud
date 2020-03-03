@@ -71,7 +71,7 @@ import lombok.Setter;
 })
 
 //public class NodeEntity extends AbstractAmbIdentificadorEntity<Node, NodePk> {
-public class NodeEntity extends AbstractWithIdentificadorEntity<Node, WithIdentificadorAndCodiPk<String>> {
+public class NodeEntity extends AbstractWithIdentificadorAuditableEntity<Node, WithIdentificadorAndCodiPk<String>> {
 
 
 	@Embedded

@@ -60,7 +60,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_gre_idf_fk"))
 })
-public class RecursGrupEntity extends AbstractWithIdentificadorEntity<RecursGrup, WithIdentificadorAndCodiPk<String>> {
+public class RecursGrupEntity extends AbstractWithIdentificadorAuditableEntity<RecursGrup, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected RecursGrup embedded;

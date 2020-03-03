@@ -65,9 +65,7 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 			Optional<UsuariIdentificadorEntity> usuariIdentificador = usuariIdentificadorRepository.findByUsuariAndIdentificador(
 					usuari.get(),
 					identificador.get());
-			if (usuariIdentificador.isPresent()) {
-				usuariIdentificadorRepository.delete(usuariIdentificador.get());
-			} else if (!usuariIdentificador.isPresent()) {
+			if (!usuariIdentificador.isPresent()) {
 				createUsuariIdentificadorIfNotExists(usuari.get(), identificador.get());
 			}
 		}
@@ -166,8 +164,9 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 				usuari,
 				identificador);
 		if (!usuariIdentificador.isPresent()) {
+			UsuariIdentificador embedded = new UsuariIdentificador();
 			UsuariIdentificadorEntity usuariIdentificadorPerCrear = UsuariIdentificadorEntity.builder().
-					embedded(new UsuariIdentificador()).
+					embedded(embedded).
 					usuari(usuari).
 					identificador(identificador).
 					build();

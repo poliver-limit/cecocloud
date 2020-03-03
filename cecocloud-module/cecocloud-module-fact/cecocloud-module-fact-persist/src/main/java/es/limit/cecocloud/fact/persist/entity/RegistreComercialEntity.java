@@ -94,15 +94,16 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 	@Column(name = "rgc_cli_cod", length = 4)
 	private String clientCodi;
 	
-//	@JoinColumns(
-//			value = {
-//				@JoinColumn(name = "rgc_idf_cod", referencedColumnName = "apl_idf_cod", insertable = false, updatable = false),
-//				@JoinColumn(name = "rgc_apl_cod", referencedColumnName = "apl_cod", insertable = false, updatable = false)
-//			},
-//			foreignKey = @ForeignKey(name = "rges_rgc_apl_fk"))
-//	protected ProducteEntity producte;
-//	@Column(name = "rgc_apl_cod", length = 4)
-//	private String producteCodi;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+				@JoinColumn(name = "rgc_idf_cod", referencedColumnName = "apl_idf_cod", insertable = false, updatable = false),
+				@JoinColumn(name = "rgc_apl_ref", referencedColumnName = "apl_ref", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_rgc_apl_fk"))
+	protected ProducteEntity producte;
+	@Column(name = "rgc_apl_ref", precision = 10)
+	private Integer producteRef;
 
 	@Builder
 	public RegistreComercialEntity(
@@ -110,8 +111,8 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 			RegistreComercial embedded,
 			IdentificadorEntity identificador,
 			EmpresaEntity empresa,
-			ClientEntity client
-//			,ProducteEntity producte
+			ClientEntity client,
+			ProducteEntity producte
 			) {
 		
 		setId(pk);
@@ -120,11 +121,11 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		this.identificador = identificador;
 		this.empresa = empresa;
 		this.client = client;
-//		this.producte = producte;
+		this.producte = producte;
 		embedded.setData(new Date());
 		
 		this.updateClient(client);
-//		this.updateProducte(producte);
+		this.updateProducte(producte);
 	}
 
 	@Override
@@ -138,9 +139,9 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		}
 	}
 	
-//	public void updateProducte(ProducteEntity producte) {
-//		if (producte!=null) {
-//			this.producteCodi = producte.getEmbedded().getCodi();
-//		}
-//	}
+	public void updateProducte(ProducteEntity producte) {
+		if (producte!=null) {
+			this.producteRef = producte.getEmbedded().getReferencia();
+		}
+	}
 }

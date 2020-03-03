@@ -52,7 +52,7 @@ public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 	@Enumerated
 	protected EmpresaTipusEnum tipus;
 	@NotNull
-	private IdentificadorRecursOrigen origen;
+	private IdentificadorRecursOrigen origen = IdentificadorRecursOrigen.CECOCLOUD;
 	@RestapiField(hiddenInLov = true)
 	private boolean activa = true;
 	@Transient

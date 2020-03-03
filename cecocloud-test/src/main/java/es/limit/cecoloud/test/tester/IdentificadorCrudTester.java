@@ -72,10 +72,15 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 	}
 
 	@Override
-	public void afterCreate(Identificador dto) {
-		UserSession session = new UserSession();
-		session.setI(dto.getId());
-		setSession(session);
+	public void afterCreate(Identificador dto, boolean isParentResource) {
+		if (isParentResource) {
+			UserSession session = (UserSession)getSession();
+			if (session == null) {
+				session = new UserSession();
+			}
+			session.setI(dto.getId());
+			setSession(session);
+		}
 	}
 
 }

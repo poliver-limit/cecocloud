@@ -72,7 +72,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_inr_idf_fk"))
 })
-public class IntervalEntity extends AbstractWithIdentificadorEntity<Interval, WithIdentificadorAndCodiPk<String>> {
+public class IntervalEntity extends AbstractWithIdentificadorAuditableEntity<Interval, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Interval embedded;

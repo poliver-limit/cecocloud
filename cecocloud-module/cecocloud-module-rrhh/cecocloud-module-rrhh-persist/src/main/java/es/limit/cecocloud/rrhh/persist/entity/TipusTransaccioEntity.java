@@ -58,7 +58,7 @@ import lombok.Setter;
 			foreignKey = @ForeignKey(name = "rrhu_ttr_idf_fk"))
 })
 //public class TipusTransaccioEntity extends AbstractAmbIdentificadorEntity<TipusTransaccio, AmbIdentificadorICodiPk<Integer>> {
-public class TipusTransaccioEntity extends AbstractWithIdentificadorEntity<TipusTransaccio, WithIdentificadorAndCodiPk<String>> {
+public class TipusTransaccioEntity extends AbstractWithIdentificadorAuditableEntity<TipusTransaccio, WithIdentificadorAndCodiPk<String>> {
 
 
 	@Embedded

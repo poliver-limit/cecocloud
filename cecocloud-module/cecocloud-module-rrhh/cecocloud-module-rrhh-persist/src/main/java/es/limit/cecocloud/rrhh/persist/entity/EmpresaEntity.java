@@ -84,7 +84,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_emp_idf_fk"))
 })
-public class EmpresaEntity extends AbstractWithIdentificadorEntity<Empresa, WithIdentificadorAndCodiPk<String>> {
+public class EmpresaEntity extends AbstractWithIdentificadorAuditableEntity<Empresa, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Empresa embedded;
