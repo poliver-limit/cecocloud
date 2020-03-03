@@ -42,7 +42,7 @@ public class UsuariIdentificador extends AbstractIdentificableWithIdentificador<
 			includeInQuickFilter = true)
 	private GenericReference<Usuari, Long> usuari;
 	@NotNull
-	private IdentificadorRecursOrigen origen;
+	private IdentificadorRecursOrigen origen = IdentificadorRecursOrigen.CECOCLOUD;
 	private boolean actiu = true;
 	@Transient
 	@RestapiField(

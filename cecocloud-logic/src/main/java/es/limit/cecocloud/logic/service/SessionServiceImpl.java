@@ -34,12 +34,14 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Implementació del servei encarregat de gestionar les sessions d'usuari del front.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Service
 public class SessionServiceImpl implements SessionService {
 
@@ -65,7 +67,7 @@ public class SessionServiceImpl implements SessionService {
 			JsonNode jsonNode,
 			boolean validate) {
 		UserSession session = jacksonObjectMapper.convertValue(jsonNode, UserSession.class);
-		if (validate) {
+		if (validate && session.getI() != null) {
 			try {
 				// Verificar que es te accés a l'identificador
 				IdentificadorEntity identificador = identificadorRepository.findById(session.getI()).get();
@@ -73,18 +75,20 @@ public class SessionServiceImpl implements SessionService {
 						usuariRepository.findByEmbeddedCodi(authenticationHelper.getPrincipalName()).get(),
 						identificador).get();
 				if (usuariIdentificador.getEmbedded().isActiu()) {
-					// Verificar que l'empresa pertany a l'identificador
-					EmpresaEntity empresa = empresaRepository.findByIdentificadorAndId(
-							identificador,
-							session.getE()).get();
-					if (empresa.getEmbedded().isActiva()) {
-						// Verificar que es te accés a l'empresa
-						usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
-								usuariIdentificador,
-								empresa).get();
-					} else {
-						// No es te accés a l'empresa perquè no està activa
-						throw new InvalidSessionDataException("L'empresa està desactivada");
+					if (session.getE() != null) {
+						// Verificar que l'empresa pertany a l'identificador
+						EmpresaEntity empresa = empresaRepository.findByIdentificadorAndId(
+								identificador,
+								session.getE()).get();
+						if (empresa.getEmbedded().isActiva()) {
+							// Verificar que es te accés a l'empresa
+							usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
+									usuariIdentificador,
+									empresa).get();
+						} else {
+							// No es te accés a l'empresa perquè no està activa
+							throw new InvalidSessionDataException("L'empresa està desactivada");
+						}
 					}
 				} else {
 					// No es te accés a l'identificador perquè no està actiu
@@ -92,8 +96,12 @@ public class SessionServiceImpl implements SessionService {
 				}
 			} catch (NoSuchElementException ex) {
 				// No es te accés
+				log.error("Informació de sessió no vàlida", ex);
 				throw new InvalidSessionDataException("Informació de sessió no vàlida");
 			}
+		} 
+		if (session.getI() == null && session.getE() != null) {
+			throw new InvalidSessionDataException("L'empresa no pertany a l'identificador especificat");
 		}
 		return session;
 	}
