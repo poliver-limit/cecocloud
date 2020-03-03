@@ -5,6 +5,8 @@ package es.limit.cecocloud.logic.api.module;
 
 import java.util.List;
 
+import org.springframework.security.acls.model.Permission;
+
 import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.Modul;
@@ -22,5 +24,6 @@ public interface FuncionalitatCodiFont {
 	public Modul getModul();
 	public List<Class<? extends Identificable<?>>> getRecursosPrincipals();
 	public List<Class<? extends Identificable<?>>> getRecursosSecundaris();
+	public List<Permission> getAllowedPermission();
 
 }
