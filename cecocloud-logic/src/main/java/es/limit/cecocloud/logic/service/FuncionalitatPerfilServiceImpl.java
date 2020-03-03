@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
-import es.limit.base.boot.logic.api.exception.PermissionNotallowedException;
+import es.limit.base.boot.logic.api.exception.PermissionNotAllowedException;
 import es.limit.base.boot.logic.api.permission.ExtendedPermission;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
@@ -198,7 +198,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 								.embedded(embedded).build();
 							funcionalitatIdentificadorPerfilRepository.save(funcionalitatIdentificadorPerfil);
 						} else {
-							throw new PermissionNotallowedException();
+							throw new PermissionNotAllowedException();
 						}
 					}
 					
