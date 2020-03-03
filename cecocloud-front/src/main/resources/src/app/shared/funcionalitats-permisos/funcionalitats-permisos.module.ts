@@ -4,6 +4,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MaterialModule } from '../material.module';
 import { FuncionalitatsPermisosComponent } from './funcionalitats-permisos.component';
@@ -16,14 +18,16 @@ import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identif
         TranslateModule,
         MaterialModule,
         MatTableModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatTooltipModule
     ],
     declarations: [
         FuncionalitatsPermisosComponent
     ],
     providers: [
         FuncionalitatsPermisosService,
-        PerfilUsuariIdentificadorEmpresaService
+        PerfilUsuariIdentificadorEmpresaService,
+        { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }
     ],
     exports: [
         FuncionalitatsPermisosComponent

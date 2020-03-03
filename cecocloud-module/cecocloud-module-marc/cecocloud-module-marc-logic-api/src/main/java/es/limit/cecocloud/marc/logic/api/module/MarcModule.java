@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import es.limit.base.boot.logic.api.controller.GenericController;
+import es.limit.base.boot.logic.api.permission.ExtendedPermission;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFontImpl;
@@ -40,7 +41,11 @@ public class MarcModule {
 						"Marcatges",
 						Modul.marc,
 						Arrays.asList(Marcatge.class),
-						Arrays.asList()));
+						Arrays.asList(),
+						Arrays.asList(
+								ExtendedPermission.READ,
+								ExtendedPermission.CREATE,
+								ExtendedPermission.ADMINISTRATION)));
 		moduleInfo = new ModuleInfo(
 				Modul.marc,
 				Marcatge.class.getPackage().getName(),

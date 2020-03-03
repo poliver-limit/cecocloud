@@ -10,6 +10,7 @@ import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
 
 /**
@@ -56,6 +57,18 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		return new CrudTester[] {
 			new IdentificadorCrudTester()
 		};
+	}
+
+	@Override
+	public void afterCreate(Empresa dto, boolean isParentResource) {
+		if (isParentResource) {
+			UserSession session = (UserSession)getSession();
+			if (session == null) {
+				session = new UserSession();
+			}
+			session.setE(dto.getId());
+			setSession(session);
+		}
 	}
 
 }
