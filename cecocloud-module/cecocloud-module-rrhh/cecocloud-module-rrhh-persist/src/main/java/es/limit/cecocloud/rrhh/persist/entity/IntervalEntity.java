@@ -57,7 +57,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "inr_fin")),
 	@AttributeOverride(name = "embedded.observacio", column = @Column(name = "inr_obs", length = 1000)),
 	@AttributeOverride(name = "embedded.concepteFeinaCodi", column = @Column(name = "inr_cof_cod", length = 4)),
-	@AttributeOverride(name = "embedded.fullFeinaOperariCodi", column = @Column(name = "inr_ff0_cod", length = 4)),
+	@AttributeOverride(name = "embedded.fullFeinaOperariCodi", column = @Column(name = "inr_ffo_cod", length = 4)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "inr_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "inr_datcre")),

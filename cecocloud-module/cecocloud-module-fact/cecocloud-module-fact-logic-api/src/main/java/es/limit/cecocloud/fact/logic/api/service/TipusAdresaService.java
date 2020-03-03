@@ -4,6 +4,7 @@
 package es.limit.cecocloud.fact.logic.api.service;
 
 import es.limit.base.boot.logic.api.service.GenericCompositePkService;
+import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
 
 /**
@@ -11,6 +12,9 @@ import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface TipusAdresaService extends GenericCompositePkService<TipusAdresa> {
+/*public interface TipusAdresaService extends GenericCompositePkService<TipusAdresa> {
+
+}*/
+public interface TipusAdresaService extends GenericService<TipusAdresa, String> {
 
 }

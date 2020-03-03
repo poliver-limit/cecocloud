@@ -55,7 +55,7 @@ public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 	
 	@Size(max = 10)
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
-	private String matricula_remolc;
+	private String matriculaRemolc;
 	
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	@Size(max = 12)

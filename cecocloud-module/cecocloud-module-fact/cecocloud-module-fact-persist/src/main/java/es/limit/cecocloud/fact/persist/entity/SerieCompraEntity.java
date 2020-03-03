@@ -57,7 +57,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.validFins", column = @Column(name = "scp_diafin", nullable = false)),
 //	@AttributeOverride(name = "embedded.magatzemCodi", column = @Column(name = "scp_mag_cod", length = 4)),
 //	@AttributeOverride(name = "embedded.empresaOpCodi", column = @Column(name = "scp_emp_cod002", length = 4)),
-	@AttributeOverride(name = "embedded.departament", column = @Column(name = "scp_departament")),
+//	@AttributeOverride(name = "embedded.departament", column = @Column(name = "scp_departament")),
 	@AttributeOverride(name = "embedded.desglossarIva", column = @Column(name = "scp_dsgivacmp", length = 1, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "scp_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "scp_datcre")),
