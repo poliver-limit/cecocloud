@@ -311,11 +311,11 @@ public class FactModuleRegister {
 						Arrays.asList(Divisa.class),
 						Arrays.asList()));
 		funcionalitats.put(
-				"FAC_DOCP",
+				"FAC_DOCP_C",
 				new FuncionalitatCodiFontImpl(
-						"FAC_DOCP-C",
+						"FAC_DOCP_C",
 						FuncionalitatTipus.MANTENIMENT,
-						"Documents de pagament/cobrament",
+						"Documents de pagament-cobrament",
 						Modul.fact,
 						Arrays.asList(DocumentPagamentCobrament.class),
 						Arrays.asList(
@@ -411,7 +411,7 @@ public class FactModuleRegister {
 		funcionalitats.put(
 				"FAC_NATP",
 				new FuncionalitatCodiFontImpl(
-						"FAC_NATP-C",
+						"FAC_NATP_C",
 						FuncionalitatTipus.MANTENIMENT,
 						"Naturaleses de pagament/cobrament",
 						Modul.fact,
@@ -659,7 +659,7 @@ public class FactModuleRegister {
 		funcionalitats.put(
 				"FAC_TIPP",
 				new FuncionalitatCodiFontImpl(
-						"FAC_TIPP-C",
+						"FAC_TIPP_C",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de proveïdor/client",
 						Modul.fact,
