@@ -6,6 +6,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,6 +17,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.dto.Albara.AlbaraPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,12 +36,12 @@ import lombok.Setter;
 public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 
 	@NotNull(groups = { OnCreate.class })
-	@Size(max = 4)
+	/*@Size(max = 4)
 	@RestapiField(
 		disabledForUpdate = true, 
 		toUpperCase = true,
 		includeInQuickFilter = true)
-	private String codi;
+	private String codi;*/
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
@@ -69,7 +71,8 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	
 	@NotNull	
 	@RestapiField(hiddenInGrid = true)
-	private boolean facturable;
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean facturable;
 	
 	@NotNull
 	@Size(max = 1)
@@ -102,12 +105,12 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class AlbaraPk extends WithIdentificadorAndCodiPk<String> {
+	public static class AlbaraPk extends WithIdentificadorAndCodiPk<Integer> {
 		private String empresaCodi;
 		public AlbaraPk(
 				String identificadorCodi,
 				String empresaCodi,
-				String codi) {
+				Integer codi) {
 			super(identificadorCodi, codi);
 			this.empresaCodi = empresaCodi;
 		}

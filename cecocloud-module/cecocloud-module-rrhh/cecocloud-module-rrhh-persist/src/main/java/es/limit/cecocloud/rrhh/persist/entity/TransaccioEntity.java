@@ -39,7 +39,7 @@ import lombok.Setter;
 		name = "trhu_tra",
 		indexes = {
 				@Index(name = "irhu_tra_idf_fk", columnList = "tra_idf_cod"),
-				@Index(name = "irrhu_tra_pk", columnList = "tra_idf_cod,tra_cod", unique = true)
+				@Index(name = "irrhu_tra_pk", columnList = "tra_idf_cod,tra_cod", unique = true)				
 		}
 )
 @AttributeOverrides({
@@ -67,7 +67,7 @@ import lombok.Setter;
 })
 
 //public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio, AmbIdentificadorICodiPk<Integer>> {
-public class TransaccioEntity extends AbstractWithIdentificadorEntity<Transaccio, WithIdentificadorAndCodiPk<String>> {
+public class TransaccioEntity extends AbstractWithIdentificadorAuditableEntity<Transaccio, WithIdentificadorAndCodiPk<String>> {
 	
 
 	@Embedded

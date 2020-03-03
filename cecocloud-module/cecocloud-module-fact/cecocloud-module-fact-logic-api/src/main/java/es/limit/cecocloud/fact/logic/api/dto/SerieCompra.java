@@ -90,8 +90,8 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresaOp;
 	
-	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
-	private String departament;
+	/*@RestapiField(hiddenInGrid = true, hiddenInLov = true)
+	private String departament;*/
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true) 

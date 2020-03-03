@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
-import es.limit.base.boot.persist.entity.AbstractCompositePkEntity;
+import es.limit.base.boot.persist.entity.AbstractAuditableCompositePkEntity;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificador.WithIdentificadorPk;
 import lombok.Getter;
 
@@ -20,7 +20,7 @@ import lombok.Getter;
  */
 @Getter
 @MappedSuperclass
-public abstract class AbstractWithIdentificadorEntity<D, PK extends WithIdentificadorPk> extends AbstractCompositePkEntity<D, PK> {
+public abstract class AbstractWithIdentificadorAuditableEntity<D, PK extends WithIdentificadorPk> extends AbstractAuditableCompositePkEntity<D, PK> {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
