@@ -37,7 +37,7 @@ public class AlbaraServiceImpl extends AbstractGenericCompositePkServiceImpl<Alb
 		return new AlbaraPk(
 				dto.getIdentificador().getId(),
 				empresa.getEmbedded().getCodi(),
-				dto.getCodi());
+				dto.getNumeroDocument());
 	}
 
 }

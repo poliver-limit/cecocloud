@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.logic.api.dto.AbstractIdentificableWithIdentificador;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,8 +23,8 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio")
 
-public class TipusAdresa extends AbstractIdentificableWithIdentificadorAndCodi<String>{
-	
+//public class TipusAdresa extends AbstractIdentificableWithIdentificadorAndCodi<String>{
+public class TipusAdresa extends AbstractIdentificableWithIdentificador<String> {	
 	@NotNull(groups = {OnCreate.class})
 	@RestapiField(
 			disabledForUpdate = true,

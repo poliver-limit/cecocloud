@@ -6,6 +6,7 @@ package es.limit.cecocloud.fact.back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
 import es.limit.cecocloud.fact.logic.api.module.FactModuleConfig;
 
@@ -14,9 +15,13 @@ import es.limit.cecocloud.fact.logic.api.module.FactModuleConfig;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
+@RestController("factTipusAdresaApicontroller")
 @RequestMapping(FactModuleConfig.API_PATH + "/tipusAdreces")
-public class TipusAdresaApiController extends AbstractIdentificableWithIdentificadorApiController<TipusAdresa> {
+/*public class TipusAdresaApiController extends AbstractIdentificableWithIdentificadorApiController<TipusAdresa> {
+
+}*/
+public class TipusAdresaApiController extends AbstractIdentificableApiController<TipusAdresa,String> {
 
 }
+
 

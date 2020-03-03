@@ -14,7 +14,7 @@ import es.limit.cecocloud.fact.persist.entity.TipusAdresaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Component
+@Component("factTipusAdresaEntityToDtoConverter")
 public class TipusAdresaEntityToDtoConverter extends AbstractEntityToDtoConverter<TipusAdresaEntity, TipusAdresa> {
 
 }
