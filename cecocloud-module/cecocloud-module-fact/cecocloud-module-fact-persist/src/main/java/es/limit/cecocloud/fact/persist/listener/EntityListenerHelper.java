@@ -27,7 +27,6 @@ public class EntityListenerHelper {
 	@Autowired
 	private ComptadorRepository comptadorRepository;
 
-
 	private static EntityListenerHelper instancia = null;
 
 	protected EntityListenerHelper() {}
@@ -78,5 +77,47 @@ public class EntityListenerHelper {
 		}
 		return valor;
 	}
-	
+
+	/**
+	 * Processa un camp de tipus codi passant-lo a majúscules o afegint zeros
+	 * (o el caràcter especificat) si conté només caràcters numèrics.
+	 * 
+	 * @param codi
+	 *            el codi a processar.
+	 * @param llargada
+	 *            la llargada del camp.
+	 * @param c
+	 *            el caràcter per a emplenar (si és null s'utilitzarà "0").
+	 * @return el codi processat.
+	 */
+	public String processarComACodi(String codi, int llargada, Character c) {
+		if (codi.matches("[0-9]+")) {
+			StringBuilder sb = new StringBuilder(codi);
+			for (int x = codi.length(); x < llargada; x++) {
+				if (c != null) {
+					sb.insert(0, c);
+				} else {
+					sb.insert(0, "0");
+				}
+			}
+			return sb.toString();
+		} else {
+			return codi.toUpperCase();
+		}
+	}
+
+	/**
+	 * Processa un camp de tipus codi passant-lo a majúscules o afegint zeros
+	 * si conté només caràcters numèrics.
+	 * 
+	 * @param codi
+	 *            el codi a processar.
+	 * @param llargada
+	 *            la llargada del camp.
+	 * @return el codi processat.
+	 */
+	public String processarComACodi(String codi, int llargada) {
+		return processarComACodi(codi, llargada, null);
+	}
+
 }

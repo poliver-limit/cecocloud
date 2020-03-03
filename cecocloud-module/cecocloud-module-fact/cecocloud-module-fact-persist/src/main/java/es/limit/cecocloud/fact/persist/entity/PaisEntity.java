@@ -35,14 +35,13 @@ import lombok.Setter;
 @Table(
 		name = "tges_pas",
 		indexes = {
-				@Index(name = "iges_pas_idf_fk", columnList = "pas_idf_cod"),
-				@Index(name = "irges_pas_pk", columnList = "pas_idf_cod,pas_cod", unique = true)
+				@Index(name = "iges_pas_idf_fk", columnList = "pas_idf_cod")
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pas_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "pas_cod", length = 4)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pas_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pas_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "pas_nom", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.nif", column = @Column(name = "pas_nif", length = 2)),
 	@AttributeOverride(name = "embedded.codiso", column = @Column(name = "pas_codiso", length = 3)),
