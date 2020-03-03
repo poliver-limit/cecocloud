@@ -57,7 +57,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_sno_idf_fk"))
 })
-public class ServidorEntity extends AbstractWithIdentificadorEntity<Servidor, WithIdentificadorAndCodiPk<String>> {
+public class ServidorEntity extends AbstractWithIdentificadorAuditableEntity<Servidor, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Servidor embedded;

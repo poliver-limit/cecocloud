@@ -74,7 +74,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_rdi_idf_fk"))
 })
-public class RegistreDiariEntity extends AbstractWithIdentificadorEntity<RegistreDiari, RegistreDiariPk> {
+public class RegistreDiariEntity extends AbstractWithIdentificadorAuditableEntity<RegistreDiari, RegistreDiariPk> {
 
 	@Embedded
 	protected RegistreDiari embedded;

@@ -58,7 +58,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_par_idf_fk"))
 })
-public class ParametreEntity extends AbstractWithIdentificadorEntity<Parametre, WithIdentificadorAndCodiPk<String>> {
+public class ParametreEntity extends AbstractWithIdentificadorAuditableEntity<Parametre, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Parametre embedded;

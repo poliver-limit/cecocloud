@@ -60,7 +60,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_hor_idf_fk"))
 })
-public class HorariEntity extends AbstractWithIdentificadorEntity<Horari, WithIdentificadorAndCodiPk<String>> {
+public class HorariEntity extends AbstractWithIdentificadorAuditableEntity<Horari, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected Horari embedded;

@@ -61,7 +61,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rrhu_tdi_idf_fk"))
 })
-public class TipusDiaEntity extends AbstractWithIdentificadorEntity<TipusDia, WithIdentificadorAndCodiPk<String>> {
+public class TipusDiaEntity extends AbstractWithIdentificadorAuditableEntity<TipusDia, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
 	protected TipusDia embedded;

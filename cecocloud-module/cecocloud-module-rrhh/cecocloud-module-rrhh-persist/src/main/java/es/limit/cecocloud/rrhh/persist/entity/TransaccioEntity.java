@@ -67,7 +67,7 @@ import lombok.Setter;
 })
 
 //public class TransaccioEntity extends AbstractAmbIdentificadorEntity<Transaccio, AmbIdentificadorICodiPk<Integer>> {
-public class TransaccioEntity extends AbstractWithIdentificadorEntity<Transaccio, WithIdentificadorAndCodiPk<String>> {
+public class TransaccioEntity extends AbstractWithIdentificadorAuditableEntity<Transaccio, WithIdentificadorAndCodiPk<String>> {
 	
 
 	@Embedded
