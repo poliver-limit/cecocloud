@@ -798,7 +798,7 @@ public class FactModuleRegister {
 					"Registre comercial",
 					Modul.fact,
 					Arrays.asList(RegistreComercial.class),
-					Arrays.asList()));
+					Arrays.asList(Client.class, Producte.class)));
 		funcionalitats.put(
 				"FAC_PROD",
 				new FuncionalitatCodiFontImpl(
