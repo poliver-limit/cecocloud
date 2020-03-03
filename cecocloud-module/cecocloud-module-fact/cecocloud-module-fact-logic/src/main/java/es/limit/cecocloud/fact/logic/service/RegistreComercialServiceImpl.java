@@ -37,7 +37,7 @@ public class RegistreComercialServiceImpl extends AbstractGenericCompositePkServ
 		return new RegistreComercialPk(
 				dto.getIdentificador().getId(),
 				empresa.getEmbedded().getCodi(),
-				dto.getCodi());
+				dto.getSequencia());
 	}
 
 }
