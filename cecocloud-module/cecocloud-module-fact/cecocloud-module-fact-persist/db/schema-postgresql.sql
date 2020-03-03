@@ -969,8 +969,8 @@ create table tges_rgc (
         rgc_dat timestamp,
         rgc_desmtj varchar(60) not null,
         rgc_int varchar(60) not null,
-        rgc_mtj int4 not null,
-        rgc_tip int4 not null,
+        rgc_mtj varchar(1) not null,
+        rgc_tip varchar(1) not null,
         rgc_apl_ref int4,
         primary key (rgc_emp_cod, rgc_cod, rgc_idf_cod)
     );
@@ -2320,9 +2320,9 @@ alter table tges_rap
    references tges_idf;
 
 alter table tges_rgc 
-   add constraint rges_rgc_idf_fk 
-   foreign key (rgc_idf_cod) 
-   references tges_idf;
+       add constraint rges_rgc_idf_fk 
+       foreign key (rgc_idf_cod) 
+       references tges_idf;
 
 alter table tges_rgc 
    add constraint rges_rgc_cli_fk 
@@ -2333,7 +2333,7 @@ alter table tges_rgc
    add constraint rges_rgc_emp_fk 
    foreign key (rgc_emp_cod, rgc_idf_cod) 
    references tges_emp;
-   
+
 alter table tges_rgc 
    add constraint rges_rgc_apl_fk 
    foreign key (rgc_apl_ref, rgc_idf_cod) 
