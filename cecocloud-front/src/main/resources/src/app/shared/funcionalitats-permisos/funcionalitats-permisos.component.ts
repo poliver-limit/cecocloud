@@ -27,236 +27,155 @@ import {
 			<div class="ample-complet">
 				<mat-tab-group animationDuration="0ms">
 					<mat-tab
-						*ngFor="
-							let funcionalitatsModul of funcionalitatsModuls;
-							let indexModul = index
-						"
-						label="{{
-							'app.module.' + funcionalitatsModul.module.code | translate
-						}}"
-					>
+						*ngFor="let funcionalitatsModul of funcionalitatsModuls; let indexModul = index"
+						label="{{ 'app.module.' + funcionalitatsModul.module.code | translate }}">
+
 						<!-- <div [style.height.px]="tableHeight" class="permisos-container"> -->
-							<table
-								mat-table
-								[dataSource]="funcionalitatsModul.funcionalitats"
-								class="mat-elevation-z8"
-								style="width:100%;"
-							>
-								<!-- Columna de nom de la funcionalitat -->
-								<ng-container matColumnDef="label">
-									<th mat-header-cell *matHeaderCellDef style="">
-										{{ "resource.funcionalitat" | translate }}
-									</th>
-									<td mat-cell *matCellDef="let funcionalitat">
-										{{ ("funcionalitat." + funcionalitat.codi) | translate }}
-									</td>
-								</ng-container>
-								<!-- Columna de read -->
-								<ng-container matColumnDef="read">
-									<th
-										mat-header-cell
-										*matHeaderCellDef
-										[ngClass]="{
-											'htoggle-mobile': mobileScreen,
-											'htoggle-desktop': !mobileScreen
-										}"
-									>
-										<ng-container *ngIf="!mobileScreen">
-											{{
-												"resource.permission.field.readGranted" | translate
-											}}</ng-container
-										>
-										<ng-container *ngIf="mobileScreen">ACC</ng-container>
-									</th>
-									<td
-										mat-cell
-										*matCellDef="let funcionalitat; let index = index"
-										class="rcheck"
-									>
-										<mat-checkbox
-											name="readGranted"
-											[checked]="funcionalitat.permission.readGranted"
-											[disabled]="disableToggles"
-											(click)="
-												!disableToggles &&
-													funcionalitat.tipus == 'MANTENIMENT' &&
-													onPermisChange($event, indexModul, index)
-											"
-										>
-										</mat-checkbox>
-									</td>
-								</ng-container>
-								<!-- Columna de create -->
-								<ng-container matColumnDef="create">
-									<th
-										mat-header-cell
-										*matHeaderCellDef
-										[ngClass]="{
-											'htoggle-mobile': mobileScreen,
-											'htoggle-desktop': !mobileScreen
-										}"
-									>
-										<ng-container *ngIf="!mobileScreen">
-											{{
-												"resource.permission.field.createGranted" | translate
-											}}</ng-container
-										>
-										<ng-container *ngIf="mobileScreen">CRE</ng-container>
-									</th>
-									<td
-										mat-cell
-										*matCellDef="let funcionalitat; let index = index"
-										class="rcheck"
-									>
-										<mat-checkbox
-											name="createGranted"
-											[checked]="funcionalitat.permission.createGranted"
-											[disabled]="disableToggles"
-											(click)="
-												!disableToggles &&
-													funcionalitat.tipus == 'MANTENIMENT' &&
-													onPermisChange($event, indexModul, index)
-											"
-										>
-										</mat-checkbox>
-									</td>
-								</ng-container>
-								<!-- Columna de write -->
-								<ng-container matColumnDef="write">
-									<th
-										mat-header-cell
-										*matHeaderCellDef
-										[ngClass]="{
-											'htoggle-mobile': mobileScreen,
-											'htoggle-desktop': !mobileScreen
-										}"
-									>
-										<ng-container *ngIf="!mobileScreen">
-											{{
-												"resource.permission.field.writeGranted" | translate
-											}}</ng-container
-										>
-										<ng-container *ngIf="mobileScreen">MOD</ng-container>
-									</th>
-									<td
-										mat-cell
-										*matCellDef="let funcionalitat; let index = index"
-										class="rcheck"
-									>
-										<mat-checkbox
-											name="writeGranted"
-											[checked]="funcionalitat.permission.writeGranted"
-											[disabled]="disableToggles"
-											(click)="
-												!disableToggles &&
-													funcionalitat.tipus == 'MANTENIMENT' &&
-													onPermisChange($event, indexModul, index)
-											"
-										>
-										</mat-checkbox>
-									</td>
-								</ng-container>
-								<!-- Columna de delete -->
-								<ng-container matColumnDef="delete">
-									<th
-										mat-header-cell
-										*matHeaderCellDef
-										[ngClass]="{
-											'htoggle-mobile': mobileScreen,
-											'htoggle-desktop': !mobileScreen
-										}"
-									>
-										<ng-container *ngIf="!mobileScreen">
-											{{
-												"resource.permission.field.deleteGranted" | translate
-											}}</ng-container
-										>
-										<ng-container *ngIf="mobileScreen">BOR</ng-container>
-									</th>
-									<td
-										mat-cell
-										*matCellDef="let funcionalitat; let index = index"
-										class="rcheck"
-									>
-										<mat-checkbox
-											name="deleteGranted"
-											[checked]="funcionalitat.permission.deleteGranted"
-											[disabled]="disableToggles"
-											(click)="
-												!disableToggles &&
-													funcionalitat.tipus == 'MANTENIMENT' &&
-													onPermisChange($event, indexModul, index)
-											"
-										>
-										</mat-checkbox>
-									</td>
-								</ng-container>
-								<!-- Columna de admin -->
-								<ng-container matColumnDef="admin">
-									<th
-										mat-header-cell
-										*matHeaderCellDef
-										[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-										<ng-container *ngIf="!mobileScreen">{{'resource.permission.field.adminGranted' | translate}}</ng-container>
-										<ng-container *ngIf="mobileScreen">ADM</ng-container>
-									</th>
-									<td
-										mat-cell
-										*matCellDef="let funcionalitat; let index = index"
-										class="rcheck">
-										<mat-checkbox
-											name="adminGranted"
-											[checked]="funcionalitat.permission.adminGranted"
-											[disabled]="disableToggles"
-											(click)="!disableToggles && funcionalitat.tipus == 'MANTENIMENT' && onPermisChange($event, indexModul, index)"></mat-checkbox>
-									</td>
-								</ng-container>
-								<!-- Columna de execute -->
-								<ng-container matColumnDef="execute">
-									<th
-										mat-header-cell
-										*matHeaderCellDef
-										[ngClass]="{
-											'htoggle-mobile': mobileScreen,
-											'htoggle-desktop': !mobileScreen
-										}"
-									>
-										<ng-container *ngIf="!mobileScreen">
-											{{
-												"resource.permission.field.executeGranted" | translate
-											}}</ng-container
-										>
-										<ng-container *ngIf="mobileScreen">EXE</ng-container>
-									</th>
-									<td
-										mat-cell
-										*matCellDef="let funcionalitat; let index = index"
-										class="rcheck"
-									>
-										<mat-checkbox
-											name="executeGranted"
-											[checked]="funcionalitat.permission.executeGranted"
-											[disabled]="
-												disableToggles || funcionalitat.tipus == 'MANTENIMENT'
-											"
-											(click)="
-												!disableToggles &&
-													funcionalitat.tipus != 'MANTENIMENT' &&
-													onPermisChange($event, indexModul, index)
-											"
-										>
-										</mat-checkbox>
-									</td>
-								</ng-container>
-								<tr
-									mat-header-row
-									*matHeaderRowDef="columnsToDisplay; sticky: true"
-								></tr>
-								<tr
-									mat-row
-									*matRowDef="let rows; columns: columnsToDisplay"
-								></tr>
-							</table>
+						<table
+							mat-table
+							[dataSource]="funcionalitatsModul.funcionalitats"
+							class="mat-elevation-z8"
+							style="width:100%;">
+
+							<!-- Columna de nom de la funcionalitat -->
+							<ng-container matColumnDef="label">
+								<th mat-header-cell *matHeaderCellDef style="">
+									{{ "resource.funcionalitat" | translate }}
+								</th>
+								<td mat-cell *matCellDef="let funcionalitat">
+									{{ ("funcionalitat." + funcionalitat.codi) | translate }}
+								</td>
+							</ng-container>
+
+							<!-- Columna de read -->
+							<ng-container matColumnDef="read">
+								<th mat-header-cell
+									*matHeaderCellDef
+									[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
+									<ng-container *ngIf="!mobileScreen">{{"resource.permission.field.readGranted" | translate}}</ng-container>
+									<ng-container *ngIf="mobileScreen">{{"resource.permission.field.readGranted.min" | translate}}</ng-container>
+								</th>
+								<td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
+									<mat-checkbox
+										name="readGranted"
+										[checked]="funcionalitat.permission.readGranted"
+										[disabled]="!funcionalitat.allowedPermission.readGranted"
+										(click)="funcionalitat.allowedPermission.readGranted &&
+												funcionalitat.tipus == 'MANTENIMENT' &&
+												onPermisChange($event, indexModul, index)">
+									</mat-checkbox>
+								</td>
+							</ng-container>
+
+							<!-- Columna de create -->
+							<ng-container matColumnDef="create">
+								<th mat-header-cell
+									*matHeaderCellDef
+									[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
+									<ng-container *ngIf="!mobileScreen">{{"resource.permission.field.createGranted" | translate}}</ng-container>
+									<ng-container *ngIf="mobileScreen">{{"resource.permission.field.createGranted.min" | translate}}</ng-container>
+								</th>
+								<td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
+									<mat-checkbox
+										name="createGranted"
+										[checked]="funcionalitat.permission.createGranted"
+										[disabled]="!funcionalitat.allowedPermission.createGranted"
+										(click)="funcionalitat.allowedPermission.createGranted &&
+												funcionalitat.tipus == 'MANTENIMENT' &&
+												onPermisChange($event, indexModul, index)">
+									</mat-checkbox>
+								</td>
+							</ng-container>
+
+							<!-- Columna de write -->
+							<ng-container matColumnDef="write">
+								<th mat-header-cell
+									*matHeaderCellDef
+									[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen }">
+									<ng-container *ngIf="!mobileScreen">{{"resource.permission.field.writeGranted" | translate}}</ng-container>
+									<ng-container *ngIf="mobileScreen">{{"resource.permission.field.writeGranted.min" | translate}}</ng-container>
+								</th>
+								<td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
+									<mat-checkbox
+										name="writeGranted"
+										[checked]="funcionalitat.permission.writeGranted"
+										[disabled]="!funcionalitat.allowedPermission.writeGranted"
+										(click)="funcionalitat.allowedPermission.writeGranted &&
+												funcionalitat.tipus == 'MANTENIMENT' &&
+												onPermisChange($event, indexModul, index)">
+									</mat-checkbox>
+								</td>
+							</ng-container>
+
+							<!-- Columna de delete -->
+							<ng-container matColumnDef="delete">
+								<th mat-header-cell
+									*matHeaderCellDef
+									[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
+									<ng-container *ngIf="!mobileScreen">{{"resource.permission.field.deleteGranted" | translate}}</ng-container>
+									<ng-container *ngIf="mobileScreen">{{"resource.permission.field.deleteGranted.min" | translate}}</ng-container>
+								</th>
+								<td mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
+									<mat-checkbox
+										name="deleteGranted"
+										[checked]="funcionalitat.permission.deleteGranted"
+										[disabled]="!funcionalitat.allowedPermission.deleteGranted"
+										(click)="funcionalitat.allowedPermission.deleteGranted &&
+												funcionalitat.tipus == 'MANTENIMENT' &&
+												onPermisChange($event, indexModul, index)">
+									</mat-checkbox>
+								</td>
+							</ng-container>
+
+							<!-- Columna de execute -->
+							<ng-container matColumnDef="execute">
+								<th mat-header-cell
+									*matHeaderCellDef
+									[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
+									<ng-container *ngIf="!mobileScreen">{{"resource.permission.field.executeGranted" | translate}}</ng-container>
+									<ng-container *ngIf="mobileScreen">{{"resource.permission.field.executeGranted.min" | translate}}</ng-container>
+								</th>
+								<td	mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
+									<mat-checkbox
+										name="executeGranted"
+										[checked]="funcionalitat.permission.executeGranted"
+										[disabled]="!funcionalitat.allowedPermission.executeGranted"
+										(click)="funcionalitat.allowedPermission.executeGranted &&
+												funcionalitat.tipus != 'MANTENIMENT' &&
+												onPermisChange($event, indexModul, index)">
+									</mat-checkbox>
+								</td>
+							</ng-container>
+
+							<!-- Columna de altres permisos -->
+							<ng-container matColumnDef="altres">
+								<th mat-header-cell
+									*matHeaderCellDef
+									[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}"
+									style="width:16%;">
+									<ng-container *ngIf="!mobileScreen">{{"resource.permission.field.altres" | translate}}</ng-container>
+									<ng-container *ngIf="mobileScreen"></ng-container>
+								</th>
+								<td	mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck" style="padding-top: 14px;">
+									<mat-select *ngIf="funcionalitat.allowedPermission.adminGranted ||
+												funcionalitat.allowedPermission.perm1Granted ||
+												funcionalitat.allowedPermission.perm2Granted ||
+												funcionalitat.allowedPermission.perm3Granted"
+										[(value)]="funcionalitat.permission.selectedCustom"
+										multiple>
+										<mat-select-trigger>{{getCustomReducedLabel(indexModul, index)}}</mat-select-trigger>
+										<mat-option *ngIf="funcionalitat.allowedPermission.adminGranted" value="admin" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{"resource.permission.field.adminGranted" | translate}}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm1Granted" value="perm1" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm1") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm2Granted" value="perm2" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm2") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm3Granted" value="perm3" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm3") | translate }}</mat-option>
+									</mat-select>
+								</td>
+							</ng-container>
+
+							<!-- Capçaleres i columnes a mostrar -->
+							<tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+							<tr mat-row *matRowDef="let rows; columns: columnsToDisplay"></tr>
+						</table>
 						<!-- </div> -->
 					</mat-tab>
 				</mat-tab-group>
@@ -304,21 +223,57 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 	columnsToDisplay: string[] = [
 		"label",
 		"read",
-		"write",
 		"create",
+		"write",
 		"delete",
-		"admin",
-		"execute"
+		"execute",
+		"altres"
 	];
-
-	disableToggles: boolean;
 
 	mobileScreen: boolean;
 	tableHeight: number;
 
+	onCustomPermisChange(event, indexModul, indexRecurs) {
+		if (event.isUserInput) {
+			const modulCodi = this.funcionalitatsModuls[indexModul].module.code;
+			const funcionalitatInfo = JSON.parse(
+				JSON.stringify(
+					this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs]
+				)
+			);
+
+			const permis = event.source.value;
+			const check = event.source.selected;
+
+			const customPermisos: string[] = funcionalitatInfo.permission.selectedCustom;
+			switch (permis) {
+				case "admin": funcionalitatInfo.permission.adminGranted = check; break;
+				case "perm1": funcionalitatInfo.permission.perm1Granted = check; break;
+				case "perm2": funcionalitatInfo.permission.perm2Granted = check; break;
+				case "perm3": funcionalitatInfo.permission.perm3Granted = check; break;
+			}
+
+			this.funcionalitatsPermisosService
+				.saveFuncionalitat(this.perfil, funcionalitatInfo, modulCodi)
+				.subscribe(
+					() => {
+						this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission[permis + "Granted"] = check;
+					},
+					error => {
+						switch (permis) {
+							case "admin": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.adminGranted = !check; break;
+							case "perm1": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm1Granted = !check; break;
+							case "perm2": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm2Granted = !check; break;
+							case "perm3": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+						}
+						this.showMessage(this.translateKey('funcionalitat.permis.modificar.error'));
+					}
+				);
+		}
+	}
+
 	onPermisChange(event, indexModul, indexRecurs) {
-		// Deshabilitar els checks mentres es desen els permisos
-		// this.disableToggles = true;
+		event.preventDefault();
 		const modulCodi = this.funcionalitatsModuls[indexModul].module.code;
 		const funcionalitatInfo = JSON.parse(
 			JSON.stringify(
@@ -328,6 +283,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		const permis = event.currentTarget.attributes.name.value;
 		const check = !funcionalitatInfo.permission[permis];
 		funcionalitatInfo.permission[permis] = check;
+
 		this.funcionalitatsPermisosService
 			.saveFuncionalitat(this.perfil, funcionalitatInfo, modulCodi)
 			.subscribe(
@@ -335,31 +291,48 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 					this.funcionalitatsModuls[indexModul].funcionalitats[
 						indexRecurs
 					].permission[permis] = check;
-					// this.disableToggles = false;
 				},
 				error => {
 					event.preventDefault();
-					// this.disableToggles = false;
-					console.error(error);
-					// this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
+					this.showMessage(this.translateKey('funcionalitat.permis.modificar.error'));
 				}
 			);
 	}
 
 	onRefreshPermisos() {
-		console.log("onRefreshPermisos", this.perfil);
 		this.funcionalitatsPermisosService.refreshPermisosPerfil(this.perfil).subscribe(() => {
 
 		});
 	}
 
-	// private showMessage(message: string) {
-	//     const snackbarRef = this.snackbar.open(
-	//         message,
-	//         this.translateKey('component.restapi.form.manteniment.button.close'), {
-	//         duration: 5000
-	//     });
-	// }
+	getCustomReducedLabel(indexModul, indexRecurs) {
+		const funcionalitat = this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs];
+		let label = "";
+		if (funcionalitat.permission.adminGranted) {
+			label += this.translateKey("resource.permission.field.adminGranted.min", null, "Adm") + ", ";
+		}
+		if (funcionalitat.permission.perm1Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm1.min", null, "P1") + ", ";
+		}
+		if (funcionalitat.permission.perm2Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm2.min", null, "P2") + ", ";
+		}
+		if (funcionalitat.permission.perm3Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm3.min", null, "P3") + ", ";
+		}
+		if (label.length > 0)
+			label = label.substring(0, label.length - 2);
+
+		return label;
+	}
+
+	private showMessage(message: string) {
+		const snackbarRef = this.snackbar.open(
+			message,
+			this.translateKey('component.restapi.form.manteniment.button.close'), {
+			duration: 5000
+		});
+	}
 
 	translateKey(key: string, params?: any, defaultValue?: string) {
 		const translatedKey = this.translate.instant(key, params);
@@ -372,12 +345,10 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 
 	ngOnInit(): void {
 		// Càrrega de permisos
-		this.disableToggles = true;
-
 		if (this.perfil) {
-			this.disableToggles = false;
 			this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(this.perfil).subscribe(funcionalitatsModuls => {
 				this.funcionalitatsModuls = funcionalitatsModuls;
+				console.log("Funcionalitats: ", this.funcionalitatsModuls);
 			});
 		} else if (this.usuariIdentificadorEmpresa) {
 			const requestParams: HalParam[] = [];

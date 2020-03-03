@@ -73,18 +73,20 @@ public class SessionServiceImpl implements SessionService {
 						usuariRepository.findByEmbeddedCodi(authenticationHelper.getPrincipalName()).get(),
 						identificador).get();
 				if (usuariIdentificador.getEmbedded().isActiu()) {
-					// Verificar que l'empresa pertany a l'identificador
-					EmpresaEntity empresa = empresaRepository.findByIdentificadorAndId(
-							identificador,
-							session.getE()).get();
-					if (empresa.getEmbedded().isActiva()) {
-						// Verificar que es te accés a l'empresa
-						usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
-								usuariIdentificador,
-								empresa).get();
-					} else {
-						// No es te accés a l'empresa perquè no està activa
-						throw new InvalidSessionDataException();
+					if (session.getE() != null) {
+						// Verificar que l'empresa pertany a l'identificador
+						EmpresaEntity empresa = empresaRepository.findByIdentificadorAndId(
+								identificador,
+								session.getE()).get();
+						if (empresa.getEmbedded().isActiva()) {
+							// Verificar que es te accés a l'empresa
+							usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorAndEmpresa(
+									usuariIdentificador,
+									empresa).get();
+						} else {
+							// No es te accés a l'empresa perquè no està activa
+							throw new InvalidSessionDataException();
+						}
 					}
 				} else {
 					// No es te accés a l'identificador perquè no està actiu
