@@ -13,6 +13,9 @@ import javax.persistence.UniqueConstraint;
 
 import es.limit.base.boot.persist.entity.AbstractEntity;
 import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
+import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi;
+import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,14 +35,13 @@ import lombok.Setter;
 @Table(
 		/*name = "tlim_tad",
 		indexes = {
-				@Index(name = "iges_tad_idf_fk", columnList = "tad_idf_cod"),
-				@Index(name = "irges_tad_pk", columnList = "tad_idf_cod,tad_cod", unique = true)*/
-		
+				//@Index(name = "iges_tad_idf_fk", columnList = "tad_cod"),
+				//@Index(name = "irges_tad_pk", columnList = "tad_cod", unique = true)	
+				@Index(name = "rlim_tad_pk", columnList = "tad_cod", unique = true)*/
 		name = "tlim_tad",
 		uniqueConstraints = {
 		@UniqueConstraint(name = "rlim_tad_pk", columnNames = "tad_cod")
-}
-		
+		}		
 		
 )
 @AttributeOverrides({
@@ -57,9 +59,9 @@ import lombok.Setter;
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "tad_idf_cod", insertable = false, updatable = false)
+					@JoinColumn(name = "tad_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_tad_idf_fk"))
+			foreignKey = @ForeignKey(name = "rges_tad_fk"))
 })*/
 
 //public class TipusAdresaEntity extends AbstractWithIdentificadorAuditableEntity<TipusAdresa, WithIdentificadorAndCodiPk<String>> {
@@ -70,9 +72,9 @@ public class TipusAdresaEntity extends AbstractEntity<TipusAdresa, String>{
 
 	@Builder
 	public TipusAdresaEntity(
-			//WithIdentificadorAndCodiPk<String> pk,
-			TipusAdresa embedded
-			//IdentificadorEntity identificador
+			WithIdentificadorAndCodiPk<String> pk,
+			TipusAdresa embedded,
+			IdentificadorEntity identificador
 			) {
 		//setId(pk);
 		this.embedded = embedded;
@@ -84,5 +86,6 @@ public class TipusAdresaEntity extends AbstractEntity<TipusAdresa, String>{
 		this.embedded = embedded;
 	}
 
+	
 }
 

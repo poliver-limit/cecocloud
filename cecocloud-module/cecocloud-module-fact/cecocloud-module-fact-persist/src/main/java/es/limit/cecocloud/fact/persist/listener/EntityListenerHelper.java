@@ -90,15 +90,11 @@ public class EntityListenerHelper {
 	 *            el caràcter per a emplenar (si és null s'utilitzarà "0").
 	 * @return el codi processat.
 	 */
-	public String processarComACodi(String codi, int llargada, Character c) {
+	public String processarPkCodi(String codi, int llargada, Character c) {
 		if (codi.matches("[0-9]+")) {
 			StringBuilder sb = new StringBuilder(codi);
 			for (int x = codi.length(); x < llargada; x++) {
-				if (c != null) {
-					sb.insert(0, c);
-				} else {
-					sb.insert(0, "0");
-				}
+				sb.insert(0, c);
 			}
 			return sb.toString();
 		} else {
@@ -116,8 +112,8 @@ public class EntityListenerHelper {
 	 *            la llargada del camp.
 	 * @return el codi processat.
 	 */
-	public String processarComACodi(String codi, int llargada) {
-		return processarComACodi(codi, llargada, null);
+	public String processarPkCodi(String codi, int llargada) {
+		return processarPkCodi(codi, llargada, '0');
 	}
 
 }

@@ -10,13 +10,18 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.fact.logic.api.dto.Zona;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.dto.Zona;
+import es.limit.cecocloud.fact.persist.entity.ZonaEntity.ZonaEntityListener;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerHelper;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,8 +39,8 @@ import lombok.Setter;
 @Entity(name = "factZonaEntity")
 @Table(
 		name = "tges_zon",
-		indexes = { @Index(name = "iges_zon_idf_fk", columnList = "zon_idf_cod"),
-					@Index(name = "irges_zon_pk", columnList = "zon_idf_cod,zon_cod", unique = true)
+		indexes = {
+				@Index(name = "iges_zon_idf_fk", columnList = "zon_idf_cod")
 		}
 )
 @AttributeOverrides({
@@ -59,6 +64,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_zon_idf_fk"))
 })
+@EntityListeners(ZonaEntityListener.class)
 public class ZonaEntity extends AbstractWithIdentificadorAuditableEntity<Zona, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded
@@ -77,6 +83,20 @@ public class ZonaEntity extends AbstractWithIdentificadorAuditableEntity<Zona, W
 	@Override
 	public void update(Zona embedded) {
 		this.embedded = embedded;
+	}
+
+	public static class ZonaEntityListener {
+		@PrePersist
+		@PreUpdate
+	    public void codiToUpperCase(ZonaEntity zona) {
+			String codiProcessat = EntityListenerHelper.getInstance().processarPkCodi(
+					zona.getId().getCodi(), 4);
+			zona.setId(
+					new WithIdentificadorAndCodiPk<String>(
+							zona.getId().getIdentificadorCodi(),
+							codiProcessat));
+			zona.getEmbedded().setCodi(codiProcessat);
+	    }
 	}
 
 }

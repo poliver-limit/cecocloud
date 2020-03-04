@@ -33,25 +33,21 @@ public class Zona extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String nom;
-	
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String descripcio;
-	
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=4,
 			hiddenInLov = true)
 	private Integer radioKm;
-	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer = 12, fraction = 2)
