@@ -95,8 +95,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
-	
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;	
 	
 	@NotNull
 	@RestapiField(

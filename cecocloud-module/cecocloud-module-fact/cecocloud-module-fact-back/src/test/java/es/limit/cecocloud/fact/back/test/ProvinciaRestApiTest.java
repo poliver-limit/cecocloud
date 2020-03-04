@@ -12,7 +12,7 @@ import es.limit.cecocloud.fact.back.test.tester.ProvinciaCrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
 
 /**
- * Test pels objectes de tipus provincia.
+ * Test pels objectes de tipus Provincia.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

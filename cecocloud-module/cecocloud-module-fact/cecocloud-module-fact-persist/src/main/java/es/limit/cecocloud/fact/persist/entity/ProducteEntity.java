@@ -51,19 +51,9 @@ import lombok.Setter;
 	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "apl_cod", length = 15, nullable = false)),	
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "apl_nom", length = 30, nullable = false)),	
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "apl_des", length = 1000)),
-	
-//	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "apl_seq", nullable = false, insertable = false, updatable = false)),
-//	@AttributeOverride(name = "embedded.batLlibreria", column = @Column(name = "apl_prgcmr", length = 2000)),
-//	@AttributeOverride(name = "embedded.directori", column = @Column(name = "apl_pth", length = 250)),
-//	@AttributeOverride(name = "embedded.llenguatge", column = @Column(name = "apl_prg", length = 30)),
-//	@AttributeOverride(name = "embedded.directoriRequeriment", column = @Column(name = "apl_pthrqm", length = 250)),
-//	@AttributeOverride(name = "embedded.abreviatura", column = @Column(name = "apl_abr", length = 3)),
-//	@AttributeOverride(name = "embedded.ultimRequeriment", column = @Column(name = "apl_ultrqm")),
-	
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "apl_des", length = 1000)),	
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "apl_obs", length = 1000)),
 	
-	// Què passa amb aquests camps? No els crea l'script!!!
 	@AttributeOverride(name = "createdBy", column = @Column(name = "apl_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "apl_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "apl_usumod")),
@@ -95,7 +85,7 @@ public class ProducteEntity extends AbstractWithIdentificadorEntity<Producte, Pr
 	@Column(name = "apl_emp_cod", length = 4)
 	private String empresaCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "apl_idf_cod", referencedColumnName = "apl_idf_cod", insertable = false, updatable = false),

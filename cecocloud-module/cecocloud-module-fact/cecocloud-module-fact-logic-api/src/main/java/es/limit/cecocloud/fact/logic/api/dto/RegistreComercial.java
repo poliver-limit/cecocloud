@@ -35,7 +35,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "codi"
+		descriptionField = "sequencia"
 )
 public class RegistreComercial extends AbstractIdentificableWithIdentificador<RegistreComercialPk> {
 
@@ -73,7 +73,7 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 	
 	@RestapiField(
 			hiddenInLov = true, 
-			hiddenInGrid = true,
+			hiddenInGrid = false,
 			hiddenInForm = true)
 	private Date data;
 	

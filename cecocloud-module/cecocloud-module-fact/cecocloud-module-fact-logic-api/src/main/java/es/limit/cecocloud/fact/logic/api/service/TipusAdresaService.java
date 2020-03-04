@@ -4,6 +4,7 @@
 package es.limit.cecocloud.fact.logic.api.service;
 
 import es.limit.base.boot.logic.api.service.GenericService;
+import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
 
 /**

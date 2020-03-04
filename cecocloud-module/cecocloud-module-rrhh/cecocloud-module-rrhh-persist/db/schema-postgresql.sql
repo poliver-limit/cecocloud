@@ -63,14 +63,14 @@ create table trhu_emp (
     primary key (emp_cod, emp_idf_cod)
 );
 
-create table trhu_gfe (
+  create table trhu_gfe (
        gfe_cod varchar(4) not null,
         gfe_idf_cod varchar(4) not null,
         gfe_nom varchar(60) not null,
         gfe_obs varchar(1000),
         primary key (gfe_cod, gfe_idf_cod)
     );
-
+    
 
 create table trhu_gre (
    gre_cod varchar(4) not null,
@@ -121,7 +121,7 @@ create table trhu_idf (
     primary key (idf_cod)
 );
 
-    create table trhu_inr (
+ create table trhu_inr (
        inr_cod varchar(4) not null,
         inr_idf_cod varchar(4) not null,
         inr_usucre varchar(255),
@@ -140,8 +140,8 @@ create table trhu_idf (
         inr_ope_cod varchar(4) not null,
         inr_zon_cod varchar(4),
         primary key (inr_cod, inr_idf_cod)
-    );
-    
+    );;
+
 create table trhu_nod (
    nod_num varchar(255) not null,
     nod_idf_cod varchar(4) not null,
@@ -398,7 +398,7 @@ alter table trhu_emp
    foreign key (emp_idf_cod) 
    references trhu_idf;
 
-  alter table trhu_gfe 
+ alter table trhu_gfe 
        add constraint rrhu_gfe_idf_fk 
        foreign key (gfe_idf_cod) 
        references trhu_idf;

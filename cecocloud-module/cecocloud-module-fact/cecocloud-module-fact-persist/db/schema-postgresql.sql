@@ -26,7 +26,7 @@ create table tges_acc (
     primary key (acc_cli_cod, acc_cod, acc_idf_cod)
 );
 
-  create table tges_alb (
+   create table tges_alb (
        alb_emp_cod varchar(4) not null,
         alb_numdoc int4 not null,
         alb_idf_cod varchar(4) not null,
@@ -46,7 +46,6 @@ create table tges_acc (
         alb_ser_codfac varchar(2),
         primary key (alb_emp_cod, alb_numdoc, alb_idf_cod)
     );
-
 
 create table tges_ane (
    ane_emp_cod varchar(4) not null,
@@ -713,7 +712,7 @@ create table tges_mod (
     primary key (mod_cod, mod_idf_cod)
 );
 
- create table tges_mtr (
+create table tges_mtr (
        mtr_tra_cod varchar(4) not null,
         mtr_cod varchar(4) not null,
         mtr_idf_cod varchar(4) not null,
@@ -957,9 +956,9 @@ create table tges_rap (
     primary key (rap_cod, rap_idf_cod)
 );
 
-   create table tges_rgc (
+create table tges_rgc (
        rgc_emp_cod varchar(4) not null,
-        rgc_seq int4 not null,
+         rgc_seq int4 not null,
         rgc_idf_cod varchar(4) not null,
         rgc_usucre varchar(255),
         rgc_datcre timestamp,
@@ -972,7 +971,7 @@ create table tges_rap (
         rgc_mtj varchar(1) not null,
         rgc_tip varchar(1) not null,
         rgc_apl_ref int4,
-        primary key (rgc_emp_cod, rgc_seq, rgc_idf_cod)
+        primary key (rgc_emp_cod, rgc_cod, rgc_idf_cod)
     );
 
 create table tges_rgi (
@@ -1047,28 +1046,27 @@ create table tges_scl (
     primary key (scl_cli_cod, scl_cod, scl_idf_cod)
 );
 
-create table tges_scp (
-   scp_emp_cod varchar(4) not null,
-    scp_cod varchar(4) not null,
-    scp_idf_cod varchar(4) not null,
-    scp_usucre varchar(255),
-    scp_datcre timestamp,
-    scp_usumod varchar(255),
-    scp_datmod timestamp,
-    scp_ctecprcmp varchar(255),
-    scp_ctecprprfcmp varchar(255) not null,
-    scp_departament varchar(255),
-    scp_des varchar(30) not null,
-    scp_dsgivacmp varchar(1) not null,
-    scp_dricmp varchar(255) not null,
-    scp_driprfcmp varchar(255),
-    scp_tipasicmp varchar(255) not null,
-    scp_diaini timestamp not null,
-    scp_diafin timestamp not null,
-    scp_emp_cod002 varchar(4),
-    scp_mag_cod varchar(4),
-    primary key (scp_emp_cod, scp_cod, scp_idf_cod)
-);
+ create table tges_scp (
+       scp_emp_cod varchar(4) not null,
+        scp_cod varchar(4) not null,
+        scp_idf_cod varchar(4) not null,
+        scp_usucre varchar(255),
+        scp_datcre timestamp,
+        scp_usumod varchar(255),
+        scp_datmod timestamp,
+        scp_ctecprcmp varchar(255),
+        scp_ctecprprfcmp varchar(255) not null,
+        scp_des varchar(30) not null,
+        scp_dsgivacmp varchar(1) not null,
+        scp_dricmp varchar(255) not null,
+        scp_driprfcmp varchar(255),
+        scp_tipasicmp varchar(255) not null,
+        scp_diaini timestamp not null,
+        scp_diafin timestamp not null,
+        scp_emp_cod002 varchar(4),
+        scp_mag_cod varchar(4),
+        primary key (scp_emp_cod, scp_cod, scp_idf_cod)
+    );
 
 create table tges_sei (
    sei_emp_cod varchar(4) not null,
@@ -1417,7 +1415,7 @@ create index iges_acc_idf_fk on tges_acc (acc_idf_cod);
        add constraint irges_acc_pk unique (acc_idf_cod, acc_cod);
 create index iges_alb_idf_fk on tges_alb (alb_idf_cod);
 
-     alter table tges_alb 
+    alter table tges_alb 
        add constraint irges_alb_pk unique (alb_idf_cod);
 create index iges_ane_idf_fk on tges_ane (ane_idf_cod);
 
@@ -1574,7 +1572,7 @@ alter table tges_acc
        foreign key (alb_idf_cod) 
        references tges_idf;
 
-    alter table tges_alb 
+   alter table tges_alb 
        add constraint rges_alb_emp_fk 
        foreign key (alb_emp_cod, alb_idf_cod) 
        references tges_emp;
@@ -1598,11 +1596,6 @@ alter table tges_apl
        add constraint rges_apl_emp_fk 
        foreign key (apl_emp_cod, apl_idf_cod) 
        references tges_emp;
-
-alter table tges_apl 
-       add constraint rges_apl_apl_fk 
-       foreign key (apl_apl_ref, apl_idf_cod) 
-       references tges_apl;
 
 alter table tges_art 
    add constraint rges_art_idf_fk 
@@ -2319,6 +2312,10 @@ alter table tges_rap
    foreign key (rap_idf_cod) 
    references tges_idf;
 
+alter table tges_rgc 
+       add constraint rges_rgc_idf_fk 
+       foreign key (rgc_idf_cod) 
+       references tges_idf;
  alter table tges_rgc 
        add constraint rges_rgc_cli_fk 
        foreign key (rgc_cli_cod, rgc_idf_cod) 

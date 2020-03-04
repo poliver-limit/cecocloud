@@ -24,7 +24,7 @@ import lombok.Setter;
 		descriptionField = "descripcio")
 
 //public class TipusAdresa extends AbstractIdentificableWithIdentificadorAndCodi<String>{
-public class TipusAdresa extends AbstractIdentificableWithIdentificador<String> {	
+public class TipusAdresa extends AbstractIdentificableWithIdentificador<String> {
 	@NotNull(groups = {OnCreate.class})
 	@RestapiField(
 			disabledForUpdate = true,
