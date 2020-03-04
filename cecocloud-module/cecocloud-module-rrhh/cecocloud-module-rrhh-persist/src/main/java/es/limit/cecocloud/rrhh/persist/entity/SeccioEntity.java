@@ -113,7 +113,7 @@ public class SeccioEntity extends AbstractWithIdentificadorAuditableEntity<Secci
 		this.identificador = identificador;
 		this.empresa = empresa;
 				
-		this.seccioGrupCodi = seccioGrup.getEmbedded().getCodi();
+		this.updateSeccioGrup(seccioGrup);		
 	}
 
 	@Override
@@ -122,6 +122,7 @@ public class SeccioEntity extends AbstractWithIdentificadorAuditableEntity<Secci
 	}
 	
 	public void updateSeccioGrup(SeccioGrupEntity seccioGrup) {
+		this.seccioGrup = seccioGrup;
 		this.seccioGrupCodi = seccioGrup.getEmbedded().getCodi();
 	}
 

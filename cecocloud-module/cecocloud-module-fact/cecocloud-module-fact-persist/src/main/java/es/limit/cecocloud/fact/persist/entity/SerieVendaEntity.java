@@ -178,26 +178,16 @@ public class SerieVendaEntity extends AbstractWithIdentificadorAuditableEntity<S
 			MagatzemEntity magatzem) {
 		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.empresa = empresa;
+		this.empresa = empresa;		
 		
-		if (condicioPagamentPressupost!=null) {
-			this.condicioPagamentPressupostCodi = condicioPagamentPressupost.getEmbedded().getCodi();
-		}
-		if (peuDocument!=null) {
-			this.peuDocumentCodi = peuDocument.getEmbedded().getCodi();
-		}
-		if (magatzem!=null) {
-			this.magatzemCodi = magatzem.getEmbedded().getCodi();
-		}
-		if (empresaOp!=null) {
-			this.empresaOpCodi = empresaOp.getEmbedded().getCodi();
-		}
-		if (departament!=null) {
-			this.departamentCodi = departament.getEmbedded().getCodi();
-		}			
-		
+		this.updateCondicioPagamentPressupost(condicioPagamentPressupost);		
+		this.updatePeuDocument(peuDocument);		
+		this.updateMagatzem(magatzem);		
+		this.updateEmpresaOp(empresaOp);		
+		this.updateDepartament(departament);		
 	}
 
 	@Override
@@ -206,22 +196,27 @@ public class SerieVendaEntity extends AbstractWithIdentificadorAuditableEntity<S
 	}
 	
 	public void updateCondicioPagamentPressupost (PeuDocumentEntity condicioPagamentPressupost) {
+		this.condicioPagamentPressupost = condicioPagamentPressupost;
 		this.condicioPagamentPressupostCodi = condicioPagamentPressupost.getEmbedded().getCodi();
 	}
 	
 	public void updatePeuDocument (PeuDocumentEntity peuDocument) {
+		this.peuDocument = peuDocument;
 		this.peuDocumentCodi = peuDocument.getEmbedded().getCodi();
 	}
 	
 	public void updateMagatzem (MagatzemEntity magatzem) {
+		this.magatzem = magatzem;
 		this.magatzemCodi = magatzem.getEmbedded().getCodi();
 	}
 	
 	public void updateEmpresaOp (EmpresaEntity empresaOp) {
+		this.empresaOp = empresaOp;
 		this.empresaOpCodi = empresaOp.getEmbedded().getCodi();
 	}
 	
 	public void updateDepartament (DepartamentEntity departament) {
+		this.departament = departament;
 		this.departamentCodi = departament.getEmbedded().getCodi();
 	}
 

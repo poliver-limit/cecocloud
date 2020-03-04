@@ -123,46 +123,29 @@ public class ArticleFamiliaEntity extends AbstractWithIdentificadorAuditableEnti
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.recursGrup = recursGrup;
-		this.familiaCost = familiaCost;
 		
-//		this.setEmbeddedCodis();
-		if (recursGrup != null) {
-			this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
-		}	
-		if (familiaCost != null) {
-			this.familiaCostCodi = familiaCost.getEmbedded().getCodi();
-		}	
+		this.updateRecursGrup(recursGrup);
+		this.updateFamiliaCost(familiaCost);
 		
 	}
 
 	@Override
 	public void update(ArticleFamilia embedded) {
 		this.embedded = embedded;
-//		this.setEmbeddedCodis();
 	}
 	
 	public void updateRecursGrup(RecursGrupEntity recursGrup) {
+		this.recursGrup = recursGrup;
 		if (recursGrup != null) {
 			this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
 		}		
 	}
 	
 	public void updateFamiliaCost(FamiliaCostEntity familiaCost) {
+		this.familiaCost = familiaCost;
 		if (familiaCost != null) {
 			this.familiaCostCodi = familiaCost.getEmbedded().getCodi();
 		}		
 	}
-	
-//	private void setEmbeddedCodis () {
-//		
-//		// Referencies sobre camps no obligastoris		
-//		if (embedded.getRecursGrup() != null) {
-//			this.recursGrupCodi = embedded.getRecursGrup().getPk().getCodi();
-//		}	
-//		if (embedded.getFamiliaCost() != null) {
-//			this.familiaCostCodi = embedded.getFamiliaCost().getPk().getCodi();
-//		}	
-//	}
 
 }

@@ -131,14 +131,10 @@ public class DocumentPagamentCobramentEntity extends AbstractWithIdentificadorAu
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.naturalesaPagamentCobrament = naturalesaPagamentCobrament;
-		this.iva = iva;
-		this.regimIva = regimIva;
 		
-		if (naturalesaPagamentCobrament!=null) this.naturalesaPagamentCobramentCodi = naturalesaPagamentCobrament.getEmbedded().getCodi();
-		if (iva!=null) this.ivaCodi = iva.getEmbedded().getCodi();
-		if (regimIva!=null) this.regimIvaCodi = regimIva.getEmbedded().getCodi();
-		
+		this.updateNaturalesaPagamentCobrament(naturalesaPagamentCobrament);
+		this.updateIva(iva);
+		this.updateRegimIva(regimIva);		
 	}
 
 	@Override
@@ -147,14 +143,17 @@ public class DocumentPagamentCobramentEntity extends AbstractWithIdentificadorAu
 	}
 	
 	public void updateNaturalesaPagamentCobrament (NaturalesaPagamentCobramentEntity naturalesaPagamentCobrament) {
+		this.naturalesaPagamentCobrament = naturalesaPagamentCobrament;
 		if (naturalesaPagamentCobrament!=null) this.naturalesaPagamentCobramentCodi = naturalesaPagamentCobrament.getEmbedded().getCodi();
 	}
 	
 	public void updateIva (IvaEntity iva) {
+		this.iva = iva;
 		if (iva!=null) this.ivaCodi = iva.getEmbedded().getCodi();
 	}
 	
 	public void updateRegimIva (RegimIvaEntity regimIva) {
+		this.regimIva = regimIva;
 		if (regimIva!=null) this.regimIvaCodi = regimIva.getEmbedded().getCodi();
 	}	
 

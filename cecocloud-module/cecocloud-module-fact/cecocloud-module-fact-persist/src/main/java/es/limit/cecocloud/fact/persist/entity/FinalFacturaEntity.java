@@ -69,7 +69,9 @@ public class FinalFacturaEntity extends AbstractWithIdentificadorAuditableEntity
 			WithIdentificadorAndCodiPk<String> pk,
 			FinalFactura embedded,
 			IdentificadorEntity identificador) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 	}

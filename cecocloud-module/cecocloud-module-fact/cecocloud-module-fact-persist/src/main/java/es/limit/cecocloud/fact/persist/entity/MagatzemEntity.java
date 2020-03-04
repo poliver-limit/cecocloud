@@ -118,37 +118,26 @@ public class MagatzemEntity extends AbstractWithIdentificadorAuditableEntity<Mag
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.codiPostal = codiPostal;
-		this.divisa = divisa;
 		
-//		this.setEmbeddedCodis();
-		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
-		this.divisaCodi = divisa.getEmbedded().getCodi();	
+		this.updateCodiPostal(codiPostal);
+		this.updateDivisa(divisa);			
 	}
 
 	@Override
 	public void update(Magatzem embedded) {
 		
 		this.embedded = embedded;
-//		this.setEmbeddedCodis();
 	}
 	
 	public void updateCodiPostal(CodiPostalEntity codiPostal) {
+		this.codiPostal = codiPostal;
 		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();	
 	}
 	
 	public void updateDivisa(DivisaEntity divisa) {
+		this.divisa = divisa;		
 		this.divisaCodi = divisa.getEmbedded().getCodi();	
 	}
-	
-	
-//	private void setEmbeddedCodis () {		
-//		
-//		// Referencies sobre camps obligatoris
-//		this.divisaCodi = embedded.getDivisa().getPk().getCodi();
-//		this.codiPostalCodi = embedded.getCodiPostal().getPk().getCodi();	
-//		
-//	}
 
 
 }

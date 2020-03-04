@@ -122,11 +122,11 @@ public class IntervalEntity extends AbstractWithIdentificadorAuditableEntity<Int
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;		
 		
-		this.diaCalendariCodi = diaCalendari.getEmbedded().getData();
-		this.operariCodi = operari.getEmbedded().getCodi();
-		this.zonaCodi = zona.getEmbedded().getCodi();
+		this.updateCalendari(diaCalendari);	
+		this.updateOperari(operari);		
+		this.updateZona(zona);
 	}
 
 	@Override
@@ -135,14 +135,17 @@ public class IntervalEntity extends AbstractWithIdentificadorAuditableEntity<Int
 	}
 	
 	public void updateCalendari (CalendariEntity diaCalendari) {
+		this.diaCalendari = diaCalendari;
 		this.diaCalendariCodi = diaCalendari.getEmbedded().getData();
 	}
 	
 	public void updateOperari (OperariEntity operari) {
+		this.operari = operari;
 		this.operariCodi = operari.getEmbedded().getCodi();
 	}
 
 	public void updateZona (ZonaEntity zona) {
+		this.zona = zona;
 		this.zonaCodi = zona.getEmbedded().getCodi();
 	}
 	

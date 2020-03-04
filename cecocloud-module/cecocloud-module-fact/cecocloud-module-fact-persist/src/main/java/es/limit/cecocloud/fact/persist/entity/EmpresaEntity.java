@@ -153,59 +153,39 @@ public class EmpresaEntity extends AbstractWithIdentificadorAuditableEntity<Empr
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
-		this.codiPostalComercial = codiPostalComercial;
-		this.codiPostalFiscal = codiPostalFiscal;
-		this.divisa = divisa;
-		this.magatzem = magatzem;
+		this.identificador = identificador;	
 		
-//		this.setEmbeddedCodis();
-		this.codiPostalComercialCodi = codiPostalComercial.getEmbedded().getCodi();
-		this.codiPostalFiscalCodi = codiPostalFiscal.getEmbedded().getCodi();
-		this.divisaCodi = divisa.getEmbedded().getCodi();
-		
-		if (magatzem != null) {
-			this.magatzemCodi = magatzem.getEmbedded().getCodi();
-		}
-		
+		this.updateCodiPostalComercial(codiPostalComercial);		
+		this.updateCodiPostalFiscal(codiPostalFiscal);		
+		this.updateDivisa(divisa);		
+		this.updateMagatzem(magatzem);		
 	}
 
 	@Override
 	public void update(Empresa embedded) {
 		this.embedded = embedded;
-//		this.setEmbeddedCodis();
 	}
 	
 	public void updateCodiPostalComercial(CodiPostalEntity codiPostalComercial) {
+		this.codiPostalComercial = codiPostalComercial;
 		this.codiPostalComercialCodi = codiPostalComercial.getEmbedded().getCodi();
 	}
 	
 	public void updateCodiPostalFiscal(CodiPostalEntity codiPostalFiscal) {
+		this.codiPostalFiscal = codiPostalFiscal;
 		this.codiPostalFiscalCodi = codiPostalFiscal.getEmbedded().getCodi();
 	}
 	
 	public void updateDivisa(DivisaEntity divisa) {
+		this.divisa = divisa;
 		this.divisaCodi = divisa.getEmbedded().getCodi();
 	}
 	
 	public void updateMagatzem(MagatzemEntity magatzem) {
+		this.magatzem = magatzem;
 		if (magatzem != null) {
 			this.magatzemCodi = magatzem.getEmbedded().getCodi();
 		}
 	}	
-	
-//	private void setEmbeddedCodis () {		
-//			
-//		// Referencies sobre camps obligatoris
-//		this.codiPostalComercialCodi = embedded.getCodiPostalComercial().getPk().getCodi();
-//		this.codiPostalFiscalCodi = embedded.getCodiPostalFiscal().getPk().getCodi();
-//		this.divisaCodi = embedded.getDivisa().getPk().getCodi();
-//		
-//		// Referencies sobre camps no obligastoris		
-//		if (embedded.getMagatzem() != null) {
-//			this.magatzemCodi = embedded.getMagatzem().getPk().getCodi();
-//		}
-//		
-//	}
 	
 }

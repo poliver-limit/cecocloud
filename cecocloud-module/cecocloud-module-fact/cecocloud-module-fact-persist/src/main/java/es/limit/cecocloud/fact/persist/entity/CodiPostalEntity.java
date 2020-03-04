@@ -107,33 +107,24 @@ public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<C
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.pais = pais;
-		this.provincia = provincia;
 		
-//		this.setEmbeddedCodis();
-		this.paisCodi = pais.getEmbedded().getCodi();	
-		this.provinciaCodi = provincia.getEmbedded().getCodi();	
+		this.updatePais(pais);
+		this.updateProvincia(provincia);			
 	}
 
 	@Override
 	public void update(CodiPostal embedded) {
 		this.embedded = embedded;
-//		this.setEmbeddedCodis();
 	}
 	
 	public void updatePais (PaisEntity pais) {
+		this.pais = pais;
 		this.paisCodi = pais.getEmbedded().getCodi();		
 	}
 	
 	public void updateProvincia (ProvinciaEntity provincia) {
+		this.provincia = provincia;
 		this.provinciaCodi = provincia.getEmbedded().getCodi();		
 	}
-	
-//	private void setEmbeddedCodis () {		
-//		
-//		// Referencies sobre camps obligatoris
-//		this.paisCodi = embedded.getPais().getPk().getCodi();
-//		this.provinciaCodi = embedded.getProvincia().getPk().getCodi();		
-//	}
 
 }

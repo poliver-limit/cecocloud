@@ -128,11 +128,10 @@ public class SituacioInicialEntity extends AbstractWithIdentificadorAuditableEnt
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.article = article;
-		this.magatzem = magatzem;
+		this.magatzem = magatzem;	
 		
-		this.divisaCodi = divisa.getEmbedded().getCodi();
-		this.magatzemPeriodeCodi = magatzemPeriode.getEmbedded().getCodi();
-		
+		this.updateDivisa(divisa);		
+		this.updateMagatzemPeriode(magatzemPeriode);	
 	}
 
 	@Override
@@ -141,10 +140,12 @@ public class SituacioInicialEntity extends AbstractWithIdentificadorAuditableEnt
 	}
 	
 	public void updateDivisa (DivisaEntity divisa) {
+		this.divisa = divisa;
 		this.divisaCodi = divisa.getEmbedded().getCodi();
 	}
 	
 	public void updateMagatzemPeriode (MagatzemPeriodeEntity magatzemPeriode) {
+		this.magatzemPeriode = magatzemPeriode;
 		this.magatzemPeriodeCodi = magatzemPeriode.getEmbedded().getCodi();
 	}
 

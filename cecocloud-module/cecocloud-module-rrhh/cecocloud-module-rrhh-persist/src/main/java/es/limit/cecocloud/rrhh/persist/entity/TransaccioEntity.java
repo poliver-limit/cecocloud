@@ -135,13 +135,12 @@ public class TransaccioEntity extends AbstractWithIdentificadorAuditableEntity<T
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;		
 		
-		this.empresaCodi = empresa.getEmbedded().getCodi();	
-		this.nodeCodi = node.getEmbedded().getCodi();		
-		this.operariCodi = operari.getEmbedded().getCodi();	
-		this.tipusTransaccioCodi = tipusTransaccio.getEmbedded().getCodi();	
-		
+		this.updateEmpresa(empresa);		
+		this.updateNode(node);		
+		this.updateOperari(operari);	
+		this.updateTipusTransaccio(tipusTransaccio);		
 	}
 
 	@Override
@@ -150,20 +149,23 @@ public class TransaccioEntity extends AbstractWithIdentificadorAuditableEntity<T
 	}
 	
 	public void updateEmpresa (EmpresaEntity empresa) {
+		this.empresa = empresa;
 		this.empresaCodi = empresa.getEmbedded().getCodi();	
 	}
 	
 	public void updateNode (NodeEntity node) {
+		this.node = node;
 		this.nodeCodi = node.getEmbedded().getCodi();	
 	}
 	
 	public void updateOperari (OperariEntity operari) {
+		this.operari = operari;
 		this.operariCodi = operari.getEmbedded().getCodi();	
 	}
 	
 	public void updateTipusTransaccio (TipusTransaccioEntity tipusTransaccio) {
+		this.tipusTransaccio = tipusTransaccio;
 		this.tipusTransaccioCodi = tipusTransaccio.getEmbedded().getCodi();	
-	}
-	
+	}	
 
 }

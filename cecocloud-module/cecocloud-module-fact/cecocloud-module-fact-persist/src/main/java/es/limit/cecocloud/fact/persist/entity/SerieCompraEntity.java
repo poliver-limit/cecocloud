@@ -122,12 +122,9 @@ public class SerieCompraEntity extends AbstractWithIdentificadorAuditableEntity<
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.empresa = empresa;
-		this.magatzem = magatzem;
-		this.empresaOp = empresaOp;
 		
-		if (magatzem!=null) magatzemCodi = magatzem.getEmbedded().getCodi();
-		if (empresaOp!=null) empresaOpCodi = empresaOp.getEmbedded().getCodi();
-		
+		this.updateMagatzem(magatzem);
+		this.updateEmpresaOp(empresaOp);		
 	}
 
 	@Override
@@ -136,10 +133,12 @@ public class SerieCompraEntity extends AbstractWithIdentificadorAuditableEntity<
 	}
 	
 	public void updateMagatzem (MagatzemEntity magatzem) {
+		this.magatzem = magatzem;
 		if (magatzem!=null) magatzemCodi = magatzem.getEmbedded().getCodi();
 	}
 	
 	public void updateEmpresaOp (EmpresaEntity empresaOp) {
+		this.empresaOp = empresaOp;
 		if (empresaOp!=null) empresaOpCodi = empresaOp.getEmbedded().getCodi();
 	}
 

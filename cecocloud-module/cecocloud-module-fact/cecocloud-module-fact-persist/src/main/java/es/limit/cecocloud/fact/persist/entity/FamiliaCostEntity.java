@@ -92,9 +92,7 @@ public class FamiliaCostEntity extends AbstractWithIdentificadorAuditableEntity<
 		this.embedded = embedded;
 		this.identificador = identificador;		
 
-		if (articleFamilia != null) {
-			this.articleFamiliaCodi = articleFamilia.getEmbedded().getCodi();
-		}
+		this.updateArticleFamilia(articleFamilia);		
 	}
 
 	@Override
@@ -103,6 +101,7 @@ public class FamiliaCostEntity extends AbstractWithIdentificadorAuditableEntity<
 	}
 	
 	public void updateArticleFamilia(ArticleFamiliaEntity articleFamilia) {
+		this.articleFamilia = articleFamilia;
 		if (articleFamilia != null) {
 			this.articleFamiliaCodi = articleFamilia.getEmbedded().getCodi();
 		}

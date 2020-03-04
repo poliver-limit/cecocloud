@@ -69,6 +69,7 @@ public class IdiomaEntity extends AbstractWithIdentificadorAuditableEntity<Idiom
 			Idioma embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 	}

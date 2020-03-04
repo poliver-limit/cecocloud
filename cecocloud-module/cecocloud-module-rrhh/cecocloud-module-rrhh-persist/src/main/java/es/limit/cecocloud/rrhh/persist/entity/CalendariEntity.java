@@ -87,9 +87,9 @@ public class CalendariEntity extends AbstractWithIdentificadorAuditableEntity<Ca
 			TipusDiaEntity tipusDia) {
 		setId(pk);
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;	
 		
-		this.tipusDiaCodi = tipusDia.getEmbedded().getCodi();		
+		this.updateTipusDia(tipusDia);		
 	}
 
 	@Override
@@ -98,6 +98,7 @@ public class CalendariEntity extends AbstractWithIdentificadorAuditableEntity<Ca
 	}
 	
 	public void updateTipusDia (TipusDiaEntity tipusDia) {
+		this.tipusDia = tipusDia;
 		this.tipusDiaCodi = tipusDia.getEmbedded().getCodi();
 	}
 

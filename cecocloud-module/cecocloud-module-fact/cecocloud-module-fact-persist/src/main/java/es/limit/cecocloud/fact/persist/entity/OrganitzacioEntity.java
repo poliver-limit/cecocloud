@@ -88,9 +88,11 @@ public class OrganitzacioEntity
 			IdentificadorEntity identificador, 
 			CodiPostalEntity codiPostal) {
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		updateCodiPostal(codiPostal);
+		
+		this.updateCodiPostal(codiPostal);
 	}
 
 	@Override

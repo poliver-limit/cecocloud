@@ -201,30 +201,37 @@ public class RegistreDiariEntity extends AbstractWithIdentificadorAuditableEntit
 	}
 	
 	public void updateOperari (OperariEntity operari) {
+		this.operari = operari;		
 		this.operariCodi = operari.getEmbedded().getCodi();
 	}
 	
 	public void updateHorari (HorariEntity horari) {
+		this.horari = horari;
 		this.horariCodi = horari.getEmbedded().getCodi();
 	}
 	
 	public void updateRegim (RegimEntity regim) {
+		this.regim = regim;
 		this.regimCodi = regim.getEmbedded().getCodi();
 	}
 	
 	public void updateSeccio (SeccioEntity seccio) {
+		this.seccio = seccio;
 		this.seccioCodi = seccio.getEmbedded().getCodi();
 	}
 	
 	public void updateEmpresa (EmpresaEntity empresa) {
+		this.empresa = empresa;
 		this.empresaCodi = empresa.getEmbedded().getCodi();
 	}
 	
 	public void updateCategoria (CategoriaEntity categoria) {
+		this.categoria = categoria;
 		this.categoriaCodi = categoria.getEmbedded().getCodi();
 	}
 	
-	public void updateSubcategoria (SubcategoriaEntity subCategoria) {
+	public void updateSubcategoria (SubcategoriaEntity subcategoria) {
+		this.subcategoria = subcategoria;
 		this.subcategoriaCodi = subcategoria.getEmbedded().getCodi();
 	}
 
