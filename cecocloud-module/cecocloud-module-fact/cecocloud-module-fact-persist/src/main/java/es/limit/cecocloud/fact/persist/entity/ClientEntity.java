@@ -40,9 +40,9 @@ import lombok.Setter;
 @Table(name = "tges_cli", indexes = { @Index(name = "iges_cli_idf_fk", columnList = "cli_idf_cod"),
 		@Index(name = "irges_cli_pk", columnList = "cli_idf_cod,cli_cod", unique = true) })
 @AttributeOverrides({
-		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cli_idf_cod", length = 4)),
-		@AttributeOverride(name = "id.codi", column = @Column(name = "cli_cod", length = 4)),
-		@AttributeOverride(name = "embedded.codi", column = @Column(name = "cli_cod", length = 4, insertable = false, updatable = false)),
+		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cli_idf_cod", length = 4)), // hauria de ser 6
+		@AttributeOverride(name = "id.codi", column = @Column(name = "cli_cod", length = 6)),
+		@AttributeOverride(name = "embedded.codi", column = @Column(name = "cli_cod", length = 6, insertable = false, updatable = false)),
 		@AttributeOverride(name = "embedded.nomComercial", column = @Column(name = "cli_nomcom", length = 40, nullable = false)),
 		@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "cli_blo", length = 1)),
 		@AttributeOverride(name = "embedded.potencial", column = @Column(name = "cli_pot", length = 1)),

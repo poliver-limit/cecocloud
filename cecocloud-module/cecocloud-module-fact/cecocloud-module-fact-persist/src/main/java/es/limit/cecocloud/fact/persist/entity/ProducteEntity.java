@@ -78,7 +78,7 @@ import lombok.Setter;
 			foreignKey = @ForeignKey(name = "rges_apl_idf_fk"))
 })
 
-@EntityListeners({ProducteEntityListener.class})
+@EntityListeners(ProducteEntityListener.class)
 public class ProducteEntity extends AbstractWithIdentificadorEntity<Producte, ProductePk> {
 
 	@Embedded

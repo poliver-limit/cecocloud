@@ -69,56 +69,52 @@ export interface EmpresaPerfil {
 			<span>{{'resource.usuari.field.actiu'|translate}}</span>
 		</mat-checkbox>
 	</div-->
-	<div style="display: flex">
-		<div style="width: 100%; margin-top: 40px;">
-			<mat-tab-group animationDuration="0ms">
-				<!--mat-tab *ngIf="id" label="{{'resource.empresa.plural' | translate}}">
-					<br/>
-					<bng-datagrid
-						[config]="empresesDatagridConfig"
-						[restapiService]="usuariIdentificadorEmpresaService"
-						[editable]="true"></bng-datagrid>
-				</mat-tab-->
-				<mat-tab label="{{'resource.perfil.plural'|translate}}">
-					<!-- Pestanya de permisos -->
-					<table mat-table [dataSource]="empresaPerfils" multiTemplateDataRows class="mat-elevation-z8" style="width:100%;">
-						<!-- Columna de empresa -->
-						<ng-container matColumnDef="nom">
-							<th mat-header-cell *matHeaderCellDef> {{'resource.empresa' | translate}} </th>
-							<td mat-cell *matCellDef="let empresa">
-								<button mat-button class="bdown">
-									<mat-icon (click)="this.expandedEmpresa = this.expandedEmpresa === empresa ? null : empresa">keyboard_arrow_down</mat-icon>
-								</button>
-								{{empresa.empresaNom}}
-							</td>
-						</ng-container>
-						<!-- Columna de perfils -->
-						<ng-container matColumnDef="perfils">
-							<th mat-header-cell *matHeaderCellDef> {{'resource.perfil.plural' | translate}} </th>
-							<td mat-cell *matCellDef="let empresa; let index = dataIndex">
-								<mat-select [disabled]="disableSelects" [(value)]="empresa.perfils" multiple placeholder="Sense accés" (selectionChange)="onPerfilChange($event, index)">
-									<mat-option *ngFor="let perfil of perfils" [value]="perfil.id">{{perfil.codi}}</mat-option>
-								</mat-select>
-							</td>
-						</ng-container>
-						<!-- Detall de permisos -->
-						<ng-container matColumnDef="expandedDetail">
-							<td mat-cell *matCellDef="let empresa" [attr.colspan]="columnsToDisplay.length">
-								<div class="empresa-permisos-detail" [@detailExpand]="empresa == expandedEmpresa ? 'expanded' : 'collapsed'">
-									<cec-funcionalitats [usuariIdentificadorEmpresa] = "{'identificadorId': usuariIdentificador.identificador.id,'empresaId': empresa.empresaId, 'usuariCodi': usuariIdentificador.usuariCodi}" style="width:100%;"></cec-funcionalitats>
-								</div>
-							</td>
-						</ng-container>
-						<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-						<tr mat-row *matRowDef="let empresa; columns: columnsToDisplay;"
-							[class.empresa-expanded-row]="expandedEmpresa === empresa">
-						</tr>
-						<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="empresa-permisos-row"></tr>
-					</table>
-				</mat-tab>
-			</mat-tab-group>
-		</div>
-	</div>
+	<mat-tab-group animationDuration="0ms">
+		<!--mat-tab *ngIf="id" label="{{'resource.empresa.plural' | translate}}">
+			<br/>
+			<bng-datagrid
+				[config]="empresesDatagridConfig"
+				[restapiService]="usuariIdentificadorEmpresaService"
+				[editable]="true"></bng-datagrid>
+		</mat-tab-->
+		<mat-tab label="{{'resource.perfil.plural'|translate}}">
+			<!-- Pestanya de permisos -->
+			<table mat-table [dataSource]="empresaPerfils" multiTemplateDataRows class="mat-elevation-z8" style="width:100%;">
+				<!-- Columna de empresa -->
+				<ng-container matColumnDef="nom">
+					<th mat-header-cell *matHeaderCellDef> {{'resource.empresa' | translate}} </th>
+					<td mat-cell *matCellDef="let empresa">
+						<button mat-button class="bdown">
+							<mat-icon (click)="this.expandedEmpresa = this.expandedEmpresa === empresa ? null : empresa">keyboard_arrow_down</mat-icon>
+						</button>
+						{{empresa.empresaNom}}
+					</td>
+				</ng-container>
+				<!-- Columna de perfils -->
+				<ng-container matColumnDef="perfils">
+					<th mat-header-cell *matHeaderCellDef> {{'resource.perfil.plural' | translate}} </th>
+					<td mat-cell *matCellDef="let empresa; let index = dataIndex">
+						<mat-select [disabled]="disableSelects" [(value)]="empresa.perfils" multiple placeholder="Sense accés" (selectionChange)="onPerfilChange($event, index)">
+							<mat-option *ngFor="let perfil of perfils" [value]="perfil.id">{{perfil.codi}}</mat-option>
+						</mat-select>
+					</td>
+				</ng-container>
+				<!-- Detall de permisos -->
+				<ng-container matColumnDef="expandedDetail">
+					<td mat-cell *matCellDef="let empresa" [attr.colspan]="columnsToDisplay.length">
+						<div class="empresa-permisos-detail" [@detailExpand]="empresa == expandedEmpresa ? 'expanded' : 'collapsed'">
+							<cec-funcionalitats [usuariIdentificadorEmpresa] = "{'identificadorId': usuariIdentificador.identificador.id,'empresaId': empresa.empresaId, 'usuariCodi': usuariIdentificador?.usuariCodi}" style="width:100%;"></cec-funcionalitats>
+						</div>
+					</td>
+				</ng-container>
+				<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+				<tr mat-row *matRowDef="let empresa; columns: columnsToDisplay;"
+					[class.empresa-expanded-row]="expandedEmpresa === empresa">
+				</tr>
+				<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="empresa-permisos-row"></tr>
+			</table>
+		</mat-tab>
+	</mat-tab-group>
 </bng-form>`,
 	styles: [`
 .form-header {
@@ -203,6 +199,7 @@ export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 
 	onResourceLoad(usuariIdentificador: any) {
 		this.usuariIdentificador = usuariIdentificador;
+		this.carregarInformacioPerfils();
 	}
 
 	onPerfilChange(event, index) {
@@ -343,7 +340,7 @@ export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 						this.perfilUsuariIdentificadorEmpresaService.whenReady().subscribe(() => {
 							this.perfilUsuariIdentificadorEmpresaService.getAll().subscribe((puResponse: any) => {
 								this.perfilsUsuariIdentificadorEmpresa = puResponse;
-								// Obtenim tots els perfils de la companyia
+								// Obtenim tots els perfils de l'identificador
 								this.perfilService.whenReady().subscribe(() => {
 									const pRequestParams: HalParam[] = [];
 									pRequestParams.push({ key: 'sort', value: 'codi,ASC' });

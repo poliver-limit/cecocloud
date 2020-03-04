@@ -17,6 +17,7 @@ import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.converter.RegistreComercialMitjaConverter;
 import es.limit.cecocloud.fact.logic.api.converter.RegistreComercialTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.Producte.ProductePk;
 import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial.RegistreComercialPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RegistreComercialMitjaEnumDto;
@@ -38,13 +39,15 @@ import lombok.Setter;
 )
 public class RegistreComercial extends AbstractIdentificableWithIdentificador<RegistreComercialPk> {
 
-	@NotNull(groups = {OnCreate.class})
-	@Size(max = 4)
+//	@NotNull(groups = {OnCreate.class})	
 	@RestapiField(
 			disabledForUpdate = true,
+			disabledForCreate= true,
 			toUpperCase = true,
+			hiddenInGrid = true,
+			hiddenInForm = true,
 			includeInQuickFilter = true)
-	private String codi;
+	private Integer sequencia;
 
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)	
@@ -104,16 +107,18 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
-	@Getter
+	@Getter @Setter
 	@SuppressWarnings("serial")
-	public static class RegistreComercialPk extends WithIdentificadorAndCodiPk<String> {
+	public static class RegistreComercialPk extends WithIdentificadorPk {
 		private String empresaCodi;
+		private Integer sequencia;
 		public RegistreComercialPk(
 				String identificadorCodi,
 				String empresaCodi,
-				String codi) {
-			super(identificadorCodi, codi);
+				Integer sequencia) {
+			super(identificadorCodi);
 			this.empresaCodi = empresaCodi;
+			this.sequencia = sequencia;
 		}
 	}
 

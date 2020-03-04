@@ -70,6 +70,7 @@ create table trhu_emp (
         gfe_obs varchar(1000),
         primary key (gfe_cod, gfe_idf_cod)
     );
+    
 
 create table trhu_gre (
    gre_cod varchar(4) not null,
@@ -344,7 +345,7 @@ create table trhu_zon (
 create index irhu_cat_idf_fk on trhu_cat (cat_idf_cod);
 create index irhu_cln_idf_fk on trhu_cln (cln_idf_cod);
 
-     alter table trhu_cln 
+    alter table trhu_cln 
        add constraint irrhu_cln_pk unique (cln_idf_cod);
 create index irhu_emp_idf_fk on trhu_emp (emp_idf_cod);
 create index irhu_gfe_idf_fk on trhu_gfe (gfe_idf_cod);
@@ -422,25 +423,25 @@ alter table trhu_hor
    foreign key (hor_idf_cod) 
    references trhu_idf;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_idf_fk 
-   foreign key (inr_idf_cod) 
-   references trhu_idf;
+ alter table trhu_inr 
+       add constraint rrhu_inr_idf_fk 
+       foreign key (inr_idf_cod) 
+       references trhu_idf;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_cln_fk 
-   foreign key (inr_cln_dat, inr_idf_cod) 
-   references trhu_cln;
+    alter table trhu_inr 
+       add constraint rrhu_inr_cln_fk 
+       foreign key (inr_cln_dat, inr_idf_cod) 
+       references trhu_cln;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_ope_fk 
-   foreign key (inr_ope_cod, inr_idf_cod) 
-   references trhu_ope;
+    alter table trhu_inr 
+       add constraint rrhu_inr_ope_fk 
+       foreign key (inr_ope_cod, inr_idf_cod) 
+       references trhu_ope;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_zon_fk 
-   foreign key (inr_zon_cod, inr_idf_cod) 
-   references trhu_zon;
+    alter table trhu_inr 
+       add constraint rrhu_inr_zon_fk 
+       foreign key (inr_zon_cod, inr_idf_cod) 
+       references trhu_zon;
 
 alter table trhu_nod 
    add constraint rrhu_nod_idf_fk 

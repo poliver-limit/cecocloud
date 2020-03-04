@@ -1,5 +1,5 @@
 create table tges_acc (
-   acc_cli_cod varchar(4) not null,
+   acc_cli_cod varchar(6) not null,
     acc_cod varchar(4) not null,
     acc_idf_cod varchar(4) not null,
     acc_usucre varchar(255),
@@ -147,147 +147,147 @@ create table tges_cce (
     primary key (cce_cli_cod, cce_emp_cod, cce_idf_cod)
 );
 
-create table tges_cli (
-   cli_cod varchar(4) not null,
-    cli_idf_cod varchar(4) not null,
-    cli_usucre varchar(255),
-    cli_datcre timestamp,
-    cli_usumod varchar(255),
-    cli_datmod timestamp,
-    cli_acc_cod varchar(4),
-    cli_ban_cod int4,
-    cli_clr_cod varchar(4),
-    cli_cpo_cod varchar(8),
-    cli_cpo_codoficmp varchar(8),
-    cli_cpo_codorgges varchar(8),
-    cli_cpo_codunitrm varchar(8),
-    cli_div_cod varchar(4),
-    cli_dpg_cod varchar(4),
-    cli_www varchar(60),
-    cli_albcls int4,
-    cli_albval varchar(1),
-    cli_ali varchar(30),
-    cli_aplims varchar(1),
-    cli_aplimpsrv varchar(1),
-    cli_pvl varchar(1),
-    cli_ibnbic varchar(11),
-    cli_blo varchar(1),
-    cli_rgtaea varchar(1),
-    cli_cobdiallo varchar(255),
-    cli_ctecmp varchar(10),
-    cli_cteven varchar(10),
-    cli_confacele varchar(255),
-    cli_copfac int4,
-    cli_bandatfirmdl019 timestamp,
-    cli_dtectt float4,
-    cli_dtectt001 float4,
-    cli_dtepla001 float4,
-    cli_dtepla float4,
-    cli_dcc varchar(2),
-    cli_ibndcc varchar(2),
-    cli_domfis varchar(60),
-    cli_domoficmp varchar(60),
-    cli_domorgges varchar(60),
-    cli_domunitrm varchar(60),
-    cli_eml varchar(60),
-    cli_emlalb varchar(100),
-    cli_emlfac varchar(100),
-    cli_emlfacele varchar(60),
-    cli_ettpub varchar(1),
-    cli_envfac varchar(1),
-    cli_escdom varchar(2),
-    cli_facele varchar(255),
-    cli_facmin numeric(19, 2),
-    cli_facsendte varchar(1),
-    cli_fax varchar(60),
-    cli_imsicl varchar(1),
-    cli_lat numeric(19, 2),
-    cli_llnfis001 varchar(40),
-    cli_llnfis002 varchar(40),
-    cli_lon numeric(19, 2),
-    cli_avifac001 varchar(255),
-    cli_nif varchar(12),
-    cli_notprnpal varchar(1),
-    cli_notprnscl varchar(1),
-    cli_nomcom varchar(40) not null,
-    cli_nomdom varchar(30),
-    cli_nomfis varchar(40),
-    cli_nomfis001 varchar(40),
-    cli_ccr int8,
-    cli_numdom varchar(5),
-    cli_obs varchar(2000),
-    cli_obsfac varchar(1000),
-    cli_oficmp varchar(30),
-    cli_orgges varchar(30),
-    cli_ibnpai varchar(2),
-    cli_parnum001 numeric(19, 2),
-    cli_parnum002 numeric(19, 2),
-    cli_parnum003 numeric(19, 2),
-    cli_parnum004 numeric(19, 2),
-    cli_parnum005 numeric(19, 2),
-    cli_parnumcom001 numeric(19, 2),
-    cli_parnumcom002 numeric(19, 2),
-    cli_parnumcom003 numeric(19, 2),
-    cli_parnumcom004 numeric(19, 2),
-    cli_parnumcom005 numeric(19, 2),
-    cli_partxt001 varchar(60),
-    cli_partxt002 varchar(60),
-    cli_partxt003 varchar(60),
-    cli_partxt004 varchar(60),
-    cli_partxt005 varchar(60),
-    cli_partxtcom001 varchar(60),
-    cli_partxtcom002 varchar(60),
-    cli_partxtcom003 varchar(60),
-    cli_partxtcom004 varchar(60),
-    cli_partxtcom005 varchar(60),
-    cli_ptefac001 float4,
-    cli_ret float4,
-    cli_ctlffo varchar(1),
-    cli_con varchar(60),
-    cli_pisdom varchar(2),
-    cli_pordom varchar(2),
-    cli_pot varchar(1),
-    cli_viscmlprt timestamp,
-    cli_pubweb varchar(1),
-    cli_reb varchar(1),
-    cli_recequ varchar(1),
-    cli_banrefmdl019 varchar(35),
-    cli_rislim numeric(19, 2),
-    cli_rismax numeric(19, 2),
-    cli_stc_cod varchar(4),
-    cli_tel varchar(60),
-    cli_telfacele varchar(60),
-    cli_tipdte int4,
-    cli_tipext varchar(1),
-    cli_tipfac int4,
-    cli_tipmsg varchar(1),
-    cli_tipnif int4,
-    cli_tipper varchar(1),
-    cli_tipret int4,
-    cli_unitrm varchar(30),
-    cli_emp_codser varchar(4),
-    cli_fmc_cod varchar(4),
-    cli_idi_cod varchar(4),
-    cli_iva_cod varchar(4),
-    cli_ofb_cod int4,
-    cli_ope_cod varchar(6),
-    cli_org_cod varchar(6),
-    cli_painif varchar(4),
-    cli_rap_cod varchar(4),
-    cli_rgi_cod varchar(2),
-    cli_ser_cod varchar(4),
-    cli_tar_cod001 varchar(4),
-    cli_tar_cod002 varchar(4),
-    cli_tds_cod002 varchar(6),
-    cli_tds_cod varchar(6),
-    cli_tcs_cod varchar(4),
-    cli_tfc_cod varchar(4),
-    cli_tve_cod001 varchar(4),
-    cli_tve_cod varchar(4),
-    cli_tra_cod varchar(6),
-    cli_zon_cod varchar(4),
-    primary key (cli_cod, cli_idf_cod)
-);
+ create table tges_cli (
+       cli_cod varchar(6) not null,
+        cli_idf_cod varchar(4) not null,
+        cli_usucre varchar(255),
+        cli_datcre timestamp,
+        cli_usumod varchar(255),
+        cli_datmod timestamp,
+        cli_acc_cod varchar(4),
+        cli_ban_cod int4,
+        cli_clr_cod varchar(4),
+        cli_cpo_cod varchar(8),
+        cli_cpo_codoficmp varchar(8),
+        cli_cpo_codorgges varchar(8),
+        cli_cpo_codunitrm varchar(8),
+        cli_div_cod varchar(4),
+        cli_dpg_cod varchar(4),
+        cli_www varchar(60),
+        cli_albcls int4,
+        cli_albval varchar(1),
+        cli_ali varchar(30),
+        cli_aplims varchar(1),
+        cli_aplimpsrv varchar(1),
+        cli_pvl varchar(1),
+        cli_ibnbic varchar(11),
+        cli_blo varchar(1),
+        cli_rgtaea varchar(1),
+        cli_cobdiallo varchar(255),
+        cli_ctecmp varchar(10),
+        cli_cteven varchar(10),
+        cli_confacele varchar(255),
+        cli_copfac int4,
+        cli_bandatfirmdl019 timestamp,
+        cli_dtectt float4,
+        cli_dtectt001 float4,
+        cli_dtepla001 float4,
+        cli_dtepla float4,
+        cli_dcc varchar(2),
+        cli_ibndcc varchar(2),
+        cli_domfis varchar(60),
+        cli_domoficmp varchar(60),
+        cli_domorgges varchar(60),
+        cli_domunitrm varchar(60),
+        cli_eml varchar(60),
+        cli_emlalb varchar(100),
+        cli_emlfac varchar(100),
+        cli_emlfacele varchar(60),
+        cli_ettpub varchar(1),
+        cli_envfac varchar(1),
+        cli_escdom varchar(2),
+        cli_facele varchar(255),
+        cli_facmin numeric(19, 2),
+        cli_facsendte varchar(1),
+        cli_fax varchar(60),
+        cli_imsicl varchar(1),
+        cli_lat numeric(19, 2),
+        cli_llnfis001 varchar(40),
+        cli_llnfis002 varchar(40),
+        cli_lon numeric(19, 2),
+        cli_avifac001 varchar(255),
+        cli_nif varchar(12),
+        cli_notprnpal varchar(1),
+        cli_notprnscl varchar(1),
+        cli_nomcom varchar(40) not null,
+        cli_nomdom varchar(30),
+        cli_nomfis varchar(40),
+        cli_nomfis001 varchar(40),
+        cli_ccr int8,
+        cli_numdom varchar(5),
+        cli_obs varchar(2000),
+        cli_obsfac varchar(1000),
+        cli_oficmp varchar(30),
+        cli_orgges varchar(30),
+        cli_ibnpai varchar(2),
+        cli_parnum001 numeric(19, 2),
+        cli_parnum002 numeric(19, 2),
+        cli_parnum003 numeric(19, 2),
+        cli_parnum004 numeric(19, 2),
+        cli_parnum005 numeric(19, 2),
+        cli_parnumcom001 numeric(19, 2),
+        cli_parnumcom002 numeric(19, 2),
+        cli_parnumcom003 numeric(19, 2),
+        cli_parnumcom004 numeric(19, 2),
+        cli_parnumcom005 numeric(19, 2),
+        cli_partxt001 varchar(60),
+        cli_partxt002 varchar(60),
+        cli_partxt003 varchar(60),
+        cli_partxt004 varchar(60),
+        cli_partxt005 varchar(60),
+        cli_partxtcom001 varchar(60),
+        cli_partxtcom002 varchar(60),
+        cli_partxtcom003 varchar(60),
+        cli_partxtcom004 varchar(60),
+        cli_partxtcom005 varchar(60),
+        cli_ptefac001 float4,
+        cli_ret float4,
+        cli_ctlffo varchar(1),
+        cli_con varchar(60),
+        cli_pisdom varchar(2),
+        cli_pordom varchar(2),
+        cli_pot varchar(1),
+        cli_viscmlprt timestamp,
+        cli_pubweb varchar(1),
+        cli_reb varchar(1),
+        cli_recequ varchar(1),
+        cli_banrefmdl019 varchar(35),
+        cli_rislim numeric(19, 2),
+        cli_rismax numeric(19, 2),
+        cli_stc_cod varchar(4),
+        cli_tel varchar(60),
+        cli_telfacele varchar(60),
+        cli_tipdte int4,
+        cli_tipext varchar(1),
+        cli_tipfac int4,
+        cli_tipmsg varchar(1),
+        cli_tipnif int4,
+        cli_tipper varchar(1),
+        cli_tipret int4,
+        cli_unitrm varchar(30),
+        cli_emp_codser varchar(4),
+        cli_fmc_cod varchar(4),
+        cli_idi_cod varchar(4),
+        cli_iva_cod varchar(4),
+        cli_ofb_cod int4,
+        cli_ope_cod varchar(6),
+        cli_org_cod varchar(6),
+        cli_painif varchar(4),
+        cli_rap_cod varchar(4),
+        cli_rgi_cod varchar(2),
+        cli_ser_cod varchar(4),
+        cli_tar_cod001 varchar(4),
+        cli_tar_cod002 varchar(4),
+        cli_tds_cod002 varchar(6),
+        cli_tds_cod varchar(6),
+        cli_tcs_cod varchar(4),
+        cli_tfc_cod varchar(4),
+        cli_tve_cod001 varchar(4),
+        cli_tve_cod varchar(4),
+        cli_tra_cod varchar(6),
+        cli_zon_cod varchar(4),
+        primary key (cli_cod, cli_idf_cod)
+    );
 
 create table tges_clm (
    clm_man_cne varchar(30) not null,
@@ -797,27 +797,27 @@ create table tges_pas (
     primary key (pas_cod, pas_idf_cod)
 );
 
-   create table tges_ped (
-       ped_emp_cod varchar(4) not null,
-        ped_cod varchar(4) not null,
-        ped_idf_cod varchar(4) not null,
-        ped_usucre varchar(255),
-        ped_datcre timestamp,
-        ped_usumod varchar(255),
-        ped_datmod timestamp,
-        ped_alb varchar(255) not null,
-        ped_com varchar(255) not null,
-        ped_des varchar(30) not null,
-        ped_fac varchar(255) not null,
-        ped_famclipro varchar(255) not null,
-        ped_impcls varchar(255) not null,
-        ped_cer varchar(255) not null,
-        ped_ord numeric(19, 2),
-        ped_pie varchar(1000),
-        ped_pre varchar(255) not null,
-        ped_scp_codcom varchar(255),
-        primary key (ped_emp_cod, ped_cod, ped_idf_cod)
-    );
+create table tges_ped (
+   ped_emp_cod varchar(4) not null,
+    ped_cod varchar(4) not null,
+    ped_idf_cod varchar(4) not null,
+    ped_usucre varchar(255),
+    ped_datcre timestamp,
+    ped_usumod varchar(255),
+    ped_datmod timestamp,
+    ped_alb varchar(255) not null,
+    ped_com varchar(255) not null,
+    ped_des varchar(30) not null,
+    ped_fac varchar(255) not null,
+    ped_famclipro varchar(255) not null,
+    ped_impcls varchar(255) not null,
+    ped_cer varchar(255) not null,
+    ped_ord numeric(19, 2),
+    ped_pie varchar(1000),
+    ped_pre varchar(255) not null,
+    ped_scp_codcom varchar(255),
+    primary key (ped_emp_cod, ped_cod, ped_idf_cod)
+);
 
 create table tges_pmg (
    pmg_mag_cod varchar(4) not null,
@@ -958,7 +958,7 @@ create table tges_rap (
 
 create table tges_rgc (
        rgc_emp_cod varchar(4) not null,
-        rgc_cod varchar(4) not null,
+         rgc_seq int4 not null,
         rgc_idf_cod varchar(4) not null,
         rgc_usucre varchar(255),
         rgc_datcre timestamp,
@@ -1068,21 +1068,21 @@ create table tges_scl (
         primary key (scp_emp_cod, scp_cod, scp_idf_cod)
     );
 
-   create table tges_sei (
-       sei_emp_cod varchar(4) not null,
-        sei_cod varchar(4) not null,
-        sei_idf_cod varchar(4) not null,
-        sei_usucre varchar(255),
-        sei_datcre timestamp,
-        sei_usumod varchar(255),
-        sei_datmod timestamp,
-        sei_des varchar(60) not null,
-        sei_dia001 timestamp not null,
-        sei_dia002 timestamp not null,
-        sei_serdef varchar(1),
-        sei_ultfac numeric(19, 2),
-        primary key (sei_emp_cod, sei_cod, sei_idf_cod)
-    );
+create table tges_sei (
+   sei_emp_cod varchar(4) not null,
+    sei_cod varchar(4) not null,
+    sei_idf_cod varchar(4) not null,
+    sei_usucre varchar(255),
+    sei_datcre timestamp,
+    sei_usumod varchar(255),
+    sei_datmod timestamp,
+    sei_des varchar(60) not null,
+    sei_dia001 timestamp not null,
+    sei_dia002 timestamp not null,
+    sei_serdef varchar(1),
+    sei_ultfac numeric(19, 2),
+    primary key (sei_emp_cod, sei_cod, sei_idf_cod)
+);
 
 create table tges_ser (
    ser_emp_cod varchar(4) not null,
@@ -1498,10 +1498,10 @@ create index iges_prv_idf_fk on tges_prv (prv_idf_cod);
     alter table tges_prv 
        add constraint irges_prv_pk unique (prv_idf_cod, prv_cod);
 create index iges_rap_idf_fk on tges_rap (rap_idf_cod);
-create index iges_rgc_idf_fk on tges_rgc (rgc_idf_cod);
-
-    alter table tges_rgc 
-       add constraint irges_rgc_pk unique (rgc_idf_cod, rgc_cod);
+create index iges_rgc_emp_fk on tges_rgc (rgc_idf_cod, rgc_emp_cod);
+create index iges_rgc_cli_fk on tges_rgc (rgc_idf_cod, rgc_cli_cod);
+create index iges_rgc_apl_fk on tges_rgc (rgc_idf_cod, rgc_apl_ref);
+    
 create index iges_rgi_idf_fk on tges_rgi (rgi_idf_cod);
 create index iges_scl_idf_fk on tges_scl (scl_idf_cod);
 
@@ -1596,11 +1596,6 @@ alter table tges_apl
        add constraint rges_apl_emp_fk 
        foreign key (apl_emp_cod, apl_idf_cod) 
        references tges_emp;
-
-alter table tges_apl 
-       add constraint rges_apl_apl_fk 
-       foreign key (apl_apl_ref, apl_idf_cod) 
-       references tges_apl;
 
 alter table tges_art 
    add constraint rges_art_idf_fk 
@@ -2107,15 +2102,15 @@ alter table tges_mod
    foreign key (mod_idf_cod) 
    references tges_idf;
 
-alter table tges_mtr 
-   add constraint rges_mtr_idf_fk 
-   foreign key (mtr_idf_cod) 
-   references tges_idf;
+  alter table tges_mtr 
+       add constraint rges_mtr_idf_fk 
+       foreign key (mtr_idf_cod) 
+       references tges_idf;
 
-alter table tges_mtr 
-   add constraint rges_zon_tra_fk 
-   foreign key (mtr_tra_cod, mtr_idf_cod) 
-   references tges_tra;
+    alter table tges_mtr 
+       add constraint rges_zon_tra_fk 
+       foreign key (mtr_tra_cod, mtr_idf_cod) 
+       references tges_tra;
 
 alter table tges_npg 
    add constraint rges_npg_idf_fk 
@@ -2321,21 +2316,20 @@ alter table tges_rgc
        add constraint rges_rgc_idf_fk 
        foreign key (rgc_idf_cod) 
        references tges_idf;
+ alter table tges_rgc 
+       add constraint rges_rgc_cli_fk 
+       foreign key (rgc_cli_cod, rgc_idf_cod) 
+       references tges_cli;
 
-alter table tges_rgc 
-   add constraint rges_rgc_cli_fk 
-   foreign key (rgc_cli_cod, rgc_idf_cod) 
-   references tges_cli;
+    alter table tges_rgc 
+       add constraint rges_rgc_emp_fk 
+       foreign key (rgc_emp_cod, rgc_idf_cod) 
+       references tges_emp;
 
-alter table tges_rgc 
-   add constraint rges_rgc_emp_fk 
-   foreign key (rgc_emp_cod, rgc_idf_cod) 
-   references tges_emp;
-
-alter table tges_rgc 
-   add constraint rges_rgc_apl_fk 
-   foreign key (rgc_apl_ref, rgc_idf_cod) 
-   references tges_apl;
+    alter table tges_rgc 
+       add constraint rges_rgc_apl_fk 
+       foreign key (rgc_apl_ref, rgc_idf_cod) 
+       references tges_apl;
 
 alter table tges_rgi 
    add constraint rges_rgi_idf_fk 

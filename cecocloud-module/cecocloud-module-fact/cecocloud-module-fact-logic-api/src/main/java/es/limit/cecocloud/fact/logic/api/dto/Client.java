@@ -56,7 +56,7 @@ import lombok.Setter;
 public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = { OnCreate.class })
-	@Size(max = 4)
+	@Size(max = 6)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true, includeInQuickFilter = true)
 	private String codi;
 
