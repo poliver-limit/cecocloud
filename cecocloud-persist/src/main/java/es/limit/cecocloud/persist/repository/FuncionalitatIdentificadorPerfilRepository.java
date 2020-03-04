@@ -23,14 +23,27 @@ import es.limit.cecocloud.persist.entity.RecursEntity;
  */
 public interface FuncionalitatIdentificadorPerfilRepository extends BaseRepository<FuncionalitatIdentificadorPerfilEntity, Long> {
 
-	FuncionalitatIdentificadorPerfilEntity findByPerfilAndFuncionalitatIdentificadorAndEmbeddedPermis(PerfilEntity perfil, FuncionalitatIdentificadorEntity funcionalitat, String permis);
-	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdAndFuncionalitatIdentificadorId(Long perfilId, Long funcionalitatId);
-	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(Long perfilId);
-	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdInOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(List<Long> perfilId);
-	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatOrderByFuncionalitatIdentificadorIdentificador(FuncionalitatEntity funcionalitat);
-	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorOrderByPerfil(FuncionalitatIdentificadorEntity funcionalitatIdentificador);
-	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitat(FuncionalitatEntity funcionalitat);
-	
+	FuncionalitatIdentificadorPerfilEntity findByPerfilAndFuncionalitatIdentificadorAndEmbeddedPermis(
+			PerfilEntity perfil,
+			FuncionalitatIdentificadorEntity funcionalitat,
+			String permis);
+
+	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdAndFuncionalitatIdentificadorId(
+			Long perfilId,
+			Long funcionalitatId);
+
+	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdInOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(
+			List<Long> perfilId);
+
+	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatOrderByFuncionalitatIdentificadorIdentificador(
+			FuncionalitatEntity funcionalitat);
+
+	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorOrderByPerfil(
+			FuncionalitatIdentificadorEntity funcionalitatIdentificador);
+
+	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitat(
+			FuncionalitatEntity funcionalitat);
+
 	@Query(	"select distinct f " +
 			" from " +
 			"    FuncionalitatIdentificadorPerfilEntity fip " +
@@ -41,8 +54,7 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 			"and UPPER(fip.embedded.permis) = 'READ' " + // or UPPER(fip.embedded.permis) = 'ADMINISTRATION') " +
 			"and f.embedded.modul = :modul ")
 	List<FuncionalitatEntity> findAllowedFuncionalitatsByPerfilsAndModul(List<PerfilEntity> perfils, Modul modul);
-//	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilInAndEmbeddedPermisIgnoreCase(List<PerfilEntity> perfils, String permis);
-	
+
 	@Query(	"select new es.limit.cecocloud.logic.api.dto.FuncionalitatRecursInfo(" + 
 			"		fr.recurs.embedded.className," +
 			" 		fr.embedded.principal, " +
@@ -58,5 +70,5 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 			"and fip.funcionalitatIdentificador = fi " +
 			"and fip.perfil.id = :perfilId")	
 	List<FuncionalitatRecursInfo> findPermisosByRecursAndPerfilId(RecursEntity recurs, Long perfilId);
-	
+
 }

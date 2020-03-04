@@ -18,9 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Subcategoria;
 import lombok.AccessLevel;
@@ -76,9 +73,8 @@ public class SubcategoriaEntity extends AbstractWithIdentificadorAuditableEntity
 			value = { 
 					@JoinColumn(name = "sct_idf_cod", referencedColumnName = "cat_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "sct_cat_cod", referencedColumnName = "cat_cod", insertable = false, updatable = false)
-					},
+			},
 			foreignKey = @ForeignKey(name = "rrhu_sct_cat_fk"))
-	@NotFound(action = NotFoundAction.IGNORE)
 	protected CategoriaEntity categoria;
 	@Column(name = "sct_cat_cod", length = 4)
 	private String categoriaCodi;

@@ -55,13 +55,16 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
-			new IdentificadorCrudTester()
+			new IdentificadorCrudTester(),
+			new PerfilCrudTester()
 		};
 	}
 
 	@Override
 	public void afterCreate(Empresa dto, boolean isParentResource) {
 		if (isParentResource) {
+			// Configurar perfil
+			// Configurar sessió
 			UserSession session = (UserSession)getSession();
 			if (session == null) {
 				session = new UserSession();

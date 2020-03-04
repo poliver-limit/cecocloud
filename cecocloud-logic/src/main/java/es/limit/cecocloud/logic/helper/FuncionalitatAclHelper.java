@@ -33,44 +33,40 @@ public class FuncionalitatAclHelper implements FuncionalitatAcl{
 	@Autowired
 	private PermissionFactory permissionFactory;
 
-	
 	public void updatePermisosRemoveRecurs(String resourceClassName) {
 		permissionHelper.deleteResource(resourceClassName);
 	}
-	
+
 	public void updatePermisosFuncionalitatRecurs(Long funcionalitatId) throws ClassNotFoundException {
 		List<PerfilEntity> perfils = perfilRepository.findByFuncionalitatId(funcionalitatId);
 		for (PerfilEntity perfil: perfils)
 			refreshPermisosPerfil(perfil.getId());
 	}
-	
+
 	public void refreshPermisosIdentificador(Long identificadorId) throws ClassNotFoundException {
 		List<PerfilEntity> perfils = perfilRepository.findByIdentificadorId(identificadorId);
 		for (PerfilEntity perfil: perfils)
 			refreshPermisosPerfil(perfil.getId());
 	}
-	
+
 	public void refreshPermisosAplicacio() throws ClassNotFoundException {
 		List<PerfilEntity> perfils = perfilRepository.findAll();
-		for (PerfilEntity perfil: perfils)
+		for (PerfilEntity perfil: perfils) {
 			refreshPermisosPerfil(perfil.getId());
+		}
 	}
-	
+
 	public void refreshPermisosPerfil(Long perfilId) throws ClassNotFoundException {
-		
 		// 1. Eliminam els permisos del perfil
 		permissionHelper.deleteSidEntries("Perfil_" + perfilId);
-		
 		// 2. Assigna permisos per a tots els recursos
 		List<RecursEntity> recursos = recursRepository.findByPerfilId(perfilId);
-		
 		for (RecursEntity recurs: recursos) {
 			BaseBootPermission permisos = new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, "Perfil_" + perfilId);
 			funcionalitatIdentificadorPerfilRepository.findPermisosByRecursAndPerfilId(recurs, perfilId)
 				.forEach(permis -> permisos.setGranted(permissionFactory.buildFromName(permis.getPermisFinal()).getMask()));
 			resourcePermissionService.savePermission(recurs.getEmbedded().getClassName(), permisos);
 		}
-		
 	}
 
 //	public void updatePermisosFuncionalitatRecurs(

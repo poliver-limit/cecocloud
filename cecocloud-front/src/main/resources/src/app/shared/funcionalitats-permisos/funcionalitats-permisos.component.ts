@@ -396,7 +396,7 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 	}
 
 	constructor(
-		public funcionalitatsPermisosService: FuncionalitatsPermisosService,
+		public funcionalitatsPermisosServicea: FuncionalitatsPermisosService,
 		public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
 		// public funcionalitatsIdentificadorService: FuncionalitatsIdentificadorService,
 		translate: TranslateService,

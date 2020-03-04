@@ -10,6 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import es.limit.base.boot.logic.api.service.GenericService;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificador;
+import es.limit.cecocloud.logic.api.module.Modul;
 
 /**
  * Servei encarregat de gestionar relacions funcionalitat-identificador.
@@ -23,11 +24,14 @@ public interface FuncionalitatIdentificadorService extends GenericService<Funcio
 	 * 
 	 * @param identificadorId
 	 *            l'id de l'identificador.
+	 * @param modul
+	 *            el mòdul per a filtrar.
 	 * @return la llista de funcionalitats.
 	 * @throws EntityNotFoundException
 	 *             si no s'ha trobat l'identificador amb l'id especificat.
 	 */
-	public List<Funcionalitat> funcionalitatFindByIdentificadorId(
-			Long identificadorId) throws EntityNotFoundException;
+	public List<Funcionalitat> funcionalitatFindByIdentificadorIdAndModul(
+			Long identificadorId,
+			Modul modul) throws EntityNotFoundException;
 
 }

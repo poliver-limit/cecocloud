@@ -8,12 +8,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'un recurs (permisos per rol).
+ * Informació d'una funcionalitat-permis.
  * 
  * @author Limit Tecnologies
  */
 @Getter @Setter
-public class FuncionalitatInfo {
+public class FuncionalitatPermis {
 
 	private Long id;
 	private String codi;
@@ -22,7 +22,7 @@ public class FuncionalitatInfo {
 	private BaseBootPermission permission;
 	private BaseBootPermission allowedPermission;
 
-	public FuncionalitatInfo(
+	public FuncionalitatPermis(
 			Long id,
 			String codi,
 			String descripcio,
@@ -38,7 +38,7 @@ public class FuncionalitatInfo {
 		this.allowedPermission = allowedPermission;
 	}
 	
-	public FuncionalitatInfo(
+	public FuncionalitatPermis(
 			Long id,
 			String codi,
 			String descripcio,
@@ -50,7 +50,7 @@ public class FuncionalitatInfo {
 		this.tipus = tipus;
 	}
 	
-	public FuncionalitatInfo() {
+	public FuncionalitatPermis() {
 		super();
 	}
 }

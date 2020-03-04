@@ -3,42 +3,12 @@
  */
 package es.limit.cecocloud.logic.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.acls.domain.PermissionFactory;
-import org.springframework.security.acls.model.Permission;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import es.limit.base.boot.logic.api.dto.BaseBootPermission;
-import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
-import es.limit.base.boot.logic.api.exception.PermissionNotAllowedException;
-import es.limit.base.boot.logic.api.permission.ExtendedPermission;
-import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificadorPerfil;
-import es.limit.cecocloud.logic.api.dto.FuncionalitatInfo;
-import es.limit.cecocloud.logic.api.dto.ModuleFuncionalitatInfo;
-import es.limit.cecocloud.logic.api.dto.UserSession;
-import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
-import es.limit.cecocloud.logic.api.module.Modul;
-import es.limit.cecocloud.logic.api.module.ModuleInfo;
-import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorPerfilService;
-import es.limit.cecocloud.logic.helper.FuncionalitatAclHelper;
-import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
-import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorPerfilEntity;
-import es.limit.cecocloud.persist.entity.PerfilEntity;
-import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorPerfilRepository;
-import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorRepository;
-import es.limit.cecocloud.persist.repository.PerfilRepository;
-import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
 
 /**
  * Implementació del servei encarregat de gestionar relacions funcionalitat-perfil.
@@ -48,7 +18,7 @@ import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRep
 @Service
 public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<FuncionalitatIdentificadorPerfil, FuncionalitatIdentificadorPerfilEntity, Long> implements FuncionalitatIdentificadorPerfilService {
 
-	@Autowired
+	/*@Autowired
 	private FuncionalitatIdentificadorRepository funcionalitatIdentificadorRepository;
 	@Autowired
 	private FuncionalitatIdentificadorPerfilRepository funcionalitatIdentificadorPerfilRepository;
@@ -70,7 +40,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 	// ____________________________________________________________________________________________________________
 	@Override
 	@Transactional(readOnly = true)
-	public List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilOrderByModule(Long perfilId) {
+	public List<FuncionalitatPermisModule> findAllFuncionalitatsByPerfilOrderByModule(Long perfilId) {
 
 		// Obtenim tots els permisos actuals sobre les funcionalitats del perfil
 		List<FuncionalitatIdentificadorPerfilEntity> funcionalitatIdentificadorPerfils = funcionalitatIdentificadorPerfilRepository
@@ -81,7 +51,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ModuleFuncionalitatInfo> findAllFuncionalitatsByPerfilsOrderByModule(List<Long> perfilsId) {
+	public List<FuncionalitatPermisModule> findAllFuncionalitatsByPerfilsOrderByModule(List<Long> perfilsId) {
 		
 		// Obtenim tots els permisos actuals sobre les funcionalitats dels perfils
 		List<FuncionalitatIdentificadorPerfilEntity> funcionalitatIdentificadorPerfils = funcionalitatIdentificadorPerfilRepository
@@ -90,10 +60,10 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 		return getFuncionalitatPermisosPerModuls(funcionalitatIdentificadorPerfils);
 	}
 	
-	private List<ModuleFuncionalitatInfo> getFuncionalitatPermisosPerModuls(List<FuncionalitatIdentificadorPerfilEntity> funcionalitatIdentificadorPerfils) {
+	private List<FuncionalitatPermisModule> getFuncionalitatPermisosPerModuls(List<FuncionalitatIdentificadorPerfilEntity> funcionalitatIdentificadorPerfils) {
 		
 		// Obtenim els mòduls
-		List<ModuleFuncionalitatInfo> modulsFuncionalitats = new ArrayList<ModuleFuncionalitatInfo>();
+		List<FuncionalitatPermisModule> modulsFuncionalitats = new ArrayList<FuncionalitatPermisModule>();
 		@SuppressWarnings("unchecked")
 		List<ModuleInfo> moduls = (List<ModuleInfo>)(List<?>)Modules.registeredFindAll();
 		
@@ -105,7 +75,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 		
 		for (ModuleInfo modul: moduls) {
 			
-			List<FuncionalitatInfo> funcionalitatsInfo = new ArrayList<FuncionalitatInfo>(); 
+			List<FuncionalitatPermis> funcionalitatsInfo = new ArrayList<FuncionalitatPermis>(); 
 			List<FuncionalitatIdentificadorEntity> funcionalitatsIdentificadorModul = funcionalitatIdentificadors.stream()
 					.filter(funcidf -> funcidf.getFuncionalitat().getEmbedded().getModul().equals(Modul.valueOf(modul.getCode()))
 							).collect(Collectors.toList());
@@ -113,7 +83,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 			Map<String, FuncionalitatCodiFont> funcionalitatsCodi = modul.getFuncionalitats();
 			
 			for (FuncionalitatIdentificadorEntity funcidfModul: funcionalitatsIdentificadorModul) {
-				FuncionalitatInfo funcionalitatInfo =  new  FuncionalitatInfo(
+				FuncionalitatPermis funcionalitatInfo =  new  FuncionalitatPermis(
 						funcidfModul.getId(),
 						funcidfModul.getFuncionalitat().getEmbedded().getCodi(),
 						funcidfModul.getFuncionalitat().getEmbedded().getDescripcio(),
@@ -135,7 +105,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 			}
 			
 			if (!funcionalitatsInfo.isEmpty())
-				modulsFuncionalitats.add(new ModuleFuncionalitatInfo(modul, funcionalitatsInfo));
+				modulsFuncionalitats.add(new FuncionalitatPermisModule(modul, funcionalitatsInfo));
 		}
 		return modulsFuncionalitats;
 	}
@@ -164,7 +134,7 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 	
 	@Override
 	@Transactional
-	public void savePermisos(Long perfilId, FuncionalitatInfo funcionalitatInfo, String modulCodi) throws Exception {
+	public void savePermisos(Long perfilId, FuncionalitatPermis funcionalitatInfo, String modulCodi) throws Exception {
 		Optional<es.limit.base.boot.logic.api.module.ModuleInfo> opModul = Modules.registeredGetOne(modulCodi);
 		if (opModul.isPresent()) {
 			ModuleInfo modul = (ModuleInfo)opModul.get();
@@ -218,11 +188,11 @@ public class FuncionalitatPerfilServiceImpl extends AbstractGenericServiceImpl<F
 		}
 		
 	}
-	
+
 	@Override
 	@Transactional
 	public void refreshPermisos(Long perfilId) throws Exception {
 		funcionalitatAclHelper.refreshPermisosPerfil(perfilId);
-	}
+	}*/
 
 }
