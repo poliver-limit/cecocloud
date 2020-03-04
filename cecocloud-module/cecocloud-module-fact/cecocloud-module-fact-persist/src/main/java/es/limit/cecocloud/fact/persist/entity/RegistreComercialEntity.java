@@ -130,10 +130,10 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		this.identificador = identificador;
 		this.empresa = empresa;		
 		
-		embedded.setData(new Date());
-		
 		this.updateClient(client);
 		this.updateProducte(producte);
+		
+		embedded.setData(new Date());
 	}
 
 	@Override

@@ -8,19 +8,19 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import es.limit.base.boot.test.AbstractRestApiTest;
 import es.limit.base.boot.test.CrudTester;
-import es.limit.cecocloud.fact.back.test.tester.DivisaCrudTester;
-import es.limit.cecocloud.fact.logic.api.dto.Divisa;
+import es.limit.cecocloud.fact.back.test.tester.ClientCrudTester;
+import es.limit.cecocloud.fact.logic.api.dto.Client;
 
 /**
- * Test pels objectes de tipus Divisa.
+ * Test pels objectes de tipus Client.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class DivisaRestApiTest extends AbstractRestApiTest<Divisa, String> {
+public class ClientRestApiTest extends AbstractRestApiTest<Client, String> {
 
 	@Override
-	protected CrudTester<Divisa> getCrudTester() {
-		return new DivisaCrudTester();
+	protected CrudTester<Client> getCrudTester() {
+		return new ClientCrudTester();
 	}
 
 	@WithMockUser(value = USUARI_TEST_NOADMIN)
