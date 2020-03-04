@@ -64,16 +64,13 @@ create table trhu_emp (
 );
 
 create table trhu_gfe (
-   gfe_cod varchar(4) not null,
-    gfe_idf_cod varchar(4) not null,
-    gfe_usucre varchar(255),
-    gfe_datcre timestamp,
-    gfe_usumod varchar(255),
-    gfe_datmod timestamp,
-    gfe_nom varchar(60) not null,
-    gfe_cte varchar(1000),
-    primary key (gfe_cod, gfe_idf_cod)
-);
+       gfe_cod varchar(4) not null,
+        gfe_idf_cod varchar(4) not null,
+        gfe_nom varchar(60) not null,
+        gfe_obs varchar(1000),
+        primary key (gfe_cod, gfe_idf_cod)
+    );
+
 
 create table trhu_gre (
    gre_cod varchar(4) not null,
@@ -124,27 +121,27 @@ create table trhu_idf (
     primary key (idf_cod)
 );
 
-create table trhu_inr (
-   inr_cod varchar(4) not null,
-    inr_idf_cod varchar(4) not null,
-    inr_usucre varchar(255),
-    inr_datcre timestamp,
-    inr_usumod varchar(255),
-    inr_datmod timestamp,
-    inr_cln_dat timestamp,
-    inr_cof_cod varchar(4),
-    inr_dat timestamp,
-    inr_fin timestamp,
-    inr_ini timestamp,
-    inr_ff0_cod int4,
-    inr_nod_nument int4,
-    inr_nod_numsor int4,
-    inr_obs varchar(1000),
-    inr_ope_cod varchar(4) not null,
-    inr_zon_cod varchar(4),
-    primary key (inr_cod, inr_idf_cod)
-);
-
+    create table trhu_inr (
+       inr_cod varchar(4) not null,
+        inr_idf_cod varchar(4) not null,
+        inr_usucre varchar(255),
+        inr_datcre timestamp,
+        inr_usumod varchar(255),
+        inr_datmod timestamp,
+        inr_cln_dat timestamp,
+        inr_cof_cod varchar(4),
+        inr_dat timestamp,
+        inr_fin timestamp,
+        inr_ini timestamp,
+        inr_ffo_cod int4,
+        inr_nod_nument int4,
+        inr_nod_numsor int4,
+        inr_obs varchar(1000),
+        inr_ope_cod varchar(4) not null,
+        inr_zon_cod varchar(4),
+        primary key (inr_cod, inr_idf_cod)
+    );
+    
 create table trhu_nod (
    nod_num varchar(255) not null,
     nod_idf_cod varchar(4) not null,
@@ -401,10 +398,10 @@ alter table trhu_emp
    foreign key (emp_idf_cod) 
    references trhu_idf;
 
-alter table trhu_gfe 
-   add constraint rrhu_gfe_idf_fk 
-   foreign key (gfe_idf_cod) 
-   references trhu_idf;
+  alter table trhu_gfe 
+       add constraint rrhu_gfe_idf_fk 
+       foreign key (gfe_idf_cod) 
+       references trhu_idf;
 
 alter table trhu_gre 
    add constraint rrhu_gre_idf_fk 
@@ -426,25 +423,25 @@ alter table trhu_hor
    foreign key (hor_idf_cod) 
    references trhu_idf;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_idf_fk 
-   foreign key (inr_idf_cod) 
-   references trhu_idf;
+ alter table trhu_inr 
+       add constraint rrhu_inr_idf_fk 
+       foreign key (inr_idf_cod) 
+       references trhu_idf;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_cln_fk 
-   foreign key (inr_cln_dat, inr_idf_cod) 
-   references trhu_cln;
+    alter table trhu_inr 
+       add constraint rrhu_inr_cln_fk 
+       foreign key (inr_cln_dat, inr_idf_cod) 
+       references trhu_cln;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_ope_fk 
-   foreign key (inr_ope_cod, inr_idf_cod) 
-   references trhu_ope;
+    alter table trhu_inr 
+       add constraint rrhu_inr_ope_fk 
+       foreign key (inr_ope_cod, inr_idf_cod) 
+       references trhu_ope;
 
-alter table trhu_inr 
-   add constraint rrhu_inr_zon_fk 
-   foreign key (inr_zon_cod, inr_idf_cod) 
-   references trhu_zon;
+    alter table trhu_inr 
+       add constraint rrhu_inr_zon_fk 
+       foreign key (inr_zon_cod, inr_idf_cod) 
+       references trhu_zon;
 
 alter table trhu_nod 
    add constraint rrhu_nod_idf_fk 

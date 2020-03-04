@@ -26,27 +26,27 @@ create table tges_acc (
     primary key (acc_cli_cod, acc_cod, acc_idf_cod)
 );
 
-create table tges_alb (
-   alb_emp_cod varchar(4) not null,
-    alb_cod varchar(4) not null,
-    alb_idf_cod varchar(4) not null,
-    alb_usucre varchar(255),
-    alb_datcre timestamp,
-    alb_usumod varchar(255),
-    alb_datmod timestamp,
-    alb_cls varchar(1) not null,
-    alb_dia timestamp not null,
-    alb_dti varchar(1) not null,
-    alb_valdiveur numeric(19, 2),
-    alb_fac_cls varchar(255),
-    alb_fac_num int4,
-    alb_fbl boolean not null,
-    alb_fpa varchar(1) not null,
-    alb_num int4 not null,
-    alb_numdoc int4,
-    alb_ser_codfac varchar(2),
-    primary key (alb_emp_cod, alb_cod, alb_idf_cod)
-);
+  create table tges_alb (
+       alb_emp_cod varchar(4) not null,
+        alb_numdoc int4 not null,
+        alb_idf_cod varchar(4) not null,
+        alb_usucre varchar(255),
+        alb_datcre timestamp,
+        alb_usumod varchar(255),
+        alb_datmod timestamp,
+        alb_cls varchar(1) not null,
+        alb_dia timestamp not null,
+        alb_dti varchar(1) not null,
+        alb_valdiveur numeric(19, 2),
+        alb_fac_cls varchar(255),
+        alb_fac_num int4,
+        alb_fbl varchar(1) not null,
+        alb_fpa varchar(1) not null,
+        alb_num int4 not null,
+        alb_ser_codfac varchar(2),
+        primary key (alb_emp_cod, alb_numdoc, alb_idf_cod)
+    );
+
 
 create table tges_ane (
    ane_emp_cod varchar(4) not null,
@@ -713,26 +713,26 @@ create table tges_mod (
     primary key (mod_cod, mod_idf_cod)
 );
 
-create table tges_mtr (
-   mtr_tra_cod varchar(4) not null,
-    mtr_cod varchar(4) not null,
-    mtr_idf_cod varchar(4) not null,
-    mtr_usucre varchar(255),
-    mtr_datcre timestamp,
-    mtr_usumod varchar(255),
-    mtr_datmod timestamp,
-    mtr_act varchar(1),
-    mtr_cdu varchar(30),
-    mtr_des varchar(60),
-    mtr_mtr001 varchar(10),
-    matricula_remolc varchar(255),
-    mtr_nif varchar(12),
-    mtr_obs varchar(1000),
-    mtr_pesmax numeric(19, 2),
-    mtr_tara numeric(19, 2),
-    mtr_vehemp varchar(1),
-    primary key (mtr_tra_cod, mtr_cod, mtr_idf_cod)
-);
+ create table tges_mtr (
+       mtr_tra_cod varchar(4) not null,
+        mtr_cod varchar(4) not null,
+        mtr_idf_cod varchar(4) not null,
+        mtr_usucre varchar(255),
+        mtr_datcre timestamp,
+        mtr_usumod varchar(255),
+        mtr_datmod timestamp,
+        mtr_act varchar(1),
+        mtr_cdu varchar(30),
+        mtr_des varchar(60),
+        mtr_mtr001 varchar(10),
+        mtr_mtr002 varchar(10),
+        mtr_nif varchar(12),
+        mtr_obs varchar(1000),
+        mtr_pesmax numeric(19, 2),
+        mtr_tara numeric(19, 2),
+        mtr_vehemp varchar(1),
+        primary key (mtr_tra_cod, mtr_cod, mtr_idf_cod)
+    );
 
 create table tges_npg (
    npg_cod varchar(4) not null,
@@ -1417,8 +1417,8 @@ create index iges_acc_idf_fk on tges_acc (acc_idf_cod);
        add constraint irges_acc_pk unique (acc_idf_cod, acc_cod);
 create index iges_alb_idf_fk on tges_alb (alb_idf_cod);
 
-    alter table tges_alb 
-       add constraint irges_alb_pk unique (alb_idf_cod, alb_cod);
+     alter table tges_alb 
+       add constraint irges_alb_pk unique (alb_idf_cod);
 create index iges_ane_idf_fk on tges_ane (ane_idf_cod);
 
     alter table tges_ane 
@@ -1569,15 +1569,15 @@ alter table tges_acc
    foreign key (acc_cli_cod, acc_scl_cod, acc_idf_cod) 
    references tges_scl;
 
-alter table tges_alb 
-   add constraint rges_alb_idf_fk 
-   foreign key (alb_idf_cod) 
-   references tges_idf;
+ alter table tges_alb 
+       add constraint rges_alb_idf_fk 
+       foreign key (alb_idf_cod) 
+       references tges_idf;
 
-alter table tges_alb 
-   add constraint rges_alb_emp_fk 
-   foreign key (alb_emp_cod, alb_idf_cod) 
-   references tges_emp;
+    alter table tges_alb 
+       add constraint rges_alb_emp_fk 
+       foreign key (alb_emp_cod, alb_idf_cod) 
+       references tges_emp;
 
 alter table tges_ane 
    add constraint rges_ane_idf_fk 
@@ -2109,15 +2109,15 @@ alter table tges_mod
    foreign key (mod_idf_cod) 
    references tges_idf;
 
-alter table tges_mtr 
-   add constraint rges_mtr_idf_fk 
-   foreign key (mtr_idf_cod) 
-   references tges_idf;
+  alter table tges_mtr 
+       add constraint rges_mtr_idf_fk 
+       foreign key (mtr_idf_cod) 
+       references tges_idf;
 
-alter table tges_mtr 
-   add constraint rges_zon_tra_fk 
-   foreign key (mtr_tra_cod, mtr_idf_cod) 
-   references tges_tra;
+    alter table tges_mtr 
+       add constraint rges_zon_tra_fk 
+       foreign key (mtr_tra_cod, mtr_idf_cod) 
+       references tges_tra;
 
 alter table tges_npg 
    add constraint rges_npg_idf_fk 
