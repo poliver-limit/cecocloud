@@ -837,6 +837,23 @@
 	"resource.registreComercial.field.producte": "Producto",
 	"resource.registreComercial.field.identificador": "Identificador",
 	
+	"resource.registreComercial.enum.tipus.CRIDADA": "Llamada",
+	"resource.registreComercial.enum.tipus.CORREU": "Correo",
+	"resource.registreComercial.enum.tipus.VISITA": "Visita",
+	"resource.registreComercial.enum.tipus.PRESENCIAL": "Presencial",
+	"resource.registreComercial.enum.tipus.INTERMEDIARI": "Intermediario",
+	
+	"resource.registreComercial.enum.mitja.WEB": "Web",
+	"resource.registreComercial.enum.mitja.CERCADOR": "Buscador",
+	"resource.registreComercial.enum.mitja.CONEGUT": "Conocido",
+	"resource.registreComercial.enum.mitja.FIRA": "Feria",
+	"resource.registreComercial.enum.mitja.PUBLICITAT": "Publicidad",
+	"resource.registreComercial.enum.mitja.CONEIX_EMPRESA": "Conoce la empresa",
+	"resource.registreComercial.enum.mitja.VISITA_COMERCIAL": "Visita comercial",
+	"resource.registreComercial.enum.mitja.REUNIO_DE_TREBALL": "Reunión de trabajo",
+	"resource.registreComercial.enum.mitja.FORMACIO": "Formación",
+	"resource.registreComercial.enum.mitja.ALTRES": "Otros",	
+	
 	"resource.seccioEmpresaDuplicat": "Sección empresa",
 	"resource.seccioEmpresa.plural": "Secciones empresa",
 	"resource.seccioEmpresa.field.seccio": "Sección",

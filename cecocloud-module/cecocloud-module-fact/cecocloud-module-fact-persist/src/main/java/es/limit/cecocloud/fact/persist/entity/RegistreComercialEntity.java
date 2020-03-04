@@ -128,9 +128,8 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.empresa = empresa;
-		this.client = client;
-		this.producte = producte;
+		this.empresa = empresa;		
+		
 		embedded.setData(new Date());
 		
 		this.updateClient(client);
@@ -143,12 +142,14 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 	}
 
 	public void updateClient(ClientEntity client) {
+		this.client = client;
 		if (client!=null) {
 			this.clientCodi = client.getEmbedded().getCodi();
 		}
 	}
 	
 	public void updateProducte(ProducteEntity producte) {
+		this.producte = producte;
 		if (producte!=null) {
 			this.producteRef = producte.getEmbedded().getReferencia();
 		}
