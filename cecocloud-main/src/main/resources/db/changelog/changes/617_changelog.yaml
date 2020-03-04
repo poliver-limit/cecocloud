@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 1583323572321-1
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: origen
+            type: INTEGER
+            defaultValueNumeric: 0
+            constraints:
+                nullable: false
+        tableName: usuari
