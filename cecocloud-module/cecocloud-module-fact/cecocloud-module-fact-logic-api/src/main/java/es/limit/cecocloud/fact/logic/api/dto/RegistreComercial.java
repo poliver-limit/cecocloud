@@ -55,6 +55,12 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 	private RegistreComercialTipusEnumDto tipus;
 	
 	@NotNull
+	@Size(max = 60)
+	@RestapiField(
+			includeInQuickFilter = true)
+	private String interessat;
+	
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = RegistreComercialMitjaConverter.class)
 	private RegistreComercialMitjaEnumDto mitja;
@@ -64,18 +70,13 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcioMitja;
-
-	@NotNull
-	@Size(max = 60)
-	@RestapiField(
-			includeInQuickFilter = true)
-	private String interessat;
 	
 	@RestapiField(
 			hiddenInLov = true, 
 			hiddenInGrid = false,
-			hiddenInForm = true)
-	private Date data;
+			hiddenInForm = false,
+			disabledForCreate = false)
+	private Date data = new Date();
 	
 	@Transient	
 	@RestapiField(

@@ -9,9 +9,7 @@ public enum RegistreComercialTipusEnumDto implements ConvertedEnumInterface<Stri
 	
 	CRIDADA("C"),
 	CORREU("M"),
-	VISITA("V"),
-	PRESENCIAL("P"),
-	INTERMEDIARI("I")
+	VISITA_PRESENCIAL("V")	
 	;
 	
 	private final String dbValue;

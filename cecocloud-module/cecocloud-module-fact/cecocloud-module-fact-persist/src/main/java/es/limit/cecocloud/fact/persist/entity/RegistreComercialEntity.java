@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
-import java.util.Date;
-
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -131,9 +129,8 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		this.empresa = empresa;		
 		
 		this.updateClient(client);
-		this.updateProducte(producte);
+		this.updateProducte(producte);	
 		
-		embedded.setData(new Date());
 	}
 
 	@Override
