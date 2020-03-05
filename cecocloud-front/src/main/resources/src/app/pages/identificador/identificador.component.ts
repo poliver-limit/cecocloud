@@ -116,12 +116,9 @@ export class IdentificadorComponent {
 		}]
 	};
 
-	constructor(
-		authService: BngAuthService,
-		public identificadorsService: IdentificadorsService,
-		public identificadorsPermissionService: IdentificadorsPermissionService) {
-		this.id = authService.getSession().i;
-		identificadorsPermissionService.setPermissionResourceId(this.id);
+	configurarAmbIdentificador(id: any) {
+		this.id = id;
+		this.identificadorsPermissionService.setPermissionResourceId(this.id);
 		this.identificadorsService.whenReady().subscribe((restapiProfile: BngRestapiProfile) => {
 			this.restapiResource = restapiProfile.resource;
 			this.identificadorsService.get(this.id).subscribe((identificador: any) => {
@@ -143,6 +140,18 @@ export class IdentificadorComponent {
 					});
 				});
 			});
+		});
+	}
+
+	constructor(
+		authService: BngAuthService,
+		public identificadorsService: IdentificadorsService,
+		public identificadorsPermissionService: IdentificadorsPermissionService) {
+		if (authService.getSession()) {
+			this.configurarAmbIdentificador(authService.getSession().i);
+		}
+		authService.getAuthTokenChangeEvent().subscribe(() => {
+			this.configurarAmbIdentificador(authService.getSession().i);
 		});
 	}
 
