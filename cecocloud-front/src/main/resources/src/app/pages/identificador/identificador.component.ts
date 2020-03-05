@@ -151,7 +151,8 @@ export class IdentificadorComponent {
 			this.configurarAmbIdentificador(authService.getSession().i);
 		}
 		authService.getAuthTokenChangeEvent().subscribe(() => {
-			this.configurarAmbIdentificador(authService.getSession().i);
+			if (authService.getSession()?.i)
+				this.configurarAmbIdentificador(authService.getSession().i);
 		});
 	}
 
