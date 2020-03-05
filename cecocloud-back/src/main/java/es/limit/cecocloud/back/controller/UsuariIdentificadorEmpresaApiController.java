@@ -87,7 +87,7 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 						}));
 	}
 	
-	@GetMapping(value = "/funcionalitats/{modul}",
+	@GetMapping(value = "/funcionalitats",
 			produces = "application/json")
 	public ResponseEntity<List<String>> funcionalitatsPermeses(
 			@PathVariable Modul modul) {
