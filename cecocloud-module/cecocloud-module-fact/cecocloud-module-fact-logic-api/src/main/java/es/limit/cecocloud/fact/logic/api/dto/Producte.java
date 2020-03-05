@@ -41,7 +41,9 @@ public class Producte extends AbstractIdentificableWithIdentificador<ProductePk>
 			disabledForUpdate = true,
 			disabledForCreate= true,
 			toUpperCase = true,
-			includeInQuickFilter = true)
+			hiddenInGrid = true,
+			hiddenInForm = true
+			)
 	private Integer referencia;
 	
 	@NotNull
@@ -57,29 +59,28 @@ public class Producte extends AbstractIdentificableWithIdentificador<ProductePk>
 	private String nom;	
 	
 	@Size(max = 1000)
-	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			includeInQuickFilter = true)
+	@RestapiField(hiddenInGrid = true,
+			type = RestapiFieldType.TEXTAREA
+	)
 	private String descripcio;	
 	
 	@Size(max = 1000)
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			includeInQuickFilter = true)
+			hiddenInGrid = true,
+			type = RestapiFieldType.TEXTAREA)
 	private String observacions;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-					hiddenInGrid = true,
-			includeInQuickFilter = true)	
+					hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)	
+			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Producte, ProductePk> producte;
 	
 	@NoArgsConstructor
