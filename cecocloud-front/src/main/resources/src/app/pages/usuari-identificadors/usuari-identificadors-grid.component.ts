@@ -147,12 +147,7 @@ export class UsuariIdentificadorsAddDialog implements AfterViewInit {
 			}),
 			switchMap((value: string) => {
 				if (!this.email.invalid) {
-					let requestParams: HalParam[] = [];
-					requestParams.push({
-						key: 'query',
-						value: 'email==' + value
-					});
-					return this.usuariService.getAll({ params: requestParams });
+					return this.usuariService.searchSingle("email/" + value);
 				} else {
 					return of(null);
 				}
@@ -160,8 +155,8 @@ export class UsuariIdentificadorsAddDialog implements AfterViewInit {
 			finalize(() => {
 				this.isLoading = false;
 			})).subscribe((data: any) => {
-				if (data && data.length == 1) {
-					this.usuari = data[0];
+				if (data?.id) {
+					this.usuari = data;
 				}
 			});
 	}
