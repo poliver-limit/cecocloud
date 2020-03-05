@@ -6,12 +6,9 @@ export class Perfil extends RestapiResource { };
 
 @Injectable()
 export class PerfilService extends BngRestapiService<Perfil> {
-	constructor(injector: Injector) {
-		super(Perfil, "perfil", injector);
-	}
 
 	public getFuncionalitatsByPerfil(id: number) {
-		return this.getHttpClient().get(this.getApiBaseUrl() + '/' + id + '/permisosFuncionalitats');
+		return this.getHttpClient().get(this.getApiBaseUrl() + '/' + id + '/funcionalitatsPermisos');
 	}
 
 	public getFuncionalitatsByPerfils(ids: number[]) {
@@ -22,10 +19,15 @@ export class PerfilService extends BngRestapiService<Perfil> {
 			ids.shift();
 			ids.forEach((id: number) => { params = params.append(`perfilsAddicionalsIds`, id.toString()); });
 		}
-		return this.getHttpClient().get(this.getApiBaseUrl() + '/' + id + '/permisosFuncionalitats', { params: params });
+		return this.getHttpClient().get(this.getApiBaseUrl() + '/' + id + '/funcionalitatsPermisos', { params: params });
 	}
 
 	public saveFuncionalitat(id: number, funcionalitatInfo: any) {
-		return this.getHttpClient().post(this.getApiBaseUrl() + '/' + id + '/permisosFuncionalitats', funcionalitatInfo);
+		return this.getHttpClient().post(this.getApiBaseUrl() + '/' + id + '/funcionalitatsPermisos', funcionalitatInfo);
 	}
+
+	constructor(injector: Injector) {
+		super(Perfil, "perfil", injector);
+	}
+
 }
