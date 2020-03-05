@@ -18,6 +18,7 @@ import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.helper.PermissionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -119,16 +120,16 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 	
 	@Override
 	@Transactional
-	public List<String> findAllowedFuncionalitats() {
+	public List<Funcionalitat> findAllowedFuncionalitats() {
 		
 		UserSession session = (UserSession)authenticationHelper.getSession();
 		List<PerfilEntity> perfils = perfilUsuariIdentificadorEmpresaRepository.findPerfilsByUsuariCodiAndIdentificadorIdAndEmpresaId(
 				authenticationHelper.getPrincipalName(), 
 				session.getI(), 
 				session.getE());
-		List<FuncionalitatEntity> funcionalitats = funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfils(perfils);
-		
-		return funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getCodi()).collect(Collectors.toList());
+		return toDto(
+				funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfils(perfils), 
+				Funcionalitat.class);
 	}
 
 	@Override

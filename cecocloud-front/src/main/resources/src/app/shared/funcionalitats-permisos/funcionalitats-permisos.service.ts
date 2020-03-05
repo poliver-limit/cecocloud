@@ -9,17 +9,18 @@ export class Recurs extends RestapiResource { }
 @Injectable({
 	providedIn: 'root'
 })
-export class FuncionalitatsPermisosServicea {
+export class FuncionalitatsPermisosService {
 
 	public getFuncionalitatsByPerfil(perfilId: number): Observable<any> {
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/perfils/' + perfilId + '/permisosFuncionalitats');
 	}
 
-	public getFuncionalitatsByPerfils(perfilId: number, perfilsId: number[]): Observable<any> {
+	public getFuncionalitatsByPerfils(perfilsId: number[]): Observable<any> {
 		let params = new HttpParams();
 		perfilsId.forEach((perfilId: number) => {
 			params = params.append(`perfilsId[]`, perfilId.toString());
 		})
+		const perfilId: number = perfilsId[0];
 		let perfilIdparams = perfilsId.join(', ');
 		//console.log("Params: ", params.toString());
 		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/perfils/' + perfilId + '/permisosFuncionalitats');

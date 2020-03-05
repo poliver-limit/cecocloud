@@ -259,13 +259,13 @@ export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 					this.empresaPerfils[index].usuariIdentificadorEmpresaId = null;
 					this.empresaPerfils[index].ids.splice(pos, 1);
 					this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
-					this.showMessage(this.translateKey('component.restapi.form.manteniment.deleted'));
+					// this.showMessage(this.translateKey('component.restapi.form.manteniment.deleted'));
 					this.disableSelects = false;
 				});
 			} else {
 				this.empresaPerfils[index].ids.splice(pos, 1);
 				this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
-				this.showMessage(this.translateKey('component.restapi.form.manteniment.deleted'));
+				// this.showMessage(this.translateKey('component.restapi.form.manteniment.deleted'));
 				this.disableSelects = false;
 			}
 		});
@@ -280,7 +280,7 @@ export class UsuariIdentificadorsFormComponent extends BngFormBaseComponent {
 				this.empresaPerfils[index].ids.splice(pos, 0, resposta.id);
 			}
 			this.epo = JSON.parse(JSON.stringify(this.empresaPerfils));
-			this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
+			// this.showMessage(this.translateKey('component.restapi.form.manteniment.created'));
 			this.disableSelects = false;
 		});
 	}

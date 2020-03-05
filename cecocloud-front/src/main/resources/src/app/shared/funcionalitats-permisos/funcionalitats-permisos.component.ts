@@ -12,6 +12,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from "./perfil-usuari-identif
 import {
 	FuncionalitatIdentificador
 } from "./funcionalitats-identificador.service";
+import { PerfilService } from './perfil.service';
 
 @Component({
 	selector: "cec-funcionalitats",
@@ -59,8 +60,9 @@ import {
 									<mat-checkbox
 										name="readGranted"
 										[checked]="funcionalitat.permission.readGranted"
-										[disabled]="!funcionalitat.allowedPermission.readGranted"
-										(click)="funcionalitat.allowedPermission.readGranted &&
+										[disabled]="disableToggles || !funcionalitat.allowedPermission.readGranted"
+										(click)="!disableToggles &&
+												funcionalitat.allowedPermission.readGranted &&
 												funcionalitat.tipus == 'MANTENIMENT' &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
@@ -79,8 +81,9 @@ import {
 									<mat-checkbox
 										name="createGranted"
 										[checked]="funcionalitat.permission.createGranted"
-										[disabled]="!funcionalitat.allowedPermission.createGranted"
-										(click)="funcionalitat.allowedPermission.createGranted &&
+										[disabled]="disableToggles || !funcionalitat.allowedPermission.createGranted"
+										(click)="!disableToggles &&
+												funcionalitat.allowedPermission.createGranted &&
 												funcionalitat.tipus == 'MANTENIMENT' &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
@@ -99,8 +102,9 @@ import {
 									<mat-checkbox
 										name="writeGranted"
 										[checked]="funcionalitat.permission.writeGranted"
-										[disabled]="!funcionalitat.allowedPermission.writeGranted"
-										(click)="funcionalitat.allowedPermission.writeGranted &&
+										[disabled]="disableToggles || !funcionalitat.allowedPermission.writeGranted"
+										(click)="!disableToggles &&
+												funcionalitat.allowedPermission.writeGranted &&
 												funcionalitat.tipus == 'MANTENIMENT' &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
@@ -119,8 +123,9 @@ import {
 									<mat-checkbox
 										name="deleteGranted"
 										[checked]="funcionalitat.permission.deleteGranted"
-										[disabled]="!funcionalitat.allowedPermission.deleteGranted"
-										(click)="funcionalitat.allowedPermission.deleteGranted &&
+										[disabled]="disableToggles || !funcionalitat.allowedPermission.deleteGranted"
+										(click)="!disableToggles &&
+												funcionalitat.allowedPermission.deleteGranted &&
 												funcionalitat.tipus == 'MANTENIMENT' &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
@@ -139,8 +144,9 @@ import {
 									<mat-checkbox
 										name="executeGranted"
 										[checked]="funcionalitat.permission.executeGranted"
-										[disabled]="!funcionalitat.allowedPermission.executeGranted"
-										(click)="funcionalitat.allowedPermission.executeGranted &&
+										[disabled]="disableToggles || !funcionalitat.allowedPermission.executeGranted"
+										(click)="!disableToggles &&
+												funcionalitat.allowedPermission.executeGranted &&
 												funcionalitat.tipus != 'MANTENIMENT' &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
@@ -161,6 +167,7 @@ import {
 												funcionalitat.allowedPermission.perm1Granted ||
 												funcionalitat.allowedPermission.perm2Granted ||
 												funcionalitat.allowedPermission.perm3Granted"
+										[disabled]="disableToggles"
 										[(value)]="funcionalitat.permission.selectedCustom"
 										multiple>
 										<mat-select-trigger>{{getCustomReducedLabel(indexModul, index)}}</mat-select-trigger>
@@ -230,6 +237,8 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		"altres"
 	];
 
+	disableToggles: boolean = true;
+
 	mobileScreen: boolean;
 	tableHeight: number;
 
@@ -253,8 +262,8 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 				case "perm3": funcionalitatInfo.permission.perm3Granted = check; break;
 			}
 
-			this.funcionalitatsPermisosService
-				.saveFuncionalitat(this.perfil, funcionalitatInfo, modulCodi)
+			this.perfilService
+				.saveFuncionalitat(this.perfil, funcionalitatInfo)
 				.subscribe(
 					() => {
 						this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission[permis + "Granted"] = check;
@@ -284,8 +293,8 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		const check = !funcionalitatInfo.permission[permis];
 		funcionalitatInfo.permission[permis] = check;
 
-		this.funcionalitatsPermisosService
-			.saveFuncionalitat(this.perfil, funcionalitatInfo, modulCodi)
+		this.perfilService
+			.saveFuncionalitat(this.perfil, funcionalitatInfo)
 			.subscribe(
 				() => {
 					this.funcionalitatsModuls[indexModul].funcionalitats[
@@ -299,11 +308,11 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 			);
 	}
 
-	onRefreshPermisos() {
-		this.funcionalitatsPermisosService.refreshPermisosPerfil(this.perfil).subscribe(() => {
+	// onRefreshPermisos() {
+	// 	this.perfilService.refreshPermisosPerfil(this.perfil).subscribe(() => {
 
-		});
-	}
+	// 	});
+	// }
 
 	getCustomReducedLabel(indexModul, indexRecurs) {
 		const funcionalitat = this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs];
@@ -346,9 +355,12 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 	ngOnInit(): void {
 		// Càrrega de permisos
 		if (this.perfil) {
-			this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(this.perfil).subscribe(funcionalitatsModuls => {
-				this.funcionalitatsModuls = funcionalitatsModuls;
-				console.log("Funcionalitats: ", this.funcionalitatsModuls);
+			this.disableToggles = false;
+			this.perfilService.whenReady().subscribe(() => {
+				this.perfilService.getFuncionalitatsByPerfil(this.perfil).subscribe(funcionalitatsModuls => {
+					this.funcionalitatsModuls = funcionalitatsModuls;
+					console.log("Funcionalitats: ", this.funcionalitatsModuls);
+				});
 			});
 		} else if (this.usuariIdentificadorEmpresa) {
 			const requestParams: HalParam[] = [];
@@ -370,22 +382,22 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 						perfilUsuariIdentificadorEmpreses == null ||
 						perfilUsuariIdentificadorEmpreses.length === 0
 					) {
-						this.funcionalitatsPermisosService.getFuncionalitatsByPerfil(-1).subscribe(funcionalitatsModuls => {
+						this.perfilService.getFuncionalitatsByPerfil(-1).subscribe(funcionalitatsModuls => {
 							this.funcionalitatsModuls = funcionalitatsModuls;
 						});
 					} else {
 						let perfils: number[];
-						if (
-							perfilUsuariIdentificadorEmpreses == null ||
-							perfilUsuariIdentificadorEmpreses.length === 0
-						) {
-							perfils = [-1];
-						} else {
-							perfils = perfilUsuariIdentificadorEmpreses.map(
-								puie => puie.perfil.id
-							);
-						}
-						this.funcionalitatsPermisosService.getFuncionalitatsByPerfils(perfils).subscribe(funcionalitatsModuls => {
+						// if (
+						// 	perfilUsuariIdentificadorEmpreses == null ||
+						//	perfilUsuariIdentificadorEmpreses.length === 0
+						// ) {
+						// 	perfils = [-1];
+						// } else {
+						perfils = perfilUsuariIdentificadorEmpreses.map(
+							puie => puie.perfil.id
+						);
+						// }
+						this.perfilService.getFuncionalitatsByPerfils(perfils).subscribe(funcionalitatsModuls => {
 							//console.log("FuncionalitatsPerfil: ", funcionalitatsModuls);
 							this.funcionalitatsModuls = funcionalitatsModuls;
 						});
@@ -396,9 +408,8 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 	}
 
 	constructor(
-		public funcionalitatsPermisosServicea: FuncionalitatsPermisosService,
+		public perfilService: PerfilService,
 		public perfilUsuariIdentificadorEmpresaService: PerfilUsuariIdentificadorEmpresaService,
-		// public funcionalitatsIdentificadorService: FuncionalitatsIdentificadorService,
 		translate: TranslateService,
 		private screenSizeService: BngScreenSizeService,
 		private snackbar: MatSnackBar) {
