@@ -12,10 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import es.limit.base.boot.persist.entity.AbstractEntity;
-import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
-import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi;
-import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
