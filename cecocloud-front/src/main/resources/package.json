@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "cp -a node_modules/@programari-limit/base-angular/assets/i18n/baseapp src/assets/i18n/baseapp",
+    "postinstall": "cp -a node_modules/@programari-limit/base-angular/assets/i18n/baseapp src/assets/i18n",
     "prepare": "sh link_module_resources"
   },
   "private": true,

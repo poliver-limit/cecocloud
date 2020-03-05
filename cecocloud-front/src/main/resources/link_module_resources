@@ -1,26 +1,29 @@
 #!/bin/sh
 cd $(dirname $0)
+
 rm -fr src/app/modules/fact
 ln -s ../../../../../../../cecocloud-module/cecocloud-module-fact/cecocloud-module-fact-front/src/main/resources/src/app/modules/fact src/app/modules/fact
 rm -fr src/assets/i18n/fact
 mkdir src/assets/i18n/fact
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-fact/cecocloud-module-fact-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/fact/ca.json
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-fact/cecocloud-module-fact-front/src/main/resources/src/assets/i18n/es.json src/assets/i18n/fact/es.json
+
 rm -fr src/app/modules/lici
 ln -s ../../../../../../../cecocloud-module/cecocloud-module-lici/cecocloud-module-lici-front/src/main/resources/src/app/modules/lici src/app/modules/lici
 rm -fr src/assets/i18n/lici
 mkdir src/assets/i18n/lici
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-lici/cecocloud-module-lici-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/lici/ca.json
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-lici/cecocloud-module-lici-front/src/main/resources/src/assets/i18n/es.json src/assets/i18n/lici/es.json
+
 rm -fr src/app/modules/marc
 ln -s ../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/app/modules/marc src/app/modules/marc
 rm -fr src/assets/i18n/marc
 mkdir src/assets/i18n/marc
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/marc/ca.json
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-marc/cecocloud-module-marc-front/src/main/resources/src/assets/i18n/es.json src/assets/i18n/marc/es.json
+
 rm -fr src/app/modules/rrhh
 ln -s ../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/app/modules/rrhh src/app/modules/rrhh
-rm -fr src/assets/i18n/rrhh
 rm -fr src/assets/i18n/rrhh
 mkdir src/assets/i18n/rrhh
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/rrhh/ca.json
