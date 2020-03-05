@@ -64,6 +64,7 @@ import es.limit.cecocloud.fact.logic.api.dto.Subvencio;
 import es.limit.cecocloud.fact.logic.api.dto.Tarifa;
 import es.limit.cecocloud.fact.logic.api.dto.TarifaDescompte;
 import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
+import es.limit.cecocloud.fact.logic.api.dto.TipusClient;
 import es.limit.cecocloud.fact.logic.api.dto.TipusComissio;
 import es.limit.cecocloud.fact.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.fact.logic.api.dto.TipusIncidenciaFactura;
@@ -107,7 +108,7 @@ public class FactModuleRegister {
 						"Albarans",
 						Modul.fact,
 						Arrays.asList(Albara.class),
-						Arrays.asList(Empresa.class)));
+						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_APLICA",
 				new FuncionalitatCodiFontImpl(
@@ -208,6 +209,15 @@ public class FactModuleRegister {
 						Arrays.asList(Banc.class),
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_CLARET",
+				new FuncionalitatCodiFontImpl(
+						"FAC_CLARET",
+						FuncionalitatTipus.MANTENIMENT,
+						"Classes de retencions",
+						Modul.fact,
+						Arrays.asList(ClasseRetencio.class),
+						Arrays.asList()));
+		funcionalitats.put(
 				"FAC_CLIENT",
 				new FuncionalitatCodiFontImpl(
 						"FAC_CLIENT",
@@ -236,7 +246,10 @@ public class FactModuleRegister {
 								ClasseRetencio.class,
 								ClientAdresa.class,
 								Organitzacio.class,
-								TarifaDescompte.class)));
+								TarifaDescompte.class,
+								Empresa.class,
+								TipusComissio.class,
+								PaisNif.class)));
 		funcionalitats.put(
 				"FAC_ADRCLI",
 				new FuncionalitatCodiFontImpl(
@@ -430,6 +443,16 @@ public class FactModuleRegister {
 								CodiPostal.class, 
 								Banc.class)));
 		funcionalitats.put(
+				"FAC_ORG",
+				new FuncionalitatCodiFontImpl(
+						"FAC_ORG",
+						FuncionalitatTipus.MANTENIMENT,
+						"Organitzacions",
+						Modul.fact,
+						Arrays.asList(Organitzacio.class),
+						Arrays.asList(
+								CodiPostal.class)));
+		funcionalitats.put(
 				"FAC_PAIS",
 				new FuncionalitatCodiFontImpl(
 						"FAC_PAIS",
@@ -439,6 +462,15 @@ public class FactModuleRegister {
 						Arrays.asList(Pais.class),
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_PAINIF",
+				new FuncionalitatCodiFontImpl(
+					"FAC_PAINIF",
+					FuncionalitatTipus.MANTENIMENT,
+					"Paisos per Nif",
+					Modul.fact,
+					Arrays.asList(PaisNif.class),
+					Arrays.asList()));
+		funcionalitats.put(
 				"FAC_PEUDOC",
 				new FuncionalitatCodiFontImpl(
 						"FAC_PEUDOC",
@@ -447,6 +479,15 @@ public class FactModuleRegister {
 						Modul.fact,
 						Arrays.asList(PeuDocument.class),
 						Arrays.asList(SerieCompra.class)));
+		funcionalitats.put(
+				"FAC_PROD",
+				new FuncionalitatCodiFontImpl(
+					"FAC_PROD",
+					FuncionalitatTipus.MANTENIMENT,
+					"Productes",
+					Modul.fact,
+					Arrays.asList(Producte.class),
+					Arrays.asList(Empresa.class)));
 		funcionalitats.put(
 				"FAC_PROJEC",
 				new FuncionalitatCodiFontImpl(
@@ -520,6 +561,17 @@ public class FactModuleRegister {
 						Arrays.asList(RegimIva.class),
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_REGCOM",
+				new FuncionalitatCodiFontImpl(
+					"FAC_REGCOM",
+					FuncionalitatTipus.MANTENIMENT,
+					"Registre comercial",
+					Modul.fact,
+					Arrays.asList(RegistreComercial.class),
+					Arrays.asList(
+							Client.class,
+							Producte.class)));
+		funcionalitats.put(
 				"FAC_SECEMP",
 				new FuncionalitatCodiFontImpl(
 						"FAC_SECEMP",
@@ -538,7 +590,9 @@ public class FactModuleRegister {
 						"Sèries de compra",
 						Modul.fact,
 						Arrays.asList(SerieCompra.class),
-						Arrays.asList(Magatzem.class)));
+						Arrays.asList(
+								Magatzem.class,
+								Empresa.class)));
 		funcionalitats.put(
 				"FAC_SERINT",
 				new FuncionalitatCodiFontImpl(
@@ -559,7 +613,8 @@ public class FactModuleRegister {
 						Arrays.asList(
 								PeuDocument.class,
 								Magatzem.class,
-								Departament.class)));
+								Departament.class,
+								Empresa.class)));
 		funcionalitats.put(
 				"FAC_SITCOM",
 				new FuncionalitatCodiFontImpl(
@@ -630,6 +685,26 @@ public class FactModuleRegister {
 						Modul.fact,
 						Arrays.asList(TarifaDescompte.class),
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_TIPADR",
+				new FuncionalitatCodiFontImpl(
+					"FAC_TIPADR",
+					FuncionalitatTipus.MANTENIMENT,
+					"Tipus adreça",
+					Modul.fact,
+					Arrays.asList(TipusAdresa.class),
+					Arrays.asList()));
+		funcionalitats.put(
+				"FAC_TIPCLI",
+				new FuncionalitatCodiFontImpl(
+					"FAC_TIPCLI",
+					FuncionalitatTipus.MANTENIMENT,
+					"Tipus client",
+					Modul.fact,
+					Arrays.asList(TipusClient.class),
+					Arrays.asList(
+							Client.class,
+							TipusProveidorClient.class)));
 		funcionalitats.put(
 				"FAC_TIPCOM",
 				new FuncionalitatCodiFontImpl(
@@ -753,61 +828,8 @@ public class FactModuleRegister {
 						"Cercador clients",
 						Modul.fact,
 						Arrays.asList(Client.class),
-						Arrays.asList()));
-		funcionalitats.put(
-				"FAC_CLARET",
-				new FuncionalitatCodiFontImpl(
-						"FAC_CLARET",
-						FuncionalitatTipus.MANTENIMENT,
-						"Classes de retencions",
-						Modul.fact,
-						Arrays.asList(ClasseRetencio.class),
-						Arrays.asList()));
-		funcionalitats.put(
-				"FAC_ORG",
-				new FuncionalitatCodiFontImpl(
-						"FAC_ORG",
-						FuncionalitatTipus.MANTENIMENT,
-						"Organitzacions",
-						Modul.fact,
-						Arrays.asList(Organitzacio.class),
-						Arrays.asList()));
-		funcionalitats.put(
-				"FAC_PAINIF",
-				new FuncionalitatCodiFontImpl(
-					"FAC_PAINIF",
-					FuncionalitatTipus.MANTENIMENT,
-					"Paisos per Nif",
-					Modul.fact,
-					Arrays.asList(PaisNif.class),
-					Arrays.asList()));
-		funcionalitats.put(
-				"FAC_TIPADR",
-				new FuncionalitatCodiFontImpl(
-					"FAC_TIPADR",
-					FuncionalitatTipus.MANTENIMENT,
-					"Tipus adreça",
-					Modul.fact,
-					Arrays.asList(TipusAdresa.class),
-					Arrays.asList()));
-		funcionalitats.put(
-				"FAC_REGCOM",
-				new FuncionalitatCodiFontImpl(
-					"FAC_REGCOM",
-					FuncionalitatTipus.MANTENIMENT,
-					"Registre comercial",
-					Modul.fact,
-					Arrays.asList(RegistreComercial.class),
-					Arrays.asList(Client.class, Producte.class)));
-		funcionalitats.put(
-				"FAC_PROD",
-				new FuncionalitatCodiFontImpl(
-					"FAC_PROD",
-					FuncionalitatTipus.MANTENIMENT,
-					"Productes",
-					Modul.fact,
-					Arrays.asList(Producte.class),
-					Arrays.asList()));
+						Arrays.asList()));		
+		
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
 				Zona.class.getPackage().getName(),

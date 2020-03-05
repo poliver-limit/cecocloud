@@ -68,6 +68,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private String numero;
 	
+	@NotNull
 	@Size(max = 250)
 	@RestapiField(			
 			hiddenInLov = true)
