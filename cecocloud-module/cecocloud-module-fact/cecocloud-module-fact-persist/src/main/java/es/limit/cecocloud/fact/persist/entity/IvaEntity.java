@@ -73,6 +73,7 @@ public class IvaEntity extends AbstractWithIdentificadorAuditableEntity<Iva, Wit
 			Iva embedded,
 			IdentificadorEntity identificador) {
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 	}

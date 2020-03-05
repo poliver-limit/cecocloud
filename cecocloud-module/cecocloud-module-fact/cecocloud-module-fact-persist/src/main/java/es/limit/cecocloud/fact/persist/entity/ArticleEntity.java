@@ -194,122 +194,79 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 		
 		this.embedded = embedded;
 		this.identificador = identificador;		
-		this.familia = familia;		
-		this.iva = iva;		
-		this.model = model;		
-		this.gamma = gamma;	
-		this.marca = marca;		
-		this.empresa = empresa;		
-		this.alternatiu = alternatiu;		
-		this.alternatiu2 = alternatiu2;		
-		this.articleRaee = articleRaee;
 		
-//		this.setEmbeddedCodis();
-		this.familiaCodi = familia.getEmbedded().getCodi();
-		this.ivaCodi = iva.getEmbedded().getCodi();
-		this.modelCodi = model.getEmbedded().getCodi();
-		
-		if (gamma!=null) {
-			this.gammaCodi = gamma.getEmbedded().getCodi();
-		}
-		if (marca!=null) {
-			this.marcaCodi = marca.getEmbedded().getCodi();
-		}
-		if (empresa!=null) {
-			this.empresaCodi = empresa.getEmbedded().getCodi();
-		}
-		if (alternatiu!=null) {
-			this.alternatiuCodi = alternatiu.getEmbedded().getCodi();
-		}
-		if (alternatiu2!=null) {
-			this.alternatiu2Codi = alternatiu2.getEmbedded().getCodi();
-		}
-		if (articleRaee!=null) {
-			this.articleRaeeCodi = articleRaee.getEmbedded().getCodi();
-		}
+		this.updateFamilia(familia);
+		this.updateIva(iva);
+		this.updateModel(model);
+		this.updateGamma(gamma);
+		this.updateMarca(marca);
+		this.updateEmpresa(empresa);
+		this.updateAlternatiu(alternatiu);
+		this.updateAlternatiu2(alternatiu2);
+		this.updateArticleRaee(articleRaee);
+
 	}
 
 	@Override
 	public void update(Article embedded) {
-		this.embedded = embedded;		
-//		this.setEmbeddedCodis();
+		this.embedded = embedded;
 	}
 	
 	public void updateFamilia(ArticleFamiliaEntity familia) {
+		this.familia = familia;		
 		this.familiaCodi = familia.getEmbedded().getCodi();
 	}
 	
 	public void updateIva(IvaEntity iva) {
+		this.iva = iva;		
 		this.ivaCodi = iva.getEmbedded().getCodi();
 	}
 	
 	public void updateModel(ArticleModelEntity model) {
+		this.model = model;		
 		this.modelCodi = model.getEmbedded().getCodi();
 	}
 	
 	public void updateGamma(ArticleGammaEntity gamma) {
+		this.gamma = gamma;	
 		if (gamma!=null) {
 			this.gammaCodi = gamma.getEmbedded().getCodi();
 		}
 	}
 	
 	public void updateMarca(ArticleMarcaEntity marca) {
+		this.marca = marca;		
 		if (marca!=null) {
 			this.marcaCodi = marca.getEmbedded().getCodi();
 		}
 	}
 	
 	public void updateEmpresa(EmpresaEntity empresa) {
+		this.empresa = empresa;		
 		if (empresa!=null) {
 			this.empresaCodi = empresa.getEmbedded().getCodi();
 		}
 	}
 	
 	public void updateAlternatiu(ArticleEntity alternatiu) {
+		this.alternatiu = alternatiu;	
 		if (alternatiu!=null) {
 			this.alternatiuCodi = alternatiu.getEmbedded().getCodi();
 		}
 	}
 	
 	public void updateAlternatiu2(ArticleEntity alternatiu2) {
+		this.alternatiu2 = alternatiu2;	
 		if (alternatiu2!=null) {
 			this.alternatiu2Codi = alternatiu2.getEmbedded().getCodi();
 		}
 	}
 	
 	public void updateArticleRaee(ArticleEntity articleRaee) {
+		this.articleRaee = articleRaee;
 		if (articleRaee!=null) {
 			this.articleRaeeCodi = articleRaee.getEmbedded().getCodi();
 		}
 	}
-	
-//	private void setEmbeddedCodis () {		
-//		
-//		// Referencies sobre camps obligatoris
-//		this.familiaCodi = embedded.getFamilia().getPk().getCodi();
-//		this.ivaCodi = embedded.getIva().getPk().getCodi();
-//		this.modelCodi = embedded.getModel().getPk().getCodi();
-//		
-//		// Referencies sobre camps no obligastoris		
-//		if (embedded.getGamma() != null) {
-//			this.gammaCodi = embedded.getGamma().getPk().getCodi();
-//		}		
-//		if (embedded.getMarca() != null) {
-//			this.marcaCodi = embedded.getMarca().getPk().getCodi();
-//		}		
-//		if (embedded.getEmpresa() != null) {
-//			this.empresaCodi = embedded.getEmpresa().getPk().getCodi();
-//		}		
-//		if (embedded.getAlternatiu() != null) {
-//			this.alternatiuCodi = embedded.getAlternatiu().getPk().getCodi();
-//		}		
-//		if (embedded.getAlternatiu2() != null) {
-//			this.alternatiu2Codi = embedded.getAlternatiu2().getPk().getCodi();
-//		}		
-//		if (embedded.getArticleRaee() != null) {
-//			this.articleRaeeCodi = embedded.getArticleRaee().getPk().getCodi();
-//		}
-//		
-//	}
 
 }

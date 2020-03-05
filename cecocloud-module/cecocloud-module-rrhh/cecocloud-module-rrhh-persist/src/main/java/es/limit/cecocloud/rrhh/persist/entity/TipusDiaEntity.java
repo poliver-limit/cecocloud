@@ -85,9 +85,9 @@ public class TipusDiaEntity extends AbstractWithIdentificadorAuditableEntity<Tip
 			RegimEntity regim) {
 		setId(pk);
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;	
 		
-		this.regimCodi = regim.getEmbedded().getCodi();		
+		this.updateRegim(regim);
 	}
 
 	@Override
@@ -96,6 +96,7 @@ public class TipusDiaEntity extends AbstractWithIdentificadorAuditableEntity<Tip
 	}
 
 	public void updateRegim (RegimEntity regim) {
+		this.regim = regim;
 		this.regimCodi = regim.getEmbedded().getCodi();				
 	}
 	

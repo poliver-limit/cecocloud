@@ -82,9 +82,11 @@ public class FamiliaClientEntity
 			IdentificadorEntity identificador, 
 			TipusRiscEntity tipusRisc) {
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		updateTipusRisc(tipusRisc);
+		
+		this.updateTipusRisc(tipusRisc);
 	}
 
 	@Override

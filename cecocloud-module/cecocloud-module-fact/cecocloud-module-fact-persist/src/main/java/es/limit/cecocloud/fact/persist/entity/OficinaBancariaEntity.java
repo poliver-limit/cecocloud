@@ -98,8 +98,9 @@ public class OficinaBancariaEntity extends AbstractWithIdentificadorAuditableEnt
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-		updateBanc(banc);
-		updateCodiPostal(codiPostal);
+		
+		this.updateBanc(banc);
+		this.updateCodiPostal(codiPostal);
 	}
 
 	@Override

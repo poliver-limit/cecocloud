@@ -124,17 +124,11 @@ public class DepartamentClientEntity extends AbstractWithIdentificadorAuditableE
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
-		
+		this.identificador = identificador;		
 		this.client = client;
 		
-		if (codiPostal!=null) {
-			this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
-		}
-		
-		if (subClient != null) {
-			this.subClientCodi = subClient.getEmbedded().getCodi();
-		}
+		this.updateCodiPostal(codiPostal);
+		this.updateSubClient(subClient);		
 	}
 
 	@Override
@@ -143,12 +137,14 @@ public class DepartamentClientEntity extends AbstractWithIdentificadorAuditableE
 	}
 	
 	public void updateCodiPostal (CodiPostalEntity codiPostal) {
+		this.codiPostal = codiPostal;
 		if (codiPostal!=null) {
 			this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
 		}
 	}
 	
 	public void updateSubClient (SubClientEntity subClient) {
+		this.subClient = subClient;
 		if (subClient!=null) {
 			this.subClientCodi = subClient.getEmbedded().getCodi();
 		}

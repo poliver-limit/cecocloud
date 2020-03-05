@@ -124,9 +124,9 @@ public class SeccioEmpresaEntity extends AbstractWithIdentificadorAuditableEntit
 		this.identificador = identificador;
 		this.empresa = empresa;
 		this.articleFamilia = articleFamilia;		
-//		this.articleFamiliaEmpresa = articleFamiliaEmpresa;
 		
-		this.seccioCodi = seccio.getEmbedded().getCodi();
+//		this.updateArticleFamiliaEmpresa(articleFamiliaEmpresa);		
+		this.updateSeccio(seccio);		
 	}
 
 	@Override
@@ -136,9 +136,11 @@ public class SeccioEmpresaEntity extends AbstractWithIdentificadorAuditableEntit
 	
 //	public void updateArticleFamiliaEmpresa (ArticleFamiliaEmpresaEntity articleFamiliaEmpresa) {
 //		this.articleFamiliaEmpresa = articleFamiliaEmpresa;		
+//		this.articleFamiliaEmpresaCodi = articleFamiliaEmpresa.getEmbedded().getCodi();
 //	}
 	
 	public void updateSeccio (SeccioEntity seccio) {
+		this.seccio = seccio;
 		this.seccioCodi = seccio.getEmbedded().getCodi();
 	}
 

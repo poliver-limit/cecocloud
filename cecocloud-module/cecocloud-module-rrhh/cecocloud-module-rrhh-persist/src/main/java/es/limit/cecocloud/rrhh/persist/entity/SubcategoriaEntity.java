@@ -92,9 +92,9 @@ public class SubcategoriaEntity extends AbstractWithIdentificadorAuditableEntity
 			CategoriaEntity categoria) {
 		setId(pk);
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;	
 		
-		this.categoriaCodi = categoria.getEmbedded().getCodi();		
+		this.updateCategoria(categoria);		
 	}
 
 	@Override
@@ -103,6 +103,7 @@ public class SubcategoriaEntity extends AbstractWithIdentificadorAuditableEntity
 	}
 	
 	public void updateCategoria (CategoriaEntity categoria) {
+		this.categoria = categoria;
 		this.categoriaCodi = categoria.getEmbedded().getCodi();		
 	}
 

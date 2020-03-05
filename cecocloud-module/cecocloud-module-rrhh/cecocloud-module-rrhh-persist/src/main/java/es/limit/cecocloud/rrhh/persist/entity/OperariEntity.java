@@ -110,7 +110,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.embedded = embedded;
 		this.identificador = identificador;
 		
-		this.horariCodi = horari.getEmbedded().getCodi();		
+		this.updateHorari(horari);		
 	}
 
 	@Override
@@ -119,6 +119,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	}
 	
 	public void updateHorari (HorariEntity horari) {
+		this.horari = horari;
 		this.horariCodi = horari.getEmbedded().getCodi();	
 	}	
 

@@ -110,10 +110,10 @@ public class PeuDocumentEntity extends AbstractWithIdentificadorAuditableEntity<
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
-		
+		this.identificador = identificador;		
 		this.empresa = empresa;
-		this.serieCompraCodi = serieCompra.getEmbedded().getCodi();
+		
+		this.updateSerieCompra(serieCompra);		
 	}
 
 	@Override
@@ -122,6 +122,7 @@ public class PeuDocumentEntity extends AbstractWithIdentificadorAuditableEntity<
 	}
 	
 	public void updateSerieCompra (SerieCompraEntity serieCompra) {
+		this.serieCompra = serieCompra;
 		this.serieCompraCodi = serieCompra.getEmbedded().getCodi();
 	}
 

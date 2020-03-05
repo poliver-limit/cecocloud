@@ -434,9 +434,5 @@ public class SubClientEntity extends AbstractWithIdentificadorAuditableEntity<Su
 			this.adresaComercialClientCodi = adresaComercialClient.getId().getCodi();
 		}
 	}
-
-
-	
-	
 	
 }

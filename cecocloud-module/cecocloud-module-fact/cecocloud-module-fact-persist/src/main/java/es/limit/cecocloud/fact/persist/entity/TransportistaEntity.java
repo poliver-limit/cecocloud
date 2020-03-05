@@ -124,11 +124,11 @@ public class TransportistaEntity extends AbstractWithIdentificadorAuditableEntit
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;		
 		
-		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
-		this.divisaCodi = divisa.getEmbedded().getCodi();
-		this.proveidorCodi = proveidor.getEmbedded().getCodi();
+		this.updateCodiPostal(codiPostal);		
+		this.updateDivisa(divisa);		
+		this.updateProveidor(proveidor);		
 	}
 
 	@Override
@@ -137,14 +137,17 @@ public class TransportistaEntity extends AbstractWithIdentificadorAuditableEntit
 	}
 	
 	public void updateCodiPostal (CodiPostalEntity codiPostal) {
+		this.codiPostal = codiPostal;
 		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
 	}
 	
 	public void updateDivisa (DivisaEntity divisa) {
+		this.divisa = divisa;
 		this.divisaCodi = divisa.getEmbedded().getCodi();
 	}
 	
 	public void updateProveidor (ProveidorEntity proveidor) {
+		this.proveidor = proveidor;
 		this.proveidorCodi = proveidor.getEmbedded().getCodi();
 	}
 

@@ -157,19 +157,13 @@ public class ProveidorEntity extends AbstractWithIdentificadorAuditableEntity<Pr
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.regimIva = regimIva;
-		this.codiPostal = codiPostal;
-		this.tipusVenciment = tipusVenciment;
-		this.divisa = divisa;
-		this.documentPagamentCobrament = documentPagamentCobrament;
-		this.familiaProveidor = familiaProveidor;
 		
-		this.regimIvaCodi = regimIva.getEmbedded().getCodi();
-		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
-		this.tipusVencimentCodi = tipusVenciment.getEmbedded().getCodi();
-		this.divisaCodi = divisa.getEmbedded().getCodi();
-		this.documentPagamentCobramentCodi = documentPagamentCobrament.getEmbedded().getCodi();
-		this.familiaProveidorCodi = familiaProveidor.getEmbedded().getCodi();
+		this.updateRegimIva(regimIva);		
+		this.updateCodiPostal(codiPostal);		
+		this.updateTipusVenciment(tipusVenciment);		
+		this.updateDivisa(divisa);		
+		this.updateDocumentPagamentCobrament(documentPagamentCobrament);	
+		this.updateFamiliaProveidor(familiaProveidor);		
 	}
 
 	@Override
@@ -178,26 +172,32 @@ public class ProveidorEntity extends AbstractWithIdentificadorAuditableEntity<Pr
 	}
 	
 	public void updateRegimIva(RegimIvaEntity regimIva) {
+		this.regimIva = regimIva;
 		this.regimIvaCodi = regimIva.getEmbedded().getCodi();
 	}
 	
 	public void updateCodiPostal(CodiPostalEntity codiPostal) {
+		this.codiPostal = codiPostal;
 		this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
 	}
 	
 	public void updateTipusVenciment(TipusVencimentEntity tipusVenciment) {
+		this.tipusVenciment = tipusVenciment;
 		this.tipusVencimentCodi = tipusVenciment.getEmbedded().getCodi();
 	}
 	
 	public void updateDivisa(DivisaEntity divisa) {
+		this.divisa = divisa;
 		this.divisaCodi = divisa.getEmbedded().getCodi();
 	}
 	
 	public void updateDocumentPagamentCobrament(DocumentPagamentCobramentEntity documentPagamentCobrament) {
+		this.documentPagamentCobrament = documentPagamentCobrament;
 		this.documentPagamentCobramentCodi = documentPagamentCobrament.getEmbedded().getCodi();
 	}
 	
 	public void updateFamiliaProveidor(FamiliaProveidorEntity familiaProveidor) {
+		this.familiaProveidor = familiaProveidor;
 		this.familiaProveidorCodi = familiaProveidor.getEmbedded().getCodi();
 	}
 

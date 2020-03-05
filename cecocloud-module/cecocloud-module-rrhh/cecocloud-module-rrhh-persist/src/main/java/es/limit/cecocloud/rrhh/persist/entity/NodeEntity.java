@@ -123,12 +123,11 @@ public class NodeEntity extends AbstractWithIdentificadorAuditableEntity<Node, W
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;		
 		
-		this.servidorCodi = servidor.getEmbedded().getCodi();
-		this.zonaOrigenCodi = zonaOrigen.getEmbedded().getCodi();
-		this.zonaDestiCodi = zonaDesti.getEmbedded().getCodi();
-		
+		this.updateServidor(servidor);		
+		this.updateZonaOrigen(zonaOrigen);		
+		this.updateZonaDesti(zonaDesti);		
 	}
 
 	@Override
@@ -137,14 +136,17 @@ public class NodeEntity extends AbstractWithIdentificadorAuditableEntity<Node, W
 	}
 	
 	public void updateServidor (ServidorEntity servidor) {
+		this.servidor = servidor;
 		this.servidorCodi = servidor.getEmbedded().getCodi();
 	}
 	
 	public void updateZonaOrigen (ZonaEntity zonaOrigen) {
+		this.zonaOrigen = zonaOrigen;
 		this.zonaOrigenCodi = zonaOrigen.getEmbedded().getCodi();
 	}
 	
 	public void updateZonaDesti (ZonaEntity zonaDesti) {
+		this.zonaDesti = zonaDesti;
 		this.zonaDestiCodi = zonaDesti.getEmbedded().getCodi();
 	}
 

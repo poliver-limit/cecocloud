@@ -78,8 +78,8 @@ public class MagatzemCrudTester extends AbstractCrudTester<Magatzem> {
 		assertEquals(expected.getDiariComptableTraspassos1(), actual.getDiariComptableTraspassos1());  
 		assertEquals(expected.getDiariComptableTraspassos2(), actual.getDiariComptableTraspassos2());  
 		assertEquals(expected.getCompteTraspassos(), actual.getCompteTraspassos());           
-		assertEquals(expected.getPeriodeActualCodi(), actual.getPeriodeActualCodi());          
-		assertEquals(expected.getPeriodeActualData(), actual.getPeriodeActualData());          
+//		assertEquals(expected.getPeriodeActualCodi(), actual.getPeriodeActualCodi());          
+//		assertEquals(expected.getPeriodeActualData(), actual.getPeriodeActualData());          
 	}
 
 	@Override

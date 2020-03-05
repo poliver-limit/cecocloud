@@ -109,9 +109,9 @@ public class UbicacioArticleEntity extends AbstractWithIdentificadorAuditableEnt
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.article = article;
-		this.magatzem = magatzem;
+		this.magatzem = magatzem;	
 		
-		this.ubicacioCodi = ubicacio.getEmbedded().getCodi();
+		this.updateUbicacio(ubicacio);
 	}
 
 	@Override
@@ -120,6 +120,7 @@ public class UbicacioArticleEntity extends AbstractWithIdentificadorAuditableEnt
 	}
 	
 	public void updateUbicacio(UbicacioEntity ubicacio) {
+		this.ubicacio = ubicacio;
 		this.ubicacioCodi = ubicacio.getEmbedded().getCodi();
 	}
 
