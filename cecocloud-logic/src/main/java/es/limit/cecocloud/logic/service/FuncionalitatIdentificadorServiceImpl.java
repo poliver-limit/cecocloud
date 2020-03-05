@@ -14,6 +14,7 @@ import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificador;
 import es.limit.cecocloud.logic.api.helper.FuncionalitatAcl;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorService;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorRepository;
@@ -33,10 +34,14 @@ public class FuncionalitatIdentificadorServiceImpl extends AbstractGenericServic
 	private FuncionalitatAcl funcionalitatAcl;
 
 	@Override
-	public List<Funcionalitat> funcionalitatFindByIdentificadorId(Long identificadorId) throws EntityNotFoundException {
+	public List<Funcionalitat> funcionalitatFindByIdentificadorIdAndModul(
+			Long identificadorId,
+			Modul modul) throws EntityNotFoundException {
 		return toDto(
-				((FuncionalitatIdentificadorRepository)getRepository()).findFuncionalitatByIdentificador(
-						identificadorRepository.findById(identificadorId).get()),
+				((FuncionalitatIdentificadorRepository)getRepository()).findFuncionalitatByIdentificadorAndModulOrderByFuncionalitatModul(
+						identificadorRepository.findById(identificadorId).get(),
+						modul == null,
+						modul),
 				Funcionalitat.class);
 	}
 

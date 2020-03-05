@@ -18,17 +18,22 @@ import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.helper.PermissionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Empresa;
+import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.IdentificadorEmpresaSelectionTreeItem;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresa;
 import es.limit.cecocloud.logic.api.dto.UsuariIdentificadorEmpresaPerfilTreeItem;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.service.UsuariIdentificadorEmpresaService;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import es.limit.cecocloud.persist.entity.PerfilEntity;
 import es.limit.cecocloud.persist.entity.PerfilUsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEmpresaEntity;
 import es.limit.cecocloud.persist.entity.UsuariIdentificadorEntity;
+import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorPerfilRepository;
 import es.limit.cecocloud.persist.repository.PerfilUsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorEmpresaRepository;
 import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
@@ -49,6 +54,8 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 	private UsuariIdentificadorEmpresaRepository usuariIdentificadorEmpresaRepository;
 	@Autowired
 	private PerfilUsuariIdentificadorEmpresaRepository perfilUsuariIdentificadorEmpresaRepository;
+	@Autowired
+	private FuncionalitatIdentificadorPerfilRepository funcionalitatIdentificadorPerfilRepository;
 	@Autowired
 	private PermissionHelper permissionHelper;
 
@@ -109,6 +116,34 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 							perfils));
 		}
 		return usuariEmpresaPerfilTree;
+	}
+	
+	@Override
+	@Transactional
+	public List<Funcionalitat> findAllowedFuncionalitats() {
+		
+		UserSession session = (UserSession)authenticationHelper.getSession();
+		List<PerfilEntity> perfils = perfilUsuariIdentificadorEmpresaRepository.findPerfilsByUsuariCodiAndIdentificadorIdAndEmpresaId(
+				authenticationHelper.getPrincipalName(), 
+				session.getI(), 
+				session.getE());
+		return toDto(
+				funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfils(perfils), 
+				Funcionalitat.class);
+	}
+
+	@Override
+	@Transactional
+	public List<String> findAllowedFuncionalitatsByModul(Modul modul) {
+		
+		UserSession session = (UserSession)authenticationHelper.getSession();
+		List<PerfilEntity> perfils = perfilUsuariIdentificadorEmpresaRepository.findPerfilsByUsuariCodiAndIdentificadorIdAndEmpresaId(
+				authenticationHelper.getPrincipalName(), 
+				session.getI(), 
+				session.getE());
+		List<FuncionalitatEntity> funcionalitats = funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfilsAndModul(perfils, modul);
+		
+		return funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getCodi()).collect(Collectors.toList());
 	}
 
 }
