@@ -134,6 +134,24 @@ export class AppService {
 		}
 	}
 
+	// public isCurrentRooteAdmin(): boolean {
+	// 	let adminRoute = false
+
+	// 	const routerUrl = this.router.url.substring(1);
+	// 	const seccio = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+	// 	// Menu admin
+	// 	for (let item of this.adminMenu.items) {
+	// 		if (item.route === ("/" + seccio))
+	// 			return true;
+	// 	}
+	// 	// Menu admin-identificador
+	// 	for (let item of this.adminIdentificadorMenu.items) {
+	// 		if (item.route === ("/" + seccio))
+	// 			return true;
+	// 	}
+	// 	return false;
+	// }
+
 	private registerGlobalMenus() {
 		this.menuService.registerGlobal('admin', this.adminMenu);
 		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);

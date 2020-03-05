@@ -26,6 +26,7 @@ export class AppComponent {
 	tokenPayload: BngAuthTokenPayload;
 	initialMenuSelected: boolean;
 	changeRouteWhenAllowedModulesChanged: boolean;
+	empresaSelected: boolean;
 
 	onModuleSelected(module: string) {
 		let menu: BngMenu = this.appService.getModuleMenu(module);
@@ -42,10 +43,12 @@ export class AppComponent {
 	}
 
 	onIdentificadorEmpresaSelected(identificadorEmpresa: any) {
+		this.empresaSelected = identificadorEmpresa.empresa != null;
 		this.changeRouteWhenAllowedModulesChanged = true;
 	}
 
 	onIdentificadorAdminSelected(identificador: any) {
+		this.empresaSelected = false;
 		let menu: BngMenu = this.appService.getAdminIdentificadorMenu();
 		menu.label = identificador.descripcio;
 		this.menuService.setActiveMenu(menu);
@@ -101,11 +104,12 @@ export class AppComponent {
 				if (modules && modules.length === 1) {
 					this.moduleService.selectionSet(modules[0].code);
 					this.onModuleSelected(modules[0].code);
-				} else {
+				} else if (this.empresaSelected) { //!this.appService.isCurrentRooteAdmin() ||
 					this.moduleService.selectionClear();
 					this.menuService.setActiveMenu(undefined);
 					this.router.navigate(['/']);
 				}
+				this.changeRouteWhenAllowedModulesChanged
 			}
 		});
 		// Configura el menu inicial al carregar l'aplicació
