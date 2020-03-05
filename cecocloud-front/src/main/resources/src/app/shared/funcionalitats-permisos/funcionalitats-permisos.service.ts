@@ -12,7 +12,7 @@ export class Recurs extends RestapiResource { }
 export class FuncionalitatsPermisosService {
 
 	public getFuncionalitatsByPerfil(perfilId: number): Observable<any> {
-		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfil/' + perfilId);
+		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/perfils/' + perfilId + '/permisosFuncionalitats');
 	}
 
 	public getFuncionalitatsByPerfils(perfilsId: number[]): Observable<any> {
@@ -20,9 +20,10 @@ export class FuncionalitatsPermisosService {
 		perfilsId.forEach((perfilId: number) => {
 			params = params.append(`perfilsId[]`, perfilId.toString());
 		})
+		const perfilId: number = perfilsId[0];
 		let perfilIdparams = perfilsId.join(', ');
 		//console.log("Params: ", params.toString());
-		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/funcionalitatIdentificadorPerfils/perfils/' + perfilIdparams); //, { params: params });
+		return this.restapiConfigService.getHttp().get(this.restapiConfigService.getContextPath() + '/perfils/' + perfilId + '/permisosFuncionalitats');
 	}
 
 	public saveFuncionalitat(perfilId: number, funcionalitatInfo: any, modulCodi: any) {

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
@@ -29,8 +30,13 @@ public interface FuncionalitatIdentificadorRepository extends BaseRepository<Fun
 			" from " +
 			"    FuncionalitatIdentificadorEntity fid " +
 			"where " +
-			"    fid.identificador = :identificador")
-	List<FuncionalitatEntity> findFuncionalitatByIdentificador(
-			@Param("identificador") IdentificadorEntity identificador);
+			"    fid.identificador = :identificador " +
+			"and (:esNullModul = true or fid.funcionalitat.embedded.modul = :modul) " +
+			"order by " +
+			"    fid.funcionalitat.embedded.modul asc")
+	List<FuncionalitatEntity> findFuncionalitatByIdentificadorAndModulOrderByFuncionalitatModul(
+			@Param("identificador") IdentificadorEntity identificador,
+			@Param("esNullModul") boolean esNullModul,
+			@Param("modul") Modul modul);
 
 }

@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'una relació funcionalitat-perfil.
+ * Informació d'una relació funcionalitat-identificador-perfil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

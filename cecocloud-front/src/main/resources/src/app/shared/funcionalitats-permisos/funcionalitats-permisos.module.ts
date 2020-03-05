@@ -11,6 +11,7 @@ import { MaterialModule } from '../material.module';
 import { FuncionalitatsPermisosComponent } from './funcionalitats-permisos.component';
 import { FuncionalitatsPermisosService } from './funcionalitats-permisos.service';
 import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identificador-empresa.service';
+import { PerfilService } from './perfil.service';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { PerfilUsuariIdentificadorEmpresaService } from './perfil-usuari-identif
         FuncionalitatsPermisosComponent
     ],
     providers: [
+        PerfilService,
         FuncionalitatsPermisosService,
         PerfilUsuariIdentificadorEmpresaService,
         { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }

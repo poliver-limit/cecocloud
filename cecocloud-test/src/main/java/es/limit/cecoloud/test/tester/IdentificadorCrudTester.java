@@ -74,6 +74,7 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 	@Override
 	public void afterCreate(Identificador dto, boolean isParentResource) {
 		if (isParentResource) {
+			// Establir identificador a la sessió d'usuari
 			UserSession session = (UserSession)getSession();
 			if (session == null) {
 				session = new UserSession();

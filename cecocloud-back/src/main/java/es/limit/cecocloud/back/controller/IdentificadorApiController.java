@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableWithPermissionsApiController;
@@ -28,6 +29,7 @@ import es.limit.base.boot.logic.api.service.UsuariService;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorService;
 
 /**
@@ -64,8 +66,9 @@ public class IdentificadorApiController extends AbstractIdentificableWithPermiss
 			produces = "application/json")
 	@PreAuthorize("hasPermission(0, this.getDtoClassName(), 'READ')")
 	public ResponseEntity<CollectionModel<EntityModel<Funcionalitat>>> findFuncionalitats(
-			@PathVariable final Long resourceId) {
-		List<Funcionalitat> funcionalitats = funcionalitatIdentificadorService.funcionalitatFindByIdentificadorId(resourceId);
+			@PathVariable final Long resourceId,
+			@RequestParam(required = false) Modul modul) {
+		List<Funcionalitat> funcionalitats = funcionalitatIdentificadorService.funcionalitatFindByIdentificadorIdAndModul(resourceId, modul);
 		return ResponseEntity.ok(
 				toResources(
 						funcionalitats,
@@ -75,7 +78,7 @@ public class IdentificadorApiController extends AbstractIdentificableWithPermiss
 
 	@Override
 	protected Link[] additionalLinks(Long id) {
-		Link funcionalitatsLink = linkTo(methodOn(getClass()).findFuncionalitats(id)).withRel(LinkRelation.of("funcionalitats"));
+		Link funcionalitatsLink = linkTo(methodOn(getClass()).findFuncionalitats(id, null)).withRel(LinkRelation.of("funcionalitats"));
 		return new Link[] {funcionalitatsLink};
 	}
 
