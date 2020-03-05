@@ -76,9 +76,8 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 	@Override
 	public void funcionalitatPermisSave(
 			Long id,
-			String modul,
 			FuncionalitatPermis funcionalitatPermis) throws ClassNotFoundException {
-		Optional<es.limit.base.boot.logic.api.module.ModuleInfo> opModul = Modules.registeredGetOne(modul);
+		Optional<es.limit.base.boot.logic.api.module.ModuleInfo> opModul = Modules.registeredGetOne(funcionalitatPermis.getModul());
 		if (opModul.isPresent()) {
 			ModuleInfo moduleInfo = (ModuleInfo)opModul.get();
 			FuncionalitatCodiFont funcionalitatCodi = moduleInfo.getFuncionalitats().get(funcionalitatPermis.getCodi());
@@ -146,6 +145,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 						funcidfModul.getId(),
 						funcidfModul.getFuncionalitat().getEmbedded().getCodi(),
 						funcidfModul.getFuncionalitat().getEmbedded().getDescripcio(),
+						modul.getCode(),
 						funcidfModul.getFuncionalitat().getEmbedded().getTipus(),
 						new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, ""),
 						new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, ""));

@@ -51,6 +51,16 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 			"    left outer join fi.funcionalitat as f " +
 			"where " +
 			"	 fip.perfil in :perfils " +
+			"and UPPER(fip.embedded.permis) = 'READ' ")
+	List<FuncionalitatEntity> findAllowedFuncionalitatsByPerfils(List<PerfilEntity> perfils);
+	
+	@Query(	"select distinct f " +
+			" from " +
+			"    FuncionalitatIdentificadorPerfilEntity fip " +
+			"    left outer join fip.funcionalitatIdentificador as fi " +
+			"    left outer join fi.funcionalitat as f " +
+			"where " +
+			"	 fip.perfil in :perfils " +
 			"and UPPER(fip.embedded.permis) = 'READ' " + // or UPPER(fip.embedded.permis) = 'ADMINISTRATION') " +
 			"and f.embedded.modul = :modul ")
 	List<FuncionalitatEntity> findAllowedFuncionalitatsByPerfilsAndModul(List<PerfilEntity> perfils, Modul modul);

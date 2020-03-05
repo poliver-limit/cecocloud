@@ -18,6 +18,7 @@ public class FuncionalitatPermis {
 	private Long id;
 	private String codi;
 	private String descripcio;
+	private String modul;
 	private FuncionalitatTipus tipus;
 	private BaseBootPermission permission;
 	private BaseBootPermission allowedPermission;
@@ -26,6 +27,7 @@ public class FuncionalitatPermis {
 			Long id,
 			String codi,
 			String descripcio,
+			String modul,
 			FuncionalitatTipus tipus,
 			BaseBootPermission permission,
 			BaseBootPermission allowedPermission) {
@@ -33,6 +35,7 @@ public class FuncionalitatPermis {
 		this.id = id;
 		this.codi = codi;
 		this.descripcio = descripcio;
+		this.modul = modul;
 		this.tipus = tipus;
 		this.permission = permission;
 		this.allowedPermission = allowedPermission;
@@ -42,11 +45,13 @@ public class FuncionalitatPermis {
 			Long id,
 			String codi,
 			String descripcio,
+			String modul,
 			FuncionalitatTipus tipus) {
 		super();
 		this.id = id;
 		this.codi = codi;
 		this.descripcio = descripcio;
+		this.modul = modul;
 		this.tipus = tipus;
 	}
 	

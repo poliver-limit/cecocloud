@@ -56,19 +56,18 @@ public class PerfilApiController extends AbstractIdentificableWithIdentificadorA
 			produces = "application/json")
 	public ResponseEntity<EntityModel<BaseBootPermission>> funcionalitatPermisSave(
 			@PathVariable Long perfilId,
-			@PathVariable String modul,
 			@RequestBody @Valid final FuncionalitatPermis funcionalitatPermis) throws ClassNotFoundException {
 		log.debug("Guardant permís de la funcionalitat pel perfil(" +
 				"perfilId=" + perfilId + ", " +
 				"funcionalitatPermis.descripcio=" + funcionalitatPermis.getDescripcio() + ", " +
 				"funcionalitatPermis.tipus= " + funcionalitatPermis.getTipus() + ", " +
 				"funcionalitatPermis.permission=" + funcionalitatPermis.getPermission() + ")");
-		((PerfilService)getService()).funcionalitatPermisSave(perfilId, modul, funcionalitatPermis);
+		((PerfilService)getService()).funcionalitatPermisSave(perfilId, funcionalitatPermis);
 		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping(
-			value = "/perfil/{perfilId}/permisosFuncionalitats/refresh",
+			value = "/{perfilId}/permisosFuncionalitats/refresh",
 			produces = "application/json")
 	public ResponseEntity<EntityModel<BaseBootPermission>> funcionalitatPermisRefresh(
 			@PathVariable Long perfilId) throws ClassNotFoundException {
@@ -77,20 +76,11 @@ public class PerfilApiController extends AbstractIdentificableWithIdentificadorA
 		return ResponseEntity.ok().build();
 	}
 
-	/*@GetMapping(value = "/usuari/{modul}",
-			produces = "application/json")
-	public ResponseEntity<List<String>> findAllowedFuncionalitatsByUsuariAndModule(
-			HttpServletRequest request,
-			@PathVariable Modul modul) {
-		
-		return ResponseEntity.ok(funcionalitatPerfilService.findAllowedFuncionalitatsByModul(modul));
-	}*/
-
 	@Override
 	protected Link[] additionalLinks(Long id) {
 		Link funcionalitatsPermisosLink = linkTo(methodOn(getClass()).funcionalitatPermisFind(id, null)).withRel(LinkRelation.of("funcionalitatsPermisos"));
 		try {
-			Link funcionalitatsPermisosSaveLink = linkTo(methodOn(getClass()).funcionalitatPermisSave(id, null, null)).withRel(LinkRelation.of("funcionalitatsPermisosSave"));
+			Link funcionalitatsPermisosSaveLink = linkTo(methodOn(getClass()).funcionalitatPermisSave(id, null)).withRel(LinkRelation.of("funcionalitatsPermisosSave"));
 			Link funcionalitatsPermisosRefreshLink = linkTo(methodOn(getClass()).funcionalitatPermisRefresh(id)).withRel(LinkRelation.of("funcionalitatsPermisosRefresh"));
 			return new Link[] {funcionalitatsPermisosLink, funcionalitatsPermisosSaveLink, funcionalitatsPermisosRefreshLink};
 		} catch (ClassNotFoundException ex) {

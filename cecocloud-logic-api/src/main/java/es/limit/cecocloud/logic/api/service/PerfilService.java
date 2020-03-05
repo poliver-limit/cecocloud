@@ -35,8 +35,6 @@ public interface PerfilService extends GenericService<Perfil, Long> {
 	 * 
 	 * @param id
 	 *            l'id del perfil.
-	 * @param modul
-	 *            el codi del mòdul.
 	 * @param funcionalitatPermis
 	 *            la informació a guardar.
 	 * @throws ClassNotFoundException
@@ -44,7 +42,6 @@ public interface PerfilService extends GenericService<Perfil, Long> {
 	 */
 	public void funcionalitatPermisSave(
 			Long id,
-			String modul,
 			FuncionalitatPermis funcionalitatPermis) throws ClassNotFoundException;
 
 	/**
