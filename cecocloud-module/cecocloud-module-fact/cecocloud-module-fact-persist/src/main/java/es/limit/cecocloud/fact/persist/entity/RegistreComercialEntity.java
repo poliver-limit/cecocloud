@@ -57,13 +57,16 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.mitja", column = @Column(name = "rgc_mtj", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.descripcioMitja", column = @Column(name = "rgc_desmtj", length = 60, nullable = false)),
 	@AttributeOverride(name = "embedded.interessat", column = @Column(name = "rgc_int", length = 60, nullable = false)),
-	@AttributeOverride(name = "embedded.data", column = @Column(name = "rgc_dat")),	
+	@AttributeOverride(name = "embedded.data", column = @Column(name = "rgc_dat")),
+	@AttributeOverride(name = "embedded.dadesContacte", column = @Column(name = "rgc_dac")),	
+	@AttributeOverride(name = "embedded.comentaris", column = @Column(name = "rgc_com")),	
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "rgc_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "rgc_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "rgc_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "rgc_datmod"))
 })
+
 @AssociationOverrides({
 	@AssociationOverride(
 			name = "identificador",
