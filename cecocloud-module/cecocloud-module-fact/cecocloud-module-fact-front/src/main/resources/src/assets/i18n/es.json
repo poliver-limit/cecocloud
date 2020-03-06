@@ -835,6 +835,8 @@
 	"resource.registreComercial.field.data": "Fecha",
 	"resource.registreComercial.field.client": "Cliente",
 	"resource.registreComercial.field.producte": "Producto",
+	"resource.registreComercial.field.dadesContacte": "Datos de contacto",
+	"resource.registreComercial.field.comentaris": "Comentarios",
 	"resource.registreComercial.field.identificador": "Identificador",
 	
 	"resource.registreComercial.enum.tipus.CRIDADA": "Llamada",
