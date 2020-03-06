@@ -70,7 +70,7 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 					Identificador.class,
 					identificador.getId(),
 					ExtendedPermission.ADMINISTRATION);
-			List<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdOrderByEmpresaEmbeddedNom(
+			List<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdAndEmpresaEmbeddedActivaTrueOrderByEmpresaEmbeddedNom(
 					usuariCodi,
 					identificador.getId());
 			List<Empresa> empreses = usuariIdentificadorEmpreses.stream().map(usuariIdentificadorEmpresa -> {
@@ -101,7 +101,7 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 	public List<UsuariIdentificadorEmpresaPerfilTreeItem> buildPerfilTree() {
 		List<UsuariIdentificadorEmpresaPerfilTreeItem> usuariEmpresaPerfilTree = new ArrayList<UsuariIdentificadorEmpresaPerfilTreeItem>();
 		UserSession session = (UserSession)authenticationHelper.getSession();
-		List<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdOrderByEmpresaEmbeddedNom(
+		List<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses = usuariIdentificadorEmpresaRepository.findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdAndEmpresaEmbeddedActivaTrueOrderByEmpresaEmbeddedNom(
 				authenticationHelper.getPrincipalName(),
 				session.getI());
 		for (UsuariIdentificadorEmpresaEntity usuariIdentificadorEmpresa: usuariIdentificadorEmpreses) {

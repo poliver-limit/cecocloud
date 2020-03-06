@@ -27,7 +27,7 @@ public interface UsuariIdentificadorEmpresaRepository extends BaseRepository<Usu
 			Long identificadorId,
 			Long empresaId);
 
-	List<UsuariIdentificadorEmpresaEntity> findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdOrderByEmpresaEmbeddedNom(
+	List<UsuariIdentificadorEmpresaEntity> findByUsuariIdentificadorUsuariEmbeddedCodiAndEmpresaIdentificadorIdAndEmpresaEmbeddedActivaTrueOrderByEmpresaEmbeddedNom(
 			String usuariCodi,
 			Long identificadorId);
 
