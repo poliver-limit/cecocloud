@@ -52,6 +52,12 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 			includeInQuickFilter = true)
 	private String codi;
 	
+	@Size(max = 30)
+	@RestapiField(
+			hiddenInGrid = false,
+			hiddenInLov = true)
+	private String nom;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
@@ -61,12 +67,6 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
-	@Size(max = 30)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String nom;
-	
 	@Size(max = 60)
 	@RestapiField(
 			hiddenInGrid = true,
@@ -74,7 +74,9 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private String domicili;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 //	@Size(max = 1)
@@ -92,15 +94,21 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private Boolean preusPerVolum;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<Tarifa, WithIdentificadorAndCodiPk<String>> tarifa1;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<Tarifa, WithIdentificadorAndCodiPk<String>> tarifa2;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<TarifaDescompte, WithIdentificadorAndCodiPk<String>> tarifaDescompte;
 	
 //	@Size(max = 1)
@@ -111,23 +119,33 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private TipusDescompteEnumDto tipusDescompte;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<TipusComissio, WithIdentificadorAndCodiPk<String>> tipusComissio;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk< TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment1;
 
 	@RestapiField(
@@ -143,11 +161,15 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private TipusRetencioEnumDto tipusRetencio;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk< ClasseRetencio, WithIdentificadorAndCodiPk<String>> claseRetencio;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk< Zona, WithIdentificadorAndCodiPk<String>> zona;
 
 	@RestapiField(
@@ -189,11 +211,15 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private String actividad;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operarioEncargado;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operarioResp;
 	
 	@RestapiField(
@@ -207,7 +233,9 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private BigDecimal longitud;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			hiddenInGrid = true,
+			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<ClientAdresa,ClientAdresaPk > adresaComercialClient;
 	
 	@Size (max = 255)

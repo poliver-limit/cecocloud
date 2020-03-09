@@ -956,23 +956,26 @@ create table tges_rap (
     primary key (rap_cod, rap_idf_cod)
 );
 
-create table tges_rgc (
+  create table tges_rgc (
        rgc_emp_cod varchar(4) not null,
-         rgc_seq int4 not null,
+        rgc_seq int4 not null,
         rgc_idf_cod varchar(4) not null,
         rgc_usucre varchar(255),
         rgc_datcre timestamp,
         rgc_usumod varchar(255),
         rgc_datmod timestamp,
         rgc_cli_cod varchar(4),
+        rgc_com varchar(255),
+        rgc_dac varchar(255),
         rgc_dat timestamp,
         rgc_desmtj varchar(60) not null,
         rgc_int varchar(60) not null,
         rgc_mtj varchar(1) not null,
         rgc_tip varchar(1) not null,
         rgc_apl_ref int4,
-        primary key (rgc_emp_cod, rgc_cod, rgc_idf_cod)
+        primary key (rgc_emp_cod, rgc_seq, rgc_idf_cod)
     );
+
 
 create table tges_rgi (
    rgi_cod varchar(4) not null,

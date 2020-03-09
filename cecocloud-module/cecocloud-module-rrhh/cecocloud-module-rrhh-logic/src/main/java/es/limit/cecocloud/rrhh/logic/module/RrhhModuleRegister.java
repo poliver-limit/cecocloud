@@ -17,6 +17,7 @@ import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.rrhh.logic.api.dto.Calendari;
 import es.limit.cecocloud.rrhh.logic.api.dto.Categoria;
+import es.limit.cecocloud.rrhh.logic.api.dto.Empresa;
 import es.limit.cecocloud.rrhh.logic.api.dto.GrupFestiu;
 import es.limit.cecocloud.rrhh.logic.api.dto.Horari;
 import es.limit.cecocloud.rrhh.logic.api.dto.Interval;
@@ -159,7 +160,8 @@ public class RrhhModuleRegister {
 								Regim.class,
 								Seccio.class,
 								Categoria.class,
-								Subcategoria.class)));
+								Subcategoria.class,
+								Empresa.class)));
 		funcionalitats.put(
 				"REH_SECCIO",
 				new FuncionalitatCodiFontImpl(
@@ -225,7 +227,8 @@ public class RrhhModuleRegister {
 						Arrays.asList(
 								Operari.class,
 								TipusTransaccio.class,
-								Node.class)));
+								Node.class,
+								Empresa.class)));
 		funcionalitats.put(
 				"REH_ZONA",
 				new FuncionalitatCodiFontImpl(
