@@ -113,7 +113,8 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 			disabledForCreate = false,
 			disabledForUpdate = false,
 			hiddenInGrid = true,
-			hiddenInForm = false)
+			hiddenInForm = false,
+			lovNamedFilter = Producte.FILTER_ACTIU_APLICACIO)
 	private GenericReferenceWithCompositePk<Producte, ProductePk> producte;
 
 	@NoArgsConstructor

@@ -40,6 +40,9 @@ import lombok.Setter;
 )
 public class Producte extends AbstractIdentificableWithIdentificador<ProductePk> {
 
+	@RestapiField(hiddenInGrid = true,hiddenInForm = true)
+	public static final String FILTER_ACTIU_APLICACIO = "actiu_aplicacio";
+	
 //	@NotNull(groups = {OnCreate.class})	
 	@RestapiField(
 			disabledForUpdate = true,
