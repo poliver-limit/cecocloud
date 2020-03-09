@@ -97,6 +97,10 @@ export class AppComponent {
 		this.tokenPayload = authService.getAuthTokenPayload();
 		authService.getAuthTokenChangeEvent().subscribe((tokenPayload: BngAuthTokenPayload) => {
 			this.tokenPayload = tokenPayload;
+			if (!tokenPayload) {
+				this.moduleService.selectionClear();
+				this.menuService.setActiveMenu(undefined);
+			}
 		});
 		// Canvia la ruta quan canviam la selecció identificador/empresa i s'han acabat de refrescar els mòduls
 		this.moduleService.getAllowedModuleItemsChangeSubject().subscribe((modules: BngAppModule[]) => {
