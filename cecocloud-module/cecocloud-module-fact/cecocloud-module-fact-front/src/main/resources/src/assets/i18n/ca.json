@@ -692,6 +692,8 @@
 	"resource.producte.field.observacions" : "Observacions",
 	"resource.producte.field.empresa" : "Empresa",
 	"resource.producte.field.producte" : "Producte referència",	
+	"resource.producte.field.tipus" : "Tipus",	
+	"resource.producte.field.actiu" : "Actiu",	
 	"resource.producte.field.identificador": "Identificador",
 	
 	"resource.projecteDuplicat" : "Projecte",
@@ -838,6 +840,7 @@
 	"resource.registreComercial.field.dadesContacte": "Dades de contacte",
 	"resource.registreComercial.field.comentaris": "Comentaris",
 	"resource.registreComercial.field.identificador": "Identificador",
+	"resource.registreComercial.error.descriptionEmpty": "El mitjà escollit fa obligatòria aquesta descripció",
 	
 	"resource.registreComercial.enum.tipus.CRIDADA": "Trucada",
 	"resource.registreComercial.enum.tipus.CORREU": "Correu",	

@@ -53,6 +53,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "apl_nom", length = 30, nullable = false)),	
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "apl_des", length = 1000)),	
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "apl_obs", length = 1000)),
+	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "apl_tip", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "apl_act", length = 1, nullable = false)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "apl_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "apl_datcre")),

@@ -691,7 +691,9 @@
 	"resource.producte.field.ultimRequeriment" : "Último requisito",
 	"resource.producte.field.observacions" : "Observaciones",
 	"resource.producte.field.empresa" : "Empresa",
-	"resource.producte.field.producte" : "Productu referencia",	
+	"resource.producte.field.producte" : "Productu referencia",
+	"resource.producte.field.tipus" : "Tipo",	
+	"resource.producte.field.actiu" : "Activo",		
 	"resource.producte.field.identificador": "Identificador",
 	
 	"resource.projecteDuplicat" : "Proyecto",
@@ -838,6 +840,7 @@
 	"resource.registreComercial.field.dadesContacte": "Datos de contacto",
 	"resource.registreComercial.field.comentaris": "Comentarios",
 	"resource.registreComercial.field.identificador": "Identificador",
+	"resource.registreComercial.error.descriptionEmpty": "El medio escogido hace obligatoria esta descripción",
 	
 	"resource.registreComercial.enum.tipus.CRIDADA": "Llamada",
 	"resource.registreComercial.enum.tipus.CORREU": "Correo",

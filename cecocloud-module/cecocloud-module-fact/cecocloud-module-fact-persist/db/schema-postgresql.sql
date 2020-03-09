@@ -67,12 +67,14 @@ create table tges_ane (
 );
 
 create table tges_apl (
-    apl_ref int4 not null,
+   	apl_ref int4 not null,
     apl_idf_cod varchar(4) not null,
+    apl_act varchar(1) not null,
     apl_cod varchar(15) not null,
     apl_des varchar(1000),
     apl_nom varchar(30) not null,
     apl_obs varchar(1000),
+    apl_tip varchar(1) not null,
     apl_emp_cod varchar(4),
     apl_apl_ref int4,
     primary key (apl_ref, apl_idf_cod)
@@ -1590,15 +1592,20 @@ alter table tges_ane
    foreign key (ane_emp_cod, ane_idf_cod) 
    references tges_emp;
    
- alter table tges_apl 
-       add constraint rges_apl_idf_fk 
-       foreign key (apl_idf_cod) 
-       references tges_idf;
+alter table tges_apl 
+   add constraint rges_apl_idf_fk 
+   foreign key (apl_idf_cod) 
+   references tges_idf;
 
 alter table tges_apl 
-       add constraint rges_apl_emp_fk 
-       foreign key (apl_emp_cod, apl_idf_cod) 
-       references tges_emp;
+   add constraint rges_apl_emp_fk 
+   foreign key (apl_emp_cod, apl_idf_cod) 
+   references tges_emp;
+
+alter table tges_apl 
+   add constraint rges_apl_apl_fk 
+   foreign key (apl_apl_ref, apl_idf_cod) 
+   references tges_apl;
 
 alter table tges_art 
    add constraint rges_art_idf_fk 

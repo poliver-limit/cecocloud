@@ -15,10 +15,9 @@ export function descriptionNotEmptyValidator(fieldName: string, descriptionField
 			(valueField.value == 'FORMACIO') ||
 			(valueField.value == 'ALTRES')
 		) {
-			if (descriptionField.value =="") {				
-				descriptionField.setErrors({descriptionNotEmpty: fieldName});
-				const message = 'La descripció del mitjà no pot ser buida';				
-				return {'descriptionNotEmpty': message};
+			if (!descriptionField.value) {				
+				descriptionField.setErrors({descriptionNotEmpty: fieldName});							
+				return {'descriptionNotEmpty': ''};
 			} else {
 				descriptionField.setErrors(null);
 			}
