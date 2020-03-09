@@ -41,11 +41,9 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cnt_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "cnt_cod", length = 4)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cnt_cod", length = 15, insertable = false, updatable = false)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "cnt_cod", length = 15)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cnt_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.darrerValor", column = @Column(name = "cnt_ultval", nullable = false)),
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "cnt_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "cnt_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cnt_usumod")),
@@ -69,9 +67,7 @@ public class ComptadorEntity extends AbstractWithIdentificadorAuditableEntity<Co
 			ComptadorPk pk,
 			Comptador embedded,
 			IdentificadorEntity identificador) {
-		
 		setId(pk);
-		
 		this.embedded = embedded;
 		this.identificador = identificador;
 	}
