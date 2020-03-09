@@ -31,7 +31,7 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 	protected List<Class<? extends Identificable<?>>> recursosPrincipals;
 	protected List<Class<? extends Identificable<?>>> recursosSecundaris;
 	protected List<Permission> allowedPermission;
-	
+
 	public FuncionalitatCodiFontImpl(
 			String codi, 
 			FuncionalitatTipus tipus, 

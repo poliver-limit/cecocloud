@@ -8,7 +8,6 @@ import static org.junit.Assert.assertEquals;
 import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
-import es.limit.base.boot.test.tester.UsuariCrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.Perfil;
 
@@ -43,7 +42,7 @@ public class PerfilCrudTester extends AbstractCrudTester<Perfil> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
-				new UsuariCrudTester()
+				new IdentificadorCrudTester()
 		};
 	}
 
@@ -51,7 +50,6 @@ public class PerfilCrudTester extends AbstractCrudTester<Perfil> {
 	public void afterCreate(Perfil dto, boolean isParentResource) {
 		if (isParentResource) {
 			// Configurar perfil amb accés a la funcionalitat
-			
 		}
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.PermissionFactory;
 import org.springframework.security.acls.model.Permission;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
 import es.limit.base.boot.logic.api.dto.BaseBootPermission.PermissionSidType;
@@ -32,6 +33,7 @@ import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.logic.api.service.PerfilService;
 import es.limit.cecocloud.logic.helper.FuncionalitatAclHelper;
+import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorPerfilEntity;
 import es.limit.cecocloud.persist.entity.PerfilEntity;
@@ -61,6 +63,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 	private PermissionFactory permissionFactory;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<FuncionalitatPermisModule> funcionalitatPermisFindOrderedByModul(
 			Long id,
 			Long[] idsAddicionals) {
@@ -74,25 +77,27 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 	}
 
 	@Override
+	@Transactional
 	public void funcionalitatPermisSave(
 			Long id,
 			FuncionalitatPermis funcionalitatPermis) throws ClassNotFoundException {
-		Optional<es.limit.base.boot.logic.api.module.ModuleInfo> opModul = Modules.registeredGetOne(funcionalitatPermis.getModul());
+		FuncionalitatIdentificadorEntity funcionalitatIdentificador = funcionalitatIdentificadorRepository.getOne(funcionalitatPermis.getFuncionalitatIdentificadorId());
+		FuncionalitatEntity funcionalitat = funcionalitatIdentificador.getFuncionalitat();
+		Optional<es.limit.base.boot.logic.api.module.ModuleInfo> opModul = Modules.registeredGetOne(funcionalitat.getEmbedded().getModul().name());
 		if (opModul.isPresent()) {
 			ModuleInfo moduleInfo = (ModuleInfo)opModul.get();
-			FuncionalitatCodiFont funcionalitatCodi = moduleInfo.getFuncionalitats().get(funcionalitatPermis.getCodi());
+			FuncionalitatCodiFont funcionalitatCodi = moduleInfo.getFuncionalitats().get(funcionalitat.getEmbedded().getCodi());
 			if (funcionalitatCodi != null) {
 				BaseBootPermission permisos = funcionalitatPermis.getPermission();
 				// Obtenim els permisos actuals
 				BaseBootPermission permisosActuals = new BaseBootPermission();
-				funcionalitatIdentificadorPerfilRepository.findByPerfilIdAndFuncionalitatIdentificadorId(id, funcionalitatPermis.getId())
+				funcionalitatIdentificadorPerfilRepository.findByPerfilIdAndFuncionalitatIdentificadorId(id, funcionalitatPermis.getFuncionalitatIdentificadorId())
 						.forEach(funcidfPerfil -> permisosActuals.setGranted(permissionFactory.buildFromName(funcidfPerfil.getEmbedded().getPermis()).getMask()));
 				// Comparar permisos antics amb nous
 				List<Permission> permissionAdded = permisos.getPermissionAdded(permisosActuals);
 				List<Permission> permissionRemoved =  permisos.getPermissionRemoved(permisosActuals);
 				if (!permissionAdded.isEmpty() || !permissionRemoved.isEmpty()) {
 					PerfilEntity perfil = perfilRepository.getOne(id);
-					FuncionalitatIdentificadorEntity funcionalitatIdentificador = funcionalitatIdentificadorRepository.getOne(funcionalitatPermis.getId());
 					// Afegir permis 
 					for(Permission permis : permissionAdded) {
 						// Comprovam que el permis es pugui assignar
@@ -124,6 +129,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 	}
 
 	@Override
+	@Transactional
 	public void funcionalitatPermisRefresh(Long id) throws ClassNotFoundException {
 		funcionalitatAclHelper.refreshPermisosPerfil(id);
 	}

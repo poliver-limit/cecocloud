@@ -29,5 +29,11 @@
 			<artifactId>cecocloud-module-fact-persist</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<!-- La següent dependència és necessària per a poder executar els tests de facturació -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-rrhh-logic</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>
