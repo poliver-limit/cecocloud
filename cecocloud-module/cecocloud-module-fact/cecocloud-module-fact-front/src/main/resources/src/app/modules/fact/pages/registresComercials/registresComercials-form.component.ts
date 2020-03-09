@@ -7,23 +7,27 @@ import { RegistresComercialsService } from './registresComercials.service';
 import { ClientsFormComponent } from '../clients/clients-form.component';
 import { ProductesFormComponent } from '../productes/productes-form.component';
 
-@Component( {
-    template: `
-    <bng-form
-        bng-form-mant
-        [config]="formConfig"
-        [restapiService]="registresComercialsService"></bng-form>
-`
-} )
-export class RegistresComercialsFormComponent extends BngFormBaseComponent {
+import { FormGroup } from '@angular/forms';
 
-    formConfig: BngFormConfig = {
+import { descriptionNotEmptyValidator } from './description-not-empty-validator';
+
+@Component( {
+	templateUrl: 'registresComercials-form.html'
+} )
+
+export class RegistresComercialsFormComponent extends BngFormBaseComponent {
+	
+	onFormGroupChange(formGroup: FormGroup) {		
+		formGroup.setValidators(descriptionNotEmptyValidator('mitja','descripcioMitja'));
+	}
+	
+	formConfig: BngFormConfig = {
     }
 
     constructor(
 		activatedRoute: ActivatedRoute,
         public registresComercialsService: RegistresComercialsService ) { 
-			super(activatedRoute);
+			super(activatedRoute);		
 			this.setConfigExternalFormComponents([
 				{ resourceName: 'client', component: ClientsFormComponent },
 				{ resourceName: 'producte', component: ProductesFormComponent }

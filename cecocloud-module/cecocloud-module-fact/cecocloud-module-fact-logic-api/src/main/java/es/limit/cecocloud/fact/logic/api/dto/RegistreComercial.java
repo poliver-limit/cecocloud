@@ -63,9 +63,8 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = RegistreComercialMitjaConverter.class)
-	private RegistreComercialMitjaEnumDto mitja;
+	private RegistreComercialMitjaEnumDto mitja;	
 	
-	@NotNull
 	@Size(max = 60)
 	@RestapiField(
 			includeInQuickFilter = true)
