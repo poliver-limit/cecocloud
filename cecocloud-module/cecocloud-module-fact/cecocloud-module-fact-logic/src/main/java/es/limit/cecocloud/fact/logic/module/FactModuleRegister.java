@@ -819,7 +819,6 @@ public class FactModuleRegister {
 						Modul.fact,
 						Arrays.asList(Zona.class),
 						Arrays.asList()));
-				
 		funcionalitats.put(
 				"FAC_CERCLI",
 				new FuncionalitatCodiFontImpl(
@@ -829,7 +828,6 @@ public class FactModuleRegister {
 						Modul.fact,
 						Arrays.asList(Client.class),
 						Arrays.asList()));		
-		
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
 				Zona.class.getPackage().getName(),

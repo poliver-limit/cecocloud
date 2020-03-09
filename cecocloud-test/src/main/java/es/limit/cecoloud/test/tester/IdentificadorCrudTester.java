@@ -13,7 +13,6 @@ import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.base.boot.test.tester.UsuariCrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.logic.api.dto.UserSession;
 
 /**
  * Tester pels objectes de tipus identificador.
@@ -69,19 +68,6 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		return new CrudTester[] {
 				new UsuariCrudTester()
 		};
-	}
-
-	@Override
-	public void afterCreate(Identificador dto, boolean isParentResource) {
-		if (isParentResource) {
-			// Establir identificador a la sessió d'usuari
-			UserSession session = (UserSession)getSession();
-			if (session == null) {
-				session = new UserSession();
-			}
-			session.setI(dto.getId());
-			setSession(session);
-		}
 	}
 
 }

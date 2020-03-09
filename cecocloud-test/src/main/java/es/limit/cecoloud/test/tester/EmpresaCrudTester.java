@@ -9,9 +9,8 @@ import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Empresa;
-import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 
 /**
  * Tester pels objectes de tipus empresa.
@@ -19,6 +18,17 @@ import es.limit.cecocloud.logic.api.dto.Empresa.EmpresaTipusEnum;
  * @author Limit Tecnologies <limit@limit.es>
  */
 public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
+
+	/*private FuncionalitatService funcionalitatService;
+	private PerfilService perfilService;
+
+	public EmpresaCrudTester(
+			FuncionalitatService funcionalitatService,
+			PerfilService perfilService) {
+		super();
+		this.funcionalitatService = funcionalitatService;
+		this.perfilService = perfilService;
+	}*/
 
 	@Override
 	public Empresa createDto() {
@@ -55,15 +65,31 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
-			new IdentificadorCrudTester(),
-			new PerfilCrudTester()
+			new IdentificadorCrudTester()
 		};
 	}
 
-	@Override
+	/*@Override
 	public void afterCreate(Empresa dto, boolean isParentResource) {
 		if (isParentResource) {
 			// Configurar perfil
+			GenericReference<Perfil, Long> perfil = getGenericReferenceFromParentCrudTester(Perfil.class);
+			FuncionalitatPermis funcionalitatPermis = new FuncionalitatPermis();
+			funcionalitatService.findOneByRsqlQuery("codi==");
+			funcionalitatPermis.setId(1L);
+			BaseBootPermission permission = new BaseBootPermission();
+			permission.setReadGranted(true);
+			permission.setWriteGranted(true);
+			permission.setCreateGranted(true);
+			permission.setDeleteGranted(true);
+			funcionalitatPermis.setPermission(permission);
+			try {
+				perfilService.funcionalitatPermisSave(
+						perfil.getId(),
+						funcionalitatPermis);
+			} catch (ClassNotFoundException e) {
+				fail("No s'ha pogut configurar el permís per a accedir a la funcionalitat");
+			}
 			// Configurar sessió
 			UserSession session = (UserSession)getSession();
 			if (session == null) {
@@ -72,6 +98,6 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 			session.setE(dto.getId());
 			setSession(session);
 		}
-	}
+	}*/
 
 }

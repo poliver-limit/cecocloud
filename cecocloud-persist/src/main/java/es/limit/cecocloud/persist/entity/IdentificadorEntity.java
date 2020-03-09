@@ -66,6 +66,8 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 	protected PerfilEntity perfilDefecte;
 	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
 	protected Set<UsuariIdentificadorEntity> usuariIdentificadors;
+	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
+	protected Set<FuncionalitatIdentificadorEntity> funcionaliatIdentificadors;
 
 	@Formula(value="(select count(*) from empresa emp where emp.identificador_id = id)")
 	private int empresesCount;

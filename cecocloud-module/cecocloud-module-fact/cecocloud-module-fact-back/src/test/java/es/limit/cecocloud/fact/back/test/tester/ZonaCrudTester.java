@@ -16,7 +16,7 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
- * Tester pels objectes de tipus pais.
+ * Tester pels objectes de tipus zona.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

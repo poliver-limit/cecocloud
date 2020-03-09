@@ -8,14 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'una funcionalitat-permis.
+ * Informació per a assignar permisos a una funcionalitat-identificador.
  * 
  * @author Limit Tecnologies
  */
 @Getter @Setter
 public class FuncionalitatPermis {
 
-	private Long id;
+	private Long funcionalitatIdentificadorId;
 	private String codi;
 	private String descripcio;
 	private String modul;
@@ -24,7 +24,7 @@ public class FuncionalitatPermis {
 	private BaseBootPermission allowedPermission;
 
 	public FuncionalitatPermis(
-			Long id,
+			Long funcionalitatIdentificadorId,
 			String codi,
 			String descripcio,
 			String modul,
@@ -32,7 +32,7 @@ public class FuncionalitatPermis {
 			BaseBootPermission permission,
 			BaseBootPermission allowedPermission) {
 		super();
-		this.id = id;
+		this.funcionalitatIdentificadorId = funcionalitatIdentificadorId;
 		this.codi = codi;
 		this.descripcio = descripcio;
 		this.modul = modul;
@@ -40,22 +40,23 @@ public class FuncionalitatPermis {
 		this.permission = permission;
 		this.allowedPermission = allowedPermission;
 	}
-	
+
 	public FuncionalitatPermis(
-			Long id,
+			Long funcionalitatIdentificadorId,
 			String codi,
 			String descripcio,
 			String modul,
 			FuncionalitatTipus tipus) {
 		super();
-		this.id = id;
+		this.funcionalitatIdentificadorId = funcionalitatIdentificadorId;
 		this.codi = codi;
 		this.descripcio = descripcio;
 		this.modul = modul;
 		this.tipus = tipus;
 	}
-	
+
 	public FuncionalitatPermis() {
 		super();
 	}
+
 }
