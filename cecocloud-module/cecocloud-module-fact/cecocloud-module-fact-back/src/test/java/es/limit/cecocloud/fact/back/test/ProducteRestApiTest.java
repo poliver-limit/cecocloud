@@ -16,7 +16,7 @@ import es.limit.cecocloud.logic.api.module.Modules;
 import es.limit.cecocloud.test.ModuleResourceRestApiTest;
 
 /**
- * Test pels objectes de tipus Producte.
+ * Test pels objectes de tipus producte.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
