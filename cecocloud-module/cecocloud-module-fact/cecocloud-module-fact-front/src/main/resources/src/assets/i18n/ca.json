@@ -849,7 +849,7 @@
 	"resource.registreComercial.enum.mitja.FIRA": "Fira o esdeveniment",
 	"resource.registreComercial.enum.mitja.PUBLICITAT": "Publicitat",
 	"resource.registreComercial.enum.mitja.CONEIX_EMPRESA": "Interessat ja coneix l'empresa",
-	"resource.registreComercial.enum.mitja.VISITA_COMERCIAL": "Visita comercial de l'empresa'",
+	"resource.registreComercial.enum.mitja.VISITA_COMERCIAL": "Visita comercial de l'empresa",
 	"resource.registreComercial.enum.mitja.REUNIO_DE_TREBALL": "Reunió de feina",
 	"resource.registreComercial.enum.mitja.FORMACIO": "Formació",
 	"resource.registreComercial.enum.mitja.ALTRES": "Altres",	

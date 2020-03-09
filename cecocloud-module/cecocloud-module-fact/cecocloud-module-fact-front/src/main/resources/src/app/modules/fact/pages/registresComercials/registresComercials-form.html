@@ -1,0 +1,16 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="registresComercialsService"  
+  (formGroupChange)="onFormGroupChange($event)"
+>    
+      <bng-custom-field name="tipus"></bng-custom-field>
+      <bng-custom-field name="interessat"></bng-custom-field>
+      <bng-custom-field name="mitja"></bng-custom-field>
+      <bng-custom-field name="descripcioMitja"></bng-custom-field>
+      <bng-custom-field name="dadesContacte"></bng-custom-field>
+      <bng-custom-field name="comentaris"></bng-custom-field>
+      <bng-custom-field name="data"></bng-custom-field>
+      <bng-custom-field name="client"></bng-custom-field>
+      <bng-custom-field name="producte"></bng-custom-field>  
+</bng-form>

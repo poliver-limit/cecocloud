@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "rgc_seq", precision = 10, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "rgc_tip", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.mitja", column = @Column(name = "rgc_mtj", length = 1, nullable = false)),
-	@AttributeOverride(name = "embedded.descripcioMitja", column = @Column(name = "rgc_desmtj", length = 60, nullable = false)),
+	@AttributeOverride(name = "embedded.descripcioMitja", column = @Column(name = "rgc_desmtj", length = 60)),
 	@AttributeOverride(name = "embedded.interessat", column = @Column(name = "rgc_int", length = 60, nullable = false)),
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "rgc_dat")),
 	@AttributeOverride(name = "embedded.dadesContacte", column = @Column(name = "rgc_dac")),	
