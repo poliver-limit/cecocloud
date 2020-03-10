@@ -48,14 +48,12 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "apl_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.referencia", column = @Column(name = "apl_ref", precision = 10)),
 	@AttributeOverride(name = "embedded.referencia", column = @Column(name = "apl_ref", precision = 10, insertable = false, updatable = false)),
-	
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "apl_cod", length = 15, nullable = false)),	
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "apl_nom", length = 30, nullable = false)),	
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "apl_des", length = 1000)),	
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "apl_cod", length = 15, nullable = false)),
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "apl_nom", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "apl_des", length = 1000)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "apl_obs", length = 1000)),
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "apl_tip", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "apl_act", length = 1, nullable = false)),
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "apl_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "apl_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "apl_usumod")),
@@ -69,7 +67,6 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_apl_idf_fk"))
 })
-
 @EntityListeners(ProducteEntityListener.class)
 public class ProducteEntity extends AbstractWithIdentificadorEntity<Producte, ProductePk> {
 
@@ -82,51 +79,47 @@ public class ProducteEntity extends AbstractWithIdentificadorEntity<Producte, Pr
 					@JoinColumn(name = "apl_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "apl_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_apl_emp_fk"))			
+			foreignKey = @ForeignKey(name = "rges_apl_emp_fk"))
 	private EmpresaEntity empresa;
 	@Column(name = "apl_emp_cod", length = 4)
 	private String empresaCodi;
-	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "apl_idf_cod", referencedColumnName = "apl_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "apl_apl_ref", referencedColumnName = "apl_ref", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_apl_apl_fk"))		
+			foreignKey = @ForeignKey(name = "rges_apl_apl_fk"))
 	private ProducteEntity producte;
 	@Column(name = "apl_apl_ref")
-	private Integer producteRef;	
-	
+	private Integer producteRef;
+
 	@Builder
-	public ProducteEntity(			
+	public ProducteEntity(
 			ProductePk pk,
 			Producte embedded,
-			IdentificadorEntity identificador,					
-			EmpresaEntity empresa,			
+			IdentificadorEntity identificador,
+			EmpresaEntity empresa,
 			ProducteEntity producte) {
-		
-		setId(pk);		
-		
+		setId(pk);
 		this.embedded = embedded;
-		this.identificador = identificador;	
-		
+		this.identificador = identificador;
 		this.updateEmpresa(empresa);
 		this.updateProducte(producte);
 	}
-	
+
 	@Override
 	public void update(Producte embedded) {
-		this.embedded = embedded;		
+		this.embedded = embedded;
 	}
-	
+
 	public void updateProducte(ProducteEntity producte) {
 		this.producte = producte;
 		if (producte != null) {
 			this.producteRef = producte.getEmbedded().getReferencia();
 		}
 	}
-	
+
 	public void updateEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 		if (empresa != null) {

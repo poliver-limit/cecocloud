@@ -51,7 +51,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "rgc_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "rgc_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.sequencia", column = @Column(name = "rgc_seq", precision = 10)), // suprimir el codi i hauria de canviar per seq
-	
 	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "rgc_seq", precision = 10, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "rgc_tip", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.mitja", column = @Column(name = "rgc_mtj", length = 1, nullable = false)),
@@ -60,13 +59,11 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "rgc_dat")),
 	@AttributeOverride(name = "embedded.dadesContacte", column = @Column(name = "rgc_dac")),	
 	@AttributeOverride(name = "embedded.comentaris", column = @Column(name = "rgc_com")),	
-	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "rgc_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "rgc_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "rgc_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "rgc_datmod"))
 })
-
 @AssociationOverrides({
 	@AssociationOverride(
 			name = "identificador",
@@ -75,7 +72,6 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
-
 @EntityListeners({RegistreComercialEntityListener.class})
 public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableEntity<RegistreComercial, RegistreComercialPk> {
 
@@ -91,7 +87,6 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 			},
 			foreignKey = @ForeignKey(name = "rges_rgc_emp_fk"))
 	protected EmpresaEntity empresa;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -103,7 +98,6 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 	protected ClientEntity client;
 	@Column(name = "rgc_cli_cod", length = 4)
 	private String clientCodi;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -122,18 +116,13 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 			IdentificadorEntity identificador,
 			EmpresaEntity empresa,
 			ClientEntity client,
-			ProducteEntity producte
-			) {
-		
+			ProducteEntity producte) {
 		setId(pk);
-		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.empresa = empresa;		
-		
 		this.updateClient(client);
 		this.updateProducte(producte);	
-		
 	}
 
 	@Override
@@ -143,16 +132,16 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 
 	public void updateClient(ClientEntity client) {
 		this.client = client;
-		if (client!=null) {
+		if (client != null) {
 			this.clientCodi = client.getEmbedded().getCodi();
 		}
 	}
-	
+
 	public void updateProducte(ProducteEntity producte) {
 		this.producte = producte;
-		if (producte!=null) {
+		if (producte != null) {
 			this.producteRef = producte.getEmbedded().getReferencia();
 		}
 	}
-	
+
 }
