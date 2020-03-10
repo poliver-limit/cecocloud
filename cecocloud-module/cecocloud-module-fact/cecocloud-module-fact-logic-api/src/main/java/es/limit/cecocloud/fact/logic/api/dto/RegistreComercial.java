@@ -70,14 +70,16 @@ public class RegistreComercial extends AbstractIdentificableWithIdentificador<Re
 			includeInQuickFilter = true)
 	private String descripcioMitja;	
 	
-	@Size(max = 1000)
+	@Size(max = 500)
 	@RestapiField(
+			type = RestapiFieldType.TEXTAREA,
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
 	private String dadesContacte;
 	
-	@Size(max = 2000)
+	@Size(max = 1500)
 	@RestapiField(
+			type = RestapiFieldType.TEXTAREA,
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
 	private String comentaris;
