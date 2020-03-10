@@ -34,11 +34,71 @@ import es.limit.cecocloud.persist.repository.UsuariIdentificadorRepository;
 public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissionsImpl<Identificador, IdentificadorEntity, Long> implements IdentificadorService {
 
 	@Autowired
+	private ApplicationContext applicationContext;
+	@Autowired
 	private UsuariRepository usuariRepository;
 	@Autowired
 	private UsuariIdentificadorRepository usuariIdentificadorRepository;
-	@Autowired
-	private ApplicationContext applicationContext;
+
+	@Override
+	protected void afterCreate(IdentificadorEntity entity, Identificador dto) {
+		assignarPermisosPropietari(entity);
+		// Propagar creació de l'entitat als demès mòduls
+		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
+			if (module instanceof ModuleInfo) {
+				ModuleInfo cecocloudModule = (ModuleInfo)module;
+				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
+					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
+					syncService.identificadorCreate(dto);
+				}
+			}
+		}
+	}
+
+	@Override
+	protected void beforeUpdate(IdentificadorEntity entity, Identificador dto) {
+		// Evita que es modifiqui el codi de l'identificador
+		dto.setCodi(entity.getEmbedded().getCodi());
+		// Esborra el permis de l'usuari responsable per si aquest es canvia
+		BaseBootPermission permission = new BaseBootPermission(PermissionSidType.PRINCIPAL, entity.getPropietari().getEmbedded().getCodi());
+		this.permissionDelete(
+				entity.getId(),
+				permission.getId());
+	}
+
+	@Override
+	protected void afterUpdate(IdentificadorEntity entity, Identificador dto) {
+		assignarPermisosPropietari(entity);
+		// Propagar modificació de l'entitat als demès mòduls
+		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
+			if (module instanceof ModuleInfo) {
+				ModuleInfo cecocloudModule = (ModuleInfo)module;
+				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
+					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
+					syncService.identificadorUpdate(dto);
+				}
+			}
+		}
+	}
+
+	@Override
+	protected void afterDelete(IdentificadorEntity entity) {
+		// Eliminar permisos
+		List<BaseBootPermission> permisos = permissionFind(entity.getId());
+		for (BaseBootPermission permis: permisos) {
+			permissionDelete(entity.getId(), permis.getId());
+		}
+		// Propagar eliminació de l'entitat als demès mòduls
+		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
+			if (module instanceof ModuleInfo) {
+				ModuleInfo cecocloudModule = (ModuleInfo)module;
+				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
+					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
+					syncService.identificadorDelete(entity.getEmbedded());
+				}
+			}
+		}
+	}
 
 	@Override
 	protected void beforePermissionCreate(Long id, BaseBootPermission permission) {
@@ -81,58 +141,6 @@ public class IdentificadorServiceImpl extends AbstractGenericServiceWithPermissi
 					identificador.get());
 			if (usuariIdentificador.isPresent()) {
 				usuariIdentificadorRepository.delete(usuariIdentificador.get());
-			}
-		}
-	}
-
-	@Override
-	protected void afterCreate(IdentificadorEntity entity, Identificador dto) {
-		super.afterCreate(entity, dto);
-		assignarPermisosPropietari(entity);
-		// Propagar creació de l'entitat als demès mòduls
-		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
-			if (module instanceof ModuleInfo) {
-				ModuleInfo cecocloudModule = (ModuleInfo)module;
-				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
-					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
-					syncService.identificadorCreate(dto);
-				}
-			}
-		}
-	}
-
-	@Override
-	protected void afterUpdate(IdentificadorEntity entity, Identificador dto) {
-		super.afterUpdate(entity, dto);
-		assignarPermisosPropietari(entity);
-		// Propagar modificació de l'entitat als demès mòduls
-		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
-			if (module instanceof ModuleInfo) {
-				ModuleInfo cecocloudModule = (ModuleInfo)module;
-				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
-					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
-					syncService.identificadorUpdate(dto);
-				}
-			}
-		}
-	}
-
-	@Override
-	protected void afterDelete(IdentificadorEntity entity) {
-		super.afterDelete(entity);
-		// Eliminar permisos
-		List<BaseBootPermission> permisos = permissionFind(entity.getId());
-		for (BaseBootPermission permis: permisos) {
-			permissionDelete(entity.getId(), permis.getId());
-		}
-		// Propagar eliminació de l'entitat als demès mòduls
-		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
-			if (module instanceof ModuleInfo) {
-				ModuleInfo cecocloudModule = (ModuleInfo)module;
-				if (cecocloudModule.getEmpresaIdentificadorSyncServiceClass() != null) {
-					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
-					syncService.identificadorDelete(entity.getEmbedded());
-				}
 			}
 		}
 	}

@@ -55,7 +55,8 @@ public class Identificador extends AbstractIdentificable<Long> {
 	@Size(max = 4)
 	@RestapiField(
 			toUpperCase = true,
-			includeInQuickFilter = true)
+			includeInQuickFilter = true,
+			disabledForUpdate = true)
 	private String codi;
 	@NotNull
 	@Size(max = 40)

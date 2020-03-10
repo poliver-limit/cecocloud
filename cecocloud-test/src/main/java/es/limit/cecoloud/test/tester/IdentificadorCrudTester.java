@@ -32,13 +32,11 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		dto.setDataFi(new Date());
 		dto.setPropietari(
 				GenericReference.toGenericReference(getUsuariTestCreat().getId()));
-		//dto.setLlicencia("1");
-		//dto.setLlicenciaOk(true);
 		return dto;
 	}
 	@Override
 	public void updateDto(Identificador dto) {
-		dto.setCodi("TST2");
+		// No està permès canviar el codi d'un identificador
 		dto.setDescripcio("Test2");
 		dto.setNumUsuaris(2);
 		dto.setNumEmpreses(3);
@@ -46,8 +44,6 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		dto.setDataFi(new Date());
 		dto.setPropietari(
 				GenericReference.toGenericReference(getUsuariAdminCreat().getId()));
-		//dto.setLlicencia("1234");
-		//dto.setLlicenciaOk(false);
 	}
 	@Override
 	public void compareDto(Identificador expected, Identificador actual) {
@@ -58,8 +54,6 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		assertEquals(expected.getDataInici(), actual.getDataInici());
 		assertEquals(expected.getDataFi(), actual.getDataFi());
 		assertEquals(expected.getPropietari(), actual.getPropietari());
-		//assertEquals(expected.getLlicencia(), actual.getLlicencia());
-		//assertEquals(expected.isLlicenciaOk(), actual.isLlicenciaOk());
 	}
 
 	@Override
