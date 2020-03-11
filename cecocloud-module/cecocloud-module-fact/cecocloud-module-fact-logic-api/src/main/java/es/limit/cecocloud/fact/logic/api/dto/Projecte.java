@@ -45,11 +45,12 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "codi"
 )
 public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk> {
 	
 	@NotNull(groups = {OnCreate.class})
+	@Size(max = 6)
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
