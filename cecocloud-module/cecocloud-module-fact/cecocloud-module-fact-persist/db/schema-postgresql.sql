@@ -836,7 +836,7 @@ create table tges_pmg (
 
 create table tges_prj (
    prj_emp_cod varchar(4) not null,
-    prj_cod varchar(4) not null,
+    prj_cod varchar(6) not null,
     prj_idf_cod varchar(4) not null,
     prj_usucre varchar(255),
     prj_datcre timestamp,
