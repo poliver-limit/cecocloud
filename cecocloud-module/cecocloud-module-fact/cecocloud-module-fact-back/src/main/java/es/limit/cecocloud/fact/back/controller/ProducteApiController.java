@@ -46,7 +46,7 @@ public class ProducteApiController extends AbstractIdentificableWithIdentificado
 
 	@Override
 	protected String namedRsqlFilter(HttpServletRequest request, Object userSession, String filterName) {
-		return "tipus=='APLICACIO';actiu==true";
+		return "tipus=='PRODUCTE';actiu==true";
 	}
 
 }
