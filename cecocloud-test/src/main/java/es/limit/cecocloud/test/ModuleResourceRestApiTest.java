@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import es.limit.base.boot.logic.api.dto.BaseBootPermission;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.base.boot.logic.api.dto.util.Identificable;
-import es.limit.base.boot.logic.api.dto.util.IdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.Identificable;
+import es.limit.base.boot.logic.api.dto.IdentificableWithCompositePk;
 import es.limit.base.boot.test.AbstractRestApiTest;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Empresa;

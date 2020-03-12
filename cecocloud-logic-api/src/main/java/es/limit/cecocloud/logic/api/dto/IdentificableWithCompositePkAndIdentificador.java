@@ -5,8 +5,8 @@ package es.limit.cecocloud.logic.api.dto;
 
 import java.io.Serializable;
 
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.base.boot.logic.api.dto.util.IdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.IdentificableWithCompositePk;
 
 /**
  * Interfície pels DTOs amb identificador.

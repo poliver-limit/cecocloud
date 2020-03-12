@@ -14,8 +14,8 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.GenericReferenceWithCompositePk;
 import es.limit.cecocloud.fact.logic.api.converter.FacturacioTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.TipusComptabilitatClientConverter;
 import es.limit.cecocloud.fact.logic.api.converter.TipusEstrangerConverter;

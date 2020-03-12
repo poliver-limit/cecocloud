@@ -5,7 +5,7 @@ package es.limit.cecocloud.lici.logic.api.dto;
 
 import java.util.Date;
 
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
+import es.limit.base.boot.logic.api.dto.AbstractIdentificable;
 import lombok.Getter;
 import lombok.Setter;
 

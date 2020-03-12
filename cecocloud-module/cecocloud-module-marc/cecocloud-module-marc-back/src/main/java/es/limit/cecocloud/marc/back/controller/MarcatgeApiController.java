@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.ProfileResourcePermissions;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.OperariEmpresaService;

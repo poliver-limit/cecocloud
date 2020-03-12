@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableWithPermissionsApiController;
 import es.limit.base.boot.logic.api.controller.GenericController;
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Usuari;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.base.boot.logic.api.service.UsuariService;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;

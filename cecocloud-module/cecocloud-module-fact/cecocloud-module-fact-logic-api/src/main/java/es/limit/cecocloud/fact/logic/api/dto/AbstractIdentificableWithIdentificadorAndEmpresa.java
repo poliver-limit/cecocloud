@@ -6,20 +6,19 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import javax.persistence.Transient;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
-import es.limit.base.boot.logic.api.dto.AbstractIdentificableWithCompositePk;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndEmpresa.WithIdentificadorAndEmpresaPk;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * DTO abstracte amb identificador.
+ * DTO abstracte amb identificador i empresa.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public abstract class AbstractIdentificableWithIdentificador<PK extends WithIdentificadorPk> extends AbstractIdentificableWithCompositePk<PK> implements IdentificableWithIdentificador<PK> {
+public abstract class AbstractIdentificableWithIdentificadorAndEmpresa<PK extends WithIdentificadorAndEmpresaPk> extends AbstractIdentificableWithIdentificador<PK> implements IdentificableWithIdentificadorAndEmpresa<PK> {
 
 	@Transient
 	@RestapiField(
@@ -29,6 +28,6 @@ public abstract class AbstractIdentificableWithIdentificador<PK extends WithIden
 			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
-	private GenericReference<Identificador, String> identificador;
+	private GenericReference<Empresa, String> empresa;
 
 }

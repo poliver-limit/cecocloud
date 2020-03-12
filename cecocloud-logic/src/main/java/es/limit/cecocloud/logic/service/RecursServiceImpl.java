@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.api.dto.ActionExecutionResult;
+import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.logic.api.dto.ActionExecutionResult.ActionExecutionState;
-import es.limit.base.boot.logic.api.dto.util.Identificable;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Recurs;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;

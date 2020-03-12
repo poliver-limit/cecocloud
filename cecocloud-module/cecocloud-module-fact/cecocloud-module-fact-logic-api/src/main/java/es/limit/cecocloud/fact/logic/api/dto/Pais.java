@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.dto.util.Identificable.OnCreate;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;

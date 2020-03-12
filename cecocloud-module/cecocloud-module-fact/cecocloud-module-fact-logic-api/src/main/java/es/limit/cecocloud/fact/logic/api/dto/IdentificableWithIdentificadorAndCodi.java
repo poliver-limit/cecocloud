@@ -12,6 +12,7 @@ import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCo
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -26,6 +27,7 @@ public interface IdentificableWithIdentificadorAndCodi<ID extends Serializable> 
 	@NoArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
+	@Setter
 	@SuppressWarnings("serial")
 	@MappedSuperclass
 	@ToString

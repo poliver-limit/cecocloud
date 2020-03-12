@@ -3,10 +3,12 @@
  */
 package es.limit.cecocloud.fact.back.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -20,7 +22,13 @@ import es.limit.cecocloud.logic.api.service.IdentificadorService;
 public class AbstractIdentificableWithIdentificadorApiController<D extends IdentificableWithIdentificador<?>> extends AbstractIdentificableApiController<D, String> {
 
 	@Autowired
-	private IdentificadorService identificadorService;
+	protected IdentificadorService identificadorService;
+
+	@Override
+	protected String additionalRsqlFilter(HttpServletRequest request, Object userSession) {
+		Identificador identificador = identificadorService.getOne(((UserSession)userSession).getI());
+		return "identificador.id==" + identificador.getCodi();
+	}
 
 	@Override
 	protected void completeDtoWithSession(D dto, Object userSession, boolean isNew) {

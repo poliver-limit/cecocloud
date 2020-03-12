@@ -9,9 +9,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
+import es.limit.base.boot.logic.api.dto.AbstractIdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificableWithCompositePk;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificador.WithIdentificadorPk;
 //import es.limit.cecocloud.rrhh.logic.api.dto.IdentificableAmbIdentificador.AmbIdentificadorPk;
 import lombok.AllArgsConstructor;

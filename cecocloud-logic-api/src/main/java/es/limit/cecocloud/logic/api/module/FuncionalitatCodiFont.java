@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.security.acls.model.Permission;
 
-import es.limit.base.boot.logic.api.dto.util.Identificable;
+import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.Modul;
 

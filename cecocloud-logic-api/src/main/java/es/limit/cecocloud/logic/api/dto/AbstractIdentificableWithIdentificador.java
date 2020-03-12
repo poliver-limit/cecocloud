@@ -8,9 +8,9 @@ import java.io.Serializable;
 import javax.persistence.Transient;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
+import es.limit.base.boot.logic.api.dto.AbstractIdentificable;
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.dto.util.AbstractIdentificable;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
 import lombok.Getter;
 import lombok.Setter;
 

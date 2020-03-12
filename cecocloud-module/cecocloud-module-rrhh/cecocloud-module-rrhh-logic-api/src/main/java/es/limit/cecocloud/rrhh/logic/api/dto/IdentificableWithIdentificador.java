@@ -3,8 +3,8 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.base.boot.logic.api.dto.util.IdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.IdentificableWithCompositePk;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificador.WithIdentificadorPk;
 
 /**

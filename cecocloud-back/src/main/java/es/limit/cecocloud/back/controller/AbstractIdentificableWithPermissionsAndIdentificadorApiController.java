@@ -8,7 +8,7 @@ import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableWithPermissionsApiController;
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.cecocloud.logic.api.dto.IdentificableWithIdentificador;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 

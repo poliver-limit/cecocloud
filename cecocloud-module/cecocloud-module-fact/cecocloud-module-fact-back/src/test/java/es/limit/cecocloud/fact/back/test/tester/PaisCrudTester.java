@@ -5,8 +5,8 @@ package es.limit.cecocloud.fact.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
-import es.limit.base.boot.logic.api.dto.util.GenericReference;
-import es.limit.base.boot.logic.api.dto.util.Identificable;
+import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
