@@ -73,8 +73,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ope_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ope_datmod")),
-	
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ope_datmod")),	
 	@AttributeOverride(name = "embedded.calculoHorasPartesTrabajo", column = @Column(name = "ope_calhor")),
 	@AttributeOverride(name = "embedded.horasCalculNominas", column = @Column(name = "ope_horcan",length = 1)),
 	@AttributeOverride(name = "embedded.estadoCivil", column = @Column(name = "ope_estciv",length = 1)),
@@ -213,7 +212,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			foreignKey = @ForeignKey(name = "rges_ope_ofb_fk"))			
 	protected OficinaBancariaEntity oficinaBancariaCcr;	
 	@Column(name ="ope_ofb_codccr", length = 4, nullable = false)
-	private Integer oficinaBancariaCodi;
+	private Integer oficinaBancariaCodi;*/
 	
 		
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -293,7 +292,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_vad_cod", length = 4)
 	private String mantenimentDeTipusCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	/*@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "tor_idf_cod", insertable = false, updatable = false),
@@ -348,14 +347,14 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			HorariEntity horari,
 			
 			TipusComissioEntity tipusComissio,
-			BancEntity banc
-			/*OficinaBancariaEntity oficinaBancariaCcr,
-			HorariEntity horariBocadillo,
+			BancEntity banc,
+			//OficinaBancariaEntity oficinaBancariaCcr,
+			//HorariEntity horariBocadillo,
 			ZonaEntity zona,
 			EmpresaEntity empresa,
 			HorariEntity horariCodNit,
-			RecursGrupEntity recursGrup,
-			OperariEntity operari,
+			RecursGrupEntity recursGrup
+			/*OperariEntity operari,
 			MantenimentDeTipusEntity mantenimentDeTipus,
 			TornEntity torn,
 			GrupFestiuEntity grupFestiu,
@@ -372,16 +371,16 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		
 		
 		this.tipusComissioCodi = tipusComissio.getEmbedded().getCodi();
-		//this.horariBocadilloCodi = horari.getEmbedded().getCodi();
+		this.horariBocadilloCodi = horari.getEmbedded().getCodi();
 		this.bancCodi = banc.getEmbedded().getCodi();
-		/*this.oficinaBancariaCodi = oficinaBancariaCcr.getEmbedded().getCodi();
+		//this.oficinaBancariaCodi = oficinaBancariaCcr.getEmbedded().getCodi();
 		this.zonaCodi = zona.getEmbedded().getCodi();
 		this.empresaCodi  = empresa.getEmbedded().getCodi();
 		this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
 		this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
 		this.operariCodi = operari.getEmbedded().getCodi();
 		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
-		this.tornCodi = torn.getEmbedded().getCodi();
+		/*this.tornCodi = torn.getEmbedded().getCodi();
 		this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
 		this.centreCodi = centre.getEmbedded().getCodi();
 		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
@@ -428,7 +427,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	/*public void updateOficinaBancaria (OficinaBancariaEntity oficinaBancariaCcr) {
 		this.oficinaBancariaCcr = oficinaBancariaCcr;
 		this.oficinaBancariaCodi= oficinaBancariaCcr.getEmbedded().getCodi();	
-	}
+	}*/
 		
 	public void updateZona(ZonaEntity zona) {
 		this.zona = zona;
@@ -465,7 +464,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
 	}
 	
-	public void updateTorn(TornEntity torn) {
+	/*public void updateTorn(TornEntity torn) {
 		this.torn = torn;
 		this.tornCodi = torn.getEmbedded().getCodi();
 	}
