@@ -292,7 +292,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_vad_cod", length = 4)
 	private String mantenimentDeTipusCodi;
 	
-	/*@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "tor_idf_cod", insertable = false, updatable = false),
@@ -303,7 +303,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_tor_cod", length = 4)
 	private String tornCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	/*@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "gfe_idf_cod", insertable = false, updatable = false),
@@ -380,8 +380,8 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
 		this.operariCodi = operari.getEmbedded().getCodi();
 		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
-		/*this.tornCodi = torn.getEmbedded().getCodi();
-		this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
+		this.tornCodi = torn.getEmbedded().getCodi();
+		/*this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
 		this.centreCodi = centre.getEmbedded().getCodi();
 		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
 
@@ -464,12 +464,12 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
 	}
 	
-	/*public void updateTorn(TornEntity torn) {
+	public void updateTorn(TornEntity torn) {
 		this.torn = torn;
 		this.tornCodi = torn.getEmbedded().getCodi();
 	}
 	
-	public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
+	/*public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
 		this.grupFestiu = grupFestiu;
 		this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
 	}
