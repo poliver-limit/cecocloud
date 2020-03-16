@@ -303,7 +303,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_tor_cod", length = 4)
 	private String tornCodi;
 	
-	/*@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "gfe_idf_cod", insertable = false, updatable = false),
@@ -335,7 +335,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	protected HorariEntity horariCod003;	
 	@Column(name ="ope_hor_cod003", length = 4)
 	private String horariCod003Codi;
-	*/
+	
 	
 	
 
@@ -349,17 +349,17 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			TipusComissioEntity tipusComissio,
 			BancEntity banc,
 			//OficinaBancariaEntity oficinaBancariaCcr,
-			//HorariEntity horariBocadillo,
+			HorariEntity horariBocadillo,
 			ZonaEntity zona,
 			EmpresaEntity empresa,
 			HorariEntity horariCodNit,
-			RecursGrupEntity recursGrup
-			/*OperariEntity operari,
+			RecursGrupEntity recursGrup,
+			OperariEntity operari,
 			MantenimentDeTipusEntity mantenimentDeTipus,
 			TornEntity torn,
 			GrupFestiuEntity grupFestiu,
 			CentreEntity centre,
-			HorariEntity horariCod003*/
+			HorariEntity horariCod003
 			
 			
 			) {
@@ -381,7 +381,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.operariCodi = operari.getEmbedded().getCodi();
 		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
 		this.tornCodi = torn.getEmbedded().getCodi();
-		/*this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
+		this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
 		this.centreCodi = centre.getEmbedded().getCodi();
 		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
 
@@ -389,7 +389,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.updateHorari(horari);		
 		this.updateTipusComissio(tipusComissio);
 		this.updateBanc(banc);
-		this.updateOficinaBancaria(oficinaBancariaCcr);
+		//this.updateOficinaBancaria(oficinaBancariaCcr);
 		this.updateHorariBocadillo(horariBocadillo);
 		this.updateZona(zona);
 		this.updateEmpresa(empresa);
@@ -400,7 +400,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.updateTorn(torn);
 		this.updteGrupFestiu(grupFestiu);
 		this.updateCentre(centre);
-		this.updateHorariCod003(horariCod003);*/
+		this.updateHorariCod003(horariCod003);
 	}
 
 	@Override
@@ -469,7 +469,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.tornCodi = torn.getEmbedded().getCodi();
 	}
 	
-	/*public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
+	public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
 		this.grupFestiu = grupFestiu;
 		this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
 	}
@@ -482,5 +482,5 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	public void updateHorariCod003 (HorariEntity horariCod003) {
 		this.horariCod003 = horariCod003;
 		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
-	}*/
+	}
 }

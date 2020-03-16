@@ -358,10 +358,10 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Date dataIniciTorn;
 
-	/*@Transient
+	@Transient
 	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
-	private GenericReferenceWithCompositePk<GrupFestiu, WithIdentificadorAndCodiPk<String>> grupFestiu;*/
+	private GenericReferenceWithCompositePk<GrupFestiu, WithIdentificadorAndCodiPk<String>> grupFestiu;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String sexe;
@@ -408,9 +408,9 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean depcmpfxe;
 
-	/*@Transient
+	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
-	private GenericReferenceWithCompositePk<Centre, WithIdentificadorAndCodiPk<String>> centre;*/
+	private GenericReferenceWithCompositePk<Centre, WithIdentificadorAndCodiPk<String>> centre;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Integer dtehor;
@@ -438,9 +438,9 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String ali;
 
-	/*@Transient
+	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
-	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariCod003;*/
+	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariCod003;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
