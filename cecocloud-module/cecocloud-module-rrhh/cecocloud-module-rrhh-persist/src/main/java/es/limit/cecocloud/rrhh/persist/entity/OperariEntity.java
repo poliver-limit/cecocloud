@@ -193,7 +193,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_tcs_cod", length = 4, nullable = false)
 	private String tipusComissioCodi;
 	
-	/*@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "ban_idf_cod", insertable = false, updatable = false),
@@ -204,7 +204,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_ban_codccr", length = 4, nullable = false)
 	private Integer bancCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	/*@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "ofb_idf_cod", insertable = false, updatable = false),
@@ -345,11 +345,11 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			WithIdentificadorAndCodiPk<String> pk,
 			Operari embedded,
 			IdentificadorEntity identificador,
-			HorariEntity horari
+			HorariEntity horari,
 			
-			/*TipusComissioEntity tipusComissio,
-			BancEntity banc,
-			OficinaBancariaEntity oficinaBancariaCcr,
+			TipusComissioEntity tipusComissio,
+			BancEntity banc
+			/*OficinaBancariaEntity oficinaBancariaCcr,
 			HorariEntity horariBocadillo,
 			ZonaEntity zona,
 			EmpresaEntity empresa,
@@ -371,10 +371,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.updateHorari(horari);		
 		
 		
-		/*this.tipusComissioCodi = tipusComissio.getEmbedded().getCodi();
-		this.horariBocadilloCodi = horari.getEmbedded().getCodi();
+		this.tipusComissioCodi = tipusComissio.getEmbedded().getCodi();
+		//this.horariBocadilloCodi = horari.getEmbedded().getCodi();
 		this.bancCodi = banc.getEmbedded().getCodi();
-		this.oficinaBancariaCodi = oficinaBancariaCcr.getEmbedded().getCodi();
+		/*this.oficinaBancariaCodi = oficinaBancariaCcr.getEmbedded().getCodi();
 		this.zonaCodi = zona.getEmbedded().getCodi();
 		this.empresaCodi  = empresa.getEmbedded().getCodi();
 		this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
@@ -386,10 +386,11 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.centreCodi = centre.getEmbedded().getCodi();
 		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
 
+
 		this.updateHorari(horari);		
 		this.updateTipusComissio(tipusComissio);
 		this.updateBanc(banc);
-		//this.updateOficinaBancaria(oficinaBancariaCcr);
+		this.updateOficinaBancaria(oficinaBancariaCcr);
 		this.updateHorariBocadillo(horariBocadillo);
 		this.updateZona(zona);
 		this.updateEmpresa(empresa);
@@ -413,7 +414,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.horariCodi = horari.getEmbedded().getCodi();	
 	}	
 
-	/*
+	
 	public void updateTipusComissio (TipusComissioEntity tipusComissio) {
 	 	this.tipusComissio = tipusComissio;
 		this.tipusComissioCodi= tipusComissio.getEmbedded().getCodi();	
@@ -424,7 +425,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		this.bancCodi= banc.getEmbedded().getCodi();	
 	}
 	
-	public void updateOficinaBancaria (OficinaBancariaEntity oficinaBancariaCcr) {
+	/*public void updateOficinaBancaria (OficinaBancariaEntity oficinaBancariaCcr) {
 		this.oficinaBancariaCcr = oficinaBancariaCcr;
 		this.oficinaBancariaCodi= oficinaBancariaCcr.getEmbedded().getCodi();	
 	}

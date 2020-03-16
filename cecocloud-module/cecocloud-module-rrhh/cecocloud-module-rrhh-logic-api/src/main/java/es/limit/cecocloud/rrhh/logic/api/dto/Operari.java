@@ -161,11 +161,11 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<TipusComissio, WithIdentificadorAndCodiPk<String>> tipusComissio;
 
-	/*@Transient
+	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Banc, WithIdentificadorAndCodiPk<Integer>> banc;
 	
-	@Transient
+	/*@Transient
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<OficinaBancaria,  OficinaBancariaPk> oficinaBancariaCcr;
 	 
