@@ -55,7 +55,7 @@ public class FuncionalitatIdentificador extends AbstractIdentificable<Long> {
 			hiddenInLov = true)
 	private String descripcio;
 
-	public String getDescricio() {
+	public String getDescripcio() {
 		if (funcionalitat != null && identificador != null) {
 			return funcionalitat.getDescription() + " - " + identificador.getDescription();
 		} else {
