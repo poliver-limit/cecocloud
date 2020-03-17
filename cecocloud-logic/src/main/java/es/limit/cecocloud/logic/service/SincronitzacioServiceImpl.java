@@ -78,6 +78,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	public SincronitzacioIdentificadorResposta sincronitzarIdentificador(SincronitzacioIdentificadorPeticio peticio) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(peticio.getCodi());
 		if (identificador.isPresent()) {
+			identificador.get().getEmbedded().setDescripcio(peticio.getNom());
 			SincronitzacioEmpresesResposta empresesResposta = sincronitzarEmpreses(
 					identificador.get(),
 					peticio.getEmpreses());

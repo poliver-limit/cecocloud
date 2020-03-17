@@ -69,6 +69,8 @@ public class EmpresaEntity extends AbstractAuditableVersionableEntity<Empresa, L
 	
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
 	protected Set<UsuariIdentificadorEmpresaEntity> usuariIdentificadorEmpreses;
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+	protected Set<OperariEmpresaEntity> operariEmpreses;
 
 	@Builder
     public EmpresaEntity(

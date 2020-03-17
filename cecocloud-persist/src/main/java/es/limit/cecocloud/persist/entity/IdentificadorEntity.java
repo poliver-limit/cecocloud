@@ -65,9 +65,13 @@ public class IdentificadorEntity extends AbstractAuditableVersionableEntity<Iden
 			foreignKey = @ForeignKey(name = "identificador_perfildef_fk"))
 	protected PerfilEntity perfilDefecte;
 	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
+	protected Set<EmpresaEntity> empreses;
+	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
 	protected Set<UsuariIdentificadorEntity> usuariIdentificadors;
 	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
-	protected Set<FuncionalitatIdentificadorEntity> funcionaliatIdentificadors;
+	protected Set<OperariEntity> operaris;
+	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
+	protected Set<FuncionalitatIdentificadorEntity> funcionalitatIdentificadors;
 
 	@Formula(value="(select count(*) from empresa emp where emp.identificador_id = id)")
 	private int empresesCount;
