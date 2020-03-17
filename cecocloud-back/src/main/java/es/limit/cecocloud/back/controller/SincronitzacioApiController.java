@@ -8,14 +8,17 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.logic.api.controller.GenericController;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorPeticio;
 import es.limit.cecocloud.logic.api.dto.SincronitzacioIdentificadorResposta;
+import es.limit.cecocloud.logic.api.service.IdentificadorService;
 import es.limit.cecocloud.logic.api.service.SincronitzacioService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,10 +35,13 @@ public class SincronitzacioApiController {
 
 	@Autowired
 	private SincronitzacioService sincronitzacioService;
+	@Autowired
+	private IdentificadorService identificadorService;
 
 	@PostMapping(
 			path = "/identificador",
 			produces = "application/json")
+	@PreAuthorize("hasPermission(this.getIdentificadorWithCodi(#dto.getCodi()), 'SYNC')")
 	public ResponseEntity<SincronitzacioIdentificadorResposta> sincronitzarEmpresesOperaris(
 			HttpServletRequest request,
 			@RequestBody @Valid final SincronitzacioIdentificadorPeticio dto) {
@@ -43,6 +49,11 @@ public class SincronitzacioApiController {
 				"dto=" + dto + ")");
 		SincronitzacioIdentificadorResposta resposta = sincronitzacioService.sincronitzarIdentificador(dto);
 		return ResponseEntity.ok(resposta);
+	}
+
+	public Identificador getIdentificadorWithCodi(String identificadorCodi) {
+		Identificador identificador = identificadorService.findOneByRsqlQuery("codi==" + identificadorCodi);
+		return identificador;
 	}
 
 }

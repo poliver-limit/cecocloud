@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -17,7 +18,18 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@NoArgsConstructor
 public class SincronitzacioEmpresa {
+
+	public SincronitzacioEmpresa(
+			@NotNull @Size(max = 4) String codi,
+			@NotNull @Size(max = 12) String nif,
+			@NotNull @Size(max = 30) String nom) {
+		super();
+		this.codi = codi;
+		this.nif = nif;
+		this.nom = nom;
+	}
 
 	@NotNull
 	@Size(max = 4)
