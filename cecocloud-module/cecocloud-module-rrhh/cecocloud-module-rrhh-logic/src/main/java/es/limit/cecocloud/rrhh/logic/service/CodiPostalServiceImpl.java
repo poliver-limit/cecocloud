@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.rrhh.logic.service;
 
-import org.springframework.stereotype.Service;
-
 import es.limit.cecocloud.rrhh.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.rrhh.logic.api.service.CodiPostalService;
 import es.limit.cecocloud.rrhh.persist.entity.CodiPostalEntity;

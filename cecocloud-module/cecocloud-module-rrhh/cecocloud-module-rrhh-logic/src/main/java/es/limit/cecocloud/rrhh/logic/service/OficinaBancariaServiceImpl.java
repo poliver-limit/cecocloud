@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.rrhh.logic.service;
 
-import org.springframework.stereotype.Service;
-
 import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
 import es.limit.cecocloud.rrhh.logic.api.dto.OficinaBancaria;
 import es.limit.cecocloud.rrhh.logic.api.dto.OficinaBancaria.OficinaBancariaPk;
