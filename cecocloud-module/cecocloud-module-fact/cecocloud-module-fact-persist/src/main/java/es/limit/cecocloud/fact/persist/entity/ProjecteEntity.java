@@ -41,7 +41,7 @@ import lombok.Setter;
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "prj_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "prj_emp_cod", length = 4, insertable = false, updatable = false)),
-		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_cod", length = 6)),
+		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_cod", length = 6)), // prj_num
 		@AttributeOverride(name = "embedded.codi", column = @Column(name = "prj_cod", length = 6, insertable = false, updatable = false)),
 		@AttributeOverride(name = "embedded.numero", column = @Column(name = "prj_num", length = 6)),
 		@AttributeOverride(name = "embedded.nom", column = @Column(name = "prj_nom", length = 250, nullable = false)),

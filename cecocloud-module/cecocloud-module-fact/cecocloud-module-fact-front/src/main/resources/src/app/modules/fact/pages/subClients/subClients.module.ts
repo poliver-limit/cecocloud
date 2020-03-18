@@ -10,12 +10,17 @@ import { SubClientsGridComponent } from './subClients-grid.component';
 import { SubClientsFormComponent } from './subClients-form.component';
 import { SubClientsService } from './subClients.service';
 
+import { SubClientsFormModule } from './subClients-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		
+		SubClientsFormModule,
+		
         RouterModule.forChild( [
             { path: '', component: SubClientsGridComponent },
             { path: 'create', component: SubClientsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +28,7 @@ import { SubClientsService } from './subClients.service';
         ] )
     ],
     declarations: [
-        SubClientsGridComponent,
-        SubClientsFormComponent
+        SubClientsGridComponent        
     ],
     providers: [
         SubClientsService

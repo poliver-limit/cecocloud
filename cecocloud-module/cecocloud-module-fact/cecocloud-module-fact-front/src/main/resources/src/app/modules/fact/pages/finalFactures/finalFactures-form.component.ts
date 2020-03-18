@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { FinalFacturesService } from './finalFactures.service';
 
@@ -11,12 +12,15 @@ import { FinalFacturesService } from './finalFactures.service';
         [restapiService]="finalFacturesService"></bng-form>
 `
 } )
-export class FinalFacturesFormComponent {
+export class FinalFacturesFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public finalFacturesService: FinalFacturesService ) { }
+		activatedRoute: ActivatedRoute,
+        public finalFacturesService: FinalFacturesService ) {
+			super(activatedRoute);
+ 		}
 
 }
