@@ -26,8 +26,9 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		Identificador dto = new Identificador();
 		dto.setCodi("TST");
 		dto.setDescripcio("Test");
-		dto.setNumUsuaris(1);
-		dto.setNumEmpreses(2);
+		dto.setNumUsuaris(10);
+		dto.setNumEmpreses(10);
+		dto.setNumOperaris(10);
 		dto.setDataInici(new Date());
 		dto.setDataFi(new Date());
 		dto.setPropietari(
@@ -38,8 +39,9 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 	public void updateDto(Identificador dto) {
 		// No està permès canviar el codi d'un identificador
 		dto.setDescripcio("Test2");
-		dto.setNumUsuaris(2);
-		dto.setNumEmpreses(3);
+		dto.setNumUsuaris(11);
+		dto.setNumEmpreses(12);
+		dto.setNumOperaris(13);
 		dto.setDataInici(new Date());
 		dto.setDataFi(new Date());
 		dto.setPropietari(
