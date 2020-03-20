@@ -89,7 +89,7 @@ public class SincronitzacioRestApiTest extends AbstractRestApiTest<Identificador
 			SincronitzacioIdentificadorPeticio sincronitzacioPeticio = generarSincronitzacioPeticio(
 					identificador.getCodi(),
 					IDENTIFICADOR_SYNC_DESC);
-			sincronitzacioRestServiceHelper.restTemplateExchange(
+			sincronitzacioRestServiceHelper.restTemplateExchangeEntity(
 					"/identificador",
 					HttpMethod.POST,
 					sincronitzacioPeticio,
@@ -110,7 +110,7 @@ public class SincronitzacioRestApiTest extends AbstractRestApiTest<Identificador
 			SincronitzacioIdentificadorPeticio sincronitzacioPeticio = generarSincronitzacioPeticio(
 					"0000",
 					IDENTIFICADOR_SYNC_DESC);
-			sincronitzacioRestServiceHelper.restTemplateExchange(
+			sincronitzacioRestServiceHelper.restTemplateExchangeEntity(
 					"/identificador",
 					HttpMethod.POST,
 					sincronitzacioPeticio,
@@ -142,7 +142,7 @@ public class SincronitzacioRestApiTest extends AbstractRestApiTest<Identificador
 		SincronitzacioIdentificadorPeticio sincronitzacioPeticio = generarSincronitzacioPeticio(
 				identificador.getCodi(),
 				IDENTIFICADOR_SYNC_DESC);
-		SincronitzacioIdentificadorResposta sincronitzacioResposta = sincronitzacioRestServiceHelper.restTemplateExchange(
+		SincronitzacioIdentificadorResposta sincronitzacioResposta = sincronitzacioRestServiceHelper.restTemplateExchangeEntity(
 				"/identificador",
 				HttpMethod.POST,
 				sincronitzacioPeticio,
