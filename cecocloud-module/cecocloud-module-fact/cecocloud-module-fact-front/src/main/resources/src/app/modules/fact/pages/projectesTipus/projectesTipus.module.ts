@@ -10,12 +10,17 @@ import { ProjectesTipusGridComponent } from './projectesTipus-grid.component';
 import { ProjectesTipusFormComponent } from './projectesTipus-form.component';
 import { ProjectesTipusService } from './projectesTipus.service';
 
+import { ProjectesTipusFormModule } from './projectesTipus-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		
+		ProjectesTipusFormModule,
+		
         RouterModule.forChild( [
             { path: '', component: ProjectesTipusGridComponent },
             { path: 'create', component: ProjectesTipusFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +28,7 @@ import { ProjectesTipusService } from './projectesTipus.service';
         ] )
     ],
     declarations: [
-        ProjectesTipusGridComponent,
-        ProjectesTipusFormComponent
+        ProjectesTipusGridComponent        
     ],
     providers: [
         ProjectesTipusService

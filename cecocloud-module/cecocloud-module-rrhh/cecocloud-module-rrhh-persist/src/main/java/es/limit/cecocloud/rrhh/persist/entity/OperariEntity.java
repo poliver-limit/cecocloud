@@ -243,7 +243,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ope_hor_cod002", referencedColumnName = "hor_cod",	insertable = false,	updatable = false)
 					},
-			foreignKey = @ForeignKey(name = "rrhu_ope_hor_fk"))			
+			foreignKey = @ForeignKey(name = "rrhu_ope_hor2_fk"))			
 	protected HorariEntity horariBocadillo;	
 	@Column(name ="ope_hor_cod002", length = 4, nullable = false)
 	private String horariBocadilloCodi;
@@ -254,7 +254,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ope_hor_codnit", referencedColumnName = "hor_cod",	insertable = false,	updatable = false)
 					},
-			foreignKey = @ForeignKey(name = "rrhu_ope_hor_fk"))			
+			foreignKey = @ForeignKey(name = "rrhu_ope_horn_fk"))			
 	protected HorariEntity horariCodNit;	
 	@Column(name ="ope_hor_codnit", length = 4, nullable = false)
 	private String horaricodnitCodi;
@@ -331,7 +331,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ope_hor_cod003", referencedColumnName = "hor_cod",	insertable = false,	updatable = false)
 					},
-			foreignKey = @ForeignKey(name = "rrhu_ope_hor_fk"))			
+			foreignKey = @ForeignKey(name = "rrhu_ope_hor3_fk"))			
 	protected HorariEntity horariCod003;	
 	@Column(name ="ope_hor_cod003", length = 4)
 	private String horariCod003Codi;

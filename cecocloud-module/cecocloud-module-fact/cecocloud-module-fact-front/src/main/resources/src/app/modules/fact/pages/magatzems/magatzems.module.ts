@@ -10,12 +10,17 @@ import { MagatzemsGridComponent } from './magatzems-grid.component';
 import { MagatzemsFormComponent } from './magatzems-form.component';
 import { MagatzemsService } from './magatzems.service';
 
+import { MagatzemsFormModule } from './magatzems-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		
+		MagatzemsFormModule,
+		
         RouterModule.forChild( [
             { path: '', component: MagatzemsGridComponent },
             { path: 'create', component: MagatzemsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +28,7 @@ import { MagatzemsService } from './magatzems.service';
         ] )
     ],
     declarations: [
-        MagatzemsGridComponent,
-        MagatzemsFormComponent
+        MagatzemsGridComponent        
     ],
     providers: [
         MagatzemsService

@@ -45,7 +45,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "codi"
+		descriptionField = "nom"
 )
 public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk> {
 	
@@ -57,18 +57,6 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
-	
-	@Size(max = 6)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String numero;
-	
 	@NotNull
 	@Size(max = 250)
 	@RestapiField(			
@@ -78,27 +66,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true
-			)
-	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
-
-	@Size(max = 1000)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String descripcio;
-	
-	@Size(max = 20)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String referencia;
-	
-	@Size(max = 1000)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String observacions;
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;
 	
 	@Size(max = 35)
 	@RestapiField(
@@ -115,8 +84,45 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
+			hiddenInGrid = true
+			)
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal valorEstimat;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<FinalFactura, WithIdentificadorAndCodiPk<String>> finalFactura;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<ProjecteTipus, WithIdentificadorAndCodiPk<String>> projecteTipus;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
+	
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = ProjecteEstatConverter.class)
+	private ProjecteEstatEnumDto estat;
 	
 	@Transient
 	@RestapiField(
@@ -142,6 +148,73 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariAdministratiu;
 	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean dietes;
+	
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean plusPerillositat;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean albaransClientCrear;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = AlbaraClientProjecteTipusConverter.class)
+	private AlbaraClientProjecteTipusEnumDto albaransClientProjecteTipus;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<ClasseRetencio, WithIdentificadorAndCodiPk<String>> retencioClasse;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<AreaNegoci, AreaNegociPk> areaNegoci;	
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
+	
+	@Size(max = 6)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String numero;
+
+	@Size(max = 1000)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String descripcio;
+	
+	@Size(max = 20)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String referencia;
+	
+	@Size(max = 1000)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String observacions;	
+
 	@Size(max = 60)
 	@RestapiField(
 			hiddenInGrid = true,
@@ -164,18 +237,6 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<SubClient, SubClientPk> subClient;
 	
 	@Transient
@@ -188,13 +249,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;	
-	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = ProjecteEstatConverter.class)
-	private ProjecteEstatEnumDto estat;
+	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -279,11 +334,6 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private BigDecimal valorEstimat;
-	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
 	private BigDecimal importFianca;
 	
 	@Size(max = 250)
@@ -298,39 +348,11 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private String direccioTecnica;
 	
-	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean albaransClientCrear;
-	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = AlbaraClientPreuConverter.class)
-	private AlbaraClientPreuEnumDto albaransClientPreu;
-	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = AlbaraClientProjecteTipusConverter.class)
-	private AlbaraClientProjecteTipusEnumDto albaransClientProjecteTipus;
-	
-	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean dietes;
-	
-	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean plusPerillositat;
-	
+	private AlbaraClientPreuEnumDto albaransClientPreu;	
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -356,8 +378,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private BigDecimal estudiTasaPercent;
-	
+	private BigDecimal estudiTasaPercent;	
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -376,17 +397,10 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private String tipusInversio;
 	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<ClasseRetencio, WithIdentificadorAndCodiPk<String>> retencioClasse;
-	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private BigDecimal retencioPercent;
-	
+	private BigDecimal retencioPercent;	
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -404,26 +418,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<AreaNegoci, AreaNegociPk> areaNegoci;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<FinalFactura, WithIdentificadorAndCodiPk<String>> finalFactura;
-	
+	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;	
 		
 	@NoArgsConstructor
 	@AllArgsConstructor

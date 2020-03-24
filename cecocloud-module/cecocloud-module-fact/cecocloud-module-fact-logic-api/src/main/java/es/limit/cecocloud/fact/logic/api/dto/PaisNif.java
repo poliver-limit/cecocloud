@@ -7,6 +7,7 @@ import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.fact.logic.api.converter.PaisNifTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.PaisNifTipusEnumDto;
@@ -27,6 +28,7 @@ public class PaisNif extends AbstractIdentificableWithIdentificador<String> {
 
 	@NotNull
 	@Size(max = 4)
+	@RestapiField(disabledForUpdate = true)
 	private String codi;
 	
 	@NotNull

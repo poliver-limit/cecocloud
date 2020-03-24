@@ -12,6 +12,19 @@ import { ProjectesGridComponent } from './projectes-grid.component';
 import { ProjectesFormComponent } from './projectes-form.component';
 import { ProjectesService } from './projectes.service';
 
+import { SeriesVendaFormModule } from '../seriesVenda/seriesVenda-form.module'
+import { DivisesFormModule } from '../divises/divises-form.module'
+import { FinalFacturesFormModule } from '../finalFactures/finalFactures-form.module'
+import { ProjectesTipusFormModule } from '../projectesTipus/projectesTipus-form.module'
+import { MagatzemsFormModule } from '../magatzems/magatzems-form.module'
+import { ClientsFormModule } from '../clients/clients-form.module'
+import { ClassesRetencionsFormModule } from '../classesRetencions/classesRetencions-form.module'
+import { AreaNegocisFormModule } from '../areaNegocis/areaNegocis-form.module'
+import { SubClientsFormModule } from '../subClients/subClients-form.module'
+import { ClientsAdresaFormModule } from '../clientsAdresa/clientsAdresa-form.module'
+import { CodisPostalFormModule } from '../codisPostal/codisPostal-form.module'
+import { ZonesFormModule } from '../zones/zones-form.module'
+
 @NgModule( {
     imports: [
         CommonModule,
@@ -22,6 +35,20 @@ import { ProjectesService } from './projectes.service';
         MatDividerModule,
         MatCardModule,
         MatExpansionModule,
+
+		SeriesVendaFormModule,
+		DivisesFormModule,
+		FinalFacturesFormModule,
+		ProjectesTipusFormModule,
+		MagatzemsFormModule,
+		ClientsFormModule,
+		ClassesRetencionsFormModule,
+		AreaNegocisFormModule,
+		SubClientsFormModule,
+		ClientsAdresaFormModule,
+		CodisPostalFormModule,
+		ZonesFormModule,
+
         RouterModule.forChild( [
             { path: '', component: ProjectesGridComponent },
             { path: 'create', component: ProjectesFormComponent, canDeactivate: [BngFormExitGuard] },

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
 import { SubClientsService } from './subClients.service';
 
@@ -11,12 +12,15 @@ import { SubClientsService } from './subClients.service';
         [restapiService]="subClientsService"></bng-form>
 `
 } )
-export class SubClientsFormComponent {
+export class SubClientsFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
-        public subClientsService: SubClientsService ) { }
+		activatedRoute: ActivatedRoute,
+        public subClientsService: SubClientsService ) {
+			super(activatedRoute);
+		}
 
 }

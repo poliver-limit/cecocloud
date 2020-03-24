@@ -10,12 +10,15 @@ import { FinalFacturesGridComponent } from './finalFactures-grid.component';
 import { FinalFacturesFormComponent } from './finalFactures-form.component';
 import { FinalFacturesService } from './finalFactures.service';
 
+import { FinalFacturesFormModule } from './finalFactures-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		FinalFacturesFormModule,
         RouterModule.forChild( [
             { path: '', component: FinalFacturesGridComponent },
             { path: 'create', component: FinalFacturesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { FinalFacturesService } from './finalFactures.service';
         ] )
     ],
     declarations: [
-        FinalFacturesGridComponent,
-        FinalFacturesFormComponent
+        FinalFacturesGridComponent        
     ],
     providers: [
         FinalFacturesService
