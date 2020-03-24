@@ -14,6 +14,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.logic.api.validation.IdentificadorMaxEmpreses;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +34,7 @@ import lombok.Setter;
 						resourcePermission = "ADMINISTRATION")
 		}
 )
+@IdentificadorMaxEmpreses
 public class Empresa extends AbstractIdentificableWithIdentificador<Long> {
 
 	@NotNull

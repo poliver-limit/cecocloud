@@ -11,9 +11,10 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
-import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.dto.Usuari;
+import es.limit.cecocloud.logic.api.validation.IdentificadorMaxOperaris;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +34,7 @@ import lombok.Setter;
 						resourcePermission = "ADMINISTRATION")
 		}
 )
+@IdentificadorMaxOperaris
 public class Operari extends AbstractIdentificableWithIdentificador<Long> {
 
 	@NotNull
