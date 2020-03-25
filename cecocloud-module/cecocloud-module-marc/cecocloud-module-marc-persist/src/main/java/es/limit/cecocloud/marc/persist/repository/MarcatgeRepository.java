@@ -26,16 +26,23 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"where " +
 			"    (m.embedded.origen = es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen.MOBIL or m.embedded.origen = es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen.CECOCLOUD) " +
 			"and m.operariEmpresa.empresa in (:empreses) " +
-			"and m.createdDate >= :dataInici " +
+			"and (:esNullDataInici = true or m.createdDate >= :dataInici) " +
 			"and (:esNullDataFi = true or m.createdDate <= :dataFi) " +
+			"and (:esNullIdInici = true or m.id >= :idInici) " +
+			"and (:esNullIdFi = true or m.id <= :idFi) " +
 			"order by " +
 			"    m.operariEmpresa.empresa.embedded.codi asc, " +
 			"    m.embedded.data asc")
 	List<MarcatgeEntity> findByEmpresaInAndBetweenDatesSync(
 			@Param("empreses") List<EmpresaEntity> empreses,
+			@Param("esNullDataInici") boolean esNullDataInici,
 			@Param("dataInici") Date dataInici,
 			@Param("esNullDataFi") boolean esNullDataFi,
-			@Param("dataFi") Date dataFi);
+			@Param("dataFi") Date dataFi,
+			@Param("esNullIdInici") boolean esNullIdInici,
+			@Param("idInici") Long idInici,
+			@Param("esNullIdFi") boolean esNullIdFi,
+			@Param("idFi") Long idFi);
 
 	@Query(	"from" +
 			"    MarcatgeEntity m " +

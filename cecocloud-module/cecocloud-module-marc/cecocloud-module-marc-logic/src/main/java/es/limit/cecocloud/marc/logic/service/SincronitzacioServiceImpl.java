@@ -58,7 +58,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			String identificadorCodi,
 			String empresaCodi,
 			Date dataInici,
-			Date dataFi) {
+			Date dataFi,
+			Long idInici,
+			Long idFi) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(identificadorCodi);
 		if (identificador.isPresent()) {
 			List<SincronitzacioMarcatge> resposta = new ArrayList<SincronitzacioMarcatge>();
@@ -66,11 +68,17 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			if (!empreses.isEmpty()) {
 				List<MarcatgeEntity> marcatges = marcatgeRepository.findByEmpresaInAndBetweenDatesSync(
 						empreses.stream().filter(empresa -> empresaCodi == null || empresa.getEmbedded().getCodi().equals(empresaCodi)).collect(Collectors.toList()),
+						dataInici == null,
 						dataInici,
 						dataFi == null,
-						dataFi);
+						dataFi,
+						idInici == null,
+						idInici,
+						idFi == null,
+						idFi);
 				for (MarcatgeEntity marcatge: marcatges) {
 					SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
+					sm.setId(marcatge.getId());
 					Operari operari = marcatge.getOperariEmpresa().getOperari().getEmbedded();
 					sm.setOperariCodi(operari.getCodi());
 					EmpresaEntity empresa = marcatge.getOperariEmpresa().getEmpresa();
