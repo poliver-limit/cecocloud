@@ -45,6 +45,7 @@ import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
 import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
+import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
@@ -509,6 +510,15 @@ public class FactModuleRegister {
 								Magatzem.class,
 								Zona.class,
 								FinalFactura.class)));
+		funcionalitats.put(
+				"FAC_PROPRE",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PROPRE",
+						FuncionalitatTipus.MANTENIMENT,
+						"Projectes / Pressupostos",
+						Modul.fact,
+						Arrays.asList(ProjectePressupost.class),
+						Arrays.asList(Empresa.class)));
 		funcionalitats.put(
 				"FAC_PROTIP",
 				new FuncionalitatCodiFontImpl(

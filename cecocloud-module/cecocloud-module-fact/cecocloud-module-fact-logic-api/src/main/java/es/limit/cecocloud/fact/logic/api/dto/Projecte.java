@@ -190,12 +190,6 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
-	
-	@Size(max = 6)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String numero;
 
 	@Size(max = 1000)
 	@RestapiField(

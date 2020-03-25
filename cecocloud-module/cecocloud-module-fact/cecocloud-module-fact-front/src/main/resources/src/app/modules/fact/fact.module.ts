@@ -162,6 +162,9 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
 			}, {
+				path: 'projectesPressupost',
+				loadChildren: () => import('./pages/projectesPressupost/projectesPressupost.module').then(m => m.ProjectesPressupostModule)
+			}, {
 				path: 'productes',
 				loadChildren: () => import('./pages/productes/productes.module').then(m => m.ProductesModule)
 				
@@ -711,6 +714,12 @@ export class FactModule {
 							labelKey: 'app.menu.fact.subClients',
 							route: '/fact/subClients',
 							resource: 'FAC_SUBCLI'
+						}, {
+							icon: 'room',
+							label: 'Projectes / Pressupostos',
+							labelKey: 'app.menu.fact.projectesPressupost',
+							route: '/fact/projectesPressupost',
+							resource: 'FAC_PROPRE'
 						}, {
 							icon: 'room',
 							label: 'Projectes',

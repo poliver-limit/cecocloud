@@ -37,13 +37,12 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(name = "tges_prj", indexes = { @Index(name = "iges_prj_idf_fk", columnList = "prj_idf_cod"),
-		@Index(name = "irges_prj_pk", columnList = "prj_idf_cod,prj_cod", unique = true) })
+		@Index(name = "irges_prj_pk", columnList = "prj_idf_cod,prj_num", unique = true) })
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "prj_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "prj_emp_cod", length = 4, insertable = false, updatable = false)),
-		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_cod", length = 6)), // prj_num
-		@AttributeOverride(name = "embedded.codi", column = @Column(name = "prj_cod", length = 6, insertable = false, updatable = false)),
-		@AttributeOverride(name = "embedded.numero", column = @Column(name = "prj_num", length = 6)),
+		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_num", length = 6)), // prj_num
+		@AttributeOverride(name = "embedded.codi", column = @Column(name = "prj_num", length = 6, insertable = false, updatable = false)),		
 		@AttributeOverride(name = "embedded.nom", column = @Column(name = "prj_nom", length = 250, nullable = false)),
 		@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "prj_des", length = 1000)),
 		@AttributeOverride(name = "embedded.referencia", column = @Column(name = "prj_ref", length = 20)),
