@@ -821,6 +821,22 @@ create table tges_ped (
     primary key (ped_emp_cod, ped_cod, ped_idf_cod)
 );
 
+create table tges_pjp (
+	   pjp_emp_cod varchar(4) not null,
+    pjp_num int4 not null,
+    pjp_prj_num varchar(6) not null,
+    pjp_idf_cod varchar(4) not null,
+    pjp_usucre varchar(255) not null,
+    pjp_datcre timestamp not null,
+    pjp_usumod varchar(255),
+    pjp_datmod timestamp,
+    pjp_cap_cod varchar(4),
+    pjp_obs varchar(1000),
+    pjp_pda_cod varchar(4),
+    pjp_pre_cod int4,
+    primary key (pjp_emp_cod, pjp_num, pjp_prj_num, pjp_idf_cod)
+);
+
 create table tges_pmg (
    pmg_mag_cod varchar(4) not null,
     pmg_cod varchar(4) not null,
@@ -2171,6 +2187,11 @@ alter table tges_ped
    add constraint rges_ped_scp_fk 
    foreign key (ped_emp_cod, ped_scp_codcom, ped_idf_cod) 
    references tges_scp;
+   
+alter table tges_pjp 
+   add constraint rges_pjp_emp_fk 
+   foreign key (pjp_emp_cod, pjp_idf_cod) 
+   references tges_emp;
 
 alter table tges_pmg 
    add constraint rges_pmg_idf_fk 
