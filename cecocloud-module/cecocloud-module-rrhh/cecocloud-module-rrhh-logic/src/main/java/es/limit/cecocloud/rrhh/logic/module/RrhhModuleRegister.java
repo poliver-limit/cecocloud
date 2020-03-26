@@ -33,6 +33,7 @@ import es.limit.cecocloud.rrhh.logic.api.dto.Servidor;
 import es.limit.cecocloud.rrhh.logic.api.dto.Subcategoria;
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusDia;
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusTransaccio;
+import es.limit.cecocloud.rrhh.logic.api.dto.Torn;
 import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
 import es.limit.cecocloud.rrhh.logic.service.EmpresaIdentificadorSyncServiceImpl;
@@ -207,6 +208,15 @@ public class RrhhModuleRegister {
 						Modul.rrhh,
 						Arrays.asList(TipusDia.class),
 						Arrays.asList(Regim.class)));
+		funcionalitats.put(
+				"REH_TORN",
+				new FuncionalitatCodiFontImpl(
+						"REH_TORN",
+						FuncionalitatTipus.MANTENIMENT,
+						"Torns",
+						Modul.rrhh,
+						Arrays.asList(Torn.class),
+						Arrays.asList()));
 		funcionalitats.put(
 				"REH_TIPTRA",
 				new FuncionalitatCodiFontImpl(
