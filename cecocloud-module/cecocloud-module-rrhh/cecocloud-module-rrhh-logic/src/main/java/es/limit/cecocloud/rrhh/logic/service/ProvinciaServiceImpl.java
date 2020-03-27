@@ -4,6 +4,7 @@
 package es.limit.cecocloud.rrhh.logic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
@@ -20,7 +21,7 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-
+@Service("ProvinciaRrhhService")
 public class ProvinciaServiceImpl extends AbstractGenericCompositePkServiceImpl<Provincia, ProvinciaEntity, ProvinciaPk> implements ProvinciaService {
 
 	@Autowired

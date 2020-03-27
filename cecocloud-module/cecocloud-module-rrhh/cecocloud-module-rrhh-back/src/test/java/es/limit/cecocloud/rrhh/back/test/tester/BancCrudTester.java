@@ -11,46 +11,36 @@ import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.back.test.utils.TestUtils;
-import es.limit.cecocloud.rrhh.logic.api.dto.Torn;
+import es.limit.cecocloud.rrhh.logic.api.dto.Banc;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
- * Tester pels objectes de tipus torn.
+ * Tester pels objectes de tipus banc.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class TornCrudTester extends AbstractCrudTester<Torn> {
+public class BancCrudTester extends AbstractCrudTester<Banc> {
 
 	@Override
-	public Torn createDto() {
-		Torn dto = new Torn();
-		dto.setCodi(TestUtils.CODI_TEST);
-		dto = this.update(dto);
+	public Banc createDto() {
+		Banc dto = new Banc();
+		dto.setCodi(TestUtils.CODI_INTEGER_TEST);
+		dto.setNom(TestUtils.NOM_TEST);
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}
 
 	@Override
-	public void updateDto(Torn dto) {
-		// El codi no es pot canviar perquè forma part de la clau primària
-		this.update(dto);
-	}
-
-	public Torn update(Torn dto) {
+	public void updateDto(Banc dto) {
 		// El codi no es pot canviar perquè forma part de la clau primària
 		dto.setNom(TestUtils.NOM_TEST);
-		dto.setObservacions(TestUtils.OBS_TEST);
-		dto.setPrevalecenLosFestivos(true);
-		return dto;
 	}
 
 	@Override
-	public void compareDto(Torn expected, Torn actual) {
+	public void compareDto(Banc expected, Banc actual) {
 		assertEquals(expected.getCodi(), actual.getCodi());
 		assertEquals(expected.getNom(), actual.getNom());
-		assertEquals(expected.getObservacions(), actual.getObservacions());
-		assertEquals(expected.isPrevalecenLosFestivos(), actual.isPrevalecenLosFestivos());
 	}
 
 	@Override

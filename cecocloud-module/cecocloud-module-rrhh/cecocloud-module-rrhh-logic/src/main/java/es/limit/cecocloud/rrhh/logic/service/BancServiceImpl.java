@@ -3,9 +3,10 @@
  */
 package es.limit.cecocloud.rrhh.logic.service;
 
+import org.springframework.stereotype.Service;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.Banc;
 import es.limit.cecocloud.rrhh.logic.api.service.BancService;
-import es.limit.cecocloud.rrhh.logic.service.AbstractAmbIdentificadorICodiServiceImpl;
 import es.limit.cecocloud.rrhh.persist.entity.BancEntity;
 
 /**
@@ -13,7 +14,8 @@ import es.limit.cecocloud.rrhh.persist.entity.BancEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-
-public class BancServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Banc, BancEntity, Integer> implements BancService {
+@Service
+public class BancServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Banc, BancEntity, Integer>
+		implements BancService {
 
 }

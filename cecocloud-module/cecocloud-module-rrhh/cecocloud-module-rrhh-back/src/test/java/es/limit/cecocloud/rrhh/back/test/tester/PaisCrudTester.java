@@ -11,46 +11,48 @@ import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.back.test.utils.TestUtils;
-import es.limit.cecocloud.rrhh.logic.api.dto.Torn;
+import es.limit.cecocloud.rrhh.logic.api.dto.Pais;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
- * Tester pels objectes de tipus torn.
+ * Tester pels objectes de tipus pais.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class TornCrudTester extends AbstractCrudTester<Torn> {
+public class PaisCrudTester extends AbstractCrudTester<Pais> {
 
 	@Override
-	public Torn createDto() {
-		Torn dto = new Torn();
+	public Pais createDto() {
+		Pais dto = new Pais();
 		dto.setCodi(TestUtils.CODI_TEST);
-		dto = this.update(dto);
+		dto.setNom(TestUtils.NOM_TEST);
+		dto.setNif("TT");
+		dto.setCodiso("TST");
+		dto.setCodiso002("TT");
+		dto.setCee(true);
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}
 
 	@Override
-	public void updateDto(Torn dto) {
+	public void updateDto(Pais dto) {
 		// El codi no es pot canviar perquè forma part de la clau primària
-		this.update(dto);
-	}
-
-	public Torn update(Torn dto) {
-		// El codi no es pot canviar perquè forma part de la clau primària
+		dto.setNif("T2");
 		dto.setNom(TestUtils.NOM_TEST);
-		dto.setObservacions(TestUtils.OBS_TEST);
-		dto.setPrevalecenLosFestivos(true);
-		return dto;
+		dto.setCodiso("TS2");
+		dto.setCodiso002("T2");
+		dto.setCee(false);
 	}
 
 	@Override
-	public void compareDto(Torn expected, Torn actual) {
+	public void compareDto(Pais expected, Pais actual) {
 		assertEquals(expected.getCodi(), actual.getCodi());
+		assertEquals(expected.getNif(), actual.getNif());
 		assertEquals(expected.getNom(), actual.getNom());
-		assertEquals(expected.getObservacions(), actual.getObservacions());
-		assertEquals(expected.isPrevalecenLosFestivos(), actual.isPrevalecenLosFestivos());
+		assertEquals(expected.getCodiso(), actual.getCodiso());
+		assertEquals(expected.getCodiso002(), actual.getCodiso002());
+		assertEquals(expected.getCee(), actual.getCee());
 	}
 
 	@Override

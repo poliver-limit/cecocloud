@@ -11,19 +11,19 @@ import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.back.test.utils.TestUtils;
-import es.limit.cecocloud.rrhh.logic.api.dto.Torn;
+import es.limit.cecocloud.rrhh.logic.api.dto.Regim;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
- * Tester pels objectes de tipus torn.
+ * Tester pels objectes de tipus regim.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class TornCrudTester extends AbstractCrudTester<Torn> {
+public class RegimCrudTester extends AbstractCrudTester<Regim> {
 
 	@Override
-	public Torn createDto() {
-		Torn dto = new Torn();
+	public Regim createDto() {
+		Regim dto = new Regim();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
@@ -32,25 +32,33 @@ public class TornCrudTester extends AbstractCrudTester<Torn> {
 	}
 
 	@Override
-	public void updateDto(Torn dto) {
+	public void updateDto(Regim dto) {
 		// El codi no es pot canviar perquè forma part de la clau primària
 		this.update(dto);
 	}
 
-	public Torn update(Torn dto) {
+	public Regim update(Regim dto) {
 		// El codi no es pot canviar perquè forma part de la clau primària
 		dto.setNom(TestUtils.NOM_TEST);
-		dto.setObservacions(TestUtils.OBS_TEST);
-		dto.setPrevalecenLosFestivos(true);
+		dto.setContarHores(true);
+		dto.setMantenirProximaEntrada(true);
+		dto.setMostrarLlistatPlanificacio(true);
+		dto.setNumHoresLaborals(TestUtils.BDECIMAL_TEST);
+		dto.setNumMinHoresLaborals(TestUtils.BDECIMAL_TEST);
+		dto.setPresencia(true);
+
 		return dto;
 	}
 
 	@Override
-	public void compareDto(Torn expected, Torn actual) {
+	public void compareDto(Regim expected, Regim actual) {
 		assertEquals(expected.getCodi(), actual.getCodi());
 		assertEquals(expected.getNom(), actual.getNom());
-		assertEquals(expected.getObservacions(), actual.getObservacions());
-		assertEquals(expected.isPrevalecenLosFestivos(), actual.isPrevalecenLosFestivos());
+		assertEquals(expected.getContarHores(), actual.getContarHores());
+		assertEquals(expected.getMantenirProximaEntrada(), actual.getMantenirProximaEntrada());
+		assertEquals(expected.getMostrarLlistatPlanificacio(), actual.getMostrarLlistatPlanificacio());
+		assertEquals(expected.getNumHoresLaborals(), actual.getNom());
+		assertEquals(expected.getPresencia(), actual.getPresencia());
 	}
 
 	@Override
