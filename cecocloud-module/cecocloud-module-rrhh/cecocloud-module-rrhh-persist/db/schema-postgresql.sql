@@ -174,18 +174,18 @@
         ope_datcre timestamp,
         ope_usumod varchar(255),
         ope_datmod timestamp,
-        ope_ban_codccr int4 not null,
+        ope_ban_codccr int4,
         ope_cen_cod varchar(4),
-        ope_act varchar(255) not null,
-        ope_ado varchar(1) not null,
+        ope_act varchar(255),
+        ope_ado varchar(1),
         ope_ali varchar(255),
         ope_anecmp varchar(255),
-        ope_apldia varchar(1) not null,
+        ope_apldia varchar(1),
         ope_app varchar(255),
         ope_calhor int4,
         ope_codalt varchar(255),
         ope_cpo varchar(255),
-        ope_cml varchar(255) not null,
+        ope_cml varchar(255),
         ope_cplsal1 int4,
         ope_cplsal2 int4,
         ope_ctecmp varchar(255),
@@ -202,24 +202,24 @@
         ope_depcmp varchar(255),
         ope_depcmpfxe varchar(255),
         ope_derdie varchar(255),
-        ope_dcc varchar(2),
+        ope_dcc varchar(255),
         ope_discos varchar(255),
         ope_dom varchar(255),
         ope_dtehor int4,
         ope_eml varchar(255),
         ope_emlemp varchar(255),
-        ope_enc varchar(255) not null,
+        ope_enc varchar(255),
         ope_ban int4,
-        ope_entsor varchar(255) not null,
-        ope_estciv varchar(1),
-        ope_horcan varchar(1),
+        ope_entsor varchar(255),
+        ope_estciv varchar(255),
+        ope_horcan varchar(255),
         ope_horanypjb int4,
         ope_horlli002 int4,
         ope_horlli int4,
         ope_horpenanyantpjb int4,
         ope_horrut varchar(255),
         ope_horvac int4,
-        ope_horesp varchar(1) not null,
+        ope_horesp varchar(1),
         ope_ibnbic varchar(255),
         ope_ibndcc varchar(255),
         ope_ibnpai varchar(255),
@@ -231,25 +231,25 @@
         ope_pruextdme int4,
         ope_pruextdvs int4,
         ope_pruhornor int4,
-        ope_ind varchar(255) not null,
-        ope_djs varchar(1) not null,
-        ope_dls varchar(1) not null,
-        ope_dms varchar(1) not null,
-        ope_dcs varchar(1) not null,
-        ope_dse varchar(1) not null,
-        ope_dme varchar(1) not null,
-        ope_dvs varchar(1) not null,
+        ope_ind varchar(255),
+        ope_djs varchar(1),
+        ope_dls varchar(1),
+        ope_dms varchar(1),
+        ope_dcs varchar(1),
+        ope_dse varchar(1),
+        ope_dme varchar(1),
+        ope_dvs varchar(1),
         ope_llcnai varchar(255),
         ope_maxhoe001 int4,
         ope_mdcntf varchar(255),
-        ope_tor varchar(255) not null,
+        ope_tor varchar(255),
         ope_nif varchar(255),
         ope_nmn1 int4,
         ope_nmn2 int4,
-        ope_nom varchar(40) not null,
+        ope_nom varchar(30) not null,
         ope_nommae varchar(255),
         ope_nompae varchar(255),
-        ope_ngr varchar(1) not null,
+        ope_ngr varchar(1),
         ope_nothorext varchar(255),
         ope_fil int4,
         ope_mtr int4,
@@ -259,7 +259,7 @@
         ope_pjb varchar(255),
         ope_pas varchar(255),
         ope_mns int4,
-        ope_pin varchar(25) not null,
+        ope_pin varchar(255),
         ope_plupdt varchar(255),
         ope_pob varchar(255),
         ope_prv varchar(255),
@@ -270,7 +270,7 @@
         ope_prunitdms int4,
         ope_prunitdse int4,
         ope_prunitdvs int4,
-        ope_ptenmn int4 not null,
+        ope_ptenmn int4,
         ope_ptenmn002 int4,
         ope_sex varchar(255),
         ope_tpc varchar(255),
@@ -278,18 +278,18 @@
         ope_telemp varchar(255),
         ope_tgtcod varchar(255),
         ope_usucld varchar(255),
-        ope_emp_codccr varchar(4),
-        ope_gfe_cod varchar(4),
+        ope_emp_codccr varchar(4) not null,
+        ope_gfe_cod varchar(4) not null,
         ope_hor_cod002 varchar(4) not null,
-        ope_hor_cod003 varchar(4),
+        ope_hor_cod003 varchar(4) not null,
         ope_hor_cod varchar(4) not null,
         ope_hor_codnit varchar(4) not null,
-        ope_vad_cod varchar(4),
+        ope_vad_cod varchar(4) not null,
         ope_ope_cod varchar(4),
-        ope_gre_cod varchar(4),
-        ope_tcs_cod varchar(4) not null,
+        ope_gre_cod varchar(4) not null,
+        ope_tcs_cod varchar(4),
         ope_tor_cod varchar(4),
-        ope_zon_cod varchar(4),
+        ope_zon_cod varchar(4) not null,
         primary key (ope_cod, ope_idf_cod)
     );
 
@@ -452,7 +452,7 @@
         vad_datcre timestamp,
         vad_usumod varchar(255),
         vad_datmod timestamp,
-        vad_des varchar(1) not null,
+        vad_des varchar(1000) not null,
         vad_tip int4 not null,
         primary key (vad_cod, vad_idf_cod)
     );
@@ -468,12 +468,7 @@
         zon_obs varchar(1000),
         zon_zontre varchar(255) not null,
         primary key (zon_cod, zon_idf_cod)
-    );
-
- 
-  
-
-
+    ); 
 
 create index irhu_cat_idf_fk on trhu_cat (cat_idf_cod);
 create index irhu_cen_idf_fk on trhu_cen (cen_idf_cod);
@@ -513,8 +508,6 @@ create index irhu_tra_idf_fk on trhu_tra (tra_idf_cod);
 create index irhu_ttr_idf_fk on trhu_ttr (ttr_idf_cod);
 create index irhu_vad_idf_fk on trhu_vad (vad_idf_cod);
 create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
-
-  
 
     alter table trhu_cat 
        add constraint rrhu_cat_idf_fk 
@@ -820,5 +813,3 @@ create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
        add constraint rrhu_zon_idf_fk 
        foreign key (zon_idf_cod) 
        references trhu_idf;
-
-   

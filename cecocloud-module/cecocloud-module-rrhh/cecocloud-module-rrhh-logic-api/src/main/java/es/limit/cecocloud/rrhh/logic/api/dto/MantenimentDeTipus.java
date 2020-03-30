@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,7 +32,9 @@ public class MantenimentDeTipus extends AbstractIdentificableWithIdentificadorAn
 	private Integer tipus;
 	
 	@NotNull
-	@RestapiField(hiddenInGrid = true)
+	@Size(max = 1000)
+	@RestapiField(hiddenInGrid = true,
+			type = RestapiFieldType.TEXTAREA)
 	private String descripcio;
 
 

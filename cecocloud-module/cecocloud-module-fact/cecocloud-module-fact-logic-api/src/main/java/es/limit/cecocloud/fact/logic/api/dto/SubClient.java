@@ -53,6 +53,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private String codi;
 	
 	@Size(max = 30)
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = false,
 			hiddenInLov = true)

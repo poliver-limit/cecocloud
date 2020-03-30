@@ -44,7 +44,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "vad_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "vad_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "vad_tip", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "vad_des", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "vad_des", length = 1000, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "vad_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "vad_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "vad_usumod")),

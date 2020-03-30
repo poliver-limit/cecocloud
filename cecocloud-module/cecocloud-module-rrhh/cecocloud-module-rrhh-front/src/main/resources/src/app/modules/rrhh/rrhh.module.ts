@@ -108,6 +108,12 @@ export class RrhhModule {
 				resource: 'REH_CATEGO'
 			}, {
 				icon: 'room',
+				label: 'Empreses',
+				labelKey: 'app.menu.rrhh.empresesRrhh',
+				route: '/rrhh/empresesRrhh',
+				resource: 'REH_EMP'
+			}, {
+				icon: 'room',
 				label: 'Grups festius',
 				labelKey: 'app.menu.rrhh.grupsFestius',
 				route: '/rrhh/grupsFestiu',

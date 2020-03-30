@@ -838,6 +838,16 @@ public class FactModuleRegister {
 						Modul.fact,
 						Arrays.asList(Client.class),
 						Arrays.asList()));		
+		funcionalitats.put(
+				"FAC_CERPRJ",
+				new FuncionalitatCodiFontImpl(
+						"FAC_CERPRJ",
+						FuncionalitatTipus.MANTENIMENT,
+						"Cercador projectes",
+						Modul.fact,
+						Arrays.asList(Projecte.class),
+						Arrays.asList()));	
+		
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
 				Zona.class.getPackage().getName(),

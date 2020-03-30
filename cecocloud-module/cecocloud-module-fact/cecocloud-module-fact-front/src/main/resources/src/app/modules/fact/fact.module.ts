@@ -20,6 +20,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/cercadorClients/cercadorClients.module').then(m => m.CercadorClientsModule)
 
 			}, {
+				path: 'cercadorProjectes',
+				loadChildren: () => import('./pages/cercadorProjectes/cercadorProjectes.module').then(m => m.CercadorProjectesModule)
+
+			}, {
 				path: 'albarans',
 				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
 
@@ -744,6 +748,12 @@ export class FactModule {
 							labelKey: 'app.menu.fact.cercadorClients',
 							route: '/fact/cercadorClients',
 							resource: 'FAC_CERCLI'
+						}, 	{
+							icon: 'room',
+							label: 'Cercador projectes',
+							labelKey: 'app.menu.fact.cercadorProjectes',
+							route: '/fact/cercadorProjectes',
+							resource: 'FAC_CERPRJ'
 						}, {
 							icon: 'room',
 							label: 'Classes retencions',

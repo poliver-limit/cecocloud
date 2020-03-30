@@ -15,11 +15,14 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientPreuConverter;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientProjecteTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.ProjecteEstatConverter;
 import es.limit.cecocloud.fact.logic.api.converter.RetencioTipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.TipusExecucioConverter;
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci.AreaNegociPk;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -30,8 +33,11 @@ import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientPreuEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientProjecteTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ProjecteEstatEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RetencioTipusEnumDto;
+import es.limit.cecocloud.fact.logic.api.dto.enums.TipusExecucioEnumDto;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
+import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
+import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,11 +50,11 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 @RestapiResource(
 		descriptionField = "nom"
 )
-public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk> {
-	
+public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk> {	
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 6)
 	@RestapiField(
@@ -69,11 +75,11 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;
 	
-	@Size(max = 35)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private String codiAlternatiu;
+//	@Size(max = 35)
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInLov = true)
+//	private String codiAlternatiu;
 	
 	@Size(max = 60)
 	@RestapiField(
@@ -87,6 +93,13 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true
 			)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true
+			)
+	private GenericReferenceWithCompositePk<Seccio, SeccioPk> seccio;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -115,11 +128,11 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = false)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
 	@RestapiField(
-			hiddenInGrid = true,
+			hiddenInGrid = false,
 			hiddenInLov = true)
 	@Convert(converter = ProjecteEstatConverter.class)
 	private ProjecteEstatEnumDto estat;
@@ -127,25 +140,29 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovNamedFilter = Operari.FILTER_ACTIU)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariResponsable;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovNamedFilter = Operari.FILTER_ACTIU)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariCapGrup;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovNamedFilter = Operari.FILTER_ACTIU)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariEncarregat;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovNamedFilter = Operari.FILTER_ACTIU_ADO)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariAdministratiu;
 	
 	@RestapiField(
@@ -191,10 +208,17 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
-	@Size(max = 1000)
+	@Size(max = 60)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	private String descripcioCurta;
+	
+	@Size(max = 1000)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			type = RestapiFieldType.TEXTAREA)
 	private String descripcio;
 	
 	@Size(max = 20)
@@ -227,6 +251,19 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private String adreca;
 	
+	@Size(max = 100)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String poblacio;
+	
+	@Size(max = 2000)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			type = RestapiFieldType.TEXTAREA)
+	private String tecnologies;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -239,6 +276,12 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> clientAdresa;
 	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean multiclient;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -246,12 +289,12 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@RestapiField(
-			hiddenInGrid = true,
+			hiddenInGrid = false,
 			hiddenInLov = true)
 	private Date dataInici;
 	
 	@RestapiField(
-			hiddenInGrid = true,
+			hiddenInGrid = false,
 			hiddenInLov = true)
 	private Date dataFi;
 	
@@ -288,7 +331,17 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	private Date dataFinalGarantia;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	private Date dataDevolucioAval;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private Date dataFormalitzacio;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -320,10 +373,10 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private BigDecimal percentExecucioGarantia;
 	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private BigDecimal divisaValorEuros;
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInLov = true)
+//	private BigDecimal divisaValorEuros;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -351,8 +404,25 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
+	@Convert(converter = TipusExecucioConverter.class)
+	private TipusExecucioEnumDto tipusExecucio;	
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean controlarCostos;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean exportarMobil;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal preuMigFacturacio;
 	
 	@RestapiField(
 			hiddenInGrid = true,
