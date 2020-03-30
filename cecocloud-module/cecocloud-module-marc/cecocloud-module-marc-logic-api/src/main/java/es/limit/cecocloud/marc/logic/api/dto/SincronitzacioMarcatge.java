@@ -20,6 +20,7 @@ import lombok.Setter;
 @Getter @Setter
 public class SincronitzacioMarcatge {
 
+	private Long id;
 	@NotNull
 	@NotEmpty
 	private String empresaCodi;
