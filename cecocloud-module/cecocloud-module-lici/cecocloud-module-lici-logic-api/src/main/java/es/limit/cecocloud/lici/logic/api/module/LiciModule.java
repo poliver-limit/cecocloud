@@ -39,7 +39,7 @@ public class LiciModule {
 						"LIC_CONFIG",
 						FuncionalitatTipus.MANTENIMENT,
 						"Configuracions",
-						Arrays.asList(Configuracio.class),
+						Configuracio.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"LIC_LICITA",
@@ -47,7 +47,7 @@ public class LiciModule {
 						"LIC_LICITA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Licitacions",
-						Arrays.asList(Licitacio.class),
+						Licitacio.class,
 						Arrays.asList()));
 		moduleInfo = new ModuleInfo(
 				Modul.lici,

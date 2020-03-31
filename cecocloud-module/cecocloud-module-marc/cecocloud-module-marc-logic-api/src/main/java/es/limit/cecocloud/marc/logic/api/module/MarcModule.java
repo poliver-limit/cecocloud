@@ -39,7 +39,7 @@ public class MarcModule {
 						"MAR_MARCAT",
 						FuncionalitatTipus.MANTENIMENT,
 						"Marcatges",
-						Arrays.asList(Marcatge.class),
+						Marcatge.class,
 						Arrays.asList(),
 						Arrays.asList(
 								ExtendedPermission.READ,

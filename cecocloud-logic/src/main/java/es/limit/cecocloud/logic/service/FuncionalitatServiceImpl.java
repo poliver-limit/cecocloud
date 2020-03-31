@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -114,14 +115,9 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						// Elimina els recursos de la funcionalitat no utilitzats
 						for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatRecursos) {
 							boolean trobada = false;
-							for (Class<? extends Identificable<?>> recursClass: funcionalitatCodiFont.getRecursosPrincipals()) {
-								String recursClassName = funcionalitatRecurs.getRecurs().getEmbedded().getClassName();
-								// TODO mirar per què la següent assignació és sempre null
-								//String recursClassName = funcionalitatRecurs.getRecursClassName();
-								if (recursClassName.equals(recursClass.getName())) {
-									trobada = true;
-									break;
-								}
+							String recursClassName = funcionalitatRecurs.getRecurs().getEmbedded().getClassName();
+							if (recursClassName.equals(funcionalitatCodiFont.getRecursPrincipal().getName())) {
+								trobada = true;
 							}
 							if (!trobada) {
 								for (Class<? extends Identificable<?>> recursClass: funcionalitatCodiFont.getRecursosSecundaris()) {
@@ -140,7 +136,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						// Refresca els recursos principals de la funcionalitat
 						if (refrescarRecursos(
 								funcionalitatSaved,
-								funcionalitatCodiFont.getRecursosPrincipals(),
+								Arrays.asList(funcionalitatCodiFont.getRecursPrincipal()),
 								funcionalitatRecursos,
 								true)) {
 							hiHaCanvisRecursos = true;

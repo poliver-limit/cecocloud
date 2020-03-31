@@ -20,7 +20,7 @@ public interface FuncionalitatCodiFont {
 	public String getCodi();
 	public FuncionalitatTipus getTipus();
 	public String getDescripcio();
-	public List<Class<? extends Identificable<?>>> getRecursosPrincipals();
+	public Class<? extends Identificable<?>> getRecursPrincipal();
 	public List<Class<? extends Identificable<?>>> getRecursosSecundaris();
 	public List<Permission> getAllowedPermission();
 
