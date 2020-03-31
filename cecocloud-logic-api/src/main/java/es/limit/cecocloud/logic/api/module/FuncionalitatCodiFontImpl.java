@@ -27,8 +27,7 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 	protected String codi;
 	protected FuncionalitatTipus tipus;
 	protected String descripcio;
-	protected Modul modul;
-	protected List<Class<? extends Identificable<?>>> recursosPrincipals;
+	protected Class<? extends Identificable<?>> recursPrincipal;
 	protected List<Class<? extends Identificable<?>>> recursosSecundaris;
 	protected List<Permission> allowedPermission;
 
@@ -36,15 +35,13 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 			String codi, 
 			FuncionalitatTipus tipus, 
 			String descripcio, 
-			Modul modul,
-			List<Class<? extends Identificable<?>>> recursosPrincipals,
+			Class<? extends Identificable<?>> recursPrincipal,
 			List<Class<? extends Identificable<?>>> recursosSecundaris) {
 		super();
 		this.codi = codi;
 		this.tipus = tipus;
 		this.descripcio = descripcio;
-		this.modul = modul;
-		this.recursosPrincipals = recursosPrincipals;
+		this.recursPrincipal = recursPrincipal;
 		this.recursosSecundaris = recursosSecundaris;
 		this.allowedPermission = new ArrayList<Permission>();
 		

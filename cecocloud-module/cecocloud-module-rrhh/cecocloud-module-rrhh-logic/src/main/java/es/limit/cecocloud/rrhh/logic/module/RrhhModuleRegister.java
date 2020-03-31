@@ -56,8 +56,7 @@ public class RrhhModuleRegister {
 						"REH_CALEND",
 						FuncionalitatTipus.MANTENIMENT,
 						"Calendaris",
-						Modul.rrhh,
-						Arrays.asList(Calendari.class),
+						Calendari.class,
 						Arrays.asList(TipusDia.class)));
 		funcionalitats.put(
 				"REH_CATEGO",
@@ -65,8 +64,7 @@ public class RrhhModuleRegister {
 						"REH_CATEGO",
 						FuncionalitatTipus.MANTENIMENT,
 						"Categories",
-						Modul.rrhh,
-						Arrays.asList(Categoria.class),
+						Categoria.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_GRUFES",
@@ -74,8 +72,7 @@ public class RrhhModuleRegister {
 						"REH_GRUFES",
 						FuncionalitatTipus.MANTENIMENT,
 						"Grups festius",
-						Modul.rrhh,
-						Arrays.asList(GrupFestiu.class),
+						GrupFestiu.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_HORARI",
@@ -83,8 +80,7 @@ public class RrhhModuleRegister {
 						"REH_HORARI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Horaris",
-						Modul.rrhh,
-						Arrays.asList(Horari.class),
+						Horari.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_INTERV",
@@ -92,8 +88,7 @@ public class RrhhModuleRegister {
 						"REH_INTERV",
 						FuncionalitatTipus.MANTENIMENT,
 						"Intervals",
-						Modul.rrhh,
-						Arrays.asList(Interval.class),
+						Interval.class,
 						Arrays.asList(
 								Calendari.class,
 								Zona.class,
@@ -104,8 +99,7 @@ public class RrhhModuleRegister {
 						"REH_NODE",
 						FuncionalitatTipus.MANTENIMENT,
 						"Nodes",
-						Modul.rrhh,
-						Arrays.asList(Node.class),
+						Node.class,
 						Arrays.asList(
 								Zona.class,
 								Servidor.class)));
@@ -115,8 +109,7 @@ public class RrhhModuleRegister {
 						"REH_OPERAR",
 						FuncionalitatTipus.MANTENIMENT,
 						"Operaris",
-						Modul.rrhh,
-						Arrays.asList(Operari.class),
+						Operari.class,
 						Arrays.asList(Horari.class)));
 		funcionalitats.put(
 				"REH_PARAME",
@@ -124,8 +117,7 @@ public class RrhhModuleRegister {
 						"REH_PARAME",
 						FuncionalitatTipus.MANTENIMENT,
 						"Parametres",
-						Modul.rrhh,
-						Arrays.asList(Parametre.class),
+						Parametre.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_RECGRU",
@@ -133,8 +125,7 @@ public class RrhhModuleRegister {
 						"REH_RECGRU",
 						FuncionalitatTipus.MANTENIMENT,
 						"Recursos Grup",
-						Modul.rrhh,
-						Arrays.asList(RecursGrup.class),
+						RecursGrup.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_REGIM",
@@ -142,8 +133,7 @@ public class RrhhModuleRegister {
 						"REH_REGIM",
 						FuncionalitatTipus.MANTENIMENT,
 						"Regims",
-						Modul.rrhh,
-						Arrays.asList(Regim.class),
+						Regim.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_REGDIA",
@@ -151,8 +141,7 @@ public class RrhhModuleRegister {
 						"REH_REGDIA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Registres Diaris",
-						Modul.rrhh,
-						Arrays.asList(RegistreDiari.class),
+						RegistreDiari.class,
 						Arrays.asList(
 								Calendari.class,
 								Operari.class,
@@ -168,8 +157,7 @@ public class RrhhModuleRegister {
 						"REH_SECCIO",
 						FuncionalitatTipus.MANTENIMENT,
 						"Seccions",
-						Modul.rrhh,
-						Arrays.asList(Seccio.class),
+						Seccio.class,
 						Arrays.asList(SeccioGrup.class)));
 		funcionalitats.put(
 				"REH_SECGRU",
@@ -177,8 +165,7 @@ public class RrhhModuleRegister {
 						"REH_SECGRU",
 						FuncionalitatTipus.MANTENIMENT,
 						"Seccions Grup",
-						Modul.rrhh,
-						Arrays.asList(SeccioGrup.class),
+						SeccioGrup.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_SERVID",
@@ -186,8 +173,7 @@ public class RrhhModuleRegister {
 						"REH_SERVID",
 						FuncionalitatTipus.MANTENIMENT,
 						"Servidors",
-						Modul.rrhh,
-						Arrays.asList(Servidor.class),
+						Servidor.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_SUBCAT",
@@ -195,8 +181,7 @@ public class RrhhModuleRegister {
 						"REH_SUBCAT",
 						FuncionalitatTipus.MANTENIMENT,
 						"Subcategories",
-						Modul.rrhh,
-						Arrays.asList(Subcategoria.class),
+						Subcategoria.class,
 						Arrays.asList(Categoria.class)));
 		funcionalitats.put(
 				"REH_TIPDIA",
@@ -204,8 +189,7 @@ public class RrhhModuleRegister {
 						"REH_TIPDIA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus Dia",
-						Modul.rrhh,
-						Arrays.asList(TipusDia.class),
+						TipusDia.class,
 						Arrays.asList(Regim.class)));
 		funcionalitats.put(
 				"REH_TIPTRA",
@@ -213,8 +197,7 @@ public class RrhhModuleRegister {
 						"REH_TIPTRA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus Transaccio",
-						Modul.rrhh,
-						Arrays.asList(TipusTransaccio.class),
+						TipusTransaccio.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"REH_TRANSA",
@@ -222,8 +205,7 @@ public class RrhhModuleRegister {
 						"REH_TRANSA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Transaccions",
-						Modul.rrhh,
-						Arrays.asList(Transaccio.class),
+						Transaccio.class,
 						Arrays.asList(
 								Operari.class,
 								TipusTransaccio.class,
@@ -235,10 +217,8 @@ public class RrhhModuleRegister {
 						"REH_ZONA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Zones",
-						Modul.rrhh,
-						Arrays.asList(Zona.class),
+						Zona.class,
 						Arrays.asList()));
-
 		moduleInfo = new ModuleInfo(
 				Modul.rrhh,
 				Zona.class.getPackage().getName(),
