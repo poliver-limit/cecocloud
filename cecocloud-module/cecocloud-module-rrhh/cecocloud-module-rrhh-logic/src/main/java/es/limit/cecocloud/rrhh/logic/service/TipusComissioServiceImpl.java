@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.persist.entity.TipusComissioEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service
+@Service("TipusDeComissioRrhhService")
 public class TipusComissioServiceImpl
 		extends AbstractAmbIdentificadorICodiServiceImpl<TipusComissio, TipusComissioEntity, String>
 		implements TipusComissioService {

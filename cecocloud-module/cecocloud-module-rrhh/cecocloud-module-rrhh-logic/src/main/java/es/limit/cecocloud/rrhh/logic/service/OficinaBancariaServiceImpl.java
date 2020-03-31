@@ -16,7 +16,7 @@ import es.limit.cecocloud.rrhh.persist.entity.OficinaBancariaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service
+@Service("OficinaBancariaRrhhService")
 public class OficinaBancariaServiceImpl
 		extends AbstractGenericCompositePkServiceImpl<OficinaBancaria, OficinaBancariaEntity, OficinaBancariaPk>
 		implements OficinaBancariaService {

@@ -11,7 +11,6 @@ import es.limit.cecocloud.rrhh.logic.api.dto.Banc;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-
 public interface BancService extends GenericCompositePkService<Banc> {
 
 }

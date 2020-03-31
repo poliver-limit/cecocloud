@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModuleConfig;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
+@RestController("TipusDeComissioRrhhController")
 @RequestMapping(RrhhModuleConfig.API_PATH + "/tipusComissions")
 public class TipusComissioApiController extends AbstractIdentificableAmbIdentificadorApiController<TipusComissio> {
 
