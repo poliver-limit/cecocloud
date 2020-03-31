@@ -17,6 +17,7 @@
 	"app.menu.rrhh.subcategories": "Subcategorias",
 	"app.menu.rrhh.tipusDies": "Tipos de dias",
 	"app.menu.rrhh.tipusTransaccions": "Tipos de transacciones",
+	"app.menu.rrhh.torns": "Turnos",
 	"app.menu.rrhh.transaccions": "Transacciones",
 	"app.menu.rrhh.zones": "Zonas",
 
@@ -247,6 +248,12 @@
 	"resource.transaccio.field.node": "Nodo",
 	"resource.transaccio.field.observacions": "Observaciones",
 	"resource.transaccio.field.identificador": "Identificador",
+	
+	"resource.torn": "Turno",
+	"resource.torn.plural": "Turnos",
+	"resource.torn.field.codi": "Código",
+	"resource.torn.field.nom": "Nombre",
+	"resource.torn.field.prevalecenLosFestivos": "Prevalecen festivos",
 
 	"resource.zonaDuplicat2": "Zona",
 	"resource.zonaDuplicat.plural": "Zonas",

@@ -80,8 +80,7 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 						FUNCIONALITAT_1,
 						FuncionalitatTipus.MANTENIMENT,
 						"Funcionalitat 1",
-						Modul.fact,
-						Arrays.asList(Agrupacio.class),
+						Agrupacio.class,
 						Arrays.asList(
 								AgrupacioIdentificador.class, 
 								Empresa.class, 
@@ -93,8 +92,7 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 						FUNCIONALITAT_2,
 						FuncionalitatTipus.MANTENIMENT,
 						"Funcionalitat 2",
-						Modul.fact,
-						Arrays.asList(AgrupacioIdentificador.class),
+						AgrupacioIdentificador.class,
 						Arrays.asList(
 								FuncionalitatRecurs.class, 
 								Perfil.class)));
@@ -252,9 +250,7 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 				permisosActuals = getAllPermisos(rols);
 				// Els permisos assignats han de ser els dels recursos, i cap mes
 				// 2 x Recursos principals + Recursos secundaris
-				assertEquals(
-						(funcionalitatCodiFont1.getRecursosPrincipals().size() * 2) + funcionalitatCodiFont1.getRecursosSecundaris().size(), 
-						permisosActuals.size());
+				assertEquals(2 + funcionalitatCodiFont1.getRecursosSecundaris().size(), permisosActuals.size());
 				checkPermisos(funcionalitatCodiFont1, ExtendedPermission.CREATE, ExtendedPermission.DELETE);
 			} catch (ClassNotFoundException e) {
 				fail("...no s'han pogut assignar els permisos");
@@ -279,12 +275,8 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 				recursosSecundaris.addAll(funcionalitatCodiFont1.getRecursosSecundaris());
 				recursosSecundaris.addAll(funcionalitatCodiFont2.getRecursosSecundaris());
 				// Si hem assignat READ com a permis a la func2, no els hem de comptar com a secundari
-				recursosSecundaris.removeAll(funcionalitatCodiFont2.getRecursosPrincipals());
-				List<Class<? extends Identificable<?>>> recursosPrincipals1 = funcionalitatCodiFont1.getRecursosPrincipals();
-				recursosPrincipals1.removeAll(funcionalitatCodiFont2.getRecursosPrincipals());
-				assertEquals(
-						(recursosPrincipals1.size() * 2) + (funcionalitatCodiFont2.getRecursosPrincipals().size() * 4) + recursosSecundaris.size(), 
-						permisosActuals.size());
+				recursosSecundaris.remove(AgrupacioIdentificador.class);
+				assertEquals(6 + recursosSecundaris.size(), permisosActuals.size());
 				checkPermisos(funcionalitatCodiFont1, ExtendedPermission.CREATE, ExtendedPermission.DELETE);
 				checkPermisos(funcionalitatCodiFont2, ExtendedPermission.READ, ExtendedPermission.CREATE, ExtendedPermission.WRITE, ExtendedPermission.DELETE);
 			} catch (ClassNotFoundException e) {
@@ -309,11 +301,7 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 				Set<Class<? extends Identificable<?>>> recursosSecundaris = new HashSet<Class<? extends Identificable<?>>>();
 				recursosSecundaris.addAll(funcionalitatCodiFont1.getRecursosSecundaris());
 				recursosSecundaris.addAll(funcionalitatCodiFont2.getRecursosSecundaris());
-				List<Class<? extends Identificable<?>>> recursosPrincipals1 = funcionalitatCodiFont1.getRecursosPrincipals();
-				recursosPrincipals1.removeAll(funcionalitatCodiFont2.getRecursosPrincipals());
-				assertEquals(
-						(recursosPrincipals1.size() * 2) + (funcionalitatCodiFont2.getRecursosPrincipals().size() * 3) + recursosSecundaris.size(), 
-						permisosActuals.size());
+				assertEquals(5 + recursosSecundaris.size(), permisosActuals.size());
 				checkPermisos(funcionalitatCodiFont1, ExtendedPermission.CREATE, ExtendedPermission.DELETE);
 				checkPermisos(funcionalitatCodiFont2, ExtendedPermission.CREATE, ExtendedPermission.WRITE, ExtendedPermission.DELETE);
 			} catch (ClassNotFoundException e) {
@@ -337,11 +325,7 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 				Set<Class<? extends Identificable<?>>> recursosSecundaris = new HashSet<Class<? extends Identificable<?>>>();
 				recursosSecundaris.addAll(funcionalitatCodiFont1.getRecursosSecundaris());
 				recursosSecundaris.addAll(funcionalitatCodiFont2.getRecursosSecundaris());
-				List<Class<? extends Identificable<?>>> recursosPrincipals1 = funcionalitatCodiFont1.getRecursosPrincipals();
-				recursosPrincipals1.removeAll(funcionalitatCodiFont2.getRecursosPrincipals());
-				assertEquals(
-						(recursosPrincipals1.size() * 3) + (funcionalitatCodiFont2.getRecursosPrincipals().size() * 3) + recursosSecundaris.size(), 
-						permisosActuals.size());
+				assertEquals(6 + recursosSecundaris.size(), permisosActuals.size());
 				checkPermisos(funcionalitatCodiFont1, ExtendedPermission.CREATE, ExtendedPermission.WRITE, ExtendedPermission.DELETE);
 				checkPermisos(funcionalitatCodiFont2, ExtendedPermission.CREATE, ExtendedPermission.WRITE, ExtendedPermission.DELETE);
 			} catch (ClassNotFoundException e) {
@@ -359,9 +343,7 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 				permisosActuals = getAllPermisos(rols);
 				// Els permisos assignats han de ser els dels recursos de la func2, i cap mes
 				// 3 x Recursos principals func2 + Recursos secundaris
-				assertEquals(
-						(funcionalitatCodiFont2.getRecursosPrincipals().size() * 3) + funcionalitatCodiFont2.getRecursosSecundaris().size(), 
-						permisosActuals.size());
+				assertEquals(3 + funcionalitatCodiFont2.getRecursosSecundaris().size(), permisosActuals.size());
 				checkPermisos(funcionalitatCodiFont2, ExtendedPermission.CREATE, ExtendedPermission.WRITE, ExtendedPermission.DELETE);
 			} catch (ClassNotFoundException e) {
 				fail("...no s'han pogut desassignar els permisos");
@@ -423,14 +405,12 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 	private void checkPermisos(
 			FuncionalitatCodiFont funcionalitatCodiFont,
 			Permission... permisos) {
-		for (Class<? extends Identificable<?>> recursPrincipal: funcionalitatCodiFont.getRecursosPrincipals()) {
-			for (Permission permis: permisos) {
-				assertEquals(true, permissionService.checkPermissionForSids(
-						recursPrincipal, 
-						0, 
-						permis, 
-						sids));
-			}
+		for (Permission permis: permisos) {
+			assertEquals(true, permissionService.checkPermissionForSids(
+					funcionalitatCodiFont.getRecursPrincipal(), 
+					0, 
+					permis, 
+					sids));
 		}
 		for (Class<? extends Identificable<?>> recursSecundari: funcionalitatCodiFont.getRecursosSecundaris()) {
 			assertEquals(true, permissionService.checkPermissionForSids(

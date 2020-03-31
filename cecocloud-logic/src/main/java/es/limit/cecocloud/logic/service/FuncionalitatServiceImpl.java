@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -90,7 +91,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 					for (FuncionalitatCodiFont funcionalitatCodiFont: funcionalitats) {
 						Optional<FuncionalitatEntity> funcionalitatEntity = funcionalitatRepository.findByEmbeddedCodiAndEmbeddedModul(
 								funcionalitatCodiFont.getCodi(),
-								funcionalitatCodiFont.getModul());
+								cecocloudModuleInfo.getModul());
 						FuncionalitatEntity funcionalitatSaved;
 						if (funcionalitatEntity.isPresent()) {
 							Funcionalitat funcionalitat = funcionalitatEntity.get().getEmbedded();
@@ -98,12 +99,12 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 							funcionalitat.setDescripcio(funcionalitatCodiFont.getDescripcio());
 							funcionalitatSaved = funcionalitatEntity.get();
 						} else {
-							log.debug("        Afegint funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
+							log.debug("        Afegint funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + cecocloudModuleInfo.getModul());
 							Funcionalitat funcionalitat = new Funcionalitat();
 							funcionalitat.setCodi(funcionalitatCodiFont.getCodi());
 							funcionalitat.setTipus(funcionalitatCodiFont.getTipus());
 							funcionalitat.setDescripcio(funcionalitatCodiFont.getDescripcio());
-							funcionalitat.setModul(funcionalitatCodiFont.getModul());
+							funcionalitat.setModul(cecocloudModuleInfo.getModul());
 							funcionalitatSaved = funcionalitatRepository.save(
 									FuncionalitatEntity.builder().
 									embedded(funcionalitat).
@@ -114,14 +115,9 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						// Elimina els recursos de la funcionalitat no utilitzats
 						for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatRecursos) {
 							boolean trobada = false;
-							for (Class<? extends Identificable<?>> recursClass: funcionalitatCodiFont.getRecursosPrincipals()) {
-								String recursClassName = funcionalitatRecurs.getRecurs().getEmbedded().getClassName();
-								// TODO mirar per què la següent assignació és sempre null
-								//String recursClassName = funcionalitatRecurs.getRecursClassName();
-								if (recursClassName.equals(recursClass.getName())) {
-									trobada = true;
-									break;
-								}
+							String recursClassName = funcionalitatRecurs.getRecurs().getEmbedded().getClassName();
+							if (recursClassName.equals(funcionalitatCodiFont.getRecursPrincipal().getName())) {
+								trobada = true;
 							}
 							if (!trobada) {
 								for (Class<? extends Identificable<?>> recursClass: funcionalitatCodiFont.getRecursosSecundaris()) {
@@ -132,7 +128,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 								}
 							}
 							if (!trobada) {
-								log.debug("        Eliminant recurs " + funcionalitatRecurs.getRecursClassName() + " de la funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
+								log.debug("        Eliminant recurs " + funcionalitatRecurs.getRecursClassName() + " de la funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + cecocloudModuleInfo.getModul());
 								funcionalitatRecursRepository.delete(funcionalitatRecurs);
 								hiHaCanvisRecursos = true;
 							}
@@ -140,7 +136,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						// Refresca els recursos principals de la funcionalitat
 						if (refrescarRecursos(
 								funcionalitatSaved,
-								funcionalitatCodiFont.getRecursosPrincipals(),
+								Arrays.asList(funcionalitatCodiFont.getRecursPrincipal()),
 								funcionalitatRecursos,
 								true)) {
 							hiHaCanvisRecursos = true;

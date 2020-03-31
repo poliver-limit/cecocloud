@@ -446,13 +446,13 @@
     );
 
     create table trhu_vad (
-       vad_cod varchar(4) not null,
+       vad_cod varchar(6) not null,
         vad_idf_cod varchar(4) not null,
         vad_usucre varchar(255),
         vad_datcre timestamp,
         vad_usumod varchar(255),
         vad_datmod timestamp,
-        vad_des varchar(1000) not null,
+        vad_des varchar(30) not null,
         vad_tip int4 not null,
         primary key (vad_cod, vad_idf_cod)
     );

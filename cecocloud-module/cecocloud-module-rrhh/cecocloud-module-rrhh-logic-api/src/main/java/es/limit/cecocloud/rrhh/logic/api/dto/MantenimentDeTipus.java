@@ -28,13 +28,11 @@ public class MantenimentDeTipus extends AbstractIdentificableWithIdentificadorAn
 	private String codi;
 
 	@NotNull
-	@Size(max = 30)
 	private Integer tipus;
 	
 	@NotNull
-	@Size(max = 1000)
-	@RestapiField(hiddenInGrid = true,
-			type = RestapiFieldType.TEXTAREA)
+	@Size(max = 30)
+	@RestapiField(hiddenInGrid = true)
 	private String descripcio;
 
 

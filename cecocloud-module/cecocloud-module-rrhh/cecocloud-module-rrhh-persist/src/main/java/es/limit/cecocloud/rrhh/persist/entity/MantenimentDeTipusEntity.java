@@ -15,8 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.logic.api.dto.MantenimentDeTipus;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.rrhh.logic.api.dto.MantenimentDeTipus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,10 +41,10 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "vad_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "vad_cod", length = 4)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "vad_cod", length = 4, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "vad_tip", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "vad_des", length = 1000, nullable = false)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "vad_cod", length = 6)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "vad_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.tipus", column = @Column(name = "vad_tip",  nullable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "vad_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "vad_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "vad_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "vad_usumod")),
