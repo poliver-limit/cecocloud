@@ -62,7 +62,7 @@ import { PerfilService } from './perfil.service';
 										[disabled]="disableToggles || !funcionalitat.allowedPermission.readGranted"
 										(click)="!disableToggles &&
 												funcionalitat.allowedPermission.readGranted &&
-												funcionalitat.tipus == 'MANTENIMENT' &&
+												(funcionalitat.tipus == 'MANTENIMENT' || funcionalitat.tipus == 'INFORME') &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
 								</td>
@@ -83,7 +83,7 @@ import { PerfilService } from './perfil.service';
 										[disabled]="disableToggles || !funcionalitat.allowedPermission.createGranted"
 										(click)="!disableToggles &&
 												funcionalitat.allowedPermission.createGranted &&
-												funcionalitat.tipus == 'MANTENIMENT' &&
+												(funcionalitat.tipus == 'MANTENIMENT' || funcionalitat.tipus == 'INFORME') &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
 								</td>
@@ -104,7 +104,7 @@ import { PerfilService } from './perfil.service';
 										[disabled]="disableToggles || !funcionalitat.allowedPermission.writeGranted"
 										(click)="!disableToggles &&
 												funcionalitat.allowedPermission.writeGranted &&
-												funcionalitat.tipus == 'MANTENIMENT' &&
+												(funcionalitat.tipus == 'MANTENIMENT' || funcionalitat.tipus == 'ACCIO') &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
 								</td>
@@ -131,27 +131,6 @@ import { PerfilService } from './perfil.service';
 								</td>
 							</ng-container>
 
-							<!-- Columna de execute -->
-							<ng-container matColumnDef="execute">
-								<th mat-header-cell
-									*matHeaderCellDef
-									[ngClass]="{'htoggle-mobile': mobileScreen, 'htoggle-desktop': !mobileScreen}">
-									<ng-container *ngIf="!mobileScreen">{{"resource.permission.field.executeGranted" | translate}}</ng-container>
-									<ng-container *ngIf="mobileScreen">{{"resource.permission.field.executeGranted.min" | translate}}</ng-container>
-								</th>
-								<td	mat-cell *matCellDef="let funcionalitat; let index = index" class="rcheck">
-									<mat-checkbox
-										name="executeGranted"
-										[checked]="funcionalitat.permission.executeGranted"
-										[disabled]="disableToggles || !funcionalitat.allowedPermission.executeGranted"
-										(click)="!disableToggles &&
-												funcionalitat.allowedPermission.executeGranted &&
-												funcionalitat.tipus != 'MANTENIMENT' &&
-												onPermisChange($event, indexModul, index)">
-									</mat-checkbox>
-								</td>
-							</ng-container>
-
 							<!-- Columna de altres permisos -->
 							<ng-container matColumnDef="altres">
 								<th mat-header-cell
@@ -166,7 +145,18 @@ import { PerfilService } from './perfil.service';
 												funcionalitat.allowedPermission.perm1Granted ||
 												funcionalitat.allowedPermission.perm2Granted ||
 												funcionalitat.allowedPermission.perm3Granted"
-										[disabled]="disableToggles"
+										[disabled]="disableToggles || !(
+											funcionalitat.allowedPermission.adminGranted ||
+											funcionalitat.allowedPermission.perm1Granted ||
+											funcionalitat.allowedPermission.perm2Granted ||
+											funcionalitat.allowedPermission.perm3Granted ||
+											funcionalitat.allowedPermission.perm4Granted ||
+											funcionalitat.allowedPermission.perm5Granted ||
+											funcionalitat.allowedPermission.perm6Granted ||
+											funcionalitat.allowedPermission.perm7Granted ||
+											funcionalitat.allowedPermission.perm8Granted ||
+											funcionalitat.allowedPermission.perm9Granted ||
+											funcionalitat.allowedPermission.perm10Granted)"
 										[(value)]="funcionalitat.permission.selectedCustom"
 										multiple>
 										<mat-select-trigger>{{getCustomReducedLabel(indexModul, index)}}</mat-select-trigger>
@@ -174,6 +164,13 @@ import { PerfilService } from './perfil.service';
 										<mat-option *ngIf="funcionalitat.allowedPermission.perm1Granted" value="perm1" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm1") | translate }}</mat-option>
 										<mat-option *ngIf="funcionalitat.allowedPermission.perm2Granted" value="perm2" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm2") | translate }}</mat-option>
 										<mat-option *ngIf="funcionalitat.allowedPermission.perm3Granted" value="perm3" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm3") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm4Granted" value="perm4" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm4") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm5Granted" value="perm5" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm5") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm6Granted" value="perm6" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm6") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm7Granted" value="perm7" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm7") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm8Granted" value="perm8" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm8") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm9Granted" value="perm9" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm9") | translate }}</mat-option>
+										<mat-option *ngIf="funcionalitat.allowedPermission.perm10Granted" value="perm10" (onSelectionChange)="onCustomPermisChange($event, indexModul, index)">{{ ("funcionalitat." + funcionalitat.codi + ".permis.perm10") | translate }}</mat-option>
 									</mat-select>
 								</td>
 							</ng-container>
@@ -232,7 +229,6 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		"create",
 		"write",
 		"delete",
-		"execute",
 		"altres"
 	];
 
@@ -259,6 +255,13 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 				case "perm1": funcionalitatInfo.permission.perm1Granted = check; break;
 				case "perm2": funcionalitatInfo.permission.perm2Granted = check; break;
 				case "perm3": funcionalitatInfo.permission.perm3Granted = check; break;
+				case "perm4": funcionalitatInfo.permission.perm4Granted = check; break;
+				case "perm5": funcionalitatInfo.permission.perm5Granted = check; break;
+				case "perm6": funcionalitatInfo.permission.perm6Granted = check; break;
+				case "perm7": funcionalitatInfo.permission.perm7Granted = check; break;
+				case "perm8": funcionalitatInfo.permission.perm8Granted = check; break;
+				case "perm9": funcionalitatInfo.permission.perm9Granted = check; break;
+				case "perm10": funcionalitatInfo.permission.perm10Granted = check; break;
 			}
 
 			this.perfilService
@@ -273,6 +276,13 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 							case "perm1": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm1Granted = !check; break;
 							case "perm2": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm2Granted = !check; break;
 							case "perm3": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+							case "perm4": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+							case "perm5": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+							case "perm6": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+							case "perm7": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+							case "perm8": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+							case "perm9": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
+							case "perm10": this.funcionalitatsModuls[indexModul].funcionalitats[indexRecurs].permission.perm3Granted = !check; break;
 						}
 						this.showMessage(this.translateKey('funcionalitat.permis.modificar.error'));
 					}
@@ -327,6 +337,27 @@ export class FuncionalitatsPermisosComponent implements OnInit {
 		}
 		if (funcionalitat.permission.perm3Granted) {
 			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm3.min", null, "P3") + ", ";
+		}
+		if (funcionalitat.permission.perm4Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm4.min", null, "P4") + ", ";
+		}
+		if (funcionalitat.permission.perm5Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm5.min", null, "P5") + ", ";
+		}
+		if (funcionalitat.permission.perm6Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm6.min", null, "P6") + ", ";
+		}
+		if (funcionalitat.permission.perm7Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm7.min", null, "P7") + ", ";
+		}
+		if (funcionalitat.permission.perm8Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm8.min", null, "P8") + ", ";
+		}
+		if (funcionalitat.permission.perm9Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm9.min", null, "P9") + ", ";
+		}
+		if (funcionalitat.permission.perm10Granted) {
+			label += this.translateKey("funcionalitat." + funcionalitat.codi + ".permis.perm10.min", null, "P10") + ", ";
 		}
 		if (label.length > 0)
 			label = label.substring(0, label.length - 2);
