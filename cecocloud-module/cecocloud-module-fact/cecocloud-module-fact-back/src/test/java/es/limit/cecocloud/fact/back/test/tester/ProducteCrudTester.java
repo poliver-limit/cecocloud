@@ -5,17 +5,18 @@ package es.limit.cecocloud.fact.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
+import es.limit.cecocloud.fact.logic.api.dto.enums.ProducteTipusEnumDto;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
  * Tester pels objectes de tipus Producte.
- * 
- * TO DO
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -29,9 +30,14 @@ public class ProducteCrudTester extends AbstractCrudTester<Producte> {
 		dto.setNom("Nom TST");
 		dto.setDescripcio("Desc TST");
 		dto.setObservacions("Obs TST");
+		dto.setActiu(true);
+		
+		dto.setTipus(ProducteTipusEnumDto.PRODUCTE);		
 		
 		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-//		dto.setProducte(getGenericReferenceWithCompositePkFromParentCrudTester(Producte.class));
+		
+		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;
 	}
@@ -42,6 +48,9 @@ public class ProducteCrudTester extends AbstractCrudTester<Producte> {
 		dto.setNom("Nom TST2");
 		dto.setDescripcio("Desc TST2");
 		dto.setObservacions("Obs TST2");
+		dto.setActiu(false);
+		
+		dto.setTipus(ProducteTipusEnumDto.APLICACIO);		
 	}
 
 	@Override
@@ -50,6 +59,9 @@ public class ProducteCrudTester extends AbstractCrudTester<Producte> {
 		assertEquals(expected.getCodi(),actual.getCodi());
 		assertEquals(expected.getDescripcio(),actual.getDescripcio());
 		assertEquals(expected.getObservacions(),actual.getObservacions());
+		assertEquals(expected.getActiu(),actual.getActiu());
+		
+		assertEquals(expected.getTipus(),actual.getTipus());
 	}
 
 	@Override
@@ -58,7 +70,6 @@ public class ProducteCrudTester extends AbstractCrudTester<Producte> {
 		return new CrudTester[] {
 			new IdentificadorCrudTester(),
 			new EmpresaCrudTester()
-//			new ProducteCrudTester()
 		};
 	}
 

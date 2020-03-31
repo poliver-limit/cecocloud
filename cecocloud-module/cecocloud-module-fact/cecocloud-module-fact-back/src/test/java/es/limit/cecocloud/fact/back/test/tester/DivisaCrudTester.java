@@ -32,9 +32,11 @@ public class DivisaCrudTester extends AbstractCrudTester<Divisa> {
 		dto.setValorEuros(new BigDecimal("7357.757"));
 		dto.setDecimalsPreus(7);
 		dto.setDecimalsImports(7);
-		dto.setCodiComptabilitat("A");		
+		dto.setCodiComptabilitat("A");	
+		
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
+		
 		return dto;
 	}
 

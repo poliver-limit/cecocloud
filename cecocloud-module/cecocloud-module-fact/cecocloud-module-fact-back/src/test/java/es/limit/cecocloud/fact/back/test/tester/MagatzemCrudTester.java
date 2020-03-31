@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
@@ -12,6 +13,7 @@ import es.limit.cecocloud.fact.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.fact.logic.api.dto.Divisa;
 import es.limit.cecocloud.fact.logic.api.dto.Magatzem;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ValoracioInventariTraspasEnum;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
@@ -37,10 +39,15 @@ public class MagatzemCrudTester extends AbstractCrudTester<Magatzem> {
 		dto.setDiariComptableTraspassos1("AB");
 		dto.setDiariComptableTraspassos2("AC");
 		dto.setCompteTraspassos("Compte TST");
-		dto.setPeriodeActualCodi("Periode actual codi TST");
-		dto.setPeriodeActualData("Periode actual data TST");		
+//		dto.setPeriodeActualCodi("Periode actual codi TST");
+//		dto.setPeriodeActualData("Periode actual data TST");		
+		
 		dto.setCodiPostal(getGenericReferenceWithCompositePkFromParentCrudTester(CodiPostal.class));
 		dto.setDivisa(getGenericReferenceWithCompositePkFromParentCrudTester(Divisa.class));
+		
+		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
+		
 		return dto;
 	}
 
@@ -59,8 +66,8 @@ public class MagatzemCrudTester extends AbstractCrudTester<Magatzem> {
 		dto.setDiariComptableTraspassos1("BB");
 		dto.setDiariComptableTraspassos2("BC");
 		dto.setCompteTraspassos("CompteTST2");
-		dto.setPeriodeActualCodi("Periode actual codi TST2");
-		dto.setPeriodeActualData("Periode actual data TST2");		
+//		dto.setPeriodeActualCodi("Periode actual codi TST2");
+//		dto.setPeriodeActualData("Periode actual data TST2");		
 	}
 
 	@Override

@@ -33,6 +33,7 @@ public class RegistreComercialRestApiTest extends ModuleResourceRestApiTest<Regi
 		genericCrudTest();
 	}
 
+	@Override
 	protected FuncionalitatCodiFont getFuncionalitatCodiFont() {
 		ModuleInfo moduleInfo = (ModuleInfo)Modules.registeredGetOne(Modul.fact.name()).get();
 		return moduleInfo.getFuncionalitats().get("FAC_REGCOM");

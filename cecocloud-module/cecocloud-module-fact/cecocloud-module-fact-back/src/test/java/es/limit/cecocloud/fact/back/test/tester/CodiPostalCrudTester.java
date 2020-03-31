@@ -5,11 +5,13 @@ package es.limit.cecocloud.fact.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.fact.logic.api.dto.CodiPostal;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
@@ -26,8 +28,13 @@ public class CodiPostalCrudTester extends AbstractCrudTester<CodiPostal> {
 		dto.setCodi("TST");
 		dto.setPoblacio("Poblacio TST");
 		dto.setMunicipi("Municipi TST");
+		
 		dto.setPais(getGenericReferenceWithCompositePkFromParentCrudTester(Pais.class));
 		dto.setProvincia(getGenericReferenceWithCompositePkFromParentCrudTester(Provincia.class));
+		
+		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
+		
 		return dto;
 	}
 
