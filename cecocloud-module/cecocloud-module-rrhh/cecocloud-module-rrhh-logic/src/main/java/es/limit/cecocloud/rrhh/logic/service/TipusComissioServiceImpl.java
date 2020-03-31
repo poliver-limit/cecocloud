@@ -3,9 +3,10 @@
  */
 package es.limit.cecocloud.rrhh.logic.service;
 
+import org.springframework.stereotype.Service;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.TipusComissio;
 import es.limit.cecocloud.rrhh.logic.api.service.TipusComissioService;
-import es.limit.cecocloud.rrhh.logic.service.AbstractAmbIdentificadorICodiServiceImpl;
 import es.limit.cecocloud.rrhh.persist.entity.TipusComissioEntity;
 
 /**
@@ -13,7 +14,9 @@ import es.limit.cecocloud.rrhh.persist.entity.TipusComissioEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-
-public class TipusComissioServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<TipusComissio, TipusComissioEntity, String> implements TipusComissioService {
+@Service("TipusDeComissioRrhhService")
+public class TipusComissioServiceImpl
+		extends AbstractAmbIdentificadorICodiServiceImpl<TipusComissio, TipusComissioEntity, String>
+		implements TipusComissioService {
 
 }

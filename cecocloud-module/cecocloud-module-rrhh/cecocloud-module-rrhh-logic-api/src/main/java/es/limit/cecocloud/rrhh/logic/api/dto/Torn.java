@@ -33,11 +33,11 @@ public class Torn extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 	@Size(max = 30)
 	private String nom;
 	
+	@Size(max = 1000)
 	@RestapiField(hiddenInGrid = true)
 	private String observacions;
 
 	@NotNull
-	@Size(max = 1000)
 	@RestapiField(type = RestapiFieldType.TEXTAREA, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean prevalecenLosFestivos;

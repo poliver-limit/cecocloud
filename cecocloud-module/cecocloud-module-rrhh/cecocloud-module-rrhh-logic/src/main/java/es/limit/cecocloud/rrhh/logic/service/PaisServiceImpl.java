@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.rrhh.logic.service;
 
+import org.springframework.stereotype.Service;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.Pais;
 import es.limit.cecocloud.rrhh.logic.api.service.PaisService;
 import es.limit.cecocloud.rrhh.persist.entity.PaisEntity;
@@ -12,7 +14,7 @@ import es.limit.cecocloud.rrhh.persist.entity.PaisEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-
+@Service("PaisRrhhService")
 public class PaisServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Pais, PaisEntity, String> implements PaisService {
 
 }

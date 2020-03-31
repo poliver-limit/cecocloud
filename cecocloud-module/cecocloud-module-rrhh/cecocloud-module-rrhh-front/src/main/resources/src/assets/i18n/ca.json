@@ -17,6 +17,7 @@
 	"app.menu.rrhh.subcategories": "Subcategories",
 	"app.menu.rrhh.tipusDies": "Tipus de dies",
 	"app.menu.rrhh.tipusTransaccions": "Tipus de transaccions",
+	"app.menu.rrhh.torns": "Torns",
 	"app.menu.rrhh.transaccions": "Transaccions",
 	"app.menu.rrhh.zones": "Zones",
 
@@ -236,6 +237,12 @@
 	"resource.tipusTransaccio.field.codi": "Codi",
 	"resource.tipusTransaccio.field.descripcio": "Descripció",
 	"resource.tipusTransaccio.field.identificador": "Identificador",
+	
+	"resource.torn": "Torn",
+	"resource.torn.plural": "Torns",
+	"resource.torn.field.codi": "Codi",
+	"resource.torn.field.nom": "Nom",
+	"resource.torn.field.prevalecenLosFestivos": "Prevalem festius",
 
 	"resource.transaccio": "Transacció",
 	"resource.transaccio.plural": "Transaccions",
@@ -256,5 +263,7 @@
 	"resource.zonaDuplicat.field.nom": "Nom",
 	"resource.zona.field.observacio": "Observació",
 	"resource.zonaDuplicat.field.identificador": "Identificador"
+	
+	
 
 }
