@@ -80,7 +80,6 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 						FUNCIONALITAT_1,
 						FuncionalitatTipus.MANTENIMENT,
 						"Funcionalitat 1",
-						Modul.fact,
 						Arrays.asList(Agrupacio.class),
 						Arrays.asList(
 								AgrupacioIdentificador.class, 
@@ -93,7 +92,6 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 						FUNCIONALITAT_2,
 						FuncionalitatTipus.MANTENIMENT,
 						"Funcionalitat 2",
-						Modul.fact,
 						Arrays.asList(AgrupacioIdentificador.class),
 						Arrays.asList(
 								FuncionalitatRecurs.class, 

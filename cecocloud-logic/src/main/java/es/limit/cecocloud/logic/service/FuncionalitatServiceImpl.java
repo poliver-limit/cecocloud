@@ -90,7 +90,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 					for (FuncionalitatCodiFont funcionalitatCodiFont: funcionalitats) {
 						Optional<FuncionalitatEntity> funcionalitatEntity = funcionalitatRepository.findByEmbeddedCodiAndEmbeddedModul(
 								funcionalitatCodiFont.getCodi(),
-								funcionalitatCodiFont.getModul());
+								cecocloudModuleInfo.getModul());
 						FuncionalitatEntity funcionalitatSaved;
 						if (funcionalitatEntity.isPresent()) {
 							Funcionalitat funcionalitat = funcionalitatEntity.get().getEmbedded();
@@ -98,12 +98,12 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 							funcionalitat.setDescripcio(funcionalitatCodiFont.getDescripcio());
 							funcionalitatSaved = funcionalitatEntity.get();
 						} else {
-							log.debug("        Afegint funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
+							log.debug("        Afegint funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + cecocloudModuleInfo.getModul());
 							Funcionalitat funcionalitat = new Funcionalitat();
 							funcionalitat.setCodi(funcionalitatCodiFont.getCodi());
 							funcionalitat.setTipus(funcionalitatCodiFont.getTipus());
 							funcionalitat.setDescripcio(funcionalitatCodiFont.getDescripcio());
-							funcionalitat.setModul(funcionalitatCodiFont.getModul());
+							funcionalitat.setModul(cecocloudModuleInfo.getModul());
 							funcionalitatSaved = funcionalitatRepository.save(
 									FuncionalitatEntity.builder().
 									embedded(funcionalitat).
@@ -132,7 +132,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 								}
 							}
 							if (!trobada) {
-								log.debug("        Eliminant recurs " + funcionalitatRecurs.getRecursClassName() + " de la funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + funcionalitatCodiFont.getModul());
+								log.debug("        Eliminant recurs " + funcionalitatRecurs.getRecursClassName() + " de la funcionalitat \"" + funcionalitatCodiFont.getDescripcio() + "\" (" + funcionalitatCodiFont.getCodi() + ") del mòdul " + cecocloudModuleInfo.getModul());
 								funcionalitatRecursRepository.delete(funcionalitatRecurs);
 								hiHaCanvisRecursos = true;
 							}

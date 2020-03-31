@@ -106,7 +106,6 @@ public class FactModuleRegister {
 						"FAC_ALBARA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Albarans",
-						Modul.fact,
 						Arrays.asList(Albara.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -115,7 +114,6 @@ public class FactModuleRegister {
 						"FAC_APLICA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Aplicadors",
-						Modul.fact,
 						Arrays.asList(Aplicador.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -124,7 +122,6 @@ public class FactModuleRegister {
 						"FAC_APLCLI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Aplicadors-Client",
-						Modul.fact,
 						Arrays.asList(AplicadorClient.class),
 						Arrays.asList(
 								Aplicador.class, 
@@ -135,7 +132,6 @@ public class FactModuleRegister {
 						"FAC_ARENEG",
 						FuncionalitatTipus.MANTENIMENT,
 						"Àrea negocis",
-						Modul.fact,
 						Arrays.asList(AreaNegoci.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -144,7 +140,6 @@ public class FactModuleRegister {
 						"FAC_ARTICL",
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles",
-						Modul.fact,
 						Arrays.asList(Article.class),
 						Arrays.asList(
 								ArticleFamilia.class, 
@@ -158,7 +153,6 @@ public class FactModuleRegister {
 						"FAC_FAMART",
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles família",
-						Modul.fact,
 						Arrays.asList(ArticleFamilia.class),
 						Arrays.asList(
 								RecursGrup.class, 
@@ -169,7 +163,6 @@ public class FactModuleRegister {
 						"FAC_EMFART",
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles família empresa",
-						Modul.fact,
 						Arrays.asList(ArticleFamiliaEmpresa.class),
 						Arrays.asList(ArticleFamilia.class)));
 		funcionalitats.put(
@@ -178,7 +171,6 @@ public class FactModuleRegister {
 						"FAC_GAMART",
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles gamma",
-						Modul.fact,
 						Arrays.asList(ArticleGamma.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -187,7 +179,6 @@ public class FactModuleRegister {
 						"FAC_MARART",
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles marca",
-						Modul.fact,
 						Arrays.asList(ArticleMarca.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -196,7 +187,6 @@ public class FactModuleRegister {
 						"FAC_MODART",
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles model",
-						Modul.fact,
 						Arrays.asList(ArticleModel.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -205,7 +195,6 @@ public class FactModuleRegister {
 						"FAC_BANCS",
 						FuncionalitatTipus.MANTENIMENT,
 						"Bancs",
-						Modul.fact,
 						Arrays.asList(Banc.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -214,7 +203,6 @@ public class FactModuleRegister {
 						"FAC_CLARET",
 						FuncionalitatTipus.MANTENIMENT,
 						"Classes de retencions",
-						Modul.fact,
 						Arrays.asList(ClasseRetencio.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -223,7 +211,6 @@ public class FactModuleRegister {
 						"FAC_CLIENT",
 						FuncionalitatTipus.MANTENIMENT,
 						"Clients",
-						Modul.fact,
 						Arrays.asList(Client.class),
 						Arrays.asList(
 								Divisa.class, 
@@ -256,7 +243,6 @@ public class FactModuleRegister {
 						"FAC_ADRCLI",
 						FuncionalitatTipus.MANTENIMENT,
 						"ClientsAdresa",
-						Modul.fact,
 						Arrays.asList(ClientAdresa.class),
 						Arrays.asList(
 								Client.class, 
@@ -268,7 +254,6 @@ public class FactModuleRegister {
 						"FAC_CP",
 						FuncionalitatTipus.MANTENIMENT,
 						"Codis postals",
-						Modul.fact,
 						Arrays.asList(CodiPostal.class),
 						Arrays.asList(
 								Pais.class, 
@@ -279,7 +264,6 @@ public class FactModuleRegister {
 						"FAC_EMPCCM",
 						FuncionalitatTipus.MANTENIMENT,
 						"Comptes comptables empresa",
-						Modul.fact,
 						Arrays.asList(CompteComptableEmpresa.class),
 						Arrays.asList(Client.class)));
 		funcionalitats.put(
@@ -288,7 +272,6 @@ public class FactModuleRegister {
 						"FAC_EMPCCR",
 						FuncionalitatTipus.MANTENIMENT,
 						"Comptes corrents empresa",
-						Modul.fact,
 						Arrays.asList(CompteCorrentEmpresa.class),
 						Arrays.asList(
 								Client.class, 
@@ -300,7 +283,6 @@ public class FactModuleRegister {
 						"FAC_DEPART",
 						FuncionalitatTipus.MANTENIMENT,
 						"Departaments",
-						Modul.fact,
 						Arrays.asList(Departament.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -309,7 +291,6 @@ public class FactModuleRegister {
 						"FAC_DEPCLI",
 						FuncionalitatTipus.MANTENIMENT,
 						"DepartamentsClient",
-						Modul.fact,
 						Arrays.asList(DepartamentClient.class),
 						Arrays.asList(
 								Client.class, 
@@ -321,7 +302,6 @@ public class FactModuleRegister {
 						"FAC_DIVISA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Divises",
-						Modul.fact,
 						Arrays.asList(Divisa.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -330,7 +310,6 @@ public class FactModuleRegister {
 						"FAC_DOCP_C",
 						FuncionalitatTipus.MANTENIMENT,
 						"Documents de pagament-cobrament",
-						Modul.fact,
 						Arrays.asList(DocumentPagamentCobrament.class),
 						Arrays.asList(
 								NaturalesaPagamentCobrament.class, 
@@ -342,7 +321,6 @@ public class FactModuleRegister {
 						"FAC_EMPRES",
 						FuncionalitatTipus.MANTENIMENT,
 						"Empreses (Facturació)",
-						Modul.fact,
 						Arrays.asList(Empresa.class),
 						Arrays.asList(
 								CodiPostal.class, 
@@ -354,7 +332,6 @@ public class FactModuleRegister {
 						"FAC_FAMCLI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Famílies client",
-						Modul.fact,
 						Arrays.asList(FamiliaClient.class),
 						Arrays.asList(TipusRisc.class)));
 		funcionalitats.put(
@@ -363,7 +340,6 @@ public class FactModuleRegister {
 						"FAC_FAMCOS",
 						FuncionalitatTipus.MANTENIMENT,
 						"Famílies cost",
-						Modul.fact,
 						Arrays.asList(FamiliaCost.class),
 						Arrays.asList(ArticleFamilia.class)));
 		funcionalitats.put(
@@ -372,7 +348,6 @@ public class FactModuleRegister {
 						"FAC_FAMPRO",
 						FuncionalitatTipus.MANTENIMENT,
 						"Famílies proveidor",
-						Modul.fact,
 						Arrays.asList(FamiliaProveidor.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -381,7 +356,6 @@ public class FactModuleRegister {
 						"FAC_FINFAC",
 						FuncionalitatTipus.MANTENIMENT,
 						"Final factures",
-						Modul.fact,
 						Arrays.asList(FinalFactura.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -390,7 +364,6 @@ public class FactModuleRegister {
 						"FAC_IDIOMA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Idiomes",
-						Modul.fact,
 						Arrays.asList(Idioma.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -399,7 +372,6 @@ public class FactModuleRegister {
 						"FAC_IVA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Iva",
-						Modul.fact,
 						Arrays.asList(Iva.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -408,7 +380,6 @@ public class FactModuleRegister {
 						"FAC_MAGATZ",
 						FuncionalitatTipus.MANTENIMENT,
 						"Magatzems",
-						Modul.fact,
 						Arrays.asList(Magatzem.class),
 						Arrays.asList(
 								CodiPostal.class, 
@@ -419,7 +390,6 @@ public class FactModuleRegister {
 						"FAC_MAGPER",
 						FuncionalitatTipus.MANTENIMENT,
 						"Magatzems període",
-						Modul.fact,
 						Arrays.asList(MagatzemPeriode.class),
 						Arrays.asList(Magatzem.class)));
 		funcionalitats.put(
@@ -428,7 +398,6 @@ public class FactModuleRegister {
 						"FAC_NATP_C",
 						FuncionalitatTipus.MANTENIMENT,
 						"Naturaleses de pagament/cobrament",
-						Modul.fact,
 						Arrays.asList(NaturalesaPagamentCobrament.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -437,7 +406,6 @@ public class FactModuleRegister {
 						"FAC_OFIBAN",
 						FuncionalitatTipus.MANTENIMENT,
 						"Oficines bancaries",
-						Modul.fact,
 						Arrays.asList(OficinaBancaria.class),
 						Arrays.asList(
 								CodiPostal.class, 
@@ -448,7 +416,6 @@ public class FactModuleRegister {
 						"FAC_ORG",
 						FuncionalitatTipus.MANTENIMENT,
 						"Organitzacions",
-						Modul.fact,
 						Arrays.asList(Organitzacio.class),
 						Arrays.asList(
 								CodiPostal.class)));
@@ -458,7 +425,6 @@ public class FactModuleRegister {
 						"FAC_PAIS",
 						FuncionalitatTipus.MANTENIMENT,
 						"Països",
-						Modul.fact,
 						Arrays.asList(Pais.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -467,7 +433,6 @@ public class FactModuleRegister {
 					"FAC_PAINIF",
 					FuncionalitatTipus.MANTENIMENT,
 					"Paisos per Nif",
-					Modul.fact,
 					Arrays.asList(PaisNif.class),
 					Arrays.asList()));
 		funcionalitats.put(
@@ -476,7 +441,6 @@ public class FactModuleRegister {
 						"FAC_PEUDOC",
 						FuncionalitatTipus.MANTENIMENT,
 						"Peus de document",
-						Modul.fact,
 						Arrays.asList(PeuDocument.class),
 						Arrays.asList(SerieCompra.class)));
 		funcionalitats.put(
@@ -485,7 +449,6 @@ public class FactModuleRegister {
 					"FAC_PROD",
 					FuncionalitatTipus.MANTENIMENT,
 					"Productes",
-					Modul.fact,
 					Arrays.asList(Producte.class),
 					Arrays.asList(Empresa.class)));
 		funcionalitats.put(
@@ -494,7 +457,6 @@ public class FactModuleRegister {
 						"FAC_PROJEC",
 						FuncionalitatTipus.MANTENIMENT,
 						"Projectes",
-						Modul.fact,
 						Arrays.asList(Projecte.class),
 						Arrays.asList(Divisa.class, 
 								ProjecteTipus.class, 
@@ -515,7 +477,6 @@ public class FactModuleRegister {
 						"FAC_PROTIP",
 						FuncionalitatTipus.MANTENIMENT,
 						"Projectes Tipus",
-						Modul.fact,
 						Arrays.asList(ProjecteTipus.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -524,7 +485,6 @@ public class FactModuleRegister {
 						"FAC_PROVEI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Proveidors",
-						Modul.fact,
 						Arrays.asList(Proveidor.class),
 						Arrays.asList(
 								RegimIva.class,
@@ -539,7 +499,6 @@ public class FactModuleRegister {
 						"FAC_PROVIN",
 						FuncionalitatTipus.MANTENIMENT,
 						"Províncies",
-						Modul.fact,
 						Arrays.asList(Provincia.class),
 						Arrays.asList(Pais.class)));
 		funcionalitats.put(
@@ -548,7 +507,6 @@ public class FactModuleRegister {
 						"FAC_RAPPEL",
 						FuncionalitatTipus.MANTENIMENT,
 						"Rappels",
-						Modul.fact,
 						Arrays.asList(Rappel.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -557,7 +515,6 @@ public class FactModuleRegister {
 						"FAC_REGIVA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Règims iva",
-						Modul.fact,
 						Arrays.asList(RegimIva.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -566,7 +523,6 @@ public class FactModuleRegister {
 					"FAC_REGCOM",
 					FuncionalitatTipus.MANTENIMENT,
 					"Registre comercial",
-					Modul.fact,
 					Arrays.asList(RegistreComercial.class),
 					Arrays.asList(
 							Client.class,
@@ -577,7 +533,6 @@ public class FactModuleRegister {
 						"FAC_SECEMP",
 						FuncionalitatTipus.MANTENIMENT,
 						"Seccions empresa",
-						Modul.fact,
 						Arrays.asList(SeccioEmpresa.class),
 						Arrays.asList(
 								ArticleFamilia.class,
@@ -588,7 +543,6 @@ public class FactModuleRegister {
 						"FAC_SERCOM",
 						FuncionalitatTipus.MANTENIMENT,
 						"Sèries de compra",
-						Modul.fact,
 						Arrays.asList(SerieCompra.class),
 						Arrays.asList(
 								Magatzem.class,
@@ -599,7 +553,6 @@ public class FactModuleRegister {
 						"FAC_SERINT",
 						FuncionalitatTipus.MANTENIMENT,
 						"Sèries intracomunitàries",
-						Modul.fact,
 						Arrays.asList(SerieIntracomunitaria.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -608,7 +561,6 @@ public class FactModuleRegister {
 						"FAC_SERVEN",
 						FuncionalitatTipus.MANTENIMENT,
 						"Sèries de venda",
-						Modul.fact,
 						Arrays.asList(SerieVenda.class),
 						Arrays.asList(
 								PeuDocument.class,
@@ -621,7 +573,6 @@ public class FactModuleRegister {
 						"FAC_SITCOM",
 						FuncionalitatTipus.MANTENIMENT,
 						"Situacions comercials",
-						Modul.fact,
 						Arrays.asList(SituacioComercial.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -630,7 +581,6 @@ public class FactModuleRegister {
 						"FAC_SITINI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Situacions inicials",
-						Modul.fact,
 						Arrays.asList(SituacioInicial.class),
 						Arrays.asList(
 								Magatzem.class,
@@ -643,7 +593,6 @@ public class FactModuleRegister {
 						"FAC_SUBCLI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Subclients",
-						Modul.fact,
 						Arrays.asList(SubClient.class),
 						Arrays.asList(
 								Client.class,
@@ -664,7 +613,6 @@ public class FactModuleRegister {
 						"FAC_SUBVEN",
 						FuncionalitatTipus.MANTENIMENT,
 						"Subvencions",
-						Modul.fact,
 						Arrays.asList(Subvencio.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -673,7 +621,6 @@ public class FactModuleRegister {
 						"FAC_TARIFA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tarifes",
-						Modul.fact,
 						Arrays.asList(Tarifa.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -682,7 +629,6 @@ public class FactModuleRegister {
 						"FAC_TARDES",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tarifes descompte",
-						Modul.fact,
 						Arrays.asList(TarifaDescompte.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -691,7 +637,6 @@ public class FactModuleRegister {
 					"FAC_TIPADR",
 					FuncionalitatTipus.MANTENIMENT,
 					"Tipus adreça",
-					Modul.fact,
 					Arrays.asList(TipusAdresa.class),
 					Arrays.asList()));
 		funcionalitats.put(
@@ -700,7 +645,6 @@ public class FactModuleRegister {
 					"FAC_TIPCLI",
 					FuncionalitatTipus.MANTENIMENT,
 					"Tipus client",
-					Modul.fact,
 					Arrays.asList(TipusClient.class),
 					Arrays.asList(
 							Client.class,
@@ -711,7 +655,6 @@ public class FactModuleRegister {
 						"FAC_TIPCOM",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de comissió",
-						Modul.fact,
 						Arrays.asList(TipusComissio.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -720,7 +663,6 @@ public class FactModuleRegister {
 						"FAC_TIPFAC",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de facturació",
-						Modul.fact,
 						Arrays.asList(TipusFacturacio.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -729,7 +671,6 @@ public class FactModuleRegister {
 						"FAC_TIPINF",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus incidencia factura",
-						Modul.fact,
 						Arrays.asList(TipusIncidenciaFactura.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -738,7 +679,6 @@ public class FactModuleRegister {
 						"FAC_TIPP_C",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de proveïdor/client",
-						Modul.fact,
 						Arrays.asList(TipusProveidorClient.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -747,7 +687,6 @@ public class FactModuleRegister {
 						"FAC_TIPRIS",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de riscos",
-						Modul.fact,
 						Arrays.asList(TipusRisc.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -756,7 +695,6 @@ public class FactModuleRegister {
 						"FAC_TIPVEN",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de venciments",
-						Modul.fact,
 						Arrays.asList(TipusVenciment.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -765,7 +703,6 @@ public class FactModuleRegister {
 						"FAC_TRANSP",
 						FuncionalitatTipus.MANTENIMENT,
 						"Transportistes",
-						Modul.fact,
 						Arrays.asList(Transportista.class),
 						Arrays.asList(
 								CodiPostal.class,
@@ -777,7 +714,6 @@ public class FactModuleRegister {
 						"FAC_UBICAC",
 						FuncionalitatTipus.MANTENIMENT,
 						"Ubicacions",
-						Modul.fact,
 						Arrays.asList(Ubicacio.class),
 						Arrays.asList(Magatzem.class)));
 		funcionalitats.put(
@@ -786,7 +722,6 @@ public class FactModuleRegister {
 						"FAC_UBIART",
 						FuncionalitatTipus.MANTENIMENT,
 						"Ubicacions articles",
-						Modul.fact,
 						Arrays.asList(UbicacioArticle.class),
 						Arrays.asList(
 								Ubicacio.class,
@@ -798,7 +733,6 @@ public class FactModuleRegister {
 						"FAC_UNITIP",
 						FuncionalitatTipus.MANTENIMENT,
 						"Unitats tipus",
-						Modul.fact,
 						Arrays.asList(UnitatTipus.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -807,7 +741,6 @@ public class FactModuleRegister {
 						"FAC_VEHICL",
 						FuncionalitatTipus.MANTENIMENT,
 						"Vehicles",
-						Modul.fact,
 						Arrays.asList(Vehicle.class),
 						Arrays.asList(Transportista.class)));
 		funcionalitats.put(
@@ -816,7 +749,6 @@ public class FactModuleRegister {
 						"FAC_ZONA",
 						FuncionalitatTipus.MANTENIMENT,
 						"Zones",
-						Modul.fact,
 						Arrays.asList(Zona.class),
 						Arrays.asList()));
 		funcionalitats.put(
@@ -825,7 +757,6 @@ public class FactModuleRegister {
 						"FAC_CERCLI",
 						FuncionalitatTipus.MANTENIMENT,
 						"Cercador clients",
-						Modul.fact,
 						Arrays.asList(Client.class),
 						Arrays.asList()));		
 		moduleInfo = new ModuleInfo(
