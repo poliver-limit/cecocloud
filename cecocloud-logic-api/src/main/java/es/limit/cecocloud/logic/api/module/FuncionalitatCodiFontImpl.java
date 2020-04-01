@@ -53,7 +53,8 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 			this.allowedPermissions.add(ExtendedPermission.CREATE);
 			this.allowedPermissions.add(ExtendedPermission.DELETE);
 			break;
-		case ACCIO:
+		case ACCIO_UNIC:
+		case ACCIO_MULTIPLE:
 			this.allowedPermissions.add(ExtendedPermission.WRITE);
 			break;
 		case INFORME:
