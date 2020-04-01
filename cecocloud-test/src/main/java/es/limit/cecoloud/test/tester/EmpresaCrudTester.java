@@ -19,6 +19,8 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
  */
 public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 
+	public static final String EMPRESA_CODI_TEST = "TEST";
+
 	/*private FuncionalitatService funcionalitatService;
 	private PerfilService perfilService;
 
@@ -33,7 +35,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 	@Override
 	public Empresa createDto() {
 		Empresa dto = new Empresa();
-		dto.setCodi("TEST");
+		dto.setCodi(EMPRESA_CODI_TEST);
 		dto.setNif("12345678Z");
 		dto.setNom("Test");
 		dto.setTipus(EmpresaTipusEnum.GESTIO);

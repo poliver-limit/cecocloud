@@ -26,23 +26,17 @@ public class SeccioGrupCrudTester extends AbstractCrudTester<SeccioGrup> {
 	public SeccioGrup createDto() {
 		SeccioGrup dto = new SeccioGrup();
 		dto.setCodi(TestUtils.CODI_TEST);
-		dto = this.update(dto);
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
+		dto.setNom(TestUtils.NOM_TEST);
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
+		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
 		return dto;
 	}
 
 	@Override
 	public void updateDto(SeccioGrup dto) {
 		// El codi no es pot canviar perquè forma part de la clau primària
-		this.update(dto);
-	}
-
-	public SeccioGrup update(SeccioGrup dto) {
-		// El codi no es pot canviar perquè forma part de la clau primària
-		dto.setNom(TestUtils.NOM_TEST);
-		return dto;
+		dto.setNom(TestUtils.NOM_TEST + "2");
 	}
 
 	@Override
@@ -54,7 +48,10 @@ public class SeccioGrupCrudTester extends AbstractCrudTester<SeccioGrup> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
-		return new CrudTester[] { new IdentificadorCrudTester() };
+		return new CrudTester[] {
+				new IdentificadorCrudTester(),
+				new EmpresaCrudTester()
+		};
 	}
 
 }

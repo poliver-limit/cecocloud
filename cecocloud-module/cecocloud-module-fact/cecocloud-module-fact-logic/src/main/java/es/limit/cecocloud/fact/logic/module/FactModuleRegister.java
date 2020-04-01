@@ -786,7 +786,6 @@ public class FactModuleRegister {
 						"Cercador projectes",
 						Projecte.class,
 						Arrays.asList()));	
-		
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
 				Zona.class.getPackage().getName(),
