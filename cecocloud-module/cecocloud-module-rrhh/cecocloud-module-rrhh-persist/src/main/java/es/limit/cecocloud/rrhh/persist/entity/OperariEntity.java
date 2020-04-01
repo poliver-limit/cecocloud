@@ -44,21 +44,12 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ope_idf_cod", length = 4)),	
-<<<<<<< HEAD
 	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 6)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", insertable = false, updatable = false)),		
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 40, nullable = false)),	
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
 	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
 	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
-=======
-	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 4)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", length = 4, insertable = false, updatable = false)),		
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 30, nullable = false)),	
-	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act")),	
-	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor")),	
-	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml")),	
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 //	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
 	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor")),			
 	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin")),			
@@ -353,14 +344,8 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			foreignKey = @ForeignKey(name = "rrhu_ope_hor3_fk"))			
 	protected HorariEntity horariCod003;	
 	@Column(name ="ope_hor_cod003", length = 4, nullable = false)
-<<<<<<< HEAD
 	private String horariCod003Codi;
-	
-	
-	
-=======
-	private String horariCod003Codi;	
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
+
 
 	@Builder
 	public OperariEntity(
@@ -388,7 +373,6 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			) {
 		setId(pk);
 		this.embedded = embedded;
-<<<<<<< HEAD
 		this.identificador = identificador;
 	
 		
@@ -406,10 +390,6 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 //		this.grupFestiuCodi = grupFestiu.getEmbedded()!= null?grupFestiu.getEmbedded().getCodi(): null;
 //		this.centreCodi = centre.getEmbedded()!= null?centre.getEmbedded().getCodi(): null;
 //		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
-
-=======
-		this.identificador = identificador;	
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 
 		this.updateHorari(horari);		
 		this.updateTipusComissio(tipusComissio);
@@ -435,18 +415,12 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	
 	public void updateHorari (HorariEntity horari) {
 		this.horari = horari;
-<<<<<<< HEAD
 		this.horariCodi = horari!= null?horari.getEmbedded().getCodi(): null;
 	}	
 
-=======
-		if (horari!=null) this.horariCodi = horari.getEmbedded().getCodi();	
-	}
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
-	
+
 	public void updateTipusComissio (TipusComissioEntity tipusComissio) {
 	 	this.tipusComissio = tipusComissio;
-<<<<<<< HEAD
 		this.tipusComissioCodi= tipusComissio!= null?tipusComissio.getEmbedded().getCodi(): null;;	
 	}
 	
@@ -468,34 +442,12 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	public void updateEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 		this.empresaCodi = empresa!= null?empresa.getEmbedded().getCodi(): null;
-=======
-	 	if (tipusComissio!=null) this.tipusComissioCodi= tipusComissio.getEmbedded().getCodi();	
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateHorariBocadillo (HorariEntity horariBocadillo) {
 		this.horariBocadillo = horariBocadillo;
-<<<<<<< HEAD
 		this.horariBocadilloCodi = horariBocadillo!= null?horariBocadillo.getEmbedded().getCodi(): null;
-=======
-		if (horariBocadillo!=null) this.horariBocadilloCodi = horariBocadillo.getEmbedded().getCodi();	
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
-	
-	public void updateBanc (BancEntity banc) {
-		this.banc = banc;
-		if (banc!=null) this.bancCodi= banc.getEmbedded().getCodi();	
-	}
-		
-	public void updateZona(ZonaEntity zona) {
-		this.zona = zona;
-		if (zona!=null)	this.zonaCodi = zona.getEmbedded().getCodi();
-	}
-	
-	public void updateEmpresa(EmpresaEntity empresa) {
-		this.empresa = empresa;
-		if (empresa!=null) this.empresaCodi = empresa.getEmbedded().getCodi();
-	}	
 
 	public void updateHorariCodNit (HorariEntity horariCodNit) {
 		this.horariCodNit = horariCodNit;
@@ -504,56 +456,34 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	
 	public void updateRecursGrup (RecursGrupEntity recursGrup) {
 		this.recursGrup = recursGrup;
-<<<<<<< HEAD
 		this.recursGrupCodi = recursGrup!= null?recursGrup.getEmbedded().getCodi(): null;
-=======
-		if (recursGrup!=null) this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateOperari (OperariEntity operari) {
 		this.operari = operari;
-<<<<<<< HEAD
 		this.operariCodi = operari!= null?operari.getEmbedded().getCodi(): null;
-=======
-		if (operari!=null) this.operariCodi = operari.getEmbedded().getCodi();
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
+
 	}
 	
 	public void updateMantenimentDeTipus (MantenimentDeTipusEntity mantenimentDeTipus) {
 		this.mantenimentDeTipus = mantenimentDeTipus;
-<<<<<<< HEAD
 		this.mantenimentDeTipusCodi = mantenimentDeTipus!= null?mantenimentDeTipus.getEmbedded().getCodi(): null;
-=======
-		if (mantenimentDeTipus!=null) this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
+
 	}
 	
 	public void updateTorn(TornEntity torn) {
 		this.torn = torn;
-<<<<<<< HEAD
 		this.tornCodi = torn!= null?torn.getEmbedded().getCodi(): null;
-=======
-		if (torn!=null) this.tornCodi = torn.getEmbedded().getCodi();
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
 		this.grupFestiu = grupFestiu;
-<<<<<<< HEAD
 		this.grupFestiuCodi = grupFestiu!= null?grupFestiu.getEmbedded().getCodi(): null;
-=======
-		if (grupFestiu!=null) this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateCentre (CentreEntity centre) {
 		this.centre = centre;
-<<<<<<< HEAD
 		this.centreCodi = centre!= null?centre.getEmbedded().getCodi(): null;
-=======
-		if (centre!=null) this.centreCodi = centre.getEmbedded().getCodi();
->>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateHorariCod003 (HorariEntity horariCod003) {

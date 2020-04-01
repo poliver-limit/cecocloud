@@ -141,7 +141,7 @@ public class OperariCrudTester extends AbstractCrudTester<Operari> {
 		dto.setNothorext(true);
 		dto.setNumeroFills(1);
 		dto.setNumeroMatricula(1);
-		dto.setNumeroSeguretatSocial("numSS");
+//		dto.setNumeroSeguretatSocial("numSS");
 		dto.setObservacionsPrejubilacio(TestUtils.OBS_TEST);
 		dto.setOficinaBancaria(1);
 		dto.setOperariPrejubilat(true);

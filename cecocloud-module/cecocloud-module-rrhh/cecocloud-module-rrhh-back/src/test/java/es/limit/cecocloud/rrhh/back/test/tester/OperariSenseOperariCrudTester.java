@@ -123,7 +123,7 @@ public class OperariSenseOperariCrudTester extends AbstractCrudTester<Operari> {
 		dto.setNothorext(true);
 		dto.setNumeroFills(1);
 		dto.setNumeroMatricula(1);
-		dto.setNumeroSeguretatSocial("numSS");
+//		dto.setNumeroSeguretatSocial("numSS");
 		dto.setObservacionsPrejubilacio(TestUtils.OBS_TEST);
 		dto.setOficinaBancaria(1);
 		dto.setOperariPrejubilat(true);
@@ -233,7 +233,7 @@ public class OperariSenseOperariCrudTester extends AbstractCrudTester<Operari> {
 		assertEquals(expected.getNothorext(), actual.getNothorext());
 		assertEquals(expected.getNumeroFills(), actual.getNumeroFills());
 		assertEquals(expected.getNumeroMatricula(), actual.getNumeroMatricula());
-		assertEquals(expected.getNumeroSeguretatSocial(), actual.getNumeroSeguretatSocial());
+//		assertEquals(expected.getNumeroSeguretatSocial(), actual.getNumeroSeguretatSocial());
 		assertEquals(expected.getObservacionsPrejubilacio(), actual.getObservacionsPrejubilacio());
 		assertEquals(expected.getOficinaBancaria(), actual.getOficinaBancaria());
 		assertEquals(expected.getOperariPrejubilat(), actual.getOperariPrejubilat());
