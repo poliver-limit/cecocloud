@@ -60,9 +60,10 @@
 	"resource.funcionalitat.field.modul": "MÃ³dulo",
 	"resource.funcionalitat.field.pare": "Padre",
 	"resource.funcionalitat.enum.tipus.MANTENIMENT": "Mantenimiento",
-	"resource.funcionalitat.enum.tipus.ACCIO": "AcciÃ³n",
+	"resource.funcionalitat.enum.tipus.ACCIO_SIMPLE": "Acción simple",
+	"resource.funcionalitat.enum.tipus.ACCIO_MULTIPLE": "Acción múltiple",
 	"resource.funcionalitat.enum.tipus.INFORME": "Informe",
-	"resource.funcionalitat.enum.modul.fact": "FacturaciÃ³n",
+	"resource.funcionalitat.enum.modul.fact": "Facturación",
 	"resource.funcionalitat.enum.modul.lici": "Licitaciones",
 	"resource.funcionalitat.enum.modul.marc": "Marcajes",
 	"resource.funcionalitat.enum.modul.rrhh": "Recursos humanos",
@@ -296,6 +297,6 @@
 	"funcionalitat.REH_TIPTRA": "Tipos de transacciones",
 	"funcionalitat.REH_TORN": "Turnos",
 	"funcionalitat.REH_TRANSA": "Transacciones",
-	"funcionalitat.REH_ZONA": "Zonas",
-	
+	"funcionalitat.REH_ZONA": "Zonas"
+
 }

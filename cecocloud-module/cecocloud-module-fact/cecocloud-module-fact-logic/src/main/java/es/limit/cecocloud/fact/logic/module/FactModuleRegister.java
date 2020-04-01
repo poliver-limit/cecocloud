@@ -45,9 +45,9 @@ import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
 import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
-import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
+import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
 import es.limit.cecocloud.fact.logic.api.dto.Proveidor;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
@@ -427,7 +427,16 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Països",
 						Pais.class,
-						Arrays.asList()));
+						Arrays.asList(),
+						Arrays.asList(
+								new FuncionalitatCodiFontImpl(
+										"FAC_PAIS_ACCIOS",
+										FuncionalitatTipus.ACCIO_SIMPLE,
+										"Accio simple"),
+								new FuncionalitatCodiFontImpl(
+										"FAC_PAIS_ACCIOM",
+										FuncionalitatTipus.ACCIO_MULTIPLE,
+										"Accio múltiple"))));
 		funcionalitats.put(
 				"FAC_PAINIF",
 				new FuncionalitatCodiFontImpl(
