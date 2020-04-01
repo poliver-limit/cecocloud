@@ -52,12 +52,12 @@ import lombok.Setter;
 	
 	@AttributeOverride(name = "embedded.dataEntrada", column = @Column(name = "inr_dat")),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "inr_ini")),
-	@AttributeOverride(name = "embedded.numeroNodeEnt", column = @Column(name = "inr_nod_nument", length=22)),
-	@AttributeOverride(name = "embedded.numeroNodeSor", column = @Column(name = "inr_nod_numsor", length=22)),
+	@AttributeOverride(name = "embedded.numeroNodeEnt", column = @Column(name = "inr_nod_nument", length=10)),
+	@AttributeOverride(name = "embedded.numeroNodeSor", column = @Column(name = "inr_nod_numsor", length=10)),
 	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "inr_fin")),
 	@AttributeOverride(name = "embedded.observacio", column = @Column(name = "inr_obs", length = 1000)),
 	@AttributeOverride(name = "embedded.concepteFeinaCodi", column = @Column(name = "inr_cof_cod", length = 4)),
-	@AttributeOverride(name = "embedded.fullFeinaOperariCodi", column = @Column(name = "inr_ffo_cod", length = 4)),
+	@AttributeOverride(name = "embedded.fullFeinaOperariCodi", column = @Column(name = "inr_ffo_cod", length = 10)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "inr_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "inr_datcre")),
