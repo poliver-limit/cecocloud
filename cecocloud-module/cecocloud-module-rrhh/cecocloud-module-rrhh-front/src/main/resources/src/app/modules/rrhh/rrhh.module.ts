@@ -81,6 +81,9 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: 'zonesRrhh',
 				loadChildren: () => import('./pages/zonesRrhh/zonesRrhh.module').then(m => m.ZonesRrhhModule)
 			}, {
+				path: 'torns',
+				loadChildren: () => import('./pages/torns/torns.module').then(m => m.TornsModule)
+			}, {
 				path: '**',
 				redirectTo: ''
 			}]
@@ -106,6 +109,12 @@ export class RrhhModule {
 				labelKey: 'app.menu.rrhh.categories',
 				route: '/rrhh/categories',
 				resource: 'REH_CATEGO'
+			}, {
+				icon: 'room',
+				label: 'Empreses',
+				labelKey: 'app.menu.rrhh.empresesRrhh',
+				route: '/rrhh/empresesRrhh',
+				resource: 'REH_EMP'
 			}, {
 				icon: 'room',
 				label: 'Grups festius',
@@ -196,6 +205,12 @@ export class RrhhModule {
 				labelKey: 'app.menu.rrhh.tipusTransaccions',
 				route: '/rrhh/tipusTransaccions',
 				resource: 'REH_TIPTRA'
+			}, {
+				icon: 'room',
+				label: 'Tornos',
+				labelKey: 'app.menu.rrhh.torns',
+				route: '/rrhh/torns',
+				resource: 'REH_TORN'
 			}, {
 				icon: 'room',
 				label: 'Transaccions',

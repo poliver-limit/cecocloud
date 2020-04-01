@@ -29,7 +29,41 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 	protected String descripcio;
 	protected Class<? extends Identificable<?>> recursPrincipal;
 	protected List<Class<? extends Identificable<?>>> recursosSecundaris;
-	protected List<Permission> allowedPermission;
+	protected List<Permission> allowedPermissions;
+	protected List<FuncionalitatCodiFont> funcionalitatsFilles;
+
+	public FuncionalitatCodiFontImpl(
+			String codi, 
+			FuncionalitatTipus tipus, 
+			String descripcio, 
+			Class<? extends Identificable<?>> recursPrincipal,
+			List<Class<? extends Identificable<?>>> recursosSecundaris,
+			List<FuncionalitatCodiFont> funcionalitatsFilles) {
+		this.codi = codi;
+		this.tipus = tipus;
+		this.descripcio = descripcio;
+		this.recursPrincipal = recursPrincipal;
+		this.recursosSecundaris = recursosSecundaris;
+		this.funcionalitatsFilles = funcionalitatsFilles;
+		this.allowedPermissions = new ArrayList<Permission>();
+		switch (tipus) {
+		case MANTENIMENT:
+			this.allowedPermissions.add(ExtendedPermission.READ);
+			this.allowedPermissions.add(ExtendedPermission.WRITE);
+			this.allowedPermissions.add(ExtendedPermission.CREATE);
+			this.allowedPermissions.add(ExtendedPermission.DELETE);
+			break;
+		case ACCIO:
+			this.allowedPermissions.add(ExtendedPermission.WRITE);
+			break;
+		case INFORME:
+			this.allowedPermissions.add(ExtendedPermission.READ);
+			this.allowedPermissions.add(ExtendedPermission.CREATE);
+			break;
+		default:
+			break;
+		}
+	}
 
 	public FuncionalitatCodiFontImpl(
 			String codi, 
@@ -37,31 +71,13 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 			String descripcio, 
 			Class<? extends Identificable<?>> recursPrincipal,
 			List<Class<? extends Identificable<?>>> recursosSecundaris) {
-		super();
-		this.codi = codi;
-		this.tipus = tipus;
-		this.descripcio = descripcio;
-		this.recursPrincipal = recursPrincipal;
-		this.recursosSecundaris = recursosSecundaris;
-		this.allowedPermission = new ArrayList<Permission>();
-		
-		switch (tipus) {
-		case MANTENIMENT:
-			this.allowedPermission.add(ExtendedPermission.READ);
-			this.allowedPermission.add(ExtendedPermission.WRITE);
-			this.allowedPermission.add(ExtendedPermission.CREATE);
-			this.allowedPermission.add(ExtendedPermission.DELETE);
-			break;
-		case ACCIO:
-			this.allowedPermission.add(ExtendedPermission.WRITE);
-			break;
-		case INFORME:
-			this.allowedPermission.add(ExtendedPermission.READ);
-			this.allowedPermission.add(ExtendedPermission.CREATE);
-			break;
-		default:
-			break;
-		}
+		this(
+				codi,
+				tipus,
+				descripcio,
+				recursPrincipal,
+				recursosSecundaris,
+				null);
 	}
 
 }

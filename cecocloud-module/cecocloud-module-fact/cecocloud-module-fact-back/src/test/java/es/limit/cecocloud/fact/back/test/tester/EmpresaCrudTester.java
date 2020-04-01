@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
@@ -20,6 +21,7 @@ import es.limit.cecocloud.fact.logic.api.dto.enums.FacturacioTipusEnum;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusComptabilitatClientEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusEstrangerEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusPersonaEnumDto;
+import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
@@ -36,7 +38,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		
 		Empresa dto = new Empresa();
 		
-		dto.setCodi("TST");
+		dto.setCodi("TEST");
 		dto.setNomComercial("NomComercial TST");
 		dto.setDomiciliComercial("DomComercial TST");
 		dto.setNomFiscal("NomFiscal TST");
@@ -70,6 +72,9 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		dto.setCodiPostalFiscal(getGenericReferenceWithCompositePkFromParentCrudTester(CodiPostal.class));
 		dto.setDivisa(getGenericReferenceWithCompositePkFromParentCrudTester(Divisa.class));
 		dto.setMagatzem(getGenericReferenceWithCompositePkFromParentCrudTester(Magatzem.class));		
+		
+		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;
 	}

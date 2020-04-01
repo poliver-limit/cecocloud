@@ -212,6 +212,7 @@
 	"funcionalitat.FAC_ARENEG": "Àrees de negoci",
 	"funcionalitat.FAC_ARTICL": "Articles",
 	"funcionalitat.FAC_CERCLI": "Cercador de clients",
+	"funcionalitat.FAC_CERPRJ": "Cercador de projectes",
 	"funcionalitat.FAC_CLARET": "Classes de retenció",
 	"funcionalitat.FAC_FAMART": "Famílies d'articles",
 	"funcionalitat.FAC_EMFART": "Famímies per empresa",
@@ -243,6 +244,7 @@
 	"funcionalitat.FAC_PAIS": "Països",
 	"funcionalitat.FAC_PAINIF": "Països N.I.F.",
 	"funcionalitat.FAC_PEUDOC": "Peus de document",
+	"funcionalitat.FAC_PROPRE": "Projectes / Pressupostos",
 	"funcionalitat.FAC_PROD": "Productes",
 	"funcionalitat.FAC_PROJEC": "Projectes",
 	"funcionalitat.FAC_PROTIP": "Tipus de projectes",
@@ -297,6 +299,8 @@
 	"funcionalitat.REH_SUBCAT": "Subcategories",
 	"funcionalitat.REH_TIPDIA": "Tipus de dies",
 	"funcionalitat.REH_TIPTRA": "Tipus de transaccions",
+	"funcionalitat.REH_TORN": "Torns",
 	"funcionalitat.REH_TRANSA": "Transaccions",
 	"funcionalitat.REH_ZONA": "Zones"
+	
 }

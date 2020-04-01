@@ -101,7 +101,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 					// Afegir permis 
 					for(Permission permis : permissionAdded) {
 						// Comprovam que el permis es pugui assignar
-						if (funcionalitatCodi.getAllowedPermission().contains(permis)) {
+						if (funcionalitatCodi.getAllowedPermissions().contains(permis)) {
 							FuncionalitatIdentificadorPerfil embedded = new FuncionalitatIdentificadorPerfil();
 							embedded.setPermis(ExtendedPermission.getName(permis.getMask()));
 							FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil = FuncionalitatIdentificadorPerfilEntity.builder()
@@ -163,7 +163,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 				);
 				FuncionalitatCodiFont funcionalitatCodi = funcionalitatsCodi.get(funcionalitatInfo.getCodi());
 				if (funcionalitatCodi != null) {
-					funcionalitatCodi.getAllowedPermission().forEach(permis -> funcionalitatInfo.getAllowedPermission().setGranted(permis.getMask()));
+					funcionalitatCodi.getAllowedPermissions().forEach(permis -> funcionalitatInfo.getAllowedPermission().setGranted(permis.getMask()));
 				}
 				funcionalitatsInfo.add(funcionalitatInfo);
 			}

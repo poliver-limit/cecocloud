@@ -49,9 +49,9 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "scl_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "scl_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "scl_nom", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.domicili", column = @Column(name = "scl_dom", length = 60, nullable = false)),
-	@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "scl_blo", length = 1)),
-	@AttributeOverride(name = "embedded.preusPerVolum", column = @Column(name = "scl_pvl", length = 1)),
+	@AttributeOverride(name = "embedded.domicili", column = @Column(name = "scl_dom", length = 60)),
+	@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "scl_blo", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.preusPerVolum", column = @Column(name = "scl_pvl", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.tipusDescompte", column = @Column(name = "scl_tipdte", length = 1)),
 	@AttributeOverride(name = "embedded.percentatgeRetencio", column = @Column(name = "scl_ret")),
 	@AttributeOverride(name = "embedded.tipusRetencio", column = @Column(name = "scl_tipret", length = 1)),
@@ -123,7 +123,7 @@ public class SubClientEntity extends AbstractWithIdentificadorAuditableEntity<Su
 			},
 			foreignKey = @ForeignKey(name = "scl_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "scl_cpo_cod", length = 8, nullable = false)
+	@Column(name = "scl_cpo_cod", length = 8)
 	private String codiPostalCodi; 
 	
 	
@@ -280,8 +280,7 @@ public class SubClientEntity extends AbstractWithIdentificadorAuditableEntity<Su
 			foreignKey = @ForeignKey(name = "scl_acc_cod_fk"))
 	private ClientAdresaEntity adresaComercialClient;
 	@Column(name = "scl_acc_cod", length = 4)
-	private String adresaComercialClientCodi;
-	
+	private String adresaComercialClientCodi;	
 	
 	
 	@Builder
@@ -339,7 +338,7 @@ public class SubClientEntity extends AbstractWithIdentificadorAuditableEntity<Su
 	
 	public void updateCodiPostal(CodiPostalEntity codiPostal) {
 		this.codiPostal = codiPostal;
-		if (client != null) {
+		if (codiPostal != null) {
 			this.codiPostalCodi = codiPostal.getId().getCodi();
 		}
 	}

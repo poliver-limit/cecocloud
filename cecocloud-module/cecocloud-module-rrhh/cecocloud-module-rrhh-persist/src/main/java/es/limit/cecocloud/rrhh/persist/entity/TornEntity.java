@@ -41,10 +41,10 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "tor_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "tor_cod", length = 4)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tor_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "tor_cod", length = 6)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tor_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "tor_nom", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tor_obs", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tor_obs", length = 1000, nullable = false)),
 	@AttributeOverride(name = "embedded.prevalecenLosFestivos", column = @Column(name = "tor_prvfes")),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "tor_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "tor_datcre")),

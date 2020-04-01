@@ -29,8 +29,10 @@ public class PaisCrudTester extends AbstractCrudTester<Pais> {
 		dto.setCodiso("TST");
 		dto.setCodiso002("TT");
 		dto.setCee(true);
+		
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
+		
 		return dto;
 	}
 
