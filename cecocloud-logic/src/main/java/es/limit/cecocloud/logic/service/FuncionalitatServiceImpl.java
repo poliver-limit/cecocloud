@@ -165,10 +165,10 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 		for (FuncionalitatRecursEntity funcionalitatRecurs: funcionalitatRecursos) {
 			boolean trobada = false;
 			String recursClassName = funcionalitatRecurs.getRecurs().getEmbedded().getClassName();
-			if (recursClassName.equals(funcionalitatCodiFont.getRecursPrincipal().getName())) {
+			if (funcionalitatCodiFont.getRecursPrincipal() != null && recursClassName.equals(funcionalitatCodiFont.getRecursPrincipal().getName())) {
 				trobada = true;
 			}
-			if (!trobada) {
+			if (!trobada && funcionalitatCodiFont.getRecursosSecundaris() != null) {
 				for (Class<? extends Identificable<?>> recursClass: funcionalitatCodiFont.getRecursosSecundaris()) {
 					if (funcionalitatRecurs.getRecursClassName().equals(recursClass.getName())) {
 						trobada = true;
@@ -183,22 +183,26 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			}
 		}
 		// Refresca els recursos principals de la funcionalitat
-		if (refrescarRecursos(
-				funcionalitatSaved,
-				Arrays.asList(funcionalitatCodiFont.getRecursPrincipal()),
-				funcionalitatRecursos,
-				funcionalitatCodiFont.getAllowedPermissions(),
-				true)) {
-			hiHaCanvisRecursos = true;
+		if (funcionalitatCodiFont.getRecursPrincipal() != null) {
+			if (refrescarRecursos(
+					funcionalitatSaved,
+					Arrays.asList(funcionalitatCodiFont.getRecursPrincipal()),
+					funcionalitatRecursos,
+					funcionalitatCodiFont.getAllowedPermissions(),
+					true)) {
+				hiHaCanvisRecursos = true;
+			}
 		}
 		// Refresca els recursos secundaris de la funcionalitat
-		if (refrescarRecursos(
-				funcionalitatSaved,
-				funcionalitatCodiFont.getRecursosSecundaris(),
-				funcionalitatRecursos,
-				funcionalitatCodiFont.getAllowedPermissions(),
-				false)) {
-			hiHaCanvisRecursos = true;
+		if (funcionalitatCodiFont.getRecursosSecundaris() != null) {
+			if (refrescarRecursos(
+					funcionalitatSaved,
+					funcionalitatCodiFont.getRecursosSecundaris(),
+					funcionalitatRecursos,
+					funcionalitatCodiFont.getAllowedPermissions(),
+					false)) {
+				hiHaCanvisRecursos = true;
+			}
 		}
 		if (hiHaCanvisRecursos) {
 			try {

@@ -10,7 +10,7 @@ package es.limit.cecocloud.logic.api.dto;
  */
 public enum FuncionalitatTipus {
 	MANTENIMENT,
-	ACCIO_UNIC,
+	ACCIO_SIMPLE,
 	ACCIO_MULTIPLE,
 	INFORME
 }

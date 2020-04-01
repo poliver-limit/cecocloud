@@ -35,6 +35,15 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 	public FuncionalitatCodiFontImpl(
 			String codi, 
 			FuncionalitatTipus tipus, 
+			String descripcio) {
+		this.codi = codi;
+		this.tipus = tipus;
+		this.descripcio = descripcio;
+		setDefaultAllowedPermissions();
+	}
+	public FuncionalitatCodiFontImpl(
+			String codi, 
+			FuncionalitatTipus tipus, 
 			String descripcio, 
 			Class<? extends Identificable<?>> recursPrincipal,
 			List<Class<? extends Identificable<?>>> recursosSecundaris,
@@ -45,25 +54,7 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 		this.recursPrincipal = recursPrincipal;
 		this.recursosSecundaris = recursosSecundaris;
 		this.funcionalitatsFilles = funcionalitatsFilles;
-		this.allowedPermissions = new ArrayList<Permission>();
-		switch (tipus) {
-		case MANTENIMENT:
-			this.allowedPermissions.add(ExtendedPermission.READ);
-			this.allowedPermissions.add(ExtendedPermission.WRITE);
-			this.allowedPermissions.add(ExtendedPermission.CREATE);
-			this.allowedPermissions.add(ExtendedPermission.DELETE);
-			break;
-		case ACCIO_UNIC:
-		case ACCIO_MULTIPLE:
-			this.allowedPermissions.add(ExtendedPermission.WRITE);
-			break;
-		case INFORME:
-			this.allowedPermissions.add(ExtendedPermission.READ);
-			this.allowedPermissions.add(ExtendedPermission.CREATE);
-			break;
-		default:
-			break;
-		}
+		setDefaultAllowedPermissions();
 	}
 
 	public FuncionalitatCodiFontImpl(
@@ -79,6 +70,28 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 				recursPrincipal,
 				recursosSecundaris,
 				null);
+	}
+
+	private void setDefaultAllowedPermissions() {
+		this.allowedPermissions = new ArrayList<Permission>();
+		switch (tipus) {
+		case MANTENIMENT:
+			this.allowedPermissions.add(ExtendedPermission.READ);
+			this.allowedPermissions.add(ExtendedPermission.WRITE);
+			this.allowedPermissions.add(ExtendedPermission.CREATE);
+			this.allowedPermissions.add(ExtendedPermission.DELETE);
+			break;
+		case ACCIO_SIMPLE:
+		case ACCIO_MULTIPLE:
+			this.allowedPermissions.add(ExtendedPermission.WRITE);
+			break;
+		case INFORME:
+			this.allowedPermissions.add(ExtendedPermission.READ);
+			this.allowedPermissions.add(ExtendedPermission.CREATE);
+			break;
+		default:
+			break;
+		}
 	}
 
 }
