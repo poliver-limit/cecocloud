@@ -7,13 +7,18 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.acls.model.Permission;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.api.dto.ActionExecutionResult;
-import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.logic.api.dto.ActionExecutionResult.ActionExecutionState;
+import es.limit.base.boot.logic.api.dto.BaseBootPermission;
+import es.limit.base.boot.logic.api.dto.Identificable;
+import es.limit.base.boot.logic.api.permission.ExtendedPermission;
+import es.limit.base.boot.logic.helper.PermissionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatRecurs;
@@ -51,6 +56,8 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 	private FuncionalitatIdentificadorPerfilRepository funcionalitatIdentificadorPerfilRepository;
 	@Autowired
 	private RecursRepository recursRepository;
+	@Autowired
+	private PermissionHelper permissionHelper;
 
 	@Override
 	public ActionExecutionResult execute(
@@ -138,6 +145,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 								funcionalitatSaved,
 								Arrays.asList(funcionalitatCodiFont.getRecursPrincipal()),
 								funcionalitatRecursos,
+								funcionalitatCodiFont.getAllowedPermission(),
 								true)) {
 							hiHaCanvisRecursos = true;
 						}
@@ -146,11 +154,13 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 								funcionalitatSaved,
 								funcionalitatCodiFont.getRecursosSecundaris(),
 								funcionalitatRecursos,
+								funcionalitatCodiFont.getAllowedPermission(),
 								false)) {
 							hiHaCanvisRecursos = true;
 						}
 						if (hiHaCanvisRecursos) {
 							try {
+								log.debug("        Modificant permisos de la funcionalitat " + funcionalitatCodiFont.getDescripcio());
 								funcionalitatAcl.updatePermisosFuncionalitatRecurs(funcionalitatSaved.getId());
 							} catch (ClassNotFoundException ex) {
 								log.error("No s'han pogut actualitzar els permisos de la funcionalitat " + funcionalitatSaved.getEmbedded().getCodi(), ex);
@@ -169,6 +179,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			FuncionalitatEntity funcionalitat,
 			List<Class<? extends Identificable<?>>> recursosClasses,
 			List<FuncionalitatRecursEntity> funcionalitatRecursos,
+			List<Permission> permisosDisponibles,
 			boolean principal) {
 		boolean hiHaCanvisRecursos = false;
 		for (Class<? extends Identificable<?>> recursClass: recursosClasses) {
@@ -200,6 +211,19 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 						recurs(recursEntity.get()).
 						build());
 				hiHaCanvisRecursos = true;
+			}
+			if (principal) {
+				BaseBootPermission permisos = permissionHelper.getResourcePermissionForCurrentUserResource(recursClass, 0);
+				BaseBootPermission permisosMaxims = new BaseBootPermission();
+				permisosMaxims.setGranted(permisosDisponibles);
+				List<Permission> permisosSobrants = permisos.getPermissionAdded(permisosMaxims);
+				if (permisosSobrants != null && !permisosSobrants.isEmpty()) {
+					List<FuncionalitatIdentificadorPerfilEntity> fips = funcionalitatIdentificadorPerfilRepository.findByFuncionalitatIdentificadorFuncionalitatAndEmbeddedPermisIn(
+							funcionalitat,
+							permisosSobrants.stream().map(permis -> ExtendedPermission.getName(permis.getMask())).collect(Collectors.toList()));
+					funcionalitatIdentificadorPerfilRepository.deleteAll(fips);
+					hiHaCanvisRecursos = true;
+				}
 			}
 		}
 		return hiHaCanvisRecursos;

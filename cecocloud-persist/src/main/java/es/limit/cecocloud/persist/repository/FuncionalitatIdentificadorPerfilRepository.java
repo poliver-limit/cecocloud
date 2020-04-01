@@ -43,6 +43,10 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitat(
 			FuncionalitatEntity funcionalitat);
+	
+	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatAndEmbeddedPermisIn(
+			FuncionalitatEntity funcionalitat,
+			List<String> permisos);
 
 	@Query(	"select distinct f " +
 			" from " +
