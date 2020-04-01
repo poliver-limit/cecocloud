@@ -4,6 +4,8 @@
 package es.limit.cecocloud.logic.api.module;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import es.limit.base.boot.logic.api.dto.Profile;
 import es.limit.base.boot.logic.api.module.AbstractModules;
@@ -16,6 +18,8 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
  */
 public class Modules extends AbstractModules {
 
+	private static Map<Class<?>, FuncionalitatCodiFont> funcionalitatPerRecursPrincipal = new HashMap<Class<?>, FuncionalitatCodiFont>();
+
 	public static void registerModule(ModuleInfo moduleInfo) {
 		if (!isInitialized()) {
 			init(
@@ -25,7 +29,19 @@ public class Modules extends AbstractModules {
 							Identificador.class.getPackage().getName()
 					});
 		}
+		if (moduleInfo.getFuncionalitats() != null) {
+			for (String funcionalitatCodi: moduleInfo.getFuncionalitats().keySet()) {
+				FuncionalitatCodiFont funcionalitat = moduleInfo.getFuncionalitats().get(funcionalitatCodi);
+				funcionalitatPerRecursPrincipal.put(
+						funcionalitat.getRecursPrincipal(),
+						funcionalitat);
+			}
+		}
 		register(moduleInfo);
+	}
+
+	public static FuncionalitatCodiFont getFuncionalitatWithRecursPrincipal(Class<?> recursPrincipalClass) {
+		return funcionalitatPerRecursPrincipal.get(recursPrincipalClass);
 	}
 
 }
