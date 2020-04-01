@@ -18,6 +18,8 @@ public class ProfileServiceImpl extends AbstractProfileServiceImpl {
 
 	@Override
 	protected void processGeneratedProfile(Class<?> resourceClass, Profile profile) {
+		// TODO consultar accions i informes de la funcionalitat que te resourceClass
+		// com a recurs principal i afegir-les al profile.
 	}
 
 }
