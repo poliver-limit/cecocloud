@@ -31,5 +31,17 @@ public class ProjecteApiController extends AbstractIdentificableWithIdentificado
 		
 	}*/
 
-	
+//	@Autowired
+//	 EmpresaService empresaService;
+//
+//	@Override
+//	protected void completeDtoWithSession(Projecte dto, Object userSession, boolean isNew) {
+//		
+//		super.completeDtoWithSession(dto, userSession,isNew);
+//		
+//		if (isNew) {
+//			Empresa empresa = empresaService.getOne(((UserSession)userSession).getE());
+//			dto.setDivisa(GenericReference.toGenericReference(empresa.getDivisa()));			
+//		}
+//	}
 }

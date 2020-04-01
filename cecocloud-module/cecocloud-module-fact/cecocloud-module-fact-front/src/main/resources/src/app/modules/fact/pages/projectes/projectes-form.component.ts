@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { BngFormBaseComponent, BngFormConfig } from "base-angular";
+import { BngFormBaseComponent, BngFormConfig, BngFormErrorMessages } from "base-angular";
 import { ActivatedRoute } from '@angular/router';
 
 import { ProjectesService } from "./projectes.service";
@@ -16,37 +16,47 @@ import { SubClientsFormComponent } from '../subClients/subClients-form.component
 import { ClientsAdresaFormComponent } from '../clientsAdresa/clientsAdresa-form.component';
 import { CodisPostalFormComponent } from '../codisPostal/codisPostal-form.component';
 import { ZonesFormComponent } from '../zones/zones-form.component';
+import { FormGroup } from '@angular/forms';
+import { firstDateOlderThanSecondDate } from './first-date-older-than-second-date-validator';
 
 
 
 @Component({
   templateUrl: 'temp02.html'
 })
+
+
 export class ProjectesFormComponent extends BngFormBaseComponent {
   formConfig: BngFormConfig = {};
 
-  // projecteId: number;
-
-  // onResourceChange(projecte: any) {
-  // 	this.projecteId = projecte.codi;
-  // }
-  constructor(
-	activatedRoute: ActivatedRoute,
-	public projectesService: ProjectesService) {
-		super(activatedRoute);
-		this.setConfigExternalFormComponents([
-			{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },
-			{ resourceName: 'divisa', component: DivisesFormComponent },
-			{ resourceName: 'finalFactura', component: FinalFacturesFormComponent },
-			{ resourceName: 'projecteTipus', component: ProjectesTipusFormComponent },
-			{ resourceName: 'magatzem', component: MagatzemsFormComponent },
-			{ resourceName: 'client', component: ClientsFormComponent },
-			{ resourceName: 'classeRetencio', component: ClassesRetencionsFormComponent },
-			{ resourceName: 'areaNegoci', component: AreaNegocisFormComponent },
-			{ resourceName: 'subClient', component: SubClientsFormComponent },
-			{ resourceName: 'clientAdresa', component: ClientsAdresaFormComponent },
-			{ resourceName: 'codiPostal', component: CodisPostalFormComponent },
-			{ resourceName: 'zona', component: ZonesFormComponent }
-		])
+	errorMessages: BngFormErrorMessages = {
+		secondDateOlder: {
+		messageKey: 'resource.projecte.error.secondDateOlder'		
+		}
 	}
+	
+	onFormGroupChange(formGroup: FormGroup) {		
+		debugger;
+		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));
+	}
+	
+	constructor(
+		activatedRoute: ActivatedRoute,
+		public projectesService: ProjectesService) {
+			super(activatedRoute);
+			this.setConfigExternalFormComponents([
+				{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },
+				{ resourceName: 'divisa', component: DivisesFormComponent },
+				{ resourceName: 'finalFactura', component: FinalFacturesFormComponent },
+				{ resourceName: 'projecteTipus', component: ProjectesTipusFormComponent },
+				{ resourceName: 'magatzem', component: MagatzemsFormComponent },
+				{ resourceName: 'client', component: ClientsFormComponent },
+				{ resourceName: 'classeRetencio', component: ClassesRetencionsFormComponent },
+				{ resourceName: 'areaNegoci', component: AreaNegocisFormComponent },
+				{ resourceName: 'subClient', component: SubClientsFormComponent },
+				{ resourceName: 'clientAdresa', component: ClientsAdresaFormComponent },
+				{ resourceName: 'codiPostal', component: CodisPostalFormComponent },
+				{ resourceName: 'zona', component: ZonesFormComponent }
+			])
+		}
 }

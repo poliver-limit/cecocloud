@@ -44,55 +44,66 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ope_idf_cod", length = 4)),	
+<<<<<<< HEAD
 	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 6)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", insertable = false, updatable = false)),		
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 40, nullable = false)),	
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
 	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
 	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
+=======
+	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 4)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", length = 4, insertable = false, updatable = false)),		
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 30, nullable = false)),	
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act")),	
+	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor")),	
+	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml")),	
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 //	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
-	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor",  nullable = false)),			
-	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin", length = 25, nullable = false)),			
-	@AttributeOverride(name = "embedded.enc", column = @Column(name = "ope_enc",  nullable = false)),			
-	@AttributeOverride(name = "embedded.incidencia", column = @Column(name = "ope_ind",  nullable = false)),			
-	@AttributeOverride(name = "embedded.horesp", column = @Column(name = "ope_horesp", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.aplicaDiesLab", column = @Column(name = "ope_apldia", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDilluns", column = @Column(name = "ope_dls", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDimarts", column = @Column(name = "ope_dms", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDimecres", column = @Column(name = "ope_dcs", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDijous", column = @Column(name = "ope_djs", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDivendres", column = @Column(name = "ope_dvs", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDissabte", column = @Column(name = "ope_dse", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDiumenge", column = @Column(name = "ope_dme", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.nonGrato", column = @Column(name = "ope_ngr", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.ptenmn", column = @Column(name = "ope_ptenmn", nullable = false)),			
-	@AttributeOverride(name = "embedded.ado", column = @Column(name = "ope_ado", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor")),			
+	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin")),			
+	@AttributeOverride(name = "embedded.enc", column = @Column(name = "ope_enc")),			
+	@AttributeOverride(name = "embedded.incidencia", column = @Column(name = "ope_ind")),			
+	@AttributeOverride(name = "embedded.horesp", column = @Column(name = "ope_horesp", length = 1)),			
+	@AttributeOverride(name = "embedded.aplicaDiesLab", column = @Column(name = "ope_apldia", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDilluns", column = @Column(name = "ope_dls", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDimarts", column = @Column(name = "ope_dms", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDimecres", column = @Column(name = "ope_dcs", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDijous", column = @Column(name = "ope_djs", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDivendres", column = @Column(name = "ope_dvs", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDissabte", column = @Column(name = "ope_dse", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDiumenge", column = @Column(name = "ope_dme", length = 1)),			
+	@AttributeOverride(name = "embedded.nonGrato", column = @Column(name = "ope_ngr", length = 1)),			
+	@AttributeOverride(name = "embedded.ptenmn", column = @Column(name = "ope_ptenmn")),			
+	@AttributeOverride(name = "embedded.ado", column = @Column(name = "ope_ado", length = 1)),			
 	@AttributeOverride(name = "embedded.controlPartes", column = @Column(name = "ope_ctlffo", length = 1)),			
 	@AttributeOverride(name = "embedded.controlHoresExtras", column = @Column(name = "ope_ctlhoe", length = 1)),			
-	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ope_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ope_datmod")),	
+//	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),
+
 	@AttributeOverride(name = "embedded.calculoHorasPartesTrabajo", column = @Column(name = "ope_calhor")),
-	@AttributeOverride(name = "embedded.horasCalculNominas", column = @Column(name = "ope_horcan",length = 1)),
-	@AttributeOverride(name = "embedded.estadoCivil", column = @Column(name = "ope_estciv",length = 1)),
-	@AttributeOverride(name = "embedded.digitsControl", column = @Column(name = "ope_dcc",length = 2)),
+	@AttributeOverride(name = "embedded.horasCalculNominas", column = @Column(name = "ope_horcan")),
+	@AttributeOverride(name = "embedded.estadoCivil", column = @Column(name = "ope_estciv")),
+	@AttributeOverride(name = "embedded.digitsControl", column = @Column(name = "ope_dcc")),
 	@AttributeOverride(name = "embedded.numeroFills", column = @Column(name = "ope_fil")),
 	@AttributeOverride(name = "embedded.horesLliuresPerAny", column = @Column(name = "ope_horlli")),
 	@AttributeOverride(name = "embedded.horesLliures", column = @Column(name = "ope_horlli002")),
+	
 	@AttributeOverride(name = "embedded.oficinaBancaria", column = @Column(name = "ope_ofb")),
 	@AttributeOverride(name = "embedded.entitatBancaria", column = @Column(name = "ope_ban")),
 	@AttributeOverride(name = "embedded.horesVacances", column = @Column(name = "ope_horvac")),
 	@AttributeOverride(name = "embedded.codiPostalPoblacio", column = @Column(name = "ope_cpo")),
 	@AttributeOverride(name = "embedded.numeroMatricula", column = @Column(name = "ope_mtr")),
 	@AttributeOverride(name = "embedded.codiAlternatiu", column = @Column(name = "ope_codalt")),
+	
 	@AttributeOverride(name = "embedded.compteComptable", column = @Column(name = "ope_ctecmp")),
 	@AttributeOverride(name = "embedded.compteCorrent", column = @Column(name = "ope_ccr")),
 	@AttributeOverride(name = "embedded.dataNaixement", column = @Column(name = "ope_datnai")),
 	@AttributeOverride(name = "embedded.dataAltaEmpresa", column = @Column(name = "ope_dat")),
 	@AttributeOverride(name = "embedded.nif", column = @Column(name = "ope_nif")),
-	@AttributeOverride(name = "embedded.numeroSeguretatSocial", column = @Column(name = "ope_nif", insertable = false, updatable = false)),
+	
+	// Comento el camp numeroSeguretatSocial, fins a aclariment, ja que s'ha donat com a nom de la columna ope_nif
+//	@AttributeOverride(name = "embedded.numeroSeguretatSocial", column = @Column(name = "ope_nif")),
+	
 	@AttributeOverride(name = "embedded.nmn1", column = @Column(name = "ope_nmn1")),
 	@AttributeOverride(name = "embedded.nmn2", column = @Column(name = "ope_nmn2")),
 	@AttributeOverride(name = "embedded.importHoresExtresDilluns", column = @Column(name = "ope_pruextdls")),
@@ -129,6 +140,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.horesPendentsAnysAnteriorJubilacio", column = @Column(name = "ope_horpenanyantpjb")),
 	@AttributeOverride(name = "embedded.observacionsPrejubilacio", column = @Column(name = "ope_obspjb")),
 	@AttributeOverride(name = "embedded.plusProductivitat", column = @Column(name = "ope_plupdt")),
+	
 	@AttributeOverride(name = "embedded.dataIniciTorn", column = @Column(name = "ope_tordiaini")),
 	@AttributeOverride(name = "embedded.sexe", column = @Column(name = "ope_sex")),
 	@AttributeOverride(name = "embedded.telefonEmpresa", column = @Column(name = "ope_telemp")),
@@ -144,6 +156,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.anecmp", column = @Column(name = "ope_anecmp")),
 	@AttributeOverride(name = "embedded.depcmp", column = @Column(name = "ope_depcmp")),
 	@AttributeOverride(name = "embedded.depcmpfxe", column = @Column(name = "ope_depcmpfxe")),
+	
 	@AttributeOverride(name = "embedded.dtehor", column = @Column(name = "ope_dtehor")),
 	@AttributeOverride(name = "embedded.maxhoe001", column = @Column(name = "ope_maxhoe001")),
 	@AttributeOverride(name = "embedded.ptenmn002", column = @Column(name = "ope_ptenmn002")),
@@ -152,9 +165,15 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.pas", column = @Column(name = "ope_pas")),
 	@AttributeOverride(name = "embedded.app", column = @Column(name = "ope_app")),
 	@AttributeOverride(name = "embedded.ali", column = @Column(name = "ope_ali")),
+	
 	@AttributeOverride(name = "embedded.mdcntf", column = @Column(name = "ope_mdcntf")),
 	@AttributeOverride(name = "embedded.nothorext", column = @Column(name = "ope_nothorext")),
-	@AttributeOverride(name = "embedded.usucld", column = @Column(name = "ope_usucld"))
+	@AttributeOverride(name = "embedded.usucld", column = @Column(name = "ope_usucld")),
+	
+	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ope_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ope_datmod")),	
 })
 @AssociationOverrides({
 	@AssociationOverride(
@@ -223,7 +242,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_zon_fk"))			
 	protected ZonaEntity zona;	
-	@Column(name ="ope_zon_cod", length = 4)
+	@Column(name ="ope_zon_cod", length = 4, nullable = false)
 	private String zonaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -234,7 +253,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_emp_fk"))			
 	protected EmpresaEntity empresa;	
-	@Column(name ="ope_emp_codccr", length = 4)
+	@Column(name ="ope_emp_codccr", length = 4, nullable = false)
 	private String empresaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -267,7 +286,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_gre_fk"))			
 	protected RecursGrupEntity recursGrup;	
-	@Column(name ="ope_gre_cod", length = 4)
+	@Column(name ="ope_gre_cod", length = 4, nullable = false)
 	private String recursGrupCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -289,7 +308,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_var_fk"))			
 	protected MantenimentDeTipusEntity mantenimentDeTipus;	
-	@Column(name ="ope_vad_cod", length = 4)
+	@Column(name ="ope_vad_cod", length = 4, nullable = false)
 	private String mantenimentDeTipusCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -311,7 +330,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_gfe_fk"))			
 	protected GrupFestiuEntity grupFestiu;	
-	@Column(name ="ope_gfe_cod", length = 4)
+	@Column(name ="ope_gfe_cod", length = 4, nullable = false)
 	private String grupFestiuCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -334,10 +353,14 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			foreignKey = @ForeignKey(name = "rrhu_ope_hor3_fk"))			
 	protected HorariEntity horariCod003;	
 	@Column(name ="ope_hor_cod003", length = 4, nullable = false)
+<<<<<<< HEAD
 	private String horariCod003Codi;
 	
 	
 	
+=======
+	private String horariCod003Codi;	
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 
 	@Builder
 	public OperariEntity(
@@ -365,6 +388,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			) {
 		setId(pk);
 		this.embedded = embedded;
+<<<<<<< HEAD
 		this.identificador = identificador;
 	
 		
@@ -383,12 +407,15 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 //		this.centreCodi = centre.getEmbedded()!= null?centre.getEmbedded().getCodi(): null;
 //		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
 
+=======
+		this.identificador = identificador;	
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 
 		this.updateHorari(horari);		
 		this.updateTipusComissio(tipusComissio);
-		this.updateBanc(banc);
-		//this.updateOficinaBancaria(oficinaBancariaCcr);
 		this.updateHorariBocadillo(horariBocadillo);
+		this.updateBanc(banc);
+		//this.updateOficinaBancaria(oficinaBancariaCcr);		
 		this.updateZona(zona);
 		this.updateEmpresa(empresa);
 		this.updateHorariCodNit(horariCodNit);
@@ -408,12 +435,18 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	
 	public void updateHorari (HorariEntity horari) {
 		this.horari = horari;
+<<<<<<< HEAD
 		this.horariCodi = horari!= null?horari.getEmbedded().getCodi(): null;
 	}	
 
+=======
+		if (horari!=null) this.horariCodi = horari.getEmbedded().getCodi();	
+	}
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	
 	public void updateTipusComissio (TipusComissioEntity tipusComissio) {
 	 	this.tipusComissio = tipusComissio;
+<<<<<<< HEAD
 		this.tipusComissioCodi= tipusComissio!= null?tipusComissio.getEmbedded().getCodi(): null;;	
 	}
 	
@@ -435,50 +468,96 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	public void updateEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 		this.empresaCodi = empresa!= null?empresa.getEmbedded().getCodi(): null;
+=======
+	 	if (tipusComissio!=null) this.tipusComissioCodi= tipusComissio.getEmbedded().getCodi();	
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateHorariBocadillo (HorariEntity horariBocadillo) {
 		this.horariBocadillo = horariBocadillo;
+<<<<<<< HEAD
 		this.horariBocadilloCodi = horariBocadillo!= null?horariBocadillo.getEmbedded().getCodi(): null;
+=======
+		if (horariBocadillo!=null) this.horariBocadilloCodi = horariBocadillo.getEmbedded().getCodi();	
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
+	
+	public void updateBanc (BancEntity banc) {
+		this.banc = banc;
+		if (banc!=null) this.bancCodi= banc.getEmbedded().getCodi();	
+	}
+		
+	public void updateZona(ZonaEntity zona) {
+		this.zona = zona;
+		if (zona!=null)	this.zonaCodi = zona.getEmbedded().getCodi();
+	}
+	
+	public void updateEmpresa(EmpresaEntity empresa) {
+		this.empresa = empresa;
+		if (empresa!=null) this.empresaCodi = empresa.getEmbedded().getCodi();
+	}	
 
 	public void updateHorariCodNit (HorariEntity horariCodNit) {
 		this.horariCodNit = horariCodNit;
-		this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
+		if (horariCodNit!=null) this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
 	}
 	
 	public void updateRecursGrup (RecursGrupEntity recursGrup) {
 		this.recursGrup = recursGrup;
+<<<<<<< HEAD
 		this.recursGrupCodi = recursGrup!= null?recursGrup.getEmbedded().getCodi(): null;
+=======
+		if (recursGrup!=null) this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateOperari (OperariEntity operari) {
 		this.operari = operari;
+<<<<<<< HEAD
 		this.operariCodi = operari!= null?operari.getEmbedded().getCodi(): null;
+=======
+		if (operari!=null) this.operariCodi = operari.getEmbedded().getCodi();
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateMantenimentDeTipus (MantenimentDeTipusEntity mantenimentDeTipus) {
 		this.mantenimentDeTipus = mantenimentDeTipus;
+<<<<<<< HEAD
 		this.mantenimentDeTipusCodi = mantenimentDeTipus!= null?mantenimentDeTipus.getEmbedded().getCodi(): null;
+=======
+		if (mantenimentDeTipus!=null) this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateTorn(TornEntity torn) {
 		this.torn = torn;
+<<<<<<< HEAD
 		this.tornCodi = torn!= null?torn.getEmbedded().getCodi(): null;
+=======
+		if (torn!=null) this.tornCodi = torn.getEmbedded().getCodi();
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
 		this.grupFestiu = grupFestiu;
+<<<<<<< HEAD
 		this.grupFestiuCodi = grupFestiu!= null?grupFestiu.getEmbedded().getCodi(): null;
+=======
+		if (grupFestiu!=null) this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateCentre (CentreEntity centre) {
 		this.centre = centre;
+<<<<<<< HEAD
 		this.centreCodi = centre!= null?centre.getEmbedded().getCodi(): null;
+=======
+		if (centre!=null) this.centreCodi = centre.getEmbedded().getCodi();
+>>>>>>> branch 'master' of https://github.com/programari-limit/cecocloud.git
 	}
 	
 	public void updateHorariCod003 (HorariEntity horariCod003) {
 		this.horariCod003 = horariCod003;
-		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
+		if (horariCod003!=null) this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
 	}
 }

@@ -20,6 +20,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/cercadorClients/cercadorClients.module').then(m => m.CercadorClientsModule)
 
 			}, {
+				path: 'cercadorProjectes',
+				loadChildren: () => import('./pages/cercadorProjectes/cercadorProjectes.module').then(m => m.CercadorProjectesModule)
+
+			}, {
 				path: 'albarans',
 				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
 
@@ -161,6 +165,9 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
+			}, {
+				path: 'projectesPressupost',
+				loadChildren: () => import('./pages/projectesPressupost/projectesPressupost.module').then(m => m.ProjectesPressupostModule)
 			}, {
 				path: 'productes',
 				loadChildren: () => import('./pages/productes/productes.module').then(m => m.ProductesModule)
@@ -713,6 +720,12 @@ export class FactModule {
 							resource: 'FAC_SUBCLI'
 						}, {
 							icon: 'room',
+							label: 'Projectes / Pressupostos',
+							labelKey: 'app.menu.fact.projectesPressupost',
+							route: '/fact/projectesPressupost',
+							resource: 'FAC_PROPRE'
+						}, {
+							icon: 'room',
 							label: 'Projectes',
 							labelKey: 'app.menu.fact.projectes',
 							route: '/fact/projectes',
@@ -735,6 +748,12 @@ export class FactModule {
 							labelKey: 'app.menu.fact.cercadorClients',
 							route: '/fact/cercadorClients',
 							resource: 'FAC_CERCLI'
+						}, 	{
+							icon: 'room',
+							label: 'Cercador projectes',
+							labelKey: 'app.menu.fact.cercadorProjectes',
+							route: '/fact/cercadorProjectes',
+							resource: 'FAC_CERPRJ'
 						}, {
 							icon: 'room',
 							label: 'Classes retencions',

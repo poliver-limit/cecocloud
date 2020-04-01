@@ -21,5 +21,4 @@ public class ProducteEntityListener {
 		producte.getEmbedded().setReferencia(seq);		
 		producte.getId().setReferencia(seq);
     }
-
 }

@@ -251,7 +251,7 @@ public class OperariCrudTester extends AbstractCrudTester<Operari> {
 		assertEquals(expected.getNothorext(), actual.getNothorext());
 		assertEquals(expected.getNumeroFills(), actual.getNumeroFills());
 		assertEquals(expected.getNumeroMatricula(), actual.getNumeroMatricula());
-		assertEquals(expected.getNumeroSeguretatSocial(), actual.getNumeroSeguretatSocial());
+//		assertEquals(expected.getNumeroSeguretatSocial(), actual.getNumeroSeguretatSocial());
 		assertEquals(expected.getObservacionsPrejubilacio(), actual.getObservacionsPrejubilacio());
 		assertEquals(expected.getOficinaBancaria(), actual.getOficinaBancaria());
 		assertEquals(expected.getOperariPrejubilat(), actual.getOperariPrejubilat());

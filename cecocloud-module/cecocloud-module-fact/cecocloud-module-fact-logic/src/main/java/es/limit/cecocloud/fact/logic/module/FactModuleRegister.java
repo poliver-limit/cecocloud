@@ -47,6 +47,7 @@ import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
+import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
 import es.limit.cecocloud.fact.logic.api.dto.Proveidor;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
@@ -426,7 +427,16 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Països",
 						Pais.class,
-						Arrays.asList()));
+						Arrays.asList(),
+						Arrays.asList(
+								new FuncionalitatCodiFontImpl(
+										"FAC_PAIS_ACCIOS",
+										FuncionalitatTipus.ACCIO_SIMPLE,
+										"Accio simple"),
+								new FuncionalitatCodiFontImpl(
+										"FAC_PAIS_ACCIOM",
+										FuncionalitatTipus.ACCIO_MULTIPLE,
+										"Accio múltiple"))));
 		funcionalitats.put(
 				"FAC_PAINIF",
 				new FuncionalitatCodiFontImpl(
@@ -472,6 +482,14 @@ public class FactModuleRegister {
 								Magatzem.class,
 								Zona.class,
 								FinalFactura.class)));
+		funcionalitats.put(
+				"FAC_PROPRE",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PROPRE",
+						FuncionalitatTipus.MANTENIMENT,
+						"Projectes / Pressupostos",
+						ProjectePressupost.class,
+						Arrays.asList(Empresa.class)));
 		funcionalitats.put(
 				"FAC_PROTIP",
 				new FuncionalitatCodiFontImpl(
@@ -760,6 +778,15 @@ public class FactModuleRegister {
 						"Cercador clients",
 						Client.class,
 						Arrays.asList()));		
+		funcionalitats.put(
+				"FAC_CERPRJ",
+				new FuncionalitatCodiFontImpl(
+						"FAC_CERPRJ",
+						FuncionalitatTipus.MANTENIMENT,
+						"Cercador projectes",
+						Projecte.class,
+						Arrays.asList()));	
+		
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
 				Zona.class.getPackage().getName(),
