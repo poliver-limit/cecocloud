@@ -34,6 +34,9 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 
 	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdInOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(
 			List<Long> perfilId);
+	
+//	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatPareNullAndPerfilIdInOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(
+//			List<Long> perfilId);
 
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatOrderByFuncionalitatIdentificadorIdentificador(
 			FuncionalitatEntity funcionalitat);

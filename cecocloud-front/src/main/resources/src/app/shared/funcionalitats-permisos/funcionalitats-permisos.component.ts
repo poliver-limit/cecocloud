@@ -104,7 +104,7 @@ import { PerfilService } from './perfil.service';
 										[disabled]="disableToggles || !funcionalitat.allowedPermission.writeGranted"
 										(click)="!disableToggles &&
 												funcionalitat.allowedPermission.writeGranted &&
-												(funcionalitat.tipus == 'MANTENIMENT' || funcionalitat.tipus == 'ACCIO') &&
+												(funcionalitat.tipus == 'MANTENIMENT' || funcionalitat.tipus == 'ACCIO_SIMPLE' || funcionalitat.tipus == 'ACCIO_MULTIPLE') &&
 												onPermisChange($event, indexModul, index)">
 									</mat-checkbox>
 								</td>
