@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.rrhh.back.test;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -32,9 +30,7 @@ public class IntervalRestApiTest extends ModuleResourceRestApiTest<Interval> {
 	@WithMockUser(value = USUARI_TEST_NOADMIN)
 	@Test
 	public void crudTest() {
-		assertTrue(true);
-//		bucle infinito por referencia asi mismo del operario
-//		genericCrudTest();
+		genericCrudTest();
 	}
 
 	@Override
