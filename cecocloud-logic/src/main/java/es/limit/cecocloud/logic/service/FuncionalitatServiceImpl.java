@@ -83,7 +83,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 				// Crea o modifica les demés funcionalitats
 				if (funcionalitats != null) {
 					for (FuncionalitatCodiFont funcionalitatCodiFont: funcionalitats) {
-						createOrUpdateFuncionalitat(funcionalitatCodiFont, cecocloudModuleInfo);
+						createOrUpdateFuncionalitat(funcionalitatCodiFont, null, cecocloudModuleInfo);
 					}
 				}
 			}
@@ -124,7 +124,10 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 		return trobada;
 	}
 
-	private void createOrUpdateFuncionalitat(FuncionalitatCodiFont funcionalitatCodiFont, ModuleInfo cecocloudModuleInfo) {
+	private void createOrUpdateFuncionalitat(
+			FuncionalitatCodiFont funcionalitatCodiFont,
+			FuncionalitatEntity funcionalitatEntityPare,
+			ModuleInfo cecocloudModuleInfo) {
 		Optional<FuncionalitatEntity> funcionalitatEntity = funcionalitatRepository.findByEmbeddedCodiAndEmbeddedModul(
 				funcionalitatCodiFont.getCodi(),
 				cecocloudModuleInfo.getModul());
@@ -141,10 +144,11 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			funcionalitat.setTipus(funcionalitatCodiFont.getTipus());
 			funcionalitat.setDescripcio(funcionalitatCodiFont.getDescripcio());
 			funcionalitat.setModul(cecocloudModuleInfo.getModul());
-			funcionalitatSaved = funcionalitatRepository.save(
-					FuncionalitatEntity.builder().
+			FuncionalitatEntity funcionalitatToSave = FuncionalitatEntity.builder().
 					embedded(funcionalitat).
-					build());
+					build();
+			funcionalitatToSave.updatePare(funcionalitatEntityPare);
+			funcionalitatSaved = funcionalitatRepository.save(funcionalitatToSave);
 		}
 		boolean hiHaCanvisRecursos = false;
 		List<FuncionalitatRecursEntity> funcionalitatRecursos = funcionalitatRecursRepository.findByFuncionalitat(funcionalitatSaved);
@@ -194,7 +198,10 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 		}
 		if (funcionalitatCodiFont.getFuncionalitatsFilles() != null) {
 			for (FuncionalitatCodiFont funcionalitatCodiFontFilla: funcionalitatCodiFont.getFuncionalitatsFilles()) {
-				createOrUpdateFuncionalitat(funcionalitatCodiFontFilla, cecocloudModuleInfo);
+				createOrUpdateFuncionalitat(
+						funcionalitatCodiFontFilla,
+						funcionalitatSaved,
+						cecocloudModuleInfo);
 			}
 		}
 	}
