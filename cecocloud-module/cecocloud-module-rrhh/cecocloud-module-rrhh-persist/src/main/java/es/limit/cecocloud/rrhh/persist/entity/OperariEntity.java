@@ -44,12 +44,12 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ope_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 4)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", length = 4, insertable = false, updatable = false)),		
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 30, nullable = false)),	
-	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act")),	
-	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor")),	
-	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml")),	
+	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 6)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", insertable = false, updatable = false)),		
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 40, nullable = false)),	
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
+	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
+	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
 //	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
 	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor")),			
 	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin")),			
@@ -225,7 +225,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	private Integer oficinaBancariaCodi;*/
 	
 		
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "zon_idf_cod", insertable = false, updatable = false),
@@ -233,10 +233,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_zon_fk"))			
 	protected ZonaEntity zona;	
-	@Column(name ="ope_zon_cod", length = 4, nullable = false)
+	@Column(name ="ope_zon_cod", length = 4)
 	private String zonaCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
@@ -244,10 +244,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_emp_fk"))			
 	protected EmpresaEntity empresa;	
-	@Column(name ="ope_emp_codccr", length = 4, nullable = false)
+	@Column(name ="ope_emp_codccr", length = 4)
 	private String empresaCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
@@ -255,10 +255,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_hor2_fk"))			
 	protected HorariEntity horariBocadillo;	
-	@Column(name ="ope_hor_cod002", length = 4, nullable = false)
+	@Column(name ="ope_hor_cod002", length = 4)
 	private String horariBocadilloCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
@@ -266,10 +266,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_horn_fk"))			
 	protected HorariEntity horariCodNit;	
-	@Column(name ="ope_hor_codnit", length = 4, nullable = false)
+	@Column(name ="ope_hor_codnit", length = 4)
 	private String horaricodnitCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "gre_idf_cod", insertable = false, updatable = false),
@@ -277,7 +277,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_gre_fk"))			
 	protected RecursGrupEntity recursGrup;	
-	@Column(name ="ope_gre_cod", length = 4, nullable = false)
+	@Column(name ="ope_gre_cod", length = 4)
 	private String recursGrupCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -291,7 +291,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_ope_cod", length = 4)
 	private String operariCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "vad_idf_cod", insertable = false, updatable = false),
@@ -299,7 +299,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_var_fk"))			
 	protected MantenimentDeTipusEntity mantenimentDeTipus;	
-	@Column(name ="ope_vad_cod", length = 4, nullable = false)
+	@Column(name ="ope_vad_cod", length = 4)
 	private String mantenimentDeTipusCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -313,7 +313,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_tor_cod", length = 4)
 	private String tornCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "gfe_idf_cod", insertable = false, updatable = false),
@@ -321,7 +321,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_gfe_fk"))			
 	protected GrupFestiuEntity grupFestiu;	
-	@Column(name ="ope_gfe_cod", length = 4, nullable = false)
+	@Column(name ="ope_gfe_cod", length = 4)
 	private String grupFestiuCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -335,7 +335,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_cen_cod", length = 4)
 	private String centreCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
@@ -343,8 +343,9 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_hor3_fk"))			
 	protected HorariEntity horariCod003;	
-	@Column(name ="ope_hor_cod003", length = 4, nullable = false)
-	private String horariCod003Codi;	
+	@Column(name ="ope_hor_cod003", length = 4)
+	private String horariCod003Codi;
+
 
 	@Builder
 	public OperariEntity(
@@ -372,7 +373,23 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			) {
 		setId(pk);
 		this.embedded = embedded;
-		this.identificador = identificador;	
+		this.identificador = identificador;
+	
+		
+//		this.tipusComissioCodi = tipusComissio.getEmbedded()!= null?tipusComissio.getEmbedded().getCodi(): null;
+//		this.horariBocadilloCodi = horari.getEmbedded()!= null?horari.getEmbedded().getCodi(): null;
+//		this.bancCodi = banc.getEmbedded()!= null?banc.getEmbedded().getCodi(): null;
+//		//this.oficinaBancariaCodi = oficinaBancariaCcr.getEmbedded().getCodi();
+//		this.zonaCodi = zona.getEmbedded()!= null?zona.getEmbedded().getCodi(): null;
+//		this.empresaCodi  = empresa!= null?empresa.getEmbedded().getCodi(): null;
+//		this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
+//		this.recursGrupCodi = recursGrup.getEmbedded()!= null?recursGrup.getEmbedded().getCodi(): null;
+//		this.operariCodi = operari.getEmbedded()!= null?operari.getEmbedded().getCodi(): null;
+//		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded()!= null?mantenimentDeTipus.getEmbedded().getCodi(): null;
+//		this.tornCodi = torn.getEmbedded()!= null?torn.getEmbedded().getCodi(): null;;
+//		this.grupFestiuCodi = grupFestiu.getEmbedded()!= null?grupFestiu.getEmbedded().getCodi(): null;
+//		this.centreCodi = centre.getEmbedded()!= null?centre.getEmbedded().getCodi(): null;
+//		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
 
 		this.updateHorari(horari);		
 		this.updateTipusComissio(tipusComissio);
@@ -398,71 +415,79 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	
 	public void updateHorari (HorariEntity horari) {
 		this.horari = horari;
-		if (horari!=null) this.horariCodi = horari.getEmbedded().getCodi();	
-	}
-	
+		this.horariCodi = horari!= null?horari.getEmbedded().getCodi(): null;
+	}	
+
+
 	public void updateTipusComissio (TipusComissioEntity tipusComissio) {
 	 	this.tipusComissio = tipusComissio;
-	 	if (tipusComissio!=null) this.tipusComissioCodi= tipusComissio.getEmbedded().getCodi();	
-	}
-	
-	public void updateHorariBocadillo (HorariEntity horariBocadillo) {
-		this.horariBocadillo = horariBocadillo;
-		if (horariBocadillo!=null) this.horariBocadilloCodi = horariBocadillo.getEmbedded().getCodi();	
+		this.tipusComissioCodi= tipusComissio!= null?tipusComissio.getEmbedded().getCodi(): null;;	
 	}
 	
 	public void updateBanc (BancEntity banc) {
 		this.banc = banc;
-		if (banc!=null) this.bancCodi= banc.getEmbedded().getCodi();	
+		this.bancCodi= banc!= null?banc.getEmbedded().getCodi(): null;
 	}
+	
+	/*public void updateOficinaBancaria (OficinaBancariaEntity oficinaBancariaCcr) {
+		this.oficinaBancariaCcr = oficinaBancariaCcr;
+		this.oficinaBancariaCodi= oficinaBancariaCcr.getEmbedded().getCodi();	
+	}*/
 		
 	public void updateZona(ZonaEntity zona) {
 		this.zona = zona;
-		if (zona!=null)	this.zonaCodi = zona.getEmbedded().getCodi();
+		this.zonaCodi = zona!= null?zona.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
-		if (empresa!=null) this.empresaCodi = empresa.getEmbedded().getCodi();
-	}	
+		this.empresaCodi = empresa!= null?empresa.getEmbedded().getCodi(): null;
+	}
+	
+	public void updateHorariBocadillo (HorariEntity horariBocadillo) {
+		this.horariBocadillo = horariBocadillo;
+		this.horariBocadilloCodi = horariBocadillo!= null?horariBocadillo.getEmbedded().getCodi(): null;
+	}
 
 	public void updateHorariCodNit (HorariEntity horariCodNit) {
 		this.horariCodNit = horariCodNit;
-		if (horariCodNit!=null) this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
+		this.horaricodnitCodi = horariCodNit!= null?horariCodNit.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateRecursGrup (RecursGrupEntity recursGrup) {
 		this.recursGrup = recursGrup;
-		if (recursGrup!=null) this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
+		this.recursGrupCodi = recursGrup!= null?recursGrup.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateOperari (OperariEntity operari) {
 		this.operari = operari;
-		if (operari!=null) this.operariCodi = operari.getEmbedded().getCodi();
+		this.operariCodi = operari!= null?operari.getEmbedded().getCodi(): null;
+
 	}
 	
 	public void updateMantenimentDeTipus (MantenimentDeTipusEntity mantenimentDeTipus) {
 		this.mantenimentDeTipus = mantenimentDeTipus;
-		if (mantenimentDeTipus!=null) this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
+		this.mantenimentDeTipusCodi = mantenimentDeTipus!= null?mantenimentDeTipus.getEmbedded().getCodi(): null;
+
 	}
 	
 	public void updateTorn(TornEntity torn) {
 		this.torn = torn;
-		if (torn!=null) this.tornCodi = torn.getEmbedded().getCodi();
+		this.tornCodi = torn!= null?torn.getEmbedded().getCodi(): null;
 	}
 	
 	public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
 		this.grupFestiu = grupFestiu;
-		if (grupFestiu!=null) this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
+		this.grupFestiuCodi = grupFestiu!= null?grupFestiu.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateCentre (CentreEntity centre) {
 		this.centre = centre;
-		if (centre!=null) this.centreCodi = centre.getEmbedded().getCodi();
+		this.centreCodi = centre!= null?centre.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateHorariCod003 (HorariEntity horariCod003) {
 		this.horariCod003 = horariCod003;
-		if (horariCod003!=null) this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
+		this.horariCod003Codi = horariCod003!= null?horariCod003.getEmbedded().getCodi(): null;
 	}
 }

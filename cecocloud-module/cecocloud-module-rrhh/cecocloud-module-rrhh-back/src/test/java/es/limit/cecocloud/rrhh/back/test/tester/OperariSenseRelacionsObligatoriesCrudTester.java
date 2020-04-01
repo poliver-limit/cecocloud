@@ -13,17 +13,8 @@ import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.back.test.utils.TestUtils;
-import es.limit.cecocloud.rrhh.logic.api.dto.Banc;
-import es.limit.cecocloud.rrhh.logic.api.dto.Centre;
-import es.limit.cecocloud.rrhh.logic.api.dto.Empresa;
-import es.limit.cecocloud.rrhh.logic.api.dto.GrupFestiu;
 import es.limit.cecocloud.rrhh.logic.api.dto.Horari;
-import es.limit.cecocloud.rrhh.logic.api.dto.MantenimentDeTipus;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
-import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
-import es.limit.cecocloud.rrhh.logic.api.dto.TipusComissio;
-import es.limit.cecocloud.rrhh.logic.api.dto.Torn;
-import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
 import es.limit.cecocloud.rrhh.logic.api.dto.enums.OperariEnumDto;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 /**
@@ -31,27 +22,14 @@ import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class OperariCrudTester extends AbstractCrudTester<Operari> {
+public class OperariSenseRelacionsObligatoriesCrudTester extends AbstractCrudTester<Operari> {
 
 	@Override
 	public Operari createDto() {
 		Operari dto = new Operari();
-		dto.setCodi(TestUtils.CODI_TEST);
+		dto.setCodi("Codf");
 		dto = this.update(dto);
-		dto.setBanc(getGenericReferenceWithCompositePkFromParentCrudTester(Banc.class));
-		dto.setCentre(getGenericReferenceWithCompositePkFromParentCrudTester(Centre.class));
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		dto.setGrupFestiu(getGenericReferenceWithCompositePkFromParentCrudTester(GrupFestiu.class));
 		dto.setHorari(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setHorariBocadillo(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setHorariCod003(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setHorariCodNit(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setMantenimentDeTipus(getGenericReferenceWithCompositePkFromParentCrudTester(MantenimentDeTipus.class));
-		dto.setRecursGrup(getGenericReferenceWithCompositePkFromParentCrudTester(RecursGrup.class));
-		dto.setTipusComissio(getGenericReferenceWithCompositePkFromParentCrudTester(TipusComissio.class));
-		dto.setTorn(getGenericReferenceWithCompositePkFromParentCrudTester(Torn.class));
-		dto.setZona(getGenericReferenceWithCompositePkFromParentCrudTester(Zona.class));
-		dto.setOperari(getGenericReferenceWithCompositePkFromParentCrudTester(Operari.class));
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
@@ -281,17 +259,7 @@ public class OperariCrudTester extends AbstractCrudTester<Operari> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] { new IdentificadorCrudTester(),
-				new BancCrudTester(),
-				new EmpresaCrudTester(),
-				new CentreCrudTester(),
-				new GrupFestiuCrudTester(),
-				new HorariCrudTester(),
-				new MantenimentDeTipusCrudTester(),
-				new RecursGrupCrudTester(),
-				new TipusComissioCrudTester(),
-				new TornCrudTester(),
-				new ZonaCrudTester(),
-				new OperariSenseRelacionsObligatoriesCrudTester()};
+				new HorariCrudTester()};
 	}
 
 }
