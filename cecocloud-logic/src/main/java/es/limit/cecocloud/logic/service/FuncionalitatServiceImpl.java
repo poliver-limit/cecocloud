@@ -64,6 +64,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 			String action,
 			Long id) {
 		if ("sync".equals(action)) {
+			log.debug("Inici sincronització de funcionalitats");
 			List<es.limit.base.boot.logic.api.module.ModuleInfo> modules = Modules.registeredFindAll();
 			for (es.limit.base.boot.logic.api.module.ModuleInfo moduleInfo: modules) {
 				ModuleInfo cecocloudModuleInfo = (ModuleInfo)moduleInfo;
@@ -94,6 +95,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 					}
 				}
 			}
+			log.debug("Fi sincronització de funcionalitats");
 			return new ActionExecutionResult(ActionExecutionState.OK, null, 0);
 		} else {
 			return super.execute(action, id);
@@ -200,6 +202,7 @@ public class FuncionalitatServiceImpl extends AbstractGenericServiceImpl<Funcion
 		}
 		if (hiHaCanvisRecursos) {
 			try {
+				log.debug("        Actualitzant permisos de la funcionalitat '" + funcionalitatCodiFont.getDescripcio() + "'");
 				funcionalitatAcl.updatePermisosFuncionalitatRecurs(funcionalitatSaved.getId());
 			} catch (ClassNotFoundException ex) {
 				log.error("No s'han pogut actualitzar els permisos de la funcionalitat " + funcionalitatSaved.getEmbedded().getCodi(), ex);
