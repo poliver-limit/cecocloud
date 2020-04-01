@@ -22,6 +22,7 @@ public interface FuncionalitatCodiFont {
 	public String getDescripcio();
 	public Class<? extends Identificable<?>> getRecursPrincipal();
 	public List<Class<? extends Identificable<?>>> getRecursosSecundaris();
-	public List<Permission> getAllowedPermission();
+	public List<Permission> getAllowedPermissions();
+	public List<FuncionalitatCodiFont> getFuncionalitatsFilles();
 
 }
