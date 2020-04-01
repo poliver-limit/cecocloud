@@ -187,7 +187,6 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariBocadillo;
 	
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariCodNit;
 
@@ -437,7 +436,6 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String ali;
 
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariCod003;
 

@@ -233,7 +233,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_zon_fk"))			
 	protected ZonaEntity zona;	
-	@Column(name ="ope_zon_cod", length = 4, nullable = false)
+	@Column(name ="ope_zon_cod", length = 4)
 	private String zonaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -244,7 +244,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_emp_fk"))			
 	protected EmpresaEntity empresa;	
-	@Column(name ="ope_emp_codccr", length = 4, nullable = false)
+	@Column(name ="ope_emp_codccr", length = 4)
 	private String empresaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -277,7 +277,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_gre_fk"))			
 	protected RecursGrupEntity recursGrup;	
-	@Column(name ="ope_gre_cod", length = 4, nullable = false)
+	@Column(name ="ope_gre_cod", length = 4)
 	private String recursGrupCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -299,7 +299,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_var_fk"))			
 	protected MantenimentDeTipusEntity mantenimentDeTipus;	
-	@Column(name ="ope_vad_cod", length = 4, nullable = false)
+	@Column(name ="ope_vad_cod", length = 4)
 	private String mantenimentDeTipusCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -321,7 +321,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_gfe_fk"))			
 	protected GrupFestiuEntity grupFestiu;	
-	@Column(name ="ope_gfe_cod", length = 4, nullable = false)
+	@Column(name ="ope_gfe_cod", length = 4)
 	private String grupFestiuCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -335,7 +335,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_cen_cod", length = 4)
 	private String centreCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
@@ -343,7 +343,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_hor3_fk"))			
 	protected HorariEntity horariCod003;	
-	@Column(name ="ope_hor_cod003", length = 4, nullable = false)
+	@Column(name ="ope_hor_cod003", length = 4)
 	private String horariCod003Codi;
 
 
@@ -451,7 +451,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 
 	public void updateHorariCodNit (HorariEntity horariCodNit) {
 		this.horariCodNit = horariCodNit;
-		if (horariCodNit!=null) this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
+		this.horaricodnitCodi = horariCodNit!= null?horariCodNit.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateRecursGrup (RecursGrupEntity recursGrup) {
@@ -488,6 +488,6 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	
 	public void updateHorariCod003 (HorariEntity horariCod003) {
 		this.horariCod003 = horariCod003;
-		if (horariCod003!=null) this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
+		this.horariCod003Codi = horariCod003!= null?horariCod003.getEmbedded().getCodi(): null;
 	}
 }

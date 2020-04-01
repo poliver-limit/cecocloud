@@ -15,7 +15,6 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.rrhh.back.test.utils.TestUtils;
 import es.limit.cecocloud.rrhh.logic.api.dto.Horari;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
-import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
 import es.limit.cecocloud.rrhh.logic.api.dto.enums.OperariEnumDto;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 /**
@@ -23,7 +22,7 @@ import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class OperariSenseOperariCrudTester extends AbstractCrudTester<Operari> {
+public class OperariSenseRelacionsObligatoriesCrudTester extends AbstractCrudTester<Operari> {
 
 	@Override
 	public Operari createDto() {
@@ -31,9 +30,6 @@ public class OperariSenseOperariCrudTester extends AbstractCrudTester<Operari> {
 		dto.setCodi("Codf");
 		dto = this.update(dto);
 		dto.setHorari(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setHorariCod003(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setHorariCodNit(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setZona(getGenericReferenceWithCompositePkFromParentCrudTester(Zona.class));
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;

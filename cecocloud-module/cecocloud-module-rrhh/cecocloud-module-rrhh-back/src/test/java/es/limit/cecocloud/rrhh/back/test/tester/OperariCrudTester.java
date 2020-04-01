@@ -291,7 +291,7 @@ public class OperariCrudTester extends AbstractCrudTester<Operari> {
 				new TipusComissioCrudTester(),
 				new TornCrudTester(),
 				new ZonaCrudTester(),
-				new OperariSenseOperariCrudTester()};
+				new OperariSenseRelacionsObligatoriesCrudTester()};
 	}
 
 }
