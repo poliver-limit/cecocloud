@@ -22,7 +22,9 @@ import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 public interface FuncionalitatIdentificadorRepository extends BaseRepository<FuncionalitatIdentificadorEntity, Long> {
 
 	List<FuncionalitatIdentificadorEntity> findByIdentificadorIdOrderByFuncionalitatEmbeddedDescripcio(Long identificadorId);
+	List<FuncionalitatIdentificadorEntity> findByFuncionalitatPareNullAndIdentificadorIdOrderByFuncionalitatEmbeddedDescripcio(Long identificadorId);
 	List<FuncionalitatIdentificadorEntity> findByFuncionalitatOrderByIdentificador(FuncionalitatEntity funcionalitat);
+	List<FuncionalitatIdentificadorEntity> findByFuncionalitatPareAndIdentificadorOrderByIdentificador(FuncionalitatEntity funcionalitat, IdentificadorEntity identificador);
 
 	@Query(
 			"select " +

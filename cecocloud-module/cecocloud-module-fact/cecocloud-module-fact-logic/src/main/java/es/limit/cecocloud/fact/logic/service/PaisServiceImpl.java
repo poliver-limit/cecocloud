@@ -17,4 +17,13 @@ import es.limit.cecocloud.fact.persist.entity.PaisEntity;
 @Service
 public class PaisServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Pais, PaisEntity, String> implements PaisService {
 
+//	@Override
+//	public ActionExecutionResult execute(String action, String id) {
+//		
+//		return new ActionExecutionResult(
+//				ActionExecutionState.OK, 
+//				"PAIS. Executada acció: '" + action + "' amb identificador '" + id + "'", 
+//				1);
+//	}
+
 }

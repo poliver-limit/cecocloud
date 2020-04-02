@@ -153,6 +153,7 @@ public class ClientCrudTester extends AbstractCrudTester<Client> {
 		return dto;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void updateDto(Client dto) {	
 		

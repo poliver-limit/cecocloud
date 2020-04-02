@@ -37,8 +37,8 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 	public Empresa createDto() {
 		
 		Empresa dto = new Empresa();
-		
-		dto.setCodi("TEST");
+
+		dto.setCodi(es.limit.cecoloud.test.tester.EmpresaCrudTester.EMPRESA_CODI_TEST);
 		dto.setNomComercial("NomComercial TST");
 		dto.setDomiciliComercial("DomComercial TST");
 		dto.setNomFiscal("NomFiscal TST");

@@ -44,7 +44,8 @@ public class MarcModule {
 						Arrays.asList(
 								ExtendedPermission.READ,
 								ExtendedPermission.CREATE,
-								ExtendedPermission.ADMINISTRATION)));
+								ExtendedPermission.ADMINISTRATION),
+						null));
 		moduleInfo = new ModuleInfo(
 				Modul.marc,
 				Marcatge.class.getPackage().getName(),
