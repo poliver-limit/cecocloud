@@ -4,6 +4,7 @@
   [restapiService]="projectesService"
   (formGroupChange)="onFormGroupChange($event)"
   [errorMessages]="errorMessages"
+  (resourceLoad)="onResourceLoad($event)"
 >
   <div style="display: flex; margin-bottom:20px;">
     <div style="width: 50%; padding-right: 1em">
