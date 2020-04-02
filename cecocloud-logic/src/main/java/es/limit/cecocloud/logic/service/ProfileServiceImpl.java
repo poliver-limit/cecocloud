@@ -27,20 +27,23 @@ public class ProfileServiceImpl extends AbstractProfileServiceImpl {
 		FuncionalitatCodiFont funcionalitat = Modules.getFuncionalitatWithRecursPrincipal(resourceClass);
 		if (funcionalitat != null) {
 			ProfileResource profileResource = profile.getResource();
-			List<String> simpleActions = profileResource.getSimpleActions() != null ? Arrays.asList(profileResource.getSimpleActions()) : null;
-			// TODO afegir accions sobre un únic recurs comprovant permisos
-			if (simpleActions != null) {
-				profileResource.setSimpleActions(simpleActions.toArray(new String[simpleActions.size()]));
+			// Només s'afegeixen les accions si es tenen permisos de modificació
+			if (profileResource.isHasUpdatePermission()) {
+				List<String> simpleActions = profileResource.getSimpleActions() != null ? Arrays.asList(profileResource.getSimpleActions()) : null;
+				if (simpleActions != null) {
+					profileResource.setSimpleActions(simpleActions.toArray(new String[simpleActions.size()]));
+				}
+				List<String> multipleActions = profileResource.getMultipleActions() != null ? Arrays.asList(profileResource.getMultipleActions()) : null;
+				if (multipleActions != null) {
+					profileResource.setMultipleActions(multipleActions.toArray(new String[multipleActions.size()]));
+				}
 			}
-			List<String> multipleActions = profileResource.getMultipleActions() != null ? Arrays.asList(profileResource.getMultipleActions()) : null;
-			// TODO afegir accions sobre múltiples recursos comprovant permisos
-			if (multipleActions != null) {
-				profileResource.setMultipleActions(multipleActions.toArray(new String[multipleActions.size()]));
-			}
-			List<String> reports = profileResource.getReports() != null ? Arrays.asList(profileResource.getReports()) : null;
-			// TODO afegir reports comprovant permisos
-			if (reports != null) {
-				profileResource.setReports(reports.toArray(new String[reports.size()]));
+			// Només s'afegeixen els informes si es tenen permisos de lectura
+			if (profileResource.isHasReadPermission()) {
+				List<String> reports = profileResource.getReports() != null ? Arrays.asList(profileResource.getReports()) : null;
+				if (reports != null) {
+					profileResource.setReports(reports.toArray(new String[reports.size()]));
+				}
 			}
 		}
 	}
