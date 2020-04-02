@@ -44,55 +44,57 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ope_idf_cod", length = 4)),	
-	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 4)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", length = 4, insertable = false, updatable = false)),		
+	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 6)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", insertable = false, updatable = false)),		
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 40, nullable = false)),	
 	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
 	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
 	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
 //	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
-	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor",  nullable = false)),			
-	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin", length = 25, nullable = false)),			
-	@AttributeOverride(name = "embedded.enc", column = @Column(name = "ope_enc",  nullable = false)),			
-	@AttributeOverride(name = "embedded.incidencia", column = @Column(name = "ope_ind",  nullable = false)),			
-	@AttributeOverride(name = "embedded.horesp", column = @Column(name = "ope_horesp", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.aplicaDiesLab", column = @Column(name = "ope_apldia", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDilluns", column = @Column(name = "ope_dls", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDimarts", column = @Column(name = "ope_dms", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDimecres", column = @Column(name = "ope_dcs", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDijous", column = @Column(name = "ope_djs", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDivendres", column = @Column(name = "ope_dvs", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDissabte", column = @Column(name = "ope_dse", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.laboralDiumenge", column = @Column(name = "ope_dme", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.nonGrato", column = @Column(name = "ope_ngr", length = 1, nullable = false)),			
-	@AttributeOverride(name = "embedded.ptenmn", column = @Column(name = "ope_ptenmn", nullable = false)),			
-	@AttributeOverride(name = "embedded.ado", column = @Column(name = "ope_ado", length = 1, nullable = false)),			
+	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor")),			
+	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin")),			
+	@AttributeOverride(name = "embedded.enc", column = @Column(name = "ope_enc")),			
+	@AttributeOverride(name = "embedded.incidencia", column = @Column(name = "ope_ind")),			
+	@AttributeOverride(name = "embedded.horesp", column = @Column(name = "ope_horesp", length = 1)),			
+	@AttributeOverride(name = "embedded.aplicaDiesLab", column = @Column(name = "ope_apldia", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDilluns", column = @Column(name = "ope_dls", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDimarts", column = @Column(name = "ope_dms", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDimecres", column = @Column(name = "ope_dcs", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDijous", column = @Column(name = "ope_djs", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDivendres", column = @Column(name = "ope_dvs", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDissabte", column = @Column(name = "ope_dse", length = 1)),			
+	@AttributeOverride(name = "embedded.laboralDiumenge", column = @Column(name = "ope_dme", length = 1)),			
+	@AttributeOverride(name = "embedded.nonGrato", column = @Column(name = "ope_ngr", length = 1)),			
+	@AttributeOverride(name = "embedded.ptenmn", column = @Column(name = "ope_ptenmn")),			
+	@AttributeOverride(name = "embedded.ado", column = @Column(name = "ope_ado", length = 1)),			
 	@AttributeOverride(name = "embedded.controlPartes", column = @Column(name = "ope_ctlffo", length = 1)),			
 	@AttributeOverride(name = "embedded.controlHoresExtras", column = @Column(name = "ope_ctlhoe", length = 1)),			
-	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ope_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ope_datmod")),	
+//	@AttributeOverride(name = "embedded.usuariCodi", column = @Column(name = "ope_usu_cod", length = 30)),
+
 	@AttributeOverride(name = "embedded.calculoHorasPartesTrabajo", column = @Column(name = "ope_calhor")),
-	@AttributeOverride(name = "embedded.horasCalculNominas", column = @Column(name = "ope_horcan",length = 1)),
-	@AttributeOverride(name = "embedded.estadoCivil", column = @Column(name = "ope_estciv",length = 1)),
-	@AttributeOverride(name = "embedded.digitsControl", column = @Column(name = "ope_dcc",length = 2)),
+	@AttributeOverride(name = "embedded.horasCalculNominas", column = @Column(name = "ope_horcan")),
+	@AttributeOverride(name = "embedded.estadoCivil", column = @Column(name = "ope_estciv")),
+	@AttributeOverride(name = "embedded.digitsControl", column = @Column(name = "ope_dcc")),
 	@AttributeOverride(name = "embedded.numeroFills", column = @Column(name = "ope_fil")),
 	@AttributeOverride(name = "embedded.horesLliuresPerAny", column = @Column(name = "ope_horlli")),
 	@AttributeOverride(name = "embedded.horesLliures", column = @Column(name = "ope_horlli002")),
+	
 	@AttributeOverride(name = "embedded.oficinaBancaria", column = @Column(name = "ope_ofb")),
 	@AttributeOverride(name = "embedded.entitatBancaria", column = @Column(name = "ope_ban")),
 	@AttributeOverride(name = "embedded.horesVacances", column = @Column(name = "ope_horvac")),
 	@AttributeOverride(name = "embedded.codiPostalPoblacio", column = @Column(name = "ope_cpo")),
 	@AttributeOverride(name = "embedded.numeroMatricula", column = @Column(name = "ope_mtr")),
 	@AttributeOverride(name = "embedded.codiAlternatiu", column = @Column(name = "ope_codalt")),
+	
 	@AttributeOverride(name = "embedded.compteComptable", column = @Column(name = "ope_ctecmp")),
 	@AttributeOverride(name = "embedded.compteCorrent", column = @Column(name = "ope_ccr")),
 	@AttributeOverride(name = "embedded.dataNaixement", column = @Column(name = "ope_datnai")),
 	@AttributeOverride(name = "embedded.dataAltaEmpresa", column = @Column(name = "ope_dat")),
 	@AttributeOverride(name = "embedded.nif", column = @Column(name = "ope_nif")),
-	@AttributeOverride(name = "embedded.numeroSeguretatSocial", column = @Column(name = "ope_nif", insertable = false, updatable = false)),
+	
+	// Comento el camp numeroSeguretatSocial, fins a aclariment, ja que s'ha donat com a nom de la columna ope_nif
+//	@AttributeOverride(name = "embedded.numeroSeguretatSocial", column = @Column(name = "ope_nif")),
+	
 	@AttributeOverride(name = "embedded.nmn1", column = @Column(name = "ope_nmn1")),
 	@AttributeOverride(name = "embedded.nmn2", column = @Column(name = "ope_nmn2")),
 	@AttributeOverride(name = "embedded.importHoresExtresDilluns", column = @Column(name = "ope_pruextdls")),
@@ -129,6 +131,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.horesPendentsAnysAnteriorJubilacio", column = @Column(name = "ope_horpenanyantpjb")),
 	@AttributeOverride(name = "embedded.observacionsPrejubilacio", column = @Column(name = "ope_obspjb")),
 	@AttributeOverride(name = "embedded.plusProductivitat", column = @Column(name = "ope_plupdt")),
+	
 	@AttributeOverride(name = "embedded.dataIniciTorn", column = @Column(name = "ope_tordiaini")),
 	@AttributeOverride(name = "embedded.sexe", column = @Column(name = "ope_sex")),
 	@AttributeOverride(name = "embedded.telefonEmpresa", column = @Column(name = "ope_telemp")),
@@ -144,6 +147,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.anecmp", column = @Column(name = "ope_anecmp")),
 	@AttributeOverride(name = "embedded.depcmp", column = @Column(name = "ope_depcmp")),
 	@AttributeOverride(name = "embedded.depcmpfxe", column = @Column(name = "ope_depcmpfxe")),
+	
 	@AttributeOverride(name = "embedded.dtehor", column = @Column(name = "ope_dtehor")),
 	@AttributeOverride(name = "embedded.maxhoe001", column = @Column(name = "ope_maxhoe001")),
 	@AttributeOverride(name = "embedded.ptenmn002", column = @Column(name = "ope_ptenmn002")),
@@ -152,9 +156,15 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.pas", column = @Column(name = "ope_pas")),
 	@AttributeOverride(name = "embedded.app", column = @Column(name = "ope_app")),
 	@AttributeOverride(name = "embedded.ali", column = @Column(name = "ope_ali")),
+	
 	@AttributeOverride(name = "embedded.mdcntf", column = @Column(name = "ope_mdcntf")),
 	@AttributeOverride(name = "embedded.nothorext", column = @Column(name = "ope_nothorext")),
-	@AttributeOverride(name = "embedded.usucld", column = @Column(name = "ope_usucld"))
+	@AttributeOverride(name = "embedded.usucld", column = @Column(name = "ope_usucld")),
+	
+	@AttributeOverride(name = "createdBy", column = @Column(name = "ope_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "ope_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ope_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ope_datmod")),	
 })
 @AssociationOverrides({
 	@AssociationOverride(
@@ -181,7 +191,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	private String horariCodi;
 	
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "tcs_idf_cod", insertable = false, updatable = false),
@@ -189,10 +199,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rges_ope_tcs_fk"))			
 	protected TipusComissioEntity tipusComissio;	
-	@Column(name ="ope_tcs_cod", length = 4, nullable = false)
+	@Column(name ="ope_tcs_cod", length = 4)
 	private String tipusComissioCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "ban_idf_cod", insertable = false, updatable = false),
@@ -200,7 +210,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rges_ope_ban_fk"))			
 	protected BancEntity banc;	
-	@Column(name ="ope_ban_codccr", length = 4, nullable = false)
+	@Column(name ="ope_ban_codccr", length = 4)
 	private Integer bancCodi;
 	
 	/*@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -215,7 +225,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	private Integer oficinaBancariaCodi;*/
 	
 		
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "zon_idf_cod", insertable = false, updatable = false),
@@ -226,7 +236,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_zon_cod", length = 4)
 	private String zonaCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
@@ -237,7 +247,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_emp_codccr", length = 4)
 	private String empresaCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
@@ -245,10 +255,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_hor2_fk"))			
 	protected HorariEntity horariBocadillo;	
-	@Column(name ="ope_hor_cod002", length = 4, nullable = false)
+	@Column(name ="ope_hor_cod002", length = 4)
 	private String horariBocadilloCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
@@ -256,10 +266,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_horn_fk"))			
 	protected HorariEntity horariCodNit;	
-	@Column(name ="ope_hor_codnit", length = 4, nullable = false)
+	@Column(name ="ope_hor_codnit", length = 4)
 	private String horaricodnitCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "gre_idf_cod", insertable = false, updatable = false),
@@ -270,7 +280,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_gre_cod", length = 4)
 	private String recursGrupCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
@@ -281,7 +291,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_ope_cod", length = 4)
 	private String operariCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "vad_idf_cod", insertable = false, updatable = false),
@@ -292,7 +302,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_vad_cod", length = 4)
 	private String mantenimentDeTipusCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "tor_idf_cod", insertable = false, updatable = false),
@@ -303,7 +313,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_tor_cod", length = 4)
 	private String tornCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "gfe_idf_cod", insertable = false, updatable = false),
@@ -314,7 +324,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_gfe_cod", length = 4)
 	private String grupFestiuCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "cen_idf_cod", insertable = false, updatable = false),
@@ -325,7 +335,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_cen_cod", length = 4)
 	private String centreCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
@@ -335,9 +345,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	protected HorariEntity horariCod003;	
 	@Column(name ="ope_hor_cod003", length = 4)
 	private String horariCod003Codi;
-	
-	
-	
+
 
 	@Builder
 	public OperariEntity(
@@ -366,31 +374,28 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
+	
 		
-		this.updateHorari(horari);		
-		
-		
-		this.tipusComissioCodi = tipusComissio.getEmbedded().getCodi();
-		this.horariBocadilloCodi = horari.getEmbedded().getCodi();
-		this.bancCodi = banc.getEmbedded().getCodi();
-		//this.oficinaBancariaCodi = oficinaBancariaCcr.getEmbedded().getCodi();
-		this.zonaCodi = zona.getEmbedded().getCodi();
-		this.empresaCodi  = empresa.getEmbedded().getCodi();
-		this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
-		this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
-		this.operariCodi = operari.getEmbedded().getCodi();
-		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
-		this.tornCodi = torn.getEmbedded().getCodi();
-		this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
-		this.centreCodi = centre.getEmbedded().getCodi();
-		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
-
+//		this.tipusComissioCodi = tipusComissio.getEmbedded()!= null?tipusComissio.getEmbedded().getCodi(): null;
+//		this.horariBocadilloCodi = horari.getEmbedded()!= null?horari.getEmbedded().getCodi(): null;
+//		this.bancCodi = banc.getEmbedded()!= null?banc.getEmbedded().getCodi(): null;
+//		//this.oficinaBancariaCodi = oficinaBancariaCcr.getEmbedded().getCodi();
+//		this.zonaCodi = zona.getEmbedded()!= null?zona.getEmbedded().getCodi(): null;
+//		this.empresaCodi  = empresa!= null?empresa.getEmbedded().getCodi(): null;
+//		this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
+//		this.recursGrupCodi = recursGrup.getEmbedded()!= null?recursGrup.getEmbedded().getCodi(): null;
+//		this.operariCodi = operari.getEmbedded()!= null?operari.getEmbedded().getCodi(): null;
+//		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded()!= null?mantenimentDeTipus.getEmbedded().getCodi(): null;
+//		this.tornCodi = torn.getEmbedded()!= null?torn.getEmbedded().getCodi(): null;;
+//		this.grupFestiuCodi = grupFestiu.getEmbedded()!= null?grupFestiu.getEmbedded().getCodi(): null;
+//		this.centreCodi = centre.getEmbedded()!= null?centre.getEmbedded().getCodi(): null;
+//		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
 
 		this.updateHorari(horari);		
 		this.updateTipusComissio(tipusComissio);
-		this.updateBanc(banc);
-		//this.updateOficinaBancaria(oficinaBancariaCcr);
 		this.updateHorariBocadillo(horariBocadillo);
+		this.updateBanc(banc);
+		//this.updateOficinaBancaria(oficinaBancariaCcr);		
 		this.updateZona(zona);
 		this.updateEmpresa(empresa);
 		this.updateHorariCodNit(horariCodNit);
@@ -410,18 +415,18 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	
 	public void updateHorari (HorariEntity horari) {
 		this.horari = horari;
-		this.horariCodi = horari.getEmbedded().getCodi();	
+		this.horariCodi = horari!= null?horari.getEmbedded().getCodi(): null;
 	}	
 
-	
+
 	public void updateTipusComissio (TipusComissioEntity tipusComissio) {
 	 	this.tipusComissio = tipusComissio;
-		this.tipusComissioCodi= tipusComissio.getEmbedded().getCodi();	
+		this.tipusComissioCodi= tipusComissio!= null?tipusComissio.getEmbedded().getCodi(): null;;	
 	}
 	
 	public void updateBanc (BancEntity banc) {
 		this.banc = banc;
-		this.bancCodi= banc.getEmbedded().getCodi();	
+		this.bancCodi= banc!= null?banc.getEmbedded().getCodi(): null;
 	}
 	
 	/*public void updateOficinaBancaria (OficinaBancariaEntity oficinaBancariaCcr) {
@@ -431,56 +436,58 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 		
 	public void updateZona(ZonaEntity zona) {
 		this.zona = zona;
-		this.zonaCodi = zona.getEmbedded().getCodi();
+		this.zonaCodi = zona!= null?zona.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
-		this.empresaCodi = empresa.getEmbedded().getCodi();
+		this.empresaCodi = empresa!= null?empresa.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateHorariBocadillo (HorariEntity horariBocadillo) {
 		this.horariBocadillo = horariBocadillo;
-		this.horariBocadilloCodi = horariBocadillo.getEmbedded().getCodi();	
+		this.horariBocadilloCodi = horariBocadillo!= null?horariBocadillo.getEmbedded().getCodi(): null;
 	}
 
 	public void updateHorariCodNit (HorariEntity horariCodNit) {
 		this.horariCodNit = horariCodNit;
-		this.horaricodnitCodi = horariCodNit.getEmbedded().getCodi();
+		this.horaricodnitCodi = horariCodNit!= null?horariCodNit.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateRecursGrup (RecursGrupEntity recursGrup) {
 		this.recursGrup = recursGrup;
-		this.recursGrupCodi = recursGrup.getEmbedded().getCodi();
+		this.recursGrupCodi = recursGrup!= null?recursGrup.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateOperari (OperariEntity operari) {
 		this.operari = operari;
-		this.operariCodi = operari.getEmbedded().getCodi();
+		this.operariCodi = operari!= null?operari.getEmbedded().getCodi(): null;
+
 	}
 	
 	public void updateMantenimentDeTipus (MantenimentDeTipusEntity mantenimentDeTipus) {
 		this.mantenimentDeTipus = mantenimentDeTipus;
-		this.mantenimentDeTipusCodi = mantenimentDeTipus.getEmbedded().getCodi();
+		this.mantenimentDeTipusCodi = mantenimentDeTipus!= null?mantenimentDeTipus.getEmbedded().getCodi(): null;
+
 	}
 	
 	public void updateTorn(TornEntity torn) {
 		this.torn = torn;
-		this.tornCodi = torn.getEmbedded().getCodi();
+		this.tornCodi = torn!= null?torn.getEmbedded().getCodi(): null;
 	}
 	
 	public void updteGrupFestiu (GrupFestiuEntity grupFestiu) {
 		this.grupFestiu = grupFestiu;
-		this.grupFestiuCodi = grupFestiu.getEmbedded().getCodi();
+		this.grupFestiuCodi = grupFestiu!= null?grupFestiu.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateCentre (CentreEntity centre) {
 		this.centre = centre;
-		this.centreCodi = centre.getEmbedded().getCodi();
+		this.centreCodi = centre!= null?centre.getEmbedded().getCodi(): null;
 	}
 	
 	public void updateHorariCod003 (HorariEntity horariCod003) {
 		this.horariCod003 = horariCod003;
-		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
+		this.horariCod003Codi = horariCod003!= null?horariCod003.getEmbedded().getCodi(): null;
 	}
 }

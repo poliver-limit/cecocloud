@@ -27,40 +27,67 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 	protected String codi;
 	protected FuncionalitatTipus tipus;
 	protected String descripcio;
-	protected Modul modul;
-	protected List<Class<? extends Identificable<?>>> recursosPrincipals;
+	protected Class<? extends Identificable<?>> recursPrincipal;
 	protected List<Class<? extends Identificable<?>>> recursosSecundaris;
-	protected List<Permission> allowedPermission;
+	protected List<Permission> allowedPermissions;
+	protected List<FuncionalitatCodiFont> funcionalitatsFilles;
+
+	public FuncionalitatCodiFontImpl(
+			String codi, 
+			FuncionalitatTipus tipus, 
+			String descripcio) {
+		this.codi = codi;
+		this.tipus = tipus;
+		this.descripcio = descripcio;
+		setDefaultAllowedPermissions();
+	}
+	public FuncionalitatCodiFontImpl(
+			String codi, 
+			FuncionalitatTipus tipus, 
+			String descripcio, 
+			Class<? extends Identificable<?>> recursPrincipal,
+			List<Class<? extends Identificable<?>>> recursosSecundaris,
+			List<FuncionalitatCodiFont> funcionalitatsFilles) {
+		this.codi = codi;
+		this.tipus = tipus;
+		this.descripcio = descripcio;
+		this.recursPrincipal = recursPrincipal;
+		this.recursosSecundaris = recursosSecundaris;
+		this.funcionalitatsFilles = funcionalitatsFilles;
+		setDefaultAllowedPermissions();
+	}
 
 	public FuncionalitatCodiFontImpl(
 			String codi, 
 			FuncionalitatTipus tipus, 
 			String descripcio, 
-			Modul modul,
-			List<Class<? extends Identificable<?>>> recursosPrincipals,
+			Class<? extends Identificable<?>> recursPrincipal,
 			List<Class<? extends Identificable<?>>> recursosSecundaris) {
-		super();
-		this.codi = codi;
-		this.tipus = tipus;
-		this.descripcio = descripcio;
-		this.modul = modul;
-		this.recursosPrincipals = recursosPrincipals;
-		this.recursosSecundaris = recursosSecundaris;
-		this.allowedPermission = new ArrayList<Permission>();
-		
+		this(
+				codi,
+				tipus,
+				descripcio,
+				recursPrincipal,
+				recursosSecundaris,
+				null);
+	}
+
+	private void setDefaultAllowedPermissions() {
+		this.allowedPermissions = new ArrayList<Permission>();
 		switch (tipus) {
 		case MANTENIMENT:
-			this.allowedPermission.add(ExtendedPermission.READ);
-			this.allowedPermission.add(ExtendedPermission.WRITE);
-			this.allowedPermission.add(ExtendedPermission.CREATE);
-			this.allowedPermission.add(ExtendedPermission.DELETE);
+			this.allowedPermissions.add(ExtendedPermission.READ);
+			this.allowedPermissions.add(ExtendedPermission.WRITE);
+			this.allowedPermissions.add(ExtendedPermission.CREATE);
+			this.allowedPermissions.add(ExtendedPermission.DELETE);
 			break;
-		case ACCIO:
-			this.allowedPermission.add(ExtendedPermission.EXECUTE);
+		case ACCIO_SIMPLE:
+		case ACCIO_MULTIPLE:
+			this.allowedPermissions.add(ExtendedPermission.EXECUTE);
 			break;
 		case INFORME:
-			this.allowedPermission.add(ExtendedPermission.READ);
-			this.allowedPermission.add(ExtendedPermission.PRINT);
+			this.allowedPermissions.add(ExtendedPermission.READ);
+			this.allowedPermissions.add(ExtendedPermission.PRINT);
 			break;
 		default:
 			break;

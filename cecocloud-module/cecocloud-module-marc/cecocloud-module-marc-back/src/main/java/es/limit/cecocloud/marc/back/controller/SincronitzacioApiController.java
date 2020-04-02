@@ -50,7 +50,9 @@ public class SincronitzacioApiController {
 						consulta.getIdentificadorCodi(),
 						consulta.getEmpresaCodi(),
 						consulta.getDataInici(),
-						consulta.getDataFi()));
+						consulta.getDataFi(),
+						consulta.getIdInici(),
+						consulta.getIdFi()));
 	}
 
 	@PostMapping(

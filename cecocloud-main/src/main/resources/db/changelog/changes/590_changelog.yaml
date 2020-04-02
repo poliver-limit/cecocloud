@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: 1585725413321-1
+    author: josepg
+    changes:
+    - modifyDataType:
+        columnName: codi
+        newDataType: varchar(64)
+        tableName: funcionalitat

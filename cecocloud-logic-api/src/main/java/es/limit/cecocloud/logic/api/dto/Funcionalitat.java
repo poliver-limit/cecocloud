@@ -45,14 +45,12 @@ public class Funcionalitat extends AbstractIdentificable<Long> {
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV)
+	private GenericReference<Funcionalitat, Long> pare;
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Modul modul;
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private GenericReference<Funcionalitat, Long> pare;
 
 }

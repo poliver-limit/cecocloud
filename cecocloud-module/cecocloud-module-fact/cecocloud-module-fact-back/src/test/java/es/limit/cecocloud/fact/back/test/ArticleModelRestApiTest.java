@@ -33,6 +33,7 @@ public class ArticleModelRestApiTest extends ModuleResourceRestApiTest<ArticleMo
 		genericCrudTest();
 	}
 
+	@Override
 	protected FuncionalitatCodiFont getFuncionalitatCodiFont() {
 		ModuleInfo moduleInfo = (ModuleInfo)Modules.registeredGetOne(Modul.fact.name()).get();
 		return moduleInfo.getFuncionalitats().get("FAC_MODART");

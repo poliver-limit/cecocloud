@@ -26,8 +26,10 @@ public class ArticleModelCrudTester extends AbstractCrudTester<ArticleModel> {
 		dto.setCodi("TEST");
 		dto.setDescripcio("TeSt");
 		dto.setControl(true);	
+		
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
+		
 		return dto;
 	}
 

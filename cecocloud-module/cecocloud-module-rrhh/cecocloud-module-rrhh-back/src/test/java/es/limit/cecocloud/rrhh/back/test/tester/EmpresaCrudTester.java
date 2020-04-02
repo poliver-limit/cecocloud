@@ -10,7 +10,6 @@ import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.rrhh.back.test.utils.TestUtils;
 import es.limit.cecocloud.rrhh.logic.api.dto.Empresa;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
@@ -24,7 +23,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 	@Override
 	public Empresa createDto() {
 		Empresa dto = new Empresa();
-		dto.setCodi(TestUtils.CODI_TEST);
+		dto.setCodi(es.limit.cecoloud.test.tester.EmpresaCrudTester.EMPRESA_CODI_TEST);
 		dto = this.update(dto);
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));

@@ -32,9 +32,12 @@ public class ZonaCrudTester extends AbstractCrudTester<Zona> {
 		dto.setNom("Test");
 		dto.setDescripcio("Descripció de prova");
 		dto.setRadioKm(1);
+		
 		dto.setPreu(new BigDecimal(1));
+		
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
+		
 		return dto;
 	}
 
@@ -44,6 +47,7 @@ public class ZonaCrudTester extends AbstractCrudTester<Zona> {
 		dto.setNom("Test2");
 		dto.setDescripcio("Descripció de prova2");
 		dto.setRadioKm(2);
+		
 		dto.setPreu(new BigDecimal(2));
 	}
 
@@ -53,6 +57,7 @@ public class ZonaCrudTester extends AbstractCrudTester<Zona> {
 		assertEquals(expected.getNom(), actual.getNom());
 		assertEquals(expected.getDescripcio(), actual.getDescripcio());
 		assertEquals(expected.getRadioKm(), actual.getRadioKm());
+		
 		assertEquals(expected.getPreu().compareTo(actual.getPreu()), 0);
 	}
 

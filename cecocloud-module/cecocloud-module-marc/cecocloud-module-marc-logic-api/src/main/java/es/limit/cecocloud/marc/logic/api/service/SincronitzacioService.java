@@ -25,17 +25,22 @@ public interface SincronitzacioService {
 	 * @param empresaCodi
 	 *            codi de l'empresa (opcional).
 	 * @param dataInici
-	 *            data inicial per a la consulta.
+	 *            data inicial per a la consulta (opcional).
 	 * @param dataFi
 	 *            data final per a la consulta (opcional).
-	 * 
+	 * @param idInici
+	 *            id inicial per a la consulta (opcional).
+	 * @param idFi
+	 *            id final per a la consulta (opcional).
 	 * @return la llista de marcatges.
 	 */
 	public List<SincronitzacioMarcatge> marcatgeFind(
 			String identificadorCodi,
 			String empresaCodi,
 			Date dataInici,
-			Date dataFi);
+			Date dataFi,
+			Long idInici,
+			Long idFi);
 
 	/**
 	 * Crea els marcatges de cecogest a dins CECOCLOUD.

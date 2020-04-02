@@ -33,6 +33,7 @@ public class ZonaRestApiTest extends ModuleResourceRestApiTest<Zona> {
 		genericCrudTest();
 	}
 
+	@Override
 	protected FuncionalitatCodiFont getFuncionalitatCodiFont() {
 		ModuleInfo moduleInfo = (ModuleInfo)Modules.registeredGetOne(Modul.fact.name()).get();
 		return moduleInfo.getFuncionalitats().get("FAC_ZONA");

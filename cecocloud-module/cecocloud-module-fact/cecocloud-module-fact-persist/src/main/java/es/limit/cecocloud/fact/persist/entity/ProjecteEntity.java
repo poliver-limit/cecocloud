@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
+import es.limit.cecocloud.rrhh.persist.entity.SeccioEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,22 +38,24 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(name = "tges_prj", indexes = { @Index(name = "iges_prj_idf_fk", columnList = "prj_idf_cod"),
-		@Index(name = "irges_prj_pk", columnList = "prj_idf_cod,prj_cod", unique = true) })
+		@Index(name = "irges_prj_pk", columnList = "prj_idf_cod,prj_num", unique = true) })
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "prj_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "prj_emp_cod", length = 4, insertable = false, updatable = false)),
-		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_cod", length = 6)), // prj_num
-		@AttributeOverride(name = "embedded.codi", column = @Column(name = "prj_cod", length = 6, insertable = false, updatable = false)),
-		@AttributeOverride(name = "embedded.numero", column = @Column(name = "prj_num", length = 6)),
+		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_num", length = 6)), // prj_num
+		@AttributeOverride(name = "embedded.codi", column = @Column(name = "prj_num", length = 6, insertable = false, updatable = false)),		
 		@AttributeOverride(name = "embedded.nom", column = @Column(name = "prj_nom", length = 250, nullable = false)),
+		@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "prj_descur", length = 60)),
 		@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "prj_des", length = 1000)),
 		@AttributeOverride(name = "embedded.referencia", column = @Column(name = "prj_ref", length = 20)),
 		@AttributeOverride(name = "embedded.observacions", column = @Column(name = "prj_obs", length = 1000)),
-		@AttributeOverride(name = "embedded.codiAlternatiu", column = @Column(name = "prj_ali", length = 35)),
+//		@AttributeOverride(name = "embedded.codiAlternatiu", column = @Column(name = "prj_ali", length = 35)),
 		@AttributeOverride(name = "embedded.responsable", column = @Column(name = "prj_res", length = 60)),
 		@AttributeOverride(name = "embedded.contactePersona", column = @Column(name = "prj_percon", length = 60)),
 		@AttributeOverride(name = "embedded.contacteTelefon", column = @Column(name = "prj_telcon", length = 30)),
 		@AttributeOverride(name = "embedded.adreca", column = @Column(name = "prj_dir", length = 200)),
+		@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "prj_pob", length = 100)),
+		@AttributeOverride(name = "embedded.tecnologies", column = @Column(name = "prj_tec", length = 2000)),
 		@AttributeOverride(name = "embedded.estat", column = @Column(name = "prj_est")),
 		@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "prj_datini")),
 		@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "prj_datfin")),
@@ -62,24 +65,30 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.dataRecepcioProvisional", column = @Column(name = "prj_diarebpvi")),
 		@AttributeOverride(name = "embedded.dataRecepcioFinal", column = @Column(name = "prj_diarebfin")),
 		@AttributeOverride(name = "embedded.dataIniciGarantia", column = @Column(name = "prj_datgar")),
+		@AttributeOverride(name = "embedded.dataFinalGarantia", column = @Column(name = "prj_datfingar")),
 		@AttributeOverride(name = "embedded.dataDevolucioAval", column = @Column(name = "prj_diadevava")),
+		@AttributeOverride(name = "embedded.dataFormalitzacio", column = @Column(name = "prj_datfmz")),
 		@AttributeOverride(name = "embedded.horesEquiv", column = @Column(name = "prj_horequ")),
 		@AttributeOverride(name = "embedded.horesEquivConstruccio", column = @Column(name = "prj_horeqc")),
 		@AttributeOverride(name = "embedded.horesEquivGarantia", column = @Column(name = "prj_horeqg")),
 		@AttributeOverride(name = "embedded.percentExecucioLliure", column = @Column(name = "prj_pteeje")),
 		@AttributeOverride(name = "embedded.percentExecucioConstruccio", column = @Column(name = "prj_pteejc")),
 		@AttributeOverride(name = "embedded.percentExecucioGarantia", column = @Column(name = "prj_pteejg")),
-		@AttributeOverride(name = "embedded.divisaValorEuros", column = @Column(name = "prj_valdiveur")),
+//		@AttributeOverride(name = "embedded.divisaValorEuros", column = @Column(name = "prj_valdiveur")),
 		@AttributeOverride(name = "embedded.valorEstimat", column = @Column(name = "prj_valetm")),
 		@AttributeOverride(name = "embedded.importFianca", column = @Column(name = "prj_impfia")),
 		@AttributeOverride(name = "embedded.dipositFianca", column = @Column(name = "prj_dipfia", length = 250)),
 		@AttributeOverride(name = "embedded.direccioTecnica", column = @Column(name = "prj_dirtec", length = 60)),
 		@AttributeOverride(name = "embedded.albaransClientCrear", column = @Column(name = "prj_crealbcli", length = 1)),
 		@AttributeOverride(name = "embedded.albaransClientPreu", column = @Column(name = "prj_prualbcli")),
+		@AttributeOverride(name = "embedded.tipusExecucio", column = @Column(name = "prj_tipeje")),
 		@AttributeOverride(name = "embedded.albaransClientProjecteTipus", column = @Column(name = "prj_tip")),
 		@AttributeOverride(name = "embedded.dietes", column = @Column(name = "prj_dta", length = 1)),
 		@AttributeOverride(name = "embedded.plusPerillositat", column = @Column(name = "prj_plspel", length = 1)),
 		@AttributeOverride(name = "embedded.controlarCostos", column = @Column(name = "prj_crlcos", length = 1)),
+		@AttributeOverride(name = "embedded.exportarMobil", column = @Column(name = "prj_pda", length = 1)),
+		@AttributeOverride(name = "embedded.preuMigFacturacio", column = @Column(name = "prj_prumigfac", length = 1)),
+		@AttributeOverride(name = "embedded.multiclient", column = @Column(name = "prj_mulcli", length = 1)),
 		@AttributeOverride(name = "embedded.horesCami", column = @Column(name = "prj_horrut")),
 		@AttributeOverride(name = "embedded.estudiDespesesGenerals", column = @Column(name = "prj_gstgen")),
 		@AttributeOverride(name = "embedded.estudiBaixaPercent", column = @Column(name = "prj_baj")),
@@ -129,6 +138,18 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	private DivisaEntity divisa;
 	@Column(name = "prj_div_cod", length = 4)
 	private String divisaCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sec_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sec_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_sec_cod", referencedColumnName = "sec_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "prj_sec_cod_fk"))
+	private SeccioEntity seccio;
+	@Column(name = "prj_sec_cod", length = 4)
+	private String seccioCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -167,11 +188,11 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ope_enccod", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
+						@JoinColumn(name = "prj_ope_codenc", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
 			},
 			foreignKey = @ForeignKey(name = "prj_ope_enccod_fk"))
 	private OperariEntity operariEncarregat;
-	@Column(name = "prj_ope_enccod", length = 6)
+	@Column(name = "prj_ope_codenc", length = 6)
 	private String operariEncarregatCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -305,6 +326,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			IdentificadorEntity identificador, 
 			EmpresaEntity empresa,
 			DivisaEntity divisa, 
+			SeccioEntity seccio,
 			ProjecteTipusEntity projecteTipus, 
 			OperariEntity operariResponsable,
 			OperariEntity operariCapGrup, 
@@ -325,6 +347,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		this.identificador = identificador;
 		updateEmpresa(empresa);
 		updateDivisa(divisa);
+		updateSeccio(seccio);
 		updateProjecteTipus(projecteTipus);
 		updateOperariResponsable(operariResponsable);
 		updateOperariCapGrup(operariCapGrup);
@@ -358,6 +381,13 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		this.divisa = divisa;
 		if (divisa != null) {
 			this.divisaCodi = divisa.getId().getCodi();
+		}
+	}
+	
+	public void updateSeccio(SeccioEntity seccio) {
+		this.seccio = seccio;
+		if (seccio != null) {
+			this.seccioCodi = seccio.getId().getCodi();
 		}
 	}
 
@@ -465,5 +495,4 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			this.finalFacturaCodi = finalFactura.getId().getCodi();
 		}
 	}
-
 }

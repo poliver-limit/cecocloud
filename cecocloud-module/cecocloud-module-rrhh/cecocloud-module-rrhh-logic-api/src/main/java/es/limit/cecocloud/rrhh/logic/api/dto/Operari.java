@@ -29,15 +29,21 @@ import lombok.Setter;
 @Setter
 @RestapiResource(descriptionField = "nom")
 public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<String> {
+	
+	@RestapiField(hiddenInGrid = true,hiddenInForm = true)
+	public static final String FILTER_ACTIU = "actiu";
+	
+	@RestapiField(hiddenInGrid = true,hiddenInForm = true)
+	public static final String FILTER_ACTIU_ADO = "actiu_ado";
 
 	@NotNull(groups = { OnCreate.class })
-	@Size(max = 4)
+	@Size(max = 6)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
 
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
-	@Size(max = 30)
+	@Size(max = 40)
 	private String nom;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
@@ -52,13 +58,12 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean comercial;
 
-//	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
-//	private String horariCodi;
-
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean mostrTurno;
 
+	@NotNull
+	@Size(max = 25)
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String pin;
 
@@ -110,6 +115,7 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean nonGrato;
 
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Integer ptenmn;
 
@@ -117,10 +123,12 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean ado;
 
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = OperariConverter.class)
 	private OperariEnumDto controlPartes;
 
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = OperariConverter.class)
 	private OperariEnumDto controlHoresExtras;
@@ -140,6 +148,7 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String estadoCivil;
 
+	@Size(max = 4)
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String digitsControl;
 
@@ -151,11 +160,6 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Integer horesLliures;
-
-	/*@Transient
-	@NotNull
-	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
-	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;*/
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
@@ -171,27 +175,22 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	 
 	
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;
 
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariBocadillo;
 	
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariCodNit;
 
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<RecursGrup, WithIdentificadorAndCodiPk<String>> recursGrup;
 
@@ -214,7 +213,6 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String codiAlternatiu;
 
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Operari, WithIdentificadorAndCodiPk<String>> operari;
 
@@ -233,8 +231,8 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String nif;
 
-	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
-	private String numeroSeguretatSocial;
+//	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
+//	private String numeroSeguretatSocial;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Integer nmn1;
@@ -359,7 +357,6 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private Date dataIniciTorn;
 
 	@Transient
-	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<GrupFestiu, WithIdentificadorAndCodiPk<String>> grupFestiu;
 

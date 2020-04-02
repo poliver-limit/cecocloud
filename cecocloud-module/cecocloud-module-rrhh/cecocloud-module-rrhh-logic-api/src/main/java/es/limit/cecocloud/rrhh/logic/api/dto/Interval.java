@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,7 +30,6 @@ import lombok.Setter;
 
 public class Interval extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 	
-	@Digits(integer = 22, fraction = 0)
 	@NotNull
 	@RestapiField(disabledForUpdate = true, toUpperCase = true)
 	private String codi;
@@ -42,11 +40,11 @@ public class Interval extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@RestapiField(hiddenInGrid = false, hiddenInLov = true)
 	private Date dataInici;
 	
-	@Max(22)
+	@Digits(integer = 10, fraction = 0)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Integer numeroNodeEnt;
 	
-	@Max(22)
+	@Digits(integer = 10, fraction = 0)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Integer numeroNodeSor;
 	
@@ -61,7 +59,7 @@ public class Interval extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String concepteFeinaCodi;
 	
-	@Size(max = 4)
+	@Digits(integer = 10, fraction = 0)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Integer fullFeinaOperariCodi;
 	

@@ -70,7 +70,7 @@ public abstract class ModuleResourceRestApiTest<D extends IdentificableWithCompo
 	@Override
 	protected void beforeCrudTest() {
 		FuncionalitatCodiFont funcionalitatCodiFont = getFuncionalitatCodiFont();
-		log.debug("Iniciant configuració del test per a la funcionalitat " + funcionalitatCodiFont.getCodi() + " del mòdul " + funcionalitatCodiFont.getModul());
+		log.debug("Iniciant configuració del test per a la funcionalitat " + funcionalitatCodiFont.getCodi());
 		GenericReference<Empresa, Long> empresa = getGenericReferenceFromParentCrudTesters(Empresa.class, parentCrudTesters);
 		GenericReference<Perfil, Long> perfil = getGenericReferenceFromParentCrudTesters(Perfil.class, parentCrudTesters);
 		GenericReference<Identificador, Long> identificador = getGenericReferenceFromParentCrudTesters(Identificador.class, parentCrudTesters);
@@ -124,7 +124,7 @@ public abstract class ModuleResourceRestApiTest<D extends IdentificableWithCompo
 		session.setI(identificador.getId());
 		session.setE(empresa.getId());
 		setSession(session);
-		log.debug("...configuració del test per a la funcionalitat " + funcionalitatCodiFont.getCodi() + " del mòdul " + funcionalitatCodiFont.getModul() + " finalitzada");
+		log.debug("...configuració del test per a la funcionalitat " + funcionalitatCodiFont.getCodi() + " finalitzada");
 	}
 
 	@WithMockUser(value = USUARI_TEST_NOADMIN)
