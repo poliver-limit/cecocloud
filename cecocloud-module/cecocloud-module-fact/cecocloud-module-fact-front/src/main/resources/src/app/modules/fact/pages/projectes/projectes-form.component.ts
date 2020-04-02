@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { BngFormBaseComponent, BngFormConfig, BngFormErrorMessages } from "base-angular";
+import { ViewChild, Component } from "@angular/core";
+import { BngForm, BngFormBaseComponent, BngFormConfig, BngFormErrorMessages } from "base-angular";
 import { ActivatedRoute } from '@angular/router';
 
 import { ProjectesService } from "./projectes.service";
@@ -27,7 +27,10 @@ import { firstDateOlderThanSecondDate } from './first-date-older-than-second-dat
 
 
 export class ProjectesFormComponent extends BngFormBaseComponent {
-  formConfig: BngFormConfig = {};
+	
+	@ViewChild(BngForm) form: BngForm;
+	
+  	formConfig: BngFormConfig = {};
 
 	errorMessages: BngFormErrorMessages = {
 		secondDateOlder: {
@@ -35,15 +38,32 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		}
 	}
 	
+	public clientValue: string;
+	
 	onFormGroupChange(formGroup: FormGroup) {		
-		debugger;
-		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));
+//		this.form.getInputField('client').setCustomFilter('nomComercial=ic=C*');
+		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));			
+		formGroup.valueChanges.subscribe(val => {
+//			console.log(clientValue);			
+		})	
+//		this.form.formGroup.get('descripcio').valueChanges.subscribe(val => {
+//			debugger;
+////			me.form.getInputField('client').setCustomFilter('nomComercial=ic=C*');
+//		})
 	}
+	
+	onResourceLoad(event: any) {
+//		debugger;
+	}
+	
+//	ngOnInit() {
+//		debugger;
+//	}
 	
 	constructor(
 		activatedRoute: ActivatedRoute,
 		public projectesService: ProjectesService) {
-			super(activatedRoute);
+			super(activatedRoute);			
 			this.setConfigExternalFormComponents([
 				{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },
 				{ resourceName: 'divisa', component: DivisesFormComponent },
