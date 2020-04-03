@@ -34,6 +34,9 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 
 	List<FuncionalitatIdentificadorPerfilEntity> findByPerfilIdInOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(
 			List<Long> perfilId);
+	
+//	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatPareNullAndPerfilIdInOrderByFuncionalitatIdentificadorFuncionalitatEmbeddedDescripcio(
+//			List<Long> perfilId);
 
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatOrderByFuncionalitatIdentificadorIdentificador(
 			FuncionalitatEntity funcionalitat);
@@ -43,6 +46,10 @@ public interface FuncionalitatIdentificadorPerfilRepository extends BaseReposito
 
 	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitat(
 			FuncionalitatEntity funcionalitat);
+	
+	List<FuncionalitatIdentificadorPerfilEntity> findByFuncionalitatIdentificadorFuncionalitatAndEmbeddedPermisIn(
+			FuncionalitatEntity funcionalitat,
+			List<String> permisos);
 
 	@Query(	"select distinct f " +
 			" from " +

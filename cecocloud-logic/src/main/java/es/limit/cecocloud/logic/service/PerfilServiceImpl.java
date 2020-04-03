@@ -40,12 +40,14 @@ import es.limit.cecocloud.persist.entity.PerfilEntity;
 import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorPerfilRepository;
 import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorRepository;
 import es.limit.cecocloud.persist.repository.PerfilRepository;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Implementació del servei encarregat de gestionar perfils.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Service
 public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, PerfilEntity, Long> implements PerfilService {
 
@@ -81,7 +83,11 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 	public void funcionalitatPermisSave(
 			Long id,
 			FuncionalitatPermis funcionalitatPermis) throws ClassNotFoundException {
+		log.trace("Inici desat permisos");
 		FuncionalitatIdentificadorEntity funcionalitatIdentificador = funcionalitatIdentificadorRepository.getOne(funcionalitatPermis.getFuncionalitatIdentificadorId());
+		List<FuncionalitatIdentificadorEntity> funcionalitatsFilles = funcionalitatIdentificadorRepository.findByFuncionalitatPareAndIdentificadorOrderByIdentificador(
+				funcionalitatIdentificador.getFuncionalitat(),
+				funcionalitatIdentificador.getIdentificador());
 		FuncionalitatEntity funcionalitat = funcionalitatIdentificador.getFuncionalitat();
 		Optional<es.limit.base.boot.logic.api.module.ModuleInfo> opModul = Modules.registeredGetOne(funcionalitat.getEmbedded().getModul().name());
 		if (opModul.isPresent()) {
@@ -102,13 +108,33 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 					for(Permission permis : permissionAdded) {
 						// Comprovam que el permis es pugui assignar
 						if (funcionalitatCodi.getAllowedPermissions().contains(permis)) {
+							log.trace("    Afegint permis " + permis + " a la funcionalitat " + funcionalitatCodi.getDescripcio());
 							FuncionalitatIdentificadorPerfil embedded = new FuncionalitatIdentificadorPerfil();
 							embedded.setPermis(ExtendedPermission.getName(permis.getMask()));
 							FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil = FuncionalitatIdentificadorPerfilEntity.builder()
-								.funcionalitatIdentificador(funcionalitatIdentificador)
-								.perfil(perfil)
-								.embedded(embedded).build();
+									.funcionalitatIdentificador(funcionalitatIdentificador)
+									.perfil(perfil)
+									.embedded(embedded).build();
 							funcionalitatIdentificadorPerfilRepository.save(funcionalitatIdentificadorPerfil);
+							
+							// Modificam les funcionalitats filles
+							if (funcionalitatsFilles != null && !funcionalitatsFilles.isEmpty()) {
+								log.trace("    Afegint permis " + permis + " a les funcionalitats filles: ");
+								for (FuncionalitatIdentificadorEntity funcionalitatFilla: funcionalitatsFilles) {
+									log.trace("        - " + funcionalitatFilla.getFuncionalitat().getEmbedded().getDescripcio());
+									FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfilFilla = funcionalitatIdentificadorPerfilRepository.findByPerfilAndFuncionalitatIdentificadorAndEmbeddedPermis(
+											perfil, 
+											funcionalitatFilla,
+											ExtendedPermission.getName(permis.getMask()));
+									if (funcionalitatIdentificadorPerfilFilla == null) {
+										funcionalitatIdentificadorPerfilFilla = FuncionalitatIdentificadorPerfilEntity.builder()
+											.funcionalitatIdentificador(funcionalitatFilla)
+											.perfil(perfil)
+											.embedded(embedded).build();
+										funcionalitatIdentificadorPerfilRepository.save(funcionalitatIdentificadorPerfilFilla);
+									}
+								}
+							}
 						} else {
 							throw new PermissionNotAllowedException();
 						}
@@ -116,16 +142,33 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 					// Eliminar permis
 					for (Permission permis: permissionRemoved) {
 						// 1. elimina, FuncionalitatPerfilEntity
+						log.trace("    Eliminant permis " + permis + " a la funcionalitat " + funcionalitatCodi.getDescripcio());
 						FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfil = funcionalitatIdentificadorPerfilRepository.findByPerfilAndFuncionalitatIdentificadorAndEmbeddedPermis(
 								perfil, 
 								funcionalitatIdentificador,
 								ExtendedPermission.getName(permis.getMask()));
 						funcionalitatIdentificadorPerfilRepository.delete(funcionalitatIdentificadorPerfil);
+						
+						if (funcionalitatsFilles != null && !funcionalitatsFilles.isEmpty()) {
+							log.trace("    Eliminant permis " + permis + " a les funcionalitats filles: ");
+							for (FuncionalitatIdentificadorEntity funcionalitatFilla: funcionalitatsFilles) {
+								log.trace("        - " + funcionalitatFilla.getFuncionalitat().getEmbedded().getDescripcio());
+								FuncionalitatIdentificadorPerfilEntity funcionalitatIdentificadorPerfilFilla = funcionalitatIdentificadorPerfilRepository.findByPerfilAndFuncionalitatIdentificadorAndEmbeddedPermis(
+										perfil, 
+										funcionalitatFilla,
+										ExtendedPermission.getName(permis.getMask()));
+								if (funcionalitatIdentificadorPerfilFilla != null)
+									funcionalitatIdentificadorPerfilRepository.delete(funcionalitatIdentificadorPerfilFilla);
+							}
+						}
 					}
+					log.trace("    Inici refresc ACLs");
 					funcionalitatAclHelper.refreshPermisosPerfil(id);
+					log.trace("    Fi refresc ACLs");
 				}
 			}
 		}
+		log.trace("Fi desat permisos");
 	}
 
 	@Override
@@ -139,7 +182,8 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 		@SuppressWarnings("unchecked")
 		List<ModuleInfo> moduls = (List<ModuleInfo>)(List<?>)Modules.registeredFindAll();
 		UserSession session = (UserSession)authenticationHelper.getSession();
-		List<FuncionalitatIdentificadorEntity> funcionalitatIdentificadors = funcionalitatIdentificadorRepository.findByIdentificadorIdOrderByFuncionalitatEmbeddedDescripcio(session.getI());
+//		List<FuncionalitatIdentificadorEntity> funcionalitatIdentificadors = funcionalitatIdentificadorRepository.findByIdentificadorIdOrderByFuncionalitatEmbeddedDescripcio(session.getI());
+		List<FuncionalitatIdentificadorEntity> funcionalitatIdentificadors = funcionalitatIdentificadorRepository.findByFuncionalitatPareNullAndIdentificadorIdOrderByFuncionalitatEmbeddedDescripcio(session.getI());
 		for (ModuleInfo modul: moduls) {
 			List<FuncionalitatPermis> funcionalitatsInfo = new ArrayList<FuncionalitatPermis>(); 
 			List<FuncionalitatIdentificadorEntity> funcionalitatsIdentificadorModul = funcionalitatIdentificadors.stream().
@@ -161,7 +205,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 				funcionalitatsIdentificadorPerfilModul.forEach(funcPerfil -> funcionalitatInfo.getPermission().setGranted(
 							permissionFactory.buildFromName(funcPerfil.getEmbedded().getPermis()).getMask())
 				);
-				FuncionalitatCodiFont funcionalitatCodi = funcionalitatsCodi.get(funcionalitatInfo.getCodi());
+				FuncionalitatCodiFont funcionalitatCodi = getFuncionalitatCodiFont(funcionalitatsCodi, funcidfModul.getFuncionalitat());
 				if (funcionalitatCodi != null) {
 					funcionalitatCodi.getAllowedPermissions().forEach(permis -> funcionalitatInfo.getAllowedPermission().setGranted(permis.getMask()));
 				}
@@ -172,6 +216,39 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 			}
 		}
 		return modulsFuncionalitats;
+	}
+	
+	private FuncionalitatCodiFont getFuncionalitatCodiFont(
+			Map<String, FuncionalitatCodiFont> funcionalitatsCodiFont, 
+			FuncionalitatEntity funcionalitat) {
+		
+		String funcionalitatCodi = funcionalitat.getEmbedded().getCodi();
+		
+		if (funcionalitat.getPare() != null) {
+			List<String> funcionalitatsCodi = new ArrayList<String>();
+			
+			while (funcionalitat.getPare() != null) {
+				funcionalitat = funcionalitat.getPare();
+				funcionalitatsCodi.add(0, funcionalitat.getEmbedded().getCodi());
+			}
+			
+			List<FuncionalitatCodiFont> funcionalitatFilles = funcionalitatsCodiFont.get(funcionalitat.getEmbedded().getCodi()).getFuncionalitatsFilles();
+			funcionalitatsCodi.remove(0);
+			
+			for(String codi: funcionalitatsCodi) {
+				Optional<FuncionalitatCodiFont> pare = funcionalitatFilles.stream().filter(func -> codi.equals(func.getCodi())).findFirst();
+				if (pare.isPresent()) {
+					funcionalitatFilles = pare.get().getFuncionalitatsFilles();
+				} else {
+					return null;
+				}
+			}
+			
+			return funcionalitatFilles.stream().filter(func -> funcionalitatCodi.equals(func.getCodi())).findFirst().get();
+		} else {
+			return funcionalitatsCodiFont.get(funcionalitat.getEmbedded().getCodi());
+		}
+		
 	}
 
 }

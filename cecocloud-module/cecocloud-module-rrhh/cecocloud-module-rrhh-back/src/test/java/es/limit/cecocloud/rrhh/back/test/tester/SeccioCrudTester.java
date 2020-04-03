@@ -65,8 +65,8 @@ public class SeccioCrudTester extends AbstractCrudTester<Seccio> {
 		assertEquals(expected.isControlPartes(), actual.isControlPartes());
 		assertEquals(expected.getDepcmp(), actual.getDepcmp());
 		assertEquals(expected.getDiscos(), actual.getDiscos());
-		assertEquals(expected.getDtehor(), actual.getDtehor());
-		assertEquals(expected.getHoresLaboralesDia(), actual.getHoresLaboralesDia());
+		assertEquals(expected.getDtehor().compareTo(actual.getDtehor()), 0);
+		assertEquals(expected.getHoresLaboralesDia().compareTo(actual.getHoresLaboralesDia()), 0);
 		assertEquals(expected.getRolVistas(), actual.getRolVistas());
 	}
 

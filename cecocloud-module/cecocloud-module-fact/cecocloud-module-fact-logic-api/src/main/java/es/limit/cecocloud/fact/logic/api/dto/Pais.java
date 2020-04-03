@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
+import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
@@ -23,7 +25,10 @@ import lombok.Setter;
 @Getter @Setter
 @PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "nom",
+		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(type = RestapiPermissionConstraintType.ACL_RESOURCE)
+		}
 )
 public class Pais extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
