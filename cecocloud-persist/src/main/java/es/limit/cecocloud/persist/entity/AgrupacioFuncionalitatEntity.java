@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,46 +33,49 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "agrupacio_ident",
+		name = "agrupacio_funcionalitat",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "agrupident_uk", columnNames = {"agrupacio_id", "identificador_id"})
+				@UniqueConstraint(name = "agrupfunc_uk", columnNames = {"agrupacio_id", "funcionalitat_id"})
 		}
 )
-public class AgrupacioFuncionalityEntity extends AbstractAuditableVersionableEntity<AgrupacioFuncionalitat, Long> {
+@AttributeOverrides({
+	@AttributeOverride(name = "embedded.obligatoria", column = @Column(name = "obligatoria", nullable = false))
+})
+public class AgrupacioFuncionalitatEntity extends AbstractAuditableVersionableEntity<AgrupacioFuncionalitat, Long> {
 
 	@Embedded
 	protected AgrupacioFuncionalitat embedded;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "agrupacio_id",
-			foreignKey = @ForeignKey(name = "agrupident_agrupacio_fk"))
-	protected AgrupacioEntity agrupacio;
+			name = "funcionalitat_id",
+			foreignKey = @ForeignKey(name = "agrupfunc_funcionalitat_fk"))
+	protected FuncionalitatEntity funcionalitat;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
-			name = "identificador_id",
-			foreignKey = @ForeignKey(name = "agrupident_identificador_fk"))
-	protected FuncionalitatEntity identificador;
+			name = "agrupacio_id",
+			foreignKey = @ForeignKey(name = "agrupfunc_agrupacio_fk"))
+	protected AgrupacioEntity agrupacio;
 
 	@Builder
-	public AgrupacioFuncionalityEntity(
-			AgrupacioFuncionalitat embedded,
-			AgrupacioEntity agrupacio,
-			FuncionalitatEntity identificador) {
-		this.embedded = embedded;
-		this.agrupacio = agrupacio;
-		this.identificador = identificador;
-	}
+    public AgrupacioFuncionalitatEntity(
+    		AgrupacioFuncionalitat embedded,
+    		FuncionalitatEntity funcionalitat,
+    		AgrupacioEntity agrupacio) {
+        this.embedded = embedded;
+        this.funcionalitat = funcionalitat;
+        this.agrupacio = agrupacio;
+    }
 
 	@Override
 	public void update(AgrupacioFuncionalitat embedded) {
 		this.embedded = embedded;
 	}
+	public void updateFuncionalitat(FuncionalitatEntity funcionalitat) {
+		this.funcionalitat = funcionalitat;
+	}
 	public void updateAgrupacio(AgrupacioEntity agrupacio) {
 		this.agrupacio = agrupacio;
-	}
-	public void updateFuncionalitat(FuncionalitatEntity identificador) {
-		this.identificador = identificador;
 	}
 
 }

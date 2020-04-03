@@ -20,35 +20,20 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-@RestapiResource(
-		descriptionField = "description"
-)
+@RestapiResource
 public class AgrupacioFuncionalitat extends AbstractIdentificable<Long> {
 
 	@NotNull
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
-	private GenericReference<Agrupacio, Long> agrupacio;
+			type = RestapiFieldType.LOV)
+	private GenericReference<Funcionalitat, Long> funcionalitat;
 	@NotNull
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForUpdate = true,
-			includeInQuickFilter = true)
-	private GenericReference<Funcionalitat, Long> funcionalitat;
-	@Transient
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true)
-	private String description;
-
-	public String getDescription() {
-		return agrupacio.getDescription() + " - " + funcionalitat.getDescription();
-	}
+			type = RestapiFieldType.LOV)
+	private GenericReference<Agrupacio, Long> agrupacio;
+	private boolean obligatoria;
 
 }
 

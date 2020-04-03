@@ -1,0 +1,77 @@
+databaseChangeLog:
+- changeSet:
+    id: 1585838501000-1
+    author: marcs
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: agrupacio_funcionalitat_pk
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: created_by
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: lastmod_by
+            type: VARCHAR(64)
+        - column:
+            name: lastmod_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: version
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: obligatoria
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: agrupacio_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: funcionalitat_id
+            type: BIGINT
+        tableName: agrupacio_funcionalitat     
+- changeSet:
+    id: 1585838501000-2
+    author: marcs
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: agrupacio_id
+        baseTableName: agrupacio_funcionalitat
+        constraintName: agrupfunc_agrupacio_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: agrupacio
+        validate: true 
+- changeSet:
+    id: 1585838501000-3
+    author: marcs
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: funcionalitat_id
+        baseTableName: agrupacio_funcionalitat
+        constraintName: agrupfunc_funcionalitat_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: funcionalitat
+        validate: true

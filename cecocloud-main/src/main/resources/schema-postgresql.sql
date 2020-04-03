@@ -456,3 +456,29 @@ create table acl_entry(
     constraint aclentry_acloid_fk foreign key(acl_object_identity) references acl_object_identity(id),
     constraint aclentry_aclsid_fk foreign key(sid) references acl_sid(id)
 );
+
+create table agrupacio_funcionalitat (
+    id int8 not null,
+    created_by varchar(64) not null,
+    created_date timestamp not null,
+    lastmod_by varchar(64),
+    lastmod_date timestamp,
+    version int8 not null,
+    obligatoria boolean not null,
+    agrupacio_id int8 not null,
+    funcionalitat_id int8 not null,
+    primary key (id)
+    );
+    
+alter table agrupacio_funcionalitat
+   add constraint funcident_uk unique (funcionalitat_id, agrupacio_id);
+
+alter table agrupacio_funcionalitat 
+   add constraint agrupfunc_funcionalitat_fk 
+   foreign key (funcionalitat_id) 
+   references funcionalitat;
+   
+alter table agrupacio_funcionalitat 
+   add constraint agrupfunc_agrupacio_fk 
+   foreign key (agrupacio_id) 
+   references agrupacio;
