@@ -39,7 +39,6 @@ public class Agrupacio extends AbstractIdentificable<Long> {
 			includeInQuickFilter = true)
 	private String descripcio;
 	@NotNull
-	@Size(max = 4)
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Enumerated(EnumType.STRING)
