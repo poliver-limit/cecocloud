@@ -48,6 +48,6 @@ public class Categoria extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	@RestapiField(		
 			hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean actiu;
+	private Boolean actiu = false;
 
 }

@@ -72,7 +72,7 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	@NotNull	
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean facturable;
+	private Boolean facturable = false;
 	
 	@NotNull
 	@Size(max = 1)

@@ -43,7 +43,7 @@
         emp_datcre timestamp,
         emp_usumod varchar(255),
         emp_datmod timestamp,
-        emp_asiprrpagext boolean,
+        emp_asiprrpagext varchar(1),
         emp_cpo varchar(5),
         emp_cte varchar(10),
         emp_cteemb varchar(10),
@@ -52,25 +52,25 @@
         emp_cteret varchar(10),
         emp_ctesgr varchar(10),
         emp_ctesgremp varchar(10),
-        emp_cteterope boolean,
-        emp_cteembterope boolean,
-        emp_cteterorgsgremp boolean,
-        emp_cteretterope boolean,
-        emp_ctesgrterope boolean,
-        emp_ctetersgremp boolean,
+        emp_cteterope varchar(1),
+        emp_cteembterope varchar(1),
+        emp_cteterorgsgremp varchar(1),
+        emp_cteretterope varchar(1),
+        emp_ctesgrterope varchar(1),
+        emp_ctetersgremp varchar(1),
         emp_dom varchar(60),
         emp_dri001 varchar(2),
         emp_dri002 varchar(2),
         emp_eml varchar(60),
         emp_empcmp varchar(4),
         emp_exccmp varchar(4),
-        emp_asigrp boolean,
-        emp_prnlog boolean,
+        emp_asigrp varchar(1),
+        emp_prnlog varchar(1),
         emp_www varchar(60),
         emp_pob varchar(30),
         emp_tel varchar(60),
-        emp_crecte boolean,
-        emp_vacdianat boolean,
+        emp_crecte varchar(1),
+        emp_vacdianat varchar(1),
         primary key (emp_cod, emp_idf_cod)
     );
 
@@ -168,7 +168,7 @@
     );
 
     create table trhu_ope (
-       ope_cod varchar(4) not null,
+       ope_cod varchar(6) not null,
         ope_idf_cod varchar(4) not null,
         ope_usucre varchar(255),
         ope_datcre timestamp,
@@ -176,7 +176,7 @@
         ope_datmod timestamp,
         ope_ban_codccr int4,
         ope_cen_cod varchar(4),
-        ope_act varchar(255),
+        ope_act varchar(255) not null,
         ope_ado varchar(1),
         ope_ali varchar(255),
         ope_anecmp varchar(255),
@@ -185,7 +185,7 @@
         ope_calhor int4,
         ope_codalt varchar(255),
         ope_cpo varchar(255),
-        ope_cml varchar(255),
+        ope_cml varchar(255) not null,
         ope_cplsal1 int4,
         ope_cplsal2 int4,
         ope_ctecmp varchar(255),
@@ -210,7 +210,7 @@
         ope_emlemp varchar(255),
         ope_enc varchar(255),
         ope_ban int4,
-        ope_entsor varchar(255),
+        ope_entsor varchar(255) not null,
         ope_estciv varchar(255),
         ope_horcan varchar(255),
         ope_horanypjb int4,
@@ -246,7 +246,7 @@
         ope_nif varchar(255),
         ope_nmn1 int4,
         ope_nmn2 int4,
-        ope_nom varchar(30) not null,
+        ope_nom varchar(40) not null,
         ope_nommae varchar(255),
         ope_nompae varchar(255),
         ope_ngr varchar(1),
@@ -278,18 +278,18 @@
         ope_telemp varchar(255),
         ope_tgtcod varchar(255),
         ope_usucld varchar(255),
-        ope_emp_codccr varchar(4) not null,
-        ope_gfe_cod varchar(4) not null,
-        ope_hor_cod002 varchar(4) not null,
-        ope_hor_cod003 varchar(4) not null,
+        ope_emp_codccr varchar(4),
+        ope_gfe_cod varchar(4),
+        ope_hor_cod002 varchar(4),
+        ope_hor_cod003 varchar(4),
         ope_hor_cod varchar(4) not null,
-        ope_hor_codnit varchar(4) not null,
-        ope_vad_cod varchar(4) not null,
+        ope_hor_codnit varchar(4),
+        ope_vad_cod varchar(4),
         ope_ope_cod varchar(4),
-        ope_gre_cod varchar(4) not null,
+        ope_gre_cod varchar(4),
         ope_tcs_cod varchar(4),
         ope_tor_cod varchar(4),
-        ope_zon_cod varchar(4) not null,
+        ope_zon_cod varchar(4),
         primary key (ope_cod, ope_idf_cod)
     );
 
@@ -406,14 +406,14 @@
     );
 
     create table trhu_tor (
-       tor_cod varchar(4) not null,
+       tor_cod varchar(6) not null,
         tor_idf_cod varchar(4) not null,
         tor_usucre varchar(255),
         tor_datcre timestamp,
         tor_usumod varchar(255),
         tor_datmod timestamp,
         tor_nom varchar(30) not null,
-        tor_obs varchar(1) not null,
+        tor_obs varchar(1000) not null,
         tor_prvfes varchar(255),
         primary key (tor_cod, tor_idf_cod)
     );
@@ -468,7 +468,7 @@
         zon_obs varchar(1000),
         zon_zontre varchar(255) not null,
         primary key (zon_cod, zon_idf_cod)
-    ); 
+    );
 
 create index irhu_cat_idf_fk on trhu_cat (cat_idf_cod);
 create index irhu_cen_idf_fk on trhu_cen (cen_idf_cod);
@@ -507,7 +507,7 @@ create index irhu_tor_idf_fk on trhu_tor (tor_idf_cod);
 create index irhu_tra_idf_fk on trhu_tra (tra_idf_cod);
 create index irhu_ttr_idf_fk on trhu_ttr (ttr_idf_cod);
 create index irhu_vad_idf_fk on trhu_vad (vad_idf_cod);
-create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
+create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod); 
 
     alter table trhu_cat 
        add constraint rrhu_cat_idf_fk 

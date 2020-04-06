@@ -38,7 +38,7 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificado
 					hiddenInGrid = true,
 			includeInQuickFilter = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean web;
+	private Boolean web = false;
 	
 	@Transient
 	@NotNull

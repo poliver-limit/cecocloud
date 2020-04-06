@@ -3,11 +3,13 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +22,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
+
 public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull
@@ -113,12 +116,14 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean compteTerminacio;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean compteTerminacio = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean compteTerminacioEmbargo;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean compteTerminacioEmbargo = false;
 	
 	@Size(max = 10)
 	@RestapiField(
@@ -129,32 +134,38 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean vacancesDiesNaturals;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean vacancesDiesNaturals = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean compteTerminacioRetencio;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean compteTerminacioRetencio = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean compteTerminacioSS;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean compteTerminacioSS = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean generarAsientos;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean generarAsientos = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean traspasCrearComptesComptablesExistir;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean traspasCrearComptesComptablesExistir = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean compteTerminacioSSEmpresa;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean compteTerminacioSSEmpresa = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -165,7 +176,8 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean compteTerminacioOrganismesSSEmpresa;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean compteTerminacioOrganismesSSEmpresa = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -176,12 +188,14 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean asientoProrrateoPagaExtra;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean asientoProrrateoPagaExtra = false;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	protected boolean logoImprimir;
+	@Convert(converter = StringBooleanConverter.class)
+	protected boolean logoImprimir = false;
 
 }

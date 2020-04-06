@@ -55,7 +55,7 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean generarCobramentPagament;
+	private boolean generarCobramentPagament = false;
 	
 	@Digits(integer = 12, fraction = 3)
 	@RestapiField(hiddenInGrid = true,
@@ -70,7 +70,7 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean terminiAMesosComplets;
+	private Boolean terminiAMesosComplets = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=2,
@@ -155,12 +155,12 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean darrerDiaMesVentes;
+	private boolean darrerDiaMesVentes = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean darrerDiaMesCompres;
+	private boolean darrerDiaMesCompres = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)

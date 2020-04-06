@@ -47,13 +47,13 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean controlarEfectes;
+	private Boolean controlarEfectes = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean agruparVencimentsRemeses;
+	private Boolean agruparVencimentsRemeses = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
@@ -71,19 +71,19 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean aplicarDescuentosProntoPago;
+	private Boolean aplicarDescuentosProntoPago = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@NotNull
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean transpasar;
+	private boolean transpasar = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@NotNull
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean asientoCompuesto;
+	private boolean asientoCompuesto = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,

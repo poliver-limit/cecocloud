@@ -47,6 +47,6 @@ public class Subcategoria extends AbstractIdentificableWithIdentificadorAndCodi<
 	
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean actiu;
+	private Boolean actiu = false;
 
 }

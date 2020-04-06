@@ -48,19 +48,19 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean actiu;
+	private boolean actiu = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean entsor;
+	private boolean entsor = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean comercial;
+	private boolean comercial = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean mostrTurno;
+	private boolean mostrTurno = false;
 
 	@NotNull
 	@Size(max = 25)
@@ -69,51 +69,51 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean enc;
+	private boolean enc = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean incidencia;
+	private boolean incidencia = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean horesp;
+	private boolean horesp = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean aplicaDiesLab;
+	private boolean aplicaDiesLab = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean laboralDilluns;
+	private boolean laboralDilluns = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean laboralDimarts;
+	private boolean laboralDimarts = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean laboralDimecres;
+	private boolean laboralDimecres = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean laboralDijous;
+	private boolean laboralDijous = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean laboralDivendres;
+	private boolean laboralDivendres = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean laboralDissabte;
+	private boolean laboralDissabte = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean laboralDiumenge;
+	private boolean laboralDiumenge = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean nonGrato;
+	private boolean nonGrato = false;
 
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
@@ -121,7 +121,7 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean ado;
+	private boolean ado = false;
 
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
@@ -284,7 +284,7 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean operariPrejubilat;
+	private Boolean operariPrejubilat = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Date dataPrejubilacio;
@@ -300,7 +300,7 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean plusProductivitat;
+	private Boolean plusProductivitat = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Date dataIniciTorn;
@@ -322,11 +322,11 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean horesRuta;
+	private Boolean horesRuta = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean dietes;
+	private Boolean dietes = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String ibnpai;
@@ -348,7 +348,7 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean depcmpfxe;
+	private Boolean depcmpfxe = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private Integer dtehor;
@@ -364,25 +364,25 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean costIndirecte;
+	private Boolean costIndirecte = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String pas;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean app;
+	private Boolean app = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String ali;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean mdcntf;
+	private Boolean mdcntf = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean nothorext;
+	private Boolean nothorext = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInForm = false)
 	private String usucld;

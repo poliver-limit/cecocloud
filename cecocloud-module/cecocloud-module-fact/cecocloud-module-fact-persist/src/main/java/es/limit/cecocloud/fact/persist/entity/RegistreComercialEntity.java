@@ -87,6 +87,7 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 			},
 			foreignKey = @ForeignKey(name = "rges_rgc_emp_fk"))
 	protected EmpresaEntity empresa;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -98,6 +99,7 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 	protected ClientEntity client;
 	@Column(name = "rgc_cli_cod", length = 4)
 	private String clientCodi;
+	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {

@@ -96,7 +96,7 @@ public class Transportista extends AbstractIdentificableWithIdentificadorAndCodi
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean vehicleEmpresa;
+	private Boolean vehicleEmpresa = false;
 	
 	@Transient
 	@NotNull

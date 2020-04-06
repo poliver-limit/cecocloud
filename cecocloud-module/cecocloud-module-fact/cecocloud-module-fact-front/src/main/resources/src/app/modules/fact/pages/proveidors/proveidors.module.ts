@@ -10,12 +10,15 @@ import { ProveidorsGridComponent } from './proveidors-grid.component';
 import { ProveidorsFormComponent } from './proveidors-form.component';
 import { ProveidorsService } from './proveidors.service';
 
+import { ProveidorsFormModule } from './proveidors-form.module';
+
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		ProveidorsFormModule,
         RouterModule.forChild( [
             { path: '', component: ProveidorsGridComponent },
             { path: 'create', component: ProveidorsFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,8 +26,7 @@ import { ProveidorsService } from './proveidors.service';
         ] )
     ],
     declarations: [
-        ProveidorsGridComponent,
-        ProveidorsFormComponent
+        ProveidorsGridComponent        
     ],
     providers: [
         ProveidorsService

@@ -36,22 +36,22 @@ public class Regim extends AbstractIdentificableWithIdentificadorAndCodi<String>
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean presencia;
+	private Boolean presencia = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean contarHores;
+	private Boolean contarHores = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean mantenirProximaEntrada;
+	private Boolean mantenirProximaEntrada = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean mostrarLlistatPlanificacio;
+	private Boolean mostrarLlistatPlanificacio = false;
 	
 	@Size(max = 30)
 	@NotNull

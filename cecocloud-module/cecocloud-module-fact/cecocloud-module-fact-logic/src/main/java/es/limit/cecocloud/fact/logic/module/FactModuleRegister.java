@@ -35,7 +35,9 @@ import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaCost;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaProveidor;
 import es.limit.cecocloud.fact.logic.api.dto.FinalFactura;
+import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
 import es.limit.cecocloud.fact.logic.api.dto.Idioma;
+import es.limit.cecocloud.fact.logic.api.dto.InversioSubjectePassiu;
 import es.limit.cecocloud.fact.logic.api.dto.Iva;
 import es.limit.cecocloud.fact.logic.api.dto.Magatzem;
 import es.limit.cecocloud.fact.logic.api.dto.MagatzemPeriode;
@@ -47,9 +49,12 @@ import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
+import es.limit.cecocloud.fact.logic.api.dto.ProjecteAplicacio;
 import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost;
+import es.limit.cecocloud.fact.logic.api.dto.ProjecteTarifaProveidor;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
 import es.limit.cecocloud.fact.logic.api.dto.Proveidor;
+import es.limit.cecocloud.fact.logic.api.dto.ProveidorVenciment;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
 import es.limit.cecocloud.fact.logic.api.dto.Rappel;
 import es.limit.cecocloud.fact.logic.api.dto.RegimIva;
@@ -64,6 +69,7 @@ import es.limit.cecocloud.fact.logic.api.dto.SubClient;
 import es.limit.cecocloud.fact.logic.api.dto.Subvencio;
 import es.limit.cecocloud.fact.logic.api.dto.Tarifa;
 import es.limit.cecocloud.fact.logic.api.dto.TarifaDescompte;
+import es.limit.cecocloud.fact.logic.api.dto.TarifaProveidor;
 import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
 import es.limit.cecocloud.fact.logic.api.dto.TipusClient;
 import es.limit.cecocloud.fact.logic.api.dto.TipusComissio;
@@ -306,9 +312,9 @@ public class FactModuleRegister {
 						Divisa.class,
 						Arrays.asList()));
 		funcionalitats.put(
-				"FAC_DOCP_C",
+				"FAC_DOCP-C",
 				new FuncionalitatCodiFontImpl(
-						"FAC_DOCP_C",
+						"FAC_DOCP-C",
 						FuncionalitatTipus.MANTENIMENT,
 						"Documents de pagament-cobrament",
 						DocumentPagamentCobrament.class,
@@ -360,6 +366,17 @@ public class FactModuleRegister {
 						FinalFactura.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_HISRSP",
+				new FuncionalitatCodiFontImpl(
+						"FAC_HISRSP",
+						FuncionalitatTipus.MANTENIMENT,
+						"Històric responsables",
+						HistoricResponsable.class,
+						Arrays.asList(
+								Empresa.class,
+								Projecte.class,
+								es.limit.cecocloud.rrhh.logic.api.dto.Operari.class)));
+		funcionalitats.put(
 				"FAC_IDIOMA",
 				new FuncionalitatCodiFontImpl(
 						"FAC_IDIOMA",
@@ -367,6 +384,17 @@ public class FactModuleRegister {
 						"Idiomes",
 						Idioma.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_INVSBPS",
+				new FuncionalitatCodiFontImpl(
+						"FAC_INVSBPS",
+						FuncionalitatTipus.MANTENIMENT,
+						"Inversions subjectes passius",
+						InversioSubjectePassiu.class,
+						Arrays.asList(
+								Empresa.class,
+								Proveidor.class,
+								Projecte.class)));
 		funcionalitats.put(
 				"FAC_IVA",
 				new FuncionalitatCodiFontImpl(
@@ -394,9 +422,9 @@ public class FactModuleRegister {
 						MagatzemPeriode.class,
 						Arrays.asList(Magatzem.class)));
 		funcionalitats.put(
-				"FAC_NATP",
+				"FAC_NATP-C",
 				new FuncionalitatCodiFontImpl(
-						"FAC_NATP_C",
+						"FAC_NATP-C",
 						FuncionalitatTipus.MANTENIMENT,
 						"Naturaleses de pagament/cobrament",
 						NaturalesaPagamentCobrament.class,
@@ -483,6 +511,16 @@ public class FactModuleRegister {
 								Zona.class,
 								FinalFactura.class)));
 		funcionalitats.put(
+				"FAC_PROAAP",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PROAAP",
+						FuncionalitatTipus.MANTENIMENT,
+						"Projectes altres aplicacions",
+						ProjecteAplicacio.class,
+						Arrays.asList(
+								Empresa.class,
+								Projecte.class)));
+		funcionalitats.put(
 				"FAC_PROPRE",
 				new FuncionalitatCodiFontImpl(
 						"FAC_PROPRE",
@@ -490,6 +528,18 @@ public class FactModuleRegister {
 						"Projectes / Pressupostos",
 						ProjectePressupost.class,
 						Arrays.asList(Empresa.class)));
+		funcionalitats.put(
+				"FAC_PROTAJ",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PROTAJ",
+						FuncionalitatTipus.MANTENIMENT,
+						"Projectes / Tarifes proveïdors",
+						ProjecteTarifaProveidor.class,
+						Arrays.asList(
+								Empresa.class,
+								Projecte.class,
+								Proveidor.class,
+								TarifaProveidor.class)));
 		funcionalitats.put(
 				"FAC_PROTIP",
 				new FuncionalitatCodiFontImpl(
@@ -512,6 +562,18 @@ public class FactModuleRegister {
 								Divisa.class,
 								DocumentPagamentCobrament.class,
 								FamiliaProveidor.class)));
+		funcionalitats.put(
+				"FAC_PROVEN",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PROVEN",
+						FuncionalitatTipus.MANTENIMENT,
+						"Venciment per proveïdor",
+						ProveidorVenciment.class,
+						Arrays.asList(
+								Empresa.class,
+								Projecte.class,
+								Proveidor.class,
+								TipusVenciment.class)));
 		funcionalitats.put(
 				"FAC_PROVIN",
 				new FuncionalitatCodiFontImpl(
@@ -643,6 +705,14 @@ public class FactModuleRegister {
 						Tarifa.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_TARPRO",
+				new FuncionalitatCodiFontImpl(
+						"FAC_TARPRO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Tarifes proveïdor",
+						TarifaProveidor.class,
+						Arrays.asList()));
+		funcionalitats.put(
 				"FAC_TARDES",
 				new FuncionalitatCodiFontImpl(
 						"FAC_TARDES",
@@ -695,7 +765,7 @@ public class FactModuleRegister {
 		funcionalitats.put(
 				"FAC_TIPP",
 				new FuncionalitatCodiFontImpl(
-						"FAC_TIPP_C",
+						"FAC_TIPP",
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de proveïdor/client",
 						TipusProveidorClient.class,

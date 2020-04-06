@@ -48,7 +48,7 @@ public class FinalFactura extends AbstractIdentificableWithIdentificadorAndCodi<
 	@NotNull
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean actiu;
+	private Boolean actiu = false;
 
 
 }
