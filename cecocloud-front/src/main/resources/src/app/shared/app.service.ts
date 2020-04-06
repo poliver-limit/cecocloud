@@ -37,6 +37,12 @@ export class AppService {
 			labelKey: 'app.menu.recursos',
 			resource: 'recurs',
 			route: '/recursos'
+		}, {
+			icon: 'group_work',
+			label: 'Agrupacions',
+			labelKey: 'app.menu.agrupacions',
+			resource: 'recurs',
+			route: '/agrupacions'
 		}]
 	}
 

@@ -49,6 +49,10 @@ import { BngAuthGuard } from 'base-angular';
 			loadChildren: () => import('./pages/perfils/perfils.module').then(m => m.PerfilsModule),
 			canActivate: [BngAuthGuard]
 		}, {
+			path: 'agrupacions',
+			loadChildren: () => import('./pages/agrupacions/agrupacions.module').then(m => m.AgrupacionsModule),
+			canActivate: [BngAuthGuard]
+		}, {
 			path: '**',
 			redirectTo: ''
 		}], {

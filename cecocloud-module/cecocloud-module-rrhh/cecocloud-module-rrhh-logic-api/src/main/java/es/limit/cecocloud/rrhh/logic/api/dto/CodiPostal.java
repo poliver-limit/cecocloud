@@ -11,7 +11,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi;
 //import es.limit.cecocloud.rrhh.logic.api.dto.Pais;
 //import es.limit.cecocloud.rrhh.logic.api.dto.Provincia;
 import es.limit.cecocloud.rrhh.logic.api.dto.Provincia.ProvinciaPk;
@@ -32,7 +31,7 @@ import lombok.Setter;
 public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 8)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,

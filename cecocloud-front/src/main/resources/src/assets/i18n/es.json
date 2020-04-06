@@ -4,6 +4,7 @@
 	"app.action.logout.confirm": "¿Está seguro de que desea salir de la aplicación?",
 
 	"app.menu.admin": "Administración",
+	"app.menu.agrupacions": "Agrupaciones",
 	"app.menu.usuaris": "Usuarios",
 	"app.menu.funcionalitats": "Funcionalidades",
 	"app.menu.recursos": "Recursos",

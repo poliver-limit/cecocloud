@@ -20,7 +20,6 @@ import javax.persistence.Table;
 
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.CodiPostal;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +44,7 @@ import lombok.Setter;
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cpo_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.codi", column = @Column(name = "cpo_cod", length = 8)),
-		@AttributeOverride(name = "embedded.codi", column = @Column(name = "cpo_cod", length = 4, insertable = false, updatable = false)),
+		@AttributeOverride(name = "embedded.codi", column = @Column(name = "cpo_cod", insertable = false, updatable = false)),
 		@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "cpo_pob", length = 30, nullable = false)),
 		@AttributeOverride(name = "embedded.municipi", column = @Column(name = "cpo_mun", length = 30)),
 		@AttributeOverride(name = "createdBy", column = @Column(name = "cpo_usucre")),

@@ -41,11 +41,11 @@ public class TipusComissio extends AbstractIdentificableWithIdentificadorAndCodi
 	private String descripcio;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
-	@Digits(integer = 12, fraction = 3)
+	@Digits(integer = 5, fraction = 3)
 	private BigDecimal percentatge;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
-	@Digits(integer = 12, fraction = 3)
+	@Digits(integer = 15, fraction = 3)
 	private BigDecimal minim;
 
 }

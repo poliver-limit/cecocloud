@@ -11,8 +11,8 @@ import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
 import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
-import es.limit.cecocloud.rrhh.back.test.tester.TornCrudTester;
-import es.limit.cecocloud.rrhh.logic.api.dto.Torn;
+import es.limit.cecocloud.rrhh.back.test.tester.TipusComissioCrudTester;
+import es.limit.cecocloud.rrhh.logic.api.dto.TipusComissio;
 import es.limit.cecocloud.test.ModuleResourceRestApiTest;
 
 /**
@@ -20,11 +20,11 @@ import es.limit.cecocloud.test.ModuleResourceRestApiTest;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class TipusComissioRestApiTest extends ModuleResourceRestApiTest<Torn> {
+public class TipusComissioRestApiTest extends ModuleResourceRestApiTest<TipusComissio> {
 
 	@Override
-	protected CrudTester<Torn> getCrudTester() {
-		return new TornCrudTester();
+	protected CrudTester<TipusComissio> getCrudTester() {
+		return new TipusComissioCrudTester();
 	}
 
 	@WithMockUser(value = USUARI_TEST_NOADMIN)

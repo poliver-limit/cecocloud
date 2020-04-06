@@ -46,7 +46,6 @@ public class RegimCrudTester extends AbstractCrudTester<Regim> {
 		dto.setNumHoresLaborals(TestUtils.BDECIMAL_TEST);
 		dto.setNumMinHoresLaborals(TestUtils.BDECIMAL_TEST);
 		dto.setPresencia(true);
-
 		return dto;
 	}
 
@@ -57,7 +56,8 @@ public class RegimCrudTester extends AbstractCrudTester<Regim> {
 		assertEquals(expected.getContarHores(), actual.getContarHores());
 		assertEquals(expected.getMantenirProximaEntrada(), actual.getMantenirProximaEntrada());
 		assertEquals(expected.getMostrarLlistatPlanificacio(), actual.getMostrarLlistatPlanificacio());
-		assertEquals(expected.getNumHoresLaborals(), actual.getNom());
+		assertEquals(expected.getNumHoresLaborals(), actual.getNumHoresLaborals());
+		assertEquals(expected.getNumMinHoresLaborals(), actual.getNumMinHoresLaborals());
 		assertEquals(expected.getPresencia(), actual.getPresencia());
 	}
 

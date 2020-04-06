@@ -53,6 +53,7 @@ import es.limit.cecocloud.logic.api.service.PerfilUsuariIdentificadorEmpresaServ
 import es.limit.cecocloud.logic.api.service.UsuariIdentificadorEmpresaService;
 import es.limit.cecocloud.logic.api.service.UsuariIdentificadorService;
 import es.limit.cecoloud.test.tester.EmpresaCrudTester;
+import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 import es.limit.cecoloud.test.tester.PerfilCrudTester;
 import lombok.extern.slf4j.Slf4j;
 
@@ -136,6 +137,7 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 	private List<String> rols = new ArrayList<String>();
 	
 	private CrudTester<? extends Identificable<?>>[] parentCrudTesters = new CrudTester<?>[] {
+		new IdentificadorCrudTester(),
 		new EmpresaCrudTester(),
 		new PerfilCrudTester()
 	};

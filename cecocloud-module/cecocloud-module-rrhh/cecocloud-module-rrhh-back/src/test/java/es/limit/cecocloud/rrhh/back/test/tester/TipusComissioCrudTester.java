@@ -41,8 +41,8 @@ public class TipusComissioCrudTester extends AbstractCrudTester<TipusComissio> {
 		// El codi no es pot canviar perquè forma part de la clau primària
 		dto.setNom(TestUtils.NOM_TEST);
 		dto.setDescripcio(TestUtils.DES_TEST);
-		dto.setMinim(TestUtils.BDECIMAL_TEST);
-		dto.setPercentatge(TestUtils.BDECIMAL_TEST);
+		dto.setMinim(TestUtils.BDECIMAL_TEST.setScale(3));
+		dto.setPercentatge(TestUtils.BDECIMAL_TEST.setScale(3));
 		return dto;
 	}
 

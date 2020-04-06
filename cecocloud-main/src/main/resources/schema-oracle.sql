@@ -476,3 +476,29 @@ CREATE OR REPLACE TRIGGER ACL_ENTRY_ID_TRIGGER BEFORE INSERT ON ACL_ENTRY FOR EA
 BEGIN
     SELECT ACL_ENTRY_SQ.NEXTVAL INTO :NEW.ID FROM DUAL;
 END;
+
+create table agrupacio_funcionalitat (
+   id number(19,0) not null,
+    created_by varchar2(64 char) not null,
+    created_date timestamp not null,
+    lastmod_by varchar2(64 char),
+    lastmod_date timestamp,
+    version number(19,0) not null,
+    agrupacio_id number(19,0) not null,
+    funcionalitat_id number(19,0) not null,
+    obligatoria number(1,0) not null,
+    primary key (id)
+);
+alter table agrupacio_funcionalitat
+   add constraint funcident_uk unique (funcionalitat_id, agrupacio_id);
+
+alter table agrupacio_funcionalitat 
+   add constraint agrupfunc_funcionalitat_fk 
+   foreign key (funcionalitat_id) 
+   references funcionalitat;
+   
+alter table agrupacio_funcionalitat 
+   add constraint agrupfunc_agrupacio_fk 
+   foreign key (agrupacio_id) 
+   references agrupacio;
+

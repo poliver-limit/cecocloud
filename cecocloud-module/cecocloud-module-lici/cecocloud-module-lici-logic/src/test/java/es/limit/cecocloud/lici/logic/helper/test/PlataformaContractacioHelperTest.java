@@ -22,7 +22,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.w3c.dom.DOMException;
 import org.xml.sax.SAXException;
 
@@ -46,7 +45,7 @@ public class PlataformaContractacioHelperTest {
 	private static final String FILTRE_CPV = null; // "71000000,72000000-75999999";
 	private static final String FILTRE_ID = null; //"3922813";
 
-	@Test
+	//@Test
 	public void getXml() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException, DOMException, ParseException, TransformerException {
 		List<LicitacioPlataformaContractacio> licitacions = new PlataformaContractacioHelper().getLicitacionsPerActualitzar(
 				URL,

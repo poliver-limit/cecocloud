@@ -288,7 +288,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					},
 			foreignKey = @ForeignKey(name = "rrhu_ope_ope_fk"))			
 	protected OperariEntity operari;	
-	@Column(name ="ope_ope_cod", length = 4)
+	@Column(name ="ope_ope_cod", length = 6)
 	private String operariCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

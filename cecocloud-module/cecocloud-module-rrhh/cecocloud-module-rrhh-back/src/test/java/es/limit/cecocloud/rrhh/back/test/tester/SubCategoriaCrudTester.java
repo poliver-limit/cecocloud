@@ -58,7 +58,10 @@ public class SubCategoriaCrudTester extends AbstractCrudTester<Subcategoria> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
-		return new CrudTester[] { new IdentificadorCrudTester() };
+		return new CrudTester[] {
+				new IdentificadorCrudTester(),
+				new CategoriaCrudTester()
+		};
 	}
 
 }
