@@ -22,4 +22,9 @@ public class ReportServiceImpl extends AbstractReportServiceImpl {
 		return null;
 	}
 
+	@Override
+	protected URL getReportResourceUrl(Class<?> resourceClass, String code) {
+		return null;
+	}
+
 }

@@ -12,6 +12,7 @@ import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
  * Tester pels objectes de tipus Provincia.
@@ -50,6 +51,7 @@ public class ProvinciaCrudTester extends AbstractCrudTester<Provincia> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
+			new IdentificadorCrudTester(),
 			new PaisCrudTester()
 		};
 	}
