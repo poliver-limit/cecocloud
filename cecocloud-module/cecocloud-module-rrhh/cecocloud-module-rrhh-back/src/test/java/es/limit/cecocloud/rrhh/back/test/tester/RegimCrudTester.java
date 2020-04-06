@@ -57,6 +57,7 @@ public class RegimCrudTester extends AbstractCrudTester<Regim> {
 		assertEquals(expected.getMantenirProximaEntrada(), actual.getMantenirProximaEntrada());
 		assertEquals(expected.getMostrarLlistatPlanificacio(), actual.getMostrarLlistatPlanificacio());
 		assertEquals(expected.getNumHoresLaborals(), actual.getNumHoresLaborals());
+		assertEquals(expected.getNumMinHoresLaborals(), actual.getNumMinHoresLaborals());
 		assertEquals(expected.getPresencia(), actual.getPresencia());
 	}
 
