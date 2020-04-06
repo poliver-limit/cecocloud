@@ -27,7 +27,9 @@ public class CalendariCrudTester extends AbstractCrudTester<Calendari> {
 	@Override
 	public Calendari createDto() {
 		Calendari dto = new Calendari();
-		dto = this.update(dto);
+		dto.setData(new Date());
+		dto.setDescripcio(TestUtils.DES_TEST);
+		dto.setObservacio(TestUtils.OBS_TEST);
 		dto.setTipusDia(getGenericReferenceWithCompositePkFromParentCrudTester(TipusDia.class));
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
@@ -37,22 +39,14 @@ public class CalendariCrudTester extends AbstractCrudTester<Calendari> {
 	@Override
 	public void updateDto(Calendari dto) {
 		// El codi no es pot canviar perquè forma part de la clau primària
-		this.update(dto);
-	}
-
-	public Calendari update(Calendari dto) {
-		// El codi no es pot canviar perquè forma part de la clau primària
-		dto.setDescripcio(TestUtils.DES_TEST);
-		dto.setObservacio(TestUtils.OBS_TEST);
-		dto.setData(new Date());
-		return dto;
+		dto.setDescripcio(TestUtils.DES_TEST + "1");
+		dto.setObservacio(TestUtils.OBS_TEST + "1");
 	}
 
 	@Override
 	public void compareDto(Calendari expected, Calendari actual) {
 		assertEquals(expected.getDescripcio(), actual.getDescripcio());
 		assertEquals(expected.getObservacio(), actual.getObservacio());
-		assertEquals(expected.getData(), actual.getData());
 	}
 
 	@Override

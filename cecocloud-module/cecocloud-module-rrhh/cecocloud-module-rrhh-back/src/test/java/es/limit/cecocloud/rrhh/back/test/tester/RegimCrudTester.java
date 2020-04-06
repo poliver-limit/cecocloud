@@ -46,7 +46,6 @@ public class RegimCrudTester extends AbstractCrudTester<Regim> {
 		dto.setNumHoresLaborals(TestUtils.BDECIMAL_TEST);
 		dto.setNumMinHoresLaborals(TestUtils.BDECIMAL_TEST);
 		dto.setPresencia(true);
-
 		return dto;
 	}
 

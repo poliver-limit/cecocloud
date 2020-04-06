@@ -4,6 +4,7 @@
 package es.limit.cecocloud.rrhh.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
@@ -50,7 +51,7 @@ public class RecursGrupCrudTester extends AbstractCrudTester<RecursGrup> {
 		assertEquals(expected.getCodi(), actual.getCodi());
 		assertEquals(expected.getNom(), actual.getNom());
 		assertEquals(expected.getDescripcio(), actual.getDescripcio());
-		assertEquals(expected.getNumHor(), actual.getNumHor());
+		assertTrue(expected.getNumHor().compareTo(actual.getNumHor()) == 0);
 	}
 
 	@Override

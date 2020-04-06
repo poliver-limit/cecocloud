@@ -3,7 +3,7 @@
  */
 package es.limit.cecocloud.rrhh.back.test.tester;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
@@ -65,20 +65,19 @@ public class RegistreDiariCrudTester extends AbstractCrudTester<RegistreDiari> {
 
 	@Override
 	public void compareDto(RegistreDiari expected, RegistreDiari actual) {
-		assertEquals(expected.getHoresExtras(), actual.getHoresExtras());
-		assertEquals(expected.getHoresNit(), actual.getHoresNit());
-		assertEquals(expected.getHoresNormals(), actual.getHoresNormals());
-		assertEquals(expected.getHoresTeoriques(), actual.getHoresTeoriques());
-		assertEquals(expected.getPreuHoraNit(), actual.getPreuHoraNit());
-		assertEquals(expected.getPreuHoraNormal(), actual.getPreuHoraNormal());
-		assertEquals(expected.getPreuHoraNormal(), actual.getPreuHoraNormal());
+		assertTrue(expected.getHoresExtras().compareTo(actual.getHoresExtras()) == 0);
+		assertTrue(expected.getHoresNit().compareTo(actual.getHoresNit()) == 0);
+		assertTrue(expected.getHoresNormals().compareTo(actual.getHoresNormals()) == 0);
+		assertTrue(expected.getHoresTeoriques().compareTo(actual.getHoresTeoriques()) == 0);
+		assertTrue(expected.getPreuHoraNit().compareTo(actual.getPreuHoraNit()) == 0);
+		assertTrue(expected.getPreuHoraNormal().compareTo(actual.getPreuHoraNormal()) == 0);
 	}
-	
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
-		return new CrudTester[] { new IdentificadorCrudTester(),
+		return new CrudTester[] {
+				new IdentificadorCrudTester(),
 				new CalendariCrudTester(),
 				new OperariCrudTester(),
 				new HorariCrudTester(),

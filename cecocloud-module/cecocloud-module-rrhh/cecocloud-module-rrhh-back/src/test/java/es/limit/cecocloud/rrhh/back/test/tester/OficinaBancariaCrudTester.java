@@ -64,7 +64,11 @@ public class OficinaBancariaCrudTester extends AbstractCrudTester<OficinaBancari
 	@Override
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
-		return new CrudTester[] { new IdentificadorCrudTester() };
+		return new CrudTester[] {
+				new IdentificadorCrudTester(),
+				new CodiPostalCrudTester(),
+				new BancCrudTester()
+		};
 	}
 
 }

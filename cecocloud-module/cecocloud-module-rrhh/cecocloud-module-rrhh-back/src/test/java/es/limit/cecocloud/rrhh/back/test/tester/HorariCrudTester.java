@@ -4,6 +4,7 @@
 package es.limit.cecocloud.rrhh.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
@@ -52,7 +53,7 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 		assertEquals(expected.getCodi(), actual.getCodi());
 		assertEquals(expected.getNom(), actual.getNom());
 		assertEquals(expected.getDescripcio(), actual.getDescripcio());
-		assertEquals(expected.getHores(), actual.getHores());
+		assertTrue(expected.getHores().compareTo(actual.getHores()) == 0);
 	}
 
 

@@ -28,7 +28,6 @@ import lombok.Setter;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -36,8 +35,7 @@ import lombok.Setter;
 @Table(
 		name = "tges_pas",
 		indexes = {
-				@Index(name = "iges_pas_idf_fk", columnList = "pas_idf_cod"),
-				@Index(name = "irges_pas_pk", columnList = "pas_idf_cod,pas_cod", unique = true)
+				@Index(name = "iges_pas_idf_fk", columnList = "pas_idf_cod")
 		}
 )
 @AttributeOverrides({

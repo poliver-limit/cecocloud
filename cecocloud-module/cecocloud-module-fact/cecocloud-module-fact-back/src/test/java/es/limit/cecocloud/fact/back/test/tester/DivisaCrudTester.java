@@ -56,7 +56,7 @@ public class DivisaCrudTester extends AbstractCrudTester<Divisa> {
 		assertEquals(expected.getCodi(), actual.getCodi());
 		assertEquals(expected.getNom(), actual.getNom());
 		assertEquals(expected.getAbreviatura(), actual.getAbreviatura());
-		assertTrue(expected.getValorEuros().compareTo(actual.getValorEuros()) == 0);		
+		assertTrue(expected.getValorEuros().compareTo(actual.getValorEuros()) == 0);
 		assertEquals(expected.getDecimalsPreus(), actual.getDecimalsPreus());
 		assertEquals(expected.getDecimalsImports(), actual.getDecimalsImports());
 		assertEquals(expected.getCodiComptabilitat(), actual.getCodiComptabilitat());
