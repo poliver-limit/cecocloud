@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.persist.entity.BancEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Component
+@Component("rrhhBancEntityToDtoConverter")
 public class BancEntityToDtoConverter extends AbstractEntityToDtoConverter<BancEntity, Banc> {
 
 }

@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.persist.entity.TipusComissioEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Component
+@Component("rrhhTipusComissioEntityToDtoConverter")
 public class TipusComissioEntityToDtoConverter extends AbstractEntityToDtoConverter<TipusComissioEntity, TipusComissio> {
 
 }

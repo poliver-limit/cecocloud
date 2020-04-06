@@ -11,7 +11,7 @@ import es.limit.cecocloud.rrhh.persist.entity.CodiPostalEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Component
+@Component("rrhhCodiPostalEntityToDtoConverter")
 public class CodiPostalEntityToDtoConverter extends AbstractEntityToDtoConverter<CodiPostalEntity, CodiPostal> {
 
 }
