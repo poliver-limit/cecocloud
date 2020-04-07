@@ -46,6 +46,12 @@ public class MarcModule {
 								ExtendedPermission.CREATE,
 								ExtendedPermission.ADMINISTRATION),
 						null));
+		funcionalitats.put(
+				"MAR_REPORT",
+				new FuncionalitatCodiFontImpl(
+						"MAR_REPORT",
+						FuncionalitatTipus.INFORME,
+						"Informe"));
 		moduleInfo = new ModuleInfo(
 				Modul.marc,
 				Marcatge.class.getPackage().getName(),

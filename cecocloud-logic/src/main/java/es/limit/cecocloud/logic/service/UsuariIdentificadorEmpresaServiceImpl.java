@@ -121,7 +121,6 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 	@Override
 	@Transactional
 	public List<Funcionalitat> findAllowedFuncionalitats() {
-		
 		UserSession session = (UserSession)authenticationHelper.getSession();
 		List<PerfilEntity> perfils = perfilUsuariIdentificadorEmpresaRepository.findPerfilsByUsuariCodiAndIdentificadorIdAndEmpresaId(
 				authenticationHelper.getPrincipalName(), 
@@ -135,14 +134,12 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 	@Override
 	@Transactional
 	public List<String> findAllowedFuncionalitatsByModul(Modul modul) {
-		
 		UserSession session = (UserSession)authenticationHelper.getSession();
 		List<PerfilEntity> perfils = perfilUsuariIdentificadorEmpresaRepository.findPerfilsByUsuariCodiAndIdentificadorIdAndEmpresaId(
 				authenticationHelper.getPrincipalName(), 
 				session.getI(), 
 				session.getE());
 		List<FuncionalitatEntity> funcionalitats = funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfilsAndModul(perfils, modul);
-		
 		return funcionalitats.stream().map(funcionalitat -> funcionalitat.getEmbedded().getCodi()).collect(Collectors.toList());
 	}
 

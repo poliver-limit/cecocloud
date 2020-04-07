@@ -87,12 +87,11 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 							}
 						}));
 	}
-	
+
 	@GetMapping(value = "/funcionalitats",
 			produces = "application/json")
 	public ResponseEntity<CollectionModel<EntityModel<Funcionalitat>>> funcionalitatsPermeses(
 			@PathVariable Modul modul) {
-		
 		List<Funcionalitat> funcionalitatsPermeses =((UsuariIdentificadorEmpresaService)getService()).findAllowedFuncionalitats();
 		return ResponseEntity.ok(
 				toResources(
@@ -105,7 +104,6 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 			produces = "application/json")
 	public ResponseEntity<List<String>> funcionalitatsPermesesByModule(
 			@PathVariable Modul modul) {
-
 		return ResponseEntity.ok(((UsuariIdentificadorEmpresaService)getService()).findAllowedFuncionalitatsByModul(modul));
 	}
 
@@ -114,7 +112,7 @@ public class UsuariIdentificadorEmpresaApiController extends AbstractIdentificab
 		Long identificadorId = ((UserSession)userSession).getI();
 		return "empresa.identificador.id==" + identificadorId;
 	}
-	
+
 	@Override
 	protected Link[] additionalLinks(Long id) {
 		Link funcionalitatsPermesesLink = linkTo(methodOn(getClass()).funcionalitatsPermeses(null)).withRel(LinkRelation.of("funcionalitatsPermeses"));

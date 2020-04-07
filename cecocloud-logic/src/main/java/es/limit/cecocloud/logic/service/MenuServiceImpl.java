@@ -30,19 +30,20 @@ public class MenuServiceImpl implements MenuService {
 	public List<String> findMenusPermesos(String modulActiu) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<String> rolNames = auth.getAuthorities().stream().map(rol -> String.valueOf(rol.getAuthority())).collect(Collectors.toList());
-		List<String> recursosDisponibles = null;
-		// TODO: CACHE!!
+		List<String> recursosDisponibles;
 		if (modulActiu != null && !modulActiu.isEmpty()) {
-			recursosDisponibles = new ArrayList<String> (permissionHelper.findResourcesWithPermissionAndPrefix(
-					"", //ue.getId(), 
-					rolNames,
-					modulActiu,
-					ExtendedPermission.READ));
+			recursosDisponibles = new ArrayList<String>(
+					permissionHelper.findResourcesWithPermissionAndPrefix(
+							"", //ue.getId(), 
+							rolNames,
+							modulActiu,
+							ExtendedPermission.READ));
 		} else {
-			recursosDisponibles = new ArrayList<String> (permissionHelper.findResourcesWithPermission(
-					"", //ue.getId(), 
-					rolNames,
-					ExtendedPermission.READ));
+			recursosDisponibles = new ArrayList<String>(
+					permissionHelper.findResourcesWithPermission(
+							"", //ue.getId(), 
+							rolNames,
+							ExtendedPermission.READ));
 		}
 		return recursosDisponibles;
 	}
