@@ -37,7 +37,12 @@ export class MarcModule {
 				labelKey: 'app.menu.marc.marcatges',
 				route: '/marc/marcatges',
 				resource: 'MAR_MARCAT'
-			}]
+			}/*, {
+				icon: 'description',
+				label: 'Informe',
+				route: '/marc/informe',
+				resource: 'MAR_REPORT'
+			}*/]
 		});
 	}
 
