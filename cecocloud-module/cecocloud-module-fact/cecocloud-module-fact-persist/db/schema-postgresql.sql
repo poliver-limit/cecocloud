@@ -1,3 +1,18 @@
+    create table tges_aap (
+       aap_emp_cod varchar(4) not null,
+        aap_prj_num varchar(6) not null,
+        aap_apl int4 not null,
+        aap_idf_cod varchar(4) not null,
+        aap_usucre varchar(255),
+        aap_datcre timestamp,
+        aap_usumod varchar(255),
+        aap_datmod timestamp,
+        aap_codapl varchar(100),
+        aap_obs varchar(1000),
+        aap_percen float4,
+        primary key (aap_emp_cod, aap_prj_num, aap_apl, aap_idf_cod)
+    );
+
     create table tges_acc (
        acc_cli_cod varchar(6) not null,
         acc_cod varchar(4) not null,
@@ -608,6 +623,22 @@
         primary key (gma_cod, gma_idf_cod)
     );
 
+    create table tges_hop (
+       hop_emp_cod varchar(4) not null,
+        hop_prj_num varchar(6) not null,
+        hop_seq int4 not null,
+        hop_idf_cod varchar(4) not null,
+        hop_usucre varchar(255),
+        hop_datcre timestamp,
+        hop_usumod varchar(255),
+        hop_datmod timestamp,
+        hop_datfin timestamp,
+        hop_datini timestamp,
+        tipus varchar(255),
+        hop_ope_cod varchar(6),
+        primary key (hop_emp_cod, hop_prj_num, hop_seq, hop_idf_cod)
+    );
+
     create table tges_idf (
        idf_cod varchar(4) not null,
         idf_usucre varchar(255),
@@ -848,6 +879,18 @@
         pmg_diaini timestamp not null,
         pmg_des varchar(30) not null,
         primary key (pmg_mag_cod, pmg_cod, pmg_idf_cod)
+    );
+
+    create table tges_ppj (
+       ppj_emp_cod varchar(4) not null,
+        ppj_prj_num varchar(6) not null,
+        ppj_pro_cod varchar(6) not null,
+        ppj_idf_cod varchar(4) not null,
+        ppj_usucre varchar(255),
+        ppj_datcre timestamp,
+        ppj_usumod varchar(255),
+        ppj_datmod timestamp,
+        primary key (ppj_emp_cod, ppj_prj_num, ppj_pro_cod, ppj_idf_cod)
     );
 
     create table tges_prj (
@@ -1197,6 +1240,19 @@
         primary key (sui_art_cod, sui_cls, sui_mag_cod, sui_idf_cod)
     );
 
+    create table tges_taj (
+       taj_emp_cod varchar(4) not null,
+        taj_prj_num varchar(6) not null,
+        taj_pro_cod varchar(6) not null,
+        taj_tpr_cod varchar(6) not null,
+        taj_idf_cod varchar(4) not null,
+        taj_usucre varchar(255),
+        taj_datcre timestamp,
+        taj_usumod varchar(255),
+        taj_datmod timestamp,
+        primary key (taj_emp_cod, taj_prj_num, taj_pro_cod, taj_tpr_cod, taj_idf_cod)
+    );
+
     create table tges_tar (
        tar_cod varchar(4) not null,
         tar_idf_cod varchar(4) not null,
@@ -1287,6 +1343,17 @@
         tpj_des varchar(30),
         tpj_nom varchar(30) not null,
         primary key (tpj_cod, tpj_idf_cod)
+    );
+
+    create table tges_tpr (
+       tpr_cod varchar(6) not null,
+        tpr_idf_cod varchar(4) not null,
+        tpr_usucre varchar(255),
+        tpr_datcre timestamp,
+        tpr_usumod varchar(255),
+        tpr_datmod timestamp,
+        tpr_nom varchar(1000),
+        primary key (tpr_cod, tpr_idf_cod)
     );
 
     create table tges_tra (
@@ -1403,6 +1470,19 @@
         primary key (ubi_mag_cod, ubi_cod, ubi_idf_cod)
     );
 
+    create table tges_vpp (
+       vpp_emp_cod varchar(4) not null,
+        vpp_prj_num varchar(6) not null,
+        vpp_pro_cod varchar(6) not null,
+        vpp_idf_cod varchar(4) not null,
+        vpp_usucre varchar(255),
+        vpp_datcre timestamp,
+        vpp_usumod varchar(255),
+        vpp_datmod timestamp,
+        vpp_tve_cod varchar(4) not null,
+        primary key (vpp_emp_cod, vpp_prj_num, vpp_pro_cod, vpp_idf_cod)
+    );
+
     create table tges_zon (
        zon_cod varchar(4) not null,
         zon_idf_cod varchar(4) not null,
@@ -1430,7 +1510,9 @@
         tad_des varchar(30) not null,
         primary key (tad_cod)
     );
-  
+
+create index iges_aap_emp_fk on tges_aap (aap_idf_cod, aap_emp_cod);
+create index iges_aap_prj_fk on tges_aap (aap_idf_cod, aap_prj_num);
 create index iges_acc_idf_fk on tges_acc (acc_idf_cod);
 
     alter table tges_acc 
@@ -1489,6 +1571,9 @@ create index iges_ffa_idf_fk on tges_ffa (ffa_idf_cod);
 create index iges_fmc_idf_fk on tges_fmc (fmc_idf_cod);
 create index iges_fpr_idf_fk on tges_fpr (fpr_idf_cod);
 create index iges_gma_idf_fk on tges_gma (gma_idf_cod);
+create index iges_hop_emp_fk on tges_hop (hop_idf_cod, hop_emp_cod);
+create index iges_hop_prj_fk on tges_hop (hop_idf_cod, hop_prj_num);
+create index iges_hop_ope_fk on tges_hop (hop_idf_cod, hop_ope_cod);
 create index iges_idi_idf_fk on tges_idi (idi_idf_cod);
 create index iges_iva_idf_fk on tges_iva (iva_idf_cod);
 create index iges_mag_idf_fk on tges_mag (mag_idf_cod);
@@ -1510,6 +1595,9 @@ create index iges_pmg_idf_fk on tges_pmg (pmg_idf_cod);
 
     alter table tges_pmg 
        add constraint irges_pmg_pk unique (pmg_idf_cod, pmg_cod);
+create index iges_ppj_emp_fk on tges_ppj (ppj_idf_cod, ppj_emp_cod);
+create index iges_ppj_prj_fk on tges_ppj (ppj_idf_cod, ppj_prj_num);
+create index iges_ppj_pro_fk on tges_ppj (ppj_idf_cod, ppj_pro_cod);
 create index iges_prj_idf_fk on tges_prj (prj_idf_cod);
 
     alter table tges_prj 
@@ -1546,6 +1634,10 @@ create index iges_sui_idf_fk on tges_sui (sui_idf_cod);
 
     alter table tges_sui 
        add constraint irges_sui_pk unique (sui_idf_cod);
+create index iges_taj_emp_fk on tges_taj (taj_idf_cod, taj_emp_cod);
+create index iges_taj_prj_fk on tges_taj (taj_idf_cod, taj_prj_num);
+create index iges_taj_pro_fk on tges_taj (taj_idf_cod, taj_pro_cod);
+create index iges_taj_tpr_fk on tges_taj (taj_idf_cod, taj_tpr_cod);
 create index iges_tar_idf_fk on tges_tar (tar_idf_cod);
 create index iges_tcs_idf_fk on tges_tcs (tcs_idf_cod);
 create index iges_tds_idf_fk on tges_tds (tds_idf_cod);
@@ -1565,7 +1657,26 @@ create index iges_ubi_idf_fk on tges_ubi (ubi_idf_cod);
 
     alter table tges_ubi 
        add constraint irges_ubi_pk unique (ubi_idf_cod, ubi_cod);
+create index iges_vpp_emp_fk on tges_vpp (vpp_idf_cod, vpp_emp_cod);
+create index iges_vpp_prj_fk on tges_vpp (vpp_idf_cod, vpp_prj_num);
+create index iges_vpp_pro_fk on tges_vpp (vpp_idf_cod, vpp_pro_cod);
+create index iges_vpp_tve_fk on tges_vpp (vpp_idf_cod, vpp_tve_cod);
 create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
+
+    alter table tges_aap 
+       add constraint rges_aap_idf_fk 
+       foreign key (aap_idf_cod) 
+       references tges_idf;
+
+    alter table tges_aap 
+       add constraint rges_aap_emp_fk 
+       foreign key (aap_emp_cod, aap_idf_cod) 
+       references tges_emp;
+
+    alter table tges_aap 
+       add constraint rges_aap_prj_fk 
+       foreign key (aap_emp_cod, aap_prj_num, aap_idf_cod) 
+       references tges_prj;
 
     alter table tges_acc 
        add constraint rges_acc_idf_fk 
@@ -2087,6 +2198,21 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        foreign key (gma_idf_cod) 
        references tges_idf;
 
+    alter table tges_hop 
+       add constraint rges_hop_emp_fk 
+       foreign key (hop_emp_cod, hop_idf_cod) 
+       references tges_emp;
+
+    alter table tges_hop 
+       add constraint hop_ope_cod_fk 
+       foreign key (hop_ope_cod, hop_idf_cod) 
+       references trhu_ope;
+
+    alter table tges_hop 
+       add constraint rges_hop_prj_fk 
+       foreign key (hop_emp_cod, hop_prj_num, hop_idf_cod) 
+       references tges_prj;
+
     alter table tges_idi 
        add constraint rges_idi_idf_fk 
        foreign key (idi_idf_cod) 
@@ -2201,6 +2327,26 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        add constraint rges_pmg_mag_fk 
        foreign key (pmg_mag_cod, pmg_idf_cod) 
        references tges_mag;
+
+    alter table tges_ppj 
+       add constraint rges_ppj_idf_fk 
+       foreign key (ppj_idf_cod) 
+       references tges_idf;
+
+    alter table tges_ppj 
+       add constraint rges_ppj_emp_fk 
+       foreign key (ppj_emp_cod, ppj_idf_cod) 
+       references tges_emp;
+
+    alter table tges_ppj 
+       add constraint rges_ppj_prj_fk 
+       foreign key (ppj_emp_cod, ppj_prj_num, ppj_idf_cod) 
+       references tges_prj;
+
+    alter table tges_ppj 
+       add constraint rges_ppj_pro_fk 
+       foreign key (ppj_pro_cod, ppj_idf_cod) 
+       references tges_pro;
 
     alter table tges_prj 
        add constraint rges_prj_idf_fk 
@@ -2547,6 +2693,26 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        foreign key (sui_mag_cod, sui_pmg_cod, sui_idf_cod) 
        references tges_pmg;
 
+    alter table tges_taj 
+       add constraint rges_taj_emp_fk 
+       foreign key (taj_emp_cod, taj_idf_cod) 
+       references tges_emp;
+
+    alter table tges_taj 
+       add constraint rges_taj_prj_fk 
+       foreign key (taj_emp_cod, taj_prj_num, taj_idf_cod) 
+       references tges_prj;
+
+    alter table tges_taj 
+       add constraint rges_taj_pro_fk 
+       foreign key (taj_pro_cod, taj_idf_cod) 
+       references tges_pro;
+
+    alter table tges_taj 
+       add constraint rges_taj_tpr_fk 
+       foreign key (taj_tpr_cod, taj_idf_cod) 
+       references tges_tpr;
+
     alter table tges_tar 
        add constraint rges_tar_idf_fk 
        foreign key (tar_idf_cod) 
@@ -2580,6 +2746,11 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
     alter table tges_tpj 
        add constraint rges_tpj_idf_fk 
        foreign key (tpj_idf_cod) 
+       references tges_idf;
+
+    alter table tges_tpr 
+       add constraint rges_tpr_idf_fk 
+       foreign key (tpr_idf_cod) 
        references tges_idf;
 
     alter table tges_tra 
@@ -2646,6 +2817,31 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        add constraint rges_ubi_mag_fk 
        foreign key (ubi_mag_cod, ubi_idf_cod) 
        references tges_mag;
+
+    alter table tges_vpp 
+       add constraint rges_vpp_idf_fk 
+       foreign key (vpp_idf_cod) 
+       references tges_idf;
+
+    alter table tges_vpp 
+       add constraint rges_vpp_emp_fk 
+       foreign key (vpp_emp_cod, vpp_idf_cod) 
+       references tges_emp;
+
+    alter table tges_vpp 
+       add constraint rges_vpp_prj_fk 
+       foreign key (vpp_emp_cod, vpp_prj_num, vpp_idf_cod) 
+       references tges_prj;
+
+    alter table tges_vpp 
+       add constraint rges_vpp_pro_fk 
+       foreign key (vpp_pro_cod, vpp_idf_cod) 
+       references tges_pro;
+
+    alter table tges_vpp 
+       add constraint rges_vpp_tve_fk 
+       foreign key (vpp_tve_cod, vpp_idf_cod) 
+       references tges_tve;
 
     alter table tges_zon 
        add constraint rges_zon_idf_fk 

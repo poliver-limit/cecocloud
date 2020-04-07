@@ -50,37 +50,37 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean factura;
+	private Boolean factura = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean albara;
+	private Boolean albara = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean pre;
+	private Boolean pre = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean com;
+	private Boolean com = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean imprimirPeuCertificacio;
+	private Boolean imprimirPeuCertificacio = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean familiaCliProv;
+	private Boolean familiaCliProv = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
@@ -91,7 +91,7 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean impCls;
+	private Boolean impCls = false;
 	
 	@Digits(integer=3, fraction=3)
 	@RestapiField(

@@ -64,7 +64,7 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 	
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true, hiddenInLov = true) 
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean serieDefecto;
+	private Boolean serieDefecto = false;
 	
 	@Transient	
 	@RestapiField(

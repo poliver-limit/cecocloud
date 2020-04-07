@@ -49,6 +49,6 @@ public class Pais extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean cee;
+	private Boolean cee = false;
 
 }

@@ -73,18 +73,18 @@ public class Tarifa extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean actualitzarPreu;
+	private boolean actualitzarPreu = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean tarifaOferta;
+	private boolean tarifaOferta = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean descomptesGenerals;
+	private boolean descomptesGenerals = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)

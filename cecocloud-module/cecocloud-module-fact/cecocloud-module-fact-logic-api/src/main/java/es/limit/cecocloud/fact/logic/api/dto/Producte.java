@@ -85,7 +85,7 @@ public class Producte extends AbstractIdentificableWithIdentificador<ProductePk>
 	@NotNull	
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean actiu;
+	private Boolean actiu = false;
 	
 	@Transient
 	@NotNull

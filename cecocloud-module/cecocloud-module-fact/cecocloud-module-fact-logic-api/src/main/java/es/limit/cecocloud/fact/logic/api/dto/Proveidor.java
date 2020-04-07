@@ -47,19 +47,19 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean bloquetjat;
+	private Boolean bloquetjat = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean subcontratista;
+	private Boolean subcontratista = false;
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean dhm;
+	private Boolean dhm = false;
 	
 	@Transient
 	@NotNull

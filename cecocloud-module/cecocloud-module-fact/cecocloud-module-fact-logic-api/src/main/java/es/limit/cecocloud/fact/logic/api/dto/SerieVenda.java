@@ -92,13 +92,13 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean traspassarAComptabilitat;
+	private Boolean traspassarAComptabilitat = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean combinarCompteVendaAmbClient;
+	private Boolean combinarCompteVendaAmbClient = false;
 	
 	@Size(max = 2)	
 	@RestapiField(
@@ -231,14 +231,14 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean numeracioManual;
+	private boolean numeracioManual = false;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean aplicarDescompte;
+	private boolean aplicarDescompte = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -249,7 +249,7 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@NotNull
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean desglossarIva;
+	private boolean desglossarIva = false;
 
 	@Transient	
 	@RestapiField(

@@ -40,5 +40,5 @@ public class Torn extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 	@NotNull
 	@RestapiField(type = RestapiFieldType.TEXTAREA, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean prevalecenLosFestivos;
+	private boolean prevalecenLosFestivos = false;
 }

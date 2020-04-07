@@ -68,14 +68,14 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean lotNavegable;
+	private Boolean lotNavegable = false;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean ubicacioNavegable;
+	private Boolean ubicacioNavegable = false;
 	
 	@RestapiField(type = RestapiFieldType.ENUM,
 			hiddenInLov = true,
@@ -90,7 +90,7 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean excloureAlGenerarAlbara;
+	private Boolean excloureAlGenerarAlbara = false;
 	
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(hiddenInLov = true,
@@ -132,19 +132,19 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(hiddenInLov = true,
 			hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean productePropi;
+	private Boolean productePropi = false;
 	
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean tempsFabricacioUnitatsMetriques;
+	private Boolean tempsFabricacioUnitatsMetriques = false;
 	
 	@RestapiField(
 			hiddenInLov = true,
 			hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean distribuirCostAdicional;
+	private Boolean distribuirCostAdicional = false;
 	
 	@RestapiField(
 			hiddenInLov = true,
@@ -189,6 +189,6 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(
 			hiddenInLov = true,hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean artExportables;
+	private Boolean artExportables = false;
 
 }

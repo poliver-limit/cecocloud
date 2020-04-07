@@ -52,11 +52,11 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean controlPartes;
+	private boolean controlPartes = false;
 	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean controlHoresExtras;
+	private boolean controlHoresExtras = false;
 	
 	@Size(max = 4)
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)

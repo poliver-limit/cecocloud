@@ -85,14 +85,14 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean bloquejat;
+	private Boolean bloquejat = false;
 	
 //	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean preusPerVolum;
+	private Boolean preusPerVolum = false;
 	
 	@Transient
 	@RestapiField(
@@ -191,7 +191,7 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean publicarDocumentsWeb;
+	private Boolean publicarDocumentsWeb = false;
 	
 	@Size(max = 60)
 	@RestapiField(

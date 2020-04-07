@@ -42,6 +42,6 @@ public class ArticleModel extends AbstractIdentificableWithIdentificadorAndCodi<
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean control;
+	private Boolean control = false;
 
 }

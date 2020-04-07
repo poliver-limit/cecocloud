@@ -66,6 +66,6 @@ public class TipusRisc extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean tri_nifigu;
+	private Boolean tri_nifigu = false;
 
 }

@@ -85,7 +85,7 @@ public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 	
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean vehicleEmpresa;
+	private Boolean vehicleEmpresa = false;
 	
 	@Transient
 	@NotNull

@@ -169,20 +169,20 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean dietes;
+	private Boolean dietes = false;
 	
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean plusPerillositat;
+	private Boolean plusPerillositat = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean albaransClientCrear;
+	private Boolean albaransClientCrear = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -280,7 +280,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean multiclient;
+	private Boolean multiclient = false;
 	
 	@Transient
 	@RestapiField(
@@ -411,13 +411,13 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean controlarCostos;
+	private Boolean controlarCostos = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean exportarMobil;
+	private Boolean exportarMobil = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -448,7 +448,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean estudiSumarValoracioEnExces;
+	private Boolean estudiSumarValoracioEnExces = false;
 	
 	@RestapiField(
 			hiddenInGrid = true,

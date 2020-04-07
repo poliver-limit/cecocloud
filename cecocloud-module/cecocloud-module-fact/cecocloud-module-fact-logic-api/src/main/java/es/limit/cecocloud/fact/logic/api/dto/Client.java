@@ -68,12 +68,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean bloquejat;
+	private Boolean bloquejat = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean potencial;
+	private Boolean potencial = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -83,12 +83,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean recarrecEquivalencia;
+	private Boolean recarrecEquivalencia = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean albaraValorat;
+	private Boolean albaraValorat = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -217,7 +217,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean facturesSenseDescompte;
+	private Boolean facturesSenseDescompte = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Integer copiesFactura;
@@ -225,12 +225,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean entitatPublica;
+	private Boolean entitatPublica = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean censadoAEAT;
+	private Boolean censadoAEAT = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Date proximaVisitaComercial;
@@ -285,12 +285,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean mostrarPercentatgeFacturacioClase1;
+	private Boolean mostrarPercentatgeFacturacioClase1 = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean aplicarPreusPerVolum;
+	private Boolean aplicarPreusPerVolum = false;
 
 	@Size(max = 30)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -331,7 +331,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean publicarDocumentsWeb;
+	private Boolean publicarDocumentsWeb = false;
 
 	@Size(max = 1000)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -340,22 +340,22 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean aplicarImpostPuntVerd;
+	private Boolean aplicarImpostPuntVerd = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean aplicarImpostServei;
+	private Boolean aplicarImpostServei = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean impostInclos;
+	private Boolean impostInclos = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean permesEntrarPartes;
+	private Boolean permesEntrarPartes = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
@@ -381,12 +381,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean noImprimirSubclient;
+	private Boolean noImprimirSubclient = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean noImprimirPaletsRetornats;
+	private Boolean noImprimirPaletsRetornats = false;
 
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private BigDecimal latitud;
@@ -462,12 +462,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean facturaElectronica;
+	private Boolean facturaElectronica = false;
 
 //	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean cobrarDiesLloguer;	
+	private Boolean cobrarDiesLloguer = false;	
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)

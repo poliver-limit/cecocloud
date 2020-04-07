@@ -102,7 +102,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean recarrecEquivalencia;
+	private Boolean recarrecEquivalencia = false;
 	
 	@Size(max = 60)
 	@RestapiField(
@@ -177,7 +177,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean regimCriteriCaixa;	
+	private Boolean regimCriteriCaixa = false;	
 	
 	@RestapiField(
 			type = RestapiFieldType.ENUM,
@@ -210,7 +210,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean logoImprimir;
+	private Boolean logoImprimir = false;
 	
 	@RestapiField(hiddenInLov = true,
 			hiddenInGrid = true)

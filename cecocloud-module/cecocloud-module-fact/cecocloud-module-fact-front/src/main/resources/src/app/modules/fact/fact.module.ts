@@ -17,11 +17,7 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 												   
 			}, {
 				path: 'cercadorClients',
-				loadChildren: () => import('./pages/cercadorClients/cercadorClients.module').then(m => m.CercadorClientsModule)
-
-			}, {
-				path: 'cercadorProjectes',
-				loadChildren: () => import('./pages/cercadorProjectes/cercadorProjectes.module').then(m => m.CercadorProjectesModule)
+				loadChildren: () => import('./pages/cercadorClients/cercadorClients.module').then(m => m.CercadorClientsModule)			
 
 			}, {
 				path: 'albarans',
@@ -126,11 +122,19 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'finalFactures',
 				loadChildren: () => import('./pages/finalFactures/finalFactures.module').then(m => m.FinalFacturesModule)
+				
+			}, {
+				path: 'historicsResponsables',
+				loadChildren: () => import('./pages/historicsResponsables/historicsResponsables.module').then(m => m.HistoricsResponsablesModule)
 
 			}, {
 				path: 'idiomes',
 				loadChildren: () => import('./pages/idiomes/idiomes.module').then(m => m.IdiomesModule)
 
+			}, {
+				path: 'inversionsSubjectePassiu',
+				loadChildren: () => import('./pages/inversionsSubjectePassiu/inversionsSubjectePassiu.module').then(m => m.InversionsSubjectePassiuModule)
+				
 			}, {
 				path: 'ives',
 				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule)
@@ -165,24 +169,42 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
-			}, {
-				path: 'projectesPressupost',
-				loadChildren: () => import('./pages/projectesPressupost/projectesPressupost.module').then(m => m.ProjectesPressupostModule)
+
 			}, {
 				path: 'productes',
-				loadChildren: () => import('./pages/productes/productes.module').then(m => m.ProductesModule)
+				loadChildren: () => import('./pages/productes/productes.module').then(m => m.ProductesModule)	
+					
+			}, {
+				path: 'cercadorProjectes',
+				loadChildren: () => import('./pages/cercadorProjectes/cercadorProjectes.module').then(m => m.CercadorProjectesModule)
 				
 			}, {
 				path: 'projectes',
 				loadChildren: () => import('./pages/projectes/projectes.module').then(m => m.ProjectesModule)
-
+				
+			}, {
+				path: 'projectesAplicacio',
+				loadChildren: () => import('./pages/projectesAplicacio/projectesAplicacio.module').then(m => m.ProjectesAplicacioModule)
+				
+			}, {
+				path: 'projectesPressupost',
+				loadChildren: () => import('./pages/projectesPressupost/projectesPressupost.module').then(m => m.ProjectesPressupostModule)
+				
+			}, {
+				path: 'projectesTarifaProveidor',
+				loadChildren: () => import('./pages/projectesTarifaProveidor/projectesTarifaProveidor.module').then(m => m.ProjectesTarifaProveidorModule)
+				
 			}, {
 				path: 'projectesTipus',
 				loadChildren: () => import('./pages/projectesTipus/projectesTipus.module').then(m => m.ProjectesTipusModule)
-
+				
 			}, {
 				path: 'proveidors',
 				loadChildren: () => import('./pages/proveidors/proveidors.module').then(m => m.ProveidorsModule)
+				
+			}, {
+				path: 'proveidorsVenciment',
+				loadChildren: () => import('./pages/proveidorsVenciment/proveidorsVenciment.module').then(m => m.ProveidorsVencimentModule)
 
 			}, {
 				path: 'provincies',
@@ -234,6 +256,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'tarifes',
 				loadChildren: () => import('./pages/tarifes/tarifes.module').then(m => m.TarifesModule)
+				
+			}, {
+				path: 'tarifesProveidor',
+				loadChildren: () => import('./pages/tarifesProveidor/tarifesProveidor.module').then(m => m.TarifesProveidorModule)
 
 			}, {
 				path: 'tarifesDescompte',
@@ -401,6 +427,12 @@ export class FactModule {
 									resource: 'FAC_TIPVEN'
 								}, {
 									icon: 'room',
+									label: 'Venciments per proveïdor',
+									labelKey: 'app.menu.fact.proveidorsVenciment',
+									route: '/fact/proveidorsVenciment',
+									resource: 'FAC_PROVEN'
+								}, {
+									icon: 'room',
 									label: 'Règims d\'iva',
 									labelKey: 'app.menu.fact.regimsIva',
 									route: '/fact/regimsIva',
@@ -423,6 +455,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.tarifes',
 									route: '/fact/tarifes',
 									resource: 'FAC_TARIFA'
+								}, {
+									icon: 'room',
+									label: 'Tarifes proveïdor',
+									labelKey: 'app.menu.fact.tarifesProveidor',
+									route: '/fact/tarifesProveidor',
+									resource: 'FAC_TARPRO'
 								}, {
 									icon: 'room',
 									label: 'Tarifes descompte',
@@ -489,7 +527,7 @@ export class FactModule {
 									label: 'Tipus de proveïdor/client',
 									labelKey: 'app.menu.fact.tipusProveidorsClient',
 									route: '/fact/tipusProveidorsClient',
-									resource: 'FAC_TIPP-C'
+									resource: 'FAC_TIPP'
 								}, {
 									icon: 'room',
 									label: 'Rappels',
@@ -507,13 +545,7 @@ export class FactModule {
 									label: 'Tipus de riscos',
 									labelKey: 'app.menu.fact.tipusRiscos',
 									route: '/fact/tipusRiscos',
-									resource: 'FAC_TIPRIS'
-								}, {
-									icon: 'room',
-									label: 'Projectes Tipus',
-									labelKey: 'app.menu.fact.projectesTipus',
-									route: '/fact/projectesTipus',
-									resource: 'FAC_PROTIP'
+									resource: 'FAC_TIPRIS'								
 								}, {
 									icon: 'room',
 									label: 'Situacions inicials',
@@ -718,6 +750,37 @@ export class FactModule {
 							labelKey: 'app.menu.fact.subClients',
 							route: '/fact/subClients',
 							resource: 'FAC_SUBCLI'
+							}, {
+							icon: 'room',
+							label: 'Inversions subjecte passiu',
+							labelKey: 'app.menu.fact.inversionsSubjectePassiu',
+							route: '/fact/inversionsSubjectePassiu',
+							resource: 'FAC_INVSBPS'
+							
+						}, 	{
+							icon: 'room',
+							label: 'Cercador projectes',
+							labelKey: 'app.menu.fact.cercadorProjectes',
+							route: '/fact/cercadorProjectes',
+							resource: 'FAC_CERPRJ'
+						}, {
+							icon: 'room',
+							label: 'Històric responsables',
+							labelKey: 'app.menu.fact.historicsResponsables',
+							route: '/fact/historicsResponsables',
+							resource: 'FAC_HISRSP'
+						}, {
+							icon: 'room',
+							label: 'Projectes',
+							labelKey: 'app.menu.fact.projectes',
+							route: '/fact/projectes',
+							resource: 'FAC_PROJEC'
+						}, {
+							icon: 'room',
+							label: 'Projectes altres aplicacions',
+							labelKey: 'app.menu.fact.projectesAplicacio',
+							route: '/fact/projectesAplicacio',
+							resource: 'FAC_PROAAP'
 						}, {
 							icon: 'room',
 							label: 'Projectes / Pressupostos',
@@ -726,10 +789,16 @@ export class FactModule {
 							resource: 'FAC_PROPRE'
 						}, {
 							icon: 'room',
-							label: 'Projectes',
-							labelKey: 'app.menu.fact.projectes',
-							route: '/fact/projectes',
-							resource: 'FAC_PROJEC'
+							label: 'Projectes / Tarifes proveïdor',
+							labelKey: 'app.menu.fact.projectesTarifaProveidor',
+							route: '/fact/projectesTarifaProveidor',
+							resource: 'FAC_PROTAJ'
+						}, {
+							icon: 'room',
+							label: 'Projectes Tipus',
+							labelKey: 'app.menu.fact.projectesTipus',
+							route: '/fact/projectesTipus',
+							resource: 'FAC_PROTIP'
 						}, {
 							icon: 'room',
 							label: 'Albarans',
@@ -747,13 +816,7 @@ export class FactModule {
 							label: 'Cercador clients',
 							labelKey: 'app.menu.fact.cercadorClients',
 							route: '/fact/cercadorClients',
-							resource: 'FAC_CERCLI'
-						}, 	{
-							icon: 'room',
-							label: 'Cercador projectes',
-							labelKey: 'app.menu.fact.cercadorProjectes',
-							route: '/fact/cercadorProjectes',
-							resource: 'FAC_CERPRJ'
+							resource: 'FAC_CERCLI'						
 						}, {
 							icon: 'room',
 							label: 'Classes retencions',

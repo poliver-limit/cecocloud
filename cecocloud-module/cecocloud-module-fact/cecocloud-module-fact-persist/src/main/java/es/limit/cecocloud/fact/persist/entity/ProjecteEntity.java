@@ -170,7 +170,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_ope_cod_fk"))
 	private OperariEntity operariResponsable;
-	@Column(name = "prj_ope_cod", length = 6, insertable = false, updatable = false)
+	@Column(name = "prj_ope_cod", length = 6)
 	private String operariResponsableCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

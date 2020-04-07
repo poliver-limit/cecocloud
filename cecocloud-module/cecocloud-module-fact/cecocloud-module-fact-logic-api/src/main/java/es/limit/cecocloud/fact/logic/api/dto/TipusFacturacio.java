@@ -40,6 +40,6 @@ public class TipusFacturacio extends AbstractIdentificableWithIdentificadorAndCo
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private boolean concedimCredit;
+	private boolean concedimCredit = false;
 
 }

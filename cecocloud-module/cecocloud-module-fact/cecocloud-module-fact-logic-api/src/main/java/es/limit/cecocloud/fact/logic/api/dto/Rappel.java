@@ -64,11 +64,11 @@ public class Rappel extends AbstractIdentificableWithIdentificadorAndCodi<String
 			hiddenInGrid = true, 
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean escalat;
+	private Boolean escalat = false;
 	@RestapiField(
 			hiddenInGrid = true, 
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean absolut;
+	private Boolean absolut = false;
 
 }

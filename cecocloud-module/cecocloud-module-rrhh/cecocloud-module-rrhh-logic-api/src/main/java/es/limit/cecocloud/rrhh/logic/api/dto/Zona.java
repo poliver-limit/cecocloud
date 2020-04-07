@@ -32,7 +32,7 @@ public class Zona extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 	@RestapiField(hiddenInGrid = true)
 	@NotNull
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean zonaTreball;
+	private Boolean zonaTreball = false;
 	
 	@Size(max = 30)
 	@NotNull

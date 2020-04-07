@@ -96,7 +96,7 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true) 
 	@Convert(converter = StringBooleanConverter.class)
-	private Boolean desglossarIva;
+	private Boolean desglossarIva = false;
 	
 	@Transient
 	@RestapiField(
