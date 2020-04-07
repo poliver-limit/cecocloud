@@ -188,11 +188,11 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ope_codenc", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
+						@JoinColumn(name = "prj_ope_enccod", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
 			},
 			foreignKey = @ForeignKey(name = "prj_ope_enccod_fk"))
 	private OperariEntity operariEncarregat;
-	@Column(name = "prj_ope_codenc", length = 6)
+	@Column(name = "prj_ope_enccod", length = 6)
 	private String operariEncarregatCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

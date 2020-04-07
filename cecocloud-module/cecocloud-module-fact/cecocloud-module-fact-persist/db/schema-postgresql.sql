@@ -963,7 +963,7 @@
         prj_mag_cod varchar(4),
         prj_ope_codadm varchar(6),
         prj_ope_codcgr varchar(6),
-        prj_ope_codenc varchar(6),
+        prj_ope_enccod varchar(6),
         prj_ope_cod varchar(6),
         prj_tpj_cod varchar(6),
         prj_clr_cod varchar(4),
@@ -2405,7 +2405,7 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
 
     alter table tges_prj 
        add constraint prj_ope_enccod_fk 
-       foreign key (prj_ope_codenc, prj_idf_cod) 
+       foreign key (prj_ope_enccod, prj_idf_cod) 
        references trhu_ope;
 
     alter table tges_prj 
