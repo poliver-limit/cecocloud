@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.rrhh.back.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
@@ -21,6 +23,12 @@ public class AbstractIdentificableAmbIdentificadorApiController<D extends Identi
 
 	@Autowired
 	private IdentificadorService identificadorService;
+	
+	@Override
+	protected String additionalRsqlFilter(HttpServletRequest request, Object userSession) {
+		Identificador identificador = identificadorService.getOne(((UserSession)userSession).getI());
+		return "identificador.id==" + identificador.getCodi();
+	}
 
 	@Override
 	protected void completeDtoWithSession(D dto, Object userSession, boolean isNew) {
