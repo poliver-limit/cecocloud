@@ -60,7 +60,7 @@ public class FuncionalitatEntity extends AbstractAuditableVersionableEntity<Func
 	protected FuncionalitatEntity pare;
 	
 	@OneToMany(mappedBy = "funcionalitat", cascade = CascadeType.ALL)
-	protected List<FuncionalitatRecursEntity> recursosAuxiliars;
+	protected List<FuncionalitatRecursEntity> recursos;
 	
 	@OneToMany(mappedBy = "funcionalitat", cascade = CascadeType.ALL)
 	protected List<FuncionalitatIdentificadorEntity> funcionalitatIdentificadors;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
+import es.limit.base.boot.logic.helper.ConversionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -34,19 +35,23 @@ public class OperariEmpresaServiceImpl extends AbstractGenericServiceImpl<Operar
 	private EmpresaRepository empresaRepository;
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
+	@Autowired
+	private ConversionHelper conversionHelper;
 
 	@Override
 	public OperariEmpresa findByCurrentUserAndSession() {
 		UserSession session = (UserSession)authenticationHelper.getSession();
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findById(session.getI());
 		Optional<EmpresaEntity> empresa = empresaRepository.findById(session.getE());
-		return toDto(
+		return conversionHelper.toDto(
 				((OperariEmpresaRepository)getRepository()).findByOperariIdentificadorAndOperariEmbeddedActiuAndOperariUsuariEmbeddedCodiAndEmpresaAndEmpresaEmbeddedActiva(
 						identificador.get(),
 						true,
 						authenticationHelper.getPrincipalName(),
 						empresa.get(),
-						true).get());
+						true).get(),
+				OperariEmpresaEntity.class,
+				OperariEmpresa.class);
 	}
 
 }

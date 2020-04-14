@@ -10,12 +10,14 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.helper.ConversionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Funcionalitat;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatIdentificador;
 import es.limit.cecocloud.logic.api.helper.FuncionalitatAcl;
 import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.service.FuncionalitatIdentificadorService;
+import es.limit.cecocloud.persist.entity.FuncionalitatEntity;
 import es.limit.cecocloud.persist.entity.FuncionalitatIdentificadorEntity;
 import es.limit.cecocloud.persist.repository.FuncionalitatIdentificadorRepository;
 import es.limit.cecocloud.persist.repository.IdentificadorRepository;
@@ -32,16 +34,19 @@ public class FuncionalitatIdentificadorServiceImpl extends AbstractGenericServic
 	private IdentificadorRepository identificadorRepository;
 	@Autowired
 	private FuncionalitatAcl funcionalitatAcl;
+	@Autowired
+	private ConversionHelper conversionHelper;
 
 	@Override
 	public List<Funcionalitat> funcionalitatFindByIdentificadorIdAndModul(
 			Long identificadorId,
 			Modul modul) throws EntityNotFoundException {
-		return toDto(
+		return conversionHelper.toDto(
 				((FuncionalitatIdentificadorRepository)getRepository()).findFuncionalitatByIdentificadorAndModulOrderByFuncionalitatModul(
 						identificadorRepository.findById(identificadorId).get(),
 						modul == null,
 						modul),
+				FuncionalitatEntity.class,
 				Funcionalitat.class);
 	}
 

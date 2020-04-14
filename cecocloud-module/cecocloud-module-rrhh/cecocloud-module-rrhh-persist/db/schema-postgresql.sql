@@ -54,7 +54,6 @@
         emp_ctesgremp varchar(10),
         emp_cteterope varchar(1),
         emp_cteembterope varchar(1),
-        emp_cteterorgsgremp varchar(1),
         emp_cteretterope varchar(1),
         emp_ctesgrterope varchar(1),
         emp_ctetersgremp varchar(1),
