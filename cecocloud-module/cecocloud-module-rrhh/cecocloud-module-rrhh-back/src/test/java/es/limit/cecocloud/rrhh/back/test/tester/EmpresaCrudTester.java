@@ -42,7 +42,6 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		dto.setCodiPostal("CP");
 		dto.setCompte("compte");
 		dto.setCompteEmbargo("Embargo");
-		dto.setCompteOrganismesSSEmpresa("OrgSSEmp");
 		dto.setComptePagoNomina("PagoNomina");
 		dto.setCompteRetencioIrpf("RetenIrpf");
 		dto.setCompteSS("compteSS");
@@ -74,7 +73,6 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		assertEquals(expected.getCodiPostal(), actual.getCodiPostal());
 		assertEquals(expected.getCompte(), actual.getCompte());
 		assertEquals(expected.getCompteEmbargo(), actual.getCompteEmbargo());
-		assertEquals(expected.getCompteOrganismesSSEmpresa(), actual.getCompteOrganismesSSEmpresa());
 		assertEquals(expected.getComptePagoNomina(), actual.getComptePagoNomina());
 		assertEquals(expected.getCompteRetencioIrpf(), actual.getCompteRetencioIrpf());
 		assertEquals(expected.getCompteRetencioIrpf(), actual.getCompteRetencioIrpf());

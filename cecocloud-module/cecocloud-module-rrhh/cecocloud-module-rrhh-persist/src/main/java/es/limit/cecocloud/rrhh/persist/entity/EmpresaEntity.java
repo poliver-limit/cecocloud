@@ -66,7 +66,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.generarAsientos", column = @Column(name = "emp_asigrp", length = 1)),			
 	@AttributeOverride(name = "embedded.traspasCrearComptesComptablesExistir", column = @Column(name = "emp_crecte", length = 1)),			
 	@AttributeOverride(name = "embedded.compteTerminacioSSEmpresa", column = @Column(name = "emp_ctetersgremp", length = 1)),			
-	@AttributeOverride(name = "embedded.compteOrganismesSSEmpresa", column = @Column(name = "emp_cteorgsgremp", length = 10)),			
 	@AttributeOverride(name = "embedded.comptePagoNomina", column = @Column(name = "emp_ctebanemp", length = 10)),			
 	@AttributeOverride(name = "embedded.asientoProrrateoPagaExtra", column = @Column(name = "emp_asiprrpagext", length = 1)),			
 	@AttributeOverride(name = "embedded.logoImprimir", column = @Column(name = "emp_prnlog", length = 1)),
