@@ -49,7 +49,6 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		dto.setCompteSSEmpresa("compteSSEm");
 		dto.setCompteTerminacio(true);
 		dto.setCompteTerminacioEmbargo(true);
-		dto.setCompteTerminacioOrganismesSSEmpresa(true);
 		dto.setCompteTerminacioRetencio(true);
 		dto.setCompteTerminacioSS(true);
 		dto.setCompteTerminacioSSEmpresa(true);
@@ -83,7 +82,6 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		assertEquals(expected.getCompteSSEmpresa(), actual.getCompteSSEmpresa());
 		assertEquals(expected.isCompteTerminacio(), actual.isCompteTerminacio());
 		assertEquals(expected.isCompteTerminacioEmbargo(), actual.isCompteTerminacioEmbargo());
-		assertEquals(expected.isCompteTerminacioOrganismesSSEmpresa(), actual.isCompteTerminacioOrganismesSSEmpresa());
 		assertEquals(expected.isCompteTerminacioRetencio(), actual.isCompteTerminacioRetencio());
 		assertEquals(expected.isCompteTerminacioSS(), actual.isCompteTerminacioSS());
 		assertEquals(expected.isCompteTerminacioSSEmpresa(), actual.isCompteTerminacioSSEmpresa());

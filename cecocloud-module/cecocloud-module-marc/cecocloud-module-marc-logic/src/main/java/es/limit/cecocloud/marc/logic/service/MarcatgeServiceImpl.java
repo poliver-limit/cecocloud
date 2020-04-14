@@ -6,6 +6,7 @@ package es.limit.cecocloud.marc.logic.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.helper.ConversionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.service.MarcatgeService;
@@ -24,11 +25,16 @@ public class MarcatgeServiceImpl extends AbstractGenericServiceImpl<Marcatge, Ma
 
 	@Autowired
 	private OperariEmpresaRepository operariEmpresaRepository;
+	@Autowired
+	private ConversionHelper conversionHelper;
 
 	@Override
 	public Marcatge findDarrerMarcatgePerOperariEmpresa(Long operariEmpresaId) {
 		OperariEmpresaEntity operari = operariEmpresaRepository.getOne(operariEmpresaId);
-		return toDto(((MarcatgeRepository)getRepository()).findFirstByOperariEmpresaOrderByEmbeddedDataDesc(operari));
+		return conversionHelper.toDto(
+				((MarcatgeRepository)getRepository()).findFirstByOperariEmpresaOrderByEmbeddedDataDesc(operari),
+				MarcatgeEntity.class,
+				Marcatge.class);
 	}
 
 }

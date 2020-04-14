@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.api.permission.ExtendedPermission;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
+import es.limit.base.boot.logic.helper.ConversionHelper;
 import es.limit.base.boot.logic.helper.PermissionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Empresa;
@@ -58,6 +59,8 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 	private FuncionalitatIdentificadorPerfilRepository funcionalitatIdentificadorPerfilRepository;
 	@Autowired
 	private PermissionHelper permissionHelper;
+	@Autowired
+	private ConversionHelper conversionHelper;
 
 	@Override
 	public List<IdentificadorEmpresaSelectionTreeItem> buildSelectionTree() {
@@ -126,8 +129,9 @@ public class UsuariIdentificadorEmpresaServiceImpl extends AbstractGenericServic
 				authenticationHelper.getPrincipalName(), 
 				session.getI(), 
 				session.getE());
-		return toDto(
-				funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfils(perfils), 
+		return conversionHelper.toDto(
+				funcionalitatIdentificadorPerfilRepository.findAllowedFuncionalitatsByPerfils(perfils),
+				FuncionalitatEntity.class,
 				Funcionalitat.class);
 	}
 

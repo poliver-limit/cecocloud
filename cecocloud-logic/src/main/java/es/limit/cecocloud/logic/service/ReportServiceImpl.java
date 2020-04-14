@@ -3,7 +3,7 @@
  */
 package es.limit.cecocloud.logic.service;
 
-import java.net.URL;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -18,12 +18,12 @@ import es.limit.base.boot.logic.service.AbstractReportServiceImpl;
 public class ReportServiceImpl extends AbstractReportServiceImpl {
 
 	@Override
-	protected URL getReportResourceUrl(String code) {
+	protected ReportInfo getReportInfo(String code, Map<String, String> params) {
 		return null;
 	}
 
 	@Override
-	protected URL getReportResourceUrl(Class<?> resourceClass, String code) {
+	protected ReportInfo getReportInfo(Class<?> resourceClass, String code, Map<String, String> params) {
 		return null;
 	}
 
