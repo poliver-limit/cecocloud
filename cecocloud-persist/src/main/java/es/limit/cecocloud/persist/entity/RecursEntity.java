@@ -3,11 +3,15 @@
  */
 package es.limit.cecocloud.persist.entity;
 
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
@@ -38,6 +42,9 @@ public class RecursEntity extends AbstractAuditableVersionableEntity<Recurs, Lon
 
 	@Embedded
 	protected Recurs embedded;
+
+	@OneToMany(mappedBy = "recurs", cascade = CascadeType.ALL)
+	protected List<FuncionalitatRecursEntity> funcionalitats;
 
 	@Builder
     public RecursEntity(
