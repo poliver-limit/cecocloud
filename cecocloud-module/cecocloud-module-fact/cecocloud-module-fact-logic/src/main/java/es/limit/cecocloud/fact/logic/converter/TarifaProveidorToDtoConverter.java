@@ -15,6 +15,6 @@ import es.limit.cecocloud.fact.persist.entity.TarifaProveidorEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Component
-public class TarifaProveidorEntityToDtoConverter extends AbstractEntityToDtoConverter<TarifaProveidorEntity, TarifaProveidor> {
+public class TarifaProveidorToDtoConverter extends AbstractEntityToDtoConverter<TarifaProveidorEntity, TarifaProveidor> {
 
 }

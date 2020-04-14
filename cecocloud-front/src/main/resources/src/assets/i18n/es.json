@@ -207,6 +207,7 @@
 	"funcionalitat.FAC_APLCLI": "Aplicadores por cliente",
 	"funcionalitat.FAC_ARENEG": "Áreas de negocio",
 	"funcionalitat.FAC_ARTICL": "Artículos",
+	"funcionalitat.FAC_CAPITO": "Capítulos",
 	"funcionalitat.FAC_CERCLI": "Buscador de clientes",
 	"funcionalitat.FAC_CERPRJ": "Buscador de proyectos",
 	"funcionalitat.FAC_CLARET": "Clases de retención",
@@ -215,7 +216,8 @@
 	"funcionalitat.FAC_GAMART": "Gamas de artículos",
 	"funcionalitat.FAC_MARART": "Marcas de artículos",
 	"funcionalitat.FAC_MODART": "Modelos de artículos",
-
+	"funcionalitat.FAC_PARTID": "Partidas",
+	"funcionalitat.FAC_PRESSU": "Presupuestos",
 	"funcionalitat.FAC_BANCS": "Bancos",
 	"funcionalitat.FAC_CLIENT": "Clientes",
 	"funcionalitat.FAC_ADRCLI": "Direcciones de clientes",

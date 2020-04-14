@@ -4,7 +4,7 @@
 package es.limit.cecocloud.fact.persist.repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
-import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.dto.TarifaProveidor.TarifaProveidorPk;
 import es.limit.cecocloud.fact.persist.entity.TarifaProveidorEntity;
 
 /**
@@ -12,5 +12,5 @@ import es.limit.cecocloud.fact.persist.entity.TarifaProveidorEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface TarifaProveidorRepository extends BaseRepository<TarifaProveidorEntity, WithIdentificadorAndCodiPk<String>> {
+public interface TarifaProveidorRepository extends BaseRepository<TarifaProveidorEntity, TarifaProveidorPk> {
 }

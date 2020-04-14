@@ -12,6 +12,15 @@ import { ProjectesGridComponent } from './projectes-grid.component';
 import { ProjectesFormComponent } from './projectes-form.component';
 import { ProjectesService } from './projectes.service';
 
+// Manteniments de tipus 1
+import { ProjectesPressupostService } from '../projectesPressupost/projectesPressupost.service';
+import { ProjectesTarifaProveidorService } from '../projectesTarifaProveidor/projectesTarifaProveidor.service';
+import { ProjectesAplicacioService } from '../projectesAplicacio/projectesAplicacio.service';
+import { InversionsSubjectePassiuService } from '../inversionsSubjectePassiu/inversionsSubjectePassiu.service';
+import { ProveidorsVencimentService } from '../proveidorsVenciment/proveidorsVenciment.service';
+import { HistoricsResponsablesService } from '../historicsResponsables/historicsResponsables.service';
+
+// Creació embeguda sobre LOV fields
 import { SeriesVendaFormModule } from '../seriesVenda/seriesVenda-form.module'
 import { DivisesFormModule } from '../divises/divises-form.module'
 import { FinalFacturesFormModule } from '../finalFactures/finalFactures-form.module'
@@ -60,7 +69,14 @@ import { ZonesFormModule } from '../zones/zones-form.module'
         ProjectesFormComponent
     ],
     providers: [
-        ProjectesService
+        ProjectesService,
+
+		ProjectesPressupostService,
+		ProjectesTarifaProveidorService,
+		ProjectesAplicacioService,
+		InversionsSubjectePassiuService,
+		ProveidorsVencimentService,
+		HistoricsResponsablesService
     ]
 } )
 export class ProjectesModule {}

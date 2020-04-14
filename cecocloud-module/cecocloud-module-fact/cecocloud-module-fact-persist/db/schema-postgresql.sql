@@ -7,7 +7,7 @@
         aap_datcre timestamp,
         aap_usumod varchar(255),
         aap_datmod timestamp,
-        aap_codapl varchar(100),
+        aap_codapl varchar(100) not null,
         aap_obs varchar(1000),
         aap_percen float4,
         primary key (aap_emp_cod, aap_prj_num, aap_apl, aap_idf_cod)
@@ -134,6 +134,18 @@
         ban_datmod timestamp,
         ban_nom varchar(30) not null,
         primary key (ban_cod, ban_idf_cod)
+    );
+
+    create table tges_cap (
+       cap_emp_cod varchar(4) not null,
+        cap_pre_cod int4 not null,
+        cap_cod varchar(4) not null,
+        cap_idf_cod varchar(4) not null,
+        cap_usucre varchar(255),
+        cap_datcre timestamp,
+        cap_usumod varchar(255),
+        cap_datmod timestamp,
+        primary key (cap_emp_cod, cap_pre_cod, cap_cod, cap_idf_cod)
     );
 
     create table tges_cbc (
@@ -634,7 +646,7 @@
         hop_datmod timestamp,
         hop_datfin timestamp,
         hop_datini timestamp,
-        tipus varchar(255),
+        hop_tipope varchar(255) not null,
         hop_ope_cod varchar(6),
         primary key (hop_emp_cod, hop_prj_num, hop_seq, hop_idf_cod)
     );
@@ -830,6 +842,19 @@
         primary key (pas_cod, pas_idf_cod)
     );
 
+    create table tges_pda (
+       pda_cap_cod varchar(255) not null,
+        pda_emp_cod varchar(4) not null,
+        pda_pre_cod int4 not null,
+        pda_cod varchar(4) not null,
+        pda_idf_cod varchar(4) not null,
+        pda_usucre varchar(255),
+        pda_datcre timestamp,
+        pda_usumod varchar(255),
+        pda_datmod timestamp,
+        primary key (pda_cap_cod, pda_emp_cod, pda_pre_cod, pda_cod, pda_idf_cod)
+    );
+
     create table tges_ped (
        ped_emp_cod varchar(4) not null,
         ped_cod varchar(4) not null,
@@ -854,18 +879,18 @@
 
     create table tges_pjp (
        pjp_emp_cod varchar(4) not null,
-        pjp_num int4 not null,
         pjp_prj_num varchar(6) not null,
+        pjp_num int4 not null,
         pjp_idf_cod varchar(4) not null,
         pjp_usucre varchar(255) not null,
         pjp_datcre timestamp not null,
         pjp_usumod varchar(255),
         pjp_datmod timestamp,
-        pjp_cap_cod varchar(4),
+        pjp_cap_cod varchar(6),
         pjp_obs varchar(1000),
-        pjp_pda_cod varchar(4),
+        pjp_pda_cod varchar(6),
         pjp_pre_cod int4,
-        primary key (pjp_emp_cod, pjp_num, pjp_prj_num, pjp_idf_cod)
+        primary key (pjp_emp_cod, pjp_prj_num, pjp_num, pjp_idf_cod)
     );
 
     create table tges_pmg (
@@ -891,6 +916,17 @@
         ppj_usumod varchar(255),
         ppj_datmod timestamp,
         primary key (ppj_emp_cod, ppj_prj_num, ppj_pro_cod, ppj_idf_cod)
+    );
+
+    create table tges_pre (
+       pre_emp_cod varchar(4) not null,
+        pre_cod int4 not null,
+        pre_idf_cod varchar(4) not null,
+        pre_usucre varchar(255),
+        pre_datcre timestamp,
+        pre_usumod varchar(255),
+        pre_datmod timestamp,
+        primary key (pre_emp_cod, pre_cod, pre_idf_cod)
     );
 
     create table tges_prj (
@@ -958,17 +994,21 @@
         prj_tec varchar(2000),
         prj_tipeje int4,
         prj_tipinv varchar(1),
+        prj_tipobr int4,
         prj_valetm numeric(19, 2),
         prj_ffa_cod varchar(4),
+        prj_iva_codinv varchar(4),
         prj_mag_cod varchar(4),
         prj_ope_codadm varchar(6),
         prj_ope_codcgr varchar(6),
         prj_ope_enccod varchar(6),
         prj_ope_cod varchar(6),
         prj_tpj_cod varchar(6),
+        prj_rgi_codinv varchar(2),
         prj_clr_cod varchar(4),
         prj_sec_cod varchar(4),
         prj_ser_cod varchar(2),
+        prj_sei_codinv varchar(4),
         prj_scl_cod varchar(6),
         prj_zon_cod varchar(4),
         primary key (prj_emp_cod, prj_num, prj_idf_cod)
@@ -1142,10 +1182,6 @@
        sei_emp_cod varchar(4) not null,
         sei_cod varchar(4) not null,
         sei_idf_cod varchar(4) not null,
-        sei_usucre varchar(255),
-        sei_datcre timestamp,
-        sei_usumod varchar(255),
-        sei_datmod timestamp,
         sei_des varchar(60) not null,
         sei_dia001 timestamp not null,
         sei_dia002 timestamp not null,
@@ -1334,7 +1370,7 @@
     );
 
     create table tges_tpj (
-       tpj_cod varchar(4) not null,
+       tpj_cod varchar(6) not null,
         tpj_idf_cod varchar(4) not null,
         tpj_usucre varchar(255),
         tpj_datcre timestamp,
@@ -1346,14 +1382,14 @@
     );
 
     create table tges_tpr (
-       tpr_cod varchar(6) not null,
+       tpr_pro_cod varchar(4) not null,
+        tpr_cod varchar(4) not null,
         tpr_idf_cod varchar(4) not null,
         tpr_usucre varchar(255),
         tpr_datcre timestamp,
         tpr_usumod varchar(255),
         tpr_datmod timestamp,
-        tpr_nom varchar(1000),
-        primary key (tpr_cod, tpr_idf_cod)
+        primary key (tpr_pro_cod, tpr_cod, tpr_idf_cod)
     );
 
     create table tges_tra (
@@ -1528,6 +1564,11 @@ create index iges_ane_idf_fk on tges_ane (ane_idf_cod);
 create index iges_apl_idf_fk on tges_apl (apl_idf_cod);
 create index iges_art_idf_fk on tges_art (art_idf_cod);
 create index iges_ban_idf_fk on tges_ban (ban_idf_cod);
+create index iges_cap_emp_fk on tges_cap (cap_idf_cod, cap_emp_cod);
+create index iges_cap_pre_fk on tges_cap (cap_idf_cod, cap_emp_cod, cap_pre_cod);
+
+    alter table tges_cap 
+       add constraint UK_826trstyfumhf2lp1vro4ofgi unique (cap_cod, cap_idf_cod);
 create index iges_cbc_idf_fk on tges_cbc (cbc_idf_cod);
 
     alter table tges_cbc 
@@ -1587,10 +1628,18 @@ create index iges_ofb_idf_fk on tges_ofb (ofb_idf_cod);
        add constraint irges_ofb_pk unique (ofb_idf_cod, ofb_cod);
 create index iges_org_idf_fk on tges_org (org_idf_cod);
 create index iges_pas_idf_fk on tges_pas (pas_idf_cod);
+create index iges_pda_emp_fk on tges_pda (pda_idf_cod, pda_emp_cod);
+create index iges_pda_pre_fk on tges_pda (pda_idf_cod, pda_emp_cod, pda_pre_cod);
+create index iges_pda_cap_fk on tges_pda (pda_idf_cod, pda_emp_cod, pda_pre_cod, pda_cap_cod);
 create index iges_ped_idf_fk on tges_ped (ped_idf_cod);
 
     alter table tges_ped 
        add constraint irges_ped_pk unique (ped_idf_cod, ped_cod);
+create index iges_pjp_emp_fk on tges_pjp (pjp_idf_cod, pjp_emp_cod);
+create index iges_pjp_prj_fk on tges_pjp (pjp_idf_cod, pjp_prj_num);
+create index iges_pjp_pre_fk on tges_pjp (pjp_idf_cod, pjp_pre_cod);
+create index iges_pjp_pda_fk on tges_pjp (pjp_idf_cod, pjp_pda_cod);
+create index iges_pjp_cap_fk on tges_pjp (pjp_idf_cod, pjp_cap_cod);
 create index iges_pmg_idf_fk on tges_pmg (pmg_idf_cod);
 
     alter table tges_pmg 
@@ -1598,6 +1647,7 @@ create index iges_pmg_idf_fk on tges_pmg (pmg_idf_cod);
 create index iges_ppj_emp_fk on tges_ppj (ppj_idf_cod, ppj_emp_cod);
 create index iges_ppj_prj_fk on tges_ppj (ppj_idf_cod, ppj_prj_num);
 create index iges_ppj_pro_fk on tges_ppj (ppj_idf_cod, ppj_pro_cod);
+create index iges_pre_emp_fk on tges_pre (pre_idf_cod, pre_emp_cod);
 create index iges_prj_idf_fk on tges_prj (prj_idf_cod);
 
     alter table tges_prj 
@@ -1645,6 +1695,7 @@ create index iges_tfc_idf_fk on tges_tfc (tfc_idf_cod);
 create index iges_tin_idf_fk on tges_tin (tin_idf_cod);
 create index iges_tip_idf_fk on tges_tip (tip_idf_cod);
 create index iges_tpj_idf_fk on tges_tpj (tpj_idf_cod);
+create index iges_tpr_pro_fk on tges_tpr (tpr_idf_cod, tpr_pro_cod);
 create index iges_tra_idf_fk on tges_tra (tra_idf_cod);
 create index iges_tri_idf_fk on tges_tri (tri_idf_cod);
 create index iges_tun_idf_fk on tges_tun (tun_idf_cod);
@@ -1787,6 +1838,16 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        add constraint rges_ban_idf_fk 
        foreign key (ban_idf_cod) 
        references tges_idf;
+
+    alter table tges_cap 
+       add constraint rges_cap_emp_fk 
+       foreign key (cap_emp_cod, cap_idf_cod) 
+       references tges_emp;
+
+    alter table tges_cap 
+       add constraint rges_cap_pre_fk 
+       foreign key (cap_emp_cod, cap_pre_cod, cap_idf_cod) 
+       references tges_pre;
 
     alter table tges_cbc 
        add constraint rges_cbc_idf_fk 
@@ -2298,6 +2359,21 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        foreign key (pas_idf_cod) 
        references tges_idf;
 
+    alter table tges_pda 
+       add constraint rges_pda_cap_fk 
+       foreign key (pda_emp_cod, pda_pre_cod, pda_cap_cod, pda_idf_cod) 
+       references tges_cap;
+
+    alter table tges_pda 
+       add constraint rges_pda_emp_fk 
+       foreign key (pda_emp_cod, pda_idf_cod) 
+       references tges_emp;
+
+    alter table tges_pda 
+       add constraint rges_pda_pre_fk 
+       foreign key (pda_emp_cod, pda_pre_cod, pda_idf_cod) 
+       references tges_pre;
+
     alter table tges_ped 
        add constraint rges_ped_idf_fk 
        foreign key (ped_idf_cod) 
@@ -2314,9 +2390,29 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        references tges_scp;
 
     alter table tges_pjp 
+       add constraint rges_pjp_cap_fk 
+       foreign key (pjp_cap_cod, pjp_idf_cod) 
+       references tges_cap (cap_cod, cap_idf_cod);
+
+    alter table tges_pjp 
        add constraint rges_pjp_emp_fk 
        foreign key (pjp_emp_cod, pjp_idf_cod) 
        references tges_emp;
+
+    alter table tges_pjp 
+       add constraint rges_pjp_pda_fk 
+       foreign key (pjp_cap_cod, pjp_emp_cod, pjp_pre_cod, pjp_pda_cod, pjp_idf_cod) 
+       references tges_pda;
+
+    alter table tges_pjp 
+       add constraint rges_pjp_pre_fk 
+       foreign key (pjp_emp_cod, pjp_pre_cod, pjp_idf_cod) 
+       references tges_pre;
+
+    alter table tges_pjp 
+       add constraint rges_pjp_prj_fk 
+       foreign key (pjp_emp_cod, pjp_prj_num, pjp_idf_cod) 
+       references tges_prj;
 
     alter table tges_pmg 
        add constraint rges_pmg_idf_fk 
@@ -2347,6 +2443,16 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        add constraint rges_ppj_pro_fk 
        foreign key (ppj_pro_cod, ppj_idf_cod) 
        references tges_pro;
+
+    alter table tges_pre 
+       add constraint rges_pre_idf_fk 
+       foreign key (pre_idf_cod) 
+       references tges_idf;
+
+    alter table tges_pre 
+       add constraint rges_pre_emp_fk 
+       foreign key (pre_emp_cod, pre_idf_cod) 
+       references tges_emp;
 
     alter table tges_prj 
        add constraint rges_prj_idf_fk 
@@ -2389,6 +2495,11 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        references tges_ffa;
 
     alter table tges_prj 
+       add constraint prj_iva_codinv_fk 
+       foreign key (prj_iva_codinv, prj_idf_cod) 
+       references tges_iva;
+
+    alter table tges_prj 
        add constraint prj_mag_cod_fk 
        foreign key (prj_mag_cod, prj_idf_cod) 
        references tges_mag;
@@ -2419,6 +2530,11 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        references tges_tpj;
 
     alter table tges_prj 
+       add constraint prj_rgi_codinv_fk 
+       foreign key (prj_rgi_codinv, prj_idf_cod) 
+       references tges_rgi;
+
+    alter table tges_prj 
        add constraint prj_clr_cod_fk 
        foreign key (prj_clr_cod, prj_idf_cod) 
        references tges_clr;
@@ -2432,6 +2548,11 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        add constraint prj_ser_cod_fk 
        foreign key (prj_emp_cod, prj_ser_cod, prj_idf_cod) 
        references tges_ser;
+
+    alter table tges_prj 
+       add constraint prj_sei_codinv_fk 
+       foreign key (prj_emp_cod, prj_sei_codinv, prj_idf_cod) 
+       references tges_sei;
 
     alter table tges_prj 
        add constraint prj_scl_cod_fk 
@@ -2710,7 +2831,7 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
 
     alter table tges_taj 
        add constraint rges_taj_tpr_fk 
-       foreign key (taj_tpr_cod, taj_idf_cod) 
+       foreign key (taj_pro_cod, taj_tpr_cod, taj_idf_cod) 
        references tges_tpr;
 
     alter table tges_tar 
@@ -2752,6 +2873,11 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        add constraint rges_tpr_idf_fk 
        foreign key (tpr_idf_cod) 
        references tges_idf;
+
+    alter table tges_tpr 
+       add constraint rges_tpr_pro_fk 
+       foreign key (tpr_pro_cod, tpr_idf_cod) 
+       references tges_pro;
 
     alter table tges_tra 
        add constraint rges_tra_idf_fk 

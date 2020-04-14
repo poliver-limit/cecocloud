@@ -41,25 +41,22 @@ import lombok.Setter;
 @Table(
 		name = "tges_pjp",
 		indexes = {
-				@Index(name = "rges_pjp_pk", columnList = "pjp_prj_num, pjp_num, pjp_emp_cod, pjp_idf_cod", unique = true)
-				,
-//				@Index(name = "iges_pjp_emp_fk", columnList = "pjp_idf_cod, pjp_emp_cod"),
-//				@Index(name = "iges_pjp_cli_fk", columnList = "pjp_idf_cod, pjp_cli_cod"),
-//				@Index(name = "iges_pjp_apl_fk", columnList = "pjp_idf_cod, pjp_apl_ref")
+				@Index(name = "rges_pjp_pk", columnList = "pjp_prj_num, pjp_num, pjp_emp_cod, pjp_idf_cod", unique = true),
+				@Index(name = "iges_pjp_emp_fk", columnList = "pjp_idf_cod, pjp_emp_cod"),
+				@Index(name = "iges_pjp_prj_fk", columnList = "pjp_idf_cod, pjp_prj_num"),
+				@Index(name = "iges_pjp_pre_fk", columnList = "pjp_idf_cod, pjp_pre_cod"),
+				@Index(name = "iges_pjp_pda_fk", columnList = "pjp_idf_cod, pjp_pda_cod"),
+				@Index(name = "iges_pjp_cap_fk", columnList = "pjp_idf_cod, pjp_cap_cod")
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.projecteNumero", column = @Column(name = "pjp_prj_num", length = 6)),
-	@AttributeOverride(name = "id.pressupostNumero", column = @Column(name = "pjp_num", precision = 10)),
-	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "pjp_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pjp_idf_cod", length = 4)),	
-	
+	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "pjp_emp_cod", length = 4)),
+	@AttributeOverride(name = "id.projecteNumero", column = @Column(name = "pjp_prj_num", length = 6)),
+	@AttributeOverride(name = "id.projectePressupostCodi", column = @Column(name = "pjp_num", precision = 10)),	
 	@AttributeOverride(name = "embedded.projecteNumero", column = @Column(name = "pjp_prj_num", length = 6, insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.pressupostNumero", column = @Column(name = "pjp_num", precision = 10, insertable = false, updatable = false)),	
-	@AttributeOverride(name = "embedded.pressupostCodi", column = @Column(name = "pjp_pre_cod", precision = 10)),
-	@AttributeOverride(name = "embedded.capitolCodi", column = @Column(name = "pjp_cap_cod", length = 4)),
-	@AttributeOverride(name = "embedded.partidaCodi", column = @Column(name = "pjp_pda_cod", length = 4)),
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "pjp_obs", length = 1000)),	
+	@AttributeOverride(name = "embedded.projectePressupostCodi", column = @Column(name = "pjp_num", precision = 10, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "pjp_obs", length = 1000)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "pjp_usucre", nullable = false)),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "pjp_datcre", nullable = false)),
@@ -89,17 +86,80 @@ public class ProjectePressupostEntity extends AbstractWithIdentificadorAuditable
 			},
 			foreignKey = @ForeignKey(name = "rges_pjp_emp_fk"))
 	protected EmpresaEntity empresa;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "pjp_prj_num", referencedColumnName = "prj_num", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_emp_cod", referencedColumnName = "prj_emp_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_idf_cod", referencedColumnName = "prj_idf_cod", insertable = false, updatable = false)
+					
+			},
+			foreignKey = @ForeignKey(name = "rges_pjp_prj_fk"))
+	protected ProjecteEntity projecte;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "pjp_pre_cod", referencedColumnName = "pre_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_emp_cod", referencedColumnName = "pre_emp_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_idf_cod", referencedColumnName = "pre_idf_cod", insertable = false, updatable = false)
+					
+			},
+			foreignKey = @ForeignKey(name = "rges_pjp_pre_fk"))
+	protected PressupostEntity pressupost;
+	@Column(name = "pjp_pre_cod", length = 6)
+	private Integer pressupostCodi;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {					
+					@JoinColumn(name = "pjp_idf_cod", referencedColumnName = "pda_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_cap_cod", referencedColumnName = "pda_cap_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_emp_cod", referencedColumnName = "pda_emp_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_pre_cod", referencedColumnName = "pda_pre_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_pda_cod", referencedColumnName = "pda_cod", insertable = false, updatable = false)
+					
+			},
+			foreignKey = @ForeignKey(name = "rges_pjp_pda_fk"))
+	protected PartidaEntity partida;
+	@Column(name = "pjp_pda_cod", length = 6)
+	private String partidaCodi;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "pjp_cap_cod", referencedColumnName = "cap_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_idf_cod", referencedColumnName = "cap_idf_cod", insertable = false, updatable = false)
+					
+			},
+			foreignKey = @ForeignKey(name = "rges_pjp_cap_fk"))
+	protected CapitolEntity capitol;
+	@Column(name = "pjp_cap_cod", length = 6)
+	private String capitolCodi;
 
 	@Builder
 	public ProjectePressupostEntity(
 			ProjectePressupostPk pk,
 			ProjectePressupost embedded,
 			IdentificadorEntity identificador,
-			EmpresaEntity empresa) {
+			EmpresaEntity empresa,
+			ProjecteEntity projecte,
+			PressupostEntity pressupost,
+			PartidaEntity partida,
+			CapitolEntity capitol) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.empresa = empresa;	
+		this.projecte = projecte;
+		
+		this.updatePressupost(pressupost);
+		this.updatePartida(partida);
+		this.updateCapitol(capitol);
+		
 	}
 
 	@Override
@@ -107,4 +167,24 @@ public class ProjectePressupostEntity extends AbstractWithIdentificadorAuditable
 		this.embedded = embedded;
 	}
 	
+	public void updatePressupost(PressupostEntity pressupost) {
+		this.pressupost = pressupost;
+		if (pressupost != null) {
+			this.pressupostCodi = pressupost.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updatePartida(PartidaEntity partida) {
+		this.partida = partida;
+		if (partida != null) {
+			this.partidaCodi = partida.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateCapitol(CapitolEntity capitol) {
+		this.capitol = capitol;
+		if (capitol != null) {
+			this.capitolCodi = capitol.getEmbedded().getCodi();
+		}
+	}	
 }

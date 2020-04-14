@@ -104,7 +104,8 @@ public class ProjecteTarifaProveidorEntity extends AbstractWithIdentificadorAudi
 	@JoinColumns(
 				value = {
 						@JoinColumn(name = "taj_idf_cod", referencedColumnName = "tpr_idf_cod", insertable = false, updatable = false),						
-						@JoinColumn(name = "taj_tpr_cod", referencedColumnName = "tpr_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "taj_tpr_cod", referencedColumnName = "tpr_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "taj_pro_cod", referencedColumnName = "tpr_pro_cod", insertable = false, updatable = false)
 				},
 				foreignKey = @ForeignKey(name = "rges_taj_tpr_fk"))
 	protected TarifaProveidorEntity tarifaProveidor;

@@ -96,10 +96,11 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.estudiSumarValoracioEnExces", column = @Column(name = "prj_valexc", length = 1)),
 		@AttributeOverride(name = "embedded.mesosGarantia", column = @Column(name = "prj_mesgar")),
 		@AttributeOverride(name = "embedded.tipusInversio", column = @Column(name = "prj_tipinv", length = 1)),
+		@AttributeOverride(name = "embedded.tipusObra", column = @Column(name = "prj_tipobr", length = 1)),		
 		@AttributeOverride(name = "embedded.retencioPercent", column = @Column(name = "prj_ret")),
 		@AttributeOverride(name = "embedded.retencioTipus", column = @Column(name = "prj_tipret", length = 1)),
 		@AttributeOverride(name = "embedded.comptabilitatCodiProjecte", column = @Column(name = "prj_codcmp", length = 4)),
-
+		
 		@AttributeOverride(name = "createdBy", column = @Column(name = "prj_usucre")),
 		@AttributeOverride(name = "createdDate", column = @Column(name = "prj_datcre")),
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "prj_usumod")),
@@ -159,7 +160,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_tpj_cod_fk"))
 	private ProjecteTipusEntity projecteTipus;
-	@Column(name = "prj_tpj_cod", length = 6, insertable = false, updatable = false)
+	@Column(name = "prj_tpj_cod", length = 6)
 	private String projecteTipusCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -215,7 +216,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_ser_cod_fk"))
 	private SerieVendaEntity serie;
-	@Column(name = "prj_ser_cod", length = 2, insertable = false, updatable = false)
+	@Column(name = "prj_ser_cod", length = 2)
 	private String serieCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -238,7 +239,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_scl_cod_fk"))
 	private SubClientEntity subClient;
-	@Column(name = "prj_scl_cod", length = 6, insertable = false, updatable = false)
+	@Column(name = "prj_scl_cod", length = 6)
 	private String subClientCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -250,7 +251,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_acc_cod_fk"))
 	private ClientAdresaEntity clientAdresa;
-	@Column(name = "prj_acc_cod", length = 4, insertable = false, updatable = false)
+	@Column(name = "prj_acc_cod", length = 4)
 	private String clientAdresaCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -261,7 +262,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "prj_cpo_cod", length = 8, insertable = false, updatable = false)
+	@Column(name = "prj_cpo_cod", length = 8)
 	private String codiPostalCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -284,7 +285,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_ane_cod_fk"))
 	private AreaNegociEntity areaNegoci;
-	@Column(name = "prj_ane_cod", length = 4, insertable = false, updatable = false)
+	@Column(name = "prj_ane_cod", length = 4)
 	private String areaNegociCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -320,6 +321,40 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@Column(name = "prj_ffa_cod", length = 4)
 	private String finalFacturaCodi;
 
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_iva_codinv", referencedColumnName = "iva_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_iva_codinv_fk"))
+	private IvaEntity iva;
+	@Column(name = "prj_iva_codinv", length = 4)
+	private String ivaCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "rgi_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_rgi_codinv", referencedColumnName = "rgi_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_rgi_codinv_fk"))
+	private RegimIvaEntity regimIva;
+	@Column(name = "prj_rgi_codinv", length = 2)
+	private String regimIvaCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sei_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sei_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_sei_codinv", referencedColumnName = "sei_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_sei_codinv_fk"))
+	private SerieIntracomunitariaEntity serieIntracomunitaria;
+	@Column(name = "prj_sei_codinv", length = 4)
+	private String serieIntracomunitariaCodi;
+	
 	@Builder
 	public ProjecteEntity(ProjectePk pk, 
 			Projecte embedded, 
@@ -341,10 +376,16 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			AreaNegociEntity areaNegoci,
 			MagatzemEntity magatzem, 
 			ZonaEntity zona, 
-			FinalFacturaEntity finalFactura) {
+			FinalFacturaEntity finalFactura,
+			IvaEntity iva,
+			RegimIvaEntity regimIva,
+			SerieIntracomunitariaEntity serieIntracomunitaria) {
+		
 		setId(pk);
+		
 		this.embedded = embedded;
 		this.identificador = identificador;
+		
 		updateEmpresa(empresa);
 		updateDivisa(divisa);
 		updateSeccio(seccio);
@@ -363,6 +404,10 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		updateMagatzem(magatzem);
 		updateZona(zona);
 		updateFinalFactura(finalFactura);
+		
+		updateIva(iva);
+		updateRegimIva(regimIva);
+		updateSerieIntracomunitaria(serieIntracomunitaria);
 	}
 
 	@Override
@@ -493,6 +538,27 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		this.finalFactura = finalFactura;
 		if (finalFactura != null) {
 			this.finalFacturaCodi = finalFactura.getId().getCodi();
+		}
+	}
+	
+	public void updateIva(IvaEntity iva) {
+		this.iva = iva;
+		if (iva != null) {
+			this.ivaCodi = iva.getId().getCodi();
+		}
+	}
+	
+	public void updateRegimIva(RegimIvaEntity regimIva) {
+		this.regimIva = regimIva;
+		if (regimIva != null) {
+			this.regimIvaCodi = regimIva.getId().getCodi();
+		}
+	}
+	
+	public void updateSerieIntracomunitaria(SerieIntracomunitariaEntity serieIntracomunitaria) {
+		this.serieIntracomunitaria = serieIntracomunitaria;
+		if (serieIntracomunitaria != null) {
+			this.serieIntracomunitariaCodi = serieIntracomunitaria.getId().getCodi();
 		}
 	}
 }

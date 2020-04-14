@@ -13,6 +13,10 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost.ProjectePressupostPk;
+import es.limit.cecocloud.fact.logic.api.dto.Pressupost.PressupostPk;
+import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
+import es.limit.cecocloud.fact.logic.api.dto.Capitol.CapitolPk;
+import es.limit.cecocloud.fact.logic.api.dto.Partida.PartidaPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +30,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "pressupostNumero"
+		descriptionField = "projectePressupostCodi"
 )
 public class ProjectePressupost extends AbstractIdentificableWithIdentificador<ProjectePressupostPk> {
 
@@ -36,33 +40,15 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 			disabledForCreate= true,
 			toUpperCase = true,			
 			includeInQuickFilter = true)
-	private Integer pressupostNumero;
-	
-	@RestapiField(
-			includeInQuickFilter = true)
-	private Integer pressupostCodi;
+	private Integer projectePressupostCodi;
 	
 	@Size(max = 6)
 	@RestapiField(			
-			includeInQuickFilter = true)
+//			includeInQuickFilter = true,
+			hiddenInGrid = true,
+			hiddenInForm = true)
 	private String projecteNumero;	
-	
-	@Size(max = 4)
-	@RestapiField(			
-			includeInQuickFilter = true)
-	private String capitolCodi;	
-	
-	@Size(max = 4)
-	@RestapiField(			
-			includeInQuickFilter = true)
-	private String partidaCodi;	
 
-	@Size(max = 1000)
-	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			includeInQuickFilter = true)
-	private String observacions;	
-	
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -72,6 +58,36 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = true,
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
+	
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV)
+	private GenericReferenceWithCompositePk<Pressupost, PressupostPk> pressupost;
+	
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV)
+	private GenericReferenceWithCompositePk<Partida, PartidaPk> partida;	
+	
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV)
+	private GenericReferenceWithCompositePk<Capitol, CapitolPk> capitol;
+	
+	@Size(max = 1000)
+	@RestapiField(
+			type = RestapiFieldType.TEXTAREA,
+			includeInQuickFilter = true)
+	private String observacions;	
+	
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
@@ -79,16 +95,16 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 	@SuppressWarnings("serial")
 	public static class ProjectePressupostPk extends WithIdentificadorPk {
 		private String empresaCodi;
-		private Integer pressupostNumero;
+		private Integer projectePressupostCodi;
 		private String projecteNumero;
 		public ProjectePressupostPk(
 				String identificadorCodi,
 				String empresaCodi,
-				Integer pressupostNumero,
+				Integer projectePressupostCodi,
 				String projecteNumero) {
 			super(identificadorCodi);
 			this.empresaCodi = empresaCodi;
-			this.pressupostNumero = pressupostNumero;
+			this.projectePressupostCodi = projectePressupostCodi;
 			this.projecteNumero = projecteNumero;
 		}
 	}

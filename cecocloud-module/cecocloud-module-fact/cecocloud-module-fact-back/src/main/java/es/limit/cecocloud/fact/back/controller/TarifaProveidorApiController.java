@@ -10,7 +10,7 @@ import es.limit.cecocloud.fact.logic.api.dto.TarifaProveidor;
 import es.limit.cecocloud.fact.logic.api.module.FactModuleConfig;
 
 /**
- * Controlador per al servei REST de gestió de Divises.
+ * Controlador per al servei REST de gestió de TarifaProveidor.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */

@@ -20,6 +20,7 @@ import es.limit.cecocloud.fact.logic.api.dto.ArticleGamma;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleModel;
 import es.limit.cecocloud.fact.logic.api.dto.Banc;
+import es.limit.cecocloud.fact.logic.api.dto.Capitol;
 import es.limit.cecocloud.fact.logic.api.dto.ClasseRetencio;
 import es.limit.cecocloud.fact.logic.api.dto.Client;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa;
@@ -46,7 +47,9 @@ import es.limit.cecocloud.fact.logic.api.dto.OficinaBancaria;
 import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
 import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
+import es.limit.cecocloud.fact.logic.api.dto.Partida;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
+import es.limit.cecocloud.fact.logic.api.dto.Pressupost;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteAplicacio;
@@ -203,6 +206,14 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Bancs",
 						Banc.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_CAPITO",
+				new FuncionalitatCodiFontImpl(
+						"FAC_CAPITO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Capítols",
+						Capitol.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_CLARET",
@@ -474,6 +485,14 @@ public class FactModuleRegister {
 					PaisNif.class,
 					Arrays.asList()));
 		funcionalitats.put(
+				"FAC_PARTID",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PARTID",
+						FuncionalitatTipus.MANTENIMENT,
+						"Partides",
+						Partida.class,
+						Arrays.asList()));
+		funcionalitats.put(
 				"FAC_PEUDOC",
 				new FuncionalitatCodiFontImpl(
 						"FAC_PEUDOC",
@@ -481,6 +500,14 @@ public class FactModuleRegister {
 						"Peus de document",
 						PeuDocument.class,
 						Arrays.asList(SerieCompra.class)));
+		funcionalitats.put(
+				"FAC_PRESSU",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PRESSU",
+						FuncionalitatTipus.MANTENIMENT,
+						"Pressupostos",
+						Pressupost.class,
+						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_PROD",
 				new FuncionalitatCodiFontImpl(
@@ -509,7 +536,16 @@ public class FactModuleRegister {
 								AreaNegoci.class,
 								Magatzem.class,
 								Zona.class,
-								FinalFactura.class)));
+								FinalFactura.class,
+								Iva.class,
+								RegimIva.class,
+								SerieIntracomunitaria.class,
+								ProjectePressupost.class,
+								ProjecteTarifaProveidor.class,
+								ProjecteAplicacio.class,
+								InversioSubjectePassiu.class,
+								ProveidorVenciment.class,
+								HistoricResponsable.class)));
 		funcionalitats.put(
 				"FAC_PROAAP",
 				new FuncionalitatCodiFontImpl(
@@ -527,7 +563,12 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Projectes / Pressupostos",
 						ProjectePressupost.class,
-						Arrays.asList(Empresa.class)));
+						Arrays.asList(
+								Empresa.class,
+								Projecte.class,
+								Pressupost.class,
+								Partida.class,
+								Capitol.class)));
 		funcionalitats.put(
 				"FAC_PROTAJ",
 				new FuncionalitatCodiFontImpl(

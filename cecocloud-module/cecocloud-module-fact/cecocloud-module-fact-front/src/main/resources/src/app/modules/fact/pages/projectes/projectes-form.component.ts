@@ -1,9 +1,18 @@
 import { ViewChild, Component } from "@angular/core";
-import { BngForm, BngFormBaseComponent, BngFormConfig, BngFormErrorMessages } from "base-angular";
+import { BngForm, BngFormBaseComponent, BngFormConfig, BngFormErrorMessages, BngDatagridConfig } from "base-angular";
 import { ActivatedRoute } from '@angular/router';
 
 import { ProjectesService } from "./projectes.service";
 
+// Manteniments de tipus 1
+import { ProjectesPressupostService } from '../projectesPressupost/projectesPressupost.service';
+import { ProjectesTarifaProveidorService } from '../projectesTarifaProveidor/projectesTarifaProveidor.service';
+import { ProjectesAplicacioService } from '../projectesAplicacio/projectesAplicacio.service';
+import { InversionsSubjectePassiuService } from '../inversionsSubjectePassiu/inversionsSubjectePassiu.service';
+import { ProveidorsVencimentService } from '../proveidorsVenciment/proveidorsVenciment.service';
+import { HistoricsResponsablesService } from '../historicsResponsables/historicsResponsables.service';
+
+// Creació embeguda sobre LOV fields
 import { SeriesVendaFormComponent } from '../seriesVenda/seriesVenda-form.component';
 import { DivisesFormComponent } from '../divises/divises-form.component';
 import { FinalFacturesFormComponent } from '../finalFactures/finalFactures-form.component';
@@ -22,7 +31,7 @@ import { firstDateOlderThanSecondDate } from './first-date-older-than-second-dat
 
 
 @Component({
-  templateUrl: 'temp02.html'
+  templateUrl: 'projectes-form.html'
 })
 
 
@@ -52,17 +61,63 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 //		})
 	}
 	
-	onResourceLoad(event: any) {
-//		debugger;
-	}
+//	onResourceLoad(event: any) {
+////		debugger;
+//	}
 	
 //	ngOnInit() {
 //		debugger;
 //	}
+
+	projecte: any;
 	
+	projectesPressupostDatagridConfig: BngDatagridConfig = {        
+		mode: 'form'
+    };
+
+	projectesTarifaProveidorDatagridConfig: BngDatagridConfig = {        
+		mode: 'form'
+    };
+
+	projectesAplicacioDatagridConfig: BngDatagridConfig = {        
+		mode: 'form'
+    };
+
+	inversionsSubjectePassiuDatagridConfig: BngDatagridConfig = {        
+		mode: 'form'
+    };
+
+	proveidorsVencimentDatagridConfig: BngDatagridConfig = {        
+		mode: 'form'
+    };
+
+	historicsResponsablesDatagridConfig: BngDatagridConfig = {        
+		mode: 'form'
+    };
+
+	onResourceLoad(projecte: any) {
+		this.projecte = projecte;		
+		this.projectesPressupostDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;		
+		this.projectesTarifaProveidorDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;
+		this.projectesAplicacioDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;
+		this.inversionsSubjectePassiuDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;
+		this.proveidorsVencimentDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;
+		this.historicsResponsablesDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;										
+	}
+	
+	gridsEditables: boolean = true;
+	
+	public modificant: boolean = false;
+		
 	constructor(
 		activatedRoute: ActivatedRoute,
-		public projectesService: ProjectesService) {
+		public projectesService: ProjectesService,
+		public projectesPressupostService: ProjectesPressupostService,
+		public projectesTarifaProveidorService: ProjectesTarifaProveidorService,
+		public projectesAplicacioService: ProjectesAplicacioService,
+		public inversionsSubjectePassiuService: InversionsSubjectePassiuService,
+		public proveidorsVencimentService: ProveidorsVencimentService,
+		public historicsResponsablesService: HistoricsResponsablesService) {
 			super(activatedRoute);			
 			this.setConfigExternalFormComponents([
 				{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },
@@ -78,5 +133,49 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 				{ resourceName: 'codiPostal', component: CodisPostalFormComponent },
 				{ resourceName: 'zona', component: ZonesFormComponent }
 			])
+			
+			activatedRoute.params.subscribe((params) => {				
+				if (params.id) {
+					this.modificant = true;					
+					};
+					this.projectesPressupostDatagridConfig.fixedRowData = {
+						client: {
+							id: params.id,
+							description: undefined
+						}
+					};
+					this.projectesTarifaProveidorDatagridConfig.fixedRowData = {
+						client: {
+							id: params.id,
+							description: undefined
+						}
+					};
+					this.projectesAplicacioDatagridConfig.fixedRowData = {
+						client: {
+							id: params.id,
+							description: undefined
+						}
+					};					
+					this.inversionsSubjectePassiuDatagridConfig.fixedRowData = {
+						client: {
+							id: params.id,
+							description: undefined
+						}
+					};
+					this.proveidorsVencimentDatagridConfig.fixedRowData = {
+						client: {
+							id: params.id,
+							description: undefined
+						}
+					};
+					this.historicsResponsablesDatagridConfig.fixedRowData = {
+						client: {
+							id: params.id,
+							description: undefined
+						}
+					};
+				})
+			}
+			
 		}
-}
+

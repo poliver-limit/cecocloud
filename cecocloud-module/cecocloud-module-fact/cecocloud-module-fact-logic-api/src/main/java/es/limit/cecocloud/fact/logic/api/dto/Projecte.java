@@ -22,17 +22,22 @@ import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientPreuConverter;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientProjecteTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.ProjecteEstatConverter;
 import es.limit.cecocloud.fact.logic.api.converter.RetencioTipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.InversioTipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.ObraTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.TipusExecucioConverter;
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci.AreaNegociPk;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
 import es.limit.cecocloud.fact.logic.api.dto.SerieVenda.SerieVendaPk;
+import es.limit.cecocloud.fact.logic.api.dto.SerieIntracomunitaria.SerieIntracomunitariaPk;
 import es.limit.cecocloud.fact.logic.api.dto.SubClient.SubClientPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientPreuEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientProjecteTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ProjecteEstatEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RetencioTipusEnumDto;
+import es.limit.cecocloud.fact.logic.api.dto.enums.InversioTipusEnumDto;
+import es.limit.cecocloud.fact.logic.api.dto.enums.ObraTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusExecucioEnumDto;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
@@ -207,6 +212,24 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true)
+	private GenericReferenceWithCompositePk<SerieIntracomunitaria, SerieIntracomunitariaPk> serieIntracomunitaria;
 
 	@Size(max = 60)
 	@RestapiField(
@@ -453,13 +476,19 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private BigDecimal mesosGarantia;
+	private BigDecimal mesosGarantia;	
 	
-	@Size(max = 1)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private String tipusInversio;
+	@Convert(converter = InversioTipusConverter.class)
+	private InversioTipusEnumDto tipusInversio;
+	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = ObraTipusConverter.class)
+	private ObraTipusEnumDto tipusObra;
 	
 	@RestapiField(
 			hiddenInGrid = true,
@@ -499,4 +528,5 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			this.empresaCodi = empresaCodi;
 		}
 	}
+	
 }

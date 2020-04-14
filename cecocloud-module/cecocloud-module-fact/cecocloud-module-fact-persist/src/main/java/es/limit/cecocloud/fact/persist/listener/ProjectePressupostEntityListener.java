@@ -18,8 +18,8 @@ public class ProjectePressupostEntityListener {
 		int num = EntityListenerHelper.getInstance().getSeguentNumComptador(				
 				projectePressupost.getIdentificador().getId(),			
 				"TGES_PJP");
-		projectePressupost.getEmbedded().setPressupostNumero(num);		
-		projectePressupost.getId().setPressupostNumero(num);
+		projectePressupost.getEmbedded().setProjectePressupostCodi(num);		
+		projectePressupost.getId().setProjectePressupostCodi(num);
     }
 
 }

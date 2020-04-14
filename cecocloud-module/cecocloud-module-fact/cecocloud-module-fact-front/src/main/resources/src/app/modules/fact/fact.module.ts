@@ -62,6 +62,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'bancs',
 				loadChildren: () => import('./pages/bancs/bancs.module').then(m => m.BancsModule)	
+				
+			}, {
+				path: 'capitols',
+				loadChildren: () => import('./pages/capitols/capitols.module').then(m => m.CapitolsModule)		
 							
 			}, {
 				path: 'classesRetencions',
@@ -167,8 +171,16 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)			   
 
 			}, {
+				path: 'partides',
+				loadChildren: () => import('./pages/partides/partides.module').then(m => m.PartidesModule)
+				
+			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
+			
+			}, {
+				path: 'pressupostos',
+				loadChildren: () => import('./pages/pressupostos/pressupostos.module').then(m => m.PressupostosModule)
 
 			}, {
 				path: 'productes',
@@ -731,8 +743,14 @@ export class FactModule {
 					icon: 'assignment_return',
 					label: 'Ventes',
 					labelKey: 'funcionalitat.menu.ventes',
-					items: [						
+					items: [
 						{
+							icon: 'room',
+							label: 'Capítols',
+							labelKey: 'app.menu.fact.capitols',
+							route: '/fact/capitols',
+							resource: 'FAC_CAPITO'						
+						}, {
 							icon: 'room',
 							label: 'Clients',
 							labelKey: 'app.menu.fact.clients',
@@ -746,11 +764,17 @@ export class FactModule {
 							resource: 'FAC_ADRCLI'
 						}, {
 							icon: 'room',
+							label: 'Partides',
+							labelKey: 'app.menu.fact.partides',
+							route: '/fact/partides',
+							resource: 'FAC_PARTID'
+						}, {
+							icon: 'room',
 							label: 'Subclients',
 							labelKey: 'app.menu.fact.subClients',
 							route: '/fact/subClients',
 							resource: 'FAC_SUBCLI'
-							}, {
+						}, {
 							icon: 'room',
 							label: 'Inversions subjecte passiu',
 							labelKey: 'app.menu.fact.inversionsSubjectePassiu',
@@ -769,6 +793,12 @@ export class FactModule {
 							labelKey: 'app.menu.fact.historicsResponsables',
 							route: '/fact/historicsResponsables',
 							resource: 'FAC_HISRSP'
+						}, {
+							icon: 'room',
+							label: 'Pressupostos',
+							labelKey: 'app.menu.fact.pressupostos',
+							route: '/fact/pressupostos',
+							resource: 'FAC_PRESSU'
 						}, {
 							icon: 'room',
 							label: 'Projectes',

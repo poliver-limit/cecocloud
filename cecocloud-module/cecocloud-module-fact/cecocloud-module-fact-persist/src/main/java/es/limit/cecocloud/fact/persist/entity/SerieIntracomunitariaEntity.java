@@ -52,10 +52,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.dia1", column = @Column(name = "sei_dia001", nullable = false)),
 	@AttributeOverride(name = "embedded.dia2", column = @Column(name = "sei_dia002", nullable = false)),
 	@AttributeOverride(name = "embedded.serieDefecto", column = @Column(name = "sei_serdef", length = 1)),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "sei_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "sei_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "sei_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "sei_datmod"))
+//	@AttributeOverride(name = "createdBy", column = @Column(name = "sei_usucre")),
+//	@AttributeOverride(name = "createdDate", column = @Column(name = "sei_datcre")),
+//	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "sei_usumod")),
+//	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "sei_datmod"))
 })
 @AssociationOverrides({
 	@AssociationOverride(
@@ -65,7 +65,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_sei_idf_fk"))
 })
-public class SerieIntracomunitariaEntity extends AbstractWithIdentificadorAuditableEntity<SerieIntracomunitaria, SerieIntracomunitariaPk> {
+public class SerieIntracomunitariaEntity extends AbstractWithIdentificadorEntity<SerieIntracomunitaria, SerieIntracomunitariaPk> {
 
 	@Embedded
 	protected SerieIntracomunitaria embedded;

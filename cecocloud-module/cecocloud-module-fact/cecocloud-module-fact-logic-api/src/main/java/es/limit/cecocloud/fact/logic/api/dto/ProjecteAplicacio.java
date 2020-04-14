@@ -42,21 +42,19 @@ public class ProjecteAplicacio extends AbstractIdentificableWithIdentificador<Pr
 	@Convert(converter = AplicacioTipusConverter.class)
 	private AplicacioTipusEnumDto codi;	
 	
+	@NotNull
 	@RestapiField(
-			includeInQuickFilter = true,
-			hiddenInGrid = true)	
-	private Float valorPercentual;	
-	
-	@RestapiField(
-			includeInQuickFilter = true,
-			hiddenInGrid = true)
+			includeInQuickFilter = true)
 	@Size(max = 100)
 	private String codiProjecteAap;	
 	
+	@RestapiField(
+			includeInQuickFilter = true)	
+	private Float valorPercentual;
+	
 	@Size(max = 1000)
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			hiddenInGrid = true,
+			type = RestapiFieldType.TEXTAREA,			
 			hiddenInLov = true)
 	private String observacions;
 	

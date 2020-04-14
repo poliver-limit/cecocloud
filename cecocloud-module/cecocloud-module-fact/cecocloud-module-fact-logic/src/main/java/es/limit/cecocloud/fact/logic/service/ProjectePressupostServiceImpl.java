@@ -37,8 +37,8 @@ public class ProjectePressupostServiceImpl extends AbstractGenericCompositePkSer
 		return new ProjectePressupostPk(
 				dto.getIdentificador().getId(),
 				empresa.getEmbedded().getCodi(),
-				dto.getPressupostNumero(),
-				dto.getProjecteNumero());
+				dto.getProjectePressupostCodi(),
+				"100"); // TO DO: RECUPERAR EL PROJECTE
 	}
 
 }

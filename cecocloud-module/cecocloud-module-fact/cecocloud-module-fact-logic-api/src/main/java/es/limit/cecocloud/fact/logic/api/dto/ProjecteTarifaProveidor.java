@@ -8,8 +8,11 @@ import javax.persistence.Transient;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteTarifaProveidor.ProjecteTarifaProveidorPk;
+import es.limit.cecocloud.fact.logic.api.dto.TarifaProveidor.TarifaProveidorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
@@ -25,8 +28,9 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@PrimaryKeyNotExists(fields = {"proveidor","tarifaProveidor","projecte","empresa"}, groups = { OnCreate.class })
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = ""
 )
 public class ProjecteTarifaProveidor extends AbstractIdentificableWithIdentificador<ProjecteTarifaProveidorPk>{
 	
@@ -64,7 +68,7 @@ public class ProjecteTarifaProveidor extends AbstractIdentificableWithIdentifica
 			disabledForCreate = false,		
 			disabledForUpdate = true		
 			)
-	private GenericReferenceWithCompositePk<TarifaProveidor, WithIdentificadorAndCodiPk<String>> tarifaProveidor;
+	private GenericReferenceWithCompositePk<TarifaProveidor, TarifaProveidorPk> tarifaProveidor;
 	
 	@NoArgsConstructor
 	@AllArgsConstructor

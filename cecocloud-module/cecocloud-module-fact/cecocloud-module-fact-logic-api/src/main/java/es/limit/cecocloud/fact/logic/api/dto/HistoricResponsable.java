@@ -41,16 +41,14 @@ public class HistoricResponsable extends AbstractIdentificableWithIdentificador<
 	@RestapiField(
 			disabledForUpdate = true,
 			disabledForCreate= true,
-			toUpperCase = true,
-			hiddenInGrid = true,
-			hiddenInForm = true,
+			toUpperCase = true,			
 			includeInQuickFilter = true)
 	private Integer sequencia;
 	
 	@NotNull
-	@RestapiField(hiddenInGrid = true, hiddenInLov = true)	
+	@RestapiField(hiddenInLov = true)	
 	@Convert(converter = OperariTipusConverter.class)
-	private OperariTipusEnumDto tipus;
+	private OperariTipusEnumDto tipusOperari;
 	
 	@RestapiField(
 			hiddenInLov = true, 
@@ -87,8 +85,7 @@ public class HistoricResponsable extends AbstractIdentificableWithIdentificador<
 	
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			type = RestapiFieldType.LOV,			
 			lovNamedFilter = Operari.FILTER_ACTIU)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operari;
 	
