@@ -47,7 +47,6 @@
         emp_cpo varchar(5),
         emp_cte varchar(10),
         emp_cteemb varchar(10),
-        emp_cteorgsgremp varchar(10),
         emp_ctebanemp varchar(10),
         emp_cteret varchar(10),
         emp_ctesgr varchar(10),

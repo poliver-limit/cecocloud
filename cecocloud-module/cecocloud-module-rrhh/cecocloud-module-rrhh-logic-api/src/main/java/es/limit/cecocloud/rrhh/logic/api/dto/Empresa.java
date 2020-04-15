@@ -171,12 +171,6 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 10)
-	protected String compteOrganismesSSEmpresa;
-	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Size(max = 10)
 	protected String comptePagoNomina;
 	
 	@RestapiField(
