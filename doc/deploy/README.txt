@@ -22,6 +22,23 @@ Una vegada compilat el projecte, el fitxer .jar de l'aplicació es troba a cecoc
 - Donar permisos d'execució al fitxer .jar (chmod a+x USUARI.jar).
 - Crear el fitxer application.properties a dins /opt/cecocloud amb la configuració de connexió a BBDD i al servidor de correu.
 
+-------
+- LOGS:
+-------
+Per a configurar un fitxer de log diferent a /var/log/syslog i rotar-lo:
+- Crear un arxiu /etc/rsyslog.d/cecocloud.conf amb el següent contingut
+if $programname == 'cecocloud' then /var/log/cecocloud.log
+& stop
+- Reiniciar rsyslog: systemctl restart rsyslog
+- Crea un arxiu /etc/logrotate.d/cecocloud amb el següent contingut
+/var/log/cecocloud.log {
+weekly
+copytruncate
+rotate 4
+compress
+missingok
+}
+
 ---------
 - GESTIÓ:
 ---------
