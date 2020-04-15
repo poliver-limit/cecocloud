@@ -15,7 +15,9 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientSubtipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.EnviamentFacturaConverter;
 import es.limit.cecocloud.fact.logic.api.converter.RebutsConverter;
@@ -51,17 +53,18 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 @RestapiResource(descriptionField = "nomComercial")
 
 public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
-	@NotNull(groups = { OnCreate.class })
+//	@NotNull(groups = { OnCreate.class })
 	@Size(max = 6)
 	@RestapiField(disabledForUpdate = true, toUpperCase = true, includeInQuickFilter = true)
 	private String codi;
 
 	@NotNull
-	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = false)
+	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = true)
 	@Size(max = 40)
 	private String nomComercial;
 

@@ -38,7 +38,8 @@ public class ProjectePressupostServiceImpl extends AbstractGenericCompositePkSer
 				dto.getIdentificador().getId(),
 				empresa.getEmbedded().getCodi(),
 				dto.getProjectePressupostCodi(),
-				"100"); // TO DO: RECUPERAR EL PROJECTE
+				dto.getProjecte().getPk().getCodi());
+//				"100"); // TO DO: RECUPERAR EL PROJECTE
 	}
 
 }

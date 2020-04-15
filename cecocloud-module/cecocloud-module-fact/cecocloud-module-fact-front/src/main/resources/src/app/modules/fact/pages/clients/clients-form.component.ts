@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BngFormBaseComponent, BngFormConfig, BngDatagridConfig } from 'base-angular';
+import { BngFormBaseComponent, BngFormConfig, BngDatagridConfig, BngFormErrorMessages } from 'base-angular';
+import { FormControl } from '@angular/forms';
 
 import { ClientsService } from './clients.service';
 import { DepartamentsClientService } from '../departamentsClient/departamentsClient.service';
@@ -38,6 +39,9 @@ import { PaisosNifFormComponent } from '../paisosNif/paisosNif-form.component';
 import { TipusAdrecesFormComponent } from '../tipusAdreces/tipusAdreces-form.component';
 import { TipusComissionsFormComponent } from '../tipusComissions/tipusComissions-form.component';
 
+import { FormGroup } from '@angular/forms';
+import { nifValidator } from './nif-validator';
+
 @Component( {
 	templateUrl: 'clients-form.html'
 } )
@@ -46,6 +50,8 @@ import { TipusComissionsFormComponent } from '../tipusComissions/tipusComissions
 export class ClientsFormComponent extends BngFormBaseComponent {
 
 	public modificant: boolean = false;
+	
+	public nomComercial : string;
 	
 	client: any;
 	
@@ -65,8 +71,9 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 		if (event.index==11) this.adrecesComercialsSelected = true;
 	}	
 	
-	onResourceLoad(client: any) {
-		this.client = client;
+	onResourceLoad(client: any) {		
+		this.client = client;		
+		this.nomComercial = client.nomComercial;
 		this.departamentsClientDatagridConfig.fixedFilter = 'client.codi==' + this.client.codi;
 		this.tipusClientsDatagridConfig.fixedFilter = 'client.codi==' + this.client.codi;
 		this.comptesCorrentsDatagridConfig.fixedFilter = 'client.codi==' + this.client.codi;	
@@ -84,6 +91,17 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 	datagridConfig = {	
         columnFiltersEnabled: false
     };
+
+	errorMessages: BngFormErrorMessages = {
+		nifValidatorError: {
+			messageKey: 'resource.client.error.nifNotValidate'
+		}
+	}
+	
+	onFormGroupChange(formGroup: FormGroup) {		
+		formGroup.setValidators(nifValidator('nif'));
+	}
+	
 	
 	departamentsClientDatagridConfig: BngDatagridConfig = {
 		mode: 'form',		
