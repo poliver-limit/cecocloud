@@ -13,6 +13,6 @@ import es.limit.cecocloud.fact.persist.entity.IdentificadorEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Repository("IdentificadorFactRepository")
+@Repository("factIdentificadorRepository")
 public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, String> {
 }

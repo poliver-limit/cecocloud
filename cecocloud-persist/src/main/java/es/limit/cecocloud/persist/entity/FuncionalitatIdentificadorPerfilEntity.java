@@ -28,7 +28,6 @@ import lombok.Setter;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-//@EntityListeners(FuncionalitatIdentificadorPerfilListener.class)
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -42,6 +41,7 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.permis", column = @Column(name = "permis", length = 20, nullable = false))
 })
+//@EntityListeners(FuncionalitatIdentificadorPerfilListener.class)
 public class FuncionalitatIdentificadorPerfilEntity extends AbstractAuditableVersionableEntity<FuncionalitatIdentificadorPerfil, Long> {
 
 	@Embedded
@@ -59,14 +59,14 @@ public class FuncionalitatIdentificadorPerfilEntity extends AbstractAuditableVer
 	protected PerfilEntity perfil;
 
 	@Builder
-    public FuncionalitatIdentificadorPerfilEntity(
-    		FuncionalitatIdentificadorPerfil embedded,
-    		FuncionalitatIdentificadorEntity funcionalitatIdentificador,
-    		PerfilEntity perfil) {
-        this.embedded = embedded;
-        this.funcionalitatIdentificador = funcionalitatIdentificador;
-        this.perfil = perfil;
-    }
+	public FuncionalitatIdentificadorPerfilEntity(
+			FuncionalitatIdentificadorPerfil embedded,
+			FuncionalitatIdentificadorEntity funcionalitatIdentificador,
+			PerfilEntity perfil) {
+		this.embedded = embedded;
+		this.funcionalitatIdentificador = funcionalitatIdentificador;
+		this.perfil = perfil;
+	}
 
 	@Override
 	public void update(FuncionalitatIdentificadorPerfil embedded) {
@@ -78,5 +78,13 @@ public class FuncionalitatIdentificadorPerfilEntity extends AbstractAuditableVer
 	public void updatePerfil(PerfilEntity perfil) {
 		this.perfil = perfil;
 	}
+
+	/*public class FuncionalitatIdentificadorPerfilListener {
+		@PostRemove
+		public void postRemove(final FuncionalitatIdentificadorPerfilEntity entity) throws ClassNotFoundException {
+			EntityListenerUtil.getBean(FuncionalitatAcl.class).refreshPermisosIdentificador(
+					entity.getFuncionalitatIdentificador().getIdentificador().getId());
+		}
+	}*/
 
 }

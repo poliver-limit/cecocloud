@@ -17,13 +17,15 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
 
 import es.limit.cecocloud.fact.logic.api.dto.Client;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-import es.limit.cecocloud.fact.persist.listener.ClientEntityListener;
+import es.limit.cecocloud.fact.persist.entity.ClientEntity.ClientEntityListener;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -802,6 +804,21 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 		this.codiPostalUnitatTramitadora = codiPostalUnitatTramitadora;
 		if (codiPostalUnitatTramitadora != null) {
 			this.codiPostalUnitatTramitadoraCodi = codiPostalUnitatTramitadora.getEmbedded().getCodi();
+		}
+	}
+
+	public class ClientEntityListener {
+		@PrePersist
+		public void calcular(ClientEntity client) {
+			String codi = client.getEmbedded().getCodi();
+			if (codi == null || codi.isEmpty()) {
+				int seq = EntityListenerUtil.getSeguentNumComptador(
+						client.getIdentificador().getId(),
+						"TGES_CLI");
+				String seqST = Integer.toString(seq);
+				client.getEmbedded().setCodi(seqST);
+				client.getId().setCodi(seqST);
+			}
 		}
 	}
 

@@ -3,20 +3,21 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.fact.logic.api.dto.Comptador;
-import es.limit.cecocloud.fact.logic.api.dto.Comptador.ComptadorPk;
+import es.limit.cecocloud.logic.api.dto.Comptador;
+import es.limit.cecocloud.logic.api.dto.Comptador.ComptadorPk;
+import es.limit.cecocloud.persist.entity.AbstractComptadorEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,9 +29,6 @@ import lombok.Setter;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Getter
-@Setter(value = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
 		name = "tges_cnt",
@@ -49,18 +47,21 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cnt_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "cnt_datmod"))
 })
-@AssociationOverrides({
-	@AssociationOverride(
-			name = "identificador",
-			joinColumns = {
-					@JoinColumn(name = "cnt_idf_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "rges_cnt_idf_fk"))
-})
-public class ComptadorEntity extends AbstractWithIdentificadorAuditableEntity<Comptador, ComptadorPk> {
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Getter
+@Setter(value = AccessLevel.PACKAGE)
+public class ComptadorEntity extends AbstractComptadorEntity {
 
 	@Embedded
 	protected Comptador embedded;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "cnt_idf_cod",
+			insertable = false,
+			updatable = false,
+			foreignKey = @ForeignKey(name = "rges_cnt_idf_fk"))
+	protected IdentificadorEntity identificador;
 
 	@Builder
 	public ComptadorEntity(

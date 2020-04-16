@@ -18,11 +18,13 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial;
 import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial.RegistreComercialPk;
-import es.limit.cecocloud.fact.persist.listener.RegistreComercialEntityListener;
+import es.limit.cecocloud.fact.persist.entity.RegistreComercialEntity.RegistreComercialEntityListener;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -77,7 +79,7 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 
 	@Embedded
 	protected RegistreComercial embedded;
-	
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -87,7 +89,6 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 			},
 			foreignKey = @ForeignKey(name = "rges_rgc_emp_fk"))
 	protected EmpresaEntity empresa;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -99,7 +100,6 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 	protected ClientEntity client;
 	@Column(name = "rgc_cli_cod", length = 4)
 	private String clientCodi;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -124,7 +124,7 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		this.identificador = identificador;
 		this.empresa = empresa;
 		this.updateClient(client);
-		this.updateProducte(producte);	
+		this.updateProducte(producte);
 	}
 
 	@Override
@@ -143,6 +143,17 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		this.producte = producte;
 		if (producte != null) {
 			this.producteRef = producte.getEmbedded().getReferencia();
+		}
+	}
+
+	public static class RegistreComercialEntityListener {
+		@PrePersist
+		public void calcular(RegistreComercialEntity registreComercial) {
+			int seq = EntityListenerUtil.getSeguentNumComptador(
+					registreComercial.getIdentificador().getId(),
+					"TGES_RGC");
+			registreComercial.getEmbedded().setSequencia(seq);
+			registreComercial.getId().setSequencia(seq);
 		}
 	}
 

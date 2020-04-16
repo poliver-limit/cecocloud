@@ -17,11 +17,15 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Producte.ProductePk;
-import es.limit.cecocloud.fact.persist.listener.ProducteEntityListener;
+import es.limit.cecocloud.fact.persist.entity.ProducteEntity.ProducteEntityListener;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.fact.persist.repository.ProducteRepository;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -124,6 +128,24 @@ public class ProducteEntity extends AbstractWithIdentificadorEntity<Producte, Pr
 		this.empresa = empresa;
 		if (empresa != null) {
 			this.empresaCodi = empresa.getEmbedded().getCodi();
+		}
+	}
+
+	public static class ProducteEntityListener {
+		@PrePersist
+		public void calcular(ProducteEntity producte) {
+			int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
+					producte.getId().getIdentificadorCodi(),
+					"TGES_APL",
+					new PkBuilder<ProductePk>() {
+						@Override
+						public ProductePk build(int seq) {
+							return new ProductePk(producte.getId().getIdentificadorCodi(), seq);
+						}
+					},
+					EntityListenerUtil.getBean(ProducteRepository.class));
+			producte.getEmbedded().setReferencia(seq);
+			producte.getId().setReferencia(seq);
 		}
 	}
 

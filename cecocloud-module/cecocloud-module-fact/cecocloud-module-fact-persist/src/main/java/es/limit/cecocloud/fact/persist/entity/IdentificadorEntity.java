@@ -32,7 +32,6 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity(name = "factIdentificadorEntity")
 @Table(name = "tges_idf")
-
 @AttributeOverrides({
 	@AttributeOverride(name = "id", column = @Column(name = "idf_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "idf_cod", insertable = false, updatable = false)),
@@ -42,7 +41,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "idf_usumod")),
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "idf_datmod"))
 })
-
 public class IdentificadorEntity extends AbstractAuditableEntity<Identificador, String> {
 
 	@Embedded
@@ -54,7 +52,7 @@ public class IdentificadorEntity extends AbstractAuditableEntity<Identificador, 
 	@Builder
 	public IdentificadorEntity(
 			String id,
-			Identificador embedded) {		
+			Identificador embedded) {
 		setId(id);
 		this.embedded = embedded;
 	}
