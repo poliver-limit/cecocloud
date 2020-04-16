@@ -30,7 +30,7 @@ public class TipusAdresa extends AbstractIdentificableWithIdentificador<String> 
 			disabledForUpdate = true,
 			toUpperCase=true,
 			includeInQuickFilter = true)
-	@Size(max = 2)
+	@Size(max = 4)
 	protected String codi;
 	@NotNull
 	@Size(max = 30)

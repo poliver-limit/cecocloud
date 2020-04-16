@@ -401,7 +401,10 @@
 	"resource.client.enum.tipusNif.DOCUMENT_OFICIAL_EXPEDIT_PAIS": "Doc. oficial expedit al país",
 	"resource.client.enum.tipusNif.PASSAPORT": "Passaport",
 	"resource.client.enum.tipusNif.CERTIFICAT_RESIDENCIA_FISCAL": "Certificat residència fiscal",
-	"resource.client.enum.tipusNif.ALTRE_DOCUMENT": "Altre document",	
+	"resource.client.enum.tipusNif.ALTRE_DOCUMENT": "Altre document",
+	"resource.client.enum.tipusEstranger.ESTRANGER": "Estranger",
+	"resource.client.enum.tipusEstranger.RESIDENT": "Resident",
+	"resource.client.enum.tipusEstranger.RESIDENT_UE": "Resident a la UE",	
 	"resource.client.error.nifNotValidate" : "Nif no vàlid",
 	
 	"resource.clientAdresa": "Adreça client",

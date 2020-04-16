@@ -40,7 +40,8 @@ import { TipusAdrecesFormComponent } from '../tipusAdreces/tipusAdreces-form.com
 import { TipusComissionsFormComponent } from '../tipusComissions/tipusComissions-form.component';
 
 import { FormGroup } from '@angular/forms';
-import { nifValidator } from './nif-validator';
+//import { ViewChild } from "@angular/core";
+//import { BngForm } from "base-angular";
 
 @Component( {
 	templateUrl: 'clients-form.html'
@@ -49,6 +50,36 @@ import { nifValidator } from './nif-validator';
 
 export class ClientsFormComponent extends BngFormBaseComponent {
 
+//	@ViewChild(BngForm) form: BngForm;	
+	
+	onFormGroupChange(formGroup: FormGroup) {
+		formGroup.get('tipusAdresa').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
+		formGroup.get('nomDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
+		formGroup.get('numeroDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
+		formGroup.get('escalaDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
+		formGroup.get('pisDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
+		formGroup.get('portaDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
+	}	
+	
+	creaDomiciliFiscal(formGroup) {
+		var domiciliFiscal = '';		
+		var tipusAdresa = formGroup.get('tipusAdresa').value.description
+		var nomDomicili = formGroup.get('nomDomicili').value;
+		var numeroDomicili = formGroup.get('numeroDomicili').value;
+		var escalaDomicili = formGroup.get('escalaDomicili').value;
+		var pisDomicili = formGroup.get('pisDomicili').value;
+		var portaDomicili = formGroup.get('portaDomicili').value;
+		
+		if (tipusAdresa!=undefined && tipusAdresa != '' && nomDomicili!=undefined && nomDomicili != '') domiciliFiscal = domiciliFiscal + tipusAdresa + ' ';
+		if (nomDomicili!=undefined && nomDomicili != '') domiciliFiscal = domiciliFiscal + nomDomicili;
+		if (numeroDomicili!=undefined && numeroDomicili != '') domiciliFiscal = domiciliFiscal + ' Num.' + numeroDomicili;
+		if (escalaDomicili!=undefined && escalaDomicili != '') domiciliFiscal = domiciliFiscal + ' Esc.' + escalaDomicili;
+		if (pisDomicili!=undefined && pisDomicili != '') domiciliFiscal = domiciliFiscal + ' Pis.' + pisDomicili + 'o';
+		if (portaDomicili!=undefined && portaDomicili != '') domiciliFiscal = domiciliFiscal + ' ' + portaDomicili + 'a';
+		
+		formGroup.get('domiciliFiscal').setValue(domiciliFiscal);
+	}
+	
 	public modificant: boolean = false;
 	
 	public nomComercial : string;
@@ -92,16 +123,11 @@ export class ClientsFormComponent extends BngFormBaseComponent {
         columnFiltersEnabled: false
     };
 
-	errorMessages: BngFormErrorMessages = {
-		nifValidatorError: {
-			messageKey: 'resource.client.error.nifNotValidate'
-		}
-	}
-	
-	onFormGroupChange(formGroup: FormGroup) {		
-		formGroup.setValidators(nifValidator('nif'));
-	}
-	
+//	errorMessages: BngFormErrorMessages = {
+//		nifValidatorError: {
+//			messageKey: 'resource.client.error.nifNotValidate'
+//		}
+//	}	
 	
 	departamentsClientDatagridConfig: BngDatagridConfig = {
 		mode: 'form',		

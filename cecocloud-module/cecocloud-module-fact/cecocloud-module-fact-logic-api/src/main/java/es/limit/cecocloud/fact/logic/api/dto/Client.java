@@ -18,6 +18,7 @@ import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
+import es.limit.base.boot.logic.api.validation.DocumentIdentitat;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientSubtipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.EnviamentFacturaConverter;
 import es.limit.cecocloud.fact.logic.api.converter.RebutsConverter;
@@ -54,6 +55,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+//@DocumentIdentitat(field = "nif", groups = { OnCreate.class })
 @RestapiResource(descriptionField = "nomComercial")
 
 public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String> {
@@ -108,6 +110,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 	@Size(max = 12)
 	@RestapiField(hiddenInLov = true)
+	@DocumentIdentitat()
 	private String nif;
 
 	@Size(max = 60)
@@ -483,6 +486,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment1;
+	
+	@Transient
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	private GenericReference<TipusAdresa, String> tipusAdresa;
+	
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)

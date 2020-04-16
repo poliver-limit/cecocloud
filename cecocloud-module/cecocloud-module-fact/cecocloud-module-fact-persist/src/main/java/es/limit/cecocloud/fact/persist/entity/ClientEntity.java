@@ -121,7 +121,7 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.aplicarImpostServei", column = @Column(name = "cli_aplimpsrv", length = 1)),
 		@AttributeOverride(name = "embedded.impostInclos", column = @Column(name = "cli_imsicl", length = 1)),
 		@AttributeOverride(name = "embedded.permesEntrarPartes", column = @Column(name = "cli_ctlffo", length = 1)),
-		@AttributeOverride(name = "embedded.tipusNif", column = @Column(name = "cli_tipnif", length = 1)),
+		@AttributeOverride(name = "embedded.tipusNif", column = @Column(name = "cli_tipnif", length = 1)),				
 		@AttributeOverride(name = "embedded.paisIban", column = @Column(name = "cli_ibnpai", length = 2)),
 		@AttributeOverride(name = "embedded.digitsControlIban", column = @Column(name = "cli_ibndcc", length = 2)),
 		@AttributeOverride(name = "embedded.bicIban", column = @Column(name = "cli_ibnbic", length = 11)),
@@ -186,6 +186,16 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	private TipusVencimentEntity tipusVenciment;
 	@Column(name = "cli_tve_cod", length = 4)
 	private String tipusVencimentCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {						
+						@JoinColumn(name = "cli_sgl", referencedColumnName = "tad_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "cli_sgl_cod_fk"))
+	private TipusAdresaEntity tipusAdresa;
+	@Column(name = "cli_sgl", length = 4)
+	private String tipusAdresaCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -506,6 +516,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			DivisaEntity divisa, 
 			TipusVencimentEntity tipusVenciment, 
 			TipusVencimentEntity tipusVenciment1,
+			TipusAdresaEntity tipusaAdresa,
 			RegimIvaEntity regimIva, 
 			RappelEntity rappel, 
 			DocumentPagamentCobramentEntity documentPagament,
@@ -540,6 +551,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 		updateDivisa(divisa);
 		updateTipusVenciment(tipusVenciment);
 		updateTipusVenciment1(tipusVenciment1);
+		updateTipusAdresa(tipusAdresa);
 		updateRegimIva(regimIva);
 		updateRappel(rappel);
 		updateDocumentPagament(documentPagament);
@@ -592,6 +604,13 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 		this.tipusVenciment1 = tipusVenciment1;
 		if (tipusVenciment1 != null) {
 			this.tipusVenciment1Codi = tipusVenciment1.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateTipusAdresa(TipusAdresaEntity tipusAdresa) {
+		this.tipusAdresa = tipusAdresa;
+		if (tipusAdresa != null) {
+			this.tipusAdresaCodi = tipusAdresa.getEmbedded().getCodi();
 		}
 	}
 

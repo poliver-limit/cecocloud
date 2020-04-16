@@ -2,7 +2,7 @@
   bng-form-mant
   [config]="formConfig"
   [restapiService]="clientsService"
-  (resourceLoad)="onResourceLoad($event)"
+  (resourceLoad)="onResourceLoad($event)"  
   (formGroupChange)="onFormGroupChange($event)"
 >
   <div style="display: flex;">
@@ -102,30 +102,30 @@
       </div>
     </div>  
     <div style="display: flex">
-      <div style="width: 25%; padding-right: 1em">
+      <div style="width: 10%; padding-right: 1em">
         <bng-custom-field name="tipusAdresa"></bng-custom-field>
       </div>
-      <div style="width: 25%; padding-right: 1em">
+      <div style="width: 50%; padding-right: 1em">
         <bng-custom-field name="nomDomicili"></bng-custom-field>
       </div>
-	  <div style="width: 25%; padding-right: 1em">
+	  <div style="width: 10%; padding-right: 1em">
         <bng-custom-field name="numeroDomicili"></bng-custom-field>
       </div>    
-      <div style="width: 25%; padding-right: 1em">
+      <div style="width: 10%; padding-right: 1em">
         <bng-custom-field name="escalaDomicili"></bng-custom-field>
       </div>
+      <div style="width: 10%; padding-right: 1em">
+        <bng-custom-field name="pisDomicili"></bng-custom-field>
+      </div>
+      <div style="width: 10%; padding-right: 1em">
+       	<bng-custom-field name="portaDomicili"></bng-custom-field>
+      </div>
     </div>      
-    <div style="display: flex">
-    	<div style="width: 25%; padding-right: 1em">
-        	<bng-custom-field name="pisDomicili"></bng-custom-field>
-      	</div>
-      	<div style="width: 25%; padding-right: 1em">
-        	<bng-custom-field name="portaDomicili"></bng-custom-field>
-      	</div>
-	    <div style="width: 25%; padding-right: 1em">
+    <div style="display: flex">    	
+	    <div style="width: 50%; padding-right: 1em">
         	<bng-custom-field name="domiciliFiscal"></bng-custom-field>
       	</div>     
-      	<div style="width: 25%; padding-right: 1em">
+      	<div style="width: 50%; padding-right: 1em">
         	<bng-custom-field name="codiPostal"></bng-custom-field>
      	</div>
     </div>    

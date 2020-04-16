@@ -402,6 +402,9 @@
 	"resource.client.enum.tipusNif.PASSAPORT": "Passaporte",
 	"resource.client.enum.tipusNif.CERTIFICAT_RESIDENCIA_FISCAL": "Certificado residencia fiscal",
 	"resource.client.enum.tipusNif.ALTRE_DOCUMENT": "Otro documento",	
+	"resource.client.enum.tipusEstranger.ESTRANGER": "Extranjero",
+	"resource.client.enum.tipusEstranger.RESIDENT": "Residente",
+	"resource.client.enum.tipusEstranger.RESIDENT_UE": "Residente en la UE",
 	"resource.client.error.nifNotValidate" : "Nif no válido",
 
 	"resource.clientAdresa": "Dirección cliente",

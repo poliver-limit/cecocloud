@@ -254,7 +254,8 @@ public class FactModuleRegister {
 								TarifaDescompte.class,
 								Empresa.class,
 								TipusComissio.class,
-								PaisNif.class)));
+								PaisNif.class,
+								TipusAdresa.class)));
 		funcionalitats.put(
 				"FAC_ADRCLI",
 				new FuncionalitatCodiFontImpl(
