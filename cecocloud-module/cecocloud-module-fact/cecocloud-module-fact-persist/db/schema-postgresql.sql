@@ -309,6 +309,7 @@
         cli_tar_cod002 varchar(4),
         cli_tds_cod002 varchar(6),
         cli_tds_cod varchar(6),
+        cli_sgl varchar(4),
         cli_tcs_cod varchar(4),
         cli_tfc_cod varchar(4),
         cli_tve_cod001 varchar(4),
@@ -2008,6 +2009,11 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        add constraint cli_tds_cod002_fk 
        foreign key (cli_tds_cod002, cli_idf_cod) 
        references tges_tds;
+
+    alter table tges_cli 
+       add constraint cli_sgl_cod_fk 
+       foreign key (cli_sgl) 
+       references tlim_tad;
 
     alter table tges_cli 
        add constraint cli_tcs_cod_fk 

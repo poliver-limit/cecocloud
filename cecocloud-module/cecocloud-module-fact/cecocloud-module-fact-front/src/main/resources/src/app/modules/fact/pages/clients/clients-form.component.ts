@@ -59,7 +59,27 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 		formGroup.get('escalaDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
 		formGroup.get('pisDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
 		formGroup.get('portaDomicili').valueChanges.subscribe(val => {	this.creaDomiciliFiscal(formGroup) })
+		
+		formGroup.get('domiciliFiscal').valueChanges.subscribe(val => {	this.omplirDomicilisFacturaElectronica(val, formGroup) })
+		formGroup.get('codiPostal').valueChanges.subscribe(val => {	this.omplirCodisPostalsFacturaElectronica(val, formGroup) })
+		
 	}	
+	
+	omplirCodisPostalsFacturaElectronica (val, formGroup) {
+		if (val!=undefined && val!='') {
+			formGroup.get('codiPostalOficinaComptable').setValue(val);
+			formGroup.get('codiPostalOrganGestor').setValue(val);
+			formGroup.get('codiPostalUnitatTramitadora').setValue(val);
+		}
+	}
+	
+	omplirDomicilisFacturaElectronica (val, formGroup) {
+		if (val!=undefined && val!='') {
+			formGroup.get('domiciliOficinaComptable').setValue(val);
+			formGroup.get('domiciliOrganGestor').setValue(val);
+			formGroup.get('domiciliUnitatTramitadora').setValue(val);
+			}
+	}
 	
 	creaDomiciliFiscal(formGroup) {
 		var domiciliFiscal = '';		

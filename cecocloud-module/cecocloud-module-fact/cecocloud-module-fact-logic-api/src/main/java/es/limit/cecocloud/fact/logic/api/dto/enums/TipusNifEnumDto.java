@@ -36,10 +36,10 @@ public enum TipusNifEnumDto implements ConvertedEnumInterface<Integer> {
 	NIF(1),
 	/** Nif operador intracomunitari = 2 */
 	NIF_OPERADOR_INTRACOMUNITARI(2),
-	/** Passaport = 3 */
-	PASSAPORT(3),
-	/** Document oficial expedit país = 4 */
-	DOCUMENT_OFICIAL_EXPEDIT_PAIS(4),
+	/** Passaport = 4 */
+	PASSAPORT(4),
+	/** Document oficial expedit país = 3 */
+	DOCUMENT_OFICIAL_EXPEDIT_PAIS(3),
 	/** Certificat residència fiscal = 5 */
 	CERTIFICAT_RESIDENCIA_FISCAL(5),
 	/** Altre document = 6 */

@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractEntity;
 import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
 import lombok.AccessLevel;
@@ -46,6 +48,9 @@ public class PaisNifEntity extends AbstractEntity<PaisNif, String>{
 	@Embedded
 	protected PaisNif embedded;
 
+	@Formula(value="(SELECT CONCAT(pni.pni_nom,' - ',pni.pni_cod) FROM tlim_pni pni where pni.pni_cod = pni_cod)")
+	private String nomCodiTxt;
+	
 	@Builder
 	public PaisNifEntity(
 			PaisNif embedded) {		

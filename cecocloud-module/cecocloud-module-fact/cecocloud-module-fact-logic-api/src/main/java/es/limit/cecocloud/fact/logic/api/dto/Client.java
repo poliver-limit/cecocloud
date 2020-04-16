@@ -581,7 +581,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<TipusComissio, WithIdentificadorAndCodiPk<String>> tipusComissio;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true, lovDescriptionField = "nomCodiTxt")
 	private GenericReference<PaisNif, String> paisNif;
 
 	@Transient
