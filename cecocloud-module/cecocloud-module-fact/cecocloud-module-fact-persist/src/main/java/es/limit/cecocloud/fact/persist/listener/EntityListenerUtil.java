@@ -66,7 +66,8 @@ public class EntityListenerUtil extends es.limit.cecocloud.persist.listener.Enti
 	 * seqüència ja està utilitzat en genera un de nou i torna a fer la
 	 * comprovació. Si no està utilitzat el retorna.
 	 * 
-	 * @param <PK> tipus de la clau primària.
+	 * @param <PK>
+	 *            tipus de la clau primària.
 	 * @param identificadorCodi
 	 *            L'identificador al qual pertany el comptador.
 	 * @param comptadorCodi
@@ -94,6 +95,15 @@ public class EntityListenerUtil extends es.limit.cecocloud.persist.listener.Enti
 		return seq;
 	}
 
+	/**
+	 * Classe per a construir del PKs pel mètode
+	 * getSeguentNumComptadorComprovantPk.
+	 * 
+	 * @author Limit Tecnologies <limit@limit.es>
+	 *
+	 * @param <PK>
+	 *            tipus de la clau primària.
+	 */
 	public static abstract class PkBuilder<PK extends CompositePk> {
 		public abstract PK build(int seq);
 	}
