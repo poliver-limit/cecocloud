@@ -110,7 +110,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 
 	@Size(max = 12)
 	@RestapiField(hiddenInLov = true)
-	@DocumentIdentitat()
+	@DocumentIdentitat
 	private String nif;
 
 	@Size(max = 60)

@@ -20,8 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Formula;
-
 import es.limit.cecocloud.fact.logic.api.dto.Client;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.persist.entity.ClientEntity.ClientEntityListener;
@@ -807,7 +805,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 		}
 	}
 
-	public class ClientEntityListener {
+	public static class ClientEntityListener {
 		@PrePersist
 		public void calcular(ClientEntity client) {
 			String codi = client.getEmbedded().getCodi();
