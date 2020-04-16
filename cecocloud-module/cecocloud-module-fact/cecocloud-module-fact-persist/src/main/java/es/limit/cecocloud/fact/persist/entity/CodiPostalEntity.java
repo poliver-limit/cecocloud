@@ -67,12 +67,6 @@ public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<C
 	protected CodiPostal embedded;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	/*@JoinColumnsOrFormulas(
-			value = {
-					@JoinColumnOrFormula(formula = @JoinFormula(value = "cpo_idf_cod", referencedColumnName = "pas_idf_cod")),
-					@JoinColumnOrFormula(column = @JoinColumn(name = "cpo_pas_cod", referencedColumnName = "pas_cod"))
-			})
-//			foreignKey = @ForeignKey(name = "rges_cpo_pas_fk"))*/
 	@JoinColumns(
 			value = {
 				@JoinColumn(name = "cpo_idf_cod", referencedColumnName = "pas_idf_cod", insertable = false, updatable = false),
@@ -82,7 +76,6 @@ public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<C
 	protected PaisEntity pais;
 	@Column(name = "cpo_pas_cod", length = 4, nullable = false)
 	private String paisCodi;
-	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -102,29 +95,26 @@ public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<C
 			IdentificadorEntity identificador,
 			PaisEntity pais,
 			ProvinciaEntity provincia) {
-		
 		setId(pk);
-		
 		this.embedded = embedded;
 		this.identificador = identificador;
-		
 		this.updatePais(pais);
-		this.updateProvincia(provincia);			
+		this.updateProvincia(provincia);
 	}
 
 	@Override
 	public void update(CodiPostal embedded) {
 		this.embedded = embedded;
 	}
-	
-	public void updatePais (PaisEntity pais) {
+
+	public void updatePais(PaisEntity pais) {
 		this.pais = pais;
-		this.paisCodi = pais.getEmbedded().getCodi();		
+		this.paisCodi = pais.getEmbedded().getCodi();
 	}
-	
-	public void updateProvincia (ProvinciaEntity provincia) {
+
+	public void updateProvincia(ProvinciaEntity provincia) {
 		this.provincia = provincia;
-		this.provinciaCodi = provincia.getEmbedded().getCodi();		
+		this.provinciaCodi = provincia.getEmbedded().getCodi();
 	}
 
 }
