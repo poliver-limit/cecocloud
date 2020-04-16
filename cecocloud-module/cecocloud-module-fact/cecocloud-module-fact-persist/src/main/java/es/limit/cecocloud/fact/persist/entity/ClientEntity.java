@@ -10,6 +10,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 
 import es.limit.cecocloud.fact.logic.api.dto.Client;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.persist.listener.ClientEntityListener;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -157,7 +159,7 @@ import lombok.Setter;
 								@JoinColumn(name = "cli_idf_cod", insertable = false, updatable = false) }, 
 						foreignKey = @ForeignKey(name = "rges_cli_idf_fk")) 
 })
-
+@EntityListeners({ClientEntityListener.class})
 public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Client, WithIdentificadorAndCodiPk<String>> {
 
 	@Embedded

@@ -3,14 +3,19 @@
   [config]="formConfig"
   [restapiService]="clientsService"
   (resourceLoad)="onResourceLoad($event)"
+  (formGroupChange)="onFormGroupChange($event)"
 >
   <div style="display: flex;">
     <div style="width: 35%; padding-right: 1em">
       <bng-custom-field name="codi"></bng-custom-field>
     </div>
     <div style="width: 35%; padding-right: 1em">
-<!--       <bng-custom-field name="nomComercial"></bng-custom-field> -->
+      {{nomComercial}}
     </div>
+    
+<!--     <div style="width: 35%; padding-right: 1em"> -->
+<!--       <bng-custom-field name="nomComercial"></bng-custom-field> -->
+<!--     </div> -->
     <div style="width: 10%; display: inline-block;"></div>
     <div style="width: 10%; padding-top: 1em; padding-right: 1em">
       <bng-custom-field name="potencial"></bng-custom-field>

@@ -54,14 +54,12 @@ public class Aplicador extends AbstractIdentificableWithIdentificador<AplicadorP
 	private String cognoms;
 	
 	@RestapiField(
-			includeInQuickFilter = true,
-			hiddenInGrid = true)
+			includeInQuickFilter = true)
 	@Size(max = 15)
 	private String nif;
 	
 	@RestapiField(
-			includeInQuickFilter = true,
-			hiddenInGrid = true)	
+			includeInQuickFilter = true)	
 	@Convert(converter = AplicadorCategoriaConverter.class)
 	private AplicadorCategoriaEnumDto categoria;
 	

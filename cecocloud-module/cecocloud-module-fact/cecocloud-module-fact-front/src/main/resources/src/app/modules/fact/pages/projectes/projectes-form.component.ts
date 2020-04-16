@@ -43,7 +43,7 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 
 	errorMessages: BngFormErrorMessages = {
 		secondDateOlder: {
-		messageKey: 'resource.projecte.error.secondDateOlder'		
+			messageKey: 'resource.projecte.error.secondDateOlder'		
 		}
 	}
 	
@@ -139,37 +139,37 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 					this.modificant = true;					
 					};
 					this.projectesPressupostDatagridConfig.fixedRowData = {
-						client: {
+						projecte: {
 							id: params.id,
 							description: undefined
 						}
 					};
 					this.projectesTarifaProveidorDatagridConfig.fixedRowData = {
-						client: {
+						projecte: {
 							id: params.id,
 							description: undefined
 						}
 					};
 					this.projectesAplicacioDatagridConfig.fixedRowData = {
-						client: {
+						projecte: {
 							id: params.id,
 							description: undefined
 						}
 					};					
 					this.inversionsSubjectePassiuDatagridConfig.fixedRowData = {
-						client: {
+						projecte: {
 							id: params.id,
 							description: undefined
 						}
 					};
 					this.proveidorsVencimentDatagridConfig.fixedRowData = {
-						client: {
+						projecte: {
 							id: params.id,
 							description: undefined
 						}
 					};
 					this.historicsResponsablesDatagridConfig.fixedRowData = {
-						client: {
+						projecte: {
 							id: params.id,
 							description: undefined
 						}
