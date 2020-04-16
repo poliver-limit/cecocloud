@@ -18,11 +18,13 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost;
 import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost.ProjectePressupostPk;
-import es.limit.cecocloud.fact.persist.listener.ProjectePressupostEntityListener;
+import es.limit.cecocloud.fact.persist.entity.ProjectePressupostEntity.ProjectePressupostEntityListener;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -186,5 +188,17 @@ public class ProjectePressupostEntity extends AbstractWithIdentificadorAuditable
 		if (capitol != null) {
 			this.capitolCodi = capitol.getEmbedded().getCodi();
 		}
-	}	
+	}
+
+	public static class ProjectePressupostEntityListener {
+		@PrePersist
+		public void calcular(ProjectePressupostEntity projectePressupost) {
+			int seq = EntityListenerUtil.getSeguentNumComptador(
+					projectePressupost.getIdentificador().getId(),
+					"TGES_PJP");
+			projectePressupost.getEmbedded().setProjectePressupostCodi(seq);
+			projectePressupost.getId().setProjectePressupostCodi(seq);
+		}
+	}
+
 }

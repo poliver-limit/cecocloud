@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Zona;
 import es.limit.cecocloud.fact.persist.entity.ZonaEntity.ZonaEntityListener;
-import es.limit.cecocloud.fact.persist.listener.EntityListenerHelper;
+import es.limit.cecocloud.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -89,8 +89,9 @@ public class ZonaEntity extends AbstractWithIdentificadorAuditableEntity<Zona, W
 		@PrePersist
 		@PreUpdate
 	    public void codiToUpperCase(ZonaEntity zona) {
-			String codiProcessat = EntityListenerHelper.getInstance().processarPkCodi(
-					zona.getId().getCodi(), 4);
+			String codiProcessat = EntityListenerUtil.processarPkCodi(
+					zona.getId().getCodi(),
+					4);
 			zona.setId(
 					new WithIdentificadorAndCodiPk<String>(
 							zona.getId().getIdentificadorCodi(),

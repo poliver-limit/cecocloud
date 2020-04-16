@@ -1,15 +1,15 @@
 /**
  * 
  */
-package es.limit.cecocloud.fact.logic.api.dto;
+package es.limit.cecocloud.logic.api.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-import es.limit.cecocloud.fact.logic.api.dto.Comptador.ComptadorPk;
+import es.limit.base.boot.logic.api.dto.CompositePk;
+import es.limit.cecocloud.logic.api.dto.Comptador.ComptadorPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,24 +34,19 @@ public class Comptador extends AbstractIdentificableWithIdentificador<ComptadorP
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)	
 	private Integer darrerValor;
-	
+
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@EqualsAndHashCode(callSuper = true)
+	@EqualsAndHashCode
 	@Getter
 	@SuppressWarnings("serial")
-	public static class ComptadorPk extends WithIdentificadorAndCodiPk<String> {
+	public static class ComptadorPk implements CompositePk {
+		private String identificadorCodi;
 		private String codi;
-		public ComptadorPk(
-				String identificadorCodi,				
-				String codi) {
-			super(identificadorCodi, codi);
-			this.codi = codi;
-		}
 	}
+
 }
