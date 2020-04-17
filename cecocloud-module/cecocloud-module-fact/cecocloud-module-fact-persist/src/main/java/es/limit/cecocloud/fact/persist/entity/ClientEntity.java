@@ -161,6 +161,7 @@ import lombok.Setter;
 								@JoinColumn(name = "cli_idf_cod", insertable = false, updatable = false) }, 
 						foreignKey = @ForeignKey(name = "rges_cli_idf_fk")) 
 })
+
 @EntityListeners({ClientEntityListener.class})
 public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Client, WithIdentificadorAndCodiPk<String>> {
 
