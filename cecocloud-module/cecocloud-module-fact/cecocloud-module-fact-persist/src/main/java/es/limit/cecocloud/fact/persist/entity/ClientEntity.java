@@ -508,7 +508,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			foreignKey = @ForeignKey(name = "cli_cpo_codunitrm_fk"))
 	private CodiPostalEntity codiPostalUnitatTramitadora;
 	@Column(name = "cli_cpo_codunitrm", length = 8)
-	private String codiPostalUnitatTramitadoraCodi;
+	private String codiPostalUnitatTramitadoraCodi;	
 
 	@Builder
 	public ClientEntity(
@@ -819,5 +819,4 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			}
 		}
 	}
-
 }

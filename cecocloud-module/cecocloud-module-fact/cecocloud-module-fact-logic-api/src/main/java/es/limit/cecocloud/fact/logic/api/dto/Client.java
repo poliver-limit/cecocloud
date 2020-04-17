@@ -16,9 +16,11 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
+import es.limit.base.boot.logic.api.dto.Identificable.OnUpdate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.base.boot.logic.api.validation.DocumentIdentitat;
+import es.limit.base.boot.logic.api.validation.Iban;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientSubtipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.EnviamentFacturaConverter;
 import es.limit.cecocloud.fact.logic.api.converter.RebutsConverter;
@@ -54,10 +56,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
-//@DocumentIdentitat(field = "nif", groups = { OnCreate.class })
 @RestapiResource(descriptionField = "nomComercial")
-
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@Iban(
+		paisIban = "paisIban",
+		dcIban ="digitsControlIban",
+		banc = "banc",
+		oficina = "oficinaBancaria",
+		dc = "digitsControl",
+		cc = "numeroCC",
+		groups = { OnCreate.class, OnUpdate.class }
+)
 public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 //	@NotNull(groups = { OnCreate.class })
