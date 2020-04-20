@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
-import es.limit.base.boot.logic.api.annotation.RestapiOrder;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
@@ -23,7 +23,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio",
 		sortFields = {
-				@RestapiOrder(fieldName = "descripcio")
+				@RestapiSort(field = "descripcio")
 		},
 		resourceAccessConstraints = {
 				@RestapiResourceAccessConstraint(

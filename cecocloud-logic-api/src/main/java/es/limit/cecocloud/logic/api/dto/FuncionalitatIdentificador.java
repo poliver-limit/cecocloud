@@ -7,7 +7,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
-import es.limit.base.boot.logic.api.annotation.RestapiOrder;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
@@ -33,9 +33,9 @@ import lombok.Setter;
 						resourcePermission = "ADMINISTRATION")
 		},
 		sortFields = {
-				@RestapiOrder(fieldName = "funcionalitat.modul"),
-				@RestapiOrder(fieldName = "funcionalitat.descripcio")
-			}
+				@RestapiSort(field = "funcionalitat.modul"),
+				@RestapiSort(field = "funcionalitat.descripcio")
+		}
 )
 public class FuncionalitatIdentificador extends AbstractIdentificable<Long> {
 

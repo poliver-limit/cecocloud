@@ -9,8 +9,10 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
-import es.limit.base.boot.logic.api.annotation.RestapiOrder;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.GenericReference;
@@ -28,9 +30,10 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio",
 		sortFields = {
-				@RestapiOrder(fieldName = "modul"),
-				@RestapiOrder(fieldName = "descripcio")
-			})
+				@RestapiSort(field = "modul"),
+				@RestapiSort(field = "descripcio")
+		}
+)
 public class Funcionalitat extends AbstractIdentificable<Long> {
 
 	@NotNull
@@ -47,7 +50,10 @@ public class Funcionalitat extends AbstractIdentificable<Long> {
 	private String descripcio;
 	@Transient
 	@RestapiField(
-			type = RestapiFieldType.LOV)
+			type = RestapiFieldType.LOV,
+			lovSortFields =  {
+					@RestapiSort(field = "descripcio", direction = Direction.DESC)
+			})
 	private GenericReference<Funcionalitat, Long> pare;
 	@NotNull
 	@Enumerated(EnumType.STRING)

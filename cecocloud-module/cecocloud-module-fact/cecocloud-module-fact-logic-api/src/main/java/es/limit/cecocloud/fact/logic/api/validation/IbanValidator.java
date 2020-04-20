@@ -4,7 +4,6 @@
 package es.limit.cecocloud.fact.logic.api.validation;
 
 import java.math.BigInteger;
-import java.util.Formatter;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -82,16 +81,14 @@ public class IbanValidator implements ConstraintValidator<Iban, Client> {
 	
 	private String numDigitsFormatter (int noFormatedValue, int numDigits) {
 		
-		Formatter obj = new Formatter();
-        String formatedValue = String.valueOf(obj.format("%0" + Integer.toString(numDigits) + "d", noFormatedValue));
+        String formatedValue = String.valueOf(String.format("%0" + Integer.toString(numDigits) + "d", noFormatedValue));
 		return formatedValue;
 		
 	}
 	
 	private String numDigitsFormatter (Long noFormatedValue, int numDigits) {
 		
-		Formatter obj = new Formatter();
-        String formatedValue = String.valueOf(obj.format("%0" + Integer.toString(numDigits) + "d",noFormatedValue));
+        String formatedValue = String.valueOf(String.format("%0" + Integer.toString(numDigits) + "d", noFormatedValue));
 		return formatedValue;
 		
 	}
