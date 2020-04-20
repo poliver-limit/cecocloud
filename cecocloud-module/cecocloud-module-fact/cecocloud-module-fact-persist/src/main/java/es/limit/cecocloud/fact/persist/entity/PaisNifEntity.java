@@ -48,7 +48,7 @@ public class PaisNifEntity extends AbstractEntity<PaisNif, String>{
 	@Embedded
 	protected PaisNif embedded;
 
-	@Formula(value="(SELECT CONCAT(pni.pni_nom,' - ',pni.pni_cod) FROM tlim_pni pni where pni.pni_cod = pni_cod)")
+	@Formula(value="(SELECT CONCAT(CONCAT(pni.pni_nom,' - '),pni.pni_cod) FROM tlim_pni pni where pni.pni_cod = pni_cod)")
 	private String nomCodiTxt;
 	
 	@Builder

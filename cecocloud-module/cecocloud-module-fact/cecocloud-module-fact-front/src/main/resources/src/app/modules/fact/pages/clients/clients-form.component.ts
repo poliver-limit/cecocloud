@@ -82,8 +82,12 @@ export class ClientsFormComponent extends BngFormBaseComponent {
 	}
 	
 	creaDomiciliFiscal(formGroup) {
-		var domiciliFiscal = '';		
-		var tipusAdresa = formGroup.get('tipusAdresa').value.description
+		var domiciliFiscal = '';
+		var tipusAdresa = "";		
+		var tipusAdresaValue = formGroup.get('tipusAdresa').value;
+		if (tipusAdresaValue!=undefined) {
+			tipusAdresa = formGroup.get('tipusAdresa').value.id;
+		}
 		var nomDomicili = formGroup.get('nomDomicili').value;
 		var numeroDomicili = formGroup.get('numeroDomicili').value;
 		var escalaDomicili = formGroup.get('escalaDomicili').value;
