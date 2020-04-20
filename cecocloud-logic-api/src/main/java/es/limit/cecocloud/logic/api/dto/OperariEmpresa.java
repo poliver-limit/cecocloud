@@ -7,7 +7,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
-import es.limit.base.boot.logic.api.annotation.RestapiOrder;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.AbstractIdentificable;
 import es.limit.base.boot.logic.api.dto.GenericReference;
@@ -24,9 +24,9 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "description",
 		sortFields = {
-			@RestapiOrder(fieldName = "operari.codi"),
-			@RestapiOrder(fieldName = "operari.usuari.nom"),
-			@RestapiOrder(fieldName = "operari.usuari.llinatges")
+			@RestapiSort(field = "operari.codi"),
+			@RestapiSort(field = "operari.usuari.nom"),
+			@RestapiSort(field = "operari.usuari.llinatges")
 		}
 )
 public class OperariEmpresa extends AbstractIdentificable<Long> {
