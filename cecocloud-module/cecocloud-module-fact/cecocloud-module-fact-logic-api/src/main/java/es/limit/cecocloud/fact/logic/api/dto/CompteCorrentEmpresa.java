@@ -10,7 +10,10 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
+import es.limit.base.boot.logic.api.dto.Identificable.OnUpdate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.fact.logic.api.validation.EmpresaNotExists;
 import es.limit.cecocloud.fact.logic.api.dto.CompteCorrentEmpresa.CompteCorrentEmpresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -30,11 +33,13 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
+@EmpresaNotExists(field = "empresa", groups = { OnCreate.class, OnUpdate.class })
 public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador<CompteCorrentEmpresaPk> {
 
 	@Transient
 	@NotNull
 	@RestapiField(
+			hiddenInGrid = false,
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			disabledForCreate = false)
@@ -43,6 +48,7 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 	@Transient
 	@NotNull
 	@RestapiField(
+			hiddenInGrid = false,
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			disabledForCreate = false)
@@ -51,6 +57,7 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 	@Transient
 	@NotNull
 	@RestapiField(
+			hiddenInGrid = false,
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			disabledForCreate = false)
@@ -59,6 +66,7 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 	@Transient
 	@NotNull
 	@RestapiField(
+			hiddenInGrid = false,
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			disabledForCreate = false)
@@ -66,16 +74,16 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 	
 	@NotNull
 	@RestapiField(
+			hiddenInGrid = false,
 			includeInQuickFilter = true)	
-//	private String numeroCompteCorrent;
 	private Integer numeroCompteCorrent;
 	
 	@NotNull
 	@RestapiField(
+			hiddenInGrid = false,
 			includeInQuickFilter = true)
 	@Size(max = 2)
-	private String digitControl;
-	
+	private String digitControl;	
 	
 	@RestapiField(
 			includeInQuickFilter = true,
@@ -85,22 +93,22 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 	private String observacions;
 	
 	@RestapiField(
-			includeInQuickFilter = true,
-			hiddenInGrid = true
+			hiddenInGrid = false,
+			includeInQuickFilter = true
 	)
 	@Size(max = 2)
 	private String paisIban;
 	
 	@RestapiField(
-			includeInQuickFilter = true,
-			hiddenInGrid = true
+			hiddenInGrid = false,
+			includeInQuickFilter = true
 	)
 	@Size(max = 2)
 	private String digitControlIban;
 	
 	@RestapiField(
-			includeInQuickFilter = true,
-			hiddenInGrid = true
+			hiddenInGrid = false,
+			includeInQuickFilter = true
 	)
 	@Size(max = 11)
 	private String codiIdentificadorBanc;
@@ -115,7 +123,6 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 		private String empresaCodi;
 		private Integer bancCodi;
 		private Integer oficinaBancariaCodi;
-//		private String numeroCompteCorrent;
 		private Integer numeroCompteCorrent;
 		private String digitControl;
 		public CompteCorrentEmpresaPk(
@@ -124,7 +131,6 @@ public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador
 				String clientCodi,
 				String empresaCodi,				
 				Integer oficinaBancariaCodi,
-//				String numeroCompteCorrent,
 				Integer numeroCompteCorrent,
 				String digitControl) {
 			super(identificadorCodi);

@@ -39,7 +39,7 @@ import lombok.Setter;
 		name = "tges_cbc",
 		indexes = {
 				@Index(name = "iges_cbc_idf_fk", columnList = "cbc_idf_cod"),
-				@Index(name = "irges_cbc_pk", columnList = "cbc_idf_cod", unique = true)
+				@Index(name = "irges_cbc_pk", columnList = "cbc_idf_cod, cbc_cli_cod, cbc_emp_cod, cbc_ban_cod, cbc_ofb_cod, cbc_ccr, cbc_dcc", unique = true)
 		}
 )
 @AttributeOverrides({
@@ -51,6 +51,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.numeroCompteCorrent", column = @Column(name = "cbc_ccr", length = 10)),
 	@AttributeOverride(name = "id.digitControl", column = @Column(name = "cbc_dcc", length = 2)),
 	
+//	@AttributeOverride(name = "embedded.empresaCodi", column = @Column(name = "cbc_emp_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.numeroCompteCorrent", column = @Column(name = "cbc_ccr", length = 10, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.digitControl", column = @Column(name = "cbc_dcc", length = 2, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "cbc_obs", length = 1000)),

@@ -13,9 +13,7 @@ import es.limit.cecocloud.fact.logic.api.dto.CompteCorrentEmpresa.CompteCorrentE
 import es.limit.cecocloud.fact.logic.api.service.CompteCorrentEmpresaService;
 import es.limit.cecocloud.fact.persist.entity.CompteCorrentEmpresaEntity;
 import es.limit.cecocloud.logic.api.dto.UserSession;
-import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
-import es.limit.cecocloud.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 /**
@@ -30,19 +28,16 @@ public class CompteCorrentEmpresaServiceImpl extends AbstractGenericCompositePkS
 	private AuthenticationHelper authenticationHelper;
 	@Autowired
 	private IdentificadorRepository identificadorRepository;
-	@Autowired
-	private EmpresaRepository empresaRepository;
 
 	@Override
 	protected CompteCorrentEmpresaPk getPkFromDto(CompteCorrentEmpresa dto) {
 		UserSession userSession = (UserSession)authenticationHelper.getSession();
-		IdentificadorEntity identificador = identificadorRepository.getOne(userSession.getI());
-		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());	
+		IdentificadorEntity identificador = identificadorRepository.getOne(userSession.getI());	
 		return new CompteCorrentEmpresaPk(
 				identificador.getEmbedded().getCodi(),
 				dto.getBanc().getPk().getCodi(),
 				dto.getClient().getPk().getCodi(),
-				empresa.getEmbedded().getCodi(),
+				dto.getEmpresa().getPk().getCodi(),
 				dto.getOficinaBancaria().getPk().getCodi(),
 				dto.getNumeroCompteCorrent(),
 				dto.getDigitControl());

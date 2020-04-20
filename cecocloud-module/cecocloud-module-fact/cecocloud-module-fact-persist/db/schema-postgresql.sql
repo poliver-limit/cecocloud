@@ -148,7 +148,7 @@
         primary key (cap_emp_cod, cap_pre_cod, cap_cod, cap_idf_cod)
     );
 
-    create table tges_cbc (
+   create table tges_cbc (
        cbc_ban_cod int4 not null,
         cbc_cli_cod varchar(6) not null,
         cbc_dcc varchar(2) not null,
@@ -1572,8 +1572,6 @@ create index iges_cap_pre_fk on tges_cap (cap_idf_cod, cap_emp_cod, cap_pre_cod)
        add constraint UK_826trstyfumhf2lp1vro4ofgi unique (cap_cod, cap_idf_cod);
 create index iges_cbc_idf_fk on tges_cbc (cbc_idf_cod);
 
-    alter table tges_cbc 
-       add constraint irges_cbc_pk unique (cbc_idf_cod);
 create index iges_cce_idf_fk on tges_cce (cce_idf_cod);
 
     alter table tges_cce 
@@ -1850,7 +1848,7 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        foreign key (cap_emp_cod, cap_pre_cod, cap_idf_cod) 
        references tges_pre;
 
-    alter table tges_cbc 
+  alter table tges_cbc 
        add constraint rges_cbc_idf_fk 
        foreign key (cbc_idf_cod) 
        references tges_idf;
