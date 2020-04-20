@@ -1574,8 +1574,6 @@ create index iges_cbc_idf_fk on tges_cbc (cbc_idf_cod);
 
 create index iges_cce_idf_fk on tges_cce (cce_idf_cod);
 
-    alter table tges_cce 
-       add constraint irges_cce_pk unique (cce_idf_cod);
 create index iges_cli_idf_fk on tges_cli (cli_idf_cod);
 
     alter table tges_clm 

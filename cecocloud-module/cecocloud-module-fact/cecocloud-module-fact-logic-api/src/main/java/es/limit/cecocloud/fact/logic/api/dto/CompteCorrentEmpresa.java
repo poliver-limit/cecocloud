@@ -13,7 +13,7 @@ import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.Identificable.OnUpdate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.cecocloud.fact.logic.api.validation.EmpresaNotExists;
+import es.limit.cecocloud.fact.logic.api.validation.CCEmpresaNotExists;
 import es.limit.cecocloud.fact.logic.api.dto.CompteCorrentEmpresa.CompteCorrentEmpresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -33,7 +33,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-@EmpresaNotExists(field = "empresa", groups = { OnCreate.class, OnUpdate.class })
+@CCEmpresaNotExists(field = "empresa", groups = { OnCreate.class, OnUpdate.class })
 public class CompteCorrentEmpresa extends AbstractIdentificableWithIdentificador<CompteCorrentEmpresaPk> {
 
 	@Transient

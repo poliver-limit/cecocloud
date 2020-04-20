@@ -10,10 +10,13 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
+import es.limit.base.boot.logic.api.dto.Identificable.OnUpdate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.CompteComptableEmpresa.CompteComptableEmpresaPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.validation.CCMPEmpresaNotExists;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,6 +32,8 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
+
+@CCMPEmpresaNotExists(field = "empresa", groups = { OnCreate.class, OnUpdate.class })
 public class CompteComptableEmpresa extends AbstractIdentificableWithIdentificador<CompteComptableEmpresaPk> {
 
 	@Transient

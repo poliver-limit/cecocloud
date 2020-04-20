@@ -38,10 +38,11 @@ import lombok.Setter;
 @Table(
 		name = "tges_cce",
 		indexes = {
-				@Index(name = "iges_cce_idf_fk", columnList = "cce_idf_cod"),
-				@Index(name = "irges_cce_pk", columnList = "cce_idf_cod", unique = true)
+				@Index(name = "iges_cce_idf_fk", columnList = "cce_idf_cod"),				
+				@Index(name = "irges_cce_pk", columnList = "cce_idf_cod, cce_cli_cod, cce_emp_cod", unique = true)
 		}
 )
+
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cce_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.clientCodi", column = @Column(name = "cce_cli_cod", length = 6)),

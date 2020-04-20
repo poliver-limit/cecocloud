@@ -7,9 +7,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import es.limit.cecocloud.fact.logic.api.dto.CompteCorrentEmpresa;
+import es.limit.cecocloud.fact.logic.api.dto.CompteComptableEmpresa;
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
-import es.limit.cecocloud.fact.logic.api.service.CompteCorrentEmpresaService;
+import es.limit.cecocloud.fact.logic.api.service.CompteComptableEmpresaService;
 import es.limit.cecocloud.fact.logic.api.service.EmpresaFactService;
 
 /**
@@ -17,25 +17,25 @@ import es.limit.cecocloud.fact.logic.api.service.EmpresaFactService;
  * 
  * @author Limit Tecnologies
  */
-public class EmpresaNotExistsValidator implements ConstraintValidator<EmpresaNotExists, CompteCorrentEmpresa> {
+public class CCMPEmpresaNotExistsValidator implements ConstraintValidator<CCMPEmpresaNotExists, CompteComptableEmpresa> {
 
 	String field;
 	private String message;	
 	
 	@Autowired
-	private CompteCorrentEmpresaService compteCorrentEmpresaService;
+	private CompteComptableEmpresaService compteComptableEmpresaService;
 	
 	@Autowired
 	private EmpresaFactService empresaService;
 
 	@Override
-	public void initialize(final EmpresaNotExists constraintAnnotation) {	
+	public void initialize(final CCMPEmpresaNotExists constraintAnnotation) {	
 		field = constraintAnnotation.field();
 		message = constraintAnnotation.message();
 	}
 
 	@Override
-	public boolean isValid(final CompteCorrentEmpresa compteCorrentEmpresa, final ConstraintValidatorContext context) {		
+	public boolean isValid(final CompteComptableEmpresa compteComptableEmpresa, final ConstraintValidatorContext context) {		
 
 					
 		context.
@@ -44,18 +44,18 @@ public class EmpresaNotExistsValidator implements ConstraintValidator<EmpresaNot
 		addConstraintViolation().
 		disableDefaultConstraintViolation();		
 
-		boolean existEmpresa = existThisEmp(compteCorrentEmpresa);
+		boolean existEmpresa = existThisEmp(compteComptableEmpresa);
 		return (!existEmpresa);
 	}
 	
-	private boolean existThisEmp (CompteCorrentEmpresa compteCorrentEmpresa) {	
+	private boolean existThisEmp (CompteComptableEmpresa compteComptableEmpresa) {	
 		
-		String empresaId = compteCorrentEmpresa.getEmpresa().getId();		
+		String empresaId = compteComptableEmpresa.getEmpresa().getId();		
 		Empresa empresa = empresaService.getOne(empresaId);		
 		String codiEmpresa = empresa.getCodi();		
-		CompteCorrentEmpresa compteCorrentEmpresaCercada = compteCorrentEmpresaService.findOneByRsqlQuery("empresa.codi==" + codiEmpresa);
+		CompteComptableEmpresa compteComptableEmpresaCercada = compteComptableEmpresaService.findOneByRsqlQuery("empresa.codi==" + codiEmpresa);
 				
-		return compteCorrentEmpresaCercada!=null;
+		return compteComptableEmpresaCercada!=null;
 
 	}
 

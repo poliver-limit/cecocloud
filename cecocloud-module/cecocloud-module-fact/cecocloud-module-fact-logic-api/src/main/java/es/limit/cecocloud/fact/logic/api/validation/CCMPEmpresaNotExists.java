@@ -19,12 +19,12 @@ import javax.validation.Payload;
  * @author Limit Tecnologies
  */
 @Documented
-@Constraint(validatedBy = EmpresaNotExistsValidator.class)
+@Constraint(validatedBy = CCMPEmpresaNotExistsValidator.class)
 @Target(TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EmpresaNotExists {
+public @interface CCMPEmpresaNotExists {
 
-	String message() default "{cecocloud.validation.constraints.empresaNotExists}";
+	String message() default "{cecocloud.validation.constraints.ccmpEmpresaNotExists}";
 
 	Class<?>[] groups() default {};
 
