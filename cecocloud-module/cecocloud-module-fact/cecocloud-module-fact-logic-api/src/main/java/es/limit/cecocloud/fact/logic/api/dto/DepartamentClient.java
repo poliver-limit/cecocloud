@@ -7,8 +7,11 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.DepartamentClient.DepartamentClientPk;
@@ -102,7 +105,15 @@ public class DepartamentClient extends AbstractIdentificableWithIdentificador<De
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "poblacioMunicipiCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient	

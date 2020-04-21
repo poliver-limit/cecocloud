@@ -74,5 +74,11 @@ public class Organitzacio extends AbstractIdentificableWithIdentificadorAndCodi<
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String observacions;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String nomCodiTxt;
 
 }

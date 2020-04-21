@@ -61,5 +61,11 @@ public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<St
 			//lovParentField = "pais",			
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Provincia, ProvinciaPk> provincia;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String poblacioMunicipiCodiTxt;
 
 }

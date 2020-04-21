@@ -605,7 +605,7 @@
         fmc_ctavencmp varchar(10),
         fmc_nom varchar(30) not null,
         fmc_obs varchar(1000),
-        fmc_tri_cod varchar(4) not null,
+        fmc_tri_cod varchar(4),
         primary key (fmc_cod, fmc_idf_cod)
     );
 
@@ -815,7 +815,7 @@
         org_datcre timestamp,
         org_usumod varchar(255),
         org_datmod timestamp,
-        org_cpo_cod varchar(8) not null,
+        org_cpo_cod varchar(8),
         org_www varchar(60),
         org_con varchar(30),
         org_dom varchar(60),

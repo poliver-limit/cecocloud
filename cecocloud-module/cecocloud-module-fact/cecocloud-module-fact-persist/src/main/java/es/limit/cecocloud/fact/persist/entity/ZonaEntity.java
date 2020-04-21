@@ -18,6 +18,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Zona;
 import es.limit.cecocloud.fact.persist.entity.ZonaEntity.ZonaEntityListener;
@@ -69,6 +71,9 @@ public class ZonaEntity extends AbstractWithIdentificadorAuditableEntity<Zona, W
 
 	@Embedded
 	protected Zona embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(zon.zon_nom,' - '),zon.zon_cod) FROM tges_zon zon where zon.zon_cod = zon_cod and zon.zon_idf_cod = zon_idf_cod)")
+	private String nomCodiTxt;
 
 	@Builder
 	public ZonaEntity(

@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -65,6 +67,9 @@ public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<C
 
 	@Embedded
 	protected CodiPostal embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(cpo.cpo_pob,' - '),cpo.cpo_mun),' - '),cpo.cpo_cod) FROM tges_cpo cpo where cpo.cpo_cod = cpo_cod and cpo.cpo_idf_cod = cpo_idf_cod)")	
+	private String poblacioMunicipiCodiTxt;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(

@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -63,6 +65,9 @@ public class FamiliaClientEntity
 
 	@Embedded
 	protected FamiliaClient embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(fmc.fmc_nom,' - '),fmc.fmc_cod) FROM tges_fmc fmc where fmc.fmc_cod = fmc_cod and fmc.fmc_idf_cod = fmc_idf_cod)")
+	private String nomCodiTxt;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -72,7 +77,7 @@ public class FamiliaClientEntity
 			},
 			foreignKey = @ForeignKey(name = "fmc_tri_cod_fk"))
 	private TipusRiscEntity tipusRisc;
-	@Column(name = "fmc_tri_cod", length = 4, nullable = false)
+	@Column(name = "fmc_tri_cod", length = 4, nullable = true)
 	private String tipusRiscCodi;
 
 	@Builder

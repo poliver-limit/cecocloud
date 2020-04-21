@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.Idioma;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -63,6 +65,9 @@ public class IdiomaEntity extends AbstractWithIdentificadorAuditableEntity<Idiom
 	@Embedded
 	protected Idioma embedded;
 
+	@Formula(value="(SELECT CONCAT(CONCAT(idi.idi_des,' - '),idi.idi_cod) FROM tges_idi idi where idi.idi_cod = idi_cod and idi.idi_idf_cod = idi_idf_cod)")
+	private String descripcioCodiTxt;
+	
 	@Builder
 	public IdiomaEntity(
 			WithIdentificadorAndCodiPk<String> pk,

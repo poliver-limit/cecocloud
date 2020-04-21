@@ -11,16 +11,18 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.Identificable.OnUpdate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.base.boot.logic.api.validation.DocumentIdentitat;
-import es.limit.cecocloud.fact.logic.api.validation.Iban;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientSubtipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.EnviamentFacturaConverter;
 import es.limit.cecocloud.fact.logic.api.converter.RebutsConverter;
@@ -44,6 +46,7 @@ import es.limit.cecocloud.fact.logic.api.dto.enums.TipusMissatgeEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusNifEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusPersonaEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusRetencioEnumDto;
+import es.limit.cecocloud.fact.logic.api.validation.Iban;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import lombok.Getter;
@@ -58,15 +61,6 @@ import lombok.Setter;
 @Setter
 @RestapiResource(descriptionField = "nomComercial")
 @PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
-//@Iban(
-//		paisIban = "paisIban",
-//		dcIban ="digitsControlIban",
-//		banc = "banc",
-//		oficina = "oficinaBancaria",
-//		dc = "digitsControl",
-//		cc = "numeroCC",
-//		groups = { OnCreate.class, OnUpdate.class }
-//)
 @Iban(fields = {"paisIban","digitsControlIban","banc","oficinaBancaria","digitsControl","numeroCC"}, groups = { OnCreate.class, OnUpdate.class })
 public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
@@ -498,7 +492,17 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment1;
 	
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,		
+			lovDescriptionField = "descripcioCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "descripcio",
+							direction = Direction.ASC
+							)
+					}
+	)
 	private GenericReference<TipusAdresa, String> tipusAdresa;
 	
 
@@ -519,19 +523,60 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<TipusFacturacio, WithIdentificadorAndCodiPk<String>> tipusFacturacio;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+				hiddenInGrid = true,
+				lovDescriptionField = "nomCodiTxt"	,
+				lovSortFields =  {
+						@RestapiSort(
+								field = "nom",
+								direction = Direction.ASC
+								)
+						}
+			)
 	private GenericReferenceWithCompositePk<FamiliaClient, WithIdentificadorAndCodiPk<String>> familiaClient;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "poblacioMunicipiCodiTxt"
+			,
+			lovSortFields =  {
+					@RestapiSort(
+							field = "poblacio",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "poblacioMunicipiCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<Idioma, WithIdentificadorAndCodiPk<String>> idioma;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "nomCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;
 
 	@Transient
@@ -543,7 +588,17 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "descripcioPercentatgeCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 
 	@Transient
@@ -567,7 +622,17 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<Transportista, WithIdentificadorAndCodiPk<String>> transportista;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "nomCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operari;
 
 	@Transient
@@ -579,7 +644,16 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> adresaComercialClient;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			lovDescriptionField = "nomCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<Organitzacio, WithIdentificadorAndCodiPk<String>> organitzacio;
 
 	@Transient
@@ -591,7 +665,17 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<TipusComissio, WithIdentificadorAndCodiPk<String>> tipusComissio;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true, lovDescriptionField = "nomCodiTxt")
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "nomCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReference<PaisNif, String> paisNif;
 
 	@Transient

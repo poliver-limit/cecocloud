@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.Iva;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -67,6 +69,9 @@ public class IvaEntity extends AbstractWithIdentificadorAuditableEntity<Iva, Wit
 	@Embedded
 	protected Iva embedded;
 
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(iva.iva_des,' - '),iva.iva_pte),' - '),iva.iva_cod) FROM tges_iva iva where iva.iva_cod = iva_cod and iva.iva_idf_cod = iva_idf_cod)")
+	private String descripcioPercentatgeCodiTxt;
+	
 	@Builder
 	public IvaEntity(
 			WithIdentificadorAndCodiPk<String> pk,

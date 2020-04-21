@@ -6,8 +6,11 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
@@ -43,7 +46,15 @@ public class TipusClient extends AbstractIdentificableWithIdentificador<TipusCli
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
-			disabledForCreate = false)
+			disabledForCreate = false,
+			lovDescriptionField = "descripcioCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<TipusProveidorClient, WithIdentificadorAndCodiPk<String>> tipusProveidorClient;	
 
 	@NoArgsConstructor

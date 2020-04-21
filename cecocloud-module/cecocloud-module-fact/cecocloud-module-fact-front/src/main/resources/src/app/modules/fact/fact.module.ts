@@ -533,7 +533,7 @@ export class FactModule {
 									label: 'Tipus de client',
 									labelKey: 'app.menu.fact.tipusClients',
 									route: '/fact/tipusClients',
-									resource: 'FAC_TIP-C'
+									resource: 'FAC_TIPCLI'
 								}, {
 									icon: 'room',
 									label: 'Tipus de proveïdor/client',

@@ -5,6 +5,7 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -72,5 +73,11 @@ public class Iva extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String text;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descripcioPercentatgeCodiTxt;
 
 }

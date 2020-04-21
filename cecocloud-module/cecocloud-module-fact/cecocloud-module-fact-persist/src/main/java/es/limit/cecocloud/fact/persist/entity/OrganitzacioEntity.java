@@ -17,6 +17,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -69,6 +71,9 @@ public class OrganitzacioEntity
 
 	@Embedded
 	protected Organitzacio embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(org.org_nom,' - '),org.org_cod) FROM tges_org org where org.org_cod = org_cod and org.org_idf_cod = org_idf_cod)")
+	private String nomCodiTxt;
 
 	@ManyToOne(optional = true)
 	@JoinColumns(
@@ -78,7 +83,7 @@ public class OrganitzacioEntity
 			},
 			foreignKey = @ForeignKey(name = "org_cpo_cod_fk"))
 	private CodiPostalEntity codiPostal;
-	@Column(name = "org_cpo_cod", length = 8, nullable = false)
+	@Column(name = "org_cpo_cod", length = 8, nullable = true)
 	private String codiPostalCodi;
 
 	@Builder

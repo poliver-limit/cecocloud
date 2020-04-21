@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.TipusProveidorClient;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -61,6 +63,9 @@ public class TipusProveidorClientEntity extends AbstractWithIdentificadorAuditab
 
 	@Embedded
 	protected TipusProveidorClient embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(tip.tip_des,' - '),tip.tip_cod) FROM tges_tip tip where tip.tip_cod = tip_cod and tip.tip_idf_cod = tip_idf_cod)")
+	private String descripcioCodiTxt;
 
 	@Builder
 	public TipusProveidorClientEntity(

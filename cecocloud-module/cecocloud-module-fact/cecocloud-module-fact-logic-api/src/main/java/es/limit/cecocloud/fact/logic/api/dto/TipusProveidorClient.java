@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,5 +36,11 @@ public class TipusProveidorClient extends AbstractIdentificableWithIdentificador
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String nomCodiTxt;
 	
 }

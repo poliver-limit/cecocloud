@@ -51,6 +51,12 @@ public class FamiliaClient extends AbstractIdentificableWithIdentificadorAndCodi
 	@RestapiField(
 			type = RestapiFieldType.LOV)
 	private GenericReferenceWithCompositePk<TipusRisc, WithIdentificadorAndCodiPk<String>> tipusRisc;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String nomCodiTxt;
 
 }
 

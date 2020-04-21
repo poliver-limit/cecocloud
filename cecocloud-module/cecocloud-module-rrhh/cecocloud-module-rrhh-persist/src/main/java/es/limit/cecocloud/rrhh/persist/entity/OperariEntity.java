@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import lombok.AccessLevel;
@@ -178,6 +180,9 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 
 	@Embedded
 	protected Operari embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(ope.ope_nom,' - '),ope.ope_cod) FROM trhu_ope ope where ope.ope_cod = ope_cod and ope.ope_act='S')")
+	private String nomCodiTxt;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(

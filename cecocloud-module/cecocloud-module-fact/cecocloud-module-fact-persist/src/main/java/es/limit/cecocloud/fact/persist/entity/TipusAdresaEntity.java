@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.base.boot.persist.entity.AbstractEntity;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
@@ -67,6 +69,9 @@ public class TipusAdresaEntity extends AbstractEntity<TipusAdresa, String>{
 	
 	@Embedded
 	protected TipusAdresa embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(tad.tad_des,' - '),tad.tad_cod) FROM tlim_tad tad where tad.tad_cod = tad_cod)")
+	private String descripcioCodiTxt;
 
 	@Builder
 	public TipusAdresaEntity(
