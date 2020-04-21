@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -95,6 +97,9 @@ public class EmpresaEntity extends AbstractWithIdentificadorAuditableEntity<Empr
 
 	@Embedded
 	protected Empresa embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(emp.emp_nomcom,' - '),emp.emp_cod) FROM tges_emp emp where emp.emp_cod = emp_cod and emp.emp_idf_cod = emp_idf_cod)")
+	private String nomCodiTxt;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(

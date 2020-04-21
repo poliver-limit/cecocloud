@@ -407,9 +407,9 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 						@JoinColumn(name = "cli_clr_cod", referencedColumnName = "clr_cod", insertable = false, updatable = false) 
 			},
 			foreignKey = @ForeignKey(name = "cli_clr_cod_fk"))
-	private ClasseRetencioEntity claseRetencio;
+	private ClasseRetencioEntity classeRetencio;
 	@Column(name = "cli_clr_cod", length = 4)
-	private String claseRetencioCodi;
+	private String classeRetencioCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -572,7 +572,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 		updateOficinaBancaria(oficinaBancaria);
 		updateTransportista(transportista);
 		updateOperari(operari);
-		updateClasseRetencio(claseRetencio);
+		updateClasseRetencio(classeRetencio);
 		updateAdresaComercialClient(adresaComercialClient);
 		updateOrganitzacio(organitzacio);
 		updateTarifaDescompte(tarifaDescompte);
@@ -736,10 +736,10 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 		}
 	}
 
-	public void updateClasseRetencio(ClasseRetencioEntity claseRetencio) {
-		this.claseRetencio = claseRetencio;
-		if (claseRetencio != null) {
-			this.claseRetencioCodi = claseRetencio.getEmbedded().getCodi();
+	public void updateClasseRetencio(ClasseRetencioEntity classeRetencio) {
+		this.classeRetencio = classeRetencio;
+		if (classeRetencio != null) {
+			this.classeRetencioCodi = classeRetencio.getEmbedded().getCodi();
 		}
 	}
 
@@ -749,6 +749,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			this.adresaComercialClientCodi = adresaComercialClient.getEmbedded().getCodi();
 		}
 	}
+	
 
 	public void updateOrganitzacio(OrganitzacioEntity organitzacio) {
 		this.organitzacio = organitzacio;

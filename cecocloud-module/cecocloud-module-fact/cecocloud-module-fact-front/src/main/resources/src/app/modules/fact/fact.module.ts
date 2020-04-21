@@ -528,12 +528,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.registresComercials',
 									route: '/fact/registresComercials',
 									resource: 'FAC_REGCOM'
-								}, {
-									icon: 'room',
-									label: 'Tipus de client',
-									labelKey: 'app.menu.fact.tipusClients',
-									route: '/fact/tipusClients',
-									resource: 'FAC_TIPCLI'
+//								}, {
+//									icon: 'room',
+//									label: 'Tipus de client',
+//									labelKey: 'app.menu.fact.tipusClients',
+//									route: '/fact/tipusClients',
+//									resource: 'FAC_TIPCLI'
 								}, {
 									icon: 'room',
 									label: 'Tipus de proveïdor/client',
@@ -589,12 +589,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.departaments',
 									route: '/fact/departaments',
 									resource: 'FAC_DEPART'
-								}, {
-									icon: 'room',
-									label: 'DepartamentsClient',
-									labelKey: 'app.menu.fact.departamentsClient',
-									route: '/fact/departamentsClient',
-									resource: 'FAC_DEPCLI'
+//								}, {
+//									icon: 'room',
+//									label: 'DepartamentsClient',
+//									labelKey: 'app.menu.fact.departamentsClient',
+//									route: '/fact/departamentsClient',
+//									resource: 'FAC_DEPCLI'
 								}, {
 									icon: 'room',
 									label: 'Països',
@@ -643,18 +643,18 @@ export class FactModule {
 									labelKey: 'app.menu.fact.oficinesBancaries',
 									route: '/fact/oficinesBancaries',
 									resource: 'FAC_OFIBAN'
-								}, {
-									icon: 'room',
-									label: 'Comptes corrents empresa',
-									labelKey: 'app.menu.fact.comptesCorrentsEmpresa',
-									route: '/fact/comptesCorrentsEmpresa',
-									resource: 'FAC_EMPCCR'
-								}, {
-									icon: 'room',
-									label: 'Comptes comptables empresa',
-									labelKey: 'app.menu.fact.comptesComptablesEmpresa',
-									route: '/fact/comptesComptablesEmpresa',
-									resource: 'FAC_EMPCCM'
+//								}, {
+//									icon: 'room',
+//									label: 'Comptes corrents empresa',
+//									labelKey: 'app.menu.fact.comptesCorrentsEmpresa',
+//									route: '/fact/comptesCorrentsEmpresa',
+//									resource: 'FAC_EMPCCR'
+//								}, {
+//									icon: 'room',
+//									label: 'Comptes comptables empresa',
+//									labelKey: 'app.menu.fact.comptesComptablesEmpresa',
+//									route: '/fact/comptesComptablesEmpresa',
+//									resource: 'FAC_EMPCCM'
 								}, {
 									icon: 'room',
 									label: 'Transportistes',
@@ -756,24 +756,24 @@ export class FactModule {
 							labelKey: 'app.menu.fact.clients',
 							route: '/fact/clients',
 							resource: 'FAC_CLIENT'
-						}, {
-							icon: 'room',
-							label: 'ClientsAdresa',
-							labelKey: 'app.menu.fact.clientsAdresa',
-							route: '/fact/clientsAdresa',
-							resource: 'FAC_ADRCLI'
+//						}, {
+//							icon: 'room',
+//							label: 'ClientsAdresa',
+//							labelKey: 'app.menu.fact.clientsAdresa',
+//							route: '/fact/clientsAdresa',
+//							resource: 'FAC_ADRCLI'
 						}, {
 							icon: 'room',
 							label: 'Partides',
 							labelKey: 'app.menu.fact.partides',
 							route: '/fact/partides',
 							resource: 'FAC_PARTID'
-						}, {
-							icon: 'room',
-							label: 'Subclients',
-							labelKey: 'app.menu.fact.subClients',
-							route: '/fact/subClients',
-							resource: 'FAC_SUBCLI'
+//						}, {
+//							icon: 'room',
+//							label: 'Subclients',
+//							labelKey: 'app.menu.fact.subClients',
+//							route: '/fact/subClients',
+//							resource: 'FAC_SUBCLI'
 						}, {
 							icon: 'room',
 							label: 'Inversions subjecte passiu',

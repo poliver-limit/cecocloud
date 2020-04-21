@@ -4,6 +4,7 @@
 package es.limit.cecocloud.fact.logic.api.dto;
 
 import javax.persistence.Convert;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -52,4 +53,10 @@ public class ClasseRetencio extends AbstractIdentificableWithIdentificadorAndCod
 			hiddenInLov = true)
 	@Convert(converter = ComptabilitzacioTipusConverter.class)
 	private ComptabilitzacioTipusEnumDto tipusComptabilitzacio;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descripcioCodiTxt;
 }

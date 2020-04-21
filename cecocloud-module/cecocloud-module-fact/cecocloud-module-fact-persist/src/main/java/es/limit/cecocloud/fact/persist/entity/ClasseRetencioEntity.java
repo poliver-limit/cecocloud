@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.ClasseRetencio;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -61,6 +63,9 @@ public class ClasseRetencioEntity
 
 	@Embedded
 	protected ClasseRetencio embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(clr.clr_des,' - '),clr.clr_cod) FROM tges_clr clr where clr.clr_cod = clr_cod and clr.clr_idf_cod = clr_idf_cod)")
+	private String descripcioCodiTxt;
 
 	@Builder
 	public ClasseRetencioEntity(

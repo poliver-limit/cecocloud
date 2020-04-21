@@ -47,35 +47,75 @@ public class IbanValidator implements ConstraintValidator<Iban, Client> {
 			addPropertyNode(field).
 			addConstraintViolation().
 			disableDefaultConstraintViolation();
+		}
+		
+		if (ibanIsEmpty(client)) {
+			return true;
+		} else {
+			String iban = construirIban(client);
+			return (ibanTest(iban));
 		}		
-
-		String iban = construirIban(client);
-		return (ibanTest(iban));
+	}
+	
+	private boolean ibanIsEmpty(Client client) {		
+		if (	(client.getBanc() != null) ||
+				(client.getOficinaBancaria() != null) ||
+				(client.getPaisIban() != null) ||
+				(client.getDigitsControlIban() != null) ||
+				(client.getDigitsControl() !=null) ||
+				(client.getNumeroCC() !=null)
+			) return false;
+		else return true;	
 	}
 	
 	private String construirIban (Client client) {		
 
 		String paisIbanValue = client.getPaisIban();			
 		String dcIbanValue = client.getDigitsControlIban();		
-		String bancValue = numDigitsFormatter(getBancCodi(client), 4);		
-		String oficinaFormattedValue = numDigitsFormatter(getOficinaCodi(client), 4);			
+		
+		Integer bancCodi = getBancCodi(client);
+		String bancValue = "";
+		if (bancCodi!=null) {
+			bancValue = numDigitsFormatter(bancCodi, 4);
+		}
+		
+		Integer oficinaCodi = getOficinaCodi(client);
+		String oficinaValue = ""; 
+		if (oficinaCodi!=null) {
+			oficinaValue = numDigitsFormatter(oficinaCodi, 4);
+		}
+		
 		String dcValue = client.getDigitsControl();		
 		String ccValue = numDigitsFormatter(client.getNumeroCC(), 10);			
 		
-		return paisIbanValue + dcIbanValue + bancValue + oficinaFormattedValue + dcValue + ccValue;		
+		return paisIbanValue + dcIbanValue + bancValue + oficinaValue + dcValue + ccValue;		
 	}
 	
-	private int getBancCodi (Client client) {		
-		String id = client.getBanc().getId();
+	private Integer getBancCodi (Client client) {	
+		String id = "";
+		if (client.getBanc()!=null) {
+			id = client.getBanc().getId();
+		}
 		Banc banc = bancService.getOne(id);
-		int bancCodi = banc.getCodi();		
+		
+		Integer bancCodi = null;
+		if (banc!=null) {
+			bancCodi = banc.getCodi();
+		}
 		return bancCodi;		
 	}
 	
-	private int getOficinaCodi (Client client) {		
-		String id = client.getOficinaBancaria().getId();
+	private Integer getOficinaCodi (Client client) {		
+		String id = "";
+		if (client.getOficinaBancaria()!=null) {
+			id = client.getOficinaBancaria().getId();
+		}		
 		OficinaBancaria oficinaBancaria = oficinaBancariaService.getOne(id);
-		int oficinaBancariaCodi = oficinaBancaria.getCodi();		
+		
+		Integer oficinaBancariaCodi = null;
+		if (oficinaBancaria != null) {
+			oficinaBancariaCodi = oficinaBancaria.getCodi();
+		}
 		return oficinaBancariaCodi;		
 	}
 	
