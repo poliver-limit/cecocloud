@@ -13,7 +13,6 @@
 		<liquibase-hibernate5.version>3.8</liquibase-hibernate5.version>
 		<liquibase-spring.version>5.2.2.RELEASE</liquibase-spring.version>
 		<liquibase-spring-data-jpa.version>2.2.3.RELEASE</liquibase-spring-data-jpa.version>
-		<liquibase-postgresql.version>42.2.10</liquibase-postgresql.version>
 		<liquibase-property.file>${project.basedir}/liquibase/liquibase.properties</liquibase-property.file>
 		<ojdbc6.version>11.2.0.4</ojdbc6.version>
 	</properties>
@@ -31,6 +30,22 @@
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>${ojdbc6.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -63,7 +78,7 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
-	<profiles>
+	<!--profiles>
 		<profile>
 			<id>postgres</id>
 			<activation>
@@ -107,7 +122,7 @@
 				</dependency>
 			</dependencies>
 		</profile>
-	</profiles>
+	</profiles-->
 	<build>
 		<plugins>
 			<plugin>
@@ -167,11 +182,6 @@
 						<groupId>org.springframework.data</groupId>
 						<artifactId>spring-data-jpa</artifactId>
 						<version>${liquibase-spring-data-jpa.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.postgresql</groupId>
-						<artifactId>postgresql</artifactId>
-						<version>${liquibase-postgresql.version}</version>
 					</dependency>
 				</dependencies>               
 			</plugin>
