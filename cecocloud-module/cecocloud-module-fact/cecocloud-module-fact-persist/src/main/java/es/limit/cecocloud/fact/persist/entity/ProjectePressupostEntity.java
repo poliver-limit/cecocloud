@@ -131,8 +131,10 @@ public class ProjectePressupostEntity extends AbstractWithIdentificadorAuditable
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-					@JoinColumn(name = "pjp_cap_cod", referencedColumnName = "cap_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "pjp_idf_cod", referencedColumnName = "cap_idf_cod", insertable = false, updatable = false)
+					@JoinColumn(name = "pjp_idf_cod", referencedColumnName = "cap_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_emp_cod", referencedColumnName = "cap_emp_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_pre_cod", referencedColumnName = "cap_pre_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pjp_cap_cod", referencedColumnName = "cap_cod", insertable = false, updatable = false)
 					
 			},
 			foreignKey = @ForeignKey(name = "rges_pjp_cap_fk"))
