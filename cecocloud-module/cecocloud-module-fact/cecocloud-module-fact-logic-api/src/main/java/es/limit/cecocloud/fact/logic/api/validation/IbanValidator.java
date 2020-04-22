@@ -60,10 +60,10 @@ public class IbanValidator implements ConstraintValidator<Iban, Client> {
 	private boolean ibanIsEmpty(Client client) {		
 		if (	(client.getBanc() != null) ||
 				(client.getOficinaBancaria() != null) ||
-				(client.getPaisIban() != null) ||
-				(client.getDigitsControlIban() != null) ||
-				(client.getDigitsControl() !=null) ||
-				(client.getNumeroCC() !=null)
+				(client.getPaisIban() != null && !client.getPaisIban().equals("")) ||
+				(client.getDigitsControlIban() != null && !client.getDigitsControlIban().equals("")) ||
+				(client.getDigitsControl() !=null && !client.getDigitsControl().equals("")) ||
+				(client.getNumeroCC() !=null && !client.getNumeroCC().equals(""))
 			) return false;
 		else return true;	
 	}
@@ -92,30 +92,30 @@ public class IbanValidator implements ConstraintValidator<Iban, Client> {
 	}
 	
 	private Integer getBancCodi (Client client) {	
+		
+		Integer bancCodi = null;
 		String id = "";
 		if (client.getBanc()!=null) {
 			id = client.getBanc().getId();
-		}
-		Banc banc = bancService.getOne(id);
-		
-		Integer bancCodi = null;
-		if (banc!=null) {
-			bancCodi = banc.getCodi();
+			Banc banc = bancService.getOne(id);
+			if (banc!=null) {
+				bancCodi = banc.getCodi();
+			}
 		}
 		return bancCodi;		
 	}
 	
 	private Integer getOficinaCodi (Client client) {		
+		
+		Integer oficinaBancariaCodi = null;
 		String id = "";
 		if (client.getOficinaBancaria()!=null) {
 			id = client.getOficinaBancaria().getId();
+			OficinaBancaria oficinaBancaria = oficinaBancariaService.getOne(id);
+			if (oficinaBancaria != null) {
+				oficinaBancariaCodi = oficinaBancaria.getCodi();
+			}
 		}		
-		OficinaBancaria oficinaBancaria = oficinaBancariaService.getOne(id);
-		
-		Integer oficinaBancariaCodi = null;
-		if (oficinaBancaria != null) {
-			oficinaBancariaCodi = oficinaBancaria.getCodi();
-		}
 		return oficinaBancariaCodi;		
 	}
 	
@@ -139,26 +139,34 @@ public class IbanValidator implements ConstraintValidator<Iban, Client> {
     public static final BigInteger IBANNUMBER_MAGIC_NUMBER = new BigInteger("97");
 
     public static boolean ibanTest(String accountNumber) {
-        String newAccountNumber = accountNumber.trim();
-
-        // Check that the total IBAN length is correct as per the country. If not, the IBAN is invalid. We could also check
-        // for specific length according to country, but for now we won't
-        if (newAccountNumber.length() < IBANNUMBER_MIN_SIZE || newAccountNumber.length() > IBANNUMBER_MAX_SIZE) {
-            return false;
-        }
-
-        // Move the four initial characters to the end of the string.
-        newAccountNumber = newAccountNumber.substring(4) + newAccountNumber.substring(0, 4);
-
-        // Replace each letter in the string with two digits, thereby expanding the string, where A = 10, B = 11, ..., Z = 35.
-        StringBuilder numericAccountNumber = new StringBuilder();
-        for (int i = 0;i < newAccountNumber.length();i++) {
-            numericAccountNumber.append(Character.getNumericValue(newAccountNumber.charAt(i)));
-        }
-
-        // Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
-        BigInteger ibanNumber = new BigInteger(numericAccountNumber.toString());
-        return ibanNumber.mod(IBANNUMBER_MAGIC_NUMBER).intValue() == 1;
+        
+    	boolean ibanOk = false;
+    	
+    	try {
+	    	String newAccountNumber = accountNumber.trim();
+	
+	        // Check that the total IBAN length is correct as per the country. If not, the IBAN is invalid. We could also check
+	        // for specific length according to country, but for now we won't
+	        if (newAccountNumber.length() < IBANNUMBER_MIN_SIZE || newAccountNumber.length() > IBANNUMBER_MAX_SIZE) {
+	            return false;
+	        }
+	
+	        // Move the four initial characters to the end of the string.
+	        newAccountNumber = newAccountNumber.substring(4) + newAccountNumber.substring(0, 4);
+	
+	        // Replace each letter in the string with two digits, thereby expanding the string, where A = 10, B = 11, ..., Z = 35.
+	        StringBuilder numericAccountNumber = new StringBuilder();
+	        for (int i = 0;i < newAccountNumber.length();i++) {
+	            numericAccountNumber.append(Character.getNumericValue(newAccountNumber.charAt(i)));
+	        }
+	
+	        // Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
+	        BigInteger ibanNumber = new BigInteger(numericAccountNumber.toString());
+	        ibanOk = ibanNumber.mod(IBANNUMBER_MAGIC_NUMBER).intValue() == 1;
+    	} catch (Exception ex) {    		
+    		return false;
+    	}
+        return ibanOk;
 
     }	
 
