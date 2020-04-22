@@ -4,6 +4,7 @@
 package es.limit.cecocloud.fact.logic.api.dto;
 
 import javax.persistence.Convert;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -58,5 +59,11 @@ public class RegimIva extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiFacturaElectronica;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descripcioCodiTxt;
 
 }

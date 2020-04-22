@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.RegimIva;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -65,6 +67,9 @@ public class RegimIvaEntity extends AbstractWithIdentificadorAuditableEntity<Reg
 	@Embedded
 	protected RegimIva embedded;
 
+	@Formula(value="(SELECT CONCAT(CONCAT(rgi.rgi_des,' - '),rgi.rgi_cod) FROM tges_rgi rgi where rgi.rgi_cod = rgi_cod and rgi.rgi_idf_cod = rgi_idf_cod)")
+	private String descripcioCodiTxt;
+	
 	@Builder
 	public RegimIvaEntity(
 			WithIdentificadorAndCodiPk<String> pk,

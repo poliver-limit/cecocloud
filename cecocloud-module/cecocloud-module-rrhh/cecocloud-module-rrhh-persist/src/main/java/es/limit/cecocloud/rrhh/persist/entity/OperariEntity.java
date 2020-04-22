@@ -181,7 +181,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Embedded
 	protected Operari embedded;
 	
-	@Formula(value="(SELECT CONCAT(CONCAT(ope.ope_nom,' - '),ope.ope_cod) FROM trhu_ope ope where ope.ope_cod = ope_cod and ope.ope_act='S')")
+	@Formula(value="(SELECT CONCAT(CONCAT(ope.ope_nom,' - '),ope.ope_cod) FROM trhu_ope ope where ope.ope_cod = ope_cod and ope.ope_idf_cod = ope_idf_cod and ope.ope_act='S')")
 	private String nomCodiTxt;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)

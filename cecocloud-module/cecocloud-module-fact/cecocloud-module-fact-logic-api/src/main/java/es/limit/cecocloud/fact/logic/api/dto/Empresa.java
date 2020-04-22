@@ -221,5 +221,11 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true, 
 			hiddenInGrid = true)
 	private Date tancamentData;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String nomCodiTxt;
 
 }

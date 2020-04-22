@@ -507,7 +507,17 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "descripcioCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "descripcio",
+							direction = Direction.ASC
+							)
+					}
+			)			
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 
 	@Transient
@@ -636,8 +646,18 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operari;
 
 	@Transient
-	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
-	private GenericReferenceWithCompositePk<ClasseRetencio, WithIdentificadorAndCodiPk<String>> claseRetencio;
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "descripcioCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "descripcio",
+							direction = Direction.ASC
+							)
+					}
+			)
+	private GenericReferenceWithCompositePk<ClasseRetencio, WithIdentificadorAndCodiPk<String>> classeRetencio;
 
 	@Transient
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
@@ -667,7 +687,8 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
+			hiddenInGrid = true
+			,
 			lovDescriptionField = "nomCodiTxt",
 			lovSortFields =  {
 					@RestapiSort(

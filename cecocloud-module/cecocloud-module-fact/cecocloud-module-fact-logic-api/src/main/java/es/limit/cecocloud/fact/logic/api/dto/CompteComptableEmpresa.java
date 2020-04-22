@@ -7,8 +7,11 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.Identificable.OnUpdate;
@@ -49,7 +52,15 @@ public class CompteComptableEmpresa extends AbstractIdentificableWithIdentificad
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
-			disabledForCreate = false)
+			disabledForCreate = false,
+			lovDescriptionField = "nomCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nomComercial",
+							direction = Direction.ASC
+							)
+					}
+			)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;	
 	
 	@RestapiField(
