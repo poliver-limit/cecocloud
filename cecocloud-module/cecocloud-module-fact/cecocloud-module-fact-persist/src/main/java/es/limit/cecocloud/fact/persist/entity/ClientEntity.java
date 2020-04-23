@@ -48,13 +48,13 @@ import lombok.Setter;
 		@AttributeOverride(name = "id.codi", column = @Column(name = "cli_cod", length = 6)),
 		@AttributeOverride(name = "embedded.codi", column = @Column(name = "cli_cod", length = 6, insertable = false, updatable = false)),
 		@AttributeOverride(name = "embedded.nomComercial", column = @Column(name = "cli_nomcom", length = 40, nullable = false)),
-		@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "cli_blo", length = 1)),
-		@AttributeOverride(name = "embedded.potencial", column = @Column(name = "cli_pot", length = 1)),
-		@AttributeOverride(name = "embedded.rebuts", column = @Column(name = "cli_reb", length = 1)),
-		@AttributeOverride(name = "embedded.recarrecEquivalencia", column = @Column(name = "cli_recequ", length = 1)),
-		@AttributeOverride(name = "embedded.albaraValorat", column = @Column(name = "cli_albval", length = 1)),
-		@AttributeOverride(name = "embedded.tipusFactura", column = @Column(name = "cli_tipfac", length = 1)),
-		@AttributeOverride(name = "embedded.nomFiscal", column = @Column(name = "cli_nomfis", length = 40)),
+		@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "cli_blo", length = 1, nullable = false)),
+		@AttributeOverride(name = "embedded.potencial", column = @Column(name = "cli_pot", length = 1, nullable = false)),
+		@AttributeOverride(name = "embedded.rebuts", column = @Column(name = "cli_reb", length = 1, nullable = false)),
+		@AttributeOverride(name = "embedded.recarrecEquivalencia", column = @Column(name = "cli_recequ", length = 1, nullable = false)),
+		@AttributeOverride(name = "embedded.albaraValorat", column = @Column(name = "cli_albval", length = 1, nullable = false)),
+		@AttributeOverride(name = "embedded.tipusFactura", column = @Column(name = "cli_tipfac", length = 1, nullable = false)),
+		@AttributeOverride(name = "embedded.nomFiscal", column = @Column(name = "cli_nomfis", length = 40, nullable = false)),
 		@AttributeOverride(name = "embedded.alias", column = @Column(name = "cli_ali", length = 30)),
 		@AttributeOverride(name = "embedded.nif", column = @Column(name = "cli_nif", length = 12)),
 		@AttributeOverride(name = "embedded.domiciliFiscal", column = @Column(name = "cli_domfis", length = 60)),
@@ -89,7 +89,7 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.parametreNum5", column = @Column(name = "cli_parnum005")),
 		@AttributeOverride(name = "embedded.facturesSenseDescompte", column = @Column(name = "cli_facsendte", length = 1)),
 		@AttributeOverride(name = "embedded.copiesFactura", column = @Column(name = "cli_copfac")),
-		@AttributeOverride(name = "embedded.entitatPublica", column = @Column(name = "cli_ettpub", length = 1)),
+		@AttributeOverride(name = "embedded.entitatPublica", column = @Column(name = "cli_ettpub", length = 1, nullable = false)),
 		@AttributeOverride(name = "embedded.censadoAEAT", column = @Column(name = "cli_rgtaea", length = 1)),
 		@AttributeOverride(name = "embedded.proximaVisitaComercial", column = @Column(name = "cli_viscmlprt")),
 		@AttributeOverride(name = "embedded.situacioComercialCodi", column = @Column(name = "cli_stc_cod", length = 4)),
@@ -106,15 +106,15 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.descompteFinalFacturesComptatClase1", column = @Column(name = "cli_dtectt001")),
 		@AttributeOverride(name = "embedded.descompteFinalFacturesTerminiClase1", column = @Column(name = "cli_dtepla001")),
 		@AttributeOverride(name = "embedded.percentatgePermesFacturesClase1", column = @Column(name = "cli_ptefac001")),
-		@AttributeOverride(name = "embedded.mostrarPercentatgeFacturacioClase1", column = @Column(name = "cli_avifac001")),
-		@AttributeOverride(name = "embedded.aplicarPreusPerVolum", column = @Column(name = "cli_pvl", length = 1)),
+		@AttributeOverride(name = "embedded.mostrarPercentatgeFacturacioClase1", column = @Column(name = "cli_avifac001", nullable = false)),
+		@AttributeOverride(name = "embedded.aplicarPreusPerVolum", column = @Column(name = "cli_pvl", length = 1, nullable = false)),
 		@AttributeOverride(name = "embedded.nomDomicili", column = @Column(name = "cli_nomdom", length = 30)),
 		@AttributeOverride(name = "embedded.numeroDomicili", column = @Column(name = "cli_numdom", length = 5)),
 		@AttributeOverride(name = "embedded.escalaDomicili", column = @Column(name = "cli_escdom", length = 2)),
 		@AttributeOverride(name = "embedded.pisDomicili", column = @Column(name = "cli_pisdom", length = 2)),
 		@AttributeOverride(name = "embedded.portaDomicili", column = @Column(name = "cli_pordom", length = 2)),
 		@AttributeOverride(name = "embedded.riscLimit", column = @Column(name = "cli_rislim")),
-		@AttributeOverride(name = "embedded.tipusMissatge", column = @Column(name = "cli_tipmsg", length = 1)),
+		@AttributeOverride(name = "embedded.tipusMissatge", column = @Column(name = "cli_tipmsg", length = 1, nullable = false)),
 		@AttributeOverride(name = "embedded.albaraClientSubtipus", column = @Column(name = "cli_albcls")),
 		@AttributeOverride(name = "embedded.emailFactura", column = @Column(name = "cli_emlfac", length = 100)),
 		@AttributeOverride(name = "embedded.publicarDocumentsWeb", column = @Column(name = "cli_pubweb", length = 1)),
@@ -122,7 +122,7 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.aplicarImpostPuntVerd", column = @Column(name = "cli_aplims", length = 1)),
 		@AttributeOverride(name = "embedded.aplicarImpostServei", column = @Column(name = "cli_aplimpsrv", length = 1)),
 		@AttributeOverride(name = "embedded.impostInclos", column = @Column(name = "cli_imsicl", length = 1)),
-		@AttributeOverride(name = "embedded.permesEntrarPartes", column = @Column(name = "cli_ctlffo", length = 1)),
+		@AttributeOverride(name = "embedded.permesEntrarPartes", column = @Column(name = "cli_ctlffo", length = 1, nullable = false)),
 		@AttributeOverride(name = "embedded.tipusNif", column = @Column(name = "cli_tipnif", length = 1)),				
 		@AttributeOverride(name = "embedded.paisIban", column = @Column(name = "cli_ibnpai", length = 2)),
 		@AttributeOverride(name = "embedded.digitsControlIban", column = @Column(name = "cli_ibndcc", length = 2)),
@@ -168,7 +168,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	@Embedded
 	protected Client embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "div_idf_cod", insertable = false, updatable = false),
@@ -176,10 +176,10 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			},
 			foreignKey = @ForeignKey(name = "cli_div_cod_fk"))
 	private DivisaEntity divisa;
-	@Column(name = "cli_div_cod", length = 4)
+	@Column(name = "cli_div_cod", length = 4, nullable = false)
 	private String divisaCodi;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "tve_idf_cod", insertable = false, updatable = false),
@@ -187,7 +187,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			},
 			foreignKey = @ForeignKey(name = "cli_tve_cod_fk"))
 	private TipusVencimentEntity tipusVenciment;
-	@Column(name = "cli_tve_cod", length = 4)
+	@Column(name = "cli_tve_cod", length = 4, nullable = false)
 	private String tipusVencimentCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -211,7 +211,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	@Column(name = "cli_tve_cod001", length = 4)
 	private String tipusVenciment1Codi;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "rgi_idf_cod", insertable = false, updatable = false),
@@ -219,7 +219,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			},
 			foreignKey = @ForeignKey(name = "cli_rgi_cod_fk"))
 	private RegimIvaEntity regimIva;
-	@Column(name = "cli_rgi_cod", length = 2)
+	@Column(name = "cli_rgi_cod", length = 2, nullable = false)
 	private String regimIvaCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -233,7 +233,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	@Column(name = "cli_rap_cod", length = 4)
 	private String rappelCodi;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "dpg_idf_cod", insertable = false, updatable = false),
@@ -241,10 +241,10 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			},
 			foreignKey = @ForeignKey(name = "cli_dpg_cod_fk"))
 	private DocumentPagamentCobramentEntity documentPagament;
-	@Column(name = "cli_dpg_cod", length = 4)
+	@Column(name = "cli_dpg_cod", length = 4, nullable = false)
 	private String documentPagamentCodi;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "tfc_idf_cod", insertable = false, updatable = false),
@@ -252,10 +252,10 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			},
 			foreignKey = @ForeignKey(name = "cli_tfc_cod_fk"))
 	private TipusFacturacioEntity tipusFacturacio;
-	@Column(name = "cli_tfc_cod", length = 4)
+	@Column(name = "cli_tfc_cod", length = 4, nullable = false)
 	private String tipusFacturacioCodi;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "fmc_idf_cod", insertable = false, updatable = false),
@@ -263,7 +263,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			},
 			foreignKey = @ForeignKey(name = "cli_fmc_cod_fk"))
 	private FamiliaClientEntity familiaClient;
-	@Column(name = "cli_fmc_cod", length = 4)
+	@Column(name = "cli_fmc_cod", length = 4, nullable = false)
 	private String familiaClientCodi;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

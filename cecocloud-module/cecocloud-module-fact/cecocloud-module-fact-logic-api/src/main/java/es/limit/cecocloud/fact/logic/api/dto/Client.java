@@ -75,36 +75,43 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private String nomComercial;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean bloquejat = false;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean potencial = false;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = RebutsConverter.class)
 	private RebutsEnumDto rebuts;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean recarrecEquivalencia = false;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean albaraValorat = false;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = TipusFacturaConverter.class)
 	private TipusFacturaEnumDto tipusFactura;
 
 	@Size(max = 40)
+	@NotNull
 	@RestapiField(hiddenInLov = true)
 	private String nomFiscal;
 
@@ -233,6 +240,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private Integer copiesFactura;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean entitatPublica = false;
@@ -293,11 +301,13 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private Float percentatgePermesFacturesClase1;
 
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean mostrarPercentatgeFacturacioClase1 = false;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean aplicarPreusPerVolum = false;
@@ -326,6 +336,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private BigDecimal riscLimit;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = TipusMissatgeConverter.class)
 	private TipusMissatgeEnumDto tipusMissatge;
@@ -363,6 +374,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private Boolean impostInclos = false;
 
 //	@Size(max = 1)
+	@NotNull
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean permesEntrarPartes = false;
@@ -480,10 +492,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private Boolean cobrarDiesLloguer = false;	
 
 	@Transient
+	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 
 	@Transient
+	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 
@@ -507,6 +521,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	
 
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
@@ -525,14 +540,17 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<Rappel, WithIdentificadorAndCodiPk<String>> rappel;
 
 	@Transient
+	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagament;
 
 	@Transient
+	@NotNull
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusFacturacio, WithIdentificadorAndCodiPk<String>> tipusFacturacio;
 
 	@Transient
+	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 				hiddenInGrid = true,

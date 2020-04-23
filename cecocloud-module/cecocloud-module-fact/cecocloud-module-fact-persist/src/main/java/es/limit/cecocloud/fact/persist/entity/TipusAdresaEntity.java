@@ -44,6 +44,7 @@ import lombok.Setter;
 		}		
 		
 )
+
 @AttributeOverrides({
 	//@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "tad_idf_cod", length = 4)),
 	//@AttributeOverride(name = "id.codi", column = @Column(name = "tad_cod", length = 4)),
