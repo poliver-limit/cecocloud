@@ -148,7 +148,7 @@
         primary key (cap_emp_cod, cap_pre_cod, cap_cod, cap_idf_cod)
     );
 
-   create table tges_cbc (
+    create table tges_cbc (
        cbc_ban_cod int4 not null,
         cbc_cli_cod varchar(6) not null,
         cbc_dcc varchar(2) not null,
@@ -190,17 +190,17 @@
         cli_cpo_codoficmp varchar(8),
         cli_cpo_codorgges varchar(8),
         cli_cpo_codunitrm varchar(8),
-        cli_div_cod varchar(4),
-        cli_dpg_cod varchar(4),
+        cli_div_cod varchar(4) not null,
+        cli_dpg_cod varchar(4) not null,
         cli_www varchar(60),
         cli_albcls int4,
-        cli_albval varchar(1),
+        cli_albval varchar(1) not null,
         cli_ali varchar(30),
         cli_aplims varchar(1),
         cli_aplimpsrv varchar(1),
-        cli_pvl varchar(1),
+        cli_pvl varchar(1) not null,
         cli_ibnbic varchar(11),
-        cli_blo varchar(1),
+        cli_blo varchar(1) not null,
         cli_rgtaea varchar(1),
         cli_cobdiallo varchar(255),
         cli_ctecmp varchar(10),
@@ -222,7 +222,7 @@
         cli_emlalb varchar(100),
         cli_emlfac varchar(100),
         cli_emlfacele varchar(60),
-        cli_ettpub varchar(1),
+        cli_ettpub varchar(1) not null,
         cli_envfac varchar(1),
         cli_escdom varchar(2),
         cli_facele varchar(255),
@@ -234,13 +234,13 @@
         cli_llnfis001 varchar(40),
         cli_llnfis002 varchar(40),
         cli_lon numeric(19, 2),
-        cli_avifac001 varchar(255),
+        cli_avifac001 varchar(255) not null,
         cli_nif varchar(12),
         cli_notprnpal varchar(1),
         cli_notprnscl varchar(1),
         cli_nomcom varchar(40) not null,
         cli_nomdom varchar(30),
-        cli_nomfis varchar(40),
+        cli_nomfis varchar(40) not null,
         cli_nomfis001 varchar(40),
         cli_ccr int8,
         cli_numdom varchar(5),
@@ -271,15 +271,15 @@
         cli_partxtcom005 varchar(60),
         cli_ptefac001 float4,
         cli_ret float4,
-        cli_ctlffo varchar(1),
+        cli_ctlffo varchar(1) not null,
         cli_con varchar(60),
         cli_pisdom varchar(2),
         cli_pordom varchar(2),
-        cli_pot varchar(1),
+        cli_pot varchar(1) not null,
         cli_viscmlprt timestamp,
         cli_pubweb varchar(1),
-        cli_reb varchar(1),
-        cli_recequ varchar(1),
+        cli_reb varchar(1) not null,
+        cli_recequ varchar(1) not null,
         cli_banrefmdl019 varchar(35),
         cli_rislim numeric(19, 2),
         cli_rismax numeric(19, 2),
@@ -288,14 +288,14 @@
         cli_telfacele varchar(60),
         cli_tipdte int4,
         cli_tipext varchar(1),
-        cli_tipfac int4,
-        cli_tipmsg varchar(1),
+        cli_tipfac int4 not null,
+        cli_tipmsg varchar(1) not null,
         cli_tipnif int4,
         cli_tipper varchar(1),
         cli_tipret int4,
         cli_unitrm varchar(30),
         cli_emp_codser varchar(4),
-        cli_fmc_cod varchar(4),
+        cli_fmc_cod varchar(4) not null,
         cli_idi_cod varchar(4),
         cli_iva_cod varchar(4),
         cli_ofb_cod int4,
@@ -303,7 +303,7 @@
         cli_org_cod varchar(6),
         cli_painif varchar(4),
         cli_rap_cod varchar(4),
-        cli_rgi_cod varchar(2),
+        cli_rgi_cod varchar(2) not null,
         cli_ser_cod varchar(4),
         cli_tar_cod001 varchar(4),
         cli_tar_cod002 varchar(4),
@@ -311,9 +311,9 @@
         cli_tds_cod varchar(6),
         cli_sgl varchar(4),
         cli_tcs_cod varchar(4),
-        cli_tfc_cod varchar(4),
+        cli_tfc_cod varchar(4) not null,
         cli_tve_cod001 varchar(4),
-        cli_tve_cod varchar(4),
+        cli_tve_cod varchar(4) not null,
         cli_tra_cod varchar(6),
         cli_zon_cod varchar(4),
         primary key (cli_cod, cli_idf_cod)
@@ -1567,13 +1567,8 @@ create index iges_art_idf_fk on tges_art (art_idf_cod);
 create index iges_ban_idf_fk on tges_ban (ban_idf_cod);
 create index iges_cap_emp_fk on tges_cap (cap_idf_cod, cap_emp_cod);
 create index iges_cap_pre_fk on tges_cap (cap_idf_cod, cap_emp_cod, cap_pre_cod);
-
-    alter table tges_cap 
-       add constraint UK_826trstyfumhf2lp1vro4ofgi unique (cap_cod, cap_idf_cod);
 create index iges_cbc_idf_fk on tges_cbc (cbc_idf_cod);
-
 create index iges_cce_idf_fk on tges_cce (cce_idf_cod);
-
 create index iges_cli_idf_fk on tges_cli (cli_idf_cod);
 
     alter table tges_clm 
@@ -1710,6 +1705,50 @@ create index iges_vpp_prj_fk on tges_vpp (vpp_idf_cod, vpp_prj_num);
 create index iges_vpp_pro_fk on tges_vpp (vpp_idf_cod, vpp_pro_cod);
 create index iges_vpp_tve_fk on tges_vpp (vpp_idf_cod, vpp_tve_cod);
 create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
+create index irhu_cat_idf_fk on trhu_cat (cat_idf_cod);
+create index irhu_cen_idf_fk on trhu_cen (cen_idf_cod);
+create index irhu_cln_idf_fk on trhu_cln (cln_idf_cod);
+
+    alter table trhu_cln 
+       add constraint irrhu_cln_pk unique (cln_idf_cod);
+create index irhu_emp_idf_fk on trhu_emp (emp_idf_cod);
+create index irhu_gfe_idf_fk on trhu_gfe (gfe_idf_cod);
+create index irhu_gre_idf_fk on trhu_gre (gre_idf_cod);
+create index irhu_gse_idf_fk on trhu_gse (gse_idf_cod);
+
+    alter table trhu_gse 
+       add constraint irrhu_gse_pk unique (gse_idf_cod, gse_cod);
+create index irhu_hor_idf_fk on trhu_hor (hor_idf_cod);
+create index irhu_inr_idf_fk on trhu_inr (inr_idf_cod);
+create index irhu_nod_idf_fk on trhu_nod (nod_idf_cod);
+create index irhu_ope_idf_fk on trhu_ope (ope_idf_cod);
+create index irhu_par_idf_fk on trhu_par (par_idf_cod);
+create index irhu_rdi_idf_fk on trhu_rdi (rdi_idf_cod);
+
+    alter table trhu_rdi 
+       add constraint irrhu_rdi_pk unique (rdi_idf_cod);
+create index irhu_reg_idf_fk on trhu_reg (reg_idf_cod);
+create index irhu_sct_idf_fk on trhu_sct (sct_idf_cod);
+create index irhu_sec_idf_fk on trhu_sec (sec_idf_cod);
+
+    alter table trhu_sec 
+       add constraint UK_2gjy6kdwg20dg4joks83qdkxv unique (sec_emp_cod, sec_gse_cod, sec_idf_cod);
+
+    alter table trhu_sec 
+       add constraint irrhu_sec_pk unique (sec_idf_cod, sec_cod);
+create index irhu_sno_idf_fk on trhu_sno (sno_idf_cod);
+create index irhu_tdi_idf_fk on trhu_tdi (tdi_idf_cod);
+create index irhu_tor_idf_fk on trhu_tor (tor_idf_cod);
+create index irhu_tra_idf_fk on trhu_tra (tra_idf_cod);
+create index irhu_ttr_idf_fk on trhu_ttr (ttr_idf_cod);
+create index irhu_vad_idf_fk on trhu_vad (vad_idf_cod);
+create index irhu_zon_idf_fk on trhu_zon (zon_idf_cod);
+
+    alter table usuari 
+       add constraint usuari_codi_uk unique (codi);
+
+    alter table usuari 
+       add constraint usuari_email_uk unique (email);
 
     alter table tges_aap 
        add constraint rges_aap_idf_fk 
@@ -1846,7 +1885,7 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
        foreign key (cap_emp_cod, cap_pre_cod, cap_idf_cod) 
        references tges_pre;
 
-  alter table tges_cbc 
+    alter table tges_cbc 
        add constraint rges_cbc_idf_fk 
        foreign key (cbc_idf_cod) 
        references tges_idf;
@@ -2393,8 +2432,8 @@ create index iges_zon_idf_fk on tges_zon (zon_idf_cod);
 
     alter table tges_pjp 
        add constraint rges_pjp_cap_fk 
-       foreign key (pjp_cap_cod, pjp_idf_cod) 
-       references tges_cap (cap_cod, cap_idf_cod);
+       foreign key (pjp_emp_cod, pjp_pre_cod, pjp_cap_cod, pjp_idf_cod) 
+       references tges_cap;
 
     alter table tges_pjp 
        add constraint rges_pjp_emp_fk 
