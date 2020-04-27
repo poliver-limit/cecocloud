@@ -31,7 +31,6 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 import es.limit.cecocloud.persist.repository.OperariEmpresaRepository;
 import es.limit.cecocloud.persist.repository.OperariRepository;
 import lombok.extern.slf4j.Slf4j;
-import ma.glasnost.orika.MapperFacade;
 
 /**
  * Implementació del servei encarregat de generar tokens JWT.
@@ -53,8 +52,6 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
 
-	@Autowired
-	protected MapperFacade orikaMapperFacade;
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
 
