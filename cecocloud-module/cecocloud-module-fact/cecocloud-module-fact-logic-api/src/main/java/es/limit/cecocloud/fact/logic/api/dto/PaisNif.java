@@ -12,7 +12,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.cecocloud.fact.logic.api.converter.PaisNifTipusConverter;
 import es.limit.cecocloud.fact.logic.api.dto.enums.PaisNifTipusEnumDto;
-import es.limit.cecocloud.logic.api.dto.AbstractIdentificableWithIdentificador;
+import es.limit.base.boot.logic.api.dto.AbstractIdentificable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @RestapiResource(descriptionField = "nom")
 
-public class PaisNif extends AbstractIdentificableWithIdentificador<String> {
+public class PaisNif extends AbstractIdentificable<String> {
 
 	@NotNull
 	@Size(max = 4)
