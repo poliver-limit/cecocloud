@@ -50,6 +50,12 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 	public clientValue: string;
 	
 	onFormGroupChange(formGroup: FormGroup) {		
+		
+		// Inicialitzar la data inici de la garantia amb el valor introduït en la data de fi del projecte		
+		formGroup.get('dataFi').valueChanges.subscribe(val => {				
+			formGroup.get('dataIniciGarantia').setValue(val);
+	 	})
+		
 //		this.form.getInputField('client').setCustomFilter('nomComercial=ic=C*');
 		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));			
 		formGroup.valueChanges.subscribe(val => {

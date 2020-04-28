@@ -8,6 +8,7 @@ import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -20,10 +21,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import es.limit.cecocloud.fact.persist.repository.ClientRepository;
 import es.limit.cecocloud.fact.logic.api.dto.Client;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.persist.entity.ClientEntity.ClientEntityListener;
 import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil.PkBuilder;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -185,7 +190,9 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "tve_idf_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "cli_tve_cod", referencedColumnName = "tve_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "cli_tve_cod_fk"))
+//			foreignKey = @ForeignKey(name = "cli_tve_cod_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+	@NotFound(action = NotFoundAction.IGNORE)
 	private TipusVencimentEntity tipusVenciment;
 	@Column(name = "cli_tve_cod", length = 4, nullable = false)
 	private String tipusVencimentCodi;
@@ -195,7 +202,9 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			value = {						
 						@JoinColumn(name = "cli_sgl", referencedColumnName = "tad_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "cli_sgl_cod_fk"))
+//			foreignKey = @ForeignKey(name = "cli_sgl_cod_fk"))			
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+	@NotFound(action = NotFoundAction.IGNORE)
 	private TipusAdresaEntity tipusAdresa;
 	@Column(name = "cli_sgl", length = 4)
 	private String tipusAdresaCodi;
@@ -807,18 +816,38 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 		}
 	}
 
+//	public static class ClientEntityListener {
+//		@PrePersist
+//		public void calcular(ClientEntity client) {
+//			String codi = client.getEmbedded().getCodi();
+//			if (codi == null || codi.isEmpty()) {
+//				int seq = EntityListenerUtil.getSeguentNumComptador(
+//						client.getIdentificador().getId(),
+//						"TGES_CLI");
+//				String seqST = Integer.toString(seq);
+//				client.getEmbedded().setCodi(seqST);
+//				client.getId().setCodi(seqST);
+//			}
+//		}
+//	}
+//	
 	public static class ClientEntityListener {
 		@PrePersist
 		public void calcular(ClientEntity client) {
-			String codi = client.getEmbedded().getCodi();
-			if (codi == null || codi.isEmpty()) {
-				int seq = EntityListenerUtil.getSeguentNumComptador(
-						client.getIdentificador().getId(),
-						"TGES_CLI");
-				String seqST = Integer.toString(seq);
-				client.getEmbedded().setCodi(seqST);
-				client.getId().setCodi(seqST);
-			}
+			int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
+					client.getId().getIdentificadorCodi(),
+					"TGES_CLI",
+					new PkBuilder<WithIdentificadorAndCodiPk<String>>() {
+						@Override
+						public WithIdentificadorAndCodiPk<String> build(int seq) {
+							return new WithIdentificadorAndCodiPk<String>(client.getId().getIdentificadorCodi(), Integer.toString(seq));
+						}
+					},
+					EntityListenerUtil.getBean(ClientRepository.class));
+			String seqST = Integer.toString(seq);
+			client.getEmbedded().setCodi(seqST);
+			client.getId().setCodi(seqST);
 		}
 	}
+	
 }

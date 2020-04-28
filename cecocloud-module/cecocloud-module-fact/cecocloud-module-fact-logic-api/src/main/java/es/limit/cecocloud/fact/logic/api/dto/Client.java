@@ -583,7 +583,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			lovDescriptionField = "poblacioMunicipiCodiTxt",
+			lovDescriptionField = "descripcioCodiTxt",
 			lovSortFields =  {
 					@RestapiSort(
 							field = "codi",
