@@ -29,5 +29,10 @@
 			<artifactId>cecocloud-module-cita-persist</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-fact-logic</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

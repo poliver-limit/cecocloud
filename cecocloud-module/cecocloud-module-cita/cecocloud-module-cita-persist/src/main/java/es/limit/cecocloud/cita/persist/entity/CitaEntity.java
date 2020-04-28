@@ -40,10 +40,10 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tcit_cit",
+		name = "tcec_cit",
 		indexes = {
-				@Index(name = "ircit_cit_pk", columnList = "cit_idf_cod,cit_ptv_cod,cit_cod", unique = true),
-				@Index(name = "icit_cit_idf_fk", columnList = "cit_idf_cod")
+				@Index(name = "ircec_cit_pk", columnList = "cit_idf_cod,cit_ptv_cod,cit_cod", unique = true),
+				@Index(name = "icec_cit_idf_fk", columnList = "cit_idf_cod")
 		}
 )
 @AttributeOverrides({
@@ -79,6 +79,7 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 			},
 			foreignKey = @ForeignKey(name = "cit_emp_cod_fk"))
 	private EmpresaEntity empresa;
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {

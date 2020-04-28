@@ -42,33 +42,33 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tcit_hoi",
+		name = "tcec_ihr",
 		indexes = {
-				@Index(name = "ircit_hoi_pk", columnList = "hoi_idf_cod,hoi_seq", unique = true),
-				@Index(name = "icit_hoi_idf_fk", columnList = "hoi_idf_cod"),
-				@Index(name = "icit_hoi_hor_fk", columnList = "hoi_idf_cod,hoi_hor_cod")
+				@Index(name = "ircec_ihr_pk", columnList = "ihr_idf_cod,ihr_seq", unique = true),
+				@Index(name = "icec_ihr_idf_fk", columnList = "ihr_idf_cod"),
+				@Index(name = "icec_ihr_hor_fk", columnList = "ihr_idf_cod,ihr_hor_cod")
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "hoi_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.horariCodi", column = @Column(name = "hoi_hor_cod", length = 4)),
-	@AttributeOverride(name = "id.sequencia", column = @Column(name = "hoi_seq", precision = 18)),
-	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "hoi_seq", insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.diaSetmana", column = @Column(name = "hoi_diaset", nullable = false)),
-	@AttributeOverride(name = "embedded.horaInici", column = @Column(name = "hoi_horini", nullable = false)),
-	@AttributeOverride(name = "embedded.horaFi", column = @Column(name = "hoi_horfi", nullable = false)),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "hoi_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "hoi_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "hoi_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "hoi_datmod"))
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ihr_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.horariCodi", column = @Column(name = "ihr_hor_cod", length = 4)),
+	@AttributeOverride(name = "id.sequencia", column = @Column(name = "ihr_seq", precision = 18)),
+	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "ihr_seq", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.diaSetmana", column = @Column(name = "ihr_diaset", nullable = false)),
+	@AttributeOverride(name = "embedded.horaInici", column = @Column(name = "ihr_horini", nullable = false)),
+	@AttributeOverride(name = "embedded.horaFi", column = @Column(name = "ihr_horfi", nullable = false)),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "ihr_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "ihr_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ihr_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ihr_datmod"))
 })
 @AssociationOverrides({
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "hoi_idf_cod", insertable = false, updatable = false)
+					@JoinColumn(name = "ihr_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_hoi_idf_fk"))
+			foreignKey = @ForeignKey(name = "rges_ihr_idf_fk"))
 })
 @EntityListeners(HorariIntervalEntityListener.class)
 public class HorariIntervalEntity extends AbstractWithIdentificadorAuditableEntity<HorariInterval, HorariIntervalPk> {
@@ -79,20 +79,22 @@ public class HorariIntervalEntity extends AbstractWithIdentificadorAuditableEnti
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "hoi_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "hoi_hor_cod", referencedColumnName = "hor_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "ihr_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "ihr_hor_cod", referencedColumnName = "hor_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "hoi_hor_cod_fk"))
+			foreignKey = @ForeignKey(name = "ihr_hor_cod_fk"))
 	private HorariEntity horari;
 
 	@Builder
 	public HorariIntervalEntity(
 			HorariIntervalPk pk,
 			HorariInterval embedded,
-			IdentificadorEntity identificador) {
+			IdentificadorEntity identificador,
+			HorariEntity horari) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
+		this.horari = horari;
 	}
 
 	@Override
@@ -105,7 +107,7 @@ public class HorariIntervalEntity extends AbstractWithIdentificadorAuditableEnti
 		public void calcular(HorariIntervalEntity horariInterval) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					horariInterval.getIdentificador().getId(),
-					"TCIT_HOI");
+					"TCEC_HOI");
 			horariInterval.getEmbedded().setSequencia(seq);
 			horariInterval.getId().setSequencia(seq);
 		}

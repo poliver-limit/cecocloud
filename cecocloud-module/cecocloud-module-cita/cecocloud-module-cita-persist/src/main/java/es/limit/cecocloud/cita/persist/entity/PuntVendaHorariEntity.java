@@ -40,32 +40,32 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tcit_pvh",
+		name = "tcec_hpv",
 		indexes = {
-				@Index(name = "ircit_pvh_pk", columnList = "pvh_idf_cod,pvh_emp_cod,pvh_ptv_cod,pvh_hor_cod", unique = true),
-				@Index(name = "icit_pvh_idf_fk", columnList = "pvh_idf_cod"),
-				@Index(name = "icit_pvh_emp_fk", columnList = "pvh_idf_cod,pvh_emp_cod"),
-				@Index(name = "icit_pvh_ptv_fk", columnList = "pvh_idf_cod,pvh_emp_cod,pvh_ptv_cod"),
-				@Index(name = "icit_pvh_hor_fk", columnList = "pvh_idf_cod,pvh_hor_cod"),
+				@Index(name = "ircec_hpv_pk", columnList = "hpv_idf_cod,hpv_emp_cod,hpv_ptv_cod,hpv_hor_cod", unique = true),
+				@Index(name = "icec_hpv_idf_fk", columnList = "hpv_idf_cod"),
+				@Index(name = "icec_hpv_emp_fk", columnList = "hpv_idf_cod,hpv_emp_cod"),
+				@Index(name = "icec_hpv_ptv_fk", columnList = "hpv_idf_cod,hpv_emp_cod,hpv_ptv_cod"),
+				@Index(name = "icec_hpv_hor_fk", columnList = "hpv_idf_cod,hpv_hor_cod"),
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pvh_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "pvh_emp_cod", length = 4)),
-	@AttributeOverride(name = "id.puntVendaCodi", column = @Column(name = "pvh_ptv_cod", length = 4)),
-	@AttributeOverride(name = "id.horariCodi", column = @Column(name = "pvh_hor_cod", length = 4)),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "pvh_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "pvh_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "pvh_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "pvh_datmod"))
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "hpv_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "hpv_emp_cod", length = 4)),
+	@AttributeOverride(name = "id.puntVendaCodi", column = @Column(name = "hpv_ptv_cod", length = 4)),
+	@AttributeOverride(name = "id.horariCodi", column = @Column(name = "hpv_hor_cod", length = 4)),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "hpv_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "hpv_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "hpv_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "hpv_datmod"))
 })
 @AssociationOverrides({
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "pvh_idf_cod", insertable = false, updatable = false)
+					@JoinColumn(name = "hpv_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_pvh_idf_fk"))
+			foreignKey = @ForeignKey(name = "rges_hpv_idf_fk"))
 })
 public class PuntVendaHorariEntity extends AbstractWithIdentificadorAuditableEntity<PuntVendaHorari, PuntVendaHorariPk> {
 
@@ -75,27 +75,27 @@ public class PuntVendaHorariEntity extends AbstractWithIdentificadorAuditableEnt
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "pvh_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "pvh_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "hpv_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "hpv_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "pvh_emp_cod_fk"))
+			foreignKey = @ForeignKey(name = "hpv_emp_cod_fk"))
 	private EmpresaEntity empresa;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "pvh_idf_cod", referencedColumnName = "ptv_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "pvh_emp_cod", referencedColumnName = "ptv_emp_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "pvh_ptv_cod", referencedColumnName = "ptv_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "hpv_idf_cod", referencedColumnName = "ptv_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "hpv_emp_cod", referencedColumnName = "ptv_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "hpv_ptv_cod", referencedColumnName = "ptv_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "pvh_ptv_cod_fk"))
+			foreignKey = @ForeignKey(name = "hpv_ptv_cod_fk"))
 	private PuntVendaEntity puntVenda;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "pvh_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "pvh_hor_cod", referencedColumnName = "hor_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "hpv_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "hpv_hor_cod", referencedColumnName = "hor_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "pvh_hor_cod_fk"))
+			foreignKey = @ForeignKey(name = "hpv_hor_cod_fk"))
 	private HorariEntity horari;
 
 	@Builder

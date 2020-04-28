@@ -7,13 +7,17 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.cita.logic.api.dto.HorariInterval.HorariIntervalPk;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificador;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,6 +47,14 @@ public class HorariInterval extends AbstractIdentificableWithIdentificador<Horar
 	@NotNull
 	@Temporal(TemporalType.TIME)
 	private Date horaFi;
+
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

@@ -7,14 +7,18 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.cita.logic.api.dto.Festiu.FestiuPk;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificador;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -46,6 +50,14 @@ public class Festiu extends AbstractIdentificableWithIdentificador<FestiuPk> {
 	private Date diaMes;
 	@NotNull
 	private Integer any;
+
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<FestiuGrup, WithIdentificadorAndCodiPk<String>> festiuGrup;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

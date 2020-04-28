@@ -35,29 +35,29 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tcit_fgr",
+		name = "tcec_gfe",
 		indexes = {
-				@Index(name = "ircit_fgr_pk", columnList = "fgr_idf_cod,fgr_cod", unique = true),
-				@Index(name = "icit_fgr_idf_fk", columnList = "fgr_idf_cod")
+				@Index(name = "ircec_gfe_pk", columnList = "gfe_idf_cod,gfe_cod", unique = true),
+				@Index(name = "icec_gfe_idf_fk", columnList = "gfe_idf_cod")
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fgr_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "fgr_cod", length = 4)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "fgr_cod", insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "fgr_nom", nullable = false, length = 100)),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "fgr_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "fgr_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fgr_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "fgr_datmod"))
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "gfe_idf_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "gfe_cod", length = 4)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "gfe_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "gfe_nom", nullable = false, length = 100)),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "gfe_usucre")),
+	@AttributeOverride(name = "createdDate", column = @Column(name = "gfe_datcre")),
+	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "gfe_usumod")),
+	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "gfe_datmod"))
 })
 @AssociationOverrides({
 	@AssociationOverride(
 			name = "identificador",
 			joinColumns = {
-					@JoinColumn(name = "fgr_idf_cod", insertable = false, updatable = false)
+					@JoinColumn(name = "gfe_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_fgr_idf_fk"))
+			foreignKey = @ForeignKey(name = "rges_gfe_idf_fk"))
 })
 public class FestiuGrupEntity extends AbstractWithIdentificadorAuditableEntity<FestiuGrup, WithIdentificadorAndCodiPk<String>> {
 

@@ -35,10 +35,10 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity(name = "citaHorariEntity")
 @Table(
-		name = "tcit_hor",
+		name = "tcec_hor",
 		indexes = {
-				@Index(name = "ircit_hor_pk", columnList = "hor_idf_cod,hor_cod", unique = true),
-				@Index(name = "icit_hor_idf_fk", columnList = "hor_idf_cod")
+				@Index(name = "ircec_hor_pk", columnList = "hor_idf_cod,hor_cod", unique = true),
+				@Index(name = "icec_hor_idf_fk", columnList = "hor_idf_cod")
 		}
 )
 @AttributeOverrides({

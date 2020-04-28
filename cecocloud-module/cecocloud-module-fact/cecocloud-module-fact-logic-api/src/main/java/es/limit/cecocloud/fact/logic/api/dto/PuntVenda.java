@@ -129,42 +129,42 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Caixa, CaixaPk> caixa;
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisaSecundaria;
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -177,6 +177,12 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisaSecundaria;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

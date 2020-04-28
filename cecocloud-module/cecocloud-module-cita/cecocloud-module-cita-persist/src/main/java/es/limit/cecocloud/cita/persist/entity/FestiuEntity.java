@@ -42,16 +42,16 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tcit_fes",
+		name = "tcec_fes",
 		indexes = {
-				@Index(name = "ircit_fes_pk", columnList = "fes_idf_cod,fes_seq", unique = true),
-				@Index(name = "icit_fes_idf_fk", columnList = "fes_idf_cod"),
-				@Index(name = "icit_fes_fgr_fk", columnList = "fes_idf_cod,fes_fgr_cod")
+				@Index(name = "ircec_fes_pk", columnList = "fes_idf_cod,fes_seq", unique = true),
+				@Index(name = "icec_fes_idf_fk", columnList = "fes_idf_cod"),
+				@Index(name = "icec_fes_fgr_fk", columnList = "fes_idf_cod,fes_gfer_cod")
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "fes_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.festiuGrupCodi", column = @Column(name = "fes_fgr_cod", length = 4)),
+	@AttributeOverride(name = "id.festiuGrupCodi", column = @Column(name = "fes_gfe_cod", length = 4)),
 	@AttributeOverride(name = "id.sequencia", column = @Column(name = "fes_seq", precision = 18)),
 	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "fes_seq", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "fes_nom", nullable = false)),
@@ -78,20 +78,22 @@ public class FestiuEntity extends AbstractWithIdentificadorAuditableEntity<Festi
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "fes_idf_cod", referencedColumnName = "fgr_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "fes_fgr_cod", referencedColumnName = "fgr_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "fes_idf_cod", referencedColumnName = "gfe_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "fes_gfe_cod", referencedColumnName = "gfe_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "fes_fgr_cod_fk"))
+			foreignKey = @ForeignKey(name = "fes_gfe_cod_fk"))
 	private FestiuGrupEntity festiuGrup;
 
 	@Builder
 	public FestiuEntity(
 			FestiuPk pk,
 			Festiu embedded,
-			IdentificadorEntity identificador) {
+			IdentificadorEntity identificador,
+			FestiuGrupEntity festiuGrup) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
+		this.festiuGrup = festiuGrup;
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class FestiuEntity extends AbstractWithIdentificadorAuditableEntity<Festi
 		public void calcular(FestiuEntity festiu) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					festiu.getIdentificador().getId(),
-					"TCIT_FES");
+					"TCEC_FES");
 			festiu.getEmbedded().setSequencia(seq);
 			festiu.getId().setSequencia(seq);
 		}
