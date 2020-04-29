@@ -46,7 +46,7 @@ import lombok.Setter;
 		indexes = {
 				@Index(name = "ircec_fes_pk", columnList = "fes_idf_cod,fes_seq", unique = true),
 				@Index(name = "icec_fes_idf_fk", columnList = "fes_idf_cod"),
-				@Index(name = "icec_fes_fgr_fk", columnList = "fes_idf_cod,fes_gfer_cod")
+				@Index(name = "icec_fes_fgr_fk", columnList = "fes_idf_cod,fes_gfe_cod")
 		}
 )
 @AttributeOverrides({

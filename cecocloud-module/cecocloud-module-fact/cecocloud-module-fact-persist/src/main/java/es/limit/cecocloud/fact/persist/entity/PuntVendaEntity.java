@@ -82,6 +82,7 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ptv_idf_cod", referencedColumnName = "cxa_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "ptv_emp_cod", referencedColumnName = "cxa_emp_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ptv_cxa_cod", referencedColumnName = "cxa_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_ptv_cxa_fk"))

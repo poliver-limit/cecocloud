@@ -15,7 +15,7 @@ import es.limit.cecocloud.fact.logic.service.AbstractAmbIdentificadorICodiServic
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Service
+@Service("citaHorariServiceImpl")
 public class HorariServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Horari, HorariEntity, String> implements HorariService {
 
 }
