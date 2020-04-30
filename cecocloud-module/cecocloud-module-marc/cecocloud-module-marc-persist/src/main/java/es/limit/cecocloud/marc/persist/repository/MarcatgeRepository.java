@@ -32,7 +32,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"and (:esNullIdFi = true or m.id <= :idFi) " +
 			"order by " +
 			"    m.operariEmpresa.empresa.embedded.codi asc, " +
-			"    m.embedded.data asc")
+			"    m.id asc")
 	List<MarcatgeEntity> findByEmpresaInAndBetweenDatesSync(
 			@Param("empreses") List<EmpresaEntity> empreses,
 			@Param("esNullDataInici") boolean esNullDataInici,
