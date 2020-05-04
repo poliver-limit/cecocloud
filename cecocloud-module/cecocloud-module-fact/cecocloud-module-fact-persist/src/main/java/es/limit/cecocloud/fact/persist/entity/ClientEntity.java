@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
+import java.util.Formatter;
+import java.util.regex.Pattern;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -833,20 +836,45 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	public static class ClientEntityListener {
 		@PrePersist
 		public void calcular(ClientEntity client) {
-			int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
-					client.getId().getIdentificadorCodi(),
-					"TGES_CLI",
-					new PkBuilder<WithIdentificadorAndCodiPk<String>>() {
-						@Override
-						public WithIdentificadorAndCodiPk<String> build(int seq) {
-							return new WithIdentificadorAndCodiPk<String>(client.getId().getIdentificadorCodi(), Integer.toString(seq));
-						}
-					},
-					EntityListenerUtil.getBean(ClientRepository.class));
-			String seqST = Integer.toString(seq);
-			client.getEmbedded().setCodi(seqST);
-			client.getId().setCodi(seqST);
+			String codi = client.getEmbedded().getCodi();
+			if (codi == null || codi.isEmpty()) {
+				int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
+						client.getId().getIdentificadorCodi(),
+						"TGES_CLI",
+						new PkBuilder<WithIdentificadorAndCodiPk<String>>() {
+							@Override
+							public WithIdentificadorAndCodiPk<String> build(int seq) {
+								return new WithIdentificadorAndCodiPk<String>(client.getId().getIdentificadorCodi(), Integer.toString(seq));
+							}
+						},
+						EntityListenerUtil.getBean(ClientRepository.class));
+//				String seqST = Integer.toString(seq);
+				String seqST = addZeros(seq, 6);
+				client.getEmbedded().setCodi(seqST);
+				client.getId().setCodi(seqST);
+			} else {
+				if (isNumeric(codi)) {					
+					codi = addZeros(Integer.parseInt(codi), 6);
+					client.getEmbedded().setCodi(codi);
+					client.getId().setCodi(codi);
+				}
+			}
 		}
+	}
+	
+	private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+	 
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false; 
+	    }
+	    return pattern.matcher(strNum).matches();
+	}
+	
+	public static String addZeros(int codi, int tamanyCodi) {
+		Formatter fmt = new Formatter();
+		String codiSt = fmt.format("%06d",codi).toString();	
+		return codiSt;
 	}
 	
 }
