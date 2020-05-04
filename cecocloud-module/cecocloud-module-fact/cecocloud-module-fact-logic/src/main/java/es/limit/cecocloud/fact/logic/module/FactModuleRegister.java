@@ -20,6 +20,7 @@ import es.limit.cecocloud.fact.logic.api.dto.ArticleGamma;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleModel;
 import es.limit.cecocloud.fact.logic.api.dto.Banc;
+import es.limit.cecocloud.fact.logic.api.dto.Caixa;
 import es.limit.cecocloud.fact.logic.api.dto.Capitol;
 import es.limit.cecocloud.fact.logic.api.dto.ClasseRetencio;
 import es.limit.cecocloud.fact.logic.api.dto.Client;
@@ -59,6 +60,7 @@ import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
 import es.limit.cecocloud.fact.logic.api.dto.Proveidor;
 import es.limit.cecocloud.fact.logic.api.dto.ProveidorVenciment;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia;
+import es.limit.cecocloud.fact.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.fact.logic.api.dto.Rappel;
 import es.limit.cecocloud.fact.logic.api.dto.RegimIva;
 import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial;
@@ -95,6 +97,7 @@ import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFontImpl;
 import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
+import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import es.limit.cecocloud.rrhh.logic.api.dto.RecursGrup;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
 
@@ -890,7 +893,7 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Cercador clients",
 						Client.class,
-						Arrays.asList()));		
+						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_CERPRJ",
 				new FuncionalitatCodiFontImpl(
@@ -898,7 +901,30 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Cercador projectes",
 						Projecte.class,
-						Arrays.asList()));	
+						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_CAIXA",
+				new FuncionalitatCodiFontImpl(
+						"FAC_CAIXA",
+						FuncionalitatTipus.MANTENIMENT,
+						"Caixes",
+						Caixa.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_PUNVEN",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PUNVEN",
+						FuncionalitatTipus.MANTENIMENT,
+						"Punts de venda",
+						PuntVenda.class,
+						Arrays.asList(
+								Caixa.class,
+								Divisa.class,
+								Client.class,
+								DocumentPagamentCobrament.class,
+								Magatzem.class,
+								Operari.class,
+								SerieVenda.class)));
 		moduleInfo = new ModuleInfo(
 				Modul.fact,
 				Zona.class.getPackage().getName(),

@@ -21,6 +21,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-fact-back</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>cecocloud-module-cita-logic-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>

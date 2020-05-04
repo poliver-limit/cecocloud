@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.fact.back.test.tester;
+package es.limit.cecocloud.cita.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,13 +12,8 @@ import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
+import es.limit.cecocloud.cita.logic.api.dto.Cita;
 import es.limit.cecocloud.fact.logic.api.dto.Client;
-import es.limit.cecocloud.fact.logic.api.dto.Divisa;
-import es.limit.cecocloud.fact.logic.api.dto.DocumentPagamentCobrament;
-import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
-import es.limit.cecocloud.fact.logic.api.dto.RegimIva;
-import es.limit.cecocloud.fact.logic.api.dto.TipusFacturacio;
-import es.limit.cecocloud.fact.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientSubtipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.EnviamentFacturaEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RebutsEnumDto;
@@ -33,18 +28,19 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
- * Tester pels objectes de tipus Client.
- * 
- * TO DO
+ * Tester pels recursos de tipus cita.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class ClientCrudTester extends AbstractCrudTester<Client> {
+public class CitaCrudTester extends AbstractCrudTester<Cita> {
 
 	@Override
-	public Client createDto() {
-		Client dto = new Client();
+	public Cita createDto() {
+		Cita dto = new Cita();
 		dto.setCodi("TEST");
+		
+		
+		
 		dto.setNomComercial("nomCom TST");
 		dto.setBloquejat(true);
 		dto.setPotencial(true);
@@ -151,23 +147,17 @@ public class ClientCrudTester extends AbstractCrudTester<Client> {
 		dto.setDescompteFinalFacturesTerminiClase1(new Float("7357.757"));
 		dto.setPercentatgePermesFacturesClase1(new Float("7357.757"));
 		
+		// FALTA FER LES RELACIONS AMB ELS RECURSOS
+		
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setDivisa(getGenericReferenceWithCompositePkFromParentCrudTester(Divisa.class));
-		dto.setTipusVenciment(getGenericReferenceWithCompositePkFromParentCrudTester(TipusVenciment.class));
-		dto.setRegimIva(getGenericReferenceWithCompositePkFromParentCrudTester(RegimIva.class));
-		dto.setDocumentPagament(getGenericReferenceWithCompositePkFromParentCrudTester(DocumentPagamentCobrament.class));
-		dto.setTipusFacturacio(getGenericReferenceWithCompositePkFromParentCrudTester(TipusFacturacio.class));
-		dto.setFamiliaClient(getGenericReferenceWithCompositePkFromParentCrudTester(FamiliaClient.class));
-
-		// TODO FALTA FER LES RELACIONS AMB ELS RECURSOS
 		
 		return dto;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void updateDto(Client dto) {
+	public void updateDto(Cita dto) {
 		
 		dto.setNomComercial("nomCom TST2");
 		dto.setBloquejat(false);
@@ -278,7 +268,7 @@ public class ClientCrudTester extends AbstractCrudTester<Client> {
 	}
 
 	@Override
-	public void compareDto(Client expected, Client actual) {
+	public void compareDto(Cita expected, Cita actual) {
 		assertEquals(expected.getCodi(),actual.getCodi());
 		assertEquals(expected.getNomComercial(),actual.getNomComercial());
 		assertEquals(expected.getBloquejat(),actual.getBloquejat());
@@ -392,13 +382,7 @@ public class ClientCrudTester extends AbstractCrudTester<Client> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
-			new IdentificadorCrudTester(),
-			new DivisaCrudTester(),
-			new TipusVencimentCrudTester(),
-			new RegimIvaCrudTester(),
-			new DocumentPagamentCobramentCrudTester(),
-			new TipusFacturacioCrudTester(),
-			new FamiliaClientCrudTester()
+			new IdentificadorCrudTester()
 		};
 	}
 

@@ -12,6 +12,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
@@ -83,6 +85,7 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)
+	@JsonFormat(pattern="HH:mm:ss")
 	private Date horaIniciDia;
 	@Size(max = 1000)
 	@RestapiField(
@@ -164,7 +167,7 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
-	@NotNull
+	//@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
