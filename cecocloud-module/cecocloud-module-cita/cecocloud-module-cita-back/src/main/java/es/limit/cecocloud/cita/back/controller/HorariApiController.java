@@ -12,7 +12,7 @@ import es.limit.cecocloud.fact.back.controller.AbstractIdentificableWithIdentifi
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
+@RestController("citaHorariApiController")
 @RequestMapping(GenericController.API_PATH + "/horari")
 public class HorariApiController extends AbstractIdentificableWithIdentificadorApiController<Horari> {
 

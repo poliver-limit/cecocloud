@@ -7,13 +7,20 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.cita.logic.api.dto.Cita.CitaPk;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificador;
+import es.limit.cecocloud.fact.logic.api.dto.Empresa;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndEmpresa.WithIdentificadorAndEmpresaPk;
+import es.limit.cecocloud.fact.logic.api.dto.PuntVenda;
+import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -39,6 +46,21 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date data;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = true,
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
+	@NotNull
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private GenericReferenceWithCompositePk<PuntVenda, PuntVendaPk> puntVenda;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

@@ -19,8 +19,8 @@ create table tcec_fes (
     fes_datcre timestamp,
     fes_usumod varchar2(255 char),
     fes_datmod timestamp,
-    any number(10,0),
-    diaMes date,
+    fes_any number(10,0),
+    fes_diames date,
     fes_nom varchar2(255 char) not null,
     primary key (fes_gfe_cod, fes_seq, fes_idf_cod)
 );

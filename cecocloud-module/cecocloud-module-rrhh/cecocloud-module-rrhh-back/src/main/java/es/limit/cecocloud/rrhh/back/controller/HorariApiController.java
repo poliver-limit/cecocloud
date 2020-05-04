@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.logic.api.module.RrhhModuleConfig;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
+@RestController("rrhhHorariApiController")
 @RequestMapping(RrhhModuleConfig.API_PATH + "/horaris")
 public class HorariApiController extends AbstractIdentificableAmbIdentificadorApiController<Horari> {
 

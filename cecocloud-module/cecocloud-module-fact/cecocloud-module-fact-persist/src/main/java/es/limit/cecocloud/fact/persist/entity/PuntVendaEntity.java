@@ -134,7 +134,7 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 	@Column(name = "ptv_mag_cod", length = 4, nullable = false)
 	private String magatzemCodi;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ptv_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
@@ -142,7 +142,7 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 			},
 			foreignKey = @ForeignKey(name = "rges_ptv_ope_fk"))
 	private OperariEntity operari;
-	@Column(name = "ptv_ope_cod", length = 6, nullable = true)
+	@Column(name = "ptv_ope_cod", length = 6, nullable = false)
 	private String operariCodi;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
