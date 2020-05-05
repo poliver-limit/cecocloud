@@ -14,7 +14,7 @@ import es.limit.cecocloud.rrhh.persist.entity.HorariEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Component
+@Component("rrhhHorariEntityToDtoConverter")
 public class HorariEntityToDtoConverter extends AbstractEntityToDtoConverter<HorariEntity, Horari> {
 
 }

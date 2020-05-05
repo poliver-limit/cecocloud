@@ -37,7 +37,7 @@ public class CitaServiceImpl extends AbstractGenericCompositePkServiceImpl<Cita,
 		return new CitaPk(
 				dto.getIdentificador().getId(),
 				empresa.getEmbedded().getCodi(),
-				"",
+				dto.getPuntVenda().getPk().getCodi(),
 				dto.getCodi());
 	}
 

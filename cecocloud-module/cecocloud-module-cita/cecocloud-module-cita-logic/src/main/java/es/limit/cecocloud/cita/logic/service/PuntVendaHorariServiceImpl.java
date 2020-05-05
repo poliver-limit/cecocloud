@@ -37,8 +37,8 @@ public class PuntVendaHorariServiceImpl extends AbstractGenericCompositePkServic
 		return new PuntVendaHorariPk(
 				dto.getIdentificador().getId(),
 				empresa.getEmbedded().getCodi(),
-				dto.getPuntVenda().getId(),
-				dto.getHorari().getId());
+				dto.getPuntVenda().getPk().getCodi(),
+				dto.getHorari().getPk().getCodi());
 	}
 
 }

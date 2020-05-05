@@ -23,7 +23,7 @@ public class HorariIntervalServiceImpl extends AbstractGenericCompositePkService
 	protected HorariIntervalPk getPkFromDto(HorariInterval dto) {
 		return new HorariIntervalPk(
 				dto.getIdentificador().getId(),
-				dto.getHorari().getId(),
+				dto.getHorari().getPk().getCodi(),
 				0);
 	}
 

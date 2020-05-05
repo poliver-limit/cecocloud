@@ -30,13 +30,13 @@ public class FestiuGrupRestApiTest extends ModuleResourceRestApiTest<FestiuGrup>
 	@WithMockUser(value = USUARI_TEST_NOADMIN)
 	@Test
 	public void crudTest() {
-		//genericCrudTest();
+		genericCrudTest();
 	}
 
 	@Override
 	protected FuncionalitatCodiFont getFuncionalitatCodiFont() {
-		ModuleInfo moduleInfo = (ModuleInfo)Modules.registeredGetOne(Modul.fact.name()).get();
-		return moduleInfo.getFuncionalitats().get("FAC_CLIENT");
+		ModuleInfo moduleInfo = (ModuleInfo)Modules.registeredGetOne(Modul.cita.name()).get();
+		return moduleInfo.getFuncionalitats().get("CIT_GRPFES");
 	}
 
 }

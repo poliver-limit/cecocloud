@@ -23,7 +23,7 @@ public class FestiuServiceImpl extends AbstractGenericCompositePkServiceImpl<Fes
 	protected FestiuPk getPkFromDto(Festiu dto) {
 		return new FestiuPk(
 				dto.getIdentificador().getId(),
-				dto.getFestiuGrup().getId(),
+				dto.getFestiuGrup().getPk().getCodi(),
 				0);
 	}
 

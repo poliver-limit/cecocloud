@@ -10,12 +10,14 @@ import java.util.Map;
 import es.limit.base.boot.logic.api.dto.Profile;
 import es.limit.base.boot.logic.api.module.AbstractModules;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Classe que gestiona els diferents mòduls disponibles a Cecocloud.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 public class Modules extends AbstractModules {
 
 	private static Map<Class<?>, FuncionalitatCodiFont> funcionalitatPerRecursPrincipal = new HashMap<Class<?>, FuncionalitatCodiFont>();
@@ -38,6 +40,7 @@ public class Modules extends AbstractModules {
 			}
 		}
 		register(moduleInfo);
+		log.info("Nou mòdul registrat: " + moduleInfo.getCode());
 	}
 
 	public static FuncionalitatCodiFont getFuncionalitatWithRecursPrincipal(Class<?> recursPrincipalClass) {
