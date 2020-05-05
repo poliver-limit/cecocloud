@@ -15,5 +15,6 @@ public enum Modul {
 	rrhh,
 	//rrmm,
 	lici,
-	marc
+	marc,
+	ecom
 }
