@@ -21,6 +21,7 @@
 	"app.module.marc": "Marcajes",
 	"app.module.rrhh": "Recursos humanos",
 	"app.module.lici": "Licitaciones",
+	"app.module.ecom": "eCommerce",
 
 	"resource.permission": "Permiso",
 	"resource.permission.plural": "Permisos",
@@ -306,6 +307,15 @@
 	"funcionalitat.REH_TIPTRA": "Tipos de transacciones",
 	"funcionalitat.REH_TORN": "Turnos",
 	"funcionalitat.REH_TRANSA": "Transacciones",
-	"funcionalitat.REH_ZONA": "Zonas"
+	"funcionalitat.REH_ZONA": "Zonas",
+	
+	"funcionalitat.COM_ARTICL": "Artículos",
+	"funcionalitat.COM_FAMART": "Artículos familia",
+	"funcionalitat.COM_EMFART": "Artículos familia empresa",
+	"funcionalitat.COM_GAMART": "Artículos gamma",
+	"funcionalitat.COM_MARART": "Artículos marca",
+	"funcionalitat.COM_MODART": "Artículos modelo",
+	"funcionalitat.COM_EMPRES": "Empresas",
+	"funcionalitat.COM_IVA": "Iva"
 
 }

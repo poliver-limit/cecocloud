@@ -28,3 +28,10 @@ rm -fr src/assets/i18n/rrhh
 mkdir src/assets/i18n/rrhh
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/rrhh/ca.json
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/assets/i18n/es.json src/assets/i18n/rrhh/es.json
+
+rm -fr src/app/modules/ecom
+ln -s ../../../../../../../cecocloud-module/cecocloud-module-ecom/cecocloud-module-ecom-front/src/main/resources/src/app/modules/ecom src/app/modules/ecom
+rm -fr src/assets/i18n/ecom
+mkdir src/assets/i18n/ecom
+ln -s ../../../../../../../../cecocloud-module/cecocloud-module-ecom/cecocloud-module-ecom-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/ecom/ca.json
+ln -s ../../../../../../../../cecocloud-module/cecocloud-module-ecom/cecocloud-module-ecom-front/src/main/resources/src/assets/i18n/es.json src/assets/i18n/ecom/es.json
