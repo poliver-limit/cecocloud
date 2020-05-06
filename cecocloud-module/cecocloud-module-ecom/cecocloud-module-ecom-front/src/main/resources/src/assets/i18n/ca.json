@@ -1,2 +1,10 @@
 {
+	"app.menu.ecom.articles": "Articles",
+	"app.menu.ecom.articlesFamilia": "Famílies",
+	"app.menu.ecom.articlesFamiliaEmpresa": "Famílies/empreses",
+	"app.menu.ecom.articlesGamma": "Gammes",
+	"app.menu.ecom.articlesMarca": "Marques",
+	"app.menu.ecom.articlesModel": "Models",
+	"app.menu.ecom.empreses": "Empreses",
+	"app.menu.ecom.ives": "IVAs"
 }
