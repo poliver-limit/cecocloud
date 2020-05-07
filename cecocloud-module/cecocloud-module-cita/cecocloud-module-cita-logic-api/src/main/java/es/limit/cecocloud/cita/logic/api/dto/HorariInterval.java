@@ -3,10 +3,8 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
-import java.util.Date;
+import java.time.LocalTime;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -42,11 +40,9 @@ public class HorariInterval extends AbstractIdentificableWithIdentificador<Horar
 	@NotNull
 	private DiaSetmana diaSetmana;
 	@NotNull
-	@Temporal(TemporalType.TIME)
-	private Date horaInici;
+	private LocalTime horaInici;
 	@NotNull
-	@Temporal(TemporalType.TIME)
-	private Date horaFi;
+	private LocalTime horaFi;
 
 	@NotNull
 	@Transient

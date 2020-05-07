@@ -39,6 +39,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		Empresa dto = new Empresa();
 
 		dto.setCodi(es.limit.cecoloud.test.tester.EmpresaCrudTester.EMPRESA_CODI_TEST);
+		dto.setNif("12345678Z");
 		dto.setNomComercial("NomComercial TST");
 		dto.setDomiciliComercial("DomComercial TST");
 		dto.setNomFiscal("NomFiscal TST");
@@ -81,6 +82,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 
 	@Override
 	public void updateDto(Empresa dto) {	
+		dto.setNif("00000000T");
 		dto.setNomComercial("NomComercial TST2");
 		dto.setDomiciliComercial("DomComercial TST2");
 		dto.setNomFiscal("NomFiscal TST2");

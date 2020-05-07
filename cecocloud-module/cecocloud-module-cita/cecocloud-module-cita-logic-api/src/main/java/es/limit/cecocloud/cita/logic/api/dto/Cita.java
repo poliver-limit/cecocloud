@@ -3,10 +3,8 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -44,8 +42,7 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 			sizeMax = 10)
 	private String codi;
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	private Date data;
+	private LocalDateTime data;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

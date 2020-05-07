@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Convert;
@@ -53,7 +54,7 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 	@Size(max = 60)
 	@RestapiField(
 			includeInQuickFilter = true)
-	private String descripcio;
+	private String nom;
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
@@ -64,7 +65,7 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)
-	private EnumeracioTipus enumeracio;
+	private EnumeracioTipus enumeracioTipus;
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
@@ -76,7 +77,7 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)
-	private String codiApertura;
+	private String codiAperturaCaixa;
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)
@@ -124,6 +125,27 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private String tpvBaseDadesNom;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean citaActiva;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private LocalDate citaDataInici;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private LocalDate citaDataFi;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private Integer citaIntervalMinuts;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov=true)
+	private Integer citaNumPlaces;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

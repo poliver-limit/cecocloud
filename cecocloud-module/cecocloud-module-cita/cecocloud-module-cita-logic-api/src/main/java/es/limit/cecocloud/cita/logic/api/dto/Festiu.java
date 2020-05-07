@@ -3,10 +3,8 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -46,8 +44,7 @@ public class Festiu extends AbstractIdentificableWithIdentificador<FestiuPk> {
 	@Size(max = 100)
 	private String nom;
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	private Date diaMes;
+	private LocalDate diaMes;
 	@NotNull
 	private Integer any;
 

@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
+import java.time.LocalDate;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -34,5 +36,9 @@ public class Horari extends AbstractIdentificableWithIdentificadorAndCodi<String
 		includeInQuickFilter = true)
 	@Size(max = 100)
 	private String nom;
+	@NotNull
+	private LocalDate dataInici;
+	@NotNull
+	private LocalDate dataFi;
 
 }

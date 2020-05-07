@@ -37,12 +37,12 @@ public class PuntVendaCrudTester extends AbstractCrudTester<PuntVenda> {
 	public PuntVenda createDto() {
 		PuntVenda dto = new PuntVenda();
 		dto.setCodi("TEST");
-		dto.setDescripcio("TST");
+		dto.setNom("TEST");
 		dto.setTicketIvaInclos(true);
-		dto.setEnumeracio(EnumeracioTipus.DIARIA);
+		dto.setEnumeracioTipus(EnumeracioTipus.DIARIA);
 		dto.setTicketNumLiniesEnBlancFinal(1);
 		dto.setImpressioTipus(ImpressioTipus.DEMANAR);
-		dto.setCodiApertura("TST");
+		dto.setCodiAperturaCaixa("TST");
 		dto.setDarrerAz(1);
 		dto.setHoraIniciDia(new Date());
 		dto.setTicketCapçalera("TST");
@@ -70,12 +70,12 @@ public class PuntVendaCrudTester extends AbstractCrudTester<PuntVenda> {
 	@Override
 	public void updateDto(PuntVenda dto) {
 		// El codi no es pot canviar perquè forma part de la clau primària
-		dto.setDescripcio("TST2");
+		dto.setNom("TEST2");
 		dto.setTicketIvaInclos(true);
-		dto.setEnumeracio(EnumeracioTipus.GLOBAL);
+		dto.setEnumeracioTipus(EnumeracioTipus.GLOBAL);
 		dto.setTicketNumLiniesEnBlancFinal(2);
 		dto.setImpressioTipus(ImpressioTipus.MAI);
-		dto.setCodiApertura("TST2");
+		dto.setCodiAperturaCaixa("TST2");
 		dto.setDarrerAz(2);
 		dto.setHoraIniciDia(new Date());
 		dto.setTicketCapçalera("TST2");
@@ -91,11 +91,11 @@ public class PuntVendaCrudTester extends AbstractCrudTester<PuntVenda> {
 	@Override
 	public void compareDto(PuntVenda expected, PuntVenda actual) {
 		assertEquals(expected.getCodi(), actual.getCodi());
-		assertEquals(expected.getDescripcio(), actual.getDescripcio());
-		assertEquals(expected.getEnumeracio(), actual.getEnumeracio());
+		assertEquals(expected.getNom(), actual.getNom());
+		assertEquals(expected.getEnumeracioTipus(), actual.getEnumeracioTipus());
 		assertEquals(expected.getTicketNumLiniesEnBlancFinal(), actual.getTicketNumLiniesEnBlancFinal());
 		assertEquals(expected.getImpressioTipus(), actual.getImpressioTipus());
-		assertEquals(expected.getCodiApertura(), actual.getCodiApertura());
+		assertEquals(expected.getCodiAperturaCaixa(), actual.getCodiAperturaCaixa());
 		assertEquals(expected.getDarrerAz(), actual.getDarrerAz());
 		// TODO verificar el camp horaIniciDia
 		/*ystem.out.println(">>> expected: " + expected.getHoraIniciDia() + ", " + expected.getHoraIniciDia().getTime());

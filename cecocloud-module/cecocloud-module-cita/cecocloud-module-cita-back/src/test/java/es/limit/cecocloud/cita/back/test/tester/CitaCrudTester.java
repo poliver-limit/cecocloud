@@ -5,7 +5,7 @@ package es.limit.cecocloud.cita.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
@@ -30,7 +30,7 @@ public class CitaCrudTester extends AbstractCrudTester<Cita> {
 	public Cita createDto() {
 		Cita dto = new Cita();
 		dto.setCodi("TEST");
-		dto.setData(new Date());
+		dto.setData(LocalDateTime.now());
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
@@ -40,7 +40,7 @@ public class CitaCrudTester extends AbstractCrudTester<Cita> {
 
 	@Override
 	public void updateDto(Cita dto) {
-		dto.setData(new Date());
+		dto.setData(LocalDateTime.now().plusDays(1));
 	}
 
 	@Override

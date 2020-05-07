@@ -6,7 +6,7 @@ package es.limit.cecocloud.cita.back.test.tester;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
@@ -28,7 +28,7 @@ public class FestiuCrudTester extends AbstractCrudTester<Festiu> {
 	public Festiu createDto() {
 		Festiu dto = new Festiu();
 		dto.setNom("TEST");
-		dto.setDiaMes(new Date());
+		dto.setDiaMes(LocalDate.now());
 		dto.setAny(1);
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
@@ -39,7 +39,7 @@ public class FestiuCrudTester extends AbstractCrudTester<Festiu> {
 	@Override
 	public void updateDto(Festiu dto) {
 		dto.setNom("TEST2");
-		dto.setDiaMes(new Date());
+		dto.setDiaMes(LocalDate.now().plusDays(1));
 		dto.setAny(2);
 	}
 

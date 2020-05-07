@@ -6,7 +6,8 @@ package es.limit.cecocloud.cita.back.test.tester;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
@@ -29,8 +30,8 @@ public class HorariIntervalCrudTester extends AbstractCrudTester<HorariInterval>
 	public HorariInterval createDto() {
 		HorariInterval dto = new HorariInterval();
 		dto.setDiaSetmana(DiaSetmana.DILLUNS);
-		dto.setHoraInici(new Date());
-		dto.setHoraFi(new Date());
+		dto.setHoraInici(LocalTime.now());
+		dto.setHoraFi(LocalTime.now());
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		dto.setHorari(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
@@ -40,16 +41,16 @@ public class HorariIntervalCrudTester extends AbstractCrudTester<HorariInterval>
 	@Override
 	public void updateDto(HorariInterval dto) {
 		dto.setDiaSetmana(DiaSetmana.DIMARTS);
-		dto.setHoraInici(new Date());
-		dto.setHoraFi(new Date());
+		dto.setHoraInici(LocalTime.now());
+		dto.setHoraFi(LocalTime.now());
 	}
 
 	@Override
 	public void compareDto(HorariInterval expected, HorariInterval actual) {
 		assertNotNull(actual.getSequencia());
 		assertEquals(expected.getDiaSetmana(), actual.getDiaSetmana());
-		assertEquals(expected.getHoraInici(), actual.getHoraInici());
-		assertEquals(expected.getHoraFi(), actual.getHoraFi());
+		assertEquals(expected.getHoraInici().truncatedTo(ChronoUnit.SECONDS), actual.getHoraInici().truncatedTo(ChronoUnit.SECONDS));
+		assertEquals(expected.getHoraFi().truncatedTo(ChronoUnit.SECONDS), actual.getHoraFi().truncatedTo(ChronoUnit.SECONDS));
 	}
 
 	@Override

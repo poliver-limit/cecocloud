@@ -46,6 +46,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "hor_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "hor_cod", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "hor_nom", nullable = false, length = 100)),
+	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "hor_datini", nullable = false)),
+	@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "hor_datfin", nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "hor_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "hor_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "hor_usumod")),

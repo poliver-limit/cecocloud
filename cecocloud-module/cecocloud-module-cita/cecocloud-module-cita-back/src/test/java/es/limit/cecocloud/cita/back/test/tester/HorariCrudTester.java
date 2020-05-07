@@ -5,6 +5,8 @@ package es.limit.cecocloud.cita.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
@@ -25,6 +27,8 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 		Horari dto = new Horari();
 		dto.setCodi("TEST");
 		dto.setNom("TEST");
+		dto.setDataInici(LocalDate.now());
+		dto.setDataFi(LocalDate.now().plusDays(1));
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
@@ -33,6 +37,8 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 	@Override
 	public void updateDto(Horari dto) {
 		dto.setNom("TEST2");
+		dto.setDataInici(LocalDate.now().plusDays(10));
+		dto.setDataFi(LocalDate.now().plusDays(11));
 	}
 
 	@Override
