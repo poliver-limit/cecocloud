@@ -119,12 +119,12 @@ public class MobileAppServiceImpl implements MobileAppService {
 						identificadorCodi,
 						empresaCodi,
 						puntVendaCodi));
-		List<MobileAppHoraDisponible> citesDisponibles = new ArrayList<MobileAppHoraDisponible>();
+		List<MobileAppHoraDisponible> horesDisponibles = new ArrayList<MobileAppHoraDisponible>();
 		if (isCitaActiva(puntVenda.get())) {
+			int intervalMinuts = puntVenda.get().getEmbedded().getCitaIntervalMinuts() != null ? puntVenda.get().getEmbedded().getCitaIntervalMinuts() : 5;
+			int numPlaces = puntVenda.get().getEmbedded().getCitaNumPlaces() != null ? puntVenda.get().getEmbedded().getCitaNumPlaces() : 1;
 			List<HorariIntervalEntity> intervalsHorariActual = getHorariIntervals(puntVenda.get(), data);
 			if (intervalsHorariActual != null && !intervalsHorariActual.isEmpty()) {
-				int intervalMinuts = puntVenda.get().getEmbedded().getCitaIntervalMinuts() != null ? puntVenda.get().getEmbedded().getCitaIntervalMinuts() : 5;
-				int numPlaces = puntVenda.get().getEmbedded().getCitaNumPlaces() != null ? puntVenda.get().getEmbedded().getCitaNumPlaces() : 1;
 				for (HorariIntervalEntity horariInterval: intervalsHorariActual) {
 					LocalTime hora = horariInterval.getEmbedded().getHoraInici();
 					do {
@@ -132,7 +132,7 @@ public class MobileAppServiceImpl implements MobileAppService {
 						horaDisponible.setHora(hora);
 						horaDisponible.setDuradaEnMinuts(intervalMinuts);
 						horaDisponible.setPlaces(numPlaces);
-						citesDisponibles.add(horaDisponible);
+						horesDisponibles.add(horaDisponible);
 						hora.plusMinutes(intervalMinuts);
 					} while (hora.compareTo(horariInterval.getEmbedded().getHoraFi()) < 0);
 				}
@@ -141,29 +141,50 @@ public class MobileAppServiceImpl implements MobileAppService {
 					puntVenda.get(),
 					data.atStartOfDay(),
 					data.atTime(23, 59, 59));
-			if (citesConfirmades.size() < citesDisponibles.size()) {
-				// Encara no s'han donat totes les cites disponibles pel dia d'avui
-
-				// TODO revisar l'algorisme per a calcular les citesDisponibles
-				// falta contemplar el canvi de configuració dels intevals de les cites
-				// al punt de venda
+			// Es verifica si s'han donat totes les cites possibles per aquesta
+			// data
+			if (citesConfirmades.size() < horesDisponibles.size() * numPlaces) {
+				// Si entra aquí vol dir que encara no s'han donat totes les
+				// cites disponibles per aquesta data
 				for (CitaEntity cita: citesConfirmades) {
+					// Cerca la hora disponible que coincideix amb l'hora de la
+					// cita
+					MobileAppHoraDisponible horaDisponibleIgual = null;
 					LocalTime citaHora = cita.getEmbedded().getData().toLocalTime();
-					for (MobileAppHoraDisponible horaDisponible: citesDisponibles) {
+					for (MobileAppHoraDisponible horaDisponible: horesDisponibles) {
 						if (citaHora.truncatedTo(ChronoUnit.MINUTES).equals(horaDisponible.getHora().truncatedTo(ChronoUnit.MINUTES))) {
+							horaDisponibleIgual = horaDisponible;
+							break;
+						}
+					}
+					MobileAppHoraDisponible horaDisponibleSeleccionada = null;
+					if (horaDisponibleIgual != null && horaDisponibleIgual.getPlaces() > 0) {
+						horaDisponibleSeleccionada = horaDisponibleIgual;
+					} else {
+						// Si no hi ha cap hora disponible que coincideixi amb
+						// l'hora de la cita es selecciona l'hora disponible
+						// més aprop amb places.
+						long distanciaMinima = Long.MAX_VALUE;
+						for (MobileAppHoraDisponible horaDisponible: horesDisponibles) {
 							if (horaDisponible.getPlaces() > 0) {
-								horaDisponible.setPlaces(horaDisponible.getPlaces() - 1);
+								long distancia = citaHora.truncatedTo(ChronoUnit.MINUTES).until(horaDisponible.getHora().truncatedTo(ChronoUnit.MINUTES), ChronoUnit.MINUTES);
+								if (distancia < distanciaMinima) {
+									horaDisponibleSeleccionada = horaDisponible;
+								}
 							}
 						}
 					}
+					// Decrementar el nombre de places disponibles de l'hora
+					// seleccionada
+					horaDisponibleSeleccionada.setPlaces(horaDisponibleSeleccionada.getPlaces() - 1);
 				}
-
 			} else {
-				// Ja s'han donat totes les cites disponibles pel dia d'avui
-				citesDisponibles.clear();
+				// Si entra aquí vol dir que ja s'han donat totes les cites
+				// disponibles per aquesta data
+				horesDisponibles.clear();
 			}
 		}
-		return citesDisponibles.stream().filter(h -> h.getPlaces() > 0).collect(Collectors.toList());
+		return horesDisponibles.stream().filter(h -> h.getPlaces() > 0).collect(Collectors.toList());
 	}
 
 	@Override
