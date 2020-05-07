@@ -6,5 +6,8 @@
 	"app.menu.ecom.articlesMarca": "Marques",
 	"app.menu.ecom.articlesModel": "Models",
 	"app.menu.ecom.empreses": "Empreses",
-	"app.menu.ecom.ives": "IVAs"
+	"app.menu.ecom.ives": "IVAs",
+	
+	"resource.article.field.decimalsPreu": "Decimals preuuu",
+	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A."
 }

@@ -5,7 +5,6 @@ package es.limit.cecocloud.ecom.logic.api.dto;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -17,7 +16,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,12 +41,35 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			includeInQuickFilter = true)
 	private String codi;
 	
+	@Size(max = 60)
+	@RestapiField(hiddenInGrid = true,
+			hiddenInLov = true)
+	private String descripcioCurta;
+	
 	@NotNull
 	@Size(max = 2000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			includeInQuickFilter = true)
 	private String descripcio;
+	
+	@NotNull
+	@RestapiField(hiddenInGrid = true,
+				sizeMax=1,
+				hiddenInLov = true)
+	private int decimalsPreu;
+	
+	@NotNull
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Digits(integer=12, fraction=3)
+	private BigDecimal pvp;
+	
+	@RestapiField(hiddenInGrid = true,
+				sizeMax=1,
+				hiddenInLov = true)
+	private int decimalsPreuIva;
 	
 	@Transient
 	@NotNull
@@ -60,75 +81,9 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Transient
 	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,		
-			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
-	
-	@Transient
-	@NotNull
-	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)
-	private GenericReferenceWithCompositePk<ArticleModel, WithIdentificadorAndCodiPk<String>> model;
-	
-	@NotNull
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Digits(integer=12, fraction=3)
-	private BigDecimal pvp;
-	
-//	@NotNull
-//	@RestapiField(hiddenInGrid = true,
-//			hiddenInLov = true)
-//	@Digits(integer=12, fraction=3)
-//	private BigDecimal factorConversioEntrada;
-//	
-//	@NotNull
-//	@RestapiField(hiddenInGrid = true,
-//			hiddenInLov = true)
-//	@Digits(integer=12, fraction=3)
-//	private BigDecimal factorConversioSortida;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-				sizeMax=1,
-				hiddenInLov = true)
-	private int decimalsPreu;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean bloquejat = false;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean compost = false;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean controlStock = false;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean crearReferencies = false;
-	
-	@Size(max = 60)
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private String descripcioCurta;
-	
-	@Size(max = 30)
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	private String alies;
+	private GenericReferenceWithCompositePk<ArticleModel, WithIdentificadorAndCodiPk<String>> model;	
 
 	@Transient
 	@RestapiField(
@@ -141,32 +96,12 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<ArticleMarca, WithIdentificadorAndCodiPk<String>> marca;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-					hiddenInGrid = true,
-			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
-
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> alternatiu;
 	
 	@Transient
+	@NotNull
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> alternatiu2;
-	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			includeInQuickFilter = true)	
-	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> articleRaee;	
-	
-
+			type = RestapiFieldType.LOV,		
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 
 }
