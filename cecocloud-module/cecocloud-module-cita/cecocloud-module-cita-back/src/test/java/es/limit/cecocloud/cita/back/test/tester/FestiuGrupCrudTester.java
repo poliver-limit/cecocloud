@@ -37,8 +37,8 @@ public class FestiuGrupCrudTester extends AbstractCrudTester<FestiuGrup> {
 
 	@Override
 	public void compareDto(FestiuGrup expected, FestiuGrup actual) {
-		assertEquals(expected.getCodi(),actual.getCodi());
-		assertEquals(expected.getNom(),actual.getNom());
+		assertEquals(expected.getCodi(), actual.getCodi());
+		assertEquals(expected.getNom(), actual.getNom());
 	}
 
 	@Override

@@ -6,6 +6,9 @@ package es.limit.cecocloud.cita.persist.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.cita.logic.api.dto.Cita.CitaPk;
 import es.limit.cecocloud.cita.persist.entity.CitaEntity;
@@ -18,9 +21,14 @@ import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
  */
 public interface CitaRepository extends BaseRepository<CitaEntity, CitaPk> {
 
+	@Query(
+			"from CitaEntity cit " +
+			"where " +
+			"    cit.puntVenda = :puntVenda " +
+			"and cit.embedded.data between :dataInici and :dataFi")
 	List<CitaEntity> findByPuntVendaAndEmbeddedDataBetweenSortByEmbeddedData(
-			PuntVendaEntity puntVenda,
-			LocalDateTime dataInici,
-			LocalDateTime dataFi);
+			@Param("puntVenda") PuntVendaEntity puntVenda,
+			@Param("dataInici") LocalDateTime dataInici,
+			@Param("dataFi") LocalDateTime dataFi);
 
 }

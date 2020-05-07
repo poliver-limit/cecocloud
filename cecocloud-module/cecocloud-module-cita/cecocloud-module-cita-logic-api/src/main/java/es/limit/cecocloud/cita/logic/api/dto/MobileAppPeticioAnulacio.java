@@ -3,21 +3,20 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Informació d'un punt de venda d'una empresa per a l'app mòbil.
+ * Informació d'una petició d'anul·lació de cita enviada des de l'app mòbil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class MobileAppPuntVenda {
+public class MobileAppPeticioAnulacio extends MobileAppPeticio {
 
+	@NotNull
 	private String codi;
-	private String nom;
-	private List<MobileAppHorari> horari;
 
 }

@@ -116,4 +116,24 @@ public interface MobileAppService {
 			String puntVendaCodi,
 			MobileAppCita cita) throws NotAvailableException, EntityNotFoundException;
 
+	/**
+	 * Cancel·la una cita existent.
+	 * 
+	 * @param identificadorCodi
+	 *            el codi de l'identificador.
+	 * @param empresaCodi
+	 *            el codi de l'empresa.
+	 * @param puntVendaCodi
+	 *            el codi del punt de venda.
+	 * @param codi
+	 *            el codi de la cita a cancel.lar.
+	 * @throws EntityNotFoundException
+	 *             si no s'ha trobat la cita.
+	 */
+	public void cancel(
+			String identificadorCodi,
+			String empresaCodi,
+			String puntVendaCodi,
+			String codi) throws EntityNotFoundException;
+
 }

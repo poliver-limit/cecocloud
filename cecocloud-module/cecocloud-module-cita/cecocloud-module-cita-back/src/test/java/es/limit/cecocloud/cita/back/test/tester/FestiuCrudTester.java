@@ -46,9 +46,9 @@ public class FestiuCrudTester extends AbstractCrudTester<Festiu> {
 	@Override
 	public void compareDto(Festiu expected, Festiu actual) {
 		assertNotNull(actual.getSequencia());
-		assertEquals(expected.getNom(),actual.getNom());
-		assertEquals(expected.getDiaMes(),actual.getDiaMes());
-		assertEquals(expected.getAny(),actual.getAny());
+		assertEquals(expected.getNom(), actual.getNom());
+		assertEquals(expected.getDiaMes(), actual.getDiaMes());
+		assertEquals(expected.getAny(), actual.getAny());
 	}
 
 	@Override

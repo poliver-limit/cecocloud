@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Convert;
@@ -130,14 +129,6 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean citaActiva;
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private LocalDate citaDataInici;
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov=true)
-	private LocalDate citaDataFi;
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)

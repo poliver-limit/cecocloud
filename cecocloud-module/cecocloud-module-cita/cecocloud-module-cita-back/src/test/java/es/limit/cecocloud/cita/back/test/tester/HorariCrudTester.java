@@ -43,8 +43,8 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 
 	@Override
 	public void compareDto(Horari expected, Horari actual) {
-		assertEquals(expected.getCodi(),actual.getCodi());
-		assertEquals(expected.getNom(),actual.getNom());
+		assertEquals(expected.getCodi(), actual.getCodi());
+		assertEquals(expected.getNom(), actual.getNom());
 	}
 
 	@Override

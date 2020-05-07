@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import es.limit.cecocloud.cita.logic.api.dto.MobileAppEmpresa;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppFestiu;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppHoraDisponible;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppHorari;
+import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioAnulacio;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioCita;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioDisponibilitat;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioFestius;
@@ -121,6 +123,24 @@ public class MobileAppApiController {
 				peticio.getPuntVendaCodi(),
 				peticio.getCita());
 		return ResponseEntity.ok(cita);
+	}
+
+	@DeleteMapping(
+			produces = "application/json")
+	public ResponseEntity<?> cancel(
+			HttpServletRequest request,
+			@RequestBody @Valid final MobileAppPeticioAnulacio peticio) {
+		log.debug("Petició de creació de cita (" +
+				"identificadorCodi=" + peticio.getIdentificadorCodi() + ", " +
+				"empresaCodi=" + peticio.getEmpresaCodi() + ", " +
+				"puntVendaCodi=" + peticio.getPuntVendaCodi() + ", " +
+				"codi=" + peticio.getCodi() + ")");
+		mobileAppService.cancel(
+				peticio.getIdentificadorCodi(),
+				peticio.getEmpresaCodi(),
+				peticio.getPuntVendaCodi(),
+				peticio.getCodi());
+		return ResponseEntity.ok().build();
 	}
 
 }

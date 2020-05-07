@@ -4,6 +4,7 @@
 package es.limit.cecocloud.cita.logic.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.limit.cecocloud.cita.logic.api.dto.Cita;
+import es.limit.cecocloud.cita.logic.api.dto.Cita.CitaPk;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppCita;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppEmpresa;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppFestiu;
@@ -117,7 +120,7 @@ public class MobileAppServiceImpl implements MobileAppService {
 						empresaCodi,
 						puntVendaCodi));
 		List<MobileAppHoraDisponible> resposta = new ArrayList<MobileAppHoraDisponible>();
-		if (isCitaActivaForDate(puntVenda.get(), data)) {
+		if (isCitaActiva(puntVenda.get())) {
 			List<HorariIntervalEntity> intervalsHorariActual = getHorariIntervals(puntVenda.get(), data);
 			if (intervalsHorariActual != null && !intervalsHorariActual.isEmpty()) {
 				int intervalMinuts = puntVenda.get().getEmbedded().getCitaIntervalMinuts() != null ? puntVenda.get().getEmbedded().getCitaIntervalMinuts() : 5;
@@ -160,17 +163,50 @@ public class MobileAppServiceImpl implements MobileAppService {
 			String empresaCodi,
 			String puntVendaCodi,
 			MobileAppCita cita) throws NotAvailableException, EntityNotFoundException {
-		return null;
+		Cita dto = new Cita();
+		dto.setData(cita.getData());
+		CitaPk pk = new CitaPk(
+				identificadorCodi,
+				empresaCodi,
+				puntVendaCodi,
+				0);
+		CitaEntity saved = citaRepository.save(CitaEntity.builder().
+				pk(pk).
+				embedded(dto).
+				build());
+		MobileAppCita resposta = new MobileAppCita();
+		resposta.setCodi(saved.getEmbedded().getCodi());
+		resposta.setData(saved.getEmbedded().getData());
+		MobileAppEmpresa empresa = new MobileAppEmpresa();
+		empresa.setIdentificadorCodi(saved.getId().getIdentificadorCodi());
+		empresa.setCodi(saved.getEmpresa().getEmbedded().getCodi());
+		empresa.setNif(saved.getEmpresa().getEmbedded().getNif());
+		empresa.setNom(saved.getEmpresa().getEmbedded().getNomComercial());
+		resposta.setEmpresa(empresa);
+		MobileAppPuntVenda puntVenda = new MobileAppPuntVenda();
+		puntVenda.setCodi(saved.getPuntVenda().getEmbedded().getCodi());
+		puntVenda.setNom(saved.getPuntVenda().getEmbedded().getNom());
+		resposta.setPuntVenda(puntVenda);
+		return resposta;
 	}
 
-	private boolean isCitaActivaForDate(
-			PuntVendaEntity puntVenda,
-			LocalDate date) {
-		LocalDate dataInici = puntVenda.getEmbedded().getCitaDataInici();
-		LocalDate dataFi = puntVenda.getEmbedded().getCitaDataFi();
-		return	dataInici == null ||
-				(dataInici != null && dataFi == null && (date.equals(dataInici) || date.isAfter(dataInici))) ||
-				(dataInici != null && dataFi != null && (date.equals(dataInici) || date.equals(dataFi) || (date.isAfter(dataInici) && date.isBefore(dataFi))));
+	@Override
+	@Transactional
+	public void cancel(
+			String identificadorCodi,
+			String empresaCodi,
+			String puntVendaCodi,
+			String codi) throws EntityNotFoundException {
+		CitaEntity cita = getCitaFromCodi(
+				identificadorCodi,
+				empresaCodi,
+				puntVendaCodi,
+				codi);
+		cita.getEmbedded().setAnulacioData(LocalDateTime.now());
+	}
+
+	private boolean isCitaActiva(PuntVendaEntity puntVenda) {
+		return puntVenda.getEmbedded().getCitaActiva() != null && puntVenda.getEmbedded().getCitaActiva();
 	}
 
 	private List<HorariIntervalEntity> getHorariIntervals(
@@ -197,6 +233,21 @@ public class MobileAppServiceImpl implements MobileAppService {
 			return horariIntervals;
 		} else {
 			return null;
+		}
+	}
+
+	private CitaEntity getCitaFromCodi(
+			String identificadorCodi,
+			String empresaCodi,
+			String puntVendaCodi,
+			String codi) {
+		CitaPk pk = CitaEntity.fromCodiToPk(codi);
+		if (	pk.getIdentificadorCodi().equals(identificadorCodi) &&
+				pk.getEmpresaCodi().equals(empresaCodi) &&
+				pk.getPuntVendaCodi().equals(puntVendaCodi)) {
+			return citaRepository.findById(pk).get();
+		} else {
+			throw new EntityNotFoundException();
 		}
 	}
 

@@ -4,6 +4,7 @@
 package es.limit.cecocloud.cita.back.test.tester;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalDateTime;
 
@@ -29,7 +30,7 @@ public class CitaCrudTester extends AbstractCrudTester<Cita> {
 	@Override
 	public Cita createDto() {
 		Cita dto = new Cita();
-		dto.setCodi("TEST");
+		//dto.setCodi("TEST");
 		dto.setData(LocalDateTime.now());
 		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
@@ -45,8 +46,10 @@ public class CitaCrudTester extends AbstractCrudTester<Cita> {
 
 	@Override
 	public void compareDto(Cita expected, Cita actual) {
-		assertEquals(expected.getCodi(),actual.getCodi());
-		assertEquals(expected.getData(),actual.getData());
+		assertNotNull(actual.getSequencia());
+		assertNotNull(actual.getCodi());
+		System.out.println(">>> codi:" + actual.getCodi());
+		assertEquals(expected.getData(), actual.getData());
 	}
 
 	@Override

@@ -3,6 +3,10 @@
  */
 package es.limit.cecocloud.cita.persist.entity;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -10,20 +14,26 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+
+import org.springframework.security.crypto.codec.Hex;
 
 import es.limit.cecocloud.cita.logic.api.dto.Cita;
 import es.limit.cecocloud.cita.logic.api.dto.Cita.CitaPk;
+import es.limit.cecocloud.cita.persist.entity.CitaEntity.CitaEntityListener;
 import es.limit.cecocloud.fact.persist.entity.AbstractWithIdentificadorAuditableEntity;
 import es.limit.cecocloud.fact.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.fact.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,9 +60,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cit_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "cit_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.puntVendaCodi", column = @Column(name = "cit_ptv_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "cit_cod", length = 10)),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cit_cod", insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.data", column = @Column(name = "cit_data", nullable = false)),
+	@AttributeOverride(name = "id.sequencia", column = @Column(name = "cit_seq")),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cit_cod", length = 34, nullable = false)),
+	@AttributeOverride(name = "embedded.data", column = @Column(name = "cit_dat", nullable = false)),
+	@AttributeOverride(name = "embedded.anulacioData", column = @Column(name = "cit_anudat", nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "cit_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "cit_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cit_usumod")),
@@ -66,6 +77,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_cit_idf_fk"))
 })
+@EntityListeners(CitaEntityListener.class)
 public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, CitaPk> {
 
 	@Embedded
@@ -107,6 +119,43 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 	@Override
 	public void update(Cita embedded) {
 		this.embedded = embedded;
+	}
+
+	public CitaPk getPkFromCodi() {
+		return fromCodiToPk(getEmbedded().getCodi());
+	}
+
+	private static String fromPkToCodi(CitaPk pk) {
+		String codi = pk.getIdentificadorCodi() + pk.getEmpresaCodi() + pk.getPuntVendaCodi() + pk.getSequencia();
+		return new BigInteger(new String(Hex.encode(codi.getBytes())), 16).toString(36).toUpperCase();
+	}
+
+	public static CitaPk fromCodiToPk(String codi) {
+		byte[] bytes = new BigInteger(codi, 36).toByteArray();
+		int zeroPrefixLength = bytes.length;
+		for (int i = 0; i < bytes.length; i++) {
+	        if (bytes[i] != 0) {
+	        	zeroPrefixLength = i;
+	        	break;
+	        }
+	    }
+		String dec = new String(bytes, zeroPrefixLength, bytes.length-zeroPrefixLength, StandardCharsets.UTF_8);
+		return new CitaPk(
+				dec.substring(0, 4),
+				dec.substring(4, 8),
+				dec.substring(8, 12),
+				Integer.parseInt(dec.substring(12)));
+	}
+
+	public static class CitaEntityListener {
+		@PrePersist
+		public void calcular(CitaEntity cita) throws NoSuchAlgorithmException {
+			int seq = EntityListenerUtil.getSeguentNumComptador(
+					cita.getIdentificador().getId(),
+					"TCEC_CIT");
+			cita.getId().setSequencia(seq);
+			cita.getEmbedded().setCodi(fromPkToCodi(cita.getId()));
+		}
 	}
 
 }

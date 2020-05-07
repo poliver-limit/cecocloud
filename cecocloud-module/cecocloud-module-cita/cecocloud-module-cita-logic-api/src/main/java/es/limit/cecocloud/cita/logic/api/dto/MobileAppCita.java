@@ -3,7 +3,7 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,7 +20,7 @@ public class MobileAppCita {
 
 	private String codi;
 	@NotNull
-	private Date data;
+	private LocalDateTime data;
 	@NotNull
 	private String nom;
 	@NotNull

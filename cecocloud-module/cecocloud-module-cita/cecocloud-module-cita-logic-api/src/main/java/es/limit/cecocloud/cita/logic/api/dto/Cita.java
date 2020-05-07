@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
@@ -38,11 +39,16 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 
 	@RestapiField(
 			disabledForCreate = true,
-			disabledForUpdate = true,
-			sizeMax = 10)
+			disabledForUpdate = true)
+	private int sequencia;
+	@Size(max = 34)
+	@RestapiField(
+			disabledForCreate = true,
+			disabledForUpdate = true)
 	private String codi;
 	@NotNull
 	private LocalDateTime data;
+	private LocalDateTime anulacioData;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -66,15 +72,16 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 	@SuppressWarnings("serial")
 	public static class CitaPk extends WithIdentificadorAndEmpresaPk {
 		private String puntVendaCodi;
-		private String codi;
+		@Setter
+		private int sequencia;
 		public CitaPk(
 				String identificadorCodi,
 				String empresaCodi,
 				String puntVendaCodi,
-				String codi) {
+				int sequencia) {
 			super(identificadorCodi, empresaCodi);
 			this.puntVendaCodi = puntVendaCodi;
-			this.codi = codi;
+			this.sequencia = sequencia;
 		}
 	}
 
