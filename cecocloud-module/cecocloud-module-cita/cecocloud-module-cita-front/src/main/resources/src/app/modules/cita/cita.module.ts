@@ -9,7 +9,7 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 	imports: [
 		CommonModule,
 		RouterModule.forChild([{
-			path: 'cites',
+			path: 'cita',
 			canActivate: [BngAuthGuard, SelectedEmpresaGuard],
 			children: [{
 				path: 'cites',
@@ -21,7 +21,7 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 		}])
 	]
 })
-export class FactModule {
+export class CitaModule {
 
 	constructor(moduleService: BngModuleService) {
 		moduleService.register({
@@ -29,17 +29,30 @@ export class FactModule {
 			icon: 'event',
 			label: 'Cites',
 			menuItems: [{
+				icon: 'storefront',
+				label: 'Punts de venda',
+				labelKey: 'app.menu.cita.puntsVenda',
+				route: '/cita/puntsVenda',
+				resource: 'CIT_PUNVEN'
+			}, {
+				icon: 'beach_access',
+				label: 'Grups de festius',
+				labelKey: 'app.menu.cita.grupFestius',
+				route: '/cita/grupFestius',
+				resource: 'CIT_GRPFES'
+			}, {
+				icon: 'view_comfy',
+				label: 'Horaris',
+				labelKey: 'app.menu.cita.horaris',
+				route: '/cita/horaris',
+				resource: 'CIT_HORARI'
+			}, {
 				icon: 'event',
 				label: 'Cites',
 				labelKey: 'app.menu.cita.cites',
 				route: '/cita/cites',
 				resource: 'CIT_CITA'
-			}/*, {
-				icon: 'description',
-				label: 'Informe',
-				route: '/marc/informe',
-				resource: 'MAR_REPORT'
-			}*/]
+			}]
 		});
 	}
 

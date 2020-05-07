@@ -65,7 +65,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.dataImp", column = @Column(name = "ptv_datimp")),
 	@AttributeOverride(name = "embedded.tpvCarpeta", column = @Column(name = "ptv_dir", length = 80)),
 	@AttributeOverride(name = "embedded.tpvBaseDadesNom", column = @Column(name = "ptv_bdd", length = 20)),
-	@AttributeOverride(name = "embedded.citaActiva", column = @Column(name = "ptv_citact")),
+	@AttributeOverride(name = "embedded.citaActiva", column = @Column(name = "ptv_citact", length = 1)),
 	@AttributeOverride(name = "embedded.citaIntervalMinuts", column = @Column(name = "ptv_citintmin", precision = 4, scale = 0)),
 	@AttributeOverride(name = "embedded.citaNumPlaces", column = @Column(name = "ptv_citnumpla", precision = 4, scale = 0)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ptv_usucre")),

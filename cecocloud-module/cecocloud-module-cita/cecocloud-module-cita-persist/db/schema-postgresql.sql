@@ -1,14 +1,17 @@
 create table tcec_cit (
-   cit_cod varchar(10) not null,
-    cit_ptv_cod varchar(4) not null,
+   cit_ptv_cod varchar(4) not null,
+    cit_seq int4 not null,
     cit_emp_cod varchar(4) not null,
     cit_idf_cod varchar(4) not null,
     cit_usucre varchar(255),
     cit_datcre timestamp,
     cit_usumod varchar(255),
     cit_datmod timestamp,
-    cit_data date not null,
-    primary key (cit_cod, cit_ptv_cod, cit_emp_cod, cit_idf_cod)
+    cit_anudat timestamp not null,
+    cit_cod varchar(34) not null,
+    cit_dat timestamp not null,
+    sequencia int4 not null,
+    primary key (cit_ptv_cod, cit_seq, cit_emp_cod, cit_idf_cod)
 );
 
 create table tcec_fes (
@@ -19,8 +22,8 @@ create table tcec_fes (
     fes_datcre timestamp,
     fes_usumod varchar(255),
     fes_datmod timestamp,
-    fes_any int4,
-    fes_diames date,
+    fes_any int4 not null,
+    fes_diames date not null,
     fes_nom varchar(255) not null,
     primary key (fes_gfe_cod, fes_seq, fes_idf_cod)
 );
@@ -43,6 +46,8 @@ create table tcec_hor (
     hor_datcre timestamp,
     hor_usumod varchar(255),
     hor_datmod timestamp,
+    hor_datfin date not null,
+    hor_datini date not null,
     hor_nom varchar(100) not null,
     primary key (hor_cod, hor_idf_cod)
 );

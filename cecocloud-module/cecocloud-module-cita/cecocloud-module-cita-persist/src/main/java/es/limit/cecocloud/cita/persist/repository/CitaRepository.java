@@ -25,8 +25,9 @@ public interface CitaRepository extends BaseRepository<CitaEntity, CitaPk> {
 			"from CitaEntity cit " +
 			"where " +
 			"    cit.puntVenda = :puntVenda " +
-			"and cit.embedded.data between :dataInici and :dataFi")
-	List<CitaEntity> findByPuntVendaAndEmbeddedDataBetweenSortByEmbeddedData(
+			"and cit.embedded.data between :dataInici and :dataFi " +
+			"and cit.embedded.anulacioData is null")
+	List<CitaEntity> findByPuntVendaAndEmbeddedDataBetweenAndAnulacioDataNullSortByEmbeddedData(
 			@Param("puntVenda") PuntVendaEntity puntVenda,
 			@Param("dataInici") LocalDateTime dataInici,
 			@Param("dataFi") LocalDateTime dataFi);

@@ -28,7 +28,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio",
+		descriptionField = "codiDescripcio",
 		sortFields = {
 				@RestapiSort(field = "modul"),
 				@RestapiSort(field = "descripcio")
@@ -58,5 +58,9 @@ public class Funcionalitat extends AbstractIdentificable<Long> {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Modul modul;
+
+	public String getCodiDescripcio() {
+		return getCodi() + " - " + getDescripcio();
+	}
 
 }

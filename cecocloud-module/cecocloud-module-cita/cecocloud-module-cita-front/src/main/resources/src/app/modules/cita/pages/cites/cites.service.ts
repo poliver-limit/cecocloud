@@ -8,7 +8,7 @@ export class Cita extends RestapiResource {}
 export class CitesService extends BngRestapiService<Cita> {
 
     constructor( injector: Injector ) {
-        super( Cita, 'cites', injector, 'cita' );
+        super( Cita, 'cita', injector, 'cita' );
     }
 
 }

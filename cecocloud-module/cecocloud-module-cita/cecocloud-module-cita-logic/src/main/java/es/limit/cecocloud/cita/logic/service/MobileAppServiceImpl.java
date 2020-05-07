@@ -119,7 +119,7 @@ public class MobileAppServiceImpl implements MobileAppService {
 						identificadorCodi,
 						empresaCodi,
 						puntVendaCodi));
-		List<MobileAppHoraDisponible> resposta = new ArrayList<MobileAppHoraDisponible>();
+		List<MobileAppHoraDisponible> citesDisponibles = new ArrayList<MobileAppHoraDisponible>();
 		if (isCitaActiva(puntVenda.get())) {
 			List<HorariIntervalEntity> intervalsHorariActual = getHorariIntervals(puntVenda.get(), data);
 			if (intervalsHorariActual != null && !intervalsHorariActual.isEmpty()) {
@@ -132,28 +132,38 @@ public class MobileAppServiceImpl implements MobileAppService {
 						horaDisponible.setHora(hora);
 						horaDisponible.setDuradaEnMinuts(intervalMinuts);
 						horaDisponible.setPlaces(numPlaces);
-						resposta.add(horaDisponible);
+						citesDisponibles.add(horaDisponible);
 						hora.plusMinutes(intervalMinuts);
 					} while (hora.compareTo(horariInterval.getEmbedded().getHoraFi()) < 0);
 				}
-				
 			}
-			List<CitaEntity> citesMateixaData = citaRepository.findByPuntVendaAndEmbeddedDataBetweenSortByEmbeddedData(
+			List<CitaEntity> citesConfirmades = citaRepository.findByPuntVendaAndEmbeddedDataBetweenAndAnulacioDataNullSortByEmbeddedData(
 					puntVenda.get(),
 					data.atStartOfDay(),
 					data.atTime(23, 59, 59));
-			for (CitaEntity cita: citesMateixaData) {
-				LocalTime citaHora = cita.getEmbedded().getData().toLocalTime();
-				for (MobileAppHoraDisponible horaDisponible: resposta) {
-					if (citaHora.truncatedTo(ChronoUnit.MINUTES).equals(horaDisponible.getHora().truncatedTo(ChronoUnit.MINUTES))) {
-						if (horaDisponible.getPlaces() > 0) {
-							horaDisponible.setPlaces(horaDisponible.getPlaces() - 1);
+			if (citesConfirmades.size() < citesDisponibles.size()) {
+				// Encara no s'han donat totes les cites disponibles pel dia d'avui
+
+				// TODO revisar l'algorisme per a calcular les citesDisponibles
+				// falta contemplar el canvi de configuració dels intevals de les cites
+				// al punt de venda
+				for (CitaEntity cita: citesConfirmades) {
+					LocalTime citaHora = cita.getEmbedded().getData().toLocalTime();
+					for (MobileAppHoraDisponible horaDisponible: citesDisponibles) {
+						if (citaHora.truncatedTo(ChronoUnit.MINUTES).equals(horaDisponible.getHora().truncatedTo(ChronoUnit.MINUTES))) {
+							if (horaDisponible.getPlaces() > 0) {
+								horaDisponible.setPlaces(horaDisponible.getPlaces() - 1);
+							}
 						}
 					}
 				}
+
+			} else {
+				// Ja s'han donat totes les cites disponibles pel dia d'avui
+				citesDisponibles.clear();
 			}
 		}
-		return resposta.stream().filter(h -> h.getPlaces() > 0).collect(Collectors.toList());
+		return citesDisponibles.stream().filter(h -> h.getPlaces() > 0).collect(Collectors.toList());
 	}
 
 	@Override
