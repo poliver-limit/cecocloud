@@ -1,28 +1,25 @@
 import { Component } from '@angular/core';
 
-import { CitesService } from './cites.service';
+import { PuntsVendaService } from './puntsVenda.service';
 
 @Component({
 	template: `
     <bng-datagrid
         bng-datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="citesService"></bng-datagrid>`
+        [restapiService]="puntsVendaService"></bng-datagrid>`
 })
-export class CitesGridComponent {
+export class PuntsVendaGridComponent {
 
 	datagridConfig = {
 		columnFiltersEnabled: true,
 		sort: [{
-			fieldName: 'operariEmpresa',
+			fieldName: 'nom',
 			direction: 'asc'
-		}, {
-			fieldName: 'data',
-			direction: 'desc'
 		}]
 	};
 
 	constructor(
-		public citesService: CitesService) { }
+		public puntsVendaService: PuntsVendaService) { }
 
 }

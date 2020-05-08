@@ -2,20 +2,19 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BngFormBaseComponent } from 'base-angular';
 
-import { CitesService } from './cites.service';
-//import { OperarisEmpresesService } from './operaris-empreses.service';
+import { FestiusGrupService } from './festiusGrup.service';
 
 @Component({
 	template: `
 <bng-form
 	bng-form-mant
 	[config]="formConfig"
-	[restapiService]="citesService"
+	[restapiService]="festiusGrupService"
 	(resourceLoad)="onResourceLoad($event)">
 </bng-form>
 `
 })
-export class CitesFormComponent extends BngFormBaseComponent {
+export class FestiusGrupFormComponent extends BngFormBaseComponent {
 
 	isAdmin: boolean;
 	longitud: number;
@@ -32,7 +31,7 @@ export class CitesFormComponent extends BngFormBaseComponent {
 
 	constructor(
 		activatedRoute: ActivatedRoute,
-		public citesService: CitesService) {
+		public festiusGrupService: FestiusGrupService) {
 		super(activatedRoute);
 		this.formConfig.readOnlyStateEnabled = false;
 	}

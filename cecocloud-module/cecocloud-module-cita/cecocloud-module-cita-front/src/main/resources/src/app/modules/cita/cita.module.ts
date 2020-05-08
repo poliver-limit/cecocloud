@@ -12,11 +12,20 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			path: 'cita',
 			canActivate: [BngAuthGuard, SelectedEmpresaGuard],
 			children: [{
+				path: 'puntsVenda',
+				loadChildren: () => import('./pages/puntsVenda/puntsVenda.module').then(m => m.PuntsVendaModule)
+			}, {
+				path: 'festiusGrup',
+				loadChildren: () => import('./pages/festiusGrup/festiusGrup.module').then(m => m.FestiusGrupModule)
+			}, {
+				path: 'horaris',
+				loadChildren: () => import('./pages/horaris/horaris.module').then(m => m.HorarisModule)
+			}, {
 				path: 'cites',
 				loadChildren: () => import('./pages/cites/cites.module').then(m => m.CitesModule)
 			}, {
 				path: '**',
-				redirectTo: 'cites'
+				redirectTo: 'puntsVenda'
 			}]
 		}])
 	]
@@ -38,7 +47,7 @@ export class CitaModule {
 				icon: 'beach_access',
 				label: 'Grups de festius',
 				labelKey: 'app.menu.cita.grupFestius',
-				route: '/cita/grupFestius',
+				route: '/cita/festiusGrup',
 				resource: 'CIT_GRPFES'
 			}, {
 				icon: 'view_comfy',

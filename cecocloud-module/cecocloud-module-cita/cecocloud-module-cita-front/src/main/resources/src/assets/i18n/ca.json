@@ -4,6 +4,38 @@
 	"app.menu.cita.grupFestius": "Festius",
 	"app.menu.cita.horaris": "Horaris",
 
+	"resource.puntVenda": "Punt de venda",
+	"resource.puntVenda.plural": "Punts de venda",
+	"resource.puntVenda.field.codi": "Codi",
+	"resource.puntVenda.field.nom": "Nom",
+	"resource.puntVenda.field.citaActiva": "Cites actives?",
+	"resource.puntVenda.field.citaIntervalMinuts": "Interval minuts",
+	"resource.puntVenda.field.citaNumPlaces": "Núm. places",
+
+	"resource.festiuGrup": "Grup de festius",
+	"resource.festiuGrup.plural": "Grups de festius",
+	"resource.festiuGrup.field.codi": "Codi",
+	"resource.festiuGrup.field.nom": "Nom",
+
+	"resource.festiu": "Festiu",
+	"resource.festiu.plural": "Festius",
+	"resource.festiu.field.nom": "Nom",
+	"resource.festiu.field.diaMes": "Dia i mes",
+	"resource.festiu.field.any": "Any",
+
+	"resource.horari": "Horari",
+	"resource.horari.plural": "Horaris",
+	"resource.horari.field.codi": "Codi",
+	"resource.horari.field.nom": "Nom",
+	"resource.horari.field.dataInici": "Data inici",
+	"resource.horari.field.dataFi": "Data fi",
+
+	"resource.horariInterval": "Horari",
+	"resource.horariInterval.plural": "Horaris",
+	"resource.horariInterval.field.diaSetmana": "Dia",
+	"resource.horariInterval.field.horaInici": "Hora inici",
+	"resource.horariInterval.field.horaFi": "Hora fi",
+
 	"resource.cita": "Cita",
 	"resource.cita.plural": "Cites",
 	"resource.cita.field.codi": "Codi",

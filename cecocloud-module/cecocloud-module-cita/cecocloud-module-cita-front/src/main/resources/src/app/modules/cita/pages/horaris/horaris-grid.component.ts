@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 
-import { CitesService } from './cites.service';
+import { HorarisService } from './horaris.service';
 
 @Component({
 	template: `
     <bng-datagrid
         bng-datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="citesService"></bng-datagrid>`
+        [restapiService]="horarisService"></bng-datagrid>`
 })
-export class CitesGridComponent {
+export class HorarisGridComponent {
 
 	datagridConfig = {
 		columnFiltersEnabled: true,
@@ -23,6 +23,6 @@ export class CitesGridComponent {
 	};
 
 	constructor(
-		public citesService: CitesService) { }
+		public horarisService: HorarisService) { }
 
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BngFormBaseComponent } from 'base-angular';
 
-import { CitesService } from './cites.service';
+import { HorarisService } from './horaris.service';
 //import { OperarisEmpresesService } from './operaris-empreses.service';
 
 @Component({
@@ -10,12 +10,12 @@ import { CitesService } from './cites.service';
 <bng-form
 	bng-form-mant
 	[config]="formConfig"
-	[restapiService]="citesService"
+	[restapiService]="horarisService"
 	(resourceLoad)="onResourceLoad($event)">
 </bng-form>
 `
 })
-export class CitesFormComponent extends BngFormBaseComponent {
+export class HorarisFormComponent extends BngFormBaseComponent {
 
 	isAdmin: boolean;
 	longitud: number;
@@ -32,7 +32,7 @@ export class CitesFormComponent extends BngFormBaseComponent {
 
 	constructor(
 		activatedRoute: ActivatedRoute,
-		public citesService: CitesService) {
+		public horarisService: HorarisService) {
 		super(activatedRoute);
 		this.formConfig.readOnlyStateEnabled = false;
 	}

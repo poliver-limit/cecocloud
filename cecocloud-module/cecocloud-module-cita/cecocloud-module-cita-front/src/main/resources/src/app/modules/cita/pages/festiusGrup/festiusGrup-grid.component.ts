@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 
-import { CitesService } from './cites.service';
+import { FestiusGrupService } from './festiusGrup.service';
 
 @Component({
 	template: `
     <bng-datagrid
         bng-datagrid-mant
         [config]="datagridConfig"
-        [restapiService]="citesService"></bng-datagrid>`
+        [restapiService]="festiusGrupService"></bng-datagrid>`
 })
-export class CitesGridComponent {
+export class FestiusGrupGridComponent {
 
 	datagridConfig = {
 		columnFiltersEnabled: true,
@@ -23,6 +23,6 @@ export class CitesGridComponent {
 	};
 
 	constructor(
-		public citesService: CitesService) { }
+		public festiusGrupService: FestiusGrupService) { }
 
 }
