@@ -14,7 +14,7 @@ import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Component
+@Component("factPuntVendaEntityToDtoConverter")
 public class PuntVendaEntityToDtoConverter extends AbstractEntityToDtoConverter<PuntVendaEntity, PuntVenda> {
 
 }

@@ -37,7 +37,6 @@ import lombok.Setter;
 @Table(
 		name = "tcec_hor",
 		indexes = {
-				@Index(name = "ircec_hor_pk", columnList = "hor_idf_cod,hor_cod", unique = true),
 				@Index(name = "icec_hor_idf_fk", columnList = "hor_idf_cod")
 		}
 )
@@ -59,7 +58,7 @@ import lombok.Setter;
 			joinColumns = {
 					@JoinColumn(name = "hor_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_hor_idf_fk"))
+			foreignKey = @ForeignKey(name = "rcec_hor_idf_fk"))
 })
 public class HorariEntity extends AbstractWithIdentificadorAuditableEntity<Horari, WithIdentificadorAndCodiPk<String>> {
 

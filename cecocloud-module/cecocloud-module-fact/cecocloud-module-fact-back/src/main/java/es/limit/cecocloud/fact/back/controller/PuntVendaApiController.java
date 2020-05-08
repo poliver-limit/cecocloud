@@ -14,7 +14,7 @@ import es.limit.cecocloud.fact.logic.api.module.FactModuleConfig;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@RestController
+@RestController("factPuntVendaApiController")
 @RequestMapping(FactModuleConfig.API_PATH + "/puntVendes")
 public class PuntVendaApiController extends AbstractIdentificableWithIdentificadorApiController<PuntVenda> {
 

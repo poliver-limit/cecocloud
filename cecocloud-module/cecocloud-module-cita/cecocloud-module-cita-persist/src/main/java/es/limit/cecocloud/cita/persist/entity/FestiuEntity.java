@@ -8,6 +8,7 @@ import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -44,8 +45,6 @@ import lombok.Setter;
 @Table(
 		name = "tcec_fes",
 		indexes = {
-				@Index(name = "ircec_fes_pk", columnList = "fes_idf_cod,fes_seq", unique = true),
-				@Index(name = "icec_fes_idf_fk", columnList = "fes_idf_cod"),
 				@Index(name = "icec_fes_fgr_fk", columnList = "fes_idf_cod,fes_gfe_cod")
 		}
 )
@@ -68,7 +67,7 @@ import lombok.Setter;
 			joinColumns = {
 					@JoinColumn(name = "fes_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_fes_idf_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
 @EntityListeners(FestiuEntityListener.class)
 public class FestiuEntity extends AbstractWithIdentificadorAuditableEntity<Festiu, FestiuPk> {
@@ -82,7 +81,7 @@ public class FestiuEntity extends AbstractWithIdentificadorAuditableEntity<Festi
 						@JoinColumn(name = "fes_idf_cod", referencedColumnName = "gfe_idf_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "fes_gfe_cod", referencedColumnName = "gfe_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "fes_gfe_cod_fk"))
+			foreignKey = @ForeignKey(name = "rcec_fes_gfe_fk"))
 	private FestiuGrupEntity festiuGrup;
 
 	@Builder

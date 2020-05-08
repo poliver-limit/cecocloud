@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.cita.logic.api.dto.Cita.CitaPk;
 import es.limit.cecocloud.cita.persist.entity.CitaEntity;
-import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
+import es.limit.cecocloud.cita.persist.entity.PuntVendaEntity;
 
 /**
  * Repositori per a gestionar les entitats de tipus cita.

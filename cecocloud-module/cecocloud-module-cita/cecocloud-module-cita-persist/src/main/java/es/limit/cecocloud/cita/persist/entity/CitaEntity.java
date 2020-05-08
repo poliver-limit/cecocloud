@@ -12,6 +12,7 @@ import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -52,8 +53,7 @@ import lombok.Setter;
 @Table(
 		name = "tcec_cit",
 		indexes = {
-				@Index(name = "ircec_cit_pk", columnList = "cit_idf_cod,cit_ptv_cod,cit_cod", unique = true),
-				@Index(name = "icec_cit_idf_fk", columnList = "cit_idf_cod")
+				@Index(name = "icec_cit_ptv_fk", columnList = "cit_idf_cod,cit_emp_cod,cit_ptv_cod")
 		}
 )
 @AttributeOverrides({
@@ -61,6 +61,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "cit_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.puntVendaCodi", column = @Column(name = "cit_ptv_cod", length = 4)),
 	@AttributeOverride(name = "id.sequencia", column = @Column(name = "cit_seq")),
+	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "cit_seq", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cit_cod", length = 34, nullable = false)),
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "cit_dat", nullable = false)),
 	@AttributeOverride(name = "embedded.anulacioData", column = @Column(name = "cit_anudat", nullable = false)),
@@ -75,7 +76,7 @@ import lombok.Setter;
 			joinColumns = {
 					@JoinColumn(name = "cit_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_cit_idf_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
 @EntityListeners(CitaEntityListener.class)
 public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, CitaPk> {
@@ -89,7 +90,7 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 						@JoinColumn(name = "cit_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "cit_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "cit_emp_cod_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private EmpresaEntity empresa;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -99,7 +100,9 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 						@JoinColumn(name = "cit_emp_cod", referencedColumnName = "ptv_emp_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "cit_ptv_cod", referencedColumnName = "ptv_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "cit_ptv_cod_fk"))
+			foreignKey = @ForeignKey(
+					name = "rcec_cit_ptv_fk",
+					foreignKeyDefinition = "foreign key (cit_idf_cod, cit_emp_cod, cit_ptv_cod) references tges_ptv (ptv_idf_cod, ptv_emp_cod, ptv_cod)"))
 	private PuntVendaEntity puntVenda;
 
 	@Builder

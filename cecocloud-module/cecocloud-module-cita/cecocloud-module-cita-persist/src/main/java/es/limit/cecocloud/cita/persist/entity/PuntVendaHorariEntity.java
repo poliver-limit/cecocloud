@@ -8,6 +8,7 @@ import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,6 @@ import es.limit.cecocloud.cita.logic.api.dto.PuntVendaHorari.PuntVendaHorariPk;
 import es.limit.cecocloud.fact.persist.entity.AbstractWithIdentificadorAuditableEntity;
 import es.limit.cecocloud.fact.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.fact.persist.entity.IdentificadorEntity;
-import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,11 +42,8 @@ import lombok.Setter;
 @Table(
 		name = "tcec_hpv",
 		indexes = {
-				@Index(name = "ircec_hpv_pk", columnList = "hpv_idf_cod,hpv_emp_cod,hpv_ptv_cod,hpv_hor_cod", unique = true),
-				@Index(name = "icec_hpv_idf_fk", columnList = "hpv_idf_cod"),
-				@Index(name = "icec_hpv_emp_fk", columnList = "hpv_idf_cod,hpv_emp_cod"),
 				@Index(name = "icec_hpv_ptv_fk", columnList = "hpv_idf_cod,hpv_emp_cod,hpv_ptv_cod"),
-				@Index(name = "icec_hpv_hor_fk", columnList = "hpv_idf_cod,hpv_hor_cod"),
+				@Index(name = "icec_hpv_hor_fk", columnList = "hpv_idf_cod,hpv_hor_cod")
 		}
 )
 @AttributeOverrides({
@@ -65,7 +62,7 @@ import lombok.Setter;
 			joinColumns = {
 					@JoinColumn(name = "hpv_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_hpv_idf_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
 public class PuntVendaHorariEntity extends AbstractWithIdentificadorAuditableEntity<PuntVendaHorari, PuntVendaHorariPk> {
 
@@ -78,7 +75,7 @@ public class PuntVendaHorariEntity extends AbstractWithIdentificadorAuditableEnt
 						@JoinColumn(name = "hpv_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "hpv_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "hpv_emp_cod_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private EmpresaEntity empresa;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -87,7 +84,9 @@ public class PuntVendaHorariEntity extends AbstractWithIdentificadorAuditableEnt
 						@JoinColumn(name = "hpv_emp_cod", referencedColumnName = "ptv_emp_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "hpv_ptv_cod", referencedColumnName = "ptv_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "hpv_ptv_cod_fk"))
+			foreignKey = @ForeignKey(
+					name = "rcec_hpv_ptv_fk",
+					foreignKeyDefinition = "foreign key (hpv_idf_cod, hpv_emp_cod, hpv_ptv_cod) references tges_ptv (ptv_idf_cod, ptv_emp_cod, ptv_cod)"))
 	private PuntVendaEntity puntVenda;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -95,7 +94,7 @@ public class PuntVendaHorariEntity extends AbstractWithIdentificadorAuditableEnt
 						@JoinColumn(name = "hpv_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "hpv_hor_cod", referencedColumnName = "hor_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "hpv_hor_cod_fk"))
+			foreignKey = @ForeignKey(name = "rcec_hpv_hor_fk"))
 	private HorariEntity horari;
 
 	@Builder

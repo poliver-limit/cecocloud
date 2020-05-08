@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
 import es.limit.cecocloud.cita.persist.entity.HorariEntity;
+import es.limit.cecocloud.cita.persist.entity.PuntVendaEntity;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
 
 /**
  * Repositori per a gestionar les entitats de tipus horari.

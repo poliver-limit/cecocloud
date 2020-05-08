@@ -32,13 +32,13 @@ import es.limit.cecocloud.cita.logic.api.service.MobileAppService;
 import es.limit.cecocloud.cita.persist.entity.CitaEntity;
 import es.limit.cecocloud.cita.persist.entity.HorariEntity;
 import es.limit.cecocloud.cita.persist.entity.HorariIntervalEntity;
+import es.limit.cecocloud.cita.persist.entity.PuntVendaEntity;
 import es.limit.cecocloud.cita.persist.repository.CitaRepository;
 import es.limit.cecocloud.cita.persist.repository.HorariIntervalRepository;
 import es.limit.cecocloud.cita.persist.repository.HorariRepository;
+import es.limit.cecocloud.cita.persist.repository.PuntVendaRepository;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
 import es.limit.cecocloud.fact.persist.entity.EmpresaEntity;
-import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
-import es.limit.cecocloud.fact.persist.repository.PuntVendaRepository;
 
 /**
  * Implementació del servei encarregat de gestionar les peticions de l'app mòbil.

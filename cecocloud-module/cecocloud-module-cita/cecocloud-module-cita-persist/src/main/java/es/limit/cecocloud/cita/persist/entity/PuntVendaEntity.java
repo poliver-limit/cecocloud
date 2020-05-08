@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.fact.persist.entity;
+package es.limit.cecocloud.cita.persist.entity;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
@@ -19,8 +19,17 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.fact.logic.api.dto.PuntVenda;
+import es.limit.cecocloud.cita.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
+import es.limit.cecocloud.fact.persist.entity.AbstractWithIdentificadorAuditableEntity;
+import es.limit.cecocloud.fact.persist.entity.CaixaEntity;
+import es.limit.cecocloud.fact.persist.entity.ClientEntity;
+import es.limit.cecocloud.fact.persist.entity.DivisaEntity;
+import es.limit.cecocloud.fact.persist.entity.DocumentPagamentCobramentEntity;
+import es.limit.cecocloud.fact.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.fact.persist.entity.IdentificadorEntity;
+import es.limit.cecocloud.fact.persist.entity.MagatzemEntity;
+import es.limit.cecocloud.fact.persist.entity.SerieVendaEntity;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,7 +45,7 @@ import lombok.Setter;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity(name = "factPuntVendaEntity")
+@Entity(name = "citaPuntVendaEntity")
 @Table(
 		name = "tges_ptv",
 		indexes = {
@@ -64,6 +73,9 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.dataImp", column = @Column(name = "ptv_datimp")),
 	@AttributeOverride(name = "embedded.tpvCarpeta", column = @Column(name = "ptv_dir", length = 80)),
 	@AttributeOverride(name = "embedded.tpvBaseDadesNom", column = @Column(name = "ptv_bdd", length = 20)),
+	@AttributeOverride(name = "embedded.citaActiva", column = @Column(name = "ptv_citact", length = 1)),
+	@AttributeOverride(name = "embedded.citaIntervalMinuts", column = @Column(name = "ptv_citintmin", precision = 4, scale = 0)),
+	@AttributeOverride(name = "embedded.citaNumPlaces", column = @Column(name = "ptv_citnumpla", precision = 4, scale = 0)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ptv_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "ptv_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ptv_usumod")),
@@ -75,7 +87,7 @@ import lombok.Setter;
 			joinColumns = {
 					@JoinColumn(name = "ptv_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_ptv_idf_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
 public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<PuntVenda, PuntVendaPk> {
 
@@ -181,6 +193,17 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 	@Column(name = "ptv_div_cod002", length = 4)
 	private String divisaSecundariaCodi;
 
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "ptv_idf_cod", referencedColumnName = "gfe_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "ptv_gfe_cod", referencedColumnName = "gfe_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_ptv_gfe_fk"))
+	private FestiuGrupEntity festiuGrup;
+	@Column(name = "ptv_gfe_cod", length = 4)
+	private String festiuGrupCodi;
+
 	@Builder
 	public PuntVendaEntity(
 			PuntVendaPk pk,
@@ -269,5 +292,12 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 			this.divisaSecundariaCodi = divisaSecundaria.getEmbedded().getCodi();
 		}
 	}
+
+	/*public void updateFestiuGrup(FestiuGrupEntity festiuGrup) {
+		this.festiuGrup = festiuGrup;
+		if (festiuGrup != null) {
+			this.festiuGrupCodi = festiuGrup.getEmbedded().getCodi();
+		}
+	}*/
 
 }

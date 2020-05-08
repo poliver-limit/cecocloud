@@ -8,6 +8,7 @@ import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -44,8 +45,6 @@ import lombok.Setter;
 @Table(
 		name = "tcec_ihr",
 		indexes = {
-				@Index(name = "ircec_ihr_pk", columnList = "ihr_idf_cod,ihr_seq", unique = true),
-				@Index(name = "icec_ihr_idf_fk", columnList = "ihr_idf_cod"),
 				@Index(name = "icec_ihr_hor_fk", columnList = "ihr_idf_cod,ihr_hor_cod")
 		}
 )
@@ -68,7 +67,7 @@ import lombok.Setter;
 			joinColumns = {
 					@JoinColumn(name = "ihr_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_ihr_idf_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
 @EntityListeners(HorariIntervalEntityListener.class)
 public class HorariIntervalEntity extends AbstractWithIdentificadorAuditableEntity<HorariInterval, HorariIntervalPk> {
@@ -82,7 +81,7 @@ public class HorariIntervalEntity extends AbstractWithIdentificadorAuditableEnti
 						@JoinColumn(name = "ihr_idf_cod", referencedColumnName = "hor_idf_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "ihr_hor_cod", referencedColumnName = "hor_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "ihr_hor_cod_fk"))
+			foreignKey = @ForeignKey(name = "rcec_ihr_hor_fk"))
 	private HorariEntity horari;
 
 	@Builder

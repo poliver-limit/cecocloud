@@ -37,7 +37,6 @@ import lombok.Setter;
 @Table(
 		name = "tcec_gfe",
 		indexes = {
-				@Index(name = "ircec_gfe_pk", columnList = "gfe_idf_cod,gfe_cod", unique = true),
 				@Index(name = "icec_gfe_idf_fk", columnList = "gfe_idf_cod")
 		}
 )
@@ -57,7 +56,7 @@ import lombok.Setter;
 			joinColumns = {
 					@JoinColumn(name = "gfe_idf_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_gfe_idf_fk"))
+			foreignKey = @ForeignKey(name = "rcec_gfe_idf_fk"))
 })
 public class FestiuGrupEntity extends AbstractWithIdentificadorAuditableEntity<FestiuGrup, WithIdentificadorAndCodiPk<String>> {
 
