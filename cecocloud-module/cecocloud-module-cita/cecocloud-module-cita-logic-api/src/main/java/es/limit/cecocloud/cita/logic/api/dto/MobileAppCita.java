@@ -27,7 +27,6 @@ public class MobileAppCita {
 	private String llinatges;
 	@NotNull
 	private String telefon;
-	@NotNull
 	private String email;
 	private MobileAppEmpresa empresa;
 	private MobileAppPuntVenda puntVenda;

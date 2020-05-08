@@ -48,7 +48,19 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 	private String codi;
 	@NotNull
 	private LocalDateTime data;
+	@NotNull
+	@Size(max = 100)
+	private String nom;
+	@NotNull
+	@Size(max = 100)
+	private String llinatges;
+	@NotNull
+	@Size(max = 15)
+	private String telefon;
+	@Size(max = 100)
+	private String email;
 	private LocalDateTime anulacioData;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

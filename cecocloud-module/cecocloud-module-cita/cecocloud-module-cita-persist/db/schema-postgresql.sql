@@ -10,6 +10,10 @@ create table tcec_cit (
     cit_anudat timestamp not null,
     cit_cod varchar(34) not null,
     cit_dat timestamp not null,
+    cit_nom varchar(100) not null,
+    cit_lng varchar(100) not null,
+    cit_tel varchar(15) not null,
+    cit_eml varchar(100),
     constraint rcec_cit_pk primary key (cit_ptv_cod, cit_seq, cit_emp_cod, cit_idf_cod)
 );
 
