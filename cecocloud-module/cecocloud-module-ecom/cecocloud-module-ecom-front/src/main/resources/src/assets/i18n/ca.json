@@ -6,7 +6,10 @@
 	"app.menu.ecom.articlesInformacio": "Informació sobre articles",
 	"app.menu.ecom.articlesMarca": "Marques",
 	"app.menu.ecom.articlesModel": "Models",
+	"app.menu.ecom.articlesTraduccio": "Traduccions",
 	"app.menu.ecom.empreses": "Empreses",
+	"app.menu.ecom.clients": "Clients",
+	"app.menu.ecom.idiomes": "Idiomes",
 	"app.menu.ecom.ives": "IVAs",
 	
 	"resource.article.field.decimalsPreu": "Decimals preu",
@@ -20,6 +23,12 @@
 	"resource.articleInformacio.field.web": "Web",
 	"resource.articleInformacio.field.tipus": "Tipus",
 	"resource.articleInformacio.field.rutaInforme": "Ruta informe",
-	"resource.articleInformacio.field.article": "Article"
+	"resource.articleInformacio.field.article": "Article",
+	
+	"resource.articleTraduccio" : "Article traducció",	
+	"resource.articleTraduccio.plural" : "Articles traduccions",
+	"resource.articleTraduccio.field.article": "Article",
+	"resource.articleTraduccio.field.idioma": "Idioma",
+	"resource.articleTraduccio.field.descripcio": "Descripció"
 	
 }

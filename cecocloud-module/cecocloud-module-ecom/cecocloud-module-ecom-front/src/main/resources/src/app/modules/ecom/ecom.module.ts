@@ -44,8 +44,20 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/articlesModel/articlesModel.module').then(m => m.ArticlesModelModule)
 				
 			}, {
+				path: 'articlesTraduccio',
+				loadChildren: () => import('./pages/articlesTraduccio/articlesTraduccio.module').then(m => m.ArticlesTraduccioModule)
+				
+			}, {
+				path: 'clients',
+				loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
+					
+			}, {
 				path: 'empreses',
 				loadChildren: () => import('./pages/empresesEcom/empresesEcom.module').then(m => m.EmpresesEcomModule)
+				
+			}, {
+				path: 'idiomes',
+				loadChildren: () => import('./pages/idiomes/idiomes.module').then(m => m.IdiomesModule)			
 				
 			}, {
 				path: 'ives',
@@ -113,12 +125,30 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.articlesModel',
 							route: '/ecom/articlesModel',
 							resource: 'COM_MODART'
+						}, {
+							icon: 'room',
+							label: 'Articles traducció',
+							labelKey: 'app.menu.ecom.articlesTraduccio',
+							route: '/ecom/articlesTraduccio',
+							resource: 'COM_TRDART'
+						}, {
+							icon: 'room',
+							label: 'Clients',
+							labelKey: 'app.menu.ecom.clients',
+							route: '/ecom/clients',
+							resource: 'COM_CLI'
 						}, {							
 							icon: 'room',
 							label: 'Empreses (eCommerce)',
 							labelKey: 'app.menu.ecom.empreses',
 							route: '/ecom/empreses',
 							resource: 'COM_EMPRES'
+							}, {						
+							icon: 'room',
+							label: 'Idiomes',
+							labelKey: 'app.menu.ecom.idiomes',
+							route: '/ecom/idiomes',
+							resource: 'COM_IDI'
 						}, {						
 							icon: 'room',
 							label: 'Iva',
