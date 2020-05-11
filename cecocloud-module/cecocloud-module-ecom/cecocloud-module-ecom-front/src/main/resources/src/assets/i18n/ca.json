@@ -3,11 +3,23 @@
 	"app.menu.ecom.articlesFamilia": "Famílies",
 	"app.menu.ecom.articlesFamiliaEmpresa": "Famílies/empreses",
 	"app.menu.ecom.articlesGamma": "Gammes",
+	"app.menu.ecom.articlesInformacio": "Informació sobre articles",
 	"app.menu.ecom.articlesMarca": "Marques",
 	"app.menu.ecom.articlesModel": "Models",
 	"app.menu.ecom.empreses": "Empreses",
 	"app.menu.ecom.ives": "IVAs",
 	
-	"resource.article.field.decimalsPreu": "Decimals preuuu",
-	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A."
+	"resource.article.field.decimalsPreu": "Decimals preu",
+	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A.",
+	"resource.article.field.articleInformacio": "Informació de l'article",
+	
+	"resource.articleInformacio" : "Article informació",	
+	"resource.articleInformacio.plural" : "Article informació",
+	"resource.articleInformacio.field.referenciaSequencial": "Referencia",
+	"resource.articleInformacio.field.descripcio": "Descripció",
+	"resource.articleInformacio.field.web": "Web",
+	"resource.articleInformacio.field.tipus": "Tipus",
+	"resource.articleInformacio.field.rutaInforme": "Ruta informe",
+	"resource.articleInformacio.field.article": "Article"
+	
 }
