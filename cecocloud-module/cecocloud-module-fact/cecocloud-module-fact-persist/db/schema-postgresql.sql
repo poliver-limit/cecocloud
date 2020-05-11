@@ -96,7 +96,7 @@
     );
 
     create table tges_art (
-       art_cod varchar(4) not null,
+       art_cod varchar(15) not null,
         art_idf_cod varchar(4) not null,
         art_usucre varchar(255),
         art_datcre timestamp,

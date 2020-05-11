@@ -1,3 +1,18 @@
+    create table tcom_ain (
+       ain_art_cod varchar(15) not null,
+        ain_num int4 not null,
+        ain_idf_cod varchar(4) not null,
+        ain_usucre varchar(255),
+        ain_datcre timestamp,
+        ain_usumod varchar(255),
+        ain_datmod timestamp,
+        ain_des varchar(60) not null,
+        ain_fitnom varchar(250),
+        ain_tip int4,
+        ain_web varchar(255),
+        primary key (ain_art_cod, ain_num, ain_idf_cod)
+    );
+
     create table tcom_arm (
        arm_art_cod varchar(4) not null,
         arm_mag_cod varchar(4) not null,
@@ -11,12 +26,13 @@
     );
 
     create table tcom_art (
-       art_cod varchar(4) not null,
+       art_cod varchar(15) not null,
         art_idf_cod varchar(4) not null,
         art_usucre varchar(255),
         art_datcre timestamp,
         art_usumod varchar(255),
         art_datmod timestamp,
+        art_ain_num int4,
         art_decpru int4 not null,
         art_decpruiva int4,
         art_des varchar(2000) not null,
@@ -89,6 +105,18 @@
         cpo_pas_cod varchar(4) not null,
         cpo_prv_cod varchar(4) not null,
         primary key (cpo_cod, cpo_idf_cod)
+    );
+
+    create table tcom_dar (
+       dar_art_cod varchar(4) not null,
+        dar_idi_cod varchar(4) not null,
+        dar_idf_cod varchar(4) not null,
+        dar_usucre varchar(255),
+        dar_datcre timestamp,
+        dar_usumod varchar(255),
+        dar_datmod timestamp,
+        dar_des varchar(2000) not null,
+        primary key (dar_art_cod, dar_idi_cod, dar_idf_cod)
     );
 
     create table tcom_dpg (
@@ -387,7 +415,8 @@
         tve_tip varchar(1) not null,
         primary key (tve_cod, tve_idf_cod)
     );
-    
+
+create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
 
     alter table tcom_arm 
@@ -396,6 +425,7 @@ create index icom_art_idf_fk on tcom_art (art_idf_cod);
 create index icom_cli_idf_fk on tcom_cli (cli_idf_cod);
 create index icom_cnt_idf_fk on tcom_cnt (cnt_idf_cod);
 create index icom_cpo_idf_fk on tcom_cpo (cpo_idf_cod);
+create index icom_dar_idf_fk on tcom_dar (dar_idf_cod);
 create index icom_dpg_idf_fk on tcom_dpg (dpg_idf_cod);
 create index icom_emp_idf_fk on tcom_emp (emp_idf_cod);
 create index icom_fae_idf_fk on tcom_fae (fae_idf_cod);
@@ -419,7 +449,12 @@ create index icom_prv_idf_fk on tcom_prv (prv_idf_cod);
 create index icom_rgi_idf_fk on tcom_rgi (rgi_idf_cod);
 create index icom_tfc_idf_fk on tcom_tfc (tfc_idf_cod);
 create index icom_tri_idf_fk on tcom_tri (tri_idf_cod);
-create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);  
+create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
+
+    alter table tcom_ain 
+       add constraint rges_ain_art_fk 
+       foreign key (ain_art_cod, ain_idf_cod) 
+       references tcom_art;
 
     alter table tcom_arm 
        add constraint rcom_arm_idf_fk 
@@ -440,6 +475,11 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_art_idf_fk 
        foreign key (art_idf_cod) 
        references tcom_idf;
+
+    alter table tcom_art 
+       add constraint rcom_art_ain_fk 
+       foreign key (art_cod, art_ain_num, art_idf_cod) 
+       references tcom_ain;
 
     alter table tcom_art 
        add constraint rcom_art_far_fk 
@@ -530,6 +570,21 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_cpo_prv_fk 
        foreign key (cpo_pas_cod, cpo_prv_cod, cpo_idf_cod) 
        references tcom_prv;
+
+    alter table tcom_dar 
+       add constraint rcom_dar_idf_fk 
+       foreign key (dar_idf_cod) 
+       references tcom_idf;
+
+    alter table tcom_dar 
+       add constraint rcom_dar_art_fk 
+       foreign key (dar_art_cod, dar_idf_cod) 
+       references tcom_art;
+
+    alter table tcom_dar 
+       add constraint rcom_dar_idi_fk 
+       foreign key (dar_idi_cod, dar_idf_cod) 
+       references tcom_idi;
 
     alter table tcom_dpg 
        add constraint rcom_dpg_idf_fk 

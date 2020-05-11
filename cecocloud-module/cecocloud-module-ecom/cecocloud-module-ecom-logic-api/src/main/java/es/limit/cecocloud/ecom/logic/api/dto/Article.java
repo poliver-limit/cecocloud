@@ -16,6 +16,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio.ArticleInformacioPk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -103,5 +104,11 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			type = RestapiFieldType.LOV,		
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
+	
+//	@Transient	
+//	@RestapiField(
+//			type = RestapiFieldType.LOV,		
+//			hiddenInLov = true)	
+//	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;
 
 }

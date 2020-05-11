@@ -32,6 +32,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/articlesGamma/articlesGamma.module').then(m => m.ArticlesGammaModule)
 
 			}, {
+				path: 'articlesInformacio',
+				loadChildren: () => import('./pages/articlesInformacio/articlesInformacio.module').then(m => m.ArticlesInformacioModule)
+				
+			}, {
 				path: 'articlesMarca',
 				loadChildren: () => import('./pages/articlesMarca/articlesMarca.module').then(m => m.ArticlesMarcaModule)
 
@@ -91,6 +95,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.articlesGamma',
 							route: '/ecom/articlesGamma',
 							resource: 'COM_GAMART'
+						}, {
+							icon: 'room',
+							label: 'Articles informació',
+							labelKey: 'app.menu.ecom.articlesInformacio',
+							route: '/ecom/articlesInformacio',
+							resource: 'COM_AINART'
 						}, {
 							icon: 'room',
 							label: 'Articles marca',

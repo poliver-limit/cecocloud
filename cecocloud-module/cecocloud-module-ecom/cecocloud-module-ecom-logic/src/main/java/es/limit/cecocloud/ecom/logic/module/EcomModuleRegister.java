@@ -15,6 +15,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamiliaEmpresa;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleGamma;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleModel;
+import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
 import es.limit.cecocloud.ecom.logic.api.dto.Empresa;
 import es.limit.cecocloud.ecom.logic.api.dto.Iva;
 import es.limit.cecocloud.ecom.logic.service.DatabaseSyncServiceImpl;
@@ -75,6 +76,14 @@ public class EcomModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles gamma (eCommerce)",
 						ArticleGamma.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_AINART",
+				new FuncionalitatCodiFontImpl(
+						"COM_AINART",
+						FuncionalitatTipus.MANTENIMENT,
+						"Articles informació (eCommerce)",
+						ArticleInformacio.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"COM_MARART",
