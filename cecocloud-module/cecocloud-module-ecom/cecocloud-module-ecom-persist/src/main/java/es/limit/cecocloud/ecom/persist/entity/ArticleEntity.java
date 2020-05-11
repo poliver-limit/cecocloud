@@ -133,17 +133,17 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	@Column(name = "art_iva_cod", length = 4, nullable = false)
 	private String ivaCodi;
 	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//					@JoinColumn(name = "art_idf_cod", referencedColumnName = "ain_idf_cod", insertable = false, updatable = false),
-//					@JoinColumn(name = "art_cod", referencedColumnName = "ain_art_cod", insertable = false, updatable = false),
-//					@JoinColumn(name = "art_ain_num", referencedColumnName = "ain_num", insertable = false, updatable = false)
-//			},
-//			foreignKey = @ForeignKey(name = "rcom_art_ain_fk"))
-//	private ArticleInformacioEntity articleInformacio;
-//	@Column(name = "art_ain_num", nullable = true)
-//	private Integer articleInformacioNumero;
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "art_idf_cod", referencedColumnName = "ain_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "art_cod", referencedColumnName = "ain_art_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "art_ain_num", referencedColumnName = "ain_num", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rcom_art_ain_fk"))
+	private ArticleInformacioEntity articleInformacio;
+	@Column(name = "art_ain_num", nullable = true)
+	private Integer articleInformacioNumero;
 	
 	@Builder
 	public ArticleEntity(			
@@ -154,8 +154,8 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 			ArticleGammaEntity gamma,
 			ArticleMarcaEntity marca,
 			ArticleModelEntity model,		
-			IvaEntity iva
-//			,ArticleInformacioEntity articleInformacio
+			IvaEntity iva,
+			ArticleInformacioEntity articleInformacio
 			) {
 		
 		setId(pk);		
@@ -168,7 +168,7 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 		this.updateGamma(gamma);
 		this.updateMarca(marca);
 		this.updateIva(iva);
-//		this.updateArticleInformacio(articleInformacio);
+		this.updateArticleInformacio(articleInformacio);
 	}
 
 	@Override
@@ -201,9 +201,9 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 		if (iva!=null) this.ivaCodi = iva.getEmbedded().getCodi();
 	}
 	
-//	public void updateArticleInformacio(ArticleInformacioEntity articleInformacio) {
-//		this.articleInformacio = articleInformacio;		
-//		if (articleInformacio!=null) this.articleInformacioNumero = articleInformacio.getEmbedded().getReferenciaSequencial();
-//	}
+	public void updateArticleInformacio(ArticleInformacioEntity articleInformacio) {
+		this.articleInformacio = articleInformacio;		
+		if (articleInformacio!=null) this.articleInformacioNumero = articleInformacio.getEmbedded().getReferenciaSequencial();
+	}
 
 }

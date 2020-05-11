@@ -105,10 +105,10 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
-//	@Transient	
-//	@RestapiField(
-//			type = RestapiFieldType.LOV,		
-//			hiddenInLov = true)	
-//	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV,		
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;
 
 }

@@ -313,7 +313,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			if (codi == null || codi.isEmpty()) {
 				int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
 						client.getId().getIdentificadorCodi(),
-						"TGES_CLI",
+						"TCOM_CLI",
 						new PkBuilder<WithIdentificadorAndCodiPk<String>>() {
 							@Override
 							public WithIdentificadorAndCodiPk<String> build(int seq) {

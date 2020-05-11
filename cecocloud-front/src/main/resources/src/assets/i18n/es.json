@@ -316,7 +316,10 @@
 	"funcionalitat.COM_AINART": "Artículos información",
 	"funcionalitat.COM_MARART": "Artículos marca",
 	"funcionalitat.COM_MODART": "Artículos modelo",
+	"funcionalitat.COM_CLI": "Clients",
 	"funcionalitat.COM_EMPRES": "Empresas",
-	"funcionalitat.COM_IVA": "Iva"
+	"funcionalitat.COM_IDI": "Idiomas",
+	"funcionalitat.COM_IVA": "Iva",
+	"funcionalitat.COM_TRDART": "Artículos traducciones"
 
 }

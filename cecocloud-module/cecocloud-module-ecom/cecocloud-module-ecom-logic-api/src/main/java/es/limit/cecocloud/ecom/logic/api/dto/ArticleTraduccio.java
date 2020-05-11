@@ -36,7 +36,7 @@ public class ArticleTraduccio extends AbstractIdentificableWithIdentificador<Art
 	@Size(max = 2000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
-			hiddenInGrid = true,
+			hiddenInGrid = false,
 			hiddenInLov = true)
 	private String descripcio;
 	
@@ -51,8 +51,8 @@ public class ArticleTraduccio extends AbstractIdentificableWithIdentificador<Art
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
-			hiddenInForm = true,
+			hiddenInGrid = false,
+			hiddenInForm = false,
 			disabledForUpdate = true,
 			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<Idioma, WithIdentificadorAndCodiPk<String>> idioma;

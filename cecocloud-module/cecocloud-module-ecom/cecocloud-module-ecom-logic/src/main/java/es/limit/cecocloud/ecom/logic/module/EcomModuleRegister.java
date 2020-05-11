@@ -16,10 +16,25 @@ import es.limit.cecocloud.ecom.logic.api.dto.ArticleGamma;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleModel;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
+import es.limit.cecocloud.ecom.logic.api.dto.ArticleTraduccio;
 import es.limit.cecocloud.ecom.logic.api.dto.Empresa;
 import es.limit.cecocloud.ecom.logic.api.dto.Iva;
+import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
+import es.limit.cecocloud.ecom.logic.api.dto.Client;
+import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
+import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
+import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
+import es.limit.cecocloud.ecom.logic.api.dto.RegimIva;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusFacturacio;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
+import es.limit.cecocloud.ecom.logic.api.dto.DocumentPagamentCobrament;
+
+
+
 import es.limit.cecocloud.ecom.logic.service.DatabaseSyncServiceImpl;
 import es.limit.cecocloud.ecom.logic.service.EmpresaIdentificadorSyncServiceImpl;
+import es.limit.cecocloud.ecom.persist.entity.DocumentPagamentCobramentEntity;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFontImpl;
@@ -100,6 +115,42 @@ public class EcomModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Articles model (eCommerce)",
 						ArticleModel.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_TRDART",
+				new FuncionalitatCodiFontImpl(
+						"COM_TRDART",
+						FuncionalitatTipus.MANTENIMENT,
+						"Articles traduccions (eCommerce)",
+						ArticleTraduccio.class,
+						Arrays.asList(
+								Article.class,
+								Idioma.class)));
+		funcionalitats.put(
+				"COM_CLI",
+				new FuncionalitatCodiFontImpl(
+						"COM_CLI",
+						FuncionalitatTipus.MANTENIMENT,
+						"Clients (eCommerce)",
+						Client.class,
+						Arrays.asList(
+								PaisNif.class,
+								TipusAdresa.class,
+								CodiPostal.class,
+								FamiliaClient.class,
+								Idioma.class,
+								Iva.class,
+								RegimIva.class,
+								TipusFacturacio.class,
+								TipusVenciment.class,
+								DocumentPagamentCobrament.class)));
+		funcionalitats.put(
+				"COM_IDI",
+				new FuncionalitatCodiFontImpl(
+						"COM_IDI",
+						FuncionalitatTipus.MANTENIMENT,
+						"Idiomes (eCommerce)",
+						Idioma.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"COM_IVA",
