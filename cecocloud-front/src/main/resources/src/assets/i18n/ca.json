@@ -323,10 +323,22 @@
 	"funcionalitat.COM_AINART": "Articles informació",
 	"funcionalitat.COM_MARART": "Articles marca",
 	"funcionalitat.COM_MODART": "Articles model",
+	"funcionalitat.COM_TRDART": "Articles traduccions",
 	"funcionalitat.COM_CLI": "Clients",
+	"funcionalitat.COM_CPO": "Codis postals",
+	"funcionalitat.COM_DPG": "Documents de pagament/cobrament",
+	"funcionalitat.COM_NPG": "Naturaleses de pagament/cobrament",
 	"funcionalitat.COM_EMPRES": "Empreses",
+	"funcionalitat.COM_FMC": "Famílies client",
 	"funcionalitat.COM_IDI": "Idiomes",
 	"funcionalitat.COM_IVA": "Iva",
-	"funcionalitat.COM_TRDART": "Articles traduccions"
+	"funcionalitat.COM_PAI": "Països",
+	"funcionalitat.COM_PAINIF": "Països NIF",
+	"funcionalitat.COM_PRV": "Províncies",
+	"funcionalitat.COM_RGI": "Règims d'Iva",
+	"funcionalitat.COM_TIPADR": "Tipus d'adreces",
+	"funcionalitat.COM_TFC": "Tipus de facturació",
+	"funcionalitat.COM_TRI": "Tipus de risc",
+	"funcionalitat.COM_TVE": "Tipus de venciments"	
 	
 }

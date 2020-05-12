@@ -17,24 +17,24 @@ import es.limit.cecocloud.ecom.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleModel;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleTraduccio;
-import es.limit.cecocloud.ecom.logic.api.dto.Empresa;
 import es.limit.cecocloud.ecom.logic.api.dto.Iva;
 import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
 import es.limit.cecocloud.ecom.logic.api.dto.Client;
 import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusRisc;
 import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
+import es.limit.cecocloud.ecom.logic.api.dto.Pais;
+import es.limit.cecocloud.ecom.logic.api.dto.Provincia;
 import es.limit.cecocloud.ecom.logic.api.dto.RegimIva;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.ecom.logic.api.dto.DocumentPagamentCobrament;
-
-
+import es.limit.cecocloud.ecom.logic.api.dto.NaturalesaPagamentCobrament;
 
 import es.limit.cecocloud.ecom.logic.service.DatabaseSyncServiceImpl;
 import es.limit.cecocloud.ecom.logic.service.EmpresaIdentificadorSyncServiceImpl;
-import es.limit.cecocloud.ecom.persist.entity.DocumentPagamentCobramentEntity;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFontImpl;
@@ -127,6 +127,16 @@ public class EcomModuleRegister {
 								Article.class,
 								Idioma.class)));
 		funcionalitats.put(
+				"COM_CPO",
+				new FuncionalitatCodiFontImpl(
+						"COM_CPO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Codis postal (eCommerce)",
+						CodiPostal.class,
+						Arrays.asList(
+								Pais.class,
+								Provincia.class)));
+		funcionalitats.put(
 				"COM_CLI",
 				new FuncionalitatCodiFontImpl(
 						"COM_CLI",
@@ -145,6 +155,41 @@ public class EcomModuleRegister {
 								TipusVenciment.class,
 								DocumentPagamentCobrament.class)));
 		funcionalitats.put(
+				"COM_FMC",
+				new FuncionalitatCodiFontImpl(
+						"COM_FMC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Famílies client (eCommerce)",
+						FamiliaClient.class,
+						Arrays.asList(TipusRisc.class)));
+		funcionalitats.put(
+				"COM_FMC",
+				new FuncionalitatCodiFontImpl(
+						"COM_FMC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Famílies client (eCommerce)",
+						FamiliaClient.class,
+						Arrays.asList(TipusRisc.class)));
+		funcionalitats.put(
+				"COM_DPG",
+				new FuncionalitatCodiFontImpl(
+						"COM_DPG",
+						FuncionalitatTipus.MANTENIMENT,
+						"Documents de pagament/cobrament (eCommerce)",
+						DocumentPagamentCobrament.class,
+						Arrays.asList(
+								NaturalesaPagamentCobrament.class,
+								Iva.class,
+								RegimIva.class)));
+		funcionalitats.put(
+				"COM_NPG",
+				new FuncionalitatCodiFontImpl(
+						"COM_NPG",
+						FuncionalitatTipus.MANTENIMENT,
+						"Naturaleses del pagament/cobrament (eCommerce)",
+						NaturalesaPagamentCobrament.class,
+						Arrays.asList()));
+		funcionalitats.put(
 				"COM_IDI",
 				new FuncionalitatCodiFontImpl(
 						"COM_IDI",
@@ -161,12 +206,68 @@ public class EcomModuleRegister {
 						Iva.class,
 						Arrays.asList()));
 		funcionalitats.put(
-				"COM_EMPRES",
+				"COM_RGI",
 				new FuncionalitatCodiFontImpl(
-						"COM_EMPRES",
+						"COM_RGI",
 						FuncionalitatTipus.MANTENIMENT,
-						"Empreses (eCommerce)",
-						Empresa.class,
+						"Règims iva (eCommerce)",
+						RegimIva.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_PAI",
+				new FuncionalitatCodiFontImpl(
+						"COM_PAI",
+						FuncionalitatTipus.MANTENIMENT,
+						"Països (eCommerce)",
+						Pais.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_PAINIF",
+				new FuncionalitatCodiFontImpl(
+						"COM_PAINIF",
+						FuncionalitatTipus.MANTENIMENT,
+						"Països Nif (eCommerce)",
+						PaisNif.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_PRV",
+				new FuncionalitatCodiFontImpl(
+						"COM_PRV",
+						FuncionalitatTipus.MANTENIMENT,
+						"Provincies (eCommerce)",
+						Provincia.class,
+						Arrays.asList(Pais.class)));
+		funcionalitats.put(
+				"COM_TIPADR",
+				new FuncionalitatCodiFontImpl(
+						"COM_TIPADR",
+						FuncionalitatTipus.MANTENIMENT,
+						"Tipus adreces (eCommerce)",
+						TipusAdresa.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_TFC",
+				new FuncionalitatCodiFontImpl(
+						"COM_TFC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Tipus de facturació (eCommerce)",
+						TipusFacturacio.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_TRI",
+				new FuncionalitatCodiFontImpl(
+						"COM_TRI",
+						FuncionalitatTipus.MANTENIMENT,
+						"Tipus de riscos (eCommerce)",
+						TipusRisc.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_TVE",
+				new FuncionalitatCodiFontImpl(
+						"COM_TVE",
+						FuncionalitatTipus.MANTENIMENT,
+						"Tipus de venciments (eCommerce)",
+						TipusVenciment.class,
 						Arrays.asList()));
 		moduleInfo = new ModuleInfo(
 				Modul.ecom,
