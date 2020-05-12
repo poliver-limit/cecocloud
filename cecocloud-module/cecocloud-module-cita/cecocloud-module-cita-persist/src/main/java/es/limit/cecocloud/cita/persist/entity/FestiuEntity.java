@@ -55,7 +55,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "fes_seq", insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "fes_nom", nullable = false)),
 	@AttributeOverride(name = "embedded.diaMes", column = @Column(name = "fes_diames", nullable = false)),
-	@AttributeOverride(name = "embedded.any", column = @Column(name = "fes_any", nullable = false)),
+	@AttributeOverride(name = "embedded.any", column = @Column(name = "fes_any")),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "fes_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "fes_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "fes_usumod")),

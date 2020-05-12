@@ -38,7 +38,7 @@ import lombok.Setter;
 public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 
 	@RestapiField(
-			disabledForCreate = true,
+			hiddenInForm = true,
 			disabledForUpdate = true)
 	private int sequencia;
 	@Size(max = 34)
@@ -59,6 +59,8 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 	private String telefon;
 	@Size(max = 100)
 	private String email;
+	@RestapiField(
+			hiddenInForm = true)
 	private LocalDateTime anulacioData;
 	
 	@Transient

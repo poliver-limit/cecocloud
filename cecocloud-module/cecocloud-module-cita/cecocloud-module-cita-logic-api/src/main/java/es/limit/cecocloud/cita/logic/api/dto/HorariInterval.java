@@ -35,13 +35,16 @@ import lombok.Setter;
 public class HorariInterval extends AbstractIdentificableWithIdentificador<HorariIntervalPk> {
 
 	@RestapiField(
+			hiddenInForm = true,
 			disabledForUpdate = true)
 	private int sequencia;
 	@NotNull
 	private DiaSetmana diaSetmana;
 	@NotNull
+	@RestapiField(RestapiFieldType.HOURMINUTE)
 	private LocalTime horaInici;
 	@NotNull
+	@RestapiField(RestapiFieldType.HOURMINUTE)
 	private LocalTime horaFi;
 
 	@NotNull

@@ -36,6 +36,7 @@ import lombok.Setter;
 public class Festiu extends AbstractIdentificableWithIdentificador<FestiuPk> {
 
 	@RestapiField(
+			hiddenInForm = true,
 			disabledForUpdate = true)
 	private int sequencia;
 	@NotNull
@@ -45,7 +46,6 @@ public class Festiu extends AbstractIdentificableWithIdentificador<FestiuPk> {
 	private String nom;
 	@NotNull
 	private LocalDate diaMes;
-	@NotNull
 	private Integer any;
 
 	@NotNull

@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,8 +38,10 @@ public class Horari extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@Size(max = 100)
 	private String nom;
 	@NotNull
+	@RestapiField(RestapiFieldType.DAYMONTH)
 	private LocalDate dataInici;
 	@NotNull
+	@RestapiField(RestapiFieldType.DAYMONTH)
 	private LocalDate dataFi;
 
 }

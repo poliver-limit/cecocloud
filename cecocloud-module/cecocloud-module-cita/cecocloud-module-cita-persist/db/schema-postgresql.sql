@@ -25,7 +25,7 @@ create table tcec_fes (
     fes_datcre timestamp,
     fes_usumod varchar(255),
     fes_datmod timestamp,
-    fes_any int4 not null,
+    fes_any int4,
     fes_diames date not null,
     fes_nom varchar(255) not null,
     constraint rcec_fes_pk primary key (fes_gfe_cod, fes_seq, fes_idf_cod)
