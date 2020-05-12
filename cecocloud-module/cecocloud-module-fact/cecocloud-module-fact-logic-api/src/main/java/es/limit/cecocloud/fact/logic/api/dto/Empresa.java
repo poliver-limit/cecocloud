@@ -45,7 +45,13 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 				toUpperCase = true,
 				includeInQuickFilter = true)
 	private String codi;
-	
+
+	@Size(max = 12)
+	@NotNull
+	@RestapiField(
+			includeInQuickFilter = true)
+	private String nif;
+
 	@NotNull
 	@Size(max = 40)
 	@RestapiField(disabledForUpdate = true,

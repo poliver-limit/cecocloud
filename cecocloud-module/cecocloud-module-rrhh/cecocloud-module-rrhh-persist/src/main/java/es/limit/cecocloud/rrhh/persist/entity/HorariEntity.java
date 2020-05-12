@@ -31,7 +31,7 @@ import lombok.Setter;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity
+@Entity(name = "rrhhHorariEntity")
 @Table(
 		name = "trhu_hor",
 		indexes = {

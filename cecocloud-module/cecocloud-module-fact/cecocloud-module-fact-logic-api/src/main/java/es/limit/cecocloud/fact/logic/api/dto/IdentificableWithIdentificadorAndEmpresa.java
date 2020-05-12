@@ -34,6 +34,12 @@ public interface IdentificableWithIdentificadorAndEmpresa<PK extends WithIdentif
 	@ToString
 	public static class WithIdentificadorAndEmpresaPk extends WithIdentificadorPk {
 		private String empresaCodi;
+		public WithIdentificadorAndEmpresaPk(
+				String identificadorCodi,
+				String empresaCodi) {
+			super(identificadorCodi);
+			this.empresaCodi = empresaCodi;
+		}
 	}
 
 }

@@ -14,6 +14,6 @@ import es.limit.cecocloud.rrhh.persist.entity.EmpresaEntity;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Repository("EmpresaRrhhRepository")
+@Repository("rrhhEmpresaRepository")
 public interface EmpresaRepository extends BaseRepository<EmpresaEntity, WithIdentificadorAndCodiPk<String>> {
 }

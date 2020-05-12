@@ -10,6 +10,7 @@ package es.limit.cecocloud.logic.api.module;
  */
 public enum Modul {
 	//banc,
+	cita,
 	//comp,
 	fact,
 	rrhh,

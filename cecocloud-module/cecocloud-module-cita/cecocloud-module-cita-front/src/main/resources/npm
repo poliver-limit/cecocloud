@@ -1,0 +1,5 @@
+#!/bin/sh
+export MSYS=winsymlinks:nativestrict
+cd $(dirname $0)
+PATH="$PWD/../../../target/node/":"$PWD":$PATH
+node "$PWD/../../../target/node/node_modules/npm/bin/npm-cli.js" "$@"

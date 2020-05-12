@@ -10,6 +10,7 @@
 	<artifactId>cecocloud-module</artifactId>
 	<packaging>pom</packaging>
 	<modules>
+		<module>cecocloud-module-cita</module>
 		<module>cecocloud-module-fact</module>
 		<module>cecocloud-module-lici</module>
 		<module>cecocloud-module-marc</module>

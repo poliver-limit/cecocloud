@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
+import javax.persistence.ConstraintMode;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -27,7 +28,7 @@ public abstract class AbstractWithIdentificadorAuditableEntity<D, PK extends Wit
 			name = "xxx_idf_cod",
 			insertable = false,
 			updatable = false,
-			foreignKey = @ForeignKey(name = "rges_xxx_idf_fk"))
+			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	protected IdentificadorEntity identificador;	
 
 }

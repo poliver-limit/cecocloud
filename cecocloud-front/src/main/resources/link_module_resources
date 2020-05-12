@@ -28,3 +28,10 @@ rm -fr src/assets/i18n/rrhh
 mkdir src/assets/i18n/rrhh
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/rrhh/ca.json
 ln -s ../../../../../../../../cecocloud-module/cecocloud-module-rrhh/cecocloud-module-rrhh-front/src/main/resources/src/assets/i18n/es.json src/assets/i18n/rrhh/es.json
+
+rm -fr src/app/modules/cita
+ln -s ../../../../../../../cecocloud-module/cecocloud-module-cita/cecocloud-module-cita-front/src/main/resources/src/app/modules/cita src/app/modules/cita
+rm -fr src/assets/i18n/cita
+mkdir src/assets/i18n/cita
+ln -s ../../../../../../../../cecocloud-module/cecocloud-module-cita/cecocloud-module-cita-front/src/main/resources/src/assets/i18n/ca.json src/assets/i18n/cita/ca.json
+ln -s ../../../../../../../../cecocloud-module/cecocloud-module-cita/cecocloud-module-cita-front/src/main/resources/src/assets/i18n/es.json src/assets/i18n/cita/es.json

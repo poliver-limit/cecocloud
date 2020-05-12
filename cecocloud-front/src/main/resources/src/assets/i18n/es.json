@@ -21,6 +21,7 @@
 	"app.module.marc": "Marcajes",
 	"app.module.rrhh": "Recursos humanos",
 	"app.module.lici": "Licitaciones",
+	"app.module.cita": "Citas",
 
 	"resource.permission": "Permiso",
 	"resource.permission.plural": "Permisos",
@@ -306,6 +307,11 @@
 	"funcionalitat.REH_TIPTRA": "Tipos de transacciones",
 	"funcionalitat.REH_TORN": "Turnos",
 	"funcionalitat.REH_TRANSA": "Transacciones",
-	"funcionalitat.REH_ZONA": "Zonas"
+	"funcionalitat.REH_ZONA": "Zonas",
+
+	"funcionalitat.CIT_CITA": "Citas",
+	"funcionalitat.CIT_PUNVEN": "Puntos de venta",
+	"funcionalitat.CIT_HORARI": "Horarios",
+	"funcionalitat.CIT_GRPFES": "Grupos de festivos"
 
 }

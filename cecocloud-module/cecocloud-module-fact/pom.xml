@@ -15,5 +15,6 @@
 		<module>cecocloud-module-fact-logic-api</module>
 		<module>cecocloud-module-fact-logic</module>
 		<!--module>cecocloud-module-fact-front</module-->
+		<module>cecocloud-module-fact-test</module>
 	</modules>
 </project>
