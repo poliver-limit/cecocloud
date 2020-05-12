@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.ecom.logic.api.dto.Article;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -144,6 +146,9 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	private ArticleInformacioEntity articleInformacio;
 	@Column(name = "art_ain_num", nullable = true)
 	private Integer articleInformacioNumero;
+	
+	@Formula(value="(SELECT ain.ain_fitnom FROM tcom_ain ain WHERE ain.ain_num = art_ain_num AND ain.ain_art_cod = art_cod AND ain.ain_idf_cod = art_idf_cod)")	
+	private String articleInformacioRutaInforme;
 	
 	@Builder
 	public ArticleEntity(			

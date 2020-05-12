@@ -13,6 +13,6 @@ import es.limit.base.boot.logic.api.controller.GenericController;
 public class EcomModuleConfig {
 
 	public static final String API_PATH = GenericController.API_PATH + "/ecom";
-	public static final String API_FRONT_PATH = GenericController.API_PATH + "/ecomfront";
+	public static final String API_ECOMMERCE_PATH = GenericController.API_PATH + "/ecomfront";
 
 }

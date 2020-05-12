@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.ecom.front.back.controller;
+package es.limit.cecocloud.ecom.back.ecommerce.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

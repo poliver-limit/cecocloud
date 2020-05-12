@@ -108,7 +108,17 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
-			hiddenInLov = true)	
+			hiddenInLov = true,
+			hiddenInGrid = true,
+			hiddenInForm = false)	
 	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = false,
+			disabledForUpdate = true,
+			disabledForCreate = true)
+	private String articleInformacioRutaInforme;
 
 }
