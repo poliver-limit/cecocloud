@@ -12,12 +12,8 @@ import org.springframework.stereotype.Service;
 import es.limit.base.boot.logic.api.dto.SyncParam;
 import es.limit.base.boot.logic.api.dto.SyncProcess;
 import es.limit.base.boot.logic.api.dto.SyncTable;
-<<<<<<< HEAD
-import es.limit.base.boot.logic.api.dto.SyncTransactionResponse;
-=======
 import es.limit.base.boot.logic.api.dto.SyncTableResponse;
 import es.limit.base.boot.logic.api.exception.SyncTableException;
->>>>>>> modul_cites
 import es.limit.base.boot.logic.api.exception.SyncTransactionException;
 import es.limit.base.boot.logic.service.AbstractSyncServiceImpl;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
@@ -41,10 +37,6 @@ public class SyncServiceImpl extends AbstractSyncServiceImpl {
 	@Autowired
 	private IdentificadorRepository identificadorRepository;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> modul_cites
 	@Override
 	protected void validateProcess(SyncProcess syncProcess) throws SyncTransactionException {
 		SyncParam identificadorCodiParam = syncProcess.getParam(IDENTIFICADOR_CODI_PARAM);
@@ -59,11 +51,7 @@ public class SyncServiceImpl extends AbstractSyncServiceImpl {
 	}
 
 	@Override
-<<<<<<< HEAD
-	protected SyncTransactionResponse syncTable(SyncTable table) throws SyncTransactionException {
-=======
 	protected SyncTableResponse syncTable(SyncTable table) throws SyncTableException {
->>>>>>> modul_cites
 		DatabaseSyncService syncService = null;
 		for (es.limit.base.boot.logic.api.module.ModuleInfo module: Modules.registeredFindAll()) {
 			if (module instanceof ModuleInfo) {

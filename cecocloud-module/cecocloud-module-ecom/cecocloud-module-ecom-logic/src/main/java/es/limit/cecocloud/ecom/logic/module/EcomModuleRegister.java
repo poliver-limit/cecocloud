@@ -19,6 +19,7 @@ import es.limit.cecocloud.logic.api.module.ModuleInfo;
 @Component
 public class EcomModuleRegister {
 
+	@SuppressWarnings("unused")
 	private static Map<String, FuncionalitatCodiFont> funcionalitats;
 	private static ModuleInfo moduleInfo;
 

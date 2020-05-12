@@ -4,11 +4,7 @@
 package es.limit.cecocloud.logic.api.service;
 
 import es.limit.base.boot.logic.api.dto.SyncTable;
-<<<<<<< HEAD
-import es.limit.base.boot.logic.api.dto.SyncTransactionResponse;
-=======
 import es.limit.base.boot.logic.api.dto.SyncTableResponse;
->>>>>>> modul_cites
 
 /**
  * Servei encarregat de sincronitzar les taules de base de dades.
@@ -33,10 +29,6 @@ public interface DatabaseSyncService {
 	 *            informació de sincronització de la taula.
 	 * @return el resultat del procés de sincronització.
 	 */
-<<<<<<< HEAD
-	public SyncTransactionResponse syncTable(SyncTable table);
-=======
 	public SyncTableResponse syncTable(SyncTable table);
->>>>>>> modul_cites
 
 }

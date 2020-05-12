@@ -12,11 +12,7 @@
 		<relativePath/>
 	</parent>
 	<properties>
-<<<<<<< HEAD
-		<baseboot.version>1.2.8</baseboot.version>
-=======
 		<baseboot.version>1.2.9</baseboot.version>
->>>>>>> modul_cites
 		<node.version>v10.16.3</node.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
