@@ -50,7 +50,22 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'clients',
 				loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
-					
+				
+			}, {
+				path: 'familiesClient',
+				loadChildren: () => import('./pages/familiesClient/familiesClient.module').then(m => m.FamiliesClientModule)
+				
+			}, {
+				path: 'codisPostal',
+				loadChildren: () => import('./pages/codisPostal/codisPostal.module').then(m => m.CodisPostalModule)
+				
+			}, {
+				path: 'documentsPagamentCobrament',
+				loadChildren: () => import('./pages/documentsPagamentCobrament/documentsPagamentCobrament.module').then(m => m.DocumentsPagamentCobramentModule)
+				
+			}, {
+				path: 'naturalesesPagamentCobrament',
+				loadChildren: () => import('./pages/naturalesesPagamentCobrament/naturalesesPagamentCobrament.module').then(m => m.NaturalesesPagamentCobramentModule)		
 			}, {
 				path: 'empreses',
 				loadChildren: () => import('./pages/empresesEcom/empresesEcom.module').then(m => m.EmpresesEcomModule)
@@ -61,8 +76,40 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				
 			}, {
 				path: 'ives',
-				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule)				
+				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule)
+				
+			}, {
+				path: 'regimsIva',
+				loadChildren: () => import('./pages/regimsIva/regimsIva.module').then(m => m.RegimsIvaModule)
+				
+			}, {
+				path: 'paisos',
+				loadChildren: () => import('./pages/paisos/paisos.module').then(m => m.PaisosModule)					
 			
+			}, {
+				path: 'paisosNif',
+				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)	
+				
+			}, {
+				path: 'provincies',
+				loadChildren: () => import('./pages/provincies/provincies.module').then(m => m.ProvinciesModule)	
+				
+			}, {
+				path: 'tipusAdreces',
+				loadChildren: () => import('./pages/tipusAdreces/tipusAdreces.module').then(m => m.TipusAdrecesModule)	
+				
+			}, {
+				path: 'tipusFacturacions',
+				loadChildren: () => import('./pages/tipusFacturacions/tipusFacturacions.module').then(m => m.TipusFacturacionsModule)							
+				
+			}, {
+				path: 'tipusRiscos',
+				loadChildren: () => import('./pages/tipusRiscos/tipusRiscos.module').then(m => m.TipusRiscosModule)	
+				
+			}, {
+				path: 'tipusVenciments',
+				loadChildren: () => import('./pages/tipusVenciments/tipusVenciments.module').then(m => m.TipusVencimentsModule)
+				
 			}, {
 				path: '**',
 				redirectTo: ''
@@ -127,23 +174,47 @@ export class EcomModule {
 							resource: 'COM_MODART'
 						}, {
 							icon: 'room',
-							label: 'Articles traducció',
+							label: 'Articles traducció (eCommerce)',
 							labelKey: 'app.menu.ecom.articlesTraduccio',
 							route: '/ecom/articlesTraduccio',
 							resource: 'COM_TRDART'
 						}, {
 							icon: 'room',
-							label: 'Clients',
+							label: 'Clients (eCommerce)',
 							labelKey: 'app.menu.ecom.clients',
 							route: '/ecom/clients',
 							resource: 'COM_CLI'
+						}, {
+							icon: 'room',
+							label: 'Families client (eCommerce)',
+							labelKey: 'app.menu.ecom.familiesClient',
+							route: '/ecom/familiesClient',
+							resource: 'COM_FMC'
+						}, {
+							icon: 'room',
+							label: 'Codis postals (eCommerce)',
+							labelKey: 'app.menu.ecom.codisPostal',
+							route: '/ecom/codisPostal',
+							resource: 'COM_CPO'
+						}, {							
+							icon: 'room',
+							label: 'Documents pagament/cobrament (eCommerce)',
+							labelKey: 'app.menu.ecom.documentsPagamentCobrament',
+							route: '/ecom/documentsPagamentCobrament',
+							resource: 'COM_DPG'
+						}, {							
+							icon: 'room',
+							label: 'Naturaleses pagament/cobrament (eCommerce)',
+							labelKey: 'app.menu.ecom.naturalesesPagamentCobrament',
+							route: '/ecom/naturalesesPagamentCobrament',
+							resource: 'COM_NPG'
 						}, {							
 							icon: 'room',
 							label: 'Empreses (eCommerce)',
 							labelKey: 'app.menu.ecom.empreses',
 							route: '/ecom/empreses',
 							resource: 'COM_EMPRES'
-							}, {						
+						}, {						
 							icon: 'room',
 							label: 'Idiomes',
 							labelKey: 'app.menu.ecom.idiomes',
@@ -151,10 +222,58 @@ export class EcomModule {
 							resource: 'COM_IDI'
 						}, {						
 							icon: 'room',
-							label: 'Iva',
+							label: 'Iva (eCommerce)',
 							labelKey: 'app.menu.ecom.ives',
 							route: '/ecom/ives',
 							resource: 'COM_IVA'
+						}, {						
+							icon: 'room',
+							label: 'Règims iva (eCommerce)',
+							labelKey: 'app.menu.ecom.regimsIva',
+							route: '/ecom/regimsIva',
+							resource: 'COM_RGI'
+						}, {						
+							icon: 'room',
+							label: 'Paisos (eCommerce)',
+							labelKey: 'app.menu.ecom.paisos',
+							route: '/ecom/paisos',
+							resource: 'COM_PAI'
+						}, {						
+							icon: 'room',
+							label: 'Paisos Nif (eCommerce)',
+							labelKey: 'app.menu.ecom.paisosNif',
+							route: '/ecom/paisosNif',
+							resource: 'COM_PAINIF'
+						}, {						
+							icon: 'room',
+							label: 'Provincies (eCommerce)',
+							labelKey: 'app.menu.ecom.provincies',
+							route: '/ecom/provincies',
+							resource: 'COM_PRV'
+						}, {						
+							icon: 'room',
+							label: 'Tipus adreça (eCommerce)',
+							labelKey: 'app.menu.ecom.tipusAdreces',
+							route: '/ecom/tipusAdreces',
+							resource: 'COM_TIPADR'
+						}, {						
+							icon: 'room',
+							label: 'Tipus facturacions (eCommerce)',
+							labelKey: 'app.menu.ecom.tipusFacturacions',
+							route: '/ecom/tipusFacturacions',
+							resource: 'COM_TFC'
+						}, {						
+							icon: 'room',
+							label: 'Tipus riscos (eCommerce)',
+							labelKey: 'app.menu.ecom.tipusRiscos',
+							route: '/ecom/tipusRiscos',
+							resource: 'COM_TRI'
+						}, {						
+							icon: 'room',
+							label: 'Tipus venciments (eCommerce)',
+							labelKey: 'app.menu.ecom.tipusVenciments',
+							route: '/ecom/tipusVenciments',
+							resource: 'COM_TVE'
 						}						
 					]
 				}
