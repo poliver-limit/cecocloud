@@ -9,6 +9,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { FestiusGrupGridComponent } from './festiusGrup-grid.component';
 import { FestiusGrupFormComponent } from './festiusGrup-form.component';
 import { FestiusGrupService } from './festiusGrup.service';
+import { FestiusService } from './festius.service';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { FestiusGrupService } from './festiusGrup.service';
 		FestiusGrupFormComponent
 	],
 	providers: [
-		FestiusGrupService
+		FestiusGrupService,
+		FestiusService
 	]
 })
 export class FestiusGrupModule { }

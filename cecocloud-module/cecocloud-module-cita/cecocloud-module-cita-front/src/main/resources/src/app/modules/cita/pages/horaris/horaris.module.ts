@@ -9,6 +9,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { HorarisGridComponent } from './horaris-grid.component';
 import { HorarisFormComponent } from './horaris-form.component';
 import { HorarisService } from './horaris.service';
+import { HorariIntervalsService } from './horariIntervals.service';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { HorarisService } from './horaris.service';
 		HorarisFormComponent
 	],
 	providers: [
-		HorarisService
+		HorarisService,
+		HorariIntervalsService
 	]
 })
 export class HorarisModule { }

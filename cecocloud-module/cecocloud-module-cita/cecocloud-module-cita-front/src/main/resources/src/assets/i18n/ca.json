@@ -1,7 +1,7 @@
 {
 	"app.menu.cita.cites": "Cites",
 	"app.menu.cita.puntsVenda": "Punts de venda",
-	"app.menu.cita.grupFestius": "Festius",
+	"app.menu.cita.grupFestius": "Grups de festius",
 	"app.menu.cita.horaris": "Horaris",
 
 	"resource.puntVenda": "Punt de venda",
@@ -11,6 +11,7 @@
 	"resource.puntVenda.field.citaActiva": "Cites actives?",
 	"resource.puntVenda.field.citaIntervalMinuts": "Interval minuts",
 	"resource.puntVenda.field.citaNumPlaces": "Núm. places",
+	"resource.puntVenda.field.festiuGrup": "Grup de festius",
 
 	"resource.festiuGrup": "Grup de festius",
 	"resource.festiuGrup.plural": "Grups de festius",
@@ -30,15 +31,19 @@
 	"resource.horari.field.dataInici": "Data inici",
 	"resource.horari.field.dataFi": "Data fi",
 
-	"resource.horariInterval": "Horari",
-	"resource.horariInterval.plural": "Horaris",
-	"resource.horariInterval.field.diaSetmana": "Dia",
+	"resource.horariInterval": "Interval horari",
+	"resource.horariInterval.plural": "Intervals horaris",
+	"resource.horariInterval.field.diaSetmana": "Dia de la setmana",
 	"resource.horariInterval.field.horaInici": "Hora inici",
 	"resource.horariInterval.field.horaFi": "Hora fi",
 
 	"resource.cita": "Cita",
 	"resource.cita.plural": "Cites",
 	"resource.cita.field.codi": "Codi",
-	"resource.cita.field.nom": "Nom"
+	"resource.cita.field.nom": "Nom",
+	"resource.cita.field.llinatges": "Llinatges",
+	"resource.cita.field.telefon": "Telèfon",
+	"resource.cita.field.email": "Correu-e",
+	"resource.cita.field.anulacioData": "Data d'anul·lació"
 
 }

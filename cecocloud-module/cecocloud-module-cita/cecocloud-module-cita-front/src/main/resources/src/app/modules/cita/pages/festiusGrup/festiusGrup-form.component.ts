@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BngFormBaseComponent } from 'base-angular';
+import { BngFormBaseComponent, BngDatagridConfig } from 'base-angular';
 
 import { FestiusGrupService } from './festiusGrup.service';
+import { FestiusService } from './festius.service';
 
 @Component({
 	template: `
@@ -11,28 +12,55 @@ import { FestiusGrupService } from './festiusGrup.service';
 	[config]="formConfig"
 	[restapiService]="festiusGrupService"
 	(resourceLoad)="onResourceLoad($event)">
+	<ng-container *ngIf="id">
+		<mat-tab-group>
+			<mat-tab label="{{'resource.festiu.plural' | translate}}">
+				<br/>
+				<bng-datagrid
+					[config]="festiusDatagridConfig"
+					[restapiService]="festiusService"
+					[editable]="true"></bng-datagrid>
+			</mat-tab>
+		</mat-tab-group>
+	</ng-container>
 </bng-form>
 `
 })
 export class FestiusGrupFormComponent extends BngFormBaseComponent {
 
-	isAdmin: boolean;
-	longitud: number;
-	latitud: number;
-	showMap: boolean;
+	festiusDatagridConfig: BngDatagridConfig = {
+		mode: 'form',
+		columns: [{
+			field: 'nom',
+			width: 40
+		}, {
+			field: 'diaMes',
+			width: 30
+		}, {
+			field: 'any',
+			width: 30
+		}]
+	};
 
-	onResourceLoad(resource: any) {
-		if (resource.ubicacio) {
-			this.longitud = resource.longitud;
-			this.latitud = resource.latitud;
-			this.showMap = true;
-		}
+	onResourceLoad(festiuGrup: any) {
+		this.festiusDatagridConfig.fixedFilter = 'festiuGrup.codi==' + festiuGrup.codi;
 	}
 
 	constructor(
 		activatedRoute: ActivatedRoute,
-		public festiusGrupService: FestiusGrupService) {
+		public festiusGrupService: FestiusGrupService,
+		public festiusService: FestiusService) {
 		super(activatedRoute);
+		activatedRoute.params.subscribe((params) => {
+			if (params.id) {
+				this.festiusDatagridConfig.fixedRowData = {
+					festiuGrup: {
+						id: params.id,
+						description: undefined
+					}
+				}
+			}
+		});
 		this.formConfig.readOnlyStateEnabled = false;
 	}
 
