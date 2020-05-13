@@ -37,6 +37,11 @@
 	"resource.horariInterval.field.horaInici": "Hora inici",
 	"resource.horariInterval.field.horaFi": "Hora fi",
 
+	"resource.puntVendaHorari": "Horari",
+	"resource.puntVendaHorari.plural": "Horaris",
+	"resource.puntVendaHorari.field.puntVenda": "Punt de venda",
+	"resource.puntVendaHorari.field.horari": "Horari",
+
 	"resource.cita": "Cita",
 	"resource.cita.plural": "Cites",
 	"resource.cita.field.codi": "Codi",

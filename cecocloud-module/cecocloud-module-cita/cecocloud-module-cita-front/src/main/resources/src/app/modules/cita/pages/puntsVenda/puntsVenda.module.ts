@@ -9,6 +9,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { PuntsVendaGridComponent } from './puntsVenda-grid.component';
 import { PuntsVendaFormComponent } from './puntsVenda-form.component';
 import { PuntsVendaService } from './puntsVenda.service';
+import { PuntVendaHorarisService } from './puntVendaHoraris.service';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { PuntsVendaService } from './puntsVenda.service';
 		PuntsVendaFormComponent
 	],
 	providers: [
-		PuntsVendaService
+		PuntsVendaService,
+		PuntVendaHorarisService
 	]
 })
 export class PuntsVendaModule { }
