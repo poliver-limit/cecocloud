@@ -217,7 +217,8 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 			MagatzemEntity magatzem,
 			OperariEntity operari,
 			SerieVendaEntity serie,
-			DivisaEntity divisaSecundaria) {
+			DivisaEntity divisaSecundaria,
+			FestiuGrupEntity festiuGrup) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
@@ -230,6 +231,7 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 		updateOperari(operari);
 		updateSerie(serie);
 		updateDivisaSecundaria(divisaSecundaria);
+		updateFestiuGrup(festiuGrup);
 	}
 
 	@Override
@@ -293,11 +295,11 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 		}
 	}
 
-	/*public void updateFestiuGrup(FestiuGrupEntity festiuGrup) {
+	public void updateFestiuGrup(FestiuGrupEntity festiuGrup) {
 		this.festiuGrup = festiuGrup;
 		if (festiuGrup != null) {
 			this.festiuGrupCodi = festiuGrup.getEmbedded().getCodi();
 		}
-	}*/
+	}
 
 }

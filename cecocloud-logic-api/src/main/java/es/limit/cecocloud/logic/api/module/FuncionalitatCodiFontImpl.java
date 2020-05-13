@@ -4,10 +4,13 @@
 package es.limit.cecocloud.logic.api.module;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.security.acls.model.Permission;
 
+import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiResourcePermission;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.logic.api.permission.ExtendedPermission;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
@@ -39,7 +42,7 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 		this.codi = codi;
 		this.tipus = tipus;
 		this.descripcio = descripcio;
-		setDefaultAllowedPermissions();
+		setAllowedPermissions(null);
 	}
 	public FuncionalitatCodiFontImpl(
 			String codi, 
@@ -54,7 +57,7 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 		this.recursPrincipal = recursPrincipal;
 		this.recursosSecundaris = recursosSecundaris;
 		this.funcionalitatsFilles = funcionalitatsFilles;
-		setDefaultAllowedPermissions();
+		setAllowedPermissions(recursPrincipal);
 	}
 
 	public FuncionalitatCodiFontImpl(
@@ -63,8 +66,7 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 			String descripcio, 
 			Class<? extends Identificable<?>> recursPrincipal,
 			List<Class<? extends Identificable<?>>> recursosSecundaris) {
-		this(
-				codi,
+		this(	codi,
 				tipus,
 				descripcio,
 				recursPrincipal,
@@ -72,25 +74,47 @@ public class FuncionalitatCodiFontImpl implements FuncionalitatCodiFont {
 				null);
 	}
 
-	private void setDefaultAllowedPermissions() {
-		this.allowedPermissions = new ArrayList<Permission>();
+	private void setAllowedPermissions(Class<? extends Identificable<?>> recursClass) {
+		RestapiResourcePermission[] resourcePermissionsAllowed = null;
+		if (recursClass != null) {
+			RestapiResource restapiResource = recursClass.getAnnotation(RestapiResource.class);
+			if (restapiResource.permissionsAllowed().length > 0) {
+				resourcePermissionsAllowed = restapiResource.permissionsAllowed();
+			}
+		}
+		allowedPermissions = new ArrayList<Permission>();
 		switch (tipus) {
 		case MANTENIMENT:
-			this.allowedPermissions.add(ExtendedPermission.READ);
-			this.allowedPermissions.add(ExtendedPermission.WRITE);
-			this.allowedPermissions.add(ExtendedPermission.CREATE);
-			this.allowedPermissions.add(ExtendedPermission.DELETE);
+			addPermissionIfAllowed(ExtendedPermission.READ, resourcePermissionsAllowed);
+			addPermissionIfAllowed(ExtendedPermission.WRITE, resourcePermissionsAllowed);
+			addPermissionIfAllowed(ExtendedPermission.CREATE, resourcePermissionsAllowed);
+			addPermissionIfAllowed(ExtendedPermission.DELETE, resourcePermissionsAllowed);
 			break;
 		case ACCIO_SIMPLE:
 		case ACCIO_MULTIPLE:
-			this.allowedPermissions.add(ExtendedPermission.WRITE);
+			addPermissionIfAllowed(ExtendedPermission.WRITE, resourcePermissionsAllowed);
 			break;
 		case INFORME:
-			this.allowedPermissions.add(ExtendedPermission.READ);
-			this.allowedPermissions.add(ExtendedPermission.CREATE);
+			addPermissionIfAllowed(ExtendedPermission.READ, resourcePermissionsAllowed);
+			addPermissionIfAllowed(ExtendedPermission.CREATE, resourcePermissionsAllowed);
 			break;
 		default:
 			break;
+		}
+	}
+
+	private void addPermissionIfAllowed(Permission permission, RestapiResourcePermission[] allowedPermissions) {
+		if (permission.equals(ExtendedPermission.READ) && (allowedPermissions == null || Arrays.stream(allowedPermissions).anyMatch(RestapiResourcePermission.READ::equals))) {
+			this.allowedPermissions.add(permission);
+		}
+		if (permission.equals(ExtendedPermission.WRITE) && (allowedPermissions == null || Arrays.stream(allowedPermissions).anyMatch(RestapiResourcePermission.WRITE::equals))) {
+			this.allowedPermissions.add(permission);
+		}
+		if (permission.equals(ExtendedPermission.CREATE) && (allowedPermissions == null || Arrays.stream(allowedPermissions).anyMatch(RestapiResourcePermission.CREATE::equals))) {
+			this.allowedPermissions.add(permission);
+		}
+		if (permission.equals(ExtendedPermission.DELETE) && (allowedPermissions == null || Arrays.stream(allowedPermissions).anyMatch(RestapiResourcePermission.DELETE::equals))) {
+			this.allowedPermissions.add(permission);
 		}
 	}
 

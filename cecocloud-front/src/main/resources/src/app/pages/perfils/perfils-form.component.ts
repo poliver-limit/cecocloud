@@ -12,7 +12,9 @@ import { PerfilsService } from './perfils.service';
     [restapiService]="perfilsService">
 	<div style="display: flex">
 		<bng-custom-field name="codi" style="width: 30%"></bng-custom-field>
+		<button mat-raised-button (click)="onRefreshClick()">Refresh</button>
 	</div>
+	
 	<bng-custom-field name="descripcio"></bng-custom-field>
 	<ng-container *ngIf="id">
 		<cec-funcionalitats [perfil]="id"></cec-funcionalitats>
@@ -20,6 +22,13 @@ import { PerfilsService } from './perfils.service';
 </bng-form>`
 })
 export class PerfilsFormComponent extends BngFormBaseComponent {
+
+	onRefreshClick() {
+		console.log('>>> onRefreshClick', this.id)
+		this.perfilsService.refresh(this.id).subscribe(() =>  {
+			console.log('>>> refresh ok', this.id)
+		});
+	}
 
 	constructor(
 		activatedRoute: ActivatedRoute,

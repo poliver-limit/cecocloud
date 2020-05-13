@@ -14,7 +14,6 @@ import es.limit.cecocloud.cita.logic.api.dto.PuntVendaHorari.PuntVendaHorariPk;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificador;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndEmpresa.WithIdentificadorAndEmpresaPk;
-import es.limit.cecocloud.fact.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,20 +36,20 @@ public class PuntVendaHorari extends AbstractIdentificableWithIdentificador<Punt
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInForm = true,
 			disabledForUpdate = true,
 			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<PuntVenda, PuntVendaPk> puntVenda;
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
-			hiddenInForm = true,
 			disabledForUpdate = true,
 			disabledForCreate = false)	
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horari;
 
 	public String getHorariDescription() {
-		return horari.getDescription();
+		return (horari != null) ? horari.getDescription() : null;
 	}
 
 	@NoArgsConstructor

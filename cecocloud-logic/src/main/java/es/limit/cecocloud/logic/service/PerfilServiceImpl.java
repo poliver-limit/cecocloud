@@ -105,7 +105,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 				if (!permissionAdded.isEmpty() || !permissionRemoved.isEmpty()) {
 					PerfilEntity perfil = perfilRepository.getOne(id);
 					// Afegir permis 
-					for(Permission permis : permissionAdded) {
+					for (Permission permis: permissionAdded) {
 						// Comprovam que el permis es pugui assignar
 						if (funcionalitatCodi.getAllowedPermissions().contains(permis)) {
 							log.trace("    Afegint permis " + permis + " a la funcionalitat " + funcionalitatCodi.getDescripcio());
@@ -191,7 +191,7 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 					collect(Collectors.toList());
 			Map<String, FuncionalitatCodiFont> funcionalitatsCodi = modul.getFuncionalitats();
 			for (FuncionalitatIdentificadorEntity funcidfModul: funcionalitatsIdentificadorModul) {
-				FuncionalitatPermis funcionalitatInfo =  new  FuncionalitatPermis(
+				FuncionalitatPermis funcionalitatInfo = new FuncionalitatPermis(
 						funcidfModul.getId(),
 						funcidfModul.getFuncionalitat().getEmbedded().getCodi(),
 						funcidfModul.getFuncionalitat().getEmbedded().getDescripcio(),
@@ -200,10 +200,9 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 						new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, ""),
 						new BaseBootPermission(PermissionSidType.GRANTED_AUTHORITY, ""));
 				List<FuncionalitatIdentificadorPerfilEntity> funcionalitatsIdentificadorPerfilModul = funcionalitatIdentificadorPerfils.stream()
-						.filter(funcidf -> funcidf.getFuncionalitatIdentificador().getId().equals(funcidfModul.getId())
-								).collect(Collectors.toList());
+						.filter(funcidf -> funcidf.getFuncionalitatIdentificador().getId().equals(funcidfModul.getId())).collect(Collectors.toList());
 				funcionalitatsIdentificadorPerfilModul.forEach(funcPerfil -> funcionalitatInfo.getPermission().setGranted(
-							permissionFactory.buildFromName(funcPerfil.getEmbedded().getPermis()).getMask())
+						permissionFactory.buildFromName(funcPerfil.getEmbedded().getPermis()).getMask())
 				);
 				FuncionalitatCodiFont funcionalitatCodi = getFuncionalitatCodiFont(funcionalitatsCodi, funcidfModul.getFuncionalitat());
 				if (funcionalitatCodi != null) {
@@ -221,21 +220,16 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 	private FuncionalitatCodiFont getFuncionalitatCodiFont(
 			Map<String, FuncionalitatCodiFont> funcionalitatsCodiFont, 
 			FuncionalitatEntity funcionalitat) {
-		
 		String funcionalitatCodi = funcionalitat.getEmbedded().getCodi();
-		
 		if (funcionalitat.getPare() != null) {
 			List<String> funcionalitatsCodi = new ArrayList<String>();
-			
 			while (funcionalitat.getPare() != null) {
 				funcionalitat = funcionalitat.getPare();
 				funcionalitatsCodi.add(0, funcionalitat.getEmbedded().getCodi());
 			}
-			
 			List<FuncionalitatCodiFont> funcionalitatFilles = funcionalitatsCodiFont.get(funcionalitat.getEmbedded().getCodi()).getFuncionalitatsFilles();
 			funcionalitatsCodi.remove(0);
-			
-			for(String codi: funcionalitatsCodi) {
+			for (String codi: funcionalitatsCodi) {
 				Optional<FuncionalitatCodiFont> pare = funcionalitatFilles.stream().filter(func -> codi.equals(func.getCodi())).findFirst();
 				if (pare.isPresent()) {
 					funcionalitatFilles = pare.get().getFuncionalitatsFilles();
@@ -243,12 +237,10 @@ public class PerfilServiceImpl extends AbstractGenericServiceImpl<Perfil, Perfil
 					return null;
 				}
 			}
-			
 			return funcionalitatFilles.stream().filter(func -> funcionalitatCodi.equals(func.getCodi())).findFirst().get();
 		} else {
 			return funcionalitatsCodiFont.get(funcionalitat.getEmbedded().getCodi());
 		}
-		
 	}
 
 }
