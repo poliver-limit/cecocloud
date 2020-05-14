@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.RangDatesOrdenat;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@RangDatesOrdenat(field1 = "dataInici", field2 = "dataFi")
 @RestapiResource(
 		descriptionField = "nom"
 )

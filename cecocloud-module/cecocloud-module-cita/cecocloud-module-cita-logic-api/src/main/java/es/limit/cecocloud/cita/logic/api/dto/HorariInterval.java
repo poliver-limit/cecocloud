@@ -12,7 +12,9 @@ import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.RangDatesOrdenat;
 import es.limit.cecocloud.cita.logic.api.dto.HorariInterval.HorariIntervalPk;
+import es.limit.cecocloud.cita.logic.api.validation.HorariIntervalNoSolapat;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificador;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -29,6 +31,8 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@HorariIntervalNoSolapat
+@RangDatesOrdenat(field1 = "horaInici", field2 = "horaFi")
 @RestapiResource(
 		descriptionField = "nom"
 )
