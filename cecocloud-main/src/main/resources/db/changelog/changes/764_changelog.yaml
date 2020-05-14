@@ -15,8 +15,9 @@ databaseChangeLog:
         - column:
             constraints:
                 nullable: false
+                unique: true
             name: prefix
-            type: varchar(16)
+            type: varchar(8)
         - column:
             constraints:
                 nullable: false
@@ -26,7 +27,7 @@ databaseChangeLog:
             constraints:
                 nullable: false
             name: hash
-            type: varchar(200)
+            type: varchar(64)
         - column:
             constraints:
               nullable: false
