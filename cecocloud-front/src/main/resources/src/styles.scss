@@ -7,6 +7,10 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.background-accent {
+	background-color: mat-color($theme-accent, 100)
+}
+
 body {
 	margin: 0;
 	/*background: rgba(0, 0, 0, 0) url("assets/background.png") repeat scroll 0% 0%;*/
