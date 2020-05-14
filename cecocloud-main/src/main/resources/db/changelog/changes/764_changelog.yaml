@@ -1,0 +1,77 @@
+databaseChangeLog:
+- changeSet:
+    id: 1589379429321-1
+    author: josepg
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: apikey_pk
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+                nullable: false
+            name: prefix
+            type: varchar(16)
+        - column:
+            constraints:
+                nullable: false
+            name: descripcio
+            type: varchar(100)
+        - column:
+            constraints:
+                nullable: false
+            name: hash
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: created_by
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: lastmod_by
+            type: VARCHAR(64)
+        - column:
+            name: lastmod_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: version
+            type: BIGINT
+        tableName: apikey
+- changeSet:
+    id: 1589379429321-2
+    author: josepg
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+                nullable: false
+            name: apikey_id
+            type: BIGINT
+        - column:
+            constraints:
+                nullable: false
+            name: scope
+            type: varchar(32)
+        tableName: apikey_scope
+    - addForeignKeyConstraint:
+        baseColumnNames: apikey_id
+        baseTableName: apikey_scope
+        constraintName: apkscope_apikey_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: apikey
+        validate: true

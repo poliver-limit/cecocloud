@@ -43,6 +43,12 @@ export class AppService {
 			labelKey: 'app.menu.agrupacions',
 			resource: 'recurs',
 			route: '/agrupacions'
+		}, {
+			icon: 'vpn_key',
+			label: 'API keys',
+			labelKey: 'app.menu.apikeys',
+			resource: 'apikey',
+			route: '/apikeys'
 		}]
 	}
 

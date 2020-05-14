@@ -71,7 +71,7 @@ public class MobileAppServiceImpl implements MobileAppService {
 				appEmpresa.setNom(empresa.getEmbedded().getNomComercial());
 				appEmpresa.setNif(empresa.getEmbedded().getNif());
 				for (PuntVendaEntity puntVenda: puntsVendaAmbCitaActiva) {
-					if (puntVenda.getEmpresa().equals(empresa)) {
+					if (puntVenda.getEmpresa().getId().equals(empresa.getId())) {
 						if (appEmpresa.getPuntsVenda() == null) {
 							appEmpresa.setPuntsVenda(new ArrayList<MobileAppPuntVenda>());
 						}

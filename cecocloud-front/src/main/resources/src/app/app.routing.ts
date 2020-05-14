@@ -53,6 +53,10 @@ import { BngAuthGuard } from 'base-angular';
 			loadChildren: () => import('./pages/agrupacions/agrupacions.module').then(m => m.AgrupacionsModule),
 			canActivate: [BngAuthGuard]
 		}, {
+			path: 'apikeys',
+			loadChildren: () => import('./pages/apikeys/apikeys.module').then(m => m.ApikeysModule),
+			canActivate: [BngAuthGuard]
+		}, {
 			path: '**',
 			redirectTo: ''
 		}], {

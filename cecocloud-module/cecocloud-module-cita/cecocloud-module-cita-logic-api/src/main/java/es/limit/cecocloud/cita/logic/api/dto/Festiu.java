@@ -45,6 +45,7 @@ public class Festiu extends AbstractIdentificableWithIdentificador<FestiuPk> {
 	@Size(max = 100)
 	private String nom;
 	@NotNull
+	@RestapiField(RestapiFieldType.DAYMONTH)
 	private LocalDate diaMes;
 	private Integer any;
 

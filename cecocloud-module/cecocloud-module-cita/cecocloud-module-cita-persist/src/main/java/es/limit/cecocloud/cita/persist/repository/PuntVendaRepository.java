@@ -27,7 +27,7 @@ public interface PuntVendaRepository extends BaseRepository<PuntVendaEntity, Pun
 	@Query(
 			"select distinct emp " +
 			"from citaPuntVendaEntity pve join pve.empresa emp " +
-			//"where pve.citaActiva = true "
+			"where pve.embedded.citaActiva = true " +
 			"order by emp.embedded.nomComercial")
 	List<EmpresaEntity> findEmpresesByEmbeddedCitaActivaTrue();
 
