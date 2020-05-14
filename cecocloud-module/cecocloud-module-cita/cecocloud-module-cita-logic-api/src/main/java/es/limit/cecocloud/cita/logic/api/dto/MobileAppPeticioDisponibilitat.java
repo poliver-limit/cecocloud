@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +22,7 @@ import lombok.Setter;
 public class MobileAppPeticioDisponibilitat extends MobileAppPeticio {
 
 	@NotNull
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate data;
 
 }

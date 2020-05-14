@@ -33,7 +33,6 @@ import es.limit.cecocloud.cita.persist.entity.CitaEntity.CitaEntityListener;
 import es.limit.cecocloud.fact.persist.entity.AbstractWithIdentificadorAuditableEntity;
 import es.limit.cecocloud.fact.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.fact.persist.entity.IdentificadorEntity;
-import es.limit.cecocloud.fact.persist.entity.PuntVendaEntity;
 import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;

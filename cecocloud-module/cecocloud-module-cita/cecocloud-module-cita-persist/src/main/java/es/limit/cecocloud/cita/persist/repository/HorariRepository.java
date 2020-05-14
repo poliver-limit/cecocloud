@@ -21,7 +21,7 @@ import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCo
 @Repository("citaHorariRepository")
 public interface HorariRepository extends BaseRepository<HorariEntity, WithIdentificadorAndCodiPk<String>> {
 
-	@Query("select pvh.puntVenda from PuntVendaHorariEntity pvh where pvh.puntVenda = :puntVenda")
+	@Query("select pvh.horari from PuntVendaHorariEntity pvh where pvh.puntVenda = :puntVenda")
 	List<HorariEntity> findByPuntVenda(PuntVendaEntity puntVenda);
 
 }
