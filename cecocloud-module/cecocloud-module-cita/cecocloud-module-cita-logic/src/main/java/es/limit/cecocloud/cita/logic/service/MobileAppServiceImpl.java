@@ -39,12 +39,14 @@ import es.limit.cecocloud.cita.persist.repository.HorariRepository;
 import es.limit.cecocloud.cita.persist.repository.PuntVendaRepository;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
 import es.limit.cecocloud.fact.persist.entity.EmpresaEntity;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Implementació del servei encarregat de gestionar les peticions de l'app mòbil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Service
 public class MobileAppServiceImpl implements MobileAppService {
 
@@ -119,28 +121,41 @@ public class MobileAppServiceImpl implements MobileAppService {
 						identificadorCodi,
 						empresaCodi,
 						puntVendaCodi));
+		log.debug("Càlcul de la disponibilitat de cites(" +
+				"identificadorCodi=" + identificadorCodi + ", " + 
+				"empresaCodi=" + empresaCodi + ", " + 
+				"puntVendaCodi=" + puntVendaCodi + ", " + 
+				"data=" + data + ")");
 		List<MobileAppHoraDisponible> horesDisponibles = new ArrayList<MobileAppHoraDisponible>();
 		if (isCitaActiva(puntVenda.get())) {
 			int intervalMinuts = puntVenda.get().getEmbedded().getCitaIntervalMinuts() != null ? puntVenda.get().getEmbedded().getCitaIntervalMinuts() : 5;
 			int numPlaces = puntVenda.get().getEmbedded().getCitaNumPlaces() != null ? puntVenda.get().getEmbedded().getCitaNumPlaces() : 1;
 			List<HorariIntervalEntity> intervalsHorariActual = getHorariIntervals(puntVenda.get(), data);
 			if (intervalsHorariActual != null && !intervalsHorariActual.isEmpty()) {
+				boolean esAvui = data.isEqual(LocalDate.now());
 				for (HorariIntervalEntity horariInterval: intervalsHorariActual) {
+					log.debug("    Generant hores disponibles de l'interval " + horariInterval.getEmbedded().getHoraInici() + " - " + horariInterval.getEmbedded().getHoraFi());
 					LocalTime hora = horariInterval.getEmbedded().getHoraInici();
+					int tamanyInicial = horesDisponibles.size();
 					do {
-						MobileAppHoraDisponible horaDisponible = new MobileAppHoraDisponible();
-						horaDisponible.setHora(hora);
-						horaDisponible.setDuradaEnMinuts(intervalMinuts);
-						horaDisponible.setPlaces(numPlaces);
-						horesDisponibles.add(horaDisponible);
-						hora.plusMinutes(intervalMinuts);
+						if (!esAvui || hora.isAfter(LocalTime.now())) {
+							MobileAppHoraDisponible horaDisponible = new MobileAppHoraDisponible();
+							horaDisponible.setHora(hora);
+							horaDisponible.setDuradaEnMinuts(intervalMinuts);
+							horaDisponible.setPlaces(numPlaces);
+							horesDisponibles.add(horaDisponible);
+						}
+						hora = hora.plusMinutes(intervalMinuts);
 					} while (hora.compareTo(horariInterval.getEmbedded().getHoraFi()) < 0);
+					log.debug("    L'interval " + horariInterval.getEmbedded().getHoraInici() + " - " + horariInterval.getEmbedded().getHoraFi() + " ha generat un total de " + (horesDisponibles.size() - tamanyInicial) + " hores disponibles");
 				}
 			}
+			log.debug("    Total d'hores disponibles generades per a tots els intervals: " + horesDisponibles.size());
 			List<CitaEntity> citesConfirmades = citaRepository.findByPuntVendaAndEmbeddedDataBetweenAndAnulacioDataNullSortByEmbeddedData(
 					puntVenda.get(),
 					data.atStartOfDay(),
 					data.atTime(23, 59, 59));
+			log.debug("    Processant " + citesConfirmades.size() + " cites confirmades");
 			// Es verifica si s'han donat totes les cites possibles per aquesta
 			// data
 			if (citesConfirmades.size() < horesDisponibles.size() * numPlaces) {
@@ -181,10 +196,17 @@ public class MobileAppServiceImpl implements MobileAppService {
 			} else {
 				// Si entra aquí vol dir que ja s'han donat totes les cites
 				// disponibles per aquesta data
+				log.debug("    Ja s'han donades totes les hores disponibles");
 				horesDisponibles.clear();
 			}
 		}
-		return horesDisponibles.stream().filter(h -> h.getPlaces() > 0).collect(Collectors.toList());
+		List<MobileAppHoraDisponible> horesFinals = horesDisponibles.stream().filter(h -> h.getPlaces() > 0).collect(Collectors.toList());
+		log.debug("    Després de processar les cites ja donades s'han eliminat un total de " + (horesDisponibles.size() - horesFinals.size()) + " hores disponibles");
+		log.debug("    Retornant " + horesFinals.size() + " hores disponibles");
+		for (MobileAppHoraDisponible horaDisponible: horesDisponibles) {
+			log.debug("        " + horaDisponible.getHora() + " (" + horaDisponible.getDuradaEnMinuts() + " min, " + horaDisponible.getPlaces() + " places)");
+		}
+		return horesFinals;
 	}
 
 	@Override
@@ -242,18 +264,20 @@ public class MobileAppServiceImpl implements MobileAppService {
 
 	private List<HorariIntervalEntity> getHorariIntervals(
 			PuntVendaEntity puntVenda,
-			LocalDate date) {
+			LocalDate data) {
 		List<HorariEntity> horaris = horariRepository.findByPuntVenda(puntVenda);
 		HorariEntity horariActiu = null;
 		for (HorariEntity horari: horaris) {
 			LocalDate dataInici = horari.getEmbedded().getDataInici();
 			LocalDate dataFi = horari.getEmbedded().getDataFi();
-			if ((date.isEqual(dataInici) || date.isAfter(dataInici)) && (date.isEqual(dataFi) || date.isBefore(dataFi))) {
+			if ((data.isEqual(dataInici) || data.isAfter(dataInici)) && (data.isEqual(dataFi) || data.isBefore(dataFi))) {
 				horariActiu = horari;
 				break;
 			}
 		}
-		if (horariActiu != null) {
+		if (horariActiu != null && !data.isBefore(LocalDate.now())) {
+			// Només es retornen intervals si hi ha un horari actiu i si la data
+			// de la disponibilitat no és anterior a la data d'avui.
 			List<HorariIntervalEntity> horariIntervals = horariIntervalRepository.findByHorari(horariActiu);
 			horariIntervals.sort(new Comparator<HorariIntervalEntity>() {
 				@Override
