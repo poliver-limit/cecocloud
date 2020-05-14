@@ -129,7 +129,7 @@ public class SessionServiceImpl implements SessionService {
 			if (userSession != null) {
 				empresaId = userSession.getE();
 			}
-			if (empresaId != null) { // && identificadorCodi != null) {
+			if (empresaId != null) {
 				// Retorna els perfils associats a l'usuari com a GrantedAuthority
 				Optional<UsuariEntity> usuari = usuariRepository.findByEmbeddedCodi(usuariCodi);
 				Optional<EmpresaEntity> empresa = empresaRepository.findById(empresaId);
@@ -146,7 +146,7 @@ public class SessionServiceImpl implements SessionService {
 						perfilsUsuariIdentificadorEmpresa = perfilUsuariIdentificadorEmpresaRepository.findByUsuariIdentificadorEmpresa(usuariIdentificadorEmpresa.get());
 					if (perfilsUsuariIdentificadorEmpresa != null && !perfilsUsuariIdentificadorEmpresa.isEmpty()) {
 						grantedAuthorities = perfilsUsuariIdentificadorEmpresa.stream().map(
-								perfilUsuariIdentificadorEmpresa -> new ExternalGrantedAuthority("Perfil_" + perfilUsuariIdentificadorEmpresa.getPerfil().getId().toString())).collect(Collectors.toList()); 
+								perfilUsuariIdentificadorEmpresa -> new ExternalGrantedAuthority("Perfil_" + perfilUsuariIdentificadorEmpresa.getPerfil().getId().toString())).collect(Collectors.toList());
 					}
 				}
 			}
