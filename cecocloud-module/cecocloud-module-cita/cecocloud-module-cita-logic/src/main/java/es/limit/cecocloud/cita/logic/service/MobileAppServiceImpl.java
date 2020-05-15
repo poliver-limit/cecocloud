@@ -238,7 +238,9 @@ public class MobileAppServiceImpl implements MobileAppService {
 				empresaCodi,
 				puntVendaCodi,
 				0);
-		WithIdentificadorAndCodiPk<String> empresaPk = new WithIdentificadorAndCodiPk<String>();
+		WithIdentificadorAndCodiPk<String> empresaPk = new WithIdentificadorAndCodiPk<String>(
+				identificadorCodi,
+				empresaCodi);
 		Optional<EmpresaEntity> empresa = empresaRepository.findById(empresaPk);
 		PuntVendaPk puntVendaPk = new PuntVendaPk(
 				identificadorCodi,
