@@ -5,6 +5,7 @@ package es.limit.cecocloud.cita.back.controller;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -64,11 +65,15 @@ public class MobileAppApiController {
 				"empresaCodi=" + peticio.getEmpresaCodi() + ", " +
 				"puntVendaCodi=" + peticio.getPuntVendaCodi() + ", " +
 				"any=" + peticio.getAny() + ")");
-		return ResponseEntity.ok(mobileAppService.puntVendaFestiuFind(
-				peticio.getIdentificadorCodi(),
-				peticio.getEmpresaCodi(),
-				peticio.getPuntVendaCodi(),
-				peticio.getAny()));
+		try {
+			return ResponseEntity.ok(mobileAppService.puntVendaFestiuFind(
+					peticio.getIdentificadorCodi(),
+					peticio.getEmpresaCodi(),
+					peticio.getPuntVendaCodi(),
+					peticio.getAny()));
+		} catch (EntityNotFoundException ex) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@GetMapping(
@@ -82,11 +87,15 @@ public class MobileAppApiController {
 				"empresaCodi=" + peticio.getEmpresaCodi() + ", " +
 				"puntVendaCodi=" + peticio.getPuntVendaCodi() + ", " +
 				"data=" + peticio.getData() + ")");
-		return ResponseEntity.ok(mobileAppService.puntVendaHorariFind(
-				peticio.getIdentificadorCodi(),
-				peticio.getEmpresaCodi(),
-				peticio.getPuntVendaCodi(),
-				peticio.getData()));
+		try {
+			return ResponseEntity.ok(mobileAppService.puntVendaHorariFind(
+					peticio.getIdentificadorCodi(),
+					peticio.getEmpresaCodi(),
+					peticio.getPuntVendaCodi(),
+					peticio.getData()));
+		} catch (EntityNotFoundException ex) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@GetMapping(
@@ -100,11 +109,15 @@ public class MobileAppApiController {
 				"empresaCodi=" + peticio.getEmpresaCodi() + ", " +
 				"puntVendaCodi=" + peticio.getPuntVendaCodi() + ", " +
 				"data=" + peticio.getData() + ")");
-		return ResponseEntity.ok(mobileAppService.puntVendaDisponibilitat(
-				peticio.getIdentificadorCodi(),
-				peticio.getEmpresaCodi(),
-				peticio.getPuntVendaCodi(),
-				peticio.getData()));
+		try {
+			return ResponseEntity.ok(mobileAppService.puntVendaDisponibilitat(
+					peticio.getIdentificadorCodi(),
+					peticio.getEmpresaCodi(),
+					peticio.getPuntVendaCodi(),
+					peticio.getData()));
+		} catch (EntityNotFoundException ex) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@PostMapping(
@@ -117,12 +130,16 @@ public class MobileAppApiController {
 				"empresaCodi=" + peticio.getEmpresaCodi() + ", " +
 				"puntVendaCodi=" + peticio.getPuntVendaCodi() + ", " +
 				"cita=" + peticio.getCita() + ")");
-		MobileAppCita cita = mobileAppService.create(
-				peticio.getIdentificadorCodi(),
-				peticio.getEmpresaCodi(),
-				peticio.getPuntVendaCodi(),
-				peticio.getCita());
-		return ResponseEntity.ok(cita);
+		try {
+			MobileAppCita cita = mobileAppService.create(
+					peticio.getIdentificadorCodi(),
+					peticio.getEmpresaCodi(),
+					peticio.getPuntVendaCodi(),
+					peticio.getCita());
+			return ResponseEntity.ok(cita);
+		} catch (EntityNotFoundException ex) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@DeleteMapping(
@@ -135,12 +152,16 @@ public class MobileAppApiController {
 				"empresaCodi=" + peticio.getEmpresaCodi() + ", " +
 				"puntVendaCodi=" + peticio.getPuntVendaCodi() + ", " +
 				"codi=" + peticio.getCodi() + ")");
-		mobileAppService.cancel(
-				peticio.getIdentificadorCodi(),
-				peticio.getEmpresaCodi(),
-				peticio.getPuntVendaCodi(),
-				peticio.getCodi());
-		return ResponseEntity.ok().build();
+		try {
+			mobileAppService.cancel(
+					peticio.getIdentificadorCodi(),
+					peticio.getEmpresaCodi(),
+					peticio.getPuntVendaCodi(),
+					peticio.getCodi());
+			return ResponseEntity.ok().build();
+		} catch (EntityNotFoundException ex) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 }

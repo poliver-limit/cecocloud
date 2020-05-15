@@ -25,6 +25,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.codec.Hex;
 
 import es.limit.cecocloud.cita.logic.api.dto.Cita;
@@ -132,8 +133,12 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 	}
 
 	private static String fromPkToCodi(CitaPk pk) {
-		String codi = pk.getIdentificadorCodi() + pk.getEmpresaCodi() + pk.getPuntVendaCodi() + pk.getSequencia();
-		return new BigInteger(new String(Hex.encode(codi.getBytes())), 16).toString(36).toUpperCase();
+		StringBuilder sb = new StringBuilder();
+		sb.append(StringUtils.rightPad(pk.getIdentificadorCodi(), 4));
+		sb.append(StringUtils.rightPad(pk.getEmpresaCodi(), 4));
+		sb.append(StringUtils.rightPad(pk.getPuntVendaCodi(), 4));
+		sb.append(pk.getSequencia());
+		return new BigInteger(new String(Hex.encode(sb.toString().getBytes())), 16).toString(36).toUpperCase();
 	}
 
 	public static CitaPk fromCodiToPk(String codi) {
@@ -147,9 +152,9 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 	    }
 		String dec = new String(bytes, zeroPrefixLength, bytes.length-zeroPrefixLength, StandardCharsets.UTF_8);
 		return new CitaPk(
-				dec.substring(0, 4),
-				dec.substring(4, 8),
-				dec.substring(8, 12),
+				dec.substring(0, 4).trim(),
+				dec.substring(4, 8).trim(),
+				dec.substring(8, 12).trim(),
 				Integer.parseInt(dec.substring(12)));
 	}
 
