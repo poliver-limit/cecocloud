@@ -101,7 +101,6 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 				Modul.fact,
 				Empresa.class.getPackage().getName(),
 				null,
-				null,
 				funcionalitats);
 		Modules.registerModule(moduleInfo);
 	}

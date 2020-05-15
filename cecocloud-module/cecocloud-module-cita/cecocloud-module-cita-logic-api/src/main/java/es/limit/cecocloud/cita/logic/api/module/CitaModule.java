@@ -83,7 +83,6 @@ public class CitaModule {
 				Modul.cita,
 				Cita.class.getPackage().getName(),
 				null,
-				null,
 				funcionalitats);
 		Modules.registerModule(moduleInfo);
 	}

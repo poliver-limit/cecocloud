@@ -53,7 +53,6 @@ public class LiciModule {
 				Modul.lici,
 				Licitacio.class.getPackage().getName(),
 				null,
-				null,
 				funcionalitats);
 		Modules.registerModule(moduleInfo);
 	}

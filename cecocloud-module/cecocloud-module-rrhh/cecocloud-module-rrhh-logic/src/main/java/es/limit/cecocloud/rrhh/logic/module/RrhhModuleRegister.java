@@ -44,7 +44,6 @@ import es.limit.cecocloud.rrhh.logic.api.dto.TipusTransaccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Torn;
 import es.limit.cecocloud.rrhh.logic.api.dto.Transaccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Zona;
-import es.limit.cecocloud.rrhh.logic.service.DatabaseSyncServiceImpl;
 import es.limit.cecocloud.rrhh.logic.service.EmpresaIdentificadorSyncServiceImpl;
 
 /**
@@ -131,7 +130,6 @@ public class RrhhModuleRegister {
 				Modul.rrhh,
 				Zona.class.getPackage().getName(),
 				EmpresaIdentificadorSyncServiceImpl.class,
-				DatabaseSyncServiceImpl.class,
 				funcionalitats);
 		Modules.registerModule(moduleInfo);
 	}

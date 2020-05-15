@@ -89,7 +89,6 @@ import es.limit.cecocloud.fact.logic.api.dto.UbicacioArticle;
 import es.limit.cecocloud.fact.logic.api.dto.UnitatTipus;
 import es.limit.cecocloud.fact.logic.api.dto.Vehicle;
 import es.limit.cecocloud.fact.logic.api.dto.Zona;
-import es.limit.cecocloud.fact.logic.service.DatabaseSyncServiceImpl;
 import es.limit.cecocloud.fact.logic.service.EmpresaIdentificadorSyncServiceImpl;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
@@ -929,7 +928,6 @@ public class FactModuleRegister {
 				Modul.fact,
 				Zona.class.getPackage().getName(),
 				EmpresaIdentificadorSyncServiceImpl.class,
-				DatabaseSyncServiceImpl.class,
 				funcionalitats);
 		Modules.registerModule(moduleInfo);
 	}

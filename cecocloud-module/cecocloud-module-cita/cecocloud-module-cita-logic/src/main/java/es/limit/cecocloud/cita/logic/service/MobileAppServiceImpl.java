@@ -40,8 +40,10 @@ import es.limit.cecocloud.cita.persist.repository.FestiuRepository;
 import es.limit.cecocloud.cita.persist.repository.HorariIntervalRepository;
 import es.limit.cecocloud.cita.persist.repository.HorariRepository;
 import es.limit.cecocloud.cita.persist.repository.PuntVendaRepository;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
 import es.limit.cecocloud.fact.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.fact.persist.repository.EmpresaRepository;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -53,6 +55,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MobileAppServiceImpl implements MobileAppService {
 
+	@Autowired
+	private EmpresaRepository empresaRepository;
 	@Autowired
 	private PuntVendaRepository puntVendaRepository;
 	@Autowired
@@ -234,23 +238,32 @@ public class MobileAppServiceImpl implements MobileAppService {
 				empresaCodi,
 				puntVendaCodi,
 				0);
+		WithIdentificadorAndCodiPk<String> empresaPk = new WithIdentificadorAndCodiPk<String>();
+		Optional<EmpresaEntity> empresa = empresaRepository.findById(empresaPk);
+		PuntVendaPk puntVendaPk = new PuntVendaPk(
+				identificadorCodi,
+				empresaCodi,
+				puntVendaCodi);
+		Optional<PuntVendaEntity> puntVenda = puntVendaRepository.findById(puntVendaPk);
 		CitaEntity saved = citaRepository.save(CitaEntity.builder().
 				pk(pk).
 				embedded(dto).
+				empresa(empresa.get()).
+				puntVenda(puntVenda.get()).
 				build());
 		MobileAppCita resposta = new MobileAppCita();
 		resposta.setCodi(saved.getEmbedded().getCodi());
 		resposta.setData(saved.getEmbedded().getData());
-		MobileAppEmpresa empresa = new MobileAppEmpresa();
-		empresa.setIdentificadorCodi(saved.getId().getIdentificadorCodi());
-		empresa.setCodi(saved.getEmpresa().getEmbedded().getCodi());
-		empresa.setNif(saved.getEmpresa().getEmbedded().getNif());
-		empresa.setNom(saved.getEmpresa().getEmbedded().getNomComercial());
-		resposta.setEmpresa(empresa);
-		MobileAppPuntVenda puntVenda = new MobileAppPuntVenda();
-		puntVenda.setCodi(saved.getPuntVenda().getEmbedded().getCodi());
-		puntVenda.setNom(saved.getPuntVenda().getEmbedded().getNom());
-		resposta.setPuntVenda(puntVenda);
+		MobileAppEmpresa mobileEmpresa = new MobileAppEmpresa();
+		mobileEmpresa.setIdentificadorCodi(identificadorCodi);
+		mobileEmpresa.setCodi(empresaCodi);
+		mobileEmpresa.setNif(empresa.get().getEmbedded().getNif());
+		mobileEmpresa.setNom(empresa.get().getEmbedded().getNomComercial());
+		resposta.setEmpresa(mobileEmpresa);
+		MobileAppPuntVenda mobilePuntVenda = new MobileAppPuntVenda();
+		mobilePuntVenda.setCodi(puntVendaCodi);
+		mobilePuntVenda.setNom(puntVenda.get().getEmbedded().getNom());
+		resposta.setPuntVenda(mobilePuntVenda);
 		return resposta;
 	}
 

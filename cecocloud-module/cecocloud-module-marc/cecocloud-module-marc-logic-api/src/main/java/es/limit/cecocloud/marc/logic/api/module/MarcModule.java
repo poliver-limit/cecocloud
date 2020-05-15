@@ -56,7 +56,6 @@ public class MarcModule {
 				Modul.marc,
 				Marcatge.class.getPackage().getName(),
 				null,
-				null,
 				funcionalitats);
 		Modules.registerModule(moduleInfo);
 	}
