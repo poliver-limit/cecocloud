@@ -67,7 +67,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.llinatges", column = @Column(name = "cit_lng", length = 100, nullable = false)),
 	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "cit_tel", length = 15, nullable = false)),
 	@AttributeOverride(name = "embedded.email", column = @Column(name = "cit_eml", length = 100)),
-	@AttributeOverride(name = "embedded.anulacioData", column = @Column(name = "cit_anudat", nullable = false)),
+	@AttributeOverride(name = "embedded.anulacioData", column = @Column(name = "cit_anudat")),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "cit_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "cit_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cit_usumod")),

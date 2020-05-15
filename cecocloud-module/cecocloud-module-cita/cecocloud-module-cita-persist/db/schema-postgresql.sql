@@ -7,7 +7,7 @@ create table tcec_cit (
     cit_datcre timestamp,
     cit_usumod varchar(255),
     cit_datmod timestamp,
-    cit_anudat timestamp not null,
+    cit_anudat timestamp,
     cit_cod varchar(34) not null,
     cit_dat timestamp not null,
     cit_nom varchar(100) not null,

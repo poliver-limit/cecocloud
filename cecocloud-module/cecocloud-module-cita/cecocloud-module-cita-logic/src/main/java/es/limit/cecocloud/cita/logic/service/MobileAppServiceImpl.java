@@ -233,6 +233,10 @@ public class MobileAppServiceImpl implements MobileAppService {
 			MobileAppCita cita) throws NotAvailableException, EntityNotFoundException {
 		Cita dto = new Cita();
 		dto.setData(cita.getData());
+		dto.setNom(cita.getNom());
+		dto.setLlinatges(cita.getLlinatges());
+		dto.setTelefon(cita.getTelefon());
+		dto.setEmail(cita.getEmail());
 		CitaPk pk = new CitaPk(
 				identificadorCodi,
 				empresaCodi,
