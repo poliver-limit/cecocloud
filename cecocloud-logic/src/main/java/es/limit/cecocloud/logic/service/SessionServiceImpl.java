@@ -111,10 +111,8 @@ public class SessionServiceImpl implements SessionService {
 		if (jwtSession == null) {
 			return null;
 		} else {
-			UserSession session = new UserSession();
-			session.setI(
-					objectToLong(jwtSession.get("i")));
-			session.setE(
+			UserSession session = new UserSession(
+					objectToLong(jwtSession.get("i")),
 					objectToLong(jwtSession.get("e")));
 			return session;
 		}

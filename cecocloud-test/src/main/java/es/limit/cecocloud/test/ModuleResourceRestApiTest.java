@@ -121,10 +121,13 @@ public abstract class ModuleResourceRestApiTest<D extends IdentificableWithCompo
 		// Configuram la sessió amb l'identificador i l'empresa
 		UserSession session = (UserSession)getSession();
 		if (session == null) {
-			session = new UserSession();
+			session = new UserSession(
+					identificador.getId(),
+					empresa.getId());
+		} else {
+			session.setI(identificador.getId());
+			session.setE(empresa.getId());
 		}
-		session.setI(identificador.getId());
-		session.setE(empresa.getId());
 		setSession(session);
 		log.debug("...configuració del test per a la funcionalitat " + funcionalitatCodiFont.getCodi() + " finalitzada");
 	}

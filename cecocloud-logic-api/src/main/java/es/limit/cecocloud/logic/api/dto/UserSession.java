@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +15,7 @@ import lombok.ToString;
  */
 @Getter @Setter
 @ToString
+@AllArgsConstructor
 public class UserSession {
 
 	private Long i; // Id de l'identificador

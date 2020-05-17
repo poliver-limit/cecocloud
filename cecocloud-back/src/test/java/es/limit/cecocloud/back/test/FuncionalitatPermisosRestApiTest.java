@@ -210,10 +210,13 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 		// Configuram la sessió amb l'identificador i l'empresa
 		UserSession session = (UserSession)getSession();
 		if (session == null) {
-			session = new UserSession();
+			session = new UserSession(
+					identificador.getId(),
+					empresa.getId());
+		} else {
+			session.setI(identificador.getId());
+			session.setE(empresa.getId());
 		}
-		session.setI(identificador.getId());
-		session.setE(empresa.getId());
 		getService();
 		setSession(session);
 		log.debug("...configuració del test de permisos finalitzada");

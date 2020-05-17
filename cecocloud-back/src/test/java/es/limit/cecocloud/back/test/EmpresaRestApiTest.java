@@ -41,9 +41,12 @@ public class EmpresaRestApiTest extends AbstractRestApiTest<Empresa, Long> {
 				getCrudTester().getParentCrudTesters());
 		UserSession session = (UserSession)getSession();
 		if (session == null) {
-			session = new UserSession();
+			session = new UserSession(
+					identificador.getId(),
+					null);
+		} else {
+			session.setI(identificador.getId());
 		}
-		session.setI(identificador.getId());
 		setSession(session);
 		logLevelAdd(-1);
 		logMessageDebug("...sessió configurada correctament");
