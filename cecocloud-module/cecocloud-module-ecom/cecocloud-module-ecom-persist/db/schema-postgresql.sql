@@ -56,6 +56,7 @@
         art_des varchar(2000) not null,
         art_descur varchar(60),
         art_pvp numeric(17, 5) not null,
+        art_rutinf varchar(1000) not null,
         art_far_cod varchar(6) not null,
         art_gma_cod varchar(6),
         art_iva_cod varchar(4) not null,
@@ -614,7 +615,7 @@
         tve_tip varchar(1) not null,
         primary key (tve_cod, tve_idf_cod)
     );
-  
+
     alter table apikey 
        add constraint UK_5yilep0rivoj9b2ducr0df4kd unique (prefix);
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
@@ -1109,4 +1110,3 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_tve_idf_fk 
        foreign key (tve_idf_cod) 
        references tcom_idf;
-

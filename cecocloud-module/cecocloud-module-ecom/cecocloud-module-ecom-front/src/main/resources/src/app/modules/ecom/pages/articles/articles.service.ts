@@ -9,6 +9,6 @@ export class ArticlesService extends BngRestapiService<Article> {
 
     constructor( injector: Injector ) {
         super( Article, 'article', injector, 'ecom' );
-    }
+    }	
 
 }

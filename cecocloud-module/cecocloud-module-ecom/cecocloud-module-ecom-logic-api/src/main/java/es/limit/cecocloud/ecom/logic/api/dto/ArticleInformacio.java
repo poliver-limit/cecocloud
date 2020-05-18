@@ -65,9 +65,8 @@ public class ArticleInformacio extends AbstractIdentificableWithIdentificador<Ar
 	@Size(max = 250)
 	@RestapiField(
 			includeInQuickFilter = true)
-	private String rutaInforme;		
+	private String rutaInforme;	
 	
-	@NotNull
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,

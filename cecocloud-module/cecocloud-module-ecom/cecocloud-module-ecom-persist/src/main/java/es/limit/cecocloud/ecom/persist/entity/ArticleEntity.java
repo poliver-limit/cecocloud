@@ -18,8 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Formula;
-
 import es.limit.cecocloud.ecom.logic.api.dto.Article;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -53,7 +51,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "art_des", length = 2000, nullable = false)),
 	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, precision = 1, scale = 0)),	
 	@AttributeOverride(name = "embedded.pvp", column = @Column(name = "art_pvp", nullable = false, precision = 17, scale = 5)),
-	@AttributeOverride(name = "embedded.decimalsPreuIva", column = @Column(name = "art_decpruiva", precision = 1, scale = 0)),	
+	@AttributeOverride(name = "embedded.decimalsPreuIva", column = @Column(name = "art_decpruiva", precision = 1, scale = 0)),
+	@AttributeOverride(name = "embedded.rutaInforme", column = @Column(name = "art_rutinf", length = 1000, nullable = false)),
 	// Faltaria preu amb IVA (¿calculat?)
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "art_usucre")),
@@ -146,9 +145,6 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	private ArticleInformacioEntity articleInformacio;
 	@Column(name = "art_ain_num", nullable = true)
 	private Integer articleInformacioNumero;
-	
-	@Formula(value="(SELECT ain.ain_fitnom FROM tcom_ain ain WHERE ain.ain_num = art_ain_num AND ain.ain_art_cod = art_cod AND ain.ain_idf_cod = art_idf_cod)")	
-	private String articleInformacioRutaInforme;
 	
 	@Builder
 	public ArticleEntity(			

@@ -16,7 +16,6 @@ import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio.ArticleInformacioPk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -105,21 +104,21 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
-	@Transient	
-	@RestapiField(
-			type = RestapiFieldType.LOV,		
-			hiddenInLov = true,
-			hiddenInGrid = true,
-			hiddenInForm = false,
-			lovDescriptionField = "urlImatgeTxt")	
-	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;
+//	@Transient	
+//	@RestapiField(
+//			type = RestapiFieldType.LOV,		
+//			hiddenInLov = true,
+//			hiddenInGrid = true,
+//			hiddenInForm = false
+////			,lovDescriptionField = "urlImatgeTxt"
+//			)	
+//	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;	
 	
-	@Transient
+	@NotNull
+	@Size(max = 2000)
 	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = false,
-			disabledForUpdate = true,
-			disabledForCreate = true)
-	private String articleInformacioRutaInforme;
+			type = RestapiFieldType.TEXTAREA,
+			includeInQuickFilter = true)
+	private String rutaInforme;
 
 }
