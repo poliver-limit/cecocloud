@@ -76,6 +76,12 @@ public class ArticleInformacio extends AbstractIdentificableWithIdentificador<Ar
 			hiddenInGrid = false,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Article,  WithIdentificadorAndCodiPk<String>> article;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String urlImatgeTxt;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

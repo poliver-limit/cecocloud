@@ -110,7 +110,8 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			type = RestapiFieldType.LOV,		
 			hiddenInLov = true,
 			hiddenInGrid = true,
-			hiddenInForm = false)	
+			hiddenInForm = false,
+			lovDescriptionField = "urlImatgeTxt")	
 	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;
 	
 	@Transient

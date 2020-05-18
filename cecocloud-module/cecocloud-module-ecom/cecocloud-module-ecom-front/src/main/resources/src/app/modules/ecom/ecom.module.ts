@@ -58,6 +58,13 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'codisPostal',
 				loadChildren: () => import('./pages/codisPostal/codisPostal.module').then(m => m.CodisPostalModule)
+			}, {
+				path: 'departaments',
+				loadChildren: () => import('./pages/departaments/departaments.module').then(m => m.DepartamentsModule)
+				
+			}, {
+				path: 'divises',
+				loadChildren: () => import('./pages/divises/divises.module').then(m => m.DivisesModule)
 				
 			}, {
 				path: 'documentsPagamentCobrament',
@@ -83,16 +90,39 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/regimsIva/regimsIva.module').then(m => m.RegimsIvaModule)
 				
 			}, {
+				path: 'magatzems',
+				loadChildren: () => import('./pages/magatzems/magatzems.module').then(m => m.MagatzemsModule)	
+				
+			}, {
 				path: 'paisos',
 				loadChildren: () => import('./pages/paisos/paisos.module').then(m => m.PaisosModule)					
 			
 			}, {
 				path: 'paisosNif',
-				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)	
+				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)
+					
+			}, {
+				path: 'peusDocument',
+				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)					
+			
+			}, {
+				path: 'pressupostos',
+				loadChildren: () => import('./pages/pressupostos/pressupostos.module').then(m => m.PressupostosModule)	
+				
+			}, {
+				path: 'pressupostosLinia',
+				loadChildren: () => import('./pages/pressupostosLinia/pressupostosLinia.module').then(m => m.PressupostosLiniaModule)	
 				
 			}, {
 				path: 'provincies',
 				loadChildren: () => import('./pages/provincies/provincies.module').then(m => m.ProvinciesModule)	
+			}, {
+				path: 'seriesCompra',
+				loadChildren: () => import('./pages/seriesCompra/seriesCompra.module').then(m => m.SeriesCompraModule)	
+				
+			}, {
+				path: 'seriesVenda',
+				loadChildren: () => import('./pages/seriesVenda/seriesVenda.module').then(m => m.SeriesVendaModule)	
 				
 			}, {
 				path: 'tipusAdreces',
@@ -196,6 +226,18 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.codisPostal',
 							route: '/ecom/codisPostal',
 							resource: 'COM_CPO'
+						}, {
+							icon: 'room',
+							label: 'Departaments (eCommerce)',
+							labelKey: 'app.menu.ecom.departaments',
+							route: '/ecom/departaments',
+							resource: 'COM_DEP'
+						}, {
+							icon: 'room',
+							label: 'Divises (eCommerce)',
+							labelKey: 'app.menu.ecom.divises',
+							route: '/ecom/divises',
+							resource: 'COM_DIV'
 						}, {							
 							icon: 'room',
 							label: 'Documents pagament/cobrament (eCommerce)',
@@ -234,7 +276,13 @@ export class EcomModule {
 							resource: 'COM_RGI'
 						}, {						
 							icon: 'room',
-							label: 'Paisos (eCommerce)',
+							label: 'Magatzems (eCommerce)',
+							labelKey: 'app.menu.ecom.magatzems',
+							route: '/ecom/magatzems',
+							resource: 'COM_MAG'
+						}, {						
+							icon: 'room',
+							label: 'Països (eCommerce)',
 							labelKey: 'app.menu.ecom.paisos',
 							route: '/ecom/paisos',
 							resource: 'COM_PAI'
@@ -246,10 +294,40 @@ export class EcomModule {
 							resource: 'COM_PAINIF'
 						}, {						
 							icon: 'room',
+							label: 'Peus document (eCommerce)',
+							labelKey: 'app.menu.ecom.peusDocument',
+							route: '/ecom/peusDocument',
+							resource: 'COM_PED'
+						}, {						
+							icon: 'room',
+							label: 'Pressupostos (eCommerce)',
+							labelKey: 'app.menu.ecom.pressupostos',
+							route: '/ecom/pressupostos',
+							resource: 'COM_PRE'
+						}, {						
+							icon: 'room',
+							label: 'Pressupostos linies (eCommerce)',
+							labelKey: 'app.menu.ecom.pressupostosLinia',
+							route: '/ecom/pressupostosLinia',
+							resource: 'COM_LPR'
+						}, {						
+							icon: 'room',
 							label: 'Provincies (eCommerce)',
 							labelKey: 'app.menu.ecom.provincies',
 							route: '/ecom/provincies',
 							resource: 'COM_PRV'
+						}, {						
+							icon: 'room',
+							label: 'Series compra (eCommerce)',
+							labelKey: 'app.menu.ecom.seriesCompra',
+							route: '/ecom/seriesCompra',
+							resource: 'COM_SCP'
+						}, {						
+							icon: 'room',
+							label: 'Series venda (eCommerce)',
+							labelKey: 'app.menu.ecom.seriesVenda',
+							route: '/ecom/seriesVenda',
+							resource: 'COM_SER'
 						}, {						
 							icon: 'room',
 							label: 'Tipus adreça (eCommerce)',

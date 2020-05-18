@@ -6,7 +6,7 @@ package es.limit.cecocloud.ecom.logic.service;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.api.dto.SyncTable;
-import es.limit.base.boot.logic.api.dto.SyncTransactionResponse;
+import es.limit.base.boot.logic.api.dto.SyncTableResponse;
 import es.limit.cecocloud.logic.api.service.DatabaseSyncService;
 
 /**
@@ -24,8 +24,8 @@ public class DatabaseSyncServiceImpl implements DatabaseSyncService {
 	}
 
 	@Override
-	public SyncTransactionResponse syncTable(SyncTable table) {
+	public SyncTableResponse syncTable(SyncTable table) {
 		return null;
 	}
-
+	
 }

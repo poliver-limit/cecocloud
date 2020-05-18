@@ -8,7 +8,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 
 import { ArticlesInformacioGridComponent } from './articlesInformacio-grid.component';
 import { ArticlesInformacioFormComponent } from './articlesInformacio-form.component';
-import { ArticlesInformacioService } from './articlesInformacio.service';
+//import { ArticlesInformacioService } from './articlesInformacio.service';
 
 import { ArticlesInformacioFormModule } from './articlesInformacio-form.module';
 
@@ -28,8 +28,8 @@ import { ArticlesInformacioFormModule } from './articlesInformacio-form.module';
     declarations: [
         ArticlesInformacioGridComponent
     ],
-    providers: [
-        ArticlesInformacioService
-    ]
+//    providers: [
+//        ArticlesInformacioService
+//    ]
 } )
 export class ArticlesInformacioModule {}

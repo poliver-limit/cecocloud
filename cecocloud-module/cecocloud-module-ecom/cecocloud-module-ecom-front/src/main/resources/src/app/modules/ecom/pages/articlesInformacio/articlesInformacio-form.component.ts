@@ -15,8 +15,8 @@ import { ArticlesInformacioService } from './articlesInformacio.service';
 export class ArticlesInformacioFormComponent extends BngFormBaseComponent {
 
 
-    formConfig: BngFormConfig = {
-    }
+//    formConfig: BngFormConfig = {
+//    }
 
     constructor(
 		activatedRoute: ActivatedRoute,

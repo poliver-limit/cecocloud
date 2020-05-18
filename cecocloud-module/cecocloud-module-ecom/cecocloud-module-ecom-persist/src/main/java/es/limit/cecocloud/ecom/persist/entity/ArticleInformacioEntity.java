@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio.ArticleInformacioPk;
 import es.limit.cecocloud.ecom.persist.entity.ArticleInformacioEntity.ArticleInformacioEntityListener;
@@ -87,6 +89,9 @@ public class ArticleInformacioEntity extends AbstractWithIdentificadorAuditableE
 			},
 			foreignKey = @ForeignKey(name = "rges_ain_art_fk"))
 	protected ArticleEntity article;
+	
+	@Formula(value="(SELECT ain_fitnom FROM tcom_ain ain where ain.ain_idf_cod = ain_idf_cod and ain.ain_art_cod = ain_art_cod and ain.ain_num = ain_num)")
+	private String urlImatgeTxt;
 
 	@Builder
 	public ArticleInformacioEntity(
