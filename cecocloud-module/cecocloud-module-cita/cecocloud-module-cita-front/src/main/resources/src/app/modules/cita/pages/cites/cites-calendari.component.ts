@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { Subject } from 'rxjs';
 import { HalParam } from '@lagoshny/ngx-hal-client';
@@ -7,6 +7,7 @@ import { CalendarDateFormatter, CalendarAngularDateFormatter, DateFormatterParam
 import { PuntsVendaService } from './puntsVenda.service';
 import { CitesService } from './cites.service';
 
+@Injectable()
 export class CustomDateFormatter extends CalendarAngularDateFormatter {
 
 	public weekViewHour({ date, locale }: DateFormatterParams): string {
