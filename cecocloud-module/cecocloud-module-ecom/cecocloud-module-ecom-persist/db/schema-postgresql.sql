@@ -1,3 +1,21 @@
+    create table apikey (
+       id int8 not null,
+        created_by varchar(64) not null,
+        created_date timestamp not null,
+        lastmod_by varchar(64),
+        lastmod_date timestamp,
+        version int8 not null,
+        descripcio varchar(100) not null,
+        hash varchar(64) not null,
+        prefix varchar(8) not null,
+        primary key (id)
+    );
+
+    create table apikey_scope (
+       apikey_id int8 not null,
+        scope varchar(32)
+    );
+
     create table tcom_ain (
        ain_art_cod varchar(15) not null,
         ain_num int4 not null,
@@ -278,6 +296,25 @@
         iva_req numeric(19, 2) not null,
         iva_txt varchar(6),
         primary key (iva_cod, iva_idf_cod)
+    );
+
+    create table tcom_lpr (
+       lpr_emp_cod varchar(4) not null,
+        lpr_pre_cod int4 not null,
+        codi int4 not null,
+        lpr_idf_cod varchar(4) not null,
+        lpr_usucre varchar(255),
+        lpr_datcre timestamp,
+        lpr_usumod varchar(255),
+        lpr_datmod timestamp,
+        lpr_art_cod varchar(15) not null,
+        lpr_des varchar(4000) not null,
+        lpr_fcs int4 not null,
+        lpr_num int4,
+        lpr_pru int4 not null,
+        lpr_imp int4 not null,
+        lpr_uni int4 not null,
+        primary key (lpr_emp_cod, lpr_pre_cod, codi, lpr_idf_cod)
     );
 
     create table tcom_mag (
@@ -577,8 +614,9 @@
         tve_tip varchar(1) not null,
         primary key (tve_cod, tve_idf_cod)
     );
-
   
+    alter table apikey 
+       add constraint UK_5yilep0rivoj9b2ducr0df4kd unique (prefix);
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
 
@@ -605,6 +643,11 @@ create index icom_fmc_idf_fk on tcom_fmc (fmc_idf_cod);
 create index icom_gma_idf_fk on tcom_gma (gma_idf_cod);
 create index icom_idi_idf_fk on tcom_idi (idi_idf_cod);
 create index icom_iva_idf_fk on tcom_iva (iva_idf_cod);
+create index icom_lpr_emp_fk on tcom_lpr (lpr_idf_cod, lpr_emp_cod);
+create index icom_lpr_pre_fk on tcom_lpr (lpr_idf_cod, lpr_emp_cod, lpr_pre_cod);
+
+    alter table tcom_lpr 
+       add constraint rcom_lpr_pk unique (lpr_idf_cod, lpr_emp_cod, lpr_pre_cod, lpr_num);
 create index icom_mag_idf_fk on tcom_mag (mag_idf_cod);
 create index icom_mca_idf_fk on tcom_mca (mca_idf_cod);
 create index icom_mod_idf_fk on tcom_mod (mod_idf_cod);
@@ -631,6 +674,11 @@ create index icom_ser_idf_fk on tcom_ser (ser_idf_cod);
 create index icom_tfc_idf_fk on tcom_tfc (tfc_idf_cod);
 create index icom_tri_idf_fk on tcom_tri (tri_idf_cod);
 create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
+
+    alter table apikey_scope 
+       add constraint apkscope_apikey_fk 
+       foreign key (apikey_id) 
+       references apikey;
 
     alter table tcom_ain 
        add constraint rges_ain_art_fk 
@@ -852,6 +900,21 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        foreign key (iva_idf_cod) 
        references tcom_idf;
 
+    alter table tcom_lpr 
+       add constraint rcom_lpr_art_fk 
+       foreign key (lpr_art_cod, lpr_idf_cod) 
+       references tcom_art;
+
+    alter table tcom_lpr 
+       add constraint rcom_lpr_emp_fk 
+       foreign key (lpr_emp_cod, lpr_idf_cod) 
+       references tcom_emp;
+
+    alter table tcom_lpr 
+       add constraint rcom_lpr_pre_fk 
+       foreign key (lpr_emp_cod, lpr_pre_cod, lpr_idf_cod) 
+       references tcom_pre;
+
     alter table tcom_mag 
        add constraint rcom_mag_idf_fk 
        foreign key (mag_idf_cod) 
@@ -1046,3 +1109,4 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_tve_idf_fk 
        foreign key (tve_idf_cod) 
        references tcom_idf;
+
