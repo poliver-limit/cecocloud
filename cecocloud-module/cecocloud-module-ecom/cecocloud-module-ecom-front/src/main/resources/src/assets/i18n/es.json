@@ -33,9 +33,8 @@
 	"app.menu.ecom.tipusVenciments": "Tipos de vencimientos",
 	
 	"resource.article.field.decimalsPreu": "Decimales precio",
-	"resource.article.field.decimalsPreuIva": "Decimales precio con I.V.A.",
-	"resource.article.field.articleInformacio": "Información del artículo",
-	"resource.article.field.articleInformacioRutaInforme": "Url imagen",
+	"resource.article.field.decimalsPreuIva": "Decimales precio con I.V.A.",	
+	"resource.article.field.rutaInforme": "Url imagen",
 	
 	"resource.article.field.titolGeneral": "Datos del artículo",
 	

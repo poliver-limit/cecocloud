@@ -33,9 +33,8 @@
 	"app.menu.ecom.tipusVenciments": "Tipus de venciments",
 	
 	"resource.article.field.decimalsPreu": "Decimals preu",
-	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A.",
-	"resource.article.field.articleInformacio": "Informació de l'article",
-	"resource.article.field.articleInformacioRutaInforme": "Url imatge",
+	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A.",	
+	"resource.article.field.rutaInforme": "Url imatge",
 	
 	"resource.article.field.titolGeneral": "Dades de l'article",	
 	
