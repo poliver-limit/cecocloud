@@ -49,9 +49,9 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "ope_cod", length = 6)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ope_cod", insertable = false, updatable = false)),		
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ope_nom", length = 40, nullable = false)),	
-	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act",  nullable = false)),	
-	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor",  nullable = false)),	
-	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml",  nullable = false)),	
+	@AttributeOverride(name = "embedded.actiu", column = @Column(name = "ope_act", nullable = false)),	
+	@AttributeOverride(name = "embedded.entsor", column = @Column(name = "ope_entsor", nullable = false)),	
+	@AttributeOverride(name = "embedded.comercial", column = @Column(name = "ope_cml", nullable = false)),	
 //	@AttributeOverride(name = "embedded.horariCodi", column = @Column(name = "ope_hor_cod", length = 4, nullable = false)),			
 	@AttributeOverride(name = "embedded.mostrTurno", column = @Column(name = "ope_tor")),			
 	@AttributeOverride(name = "embedded.pin", column = @Column(name = "ope_pin")),			
@@ -351,14 +351,12 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	@Column(name ="ope_hor_cod003", length = 4)
 	private String horariCod003Codi;
 
-
 	@Builder
 	public OperariEntity(
 			WithIdentificadorAndCodiPk<String> pk,
 			Operari embedded,
 			IdentificadorEntity identificador,
 			HorariEntity horari,
-			
 			TipusComissioEntity tipusComissio,
 			BancEntity banc,
 			//OficinaBancariaEntity oficinaBancariaCcr,
@@ -372,15 +370,10 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 			TornEntity torn,
 			GrupFestiuEntity grupFestiu,
 			CentreEntity centre,
-			HorariEntity horariCod003
-			
-			
-			) {
+			HorariEntity horariCod003) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
-	
-		
 //		this.tipusComissioCodi = tipusComissio.getEmbedded()!= null?tipusComissio.getEmbedded().getCodi(): null;
 //		this.horariBocadilloCodi = horari.getEmbedded()!= null?horari.getEmbedded().getCodi(): null;
 //		this.bancCodi = banc.getEmbedded()!= null?banc.getEmbedded().getCodi(): null;
@@ -395,7 +388,6 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 //		this.grupFestiuCodi = grupFestiu.getEmbedded()!= null?grupFestiu.getEmbedded().getCodi(): null;
 //		this.centreCodi = centre.getEmbedded()!= null?centre.getEmbedded().getCodi(): null;
 //		this.horariCod003Codi = horariCod003.getEmbedded().getCodi();
-
 		this.updateHorari(horari);		
 		this.updateTipusComissio(tipusComissio);
 		this.updateHorariBocadillo(horariBocadillo);

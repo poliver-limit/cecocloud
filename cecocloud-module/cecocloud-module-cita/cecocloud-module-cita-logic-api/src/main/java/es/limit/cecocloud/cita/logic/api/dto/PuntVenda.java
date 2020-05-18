@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
-import es.limit.base.boot.logic.api.annotation.RestapiResourcePermission;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentificador;
@@ -47,11 +46,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom",
-		permissionsAllowed = {
-				RestapiResourcePermission.READ,
-				RestapiResourcePermission.WRITE
-		}
+		descriptionField = "nom"
 )
 public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaPk> {
 

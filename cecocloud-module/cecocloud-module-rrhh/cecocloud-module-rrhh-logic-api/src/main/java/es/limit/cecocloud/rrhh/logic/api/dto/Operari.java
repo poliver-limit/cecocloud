@@ -405,37 +405,30 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private GenericReferenceWithCompositePk<OficinaBancaria,  OficinaBancariaPk> oficinaBancariaCcr;*/	 
 	
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;
 
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariBocadillo;
 	
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariCodNit;
 
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<RecursGrup, WithIdentificadorAndCodiPk<String>> recursGrup;
 	
 	@Transient
-//	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Operari, WithIdentificadorAndCodiPk<String>> operari;	
 
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<MantenimentDeTipus, WithIdentificadorAndCodiPk<String>> mantenimentDeTipus;
 
@@ -444,7 +437,6 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private GenericReferenceWithCompositePk<Torn, WithIdentificadorAndCodiPk<String>> torn;	
 
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<GrupFestiu, WithIdentificadorAndCodiPk<String>> grupFestiu;	
 
@@ -453,7 +445,6 @@ public class Operari extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private GenericReferenceWithCompositePk<Centre, WithIdentificadorAndCodiPk<String>> centre;
 	
 	@Transient
-	@NotNull
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.LOV, disabledForCreate = false, disabledForUpdate = false)
 	private GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariCod003;
 	

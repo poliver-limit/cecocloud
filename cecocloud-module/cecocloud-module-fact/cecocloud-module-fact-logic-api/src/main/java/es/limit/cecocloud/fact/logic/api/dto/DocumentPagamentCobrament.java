@@ -36,149 +36,104 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 				toUpperCase = true,
 				includeInQuickFilter = true)
 	private String codi;
-	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean controlarEfectes = false;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean agruparVencimentsRemeses = false;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			sizeMax=3,
-			hiddenInLov = true)
-	private Integer numeroDias;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			sizeMax=3,
-			hiddenInLov = true)
-	private Integer diaEfectosNegociados;
-	
-	@NotNull
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean aplicarDescuentosProntoPago = false;
-	
-	@RestapiField(hiddenInGrid = true,
-			hiddenInLov = true)
-	@NotNull
-	@Convert(converter = StringBooleanConverter.class)
-	private boolean transpasar = false;
-	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@NotNull
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean asientoCompuesto = false;
-	
+	@RestapiField(hiddenInGrid = true,
+			hiddenInLov = true)
 	@NotNull
+	@Convert(converter = StringBooleanConverter.class)
+	private boolean transpasar = false;
+	@RestapiField(hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean controlarEfectes = false;
+	@RestapiField(hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean agruparVencimentsRemeses = false;
+	@RestapiField(hiddenInGrid = true,
+			sizeMax=3,
+			hiddenInLov = true)
+	private Integer numeroDias;
+	@RestapiField(hiddenInGrid = true,
+			sizeMax=3,
+			hiddenInLov = true)
+	private Integer diaEfectosNegociados;
+	@RestapiField(hiddenInGrid = true,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean aplicarDescuentosProntoPago = false;
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 4)
 	private String codigoContable;
-	
-	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codigoFacturaElectronica;
-	
-	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer = 2, fraction = 2)
 	private BigDecimal percentatgeComisio;
-	
-	@NotNull
 	@Size(max = 64)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableComissio;
-	
-	@NotNull
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String concepteContable;
-	
-	@NotNull
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableOrigenIngressos;
-	
-	@NotNull
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 2)
 	private String tipusSeientIngressos;
-	
-	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContableIngressos;
-	
-	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContableIngressos2;
-	
-	@NotNull
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableDestiPagos;
-	
-	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String tipusSeientPagos;
-	
-	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContablePagos;
-	
-	@NotNull
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContablePagos2;
-	
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament, WithIdentificadorAndCodiPk<String>> naturalesaPagamentCobrament;
-	
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
-	
 	@Transient
-	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)
