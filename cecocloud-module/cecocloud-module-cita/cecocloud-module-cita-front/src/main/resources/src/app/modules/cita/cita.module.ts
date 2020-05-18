@@ -25,7 +25,7 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/cites/cites.module').then(m => m.CitesModule)
 			}, {
 				path: '**',
-				redirectTo: 'puntsVenda'
+				redirectTo: 'cites'
 			}]
 		}])
 	]
@@ -38,6 +38,12 @@ export class CitaModule {
 			icon: 'event',
 			label: 'Cites',
 			menuItems: [{
+				icon: 'event',
+				label: 'Cites',
+				labelKey: 'app.menu.cita.cites',
+				route: '/cita/cites',
+				resource: 'CIT_CITA'
+			}, {
 				icon: 'storefront',
 				label: 'Punts de venda',
 				labelKey: 'app.menu.cita.puntsVenda',
@@ -55,12 +61,6 @@ export class CitaModule {
 				labelKey: 'app.menu.cita.horaris',
 				route: '/cita/horaris',
 				resource: 'CIT_HORARI'
-			}, {
-				icon: 'event',
-				label: 'Cites',
-				labelKey: 'app.menu.cita.cites',
-				route: '/cita/cites',
-				resource: 'CIT_CITA'
 			}]
 		});
 	}

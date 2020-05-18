@@ -2,12 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { CalendarModule } from 'angular-calendar';
 import { BngModule, BngFormExitGuard } from 'base-angular';
 
 import { MaterialModule } from '../../../../shared/material.module';
 
+import { CitesCalendariComponent } from './cites-calendari.component';
 import { CitesGridComponent } from './cites-grid.component';
 import { CitesFormComponent } from './cites-form.component';
+import { PuntsVendaService } from './puntsVenda.service';
 import { CitesService } from './cites.service';
 
 @NgModule({
@@ -16,17 +19,20 @@ import { CitesService } from './cites.service';
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		CalendarModule,
 		RouterModule.forChild([
-			{ path: '', component: CitesGridComponent },
+			{ path: '', component: CitesCalendariComponent },
 			{ path: 'create', component: CitesFormComponent, canDeactivate: [BngFormExitGuard] },
 			{ path: 'update/:id', component: CitesFormComponent, canDeactivate: [BngFormExitGuard] }
 		])
 	],
 	declarations: [
+		CitesCalendariComponent,
 		CitesGridComponent,
 		CitesFormComponent
 	],
 	providers: [
+		PuntsVendaService,
 		CitesService
 	]
 })
