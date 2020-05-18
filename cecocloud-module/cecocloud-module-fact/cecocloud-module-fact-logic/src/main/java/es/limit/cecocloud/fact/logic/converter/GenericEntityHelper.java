@@ -24,6 +24,7 @@ import es.limit.cecocloud.fact.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.fact.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.fact.logic.api.dto.Caixa.CaixaPk;
 import es.limit.cecocloud.fact.logic.api.dto.Provincia.ProvinciaPk;
+import es.limit.cecocloud.fact.logic.api.dto.enums.RebutsEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusFacturaEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusMissatgeEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusRegimEnumDto;
@@ -56,6 +57,7 @@ import es.limit.cecocloud.fact.persist.repository.TipusVencimentRepository;
 import es.limit.cecocloud.rrhh.logic.api.dto.Horari;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import es.limit.cecocloud.rrhh.logic.api.dto.enums.OperariEnumDto;
+import es.limit.cecocloud.rrhh.logic.api.dto.enums.TipusHorariEnumDto;
 import es.limit.cecocloud.rrhh.persist.entity.HorariEntity;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import es.limit.cecocloud.rrhh.persist.repository.HorariRepository;
@@ -173,8 +175,17 @@ public class GenericEntityHelper {
 			dto.setCodi(GENERIC_CLIENT_CODI);
 			dto.setNomComercial(GENERIC_NOM_DESCRIPCIO);
 			dto.setNomFiscal(GENERIC_NOM_DESCRIPCIO);
-			dto.setTipusMissatge(TipusMissatgeEnumDto.CAP);
+			dto.setPotencial(false);
+			dto.setBloquejat(false);
+			dto.setRebuts(RebutsEnumDto.NO);
+			dto.setRecarrecEquivalencia(false);
+			dto.setAlbaraValorat(false);
 			dto.setTipusFactura(TipusFacturaEnumDto.GENERAL);
+			dto.setEntitatPublica(false);
+			dto.setMostrarPercentatgeFacturacioClase1(false);
+			dto.setAplicarPreusPerVolum(false);
+			dto.setTipusMissatge(TipusMissatgeEnumDto.CAP);
+			dto.setPermesEntrarPartes(false);
 			return clientRepository.save(
 					ClientEntity.builder().
 					pk(pk).
@@ -413,6 +424,8 @@ public class GenericEntityHelper {
 			dto.setNonGrato(false);
 			dto.setControlPartes(OperariEnumDto.NO);
 			dto.setControlHoresExtras(OperariEnumDto.NO);
+			dto.setPtenmn(new Integer(0));
+			dto.setAdo(false);
 			return operariRepository.save(
 					OperariEntity.builder().
 					pk(pk).
@@ -434,6 +447,7 @@ public class GenericEntityHelper {
 			Horari dto = new Horari();
 			dto.setCodi(GENERIC_HORARI_CODI);
 			dto.setNom(GENERIC_NOM_DESCRIPCIO);
+			dto.setTipus(TipusHorariEnumDto.FLEXIBLE);
 			return horariRepository.save(
 					HorariEntity.builder().
 					pk(pk).

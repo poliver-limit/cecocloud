@@ -11,6 +11,8 @@ import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
 import es.limit.cecocloud.cita.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.cita.logic.api.service.PuntVendaService;
 import es.limit.cecocloud.cita.persist.entity.PuntVendaEntity;
+import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.EnumeracioTipus;
+import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.ImpressioTipus;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
 import es.limit.cecocloud.fact.logic.converter.GenericEntityHelper;
 import es.limit.cecocloud.logic.api.dto.UserSession;
@@ -49,6 +51,10 @@ public class PuntVendaServiceImpl extends AbstractGenericCompositePkServiceImpl<
 
 	@Override
 	protected void beforeCreate(PuntVendaEntity entity, PuntVenda dto) {
+		entity.getEmbedded().setEnumeracioTipus(EnumeracioTipus.DIARIA);
+		entity.getEmbedded().setTicketIvaInclos(false);
+		entity.getEmbedded().setTicketNumLiniesEnBlancFinal(0);
+		entity.getEmbedded().setImpressioTipus(ImpressioTipus.MAI);
 		entity.updateCaixa(
 				genericEntityHelper.getGenericCaixa(
 						entity.getId().getIdentificadorCodi(),

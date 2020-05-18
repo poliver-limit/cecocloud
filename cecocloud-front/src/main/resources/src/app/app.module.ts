@@ -10,6 +10,8 @@ import { NgxHalClientModule } from '@lagoshny/ngx-hal-client';
 import { NgxMaskModule } from 'ngx-mask';
 import { ModuleRegistry } from '@ag-grid-community/all-modules';
 import { InfiniteRowModelModule } from '@ag-grid-community/infinite-row-model';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { BngBaseAppModule, BngErrorModule, BngJwtInterceptor, BngErrorHandler, BngRestapiConfigService } from 'base-angular';
 
 import { AppService } from './shared/app.service';
@@ -64,6 +66,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 		}),
 		NgxHalClientModule.forRoot(),
 		NgxMaskModule.forRoot(),
+		CalendarModule.forRoot({
+			provide: DateAdapter,
+			useFactory: adapterFactory,
+		}),
 		BngBaseAppModule,
 		BngErrorModule,
 		FactModule,
