@@ -17,6 +17,7 @@ import { FestiusService } from './festius.service';
 			<mat-tab label="{{'resource.festiu.plural' | translate}}">
 				<br/>
 				<bng-datagrid
+					*ngIf="showGrid"
 					[config]="festiusDatagridConfig"
 					[restapiService]="festiusService"
 					[editable]="true"></bng-datagrid>
@@ -27,6 +28,8 @@ import { FestiusService } from './festius.service';
 `
 })
 export class FestiusGrupFormComponent extends BngFormBaseComponent {
+
+	showGrid: boolean;
 
 	festiusDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
@@ -44,6 +47,7 @@ export class FestiusGrupFormComponent extends BngFormBaseComponent {
 
 	onResourceLoad(festiuGrup: any) {
 		this.festiusDatagridConfig.fixedFilter = 'festiuGrup.codi==' + festiuGrup.codi;
+		this.showGrid = true;
 	}
 
 	constructor(

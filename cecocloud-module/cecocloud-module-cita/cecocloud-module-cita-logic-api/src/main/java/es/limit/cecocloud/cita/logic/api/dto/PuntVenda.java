@@ -63,27 +63,23 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private String nom;
-	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean ticketIvaInclos = false;
-	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
 	@Convert(converter = EnumeracioTipusEnumConverter.class)
 	private EnumeracioTipus enumeracioTipus;
-	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private Integer ticketNumLiniesEnBlancFinal;
-	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
@@ -176,7 +172,6 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -184,7 +179,6 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Caixa, CaixaPk> caixa;
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -192,7 +186,6 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -200,7 +193,6 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -208,7 +200,6 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
-	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -216,7 +207,6 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInForm = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
-	//@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

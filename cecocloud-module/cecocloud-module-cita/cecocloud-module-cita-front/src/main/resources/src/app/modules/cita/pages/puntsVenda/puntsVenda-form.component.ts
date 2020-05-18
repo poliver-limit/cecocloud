@@ -17,6 +17,7 @@ import { PuntVendaHorarisService } from './puntVendaHoraris.service';
 			<mat-tab label="{{'resource.puntVendaHorari.plural' | translate}}">
 				<br/>
 				<bng-datagrid
+					*ngIf="showGrid"
 					[config]="puntVendaHorarisDatagridConfig"
 					[restapiService]="puntVendaHorarisService"
 					[editable]="true"></bng-datagrid>
@@ -28,6 +29,8 @@ import { PuntVendaHorarisService } from './puntVendaHoraris.service';
 })
 export class PuntsVendaFormComponent extends BngFormBaseComponent {
 
+	showGrid: boolean;
+
 	puntVendaHorarisDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
 		columns: [{
@@ -37,6 +40,7 @@ export class PuntsVendaFormComponent extends BngFormBaseComponent {
 
 	onResourceLoad(puntVenda: any) {
 		this.puntVendaHorarisDatagridConfig.fixedFilter = 'puntVenda.codi==' + puntVenda.codi;
+		this.showGrid = true;
 	}
 
 	constructor(

@@ -17,6 +17,7 @@ import { HorariIntervalsService } from './horariIntervals.service';
 			<mat-tab label="{{'resource.horariInterval.plural' | translate}}">
 				<br/>
 				<bng-datagrid
+					*ngIf="showGrid"
 					[config]="horariIntervalsDatagridConfig"
 					[restapiService]="horariIntervalsService"
 					[editable]="true"></bng-datagrid>
@@ -27,6 +28,8 @@ import { HorariIntervalsService } from './horariIntervals.service';
 `
 })
 export class HorarisFormComponent extends BngFormBaseComponent {
+
+	showGrid: boolean;
 
 	horariIntervalsDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
@@ -44,6 +47,7 @@ export class HorarisFormComponent extends BngFormBaseComponent {
 
 	onResourceLoad(horari: any) {
 		this.horariIntervalsDatagridConfig.fixedFilter = 'horari.codi==' + horari.codi;
+		this.showGrid = true;
 	}
 
 	constructor(
