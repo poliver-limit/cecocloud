@@ -170,7 +170,7 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 	@Column(name = "ptv_ope_cod", length = 6, nullable = false)
 	private String operariCodi;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "ptv_idf_cod", referencedColumnName = "ser_idf_cod", insertable = false, updatable = false),

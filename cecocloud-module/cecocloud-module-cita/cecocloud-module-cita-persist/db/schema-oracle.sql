@@ -10,10 +10,10 @@ create table tcec_cit (
     cit_anudat timestamp,
     cit_cod varchar2(34 char) not null,
     cit_dat timestamp not null,
-    cit_nom varchar2(100 char) not null,
-    cit_lng varchar2(100 char) not null,
-    cit_tel varchar2(15 char) not null,
     cit_eml varchar2(100 char),
+    cit_lng varchar2(100 char) not null,
+    cit_nom varchar2(100 char) not null,
+    cit_tel varchar2(15 char) not null,
     constraint rcec_cit_pk primary key (cit_idf_cod, cit_emp_cod, cit_ptv_cod, cit_seq)
 );
 
@@ -113,3 +113,15 @@ alter table tcec_ihr
    add constraint rcec_ihr_hor_fk 
    foreign key (ihr_idf_cod, ihr_hor_cod) 
    references tcec_hor;
+
+alter table tges_ptv add (
+	ptv_citact varchar2(1 char),
+    ptv_citintmin number(10,0),
+    ptv_citnumpla number(10,0),
+	ptv_gfe_cod varchar2(4 char));
+
+alter table tges_ptv 
+   add constraint rges_ptv_gfe_fk 
+   foreign key (ptv_idf_cod, ptv_gfe_cod) 
+   references tcec_gfe;
+ 
