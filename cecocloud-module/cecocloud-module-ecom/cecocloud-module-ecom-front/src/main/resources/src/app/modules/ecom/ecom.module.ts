@@ -156,9 +156,9 @@ export class EcomModule {
 			label: 'eCommerce',
 			menuItems: [
 				{
-					icon: 'dns',
-					label: 'Taules generals',
-					labelKey: 'funcionalitat.menu.t-generals',
+					icon: 'shopping_basket',
+					label: 'Articles',
+					labelKey: 'funcionalitat.menu.articles',
 					items: [
 						{
 							icon: 'room',
@@ -208,7 +208,14 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.articlesTraduccio',
 							route: '/ecom/articlesTraduccio',
 							resource: 'COM_TRDART'
-						}, {
+						}
+					]
+				}, {						
+					icon: 'people',
+					label: 'Clients',
+					labelKey: 'funcionalitat.menu.clients',
+					items: [
+						{
 							icon: 'room',
 							label: 'Clients (eCommerce)',
 							labelKey: 'app.menu.ecom.clients',
@@ -250,7 +257,14 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.naturalesesPagamentCobrament',
 							route: '/ecom/naturalesesPagamentCobrament',
 							resource: 'COM_NPG'
-						}, {							
+						}
+					]
+				}, {
+					icon: 'headset',
+					label: 'Vendes',
+					labelKey: 'funcionalitat.menu.ventes',
+					items: [
+						{							
 							icon: 'room',
 							label: 'Empreses (eCommerce)',
 							labelKey: 'app.menu.ecom.empreses',
@@ -298,7 +312,14 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.peusDocument',
 							route: '/ecom/peusDocument',
 							resource: 'COM_PED'
-						}, {						
+						}
+					]
+				}, {
+					icon: 'notes',
+					label: 'Pressupostos',
+					labelKey: 'funcionalitat.menu.pressupostos',
+					items: [
+						{						
 							icon: 'room',
 							label: 'Pressupostos (eCommerce)',
 							labelKey: 'app.menu.ecom.pressupostos',
@@ -310,7 +331,14 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.pressupostosLinia',
 							route: '/ecom/pressupostosLinia',
 							resource: 'COM_LPR'
-						}, {						
+						}
+					]
+				}, {
+					icon: 'donut_small',
+					label: 'Facturació',
+					labelKey: 'funcionalitat.menu.facturacio',
+					items: [
+						{			
 							icon: 'room',
 							label: 'Provincies (eCommerce)',
 							labelKey: 'app.menu.ecom.provincies',

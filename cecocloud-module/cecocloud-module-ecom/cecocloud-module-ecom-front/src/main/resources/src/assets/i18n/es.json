@@ -99,7 +99,7 @@
 	"resource.pressupostLinia.field.unitats": "Unidades",
 	"resource.pressupostLinia.field.descripcio": "Descripción",
 	"resource.pressupostLinia.field.preu": "Precio",
-	"resource.pressupostLinia.field.factorConversioSortides": "Factor de conversión en salidas",
+	"resource.pressupostLinia.field.factorConversioSortides": "F.C.S.",
 	"resource.pressupostLinia.field.preuAmbIva": "Importe",
 	"resource.pressupostLinia.field.article": "Artículo"
 }

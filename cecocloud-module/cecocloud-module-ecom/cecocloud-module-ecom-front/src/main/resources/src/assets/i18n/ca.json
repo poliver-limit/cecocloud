@@ -99,7 +99,7 @@
 	"resource.pressupostLinia.field.unitats": "Unitats",
 	"resource.pressupostLinia.field.descripcio": "Descripció",
 	"resource.pressupostLinia.field.preu": "Preu",
-	"resource.pressupostLinia.field.factorConversioSortides": "Factor de conversió a sortides",
+	"resource.pressupostLinia.field.factorConversioSortides": "F.C.S.",
 	"resource.pressupostLinia.field.preuAmbIva": "Import",
 	"resource.pressupostLinia.field.article": "Article"
 	
