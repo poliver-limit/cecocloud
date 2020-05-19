@@ -29,6 +29,7 @@ import { LiciModule } from './modules/lici/lici.module';
 import { MarcModule } from './modules/marc/marc.module';
 import { RrhhModule } from './modules/rrhh/rrhh.module';
 import { CitaModule } from './modules/cita/cita.module';
+import { EcomModule } from './modules/ecom/ecom.module';
 
 registerLocaleData(localeCa);
 registerLocaleData(localeEs);
@@ -46,7 +47,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 			{ prefix: "./assets/i18n/lici/", suffix: ".json"},
 			{ prefix: "./assets/i18n/marc/", suffix: ".json"},
 			{ prefix: "./assets/i18n/rrhh/", suffix: ".json"},
-			{ prefix: "./assets/i18n/cita/", suffix: ".json"}
+			{ prefix: "./assets/i18n/cita/", suffix: ".json"},
+			{ prefix: "./assets/i18n/ecom/", suffix: ".json"}
 		]);
 }
 
@@ -77,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		MarcModule,
 		RrhhModule,
 		CitaModule,
+		EcomModule,
 		AppRoutingModule
 	],
 	declarations: [

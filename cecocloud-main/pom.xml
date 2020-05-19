@@ -82,6 +82,16 @@
 			<artifactId>cecocloud-module-rrhh-back</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-ecom-back</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>cecocloud-module-ecom-back-ecommerce</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	<!--profiles>
 		<profile>
@@ -161,6 +171,11 @@
 					<dependency>
 						<groupId>${project.groupId}</groupId>
 						<artifactId>cecocloud-module-rrhh-persist</artifactId>
+						<version>${project.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>cecocloud-module-ecom-persist</artifactId>
 						<version>${project.version}</version>
 					</dependency>
 					<dependency>

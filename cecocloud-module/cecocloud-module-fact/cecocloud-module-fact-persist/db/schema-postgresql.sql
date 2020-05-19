@@ -1799,6 +1799,11 @@ alter table tges_alb
    foreign key (alb_idf_cod) 
    references tges_idf;
 
+    alter table tges_aap 
+       add constraint rges_aap_idf_fk 
+       foreign key (aap_idf_cod) 
+       references tges_idf;
+
 alter table tges_alb 
    add constraint rges_alb_emp_fk 
    foreign key (alb_emp_cod, alb_idf_cod) 
@@ -2099,10 +2104,16 @@ alter table tges_clm
    foreign key (clm_man_cne, clm_idf_cod) 
    references tges_man;
 
+    alter table tges_cli 
+       add constraint cli_tcs_cod_fk 
+       foreign key (cli_tcs_cod, cli_idf_cod) 
+       references tges_tcs;
+
 alter table tges_clm 
    add constraint rges_clm_cli_fk 
    foreign key (clm_cli_cod, clm_idf_cod) 
    references tges_cli;
+
 
 alter table tges_clr 
    add constraint rges_clr_idf_fk 
@@ -2113,6 +2124,12 @@ alter table tges_cnt
    add constraint rges_cnt_idf_fk 
    foreign key (cnt_idf_cod) 
    references tges_idf;
+
+    alter table tges_cli 
+       add constraint cli_tve_cod001_fk 
+       foreign key (cli_tve_cod001, cli_idf_cod) 
+       references tges_tve;
+
 
 alter table tges_cpo 
    add constraint rges_cpo_idf_fk 
@@ -3083,3 +3100,9 @@ alter table tges_zon
    add constraint rges_zon_idf_fk 
    foreign key (zon_idf_cod) 
    references tges_idf;
+
+    alter table tges_zon 
+       add constraint rges_zon_idf_fk 
+       foreign key (zon_idf_cod) 
+       references tges_idf;
+

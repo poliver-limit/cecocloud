@@ -1,0 +1,161 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="pressupostosService"
+>
+	<mat-tab-group animationDuration="0">    
+	    <mat-tab label="{{'resource.pressupost.field.titolGeneral'|translate}}">
+	      <ng-container *ngTemplateOutlet="pressupostTab"></ng-container>
+	    </mat-tab>    
+	    <mat-tab label="{{'resource.pressupost.field.titolDadesClient'|translate}}">
+	      <ng-container *ngTemplateOutlet="dadesClientTab"></ng-container>
+	    </mat-tab>	  
+	</mat-tab-group>
+	
+	<ng-template #pressupostTab>
+		<mat-card>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="dadesGeneralsTemplate"></ng-container>
+			</mat-card-content>
+		</mat-card>
+		<mat-card>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="liniesPressupostTemplate"></ng-container>
+			</mat-card-content>
+		</mat-card>
+	</ng-template>	
+	
+	<ng-template #dadesGeneralsTemplate>
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="codi"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="numero"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="versio"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="data"></bng-custom-field>
+		  </div>
+		</div>
+		
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="dataInici"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="estat"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="observacions"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="preu"></bng-custom-field>
+		  </div>
+		</div>
+		
+	 	<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="preuAmbIva"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="serieVenda"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="client"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="iva"></bng-custom-field>
+		  </div>
+		</div>
+		
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="codiPostal"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="divisa"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="magatzem"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="idioma"></bng-custom-field>
+		  </div>
+	  	</div>
+		  
+	  	<div style="display: flex">
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="pais"></bng-custom-field>
+		  </div>  
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="provincia"></bng-custom-field>
+		  </div>
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="documentPagamentCobrament"></bng-custom-field>
+		  </div>	  
+		</div>
+	</ng-template>
+	
+	<ng-template #liniesPressupostTemplate>
+		<bng-datagrid					
+			[config]="pressupostosLiniaDatagridConfig"
+			[restapiService]="pressupostosLiniaService"		
+			[editable]="gridsEditables"	
+			>
+		</bng-datagrid>		
+	</ng-template>
+	
+	<ng-template #dadesClientTab>	
+	    <div style="display: flex">
+	    	<div style="width: 50%; padding-right: 1em">
+	        	<bng-custom-field name="nomComercial"></bng-custom-field>
+	      	</div>
+	      	<div style="width: 50%; padding-right: 1em">
+	        	<bng-custom-field name="nomFiscal"></bng-custom-field>
+	      	</div>
+	    </div> 
+	    <div style="display: flex">
+	    	<div style="width: 33%; padding-right: 1em">
+	        	<bng-custom-field name="paisNif"></bng-custom-field>
+	      </div>
+	      <div style="width: 33%; padding-right: 1em">
+	        	<bng-custom-field name="tipusNif"></bng-custom-field>
+	      </div>
+		  <div style="width: 33%; padding-right: 1em">
+	      		<bng-custom-field name="nif"></bng-custom-field>
+	      </div>
+	    </div>  
+	    <div style="display: flex">
+	      <div style="width: 10%; padding-right: 1em">
+	        <bng-custom-field name="tipusAdresa"></bng-custom-field>
+	      </div>
+	      <div style="width: 50%; padding-right: 1em">
+	        <bng-custom-field name="nomDomicili"></bng-custom-field>
+	      </div>
+		  <div style="width: 10%; padding-right: 1em">
+	        <bng-custom-field name="numeroDomicili"></bng-custom-field>
+	      </div>    
+	      <div style="width: 10%; padding-right: 1em">
+	        <bng-custom-field name="escalaDomicili"></bng-custom-field>
+	      </div>
+	      <div style="width: 10%; padding-right: 1em">
+	        <bng-custom-field name="pisDomicili"></bng-custom-field>
+	      </div>
+	      <div style="width: 10%; padding-right: 1em">
+	       	<bng-custom-field name="portaDomicili"></bng-custom-field>
+	      </div>
+	    </div>      
+	    <div style="display: flex">    	
+		    <div style="width: 50%; padding-right: 1em">
+	        	<bng-custom-field name="domiciliFiscal"></bng-custom-field>
+	      	</div>     
+	      	<div style="width: 50%; padding-right: 1em">
+	        	<bng-custom-field name="codiPostal"></bng-custom-field>
+	     	</div>
+	    </div>
+	</ng-template>
+    		
+</bng-form>

@@ -19,10 +19,5 @@
 			<artifactId>cecocloud-logic-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>cecocloud-module-rrhh-logic-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 </project>
