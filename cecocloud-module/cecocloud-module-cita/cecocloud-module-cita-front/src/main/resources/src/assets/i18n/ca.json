@@ -49,6 +49,11 @@
 	"resource.cita.field.llinatges": "Llinatges",
 	"resource.cita.field.telefon": "Telèfon",
 	"resource.cita.field.email": "Correu-e",
-	"resource.cita.field.anulacioData": "Data d'anul·lació"
+	"resource.cita.field.anulacioData": "Data d'anul·lació",
+
+	"page.cita.calendari.dialog.titol": "Detalls de la cita",
+	"page.cita.calendari.dialog.cancelada": "Cancel·lada",
+	"page.cita.calendari.dialog.cancelacio.data": "cancel·lada el",
+	"page.cita.calendari.dialog.tancar": "Tancar"
 
 }

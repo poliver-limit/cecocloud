@@ -7,7 +7,7 @@ import { BngModule, BngFormExitGuard } from 'base-angular';
 
 import { MaterialModule } from '../../../../shared/material.module';
 
-import { CitesCalendariComponent } from './cites-calendari.component';
+import { CitesCalendariComponent, CitesCalendariDetailDialog } from './cites-calendari.component';
 import { CitesGridComponent } from './cites-grid.component';
 import { CitesFormComponent } from './cites-form.component';
 import { PuntsVendaService } from './puntsVenda.service';
@@ -29,11 +29,15 @@ import { CitesService } from './cites.service';
 	declarations: [
 		CitesCalendariComponent,
 		CitesGridComponent,
-		CitesFormComponent
+		CitesFormComponent,
+		CitesCalendariDetailDialog
 	],
 	providers: [
 		PuntsVendaService,
 		CitesService
+	],
+	entryComponents: [
+		CitesCalendariDetailDialog
 	]
 })
 export class CitesModule { }
