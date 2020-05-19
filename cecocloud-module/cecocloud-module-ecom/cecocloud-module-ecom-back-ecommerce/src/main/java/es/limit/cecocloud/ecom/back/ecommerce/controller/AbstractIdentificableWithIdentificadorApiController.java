@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import es.limit.base.boot.back.controller.AbstractIdentificableApiController;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificador;
 import es.limit.cecocloud.logic.api.dto.Identificador;
@@ -19,7 +18,7 @@ import es.limit.cecocloud.logic.api.service.IdentificadorService;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public class AbstractIdentificableWithIdentificadorApiController<D extends IdentificableWithIdentificador<?>> extends AbstractIdentificableApiController<D, String> {
+public class AbstractIdentificableWithIdentificadorApiController<D extends IdentificableWithIdentificador<?>> extends AbstractIdentificableEcomApiController<D, String> {
 
 	@Autowired
 	protected IdentificadorService identificadorService;
