@@ -3,13 +3,22 @@
  */
 package es.limit.cecocloud.cita.logic.service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.api.dto.helper.CompositePkHelper;
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.base.boot.logic.service.AbstractGenericCompositePkServiceImpl;
 import es.limit.cecocloud.cita.logic.api.dto.PuntVenda;
+import es.limit.cecocloud.cita.logic.api.dto.PuntVendaRangHorari;
+import es.limit.cecocloud.cita.logic.api.dto.PuntVendaRangHorariRequest;
 import es.limit.cecocloud.cita.logic.api.service.PuntVendaService;
+import es.limit.cecocloud.cita.logic.helper.DisponibilitatHelper;
+import es.limit.cecocloud.cita.persist.entity.HorariIntervalEntity;
 import es.limit.cecocloud.cita.persist.entity.PuntVendaEntity;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.EnumeracioTipus;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.ImpressioTipus;
@@ -37,6 +46,8 @@ public class PuntVendaServiceImpl extends AbstractGenericCompositePkServiceImpl<
 	private AuthenticationHelper authenticationHelper;
 	@Autowired
 	private GenericEntityHelper genericEntityHelper;
+	@Autowired
+	private DisponibilitatHelper disponibilitatHelper;
 
 	@Override
 	protected PuntVendaPk getPkFromDto(PuntVenda dto) {
@@ -79,6 +90,44 @@ public class PuntVendaServiceImpl extends AbstractGenericCompositePkServiceImpl<
 	@Override
 	protected void beforeUpdate(PuntVendaEntity entity, PuntVenda dto) {
 		beforeCreate(entity, dto);
+	}
+
+	@Override
+	public PuntVendaRangHorari getRangHorari(String id, PuntVendaRangHorariRequest request) {
+		Optional<PuntVendaEntity> puntVenda = getRepository().findById(
+				CompositePkHelper.getCompositePkFromSerializedId(
+						id,
+						PuntVenda.class,
+						PuntVendaPk.class));
+		PuntVendaRangHorari rang = new PuntVendaRangHorari();
+		calcularRangPerData(
+				puntVenda.get(),
+				request.getDataInici(),
+				rang);
+		calcularRangPerData(
+				puntVenda.get(),
+				request.getDataFi(),
+				rang);
+		return rang;
+	}
+
+	private void calcularRangPerData(
+			PuntVendaEntity puntVenda,
+			LocalDate data,
+			PuntVendaRangHorari rang) {
+		List<HorariIntervalEntity> horariIntervals = disponibilitatHelper.getHorariIntervals(puntVenda, data, false);
+		if (horariIntervals != null) {
+			for (HorariIntervalEntity horariInterval: horariIntervals) {
+				if (horariInterval.getEmbedded().getDiaSetmana().asDayOfWeek() == data.getDayOfWeek()) {
+					if (rang.getHoraInici() == null || rang.getHoraInici().isAfter(horariInterval.getEmbedded().getHoraInici())) {
+						rang.setHoraInici(horariInterval.getEmbedded().getHoraInici());
+					}
+					if (rang.getHoraFi() == null || rang.getHoraFi().isBefore(horariInterval.getEmbedded().getHoraFi())) {
+						rang.setHoraFi(horariInterval.getEmbedded().getHoraFi());
+					}
+				}
+			}
+		}
 	}
 
 }

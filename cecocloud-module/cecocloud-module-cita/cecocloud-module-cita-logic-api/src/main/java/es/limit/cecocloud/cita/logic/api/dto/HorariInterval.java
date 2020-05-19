@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 import javax.persistence.Transient;
@@ -85,7 +86,26 @@ public class HorariInterval extends AbstractIdentificableWithIdentificador<Horar
 		DIJOUS,
 		DIVENDRES,
 		DISSABTE,
-		DIUMENGE
+		DIUMENGE;
+		public DayOfWeek asDayOfWeek() {
+			switch (this) {
+			case DILLUNS:
+				return DayOfWeek.MONDAY;
+			case DIMARTS:
+				return DayOfWeek.TUESDAY;
+			case DIMECRES:
+				return DayOfWeek.WEDNESDAY;
+			case DIJOUS:
+				return DayOfWeek.THURSDAY;
+			case DIVENDRES:
+				return DayOfWeek.FRIDAY;
+			case DISSABTE:
+				return DayOfWeek.SATURDAY;
+			case DIUMENGE:
+				return DayOfWeek.SUNDAY;
+			}
+			return null;
+		}
 	}
 
 }

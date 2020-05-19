@@ -43,8 +43,10 @@ export class AppComponent {
 	}
 
 	onIdentificadorEmpresaSelected(identificadorEmpresa: any) {
+		if (this.empresaSelected) {
+			this.changeRouteWhenAllowedModulesChanged = true;
+		}
 		this.empresaSelected = identificadorEmpresa.empresa != null;
-		this.changeRouteWhenAllowedModulesChanged = true;
 	}
 
 	onIdentificadorAdminSelected(identificador: any) {
@@ -113,7 +115,6 @@ export class AppComponent {
 					this.menuService.setActiveMenu(undefined);
 					this.router.navigate(['/']);
 				}
-				this.changeRouteWhenAllowedModulesChanged
 			}
 		});
 		// Configura el menu inicial al carregar l'aplicació
