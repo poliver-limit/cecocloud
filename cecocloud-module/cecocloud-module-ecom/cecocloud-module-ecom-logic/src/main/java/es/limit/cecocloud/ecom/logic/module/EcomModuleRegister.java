@@ -41,9 +41,6 @@ import es.limit.cecocloud.ecom.logic.api.dto.SerieCompra;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
-
-
-import es.limit.cecocloud.ecom.logic.service.DatabaseSyncServiceImpl;
 import es.limit.cecocloud.ecom.logic.service.EmpresaIdentificadorSyncServiceImpl;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
@@ -364,7 +361,6 @@ public class EcomModuleRegister {
 				Modul.ecom,
 				Article.class.getPackage().getName(),
 				EmpresaIdentificadorSyncServiceImpl.class,
-				DatabaseSyncServiceImpl.class,
 				funcionalitats);
 		Modules.registerModule(moduleInfo);
 	}
