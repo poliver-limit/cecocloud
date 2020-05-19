@@ -1110,3 +1110,29 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_tve_idf_fk 
        foreign key (tve_idf_cod) 
        references tcom_idf;
+       
+create table paycomet_notification (
+       transactionType int4 not null,
+       transactionName varchar(255) not null,
+	   cardCountry varchar(255) not null,
+	   bankDateTime varchar(255) not null,
+	   orderNumber varchar(255) not null,
+	   response varchar(255) not null,
+	   errorID int4 not null,
+	   errorDescription varchar(255) not null,
+	   authCode varchar(255) not null,
+	   currency varchar(255) not null,
+	   amount int4 not null,
+	   amountEur int4 not null,
+	   accountCode varchar(255) not null,
+	   tpvID int4 not null,
+	   concept varchar(255) not null,
+	   idUser int4 not null,
+	   tokenUser varchar(255) not null,
+	   securePayment int4 not null,
+	   cardBrand varchar(255) not null,
+	   bicCode varchar(255) not null,
+	   scoring int4 not null,
+	   notificationHash varchar(255) not null,
+       primary key (orderNumber)
+    );
