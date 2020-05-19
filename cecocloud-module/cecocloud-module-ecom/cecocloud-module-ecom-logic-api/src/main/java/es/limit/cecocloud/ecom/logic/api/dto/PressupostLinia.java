@@ -34,7 +34,9 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 //	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 		disabledForCreate = true,
-		disabledForUpdate = true, 
+		disabledForUpdate = true,
+		hiddenInGrid = true,
+		hiddenInForm = true,
 		toUpperCase = true,
 		includeInQuickFilter = true,
 		sizeMax = 22)

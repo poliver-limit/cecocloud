@@ -201,12 +201,14 @@
 	"funcionalitat.menu.t-generals": "Taules generals",
 	"funcionalitat.menu.articles": "Articles",
 	"funcionalitat.menu.facturacio": "Facturacio",
+	"funcionalitat.menu.clients": "Clients",
 	"funcionalitat.menu.clients-proveidors": "Clients i proveidors",
 	"funcionalitat.menu.t-auxiliars": "Taules auxiliars",
 	"funcionalitat.menu.t-empreses": "Taules d'empreses",
-	"funcionalitat.menu.ventes": "Ventes",
+	"funcionalitat.menu.ventes": "Vendes",
 	"funcionalitat.menu.compres": "Compres",
-	"funcionalitat.menu.magatzem": "Magatzems",
+	"funcionalitat.menu.pressupostos": "Pressupostos",
+	"funcionalitat.menu.magatzem": "Magatzems",	
 
 	"funcionalitat.permis.modificar.error": "No s'ha pogut modificar el permís",
 
