@@ -11,12 +11,14 @@ import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
@@ -25,6 +27,8 @@ import org.hibernate.annotations.NotFoundAction;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import es.limit.cecocloud.ecom.persist.entity.ClientEntity;
+import es.limit.cecocloud.ecom.persist.entity.PressupostEntity.PressupostEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -92,6 +96,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_pre_idf_fk"))
 })
+@EntityListeners({PressupostEntityListener.class})
 public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<Pressupost, PressupostPk> {
 
 	@Embedded
@@ -390,6 +395,16 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.codiPostalClient = codiPostalClient;
 		if (codiPostalClient != null) {
 			this.codiPostalClientCodi = codiPostalClient.getEmbedded().getCodi();
+		}
+	}
+	
+	public static class PressupostEntityListener {
+		@PrePersist
+		public void calcular(PressupostEntity pressupost) {
+			int num = EntityListenerUtil.getSeguentNumComptador(
+					pressupost.getIdentificador().getId(),
+					"TCOM_PRE");
+			pressupost.getEmbedded().setNumero(num);			
 		}
 	}
 

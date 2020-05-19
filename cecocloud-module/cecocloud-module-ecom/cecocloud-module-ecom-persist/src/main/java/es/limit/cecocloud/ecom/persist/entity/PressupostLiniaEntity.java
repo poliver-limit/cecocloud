@@ -11,16 +11,20 @@ import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia.PressupostLiniaPk;
+import es.limit.cecocloud.ecom.persist.entity.PressupostLiniaEntity.PressupostLiniaEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -71,6 +75,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
+@EntityListeners({PressupostLiniaEntityListener.class})
 public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEntity<PressupostLinia, PressupostLiniaPk> {
 
 	@Embedded
@@ -135,6 +140,18 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 	public void updateArticle(ArticleEntity article) {
 		this.article = article;		
 		if (article!=null) this.articleCodi = article.getEmbedded().getCodi();
+	}
+	
+	public static class PressupostLiniaEntityListener {
+		@PrePersist
+		public void calcular(PressupostLiniaEntity pressupostLinia) {
+			int numeroPressupost = pressupostLinia.getPressupost().getEmbedded().getNumero();
+			int num = EntityListenerUtil.getSeguentNumComptador(
+					pressupostLinia.getIdentificador().getId(),
+					"TCOM_LPR_"+numeroPressupost);
+			pressupostLinia.getEmbedded().setNumero(num);
+			pressupostLinia.getId().setCodi(num);
+		}
 	}
 
 }

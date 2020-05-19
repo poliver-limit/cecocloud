@@ -91,7 +91,7 @@
 	"resource.pressupost.field.codiPostalClient": "Código postal",
 	
 	"resource.pressupost.field.titolGeneral": "Datos del presupuesto",
-	"resource.client.field.titolDadesClient": "Datos del cliente",
+	"resource.pressupost.field.titolDadesClient": "Datos del cliente",
 	
 	"resource.pressupostLinia" : "Pressupuesto linia",	
 	"resource.pressupostLinia.plural" : "Pressupuesto linias",

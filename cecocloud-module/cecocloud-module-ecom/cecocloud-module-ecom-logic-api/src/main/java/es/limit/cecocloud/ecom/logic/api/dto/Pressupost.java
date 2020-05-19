@@ -48,13 +48,15 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 
 	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
-			disabledForUpdate = true, 
+		disabledForUpdate = true, 
 		toUpperCase = true,
 		includeInQuickFilter = true)
 	private Integer codi;
 	
-	@NotNull
+//	@NotNull
 	@RestapiField(
+			disabledForCreate = true, 
+			disabledForUpdate = true, 
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)

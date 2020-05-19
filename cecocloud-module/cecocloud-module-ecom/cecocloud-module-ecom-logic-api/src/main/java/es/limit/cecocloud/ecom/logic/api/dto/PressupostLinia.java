@@ -31,8 +31,9 @@ import lombok.Setter;
 )
 public class PressupostLinia extends AbstractIdentificableWithIdentificador<PressupostLiniaPk> {
 
-	@NotNull(groups = { OnCreate.class })	
+//	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
+		disabledForCreate = true,
 		disabledForUpdate = true, 
 		toUpperCase = true,
 		includeInQuickFilter = true,
