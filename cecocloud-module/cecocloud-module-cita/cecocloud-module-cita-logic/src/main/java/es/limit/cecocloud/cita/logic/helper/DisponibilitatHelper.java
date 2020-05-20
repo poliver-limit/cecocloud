@@ -5,6 +5,7 @@ package es.limit.cecocloud.cita.logic.helper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -148,6 +149,23 @@ public class DisponibilitatHelper {
 			}
 		}
 		return new ArrayList<MobileAppHoraDisponible>();
+	}
+
+	public boolean isHoraDisponible(
+			PuntVendaEntity puntVenda,
+			LocalDateTime data) {
+		List<MobileAppHoraDisponible> horesDisponibles = disponibilitat(
+				puntVenda,
+				data.toLocalDate());
+		LocalTime hora = data.toLocalTime();
+		boolean disponible = false;
+		for (MobileAppHoraDisponible horaDisponible: horesDisponibles) {
+			if (horaDisponible.getHora().equals(hora)) {
+				disponible = true;
+				break;
+			}
+		}
+		return disponible;
 	}
 
 	public List<HorariIntervalEntity> getHorariIntervals(

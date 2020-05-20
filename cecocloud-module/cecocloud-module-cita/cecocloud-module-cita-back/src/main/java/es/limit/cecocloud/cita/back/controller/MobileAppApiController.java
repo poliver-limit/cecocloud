@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioCita;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioDisponibilitat;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioFestius;
 import es.limit.cecocloud.cita.logic.api.dto.MobileAppPeticioHoraris;
+import es.limit.cecocloud.cita.logic.api.exception.NotAvailableException;
 import es.limit.cecocloud.cita.logic.api.module.CitaModule;
 import es.limit.cecocloud.cita.logic.api.service.MobileAppService;
 import lombok.extern.slf4j.Slf4j;
@@ -137,6 +139,8 @@ public class MobileAppApiController {
 					peticio.getPuntVendaCodi(),
 					peticio.getCita());
 			return ResponseEntity.ok(cita);
+		} catch (NotAvailableException ex) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		} catch (EntityNotFoundException ex) {
 			return ResponseEntity.notFound().build();
 		}

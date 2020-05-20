@@ -57,6 +57,7 @@ public class MobileAppServiceImpl implements MobileAppService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<MobileAppEmpresa> empresaFind() {
+		log.debug("Consulta d'empreses amb cita activa");
 		List<PuntVendaEntity> puntsVendaAmbCitaActiva = puntVendaRepository.findByEmbeddedCitaActivaTrue();
 		List<EmpresaEntity> empresesAmbCitaActiva = puntVendaRepository.findEmpresesByEmbeddedCitaActivaTrue();
 		List<MobileAppEmpresa> resposta = new ArrayList<MobileAppEmpresa>();
@@ -116,7 +117,7 @@ public class MobileAppServiceImpl implements MobileAppService {
 						identificadorCodi,
 						empresaCodi,
 						puntVendaCodi));
-		log.debug("Càlcul de la disponibilitat de cites(" +
+		log.debug("Càlcul de la disponibilitat de cites (" +
 				"identificadorCodi=" + identificadorCodi + ", " + 
 				"empresaCodi=" + empresaCodi + ", " + 
 				"puntVendaCodi=" + puntVendaCodi + ", " + 
@@ -131,6 +132,11 @@ public class MobileAppServiceImpl implements MobileAppService {
 			String empresaCodi,
 			String puntVendaCodi,
 			MobileAppCita cita) throws NotAvailableException, EntityNotFoundException {
+		log.debug("Creació de cita (" +
+				"identificadorCodi=" + identificadorCodi + ", " + 
+				"empresaCodi=" + empresaCodi + ", " + 
+				"puntVendaCodi=" + puntVendaCodi + ", " + 
+				"cita=" + cita + ")");
 		Cita dto = new Cita();
 		dto.setData(cita.getData());
 		dto.setNom(cita.getNom());
@@ -151,26 +157,35 @@ public class MobileAppServiceImpl implements MobileAppService {
 				empresaCodi,
 				puntVendaCodi);
 		Optional<PuntVendaEntity> puntVenda = puntVendaRepository.findById(puntVendaPk);
-		CitaEntity saved = citaRepository.save(CitaEntity.builder().
-				pk(pk).
-				embedded(dto).
-				empresa(empresa.get()).
-				puntVenda(puntVenda.get()).
-				build());
-		MobileAppCita resposta = new MobileAppCita();
-		resposta.setCodi(saved.getEmbedded().getCodi());
-		resposta.setData(saved.getEmbedded().getData());
-		MobileAppEmpresa mobileEmpresa = new MobileAppEmpresa();
-		mobileEmpresa.setIdentificadorCodi(identificadorCodi);
-		mobileEmpresa.setCodi(empresaCodi);
-		mobileEmpresa.setNif(empresa.get().getEmbedded().getNif());
-		mobileEmpresa.setNom(empresa.get().getEmbedded().getNomComercial());
-		resposta.setEmpresa(mobileEmpresa);
-		MobileAppPuntVenda mobilePuntVenda = new MobileAppPuntVenda();
-		mobilePuntVenda.setCodi(puntVendaCodi);
-		mobilePuntVenda.setNom(puntVenda.get().getEmbedded().getNom());
-		resposta.setPuntVenda(mobilePuntVenda);
-		return resposta;
+		if (disponibilitatHelper.isHoraDisponible(puntVenda.get(), cita.getData())) {
+			CitaEntity saved = citaRepository.save(CitaEntity.builder().
+					pk(pk).
+					embedded(dto).
+					empresa(empresa.get()).
+					puntVenda(puntVenda.get()).
+					build());
+			MobileAppCita resposta = new MobileAppCita();
+			resposta.setCodi(saved.getEmbedded().getCodi());
+			resposta.setData(saved.getEmbedded().getData());
+			MobileAppEmpresa mobileEmpresa = new MobileAppEmpresa();
+			mobileEmpresa.setIdentificadorCodi(identificadorCodi);
+			mobileEmpresa.setCodi(empresaCodi);
+			mobileEmpresa.setNif(empresa.get().getEmbedded().getNif());
+			mobileEmpresa.setNom(empresa.get().getEmbedded().getNomComercial());
+			resposta.setEmpresa(mobileEmpresa);
+			MobileAppPuntVenda mobilePuntVenda = new MobileAppPuntVenda();
+			mobilePuntVenda.setCodi(puntVendaCodi);
+			mobilePuntVenda.setNom(puntVenda.get().getEmbedded().getNom());
+			resposta.setPuntVenda(mobilePuntVenda);
+			return resposta;
+		} else {
+			throw new NotAvailableException(
+					"No s'ha pogut crear la cita perquè no hi ha disponibilitat a l'hora especificada (" +
+					"identificadorCodi=" + identificadorCodi + ", " + 
+					"empresaCodi=" + empresaCodi + ", " + 
+					"puntVendaCodi=" + puntVendaCodi + ", " + 
+					"data=" + cita.getData() + ")");
+		}
 	}
 
 	@Override

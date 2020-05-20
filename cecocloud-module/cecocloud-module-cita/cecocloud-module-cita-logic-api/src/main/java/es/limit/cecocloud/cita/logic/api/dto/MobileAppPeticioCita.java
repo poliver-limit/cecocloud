@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.cita.logic.api.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 public class MobileAppPeticioCita extends MobileAppPeticio {
 
 	@NotNull
+	@Valid
 	private MobileAppCita cita;
 
 }
