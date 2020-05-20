@@ -1,0 +1,67 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="articlesService"  
+>
+	<mat-tab-group animationDuration="0">    
+	    <mat-tab label="{{'resource.article.field.titolGeneral'|translate}}">	     
+	      <ng-container *ngTemplateOutlet="articleTab"></ng-container>
+	    </mat-tab>	
+	</mat-tab-group>
+	
+	<ng-template #articleTab>
+		<mat-card>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="dadesGeneralsTemplate"></ng-container>
+			</mat-card-content>
+		</mat-card>	
+	</ng-template>	
+	
+	<ng-template #dadesGeneralsTemplate>
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="codi"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="descripcioCurta"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="descripcio"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="decimalsPreu"></bng-custom-field>
+		  </div>
+		</div>
+		
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="pvp"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="decimalsPreuIva"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="familia"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="model"></bng-custom-field>
+		  </div>
+		</div>
+		
+	 	<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="gamma"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="marca"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="iva"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="rutaInforme"></bng-custom-field>
+		  </div>
+		</div>	
+	</ng-template>
+    		
+</bng-form>

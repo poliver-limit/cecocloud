@@ -14,6 +14,7 @@
 		<module>cecocloud-module-ecom-persist</module>
 		<module>cecocloud-module-ecom-logic-api</module>
 		<module>cecocloud-module-ecom-logic</module>
+		<module>cecocloud-module-ecom-back-ecommerce</module>
 		<!--module>cecocloud-module-ecom-front</module-->
 	</modules>
 </project>

@@ -29,7 +29,7 @@ import lombok.Setter;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-@Entity
+@Entity(name = "ecomComptadorEntity")
 @Table(
 		name = "tcom_cnt",
 		indexes = {
