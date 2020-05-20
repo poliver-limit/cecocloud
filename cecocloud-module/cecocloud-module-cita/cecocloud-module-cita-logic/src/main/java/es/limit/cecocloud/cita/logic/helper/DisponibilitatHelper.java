@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.cita.logic.helper;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -51,28 +52,37 @@ public class DisponibilitatHelper {
 			PuntVendaEntity puntVenda,
 			LocalDate data) throws EntityNotFoundException {
 		if (isCitaActiva(puntVenda)) {
-			if (!isFestiu(puntVenda, data)) {
+			// No hi haurà disponibilitat per dies anteriors a avui
+			if (!isFestiu(puntVenda, data) && !data.isBefore(LocalDate.now())) {
 				List<MobileAppHoraDisponible> horesDisponibles = new ArrayList<MobileAppHoraDisponible>();
 				int intervalMinuts = puntVenda.getEmbedded().getCitaIntervalMinuts() != null ? puntVenda.getEmbedded().getCitaIntervalMinuts() : 5;
 				int numPlaces = puntVenda.getEmbedded().getCitaNumPlaces() != null ? puntVenda.getEmbedded().getCitaNumPlaces() : 1;
 				List<HorariIntervalEntity> intervalsHorariActual = getHorariIntervals(puntVenda, data, true);
 				if (intervalsHorariActual != null && !intervalsHorariActual.isEmpty()) {
 					boolean esAvui = data.isEqual(LocalDate.now());
+					DayOfWeek dataDayOfWeek = data.getDayOfWeek();
 					for (HorariIntervalEntity horariInterval: intervalsHorariActual) {
-						log.debug("    Generant hores disponibles de l'interval " + horariInterval.getEmbedded().getHoraInici() + " - " + horariInterval.getEmbedded().getHoraFi());
-						LocalTime hora = horariInterval.getEmbedded().getHoraInici();
-						int tamanyInicial = horesDisponibles.size();
-						do {
-							if (!esAvui || hora.isAfter(LocalTime.now())) {
-								MobileAppHoraDisponible horaDisponible = new MobileAppHoraDisponible();
-								horaDisponible.setHora(hora);
-								horaDisponible.setDuradaEnMinuts(intervalMinuts);
-								horaDisponible.setPlaces(numPlaces);
-								horesDisponibles.add(horaDisponible);
-							}
-							hora = hora.plusMinutes(intervalMinuts);
-						} while (hora.compareTo(horariInterval.getEmbedded().getHoraFi()) < 0);
-						log.debug("    L'interval " + horariInterval.getEmbedded().getHoraInici() + " - " + horariInterval.getEmbedded().getHoraFi() + " ha generat un total de " + (horesDisponibles.size() - tamanyInicial) + " hores disponibles");
+						// Només genera intervals pels dies de la setmana que
+						// coincideixen amb els de la data especificada.
+						if (horariInterval.getEmbedded().getDiaSetmana().asDayOfWeek() == dataDayOfWeek) {
+							log.debug("    Generant hores disponibles de l'interval (" +
+									"identificadorCodi=" + horariInterval.getId().getIdentificadorCodi() + "," +
+									"horariCodi=" + horariInterval.getId().getHorariCodi() + "," +
+									"sequencia=" + horariInterval.getId().getSequencia() + "): " + horariInterval.getEmbedded().getHoraInici() + " - " + horariInterval.getEmbedded().getHoraFi());
+							LocalTime hora = horariInterval.getEmbedded().getHoraInici();
+							int tamanyInicial = horesDisponibles.size();
+							do {
+								if (!esAvui || hora.isAfter(LocalTime.now())) {
+									MobileAppHoraDisponible horaDisponible = new MobileAppHoraDisponible();
+									horaDisponible.setHora(hora);
+									horaDisponible.setDuradaEnMinuts(intervalMinuts);
+									horaDisponible.setPlaces(numPlaces);
+									horesDisponibles.add(horaDisponible);
+								}
+								hora = hora.plusMinutes(intervalMinuts);
+							} while (hora.compareTo(horariInterval.getEmbedded().getHoraFi()) < 0);
+							log.debug("    L'interval " + horariInterval.getEmbedded().getHoraInici() + " - " + horariInterval.getEmbedded().getHoraFi() + " ha generat un total de " + (horesDisponibles.size() - tamanyInicial) + " hores disponibles");
+						}
 					}
 				}
 				log.debug("    Total d'hores disponibles generades per a tots els intervals: " + horesDisponibles.size());
@@ -132,8 +142,9 @@ public class DisponibilitatHelper {
 				}
 				return horesFinals;
 			} else {
-				// Si entra aquí vol dir que la data cau en dia festiu
-				log.debug("    El dia " + data + " és festiu");
+				// Si entra aquí vol dir que la data és anterior a la data
+				// actual o que és un dia festiu.
+				log.debug("    El dia " + data + " és anterior a la data actual o és festiu");
 			}
 		}
 		return new ArrayList<MobileAppHoraDisponible>();

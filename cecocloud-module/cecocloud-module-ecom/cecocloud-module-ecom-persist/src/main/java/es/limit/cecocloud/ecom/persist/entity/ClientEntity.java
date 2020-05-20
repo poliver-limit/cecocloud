@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.ecom.persist.entity;
 
-import java.util.Formatter;
 import java.util.regex.Pattern;
 
 import javax.persistence.AssociationOverride;
@@ -26,12 +25,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-import es.limit.cecocloud.ecom.persist.repository.ClientRepository;
+
 import es.limit.cecocloud.ecom.logic.api.dto.Client;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.persist.entity.ClientEntity.ClientEntityListener;
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.ecom.persist.repository.ClientRepository;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -344,8 +344,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	}
 	
 	public static String addZeros(int codi, int tamanyCodi) {
-		Formatter fmt = new Formatter();
-		String codiSt = fmt.format("%06d",codi).toString();	
+		String codiSt = String.format("%06d",codi).toString();
 		return codiSt;
 	}
 	
