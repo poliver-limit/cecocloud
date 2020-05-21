@@ -137,6 +137,10 @@ export class CitesCalendariComponent {
 		this.dialog.open(CitesCalendariDetailDialog, {
 			width: '600px',
 			data: { cita: event.meta }
+		}).afterClosed().subscribe(data => {
+			if (data && data.modificada) {
+				this.refreshCites();
+			}
 		});
 	}
 
@@ -278,9 +282,10 @@ export class CitesCalendariComponent {
 export class CitesCalendariDetailDialog {
 
 	cita: any;
+	modificada: boolean;
 
 	onCancelButtonClick(): void {
-		this.dialogRef.close();
+		this.dialogRef.close({modificada: this.modificada});
 	}
 
 	onAnularButtonClick() {
@@ -288,6 +293,7 @@ export class CitesCalendariDetailDialog {
 		if (confirm(confirmMessageTranslated)) {
 			this.citesService.cancel(this.cita.id).subscribe((cita: any) => {
 				this.cita = cita;
+				this.modificada = true;
 			});
 		}
 	}
