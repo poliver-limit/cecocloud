@@ -13,10 +13,10 @@ import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.cita.logic.api.dto.Cita;
+import es.limit.cecocloud.cita.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.fact.back.test.tester.EmpresaCrudTester;
 import es.limit.cecocloud.fact.back.test.tester.PuntVendaCrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
-import es.limit.cecocloud.fact.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
@@ -48,7 +48,6 @@ public class CitaCrudTester extends AbstractCrudTester<Cita> {
 	public void compareDto(Cita expected, Cita actual) {
 		assertNotNull(actual.getSequencia());
 		assertNotNull(actual.getCodi());
-		System.out.println(">>> codi:" + actual.getCodi());
 		assertEquals(expected.getData(), actual.getData());
 	}
 

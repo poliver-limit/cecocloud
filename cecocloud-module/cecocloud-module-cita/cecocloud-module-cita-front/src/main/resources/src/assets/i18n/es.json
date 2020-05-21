@@ -51,9 +51,14 @@
 	"resource.cita.field.email": "Correo-e",
 	"resource.cita.field.anulacioData": "Fecha de anulación",
 
-	"page.cita.calendari.dialog.titol": "Detalls de la cita",
-	"page.cita.calendari.dialog.cancelada": "Cancelada",
-	"page.cita.calendari.dialog.cancelacio.data": "cancelada el",
-	"page.cita.calendari.dialog.tancar": "Tancar"
+	"page.cita.calendari.add.dialog.titol": "Nueva cita",
+	"page.cita.calendari.add.dialog.tancar": "Cerrar",
+
+	"page.cita.calendari.detail.dialog.titol": "Detalls de la cita",
+	"page.cita.calendari.detail.dialog.cancelada": "Cancelada",
+	"page.cita.calendari.detail.dialog.cancelacio.data": "cancelada el",
+	"page.cita.calendari.detail.dialog.tancar": "Cerrar",
+	"page.cita.calendari.detail.dialog.anular": "Cancelar",
+	"page.cita.calendari.detail.dialog.anular.confirm": "Está seguro de que quiere cancelar esta cita?"
 
 }

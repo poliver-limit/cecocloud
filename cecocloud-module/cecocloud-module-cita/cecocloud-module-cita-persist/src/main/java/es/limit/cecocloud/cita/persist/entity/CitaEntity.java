@@ -24,6 +24,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.codec.Hex;
@@ -108,6 +109,12 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 					name = "rcec_cit_ptv_fk",
 					foreignKeyDefinition = "foreign key (cit_idf_cod, cit_emp_cod, cit_ptv_cod) references tges_ptv (ptv_idf_cod, ptv_emp_cod, ptv_cod)"))
 	private PuntVendaEntity puntVenda;
+
+	@Transient
+	private boolean anulada;
+	public boolean getAnulada() {
+		return embedded.getAnulacioData() != null;
+	}
 
 	@Builder
 	public CitaEntity(

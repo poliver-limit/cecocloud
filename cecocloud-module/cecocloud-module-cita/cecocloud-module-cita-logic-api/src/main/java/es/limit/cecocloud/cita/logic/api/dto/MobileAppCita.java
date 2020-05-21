@@ -5,6 +5,7 @@ package es.limit.cecocloud.cita.logic.api.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -22,10 +23,13 @@ public class MobileAppCita {
 	@NotNull
 	private LocalDateTime data;
 	@NotNull
+	@NotEmpty
 	private String nom;
 	@NotNull
+	@NotEmpty
 	private String llinatges;
 	@NotNull
+	@NotEmpty
 	private String telefon;
 	private String email;
 	private MobileAppEmpresa empresa;
