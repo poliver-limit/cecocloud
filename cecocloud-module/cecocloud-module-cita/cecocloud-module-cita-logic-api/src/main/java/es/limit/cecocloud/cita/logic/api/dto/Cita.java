@@ -18,7 +18,6 @@ import es.limit.cecocloud.fact.logic.api.dto.AbstractIdentificableWithIdentifica
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndEmpresa.WithIdentificadorAndEmpresaPk;
-import es.limit.cecocloud.fact.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -43,6 +42,7 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 	private int sequencia;
 	@Size(max = 34)
 	@RestapiField(
+			hiddenInForm = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private String codi;
@@ -62,7 +62,9 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 	@RestapiField(
 			hiddenInForm = true)
 	private LocalDateTime anulacioData;
-	
+	@Transient
+	private Boolean anulada;
+
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -78,6 +80,13 @@ public class Cita extends AbstractIdentificableWithIdentificador<CitaPk> {
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<PuntVenda, PuntVendaPk> puntVenda;
+
+	public Boolean isAnulada() {
+		return anulada;
+	}
+	public void setAnulada(Boolean anulada) {
+		this.anulada = anulada;
+	}
 
 	@NoArgsConstructor
 	@AllArgsConstructor

@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BngFormBaseComponent } from 'base-angular';
 
 import { CitesService } from './cites.service';
-//import { OperarisEmpresesService } from './operaris-empreses.service';
 
 @Component({
 	template: `
@@ -12,6 +11,18 @@ import { CitesService } from './cites.service';
 	[config]="formConfig"
 	[restapiService]="citesService"
 	(resourceLoad)="onResourceLoad($event)">
+	<div style="display: flex">
+		<bng-custom-field name="data" style="width: 50%"></bng-custom-field>
+	</div>
+	<div style="display: flex">
+		<bng-custom-field name="nom" style="width: 50%; padding-right: 2em"></bng-custom-field>
+		<bng-custom-field name="llinatges" style="width: 50%"></bng-custom-field>
+	</div>
+	<div style="display: flex">
+		<bng-custom-field name="telefon" style="width: 50%; padding-right: 2em"></bng-custom-field>
+		<bng-custom-field name="email" style="width: 50%"></bng-custom-field>
+	</div>
+	<bng-custom-field name="puntVenda"></bng-custom-field>
 </bng-form>
 `
 })
