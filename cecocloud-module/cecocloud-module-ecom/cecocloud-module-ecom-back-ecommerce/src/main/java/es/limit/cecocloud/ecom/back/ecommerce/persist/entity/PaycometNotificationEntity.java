@@ -70,7 +70,6 @@ public class PaycometNotificationEntity{
 	@Id
 	private String orderNumber;
 
-	
 	@Embedded
 	protected PaycometNotification embedded;
 	

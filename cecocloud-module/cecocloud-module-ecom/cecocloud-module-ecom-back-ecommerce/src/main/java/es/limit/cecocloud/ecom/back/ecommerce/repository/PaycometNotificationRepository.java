@@ -18,5 +18,4 @@ public interface PaycometNotificationRepository extends JpaRepository<PaycometNo
 	
 	
 
- 
 }
