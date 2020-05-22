@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import es.limit.cecocloud.ecom.back.ecommerce.logic.api.dto.PaycometNotification;
 import lombok.AccessLevel;
@@ -42,8 +41,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.transactionName", column = @Column(name = "transactionName", length = 255, updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.cardCountry", column = @Column(name = "cardCountry", length = 255, updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.bankDateTime", column = @Column(name = "bankDateTime", length = 255, updatable = false, nullable = false)),
-	@AttributeOverride(name = "embedded.orderNumber", column = @Column(name = "ordernumber", length = 255, updatable = false, nullable = false)),
-	@AttributeOverride(name = "orderNumber", column = @Column(name = "ordernumber", length = 255, updatable = false, nullable = false)),
+//	@AttributeOverride(name = "orderNumber", column = @Column(name = "orderNumber", length = 255, updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.response", column = @Column(name = "response", length = 255, updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.errorID", column = @Column(name = "errorID", updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.errorDescription", column = @Column(name = "errorDescription", length = 255, updatable = false, nullable = false)),
@@ -51,6 +49,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.currency", column = @Column(name = "currency", length = 255, updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.amount", column = @Column(name = "amount", updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.amountEur", column = @Column(name = "amountEur",  updatable = false, nullable = false)),
+	@AttributeOverride(name = "embedded.accountCode", column = @Column(name = "accountCode",  length = 255, updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.tpvID", column = @Column(name = "tpvID",  updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.concept", column = @Column(name = "concept", length = 255, updatable = false, nullable = false)),
 	@AttributeOverride(name = "embedded.idUser", column = @Column(name = "idUser",  updatable = false, nullable = false)),
@@ -66,8 +65,8 @@ import lombok.Setter;
 public class PaycometNotificationEntity{
 
 	@NotNull
-	@Size(max = 255)
 	@Id
+	@Column(name = "orderNumber")
 	private String orderNumber;
 
 	@Embedded
