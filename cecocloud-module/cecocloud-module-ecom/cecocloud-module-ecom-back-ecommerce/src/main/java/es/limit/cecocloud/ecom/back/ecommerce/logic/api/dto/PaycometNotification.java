@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.ecom.back.ecommerce.logic.api.dto;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,13 +16,14 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public class PaycometNotification {
+public class PaycometNotification {	
 	
+	@Transient
+	protected String id;
 	
-	
-//	@NotNull
-//	@Size(max = 255)
-//	private String orderNumber;
+	@NotNull	
+	@Size(max = 255)
+	protected String orderNumber;
 	
 	@NotNull
 	private int transactionType;
@@ -36,9 +38,7 @@ public class PaycometNotification {
 	
 	@NotNull
 	@Size(max = 255)
-	private String bankDateTime;
-	
-	
+	private String bankDateTime;	
 	
 	@NotNull
 	@Size(max = 255)
@@ -100,13 +100,6 @@ public class PaycometNotification {
 	
 	@NotNull
 	@Size(max = 255)
-	private String notificationHash;
-	
-	
-
-	
-	
-	
-	
+	private String notificationHash;	
 
 }
