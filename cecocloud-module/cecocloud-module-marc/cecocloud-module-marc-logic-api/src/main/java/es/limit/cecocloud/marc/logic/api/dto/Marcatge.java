@@ -49,7 +49,10 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			lovNamedFilter = OperariEmpresa.FILTER_MARC_ALLOWED)
 	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 	@NotNull
-	@RestapiField(type = RestapiFieldType.DATETIME)
+	@RestapiField(
+			type = RestapiFieldType.DATETIME,
+			timeShowSeconds = true,
+			datetimeLinkedWithCurrentTime = true)
 	private Date data;
 	@NotNull
 	@RestapiField(

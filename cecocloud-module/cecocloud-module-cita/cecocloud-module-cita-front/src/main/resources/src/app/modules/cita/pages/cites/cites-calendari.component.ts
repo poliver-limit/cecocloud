@@ -1,11 +1,15 @@
-import { Injectable, Component, Inject } from '@angular/core';
+import { Injectable, Component, Inject, ViewEncapsulation } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { Subject } from 'rxjs';
 import { HalParam } from '@lagoshny/ngx-hal-client';
+import { TranslateService } from '@ngx-translate/core';
 import { CalendarDateFormatter, CalendarAngularDateFormatter, DateFormatterParams, CalendarEvent, CalendarView, getWeekViewPeriod } from 'angular-calendar';
+import { WeekView, WeekViewHourColumn, WeekViewHour, WeekViewHourSegment }from 'calendar-utils';
 import { startOfWeek, endOfWeek } from 'date-fns';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BngFormDialog, BngRestapiProfile } from 'base-angular';
 
+import { CitesFormComponent } from './cites-form.component';
 import { PuntsVendaService } from './puntsVenda.service';
 import { CitesService } from './cites.service';
 
@@ -41,15 +45,15 @@ export class CustomDateFormatter extends CalendarAngularDateFormatter {
 @Component({
 	template: `
     <bng-header>
-		<span>Cites</span>&nbsp;
+		<span>Cites</span>&nbsp;<span>({{viewDate | calendarDate:(view + 'ViewTitle')}})</span>
 		<span class="toolbar-fill"></span>
-		<button *ngIf="puntsVenda" mat-icon-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange()"><mat-icon>arrow_back_ios</mat-icon></button>
-		<span>{{ viewDate | calendarDate:(view + 'ViewTitle') }}</span>
-		<button *ngIf="puntsVenda" mat-icon-button mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange()"><mat-icon>gps_fixed</mat-icon></button>
-		<button *ngIf="puntsVenda" mat-icon-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange()"><mat-icon>arrow_forward_ios</mat-icon></button>
-		<mat-form-field *ngIf="puntsVenda" style="width: 30%; top: 14px; margin-left: 1em">
-			<mat-select [(value)]="puntVendaSelectedCodi" (selectionChange)="refreshCites()">
-				<mat-option *ngFor="let puntVenda of puntsVenda" [value]="puntVenda.codi">{{puntVenda.nom}}</mat-option>
+		<button mat-icon-button *ngIf="puntsVenda" (click)="onAddIconClicked()"><mat-icon>add</mat-icon></button>
+		<button mat-icon-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange()"><mat-icon>arrow_back_ios</mat-icon></button>
+		<button mat-icon-button mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange()"><mat-icon>gps_fixed</mat-icon></button>
+		<button mat-icon-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange()"><mat-icon>arrow_forward_ios</mat-icon></button>
+		<mat-form-field *ngIf="puntsVenda" style="width: 30%; top: 14px; margin: 0 1em">
+			<mat-select [(value)]="puntVendaSelectedId" (selectionChange)="refreshCites()">
+				<mat-option *ngFor="let puntVenda of puntsVenda" [value]="puntVenda.id">{{puntVenda.nom}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 	</bng-header>
@@ -65,20 +69,27 @@ export class CustomDateFormatter extends CalendarAngularDateFormatter {
     	[viewDate]="viewDate"
     	[events]="events"
     	[refresh]="refresh"
-    	(eventClicked)="handleEvent('Clicked', $event.event)"></mwl-calendar-week-view>`,
+    	(eventClicked)="onEventClicked($event.event)"
+		(hourSegmentClicked)="onHourSegmentClicked($event.date)"
+		(beforeViewRender)="onBeforeViewRender($event)"></mwl-calendar-week-view>`,
 	styles: [`
 .toolbar-fill {
 	flex: 1 1 auto;
+}
+.cal-day-selected, .cal-day-selected:hover {
+	background-color: #bbb !important;
 }
 `],
 	providers: [{
 		provide: CalendarDateFormatter,
 		useClass: CustomDateFormatter,
-	}]
+	}],
+	encapsulation: ViewEncapsulation.None
 })
 export class CitesCalendariComponent {
 
 	view: CalendarView = CalendarView.Week;
+	weekView: WeekView;
 	viewDate: Date = new Date();
 	weekStartsOn: number = 1;
 	dayStartHour: number;
@@ -88,29 +99,85 @@ export class CitesCalendariComponent {
 	events: CalendarEvent[] = [];
 	refresh: Subject<any> = new Subject();
 	puntsVenda: any[];
-	puntVendaSelectedCodi: string;
+	puntVendaSelectedId: string;
 	showCalendar: boolean;
+	selectedDateTime: Date;
 
 	onViewDateChange() {
 		this.refreshCites();
 	}
 
-	handleEvent(action: string, event: CalendarEvent): void {
-		/*const dialogRef = */this.dialog.open(CitesCalendariDetailDialog, {
+	onAddIconClicked(): void {
+		this.citesService.whenReady().subscribe((citesProfile: BngRestapiProfile) => {
+			let puntVenda = this.puntsVenda.find(puntVenda => {return puntVenda.id === this.puntVendaSelectedId});
+			this.dialog.open(BngFormDialog, {
+				width: '60%',
+				data: {
+					//id: id,
+					externalFormComponent: CitesFormComponent,
+					fixedData: {
+						data: this.selectedDateTime,
+						puntVenda: {
+							id: puntVenda.id,
+							description: puntVenda.nom
+						}
+					},
+					resource: citesProfile.resource,
+					readOnlyStateEnabled: false
+				}
+			}).afterClosed().subscribe(data => {
+				if (data && data.resource) {
+					this.refresh.next();
+				}
+			});
+		});
+	}
+
+	onEventClicked(event: CalendarEvent): void {
+		this.dialog.open(CitesCalendariDetailDialog, {
 			width: '600px',
 			data: { cita: event.meta }
+		}).afterClosed().subscribe(data => {
+			if (data && data.modificada) {
+				this.refreshCites();
+			}
 		});
-		/*dialogRef.afterClosed().subscribe(result => {
-			console.log('The dialog was closed');
-			this.animal = result;
-		});*/
-		/*this.modalData = { event, action };
-		this.modal.open(this.modalContent, { size: 'lg' });*/
+	}
+
+	onHourSegmentClicked(date: Date): void {
+		if (this.selectedDateTime && this.selectedDateTime.getTime() == date.getTime()) {
+			delete this.selectedDateTime;
+		} else {
+			this.selectedDateTime = date;
+		}
+		this.processSelectionChanges();
+	}
+
+	onBeforeViewRender(weekView: WeekView) {
+		this.weekView = weekView;
+	}
+
+	private processSelectionChanges() {
+		let selectedDateNoTime: Date;
+		if (this.selectedDateTime) {
+			selectedDateNoTime = new Date(this.selectedDateTime.getTime());
+			selectedDateNoTime.setHours(0, 0, 0, 0);
+		}
+		this.weekView.hourColumns.forEach((hourColumn: WeekViewHourColumn) => {
+			hourColumn.hours.forEach((hour: WeekViewHour) => {
+				hour.segments.forEach((hourSegment: WeekViewHourSegment) => {
+					delete hourSegment.cssClass;
+					if (this.selectedDateTime && hourColumn.date.getTime() === selectedDateNoTime.getTime() && hourSegment.date.getTime() === this.selectedDateTime.getTime()) {
+						hourSegment.cssClass = 'cal-day-selected';
+					}
+				});
+			});
+		});
 	}
 
 	refreshCites() {
 		this.showCalendar = false;
-		let puntVenda = this.puntsVenda.find(puntVenda => {return puntVenda.codi === this.puntVendaSelectedCodi});
+		let puntVenda = this.puntsVenda.find(puntVenda => {return puntVenda.id === this.puntVendaSelectedId});
 		let dataInici: Date = startOfWeek(this.viewDate, { weekStartsOn: <any>this.weekStartsOn });
 		let dataFi: Date = endOfWeek(this.viewDate, { weekStartsOn: <any>this.weekStartsOn })
 		this.events = [];
@@ -170,7 +237,7 @@ export class CitesCalendariComponent {
 			this.puntsVendaService.getAll({ params: requestParams }).subscribe((puntsVenda: any) => {
 				this.puntsVenda = puntsVenda;
 				if (puntsVenda && puntsVenda.length) {
-					this.puntVendaSelectedCodi = puntsVenda[0].codi;
+					this.puntVendaSelectedId = puntsVenda[0].id;
 					this.refreshCites();
 				}
 			});
@@ -181,16 +248,16 @@ export class CitesCalendariComponent {
 
 @Component({
 	template: `
-<h1 mat-dialog-title>{{'page.cita.calendari.dialog.titol' | translate}}</h1>
+<h1 mat-dialog-title>{{'page.cita.calendari.detail.dialog.titol' | translate}}</h1>
 <div mat-dialog-content>
 	<h2 class="mat-headline mat-elevation-z4" style="text-align:center;padding:1em 0" [ngStyle]="{'background-color': (cita.anulacioData) ? '#fae3e3': '#d1e8ff'}">
 		{{cita.data | date:'HH:mm'}} {{cita.llinatges + ', ' + cita.nom}}
-		<span *ngIf="cita.anulacioData" style="color:red"><br/>{{'page.cita.calendari.dialog.cancelada' | translate}}</span>
+		<span *ngIf="cita.anulacioData" style="color:red"><br/>{{'page.cita.calendari.detail.dialog.cancelada' | translate}}</span>
 	</h2>
 	<mat-list role="list">
 		<mat-list-item role="listitem">
 			<mat-icon>event</mat-icon>&nbsp;{{cita.data | date}} {{cita.data | date:'HH:mm'}}
-			<span *ngIf="cita.anulacioData">&nbsp;({{'page.cita.calendari.dialog.cancelacio.data' | translate}} {{cita.anulacioData | date}} {{cita.anulacioData | date:'HH:mm'}})</span>
+			<span *ngIf="cita.anulacioData">&nbsp;({{'page.cita.calendari.detail.dialog.cancelacio.data' | translate}} {{cita.anulacioData | date}} {{cita.anulacioData | date:'HH:mm'}})</span>
 		</mat-list-item>
 		<mat-list-item role="listitem">
 			<mat-icon>person</mat-icon>&nbsp;{{cita.llinatges + ', ' + cita.nom}}
@@ -206,22 +273,45 @@ export class CitesCalendariComponent {
 		</mat-list-item>
 	</mat-list>
 </div>
-<div mat-dialog-actions style="justify-content:space-between">
-	<button mat-raised-button (click)="onCancelButtonClick()">{{'page.cita.calendari.dialog.tancar' | translate}}</button>
+<div mat-dialog-actions style="justify-content:flex-end">
+	<button mat-button (click)="onCancelButtonClick()">{{'page.cita.calendari.detail.dialog.tancar' | translate}}</button>
+	<button *ngIf="!cita.anulacioData" mat-raised-button color="warn" (click)="onAnularButtonClick()" style="float:right">{{ 'page.cita.calendari.detail.dialog.anular' | translate }}</button>
 </div>
 `,
 })
 export class CitesCalendariDetailDialog {
 
 	cita: any;
+	modificada: boolean;
 
 	onCancelButtonClick(): void {
-		this.dialogRef.close();
+		this.dialogRef.close({modificada: this.modificada});
+	}
+
+	onAnularButtonClick() {
+		let confirmMessageTranslated: string = this.translateKey('page.cita.calendari.detail.dialog.anular.confirm');
+		if (confirm(confirmMessageTranslated)) {
+			this.citesService.cancel(this.cita.id).subscribe((cita: any) => {
+				this.cita = cita;
+				this.modificada = true;
+			});
+		}
+	}
+
+	translateKey(key: string, params?: any, defaultValue?: string) {
+		let translatedKey = this.translate.instant(key, params);
+		if (defaultValue) {
+			return (translatedKey !== key) ? translatedKey : defaultValue;
+		} else {
+			return translatedKey;
+		}
 	}
 
 	constructor(
 		public dialogRef: MatDialogRef<CitesCalendariDetailDialog>,
-		@Inject(MAT_DIALOG_DATA) public data: any) {
+		@Inject(MAT_DIALOG_DATA) public data: any,
+		private translate: TranslateService,
+		public citesService: CitesService) {
 		this.cita = data.cita;
 	}
 
