@@ -186,6 +186,8 @@
 	"resource.vehicle": "Vehículo",
 	"resource.zona": "Zona",
 
+	"page.api-key.form.key.show.msg": "Assegúrese de hacer una copia de esta clave. Cuando se cierre este formulario no podrá consultarla de nuevo.",
+
 	"page.companyia-usuaris.modal.titol": "Añadir usuario",
 	"page.companyia-usuaris.instruccions": "Seleccione un usuario especificando su dirección de correo electrónico.",
 	"page.companyia-usuaris.modal.field.email": "Correo-e",

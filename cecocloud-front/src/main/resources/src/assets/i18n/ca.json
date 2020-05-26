@@ -193,6 +193,8 @@
 	"resource.vehicle": "Vehicle",
 	"resource.zona": "Zona",
 
+	"page.api-key.form.key.show.msg": "Asseguri's de fer una còpia d'aquesta clau. Quan tanqui aquest formulari no podrà consultar-la de nou.",
+
 	"page.companyia-usuaris.modal.titol": "Afegir usuari",
 	"page.companyia-usuaris.modal.instruccions": "Seleccioni un usuari especificant la seva adreça de correu electrònic.",
 	"page.companyia-usuaris.modal.field.email": "Correu-e",

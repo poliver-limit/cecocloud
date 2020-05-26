@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BngFormBaseComponent } from 'base-angular';
 
@@ -11,28 +11,25 @@ import { ApikeysService } from './apikeys.service';
 	[config]="formConfig"
 	[restapiService]="apikeysService"
 	(resourceSave)="onFormResourceSave($event)">
-	<mat-card *ngIf="showKey" class="background-accent">
+	<mat-card *ngIf="key" class="background-accent">
 		<mat-card-content>
-			<p>Assegura't de fer una còpia d'aquesta clau. Quan tanquis aquest formulari no podràs consultar-la de nou.</p>
+			<p>{{'page.api-key.form.key.show.msg' | translate}}</p>
 			<pre>{{key}}</pre>
 		</mat-card-content>
 	</mat-card>
 </bng-form>
 `
 })
-export class ApikeysFormComponent extends BngFormBaseComponent {
+export class ApikeysFormComponent extends BngFormBaseComponent implements OnInit {
 
-	showKey: boolean;
-	key: boolean;
+	key: string;
+
+	ngOnInit() {
+		this.key = this.apikeysService.retrieve();
+	}
 
 	onFormResourceSave(apiKey: any) {
-		console.log('>>> apiKey', apiKey.resource.key)
-		if (apiKey.resource.key) {
-			this.key = apiKey.resource.key;
-			this.showKey = true;
-		} else {
-			this.showKey = false;
-		}
+		this.apikeysService.store(apiKey.resource.key);
 	}
 
 	constructor(
