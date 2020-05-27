@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import es.limit.cecocloud.ecom.logic.api.dto.Albara;
 import es.limit.cecocloud.ecom.logic.api.dto.Article;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamilia;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamiliaEmpresa;
@@ -19,6 +20,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleTraduccio;
 import es.limit.cecocloud.ecom.logic.api.dto.Iva;
 import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
+import es.limit.cecocloud.ecom.logic.api.dto.Caixa;
 import es.limit.cecocloud.ecom.logic.api.dto.Client;
 import es.limit.cecocloud.ecom.logic.api.dto.Departament;
 import es.limit.cecocloud.ecom.logic.api.dto.Divisa;
@@ -30,12 +32,15 @@ import es.limit.cecocloud.ecom.logic.api.dto.TipusRisc;
 import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.ecom.logic.api.dto.Magatzem;
+import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.ecom.logic.api.dto.NaturalesaPagamentCobrament;
+import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import es.limit.cecocloud.ecom.logic.api.dto.Pais;
 import es.limit.cecocloud.ecom.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia;
 import es.limit.cecocloud.ecom.logic.api.dto.Provincia;
+import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.RegimIva;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieCompra;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda;
@@ -63,6 +68,31 @@ public class EcomModuleRegister {
 
 	static {
 		funcionalitats = new HashMap<String, FuncionalitatCodiFont>();	
+		funcionalitats.put(
+			"COM_ALB",
+			new FuncionalitatCodiFontImpl(
+					"COM_ALB",
+					FuncionalitatTipus.MANTENIMENT,
+					"Albarans (eCommerce)",
+					Albara.class,
+					Arrays.asList(
+							Empresa.class,
+							PuntVenda.class,
+							Operari.class,
+							SerieVenda.class,
+							Magatzem.class,
+							MagatzemPeriode.class,
+							Divisa.class,
+							CodiPostal.class,
+							Client.class,
+							Pressupost.class,
+							Iva.class,
+							Idioma.class,
+							Pais.class,
+							Provincia.class,
+							DocumentPagamentCobrament.class,
+							PaisNif.class,
+							TipusAdresa.class)));
 		funcionalitats.put(
 				"COM_ARTICL",
 				new FuncionalitatCodiFontImpl(
@@ -134,6 +164,15 @@ public class EcomModuleRegister {
 						Arrays.asList(
 								Article.class,
 								Idioma.class)));
+		funcionalitats.put(
+				"COM_CXA",
+				new FuncionalitatCodiFontImpl(
+						"COM_CXA",
+						FuncionalitatTipus.MANTENIMENT,
+						"Caixes (eCommerce)",
+						Caixa.class,
+						Arrays.asList(
+								Empresa.class)));
 		funcionalitats.put(
 				"COM_CPO",
 				new FuncionalitatCodiFontImpl(
@@ -239,6 +278,15 @@ public class EcomModuleRegister {
 						Magatzem.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"COM_PMG",
+				new FuncionalitatCodiFontImpl(
+						"COM_PMG",
+						FuncionalitatTipus.MANTENIMENT,
+						"Magatzem períodes (eCommerce)",
+						MagatzemPeriode.class,
+						Arrays.asList(
+								Magatzem.class)));
+		funcionalitats.put(
 				"COM_PAI",
 				new FuncionalitatCodiFontImpl(
 						"COM_PAI",
@@ -303,6 +351,22 @@ public class EcomModuleRegister {
 						"Provincies (eCommerce)",
 						Provincia.class,
 						Arrays.asList(Pais.class)));
+		funcionalitats.put(
+				"COM_PTV",
+				new FuncionalitatCodiFontImpl(
+						"COM_PTV",
+						FuncionalitatTipus.MANTENIMENT,
+						"Punts de venda (eCommerce)",
+						PuntVenda.class,
+						Arrays.asList(
+								Empresa.class,
+								Caixa.class,
+								Divisa.class,
+								Client.class,
+								DocumentPagamentCobrament.class,
+								Magatzem.class,
+								Operari.class,
+								SerieVenda.class)));
 		funcionalitats.put(
 				"COM_SCP",
 				new FuncionalitatCodiFontImpl(

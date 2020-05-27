@@ -78,18 +78,45 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<ArticleFamilia, WithIdentificadorAndCodiPk<String>> familia;
 	
+	@Transient	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInLov = true)
+	private String familiaCodi;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<ArticleModel, WithIdentificadorAndCodiPk<String>> model;	
+	
+	@Transient	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInLov = true)
+	private String modelCodi;
 
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<ArticleGamma, WithIdentificadorAndCodiPk<String>> gamma;
+	
+	@Transient	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInLov = true)
+	private String gammaCodi;
 
 	@Transient
 	@RestapiField(
@@ -97,12 +124,30 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<ArticleMarca, WithIdentificadorAndCodiPk<String>> marca;
 	
+	@Transient	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInLov = true)
+	private String marcaCodi;
+	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
+	
+	@Transient	
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			hiddenInLov = true)
+	private String ivaCodi;
 	
 //	@Transient	
 //	@RestapiField(
