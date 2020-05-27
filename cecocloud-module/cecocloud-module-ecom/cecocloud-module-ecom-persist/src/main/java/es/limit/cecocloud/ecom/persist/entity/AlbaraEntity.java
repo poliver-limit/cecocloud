@@ -11,12 +11,14 @@ import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
@@ -25,6 +27,8 @@ import org.hibernate.annotations.NotFoundAction;
 import es.limit.cecocloud.ecom.logic.api.dto.Albara;
 import es.limit.cecocloud.ecom.logic.api.dto.Albara.AlbaraPk;
 import es.limit.cecocloud.ecom.persist.entity.MagatzemPeriodeEntity;
+import es.limit.cecocloud.ecom.persist.entity.AlbaraEntity.AlbaraEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -44,18 +48,18 @@ import lombok.Setter;
 @Table(
 		name = "tcom_alb",
 		indexes = {
-				@Index(name = "icom_alb_idf_fk", columnList = "alb_idf_cod"),
-				@Index(name = "ircom_alb_pk", columnList = "alb_idf_cod", unique = true)
+				@Index(name = "icom_alb_idf_fk", columnList = "alb_idf_cod"),				
+				@Index(name = "icom_alb_pk", columnList = "alb_idf_cod,alb_emp_cod,alb_numdoc", unique = true)
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "alb_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "alb_emp_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "alb_numdoc", length = 4)),
+	@AttributeOverride(name = "id.numeroDocument", column = @Column(name = "alb_numdoc", length = 22, precision = 10)),
 	
 	//@AttributeOverride(name = "embedded.codi", column = @Column(name = "alb_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.numeroDocument", column = @Column(name = "alb_numdoc", insertable = false, updatable= false)),
-	@AttributeOverride(name = "embedded.numero", column = @Column(name = "alb_num", nullable = false)),
+	@AttributeOverride(name = "embedded.numero", column = @Column(name = "alb_num", nullable = false, length = 22, precision = 10, scale = 0)),	
 	@AttributeOverride(name = "embedded.classe", column = @Column(name = "alb_cls", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.serCodfac", column = @Column(name = "alb_ser_codfac", length = 2)),
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "alb_dia", nullable = false)),
@@ -98,6 +102,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_alb_idf_fk"))
 })
+@EntityListeners({AlbaraEntityListener.class})
 public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albara, AlbaraPk> {
 
 	@Embedded
@@ -370,10 +375,7 @@ public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albar
 		
 		this.updatePaisNif(paisNif);
 		this.updateTipusAdresa(tipusAdresa);
-		this.updateCodiPostalClient(codiPostalClient);
-		
-		
-		
+		this.updateCodiPostalClient(codiPostalClient);		
 	}
 
 	@Override
@@ -504,6 +506,16 @@ public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albar
 		this.codiPostalClient = codiPostalClient;
 		if (codiPostalClient != null) {
 			this.codiPostalClientCodi = codiPostalClient.getEmbedded().getCodi();
+		}
+	}
+	
+	public static class AlbaraEntityListener {
+		@PrePersist
+		public void calcular(AlbaraEntity albara) {
+			int num = EntityListenerUtil.getSeguentNumComptador(
+					albara.getIdentificador().getId(),
+					"TCOM_ALB");
+			albara.getEmbedded().setNumero(num);			
 		}
 	}
 	

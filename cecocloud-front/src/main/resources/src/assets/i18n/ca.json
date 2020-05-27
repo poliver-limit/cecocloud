@@ -223,6 +223,7 @@
 	"funcionalitat.menu.t-empreses": "Taules d'empreses",
 	"funcionalitat.menu.ventes": "Vendes",
 	"funcionalitat.menu.compres": "Compres",
+	"funcionalitat.menu.albarans": "Albarans",
 	"funcionalitat.menu.pressupostos": "Pressupostos",
 	"funcionalitat.menu.magatzem": "Magatzems",	
 
@@ -359,6 +360,7 @@
 	"funcionalitat.COM_FMC": "Famílies client",
 	"funcionalitat.COM_IDI": "Idiomes",
 	"funcionalitat.COM_IVA": "Iva",
+	"funcionalitat.COM_LAC": "Albarà linies",
 	"funcionalitat.COM_LPR": "Pressupostos linies",
 	"funcionalitat.COM_MAG": "Magatzems",
 	"funcionalitat.COM_PMG": "Magatzems període",

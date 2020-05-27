@@ -28,6 +28,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.Provincia.ProvinciaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda.PuntVendaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda.SerieVendaPk;
+import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.enums.TipusNifEnumDto;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
@@ -45,7 +46,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "descripcio"
+		descriptionField = "numeroDocument"
 )
 public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 
@@ -61,9 +62,17 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	@RestapiField(hiddenInGrid = true)
 	private Integer numeroDocument;
 	
-	@NotNull
-	@RestapiField(hiddenInGrid = true)
-	private Integer numero;
+//	@NotNull
+//	@RestapiField(hiddenInGrid = true)
+//	private Integer numero;
+	
+	@RestapiField(
+			disabledForCreate = true, 
+			disabledForUpdate = true, 
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			sizeMax = 22)
+	private int numero;
 	
 	@NotNull
 	@Size(max = 1)
@@ -390,14 +399,16 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	@EqualsAndHashCode(callSuper = true)
 	@Getter
 	@SuppressWarnings("serial")
-	public static class AlbaraPk extends WithIdentificadorAndCodiPk<Integer> {
+	public static class AlbaraPk extends WithIdentificadorPk {
 		private String empresaCodi;
+		private Integer numeroDocument;
 		public AlbaraPk(
 				String identificadorCodi,
 				String empresaCodi,
-				Integer codi) {
-			super(identificadorCodi, codi);
+				Integer numeroDocument) {
+			super(identificadorCodi);
 			this.empresaCodi = empresaCodi;
+			this.numeroDocument = numeroDocument;
 		}
 	}
 

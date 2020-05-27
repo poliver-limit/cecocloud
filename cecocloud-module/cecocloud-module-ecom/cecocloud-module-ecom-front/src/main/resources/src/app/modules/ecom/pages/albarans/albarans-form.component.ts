@@ -1,22 +1,73 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
+import { BngDatagridConfig } from 'base-angular';
 
 import { AlbaransService } from './albarans.service';
 
-@Component( {
-    template: `
-    <bng-form
-        bng-form-mant
-        [config]="formConfig"
-        [restapiService]="albaransService"></bng-form>
-`
-} )
-export class AlbaransFormComponent {
+// Per a generar manteniments de tipus 1
+import { AlbaransLiniaService } from '../albaransLinia/albaransLinia.service';
 
+@Component( {
+	templateUrl: 'albarans-form.html'
+//    template: `
+//    <bng-form
+//        bng-form-mant
+//        [config]="formConfig"
+//        [restapiService]="albaransService"></bng-form>
+//`
+} )
+export class AlbaransFormComponent extends BngFormBaseComponent {
+
+	public modificant: boolean = false;
+	
+	gridsEditables: boolean = true;
+	
     formConfig: BngFormConfig = {
     }
 
-    constructor(
-        public albaransService: AlbaransService ) { }
+	datagridConfig = {	
+        columnFiltersEnabled: false
+    };
+
+	albaransLiniaDatagridConfig: BngDatagridConfig = {
+		mode: 'form',		
+		columns: [ {
+			field: 'unitats'
+		}, {
+			field: 'article'
+		}, {
+			field: 'descripcio'
+		}, {
+			field: 'preu'
+		}, {
+			field: 'iva'
+		}, {
+			field: 'preuAmbIva'		
+		}, {
+			field: 'factorConversioSortides'	
+		}]
+	};    
+	
+	constructor(
+		activatedRoute: ActivatedRoute,
+		public albaransService: AlbaransService,       
+		public albaransLiniaService: AlbaransLiniaService
+	) {
+		super(activatedRoute);
+		
+		activatedRoute.params.subscribe((params) => {
+			if (params.id) {
+				this.modificant = true;
+				this.albaransLiniaDatagridConfig.fixedRowData = {
+					albara: {
+						id: params.id,
+						description: undefined
+					}
+				};
+			}
+		});
+				
+	}
 
 }

@@ -1,5 +1,6 @@
 {
 	"app.menu.ecom.albarans": "Albarans",
+	"app.menu.ecom.albaransLinia": "Albarà linies",
 	"app.menu.ecom.articles": "Articles",
 	"app.menu.ecom.articlesFamilia": "Famílies",
 	"app.menu.ecom.articlesFamiliaEmpresa": "Famílies/empreses",
@@ -86,6 +87,19 @@
 	"resource.albara.field.paisNif": "Pais N.I.F.",
 	"resource.albara.field.tipusAdresa": "Tipus adreça",
 	"resource.albara.field.codiPostalClient": "Codi postal client",	
+	
+	"resource.albara.field.titolGeneral": "Dades de l'albarà",
+	"resource.albara.field.titolDadesClient": "Dades del client",
+	
+	"resource.albaraLinia": "Albarà línia",
+	"resource.albaraLinia.plural": "Albarà línies",
+	"resource.albaraLinia.field.unitats": "Unitats",
+	"resource.albaraLinia.field.descripcio": "Descripció",
+	"resource.albaraLinia.field.preu": "Preu",
+	"resource.albaraLinia.field.factorConversioSortides": "F.C.S.",	
+	"resource.albaraLinia.field.preuAmbIva": "Import",	
+	"resource.albaraLinia.field.article": "Article",	
+	"resource.albaraLinia.field.iva": "I.V.A.",
 	
 	"resource.article.field.decimalsPreu": "Decimals preu",
 	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A.",	

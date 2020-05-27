@@ -20,6 +20,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
 				
 			}, {
+				path: 'albaransLinia',
+				loadChildren: () => import('./pages/albaransLinia/albaransLinia.module').then(m => m.AlbaransLiniaModule)
+				
+			}, {
 				path: 'articles',
 				loadChildren: () => import('./pages/articles/articles.module').then(m => m.ArticlesModule)
 
@@ -345,6 +349,25 @@ export class EcomModule {
 					]
 				}, {
 					icon: 'notes',
+					label: 'Albarans',
+					labelKey: 'funcionalitat.menu.albarans',
+					items: [
+						{						
+							icon: 'room',
+							label: 'Albarans (eCommerce)',
+							labelKey: 'app.menu.ecom.albarans',
+							route: '/ecom/albarans',
+							resource: 'COM_ALB'
+						}, {						
+							icon: 'room',
+							label: 'Albarans linies (eCommerce)',
+							labelKey: 'app.menu.ecom.albaransLinia',
+							route: '/ecom/albaransLinia',
+							resource: 'COM_LAC'
+						}
+					]
+				}, {
+					icon: 'notes',
 					label: 'Pressupostos',
 					labelKey: 'funcionalitat.menu.pressupostos',
 					items: [
@@ -367,13 +390,7 @@ export class EcomModule {
 					label: 'Facturació',
 					labelKey: 'funcionalitat.menu.facturacio',
 					items: [
-						{			
-							icon: 'room',
-							label: 'Albarans (eCommerce)',
-							labelKey: 'app.menu.ecom.albarans',
-							route: '/ecom/albarans',
-							resource: 'COM_ALB'
-						}, {
+						{
 									
 							icon: 'room',
 							label: 'Caixes (eCommerce)',

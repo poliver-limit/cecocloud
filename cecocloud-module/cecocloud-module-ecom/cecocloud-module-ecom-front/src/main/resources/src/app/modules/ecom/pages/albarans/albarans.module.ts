@@ -8,7 +8,12 @@ import { MaterialModule } from '../../../../shared/material.module';
 
 import { AlbaransGridComponent } from './albarans-grid.component';
 import { AlbaransFormComponent } from './albarans-form.component';
+
 import { AlbaransService } from './albarans.service';
+
+import { AlbaransFormModule } from './albarans-form.module';
+
+import { AlbaransLiniaService } from '../albaransLinia/albaransLinia.service';
 
 @NgModule( {
     imports: [
@@ -16,6 +21,7 @@ import { AlbaransService } from './albarans.service';
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		AlbaransFormModule,
         RouterModule.forChild( [
             { path: '', component: AlbaransGridComponent },
             { path: 'create', component: AlbaransFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,11 +29,12 @@ import { AlbaransService } from './albarans.service';
         ] )
     ],
     declarations: [
-        AlbaransGridComponent,
-        AlbaransFormComponent
+        AlbaransGridComponent        
     ],
     providers: [
-        AlbaransService
+        AlbaransService,
+
+		AlbaransLiniaService
     ]
 } )
 export class AlbaransModule {}

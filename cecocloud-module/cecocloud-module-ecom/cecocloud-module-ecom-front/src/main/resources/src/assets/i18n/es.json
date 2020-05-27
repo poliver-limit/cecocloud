@@ -1,5 +1,6 @@
 {
 	"app.menu.ecom.albarans": "Albaranes",
+	"app.menu.ecom.albaransLinia": "Albarán linias",
 	"app.menu.ecom.articles": "Artículos",
 	"app.menu.ecom.articlesFamilia": "Familias",
 	"app.menu.ecom.articlesFamiliaEmpresa": "Familias/empresas",
@@ -86,6 +87,19 @@
 	"resource.albara.field.paisNif": "País N.I.F.",
 	"resource.albara.field.tipusAdresa": "Tipo dirección",
 	"resource.albara.field.codiPostalClient": "Código postal cliente",	
+	
+	"resource.albara.field.titolGeneral": "Datos del albarán",
+	"resource.albara.field.titolDadesClient": "Datos del cliente",
+	
+	"resource.albaraLinia": "Albarán linea",
+	"resource.albaraLinia.plural": "Albarán lineas",
+	"resource.albaraLinia.field.unitats": "Unidades",
+	"resource.albaraLinia.field.descripcio": "Descripción",
+	"resource.albaraLinia.field.preu": "Precio",
+	"resource.albaraLinia.field.factorConversioSortides": "F.C.S.",	
+	"resource.albaraLinia.field.preuAmbIva": "Importe",	
+	"resource.albaraLinia.field.article": "Artículo",	
+	"resource.albaraLinia.field.iva": "I.V.A.",
 	
 	"resource.article.field.decimalsPreu": "Decimales precio",
 	"resource.article.field.decimalsPreuIva": "Decimales precio con I.V.A.",	

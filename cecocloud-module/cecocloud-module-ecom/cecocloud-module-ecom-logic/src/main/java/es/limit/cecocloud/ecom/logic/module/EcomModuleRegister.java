@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Albara;
+import es.limit.cecocloud.ecom.logic.api.dto.AlbaraLinia;
 import es.limit.cecocloud.ecom.logic.api.dto.Article;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamilia;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamiliaEmpresa;
@@ -93,6 +94,18 @@ public class EcomModuleRegister {
 							DocumentPagamentCobrament.class,
 							PaisNif.class,
 							TipusAdresa.class)));
+		funcionalitats.put(
+				"COM_LAC",
+				new FuncionalitatCodiFontImpl(
+						"COM_LAC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Albarà linies (eCommerce)",
+						AlbaraLinia.class,
+						Arrays.asList(
+								Empresa.class,
+								Albara.class,
+								Article.class,
+								Iva.class)));
 		funcionalitats.put(
 				"COM_ARTICL",
 				new FuncionalitatCodiFontImpl(
