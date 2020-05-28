@@ -26,7 +26,7 @@ public class ZonaCrudTester extends AbstractCrudTester<Zona> {
 		Zona dto = new Zona();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

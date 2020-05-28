@@ -3,8 +3,7 @@
  */
 package es.limit.cecocloud.logic.api.dto;
 
-import java.io.Serializable;
-
+import es.limit.base.boot.logic.api.dto.CompositePk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +13,6 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-public abstract class AbstractIdentificableWithCompositePkAndIdentificador<PK extends Serializable> extends AbstractIdentificableWithIdentificador<String> implements IdentificableWithCompositePkAndIdentificador<PK> {
+public abstract class AbstractIdentificableWithCompositePkAndIdentificador<PK extends CompositePk> extends AbstractIdentificableWithIdentificador<String> implements IdentificableWithCompositePkAndIdentificador<PK> {
 
 }

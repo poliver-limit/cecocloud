@@ -29,8 +29,8 @@ public class OperariSenseRelacionsObligatoriesCrudTester extends AbstractCrudTes
 		Operari dto = new Operari();
 		dto.setCodi("000001");
 		dto = this.update(dto);
-		dto.setHorari(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setHorari(getGenericReferenceWithCompositePk(Horari.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

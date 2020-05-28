@@ -13,6 +13,7 @@ import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecocloud.logic.api.service.EmpresaIdentificadorSyncService;
 import es.limit.cecocloud.rrhh.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.rrhh.persist.repository.IdentificadorRepository;
+import lombok.extern.slf4j.Slf4j;
 	
 /**
  * Implementació del servei de sincronització d'identificadors i empreses pel
@@ -20,6 +21,7 @@ import es.limit.cecocloud.rrhh.persist.repository.IdentificadorRepository;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Service("rrhhEmpresaIdentificadorSyncServiceImpl")
 public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificadorSyncService {
 
@@ -28,6 +30,7 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void identificadorCreate(Identificador identificador) {
+		log.debug("Propagant creació d'un identificador a dins el mòdul de recursos humans (codi=" + identificador.getCodi() + ")");
 		es.limit.cecocloud.rrhh.logic.api.dto.Identificador identificadorFact = new es.limit.cecocloud.rrhh.logic.api.dto.Identificador();
 		identificadorFact.setCodi(identificador.getCodi());
 		identificadorFact.setNom(identificador.getDescripcio());
@@ -37,6 +40,7 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void identificadorUpdate(Identificador identificador) {
+		log.debug("Propagant modificació d'un identificador a dins el mòdul de recursos humans (codi=" + identificador.getCodi() + ")");
 		Optional<IdentificadorEntity> entity = indentificadorRepository.findById(identificador.getCodi());
 		if (entity.isPresent()) {
 			es.limit.cecocloud.rrhh.logic.api.dto.Identificador identificadorFact = new es.limit.cecocloud.rrhh.logic.api.dto.Identificador();
@@ -50,6 +54,7 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void identificadorDelete(Identificador identificador) {
+		log.debug("Propagant eliminació d'un identificador a dins el mòdul de recursos humans (codi=" + identificador.getCodi() + ")");
 		if (indentificadorRepository.existsById(identificador.getCodi())) {
 			indentificadorRepository.deleteById(identificador.getCodi());
 		}

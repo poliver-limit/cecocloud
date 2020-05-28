@@ -36,9 +36,9 @@ public class EmpresaRestApiTest extends AbstractRestApiTest<Empresa, Long> {
 	protected void beforeCrudTest() {
 		logMessageDebug("Configuram la sessió amb l'identificador creat...");
 		logLevelAdd(1);
-		GenericReference<Identificador, Long> identificador = getGenericReferenceFromParentCrudTesters(
+		GenericReference<Identificador, Long> identificador = getGenericReferenceFromCrudTester(
 				Identificador.class,
-				getCrudTester().getParentCrudTesters());
+				getCrudTester());
 		UserSession session = (UserSession)getSession();
 		if (session == null) {
 			session = new UserSession(

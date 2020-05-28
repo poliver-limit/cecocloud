@@ -29,7 +29,7 @@ public class RegimIvaCrudTester extends AbstractCrudTester<RegimIva> {
 		dto.setCodiComptabilitat("TT");
 		dto.setTip(TipusRegimEnumDto.AGRARI);
 		dto.setCodiFacturaElectronica("TT");
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

@@ -28,7 +28,7 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 		Horari dto = new Horari();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

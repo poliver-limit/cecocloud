@@ -8,16 +8,19 @@ import static org.junit.Assert.assertEquals;
 import java.util.Date;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
-import es.limit.cecocloud.fact.logic.api.dto.Empresa;
 import es.limit.cecocloud.fact.logic.api.dto.Client;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RegistreComercialMitjaEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.RegistreComercialTipusEnumDto;
+import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecoloud.test.tester.EmpresaCrudTester;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
@@ -38,14 +41,16 @@ public class RegistreComercialCrudTester extends AbstractCrudTester<RegistreCome
 		dto.setDadesContacte("dadCon TST");
 		dto.setComentaris("com TST");		
 		dto.setData(new Date());	
-		
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		dto.setClient(getGenericReferenceWithCompositePkFromParentCrudTester(Client.class));
-		dto.setProducte(getGenericReferenceWithCompositePkFromParentCrudTester(Producte.class));	
-		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setClient(getGenericReferenceWithCompositePk(Client.class));
+		dto.setProducte(getGenericReferenceWithCompositePk(Producte.class));	
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		
+		Empresa empresa = getResource(Empresa.class);
+		dto.setEmpresa(
+				GenericReferenceWithCompositePk.toGenericReference(
+						new WithIdentificadorAndCodiPk<String>(
+								identificador.getCodi(),
+								empresa.getCodi())));
 		return dto;
 	}
 

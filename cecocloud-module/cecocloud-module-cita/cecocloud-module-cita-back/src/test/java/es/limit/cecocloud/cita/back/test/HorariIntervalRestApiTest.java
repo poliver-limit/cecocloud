@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.cita.back.test;
 
-import java.time.temporal.ChronoUnit;
-
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -43,9 +41,9 @@ public class HorariIntervalRestApiTest extends ModuleResourceRestApiTest<HorariI
 
 	@Override
 	protected void testWithCrudVerifiedResource(HorariInterval resource) {
-		System.out.println(">>> interval: " + resource);
+		/*System.out.println(">>> interval: " + resource);
 		System.out.println(">>>    horaInici: " + resource.getHoraInici() + ", " + resource.getHoraInici().truncatedTo(ChronoUnit.SECONDS));
-		System.out.println(">>>    horaFi: " + resource.getHoraFi() + ", " + resource.getHoraFi().truncatedTo(ChronoUnit.SECONDS));
+		System.out.println(">>>    horaFi: " + resource.getHoraFi() + ", " + resource.getHoraFi().truncatedTo(ChronoUnit.SECONDS));*/
 	}
 
 }

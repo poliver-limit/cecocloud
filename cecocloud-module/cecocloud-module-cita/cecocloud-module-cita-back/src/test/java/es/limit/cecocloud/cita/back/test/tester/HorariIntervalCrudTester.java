@@ -30,19 +30,19 @@ public class HorariIntervalCrudTester extends AbstractCrudTester<HorariInterval>
 	public HorariInterval createDto() {
 		HorariInterval dto = new HorariInterval();
 		dto.setDiaSetmana(DiaSetmana.DILLUNS);
-		dto.setHoraInici(LocalTime.now());
-		dto.setHoraFi(LocalTime.now());
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setHoraInici(LocalTime.of(10, 0));
+		dto.setHoraFi(LocalTime.of(20, 0));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setHorari(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
+		dto.setHorari(getGenericReferenceWithCompositePk(Horari.class));
 		return dto;
 	}
 
 	@Override
 	public void updateDto(HorariInterval dto) {
 		dto.setDiaSetmana(DiaSetmana.DIMARTS);
-		dto.setHoraInici(LocalTime.now());
-		dto.setHoraFi(LocalTime.now());
+		dto.setHoraInici(LocalTime.of(9, 0));
+		dto.setHoraFi(LocalTime.of(21, 0));
 	}
 
 	@Override

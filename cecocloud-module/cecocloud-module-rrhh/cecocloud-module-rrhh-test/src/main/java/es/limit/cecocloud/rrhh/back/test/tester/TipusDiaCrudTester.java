@@ -27,8 +27,8 @@ public class TipusDiaCrudTester extends AbstractCrudTester<TipusDia> {
 		TipusDia dto = new TipusDia();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto.setNom(TestUtils.NOM_TEST);
-		dto.setRegim(getGenericReferenceWithCompositePkFromParentCrudTester(Regim.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setRegim(getGenericReferenceWithCompositePk(Regim.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

@@ -112,7 +112,8 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 
 	@Transient
 	private boolean anulada;
-	public boolean getAnulada() {
+	@Transient
+	public boolean isAnulada() {
 		return embedded.getAnulacioData() != null;
 	}
 

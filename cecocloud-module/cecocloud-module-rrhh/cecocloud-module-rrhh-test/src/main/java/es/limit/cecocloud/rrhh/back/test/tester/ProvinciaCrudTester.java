@@ -24,7 +24,7 @@ public class ProvinciaCrudTester extends AbstractCrudTester<Provincia> {
 		Provincia dto = new Provincia();
 		dto.setCodi("TST");
 		dto.setNom(TestUtils.NOM_TEST);
-		dto.setPais(getGenericReferenceWithCompositePkFromParentCrudTester(Pais.class));
+		dto.setPais(getGenericReferenceWithCompositePk(Pais.class));
 		return dto;
 	}
 

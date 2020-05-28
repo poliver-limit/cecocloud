@@ -27,9 +27,9 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 		Horari dto = new Horari();
 		dto.setCodi("TEST");
 		dto.setNom("TEST");
-		dto.setDataInici(LocalDate.now());
-		dto.setDataFi(LocalDate.now().plusDays(1));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setDataInici(LocalDate.now().minusMonths(1));
+		dto.setDataFi(LocalDate.now().plusMonths(1));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}
@@ -37,8 +37,8 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 	@Override
 	public void updateDto(Horari dto) {
 		dto.setNom("TEST2");
-		dto.setDataInici(LocalDate.now().plusDays(10));
-		dto.setDataFi(LocalDate.now().plusDays(11));
+		dto.setDataInici(LocalDate.now().minusDays(10));
+		dto.setDataFi(LocalDate.now().plusDays(10));
 	}
 
 	@Override
@@ -51,7 +51,8 @@ public class HorariCrudTester extends AbstractCrudTester<Horari> {
 	@SuppressWarnings("unchecked")
 	public CrudTester<? extends Identificable<?>>[] getParentCrudTesters() {
 		return new CrudTester[] {
-			new IdentificadorCrudTester()
+			new IdentificadorCrudTester(),
+			new HorariIntervalCrudTester()
 		};
 	}
 

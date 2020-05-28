@@ -27,9 +27,9 @@ public class ProvinciaCrudTester extends AbstractCrudTester<Provincia> {
 		dto.setCodi("TST");
 		dto.setNom("Test");
 		
-		dto.setPais(getGenericReferenceWithCompositePkFromParentCrudTester(Pais.class));
+		dto.setPais(getGenericReferenceWithCompositePk(Pais.class));
 		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;

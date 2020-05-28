@@ -186,7 +186,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	@Column(name = "cli_div_cod", length = 4, nullable = false)
 	private String divisaCodi;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "cli_idf_cod", referencedColumnName = "tve_idf_cod", insertable = false, updatable = false),
@@ -199,7 +199,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	@Column(name = "cli_tve_cod", length = 4, nullable = false)
 	private String tipusVencimentCodi;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
 	@JoinColumns(
 			value = {						
 						@JoinColumn(name = "cli_sgl", referencedColumnName = "tad_cod", insertable = false, updatable = false)

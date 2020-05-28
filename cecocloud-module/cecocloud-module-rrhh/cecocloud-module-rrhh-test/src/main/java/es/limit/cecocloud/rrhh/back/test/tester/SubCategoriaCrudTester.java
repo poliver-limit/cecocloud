@@ -27,8 +27,8 @@ public class SubCategoriaCrudTester extends AbstractCrudTester<Subcategoria> {
 		Subcategoria dto = new Subcategoria();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
-		dto.setCategoria(getGenericReferenceWithCompositePkFromParentCrudTester(Categoria.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setCategoria(getGenericReferenceWithCompositePk(Categoria.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

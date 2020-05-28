@@ -69,12 +69,12 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		dto.setPersonaTipus(TipusPersonaEnumDto.FISICA);
 		dto.setTipoResidencia(TipusEstrangerEnumDto.ESTRANGER);		
 		
-		dto.setCodiPostalComercial(getGenericReferenceWithCompositePkFromParentCrudTester(CodiPostal.class));
-		dto.setCodiPostalFiscal(getGenericReferenceWithCompositePkFromParentCrudTester(CodiPostal.class));
-		dto.setDivisa(getGenericReferenceWithCompositePkFromParentCrudTester(Divisa.class));
-		dto.setMagatzem(getGenericReferenceWithCompositePkFromParentCrudTester(Magatzem.class));		
+		dto.setCodiPostalComercial(getGenericReferenceWithCompositePk(CodiPostal.class));
+		dto.setCodiPostalFiscal(getGenericReferenceWithCompositePk(CodiPostal.class));
+		dto.setDivisa(getGenericReferenceWithCompositePk(Divisa.class));
+		dto.setMagatzem(getGenericReferenceWithCompositePk(Magatzem.class));		
 		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;

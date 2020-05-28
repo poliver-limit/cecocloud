@@ -27,8 +27,8 @@ public class CodiPostalCrudTester extends AbstractCrudTester<CodiPostal> {
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto.setPoblacio("Poblacio TST");
 		dto.setMunicipi("Municipi TST");
-		dto.setPais(getGenericReferenceWithCompositePkFromParentCrudTester(Pais.class));
-		dto.setProvincia(getGenericReferenceWithCompositePkFromParentCrudTester(Provincia.class));
+		dto.setPais(getGenericReferenceWithCompositePk(Pais.class));
+		dto.setProvincia(getGenericReferenceWithCompositePk(Provincia.class));
 		return dto;
 	}
 

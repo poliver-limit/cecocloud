@@ -8,9 +8,9 @@ import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.cita.logic.api.dto.Horari;
+import es.limit.cecocloud.cita.logic.api.dto.HorariInterval;
 import es.limit.cecocloud.cita.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.cita.logic.api.dto.PuntVendaHorari;
-import es.limit.cecocloud.fact.back.test.tester.PuntVendaCrudTester;
 import es.limit.cecocloud.logic.api.dto.Identificador;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
@@ -24,10 +24,12 @@ public class PuntVendaHorariCrudTester extends AbstractCrudTester<PuntVendaHorar
 	@Override
 	public PuntVendaHorari createDto() {
 		PuntVendaHorari dto = new PuntVendaHorari();
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setPuntVenda(getGenericReferenceWithCompositePkFromParentCrudTester(PuntVenda.class));
-		dto.setHorari(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
+		dto.setPuntVenda(getGenericReferenceWithCompositePk(PuntVenda.class));
+		dto.setHorari(getGenericReferenceWithCompositePk(Horari.class));
+		// La següent cridada crea un interval per a l'horari
+		getResource(HorariInterval.class);
 		return dto;
 	}
 
@@ -45,7 +47,8 @@ public class PuntVendaHorariCrudTester extends AbstractCrudTester<PuntVendaHorar
 		return new CrudTester[] {
 			new IdentificadorCrudTester(),
 			new PuntVendaCrudTester(),
-			new HorariCrudTester()
+			new HorariCrudTester(),
+			new HorariIntervalCrudTester()
 		};
 	}
 

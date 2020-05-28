@@ -8,16 +8,19 @@ import static org.junit.Assert.assertEquals;
 import java.util.Date;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Departament;
-import es.limit.cecocloud.fact.logic.api.dto.Empresa;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Magatzem;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.SerieVenda;
 import es.limit.cecocloud.fact.logic.api.dto.enums.SerieFacturaRectificativaEnumDto;
+import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecoloud.test.tester.EmpresaCrudTester;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
@@ -59,14 +62,23 @@ public class SerieVendaCrudTester extends AbstractCrudTester<SerieVenda> {
 		dto.setAplicarDescompte(false);
 		dto.setFacturaRectificativa(SerieFacturaRectificativaEnumDto.SI);
 		dto.setDesglossarIva(false);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		dto.setCondicioPagamentPressupost(getGenericReferenceWithCompositePkFromParentCrudTester(PeuDocument.class));
-		dto.setPeuDocument(getGenericReferenceWithCompositePkFromParentCrudTester(PeuDocument.class));
-		dto.setMagatzem(getGenericReferenceWithCompositePkFromParentCrudTester(Magatzem.class));
-		dto.setEmpresaOp(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		dto.setDepartament(getGenericReferenceWithCompositePkFromParentCrudTester(Departament.class));
+		Empresa empresa = getResource(Empresa.class);
+		dto.setEmpresa(
+				GenericReferenceWithCompositePk.toGenericReference(
+						new WithIdentificadorAndCodiPk<String>(
+								identificador.getCodi(),
+								empresa.getCodi())));
+		dto.setCondicioPagamentPressupost(getGenericReferenceWithCompositePk(PeuDocument.class));
+		dto.setPeuDocument(getGenericReferenceWithCompositePk(PeuDocument.class));
+		dto.setMagatzem(getGenericReferenceWithCompositePk(Magatzem.class));
+		dto.setEmpresaOp(
+				GenericReferenceWithCompositePk.toGenericReference(
+						new WithIdentificadorAndCodiPk<String>(
+								identificador.getCodi(),
+								empresa.getCodi())));
+		dto.setDepartament(getGenericReferenceWithCompositePk(Departament.class));
 		return dto;
 	}
 

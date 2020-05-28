@@ -28,10 +28,10 @@ public class NodeCrudTester extends AbstractCrudTester<Node> {
 		Node dto = new Node();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
-		dto.setZonaDesti(getGenericReferenceWithCompositePkFromParentCrudTester(Zona.class));
-		dto.setZonaOrigen(getGenericReferenceWithCompositePkFromParentCrudTester(Zona.class));
-		dto.setServidor(getGenericReferenceWithCompositePkFromParentCrudTester(Servidor.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setZonaDesti(getGenericReferenceWithCompositePk(Zona.class));
+		dto.setZonaOrigen(getGenericReferenceWithCompositePk(Zona.class));
+		dto.setServidor(getGenericReferenceWithCompositePk(Servidor.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

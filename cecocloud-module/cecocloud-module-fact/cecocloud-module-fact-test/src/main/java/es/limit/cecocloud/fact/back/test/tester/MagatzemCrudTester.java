@@ -42,10 +42,10 @@ public class MagatzemCrudTester extends AbstractCrudTester<Magatzem> {
 //		dto.setPeriodeActualCodi("Periode actual codi TST");
 //		dto.setPeriodeActualData("Periode actual data TST");		
 		
-		dto.setCodiPostal(getGenericReferenceWithCompositePkFromParentCrudTester(CodiPostal.class));
-		dto.setDivisa(getGenericReferenceWithCompositePkFromParentCrudTester(Divisa.class));
+		dto.setCodiPostal(getGenericReferenceWithCompositePk(CodiPostal.class));
+		dto.setDivisa(getGenericReferenceWithCompositePk(Divisa.class));
 		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;

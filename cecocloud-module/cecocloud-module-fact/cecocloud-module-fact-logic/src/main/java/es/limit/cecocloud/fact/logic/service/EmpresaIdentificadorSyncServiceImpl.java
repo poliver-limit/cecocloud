@@ -8,17 +8,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.FacturacioTipusEnum;
-import es.limit.cecocloud.fact.logic.converter.GenericEntityHelper;
+import es.limit.cecocloud.fact.logic.helper.GenericEntityHelper;
 import es.limit.cecocloud.fact.persist.repository.EmpresaRepository;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
-import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.logic.api.service.EmpresaIdentificadorSyncService;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.repository.IdentificadorRepository;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Implementació del servei de sincronització d'identificadors i empreses pel
@@ -26,6 +25,7 @@ import es.limit.cecocloud.persist.repository.IdentificadorRepository;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Service("factEmpresaIdentificadorSyncServiceImpl")
 public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificadorSyncService {
 
@@ -36,12 +36,11 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 	@Autowired
 	private EmpresaRepository factEmpresaRepository;
 	@Autowired
-	private AuthenticationHelper authenticationHelper;
-	@Autowired
 	private GenericEntityHelper genericEntityHelper;
 
 	@Override
 	public void identificadorCreate(Identificador identificador) {
+		log.debug("Propagant creació d'un identificador a dins el mòdul de facturació (codi=" + identificador.getCodi() + ")");
 		es.limit.cecocloud.fact.logic.api.dto.Identificador identificadorFact = new es.limit.cecocloud.fact.logic.api.dto.Identificador();
 		identificadorFact.setCodi(identificador.getCodi());
 		identificadorFact.setNom(identificador.getDescripcio());
@@ -54,6 +53,7 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void identificadorUpdate(Identificador identificador) {
+		log.debug("Propagant modificació d'un identificador a dins el mòdul de facturació (codi=" + identificador.getCodi() + ")");
 		Optional<es.limit.cecocloud.fact.persist.entity.IdentificadorEntity> entity = factIndentificadorRepository.findById(identificador.getCodi());
 		if (entity.isPresent()) {
 			entity.get().getEmbedded().setNom(identificador.getDescripcio());
@@ -64,18 +64,23 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void identificadorDelete(Identificador identificador) {
+		log.debug("Propagant eliminació d'un identificador a dins el mòdul de facturació (codi=" + identificador.getCodi() + ")");
 		if (factIndentificadorRepository.existsById(identificador.getCodi())) {
+			genericEntityHelper.deleteIdentificadorGenericEntities(
+					identificador.getCodi());
 			factIndentificadorRepository.deleteById(identificador.getCodi());
 		}
 	}
 
 	@Override
 	public void empresaGestioCreate(Empresa empresa) {
-		UserSession userSession = (UserSession)authenticationHelper.getSession();
-		IdentificadorEntity identificador = indentificadorRepository.getOne(userSession.getI());
+		IdentificadorEntity identificador = indentificadorRepository.getOne(empresa.getIdentificador().getId());
 		String identificadorCodi = identificador.getEmbedded().getCodi();
+		log.debug("Propagant creació d'una empresa a dins el mòdul de facturació (" +
+				"identificadorCodi=" + identificadorCodi + ", " +
+				"codi=" + empresa.getCodi() + ")");
 		WithIdentificadorAndCodiPk<String> pk = new WithIdentificadorAndCodiPk<String>(
-				identificador.getEmbedded().getCodi(),
+				identificadorCodi,
 				empresa.getCodi());
 		es.limit.cecocloud.fact.logic.api.dto.Empresa empresaFact = new es.limit.cecocloud.fact.logic.api.dto.Empresa();
 		empresaFact.setCodi(empresa.getCodi());
@@ -98,8 +103,11 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void empresaGestioUpdate(Empresa empresa) {
-		UserSession userSession = (UserSession)authenticationHelper.getSession();
-		IdentificadorEntity identificador = indentificadorRepository.getOne(userSession.getI());
+		IdentificadorEntity identificador = indentificadorRepository.getOne(empresa.getIdentificador().getId());
+		String identificadorCodi = identificador.getEmbedded().getCodi();
+		log.debug("Propagant modificació d'una empresa a dins el mòdul de facturació (" +
+				"identificadorCodi=" + identificadorCodi + ", " +
+				"codi=" + empresa.getCodi() + ")");
 		WithIdentificadorAndCodiPk<String> pk = new WithIdentificadorAndCodiPk<String>(
 				identificador.getEmbedded().getCodi(),
 				empresa.getCodi());
@@ -114,12 +122,18 @@ public class EmpresaIdentificadorSyncServiceImpl implements EmpresaIdentificador
 
 	@Override
 	public void empresaGestioDelete(Empresa empresa) {
-		UserSession userSession = (UserSession)authenticationHelper.getSession();
-		IdentificadorEntity identificador = indentificadorRepository.getOne(userSession.getI());
+		IdentificadorEntity identificador = indentificadorRepository.getOne(empresa.getIdentificador().getId());
+		String identificadorCodi = identificador.getEmbedded().getCodi();
+		log.debug("Propagant eliminació d'una empresa a dins el mòdul de facturació (" +
+				"identificadorCodi=" + identificadorCodi + ", " +
+				"codi=" + empresa.getCodi() + ")");
 		WithIdentificadorAndCodiPk<String> pk = new WithIdentificadorAndCodiPk<String>(
 				identificador.getEmbedded().getCodi(),
 				empresa.getCodi());
 		if (factEmpresaRepository.existsById(pk)) {
+			genericEntityHelper.deleteEmpresaGenericEntities(
+					identificador.getEmbedded().getCodi(),
+					empresa.getCodi());
 			factEmpresaRepository.deleteById(pk);
 		}
 	}

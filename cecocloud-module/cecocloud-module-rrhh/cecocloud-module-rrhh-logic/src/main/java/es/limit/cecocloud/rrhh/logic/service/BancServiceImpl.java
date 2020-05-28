@@ -15,7 +15,6 @@ import es.limit.cecocloud.rrhh.persist.entity.BancEntity;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Service("BancRrhhService")
-public class BancServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Banc, BancEntity, Integer>
-		implements BancService {
+public class BancServiceImpl extends AbstractAmbIdentificadorICodiServiceImpl<Banc, BancEntity, Integer> implements BancService {
 
 }

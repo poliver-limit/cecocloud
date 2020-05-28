@@ -30,9 +30,9 @@ public class FestiuCrudTester extends AbstractCrudTester<Festiu> {
 		dto.setNom("TEST");
 		dto.setDiaMes(LocalDate.now());
 		dto.setAny(1);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setFestiuGrup(getGenericReferenceWithCompositePkFromParentCrudTester(FestiuGrup.class));
+		dto.setFestiuGrup(getGenericReferenceWithCompositePk(FestiuGrup.class));
 		return dto;
 	}
 

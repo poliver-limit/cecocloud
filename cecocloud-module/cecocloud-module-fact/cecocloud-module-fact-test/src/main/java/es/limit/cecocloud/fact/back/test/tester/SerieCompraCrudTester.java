@@ -8,12 +8,15 @@ import static org.junit.Assert.assertEquals;
 import java.util.Date;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
-import es.limit.cecocloud.fact.logic.api.dto.Empresa;
 import es.limit.cecocloud.fact.logic.api.dto.SerieCompra;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecoloud.test.tester.EmpresaCrudTester;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
@@ -35,9 +38,14 @@ public class SerieCompraCrudTester extends AbstractCrudTester<SerieCompra> {
 		dto.setCompteComptableCompresProformes("TEST");
 		dto.setValidDesde(new Date());
 		dto.setValidFins(new Date());
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
+		Empresa empresa = getResource(Empresa.class);
+		dto.setEmpresa(
+				GenericReferenceWithCompositePk.toGenericReference(
+						new WithIdentificadorAndCodiPk<String>(
+								identificador.getCodi(),
+								empresa.getCodi())));
 		return dto;
 	}
 

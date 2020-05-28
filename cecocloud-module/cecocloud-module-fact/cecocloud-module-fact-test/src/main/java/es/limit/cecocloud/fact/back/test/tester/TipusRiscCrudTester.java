@@ -32,7 +32,7 @@ public class TipusRiscCrudTester extends AbstractCrudTester<TipusRisc> {
 		dto.setTri_efeneg(1);
 		dto.setTri_albnotfac(1);
 		dto.setTri_nifigu(true);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

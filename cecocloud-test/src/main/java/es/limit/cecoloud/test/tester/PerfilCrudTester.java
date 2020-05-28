@@ -24,7 +24,7 @@ public class PerfilCrudTester extends AbstractCrudTester<Perfil> {
 		dto.setCodi("TST");
 		dto.setDescripcio("Test");
 		dto.setIdentificador(
-				getGenericReferenceFromParentCrudTester(Identificador.class));
+				getGenericReference(Identificador.class));
 		return dto;
 	}
 	@Override
