@@ -16,6 +16,14 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/index/index-ecom.module').then(m => m.IndexEcomModule)		
 				
 			}, {
+				path: 'albarans',
+				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
+				
+			}, {
+				path: 'albaransLinia',
+				loadChildren: () => import('./pages/albaransLinia/albaransLinia.module').then(m => m.AlbaransLiniaModule)
+				
+			}, {
 				path: 'articles',
 				loadChildren: () => import('./pages/articles/articles.module').then(m => m.ArticlesModule)
 
@@ -46,6 +54,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'articlesTraduccio',
 				loadChildren: () => import('./pages/articlesTraduccio/articlesTraduccio.module').then(m => m.ArticlesTraduccioModule)
+				
+			}, {
+				path: 'caixes',
+				loadChildren: () => import('./pages/caixes/caixes.module').then(m => m.CaixesModule)
 				
 			}, {
 				path: 'clients',
@@ -94,6 +106,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/magatzems/magatzems.module').then(m => m.MagatzemsModule)	
 				
 			}, {
+				path: 'magatzemsPeriode',
+				loadChildren: () => import('./pages/magatzemsPeriode/magatzemsPeriode.module').then(m => m.MagatzemsPeriodeModule)
+				
+			}, {
 				path: 'paisos',
 				loadChildren: () => import('./pages/paisos/paisos.module').then(m => m.PaisosModule)					
 			
@@ -115,7 +131,12 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				
 			}, {
 				path: 'provincies',
-				loadChildren: () => import('./pages/provincies/provincies.module').then(m => m.ProvinciesModule)	
+				loadChildren: () => import('./pages/provincies/provincies.module').then(m => m.ProvinciesModule)
+				
+			}, {
+				path: 'puntsVenda',
+				loadChildren: () => import('./pages/puntsVenda/puntsVenda.module').then(m => m.PuntsVendaModule)
+					
 			}, {
 				path: 'seriesCompra',
 				loadChildren: () => import('./pages/seriesCompra/seriesCompra.module').then(m => m.SeriesCompraModule)	
@@ -296,6 +317,12 @@ export class EcomModule {
 							resource: 'COM_MAG'
 						}, {						
 							icon: 'room',
+							label: 'Magatzems període (eCommerce)',
+							labelKey: 'app.menu.ecom.magatzemsPeriode',
+							route: '/ecom/magatzemsPeriode',
+							resource: 'COM_PMG'
+						}, {						
+							icon: 'room',
 							label: 'Països (eCommerce)',
 							labelKey: 'app.menu.ecom.paisos',
 							route: '/ecom/paisos',
@@ -312,6 +339,31 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.peusDocument',
 							route: '/ecom/peusDocument',
 							resource: 'COM_PED'
+						}, {						
+							icon: 'room',
+							label: 'Punts de venda (eCommerce)',
+							labelKey: 'app.menu.ecom.puntsVenda',
+							route: '/ecom/puntsVenda',
+							resource: 'COM_PTV'
+						}
+					]
+				}, {
+					icon: 'notes',
+					label: 'Albarans',
+					labelKey: 'funcionalitat.menu.albarans',
+					items: [
+						{						
+							icon: 'room',
+							label: 'Albarans (eCommerce)',
+							labelKey: 'app.menu.ecom.albarans',
+							route: '/ecom/albarans',
+							resource: 'COM_ALB'
+						}, {						
+							icon: 'room',
+							label: 'Albarans linies (eCommerce)',
+							labelKey: 'app.menu.ecom.albaransLinia',
+							route: '/ecom/albaransLinia',
+							resource: 'COM_LAC'
 						}
 					]
 				}, {
@@ -338,7 +390,15 @@ export class EcomModule {
 					label: 'Facturació',
 					labelKey: 'funcionalitat.menu.facturacio',
 					items: [
-						{			
+						{
+									
+							icon: 'room',
+							label: 'Caixes (eCommerce)',
+							labelKey: 'app.menu.ecom.caixes',
+							route: '/ecom/caixes',
+							resource: 'COM_CXA'
+						}, {
+									
 							icon: 'room',
 							label: 'Provincies (eCommerce)',
 							labelKey: 'app.menu.ecom.provincies',

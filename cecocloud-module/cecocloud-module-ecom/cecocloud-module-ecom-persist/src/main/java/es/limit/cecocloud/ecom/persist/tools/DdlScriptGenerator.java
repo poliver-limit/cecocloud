@@ -4,6 +4,7 @@
 package es.limit.cecocloud.ecom.persist.tools;
 
 import es.limit.cecocloud.ecom.persist.entity.ComptadorEntity;
+import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 
 
 /**
@@ -15,13 +16,14 @@ public class DdlScriptGenerator extends es.limit.base.boot.persist.tools.DdlScri
 
 	public static void main(String[] args) {
 		//generate("org.hibernate.dialect.HSQLDialect", getAdditionalPackageNames());
-		generate("org.hibernate.dialect.Oracle9iDialect", getAdditionalPackageNames());
-//		generate("org.hibernate.dialect.PostgreSQLDialect", getAdditionalPackageNames());
+//		generate("org.hibernate.dialect.Oracle9iDialect", getAdditionalPackageNames());
+		generate("org.hibernate.dialect.PostgreSQLDialect", getAdditionalPackageNames());
 	}
 
 	private static String[] getAdditionalPackageNames() {
 		return new String[] {
-				ComptadorEntity.class.getPackage().getName(), // package amb entitats del mòdul de ecommerce				
+				ComptadorEntity.class.getPackage().getName(), // package amb entitats del mòdul de ecommerce
+				OperariEntity.class.getPackage().getName(), // package amb entitats del mòdul de rrhh	
 		};
 	}
 
