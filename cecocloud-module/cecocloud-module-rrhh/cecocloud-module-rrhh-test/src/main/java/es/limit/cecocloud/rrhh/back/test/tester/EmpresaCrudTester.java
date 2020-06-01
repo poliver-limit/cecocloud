@@ -25,7 +25,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		Empresa dto = new Empresa();
 		dto.setCodi(es.limit.cecoloud.test.tester.EmpresaCrudTester.EMPRESA_CODI_TEST);
 		dto = this.update(dto);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

@@ -29,10 +29,10 @@ public class CodiPostalCrudTester extends AbstractCrudTester<CodiPostal> {
 		dto.setPoblacio("Poblacio TST");
 		dto.setMunicipi("Municipi TST");
 		
-		dto.setPais(getGenericReferenceWithCompositePkFromParentCrudTester(Pais.class));
-		dto.setProvincia(getGenericReferenceWithCompositePkFromParentCrudTester(Provincia.class));
+		dto.setPais(getGenericReferenceWithCompositePk(Pais.class));
+		dto.setProvincia(getGenericReferenceWithCompositePk(Provincia.class));
 		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;

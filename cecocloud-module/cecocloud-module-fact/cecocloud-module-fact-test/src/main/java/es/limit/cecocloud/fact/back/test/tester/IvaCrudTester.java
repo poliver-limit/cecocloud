@@ -33,7 +33,7 @@ public class IvaCrudTester extends AbstractCrudTester<Iva> {
 		dto.setCodiComptabilitat("TEST");
 		dto.setCodiRecarrecComptabilitat("TEST");
 		dto.setText("TEST");
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

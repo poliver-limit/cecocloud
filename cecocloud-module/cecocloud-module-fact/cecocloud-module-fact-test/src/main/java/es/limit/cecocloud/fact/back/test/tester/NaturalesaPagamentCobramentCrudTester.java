@@ -26,7 +26,7 @@ public class NaturalesaPagamentCobramentCrudTester extends AbstractCrudTester<Na
 		dto.setCodi("TEST");
 		dto.setDescripcio("TEST");
 		dto.setObservacions("TEST");
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

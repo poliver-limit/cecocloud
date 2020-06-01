@@ -34,7 +34,7 @@ public class DivisaCrudTester extends AbstractCrudTester<Divisa> {
 		dto.setDecimalsImports(7);
 		dto.setCodiComptabilitat("A");	
 		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;

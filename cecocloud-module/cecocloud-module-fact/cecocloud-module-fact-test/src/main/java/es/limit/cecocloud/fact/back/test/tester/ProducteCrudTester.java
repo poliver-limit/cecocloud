@@ -6,13 +6,16 @@ package es.limit.cecocloud.fact.back.test.tester;
 import static org.junit.Assert.assertEquals;
 
 import es.limit.base.boot.logic.api.dto.GenericReference;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable;
 import es.limit.base.boot.test.AbstractCrudTester;
 import es.limit.base.boot.test.CrudTester;
-import es.limit.cecocloud.fact.logic.api.dto.Empresa;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ProducteTipusEnumDto;
+import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.dto.Identificador;
+import es.limit.cecoloud.test.tester.EmpresaCrudTester;
 import es.limit.cecoloud.test.tester.IdentificadorCrudTester;
 
 /**
@@ -31,14 +34,15 @@ public class ProducteCrudTester extends AbstractCrudTester<Producte> {
 		dto.setDescripcio("Desc TST");
 		dto.setObservacions("Obs TST");
 		dto.setActiu(true);
-		
 		dto.setTipus(ProducteTipusEnumDto.PRODUCTE);		
-		
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		
+		Empresa empresa = getResource(Empresa.class);
+		dto.setEmpresa(
+				GenericReferenceWithCompositePk.toGenericReference(
+						new WithIdentificadorAndCodiPk<String>(
+								identificador.getCodi(),
+								empresa.getCodi())));
 		return dto;
 	}
 

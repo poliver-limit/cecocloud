@@ -26,7 +26,7 @@ public class BancCrudTester extends AbstractCrudTester<Banc> {
 		Banc dto = new Banc();
 		dto.setCodi(TestUtils.CODI_INTEGER_TEST);
 		dto.setNom(TestUtils.NOM_TEST);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

@@ -32,11 +32,11 @@ public class TransaccioCrudTester extends AbstractCrudTester<Transaccio> {
 		Transaccio dto = new Transaccio();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		dto.setNode(getGenericReferenceWithCompositePkFromParentCrudTester(Node.class));
-		dto.setOperari(getGenericReferenceWithCompositePkFromParentCrudTester(Operari.class));
-		dto.setTipusTransaccio(getGenericReferenceWithCompositePkFromParentCrudTester(TipusTransaccio.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setEmpresa(getGenericReferenceWithCompositePk(Empresa.class));
+		dto.setNode(getGenericReferenceWithCompositePk(Node.class));
+		dto.setOperari(getGenericReferenceWithCompositePk(Operari.class));
+		dto.setTipusTransaccio(getGenericReferenceWithCompositePk(TipusTransaccio.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

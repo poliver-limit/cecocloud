@@ -30,12 +30,12 @@ public class IntervalCrudTester extends AbstractCrudTester<Interval> {
 	public Interval createDto() {
 		Interval dto = new Interval();
 		dto.setCodi(TestUtils.CODI_TEST);
-		dto.setOperari(getGenericReferenceWithCompositePkFromParentCrudTester(Operari.class));
-		dto.setDiaCalendari(getGenericReferenceWithCompositePkFromParentCrudTester(Calendari.class));
-		dto.setZona(getGenericReferenceWithCompositePkFromParentCrudTester(Zona.class));
+		dto.setOperari(getGenericReferenceWithCompositePk(Operari.class));
+		dto.setDiaCalendari(getGenericReferenceWithCompositePk(Calendari.class));
+		dto.setZona(getGenericReferenceWithCompositePk(Zona.class));
 	
 		dto = this.update(dto);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

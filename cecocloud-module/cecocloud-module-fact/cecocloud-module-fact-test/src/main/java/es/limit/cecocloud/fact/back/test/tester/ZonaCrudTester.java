@@ -35,7 +35,7 @@ public class ZonaCrudTester extends AbstractCrudTester<Zona> {
 		
 		dto.setPreu(new BigDecimal(1));
 		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		
 		return dto;

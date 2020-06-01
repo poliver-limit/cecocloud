@@ -41,7 +41,7 @@ public class EmpresaCrudTester extends AbstractCrudTester<Empresa> {
 		dto.setTipus(EmpresaTipusEnum.GESTIO);
 		dto.setActiva(true);
 		dto.setIdentificador(
-				getGenericReferenceFromParentCrudTester(Identificador.class));
+				getGenericReference(Identificador.class));
 		return dto;
 	}
 

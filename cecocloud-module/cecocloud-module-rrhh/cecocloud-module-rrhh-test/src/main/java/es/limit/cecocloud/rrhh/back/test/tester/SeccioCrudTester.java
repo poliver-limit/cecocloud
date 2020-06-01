@@ -28,9 +28,9 @@ public class SeccioCrudTester extends AbstractCrudTester<Seccio> {
 		Seccio dto = new Seccio();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		dto.setSeccioGrup(getGenericReferenceWithCompositePkFromParentCrudTester(SeccioGrup.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setEmpresa(getGenericReferenceWithCompositePk(Empresa.class));
+		dto.setSeccioGrup(getGenericReferenceWithCompositePk(SeccioGrup.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

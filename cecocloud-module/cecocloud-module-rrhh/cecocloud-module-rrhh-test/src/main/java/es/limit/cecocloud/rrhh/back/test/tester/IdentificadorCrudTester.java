@@ -27,8 +27,8 @@ public class IdentificadorCrudTester extends AbstractCrudTester<Identificador> {
 		Identificador dto = new Identificador();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto = this.update(dto);
-		dto.setPerfilDefecte(getGenericReferenceFromParentCrudTester(Perfil.class));
-		dto.setPropietari(getGenericReferenceFromParentCrudTester(Usuari.class));
+		dto.setPerfilDefecte(getGenericReference(Perfil.class));
+		dto.setPropietari(getGenericReference(Usuari.class));
 		return dto;
 	}
 

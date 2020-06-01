@@ -32,15 +32,15 @@ public class RegistreDiariCrudTester extends AbstractCrudTester<RegistreDiari> {
 	public RegistreDiari createDto() {
 		RegistreDiari dto = new RegistreDiari();
 		dto = this.update(dto);
-		dto.setCalendariData(getGenericReferenceWithCompositePkFromParentCrudTester(Calendari.class));
-		dto.setOperari(getGenericReferenceWithCompositePkFromParentCrudTester(Operari.class));
-		dto.setHorari(getGenericReferenceWithCompositePkFromParentCrudTester(Horari.class));
-		dto.setRegim(getGenericReferenceWithCompositePkFromParentCrudTester(Regim.class));
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
-		dto.setSeccio(getGenericReferenceWithCompositePkFromParentCrudTester(Seccio.class));
-		dto.setCategoria(getGenericReferenceWithCompositePkFromParentCrudTester(Categoria.class));
-		dto.setSubcategoria(getGenericReferenceWithCompositePkFromParentCrudTester(Subcategoria.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setCalendariData(getGenericReferenceWithCompositePk(Calendari.class));
+		dto.setOperari(getGenericReferenceWithCompositePk(Operari.class));
+		dto.setHorari(getGenericReferenceWithCompositePk(Horari.class));
+		dto.setRegim(getGenericReferenceWithCompositePk(Regim.class));
+		dto.setEmpresa(getGenericReferenceWithCompositePk(Empresa.class));
+		dto.setSeccio(getGenericReferenceWithCompositePk(Seccio.class));
+		dto.setCategoria(getGenericReferenceWithCompositePk(Categoria.class));
+		dto.setSubcategoria(getGenericReferenceWithCompositePk(Subcategoria.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

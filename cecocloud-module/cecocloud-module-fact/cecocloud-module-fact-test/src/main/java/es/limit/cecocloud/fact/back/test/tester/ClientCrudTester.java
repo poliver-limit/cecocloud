@@ -151,14 +151,14 @@ public class ClientCrudTester extends AbstractCrudTester<Client> {
 		dto.setDescompteFinalFacturesTerminiClase1(new Float("7357.757"));
 		dto.setPercentatgePermesFacturesClase1(new Float("7357.757"));
 		
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setDivisa(getGenericReferenceWithCompositePkFromParentCrudTester(Divisa.class));
-		dto.setTipusVenciment(getGenericReferenceWithCompositePkFromParentCrudTester(TipusVenciment.class));
-		dto.setRegimIva(getGenericReferenceWithCompositePkFromParentCrudTester(RegimIva.class));
-		dto.setDocumentPagament(getGenericReferenceWithCompositePkFromParentCrudTester(DocumentPagamentCobrament.class));
-		dto.setTipusFacturacio(getGenericReferenceWithCompositePkFromParentCrudTester(TipusFacturacio.class));
-		dto.setFamiliaClient(getGenericReferenceWithCompositePkFromParentCrudTester(FamiliaClient.class));
+		dto.setDivisa(getGenericReferenceWithCompositePk(Divisa.class));
+		dto.setTipusVenciment(getGenericReferenceWithCompositePk(TipusVenciment.class));
+		dto.setRegimIva(getGenericReferenceWithCompositePk(RegimIva.class));
+		dto.setDocumentPagament(getGenericReferenceWithCompositePk(DocumentPagamentCobrament.class));
+		dto.setTipusFacturacio(getGenericReferenceWithCompositePk(TipusFacturacio.class));
+		dto.setFamiliaClient(getGenericReferenceWithCompositePk(FamiliaClient.class));
 
 		// TODO FALTA FER LES RELACIONS AMB ELS RECURSOS
 		

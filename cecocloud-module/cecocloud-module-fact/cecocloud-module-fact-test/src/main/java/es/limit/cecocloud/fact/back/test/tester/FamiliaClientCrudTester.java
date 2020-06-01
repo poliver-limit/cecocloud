@@ -28,9 +28,9 @@ public class FamiliaClientCrudTester extends AbstractCrudTester<FamiliaClient> {
 		dto.setNom("TEST");
 		dto.setCompteVendesComptabilitat("TEST");
 		dto.setObservacions("TEST");
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setTipusRisc(getGenericReferenceWithCompositePkFromParentCrudTester(TipusRisc.class));
+		dto.setTipusRisc(getGenericReferenceWithCompositePk(TipusRisc.class));
 		return dto;
 	}
 

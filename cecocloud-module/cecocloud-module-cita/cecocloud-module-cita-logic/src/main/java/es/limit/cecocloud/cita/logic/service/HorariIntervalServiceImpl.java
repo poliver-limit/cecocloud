@@ -10,6 +10,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.helper.CompositePkHelper;
@@ -44,12 +45,13 @@ public class HorariIntervalServiceImpl extends AbstractGenericCompositePkService
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<HorariInterval> findByHorari(
 			GenericReferenceWithCompositePk<Horari, WithIdentificadorAndCodiPk<String>> horariRef) throws EntityNotFoundException {
+		@SuppressWarnings("unchecked")
 		Optional<HorariEntity> horari = horariRepository.findById(
 				CompositePkHelper.getCompositePkFromSerializedId(
 						horariRef.getId(),
-						Horari.class,
 						WithIdentificadorAndCodiPk.class));
 		return conversionHelper.toDto(
 				((HorariIntervalRepository)getRepository()).findByHorari(horari.get()),

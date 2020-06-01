@@ -51,11 +51,11 @@ public class DocumentPagamentCobramentCrudTester extends AbstractCrudTester<Docu
 		dto.setTipusSeientPagos("TT");
 		dto.setDiariContablePagos("TT");
 		dto.setDiariContablePagos2("TT");
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setNaturalesaPagamentCobrament(getGenericReferenceWithCompositePkFromParentCrudTester(NaturalesaPagamentCobrament.class));
-		dto.setIva(getGenericReferenceWithCompositePkFromParentCrudTester(Iva.class));
-		dto.setRegimIva(getGenericReferenceWithCompositePkFromParentCrudTester(RegimIva.class));
+		dto.setNaturalesaPagamentCobrament(getGenericReferenceWithCompositePk(NaturalesaPagamentCobrament.class));
+		dto.setIva(getGenericReferenceWithCompositePk(Iva.class));
+		dto.setRegimIva(getGenericReferenceWithCompositePk(RegimIva.class));
 		return dto;
 	}
 

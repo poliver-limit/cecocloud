@@ -46,7 +46,6 @@ public class CitaServiceImpl extends AbstractGenericCompositePkServiceImpl<Cita,
 	public boolean isHoraDisponible(String puntVendaId, LocalDateTime data) throws EntityNotFoundException {
 		PuntVendaPk puntVendaPk = CompositePkHelper.getCompositePkFromSerializedId(
 				puntVendaId,
-				Cita.class,
 				PuntVendaPk.class);
 		return disponibilitatHelper.isHoraDisponible(
 				puntVendaRepository.findById(puntVendaPk).get(),
@@ -98,7 +97,7 @@ public class CitaServiceImpl extends AbstractGenericCompositePkServiceImpl<Cita,
 
 	@Override
 	protected void afterUpdate(CitaEntity entity, Cita dto) {
-		if (dto.isAnulada()) {
+		if (dto.isAnulada() != null && dto.isAnulada()) {
 			entity.getEmbedded().setAnulacioData(LocalDateTime.now());
 		}
 	}

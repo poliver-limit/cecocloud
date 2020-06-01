@@ -26,7 +26,7 @@ public class TipusFacturacioCrudTester extends AbstractCrudTester<TipusFacturaci
 		dto.setCodi("TEST");
 		dto.setDescripcio("TST");
 		dto.setConcedimCredit(true);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

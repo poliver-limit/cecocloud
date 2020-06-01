@@ -28,9 +28,9 @@ public class OficinaBancariaCrudTester extends AbstractCrudTester<OficinaBancari
 		OficinaBancaria dto = new OficinaBancaria();
 		dto.setCodi(TestUtils.CODI_INTEGER_TEST);
 		dto = this.update(dto);
-		dto.setCodiPostal(getGenericReferenceWithCompositePkFromParentCrudTester(CodiPostal.class));
-		dto.setBanc(getGenericReferenceWithCompositePkFromParentCrudTester(Banc.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setCodiPostal(getGenericReferenceWithCompositePk(CodiPostal.class));
+		dto.setBanc(getGenericReferenceWithCompositePk(Banc.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

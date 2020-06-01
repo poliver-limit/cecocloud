@@ -27,9 +27,9 @@ public class SeccioGrupCrudTester extends AbstractCrudTester<SeccioGrup> {
 		SeccioGrup dto = new SeccioGrup();
 		dto.setCodi(TestUtils.CODI_TEST);
 		dto.setNom(TestUtils.NOM_TEST);
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
-		dto.setEmpresa(getGenericReferenceWithCompositePkFromParentCrudTester(Empresa.class));
+		dto.setEmpresa(getGenericReferenceWithCompositePk(Empresa.class));
 		return dto;
 	}
 

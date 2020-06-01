@@ -3,9 +3,6 @@
  */
 package es.limit.cecocloud.fact.back.test;
 
-import org.junit.Test;
-import org.springframework.security.test.context.support.WithMockUser;
-
 import es.limit.base.boot.test.CrudTester;
 import es.limit.cecocloud.fact.back.test.tester.EmpresaCrudTester;
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
@@ -27,10 +24,14 @@ public class EmpresaRestApiTest extends ModuleResourceRestApiTest<Empresa> {
 		return new EmpresaCrudTester();
 	}
 
-	@WithMockUser(value = USUARI_TEST_NOADMIN)
-	@Test
+	//@WithMockUser(value = USUARI_TEST_NOADMIN)
+	//@Test
+	//
+	// Aquest test està desactivat perquè Cecocloud crea les empreses de forma automàtica
+	// quan es donen d'alta al grup d'empreses.
+	//
 	public void crudTest() {
-		genericCrudTest();
+		//genericCrudTest();
 	}
 	
 	@Override

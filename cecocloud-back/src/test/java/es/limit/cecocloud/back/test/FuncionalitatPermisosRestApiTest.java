@@ -71,7 +71,6 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 	
 	private static final String FUNCIONALITAT_1 = "TST_FUNC1";
 	private static final String FUNCIONALITAT_2 = "TST_FUNC2";
-//	private static final String FUNCIONALITAT_3 = "TST_FUNC3";
 	
 	static {
 		funcionalitats = new HashMap<String, FuncionalitatCodiFont>();
@@ -122,43 +121,57 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 	
 	private FuncionalitatIdentificador funcionalitatIdentificador1 = null;
 	private FuncionalitatIdentificador funcionalitatIdentificador2 = null;
-//	private FuncionalitatIdentificador funcionalitatIdentificador3 = null;
 	
 	private FuncionalitatPermis funcionalitatPermis1 = null;
 	private FuncionalitatPermis funcionalitatPermis2 = null;
-//	private FuncionalitatPermis funcionalitatPermis3 = null;
 	
 	private FuncionalitatCodiFont funcionalitatCodiFont1 = null;
 	private FuncionalitatCodiFont funcionalitatCodiFont2 = null;
-//	private FuncionalitatCodiFont funcionalitatCodiFont3 = null;
 	
 	private Long perfilId = null;
 	private List<Sid> sids = new ArrayList<Sid>();
 	private List<String> rols = new ArrayList<String>();
-	
-	private CrudTester<? extends Identificable<?>>[] parentCrudTesters = new CrudTester<?>[] {
-		new IdentificadorCrudTester(),
-		new EmpresaCrudTester(),
-		new PerfilCrudTester()
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private CrudTester<Identificable<?>> crudTester = new CrudTester() {
+		@Override
+		public Identificable createDto() {
+			return null;
+		}
+		@Override
+		public void afterCreate(Identificable dto, boolean isParentResource) {
+		}
+		@Override
+		public void updateDto(Identificable dto) {
+		}
+		@Override
+		public void afterUpdate(Identificable dto) {
+		}
+		@Override
+		public void compareDto(Identificable expected, Identificable actual) {
+		}
+		@Override
+		public CrudTester[] getParentCrudTesters() {
+			return new CrudTester<?>[] {
+				new IdentificadorCrudTester(),
+				new EmpresaCrudTester(),
+				new PerfilCrudTester()
+			};
+		}
 	};
 
 	@Override
 	protected void beforeCrudTest() {
-//		FuncionalitatCodiFont funcionalitatCodiFont = getFuncionalitatCodiFont(FUNCIONALITAT_1);
 		log.debug("Iniciant configuració del test de permisos");
-		GenericReference<Empresa, Long> empresa = getGenericReferenceFromParentCrudTesters(Empresa.class, parentCrudTesters);
-		GenericReference<Perfil, Long> perfil = getGenericReferenceFromParentCrudTesters(Perfil.class, parentCrudTesters);
-		GenericReference<Identificador, Long> identificador = getGenericReferenceFromParentCrudTesters(Identificador.class, parentCrudTesters);
-		
+		GenericReference<Empresa, Long> empresa = getGenericReferenceFromCrudTester(Empresa.class, crudTester);
+		GenericReference<Perfil, Long> perfil = getGenericReferenceFromCrudTester(Perfil.class, crudTester);
+		GenericReference<Identificador, Long> identificador = getGenericReferenceFromCrudTester(Identificador.class, crudTester);
 		perfilId = perfil.getId();
 		rols.add("Perfil_" + perfilId);
 		sids.add(new GrantedAuthoritySid("Perfil_" + perfilId));
-			
 		// Cream les funcionalitats-identificador
 		Funcionalitat funcionalitat1 = funcionalitatService.findOneByRsqlQuery("codi==" + FUNCIONALITAT_1);
 		Funcionalitat funcionalitat2 = funcionalitatService.findOneByRsqlQuery("codi==" + FUNCIONALITAT_2);
-//		Funcionalitat funcionalitat3 = funcionalitatService.findOneByRsqlQuery("codi==" + FUNCIONALITAT_3);
-		
 		if (funcionalitat1 != null) {
 			FuncionalitatIdentificador funcionalitatIdentificador = new FuncionalitatIdentificador();
 			funcionalitatIdentificador.setFuncionalitat(GenericReference.toGenericReference(funcionalitat1.getId()));
@@ -182,19 +195,6 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 		} else {
 			fail("No s'ha trobat la funcionalitat amb el codi " + FUNCIONALITAT_2);
 		}
-		
-//		if (funcionalitat3 != null) {
-//			FuncionalitatIdentificador funcionalitatIdentificador = new FuncionalitatIdentificador();
-//			funcionalitatIdentificador.setFuncionalitat(GenericReference.toGenericReference(funcionalitat3.getId()));
-//			funcionalitatIdentificador.setIdentificador(identificador);
-//			funcionalitatIdentificador3 = funcionalitatIdentificadorService.create(funcionalitatIdentificador);
-//			funcionalitatPermis3 = new FuncionalitatPermis();
-//			funcionalitatPermis3.setFuncionalitatIdentificadorId(funcionalitatIdentificador3.getId());
-//			funcionalitatCodiFont3 = getFuncionalitatCodiFont(FUNCIONALITAT_3);
-//		} else {
-//			fail("No s'ha trobat la funcionalitat amb el codi " + FUNCIONALITAT_3);
-//		}
-
 		// Assignam l'usuari actual a l'empresa
 		UsuariIdentificadorEmpresa usuariIdentificadorEmpresa = new UsuariIdentificadorEmpresa();
 		UsuariIdentificador usuariIdentificador = usuariIdentificadorService.findOneByRsqlQuery("usuari.id==" + getCurrentUsuari().getId() + ";identificador.id==" + identificador.getId());
@@ -206,7 +206,6 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 		perfilUsuariIdentificadorEmpresa.setPerfil(perfil);
 		perfilUsuariIdentificadorEmpresa.setUsuariIdentificadorEmpresa(GenericReference.toGenericReference(usuariIdentificadorEmpresaCreat.getId()));
 		perfilUsuariIdentificadorEmpresaService.create(perfilUsuariIdentificadorEmpresa);
-		
 		// Configuram la sessió amb l'identificador i l'empresa
 		UserSession session = (UserSession)getSession();
 		if (session == null) {
@@ -229,15 +228,11 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 			log.info("------------------------------------------------------------------------------");
 			log.info("- Test de PERMISOS");
 			log.info("------------------------------------------------------------------------------");
-			
 			beforeCrudTest();
-
 			log.info("Els tests es realitzaran utilitzant les funcionalitats: { ");
 			log.info("      " + funcionalitatIdentificador1.getDescripcio());
 			log.info("      " + funcionalitatIdentificador2.getDescripcio());
-//			log.info("      " + funcionalitatIdentificador3.getDescripcio());
 			log.info("  }");
-			
 			log.debug("\tVerificant usuari no disposa de permisos ...");
 			Set<String> permisosActuals = getAllPermisos(rols);
 			assertTrue(permisosActuals.isEmpty());
@@ -376,11 +371,6 @@ public class FuncionalitatPermisosRestApiTest extends AbstractRestApiTest<Perfil
 			log.error("\tEl test dels mètodes CRUD ha produït un error", ex);
 			throw ex;
 		} finally {
-//			if (created != null) {
-//				log.debug("\tEsborrant " + dtoClassName + " (id=" + created.getId() + ")...");
-//				getService().delete(created.getId());
-//				log.debug("\t...esborrat ok");
-//			}
 			afterCrudTest();
 		}
 	}

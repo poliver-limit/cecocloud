@@ -63,19 +63,41 @@ public abstract class ModuleResourceRestApiTest<D extends IdentificableWithCompo
 	@Autowired
 	private PerfilUsuariIdentificadorEmpresaService perfilUsuariIdentificadorEmpresaService;
 
-	private CrudTester<? extends Identificable<?>>[] parentCrudTesters = new CrudTester<?>[] {
-			new IdentificadorCrudTester(),
-			new EmpresaCrudTester(),
-			new PerfilCrudTester()
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private CrudTester<Identificable<?>> crudTester = new CrudTester() {
+		@Override
+		public Identificable createDto() {
+			return null;
+		}
+		@Override
+		public void afterCreate(Identificable dto, boolean isParentResource) {
+		}
+		@Override
+		public void updateDto(Identificable dto) {
+		}
+		@Override
+		public void afterUpdate(Identificable dto) {
+		}
+		@Override
+		public void compareDto(Identificable expected, Identificable actual) {
+		}
+		@Override
+		public CrudTester[] getParentCrudTesters() {
+			return new CrudTester<?>[] {
+				new IdentificadorCrudTester(),
+				new EmpresaCrudTester(),
+				new PerfilCrudTester()
+			};
+		}
 	};
 
 	@Override
 	protected void beforeCrudTest() {
 		FuncionalitatCodiFont funcionalitatCodiFont = getFuncionalitatCodiFont();
 		log.debug("Iniciant configuració del test per a la funcionalitat " + funcionalitatCodiFont.getCodi());
-		GenericReference<Empresa, Long> empresa = getGenericReferenceFromParentCrudTesters(Empresa.class, parentCrudTesters);
-		GenericReference<Perfil, Long> perfil = getGenericReferenceFromParentCrudTesters(Perfil.class, parentCrudTesters);
-		GenericReference<Identificador, Long> identificador = getGenericReferenceFromParentCrudTesters(Identificador.class, parentCrudTesters);
+		GenericReference<Empresa, Long> empresa = getGenericReferenceFromCrudTester(Empresa.class, crudTester);
+		GenericReference<Perfil, Long> perfil = getGenericReferenceFromCrudTester(Perfil.class, crudTester);
+		GenericReference<Identificador, Long> identificador = getGenericReferenceFromCrudTester(Identificador.class, crudTester);
 		// Cream la funcionalitat-identificador
 		Funcionalitat funcionalitat = funcionalitatService.findOneByRsqlQuery(
 				"codi==" + funcionalitatCodiFont.getCodi());

@@ -23,7 +23,7 @@ import es.limit.cecocloud.cita.persist.entity.PuntVendaEntity;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.EnumeracioTipus;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.ImpressioTipus;
 import es.limit.cecocloud.fact.logic.api.dto.PuntVenda.PuntVendaPk;
-import es.limit.cecocloud.fact.logic.converter.GenericEntityHelper;
+import es.limit.cecocloud.fact.logic.helper.GenericEntityHelper;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
@@ -97,7 +97,6 @@ public class PuntVendaServiceImpl extends AbstractGenericCompositePkServiceImpl<
 		Optional<PuntVendaEntity> puntVenda = getRepository().findById(
 				CompositePkHelper.getCompositePkFromSerializedId(
 						id,
-						PuntVenda.class,
 						PuntVendaPk.class));
 		PuntVendaRangHorari rang = new PuntVendaRangHorari();
 		calcularRangPerData(

@@ -30,8 +30,8 @@ public class CalendariCrudTester extends AbstractCrudTester<Calendari> {
 		dto.setData(new Date());
 		dto.setDescripcio(TestUtils.DES_TEST);
 		dto.setObservacio(TestUtils.OBS_TEST);
-		dto.setTipusDia(getGenericReferenceWithCompositePkFromParentCrudTester(TipusDia.class));
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		dto.setTipusDia(getGenericReferenceWithCompositePk(TipusDia.class));
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

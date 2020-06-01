@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.helper.ConversionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.logic.api.dto.Empresa;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
@@ -25,6 +26,8 @@ public class EmpresaServiceImpl extends AbstractGenericServiceImpl<Empresa, Empr
 
 	@Autowired
 	private ApplicationContext applicationContext;
+	@Autowired
+	private ConversionHelper conversionHelper;
 
 	@Override
 	protected void afterCreate(EmpresaEntity entity, Empresa dto) {
@@ -84,10 +87,18 @@ public class EmpresaServiceImpl extends AbstractGenericServiceImpl<Empresa, Empr
 					EmpresaIdentificadorSyncService syncService = applicationContext.getBean(cecocloudModule.getEmpresaIdentificadorSyncServiceClass());
 					switch (entity.getEmbedded().getTipus()) {
 					case COMPTABLE:
-						syncService.empresaComptableDelete(entity.getEmbedded());
+						syncService.empresaComptableDelete(
+								conversionHelper.toDto(
+										entity,
+										EmpresaEntity.class,
+										Empresa.class));
 						break;
 					case GESTIO:
-						syncService.empresaGestioDelete(entity.getEmbedded());
+						syncService.empresaGestioDelete(
+								conversionHelper.toDto(
+										entity,
+										EmpresaEntity.class,
+										Empresa.class));
 						break;
 					}
 				}

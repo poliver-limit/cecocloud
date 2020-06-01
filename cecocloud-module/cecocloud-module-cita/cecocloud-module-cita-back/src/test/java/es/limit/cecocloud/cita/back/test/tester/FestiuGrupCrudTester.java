@@ -25,7 +25,7 @@ public class FestiuGrupCrudTester extends AbstractCrudTester<FestiuGrup> {
 		FestiuGrup dto = new FestiuGrup();
 		dto.setCodi("TEST");
 		dto.setNom("TEST");
-		Identificador identificador = getResourceFromParentCrudTester(Identificador.class);
+		Identificador identificador = getResource(Identificador.class);
 		dto.setIdentificador(GenericReference.toGenericReference(identificador.getCodi()));
 		return dto;
 	}

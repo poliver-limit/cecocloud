@@ -3,13 +3,12 @@
  */
 package es.limit.cecocloud.rrhh.logic.api.dto;
 
-import java.io.Serializable;
-
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.dto.AbstractIdentificableWithCompositePk;
+import es.limit.base.boot.logic.api.dto.CompositePk;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificador.WithIdentificadorPk;
@@ -44,7 +43,7 @@ public abstract class AbstractIdentificableWithIdentificador<PK extends WithIden
 	@Getter
 	@SuppressWarnings("serial")
 	@MappedSuperclass
-	public static class WithIdentificadorPk implements Serializable {
+	public static class WithIdentificadorPk implements CompositePk {
 		private String identificadorCodi;
 	}
 
