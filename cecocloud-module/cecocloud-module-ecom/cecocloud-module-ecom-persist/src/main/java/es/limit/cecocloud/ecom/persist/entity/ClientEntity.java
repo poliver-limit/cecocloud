@@ -92,7 +92,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			},
 			foreignKey = @ForeignKey(name = "cli_pni_cod_fk"))
 	private PaisNifEntity paisNif;
-	@Column(name = "cli_painif", length = 4)
+	@Column(name = "cli_painif", length = 2)
 	private String paisNifCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

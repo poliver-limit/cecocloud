@@ -28,7 +28,7 @@ import lombok.Setter;
 public class PaisNif extends AbstractIdentificable<String> {
 
 	@NotNull
-	@Size(max = 4)
+	@Size(max = 2)
 	@RestapiField(disabledForUpdate = true)
 	private String codi;
 	

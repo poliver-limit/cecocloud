@@ -13,7 +13,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Formula;
 
-import es.limit.base.boot.persist.entity.AbstractEntity;
+import es.limit.base.boot.persist.entity.AbstractSimpleEntity;
 import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,12 +38,12 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id", column = @Column(name = "pni_cod")),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pni_cod", insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pni_cod", length = 2, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "pni_nom", length = 40)),
 	@AttributeOverride(name = "embedded.tipusNif", column = @Column(name = "pni_tipnif", length = 1, nullable = false)),
 	@AttributeOverride(name = "embedded.tamanyNif", column = @Column(name = "pni_tamnif", length = 15))
 })
-public class PaisNifEntity extends AbstractEntity<PaisNif, String>{
+public class PaisNifEntity extends AbstractSimpleEntity<PaisNif, String>{
 
 	@Embedded
 	protected PaisNif embedded;
@@ -52,9 +52,13 @@ public class PaisNifEntity extends AbstractEntity<PaisNif, String>{
 	private String nomCodiTxt;
 	
 	@Builder
-	public PaisNifEntity(
-			PaisNif embedded) {		
-		this.embedded = embedded;
+	public PaisNifEntity(			
+			PaisNif embedded
+			) {		
+			
+			setId(embedded.getCodi());
+			
+			this.embedded = embedded;		
 	}
 
 	@Override
