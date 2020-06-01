@@ -103,7 +103,7 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	@NotFound(action = NotFoundAction.IGNORE)
 	private TipusAdresaEntity tipusAdresa;
-	@Column(name = "cli_sgl", length = 4)
+	@Column(name = "cli_sgl", length = 2)
 	private String tipusAdresaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

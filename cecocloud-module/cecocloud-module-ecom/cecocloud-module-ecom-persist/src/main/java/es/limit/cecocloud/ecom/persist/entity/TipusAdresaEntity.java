@@ -13,8 +13,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Formula;
 
-import es.limit.base.boot.persist.entity.AbstractEntity;
-import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.base.boot.persist.entity.AbstractSimpleEntity;
+//import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -40,8 +40,8 @@ import lombok.Setter;
 )
 
 @AttributeOverrides({
-	@AttributeOverride(name = "id", column = @Column(name = "tad_cod")),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tad_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "id", column = @Column(name = "tad_cod",  length = 2)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "tad_cod", length = 2, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "tad_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "tad_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "tad_datcre")),
@@ -49,7 +49,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "tad_datmod"))
 })
 
-public class TipusAdresaEntity extends AbstractEntity<TipusAdresa, String>{
+public class TipusAdresaEntity extends AbstractSimpleEntity<TipusAdresa, String>{
 	
 	@Embedded
 	protected TipusAdresa embedded;
@@ -59,11 +59,13 @@ public class TipusAdresaEntity extends AbstractEntity<TipusAdresa, String>{
 
 	@Builder
 	public TipusAdresaEntity(
-			WithIdentificadorAndCodiPk<String> pk,
-			TipusAdresa embedded,
-			IdentificadorEntity identificador
+//			WithIdentificadorAndCodiPk<String> pk,
+			TipusAdresa embedded
+//			,IdentificadorEntity identificador
 			) {
 
+		setId(embedded.getCodi());
+		
 		this.embedded = embedded;
 
 	}

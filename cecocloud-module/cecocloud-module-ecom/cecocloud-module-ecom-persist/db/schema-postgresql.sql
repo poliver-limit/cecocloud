@@ -127,7 +127,7 @@
         cli_fmc_cod varchar(4) not null,
         cli_idi_cod varchar(4),
         cli_iva_cod varchar(4),
-        cli_painif varchar(4),
+        cli_painif varchar(2),
         cli_rgi_cod varchar(2) not null,
         cli_sgl varchar(4),
         cli_tfc_cod varchar(4) not null,
@@ -302,7 +302,7 @@
     );
 
     create table tcom_gma (
-       gma_cod varchar(4) not null,
+       gma_cod varchar(6) not null,
         gma_idf_cod varchar(4) not null,
         gma_usucre varchar(255),
         gma_datcre timestamp,
@@ -400,7 +400,7 @@
     );
 
     create table tcom_mca (
-       mca_cod varchar(4) not null,
+       mca_cod varchar(6) not null,
         mca_idf_cod varchar(4) not null,
         mca_usucre varchar(255),
         mca_datcre timestamp,
@@ -411,7 +411,7 @@
     );
 
     create table tcom_mod (
-       mod_cod varchar(4) not null,
+       mod_cod varchar(6) not null,
         mod_idf_cod varchar(4) not null,
         mod_usucre varchar(255),
         mod_datcre timestamp,
@@ -435,7 +435,7 @@
     );
 
     create table tcom_pas (
-       pas_cod varchar(4) not null,
+       pas_cod varchar(5) not null,
         pas_idf_cod varchar(4) not null,
         pas_usucre varchar(255),
         pas_datcre timestamp,
@@ -473,7 +473,7 @@
 
     create table tcom_pmg (
        pmg_mag_cod varchar(4) not null,
-        pmg_cod varchar(4) not null,
+        pmg_cod varchar(22) not null,
         pmg_idf_cod varchar(4) not null,
         pmg_usucre varchar(255),
         pmg_datcre timestamp,
@@ -484,8 +484,8 @@
         primary key (pmg_mag_cod, pmg_cod, pmg_idf_cod)
     );
 
-    create table tcom_pni (
-       pni_cod varchar(255) not null,
+   create table tcom_pni (
+       pni_cod varchar(2) not null,
         pni_nom varchar(40),
         pni_tamnif varchar(15),
         pni_tipnif varchar(1) not null,
@@ -539,7 +539,7 @@
 
     create table tcom_prv (
        prv_pas_cod varchar(4) not null,
-        prv_cod varchar(4) not null,
+        prv_cod varchar(3) not null,
         prv_idf_cod varchar(4) not null,
         prv_usucre varchar(255),
         prv_datcre timestamp,
@@ -585,7 +585,7 @@
     );
 
     create table tcom_rgi (
-       rgi_cod varchar(4) not null,
+       rgi_cod varchar(2) not null,
         rgi_idf_cod varchar(4) not null,
         rgi_usucre varchar(255),
         rgi_datcre timestamp,
@@ -600,7 +600,7 @@
 
     create table tcom_scp (
        scp_emp_cod varchar(4) not null,
-        scp_cod varchar(4) not null,
+        scp_cod varchar(2) not null,
         scp_idf_cod varchar(4) not null,
         scp_usucre varchar(255),
         scp_datcre timestamp,
@@ -622,7 +622,7 @@
 
     create table tcom_ser (
        ser_emp_cod varchar(4) not null,
-        ser_cod varchar(4) not null,
+        ser_cod varchar(2) not null,
         ser_idf_cod varchar(4) not null,
         ser_usucre varchar(255),
         ser_datcre timestamp,
@@ -664,8 +664,8 @@
         primary key (ser_emp_cod, ser_cod, ser_idf_cod)
     );
 
-    create table tcom_tad (
-       tad_cod varchar(255) not null,
+ 	create table tcom_tad (
+       tad_cod varchar(2) not null,
         tad_des varchar(30) not null,
         primary key (tad_cod)
     );
@@ -733,7 +733,7 @@
         tve_tip varchar(1) not null,
         primary key (tve_cod, tve_idf_cod)
     );
-
+   
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);

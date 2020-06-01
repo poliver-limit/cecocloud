@@ -15,7 +15,9 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint;
 import es.limit.base.boot.logic.api.annotation.RestapiResourceAccessConstraint.RestapiPermissionConstraintType;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +33,7 @@ import lombok.Setter;
 				@RestapiResourceAccessConstraint(type = RestapiPermissionConstraintType.ACL_RESOURCE)
 		}
 )
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 public class Article extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@NotNull(groups = {OnCreate.class})
