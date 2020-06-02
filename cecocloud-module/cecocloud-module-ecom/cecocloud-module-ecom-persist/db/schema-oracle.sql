@@ -127,7 +127,7 @@
         cli_fmc_cod varchar2(4 char) not null,
         cli_idi_cod varchar2(4 char),
         cli_iva_cod varchar2(4 char),
-        cli_painif varchar2(4 char),
+        cli_painif varchar2(2 char),
         cli_rgi_cod varchar2(2 char) not null,
         cli_sgl varchar2(4 char),
         cli_tfc_cod varchar2(4 char) not null,
@@ -302,7 +302,7 @@
     );
 
     create table tcom_gma (
-       gma_cod varchar2(4 char) not null,
+       gma_cod varchar2(6 char) not null,
         gma_idf_cod varchar2(4 char) not null,
         gma_usucre varchar2(255 char),
         gma_datcre timestamp,
@@ -400,7 +400,7 @@
     );
 
     create table tcom_mca (
-       mca_cod varchar2(4 char) not null,
+       mca_cod varchar2(6 char) not null,
         mca_idf_cod varchar2(4 char) not null,
         mca_usucre varchar2(255 char),
         mca_datcre timestamp,
@@ -411,7 +411,7 @@
     );
 
     create table tcom_mod (
-       mod_cod varchar2(4 char) not null,
+       mod_cod varchar2(6 char) not null,
         mod_idf_cod varchar2(4 char) not null,
         mod_usucre varchar2(255 char),
         mod_datcre timestamp,
@@ -435,7 +435,7 @@
     );
 
     create table tcom_pas (
-       pas_cod varchar2(4 char) not null,
+       pas_cod varchar2(5 char) not null,
         pas_idf_cod varchar2(4 char) not null,
         pas_usucre varchar2(255 char),
         pas_datcre timestamp,
@@ -473,7 +473,7 @@
 
     create table tcom_pmg (
        pmg_mag_cod varchar2(4 char) not null,
-        pmg_cod varchar2(4 char) not null,
+        pmg_cod varchar2(22 char) not null,
         pmg_idf_cod varchar2(4 char) not null,
         pmg_usucre varchar2(255 char),
         pmg_datcre timestamp,
@@ -485,7 +485,7 @@
     );
 
     create table tcom_pni (
-       pni_cod varchar2(255 char) not null,
+       pni_cod varchar2(2 char) not null,
         pni_nom varchar2(40 char),
         pni_tamnif varchar2(15 char),
         pni_tipnif varchar2(1 char) not null,
@@ -539,7 +539,7 @@
 
     create table tcom_prv (
        prv_pas_cod varchar2(4 char) not null,
-        prv_cod varchar2(4 char) not null,
+        prv_cod varchar2(3 char) not null,
         prv_idf_cod varchar2(4 char) not null,
         prv_usucre varchar2(255 char),
         prv_datcre timestamp,
@@ -585,7 +585,7 @@
     );
 
     create table tcom_rgi (
-       rgi_cod varchar2(4 char) not null,
+       rgi_cod varchar2(2 char) not null,
         rgi_idf_cod varchar2(4 char) not null,
         rgi_usucre varchar2(255 char),
         rgi_datcre timestamp,
@@ -600,7 +600,7 @@
 
     create table tcom_scp (
        scp_emp_cod varchar2(4 char) not null,
-        scp_cod varchar2(4 char) not null,
+        scp_cod varchar2(2 char) not null,
         scp_idf_cod varchar2(4 char) not null,
         scp_usucre varchar2(255 char),
         scp_datcre timestamp,
@@ -622,7 +622,7 @@
 
     create table tcom_ser (
        ser_emp_cod varchar2(4 char) not null,
-        ser_cod varchar2(4 char) not null,
+        ser_cod varchar2(2 char) not null,
         ser_idf_cod varchar2(4 char) not null,
         ser_usucre varchar2(255 char),
         ser_datcre timestamp,
@@ -665,7 +665,7 @@
     );
 
     create table tcom_tad (
-       tad_cod varchar2(255 char) not null,
+       tad_cod varchar2(2 char) not null,
         tad_des varchar2(30 char) not null,
         primary key (tad_cod)
     );
@@ -732,8 +732,8 @@
         tve_mesclt varchar2(1 char),
         tve_tip varchar2(1 char) not null,
         primary key (tve_cod, tve_idf_cod)
-    ); 
-
+    );
+   
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
@@ -875,7 +875,7 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
     alter table tcom_alb 
        add constraint rcom_alb_cli_pni_fk 
        foreign key (alb_cli_painif) 
-       references tcom_pni;
+       references ;
 
     alter table tcom_alb 
        add constraint rcom_alb_pre_fk 
@@ -980,7 +980,7 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
     alter table tcom_cli 
        add constraint cli_pni_cod_fk 
        foreign key (cli_painif) 
-       references tcom_pni;
+       references ;
 
     alter table tcom_cli 
        add constraint cli_rgi_cod_fk 
@@ -1265,7 +1265,7 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
     alter table tcom_pre 
        add constraint rcom_pre_cli_pni_fk 
        foreign key (pre_cli_painif) 
-       references tcom_pni;
+       references ;
 
     alter table tcom_pre 
        add constraint rcom_pre_prv_fk 

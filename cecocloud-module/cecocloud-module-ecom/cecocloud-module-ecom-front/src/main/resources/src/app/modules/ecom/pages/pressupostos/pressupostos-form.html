@@ -110,10 +110,13 @@
 	
 	<ng-template #dadesClientTab>	
 	    <div style="display: flex">
-	    	<div style="width: 50%; padding-right: 1em">
+   	    	<div style="width: 33%; padding-right: 1em">
+	        	<bng-custom-field name="codiClient"></bng-custom-field>
+	      	</div>
+	    	<div style="width: 33%; padding-right: 1em">
 	        	<bng-custom-field name="nomComercial"></bng-custom-field>
 	      	</div>
-	      	<div style="width: 50%; padding-right: 1em">
+	      	<div style="width: 33%; padding-right: 1em">
 	        	<bng-custom-field name="nomFiscal"></bng-custom-field>
 	      	</div>
 	    </div> 
@@ -152,9 +155,20 @@
 		    <div style="width: 50%; padding-right: 1em">
 	        	<bng-custom-field name="domiciliFiscal"></bng-custom-field>
 	      	</div>     
-	      	<div style="width: 50%; padding-right: 1em">
-	        	<bng-custom-field name="codiPostal"></bng-custom-field>
+	      	<div style="width: 35%; padding-right: 1em">
+	        	<bng-custom-field name="codiPostalClient"></bng-custom-field>
 	     	</div>
+	     	<div style="width: 15%; padding-right: 1em">
+	        	<bng-custom-field name="telefon"></bng-custom-field>
+	     	</div>
+     	</div>
+     	<div style="display: flex">	     	
+	     	<div style="width: 50%; padding-right: 1em">
+	        	<bng-custom-field name="email"></bng-custom-field>
+	     	</div>
+	     		<div style="width: 50%; padding-right: 1em">
+	        	<bng-custom-field name="emailFactura"></bng-custom-field>
+	     	</div>	     	
 	    </div>
 	</ng-template>
     		

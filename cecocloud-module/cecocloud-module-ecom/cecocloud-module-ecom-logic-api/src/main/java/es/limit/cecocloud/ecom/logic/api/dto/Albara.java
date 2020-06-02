@@ -19,8 +19,10 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.validation.DocumentIdentitat;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.ecom.logic.api.converter.TipusNifConverter;
 import es.limit.cecocloud.ecom.logic.api.dto.Albara.AlbaraPk;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
@@ -48,6 +50,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "numeroDocument"
 )
+@PrimaryKeyNotExists(fields = "numeroDocument", groups = { OnCreate.class })
 public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 
 	@NotNull(groups = { OnCreate.class })

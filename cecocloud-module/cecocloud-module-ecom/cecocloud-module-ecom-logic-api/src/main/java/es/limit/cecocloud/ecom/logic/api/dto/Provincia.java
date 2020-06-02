@@ -10,7 +10,9 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.Provincia.ProvinciaPk;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaPk> {
 
 	@Size(max = 3)

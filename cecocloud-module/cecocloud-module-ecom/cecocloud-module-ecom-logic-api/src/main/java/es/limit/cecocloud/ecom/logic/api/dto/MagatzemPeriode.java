@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
 import lombok.AllArgsConstructor;
@@ -29,10 +31,11 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 public class MagatzemPeriode extends AbstractIdentificableWithIdentificador<MagatzemPeriodePk> {
 
 	@NotNull
-	@Size(max = 4)
+	@Size(max = 22)
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,

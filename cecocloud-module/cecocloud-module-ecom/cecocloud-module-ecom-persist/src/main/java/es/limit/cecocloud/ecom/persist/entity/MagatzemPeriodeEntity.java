@@ -45,7 +45,7 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pmg_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.magatzemCodi", column = @Column(name = "pmg_mag_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "pmg_cod", length = 4)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "pmg_cod", length = 22, precision = 10)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pmg_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "pmg_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "pmg_diaini", nullable = false)),

@@ -11,6 +11,8 @@ import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +25,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 public class Divisa extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)

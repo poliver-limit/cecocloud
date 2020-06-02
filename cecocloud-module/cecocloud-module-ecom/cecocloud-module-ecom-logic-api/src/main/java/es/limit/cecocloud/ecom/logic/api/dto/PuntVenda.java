@@ -17,7 +17,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.ecom.logic.api.dto.Caixa.CaixaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda.PuntVendaPk;
@@ -41,6 +43,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
+@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaPk> {
 
 	@NotNull(groups = {OnCreate.class})
