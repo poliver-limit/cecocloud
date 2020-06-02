@@ -14,7 +14,9 @@ import es.limit.cecocloud.ecom.logic.api.service.CaixaService;
 import es.limit.cecocloud.ecom.persist.entity.CaixaEntity;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 /**
  * Implementació del servei de gestió de Caixa.
@@ -28,14 +30,18 @@ public class CaixaServiceImpl extends AbstractGenericCompositePkServiceImpl<Caix
 	private AuthenticationHelper authenticationHelper;
 	
 	@Autowired
+	private IdentificadorRepository identificadorRepository;
+	
+	@Autowired
 	private EmpresaRepository empresaRepository;
 	
 	@Override
 	protected CaixaPk getPkFromDto(Caixa dto) {
-		UserSession userSession = (UserSession)authenticationHelper.getSession();		
+		UserSession userSession = (UserSession)authenticationHelper.getSession();
+		IdentificadorEntity identificador = identificadorRepository.getOne(userSession.getI());
 		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());	
 		return new CaixaPk(
-				dto.getIdentificador().getId(),				
+				identificador.getEmbedded().getCodi(),				
 				empresa.getEmbedded().getCodi(),
 				dto.getCodi());
 	}

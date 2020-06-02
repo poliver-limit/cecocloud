@@ -174,7 +174,7 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
-	//@NotNull
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

@@ -62,7 +62,10 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	private String codi;*/
 	
 	@NotNull
-	@RestapiField(hiddenInGrid = true)
+	@RestapiField(
+			hiddenInGrid = true,
+			disabledForUpdate = true
+	)
 	private Integer numeroDocument;
 	
 //	@NotNull

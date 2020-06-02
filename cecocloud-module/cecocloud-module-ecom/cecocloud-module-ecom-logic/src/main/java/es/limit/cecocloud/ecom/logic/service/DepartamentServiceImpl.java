@@ -14,7 +14,9 @@ import es.limit.cecocloud.ecom.logic.api.service.DepartamentService;
 import es.limit.cecocloud.ecom.persist.entity.DepartamentEntity;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 /**
  * Implementació del servei de gestió de Departament.
@@ -28,14 +30,18 @@ public class DepartamentServiceImpl extends AbstractGenericCompositePkServiceImp
 	private AuthenticationHelper authenticationHelper;
 	
 	@Autowired
+	private IdentificadorRepository identificadorRepository;
+	
+	@Autowired
 	private EmpresaRepository empresaRepository;
 	
 	@Override
 	protected DepartamentPk getPkFromDto(Departament dto) {
-		UserSession userSession = (UserSession)authenticationHelper.getSession();		
+		UserSession userSession = (UserSession)authenticationHelper.getSession();
+		IdentificadorEntity identificador = identificadorRepository.getOne(userSession.getI());
 		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());	
 		return new DepartamentPk(
-				dto.getIdentificador().getId(),				
+				identificador.getEmbedded().getCodi(),				
 				empresa.getEmbedded().getCodi(),
 				dto.getCodi());
 	}

@@ -50,11 +50,11 @@ import lombok.Setter;
 public class Pressupost extends AbstractIdentificableWithIdentificador<PressupostPk> {
 
 	@NotNull(groups = { OnCreate.class })	
-	@Size(max = 22)
 	@RestapiField(
 		disabledForUpdate = true, 
 		toUpperCase = true,
-		includeInQuickFilter = true)
+		includeInQuickFilter = true,
+		sizeMax = 22)
 	private Integer codi;
 	
 //	@NotNull
