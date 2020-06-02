@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.ecom.persist.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -17,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Formula;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Article;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -145,6 +149,9 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	private ArticleInformacioEntity articleInformacio;
 	@Column(name = "art_ain_num", nullable = true)
 	private Integer articleInformacioNumero;
+	
+	@Formula(value ="(SELECT TCA.art_pvp/((TCI.iva_pte/100)+1) FROM tcom_iva TCI left join tcom_art TCA on TCI.iva_idf_cod = TCA.art_idf_cod and TCI.iva_cod = TCA.art_iva_cod where TCA.art_cod = art_cod and TCA.art_idf_cod = art_idf_cod)")
+	private BigDecimal preuSenseIva;
 	
 	@Builder
 	public ArticleEntity(			

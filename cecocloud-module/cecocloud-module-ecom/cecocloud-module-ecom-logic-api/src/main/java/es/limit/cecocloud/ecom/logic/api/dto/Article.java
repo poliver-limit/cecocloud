@@ -168,5 +168,11 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			type = RestapiFieldType.TEXTAREA,
 			includeInQuickFilter = true)
 	private String rutaInforme;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = false,
+			hiddenInForm = false)
+	private BigDecimal preuSenseIva;
 
 }
