@@ -5,6 +5,9 @@ import { BngModule } from 'base-angular';
 import { MaterialModule } from '../../../../shared/material.module';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { ArticlesInformacioService } from '../articlesInformacio/articlesInformacio.service';
+import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
+
 import { ArticlesFormComponent } from './articles-form.component';
 import { ArticlesService } from './articles.service';
 
@@ -25,7 +28,10 @@ import { ArticlesService } from './articles.service';
 		ArticlesFormComponent
 	],
     providers: [
-        ArticlesService
+        ArticlesService,
+
+		ArticlesInformacioService,
+		ArticlesTraduccioService		
     ]
 } )
 export class ArticlesFormModule {}

@@ -41,10 +41,10 @@ public class ArticleModel extends AbstractIdentificableWithIdentificadorAndCodi<
 	@RestapiField(includeInQuickFilter = true)
 	private String descripcio;
 	
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean control = false;
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInLov = true)
+//	@Convert(converter = StringBooleanConverter.class)
+//	private Boolean control = false;
 
 }

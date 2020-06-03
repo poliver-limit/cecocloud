@@ -10,9 +10,12 @@ import { ArticlesGridComponent } from './articles-grid.component';
 import { ArticlesFormComponent } from './articles-form.component';
 import { ArticlesService } from './articles.service';
 import { IvesFormModule } from '../ives/ives-form.module';
-import { ArticlesInformacioFormModule } from '../articlesInformacio/articlesInformacio-form.module';
+//import { ArticlesInformacioFormModule } from '../articlesInformacio/articlesInformacio-form.module';
 
 import { ArticlesFormModule } from './articles-form.module';
+
+import { ArticlesInformacioService } from '../articlesInformacio/articlesInformacio.service';
+import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
 
 @NgModule( {
     imports: [
@@ -24,7 +27,7 @@ import { ArticlesFormModule } from './articles-form.module';
 		ArticlesFormModule,
 		
 		IvesFormModule,
-		ArticlesInformacioFormModule,
+//		ArticlesInformacioFormModule,
         RouterModule.forChild( [
             { path: '', component: ArticlesGridComponent },
             { path: 'create', component: ArticlesFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -36,7 +39,10 @@ import { ArticlesFormModule } from './articles-form.module';
 //		,ArticlesFormComponent
     ],
     providers: [
-        ArticlesService
+        ArticlesService,
+
+		ArticlesInformacioService,
+		ArticlesTraduccioService
     ]
 } )
 export class ArticlesModule {}

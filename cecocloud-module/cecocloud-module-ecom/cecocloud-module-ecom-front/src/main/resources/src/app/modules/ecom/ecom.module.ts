@@ -205,12 +205,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.articlesGamma',
 							route: '/ecom/articlesGamma',
 							resource: 'COM_GAMART'
-						}, {
-							icon: 'room',
-							label: 'Articles informació',
-							labelKey: 'app.menu.ecom.articlesInformacio',
-							route: '/ecom/articlesInformacio',
-							resource: 'COM_AINART'
+//						}, {
+//							icon: 'room',
+//							label: 'Articles informació',
+//							labelKey: 'app.menu.ecom.articlesInformacio',
+//							route: '/ecom/articlesInformacio',
+//							resource: 'COM_AINART'
 						}, {
 							icon: 'room',
 							label: 'Articles marca',
@@ -223,12 +223,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.articlesModel',
 							route: '/ecom/articlesModel',
 							resource: 'COM_MODART'
-						}, {
-							icon: 'room',
-							label: 'Articles traducció (eCommerce)',
-							labelKey: 'app.menu.ecom.articlesTraduccio',
-							route: '/ecom/articlesTraduccio',
-							resource: 'COM_TRDART'
+//						}, {
+//							icon: 'room',
+//							label: 'Articles traducció (eCommerce)',
+//							labelKey: 'app.menu.ecom.articlesTraduccio',
+//							route: '/ecom/articlesTraduccio',
+//							resource: 'COM_TRDART'
 						}
 					]
 				}, {						

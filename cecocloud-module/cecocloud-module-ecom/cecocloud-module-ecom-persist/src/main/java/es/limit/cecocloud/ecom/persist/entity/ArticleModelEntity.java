@@ -52,7 +52,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "mod_cod", length = 6)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "mod_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "mod_des", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.control", column = @Column(name = "mod_nounitra", length = 1)),
+//	@AttributeOverride(name = "embedded.control", column = @Column(name = "mod_nounitra", length = 1)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "mod_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "mod_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mod_usumod")),

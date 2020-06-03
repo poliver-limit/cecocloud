@@ -10,12 +10,6 @@ import { ArticlesFamiliaEmpresaService } from '../articlesFamiliaEmpresa/article
 
 @Component( {
 	templateUrl: 'articlesFamilia-form.html'
-//    template: `
-//    <bng-form
-//        bng-form-mant
-//        [config]="formConfig"
-//        [restapiService]="articlesFamiliaService"></bng-form>
-//`
 } )
 export class ArticlesFamiliaFormComponent extends BngFormBaseComponent {
 	
