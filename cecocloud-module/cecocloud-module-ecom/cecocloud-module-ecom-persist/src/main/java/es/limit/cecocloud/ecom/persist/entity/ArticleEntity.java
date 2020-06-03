@@ -3,7 +3,7 @@
  */
 package es.limit.cecocloud.ecom.persist.entity;
 
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
@@ -20,7 +20,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Formula;
+//import org.hibernate.annotations.Formula;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Article;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -46,6 +46,7 @@ import lombok.Setter;
 				@Index(name = "ircom_art_pk", columnList = "art_idf_cod,art_cod", unique = true)
 		}
 )
+
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "art_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "art_cod", length = 15)),
@@ -53,9 +54,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "art_cod", length = 15, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "art_descur", length = 60)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "art_des", length = 2000, nullable = false)),
-	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, precision = 1, scale = 0)),	
 	@AttributeOverride(name = "embedded.pvp", column = @Column(name = "art_pvp", nullable = false, precision = 17, scale = 5)),
-	@AttributeOverride(name = "embedded.decimalsPreuIva", column = @Column(name = "art_decpruiva", precision = 1, scale = 0)),
+	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "art_pruiva", nullable = false, precision = 17, scale = 5)),
+	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, precision = 1, scale = 0)),
+	@AttributeOverride(name = "embedded.decimalsPreuIva", column = @Column(name = "art_decpruiva", precision = 1, scale = 0)),	
 	@AttributeOverride(name = "embedded.rutaInforme", column = @Column(name = "art_rutinf", length = 1000, nullable = false)),
 	// Faltaria preu amb IVA (¿calculat?)
 	
@@ -150,8 +152,8 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	@Column(name = "art_ain_num", nullable = true)
 	private Integer articleInformacioNumero;
 	
-	@Formula(value ="(SELECT TCA.art_pvp/((TCI.iva_pte/100)+1) FROM tcom_iva TCI left join tcom_art TCA on TCI.iva_idf_cod = TCA.art_idf_cod and TCI.iva_cod = TCA.art_iva_cod where TCA.art_cod = art_cod and TCA.art_idf_cod = art_idf_cod)")
-	private BigDecimal preuSenseIva;
+//	@Formula(value ="(SELECT TCA.art_pvp/((TCI.iva_pte/100)+1) FROM tcom_iva TCI left join tcom_art TCA on TCI.iva_idf_cod = TCA.art_idf_cod and TCI.iva_cod = TCA.art_iva_cod where TCA.art_cod = art_cod and TCA.art_idf_cod = art_idf_cod)")
+//	private BigDecimal preuSenseIva;
 	
 	@Builder
 	public ArticleEntity(			

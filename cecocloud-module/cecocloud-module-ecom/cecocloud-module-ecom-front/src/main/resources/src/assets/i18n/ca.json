@@ -102,10 +102,14 @@
 	"resource.albaraLinia.field.iva": "I.V.A.",
 	
 	"resource.article.field.decimalsPreu": "Decimals preu",
-	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A.",	
+	"resource.article.field.decimalsPreuIva": "Decimals preu amb I.V.A.",
+	"resource.article.field.pvp": "Preu",
+	"resource.article.field.preuAmbIva": "Preu amb I.V.A.",	
 	"resource.article.field.rutaInforme": "Url imatge",
 	
 	"resource.article.field.titolGeneral": "Dades de l'article",	
+	
+	"resource.articleFamilia.field.titolGeneral": "Dades de la família d'article",
 	
 	"resource.articleInformacio" : "Article informació",	
 	"resource.articleInformacio.plural" : "Article informació",

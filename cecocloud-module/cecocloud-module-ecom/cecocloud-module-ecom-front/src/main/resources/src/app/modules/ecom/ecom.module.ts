@@ -193,12 +193,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.articlesFamilia',
 							route: '/ecom/articlesFamilia',
 							resource: 'COM_FAMART'
-						}, {							
-							icon: 'room',
-							label: 'Articles família empresa',
-							labelKey: 'app.menu.ecom.articlesFamiliaEmpresa',
-							route: '/ecom/articlesFamiliaEmpresa',
-							resource: 'COM_EMFART'
+//						}, {							
+//							icon: 'room',
+//							label: 'Articles família empresa',
+//							labelKey: 'app.menu.ecom.articlesFamiliaEmpresa',
+//							route: '/ecom/articlesFamiliaEmpresa',
+//							resource: 'COM_EMFART'
 						}, {
 							icon: 'room',
 							label: 'Articles gamma',

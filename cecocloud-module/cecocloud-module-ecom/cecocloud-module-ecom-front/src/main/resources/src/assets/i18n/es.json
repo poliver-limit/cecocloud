@@ -103,9 +103,13 @@
 	
 	"resource.article.field.decimalsPreu": "Decimales precio",
 	"resource.article.field.decimalsPreuIva": "Decimales precio con I.V.A.",	
+	"resource.article.field.pvp": "Precio",
+	"resource.article.field.preuAmbIva": "Precio con I.V.A.",
 	"resource.article.field.rutaInforme": "Url imagen",
 	
 	"resource.article.field.titolGeneral": "Datos del artículo",
+	
+	"resource.articleFamilia.field.titolGeneral": "Datos de la familia del artículo",
 	
 	"resource.articleInformacio" : "Artículo información",	
 	"resource.articleInformacio.plural" : "Artículos información",

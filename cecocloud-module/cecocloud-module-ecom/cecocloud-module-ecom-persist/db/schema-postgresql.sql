@@ -92,6 +92,7 @@
         art_decpruiva int4,
         art_des varchar(2000) not null,
         art_descur varchar(60),
+        art_pruiva numeric(17, 5) not null,
         art_pvp numeric(17, 5) not null,
         art_rutinf varchar(1000) not null,
         art_far_cod varchar(6) not null,
@@ -129,7 +130,7 @@
         cli_iva_cod varchar(4),
         cli_painif varchar(2),
         cli_rgi_cod varchar(2) not null,
-        cli_sgl varchar(4),
+        cli_sgl varchar(2),
         cli_tfc_cod varchar(4) not null,
         cli_tve_cod varchar(4) not null,
         primary key (cli_cod, cli_idf_cod)
@@ -264,7 +265,7 @@
     );
 
     create table tcom_fae (
-       fae_far_cod varchar(4) not null,
+       fae_far_cod varchar(6) not null,
         fae_emp_cod varchar(4) not null,
         fae_idf_cod varchar(4) not null,
         fae_usucre varchar(255),
@@ -484,7 +485,7 @@
         primary key (pmg_mag_cod, pmg_cod, pmg_idf_cod)
     );
 
-   create table tcom_pni (
+    create table tcom_pni (
        pni_cod varchar(2) not null,
         pni_nom varchar(40),
         pni_tamnif varchar(15),
@@ -664,7 +665,7 @@
         primary key (ser_emp_cod, ser_cod, ser_idf_cod)
     );
 
- 	create table tcom_tad (
+    create table tcom_tad (
        tad_cod varchar(2) not null,
         tad_des varchar(30) not null,
         primary key (tad_cod)
@@ -733,7 +734,7 @@
         tve_tip varchar(1) not null,
         primary key (tve_cod, tve_idf_cod)
     );
-   
+  
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
@@ -755,9 +756,6 @@ create index icom_div_idf_fk on tcom_div (div_idf_cod);
 create index icom_dpg_idf_fk on tcom_dpg (dpg_idf_cod);
 create index icom_emp_idf_fk on tcom_emp (emp_idf_cod);
 create index icom_fae_idf_fk on tcom_fae (fae_idf_cod);
-
-    alter table tcom_fae 
-       add constraint ircom_fae_pk unique (fae_idf_cod);
 create index icom_far_idf_fk on tcom_far (far_idf_cod);
 create index icom_fmc_idf_fk on tcom_fmc (fmc_idf_cod);
 create index icom_gma_idf_fk on tcom_gma (gma_idf_cod);
@@ -806,11 +804,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rges_ain_art_fk 
        foreign key (ain_art_cod, ain_idf_cod) 
        references tcom_art;
-
-    alter table tcom_alb 
-       add constraint rcom_alb_idf_fk 
-       foreign key (alb_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_alb 
        add constraint rcom_alb_cli_fk 
@@ -898,11 +891,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        references tcom_ser;
 
     alter table tcom_arm 
-       add constraint rcom_arm_idf_fk 
-       foreign key (arm_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_arm 
        add constraint rcom_arm_art_fk 
        foreign key (arm_art_cod, arm_idf_cod) 
        references tcom_art;
@@ -911,11 +899,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_arm_mag_fk 
        foreign key (arm_mag_cod, arm_idf_cod) 
        references tcom_mag;
-
-    alter table tcom_art 
-       add constraint rcom_art_idf_fk 
-       foreign key (art_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_art 
        add constraint rcom_art_ain_fk 
@@ -946,11 +929,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_art_mod_fk 
        foreign key (art_mod_cod, art_idf_cod) 
        references tcom_mod;
-
-    alter table tcom_cli 
-       add constraint rcom_cli_idf_fk 
-       foreign key (cli_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_cli 
        add constraint cli_cpo_cod_fk 
@@ -998,11 +976,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        references tcom_idf;
 
     alter table tcom_cpo 
-       add constraint rcom_cpo_idf_fk 
-       foreign key (cpo_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_cpo 
        add constraint rcom_cpo_pas_fk 
        foreign key (cpo_pas_cod, cpo_idf_cod) 
        references tcom_pas;
@@ -1013,19 +986,9 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        references tcom_prv;
 
     alter table tcom_cxa 
-       add constraint rcom_cxa_idf_fk 
-       foreign key (cxa_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_cxa 
        add constraint rcom_cxa_emp_fk 
        foreign key (cxa_emp_cod, cxa_idf_cod) 
        references tcom_emp;
-
-    alter table tcom_dar 
-       add constraint rcom_dar_idf_fk 
-       foreign key (dar_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_dar 
        add constraint rcom_dar_art_fk 
@@ -1038,24 +1001,9 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        references tcom_idi;
 
     alter table tcom_dep 
-       add constraint rcom_dep_idf_fk 
-       foreign key (dep_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_dep 
        add constraint rcom_dep_emp_fk 
        foreign key (dep_emp_cod, dep_idf_cod) 
        references tcom_emp;
-
-    alter table tcom_div 
-       add constraint rcom_div_idf_fk 
-       foreign key (div_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_dpg 
-       add constraint rcom_dpg_idf_fk 
-       foreign key (dpg_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_dpg 
        add constraint rcom_dpg_iva_fk 
@@ -1072,16 +1020,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        foreign key (dpg_rgi_cod, dpg_idf_cod) 
        references tcom_rgi;
 
-    alter table tcom_emp 
-       add constraint rcom_emp_idf_fk 
-       foreign key (emp_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_fae 
-       add constraint rcom_fae_idf_fk 
-       foreign key (fae_idf_cod) 
-       references tcom_idf;
-
     alter table tcom_fae 
        add constraint rcom_fae_far_fk 
        foreign key (fae_far_cod, fae_idf_cod) 
@@ -1092,35 +1030,10 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        foreign key (fae_emp_cod, fae_idf_cod) 
        references tcom_emp;
 
-    alter table tcom_far 
-       add constraint rcom_far_idf_fk 
-       foreign key (far_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_fmc 
-       add constraint rcom_fmc_idf_fk 
-       foreign key (fmc_idf_cod) 
-       references tcom_idf;
-
     alter table tcom_fmc 
        add constraint fmc_tri_cod_fk 
        foreign key (fmc_tri_cod, fmc_idf_cod) 
        references tcom_tri;
-
-    alter table tcom_gma 
-       add constraint rcom_gma_idf_fk 
-       foreign key (gma_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_idi 
-       add constraint rcom_idi_idf_fk 
-       foreign key (idi_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_iva 
-       add constraint rcom_iva_idf_fk 
-       foreign key (iva_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_lac 
        add constraint rcom_lac_alb_fk 
@@ -1157,36 +1070,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        foreign key (lpr_emp_cod, lpr_pre_cod, lpr_idf_cod) 
        references tcom_pre;
 
-    alter table tcom_mag 
-       add constraint rcom_mag_idf_fk 
-       foreign key (mag_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_mca 
-       add constraint rcom_mca_idf_fk 
-       foreign key (mca_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_mod 
-       add constraint rcom_mod_idf_fk 
-       foreign key (mod_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_npg 
-       add constraint rcom_npg_idf_fk 
-       foreign key (npg_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_pas 
-       add constraint rcom_pas_idf_fk 
-       foreign key (pas_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_ped 
-       add constraint rcom_ped_idf_fk 
-       foreign key (ped_idf_cod) 
-       references tcom_idf;
-
     alter table tcom_ped 
        add constraint rcom_ped_emp_fk 
        foreign key (ped_emp_cod, ped_idf_cod) 
@@ -1198,19 +1081,9 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        references tcom_scp;
 
     alter table tcom_pmg 
-       add constraint rcom_pmg_idf_fk 
-       foreign key (pmg_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_pmg 
        add constraint rcom_pmg_mag_fk 
        foreign key (pmg_mag_cod, pmg_idf_cod) 
        references tcom_mag;
-
-    alter table tcom_pre 
-       add constraint rcom_pre_idf_fk 
-       foreign key (pre_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_pre 
        add constraint rcom_pre_cli_fk 
@@ -1278,19 +1151,9 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        references tcom_ser;
 
     alter table tcom_prv 
-       add constraint rcom_prv_idf_fk 
-       foreign key (prv_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_prv 
        add constraint rcom_prv_pas_fk 
        foreign key (prv_pas_cod, prv_idf_cod) 
        references tcom_pas;
-
-    alter table tcom_ptv 
-       add constraint rcom_ptv_idf_fk 
-       foreign key (ptv_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_ptv 
        add constraint rcom_ptv_cxa_fk 
@@ -1332,16 +1195,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        foreign key (ptv_emp_cod, ptv_ser_cod, ptv_idf_cod) 
        references tcom_ser;
 
-    alter table tcom_rgi 
-       add constraint rcom_rgi_idf_fk 
-       foreign key (rgi_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_scp 
-       add constraint rcom_scp_idf_fk 
-       foreign key (scp_idf_cod) 
-       references tcom_idf;
-
     alter table tcom_scp 
        add constraint rcom_scp_emp_fk 
        foreign key (scp_emp_cod, scp_idf_cod) 
@@ -1356,11 +1209,6 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_scp_mag_fk 
        foreign key (scp_mag_cod, scp_idf_cod) 
        references tcom_mag;
-
-    alter table tcom_ser 
-       add constraint rcom_ser_idf_fk 
-       foreign key (ser_idf_cod) 
-       references tcom_idf;
 
     alter table tcom_ser 
        add constraint rcom_ser_pedcondicio_fk 
@@ -1391,18 +1239,3 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_ser_ped_fk 
        foreign key (ser_emp_cod, ser_ped_codfac, ser_idf_cod) 
        references tcom_ped;
-
-    alter table tcom_tfc 
-       add constraint rcom_tfc_idf_fk 
-       foreign key (tfc_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_tri 
-       add constraint rcom_tri_idf_fk 
-       foreign key (tri_idf_cod) 
-       references tcom_idf;
-
-    alter table tcom_tve 
-       add constraint rcom_tve_idf_fk 
-       foreign key (tve_idf_cod) 
-       references tcom_idf;

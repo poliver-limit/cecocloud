@@ -8,7 +8,12 @@ import { MaterialModule } from '../../../../shared/material.module';
 
 import { ArticlesFamiliaGridComponent } from './articlesFamilia-grid.component';
 import { ArticlesFamiliaFormComponent } from './articlesFamilia-form.component';
+
 import { ArticlesFamiliaService } from './articlesFamilia.service';
+
+import { ArticlesFamiliaFormModule } from './articlesFamilia-form.module';
+
+import { ArticlesFamiliaEmpresaService } from '../articlesFamiliaEmpresa/articlesFamiliaEmpresa.service';
 
 @NgModule( {
     imports: [
@@ -16,6 +21,7 @@ import { ArticlesFamiliaService } from './articlesFamilia.service';
 		TranslateModule,
 		BngModule,
 		MaterialModule,
+		ArticlesFamiliaFormModule,
         RouterModule.forChild( [
             { path: '', component: ArticlesFamiliaGridComponent },
             { path: 'create', component: ArticlesFamiliaFormComponent, canDeactivate: [BngFormExitGuard] },
@@ -23,11 +29,13 @@ import { ArticlesFamiliaService } from './articlesFamilia.service';
         ] )
     ],
     declarations: [
-        ArticlesFamiliaGridComponent,
-        ArticlesFamiliaFormComponent
+        ArticlesFamiliaGridComponent       
     ],
     providers: [
-        ArticlesFamiliaService
+        ArticlesFamiliaService,
+
+		ArticlesFamiliaEmpresaService 
     ]
 } )
+
 export class ArticlesFamiliaModule {}

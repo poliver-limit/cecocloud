@@ -57,17 +57,25 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String descripcio;
 	
 	@NotNull
-	@RestapiField(hiddenInGrid = true,
-				sizeMax=1,
-				hiddenInLov = true)
-	private int decimalsPreu;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	@Digits(integer=12, fraction=3)
+	private BigDecimal pvp;
 	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer=12, fraction=3)
-	private BigDecimal pvp;
+	private BigDecimal preuAmbIva;
+	
+	
+	@NotNull
+	@RestapiField(hiddenInGrid = true,
+				sizeMax=1,
+				hiddenInLov = true)
+	private int decimalsPreu;
 	
 	@RestapiField(hiddenInGrid = true,
 				sizeMax=1,
@@ -169,10 +177,10 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			includeInQuickFilter = true)
 	private String rutaInforme;
 	
-	@Transient
-	@RestapiField(
-			hiddenInGrid = false,
-			hiddenInForm = false)
-	private BigDecimal preuSenseIva;
+//	@Transient
+//	@RestapiField(
+//			hiddenInGrid = false,
+//			hiddenInForm = false)
+//	private BigDecimal preuSenseIva;
 
 }

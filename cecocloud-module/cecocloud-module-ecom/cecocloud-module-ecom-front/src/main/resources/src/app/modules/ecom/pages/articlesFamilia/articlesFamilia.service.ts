@@ -1,5 +1,4 @@
 import { Injectable, Injector } from '@angular/core';
-
 import { RestapiResource, BngRestapiService } from 'base-angular';
 
 export class ArticleFamilia extends RestapiResource {}
