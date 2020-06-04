@@ -29,6 +29,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCo
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda.SerieVendaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.Provincia.ProvinciaPk;
+import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda.PuntVendaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.enums.TipusNifEnumDto;
 import es.limit.cecocloud.ecom.logic.api.dto.enums.PressupostEstatEnumDto;
 import lombok.AllArgsConstructor;
@@ -210,7 +211,14 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
 	
-	// FALTA PUNT DE VENDA ¿?¿?¿?¿?¿? //
+ 	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInGrid = true,
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<PuntVenda, PuntVendaPk> puntVenda;
 	
 	// Dades extres pel client no registrat:
 	@Size(max = 6)

@@ -223,7 +223,17 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Column(name = "pre_dpg_cod", length = 4)
 	private String documentPagamentCobramentCodi;	
 	
-	// FALTA PUNT DE VENDA ¿?¿?¿?¿?¿? //
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "ptv_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "pre_emp_cod", referencedColumnName = "ptv_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "pre_ptv_cod", referencedColumnName = "ptv_cod", insertable = false, updatable = false), 
+			},
+			foreignKey = @ForeignKey(name = "rcom_pre_ptv_fk"))
+	private PuntVendaEntity puntVenda;
+	@Column(name = "pre_ptv_cod", length = 4)
+	private String puntVendaCodi;	
 	
 	// Dades extres pel client no registrat:
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -270,10 +280,11 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			CodiPostalEntity codiPostal,
 			DivisaEntity divisa,
 			MagatzemEntity magatzem,
-			IdiomaEntity idioma,
+			IdiomaEntity idioma,			
 			PaisEntity pais,
 			ProvinciaEntity provincia,
-			DocumentPagamentCobramentEntity documentPagamentCobrament,			
+			DocumentPagamentCobramentEntity documentPagamentCobrament,
+			PuntVendaEntity puntVenda,
 			PaisNifEntity paisNif,
 			TipusAdresaEntity tipusAdresa,
 			CodiPostalEntity codiPostalClient
@@ -295,10 +306,10 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.updatePais(pais);
 		this.updateProvincia(provincia);
 		this.updateDocumentPagamentCobrament(documentPagamentCobrament);
+		this.updatePuntVenda(puntVenda);
 		this.updatePaisNif(paisNif);
 		this.updateTipusAdresa(tipusAdresa);
-		this.updateCodiPostalClient(codiPostalClient);
-		
+		this.updateCodiPostalClient(codiPostalClient);		
 			
 	}
 
@@ -374,6 +385,13 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.documentPagamentCobrament = documentPagamentCobrament;
 		if (documentPagamentCobrament != null) {
 			this.documentPagamentCobramentCodi = documentPagamentCobrament.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updatePuntVenda(PuntVendaEntity puntVenda) {
+		this.puntVenda = puntVenda;
+		if (puntVenda != null) {
+			this.puntVendaCodi = puntVenda.getEmbedded().getCodi();
 		}
 	}
 	

@@ -533,6 +533,7 @@
         pre_pas_cod varchar2(4 char),
         pre_cli_painif varchar2(4 char),
         pre_prv_cod varchar2(4 char),
+        pre_ptv_cod varchar2(4 char),
         pre_ser_cod varchar2(4 char),
         pre_cli_sgl varchar2(4 char),
         primary key (pre_emp_cod, pre_cod, pre_idf_cod)
@@ -1163,6 +1164,11 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        foreign key (pre_pas_cod, pre_prv_cod, pre_idf_cod) 
        references tcom_prv;
 
+    alter table tcom_pre 
+       add constraint rcom_pre_ptv_fk 
+       foreign key (pre_emp_cod, pre_ptv_cod, pre_idf_cod) 
+       references tcom_ptv;
+       
     alter table tcom_pre 
        add constraint rcom_pre_ser_fk 
        foreign key (pre_emp_cod, pre_ser_cod, pre_idf_cod) 
