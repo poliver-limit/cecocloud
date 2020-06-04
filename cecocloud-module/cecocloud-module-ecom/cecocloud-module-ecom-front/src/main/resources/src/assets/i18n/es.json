@@ -171,6 +171,7 @@
 	"resource.pressupost.field.paisNif": "País N.I.F.",
 	"resource.pressupost.field.tipusAdresa": "Tipo de dirección",
 	"resource.pressupost.field.codiPostalClient": "Población",
+	"resource.pressupost.field.puntVenda": "Punto de venta",
 	
 	"resource.pressupost.field.titolGeneral": "Datos del presupuesto",
 	"resource.pressupost.field.titolDadesClient": "Datos del cliente",
