@@ -362,12 +362,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.albarans',
 							route: '/ecom/albarans',
 							resource: 'COM_ALB'
-						}, {						
-							icon: 'room',
-							label: 'Albarans linies (eCommerce)',
-							labelKey: 'app.menu.ecom.albaransLinia',
-							route: '/ecom/albaransLinia',
-							resource: 'COM_LAC'
+//						}, {						
+//							icon: 'room',
+//							label: 'Albarans linies (eCommerce)',
+//							labelKey: 'app.menu.ecom.albaransLinia',
+//							route: '/ecom/albaransLinia',
+//							resource: 'COM_LAC'
 						}
 					]
 				}, {
@@ -381,12 +381,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.pressupostos',
 							route: '/ecom/pressupostos',
 							resource: 'COM_PRE'
-						}, {						
-							icon: 'room',
-							label: 'Pressupostos linies (eCommerce)',
-							labelKey: 'app.menu.ecom.pressupostosLinia',
-							route: '/ecom/pressupostosLinia',
-							resource: 'COM_LPR'
+//						}, {						
+//							icon: 'room',
+//							label: 'Pressupostos linies (eCommerce)',
+//							labelKey: 'app.menu.ecom.pressupostosLinia',
+//							route: '/ecom/pressupostosLinia',
+//							resource: 'COM_LPR'
 						}
 					]
 				}, {
