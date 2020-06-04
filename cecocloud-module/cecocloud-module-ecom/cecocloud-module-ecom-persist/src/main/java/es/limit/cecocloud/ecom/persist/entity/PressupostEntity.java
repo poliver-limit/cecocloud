@@ -63,7 +63,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.estat", column = @Column(name = "pre_est", length = 1)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "pre_obs", length = 2000)),
 	@AttributeOverride(name = "embedded.versio", column = @Column(name = "pre_ver", nullable = false, length = 22, precision = 2, scale = 0)),	
-	@AttributeOverride(name = "embedded.versio", column = @Column(name = "pre_ver", nullable = false, length = 22, precision = 2, scale = 0)),	
 	@AttributeOverride(name = "embedded.preu", column = @Column(name = "pre_pru", precision = 15, scale = 8)),
 	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "pre_pruiva", precision = 15, scale = 8)),
 	
@@ -422,7 +421,15 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			int num = EntityListenerUtil.getSeguentNumComptador(
 					pressupost.getIdentificador().getId(),
 					"TCOM_PRE");
-			pressupost.getEmbedded().setNumero(num);			
+			pressupost.getEmbedded().setNumero(num);	
+			
+			// Assignació del numero de pressupost al codi si aquest ve null
+			Integer codiPressupost = pressupost.getId().getCodi();
+			if (codiPressupost==null) {
+				pressupost.getId().setCodi(num);
+				pressupost.getEmbedded().setCodi(num);
+			}
+		
 		}
 	}
 
