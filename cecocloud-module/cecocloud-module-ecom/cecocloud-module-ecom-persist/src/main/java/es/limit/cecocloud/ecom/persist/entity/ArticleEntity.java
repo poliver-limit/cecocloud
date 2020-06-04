@@ -124,6 +124,16 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	private String marcaCodi;
 	
 	// TIPUS UNITATS
+	@ManyToOne(optional = true,	fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "art_idf_cod", referencedColumnName = "tun_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "art_tun_cod", referencedColumnName = "tun_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rcom_art_tun_fk"))		
+	private TipusUnitatEntity tipusUnitat;
+	@Column(name = "art_tun_cod", length = 4)
+	private String tipusUnitatCodi;
 	
 	// INFORMACIO "FOTOS i ALTRES" --> tges_ain
 	
@@ -165,7 +175,8 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 			ArticleMarcaEntity marca,
 			ArticleModelEntity model,		
 			IvaEntity iva,
-			ArticleInformacioEntity articleInformacio
+			ArticleInformacioEntity articleInformacio,
+			TipusUnitatEntity tipusUnitat
 			) {
 		
 		setId(pk);		
@@ -179,6 +190,7 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 		this.updateMarca(marca);
 		this.updateIva(iva);
 		this.updateArticleInformacio(articleInformacio);
+		this.updateTipusUnitat(tipusUnitat);
 	}
 
 	@Override
@@ -214,6 +226,11 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	public void updateArticleInformacio(ArticleInformacioEntity articleInformacio) {
 		this.articleInformacio = articleInformacio;		
 		if (articleInformacio!=null) this.articleInformacioNumero = articleInformacio.getEmbedded().getReferenciaSequencial();
+	}
+	
+	public void updateTipusUnitat(TipusUnitatEntity tipusUnitat) {
+		this.tipusUnitat = tipusUnitat;		
+		if (tipusUnitat!=null) this.tipusUnitatCodi = tipusUnitat.getEmbedded().getCodi();
 	}
 
 }

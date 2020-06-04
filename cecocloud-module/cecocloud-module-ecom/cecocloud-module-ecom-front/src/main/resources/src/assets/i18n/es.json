@@ -35,6 +35,7 @@
 	"app.menu.ecom.tipusAdreces": "Tipos de direcciones",
 	"app.menu.ecom.tipusFacturacions": "Tipos de facturaciones",
 	"app.menu.ecom.tipusRiscos": "Tipos de riesgos",
+	"app.menu.ecom.tipusUnitats": "Tipos de unidades",
 	"app.menu.ecom.tipusVenciments": "Tipos de vencimientos",
 	
 	"resource.albara": "Albarán",
@@ -106,6 +107,7 @@
 	"resource.article.field.pvp": "Precio",
 	"resource.article.field.preuAmbIva": "Precio con I.V.A.",
 	"resource.article.field.rutaInforme": "Url imagen",
+	"resource.article.field.tipusUnitat": "Tipo de unidad",
 	
 	"resource.article.field.titolGeneral": "Datos del artículo",
 	
@@ -209,5 +211,11 @@
 	"resource.puntVenda.field.magatzem": "Almacén",
 	"resource.puntVenda.field.operari": "Operario",
 	"resource.puntVenda.field.serie": "Serie",
-	"resource.puntVenda.field.divisaSecundaria": "Divisa secundaria"	
+	"resource.puntVenda.field.divisaSecundaria": "Divisa secundaria",
+	
+	"resource.tipusUnitat" : "Tipos de unidad",	
+	"resource.tipusUnitat.plural" : "Tipos de unidades",
+	"resource.tipusUnitat.field.codi": "Código",
+	"resource.tipusUnitat.field.descripcio": "Descripción",
+	"resource.tipusUnitat.field.tunFc": "F.C."
 }

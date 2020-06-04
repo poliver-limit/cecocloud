@@ -35,6 +35,7 @@
 	"app.menu.ecom.tipusAdreces": "Tipus d'adreces",
 	"app.menu.ecom.tipusFacturacions": "Tipus de facturacions",
 	"app.menu.ecom.tipusRiscos": "Tipus de risc",
+	"app.menu.ecom.tipusUnitats": "Tipus d'unitats",
 	"app.menu.ecom.tipusVenciments": "Tipus de venciments",
 	
 	"resource.albara": "Albarà",
@@ -106,6 +107,7 @@
 	"resource.article.field.pvp": "Preu",
 	"resource.article.field.preuAmbIva": "Preu amb I.V.A.",	
 	"resource.article.field.rutaInforme": "Url imatge",
+	"resource.article.field.tipusUnitat": "Tipus d'unitat",
 	
 	"resource.article.field.titolGeneral": "Dades de l'article",	
 	
@@ -209,6 +211,12 @@
 	"resource.puntVenda.field.magatzem": "Magatzem",
 	"resource.puntVenda.field.operari": "Operari",
 	"resource.puntVenda.field.serie": "Sèrie",
-	"resource.puntVenda.field.divisaSecundaria": "Divisa secundaria"	
+	"resource.puntVenda.field.divisaSecundaria": "Divisa secundaria",
+	
+	"resource.tipusUnitat" : "Tipus d'unitat",	
+	"resource.tipusUnitat.plural" : "Tipus d'unitats",
+	"resource.tipusUnitat.field.codi": "Codi",
+	"resource.tipusUnitat.field.descripcio": "Descripció",
+	"resource.tipusUnitat.field.tunFc": "F.C."	
 	
 }

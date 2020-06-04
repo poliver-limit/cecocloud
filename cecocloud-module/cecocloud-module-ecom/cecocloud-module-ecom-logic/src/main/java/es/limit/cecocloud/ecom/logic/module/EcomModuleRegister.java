@@ -30,6 +30,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.Empresa;
 import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusRisc;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusUnitat;
 import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.ecom.logic.api.dto.Magatzem;
@@ -425,6 +426,14 @@ public class EcomModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Tipus de riscos (eCommerce)",
 						TipusRisc.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_TUN",
+				new FuncionalitatCodiFontImpl(
+						"COM_TUN",
+						FuncionalitatTipus.MANTENIMENT,
+						"Tipus d'unitats (eCommerce)",
+						TipusUnitat.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"COM_TVE",

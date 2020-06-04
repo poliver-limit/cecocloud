@@ -100,6 +100,7 @@
         art_iva_cod varchar2(4 char) not null,
         art_mca_cod varchar2(6 char),
         art_mod_cod varchar2(6 char) not null,
+        art_tun_cod varchar2(4 char),
         primary key (art_cod, art_idf_cod)
     );
 
@@ -179,7 +180,7 @@
     );
 
     create table tcom_dar (
-       dar_art_cod varchar2(4 char) not null,
+       dar_art_cod varchar2(15 char) not null,
         dar_idi_cod varchar2(4 char) not null,
         dar_idf_cod varchar2(4 char) not null,
         dar_usucre varchar2(255 char),
@@ -418,7 +419,6 @@
         mod_datcre timestamp,
         mod_usumod varchar2(255 char),
         mod_datmod timestamp,
-        mod_nounitra varchar2(1 char),
         mod_des varchar2(30 char) not null,
         primary key (mod_cod, mod_idf_cod)
     );
@@ -700,6 +700,18 @@
         primary key (tri_cod, tri_idf_cod)
     );
 
+    create table tcom_tun (
+       tun_cod varchar2(4 char) not null,
+        tun_idf_cod varchar2(4 char) not null,
+        tun_usucre varchar2(255 char),
+        tun_datcre timestamp,
+        tun_usumod varchar2(255 char),
+        tun_datmod timestamp,
+        tun_des varchar2(60 char) not null,
+        tun_fc number(10,0),
+        primary key (tun_cod, tun_idf_cod)
+    );
+
     create table tcom_tve (
        tve_cod varchar2(4 char) not null,
         tve_idf_cod varchar2(4 char) not null,
@@ -798,6 +810,7 @@ create index icom_ser_idf_fk on tcom_ser (ser_idf_cod);
        add constraint ircom_ser_pk unique (ser_idf_cod, ser_cod);
 create index icom_tfc_idf_fk on tcom_tfc (tfc_idf_cod);
 create index icom_tri_idf_fk on tcom_tri (tri_idf_cod);
+create index icom_tun_idf_fk on tcom_tun (tun_idf_cod);
 create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
 
     alter table tcom_ain 
@@ -929,6 +942,11 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_art_mod_fk 
        foreign key (art_mod_cod, art_idf_cod) 
        references tcom_mod;
+
+    alter table tcom_art 
+       add constraint rcom_art_tun_fk 
+       foreign key (art_tun_cod, art_idf_cod) 
+       references tcom_tun;
 
     alter table tcom_cli 
        add constraint cli_cpo_cod_fk 

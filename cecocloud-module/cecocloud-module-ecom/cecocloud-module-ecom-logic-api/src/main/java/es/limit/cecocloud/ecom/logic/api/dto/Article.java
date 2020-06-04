@@ -182,5 +182,11 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 //			hiddenInGrid = false,
 //			hiddenInForm = false)
 //	private BigDecimal preuSenseIva;
+	
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV,		
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<TipusUnitat, WithIdentificadorAndCodiPk<String>> tipusUnitat;
 
 }

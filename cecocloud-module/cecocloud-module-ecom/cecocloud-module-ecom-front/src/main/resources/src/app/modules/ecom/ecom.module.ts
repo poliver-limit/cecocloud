@@ -158,6 +158,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/tipusRiscos/tipusRiscos.module').then(m => m.TipusRiscosModule)	
 				
 			}, {
+				path: 'tipusUnitats',
+				loadChildren: () => import('./pages/tipusUnitats/tipusUnitats.module').then(m => m.TipusUnitatsModule)	
+				
+			}, {
 				path: 'tipusVenciments',
 				loadChildren: () => import('./pages/tipusVenciments/tipusVenciments.module').then(m => m.TipusVencimentsModule)
 				
@@ -434,6 +438,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.tipusRiscos',
 							route: '/ecom/tipusRiscos',
 							resource: 'COM_TRI'
+						}, {						
+							icon: 'room',
+							label: 'Tipus unitats (eCommerce)',
+							labelKey: 'app.menu.ecom.tipusUnitats',
+							route: '/ecom/tipusUnitats',
+							resource: 'COM_TUN'
 						}, {						
 							icon: 'room',
 							label: 'Tipus venciments (eCommerce)',

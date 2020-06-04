@@ -44,7 +44,7 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "dar_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.articleCodi", column = @Column(name = "dar_art_cod", length = 4)),
+	@AttributeOverride(name = "id.articleCodi", column = @Column(name = "dar_art_cod", length = 15)),
 	@AttributeOverride(name = "id.idiomaCodi", column = @Column(name = "dar_idi_cod", length = 4)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "dar_des", length = 2000, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "dar_usucre")),
