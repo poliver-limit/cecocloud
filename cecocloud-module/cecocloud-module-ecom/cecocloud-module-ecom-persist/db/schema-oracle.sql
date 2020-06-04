@@ -384,8 +384,8 @@
         lpr_des varchar2(4000 char) not null,
         lpr_fcs number(10,0) not null,
         lpr_num number(10,0),
-        lpr_pru number(10,0) not null,
-        lpr_imp number(10,0) not null,
+      	lpr_pru number(17,0) not null,
+        lpr_imp number(15,0) not null,
         lpr_uni number(10,0) not null,
         primary key (lpr_emp_cod, lpr_pre_cod, codi, lpr_idf_cod)
     );
