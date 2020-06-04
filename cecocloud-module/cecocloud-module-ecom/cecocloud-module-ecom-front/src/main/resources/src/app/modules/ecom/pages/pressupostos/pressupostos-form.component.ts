@@ -47,6 +47,15 @@ export class PressupostosFormComponent extends BngFormBaseComponent {
 		}]
 	};    
 	
+	//	 Aconseguim que només es llistin linies de pressupost del pressupost que estem editant	
+	showPressupostLiniaGrid : boolean = false;
+	pressupost: any;
+	onResourceLoad(pressupost: any) {		
+		this.pressupost = pressupost;				
+		this.pressupostosLiniaDatagridConfig.fixedFilter = 'pressupost.codi==' + this.pressupost.codi;		
+		this.showPressupostLiniaGrid = true;				
+	}
+	
 	constructor(
 		activatedRoute: ActivatedRoute,
 		public pressupostosService: PressupostosService,       
@@ -55,7 +64,7 @@ export class PressupostosFormComponent extends BngFormBaseComponent {
 		super(activatedRoute);
 		
 		activatedRoute.params.subscribe((params) => {
-			if (params.id) {
+			if (params.id) {				
 				this.modificant = true;
 				this.pressupostosLiniaDatagridConfig.fixedRowData = {
 					pressupost: {

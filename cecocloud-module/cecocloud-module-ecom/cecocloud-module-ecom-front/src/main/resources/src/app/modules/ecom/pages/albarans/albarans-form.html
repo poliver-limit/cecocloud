@@ -2,6 +2,7 @@
   bng-form-mant
   [config]="formConfig"
   [restapiService]="albaransService"
+  (resourceLoad)="onResourceLoad($event)"  
 >
 	<mat-tab-group animationDuration="0">    
 	    <mat-tab label="{{'resource.albara.field.titolGeneral'|translate}}">
@@ -19,7 +20,7 @@
 			</mat-card-content>
 		</mat-card>
 		<mat-card>
-			<mat-card-content>
+			<mat-card-content *ngIf="modificant">
 				<ng-container *ngTemplateOutlet="liniesAlbaraTemplate"></ng-container>
 			</mat-card-content>
 		</mat-card>
@@ -140,6 +141,7 @@
 	
 	<ng-template #liniesAlbaraTemplate>
 		<bng-datagrid					
+			*ngIf="showAlbaraLiniaGrid"
 			[config]="albaransLiniaDatagridConfig"
 			[restapiService]="albaransLiniaService"		
 			[editable]="gridsEditables"	

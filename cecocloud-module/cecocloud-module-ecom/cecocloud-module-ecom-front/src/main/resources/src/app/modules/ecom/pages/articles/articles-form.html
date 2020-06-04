@@ -17,12 +17,12 @@
 			</mat-card-content>
 		</mat-card>	
 		<mat-card>
-			<mat-card-content>
+			<mat-card-content *ngIf="modificant">
 				<ng-container *ngTemplateOutlet="articlesInformacioTemplate"></ng-container>
 			</mat-card-content>
 		</mat-card>
 		<mat-card>
-			<mat-card-content>
+			<mat-card-content *ngIf="modificant">
 				<ng-container *ngTemplateOutlet="articlesTraduccioTemplate"></ng-container>
 			</mat-card-content>
 		</mat-card>
@@ -91,7 +91,8 @@
 	</ng-template>
 	
 	<ng-template #articlesInformacioTemplate>
-		<bng-datagrid				
+		<bng-datagrid			
+			*ngIf="showArticleInformacioGrid"		
 			[config]="articlesInformacioDatagridConfig"
 			[restapiService]="articlesInformacioService"		
 			[editable]="gridsEditables"	
@@ -100,7 +101,8 @@
 	</ng-template>
 	
 	<ng-template #articlesTraduccioTemplate>
-		<bng-datagrid				
+		<bng-datagrid
+			*ngIf="showArticleTraduccioGrid"				
 			[config]="articlesTraduccioDatagridConfig"
 			[restapiService]="articlesTraduccioService"		
 			[editable]="gridsEditables"	

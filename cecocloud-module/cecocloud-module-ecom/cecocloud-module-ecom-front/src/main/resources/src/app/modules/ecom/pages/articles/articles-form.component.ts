@@ -50,16 +50,16 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 		}]
 	};   
 	
-	article: any;
-	
 	//	 Aconseguim que només es llistin els ArticlesFamiliaEmpresa de l'ArticleFamilia que estem editant
-	onResourceLoad(article: any) {	
-		
-		this.article = article;
-		console.log("Article codi = " + this.article.codi);		
+	showArticleInformacioGrid : boolean = false;
+	showArticleTraduccioGrid : boolean = false;
+	article: any;	
+	onResourceLoad(article: any) {		
+		this.article = article;		
 		this.articlesInformacioDatagridConfig.fixedFilter = 'article.codi==' + this.article.codi;
+		this.showArticleInformacioGrid = true;
 		this.articlesTraduccioDatagridConfig.fixedFilter = 'article.codi==' + this.article.codi;							
-				
+		this.showArticleTraduccioGrid = true;		
 	}	 
 
     constructor(

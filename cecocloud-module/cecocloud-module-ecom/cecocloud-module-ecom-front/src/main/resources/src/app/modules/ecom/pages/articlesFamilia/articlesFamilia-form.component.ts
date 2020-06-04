@@ -32,16 +32,14 @@ export class ArticlesFamiliaFormComponent extends BngFormBaseComponent {
 			field: 'web'
 		}]
 	};    
-	
-	articleFamilia: any;	
-	
-//	 Aconseguim que només es llistin els ArticlesFamiliaEmpresa de l'ArticleFamilia que estem editant
-	onResourceLoad(articleFamilia: any) {	
-		
-		this.articleFamilia = articleFamilia;
-		console.log("ArticleFamilia codi = " + this.articleFamilia.codi);		
-		this.articlesFamiliaEmpresaDatagridConfig.fixedFilter = 'articleFamilia.codi==' + this.articleFamilia.codi;							
-				
+
+//	 Aconseguim que només es llistin els ArticlesFamiliaEmpresa de l'ArticleFamilia que estem editant	
+	showArticleFamiliaEmpresaGrid : boolean = false;
+	articleFamilia: any;
+	onResourceLoad(articleFamilia: any) {		
+		this.articleFamilia = articleFamilia;				
+		this.articlesFamiliaEmpresaDatagridConfig.fixedFilter = 'articleFamilia.codi==' + this.articleFamilia.codi;			
+		this.showArticleFamiliaEmpresaGrid = true;				
 	}
 
     constructor(

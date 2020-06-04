@@ -49,6 +49,15 @@ export class AlbaransFormComponent extends BngFormBaseComponent {
 		}]
 	};    
 	
+	//	 Aconseguim que només es llistin linies d''albarà de l'albarà que estem editant	
+	showAlbaraLiniaGrid : boolean = false;
+	albara: any;
+	onResourceLoad(albara: any) {		
+		this.albara = albara;				
+		this.albaransLiniaDatagridConfig.fixedFilter = 'albara.numero==' + this.albara.numero;		
+		this.showAlbaraLiniaGrid = true;				
+	}
+	
 	constructor(
 		activatedRoute: ActivatedRoute,
 		public albaransService: AlbaransService,       

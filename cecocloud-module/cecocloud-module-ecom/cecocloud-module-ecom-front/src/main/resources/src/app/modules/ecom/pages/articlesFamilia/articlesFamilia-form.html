@@ -18,7 +18,7 @@
 			</mat-card-content>
 		</mat-card>
 		<mat-card>
-			<mat-card-content>
+			<mat-card-content *ngIf="modificant">
 				<ng-container *ngTemplateOutlet="articlesFamiliaEmpresaTemplate"></ng-container>
 			</mat-card-content>
 		</mat-card>
@@ -39,7 +39,8 @@
 	</ng-template>
 	
 	<ng-template #articlesFamiliaEmpresaTemplate>
-		<bng-datagrid				
+		<bng-datagrid			
+			*ngIf="showArticleFamiliaEmpresaGrid"	
 			[config]="articlesFamiliaEmpresaDatagridConfig"
 			[restapiService]="articlesFamiliaEmpresaService"		
 			[editable]="gridsEditables"	
