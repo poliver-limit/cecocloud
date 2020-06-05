@@ -33,6 +33,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.TipusRisc;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusUnitat;
 import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
+import es.limit.cecocloud.ecom.logic.api.dto.FamiliaProveidor;
 import es.limit.cecocloud.ecom.logic.api.dto.Magatzem;
 import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.ecom.logic.api.dto.NaturalesaPagamentCobrament;
@@ -41,6 +42,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.Pais;
 import es.limit.cecocloud.ecom.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia;
+import es.limit.cecocloud.ecom.logic.api.dto.Proveidor;
 import es.limit.cecocloud.ecom.logic.api.dto.Provincia;
 import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.RegimIva;
@@ -48,6 +50,8 @@ import es.limit.cecocloud.ecom.logic.api.dto.SerieCompra;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
+import es.limit.cecocloud.ecom.logic.api.dto.Transportista;
+import es.limit.cecocloud.ecom.logic.api.dto.Vehicle;
 import es.limit.cecocloud.ecom.logic.service.EmpresaIdentificadorSyncServiceImpl;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
@@ -260,6 +264,14 @@ public class EcomModuleRegister {
 						NaturalesaPagamentCobrament.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"COM_FPR",
+				new FuncionalitatCodiFontImpl(
+						"COM_FPR",
+						FuncionalitatTipus.MANTENIMENT,
+						"Famílies proveïdor (eCommerce)",
+						FamiliaProveidor.class,
+						Arrays.asList()));
+		funcionalitats.put(
 				"COM_IDI",
 				new FuncionalitatCodiFontImpl(
 						"COM_IDI",
@@ -358,6 +370,20 @@ public class EcomModuleRegister {
 								Pressupost.class,
 								Article.class)));
 		funcionalitats.put(
+				"COM_PRO",
+				new FuncionalitatCodiFontImpl(
+						"COM_PRO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Proveïdors (eCommerce)",
+						Proveidor.class,
+						Arrays.asList(
+								RegimIva.class,
+								CodiPostal.class,
+								TipusVenciment.class,
+								Divisa.class,
+								DocumentPagamentCobrament.class,
+								FamiliaProveidor.class)));
+		funcionalitats.put(
 				"COM_PRV",
 				new FuncionalitatCodiFontImpl(
 						"COM_PRV",
@@ -443,6 +469,26 @@ public class EcomModuleRegister {
 						"Tipus de venciments (eCommerce)",
 						TipusVenciment.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"COM_TRA",
+				new FuncionalitatCodiFontImpl(
+						"COM_TRA",
+						FuncionalitatTipus.MANTENIMENT,
+						"Transportistes (eCommerce)",
+						Transportista.class,
+						Arrays.asList(
+								CodiPostal.class,
+								Divisa.class,
+								Proveidor.class)));
+		funcionalitats.put(
+				"COM_MTR",
+				new FuncionalitatCodiFontImpl(
+						"COM_MTR",
+						FuncionalitatTipus.MANTENIMENT,
+						"Vehicles (eCommerce)",
+						Vehicle.class,
+						Arrays.asList(
+								Transportista.class)));
 		moduleInfo = new ModuleInfo(
 				Modul.ecom,
 				Article.class.getPackage().getName(),

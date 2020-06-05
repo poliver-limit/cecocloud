@@ -303,6 +303,22 @@
         primary key (fmc_cod, fmc_idf_cod)
     );
 
+    create table tcom_fpr (
+       fpr_cod varchar2(4 char) not null,
+        fpr_idf_cod varchar2(4 char) not null,
+        fpr_usucre varchar2(255 char),
+        fpr_datcre timestamp,
+        fpr_usumod varchar2(255 char),
+        fpr_datmod timestamp,
+        fpr_ctacprcmp varchar2(10 char),
+        fpr_dricmp varchar2(2 char),
+        fpr_driprfcmp varchar2(2 char),
+        fpr_nom varchar2(30 char) not null,
+        fpr_obs varchar2(1000 char),
+        fpr_tipasicmp varchar2(2 char),
+        primary key (fpr_cod, fpr_idf_cod)
+    );
+
     create table tcom_gma (
        gma_cod varchar2(6 char) not null,
         gma_idf_cod varchar2(4 char) not null,
@@ -384,7 +400,7 @@
         lpr_des varchar2(4000 char) not null,
         lpr_fcs number(10,0) not null,
         lpr_num number(10,0),
-      	lpr_pru number(17,0) not null,
+        lpr_pru number(17,0) not null,
         lpr_imp number(15,0) not null,
         lpr_uni number(10,0) not null,
         primary key (lpr_emp_cod, lpr_pre_cod, codi, lpr_idf_cod)
@@ -421,6 +437,27 @@
         mod_datmod timestamp,
         mod_des varchar2(30 char) not null,
         primary key (mod_cod, mod_idf_cod)
+    );
+
+    create table tcom_mtr (
+       mtr_tra_cod varchar2(6 char) not null,
+        mtr_cod varchar2(10 char) not null,
+        mtr_idf_cod varchar2(4 char) not null,
+        mtr_usucre varchar2(255 char),
+        mtr_datcre timestamp,
+        mtr_usumod varchar2(255 char),
+        mtr_datmod timestamp,
+        mtr_act varchar2(1 char) not null,
+        mtr_cdu varchar2(30 char),
+        mtr_des varchar2(60 char) not null,
+        mtr_mtr001 varchar2(10 char) not null,
+        mtr_mtr002 varchar2(10 char),
+        mtr_nif varchar2(12 char),
+        mtr_obs varchar2(1000 char),
+        mtr_pesmax number(19,2),
+        mtr_tara number(19,2),
+        mtr_vehemp varchar2(1 char),
+        primary key (mtr_tra_cod, mtr_cod, mtr_idf_cod)
     );
 
     create table tcom_npg (
@@ -537,6 +574,27 @@
         pre_ser_cod varchar2(4 char),
         pre_cli_sgl varchar2(4 char),
         primary key (pre_emp_cod, pre_cod, pre_idf_cod)
+    );
+
+    create table tcom_pro (
+       pro_cod varchar2(6 char) not null,
+        pro_idf_cod varchar2(4 char) not null,
+        pro_usucre varchar2(255 char),
+        pro_datcre timestamp,
+        pro_usumod varchar2(255 char),
+        pro_datmod timestamp,
+        pro_cpo_cod varchar2(8 char) not null,
+        pro_div_cod varchar2(4 char) not null,
+        pro_dpg_cod varchar2(4 char) not null,
+        pro_blo varchar2(1 char) not null,
+        pro_dhm varchar2(1 char) not null,
+        pro_nomcom varchar2(40 char) not null,
+        pro_nomfis varchar2(40 char) not null,
+        pro_scn varchar2(1 char) not null,
+        pro_fpr_cod varchar2(4 char) not null,
+        pro_rgi_cod varchar2(2 char) not null,
+        pro_tve_cod varchar2(4 char) not null,
+        primary key (pro_cod, pro_idf_cod)
     );
 
     create table tcom_prv (
@@ -684,6 +742,31 @@
         primary key (tfc_cod, tfc_idf_cod)
     );
 
+    create table tcom_tra (
+       tra_cod varchar2(6 char) not null,
+        tra_idf_cod varchar2(4 char) not null,
+        tra_usucre varchar2(255 char),
+        tra_datcre timestamp,
+        tra_usumod varchar2(255 char),
+        tra_datmod timestamp,
+        tra_cpo_cod varchar2(8 char) not null,
+        tra_div_cod varchar2(4 char) not null,
+        tra_www varchar2(255 char),
+        tra_con varchar2(255 char),
+        tra_dom varchar2(255 char),
+        tra_eml varchar2(255 char),
+        tra_fax varchar2(255 char),
+        tra_fpa varchar2(255 char),
+        tra_hri varchar2(255 char),
+        tra_nif varchar2(12 char) not null,
+        tra_nom varchar2(30 char) not null,
+        tra_obs varchar2(255 char),
+        tra_tel varchar2(255 char),
+        tra_vehemp varchar2(255 char),
+        tra_pro_cod varchar2(6 char),
+        primary key (tra_cod, tra_idf_cod)
+    );
+
     create table tcom_tri (
        tri_cod varchar2(4 char) not null,
         tri_idf_cod varchar2(4 char) not null,
@@ -747,7 +830,7 @@
         tve_tip varchar2(1 char) not null,
         primary key (tve_cod, tve_idf_cod)
     );
-
+  
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
@@ -771,6 +854,7 @@ create index icom_emp_idf_fk on tcom_emp (emp_idf_cod);
 create index icom_fae_idf_fk on tcom_fae (fae_idf_cod);
 create index icom_far_idf_fk on tcom_far (far_idf_cod);
 create index icom_fmc_idf_fk on tcom_fmc (fmc_idf_cod);
+create index icom_fpr_idf_fk on tcom_fpr (fpr_idf_cod);
 create index icom_gma_idf_fk on tcom_gma (gma_idf_cod);
 create index icom_idi_idf_fk on tcom_idi (idi_idf_cod);
 create index icom_iva_idf_fk on tcom_iva (iva_idf_cod);
@@ -784,6 +868,7 @@ create index icom_lpr_pre_fk on tcom_lpr (lpr_idf_cod, lpr_emp_cod, lpr_pre_cod)
 create index icom_mag_idf_fk on tcom_mag (mag_idf_cod);
 create index icom_mca_idf_fk on tcom_mca (mca_idf_cod);
 create index icom_mod_idf_fk on tcom_mod (mod_idf_cod);
+create index icom_mtr_idf_fk on tcom_mtr (mtr_idf_cod);
 create index icom_npg_idf_fk on tcom_npg (npg_idf_cod);
 create index icom_pas_idf_fk on tcom_pas (pas_idf_cod);
 create index icom_ped_idf_fk on tcom_ped (ped_idf_cod);
@@ -795,6 +880,7 @@ create index icom_pmg_idf_fk on tcom_pmg (pmg_idf_cod);
     alter table tcom_pmg 
        add constraint ircom_pmg_pk unique (pmg_idf_cod, pmg_cod);
 create index icom_pre_emp_fk on tcom_pre (pre_idf_cod, pre_emp_cod);
+create index icom_pro_idf_fk on tcom_pro (pro_idf_cod);
 create index icom_prv_idf_fk on tcom_prv (prv_idf_cod);
 
     alter table tcom_prv 
@@ -810,6 +896,7 @@ create index icom_ser_idf_fk on tcom_ser (ser_idf_cod);
     alter table tcom_ser 
        add constraint ircom_ser_pk unique (ser_idf_cod, ser_cod);
 create index icom_tfc_idf_fk on tcom_tfc (tfc_idf_cod);
+create index icom_tra_idf_fk on tcom_tra (tra_idf_cod);
 create index icom_tri_idf_fk on tcom_tri (tri_idf_cod);
 create index icom_tun_idf_fk on tcom_tun (tun_idf_cod);
 create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
@@ -1089,6 +1176,11 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        foreign key (lpr_emp_cod, lpr_pre_cod, lpr_idf_cod) 
        references tcom_pre;
 
+    alter table tcom_mtr 
+       add constraint rcom_zon_tra_fk 
+       foreign key (mtr_tra_cod, mtr_idf_cod) 
+       references tcom_tra;
+
     alter table tcom_ped 
        add constraint rcom_ped_emp_fk 
        foreign key (ped_emp_cod, ped_idf_cod) 
@@ -1168,11 +1260,41 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_pre_ptv_fk 
        foreign key (pre_emp_cod, pre_ptv_cod, pre_idf_cod) 
        references tcom_ptv;
-       
+
     alter table tcom_pre 
        add constraint rcom_pre_ser_fk 
        foreign key (pre_emp_cod, pre_ser_cod, pre_idf_cod) 
        references tcom_ser;
+
+    alter table tcom_pro 
+       add constraint rcom_pro_cpo_fk 
+       foreign key (pro_cpo_cod, pro_idf_cod) 
+       references tcom_cpo;
+
+    alter table tcom_pro 
+       add constraint rcom_pro_div_fk 
+       foreign key (pro_div_cod, pro_idf_cod) 
+       references tcom_div;
+
+    alter table tcom_pro 
+       add constraint rcom_pro_dpg_fk 
+       foreign key (pro_dpg_cod, pro_idf_cod) 
+       references tcom_dpg;
+
+    alter table tcom_pro 
+       add constraint rcom_pro_fpr_fk 
+       foreign key (pro_fpr_cod, pro_idf_cod) 
+       references tcom_fpr;
+
+    alter table tcom_pro 
+       add constraint rcom_pro_rgi_fk 
+       foreign key (pro_rgi_cod, pro_idf_cod) 
+       references tcom_rgi;
+
+    alter table tcom_pro 
+       add constraint rcom_pro_tve_fk 
+       foreign key (pro_tve_cod, pro_idf_cod) 
+       references tcom_tve;
 
     alter table tcom_prv 
        add constraint rcom_prv_pas_fk 
@@ -1263,3 +1385,18 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_ser_ped_fk 
        foreign key (ser_emp_cod, ser_ped_codfac, ser_idf_cod) 
        references tcom_ped;
+
+    alter table tcom_tra 
+       add constraint rcom_tra_cpo_fk 
+       foreign key (tra_cpo_cod, tra_idf_cod) 
+       references tcom_cpo;
+
+    alter table tcom_tra 
+       add constraint rcom_tra_div_fk 
+       foreign key (tra_div_cod, tra_idf_cod) 
+       references tcom_div;
+
+    alter table tcom_tra 
+       add constraint rcom_tra_pro_fk 
+       foreign key (tra_pro_cod, tra_idf_cod) 
+       references tcom_pro;

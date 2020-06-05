@@ -1,0 +1,104 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="transportistesService"
+  (resourceLoad)="onResourceLoad($event)"  
+>
+
+	<mat-tab-group animationDuration="0">    
+	    <mat-tab label="{{'resource.transportista.field.titolGeneral'|translate}}">
+	      <ng-container *ngTemplateOutlet="transportistaTab"></ng-container>
+	    </mat-tab>	      
+	</mat-tab-group>
+	
+	<ng-template #transportistaTab>
+		<mat-card>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="dadesGeneralsTemplate"></ng-container>
+			</mat-card-content>
+		</mat-card>
+		<mat-card>
+			<mat-card-content *ngIf="modificant">
+				<ng-container *ngTemplateOutlet="vehiclesTemplate"></ng-container>
+			</mat-card-content>
+		</mat-card>
+	</ng-template>	
+	
+	<ng-template #dadesGeneralsTemplate>
+		
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="codi"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="nom"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="nif"></bng-custom-field>
+		  </div>	
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="telefon"></bng-custom-field>
+		  </div>	 
+		</div>
+			
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="domicili"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="codiPostal"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="fax"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="email"></bng-custom-field>
+		  </div>
+		 </div>
+		 
+		 <div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+			 <bng-custom-field name="adresaWeb"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+			 <bng-custom-field name="contacte"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+			<bng-custom-field name="formaPagament"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+			<bng-custom-field name="horariRepartiment"></bng-custom-field>
+		  </div>		 		 
+		 </div>	
+		 
+		 <div style="display: flex">
+		  <div style="width: 75%; padding-right: 1em">
+			<bng-custom-field name="observacions"></bng-custom-field>
+		  </div>
+		 </div>		 
+		   
+		 <div style="display: flex">
+		  <div style="width: 40%; padding-right: 1em">
+			<bng-custom-field name="divisa"></bng-custom-field>
+		  </div>	
+		  <div style="width: 40%; padding-right: 1em">
+			<bng-custom-field name="proveidor"></bng-custom-field>
+		  </div>	
+		  <div style="width: 20%; padding-right: 1em">
+			<bng-custom-field name="vehicleEmpresa"></bng-custom-field>
+		  </div>			  		 		 
+		 </div>	
+		 
+	</ng-template>
+	
+	<ng-template #vehiclesTemplate>
+		<bng-datagrid			
+			*ngIf="showVehicleGrid"	
+			[config]="vehiclesDatagridConfig"
+			[restapiService]="vehiclesService"		
+			[editable]="gridsEditables"	
+			>
+		</bng-datagrid>		
+	</ng-template>
+	
+</bng-form>

@@ -12,6 +12,7 @@
 	"app.menu.ecom.caixes": "Cajas",
 	"app.menu.ecom.empreses": "Empresas",
 	"app.menu.ecom.familiesClient": "Familias cliente",
+	"app.menu.ecom.familiesProveidor": "Familias proveedor",
 	"app.menu.ecom.clients": "Clientes",
 	"app.menu.ecom.codisPostal": "Códigos postales",
 	"app.menu.ecom.departaments": "Departamentos",
@@ -28,6 +29,7 @@
 	"app.menu.ecom.pressupostos": "Presupuestos",
 	"app.menu.ecom.pressupostosLinia": "Pressupuesto linias",
 	"app.menu.ecom.provincies": "Provincias",
+	"app.menu.ecom.proveidors": "Proveedores",
 	"app.menu.ecom.puntsVenda": "Puntos de venta",
 	"app.menu.ecom.regimsIva": "Régimenes de iva",
 	"app.menu.ecom.seriesCompra": "Series de compra",
@@ -37,6 +39,8 @@
 	"app.menu.ecom.tipusRiscos": "Tipos de riesgos",
 	"app.menu.ecom.tipusUnitats": "Tipos de unidades",
 	"app.menu.ecom.tipusVenciments": "Tipos de vencimientos",
+	"app.menu.ecom.transportistes": "Transportistas",
+	"app.menu.ecom.vehicles": "Vehículos",
 	
 	"resource.albara": "Albarán",
 	"resource.albara.plural": "Albaranes",
@@ -218,5 +222,7 @@
 	"resource.tipusUnitat.plural" : "Tipos de unidades",
 	"resource.tipusUnitat.field.codi": "Código",
 	"resource.tipusUnitat.field.descripcio": "Descripción",
-	"resource.tipusUnitat.field.tunFc": "F.C."
+	"resource.tipusUnitat.field.tunFc": "F.C.",
+	
+	"resource.transportista.field.titolGeneral": "Datos del transportista"
 }

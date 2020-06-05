@@ -90,6 +90,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/empresesEcom/empresesEcom.module').then(m => m.EmpresesEcomModule)
 				
 			}, {
+				path: 'familiesProveidor',
+				loadChildren: () => import('./pages/familiesProveidor/familiesProveidor.module').then(m => m.FamiliesProveidorModule)
+				
+			}, {
 				path: 'idiomes',
 				loadChildren: () => import('./pages/idiomes/idiomes.module').then(m => m.IdiomesModule)			
 				
@@ -127,8 +131,12 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				
 			}, {
 				path: 'pressupostosLinia',
-				loadChildren: () => import('./pages/pressupostosLinia/pressupostosLinia.module').then(m => m.PressupostosLiniaModule)	
-				
+				loadChildren: () => import('./pages/pressupostosLinia/pressupostosLinia.module').then(m => m.PressupostosLiniaModule)
+					
+			}, {
+				path: 'proveidors',
+				loadChildren: () => import('./pages/proveidors/proveidors.module').then(m => m.ProveidorsModule)
+					
 			}, {
 				path: 'provincies',
 				loadChildren: () => import('./pages/provincies/provincies.module').then(m => m.ProvinciesModule)
@@ -164,6 +172,14 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'tipusVenciments',
 				loadChildren: () => import('./pages/tipusVenciments/tipusVenciments.module').then(m => m.TipusVencimentsModule)
+				
+			}, {
+				path: 'transportistes',
+				loadChildren: () => import('./pages/transportistes/transportistes.module').then(m => m.TransportistesModule)
+				
+			}, {
+				path: 'vehicles',
+				loadChildren: () => import('./pages/vehicles/vehicles.module').then(m => m.VehiclesModule)
 				
 			}, {
 				path: '**',
@@ -237,8 +253,8 @@ export class EcomModule {
 					]
 				}, {						
 					icon: 'people',
-					label: 'Clients',
-					labelKey: 'funcionalitat.menu.clients',
+					label: 'Clients i proveidors',
+					labelKey: 'funcionalitat.menu.clients-proveidors',
 					items: [
 						{
 							icon: 'room',
@@ -252,6 +268,30 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.familiesClient',
 							route: '/ecom/familiesClient',
 							resource: 'COM_FMC'
+						}, {
+							icon: 'room',
+							label: 'Proveïdors (eCommerce)',
+							labelKey: 'app.menu.ecom.proveidors',
+							route: '/ecom/proveidors',
+							resource: 'COM_PRO'
+						}, {
+							icon: 'room',
+							label: 'Famílies proveïdor',
+							labelKey: 'app.menu.ecom.familiesProveidor',
+							route: '/ecom/familiesProveidor',
+							resource: 'COM_FPR'
+						}, {
+							icon: 'room',
+							label: 'Transportistes',
+							labelKey: 'app.menu.ecom.transportistes',
+							route: '/ecom/transportistes',
+							resource: 'COM_TRA'
+						}, {
+							icon: 'room',
+							label: 'Vehicles',
+							labelKey: 'app.menu.ecom.vehicles',
+							route: '/ecom/vehicles',
+							resource: 'COM_MTR'
 						}, {
 							icon: 'room',
 							label: 'Codis postals (eCommerce)',
