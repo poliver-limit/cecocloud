@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.groups.Default;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +35,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.ClassUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,6 +51,8 @@ import es.limit.base.boot.back.controller.ApiControllerHelper.ResourceLinksBuild
 import es.limit.base.boot.back.controller.ProfileApiController;
 import es.limit.base.boot.logic.api.dto.Authority;
 import es.limit.base.boot.logic.api.dto.Identificable;
+import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
+import es.limit.base.boot.logic.api.dto.Identificable.OnUpdate;
 import es.limit.base.boot.logic.api.dto.Profile;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField;
 import es.limit.base.boot.logic.api.dto.ProfileResourcePermissions;
@@ -90,6 +99,43 @@ public abstract class AbstractIdentificableEcomApiController<D extends Identific
 	@Autowired
 	protected ProfileService profileService;
 	private Class<?> dtoClass;
+	
+	
+	@PostMapping(
+			produces = "application/json")
+	public ResponseEntity<EntityModel<D>> create(
+			HttpServletRequest request,
+			@RequestBody @Validated({OnCreate.class, Default.class}) final D dto) {
+		log.debug("Creant entitat (" +
+				"dto=" + dto + ")");
+		completeDtoWithSession(dto, getUserSession(request), false);
+		D creat = getService().create(dto);
+		final URI uri = MvcUriComponentsBuilder.fromController(getClass()).
+				path("/{id}").
+				buildAndExpand(creat.getId()).
+				toUri();
+		return ResponseEntity.created(uri).body(
+				toResource(creat, getResourceLinks(creat.getId())));
+	}
+
+	@PutMapping(
+			value = "/{resourceId}",
+			produces = "application/json")
+	public ResponseEntity<EntityModel<D>> update(
+			HttpServletRequest request,
+			@PathVariable final ID resourceId,
+			@RequestBody @Validated({OnUpdate.class, Default.class}) final D dto) {
+		log.debug("Modificant entitat (" +
+				"resourceId=" + resourceId + ", " +
+				"dto=" + dto + ")");
+		completeDtoWithSession(dto, getUserSession(request), false);
+		D modificat = getService().update(
+				resourceId,
+				dto,
+				additionalRsqlFilter(request, getUserSession(request)));
+		return ResponseEntity.ok(
+				toResource(modificat, getResourceLinks(modificat.getId())));
+	}
 
 
 	@GetMapping(
@@ -101,7 +147,7 @@ public abstract class AbstractIdentificableEcomApiController<D extends Identific
 		log.debug("Obtenint entitat (" +
 				"resourceId=" + resourceId + ")");
 		try {
-			D dto = getService().getOne(resourceId, additionalRsqlFilter(request, getUserSession(request)));
+			D dto = getService().getOne(resourceId);
 			return ResponseEntity.ok(
 					toResource(dto, getResourceLinks(dto.getId())));
 		} catch (EntityNotFoundException ex) {

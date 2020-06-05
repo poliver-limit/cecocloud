@@ -3,7 +3,6 @@
  */
 package es.limit.cecocloud.ecom.back.ecommerce.logic.api.dto;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,89 +16,86 @@ import lombok.Setter;
  */
 @Getter @Setter
 public class PaycometNotification {	
-	
-	@Transient
-	protected String id;
-	
+		
 	@NotNull	
 	@Size(max = 255)
-	protected String orderNumber;
+	protected String Order;
 	
 	@NotNull
-	private int transactionType;
+	private int TransactionType;
 
 	@NotNull
 	@Size(max = 255)
-	private String transactionName;
+	private String TransactionName;
 	
 	@NotNull
 	@Size(max = 255)
-	private String cardCountry;
+	private String CardCountry;
 	
 	@NotNull
 	@Size(max = 255)
-	private String bankDateTime;	
+	private String BankDateTime;	
 	
 	@NotNull
 	@Size(max = 255)
-	private String response;
+	private String Response;
 	
 	@NotNull
-	private int errorID;
-	
-	@NotNull
-	@Size(max = 255)
-	private String errorDescription;
+	private int ErrorID;
 	
 	@NotNull
 	@Size(max = 255)
-	private String authCode;
+	private String ErrorDescription;
 	
 	@NotNull
 	@Size(max = 255)
-	private String currency;
-	
-	@NotNull
-	private int amount;
-	
-	@NotNull
-	private int amountEur;
+	private String AuthCode;
 	
 	@NotNull
 	@Size(max = 255)
-	private String accountCode;
+	private String Currency;
 	
 	@NotNull
-	private int tpvID;
+	private int Amount;
+	
+	@NotNull
+	private int AmountEur;
 	
 	@NotNull
 	@Size(max = 255)
-	private String concept;
+	private String AccountCode;
+	
+	@NotNull
+	private int TpvID;
+	
+	@NotNull
+	@Size(max = 255)
+	private String Concept;
 
 	@NotNull
-	private int idUser;
+	private int IdUser;
 	
 	@NotNull
 	@Size(max = 255)
-	private String tokenUser;
+	private String TokenUser;
 	
 	@NotNull
 	@Size(max = 255)
-	private String securePayment;
+	private String SecurePayment;
 	
 	@NotNull
 	@Size(max = 255)
-	private String cardBrand;
+	private String CardBrand;
 	
 	@NotNull
 	@Size(max = 255)
-	private String bicCode;
+	private String BicCode;
 	
 	@NotNull
-	private int scoring;
+	private int Scoring;
 	
 	@NotNull
 	@Size(max = 255)
-	private String notificationHash;	
+	private String NotificationHash;	
 
 }

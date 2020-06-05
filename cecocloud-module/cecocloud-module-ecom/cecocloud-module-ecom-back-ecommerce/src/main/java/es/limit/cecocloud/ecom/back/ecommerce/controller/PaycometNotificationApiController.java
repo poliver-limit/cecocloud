@@ -3,8 +3,6 @@
  */
 package es.limit.cecocloud.ecom.back.ecommerce.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +30,7 @@ public class PaycometNotificationApiController {
 	}
 
 	@PostMapping(value = "/create")
-    public void createProviderCodeHistory(@Valid @RequestBody final PaycometNotification paycometNotification) throws EntityAlreadyExistsException {
+    public void createProviderCodeHistory(@RequestBody final PaycometNotification paycometNotification) throws EntityAlreadyExistsException {
         this.paycometNotificationService.create(paycometNotification);
     }
     
