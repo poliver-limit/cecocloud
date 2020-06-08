@@ -12,6 +12,8 @@ import { IvesFormComponent } from '../ives/ives-form.component';
 import { ArticlesInformacioService } from '../articlesInformacio/articlesInformacio.service';
 import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
 
+import { FormGroup } from '@angular/forms';
+
 @Component( {
 	templateUrl: 'articles-form.html'
 } )
@@ -61,6 +63,12 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 		this.articlesTraduccioDatagridConfig.fixedFilter = 'article.codi==' + this.article.codi;							
 		this.showArticleTraduccioGrid = true;		
 	}	 
+	
+	onFormGroupChange(formGroup: FormGroup) {
+		formGroup.get('decimalsPreu').valueChanges.subscribe(val => {
+			console.log(formGroup.get("pvp"));
+		})
+	}
 
     constructor(
 		activatedRoute: ActivatedRoute,

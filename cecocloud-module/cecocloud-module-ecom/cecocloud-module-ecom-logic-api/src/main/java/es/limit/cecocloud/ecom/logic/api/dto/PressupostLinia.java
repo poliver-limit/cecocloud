@@ -6,6 +6,7 @@ package es.limit.cecocloud.ecom.logic.api.dto;
 import java.math.BigDecimal;
 
 import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -59,6 +60,7 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 	private String descripcio;
 	
 	@NotNull	
+	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
@@ -73,6 +75,7 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 	private Integer factorConversioSortides;
 	
 	@NotNull	
+	@Digits(integer = 13, fraction = 2)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,

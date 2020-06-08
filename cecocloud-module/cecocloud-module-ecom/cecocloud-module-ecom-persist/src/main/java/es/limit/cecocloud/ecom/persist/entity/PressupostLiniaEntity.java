@@ -58,9 +58,9 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.numero", column = @Column(name = "lpr_num", length = 22, precision = 10, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.unitats", column = @Column(name = "lpr_uni", length = 22, precision = 15, nullable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "lpr_des", length = 4000, nullable = false)),
-	@AttributeOverride(name = "embedded.preu", column = @Column(name = "lpr_pru", length = 22, precision = 17, nullable = false)),
+	@AttributeOverride(name = "embedded.preu", column = @Column(name = "lpr_pru", length = 22, precision = 17, scale = 2, nullable = false)),
 	@AttributeOverride(name = "embedded.factorConversioSortides", column = @Column(name = "lpr_fcs", length = 22, precision = 15, nullable = false)),
-	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "lpr_imp", length = 22, precision = 15, nullable = false)),	
+	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "lpr_imp", length = 22, precision = 15, scale = 2, nullable = false)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "lpr_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "lpr_datcre")),

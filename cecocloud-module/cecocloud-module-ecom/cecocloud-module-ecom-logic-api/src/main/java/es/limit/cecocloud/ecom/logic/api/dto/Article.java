@@ -57,28 +57,29 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String descripcio;
 	
 	@NotNull
-	@RestapiField(
+	@Digits(integer = 15, fraction = 10)
+	@RestapiField(			
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Digits(integer=12, fraction=3)
+			hiddenInLov = true,
+			sizeMax = 22)	
 	private BigDecimal pvp;
 	
 	@NotNull
-	@RestapiField(
+	@Digits(integer = 15, fraction = 10)
+	@RestapiField(			
 			hiddenInGrid = true,
-			hiddenInLov = true)
-	@Digits(integer=12, fraction=3)
-	private BigDecimal preuAmbIva;
-	
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal preuAmbIva;	
 	
 	@NotNull
 	@RestapiField(hiddenInGrid = true,
-				sizeMax=1,
+				sizeMax=22,
 				hiddenInLov = true)
 	private int decimalsPreu;
 	
 	@RestapiField(hiddenInGrid = true,
-				sizeMax=1,
+				sizeMax=22,
 				hiddenInLov = true)
 	private int decimalsPreuIva;
 	
