@@ -54,6 +54,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'articlesTraduccio',
 				loadChildren: () => import('./pages/articlesTraduccio/articlesTraduccio.module').then(m => m.ArticlesTraduccioModule)
+			
+			}, {
+				path: 'bestretes',
+				loadChildren: () => import('./pages/bestretes/bestretes.module').then(m => m.BestretesModule)
 				
 			}, {
 				path: 'caixes',
@@ -434,8 +438,13 @@ export class EcomModule {
 					label: 'Facturació',
 					labelKey: 'funcionalitat.menu.facturacio',
 					items: [
-						{
-									
+						{									
+							icon: 'room',
+							label: 'Bestretes (eCommerce)',
+							labelKey: 'app.menu.ecom.bestretes',
+							route: '/ecom/bestretes',
+							resource: 'COM_APC'
+						}, {									
 							icon: 'room',
 							label: 'Caixes (eCommerce)',
 							labelKey: 'app.menu.ecom.caixes',

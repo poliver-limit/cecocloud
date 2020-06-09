@@ -38,8 +38,8 @@ export class TransportistesFormComponent extends BngFormBaseComponent {
 			field: 'nif'
 		}, {
 			field: 'conductorHabitual'
-		}, {
-			field: 'observacions'
+//		}, {
+//			field: 'observacions'
 		}, {
 			field: 'tara'
 		}, {

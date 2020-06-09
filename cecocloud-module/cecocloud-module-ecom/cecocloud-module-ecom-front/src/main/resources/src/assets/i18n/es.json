@@ -9,6 +9,7 @@
 	"app.menu.ecom.articlesMarca": "Marcas",
 	"app.menu.ecom.articlesModel": "Modelos",
 	"app.menu.ecom.articlesTraduccio": "Traducciones",
+	"app.menu.ecom.bestretes": "Anticipos",
 	"app.menu.ecom.caixes": "Cajas",
 	"app.menu.ecom.empreses": "Empresas",
 	"app.menu.ecom.familiesClient": "Familias cliente",
@@ -114,12 +115,14 @@
 	"resource.article.field.tipusUnitat": "Tipo de unidad",
 	
 	"resource.article.field.titolGeneral": "Datos del artículo",
+	"resource.article.field.imatges": "Imágenes",
+	"resource.article.field.traduccions": "Traducciones",
 	
 	"resource.articleFamilia.field.titolGeneral": "Datos de la familia del artículo",
 	
 	"resource.articleInformacio" : "Artículo información",	
 	"resource.articleInformacio.plural" : "Artículos información",
-	"resource.articleInformacio.field.referenciaSequencial": "Referencia",
+	"resource.articleInformacio.field.referenciaSequencial": "Ref.",
 	"resource.articleInformacio.field.descripcio": "Descripción",
 	"resource.articleInformacio.field.web": "Web",
 	"resource.articleInformacio.field.tipus": "Tipo",
@@ -131,6 +134,16 @@
 	"resource.articleTraduccio.field.article": "Artículo",
 	"resource.articleTraduccio.field.idioma": "Idioma",
 	"resource.articleTraduccio.field.descripcio": "Descripción",
+	
+	"resource.bestreta" : "Anticipo",	
+	"resource.bestreta.plural" : "Anticipos",
+	"resource.bestreta.field.numero": "Número",
+	"resource.bestreta.field.dia": "Día",
+	"resource.bestreta.field.preuAmbIva": "Importe",
+	"resource.bestreta.field.est": "Est",
+	"resource.bestreta.field.descripcio": "Descripción",		
+	"resource.bestreta.field.pressupost": "Presupuesto",	
+	"resource.bestreta.field.caixa": "Caja",
 	
 	"resource.caixa" : "Caja",	
 	"resource.caixa.plural" : "Cajas",

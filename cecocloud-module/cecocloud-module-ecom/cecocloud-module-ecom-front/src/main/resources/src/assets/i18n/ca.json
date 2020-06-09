@@ -9,6 +9,7 @@
 	"app.menu.ecom.articlesMarca": "Marques",
 	"app.menu.ecom.articlesModel": "Models",
 	"app.menu.ecom.articlesTraduccio": "Traduccions",
+	"app.menu.ecom.bestretes": "Bestretes",
 	"app.menu.ecom.caixes": "Caixes",
 	"app.menu.ecom.empreses": "Empreses",
 	"app.menu.ecom.familiesClient": "Famílies client",
@@ -113,13 +114,15 @@
 	"resource.article.field.rutaInforme": "Url imatge",
 	"resource.article.field.tipusUnitat": "Tipus d'unitat",
 	
-	"resource.article.field.titolGeneral": "Dades de l'article",	
+	"resource.article.field.titolGeneral": "Dades de l'article",
+	"resource.article.field.imatges": "Imatges",
+	"resource.article.field.traduccions": "Traduccions",	
 	
 	"resource.articleFamilia.field.titolGeneral": "Dades de la família d'article",
 	
 	"resource.articleInformacio" : "Article informació",	
 	"resource.articleInformacio.plural" : "Article informació",
-	"resource.articleInformacio.field.referenciaSequencial": "Referencia",
+	"resource.articleInformacio.field.referenciaSequencial": "Ref.",
 	"resource.articleInformacio.field.descripcio": "Descripció",
 	"resource.articleInformacio.field.web": "Web",
 	"resource.articleInformacio.field.tipus": "Tipus",
@@ -131,6 +134,16 @@
 	"resource.articleTraduccio.field.article": "Article",
 	"resource.articleTraduccio.field.idioma": "Idioma",
 	"resource.articleTraduccio.field.descripcio": "Descripció",
+	
+	"resource.bestreta" : "Bestreta",	
+	"resource.bestreta.plural" : "Bestretes",
+	"resource.bestreta.field.numero": "Número",
+	"resource.bestreta.field.dia": "Dia",
+	"resource.bestreta.field.preuAmbIva": "Import",
+	"resource.bestreta.field.est": "Est",
+	"resource.bestreta.field.descripcio": "Descripció",		
+	"resource.bestreta.field.pressupost": "Pressupost",	
+	"resource.bestreta.field.caixa": "Caixa",
 	
 	"resource.caixa" : "Caixa",	
 	"resource.caixa.plural" : "Caixes",

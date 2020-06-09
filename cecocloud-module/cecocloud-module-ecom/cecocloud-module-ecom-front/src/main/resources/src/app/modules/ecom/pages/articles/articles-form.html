@@ -8,7 +8,13 @@
 	<mat-tab-group animationDuration="0">    
 	    <mat-tab label="{{'resource.article.field.titolGeneral'|translate}}">	     
 	      <ng-container *ngTemplateOutlet="articleTab"></ng-container>
+	    </mat-tab>
+	     <mat-tab [disabled]="!modificant" label="{{'resource.article.field.imatges'|translate}}">	     
+	      <ng-container *ngTemplateOutlet="imatgesTab"></ng-container>
 	    </mat-tab>	
+	     <mat-tab [disabled]="!modificant" label="{{'resource.article.field.traduccions'|translate}}">	     
+	      <ng-container *ngTemplateOutlet="traduccionsTab"></ng-container>
+	    </mat-tab>		
 	</mat-tab-group>
 	
 	<ng-template #articleTab>
@@ -16,18 +22,22 @@
 			<mat-card-content>
 				<ng-container *ngTemplateOutlet="dadesGeneralsTemplate"></ng-container>
 			</mat-card-content>
-		</mat-card>	
+		</mat-card>		
+	</ng-template>
+	<ng-template #imatgesTab>
 		<mat-card>
 			<mat-card-content *ngIf="modificant">
 				<ng-container *ngTemplateOutlet="articlesInformacioTemplate"></ng-container>
 			</mat-card-content>
 		</mat-card>
+	</ng-template>
+	<ng-template #traduccionsTab>
 		<mat-card>
 			<mat-card-content *ngIf="modificant">
 				<ng-container *ngTemplateOutlet="articlesTraduccioTemplate"></ng-container>
 			</mat-card-content>
 		</mat-card>
-	</ng-template>	
+	</ng-template>
 	
 	<ng-template #dadesGeneralsTemplate>
 		<div style="display: flex">
@@ -76,10 +86,12 @@
 		</div>
 		
 		<div style="display: flex">
-		<div style="width: 75%; padding-right: 1em">
+		  <div style="width: 100%; padding-right: 1em">
 		    <bng-custom-field name="descripcio"></bng-custom-field>
 		  </div>
-		  <div style="width: 25%; padding-right: 1em">
+		</div>
+		<div style="display: flex">  
+		  <div style="width: 100%; padding-right: 1em">
 		    <bng-custom-field name="rutaInforme"></bng-custom-field>
 		  </div>
 		</div>
