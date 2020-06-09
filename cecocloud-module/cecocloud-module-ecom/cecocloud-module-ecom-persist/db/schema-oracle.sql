@@ -68,6 +68,23 @@
         primary key (alb_emp_cod, alb_numdoc, alb_idf_cod)
     );
 
+    create table tcom_apc (
+       apc_emp_cod varchar2(4 char) not null,
+        apc_num number(10,0) not null,
+        apc_pre_cod number(10,0) not null,
+        apc_idf_cod varchar2(4 char) not null,
+        apc_usucre varchar2(255 char),
+        apc_datcre timestamp,
+        apc_usumod varchar2(255 char),
+        apc_datmod timestamp,
+        apc_cxa_cod varchar2(4 char),
+        apc_des varchar2(30 char),
+        apc_dia timestamp not null,
+        apc_est number(10,0) not null,
+        apc_imp number(15,2) not null,
+        primary key (apc_emp_cod, apc_num, apc_pre_cod, apc_idf_cod)
+    );
+
     create table tcom_arm (
        arm_art_cod varchar2(4 char) not null,
         arm_mag_cod varchar2(4 char) not null,
@@ -92,8 +109,8 @@
         art_decpruiva number(10,0),
         art_des varchar2(2000 char) not null,
         art_descur varchar2(60 char),
-        art_pruiva number(17,5) not null,
-        art_pvp number(17,5) not null,
+        art_pruiva number(25,10) not null,
+        art_pvp number(25,10) not null,
         art_rutinf varchar2(1000 char) not null,
         art_far_cod varchar2(6 char) not null,
         art_gma_cod varchar2(6 char),
@@ -400,8 +417,8 @@
         lpr_des varchar2(4000 char) not null,
         lpr_fcs number(10,0) not null,
         lpr_num number(10,0),
-        lpr_pru number(17,0) not null,
-        lpr_imp number(15,0) not null,
+        lpr_pru number(17,2) not null,
+        lpr_imp number(15,2) not null,
         lpr_uni number(10,0) not null,
         primary key (lpr_emp_cod, lpr_pre_cod, codi, lpr_idf_cod)
     );
@@ -830,9 +847,12 @@
         tve_tip varchar2(1 char) not null,
         primary key (tve_cod, tve_idf_cod)
     );
-  
+
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
+create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
+create index icom_apc_emp_fk on tcom_apc (apc_emp_cod);
+create index icom_apc_pre_fk on tcom_apc (apc_pre_cod);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
 
     alter table tcom_arm 
@@ -990,6 +1010,21 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_alb_ser_fk 
        foreign key (alb_emp_cod, alb_ser_cod, alb_idf_cod) 
        references tcom_ser;
+
+    alter table tcom_apc 
+       add constraint rcom_apc_cxa_fk 
+       foreign key (apc_emp_cod, apc_cxa_cod, apc_idf_cod) 
+       references tcom_cxa;
+
+    alter table tcom_apc 
+       add constraint rcom_apc_emp_fk 
+       foreign key (apc_emp_cod, apc_idf_cod) 
+       references tcom_emp;
+
+    alter table tcom_apc 
+       add constraint rcom_apc_pre_fk 
+       foreign key (apc_emp_cod, apc_pre_cod, apc_idf_cod) 
+       references tcom_pre;
 
     alter table tcom_arm 
        add constraint rcom_arm_art_fk 

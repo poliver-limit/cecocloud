@@ -12,12 +12,18 @@ import { IvesFormComponent } from '../ives/ives-form.component';
 import { ArticlesInformacioService } from '../articlesInformacio/articlesInformacio.service';
 import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
 
+import { IvesService } from '../ives/ives.service';
+
 import { FormGroup } from '@angular/forms';
+
+//import { Subscription } from 'rxjs/Subscription';
 
 @Component( {
 	templateUrl: 'articles-form.html'
 } )
 export class ArticlesFormComponent extends BngFormBaseComponent {
+	
+	iva: any;
 	
 	public modificant: boolean = false;
 	
@@ -33,24 +39,31 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 	articlesInformacioDatagridConfig: BngDatagridConfig = {
 		mode: 'form',		
 		columns: [ {
-			field: 'referenciaSequencial'
+			field: 'referenciaSequencial',
+			width: 10	
 		}, {
-			field: 'descripcio'
+			field: 'descripcio',
+			width: 120		
 		}, {
-			field: 'web'
+			field: 'rutaInforme',
+			width: 85
 		}, {
-			field: 'rutaInforme'
+			field: 'web',
+			width: 1
 		}]
 	};
 	
 	articlesTraduccioDatagridConfig: BngDatagridConfig = {
 		mode: 'form',		
 		columns: [ {
-			field: 'idioma'
+			field: 'idioma',
+			width: 60
 		}, {
-			field: 'descripcio'
+			field: 'descripcio',
+			width: 160
 		}]
 	};   
+	
 	
 	//	 Aconseguim que només es llistin els ArticlesFamiliaEmpresa de l'ArticleFamilia que estem editant
 	showArticleInformacioGrid : boolean = false;
@@ -62,19 +75,108 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 		this.showArticleInformacioGrid = true;
 		this.articlesTraduccioDatagridConfig.fixedFilter = 'article.codi==' + this.article.codi;							
 		this.showArticleTraduccioGrid = true;		
-	}	 
+	}
+		
+	subscriptionDecimalsPreu: any;
+	subscriptionDecimalsPreuIva: any;
+	subscriptionIva: any;
+	subscriptionPvp: any;
+	subscriptionPreuAmbIva: any;	
 	
-	onFormGroupChange(formGroup: FormGroup) {
-		formGroup.get('decimalsPreu').valueChanges.subscribe(val => {
-			console.log(formGroup.get("pvp"));
+	eventsActive: boolean = false;	
+	
+	onFormGroupChange(formGroup: FormGroup) {	
+		
+		if (this.eventsActive) return;
+		
+		this.eventsActive = true;
+		this.subscriptionDecimalsPreu = formGroup.get('decimalsPreu').valueChanges.subscribe(val => {			
+			if (this.eventsActive) this.unsubscribeAllEvents(formGroup);				
+			var fixedPvp = formGroup.get("fixedPvp");			
+			var pvp = parseFloat(fixedPvp.value).toFixed(val);
+			formGroup.get("pvp").setValue(pvp);				
+			if (!this.eventsActive) this.onFormGroupChange(formGroup);	
 		})
+		
+		this.subscriptionDecimalsPreuIva = formGroup.get('decimalsPreuIva').valueChanges.subscribe(val => {			
+			if (this.eventsActive) this.unsubscribeAllEvents(formGroup);
+			var fixedPreuAmbIva = formGroup.get("fixedPreuAmbIva");			
+			var preuAmbIva = parseFloat(fixedPreuAmbIva.value).toFixed(val);
+			formGroup.get("preuAmbIva").setValue(preuAmbIva);			
+			if (!this.eventsActive) this.onFormGroupChange(formGroup);	
+		})
+		
+		
+		this.subscriptionIva = formGroup.get('iva').valueChanges.subscribe(val => {			
+			if (this.eventsActive) this.unsubscribeAllEvents(formGroup);
+			var ivaValue = formGroup.get('iva').value;
+			if (ivaValue!=null && ivaValue !=undefined) {				
+				var ivaId = ivaValue.id;
+				this.ivesService.get(ivaId).subscribe(iva => {						
+        			this.iva = iva;					
+					var ivaPercentatge = this.iva.percentatgeIva;					
+					formGroup.get("ivaValue").setValue(ivaPercentatge);					
+					var pvp = formGroup.get("fixedPvp").value;					
+					var decimalsPreuIva = formGroup.get("decimalsPreuIva").value;					
+					var preuAmbIva = pvp*(1+(ivaPercentatge/100));					
+					formGroup.get("fixedPreuAmbIva").setValue(preuAmbIva);					
+					var preuAmbIvaDecimals = preuAmbIva.toFixed(decimalsPreuIva);					
+					formGroup.get("preuAmbIva").setValue(preuAmbIvaDecimals);					
+					if (!this.eventsActive) this.onFormGroupChange(formGroup);					
+				})
+				if (!this.eventsActive) this.onFormGroupChange(formGroup);				
+			}			
+			if (!this.eventsActive) this.onFormGroupChange(formGroup);			
+		})
+		
+		this.subscriptionPvp = formGroup.get('pvp').valueChanges.subscribe(val => {			
+			if (this.eventsActive) this.unsubscribeAllEvents(formGroup);			
+			var ivaValue = formGroup.get("ivaValue").value;			
+			var decimalsPreuIva = formGroup.get("decimalsPreuIva").value;			
+			var preuAmbIva = val*(1+(ivaValue/100));			
+			formGroup.get("fixedPreuAmbIva").setValue(preuAmbIva);
+			var preuAmbIvaDecimals = preuAmbIva.toFixed(decimalsPreuIva);
+			formGroup.get("preuAmbIva").setValue(preuAmbIvaDecimals);			
+			formGroup.get("fixedPvp").setValue(val);
+			var decimalsPreu = formGroup.get("decimalsPreu").value;
+			var pvp = parseFloat(val).toFixed(decimalsPreu);			
+			formGroup.get("pvp").setValue(pvp);						
+			if (!this.eventsActive) this.onFormGroupChange(formGroup);
+		})
+		
+		this.subscriptionPreuAmbIva = formGroup.get('preuAmbIva').valueChanges.subscribe(val => {		
+			
+			if (this.eventsActive) this.unsubscribeAllEvents(formGroup);			
+			var ivaValue = formGroup.get("ivaValue").value;			
+			var decimalsPreu = formGroup.get("decimalsPreu").value;
+			var preuSenseIva = val/(1+(ivaValue/100));
+			formGroup.get("fixedPvp").setValue(preuSenseIva);
+			var preuSenseIvaDecimals = preuSenseIva.toFixed(decimalsPreu);
+			formGroup.get("pvp").setValue(preuSenseIvaDecimals);			
+			formGroup.get("fixedPreuAmbIva").setValue(val);
+			var decimalsPreuIva = formGroup.get("decimalsPreuIva").value;
+			var preuAmbIva = parseFloat(val).toFixed(decimalsPreuIva);			
+			formGroup.get("preuAmbIva").setValue(preuAmbIva);						
+			if (!this.eventsActive) this.onFormGroupChange(formGroup);	
+		})	
+		
+	}
+	
+	unsubscribeAllEvents(formGroup: FormGroup) {
+		this.subscriptionDecimalsPreu.unsubscribe();
+		this.subscriptionDecimalsPreuIva.unsubscribe();
+		this.subscriptionIva.unsubscribe();
+		this.subscriptionPvp.unsubscribe();
+		this.subscriptionPreuAmbIva.unsubscribe();
+		this.eventsActive = false;					
 	}
 
     constructor(
 		activatedRoute: ActivatedRoute,
         public articlesService: ArticlesService,
 		public articlesInformacioService: ArticlesInformacioService,
-		public articlesTraduccioService: ArticlesTraduccioService) {
+		public articlesTraduccioService: ArticlesTraduccioService,
+		public ivesService: IvesService) {
 			
 		super(activatedRoute);
 		activatedRoute.params.subscribe((params) => {

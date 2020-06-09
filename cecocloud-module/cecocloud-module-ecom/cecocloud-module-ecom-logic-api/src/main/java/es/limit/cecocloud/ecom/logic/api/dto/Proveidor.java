@@ -65,7 +65,8 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInLov=true)	
+			hiddenInLov=true,
+			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
 	@Transient
@@ -79,21 +80,24 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInLov=true)	
+			hiddenInLov=true,
+			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInLov=true)	
+			hiddenInLov=true,
+			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
-			hiddenInLov=true)	
+			hiddenInLov=true,
+			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
 	
 	@Transient

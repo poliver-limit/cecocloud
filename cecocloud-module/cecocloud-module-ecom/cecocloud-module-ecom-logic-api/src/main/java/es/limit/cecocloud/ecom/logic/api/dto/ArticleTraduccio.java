@@ -33,9 +33,10 @@ import lombok.Setter;
 public class ArticleTraduccio extends AbstractIdentificableWithIdentificador<ArticleTraduccioPk> {
 
 	@NotNull
-	@Size(max = 2000)
+//	@Size(max = 2000)
+	@Size(max = 76) // Per adaptacio pantalla
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
+//			type = RestapiFieldType.TEXTAREA, // Per adaptacio pantalla
 			hiddenInGrid = false,
 			hiddenInLov = true)
 	private String descripcio;

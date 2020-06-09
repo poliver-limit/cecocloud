@@ -45,7 +45,8 @@ public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 	
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 36) // Per adaptacio pantalla
 	private String descripcio;
 	
 	@NotNull

@@ -44,22 +44,26 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@Size(max = 60)
-	@RestapiField(hiddenInGrid = true,
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptació pantalla
+	@RestapiField(
+			hiddenInGrid = false,
 			hiddenInLov = true)
 	private String descripcioCurta;
 	
 	@NotNull
-	@Size(max = 2000)
+//	@Size(max = 2000)
+	@Size(max = 100) // Per adaptació pantalla
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			includeInQuickFilter = true)
+//			type = RestapiFieldType.TEXTAREA, // Per adaptació pantalla 
+			includeInQuickFilter = true,
+			hiddenInGrid = true)
 	private String descripcio;
 	
 	@NotNull
 	@Digits(integer = 15, fraction = 10)
 	@RestapiField(			
-			hiddenInGrid = true,
+			hiddenInGrid = false,
 			hiddenInLov = true,
 			sizeMax = 22)	
 	private BigDecimal pvp;
@@ -73,12 +77,14 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private BigDecimal preuAmbIva;	
 	
 	@NotNull
-	@RestapiField(hiddenInGrid = true,
+	@RestapiField(
+				hiddenInGrid = true,
 				sizeMax=22,
 				hiddenInLov = true)
 	private int decimalsPreu;
 	
-	@RestapiField(hiddenInGrid = true,
+	@RestapiField(
+				hiddenInGrid = true,
 				sizeMax=22,
 				hiddenInLov = true)
 	private int decimalsPreuIva;
@@ -149,7 +155,8 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
-			hiddenInLov = true)	
+			hiddenInLov = true,
+			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient	
@@ -172,10 +179,12 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 //	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;	
 	
 	@NotNull
-	@Size(max = 2000)
+//	@Size(max = 2000)
+	@Size(max = 100) // Per adaptació pantalla 
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
-			includeInQuickFilter = true)
+//			type = RestapiFieldType.TEXTAREA, // Per adaptació pantalla 
+			includeInQuickFilter = true,
+			hiddenInGrid = true)
 	private String rutaInforme;
 	
 //	@Transient
@@ -184,10 +193,29 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 //			hiddenInForm = false)
 //	private BigDecimal preuSenseIva;
 	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private BigDecimal fixedPvp;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private BigDecimal fixedPreuAmbIva;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private BigDecimal ivaValue;
+	
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
-			hiddenInLov = true)	
+			hiddenInLov = true,
+			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<TipusUnitat, WithIdentificadorAndCodiPk<String>> tipusUnitat;
 
 }

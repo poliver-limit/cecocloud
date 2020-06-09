@@ -68,6 +68,23 @@
         primary key (alb_emp_cod, alb_numdoc, alb_idf_cod)
     );
 
+    create table tcom_apc (
+       apc_emp_cod varchar(4) not null,
+        apc_num int4 not null,
+        apc_pre_cod int4 not null,
+        apc_idf_cod varchar(4) not null,
+        apc_usucre varchar(255),
+        apc_datcre timestamp,
+        apc_usumod varchar(255),
+        apc_datmod timestamp,
+        apc_cxa_cod varchar(4),
+        apc_des varchar(30),
+        apc_dia timestamp not null,
+        apc_est int4 not null,
+        apc_imp numeric(15, 2) not null,
+        primary key (apc_emp_cod, apc_num, apc_pre_cod, apc_idf_cod)
+    );
+
     create table tcom_arm (
        arm_art_cod varchar(4) not null,
         arm_mag_cod varchar(4) not null,
@@ -92,8 +109,8 @@
         art_decpruiva int4,
         art_des varchar(2000) not null,
         art_descur varchar(60),
-        art_pruiva numeric(17, 5) not null,
-        art_pvp numeric(17, 5) not null,
+        art_pruiva numeric(25, 10) not null,
+        art_pvp numeric(25, 10) not null,
         art_rutinf varchar(1000) not null,
         art_far_cod varchar(6) not null,
         art_gma_cod varchar(6),
@@ -400,8 +417,8 @@
         lpr_des varchar(4000) not null,
         lpr_fcs int4 not null,
         lpr_num int4,
-        lpr_pru numeric(17, 0) not null,
-        lpr_imp numeric(15, 0) not null,
+        lpr_pru numeric(17, 2) not null,
+        lpr_imp numeric(15, 2) not null,
         lpr_uni int4 not null,
         primary key (lpr_emp_cod, lpr_pre_cod, codi, lpr_idf_cod)
     );
@@ -833,6 +850,9 @@
 
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
+create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
+create index icom_apc_emp_fk on tcom_apc (apc_emp_cod);
+create index icom_apc_pre_fk on tcom_apc (apc_pre_cod);
 create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
 
     alter table tcom_arm 
@@ -990,6 +1010,21 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_alb_ser_fk 
        foreign key (alb_emp_cod, alb_ser_cod, alb_idf_cod) 
        references tcom_ser;
+
+    alter table tcom_apc 
+       add constraint rcom_apc_cxa_fk 
+       foreign key (apc_emp_cod, apc_cxa_cod, apc_idf_cod) 
+       references tcom_cxa;
+
+    alter table tcom_apc 
+       add constraint rcom_apc_emp_fk 
+       foreign key (apc_emp_cod, apc_idf_cod) 
+       references tcom_emp;
+
+    alter table tcom_apc 
+       add constraint rcom_apc_pre_fk 
+       foreign key (apc_emp_cod, apc_pre_cod, apc_idf_cod) 
+       references tcom_pre;
 
     alter table tcom_arm 
        add constraint rcom_arm_art_fk 

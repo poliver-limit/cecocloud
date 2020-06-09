@@ -37,7 +37,8 @@ public class Transportista extends AbstractIdentificableWithIdentificadorAndCodi
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)
-	@Size(max = 30)
+//	@Size(max = 30)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String nom;
 	
 	@NotNull
@@ -48,47 +49,56 @@ public class Transportista extends AbstractIdentificableWithIdentificadorAndCodi
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String domicili;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 20) // Per adaptacio pantalla
 	private String telefon;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String fax;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String email;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String adresaWeb;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String contacte;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String formaPagament;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@Size(max = 60)
+//	@Size(max = 60)
+	@Size(max = 24) // Per adaptacio pantalla
 	private String horariRepartiment;
 	
-	@Size(max = 1000)
+//	@Size(max = 1000)
+	@Size(max = 100) // Per adaptacio pantalla
 	@RestapiField(
-			type = RestapiFieldType.TEXTAREA,
+//			type = RestapiFieldType.TEXTAREA, // Per adaptacio pantalla
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String observacions;

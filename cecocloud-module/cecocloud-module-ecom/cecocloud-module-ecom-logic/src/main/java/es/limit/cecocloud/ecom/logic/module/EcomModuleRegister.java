@@ -19,6 +19,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleModel;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleTraduccio;
+import es.limit.cecocloud.ecom.logic.api.dto.Bestreta;
 import es.limit.cecocloud.ecom.logic.api.dto.Iva;
 import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
 import es.limit.cecocloud.ecom.logic.api.dto.Caixa;
@@ -182,6 +183,17 @@ public class EcomModuleRegister {
 						Arrays.asList(
 								Article.class,
 								Idioma.class)));
+		funcionalitats.put(
+				"COM_APC",
+				new FuncionalitatCodiFontImpl(
+						"COM_APC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Bestretes (eCommerce)",
+						Bestreta.class,
+						Arrays.asList(
+								Empresa.class,
+								Pressupost.class,
+								Caixa.class)));
 		funcionalitats.put(
 				"COM_CXA",
 				new FuncionalitatCodiFontImpl(
