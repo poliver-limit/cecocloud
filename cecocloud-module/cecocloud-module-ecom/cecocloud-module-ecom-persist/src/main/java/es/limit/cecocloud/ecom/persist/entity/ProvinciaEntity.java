@@ -50,6 +50,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "prv_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "prv_nom", length = 30, nullable = false)),
 	
+	@AttributeOverride(name = "embedded.importRepartiment", column = @Column(name = "prv_irp", nullable = false)),
+	@AttributeOverride(name = "embedded.importMinimRepartiment", column = @Column(name = "prv_imr", nullable = false)),
+	@AttributeOverride(name = "embedded.importCompraNoPreuRepartiment", column = @Column(name = "prv_cmpnrp", nullable = false)),
+	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "prv_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "prv_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "prv_usumod")),

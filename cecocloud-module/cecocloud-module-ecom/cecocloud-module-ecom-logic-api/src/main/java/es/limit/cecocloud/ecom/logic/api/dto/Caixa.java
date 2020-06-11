@@ -32,7 +32,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"codi","empresa"}, groups = { OnCreate.class })
 public class Caixa extends AbstractIdentificableWithIdentificador<CaixaPk> {
 
 	@NotNull(groups = {OnCreate.class})

@@ -44,6 +44,7 @@ import lombok.Setter;
 				@Index(name = "ircom_cpo_pk", columnList = "cpo_idf_cod,cpo_cod", unique = true)
 		}
 )
+
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "cpo_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "cpo_cod", length = 8)),
@@ -51,8 +52,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "cpo_pob", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.municipi", column = @Column(name = "cpo_mun", length = 30)),
 	@AttributeOverride(name = "embedded.importRepartiment", column = @Column(name = "cpo_irp", nullable = false)),
-	@AttributeOverride(name = "embedded.importMinimRepartiment", column = @Column(name = "iva_imr", nullable = false)),
-	@AttributeOverride(name = "embedded.importCompraNoPreuRepartiment", column = @Column(name = "iva_cmpnrp", nullable = false)),
+	@AttributeOverride(name = "embedded.importMinimRepartiment", column = @Column(name = "cpo_imr", nullable = false)),
+	@AttributeOverride(name = "embedded.importCompraNoPreuRepartiment", column = @Column(name = "cpo_cmpnrp", nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "cpo_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "cpo_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "cpo_usumod")),

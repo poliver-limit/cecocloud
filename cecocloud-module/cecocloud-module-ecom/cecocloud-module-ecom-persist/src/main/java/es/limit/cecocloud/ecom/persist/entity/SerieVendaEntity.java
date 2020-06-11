@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.ecom.persist.entity;
 
+import java.util.regex.Pattern;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -10,16 +12,22 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda.SerieVendaPk;
+import es.limit.cecocloud.ecom.persist.entity.SerieVendaEntity.SerieVendaEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.ecom.persist.repository.SerieVendaRepository;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -93,6 +101,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_ser_idf_fk"))
 })
+@EntityListeners({SerieVendaEntityListener.class})
 public class SerieVendaEntity extends AbstractWithIdentificadorAuditableEntity<SerieVenda, SerieVendaPk> {
 
 	@Embedded
@@ -218,6 +227,48 @@ public class SerieVendaEntity extends AbstractWithIdentificadorAuditableEntity<S
 	public void updateDepartament (DepartamentEntity departament) {
 		this.departament = departament;
 		if (departament!=null) this.departamentCodi = departament.getEmbedded().getCodi();
+	}
+	
+	public static class SerieVendaEntityListener {
+		@PrePersist
+		public void calcular(SerieVendaEntity serieVenda) {
+			String codi = serieVenda.getEmbedded().getCodi();
+			if (codi == null || codi.isEmpty()) {
+				int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
+						serieVenda.getId().getIdentificadorCodi(),
+						"TCOM_SER",
+						new PkBuilder<SerieVendaPk>() {
+							@Override
+							public SerieVendaPk build(int seq) {
+								return new SerieVendaPk(serieVenda.getId().getIdentificadorCodi(), serieVenda.getId().getEmpresaCodi(), Integer.toString(seq));
+							}
+						},
+						EntityListenerUtil.getBean(SerieVendaRepository.class));
+				String seqST = addZeros(seq, 2);
+				serieVenda.getEmbedded().setCodi(seqST);
+				serieVenda.getId().setCodi(seqST);
+			} else {
+				if (isNumeric(codi)) {					
+					codi = addZeros(Integer.parseInt(codi), 2);
+					serieVenda.getEmbedded().setCodi(codi);
+					serieVenda.getId().setCodi(codi);
+				}
+			}
+		}
+	}
+	
+	private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+	 
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false; 
+	    }
+	    return pattern.matcher(strNum).matches();
+	}
+	
+	public static String addZeros(int codi, int tamanyCodi) {
+		String codiSt = String.format("%02d",codi).toString();
+		return codiSt;
 	}
 
 }

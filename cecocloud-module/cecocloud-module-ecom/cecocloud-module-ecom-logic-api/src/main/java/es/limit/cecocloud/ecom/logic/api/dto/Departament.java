@@ -30,7 +30,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"codi","empresa"}, groups = { OnCreate.class })
 public class Departament extends AbstractIdentificableWithIdentificador<DepartamentPk> {
 
 	@NotNull(groups = {OnCreate.class})

@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.ecom.persist.entity;
 
+import java.util.regex.Pattern;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -10,18 +12,24 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
 
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.ecom.persist.entity.FamiliaClientEntity.FamiliaClientEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.ecom.persist.repository.FamiliaClientRepository;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -59,7 +67,7 @@ import lombok.Setter;
 					@JoinColumn(name = "fmc_idf_cod", insertable = false, updatable = false) }, 
 			foreignKey = @ForeignKey(name = "rcom_fmc_idf_fk"))
 })
-
+@EntityListeners({FamiliaClientEntityListener.class})
 public class FamiliaClientEntity
 		extends AbstractWithIdentificadorAuditableEntity<FamiliaClient, WithIdentificadorAndCodiPk<String>> {
 
@@ -105,5 +113,48 @@ public class FamiliaClientEntity
 			this.tipusRiscCodi = tipusRisc.getId().getCodi();
 		}
 	}
+	
+	public static class FamiliaClientEntityListener {
+		@PrePersist
+		public void calcular(FamiliaClientEntity familiaClient) {
+			String codi = familiaClient.getEmbedded().getCodi();
+			if (codi == null || codi.isEmpty()) {
+				int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
+						familiaClient.getId().getIdentificadorCodi(),
+						"TCOM_FMC",
+						new PkBuilder<WithIdentificadorAndCodiPk<String>>() {
+							@Override
+							public WithIdentificadorAndCodiPk<String> build(int seq) {
+								return new WithIdentificadorAndCodiPk<String>(familiaClient.getId().getIdentificadorCodi(), Integer.toString(seq));
+							}
+						},
+						EntityListenerUtil.getBean(FamiliaClientRepository.class));
+				String seqST = addZeros(seq, 4);
+				familiaClient.getEmbedded().setCodi(seqST);
+				familiaClient.getId().setCodi(seqST);
+			} else {
+				if (isNumeric(codi)) {					
+					codi = addZeros(Integer.parseInt(codi), 4);
+					familiaClient.getEmbedded().setCodi(codi);
+					familiaClient.getId().setCodi(codi);
+				}
+			}
+		}
+	}
+	
+	private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+	 
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false; 
+	    }
+	    return pattern.matcher(strNum).matches();
+	}
+	
+	public static String addZeros(int codi, int tamanyCodi) {
+		String codiSt = String.format("%04d",codi).toString();
+		return codiSt;
+	}
+
 
 }

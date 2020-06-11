@@ -39,7 +39,7 @@ import lombok.Setter;
 		name = "tcom_pmg",
 		indexes = {
 				@Index(name = "icom_pmg_idf_fk", columnList = "pmg_idf_cod"),
-				@Index(name = "ircom_pmg_pk", columnList = "pmg_idf_cod,pmg_cod", unique = true)
+				@Index(name = "ircom_pmg_pk", columnList = "pmg_idf_cod,pmg_cod,pmg_mag_cod", unique = true)
 		}
 )
 @AttributeOverrides({

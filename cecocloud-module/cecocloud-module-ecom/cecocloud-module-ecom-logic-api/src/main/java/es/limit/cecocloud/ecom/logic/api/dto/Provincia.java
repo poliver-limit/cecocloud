@@ -3,7 +3,10 @@
  */
 package es.limit.cecocloud.ecom.logic.api.dto;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,7 +33,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"codi","pais"}, groups = { OnCreate.class })
 public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaPk> {
 
 	@Size(max = 3)
@@ -54,6 +57,28 @@ public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaP
 			disabledForUpdate = true,
 			disabledForCreate = false)
 	private GenericReferenceWithCompositePk<Pais, WithIdentificadorAndCodiPk<String>> pais;
+	
+	
+	@NotNull
+	@Digits(integer=2, fraction=3)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal importRepartiment;
+	
+	@NotNull
+	@Digits(integer=2, fraction=3)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal importMinimRepartiment;
+	
+	@NotNull
+	@Digits(integer=2, fraction=3)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal importCompraNoPreuRepartiment;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

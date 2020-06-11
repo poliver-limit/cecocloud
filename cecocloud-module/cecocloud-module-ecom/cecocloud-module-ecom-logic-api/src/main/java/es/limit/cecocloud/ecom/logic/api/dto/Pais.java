@@ -3,7 +3,10 @@
  */
 package es.limit.cecocloud.ecom.logic.api.dto;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Convert;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -59,7 +62,28 @@ public class Pais extends AbstractIdentificableWithIdentificadorAndCodi<String> 
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	private String codiso002;
+	private String codiso002;	
+	
+	@NotNull
+	@Digits(integer=2, fraction=3)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal importRepartiment;
+	
+	@NotNull
+	@Digits(integer=2, fraction=3)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal importMinimRepartiment;
+	
+	@NotNull
+	@Digits(integer=2, fraction=3)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private BigDecimal importCompraNoPreuRepartiment;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)

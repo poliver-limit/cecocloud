@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.ecom.persist.entity;
 
+import java.util.regex.Pattern;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -11,16 +13,22 @@ import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda.PuntVendaPk;
+import es.limit.cecocloud.ecom.persist.entity.PuntVendaEntity.PuntVendaEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.ecom.persist.repository.PuntVendaRepository;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -77,6 +85,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_ptv_idf_fk"))
 })
+@EntityListeners({PuntVendaEntityListener.class})
 public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<PuntVenda, PuntVendaPk> {
 
 	@Embedded
@@ -268,6 +277,48 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 		if (divisaSecundaria != null) {
 			this.divisaSecundariaCodi = divisaSecundaria.getEmbedded().getCodi();
 		}
+	}
+	
+	public static class PuntVendaEntityListener {
+		@PrePersist
+		public void calcular(PuntVendaEntity puntVenda) {
+			String codi = puntVenda.getEmbedded().getCodi();
+			if (codi == null || codi.isEmpty()) {
+				int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
+						puntVenda.getId().getIdentificadorCodi(),
+						"TCOM_PTV",
+						new PkBuilder<PuntVendaPk>() {
+							@Override
+							public PuntVendaPk build(int seq) {
+								return new PuntVendaPk(puntVenda.getId().getIdentificadorCodi(), puntVenda.getId().getEmpresaCodi(), Integer.toString(seq));
+							}
+						},
+						EntityListenerUtil.getBean(PuntVendaRepository.class));
+				String seqST = addZeros(seq, 4);
+				puntVenda.getEmbedded().setCodi(seqST);
+				puntVenda.getId().setCodi(seqST);
+			} else {
+				if (isNumeric(codi)) {					
+					codi = addZeros(Integer.parseInt(codi), 4);
+					puntVenda.getEmbedded().setCodi(codi);
+					puntVenda.getId().setCodi(codi);
+				}
+			}
+		}
+	}
+	
+	private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+	 
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false; 
+	    }
+	    return pattern.matcher(strNum).matches();
+	}
+	
+	public static String addZeros(int codi, int tamanyCodi) {
+		String codiSt = String.format("%04d",codi).toString();
+		return codiSt;
 	}
 
 }

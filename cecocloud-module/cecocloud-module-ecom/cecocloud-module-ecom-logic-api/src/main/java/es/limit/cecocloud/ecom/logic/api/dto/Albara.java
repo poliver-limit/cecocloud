@@ -50,7 +50,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "numeroDocument"
 )
-@PrimaryKeyNotExists(fields = "numeroDocument", groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"numeroDocument","empresa"}, groups = { OnCreate.class })
 public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 
 	@NotNull(groups = { OnCreate.class })

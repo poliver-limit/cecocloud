@@ -23,11 +23,14 @@ import es.limit.cecocloud.ecom.logic.api.dto.Bestreta;
 import es.limit.cecocloud.ecom.logic.api.dto.Iva;
 import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
 import es.limit.cecocloud.ecom.logic.api.dto.Caixa;
+import es.limit.cecocloud.ecom.logic.api.dto.CaixaMoviment;
 import es.limit.cecocloud.ecom.logic.api.dto.Client;
 import es.limit.cecocloud.ecom.logic.api.dto.Departament;
 import es.limit.cecocloud.ecom.logic.api.dto.Divisa;
 import es.limit.cecocloud.ecom.logic.api.dto.DocumentPagamentCobrament;
 import es.limit.cecocloud.ecom.logic.api.dto.Empresa;
+import es.limit.cecocloud.ecom.logic.api.dto.Factura;
+import es.limit.cecocloud.ecom.logic.api.dto.FacturaBase;
 import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusRisc;
@@ -204,6 +207,20 @@ public class EcomModuleRegister {
 						Arrays.asList(
 								Empresa.class)));
 		funcionalitats.put(
+				"COM_MDC",
+				new FuncionalitatCodiFontImpl(
+						"COM_MDC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Moviments de caixa (eCommerce)",
+						CaixaMoviment.class,
+						Arrays.asList(
+								Empresa.class,
+								Caixa.class,
+								Operari.class,
+								Divisa.class,
+								DocumentPagamentCobrament.class,
+								Pressupost.class)));
+		funcionalitats.put(
 				"COM_CPO",
 				new FuncionalitatCodiFontImpl(
 						"COM_CPO",
@@ -275,6 +292,41 @@ public class EcomModuleRegister {
 						"Naturaleses del pagament/cobrament (eCommerce)",
 						NaturalesaPagamentCobrament.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"COM_FAC",
+				new FuncionalitatCodiFontImpl(
+						"COM_FAC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Factures (eCommerce)",
+						Factura.class,
+						Arrays.asList(
+								Empresa.class,
+								SerieVenda.class,
+								Client.class,
+								CodiPostal.class,
+								Divisa.class,
+								RegimIva.class,
+								TipusVenciment.class,
+								Pressupost.class,
+								PaisNif.class,
+								TipusAdresa.class,
+								Idioma.class,
+								Pais.class,
+								Provincia.class,
+								DocumentPagamentCobrament.class,
+								PuntVenda.class)));
+		funcionalitats.put(
+				"COM_BFC",
+				new FuncionalitatCodiFontImpl(
+						"COM_BFC",
+						FuncionalitatTipus.MANTENIMENT,
+						"Bases factura (eCommerce)",
+						FacturaBase.class,
+						Arrays.asList(
+								Empresa.class,
+								SerieVenda.class,
+								Factura.class,
+								Iva.class)));
 		funcionalitats.put(
 				"COM_FPR",
 				new FuncionalitatCodiFontImpl(

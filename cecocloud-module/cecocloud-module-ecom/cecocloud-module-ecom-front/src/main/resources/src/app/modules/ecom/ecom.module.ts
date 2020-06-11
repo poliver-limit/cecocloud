@@ -64,6 +64,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/caixes/caixes.module').then(m => m.CaixesModule)
 				
 			}, {
+				path: 'caixesMoviment',
+				loadChildren: () => import('./pages/caixesMoviment/caixesMoviment.module').then(m => m.CaixesMovimentModule)
+				
+			}, {
 				path: 'clients',
 				loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
 				
@@ -88,10 +92,19 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				
 			}, {
 				path: 'naturalesesPagamentCobrament',
-				loadChildren: () => import('./pages/naturalesesPagamentCobrament/naturalesesPagamentCobrament.module').then(m => m.NaturalesesPagamentCobramentModule)		
+				loadChildren: () => import('./pages/naturalesesPagamentCobrament/naturalesesPagamentCobrament.module').then(m => m.NaturalesesPagamentCobramentModule)
+						
 			}, {
 				path: 'empreses',
 				loadChildren: () => import('./pages/empresesEcom/empresesEcom.module').then(m => m.EmpresesEcomModule)
+			
+			}, {
+				path: 'factures',
+				loadChildren: () => import('./pages/factures/factures.module').then(m => m.FacturesModule)
+				
+			}, {
+				path: 'facturesBase',
+				loadChildren: () => import('./pages/facturesBase/facturesBase.module').then(m => m.FacturesBaseModule)
 				
 			}, {
 				path: 'familiesProveidor',
@@ -434,6 +447,25 @@ export class EcomModule {
 						}
 					]
 				}, {
+					icon: 'notes',
+					label: 'Factures',
+					labelKey: 'funcionalitat.menu.factures',
+					items: [
+						{						
+							icon: 'room',
+							label: 'Factures (eCommerce)',
+							labelKey: 'app.menu.ecom.factures',
+							route: '/ecom/factures',
+							resource: 'COM_FAC'
+						}, {						
+							icon: 'room',
+							label: 'Bases de Factura (eCommerce)',
+							labelKey: 'app.menu.ecom.facturesBase',
+							route: '/ecom/facturesBase',
+							resource: 'COM_BFC'
+						}
+					]
+				}, {
 					icon: 'donut_small',
 					label: 'Facturació',
 					labelKey: 'funcionalitat.menu.facturacio',
@@ -450,6 +482,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.caixes',
 							route: '/ecom/caixes',
 							resource: 'COM_CXA'
+						}, {									
+							icon: 'room',
+							label: 'Moviments de caixa (eCommerce)',
+							labelKey: 'app.menu.ecom.caixesMoviment',
+							route: '/ecom/caixesMoviment',
+							resource: 'COM_MDC'
 						}, {
 									
 							icon: 'room',

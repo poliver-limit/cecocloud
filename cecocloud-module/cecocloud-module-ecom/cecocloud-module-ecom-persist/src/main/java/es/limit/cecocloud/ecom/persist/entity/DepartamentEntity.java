@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.ecom.persist.entity;
 
+import java.util.regex.Pattern;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -10,16 +12,22 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Departament;
 import es.limit.cecocloud.ecom.logic.api.dto.Departament.DepartamentPk;
+import es.limit.cecocloud.ecom.persist.entity.DepartamentEntity.DepartamentEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.ecom.persist.repository.DepartamentRepository;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,6 +70,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_dep_idf_fk"))
 })
+@EntityListeners({DepartamentEntityListener.class})
 public class DepartamentEntity extends AbstractWithIdentificadorAuditableEntity<Departament, DepartamentPk> {
 
 	@Embedded
@@ -93,6 +102,48 @@ public class DepartamentEntity extends AbstractWithIdentificadorAuditableEntity<
 	@Override
 	public void update(Departament embedded) {
 		this.embedded = embedded;
+	}
+	
+	public static class DepartamentEntityListener {
+		@PrePersist
+		public void calcular(DepartamentEntity departament) {
+			String codi = departament.getEmbedded().getCodi();
+			if (codi == null || codi.isEmpty()) {
+				int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
+						departament.getId().getIdentificadorCodi(),
+						"TCOM_DEP",
+						new PkBuilder<DepartamentPk>() {
+							@Override
+							public DepartamentPk build(int seq) {
+								return new DepartamentPk(departament.getId().getIdentificadorCodi(), departament.getId().getEmpresaCodi(),Integer.toString(seq));
+							}
+						},
+						EntityListenerUtil.getBean(DepartamentRepository.class));
+				String seqST = addZeros(seq, 4);
+				departament.getEmbedded().setCodi(seqST);
+				departament.getId().setCodi(seqST);
+			} else {
+				if (isNumeric(codi)) {					
+					codi = addZeros(Integer.parseInt(codi), 4);
+					departament.getEmbedded().setCodi(codi);
+					departament.getId().setCodi(codi);
+				}
+			}
+		}
+	}
+	
+	private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+	 
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false; 
+	    }
+	    return pattern.matcher(strNum).matches();
+	}
+	
+	public static String addZeros(int codi, int tamanyCodi) {
+		String codiSt = String.format("%04d",codi).toString();
+		return codiSt;
 	}
 
 }

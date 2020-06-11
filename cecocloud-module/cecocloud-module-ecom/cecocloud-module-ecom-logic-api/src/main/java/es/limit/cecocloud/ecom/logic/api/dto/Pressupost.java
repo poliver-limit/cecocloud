@@ -47,7 +47,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"codi","empresa"}, groups = { OnCreate.class })
 public class Pressupost extends AbstractIdentificableWithIdentificador<PressupostPk> {
 
 	@NotNull(groups = { OnCreate.class })	

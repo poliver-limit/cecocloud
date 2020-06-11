@@ -31,7 +31,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "codi"
 )
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"codi","magatzem"}, groups = { OnCreate.class })
 public class MagatzemPeriode extends AbstractIdentificableWithIdentificador<MagatzemPeriodePk> {
 
 	@NotNull
