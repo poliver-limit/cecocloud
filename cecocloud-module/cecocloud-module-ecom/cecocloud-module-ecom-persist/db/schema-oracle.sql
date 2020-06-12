@@ -940,6 +940,47 @@
         primary key (tve_cod, tve_idf_cod)
     );
 
+    create table tcom_vcx (
+       vcx_cxa_cod varchar2(4 char) not null,
+        vcx_mdc_num number(10,0) not null,
+        vcx_emp_cod varchar2(4 char) not null,
+        vcx_mov number(10,0) not null,
+        vcx_idf_cod varchar2(4 char) not null,
+        vcx_usucre varchar2(255 char),
+        vcx_datcre timestamp,
+        vcx_usumod varchar2(255 char),
+        vcx_datmod timestamp,
+        vcx_cmpvcpseq number(10,0),
+        vcx_imp number(15,3) not null,
+        vcx_fac_cls varchar2(1 char),
+        vcx_fac_num number(10,0),
+        vcx_ser_cod varchar2(2 char),
+        vcx_ven_num number(10,0),
+        primary key (vcx_cxa_cod, vcx_mdc_num, vcx_emp_cod, vcx_mov, vcx_idf_cod)
+    );
+
+    create table tcom_ven (
+       ven_emp_cod varchar2(4 char) not null,
+        ven_fac_cls varchar2(1 char) not null,
+        ven_fac_num number(10,0) not null,
+        ven_num number(10,0) not null,
+        ven_ser_cod varchar2(2 char) not null,
+        ven_idf_cod varchar2(4 char) not null,
+        ven_usucre varchar2(255 char),
+        ven_datcre timestamp,
+        ven_usumod varchar2(255 char),
+        ven_datmod timestamp,
+        ven_div_cod varchar2(4 char) not null,
+        ven_cmpvenseq number(10,0),
+        ven_cntenv number(10,0),
+        ven_dia timestamp not null,
+        ven_diaini timestamp,
+        ven_imp number(15,3) not null,
+        ven_retgar varchar2(1 char),
+        ven_valdiveur number(15,8) not null,
+        primary key (ven_emp_cod, ven_fac_cls, ven_fac_num, ven_num, ven_ser_cod, ven_idf_cod)
+    );
+
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
@@ -1020,6 +1061,14 @@ create index icom_tra_idf_fk on tcom_tra (tra_idf_cod);
 create index icom_tri_idf_fk on tcom_tri (tri_idf_cod);
 create index icom_tun_idf_fk on tcom_tun (tun_idf_cod);
 create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
+create index icom_vcx_idf_fk on tcom_vcx (vcx_idf_cod);
+create index icom_vcx_cxa_fk on tcom_vcx (vcx_cxa_cod);
+create index icom_vcx_emp_fk on tcom_vcx (vcx_emp_cod);
+create index icom_vcx_mdc_fk on tcom_vcx (vcx_mdc_num);
+create index icom_ven_idf_fk on tcom_ven (ven_idf_cod);
+create index icom_ven_emp_fk on tcom_ven (ven_emp_cod);
+create index icom_ven_ser_fk on tcom_ven (ven_ser_cod);
+create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
 
     alter table tcom_ain 
        add constraint rges_ain_art_fk 
@@ -1660,3 +1709,53 @@ create index icom_tve_idf_fk on tcom_tve (tve_idf_cod);
        add constraint rcom_tra_pro_fk 
        foreign key (tra_pro_cod, tra_idf_cod) 
        references tcom_pro;
+
+    alter table tcom_vcx 
+       add constraint rcom_vcx_cxa_fk 
+       foreign key (vcx_emp_cod, vcx_cxa_cod, vcx_idf_cod) 
+       references tcom_cxa;
+
+    alter table tcom_vcx 
+       add constraint rcom_vcx_mdc_fk 
+       foreign key (vcx_cxa_cod, vcx_emp_cod, vcx_mdc_num, vcx_idf_cod) 
+       references tcom_mdc;
+
+    alter table tcom_vcx 
+       add constraint rcom_vcx_emp_fk 
+       foreign key (vcx_emp_cod, vcx_idf_cod) 
+       references tcom_emp;
+
+    alter table tcom_vcx 
+       add constraint rcom_bfc_fac_fk 
+       foreign key (vcx_fac_cls, vcx_emp_cod, vcx_fac_num, vcx_ser_cod, vcx_idf_cod) 
+       references tcom_fac;
+
+    alter table tcom_vcx 
+       add constraint rcom_vcx_ser_fk 
+       foreign key (vcx_emp_cod, vcx_ser_cod, vcx_idf_cod) 
+       references tcom_ser;
+
+    alter table tcom_vcx 
+       add constraint rcom_vcx_ven_fk 
+       foreign key (vcx_emp_cod, vcx_fac_cls, vcx_fac_num, vcx_ven_num, vcx_ser_cod, vcx_idf_cod) 
+       references tcom_ven;
+
+    alter table tcom_ven 
+       add constraint rcom_ven_div_fk 
+       foreign key (ven_div_cod, ven_idf_cod) 
+       references tcom_div;
+
+    alter table tcom_ven 
+       add constraint rcom_ven_emp_fk 
+       foreign key (ven_emp_cod, ven_idf_cod) 
+       references tcom_emp;
+
+    alter table tcom_ven 
+       add constraint rcom_ven_fac_fk 
+       foreign key (ven_fac_cls, ven_emp_cod, ven_fac_num, ven_ser_cod, ven_idf_cod) 
+       references tcom_fac;
+
+    alter table tcom_ven 
+       add constraint rcom_ven_ser_fk 
+       foreign key (ven_emp_cod, ven_ser_cod, ven_idf_cod) 
+       references tcom_ser;

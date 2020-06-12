@@ -386,6 +386,8 @@
 	"funcionalitat.COM_TRA": "Transportistes",
 	"funcionalitat.COM_TRI": "Tipus de risc",
 	"funcionalitat.COM_TUN": "Tipus d'unitats",
-	"funcionalitat.COM_TVE": "Tipus de venciments"	
+	"funcionalitat.COM_TVE": "Tipus de venciments",
+	"funcionalitat.COM_VEN": "Venciments",
+	"funcionalitat.COM_VCX": "Venciments pagats"				
 	
 }

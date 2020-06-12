@@ -379,6 +379,7 @@
 	"funcionalitat.COM_TRA": "Transportistas",
 	"funcionalitat.COM_TRI": "Tipos de riesgo",	
 	"funcionalitat.COM_TUN": "Tipos de unidades",
-	"funcionalitat.COM_TVE": "Tipos de vencimientos"
-	
+	"funcionalitat.COM_TVE": "Tipos de vencimientos",
+	"funcionalitat.COM_VEN": "Vencimientos",
+	"funcionalitat.COM_VCX": "Vencimientos pagados"
 }

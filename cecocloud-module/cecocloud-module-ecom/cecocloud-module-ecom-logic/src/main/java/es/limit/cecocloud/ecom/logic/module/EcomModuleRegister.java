@@ -56,6 +56,8 @@ import es.limit.cecocloud.ecom.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.ecom.logic.api.dto.Transportista;
 import es.limit.cecocloud.ecom.logic.api.dto.Vehicle;
+import es.limit.cecocloud.ecom.logic.api.dto.Venciment;
+import es.limit.cecocloud.ecom.logic.api.dto.VencimentPagat;
 import es.limit.cecocloud.ecom.logic.service.EmpresaIdentificadorSyncServiceImpl;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
@@ -553,6 +555,32 @@ public class EcomModuleRegister {
 						Vehicle.class,
 						Arrays.asList(
 								Transportista.class)));
+		funcionalitats.put(
+				"COM_VEN",
+				new FuncionalitatCodiFontImpl(
+						"COM_VEN",
+						FuncionalitatTipus.MANTENIMENT,
+						"Venciments (eCommerce)",
+						Venciment.class,
+						Arrays.asList(
+								Empresa.class,
+								SerieVenda.class,
+								Factura.class,
+								Divisa.class)));
+		funcionalitats.put(
+				"COM_VCX",
+				new FuncionalitatCodiFontImpl(
+						"COM_VCX",
+						FuncionalitatTipus.MANTENIMENT,
+						"Venciments pagats (eCommerce)",
+						VencimentPagat.class,
+						Arrays.asList(
+								Empresa.class,
+								SerieVenda.class,
+								Factura.class,
+								Caixa.class,
+								CaixaMoviment.class,
+								Venciment.class)));
 		moduleInfo = new ModuleInfo(
 				Modul.ecom,
 				Article.class.getPackage().getName(),
