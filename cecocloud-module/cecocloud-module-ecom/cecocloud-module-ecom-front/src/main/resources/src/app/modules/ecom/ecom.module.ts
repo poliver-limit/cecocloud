@@ -199,6 +199,14 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/vehicles/vehicles.module').then(m => m.VehiclesModule)
 				
 			}, {
+				path: 'venciments',
+				loadChildren: () => import('./pages/venciments/venciments.module').then(m => m.VencimentsModule)
+				
+			}, {
+				path: 'vencimentsPagat',
+				loadChildren: () => import('./pages/vencimentsPagat/vencimentsPagat.module').then(m => m.VencimentsPagatModule)
+				
+			}, {
 				path: '**',
 				redirectTo: ''
 			}]
@@ -537,6 +545,18 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.tipusVenciments',
 							route: '/ecom/tipusVenciments',
 							resource: 'COM_TVE'
+						}, {						
+							icon: 'room',
+							label: 'Venciments (eCommerce)',
+							labelKey: 'app.menu.ecom.venciments',
+							route: '/ecom/venciments',
+							resource: 'COM_VEN'
+						}, {						
+							icon: 'room',
+							label: 'Venciments pagats (eCommerce)',
+							labelKey: 'app.menu.ecom.vencimentsPagat',
+							route: '/ecom/vencimentsPagat',
+							resource: 'COM_VCX'
 						}						
 					]
 				}

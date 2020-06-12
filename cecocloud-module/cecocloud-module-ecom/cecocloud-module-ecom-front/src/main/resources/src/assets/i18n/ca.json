@@ -45,6 +45,8 @@
 	"app.menu.ecom.tipusVenciments": "Tipus de venciments",
 	"app.menu.ecom.transportistes": "Transportistes",
 	"app.menu.ecom.vehicles": "Vehicles",
+	"app.menu.ecom.venciments": "Venciments",
+	"app.menu.ecom.vencimentsPagat": "Venciments pagats",
 	
 	"resource.albara": "Albarà",
 	"resource.albara.plural": "Albarans",
@@ -316,6 +318,34 @@
 	"resource.tipusUnitat.field.codi": "Codi",
 	"resource.tipusUnitat.field.descripcio": "Descripció",
 	"resource.tipusUnitat.field.tunFc": "F.C.",
+	
+	"resource.venciment" : "Venciment",	
+	"resource.venciment.plural" : "Venciments",
+	"resource.venciment.field.numero": "Número",
+ 	"resource.venciment.field.facturaNumero": "Número de factura",
+	"resource.venciment.field.facturaClasse": "Classe de factura", 
+	"resource.venciment.field.dia": "Dia",
+	"resource.venciment.field.preuAmbIva": "Import",
+	"resource.venciment.field.valorDivisaEuros": "Valor divisa en euros",
+	"resource.venciment.field.cmpvenseq": "Cmpvenseq",
+	"resource.venciment.field.diaInicial": "Dia inicial",
+	"resource.venciment.field.retencioGarantia": "Retenció garantia",
+	"resource.venciment.field.cntenv": "Cntenv",
+	"resource.venciment.field.serieVenda": "Sèrie de venda",
+	"resource.venciment.field.factura": "Factura",
+	"resource.venciment.field.divisa": "Divisa",	
+	
+	"resource.vencimentPagat" : "Venciment pagat",	
+	"resource.vencimentPagat.plural" : "Venciments pagats",
+	"resource.vencimentPagat.field.moviment": "Moviment",
+	"resource.vencimentPagat.field.preuAmbIva": "Import",
+	"resource.vencimentPagat.field.facturaClasse": "Classe de factura",
+	"resource.vencimentPagat.field.cmpvcpseq": "Cmpvcpseq",
+	"resource.vencimentPagat.field.caixa": "Caixa",
+	"resource.vencimentPagat.field.caixaMoviment": "Moviment de caixa",
+ 	"resource.vencimentPagat.field.serieVenda": "Sèrie de venda",
+	"resource.vencimentPagat.field.factura": "Factura",
+	"resource.vencimentPagat.field.venciment": "Venciment",
 	
 	"resource.transportista.field.titolGeneral": "Dades del transportista"
 	
