@@ -218,6 +218,9 @@
 	"resource.factura.field.email": "eMail",
 	"resource.factura.field.emailFactura": "eMail factura",
 	
+	"resource.factura.field.titolGeneral": "Datos de la factura",
+	"resource.factura.field.titolDadesClient": "Datos del cliente",
+	
 	"resource.facturaBase" : "Base de factura",	
 	"resource.facturaBase.plural" : "Bases de factura",
 	"resource.facturaBase.field.facturaNumero": "Número de factura",	
