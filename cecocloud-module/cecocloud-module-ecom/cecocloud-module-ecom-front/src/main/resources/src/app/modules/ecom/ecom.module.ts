@@ -127,6 +127,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/magatzems/magatzems.module').then(m => m.MagatzemsModule)	
 				
 			}, {
+				path: 'magatzemsArticle',
+				loadChildren: () => import('./pages/magatzemsArticle/magatzemsArticle.module').then(m => m.MagatzemsArticleModule)
+				
+			}, {
 				path: 'magatzemsPeriode',
 				loadChildren: () => import('./pages/magatzemsPeriode/magatzemsPeriode.module').then(m => m.MagatzemsPeriodeModule)
 				
@@ -384,6 +388,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.magatzems',
 							route: '/ecom/magatzems',
 							resource: 'COM_MAG'
+						}, {						
+							icon: 'room',
+							label: 'Magatzems-Articles (eCommerce)',
+							labelKey: 'app.menu.ecom.magatzemsArticle',
+							route: '/ecom/magatzemsArticle',
+							resource: 'COM_MAR'
 						}, {						
 							icon: 'room',
 							label: 'Magatzems període (eCommerce)',

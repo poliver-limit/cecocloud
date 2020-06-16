@@ -39,6 +39,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaProveidor;
 import es.limit.cecocloud.ecom.logic.api.dto.Magatzem;
+import es.limit.cecocloud.ecom.logic.api.dto.MagatzemArticle;
 import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.ecom.logic.api.dto.NaturalesaPagamentCobrament;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
@@ -52,6 +53,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.RegimIva;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieCompra;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda;
+import es.limit.cecocloud.ecom.logic.api.dto.Stock;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusFacturacio;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.ecom.logic.api.dto.Transportista;
@@ -368,7 +370,17 @@ public class EcomModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Magatzems (eCommerce)",
 						Magatzem.class,
-						Arrays.asList()));
+						Arrays.asList()));		
+		funcionalitats.put(
+				"COM_MAR",
+				new FuncionalitatCodiFontImpl(
+						"COM_MAR",
+						FuncionalitatTipus.MANTENIMENT,
+						"Magatzems-Articles (eCommerce)",
+						MagatzemArticle.class,
+						Arrays.asList(
+								Magatzem.class,
+								Article.class)));
 		funcionalitats.put(
 				"COM_PMG",
 				new FuncionalitatCodiFontImpl(
@@ -495,6 +507,18 @@ public class EcomModuleRegister {
 								PeuDocument.class,
 								Magatzem.class,
 								Departament.class)));
+//		Pendent de afegir funcionalitat
+//		funcionalitats.put(
+//				"COM_STO",
+//				new FuncionalitatCodiFontImpl(
+//						"COM_STO",
+//						FuncionalitatTipus.MANTENIMENT,
+//						"Stocks (eCommerce)",
+//						Stock.class,
+//						Arrays.asList(
+//								Magatzem.class,
+//								MagatzemPeriode.class,
+//								Article.class)));
 		funcionalitats.put(
 				"COM_TIPADR",
 				new FuncionalitatCodiFontImpl(

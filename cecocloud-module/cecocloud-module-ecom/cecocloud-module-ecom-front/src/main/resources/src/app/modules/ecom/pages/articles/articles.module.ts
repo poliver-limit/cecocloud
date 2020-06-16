@@ -16,6 +16,7 @@ import { ArticlesFormModule } from './articles-form.module';
 
 import { ArticlesInformacioService } from '../articlesInformacio/articlesInformacio.service';
 import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
+import { MagatzemsArticleService } from '../magatzemsArticle/magatzemsArticle.service';
 
 @NgModule( {
     imports: [
@@ -42,7 +43,8 @@ import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio
         ArticlesService,
 
 		ArticlesInformacioService,
-		ArticlesTraduccioService
+		ArticlesTraduccioService,
+		MagatzemsArticleService
     ]
 } )
 export class ArticlesModule {}

@@ -13,9 +13,12 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import es.limit.cecocloud.ecom.logic.api.dto.Magatzem;
@@ -52,6 +55,18 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "mag_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "mag_nom", length = 30, nullable = false)),
 	
+	@AttributeOverride(name = "embedded.domicili", column = @Column(name = "mag_dom", length = 60, nullable = false)),	
+	@AttributeOverride(name = "embedded.valoracioInventarisTraspassos", column = @Column(name = "mag_valinvtrs", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "mag_tel", length = 60)),
+	@AttributeOverride(name = "embedded.fax", column = @Column(name = "mag_fax", length = 60)),
+	@AttributeOverride(name = "embedded.email", column = @Column(name = "mag_eml", length = 60)),
+	@AttributeOverride(name = "embedded.responsable", column = @Column(name = "mag_res", length = 30)),
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "mag_obs", length = 1000)),
+	@AttributeOverride(name = "embedded.tipusSeientComptable", column = @Column(name = "mag_tipasicmp", length = 2)),
+	@AttributeOverride(name = "embedded.diariComptableTraspassos", column = @Column(name = "mag_dricmp1", length = 2)),
+	@AttributeOverride(name = "embedded.diariComptableTraspassos2", column = @Column(name = "mag_dricmp2", length = 2)),
+	@AttributeOverride(name = "embedded.compteTraspassos", column = @Column(name = "mag_ctetrs", length = 10)),	
+	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "mag_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "mag_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "mag_usumod")),
@@ -70,18 +85,44 @@ public class MagatzemEntity extends AbstractWithIdentificadorAuditableEntity<Mag
 
 	@Embedded
 	protected Magatzem embedded;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "mag_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "mag_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "mag_cpo_cod_fk"))
+	private CodiPostalEntity codiPostal;
+	@Column(name = "mag_cpo_cod", length = 8, nullable = false)
+	private String codiPostalCodi;
 
-
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "mag_idf_cod", referencedColumnName = "div_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "mag_div_cod", referencedColumnName = "div_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "rcom_mag_div_fk"))
+	private DivisaEntity divisa;
+	@Column(name = "mag_div_cod", length = 4, nullable = false)
+	private String divisaCodi;
+	
 	@Builder
 	public MagatzemEntity(
 			WithIdentificadorAndCodiPk<String> pk,
 			Magatzem embedded,
-			IdentificadorEntity identificador) {
+			IdentificadorEntity identificador,
+			CodiPostalEntity codiPostal,
+			DivisaEntity divisa) {
 		
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;		
+		this.identificador = identificador;
+		
+		this.updateCodiPostal (codiPostal);
+		this.updateDivisa (divisa);
 	
 	}
 
@@ -89,6 +130,20 @@ public class MagatzemEntity extends AbstractWithIdentificadorAuditableEntity<Mag
 	public void update(Magatzem embedded) {
 		
 		this.embedded = embedded;
+	}
+	
+	public void updateCodiPostal(CodiPostalEntity codiPostal) {
+		this.codiPostal = codiPostal;
+		if (codiPostal != null) {
+			this.codiPostalCodi = codiPostal.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateDivisa(DivisaEntity divisa) {
+		this.divisa = divisa;
+		if (divisa != null) {
+			this.divisaCodi = divisa.getEmbedded().getCodi();
+		}
 	}
 	
 	public static class MagatzemEntityListener {

@@ -11,6 +11,7 @@ import { IvesFormComponent } from '../ives/ives-form.component';
 // Per a generar manteniments de tipus 1
 import { ArticlesInformacioService } from '../articlesInformacio/articlesInformacio.service';
 import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
+import { MagatzemsArticleService } from '../magatzemsArticle/magatzemsArticle.service';
 
 import { IvesService } from '../ives/ives.service';
 
@@ -62,19 +63,39 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 			field: 'descripcio',
 			width: 160
 		}]
+	}; 
+	
+	magatzemsArticleDatagridConfig: BngDatagridConfig = {
+		mode: 'form',		
+		columns: [ {
+			field: 'magatzemCodi',
+			width: 10	
+		}, {
+			field: 'ubicacio'
+		}, {
+			field: 'stockMinim'		
+		}, {
+			field: 'stockMaxim'	
+		}, {
+			field: 'unitats'					
+		}]
 	};   
 	
 	
 	//	 Aconseguim que només es llistin els ArticlesFamiliaEmpresa de l'ArticleFamilia que estem editant
 	showArticleInformacioGrid : boolean = false;
 	showArticleTraduccioGrid : boolean = false;
+	showMagatzemArticleGrid : boolean = false;
+	
 	article: any;	
 	onResourceLoad(article: any) {		
 		this.article = article;		
 		this.articlesInformacioDatagridConfig.fixedFilter = 'article.codi==' + this.article.codi;
 		this.showArticleInformacioGrid = true;
 		this.articlesTraduccioDatagridConfig.fixedFilter = 'article.codi==' + this.article.codi;							
-		this.showArticleTraduccioGrid = true;		
+		this.showArticleTraduccioGrid = true;	
+		this.magatzemsArticleDatagridConfig.fixedFilter = 'article.codi==' + this.article.codi;							
+		this.showMagatzemArticleGrid = true;		
 	}
 		
 	subscriptionDecimalsPreu: any;
@@ -176,6 +197,7 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
         public articlesService: ArticlesService,
 		public articlesInformacioService: ArticlesInformacioService,
 		public articlesTraduccioService: ArticlesTraduccioService,
+		public magatzemsArticleService: MagatzemsArticleService,
 		public ivesService: IvesService) {
 			
 		super(activatedRoute);
@@ -191,6 +213,13 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 				};		
 				
 				this.articlesTraduccioDatagridConfig.fixedRowData = {
+					article: {
+						id: params.id,
+						description: undefined
+					}
+				};	
+				
+				this.magatzemsArticleDatagridConfig.fixedRowData = {
 					article: {
 						id: params.id,
 						description: undefined

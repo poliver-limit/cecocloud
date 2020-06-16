@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ArticlesInformacioService } from '../articlesInformacio/articlesInformacio.service';
 import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
+import { MagatzemsArticleService } from '../magatzemsArticle/magatzemsArticle.service';
 
 import { ArticlesFormComponent } from './articles-form.component';
 import { ArticlesService } from './articles.service';
@@ -31,7 +32,8 @@ import { ArticlesService } from './articles.service';
         ArticlesService,
 
 		ArticlesInformacioService,
-		ArticlesTraduccioService		
+		ArticlesTraduccioService,
+		MagatzemsArticleService	
     ]
 } )
 export class ArticlesFormModule {}

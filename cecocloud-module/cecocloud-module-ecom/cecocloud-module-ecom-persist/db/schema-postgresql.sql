@@ -64,7 +64,7 @@
         alb_prv_cod varchar(4),
         alb_ptv_cod varchar(4) not null,
         alb_ser_cod varchar(2),
-        alb_cli_sgl varchar(4),
+        alb_cli_sgl varchar(2),
         primary key (alb_emp_cod, alb_numdoc, alb_idf_cod)
     );
 
@@ -83,18 +83,6 @@
         apc_est int4 not null,
         apc_imp numeric(15, 2) not null,
         primary key (apc_emp_cod, apc_num, apc_pre_cod, apc_idf_cod)
-    );
-
-    create table tcom_arm (
-       arm_art_cod varchar(4) not null,
-        arm_mag_cod varchar(4) not null,
-        arm_idf_cod varchar(4) not null,
-        arm_usucre varchar(255),
-        arm_datcre timestamp,
-        arm_usumod varchar(255),
-        arm_datmod timestamp,
-        arm_stk int4,
-        primary key (arm_art_cod, arm_mag_cod, arm_idf_cod)
     );
 
     create table tcom_art (
@@ -341,7 +329,7 @@
         fac_prv_cod varchar(4),
         fac_ptv_cod varchar(4),
         fac_rgi_cod varchar(2) not null,
-        fac_cli_sgl varchar(4),
+        fac_cli_sgl varchar(2),
         fac_tve_cod varchar(4) not null,
         primary key (fac_cls, fac_emp_cod, fac_num, fac_ser_cod, fac_idf_cod)
     );
@@ -494,8 +482,47 @@
         mag_datcre timestamp,
         mag_usumod varchar(255),
         mag_datmod timestamp,
+        mag_cpo_cod varchar(8) not null,
+        mag_div_cod varchar(4) not null,
+        mag_ctetrs varchar(10),
+        mag_dricmp1 varchar(2),
+        mag_dricmp2 varchar(2),
+        mag_dom varchar(60) not null,
+        mag_eml varchar(60),
+        mag_fax varchar(60),
         mag_nom varchar(30) not null,
+        mag_obs varchar(1000),
+        mag_res varchar(30),
+        mag_tel varchar(60),
+        mag_tipasicmp varchar(2),
+        mag_valinvtrs varchar(1) not null,
         primary key (mag_cod, mag_idf_cod)
+    );
+
+    create table tcom_mar (
+       mar_art_cod varchar(15) not null,
+        mar_mag_cod varchar(4) not null,
+        mar_idf_cod varchar(4) not null,
+        mar_usucre varchar(255),
+        mar_datcre timestamp,
+        mar_usumod varchar(255),
+        mar_datmod timestamp,
+        mar_cosmag numeric(15, 2),
+        mar_ultdiaivt timestamp,
+        mar_diaultcpl timestamp,
+        mar_demmeanu numeric(17, 3),
+        mar_diaultcpr timestamp,
+        mar_diaespcom int4,
+        mar_loteco numeric(15, 3),
+        mar_pruexicpl numeric(17, 5),
+        mar_prucosexi numeric(17, 5),
+        mar_stomax numeric(15, 3),
+        mar_stomin numeric(15, 3),
+        mar_stosgr numeric(15, 3),
+        mar_llc varchar(30),
+        mar_ultprucos numeric(17, 5),
+        mar_ultprucpl numeric(17, 5),
+        primary key (mar_art_cod, mar_mag_cod, mar_idf_cod)
     );
 
     create table tcom_mca (
@@ -678,7 +705,7 @@
         pre_prv_cod varchar(4),
         pre_ptv_cod varchar(4),
         pre_ser_cod varchar(4),
-        pre_cli_sgl varchar(4),
+        pre_cli_sgl varchar(2),
         primary key (pre_emp_cod, pre_cod, pre_idf_cod)
     );
 
@@ -833,8 +860,79 @@
         primary key (ser_emp_cod, ser_cod, ser_idf_cod)
     );
 
+    create table tcom_sto (
+       STO_TIP varchar(1) not null,
+        sto_art_cod varchar(15) not null,
+        sto_mag_cod varchar(4) not null,
+        sto_pmg_cod varchar(22) not null,
+        sto_idf_cod varchar(4) not null,
+        sto_usucre varchar(255),
+        sto_datcre timestamp,
+        sto_usumod varchar(255),
+        sto_datmod timestamp,
+        STO_UNICOMCLI numeric(15, 3),
+        STO_UNICPRPRO numeric(15, 3),
+        STO_UNICPRPRO002 numeric(15, 3),
+        STO_UNIDEF numeric(15, 3),
+        STO_UNIDEF002 numeric(15, 3),
+        STO_UNIDIPCLI numeric(15, 3),
+        STO_UNIDIPPRO numeric(15, 3),
+        STO_UNIENTALTMAG numeric(15, 3),
+        STO_UNIENTALTMAG002 numeric(15, 3),
+        STO_UNIENTINV numeric(15, 3),
+        STO_UNIENTINV002 numeric(15, 3),
+        STO_UNIFAB numeric(15, 3),
+        STO_UNIFAB002 numeric(15, 3),
+        STO_UNIINI numeric(15, 3),
+        STO_UNIINI002 numeric(15, 3),
+        STO_UNIPENREB numeric(15, 3),
+        STO_UNIRSV numeric(15, 3),
+        STO_UNIRSV002 numeric(15, 3),
+        STO_UNISORALB numeric(15, 3),
+        STO_UNISORALB002 numeric(15, 3),
+        STO_UNISORALTMAG002 numeric(15, 3),
+        STO_UNISORFAB numeric(15, 3),
+        STO_UNISORFAB002 numeric(15, 3),
+        STO_UNISORFABALB numeric(15, 3),
+        STO_UNISORFABALB002 numeric(15, 3),
+        STO_UNISORINV numeric(15, 3),
+        STO_UNISORINV002 numeric(15, 3),
+        STO_UNISORMAG numeric(15, 3),
+        STO_VALCOMCLI numeric(15, 3),
+        STO_VALCPRPRO numeric(15, 3),
+        STO_VALCPRPRO002 numeric(15, 3),
+        STO_VALDEF numeric(15, 3),
+        STO_VALDEF002 numeric(15, 3),
+        STO_VALDIPCLI numeric(15, 3),
+        STO_VALDIPPRO numeric(15, 3),
+        STO_VALENTALTMAG numeric(15, 3),
+        STO_VALENTALTMAG002 numeric(15, 3),
+        STO_VALENTINV numeric(15, 3),
+        STO_VALENTINV002 numeric(15, 3),
+        STO_VALFAB numeric(15, 3),
+        STO_VALFAB002 numeric(15, 3),
+        STO_VALINI numeric(15, 3),
+        STO_VALINI002 numeric(15, 3),
+        STO_VALPENREB numeric(15, 3),
+        STO_VALRSV002 numeric(15, 3),
+        STO_VALSORALB numeric(15, 3),
+        STO_VALSORALB002 numeric(15, 3),
+        STO_VALSORALTMAG002 numeric(15, 3),
+        STO_VALSORFAB numeric(15, 3),
+        STO_VALSORFAB002 numeric(15, 3),
+        STO_VALSORINV numeric(15, 3),
+        STO_VALSORINV002 numeric(15, 3),
+        STO_VALSORMAG numeric(15, 3),
+        STO_VALUNIRSV numeric(15, 3),
+        primary key (STO_TIP, sto_art_cod, sto_mag_cod, sto_pmg_cod, sto_idf_cod)
+    );
+
     create table tcom_tad (
        tad_cod varchar(2) not null,
+        tad_usucre varchar(255),
+        tad_datcre timestamp,
+        tad_usumod varchar(255),
+        tad_datmod timestamp,
         tad_des varchar(30) not null,
         primary key (tad_cod)
     );
@@ -986,10 +1084,6 @@ create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
 create index icom_apc_emp_fk on tcom_apc (apc_emp_cod);
 create index icom_apc_pre_fk on tcom_apc (apc_pre_cod);
-create index icom_arm_idf_fk on tcom_arm (arm_idf_cod);
-
-    alter table tcom_arm 
-       add constraint ircom_arm_pk unique (arm_idf_cod);
 create index icom_art_idf_fk on tcom_art (art_idf_cod);
 create index icom_bfc_idf_fk on tcom_bfc (bfc_idf_cod);
 create index icom_bfc_emp_fk on tcom_bfc (bfc_emp_cod);
@@ -1027,6 +1121,7 @@ create index icom_lpr_pre_fk on tcom_lpr (lpr_idf_cod, lpr_emp_cod, lpr_pre_cod)
     alter table tcom_lpr 
        add constraint rcom_lpr_pk unique (lpr_idf_cod, lpr_emp_cod, lpr_pre_cod, lpr_num);
 create index icom_mag_idf_fk on tcom_mag (mag_idf_cod);
+create index icom_mar_idf_fk on tcom_mar (mar_idf_cod);
 create index icom_mca_idf_fk on tcom_mca (mca_idf_cod);
 create index icom_mdc_idf_fk on tcom_mdc (mdc_idf_cod);
 create index icom_mdc_emp_fk on tcom_mdc (mdc_emp_cod);
@@ -1056,6 +1151,7 @@ create index icom_ser_idf_fk on tcom_ser (ser_idf_cod);
 
     alter table tcom_ser 
        add constraint ircom_ser_pk unique (ser_idf_cod, ser_cod);
+create index icom_sto_idf_fk on tcom_sto (sto_idf_cod);
 create index icom_tfc_idf_fk on tcom_tfc (tfc_idf_cod);
 create index icom_tra_idf_fk on tcom_tra (tra_idf_cod);
 create index icom_tri_idf_fk on tcom_tri (tri_idf_cod);
@@ -1174,16 +1270,6 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        add constraint rcom_apc_pre_fk 
        foreign key (apc_emp_cod, apc_pre_cod, apc_idf_cod) 
        references tcom_pre;
-
-    alter table tcom_arm 
-       add constraint rcom_arm_art_fk 
-       foreign key (arm_art_cod, arm_idf_cod) 
-       references tcom_art;
-
-    alter table tcom_arm 
-       add constraint rcom_arm_mag_fk 
-       foreign key (arm_mag_cod, arm_idf_cod) 
-       references tcom_mag;
 
     alter table tcom_art 
        add constraint rcom_art_ain_fk 
@@ -1455,6 +1541,26 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        foreign key (lpr_emp_cod, lpr_pre_cod, lpr_idf_cod) 
        references tcom_pre;
 
+    alter table tcom_mag 
+       add constraint mag_cpo_cod_fk 
+       foreign key (mag_cpo_cod, mag_idf_cod) 
+       references tcom_cpo;
+
+    alter table tcom_mag 
+       add constraint rcom_mag_div_fk 
+       foreign key (mag_div_cod, mag_idf_cod) 
+       references tcom_div;
+
+    alter table tcom_mar 
+       add constraint rcom_mar_art_fk 
+       foreign key (mar_art_cod, mar_idf_cod) 
+       references tcom_art;
+
+    alter table tcom_mar 
+       add constraint rcom_mar_mag_fk 
+       foreign key (mar_mag_cod, mar_idf_cod) 
+       references tcom_mag;
+
     alter table tcom_mdc 
        add constraint rcom_mdc_cxa_fk 
        foreign key (mdc_emp_cod, mdc_cxa_cod, mdc_idf_cod) 
@@ -1695,6 +1801,21 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        foreign key (ser_emp_cod, ser_ped_codfac, ser_idf_cod) 
        references tcom_ped;
 
+    alter table tcom_sto 
+       add constraint rcom_sto_art_fk 
+       foreign key (sto_art_cod, sto_idf_cod) 
+       references tcom_art;
+
+    alter table tcom_sto 
+       add constraint rcom_sto_mag_fk 
+       foreign key (sto_mag_cod, sto_idf_cod) 
+       references tcom_mag;
+
+    alter table tcom_sto 
+       add constraint rcom_sto_pmg_fk 
+       foreign key (sto_mag_cod, sto_pmg_cod, sto_idf_cod) 
+       references tcom_pmg;
+
     alter table tcom_tra 
        add constraint rcom_tra_cpo_fk 
        foreign key (tra_cpo_cod, tra_idf_cod) 
@@ -1726,7 +1847,7 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        references tcom_emp;
 
     alter table tcom_vcx 
-       add constraint rcom_bfc_fac_fk 
+       add constraint rcom_vcx_fac_fk 
        foreign key (vcx_fac_cls, vcx_emp_cod, vcx_fac_num, vcx_ser_cod, vcx_idf_cod) 
        references tcom_fac;
 
