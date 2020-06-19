@@ -180,9 +180,9 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 			formGroup.get("preuAmbIva").setValue(preuAmbIvaDecimals);			
 			formGroup.get("fixedPvp").setValue(val);
 			var decimalsPreu = formGroup.get("decimalsPreu").value;
-			var pvp = val.toFixed(decimalsPreu);			
-			formGroup.get("pvp").setValue(pvp);						
-			if (!this.eventsActive) this.onFormGroupChange(formGroup);
+			var pvp = val.toFixed(decimalsPreu);						
+			formGroup.get("pvp").setValue(pvp);								
+			if (!this.eventsActive) this.onFormGroupChange(formGroup);			
 		})
 		
 		this.subscriptionPreuAmbIva = formGroup.get('preuAmbIva').valueChanges.subscribe(valor => {			
