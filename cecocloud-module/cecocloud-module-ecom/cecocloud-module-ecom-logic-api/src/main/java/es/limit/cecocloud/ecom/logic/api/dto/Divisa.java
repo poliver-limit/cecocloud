@@ -74,5 +74,11 @@ public class Divisa extends AbstractIdentificableWithIdentificadorAndCodi<String
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiComptabilitat;
+	
+	@Size(max = 3)
+	@RestapiField(
+			hiddenInGrid = false,
+			hiddenInLov = true)
+	private String iso;
 
 }

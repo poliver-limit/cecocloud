@@ -44,8 +44,8 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			includeInQuickFilter = true)
 	private String codi;
 	
-//	@Size(max = 60)
-	@Size(max = 24) // Per adaptació pantalla
+	@Size(max = 60)
+//	@Size(max = 24) // Per adaptació pantalla
 	@RestapiField(
 			hiddenInGrid = false,
 			hiddenInLov = true)

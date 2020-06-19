@@ -13,9 +13,12 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -25,6 +28,7 @@ import es.limit.cecocloud.ecom.persist.entity.EmpresaEntity.EmpresaEntityListene
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil.PkBuilder;
 import es.limit.cecocloud.ecom.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.ecom.persist.entity.DivisaEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -73,22 +77,41 @@ public class EmpresaEntity extends AbstractWithIdentificadorAuditableEntity<Empr
 	@Embedded
 	protected Empresa embedded;
 	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "emp_idf_cod", referencedColumnName = "div_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "emp_div_cod", referencedColumnName = "div_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_emp_div_fk"))
+	private DivisaEntity divisa;	
+	@Column(name = "emp_div_cod", length = 4, nullable = false)
+	private String divisaCodi;
+	
 	@Builder
 	public EmpresaEntity(
 			WithIdentificadorAndCodiPk<String> pk,
 			Empresa embedded,
+			DivisaEntity divisa,
 			IdentificadorEntity identificador
 		) {
 		
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;	
+		this.identificador = identificador;
+		
+		this.updateDivisa(divisa);
 	}
 
 	@Override
 	public void update(Empresa embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateDivisa(DivisaEntity divisa) {
+		this.divisa = divisa;
+		this.divisaCodi = divisa.getEmbedded().getCodi();
 	}
 	
 	public static class EmpresaEntityListener {

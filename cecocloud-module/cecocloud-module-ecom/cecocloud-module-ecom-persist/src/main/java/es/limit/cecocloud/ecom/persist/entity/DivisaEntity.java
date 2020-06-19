@@ -57,6 +57,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.decimalsImports", column = @Column(name = "div_decimp", nullable = false, precision = 1, scale = 0)),
 	@AttributeOverride(name = "embedded.abreviatura", column = @Column(name = "div_abr", length = 5)),
 	@AttributeOverride(name = "embedded.codiComptabilitat", column = @Column(name = "div_codcmp")),
+	@AttributeOverride(name = "embedded.iso", column = @Column(name = "div_iso", length = 3, nullable = false)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "div_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "div_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "div_usumod")),

@@ -297,6 +297,15 @@ public class EcomModuleRegister {
 						NaturalesaPagamentCobrament.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"COM_EMP",
+				new FuncionalitatCodiFontImpl(
+						"COM_EMP",
+						FuncionalitatTipus.MANTENIMENT,
+						"Empreses (eCommerce)",
+						Empresa.class,
+						Arrays.asList(
+								Divisa.class)));
+		funcionalitats.put(
 				"COM_FAC",
 				new FuncionalitatCodiFontImpl(
 						"COM_FAC",

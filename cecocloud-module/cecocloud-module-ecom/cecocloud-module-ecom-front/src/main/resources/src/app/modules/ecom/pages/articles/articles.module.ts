@@ -18,6 +18,12 @@ import { ArticlesInformacioService } from '../articlesInformacio/articlesInforma
 import { ArticlesTraduccioService } from '../articlesTraduccio/articlesTraduccio.service';
 import { MagatzemsArticleService } from '../magatzemsArticle/magatzemsArticle.service';
 
+// Per poder recuperar l'empresa de la sessió:
+import { BngAuthService } from 'base-angular';
+import { EmpresesService } from '../../../../pages/empreses/empreses.service';
+import { EmpresesEcomService } from '../empresesEcom/empresesEcom.service';
+import { DivisesService } from '../divises/divises.service';
+
 @NgModule( {
     imports: [
         CommonModule,
@@ -44,7 +50,12 @@ import { MagatzemsArticleService } from '../magatzemsArticle/magatzemsArticle.se
 
 		ArticlesInformacioService,
 		ArticlesTraduccioService,
-		MagatzemsArticleService
+		MagatzemsArticleService,
+		
+		BngAuthService,
+		EmpresesService,
+		EmpresesEcomService,
+		DivisesService
     ]
 } )
 export class ArticlesModule {}

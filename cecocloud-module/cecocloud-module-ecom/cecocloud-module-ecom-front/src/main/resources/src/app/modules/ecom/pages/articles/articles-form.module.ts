@@ -12,6 +12,12 @@ import { MagatzemsArticleService } from '../magatzemsArticle/magatzemsArticle.se
 import { ArticlesFormComponent } from './articles-form.component';
 import { ArticlesService } from './articles.service';
 
+// Per poder recuperar l'empresa de la sessió:
+import { BngAuthService } from 'base-angular';
+import { EmpresesService } from '../../../../pages/empreses/empreses.service';
+import { EmpresesEcomService } from '../empresesEcom/empresesEcom.service';
+import { DivisesService } from '../divises/divises.service';
+
 @NgModule( {
     imports: [
         CommonModule,
@@ -33,7 +39,11 @@ import { ArticlesService } from './articles.service';
 
 		ArticlesInformacioService,
 		ArticlesTraduccioService,
-		MagatzemsArticleService	
+		MagatzemsArticleService,
+		BngAuthService,
+		EmpresesService,
+		EmpresesEcomService,
+		DivisesService
     ]
 } )
 export class ArticlesFormModule {}

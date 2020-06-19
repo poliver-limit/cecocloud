@@ -3,11 +3,16 @@
  */
 package es.limit.cecocloud.ecom.logic.api.dto;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
+import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
+import es.limit.cecocloud.ecom.logic.api.dto.Divisa;
+import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,5 +40,12 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			includeInQuickFilter = true
 	)
 	private String nomComercial;
+	
+	@Transient
+	@NotNull
+	@RestapiField(
+			type = RestapiFieldType.LOV,			
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 
 }

@@ -280,62 +280,64 @@ export class EcomModule {
 //							resource: 'COM_TRDART'
 						}
 					]
-				}, {						
-					icon: 'people',
-					label: 'Clients i proveidors',
-					labelKey: 'funcionalitat.menu.clients-proveidors',
-					items: [
-						{
-							icon: 'room',
-							label: 'Clients (eCommerce)',
-							labelKey: 'app.menu.ecom.clients',
-							route: '/ecom/clients',
-							resource: 'COM_CLI'
-						}, {
-							icon: 'room',
-							label: 'Families client (eCommerce)',
-							labelKey: 'app.menu.ecom.familiesClient',
-							route: '/ecom/familiesClient',
-							resource: 'COM_FMC'
-						}, {
-							icon: 'room',
-							label: 'Proveïdors (eCommerce)',
-							labelKey: 'app.menu.ecom.proveidors',
-							route: '/ecom/proveidors',
-							resource: 'COM_PRO'
-						}, {
-							icon: 'room',
-							label: 'Famílies proveïdor',
-							labelKey: 'app.menu.ecom.familiesProveidor',
-							route: '/ecom/familiesProveidor',
-							resource: 'COM_FPR'
-						}, {
-							icon: 'room',
-							label: 'Transportistes',
-							labelKey: 'app.menu.ecom.transportistes',
-							route: '/ecom/transportistes',
-							resource: 'COM_TRA'
-						}, {
-							icon: 'room',
-							label: 'Vehicles',
-							labelKey: 'app.menu.ecom.vehicles',
-							route: '/ecom/vehicles',
-							resource: 'COM_MTR'
-						}, {							
-							icon: 'room',
-							label: 'Documents pagament/cobrament (eCommerce)',
-							labelKey: 'app.menu.ecom.documentsPagamentCobrament',
-							route: '/ecom/documentsPagamentCobrament',
-							resource: 'COM_DPG'
-						}, {							
-							icon: 'room',
-							label: 'Naturaleses pagament/cobrament (eCommerce)',
-							labelKey: 'app.menu.ecom.naturalesesPagamentCobrament',
-							route: '/ecom/naturalesesPagamentCobrament',
-							resource: 'COM_NPG'
-						}
-					]
-				}, {
+				}
+//				, {						
+//					icon: 'people',
+//					label: 'Clients i proveidors',
+//					labelKey: 'funcionalitat.menu.clients-proveidors',
+//					items: [
+//						{
+//							icon: 'room',
+//							label: 'Clients (eCommerce)',
+//							labelKey: 'app.menu.ecom.clients',
+//							route: '/ecom/clients',
+//							resource: 'COM_CLI'
+//						}, {
+//							icon: 'room',
+//							label: 'Families client (eCommerce)',
+//							labelKey: 'app.menu.ecom.familiesClient',
+//							route: '/ecom/familiesClient',
+//							resource: 'COM_FMC'
+//						}, {
+//							icon: 'room',
+//							label: 'Proveïdors (eCommerce)',
+//							labelKey: 'app.menu.ecom.proveidors',
+//							route: '/ecom/proveidors',
+//							resource: 'COM_PRO'
+//						}, {
+//							icon: 'room',
+//							label: 'Famílies proveïdor',
+//							labelKey: 'app.menu.ecom.familiesProveidor',
+//							route: '/ecom/familiesProveidor',
+//							resource: 'COM_FPR'
+//						}, {
+//							icon: 'room',
+//							label: 'Transportistes',
+//							labelKey: 'app.menu.ecom.transportistes',
+//							route: '/ecom/transportistes',
+//							resource: 'COM_TRA'
+//						}, {
+//							icon: 'room',
+//							label: 'Vehicles',
+//							labelKey: 'app.menu.ecom.vehicles',
+//							route: '/ecom/vehicles',
+//							resource: 'COM_MTR'
+//						}, {							
+//							icon: 'room',
+//							label: 'Documents pagament/cobrament (eCommerce)',
+//							labelKey: 'app.menu.ecom.documentsPagamentCobrament',
+//							route: '/ecom/documentsPagamentCobrament',
+//							resource: 'COM_DPG'
+//						}, {							
+//							icon: 'room',
+//							label: 'Naturaleses pagament/cobrament (eCommerce)',
+//							labelKey: 'app.menu.ecom.naturalesesPagamentCobrament',
+//							route: '/ecom/naturalesesPagamentCobrament',
+//							resource: 'COM_NPG'
+//						}
+//					]
+//				}
+				, {
 					icon: 'headset',
 					label: 'Vendes',
 					labelKey: 'funcionalitat.menu.ventes',
@@ -345,237 +347,238 @@ export class EcomModule {
 							label: 'Empreses (eCommerce)',
 							labelKey: 'app.menu.ecom.empreses',
 							route: '/ecom/empreses',
-							resource: 'COM_EMPRES'
-						}, {						
-							icon: 'room',
-							label: 'Iva (eCommerce)',
-							labelKey: 'app.menu.ecom.ives',
-							route: '/ecom/ives',
-							resource: 'COM_IVA'
-						}, {						
-							icon: 'room',
-							label: 'Règims iva (eCommerce)',
-							labelKey: 'app.menu.ecom.regimsIva',
-							route: '/ecom/regimsIva',
-							resource: 'COM_RGI'
-						}, {						
-							icon: 'room',
-							label: 'Magatzems (eCommerce)',
-							labelKey: 'app.menu.ecom.magatzems',
-							route: '/ecom/magatzems',
-							resource: 'COM_MAG'
-						}, {						
-							icon: 'room',
-							label: 'Magatzems-Articles (eCommerce)',
-							labelKey: 'app.menu.ecom.magatzemsArticle',
-							route: '/ecom/magatzemsArticle',
-							resource: 'COM_MAR'
-						}, {						
-							icon: 'room',
-							label: 'Magatzems període (eCommerce)',
-							labelKey: 'app.menu.ecom.magatzemsPeriode',
-							route: '/ecom/magatzemsPeriode',
-							resource: 'COM_PMG'
-						}, {						
-							icon: 'room',
-							label: 'Peus document (eCommerce)',
-							labelKey: 'app.menu.ecom.peusDocument',
-							route: '/ecom/peusDocument',
-							resource: 'COM_PED'
-						}, {						
-							icon: 'room',
-							label: 'Punts de venda (eCommerce)',
-							labelKey: 'app.menu.ecom.puntsVenda',
-							route: '/ecom/puntsVenda',
-							resource: 'COM_PTV'
-						}
-					]
-				}, {
-					icon: 'calculate',
-					label: 'Facturació',
-					labelKey: 'funcionalitat.menu.facturacio',
-					items: [
-						{									
-							icon: 'room',
-							label: 'Bestretes (eCommerce)',
-							labelKey: 'app.menu.ecom.bestretes',
-							route: '/ecom/bestretes',
-							resource: 'COM_APC'
-						}, {									
-							icon: 'room',
-							label: 'Caixes (eCommerce)',
-							labelKey: 'app.menu.ecom.caixes',
-							route: '/ecom/caixes',
-							resource: 'COM_CXA'
-						}, {									
-							icon: 'room',
-							label: 'Moviments de caixa (eCommerce)',
-							labelKey: 'app.menu.ecom.caixesMoviment',
-							route: '/ecom/caixesMoviment',
-							resource: 'COM_MDC'
-						}, {						
-							icon: 'room',
-							label: 'Series compra (eCommerce)',
-							labelKey: 'app.menu.ecom.seriesCompra',
-							route: '/ecom/seriesCompra',
-							resource: 'COM_SCP'
-						}, {						
-							icon: 'room',
-							label: 'Series venda (eCommerce)',
-							labelKey: 'app.menu.ecom.seriesVenda',
-							route: '/ecom/seriesVenda',
-							resource: 'COM_SER'
-						}, {						
-							icon: 'room',
-							label: 'Tipus facturacions (eCommerce)',
-							labelKey: 'app.menu.ecom.tipusFacturacions',
-							route: '/ecom/tipusFacturacions',
-							resource: 'COM_TFC'
-						}, {						
-							icon: 'room',
-							label: 'Tipus riscos (eCommerce)',
-							labelKey: 'app.menu.ecom.tipusRiscos',
-							route: '/ecom/tipusRiscos',
-							resource: 'COM_TRI'
-						}, {						
-							icon: 'room',
-							label: 'Tipus unitats (eCommerce)',
-							labelKey: 'app.menu.ecom.tipusUnitats',
-							route: '/ecom/tipusUnitats',
-							resource: 'COM_TUN'
-						}, {						
-							icon: 'room',
-							label: 'Tipus venciments (eCommerce)',
-							labelKey: 'app.menu.ecom.tipusVenciments',
-							route: '/ecom/tipusVenciments',
-							resource: 'COM_TVE'
-						}, {						
-							icon: 'room',
-							label: 'Venciments (eCommerce)',
-							labelKey: 'app.menu.ecom.venciments',
-							route: '/ecom/venciments',
-							resource: 'COM_VEN'
-						}, {						
-							icon: 'room',
-							label: 'Venciments pagats (eCommerce)',
-							labelKey: 'app.menu.ecom.vencimentsPagat',
-							route: '/ecom/vencimentsPagat',
-							resource: 'COM_VCX'
-						}
-					]
-				}, {
-					icon: 'notes',
-					label: 'Albarans',
-					labelKey: 'funcionalitat.menu.albarans',
-					items: [
-						{						
-							icon: 'room',
-							label: 'Albarans (eCommerce)',
-							labelKey: 'app.menu.ecom.albarans',
-							route: '/ecom/albarans',
-							resource: 'COM_ALB'
+							resource: 'COM_EMP'
 //						}, {						
 //							icon: 'room',
-//							label: 'Albarans linies (eCommerce)',
-//							labelKey: 'app.menu.ecom.albaransLinia',
-//							route: '/ecom/albaransLinia',
-//							resource: 'COM_LAC'
-						}
-					]
-				}, {
-					icon: 'notes',
-					label: 'Pressupostos',
-					labelKey: 'funcionalitat.menu.pressupostos',
-					items: [
-						{						
-							icon: 'room',
-							label: 'Pressupostos (eCommerce)',
-							labelKey: 'app.menu.ecom.pressupostos',
-							route: '/ecom/pressupostos',
-							resource: 'COM_PRE'
+//							label: 'Iva (eCommerce)',
+//							labelKey: 'app.menu.ecom.ives',
+//							route: '/ecom/ives',
+//							resource: 'COM_IVA'
 //						}, {						
 //							icon: 'room',
-//							label: 'Pressupostos linies (eCommerce)',
-//							labelKey: 'app.menu.ecom.pressupostosLinia',
-//							route: '/ecom/pressupostosLinia',
-//							resource: 'COM_LPR'
+//							label: 'Règims iva (eCommerce)',
+//							labelKey: 'app.menu.ecom.regimsIva',
+//							route: '/ecom/regimsIva',
+//							resource: 'COM_RGI'
+//						}, {						
+//							icon: 'room',
+//							label: 'Magatzems (eCommerce)',
+//							labelKey: 'app.menu.ecom.magatzems',
+//							route: '/ecom/magatzems',
+//							resource: 'COM_MAG'
+//						}, {						
+//							icon: 'room',
+//							label: 'Magatzems-Articles (eCommerce)',
+//							labelKey: 'app.menu.ecom.magatzemsArticle',
+//							route: '/ecom/magatzemsArticle',
+//							resource: 'COM_MAR'
+//						}, {						
+//							icon: 'room',
+//							label: 'Magatzems període (eCommerce)',
+//							labelKey: 'app.menu.ecom.magatzemsPeriode',
+//							route: '/ecom/magatzemsPeriode',
+//							resource: 'COM_PMG'
+//						}, {						
+//							icon: 'room',
+//							label: 'Peus document (eCommerce)',
+//							labelKey: 'app.menu.ecom.peusDocument',
+//							route: '/ecom/peusDocument',
+//							resource: 'COM_PED'
+//						}, {						
+//							icon: 'room',
+//							label: 'Punts de venda (eCommerce)',
+//							labelKey: 'app.menu.ecom.puntsVenda',
+//							route: '/ecom/puntsVenda',
+//							resource: 'COM_PTV'
 						}
-					]
-				}, {
-					icon: 'notes',
-					label: 'Factures',
-					labelKey: 'funcionalitat.menu.factures',
-					items: [
-						{						
-							icon: 'room',
-							label: 'Factures (eCommerce)',
-							labelKey: 'app.menu.ecom.factures',
-							route: '/ecom/factures',
-							resource: 'COM_FAC'
-						}, {						
-							icon: 'room',
-							label: 'Bases de Factura (eCommerce)',
-							labelKey: 'app.menu.ecom.facturesBase',
-							route: '/ecom/facturesBase',
-							resource: 'COM_BFC'
-						}
-					]
-				}, {
-					icon: 'settings_applications',
-					label: 'Gestió e-commerce',
-					labelKey: 'funcionalitat.menu.gestio-ecommerce',
-					items: [
-						{
-							icon: 'room',
-							label: 'Codis postals (eCommerce)',
-							labelKey: 'app.menu.ecom.codisPostal',
-							route: '/ecom/codisPostal',
-							resource: 'COM_CPO'
-						}, {
-							icon: 'room',
-							label: 'Departaments (eCommerce)',
-							labelKey: 'app.menu.ecom.departaments',
-							route: '/ecom/departaments',
-							resource: 'COM_DEP'
-						}, {
-							icon: 'room',
-							label: 'Divises (eCommerce)',
-							labelKey: 'app.menu.ecom.divises',
-							route: '/ecom/divises',
-							resource: 'COM_DIV'
-						}, {						
-							icon: 'room',
-							label: 'Idiomes',
-							labelKey: 'app.menu.ecom.idiomes',
-							route: '/ecom/idiomes',
-							resource: 'COM_IDI'
-						}, {						
-							icon: 'room',
-							label: 'Països (eCommerce)',
-							labelKey: 'app.menu.ecom.paisos',
-							route: '/ecom/paisos',
-							resource: 'COM_PAI'
-						}, {						
-							icon: 'room',
-							label: 'Paisos Nif (eCommerce)',
-							labelKey: 'app.menu.ecom.paisosNif',
-							route: '/ecom/paisosNif',
-							resource: 'COM_PAINIF'
-						}, {									
-							icon: 'room',
-							label: 'Provincies (eCommerce)',
-							labelKey: 'app.menu.ecom.provincies',
-							route: '/ecom/provincies',
-							resource: 'COM_PRV'
-						}, {						
-							icon: 'room',
-							label: 'Tipus adreça (eCommerce)',
-							labelKey: 'app.menu.ecom.tipusAdreces',
-							route: '/ecom/tipusAdreces',
-							resource: 'COM_TIPADR'
-						}			
 					]
 				}
+//				, {
+//					icon: 'calculate',
+//					label: 'Facturació',
+//					labelKey: 'funcionalitat.menu.facturacio',
+//					items: [
+//						{									
+//							icon: 'room',
+//							label: 'Bestretes (eCommerce)',
+//							labelKey: 'app.menu.ecom.bestretes',
+//							route: '/ecom/bestretes',
+//							resource: 'COM_APC'
+//						}, {									
+//							icon: 'room',
+//							label: 'Caixes (eCommerce)',
+//							labelKey: 'app.menu.ecom.caixes',
+//							route: '/ecom/caixes',
+//							resource: 'COM_CXA'
+//						}, {									
+//							icon: 'room',
+//							label: 'Moviments de caixa (eCommerce)',
+//							labelKey: 'app.menu.ecom.caixesMoviment',
+//							route: '/ecom/caixesMoviment',
+//							resource: 'COM_MDC'
+//						}, {						
+//							icon: 'room',
+//							label: 'Series compra (eCommerce)',
+//							labelKey: 'app.menu.ecom.seriesCompra',
+//							route: '/ecom/seriesCompra',
+//							resource: 'COM_SCP'
+//						}, {						
+//							icon: 'room',
+//							label: 'Series venda (eCommerce)',
+//							labelKey: 'app.menu.ecom.seriesVenda',
+//							route: '/ecom/seriesVenda',
+//							resource: 'COM_SER'
+//						}, {						
+//							icon: 'room',
+//							label: 'Tipus facturacions (eCommerce)',
+//							labelKey: 'app.menu.ecom.tipusFacturacions',
+//							route: '/ecom/tipusFacturacions',
+//							resource: 'COM_TFC'
+//						}, {						
+//							icon: 'room',
+//							label: 'Tipus riscos (eCommerce)',
+//							labelKey: 'app.menu.ecom.tipusRiscos',
+//							route: '/ecom/tipusRiscos',
+//							resource: 'COM_TRI'
+//						}, {						
+//							icon: 'room',
+//							label: 'Tipus unitats (eCommerce)',
+//							labelKey: 'app.menu.ecom.tipusUnitats',
+//							route: '/ecom/tipusUnitats',
+//							resource: 'COM_TUN'
+//						}, {						
+//							icon: 'room',
+//							label: 'Tipus venciments (eCommerce)',
+//							labelKey: 'app.menu.ecom.tipusVenciments',
+//							route: '/ecom/tipusVenciments',
+//							resource: 'COM_TVE'
+//						}, {						
+//							icon: 'room',
+//							label: 'Venciments (eCommerce)',
+//							labelKey: 'app.menu.ecom.venciments',
+//							route: '/ecom/venciments',
+//							resource: 'COM_VEN'
+//						}, {						
+//							icon: 'room',
+//							label: 'Venciments pagats (eCommerce)',
+//							labelKey: 'app.menu.ecom.vencimentsPagat',
+//							route: '/ecom/vencimentsPagat',
+//							resource: 'COM_VCX'
+//						}
+//					]
+//				}, {
+//					icon: 'notes',
+//					label: 'Albarans',
+//					labelKey: 'funcionalitat.menu.albarans',
+//					items: [
+//						{						
+//							icon: 'room',
+//							label: 'Albarans (eCommerce)',
+//							labelKey: 'app.menu.ecom.albarans',
+//							route: '/ecom/albarans',
+//							resource: 'COM_ALB'
+////						}, {						
+////							icon: 'room',
+////							label: 'Albarans linies (eCommerce)',
+////							labelKey: 'app.menu.ecom.albaransLinia',
+////							route: '/ecom/albaransLinia',
+////							resource: 'COM_LAC'
+//						}
+//					]
+//				}, {
+//					icon: 'notes',
+//					label: 'Pressupostos',
+//					labelKey: 'funcionalitat.menu.pressupostos',
+//					items: [
+//						{						
+//							icon: 'room',
+//							label: 'Pressupostos (eCommerce)',
+//							labelKey: 'app.menu.ecom.pressupostos',
+//							route: '/ecom/pressupostos',
+//							resource: 'COM_PRE'
+////						}, {						
+////							icon: 'room',
+////							label: 'Pressupostos linies (eCommerce)',
+////							labelKey: 'app.menu.ecom.pressupostosLinia',
+////							route: '/ecom/pressupostosLinia',
+////							resource: 'COM_LPR'
+//						}
+//					]
+//				}, {
+//					icon: 'notes',
+//					label: 'Factures',
+//					labelKey: 'funcionalitat.menu.factures',
+//					items: [
+//						{						
+//							icon: 'room',
+//							label: 'Factures (eCommerce)',
+//							labelKey: 'app.menu.ecom.factures',
+//							route: '/ecom/factures',
+//							resource: 'COM_FAC'
+//						}, {						
+//							icon: 'room',
+//							label: 'Bases de Factura (eCommerce)',
+//							labelKey: 'app.menu.ecom.facturesBase',
+//							route: '/ecom/facturesBase',
+//							resource: 'COM_BFC'
+//						}
+//					]
+//				}, {
+//					icon: 'settings_applications',
+//					label: 'Gestió e-commerce',
+//					labelKey: 'funcionalitat.menu.gestio-ecommerce',
+//					items: [
+//						{
+//							icon: 'room',
+//							label: 'Codis postals (eCommerce)',
+//							labelKey: 'app.menu.ecom.codisPostal',
+//							route: '/ecom/codisPostal',
+//							resource: 'COM_CPO'
+//						}, {
+//							icon: 'room',
+//							label: 'Departaments (eCommerce)',
+//							labelKey: 'app.menu.ecom.departaments',
+//							route: '/ecom/departaments',
+//							resource: 'COM_DEP'
+//						}, {
+//							icon: 'room',
+//							label: 'Divises (eCommerce)',
+//							labelKey: 'app.menu.ecom.divises',
+//							route: '/ecom/divises',
+//							resource: 'COM_DIV'
+//						}, {						
+//							icon: 'room',
+//							label: 'Idiomes',
+//							labelKey: 'app.menu.ecom.idiomes',
+//							route: '/ecom/idiomes',
+//							resource: 'COM_IDI'
+//						}, {						
+//							icon: 'room',
+//							label: 'Països (eCommerce)',
+//							labelKey: 'app.menu.ecom.paisos',
+//							route: '/ecom/paisos',
+//							resource: 'COM_PAI'
+//						}, {						
+//							icon: 'room',
+//							label: 'Paisos Nif (eCommerce)',
+//							labelKey: 'app.menu.ecom.paisosNif',
+//							route: '/ecom/paisosNif',
+//							resource: 'COM_PAINIF'
+//						}, {									
+//							icon: 'room',
+//							label: 'Provincies (eCommerce)',
+//							labelKey: 'app.menu.ecom.provincies',
+//							route: '/ecom/provincies',
+//							resource: 'COM_PRV'
+//						}, {						
+//							icon: 'room',
+//							label: 'Tipus adreça (eCommerce)',
+//							labelKey: 'app.menu.ecom.tipusAdreces',
+//							route: '/ecom/tipusAdreces',
+//							resource: 'COM_TIPADR'
+//						}			
+//					]
+//				}
 			]
 		});
 	}
