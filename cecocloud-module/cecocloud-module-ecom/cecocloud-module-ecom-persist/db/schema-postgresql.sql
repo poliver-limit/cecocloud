@@ -234,6 +234,7 @@
         div_codcmp varchar(255),
         div_decimp int4 not null,
         div_decpru int4 not null,
+        div_iso varchar(3) not null,
         div_nom varchar(30) not null,
         div_valdiveur numeric(15, 8) not null,
         primary key (div_cod, div_idf_cod)
@@ -280,6 +281,7 @@
         emp_datcre timestamp,
         emp_usumod varchar(255),
         emp_datmod timestamp,
+        emp_div_cod varchar(4) not null,
         emp_nomcom varchar(40) not null,
         primary key (emp_cod, emp_idf_cod)
     );
@@ -704,7 +706,7 @@
         pre_cli_painif varchar(4),
         pre_prv_cod varchar(4),
         pre_ptv_cod varchar(4),
-        pre_ser_cod varchar(4),
+        pre_ser_cod varchar(2) not null,
         pre_cli_sgl varchar(2),
         primary key (pre_emp_cod, pre_cod, pre_idf_cod)
     );
@@ -1415,6 +1417,11 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        add constraint rcom_dpg_rgi_fk 
        foreign key (dpg_rgi_cod, dpg_idf_cod) 
        references tcom_rgi;
+
+    alter table tcom_emp 
+       add constraint rges_emp_div_fk 
+       foreign key (emp_div_cod, emp_idf_cod) 
+       references tcom_div;
 
     alter table tcom_fac 
        add constraint rcom_fac_cli_fk 

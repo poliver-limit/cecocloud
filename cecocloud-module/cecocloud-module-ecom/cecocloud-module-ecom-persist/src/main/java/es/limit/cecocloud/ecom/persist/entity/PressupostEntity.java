@@ -27,7 +27,7 @@ import org.hibernate.annotations.NotFoundAction;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import es.limit.cecocloud.ecom.persist.entity.ClientEntity;
-import es.limit.cecocloud.ecom.persist.entity.PressupostEntity.PressupostEntityListener;
+//import es.limit.cecocloud.ecom.persist.entity.PressupostEntity.PressupostEntityListener;
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -95,7 +95,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_pre_idf_fk"))
 })
-@EntityListeners({PressupostEntityListener.class})
+//@EntityListeners({PressupostEntityListener.class})
 public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<Pressupost, PressupostPk> {
 
 	@Embedded
@@ -110,7 +110,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 				foreignKey = @ForeignKey(name = "rcom_pre_emp_fk"))
 	protected EmpresaEntity empresa;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "ser_idf_cod", insertable = false, updatable = false),
@@ -119,7 +119,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			},
 			foreignKey = @ForeignKey(name = "rcom_pre_ser_fk"))
 	private SerieVendaEntity serieVenda;
-	@Column(name = "pre_ser_cod", length = 4)
+	@Column(name = "pre_ser_cod", length = 2, nullable = false)
 	private String serieVendaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -289,13 +289,14 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			CodiPostalEntity codiPostalClient
 			) {
 		
-		setId(pk);
-		
+		setId(pk);		
+
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.empresa = empresa;
+		this.empresa = empresa;	
 		
-		this.updateSerieVenda(serieVenda);
+		this.updateNumeroPressupost(serieVenda);
+		this.updateSerieVenda(serieVenda);		
 		this.updateClient(client);
 		this.updateIva(iva);
 		this.updateCodiPostal(codiPostal);
@@ -316,6 +317,23 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	public void update(Pressupost embedded) {
 		this.embedded = embedded;
 	}	
+	
+	public void updateNumeroPressupost(SerieVendaEntity serieVenda) {
+		
+		Integer numeroPressupost = this.embedded.getNumero();
+		if ((numeroPressupost==0)||(numeroPressupost==null)) {
+			Integer darrerPressupost = serieVenda.getEmbedded().getDarrerPressupost();
+			numeroPressupost = darrerPressupost + 1;		
+			this.embedded.setNumero(numeroPressupost);
+			serieVenda.getEmbedded().setDarrerPressupost(numeroPressupost);
+		
+			// Assignació del numero de pressupost al codi si aquest ve null
+			Integer codiPressupost = this.embedded.getCodi();
+			if (codiPressupost==null) {
+				this.embedded.setCodi(numeroPressupost);			
+			}
+		}
+	}
 	
 	public void updateSerieVenda(SerieVendaEntity serieVenda) {
 		this.serieVenda = serieVenda;
@@ -415,22 +433,22 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		}
 	}
 	
-	public static class PressupostEntityListener {
-		@PrePersist
-		public void calcular(PressupostEntity pressupost) {
-			int num = EntityListenerUtil.getSeguentNumComptador(
-					pressupost.getIdentificador().getId(),
-					"TCOM_PRE");
-			pressupost.getEmbedded().setNumero(num);	
-			
-			// Assignació del numero de pressupost al codi si aquest ve null
-			Integer codiPressupost = pressupost.getId().getCodi();
-			if (codiPressupost==null) {
-				pressupost.getId().setCodi(num);
-				pressupost.getEmbedded().setCodi(num);
-			}
-		
-		}
-	}
+//	public static class PressupostEntityListener {
+//		@PrePersist
+//		public void calcular(PressupostEntity pressupost) {
+//			int num = EntityListenerUtil.getSeguentNumComptador(
+//					pressupost.getIdentificador().getId(),
+//					"TCOM_PRE");
+//			pressupost.getEmbedded().setNumero(num);	
+//			
+//			// Assignació del numero de pressupost al codi si aquest ve null
+//			Integer codiPressupost = pressupost.getId().getCodi();
+//			if (codiPressupost==null) {
+//				pressupost.getId().setCodi(num);
+//				pressupost.getEmbedded().setCodi(num);
+//			}
+//		
+//		}
+//	}
 
 }

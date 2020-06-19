@@ -121,6 +121,7 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
+	@NotNull
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

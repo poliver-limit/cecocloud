@@ -82,8 +82,7 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private Integer darrerAlbaraProforma;
-	
+	private Integer darrerAlbaraProforma;	
 	
  	@NotNull 
 	@RestapiField(

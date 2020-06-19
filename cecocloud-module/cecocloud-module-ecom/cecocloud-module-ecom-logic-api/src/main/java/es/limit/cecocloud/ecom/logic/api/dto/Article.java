@@ -52,10 +52,10 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String descripcioCurta;
 	
 	@NotNull
-//	@Size(max = 2000)
-	@Size(max = 100) // Per adaptació pantalla
+	@Size(max = 2000)
+//	@Size(max = 100) // Per adaptació pantalla
 	@RestapiField(
-//			type = RestapiFieldType.TEXTAREA, // Per adaptació pantalla 
+			type = RestapiFieldType.TEXTAREA, // Per adaptació pantalla 
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
 	private String descripcio;
@@ -179,10 +179,10 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 //	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;	
 	
 	@NotNull
-//	@Size(max = 2000)
-	@Size(max = 100) // Per adaptació pantalla 
+	@Size(max = 2000)
+//	@Size(max = 100) // Per adaptació pantalla 
 	@RestapiField(
-//			type = RestapiFieldType.TEXTAREA, // Per adaptació pantalla 
+			type = RestapiFieldType.TEXTAREA, // Per adaptació pantalla 
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
 	private String rutaInforme;
