@@ -840,7 +840,7 @@
         ser_ctevenettpubprfcmp varchar(10),
         ser_ultalb int4 not null,
         ser_ultalbprf int4 not null,
-        ser_ultpre int4 not null,
+        ser_ultpre int4,
         ser_ultfac int4 not null,
         ser_ultfacprf int4 not null,
         ser_ultpreprf int4 not null,

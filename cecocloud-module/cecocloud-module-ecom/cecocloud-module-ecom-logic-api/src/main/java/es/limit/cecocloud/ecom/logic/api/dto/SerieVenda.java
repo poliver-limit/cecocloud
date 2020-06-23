@@ -64,9 +64,8 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private Integer darreraFactura;
+	private Integer darreraFactura;	
 	
-	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)

@@ -58,7 +58,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "ser_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.darrerAlbara", column = @Column(name = "ser_ultalb", nullable = false)),
 	@AttributeOverride(name = "embedded.darreraFactura", column = @Column(name = "ser_ultfac", nullable = false)),
-	@AttributeOverride(name = "embedded.darrerPressupost", column = @Column(name = "ser_ultpre", nullable = false)),
+	@AttributeOverride(name = "embedded.darrerPressupost", column = @Column(name = "ser_ultpre")),
 	@AttributeOverride(name = "embedded.darreraFacturaProforma", column = @Column(name = "ser_ultpreprf", nullable = false)),
 	@AttributeOverride(name = "embedded.darrerAlbaraProforma", column = @Column(name = "ser_ultalbprf", nullable = false)),
 	@AttributeOverride(name = "embedded.darreraFacturaAnyAnterior", column = @Column(name = "ser_ultfacprf", nullable = false)),
