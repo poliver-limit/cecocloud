@@ -315,6 +315,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Override
 	public void update(Pressupost embedded) {
 		this.embedded = embedded;
+		this.updateSync();
 	}	
 	
 	public void updateSync() {

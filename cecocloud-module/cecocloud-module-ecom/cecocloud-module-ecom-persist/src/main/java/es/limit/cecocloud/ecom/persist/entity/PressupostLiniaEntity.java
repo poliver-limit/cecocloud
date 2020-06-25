@@ -138,6 +138,7 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 	@Override
 	public void update(PressupostLinia embedded) {
 		this.embedded = embedded;
+		this.updateSync();
 	}	
 	
 	public void updateSync() {

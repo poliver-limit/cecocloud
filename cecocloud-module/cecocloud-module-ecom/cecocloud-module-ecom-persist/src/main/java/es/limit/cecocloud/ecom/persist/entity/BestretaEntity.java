@@ -129,8 +129,9 @@ public class BestretaEntity extends AbstractWithIdentificadorAuditableEntity<Bes
 	}
 
 	@Override
-	public void update(Bestreta embedded) {
+	public void update(Bestreta embedded) {		
 		this.embedded = embedded;
+		this.updateSync();
 	}
 	
 	public void updateSync() {
