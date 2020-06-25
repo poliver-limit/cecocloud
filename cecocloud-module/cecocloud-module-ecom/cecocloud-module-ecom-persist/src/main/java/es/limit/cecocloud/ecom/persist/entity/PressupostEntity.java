@@ -11,14 +11,12 @@ import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
@@ -27,8 +25,7 @@ import org.hibernate.annotations.NotFoundAction;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import es.limit.cecocloud.ecom.persist.entity.ClientEntity;
-//import es.limit.cecocloud.ecom.persist.entity.PressupostEntity.PressupostEntityListener;
-import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -66,6 +63,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.preu", column = @Column(name = "pre_pru", precision = 15, scale = 8)),
 	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "pre_pruiva", precision = 15, scale = 8)),
 	
+	@AttributeOverride(name = "embedded.sync", column = @Column(name = "pre_sync", length = 1)),	
 	// Dades extres pel client no registrat:
 	@AttributeOverride(name = "embedded.codiClient", column = @Column(name = "pre_cli_cod", length = 6, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.nomFiscal", column = @Column(name = "pre_cli_nomfis", length = 40, nullable = false)),
@@ -293,8 +291,9 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 
 		this.embedded = embedded;
 		this.identificador = identificador;
-		this.empresa = empresa;	
+		this.empresa = empresa;		
 		
+		this.updateSync();
 		this.updateNumeroPressupost(serieVenda);
 		this.updateSerieVenda(serieVenda);		
 		this.updateClient(client);
@@ -317,6 +316,10 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	public void update(Pressupost embedded) {
 		this.embedded = embedded;
 	}	
+	
+	public void updateSync() {
+		this.embedded.setSync(false);		
+	}
 	
 	public void updateNumeroPressupost(SerieVendaEntity serieVenda) {
 		

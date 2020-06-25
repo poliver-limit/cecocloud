@@ -6,6 +6,7 @@ package es.limit.cecocloud.ecom.logic.api.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.ecom.logic.api.dto.Bestreta.BestretaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.ecom.logic.api.dto.Caixa.CaixaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -48,11 +50,13 @@ public class Bestreta extends AbstractIdentificableWithIdentificador<BestretaPk>
 			sizeMax = 22)
 	private Integer numero;
 	
+	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
-			hiddenInLov = true,
-			sizeMax = 7)
+			hiddenInLov = true
+//			,sizeMax = 7
+			)
 	private Date dia;
 	
 	@NotNull
@@ -102,6 +106,10 @@ public class Bestreta extends AbstractIdentificableWithIdentificador<BestretaPk>
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Caixa, CaixaPk> caixa;
 
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean sync = false;	
+	
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)

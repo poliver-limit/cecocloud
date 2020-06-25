@@ -82,6 +82,7 @@
         apc_dia timestamp not null,
         apc_est number(10,0) not null,
         apc_imp number(15,2) not null,
+        apc_sync varchar2(1 char),
         primary key (apc_emp_cod, apc_num, apc_pre_cod, apc_idf_cod)
     );
 
@@ -473,6 +474,7 @@
         lpr_num number(10,0),
         lpr_pru number(17,2) not null,
         lpr_imp number(15,2) not null,
+        lpr_sync varchar2(1 char),
         lpr_uni number(10,0) not null,
         primary key (lpr_emp_cod, lpr_pre_cod, codi, lpr_idf_cod)
     );
@@ -696,6 +698,7 @@
         pre_cli_pordom varchar2(2 char),
         pre_pru number(15,8),
         pre_pruiva number(15,8),
+        pre_sync varchar2(1 char),
         pre_cli_tel varchar2(60 char),
         pre_cli_tipnif number(10,0),
         pre_ver number(10,0) not null,

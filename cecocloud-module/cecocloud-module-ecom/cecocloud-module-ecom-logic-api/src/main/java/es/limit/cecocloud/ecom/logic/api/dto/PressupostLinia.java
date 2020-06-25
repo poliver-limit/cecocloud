@@ -5,6 +5,7 @@ package es.limit.cecocloud.ecom.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia.PressupostLiniaPk;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -109,6 +111,10 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 			hiddenInGrid = false,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> article;
+	
+	@RestapiField(hiddenInGrid = true, hiddenInForm = true, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean sync = false;	
 
 	@NoArgsConstructor
 	@AllArgsConstructor

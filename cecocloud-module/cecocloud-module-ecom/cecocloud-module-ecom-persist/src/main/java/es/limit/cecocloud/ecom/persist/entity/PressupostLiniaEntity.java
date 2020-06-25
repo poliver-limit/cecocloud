@@ -62,6 +62,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.factorConversioSortides", column = @Column(name = "lpr_fcs", length = 22, precision = 15, nullable = false)),
 	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "lpr_imp", length = 22, precision = 15, scale = 2, nullable = false)),
 	
+	@AttributeOverride(name = "embedded.sync", column = @Column(name = "lpr_sync", length = 1)),	
+	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "lpr_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "lpr_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "lpr_usumod")),
@@ -128,6 +130,7 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 		this.empresa = empresa;
 		this.pressupost = pressupost;
 		
+		this.updateSync();
 		this.updateArticle(article);
 			
 	}
@@ -136,6 +139,10 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 	public void update(PressupostLinia embedded) {
 		this.embedded = embedded;
 	}	
+	
+	public void updateSync() {
+		this.embedded.setSync(false);		
+	}
 	
 	public void updateArticle(ArticleEntity article) {
 		this.article = article;		

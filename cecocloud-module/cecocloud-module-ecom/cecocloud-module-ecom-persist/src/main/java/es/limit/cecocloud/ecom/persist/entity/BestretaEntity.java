@@ -56,6 +56,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.est", column = @Column(name = "apc_est", length = 22, precision = 2, nullable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "apc_des", length = 30)),
 	
+	@AttributeOverride(name = "embedded.sync", column = @Column(name = "apc_sync", length = 1)),
+	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "apc_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "apc_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "apc_usumod")),
@@ -122,12 +124,17 @@ public class BestretaEntity extends AbstractWithIdentificadorAuditableEntity<Bes
 		this.empresa = empresa;
 		this.pressupost = pressupost;
 		
+		this.updateSync();
 		this.updateCaixa (caixa);
 	}
 
 	@Override
 	public void update(Bestreta embedded) {
 		this.embedded = embedded;
+	}
+	
+	public void updateSync() {
+		this.embedded.setSync(false);		
 	}
 	
 	public void updateCaixa(CaixaEntity caixa) {
