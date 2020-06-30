@@ -59,10 +59,10 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "art_descur", length = 60)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "art_des", length = 2000, nullable = false)),
 	@AttributeOverride(name = "embedded.pvp", column = @Column(name = "art_pvp", precision = 25,  scale = 10, nullable = false)),
-	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "art_pruiva", precision = 25, scale = 10, nullable = false)),
+	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "art_pruiva", precision = 25, scale = 10)),
 	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, length = 22, precision = 1, scale = 0)),
 	@AttributeOverride(name = "embedded.decimalsPreuIva", column = @Column(name = "art_decpruiva", length = 22, precision = 1, scale = 0)),	
-	@AttributeOverride(name = "embedded.rutaInforme", column = @Column(name = "art_rutinf", length = 1000, nullable = false)),
+	@AttributeOverride(name = "embedded.rutaInforme", column = @Column(name = "art_rutinf", length = 1000)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "art_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "art_datcre")),
@@ -93,7 +93,7 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	@Column(name = "art_far_cod", length = 6, nullable = false)
 	private String familiaCodi;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "art_idf_cod", referencedColumnName = "mod_idf_cod", insertable = false, updatable = false),
@@ -101,7 +101,7 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 			},
 			foreignKey = @ForeignKey(name = "rcom_art_mod_fk"))			
 	private ArticleModelEntity model;	
-	@Column(name = "art_mod_cod", length = 6, nullable = false)
+	@Column(name = "art_mod_cod", length = 6)
 	private String modelCodi;	
 	
 	@ManyToOne(optional = true,	fetch = FetchType.LAZY)

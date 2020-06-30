@@ -98,14 +98,14 @@
         art_decpruiva number(10,0),
         art_des varchar2(2000 char) not null,
         art_descur varchar2(60 char),
-        art_pruiva number(25,10) not null,
+        art_pruiva number(25,10),
         art_pvp number(25,10) not null,
-        art_rutinf varchar2(1000 char) not null,
+        art_rutinf varchar2(1000 char),
         art_far_cod varchar2(6 char) not null,
         art_gma_cod varchar2(6 char),
         art_iva_cod varchar2(4 char) not null,
         art_mca_cod varchar2(6 char),
-        art_mod_cod varchar2(6 char) not null,
+        art_mod_cod varchar2(6 char),
         art_tun_cod varchar2(4 char),
         primary key (art_cod, art_idf_cod)
     );

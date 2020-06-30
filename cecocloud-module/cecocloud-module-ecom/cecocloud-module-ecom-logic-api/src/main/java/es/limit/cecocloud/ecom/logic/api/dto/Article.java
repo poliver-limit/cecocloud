@@ -67,8 +67,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true,
 			sizeMax = 22)	
 	private BigDecimal pvp;
-	
-	@NotNull
+
 	@Digits(integer = 15, fraction = 10)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -105,8 +104,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)
 	private String familiaCodi;
 	
-	@Transient
-	@NotNull
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)
@@ -177,8 +175,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 ////			,lovDescriptionField = "urlImatgeTxt"
 //			)	
 //	private GenericReferenceWithCompositePk<ArticleInformacio, ArticleInformacioPk> articleInformacio;	
-	
-	@NotNull
+
 	@Size(max = 2000)
 //	@Size(max = 100) // Per adaptació pantalla 
 	@RestapiField(

@@ -118,7 +118,8 @@ public class ArticleInformacioEntity extends AbstractWithIdentificadorAuditableE
 		@PrePersist
 		public void calcular(ArticleInformacioEntity articleInformacio) {
 			int num = EntityListenerUtil.getSeguentNumComptador(
-					articleInformacio.getIdentificador().getId(),
+					articleInformacio.getId().getIdentificadorCodi(),
+//					articleInformacio.getIdentificador().getId(),
 					"TCOM_AIN");
 			articleInformacio.getEmbedded().setReferenciaSequencial(num);
 			articleInformacio.getId().setReferenciaSequencial(num);
