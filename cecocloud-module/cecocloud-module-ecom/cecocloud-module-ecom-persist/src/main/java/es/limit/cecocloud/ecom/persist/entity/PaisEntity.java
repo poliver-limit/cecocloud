@@ -48,9 +48,9 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codiso002", column = @Column(name = "pas_codiso002", length = 2)),
 	@AttributeOverride(name = "embedded.cee", column = @Column(name = "pas_cee", length = 1)),
 	
-	@AttributeOverride(name = "embedded.importRepartiment", column = @Column(name = "pas_irp", nullable = false)),
-	@AttributeOverride(name = "embedded.importMinimRepartiment", column = @Column(name = "pas_imr", nullable = false)),
-	@AttributeOverride(name = "embedded.importCompraNoPreuRepartiment", column = @Column(name = "pas_cmpnrp", nullable = false)),
+	@AttributeOverride(name = "embedded.importRepartiment", column = @Column(name = "pas_irp")),
+	@AttributeOverride(name = "embedded.importMinimRepartiment", column = @Column(name = "pas_imr")),
+	@AttributeOverride(name = "embedded.importCompraNoPreuRepartiment", column = @Column(name = "pas_cmpnrp")),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "pas_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "pas_datcre")),

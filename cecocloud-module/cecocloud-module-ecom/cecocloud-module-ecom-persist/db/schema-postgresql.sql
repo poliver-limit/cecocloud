@@ -175,9 +175,9 @@
         cpo_datcre timestamp,
         cpo_usumod varchar(255),
         cpo_datmod timestamp,
-        cpo_cmpnrp numeric(19, 2) not null,
-        cpo_imr numeric(19, 2) not null,
-        cpo_irp numeric(19, 2) not null,
+        cpo_cmpnrp numeric(19, 2),
+        cpo_imr numeric(19, 2),
+        cpo_irp numeric(19, 2),
         cpo_mun varchar(30),
         cpo_pob varchar(30) not null,
         cpo_pas_cod varchar(4) not null,
@@ -616,9 +616,9 @@
         pas_cee varchar(1),
         pas_codiso varchar(3),
         pas_codiso002 varchar(2),
-        pas_cmpnrp numeric(19, 2) not null,
-        pas_imr numeric(19, 2) not null,
-        pas_irp numeric(19, 2) not null,
+        pas_cmpnrp numeric(19, 2),
+        pas_imr numeric(19, 2),
+        pas_irp numeric(19, 2),
         pas_nif varchar(2),
         pas_nom varchar(30) not null,
         primary key (pas_cod, pas_idf_cod)
@@ -743,9 +743,9 @@
         prv_datcre timestamp,
         prv_usumod varchar(255),
         prv_datmod timestamp,
-        prv_cmpnrp numeric(19, 2) not null,
-        prv_imr numeric(19, 2) not null,
-        prv_irp numeric(19, 2) not null,
+        prv_cmpnrp numeric(19, 2),
+        prv_imr numeric(19, 2),
+        prv_irp numeric(19, 2),
         prv_nom varchar(30) not null,
         primary key (prv_pas_cod, prv_cod, prv_idf_cod)
     );
@@ -1083,7 +1083,7 @@
         ven_valdiveur numeric(15, 8) not null,
         primary key (ven_emp_cod, ven_fac_cls, ven_fac_num, ven_num, ven_ser_cod, ven_idf_cod)
     );
-
+ 
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);

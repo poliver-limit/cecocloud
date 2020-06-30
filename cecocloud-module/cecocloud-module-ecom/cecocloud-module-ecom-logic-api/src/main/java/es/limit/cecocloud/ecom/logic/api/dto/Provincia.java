@@ -58,22 +58,18 @@ public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaP
 			disabledForCreate = false)
 	private GenericReferenceWithCompositePk<Pais, WithIdentificadorAndCodiPk<String>> pais;
 	
-	
-	@NotNull
 	@Digits(integer=2, fraction=3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private BigDecimal importRepartiment;
+	private BigDecimal importRepartiment;	
 	
-	@NotNull
 	@Digits(integer=2, fraction=3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
-	private BigDecimal importMinimRepartiment;
+	private BigDecimal importMinimRepartiment;	
 	
-	@NotNull
 	@Digits(integer=2, fraction=3)
 	@RestapiField(
 			hiddenInGrid = true,
