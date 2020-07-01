@@ -214,5 +214,17 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true,
 			hiddenInGrid = true)	
 	private GenericReferenceWithCompositePk<TipusUnitat, WithIdentificadorAndCodiPk<String>> tipusUnitat;
+	
+	@Size(max = 4)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String descripcioTipusUnitat;
+	
+	@Size(max = 20)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true)
+	private String titol;
 
 }

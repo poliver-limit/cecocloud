@@ -39,12 +39,12 @@ import lombok.Setter;
 		name = "tcom_prv",
 		indexes = {
 				@Index(name = "icom_prv_idf_fk", columnList = "prv_idf_cod"),
-				@Index(name = "ircom_prv_pk", columnList = "prv_idf_cod,prv_cod", unique = true)
+				@Index(name = "ircom_prv_pk", columnList = "prv_idf_cod, prv_pas_cod, prv_cod", unique = true)
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "prv_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.paisCodi", column = @Column(name = "prv_pas_cod", length = 4)),
+	@AttributeOverride(name = "id.paisCodi", column = @Column(name = "prv_pas_cod", length = 5)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "prv_cod", length = 3)),
 	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "prv_cod", length = 4, insertable = false, updatable = false)),

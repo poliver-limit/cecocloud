@@ -98,9 +98,11 @@
         art_decpruiva int4,
         art_des varchar(2000) not null,
         art_descur varchar(60),
+        art_tipuni varchar(4),
         art_pruiva numeric(25, 10),
         art_pvp numeric(25, 10) not null,
         art_rutinf varchar(1000),
+        art_tlt varchar(20),
         art_far_cod varchar(6) not null,
         art_gma_cod varchar(6),
         art_iva_cod varchar(4) not null,
@@ -419,7 +421,7 @@
         idi_datcre timestamp,
         idi_usumod varchar(255),
         idi_datmod timestamp,
-        idi_codiso varchar(2) not null,
+        idi_codiso varchar(2),
         idi_des varchar(30) not null,
         primary key (idi_cod, idi_idf_cod)
     );
@@ -736,7 +738,7 @@
     );
 
     create table tcom_prv (
-       prv_pas_cod varchar(4) not null,
+       prv_pas_cod varchar(5) not null,
         prv_cod varchar(3) not null,
         prv_idf_cod varchar(4) not null,
         prv_usucre varchar(255),
@@ -1083,7 +1085,7 @@
         ven_valdiveur numeric(15, 8) not null,
         primary key (ven_emp_cod, ven_fac_cls, ven_fac_num, ven_num, ven_ser_cod, ven_idf_cod)
     );
- 
+
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
@@ -1143,9 +1145,6 @@ create index icom_pmg_idf_fk on tcom_pmg (pmg_idf_cod);
 create index icom_pre_emp_fk on tcom_pre (pre_idf_cod, pre_emp_cod);
 create index icom_pro_idf_fk on tcom_pro (pro_idf_cod);
 create index icom_prv_idf_fk on tcom_prv (prv_idf_cod);
-
-    alter table tcom_prv 
-       add constraint ircom_prv_pk unique (prv_idf_cod, prv_cod);
 create index icom_ptv_emp_fk on tcom_ptv (ptv_idf_cod, ptv_emp_cod);
 create index icom_rgi_idf_fk on tcom_rgi (rgi_idf_cod);
 create index icom_scp_idf_fk on tcom_scp (scp_idf_cod);

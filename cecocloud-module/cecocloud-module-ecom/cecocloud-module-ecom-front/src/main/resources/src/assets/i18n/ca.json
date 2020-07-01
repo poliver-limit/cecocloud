@@ -120,6 +120,9 @@
 	"resource.article.field.rutaInforme": "Url imatge",
 	"resource.article.field.tipusUnitat": "Tipus d'unitat",
 	
+	"resource.article.field.descripcioTipusUnitat": "Descripció del T.U.",
+	"resource.article.field.titol": "Títol",
+	
 	"resource.article.field.titolGeneral": "Dades de l'article",
 	"resource.article.field.imatges": "Imatges",
 	"resource.article.field.traduccions": "Traduccions",

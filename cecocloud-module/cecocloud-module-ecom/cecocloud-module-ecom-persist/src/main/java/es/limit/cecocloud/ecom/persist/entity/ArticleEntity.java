@@ -63,6 +63,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, length = 22, precision = 1, scale = 0)),
 	@AttributeOverride(name = "embedded.decimalsPreuIva", column = @Column(name = "art_decpruiva", length = 22, precision = 1, scale = 0)),	
 	@AttributeOverride(name = "embedded.rutaInforme", column = @Column(name = "art_rutinf", length = 1000)),
+	@AttributeOverride(name = "embedded.descripcioTipusUnitat", column = @Column(name = "art_tipuni", length = 4)),
+	@AttributeOverride(name = "embedded.titol", column = @Column(name = "art_tlt", length = 20)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "art_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "art_datcre")),
