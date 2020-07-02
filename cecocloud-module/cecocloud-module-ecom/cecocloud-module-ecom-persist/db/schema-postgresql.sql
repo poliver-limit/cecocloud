@@ -94,6 +94,7 @@
         art_usumod varchar(255),
         art_datmod timestamp,
         art_ain_num int4,
+        art_blo varchar(1) not null,
         art_decpru int4 not null,
         art_decpruiva int4,
         art_des varchar(2000) not null,

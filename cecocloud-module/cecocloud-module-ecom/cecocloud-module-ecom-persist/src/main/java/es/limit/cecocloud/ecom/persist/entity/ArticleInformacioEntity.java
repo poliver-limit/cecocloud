@@ -117,12 +117,14 @@ public class ArticleInformacioEntity extends AbstractWithIdentificadorAuditableE
 	public static class ArticleInformacioEntityListener {
 		@PrePersist
 		public void calcular(ArticleInformacioEntity articleInformacio) {
-			int num = EntityListenerUtil.getSeguentNumComptador(
-					articleInformacio.getId().getIdentificadorCodi(),
-//					articleInformacio.getIdentificador().getId(),
-					"TCOM_AIN");
-			articleInformacio.getEmbedded().setReferenciaSequencial(num);
-			articleInformacio.getId().setReferenciaSequencial(num);
+			if (articleInformacio.getId().getReferenciaSequencial()==null) {
+				int num = EntityListenerUtil.getSeguentNumComptador(
+						articleInformacio.getId().getIdentificadorCodi(),
+	//					articleInformacio.getIdentificador().getId(),
+						"TCOM_AIN");
+				articleInformacio.getEmbedded().setReferenciaSequencial(num);
+				articleInformacio.getId().setReferenciaSequencial(num);
+			}
 		}
 	}
 
