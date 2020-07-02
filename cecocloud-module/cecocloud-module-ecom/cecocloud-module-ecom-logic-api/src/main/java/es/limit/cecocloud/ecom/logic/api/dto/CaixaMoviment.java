@@ -43,8 +43,9 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = {"numero","empresa","caixa"}, groups = { OnCreate.class })
 public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaMovimentPk> {
 
-	@NotNull(groups = {OnCreate.class})	
+//	@NotNull(groups = {OnCreate.class})	
 	@RestapiField(
+			disabledForCreate = true,
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true,
@@ -152,7 +153,7 @@ public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaM
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
-	@Getter
+	@Getter @Setter
 	@SuppressWarnings("serial")
 	public static class CaixaMovimentPk extends WithIdentificadorPk {
 		private String empresaCodi;

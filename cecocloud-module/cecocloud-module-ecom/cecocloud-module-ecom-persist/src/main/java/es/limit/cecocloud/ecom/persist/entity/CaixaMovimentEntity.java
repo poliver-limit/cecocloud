@@ -10,16 +10,20 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.ecom.logic.api.dto.CaixaMoviment;
 import es.limit.cecocloud.ecom.logic.api.dto.CaixaMoviment.CaixaMovimentPk;
+import es.limit.cecocloud.ecom.persist.entity.CaixaMovimentEntity.CaixaMovimentEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -73,7 +77,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_mdc_idf_fk"))
 })
-
+@EntityListeners({CaixaMovimentEntityListener.class})
 public class CaixaMovimentEntity extends AbstractWithIdentificadorAuditableEntity<CaixaMoviment, CaixaMovimentPk> {
 
 	@Embedded
@@ -203,6 +207,17 @@ public class CaixaMovimentEntity extends AbstractWithIdentificadorAuditableEntit
 		}
 	}
 	
-	
+	// Generem un comptador diferent per a cada caixa
+	public static class CaixaMovimentEntityListener {
+		@PrePersist
+		public void calcular(CaixaMovimentEntity caixaMoviment) {
+			String caixaCodi = caixaMoviment.getCaixa().getId().getCodi();
+			int num = EntityListenerUtil.getSeguentNumComptador(
+					caixaMoviment.getIdentificador().getId(),
+					"TCOM_MDC_"+caixaCodi);
+			caixaMoviment.getEmbedded().setNumero(num);
+			caixaMoviment.getId().setNumero(num);
+		}
+	}	
 
 }

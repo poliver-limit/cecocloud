@@ -10,16 +10,20 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Bestreta;
 import es.limit.cecocloud.ecom.logic.api.dto.Bestreta.BestretaPk;
+import es.limit.cecocloud.ecom.persist.entity.BestretaEntity.BestretaEntityListener;
+import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -71,7 +75,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rcom_apc_idf_fk"))
 })
-
+@EntityListeners({BestretaEntityListener.class})
 public class BestretaEntity extends AbstractWithIdentificadorAuditableEntity<Bestreta, BestretaPk> {
 
 	@Embedded
@@ -142,6 +146,19 @@ public class BestretaEntity extends AbstractWithIdentificadorAuditableEntity<Bes
 		this.caixa = caixa;
 		if (caixa != null) {
 			this.caixaCodi = caixa.getEmbedded().getCodi();
+		}
+	}
+	
+	// Generem un comptador diferent per a cada pressupost
+	public static class BestretaEntityListener {
+		@PrePersist
+		public void calcular(BestretaEntity bestreta) {
+			int numeroPressupost = bestreta.getPressupost().getEmbedded().getNumero();
+			int num = EntityListenerUtil.getSeguentNumComptador(
+					bestreta.getIdentificador().getId(),
+					"TCOM_APC_"+numeroPressupost);
+			bestreta.getEmbedded().setNumero(num);
+			bestreta.getId().setNumero(num);
 		}
 	}
 

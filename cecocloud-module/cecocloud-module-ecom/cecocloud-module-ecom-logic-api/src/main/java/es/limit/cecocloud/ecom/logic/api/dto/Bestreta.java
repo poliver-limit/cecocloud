@@ -42,8 +42,9 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = {"numero","empresa","pressupost"}, groups = { OnCreate.class })
 public class Bestreta extends AbstractIdentificableWithIdentificador<BestretaPk> {
 
-	@NotNull(groups = {OnCreate.class})	
+//	@NotNull(groups = {OnCreate.class})	
 	@RestapiField(
+			disabledForCreate = true,
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true,
@@ -113,7 +114,7 @@ public class Bestreta extends AbstractIdentificableWithIdentificador<BestretaPk>
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
-	@Getter
+	@Getter @Setter
 	@SuppressWarnings("serial")
 	public static class BestretaPk extends WithIdentificadorPk {
 		private String empresaCodi;

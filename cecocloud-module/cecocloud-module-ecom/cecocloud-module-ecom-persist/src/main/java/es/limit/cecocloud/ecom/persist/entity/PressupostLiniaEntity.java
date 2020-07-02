@@ -150,6 +150,7 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 		if (article!=null) this.articleCodi = article.getEmbedded().getCodi();
 	}
 	
+	// Generem un comptador diferent per a cada pressupost
 	public static class PressupostLiniaEntityListener {
 		@PrePersist
 		public void calcular(PressupostLiniaEntity pressupostLinia) {
