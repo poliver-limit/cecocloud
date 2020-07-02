@@ -5,6 +5,7 @@ package es.limit.cecocloud.ecom.logic.api.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Convert;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
+import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -226,5 +228,13 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String titol;
+	
+	@NotNull
+	@RestapiField(
+			hiddenInGrid = false,
+			hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean bloquejat = false;
+	
 
 }
