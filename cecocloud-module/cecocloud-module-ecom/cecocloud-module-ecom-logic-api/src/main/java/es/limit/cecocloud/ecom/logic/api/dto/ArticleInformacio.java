@@ -48,8 +48,8 @@ public class ArticleInformacio extends AbstractIdentificableWithIdentificador<Ar
 	private Integer referenciaSequencial;
 
 	@NotNull
-//	@Size(max = 60)
-	@Size(max = 55) // Per adaptacio pantalla
+	@Size(max = 60)
+//	@Size(max = 55) // Per adaptacio pantalla
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;	
@@ -66,8 +66,8 @@ public class ArticleInformacio extends AbstractIdentificableWithIdentificador<Ar
 	private ArticleInformacioTipusEnumDto tipus;
 	
 	@NotNull
-//	@Size(max = 250)
-	@Size(max = 39) // Per adaptacio pantalla
+	@Size(max = 250)
+//	@Size(max = 39) // Per adaptacio pantalla
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String rutaInforme;	
