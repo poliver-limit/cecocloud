@@ -1,0 +1,39 @@
+databaseChangeLog:
+- changeSet:
+    id: 1594054954-1
+    author: marcg
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: synchronization_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+                nullable: false                
+            name: class_name
+            type: varchar(255)
+        - column:                            
+            name: lst_dat_ok
+            type: TIMESTAMP
+        - column:
+            constraints:
+                nullable: false
+            name: params
+            type: varchar(2000)
+        - column:             
+            name: snc_dat
+            type: TIMESTAMP
+        tableName: synchronization
+- changeSet:
+    id: 1594054954-2
+    author: marcg
+    changes:
+        -  addUniqueConstraint:  
+            columnNames:  class_name, params
+            constraintName:  synchronization_uk
+            tableName: synchronization
