@@ -33,7 +33,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "descripcio"
 )
 @PrimaryKeyNotExists(fields = {"codi","transportista"}, groups = { OnCreate.class })
 public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {

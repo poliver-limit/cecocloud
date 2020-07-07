@@ -141,14 +141,14 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = false,
-			disabledForUpdate = false,
-			hiddenInGrid = true,
-			hiddenInForm = false)
-	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
+//	@Transient
+//	@RestapiField(
+//			type = RestapiFieldType.LOV,
+//			disabledForCreate = false,
+//			disabledForUpdate = false,
+//			hiddenInGrid = true,
+//			hiddenInForm = false)
+//	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
 	@RestapiField(

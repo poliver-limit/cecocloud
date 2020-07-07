@@ -320,9 +320,28 @@ public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albar
 	@Column(name = "alb_cli_cpo_cod", length = 8)
 	private String codiPostalClientCodi;
 	
-	// Falta afegir "clients proveïdors"
-	// Transportista i vehicles
-	// codi,nom transportista, codis vehicles i descrupcions.
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "alb_idf_cod", referencedColumnName = "mtr_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "alb_mtr_cod", referencedColumnName = "mtr_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "alb_tra_cod", referencedColumnName = "mtr_tra_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "rcom_alb_mtr_fk"))
+	private VehicleEntity vehicle;
+	@Column(name = "alb_mtr_cod", length = 10)
+	private String vehicleCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "alb_idf_cod", referencedColumnName = "tra_idf_cod", insertable = false, updatable = false),						
+						@JoinColumn(name = "alb_tra_cod", referencedColumnName = "tra_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "rcom_alb_tra_fk"))
+	private TransportistaEntity transportista;
+	@Column(name = "alb_tra_cod", length = 6)
+	private String transportistaCodi;
 	
 	@Builder
 	public AlbaraEntity(
@@ -345,6 +364,8 @@ public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albar
 			PaisEntity pais,
 			ProvinciaEntity provincia,
 			DocumentPagamentCobramentEntity documentPagamentCobrament,
+			TransportistaEntity transportista,
+			VehicleEntity vehicle,
 			
 			PaisNifEntity paisNif,
 			TipusAdresaEntity tipusAdresa,
@@ -372,6 +393,8 @@ public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albar
 		this.updatePais(pais);
 		this.updateProvincia(provincia);
 		this.updateDocumentPagamentCobrament(documentPagamentCobrament);
+		this.updateTransportista(transportista);
+		this.updateVehicle(vehicle);
 		
 		this.updatePaisNif(paisNif);
 		this.updateTipusAdresa(tipusAdresa);
@@ -485,6 +508,20 @@ public class AlbaraEntity extends AbstractWithIdentificadorAuditableEntity<Albar
 		this.documentPagamentCobrament = documentPagamentCobrament;
 		if (documentPagamentCobrament != null) {
 			this.documentPagamentCobramentCodi = documentPagamentCobrament.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateTransportista(TransportistaEntity transportista) {
+		this.transportista = transportista;
+		if (transportista != null) {
+			this.transportistaCodi = transportista.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateVehicle(VehicleEntity vehicle) {
+		this.vehicle = vehicle;
+		if (vehicle != null) {
+			this.vehicleCodi = vehicle.getEmbedded().getCodi();
 		}
 	}
 	

@@ -62,7 +62,9 @@
 	"resource.albara.field.desti": "Destino",	
 	"resource.albara.field.divisaValorEuros": "Divisa valor euros",	
 	"resource.albara.field.facturaNumero": "Factura número",	
-	"resource.albara.field.facturaClasse": "Factura clase",				
+	"resource.albara.field.facturaClasse": "Factura clase",		
+	"resource.albara.field.transportista": "Transportista",	
+	"resource.albara.field.vehicle": "Vehículo",				
 	
 	"resource.albara.field.observacions": "Observaciones",
 	"resource.albara.field.preu": "Precio",

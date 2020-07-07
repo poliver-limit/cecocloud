@@ -106,7 +106,9 @@ public class EcomModuleRegister {
 							Provincia.class,
 							DocumentPagamentCobrament.class,
 							PaisNif.class,
-							TipusAdresa.class)));
+							TipusAdresa.class,
+							Transportista.class,
+							Vehicle.class)));
 		funcionalitats.put(
 				"COM_LAC",
 				new FuncionalitatCodiFontImpl(
@@ -436,7 +438,7 @@ public class EcomModuleRegister {
 								Empresa.class,
 								SerieVenda.class,
 								Client.class,								
-								Iva.class,
+//								Iva.class,
 								CodiPostal.class,
 								Divisa.class,
 								Magatzem.class,

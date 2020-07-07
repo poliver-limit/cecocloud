@@ -28,6 +28,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.Albara.AlbaraPk;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import es.limit.cecocloud.ecom.logic.api.dto.Provincia.ProvinciaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda.PuntVendaPk;
+import es.limit.cecocloud.ecom.logic.api.dto.Vehicle.VehiclePk;
 import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode.MagatzemPeriodePk;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda.SerieVendaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
@@ -292,6 +293,24 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 			hiddenInGrid = true,
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInGrid = true,
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<Transportista, WithIdentificadorAndCodiPk<String>> transportista;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInGrid = true,
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<Vehicle, VehiclePk> vehicle;
 	
 	// Dades extres pel client no registrat:
 	@Size(max = 6)
