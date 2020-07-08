@@ -28,7 +28,7 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -36,12 +36,12 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	private String nom;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true,
 			hiddenInGrid = true
@@ -49,7 +49,7 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@Size(max = 60)
 	private String domicili;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true,
 			hiddenInGrid = true
@@ -120,7 +120,7 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@Size(max = 10)
 	private String compteTraspassos;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -130,7 +130,7 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

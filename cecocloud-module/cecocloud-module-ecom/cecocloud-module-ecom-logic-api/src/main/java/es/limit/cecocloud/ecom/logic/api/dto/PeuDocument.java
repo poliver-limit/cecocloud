@@ -44,42 +44,42 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@RestapiField(disabledForUpdate = true, toUpperCase = true,includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean factura = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean albara = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean pre = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean com = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean imprimirPeuCertificacio = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
@@ -90,7 +90,7 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 	@Size(max = 1000)
 	private String pie;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
@@ -102,7 +102,7 @@ public class PeuDocument extends AbstractIdentificableWithIdentificador<PeuDocum
 			hiddenInLov = true)
 	private BigDecimal ordre;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,			

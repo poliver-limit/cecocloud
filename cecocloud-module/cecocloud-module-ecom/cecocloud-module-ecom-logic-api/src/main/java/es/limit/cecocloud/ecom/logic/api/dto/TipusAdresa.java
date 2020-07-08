@@ -34,7 +34,7 @@ public class TipusAdresa extends AbstractIdentificable<String> {
 			includeInQuickFilter = true)
 	@Size(max = 2)
 	protected String codi;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	protected String descripcio;
 	

@@ -52,7 +52,7 @@ public class Bestreta extends AbstractIdentificableWithIdentificador<BestretaPk>
 	private Integer numero;
 	
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true
@@ -60,7 +60,7 @@ public class Bestreta extends AbstractIdentificableWithIdentificador<BestretaPk>
 			)
 	private Date dia;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 20, fraction = 2)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -68,7 +68,7 @@ public class Bestreta extends AbstractIdentificableWithIdentificador<BestretaPk>
 			sizeMax = 22)
 	private BigDecimal preuAmbIva;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(			
 			hiddenInGrid = true,
 			hiddenInLov = true,

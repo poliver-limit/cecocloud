@@ -39,10 +39,10 @@ public class ArticleFamilia extends AbstractIdentificableWithIdentificadorAndCod
 	@Size(max = 6)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	private String descripcio;
 	

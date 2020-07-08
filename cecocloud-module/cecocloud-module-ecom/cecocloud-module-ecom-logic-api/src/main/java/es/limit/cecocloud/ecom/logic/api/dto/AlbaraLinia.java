@@ -43,35 +43,35 @@ public class AlbaraLinia extends AbstractIdentificableWithIdentificador<AlbaraLi
 		sizeMax = 22)
 	private Integer numero;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
 	private Integer unitats;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			includeInQuickFilter = true)
 	private String descripcio;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
 	private Integer preu;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
 	private Integer factorConversioSortides;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
@@ -97,7 +97,7 @@ public class AlbaraLinia extends AbstractIdentificableWithIdentificador<AlbaraLi
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Albara, AlbaraPk> albara;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

@@ -47,21 +47,21 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 		sizeMax = 22)
 	private Integer numero;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
 	private Integer unitats;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,
 			includeInQuickFilter = true)
 	private String descripcio;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
 			hiddenInGrid = true,
@@ -69,14 +69,14 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 			sizeMax = 22)
 	private BigDecimal preu;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
 	private Integer factorConversioSortides;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@Digits(integer = 13, fraction = 2)
 	@RestapiField(
 			hiddenInGrid = true,
@@ -102,7 +102,7 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Pressupost, PressupostPk> pressupost;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

@@ -38,7 +38,7 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = {"STO_TIP","magatzem","magatzemPeriode","article"}, groups = { OnCreate.class })
 public class Stock extends AbstractIdentificableWithIdentificador<StockPk> {
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -263,7 +263,7 @@ public class Stock extends AbstractIdentificableWithIdentificador<StockPk> {
 	private BigDecimal STO_VALSORFAB002;	                                  
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
@@ -271,7 +271,7 @@ public class Stock extends AbstractIdentificableWithIdentificador<StockPk> {
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
@@ -279,7 +279,7 @@ public class Stock extends AbstractIdentificableWithIdentificador<StockPk> {
 	private GenericReferenceWithCompositePk<MagatzemPeriode, MagatzemPeriodePk> magatzemPeriode;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = false,

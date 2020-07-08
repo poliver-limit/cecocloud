@@ -140,7 +140,7 @@ public class MagatzemArticle extends AbstractIdentificableWithIdentificador<Maga
 	private BigDecimal stockSeguretat;	
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
@@ -148,7 +148,7 @@ public class MagatzemArticle extends AbstractIdentificableWithIdentificador<Maga
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = false,

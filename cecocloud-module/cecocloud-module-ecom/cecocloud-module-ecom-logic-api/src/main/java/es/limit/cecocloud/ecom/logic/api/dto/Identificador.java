@@ -31,7 +31,7 @@ public class Identificador extends AbstractIdentificable<String> {
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 40)
 	@RestapiField(
 			includeInQuickFilter = true)

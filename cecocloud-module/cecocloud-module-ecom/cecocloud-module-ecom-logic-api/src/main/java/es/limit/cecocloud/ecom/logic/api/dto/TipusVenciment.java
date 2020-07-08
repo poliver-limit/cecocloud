@@ -36,7 +36,7 @@ import lombok.Setter;
 public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase=true,
 				includeInQuickFilter = true)
@@ -45,16 +45,16 @@ public class TipusVenciment extends AbstractIdentificableWithIdentificadorAndCod
 	@RestapiField(
 			hiddenInLov=true
 	)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.ENUM)
 	@Convert(converter = TipusVencimentConverter.class)
 	private TipusVencimentEnumDto tipus;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)

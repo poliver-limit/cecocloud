@@ -41,11 +41,11 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private String codi;
 
 	@Size(max = 40)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInLov = true)
 	private String nomFiscal;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = true)
 	@Size(max = 40)
 	private String nomComercial;
@@ -139,7 +139,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 				hiddenInGrid = true,
@@ -182,7 +182,7 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;	
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
@@ -197,17 +197,17 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusFacturacio, WithIdentificadorAndCodiPk<String>> tipusFacturacio;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(type = RestapiFieldType.LOV, hiddenInGrid = true)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagament;	
 

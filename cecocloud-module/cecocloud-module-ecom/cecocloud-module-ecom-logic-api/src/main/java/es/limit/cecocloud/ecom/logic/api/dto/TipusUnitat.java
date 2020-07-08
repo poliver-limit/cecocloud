@@ -33,7 +33,7 @@ public class TipusUnitat extends AbstractIdentificableWithIdentificadorAndCodi<S
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 60)
 	@RestapiField(
 			includeInQuickFilter = true)

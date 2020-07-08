@@ -28,13 +28,13 @@ import lombok.Setter;
 public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase = true,
 				includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 40)
 	@RestapiField(disabledForUpdate = true,
 			includeInQuickFilter = true
@@ -42,7 +42,7 @@ public class Empresa extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String nomComercial;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)	

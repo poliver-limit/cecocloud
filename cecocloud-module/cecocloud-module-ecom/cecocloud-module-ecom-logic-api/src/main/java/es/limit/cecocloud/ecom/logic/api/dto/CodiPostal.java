@@ -33,14 +33,14 @@ import lombok.Setter;
 public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 8)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	@RestapiField(
 			hiddenInGrid = true,
@@ -54,14 +54,14 @@ public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<St
 	private String municipi;
 
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<Pais, WithIdentificadorAndCodiPk<String>> pais;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	

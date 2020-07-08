@@ -34,43 +34,43 @@ import lombok.Setter;
 public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase = true,
 				includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean controlarEfectes = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean agruparVencimentsRemeses = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=3,
 			hiddenInLov = true)
 	private Integer numeroDias;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			sizeMax=3,
 			hiddenInLov = true)
 	private Integer diaEfectosNegociados;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
@@ -78,110 +78,110 @@ public class DocumentPagamentCobrament extends AbstractIdentificableWithIdentifi
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean transpasar = false;
 	
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean asientoCompuesto = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 4)
 	private String codigoContable;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codigoFacturaElectronica;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Digits(integer = 2, fraction = 2)
 	private BigDecimal percentatgeComisio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 64)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableComissio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String concepteContable;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableOrigenIngressos;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	@Size(max = 2)
 	private String tipusSeientIngressos;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContableIngressos;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContableIngressos2;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String compteContableDestiPagos;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String tipusSeientPagos;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContablePagos;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov = true)
 	private String diariContablePagos2;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<NaturalesaPagamentCobrament, WithIdentificadorAndCodiPk<String>> naturalesaPagamentCobrament;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)

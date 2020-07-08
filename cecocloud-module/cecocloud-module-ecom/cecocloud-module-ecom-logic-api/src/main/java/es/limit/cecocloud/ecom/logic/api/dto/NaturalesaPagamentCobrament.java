@@ -27,19 +27,19 @@ import lombok.Setter;
 public class NaturalesaPagamentCobrament extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(disabledForUpdate = true,
 			toUpperCase=true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1000)
 	@RestapiField(
 			type = RestapiFieldType.TEXTAREA,

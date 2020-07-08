@@ -28,20 +28,20 @@ import lombok.Setter;
 public class Transportista extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 6)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(disabledForUpdate = true,
 				toUpperCase=true,
 				includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true)
 //	@Size(max = 30)
 	@Size(max = 24) // Per adaptacio pantalla
 	private String nom;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 	hiddenInLov=true)
 	@Size(max = 12)
@@ -109,14 +109,14 @@ public class Transportista extends AbstractIdentificableWithIdentificadorAndCodi
 	private Boolean vehicleEmpresa = false;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			includeInQuickFilter = true)	
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov = true)	

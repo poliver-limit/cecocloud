@@ -30,41 +30,41 @@ import lombok.Setter;
 public class Iva extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30) 
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer=2, fraction=3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private BigDecimal percentatgeIva;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer=2, fraction=3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private BigDecimal percentatgeRecarrecEquivalencia;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String codiComptabilitat;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 4)
 	@RestapiField(
 			hiddenInGrid = true,

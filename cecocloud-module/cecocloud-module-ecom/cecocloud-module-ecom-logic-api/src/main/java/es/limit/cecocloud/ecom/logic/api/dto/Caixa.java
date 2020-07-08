@@ -42,12 +42,12 @@ public class Caixa extends AbstractIdentificableWithIdentificador<CaixaPk> {
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean ferApuntComptable;

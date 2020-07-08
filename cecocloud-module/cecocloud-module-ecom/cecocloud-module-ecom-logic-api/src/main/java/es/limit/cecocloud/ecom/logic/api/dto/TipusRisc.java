@@ -35,7 +35,7 @@ public class TipusRisc extends AbstractIdentificableWithIdentificadorAndCodi<Str
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)

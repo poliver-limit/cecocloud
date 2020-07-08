@@ -62,14 +62,14 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 		includeInQuickFilter = true)
 	private String codi;*/
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true
 	)
 	private Integer numeroDocument;
 	
-//	@NotNull
+//	@NotNull(groups = { OnCreate.class })
 //	@RestapiField(hiddenInGrid = true)
 //	private Integer numero;
 	
@@ -81,7 +81,7 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 			sizeMax = 22)
 	private int numero;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true)
 	private String classe;	
@@ -90,34 +90,34 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	@RestapiField(hiddenInGrid = true)
 	private String serCodfac;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true)
 	private Date data;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true)
 	private String formaPago;
 	
-	@NotNull	
+	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(hiddenInGrid = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean facturable = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true)
 	private String desti;	
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true)
 	private BigDecimal divisaValorEuros;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true)
 	private Integer facturaNumero;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true)
 	private String facturaClasse;	
 
@@ -150,7 +150,7 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 			)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -161,7 +161,7 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 			)
 	private GenericReferenceWithCompositePk<PuntVenda, PuntVendaPk> puntVenda;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -220,7 +220,7 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -318,11 +318,11 @@ public class Albara extends AbstractIdentificableWithIdentificador<AlbaraPk> {
 	private String codiClient;
 
 	@Size(max = 40)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInLov = true)
 	private String nomFiscal;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = true)
 	@Size(max = 40)
 	private String nomComercial;

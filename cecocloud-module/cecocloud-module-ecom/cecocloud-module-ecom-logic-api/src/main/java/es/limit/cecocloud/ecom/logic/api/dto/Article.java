@@ -53,7 +53,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInLov = true)
 	private String descripcioCurta;
 	
-	@NotNull
+	@NotNull(groups = {OnCreate.class})
 	@Size(max = 2000)
 //	@Size(max = 100) // Per adaptació pantalla
 	@RestapiField(
@@ -62,7 +62,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			hiddenInGrid = true)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = {OnCreate.class})
 	@Digits(integer = 15, fraction = 10)
 	@RestapiField(			
 			hiddenInGrid = false,
@@ -77,7 +77,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 			sizeMax = 22)
 	private BigDecimal preuAmbIva;	
 	
-	@NotNull
+	@NotNull(groups = {OnCreate.class})
 	@RestapiField(
 				hiddenInGrid = true,
 				sizeMax=22,
@@ -91,7 +91,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private int decimalsPreuIva;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = {OnCreate.class})
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true)	
@@ -152,7 +152,7 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	private String marcaCodi;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = {OnCreate.class})
 	@RestapiField(
 			type = RestapiFieldType.LOV,		
 			hiddenInLov = true,

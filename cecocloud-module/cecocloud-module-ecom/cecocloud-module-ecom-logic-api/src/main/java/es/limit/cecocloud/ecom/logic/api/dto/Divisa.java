@@ -29,14 +29,14 @@ import lombok.Setter;
 public class Divisa extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 4)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
@@ -48,21 +48,21 @@ public class Divisa extends AbstractIdentificableWithIdentificadorAndCodi<String
 			hiddenInLov = true)
 	private String abreviatura;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 7, fraction = 3)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private BigDecimal valorEuros;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 1)
 	private int decimalsPreus;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,

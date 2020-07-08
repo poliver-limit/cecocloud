@@ -41,7 +41,7 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = {"codi","empresa"}, groups = { OnCreate.class })
 public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVendaPk> {
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -49,18 +49,18 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Integer darrerAlbara;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -71,19 +71,19 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInLov = true)
 	private Integer darrerPressupost;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Integer darreraFacturaProforma;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Integer darrerAlbaraProforma;	
 	
- 	@NotNull 
+ 	@NotNull(groups = { OnCreate.class }) 
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -189,11 +189,11 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInLov = true)
 	private String compteVendesProforma;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validDesde;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validFins;
 	
@@ -227,14 +227,14 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 			hiddenInLov = true)
 	private String ncf;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean numeracioManual = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -247,7 +247,7 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@Convert(converter = SerieFacturaRectificativaConverter.class)
 	private SerieFacturaRectificativaEnumDto facturaRectificativa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private boolean desglossarIva = false;

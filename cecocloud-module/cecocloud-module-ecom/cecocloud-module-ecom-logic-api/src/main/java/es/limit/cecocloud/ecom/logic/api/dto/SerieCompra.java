@@ -45,17 +45,17 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 		includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Size(max = 2)
 	private String tipusSeientComptable;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Size(max = 2)
 	private String diariComptable;
@@ -68,16 +68,16 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 	@Size(max = 2)
 	private String diariComptableProformes;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	@Size(max = 10)
 	private String compteComptableCompresProformes;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validDesde;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	private Date validFins;
 	
@@ -96,7 +96,7 @@ public class SerieCompra extends AbstractIdentificableWithIdentificador<SerieCom
 	/*@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String departament;*/
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true) 
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean desglossarIva = false;

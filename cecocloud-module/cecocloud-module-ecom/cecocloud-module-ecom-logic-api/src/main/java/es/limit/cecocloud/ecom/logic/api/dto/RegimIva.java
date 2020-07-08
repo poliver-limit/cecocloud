@@ -31,13 +31,13 @@ import lombok.Setter;
 public class RegimIva extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 2)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(disabledForUpdate = true,
 			toUpperCase=true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 30)
 	@RestapiField(
 			includeInQuickFilter = true)
@@ -49,7 +49,7 @@ public class RegimIva extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 			hiddenInLov = true)
 	private String codiComptabilitat;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.ENUM,
 			hiddenInGrid = true,
