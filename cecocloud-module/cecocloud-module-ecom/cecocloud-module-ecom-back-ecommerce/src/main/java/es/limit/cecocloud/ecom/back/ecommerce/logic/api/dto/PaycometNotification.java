@@ -6,6 +6,12 @@ package es.limit.cecocloud.ecom.back.ecommerce.logic.api.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +21,13 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@JsonDeserialize(builder = PaycometNotification.PaycometNotificationBuilder.class)
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class PaycometNotification {	
+	
+	public PaycometNotification(){
+		}
 		
 	@NotNull	
 	@Size(max = 255)
@@ -97,5 +109,9 @@ public class PaycometNotification {
 	@NotNull
 	@Size(max = 255)
 	private String NotificationHash;	
+	
+	@JsonPOJOBuilder(withPrefix = "")
+    public static class PaycometNotificationBuilder {
+    }
 
 }

@@ -3,14 +3,18 @@
  */
 package es.limit.cecocloud.ecom.back.ecommerce.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.limit.base.boot.logic.api.exception.EntityAlreadyExistsException;
 import es.limit.cecocloud.ecom.back.ecommerce.logic.api.dto.PaycometNotification;
 import es.limit.cecocloud.ecom.back.ecommerce.service.PaycometNotificationService;
 import es.limit.cecocloud.ecom.logic.api.module.EcomModuleConfig;
@@ -24,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController("paycometNotificationEcommerceController")
 @RequestMapping(EcomModuleConfig.API_ECOMMERCE_PATH + "/paycomet")
 @Slf4j
+
 public class PaycometNotificationApiController {
 	
 	private final PaycometNotificationService paycometNotificationService;
@@ -33,21 +38,20 @@ public class PaycometNotificationApiController {
 		this.paycometNotificationService = paycometNotificationService;
 	}
 
-	@PostMapping(value = "/create", produces = "application/json")
-	@ResponseBody
-    public  ResponseEntity<Object> create(final PaycometNotification paycometNotification) throws EntityAlreadyExistsException {
-		log.info("Notificacio de PayTPV rebuda: " + paycometNotification);
-		ResponseEntity<Object> resposta = new ResponseEntity<Object>("OK", HttpStatus.OK);
-		try {
-			this.paycometNotificationService.create(paycometNotification);
-		} catch(Exception e) {
-			log.error("Error processant la notificació de PayTPV: " + e.getMessage(), e);
-			resposta = new ResponseEntity<Object>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
-		
-		return resposta;
-	}
-}
+//	@PostMapping(value = "/create", produces = "application/json")
+//	@ResponseBody
+//    public  ResponseEntity<Object> create(final PaycometNotification paycometNotification) throws EntityAlreadyExistsException {
+//		log.info("Notificacio de PayTPV rebuda: " + paycometNotification);
+//		ResponseEntity<Object> resposta = new ResponseEntity<Object>("OK", HttpStatus.OK);
+//		try {
+//			this.paycometNotificationService.create(paycometNotification);
+//		} catch(Exception e) {
+//			log.error("Error processant la notificació de PayTPV: " + e.getMessage(), e);
+//			resposta = new ResponseEntity<Object>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//		}	
+//		
+//		return resposta;
+//	}
 	
 	/** Mètode per centralitzar les notificacions rebudes per part de PayTPV. Un exemple de notificació
 	 * correcta de pagament seria la següent: 
@@ -61,49 +65,79 @@ public class PaycometNotificationApiController {
 	 * @param request
 	 * @throws InterruptedException
 	 */
-//	@RequestMapping( value = "/create", produces = "application/json", method = RequestMethod.POST)
-//	@ResponseBody
-//	public ResponseEntity<Object> notificacionsPayTPV(
-//			@RequestParam(required = false) Map<String, String> params,
-//			HttpServletRequest request
-//			) throws InterruptedException {
-//		// Log de la petició
-//		logger.info("Notificacio de PayTPV rebuda: " + params);
-//		
-//		ResponseEntity<Object> resposta = new ResponseEntity<Object>("OK", HttpStatus.OK);
-//
-//		// Tractament de la notificació segons el tipus de notificació
-//		try {
-//			String transactionType = params.get("TransactionType");
-//			switch(transactionType) {
-//			case "1":
-//				// Autorització d'un pagament
-//				resposta = this.completaVendaPayTPV(params, request);
-//				break;
-//			case "2": // Devolución
-//				// Devolució d'un pagament
-//				resposta = this.completaDevolucioPayTPV(params, request);
-//				break;
-//			case "3": // Preautorización
-//			case "4": // Cancelación de preautorización
-//			case "6": // Confirmación de preautorización
-//			case "9": // Suscripción
-//			case "13": // Preautorización diferida
-//			case "14": // Cancelación de preautorización diferida
-//			case "16": // Confirmación de preautorización diferida
-//			case "106": // Retroceso
-//			case "107": // Alta de usuario Bankstore
-//			case "108": // Caducidad de Tarjeta
-//				break;
-//			default:
-//				// Opció no implementada
-//				resposta = new ResponseEntity<Object>("TransactionType no soportado", HttpStatus.NOT_IMPLEMENTED);
-//				break;
-//			}
-//		} catch(Exception e) {
-//			logger.error("Error processant la notificació de PayTPV: " + e.getMessage(), e);
-//			resposta = new ResponseEntity<Object>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}		
-//		return resposta;
-//		
-//	}
+	@PostMapping( value = "/create", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<Object> notificacionsPayTPV(
+			@RequestParam(required = false) Map<String, String> params,
+			HttpServletRequest request
+			) throws InterruptedException {
+		// Log de la petició
+		log.info("Notificacio de PayTPV rebuda: " + params);
+		
+		
+		ResponseEntity<Object> resposta = new ResponseEntity<Object>("OK", HttpStatus.OK);
+
+		// Tractament de la notificació segons el tipus de notificació
+		try {
+			String transactionType = params.get("TransactionType");
+			switch(transactionType) {
+			case "1":
+				// Autorització d'un pagament
+				PaycometNotification paycometNotification = getNotificacion(params);
+				this.paycometNotificationService.create(paycometNotification);
+				break;
+			case "2": // Devolución
+			case "3": // Preautorización
+			case "4": // Cancelación de preautorización
+			case "6": // Confirmación de preautorización
+			case "9": // Suscripción
+			case "13": // Preautorización diferida
+			case "14": // Cancelación de preautorización diferida
+			case "16": // Confirmación de preautorización diferida
+			case "106": // Retroceso
+			case "107": // Alta de usuario Bankstore
+			case "108": // Caducidad de Tarjeta
+				break;
+			default:
+				// Opció no implementada
+				resposta = new ResponseEntity<Object>("TransactionType no soportado", HttpStatus.NOT_IMPLEMENTED);
+				break;
+			}
+		} catch(Exception e) {
+			log.error("Error processant la notificació de PayTPV: " + e.getMessage(), e);
+			resposta = new ResponseEntity<Object>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
+		return resposta;
+		
+	}
+	 private  PaycometNotification getNotificacion(Map<String, String> params) {
+		 PaycometNotification paycometNotification = PaycometNotification.builder()
+				 .TransactionType(Integer.parseInt(params.get("TransactionType")))
+				 .TransactionName(params.get("TransactionName"))
+				 .Order(params.get("Order"))
+				 .Response(params.get("Response"))
+				 .ErrorID(Integer.parseInt(params.get("ErrorID")))
+				 .ErrorDescription(params.get("ErrorDescription"))
+				 .AuthCode(params.get("AuthCode"))
+				 .Currency(params.get("Currency"))
+				 .Amount(Integer.parseInt(params.get("Amount")))
+				 .AmountEur(Integer.parseInt(params.get("AmountEur")))
+				 .AccountCode(params.get("AccountCode"))
+				 .Concept(params.get("Concept"))
+				 .NotificationHash(params.get("NotificationHash"))
+				 .TokenUser(params.get("TokenUser"))
+				 .CardBrand(params.get("CardBrand"))
+				 .BicCode(params.get("BicCode"))
+				 .SecurePayment(params.get("SecurePayment"))
+				 .TokenUser(params.get("TokenUser"))
+				 .BankDateTime(params.get("BankDateTime"))
+				 .CardCountry(params.get("CardCountry").length()!=0?params.get("CardCountry"):"ES")
+				 .TpvID(Integer.parseInt(params.get("TpvID")))
+				 .IdUser(Integer.parseInt(params.get("IdUser")))
+				 .build();
+		 return paycometNotification;
+		 
+	 }
+}
+	
+
