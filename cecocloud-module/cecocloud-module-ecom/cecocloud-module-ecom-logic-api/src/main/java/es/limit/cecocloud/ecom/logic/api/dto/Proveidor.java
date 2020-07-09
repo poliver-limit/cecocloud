@@ -28,41 +28,41 @@ import lombok.Setter;
 public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 6)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(disabledForUpdate = true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 40)
 	private String nomComercial;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true)
 	@Size(max = 40)
 	private String nomFiscal;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean bloquetjat = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean subcontratista = false;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean dhm = false;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true,
@@ -70,14 +70,14 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true,
@@ -85,7 +85,7 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true,
@@ -93,7 +93,7 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true,
@@ -101,7 +101,7 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,			
 			hiddenInLov=true)	

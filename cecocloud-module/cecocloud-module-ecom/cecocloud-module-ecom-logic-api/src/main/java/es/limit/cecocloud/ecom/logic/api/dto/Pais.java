@@ -36,14 +36,14 @@ import lombok.Setter;
 public class Pais extends AbstractIdentificableWithIdentificadorAndCodi<String> {
 
 	@Size(max = 5)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 30)

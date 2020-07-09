@@ -52,21 +52,21 @@ public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaM
 			sizeMax = 22)
 	private Integer numero;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
 	private String cls;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 7)
 	private Date dia;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 19, fraction = 3)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -74,7 +74,7 @@ public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaM
 			sizeMax = 22)
 	private BigDecimal preuAmbIva;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 14, fraction = 8)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -99,7 +99,7 @@ public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaM
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -109,7 +109,7 @@ public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaM
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Caixa, CaixaPk> caixa;
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -120,7 +120,7 @@ public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaM
 			)
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operari;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -130,7 +130,7 @@ public class CaixaMoviment extends AbstractIdentificableWithIdentificador<CaixaM
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

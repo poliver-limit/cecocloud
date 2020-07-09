@@ -131,16 +131,16 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Column(name = "pre_cli_cod", length = 6)
 	private String clientCodi;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "pre_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false) 
-			},
-			foreignKey = @ForeignKey(name = "rcom_pre_iva_fk"))
-	private IvaEntity iva;
-	@Column(name = "pre_iva_cod", length = 4)
-	private String ivaCodi;
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "pre_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false) 
+//			},
+//			foreignKey = @ForeignKey(name = "rcom_pre_iva_fk"))
+//	private IvaEntity iva;
+//	@Column(name = "pre_iva_cod", length = 4)
+//	private String ivaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -273,7 +273,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			EmpresaEntity empresa,
 			SerieVendaEntity serieVenda,
 			ClientEntity client,
-			IvaEntity iva,
+//			IvaEntity iva,
 			CodiPostalEntity codiPostal,
 			DivisaEntity divisa,
 			MagatzemEntity magatzem,
@@ -297,7 +297,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.updateNumeroPressupost(serieVenda);
 		this.updateSerieVenda(serieVenda);		
 		this.updateClient(client);
-		this.updateIva(iva);
+//		this.updateIva(iva);
 		this.updateCodiPostal(codiPostal);
 		this.updateDivisa(divisa);
 		this.updateMagatzem(magatzem);
@@ -353,12 +353,12 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		}
 	}
 	
-	public void updateIva(IvaEntity iva) {
-		this.iva = iva;
-		if (iva != null) {
-			this.ivaCodi = iva.getEmbedded().getCodi();
-		}
-	}
+//	public void updateIva(IvaEntity iva) {
+//		this.iva = iva;
+//		if (iva != null) {
+//			this.ivaCodi = iva.getEmbedded().getCodi();
+//		}
+//	}
 	
 	public void updateCodiPostal(CodiPostalEntity codiPostal) {
 		this.codiPostal = codiPostal;

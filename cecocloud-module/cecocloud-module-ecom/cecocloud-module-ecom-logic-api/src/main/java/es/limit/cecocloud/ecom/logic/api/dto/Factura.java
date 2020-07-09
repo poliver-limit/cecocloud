@@ -60,26 +60,26 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			sizeMax = 22)
 	private Integer numero;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
 	private String classe;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 7)
 	private Date dia;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, type = RestapiFieldType.ENUM)
 	@Convert(converter = FormaPagamentConverter.class)
 	private FormaPagamentEnumDto formaPagament;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 14, fraction = 8)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -87,7 +87,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			sizeMax = 22)
 	private BigDecimal valorDivisaEuros;	
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 19, fraction = 3)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -95,7 +95,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			sizeMax = 22)
 	private BigDecimal importBrut;	
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 19, fraction = 3)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -103,13 +103,13 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			sizeMax = 22)
 	private BigDecimal baseImposable;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(hiddenInGrid = true,
 			includeInQuickFilter = true)
 	private String recarrecEquivalencia = "N";
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 19, fraction = 3)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -132,7 +132,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -143,7 +143,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			)
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serieVenda;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -153,7 +153,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -163,7 +163,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -173,7 +173,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -183,7 +183,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			hiddenInForm = false)					
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -194,7 +194,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 	private GenericReferenceWithCompositePk<TipusVenciment, WithIdentificadorAndCodiPk<String>> tipusVenciment;
 
 	@Size(max = 40)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String nomFiscal;
 	
@@ -207,7 +207,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Pressupost, PressupostPk> pressupost;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 19, fraction = 3)
 	@RestapiField(			
 			hiddenInGrid = false,
@@ -215,7 +215,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 			sizeMax = 22)
 	private BigDecimal preuAmbIva;	
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 //	@Size(max = 40)
 	@Size(max = 24) // Per adaptacio pantalla
 	@RestapiField(
@@ -227,7 +227,7 @@ public class Factura extends AbstractIdentificableWithIdentificador<FacturaPk> {
 	@RestapiField(hiddenInGrid = true, disabledForUpdate = true, toUpperCase = true, includeInQuickFilter = true)
 	private String codiClient;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInGrid = true, includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = true)
 	@Size(max = 40)
 	private String nomComercial;

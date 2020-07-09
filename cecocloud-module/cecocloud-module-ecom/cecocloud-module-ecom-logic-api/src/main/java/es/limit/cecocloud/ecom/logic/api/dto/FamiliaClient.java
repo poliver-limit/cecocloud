@@ -35,7 +35,7 @@ public class FamiliaClient extends AbstractIdentificableWithIdentificadorAndCodi
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 30)

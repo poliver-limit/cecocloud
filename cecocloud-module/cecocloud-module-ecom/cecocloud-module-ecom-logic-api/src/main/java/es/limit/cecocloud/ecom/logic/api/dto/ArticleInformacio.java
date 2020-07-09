@@ -47,7 +47,7 @@ public class ArticleInformacio extends AbstractIdentificableWithIdentificador<Ar
 			includeInQuickFilter = true)
 	private Integer referenciaSequencial;
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 60)
 //	@Size(max = 55) // Per adaptacio pantalla
 	@RestapiField(
@@ -65,7 +65,7 @@ public class ArticleInformacio extends AbstractIdentificableWithIdentificador<Ar
 	@Convert(converter = ArticleInformacioTipusConverter.class)
 	private ArticleInformacioTipusEnumDto tipus;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 250)
 //	@Size(max = 39) // Per adaptacio pantalla
 	@RestapiField(

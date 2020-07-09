@@ -35,7 +35,7 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = {"article","idioma"}, groups = { OnCreate.class })
 public class ArticleTraduccio extends AbstractIdentificableWithIdentificador<ArticleTraduccioPk> {
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2000)
 //	@Size(max = 76) // Per adaptacio pantalla
 	@RestapiField(
@@ -45,7 +45,7 @@ public class ArticleTraduccio extends AbstractIdentificableWithIdentificador<Art
 	private String descripcio;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,

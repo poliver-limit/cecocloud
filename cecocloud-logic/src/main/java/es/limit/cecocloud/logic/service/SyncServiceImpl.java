@@ -3,6 +3,11 @@
  */
 package es.limit.cecocloud.logic.service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +68,7 @@ public class SyncServiceImpl extends AbstractSyncServiceImpl {
 			authenticationHelper.setSession(session);
 		}
 	}
-
+	
 	@Override
 	@Transactional(readOnly = true)
 	public void validate(SyncProcess process) throws SyncTransactionException {
@@ -80,6 +85,25 @@ public class SyncServiceImpl extends AbstractSyncServiceImpl {
 
 	@Override
 	public void doAfterTransaction(SyncProcess process) {
+	}
+
+	@Override
+	public String getParams(SyncProcess process) {
+		
+		String paramsST = "";
+		List<SyncParam> params = process.getParams();
+		
+		try {
+	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	        ObjectOutputStream oos = new ObjectOutputStream( baos );
+	        oos.writeObject( params );
+	        oos.close();
+	        paramsST = Base64.getEncoder().encodeToString(baos.toByteArray());
+		} catch (IOException ex) {
+			throw new RuntimeException("Error al serialitzar els paràmetres: " + ex);
+		}
+	    
+		return paramsST;
 	}
 
 }

@@ -41,7 +41,7 @@ public class Departament extends AbstractIdentificableWithIdentificador<Departam
 			includeInQuickFilter = true)
 	private String codi;
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 60)
 	@RestapiField(
 			includeInQuickFilter = true)

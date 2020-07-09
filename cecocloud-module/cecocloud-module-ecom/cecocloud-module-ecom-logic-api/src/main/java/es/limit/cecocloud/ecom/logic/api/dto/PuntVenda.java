@@ -53,29 +53,29 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 60)
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String nom;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean ticketIvaInclos = false;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	@Convert(converter = EnumeracioTipusEnumConverter.class)
 	private EnumeracioTipus enumeracioTipus;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov=true)
 	private Integer ticketNumLiniesEnBlancFinal;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Convert(converter = ImpressioTipusEnumConverter.class)
 	private ImpressioTipus impressioTipus;
 	@Size(max = 60)
@@ -139,42 +139,42 @@ public class PuntVenda extends AbstractIdentificableWithIdentificador<PuntVendaP
 			hiddenInGrid = true,
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Caixa, CaixaPk> caixa;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<DocumentPagamentCobrament, WithIdentificadorAndCodiPk<String>> documentPagamentCobrament;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

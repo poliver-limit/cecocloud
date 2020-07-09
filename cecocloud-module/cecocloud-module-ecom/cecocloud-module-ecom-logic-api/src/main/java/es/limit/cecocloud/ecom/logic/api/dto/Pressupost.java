@@ -59,7 +59,7 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 		sizeMax = 22)
 	private Integer codi;
 	
-//	@NotNull
+//	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForCreate = true, 
 			disabledForUpdate = true, 
@@ -68,14 +68,14 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			sizeMax = 22)
 	private int numero;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
 	private int versio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInLov = true, 
 			hiddenInGrid = false,
@@ -122,7 +122,7 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -141,14 +141,14 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
-	@Transient
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			disabledForCreate = false,
-			disabledForUpdate = false,
-			hiddenInGrid = true,
-			hiddenInForm = false)
-	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
+//	@Transient
+//	@RestapiField(
+//			type = RestapiFieldType.LOV,
+//			disabledForCreate = false,
+//			disabledForUpdate = false,
+//			hiddenInGrid = true,
+//			hiddenInForm = false)
+//	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
 	@RestapiField(
@@ -228,11 +228,11 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 	private String codiClient;
 
 	@Size(max = 40)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInLov = true)
 	private String nomFiscal;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = true)
 	@Size(max = 40)
 	private String nomComercial;

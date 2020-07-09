@@ -35,7 +35,7 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = {"articleFamilia","empresa"}, groups = { OnCreate.class })
 public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificador<ArticleFamiliaEmpresaPk> {
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInLov=true,
 					hiddenInGrid = true,
@@ -44,7 +44,7 @@ public class ArticleFamiliaEmpresa extends AbstractIdentificableWithIdentificado
 	private Boolean web = false;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,

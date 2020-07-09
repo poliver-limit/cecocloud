@@ -34,7 +34,7 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = {"codi","magatzem"}, groups = { OnCreate.class })
 public class MagatzemPeriode extends AbstractIdentificableWithIdentificador<MagatzemPeriodePk> {
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 22)
 	@RestapiField(
 			disabledForUpdate = true,
@@ -42,16 +42,16 @@ public class MagatzemPeriode extends AbstractIdentificableWithIdentificador<Maga
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 30)
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true, hiddenInGrid = true, disabledForUpdate = true)	
 	private Date dataInici;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient
 	@RestapiField(
 			includeInQuickFilter = true, 

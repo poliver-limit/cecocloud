@@ -37,21 +37,21 @@ import lombok.Setter;
 public class Provincia extends AbstractIdentificableWithIdentificador<ProvinciaPk> {
 
 	@Size(max = 3)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			includeInQuickFilter = true)
 	@Size(max = 30)
 	private String nom;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,

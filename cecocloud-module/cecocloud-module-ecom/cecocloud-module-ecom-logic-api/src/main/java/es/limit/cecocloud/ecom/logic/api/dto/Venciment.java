@@ -58,7 +58,7 @@ public class Venciment extends AbstractIdentificableWithIdentificador<VencimentP
 			sizeMax = 22)
 	private Integer facturaNumero;
 	
-//	@NotNull
+//	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(
 			disabledForCreate = true,
@@ -67,14 +67,14 @@ public class Venciment extends AbstractIdentificableWithIdentificador<VencimentP
 			hiddenInGrid = true)
 	private String facturaClasse;	
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 7)
 	private Date dia;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 19, fraction = 3)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -82,7 +82,7 @@ public class Venciment extends AbstractIdentificableWithIdentificador<VencimentP
 			sizeMax = 22)
 	private BigDecimal preuAmbIva;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 14, fraction = 8)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -131,7 +131,7 @@ public class Venciment extends AbstractIdentificableWithIdentificador<VencimentP
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
-//	@NotNull
+//	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -142,7 +142,7 @@ public class Venciment extends AbstractIdentificableWithIdentificador<VencimentP
 			)
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serieVenda;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,

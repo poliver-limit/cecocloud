@@ -50,7 +50,7 @@ public class VencimentPagat extends AbstractIdentificableWithIdentificador<Venci
 			sizeMax = 22)
 	private Integer moviment;	
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Digits(integer = 19, fraction = 3)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -67,7 +67,7 @@ public class VencimentPagat extends AbstractIdentificableWithIdentificador<Venci
 //			sizeMax = 22)
 //	private Integer facturaNumero;
 	
-//	@NotNull
+//	@NotNull(groups = { OnCreate.class })
 //	@Size(max = 1)
 //	@RestapiField(
 //			disabledForCreate = true,
@@ -94,7 +94,7 @@ public class VencimentPagat extends AbstractIdentificableWithIdentificador<Venci
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -104,7 +104,7 @@ public class VencimentPagat extends AbstractIdentificableWithIdentificador<Venci
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Caixa, CaixaPk> caixa;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,

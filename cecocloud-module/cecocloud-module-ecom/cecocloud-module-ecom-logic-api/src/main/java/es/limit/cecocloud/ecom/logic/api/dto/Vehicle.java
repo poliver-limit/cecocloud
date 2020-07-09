@@ -33,26 +33,26 @@ import lombok.Setter;
  */
 @Getter @Setter
 @RestapiResource(
-		descriptionField = "nom"
+		descriptionField = "descripcio"
 )
 @PrimaryKeyNotExists(fields = {"codi","transportista"}, groups = { OnCreate.class })
 public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 
 	@Size(max = 10)
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(includeInQuickFilter = true)
 //	@Size(max = 60)
 	@Size(max = 36) // Per adaptacio pantalla
 	private String descripcio;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(hiddenInLov = true, hiddenInGrid = true)
 	@Size(max = 10)
 	private String matricula;
@@ -92,7 +92,7 @@ public class Vehicle extends AbstractIdentificableWithIdentificador<VehiclePk> {
 	private Boolean vehicleEmpresa = false;
 	
 	@Transient
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,

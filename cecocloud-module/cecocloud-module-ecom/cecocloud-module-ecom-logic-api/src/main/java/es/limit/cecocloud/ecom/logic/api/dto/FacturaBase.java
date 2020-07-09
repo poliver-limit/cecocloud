@@ -45,7 +45,7 @@ public class FacturaBase extends AbstractIdentificableWithIdentificador<FacturaB
 			sizeMax = 22)
 	private Integer facturaNumero;
 	
-//	@NotNull
+//	@NotNull(groups = { OnCreate.class })
 	@Size(max = 1)
 	@RestapiField(
 			disabledForCreate = true,
@@ -63,7 +63,7 @@ public class FacturaBase extends AbstractIdentificableWithIdentificador<FacturaB
 			hiddenInForm = true)
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
-//	@NotNull
+//	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -74,7 +74,7 @@ public class FacturaBase extends AbstractIdentificableWithIdentificador<FacturaB
 			)
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serieVenda;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,

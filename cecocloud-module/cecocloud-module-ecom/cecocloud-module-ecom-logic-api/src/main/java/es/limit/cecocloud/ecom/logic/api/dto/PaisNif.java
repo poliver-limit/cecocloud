@@ -29,20 +29,20 @@ import lombok.Setter;
 @PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
 public class PaisNif extends AbstractIdentificable<String> {
 
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 2)
 	@RestapiField(disabledForUpdate = true)
 	private String codi;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Convert(converter = PaisNifTipusConverter.class)
 	private PaisNifTipusEnumDto tipusNif;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 40)
 	private String nom;
 	
-	@NotNull
+	@NotNull(groups = { OnCreate.class })
 	@Size(max = 15)
 	private String tamanyNif;
 	

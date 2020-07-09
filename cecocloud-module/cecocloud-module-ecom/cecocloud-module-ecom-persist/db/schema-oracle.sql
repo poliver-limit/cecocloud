@@ -65,6 +65,8 @@
         alb_ptv_cod varchar2(4 char) not null,
         alb_ser_cod varchar2(2 char),
         alb_cli_sgl varchar2(2 char),
+        alb_tra_cod varchar2(6 char),
+        alb_mtr_cod varchar2(10 char),
         primary key (alb_emp_cod, alb_numdoc, alb_idf_cod)
     );
 
@@ -706,7 +708,6 @@
         pre_cli_tipnif number(10,0),
         pre_ver number(10,0) not null,
         pre_idi_cod varchar2(4 char),
-        pre_iva_cod varchar2(4 char),
         pre_mag_cod varchar2(4 char),
         pre_pas_cod varchar2(4 char),
         pre_cli_painif varchar2(4 char),
@@ -1086,7 +1087,7 @@
         ven_valdiveur number(15,8) not null,
         primary key (ven_emp_cod, ven_fac_cls, ven_fac_num, ven_num, ven_ser_cod, ven_idf_cod)
     );
-
+ 
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
@@ -1260,6 +1261,16 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        add constraint rcom_alb_ser_fk 
        foreign key (alb_emp_cod, alb_ser_cod, alb_idf_cod) 
        references tcom_ser;
+
+    alter table tcom_alb 
+       add constraint rcom_alb_tra_fk 
+       foreign key (alb_tra_cod, alb_idf_cod) 
+       references tcom_tra;
+
+    alter table tcom_alb 
+       add constraint rcom_alb_mtr_fk 
+       foreign key (alb_tra_cod, alb_mtr_cod, alb_idf_cod) 
+       references tcom_mtr;
 
     alter table tcom_apc 
        add constraint rcom_apc_cxa_fk 
@@ -1655,11 +1666,6 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        add constraint rcom_pre_idi_fk 
        foreign key (pre_idi_cod, pre_idf_cod) 
        references tcom_idi;
-
-    alter table tcom_pre 
-       add constraint rcom_pre_iva_fk 
-       foreign key (pre_iva_cod, pre_idf_cod) 
-       references tcom_iva;
 
     alter table tcom_pre 
        add constraint rcom_pre_mag_fk 
