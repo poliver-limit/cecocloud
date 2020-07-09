@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.ecom.back.ecommerce.persist.tools;
 
+import es.limit.cecocloud.ecom.persist.entity.ComptadorEntity;
+import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import es.limit.cecocloud.ecom.back.ecommerce.persist.entity.PaycometNotificationEntity;
 
 /**
@@ -20,7 +22,9 @@ public class DdlScriptGenerator extends es.limit.base.boot.persist.tools.DdlScri
 
 	private static String[] getAdditionalPackageNames() {
 		return new String[] {
-				PaycometNotificationEntity.class.getPackage().getName() // package amb entitats del mòdul de ecommerce				
+				ComptadorEntity.class.getPackage().getName(), // package amb entitats del mòdul de ecommerce
+				OperariEntity.class.getPackage().getName(), // package amb entitats del mòdul de rrhh	
+				PaycometNotificationEntity.class.getPackage().getName() // package amb entitats del mòdul de ecommerce	BACK!!!!			
 		};
 	}
 

@@ -78,7 +78,14 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.domiciliFiscal", column = @Column(name = "pre_cli_domfis", length = 60)),
 	@AttributeOverride(name = "embedded.telefon", column = @Column(name = "pre_cli_tel", length = 60)),
 	@AttributeOverride(name = "embedded.email", column = @Column(name = "pre_cli_eml", length = 60)),
-	@AttributeOverride(name = "embedded.emailFactura", column = @Column(name = "pre_cli_emlfac", length = 100)),		
+	@AttributeOverride(name = "embedded.emailFactura", column = @Column(name = "pre_cli_emlfac", length = 100)),	
+	
+	@AttributeOverride(name = "embedded.desglose", column = @Column(name = "pre_dsg", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.valorDivisaEuros", column = @Column(name = "pre_valdiveur", length = 22, precision = 15, scale = 8, nullable = false)),
+	@AttributeOverride(name = "embedded.nomClient", column = @Column(name = "pre_nomcli", length = 40, nullable = false)),
+	@AttributeOverride(name = "embedded.certificacioOrigen", column = @Column(name = "pre_cerori", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.classe", column = @Column(name = "pre_cls", length = 1, nullable = false)),
+	@AttributeOverride(name = "embedded.seguimentRecepcioMaterial", column = @Column(name = "pre_segrebmat", length = 1, nullable = false)),
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "pre_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "pre_datcre")),
@@ -120,7 +127,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Column(name = "pre_ser_cod", length = 2, nullable = false)
 	private String serieVendaCodi;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "cli_idf_cod", insertable = false, updatable = false),
@@ -142,7 +149,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 //	@Column(name = "pre_iva_cod", length = 4)
 //	private String ivaCodi;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
@@ -153,7 +160,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Column(name = "pre_cpo_cod", length = 8)
 	private String codiPostalCodi;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "div_idf_cod", insertable = false, updatable = false),

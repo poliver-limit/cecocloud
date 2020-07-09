@@ -47,7 +47,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "men_cod", length = 15, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.icon", column = @Column(name = "men_icon", length = 20, nullable = false)),
 	@AttributeOverride(name = "embedded.label", column = @Column(name = "men_label", length = 20, nullable = false)),
-	@AttributeOverride(name = "embedded.labelKey", column = @Column(name = "men_labelKey", length = 20, nullable = false)),
+	@AttributeOverride(name = "embedded.labelKey", column = @Column(name = "men_label_key", length = 20, nullable = false)),
 	@AttributeOverride(name = "embedded.resource", column = @Column(name = "men_esource", length = 20, nullable = false)),
 	@AttributeOverride(name = "embedded.route", column = @Column(name = "men_route", length = 20, nullable = false)),
 

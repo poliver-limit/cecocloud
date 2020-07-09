@@ -134,6 +134,7 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serieVenda;
 	
 	@Transient
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,
@@ -152,6 +153,7 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 //	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,
@@ -161,6 +163,7 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
+	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,
@@ -341,6 +344,43 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean sync = false;	
+	
+	@NotNull(groups = { OnCreate.class })
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean desglose = false;	
+	
+	@NotNull(groups = { OnCreate.class })
+	@Digits(integer = 14, fraction = 8)
+	@RestapiField(			
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal valorDivisaEuros;	
+	
+	@NotNull(groups = { OnCreate.class })
+	@Size(max = 40)
+	@RestapiField(			
+			includeInQuickFilter = true,
+			hiddenInGrid = true)
+	private String nomClient;
+	
+	@NotNull(groups = { OnCreate.class })
+	@Size(max = 1)
+	@RestapiField(
+			includeInQuickFilter = true,
+			hiddenInGrid = true)
+	private String classe;
+	
+	@NotNull(groups = { OnCreate.class })
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean certificacioOrigen = false;	
+	
+	@NotNull(groups = { OnCreate.class })
+	@RestapiField(hiddenInGrid = true, hiddenInForm = false, hiddenInLov = true)
+	@Convert(converter = StringBooleanConverter.class)
+	private Boolean seguimentRecepcioMaterial = false;	
 	
 	@NoArgsConstructor
 	@AllArgsConstructor
