@@ -307,6 +307,7 @@
 	"resource.pressupost.field.tipusAdresa": "Tipus d'adreça",
 	"resource.pressupost.field.codiPostalClient": "Població",
 	"resource.pressupost.field.puntVenda": "Punt de venda",
+	"resource.pressupost.field.operari": "Operari",
 	
 	"resource.pressupost.field.titolGeneral": "Dades del pressupost",
 	"resource.pressupost.field.titolDadesClient": "Dades del client",

@@ -32,6 +32,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.Provincia.ProvinciaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.PuntVenda.PuntVendaPk;
 import es.limit.cecocloud.ecom.logic.api.dto.enums.TipusNifEnumDto;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
+import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import es.limit.cecocloud.ecom.logic.api.dto.enums.PressupostEstatEnumDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -324,6 +325,18 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 					}
 			)
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostalClient;	
+	
+	@NotNull(groups = { OnCreate.class })
+	@Transient	
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			hiddenInGrid = true,
+			disabledForUpdate = false,
+			hiddenInForm = false
+			)
+	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operari;
+	
 	
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true, hiddenInLov = true)
 	@Convert(converter = StringBooleanConverter.class)

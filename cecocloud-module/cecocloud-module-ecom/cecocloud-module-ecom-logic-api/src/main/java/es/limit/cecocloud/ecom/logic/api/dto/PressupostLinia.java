@@ -16,6 +16,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia.PressupostLiniaPk;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
@@ -119,19 +120,21 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
-	@Getter
+	@Getter @Setter
 	@SuppressWarnings("serial")
-	public static class PressupostLiniaPk extends WithIdentificadorAndCodiPk<Integer> {
+	public static class PressupostLiniaPk extends WithIdentificadorPk {
 		private String empresaCodi;
 		private Integer pressupostCodi;
+		private Integer numero;
 		public PressupostLiniaPk(
 				String identificadorCodi,
 				String empresaCodi,
 				Integer pressupostCodi,
 				Integer numero) {
-			super(identificadorCodi, numero);
+			super(identificadorCodi);
 			this.empresaCodi = empresaCodi;
 			this.pressupostCodi = pressupostCodi;
+			this.numero = numero;
 		}
 	}
 

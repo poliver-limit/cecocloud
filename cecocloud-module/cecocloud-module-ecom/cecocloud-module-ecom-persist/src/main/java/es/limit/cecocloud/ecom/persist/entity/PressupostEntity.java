@@ -25,7 +25,7 @@ import org.hibernate.annotations.NotFoundAction;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import es.limit.cecocloud.ecom.persist.entity.ClientEntity;
-
+import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -265,6 +265,17 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Column(name = "pre_cli_cpo_cod", length = 8)
 	private String codiPostalClientCodi;
 	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "pre_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "pre_ope_cod", referencedColumnName = "ope_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rcom_pre_ope_fk"))
+	private OperariEntity operari;
+	@Column(name = "pre_ope_cod", length = 6, nullable = false)
+	private String operariCodi;
+	
 	@Builder
 	public PressupostEntity(
 			PressupostPk pk,
@@ -284,7 +295,8 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			PuntVendaEntity puntVenda,
 			PaisNifEntity paisNif,
 			TipusAdresaEntity tipusAdresa,
-			CodiPostalEntity codiPostalClient
+			CodiPostalEntity codiPostalClient,
+			OperariEntity operari
 			) {
 		
 		setId(pk);		
@@ -308,7 +320,8 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.updatePuntVenda(puntVenda);
 		this.updatePaisNif(paisNif);
 		this.updateTipusAdresa(tipusAdresa);
-		this.updateCodiPostalClient(codiPostalClient);		
+		this.updateCodiPostalClient(codiPostalClient);	
+		this.updateOperari(operari);
 			
 	}
 
@@ -434,6 +447,13 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.codiPostalClient = codiPostalClient;
 		if (codiPostalClient != null) {
 			this.codiPostalClientCodi = codiPostalClient.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateOperari(OperariEntity operari) {
+		this.operari = operari;
+		if (operari != null) {
+			this.operariCodi = operari.getEmbedded().getCodi();
 		}
 	}
 	

@@ -158,8 +158,8 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 			int num = EntityListenerUtil.getSeguentNumComptador(
 					pressupostLinia.getIdentificador().getId(),
 					"TCOM_LPR_"+numeroPressupost);
-			pressupostLinia.getEmbedded().setNumero(num);
-			pressupostLinia.getId().setCodi(num);
+			pressupostLinia.getEmbedded().setNumero(num);		
+			pressupostLinia.getId().setNumero(num);
 		}
 	}
 
