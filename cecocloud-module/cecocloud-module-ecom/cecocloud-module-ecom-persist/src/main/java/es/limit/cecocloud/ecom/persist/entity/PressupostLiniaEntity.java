@@ -150,14 +150,20 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 		if (article!=null) this.articleCodi = article.getEmbedded().getCodi();
 	}
 	
+	
 	// Generem un comptador diferent per a cada pressupost
 	public static class PressupostLiniaEntityListener {
+//		private static Object sem;
+		
 		@PrePersist
-		public void calcular(PressupostLiniaEntity pressupostLinia) {
+		public synchronized void calcular(PressupostLiniaEntity pressupostLinia) {
 			int numeroPressupost = pressupostLinia.getPressupost().getEmbedded().getNumero();
-			int num = EntityListenerUtil.getSeguentNumComptador(
-					pressupostLinia.getIdentificador().getId(),
-					"TCOM_LPR_"+numeroPressupost);
+			int num = 0;
+//			synchronized(sem) {
+				num = EntityListenerUtil.getSeguentNumComptador(
+						pressupostLinia.getIdentificador().getId(),
+						"TCOM_LPR_"+numeroPressupost);
+//			}
 			pressupostLinia.getEmbedded().setNumero(num);		
 			pressupostLinia.getId().setNumero(num);
 		}

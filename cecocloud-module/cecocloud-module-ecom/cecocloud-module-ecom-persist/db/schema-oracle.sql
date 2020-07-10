@@ -466,8 +466,8 @@
 
     create table tcom_lpr (
        lpr_emp_cod varchar2(4 char) not null,
+        lpr_num number(10,0) not null,
         lpr_pre_cod number(10,0) not null,
-        codi number(10,0) not null,
         lpr_idf_cod varchar2(4 char) not null,
         lpr_usucre varchar2(255 char),
         lpr_datcre timestamp,
@@ -476,12 +476,11 @@
         lpr_art_cod varchar2(15 char) not null,
         lpr_des varchar2(4000 char) not null,
         lpr_fcs number(10,0) not null,
-        lpr_num number(10,0),
         lpr_pru number(17,2) not null,
         lpr_imp number(15,2) not null,
         lpr_sync varchar2(1 char),
         lpr_uni number(10,0) not null,
-        primary key (lpr_emp_cod, lpr_pre_cod, codi, lpr_idf_cod)
+        primary key (lpr_emp_cod, lpr_num, lpr_pre_cod, lpr_idf_cod)
     );
 
     create table tcom_mag (
@@ -685,14 +684,18 @@
         pre_cpo_cod varchar2(8 char),
         pre_div_cod varchar2(4 char),
         pre_dpg_cod varchar2(4 char),
+        pre_cerori varchar2(1 char) not null,
+        pre_cls varchar2(1 char) not null,
         pre_dia timestamp not null,
         pre_diaini timestamp,
+        pre_dsg varchar2(1 char) not null,
         pre_cli_domfis varchar2(60 char),
         pre_cli_eml varchar2(60 char),
         pre_cli_emlfac varchar2(100 char),
         pre_cli_escdom varchar2(2 char),
         pre_est varchar2(1 char),
         pre_cli_nif varchar2(12 char),
+        pre_nomcli varchar2(40 char) not null,
         pre_cli_nomcom varchar2(40 char) not null,
         pre_cli_nomdom varchar2(30 char),
         pre_cli_nomfis varchar2(40 char) not null,
@@ -703,12 +706,15 @@
         pre_cli_pordom varchar2(2 char),
         pre_pru number(15,8),
         pre_pruiva number(15,8),
+        pre_segrebmat varchar2(1 char) not null,
         pre_sync varchar2(1 char),
         pre_cli_tel varchar2(60 char),
         pre_cli_tipnif number(10,0),
+        pre_valdiveur number(15,8) not null,
         pre_ver number(10,0) not null,
         pre_idi_cod varchar2(4 char),
         pre_mag_cod varchar2(4 char),
+        pre_ope_cod varchar2(6 char) not null,
         pre_pas_cod varchar2(4 char),
         pre_cli_painif varchar2(4 char),
         pre_prv_cod varchar2(4 char),
@@ -1087,7 +1093,7 @@
         ven_valdiveur number(15,8) not null,
         primary key (ven_emp_cod, ven_fac_cls, ven_fac_num, ven_num, ven_ser_cod, ven_idf_cod)
     );
- 
+
 create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
@@ -1126,9 +1132,6 @@ create index icom_lac_emp_fk on tcom_lac (lac_idf_cod, lac_emp_cod);
 create index icom_lac_alb_fk on tcom_lac (lac_idf_cod, lac_emp_cod, lac_alb_numdoc);
 create index icom_lpr_emp_fk on tcom_lpr (lpr_idf_cod, lpr_emp_cod);
 create index icom_lpr_pre_fk on tcom_lpr (lpr_idf_cod, lpr_emp_cod, lpr_pre_cod);
-
-    alter table tcom_lpr 
-       add constraint rcom_lpr_pk unique (lpr_idf_cod, lpr_emp_cod, lpr_pre_cod, lpr_num);
 create index icom_mag_idf_fk on tcom_mag (mag_idf_cod);
 create index icom_mar_idf_fk on tcom_mar (mar_idf_cod);
 create index icom_mca_idf_fk on tcom_mca (mca_idf_cod);
@@ -1671,6 +1674,11 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        add constraint rcom_pre_mag_fk 
        foreign key (pre_mag_cod, pre_idf_cod) 
        references tcom_mag;
+
+    alter table tcom_pre 
+       add constraint rcom_pre_ope_fk 
+       foreign key (pre_ope_cod, pre_idf_cod) 
+       references trhu_ope;
 
     alter table tcom_pre 
        add constraint rcom_pre_pai_fk 
