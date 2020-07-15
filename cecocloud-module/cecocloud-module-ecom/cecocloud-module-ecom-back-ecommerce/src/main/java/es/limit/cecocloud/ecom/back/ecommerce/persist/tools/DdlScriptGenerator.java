@@ -16,8 +16,8 @@ public class DdlScriptGenerator extends es.limit.base.boot.persist.tools.DdlScri
 
 	public static void main(String[] args) {
 		//generate("org.hibernate.dialect.HSQLDialect", getAdditionalPackageNames());
-		generate("org.hibernate.dialect.Oracle9iDialect", getAdditionalPackageNames());
-//		generate("org.hibernate.dialect.PostgreSQLDialect", getAdditionalPackageNames());
+//		generate("org.hibernate.dialect.Oracle9iDialect", getAdditionalPackageNames());
+		generate("org.hibernate.dialect.PostgreSQLDialect", getAdditionalPackageNames());
 	}
 
 	private static String[] getAdditionalPackageNames() {

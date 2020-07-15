@@ -202,7 +202,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "tcs_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ope_tcs_cod", referencedColumnName = "tcs_cod",	insertable = false,	updatable = false)
 					},
-			foreignKey = @ForeignKey(name = "rges_ope_tcs_fk"))			
+			foreignKey = @ForeignKey(name = "rrhu_ope_tcs_fk"))			
 	protected TipusComissioEntity tipusComissio;	
 	@Column(name ="ope_tcs_cod", length = 4)
 	private String tipusComissioCodi;
@@ -213,7 +213,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "ban_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ope_ban_codccr", referencedColumnName = "ban_cod",	insertable = false,	updatable = false)
 					},
-			foreignKey = @ForeignKey(name = "rges_ope_ban_fk"))			
+			foreignKey = @ForeignKey(name = "rrhu_ope_ban_fk"))			
 	protected BancEntity banc;	
 	@Column(name ="ope_ban_codccr", length = 4)
 	private Integer bancCodi;
@@ -224,7 +224,7 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 					@JoinColumn(name = "ope_idf_cod", referencedColumnName = "ofb_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "ope_ofb_codccr", referencedColumnName = "ofb_cod",	insertable = false,	updatable = false)
 					},
-			foreignKey = @ForeignKey(name = "rges_ope_ofb_fk"))			
+			foreignKey = @ForeignKey(name = "rrhu_ope_ofb_fk"))			
 	protected OficinaBancariaEntity oficinaBancariaCcr;	
 	@Column(name ="ope_ofb_codccr", length = 4, nullable = false)
 	private Integer oficinaBancariaCodi;*/

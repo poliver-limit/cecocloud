@@ -280,6 +280,7 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 								
 								this.empresesEcomService.whenReady().subscribe(serveiEcomEmpreses => {
 									const requestEmpresaEcomParams: HalParam[] = [];
+									debugger;
 				 					requestEmpresaEcomParams.push({
 				 						key: "query",
 				 						value: "codi=='"+empresaCodi+"';identificador.codi=='"+identificadorCodi+"'"

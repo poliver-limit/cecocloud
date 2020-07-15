@@ -206,7 +206,7 @@ public class PuntVendaEntity extends AbstractWithIdentificadorAuditableEntity<Pu
 		updateMagatzem(magatzem);
 		updateOperari(operari);
 		updateSerie(serie);
-		updateDivisaSecundaria(divisaSecundaria);
+		updateDivisaSecundaria(divisaSecundaria);		
 	}
 
 	@Override

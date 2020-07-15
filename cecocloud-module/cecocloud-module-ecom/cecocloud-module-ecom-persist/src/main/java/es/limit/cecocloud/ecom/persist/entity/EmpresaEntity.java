@@ -83,7 +83,7 @@ public class EmpresaEntity extends AbstractWithIdentificadorAuditableEntity<Empr
 					@JoinColumn(name = "emp_idf_cod", referencedColumnName = "div_idf_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "emp_div_cod", referencedColumnName = "div_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "rges_emp_div_fk"))
+			foreignKey = @ForeignKey(name = "rcom_emp_div_fk"))
 	private DivisaEntity divisa;	
 	@Column(name = "emp_div_cod", length = 4, nullable = false)
 	private String divisaCodi;

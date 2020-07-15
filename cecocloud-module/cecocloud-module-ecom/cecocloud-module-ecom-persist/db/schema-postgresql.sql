@@ -1176,7 +1176,7 @@ create index icom_ven_ser_fk on tcom_ven (ven_ser_cod);
 create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
 
     alter table tcom_ain 
-       add constraint rges_ain_art_fk 
+       add constraint rcom_ain_art_fk 
        foreign key (ain_art_cod, ain_idf_cod) 
        references tcom_art;
 
@@ -1436,7 +1436,7 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        references tcom_rgi;
 
     alter table tcom_emp 
-       add constraint rges_emp_div_fk 
+       add constraint rcom_emp_div_fk 
        foreign key (emp_div_cod, emp_idf_cod) 
        references tcom_div;
 

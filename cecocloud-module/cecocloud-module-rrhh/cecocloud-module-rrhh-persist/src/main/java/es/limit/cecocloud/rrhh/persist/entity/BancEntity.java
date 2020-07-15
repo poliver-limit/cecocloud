@@ -14,9 +14,6 @@ import javax.persistence.Table;
 
 import es.limit.cecocloud.rrhh.logic.api.dto.Banc;
 import es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-import es.limit.cecocloud.rrhh.persist.entity.AbstractWithIdentificadorAuditableEntity;
-import es.limit.cecocloud.rrhh.persist.entity.BancEntity;
-import es.limit.cecocloud.rrhh.persist.entity.IdentificadorEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +25,6 @@ import lombok.Setter;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -42,9 +38,9 @@ import lombok.Setter;
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "ban_idf_cod", length = 4)),
-	@AttributeOverride(name = "id.codi", column = @Column(name = "ban_cod")),
-	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ban_cod", insertable = false, updatable = false)),
-	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ban_nom", length = 30, nullable = false)),
+	@AttributeOverride(name = "id.codi", column = @Column(name = "ban_cod", length = 4)),
+	@AttributeOverride(name = "embedded.codi", column = @Column(name = "ban_cod", length = 4, insertable = false, updatable = false)),
+	@AttributeOverride(name = "embedded.nom", column = @Column(name = "ban_nom", nullable = false, length = 30)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "ban_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "ban_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ban_usumod")),

@@ -87,7 +87,7 @@ public class ArticleInformacioEntity extends AbstractWithIdentificadorAuditableE
 					@JoinColumn(name = "ain_idf_cod", referencedColumnName = "art_idf_cod", insertable = false, updatable = false)
 					
 			},
-			foreignKey = @ForeignKey(name = "rges_ain_art_fk"))
+			foreignKey = @ForeignKey(name = "rcom_ain_art_fk"))
 	protected ArticleEntity article;
 	
 	@Formula(value="(SELECT ain_fitnom FROM tcom_ain ain where ain.ain_idf_cod = ain_idf_cod and ain.ain_art_cod = ain_art_cod and ain.ain_num = ain_num)")

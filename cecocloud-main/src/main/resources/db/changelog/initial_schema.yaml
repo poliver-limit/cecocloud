@@ -502,10 +502,10 @@ databaseChangeLog:
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             name: latitud
-            type: FLOAT8
+            type: NUMERIC
         - column:
             name: longitud
-            type: FLOAT8
+            type: NUMERIC
         - column:
             constraints:
               nullable: false
