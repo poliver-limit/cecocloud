@@ -2,7 +2,6 @@ import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { HalParam } from '@lagoshny/ngx-hal-client';
 import { of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, finalize } from 'rxjs/operators';
 import { BngDatagrid, BngDatagridConfig } from 'base-angular';
@@ -162,7 +161,7 @@ export class OperarisAddDialog implements AfterViewInit {
 			finalize(() => {
 				this.isLoading = false;
 			})).subscribe((data: any) => {
-				if (data?.id) {
+				if (data && data.id) {
 					this.usuari = data;
 				}
 			});
