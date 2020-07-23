@@ -51,6 +51,7 @@ export class EmpresesFormComponent extends BngFormBaseComponent {
 
 	usuarisIdentificadorsEmpresesDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
+		paginationEnabled: false,
 		columns: [{
 			field: 'usuariIdentificador',
 			width: 80
@@ -58,6 +59,7 @@ export class EmpresesFormComponent extends BngFormBaseComponent {
 	};
 	operarisDatagridConfig: BngDatagridConfig = {
 		mode: 'form',
+		paginationEnabled: false,
 		columns: [{
 			field: 'operari',
 			width: 80
