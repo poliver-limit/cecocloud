@@ -46,7 +46,8 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true,
-			lovNamedFilter = OperariEmpresa.FILTER_MARC_ALLOWED)
+			lovNamedFilter = OperariEmpresa.FILTER_MARC_ALLOWED,
+			filterAsSuggest = false)
 	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 	@NotNull
 	@RestapiField(
