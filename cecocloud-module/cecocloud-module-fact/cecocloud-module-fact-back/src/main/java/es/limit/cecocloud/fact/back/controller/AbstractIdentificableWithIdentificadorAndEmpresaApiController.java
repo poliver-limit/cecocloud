@@ -37,8 +37,8 @@ public class AbstractIdentificableWithIdentificadorAndEmpresaApiController<D ext
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void completeDtoWithSession(D dto, Object userSession, boolean isNew) {
-		super.completeDtoWithSession(dto, userSession, isNew);
+	protected void processDto(HttpServletRequest request, D dto, Object userSession, boolean isNew) {
+		super.processDto(request, dto, userSession, isNew);
 		dto.setEmpresa(
 				getEmpresaGenericReferenceFromSession(
 						empresaService,

@@ -48,8 +48,8 @@ public class PuntVendaApiController extends AbstractIdentificableWithIdentificad
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void completeDtoWithSession(PuntVenda dto, Object userSession, boolean isNew) {
-		super.completeDtoWithSession(dto, userSession, isNew);
+	protected void processDto(HttpServletRequest request, PuntVenda dto, Object userSession, boolean isNew) {
+		super.processDto(request, dto, userSession, isNew);
 		dto.setEmpresa(
 				AbstractIdentificableWithIdentificadorAndEmpresaApiController.getEmpresaGenericReferenceFromSession(
 						empresaService,

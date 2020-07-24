@@ -14,7 +14,6 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Formula;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableSimpleEntity;
-import es.limit.base.boot.persist.entity.AbstractSimpleEntity;
 //import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
 import lombok.AccessLevel;

@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
@@ -60,15 +61,25 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private MarcatgeOrigen origen = MarcatgeOrigen.CECOCLOUD;
+	@NotEmpty
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private String adressaIp;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal latitud;
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
+			hiddenInLov = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal longitud;

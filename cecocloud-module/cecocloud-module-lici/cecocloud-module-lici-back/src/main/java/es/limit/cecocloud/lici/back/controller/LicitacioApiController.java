@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.lici.back.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +29,8 @@ public class LicitacioApiController extends AbstractIdentificableApiController<L
 	LicitacioService licitacioService;
 	
 	@Override
-	protected void completeDtoWithSession(Licitacio dto, Object userSession, boolean isNew) {
-		super.completeDtoWithSession(dto, userSession, isNew);
+	protected void processDto(HttpServletRequest request, Licitacio dto, Object userSession, boolean isNew) {
+		super.processDto(request, dto, userSession, isNew);
 		dto.setEmpresa(GenericReference.toGenericReference(((UserSession) userSession).getE()));
 	}
 	

@@ -8,6 +8,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -49,8 +51,8 @@ public class IdentificadorApiController extends AbstractIdentificableWithPermiss
 	private AuthenticationHelper authenticationHelper;
 
 	@Override
-	protected void completeDtoWithSession(Identificador dto, Object userSession, boolean isNew) {
-		super.completeDtoWithSession(dto, userSession, isNew);
+	protected void processDto(HttpServletRequest request, Identificador dto, Object userSession, boolean isNew) {
+		super.processDto(request, dto, userSession, isNew);
 		// Afegim l'usuari propietari
 		if (dto.getPropietari() == null) {
 			String usuariCodi = authenticationHelper.getPrincipalName();

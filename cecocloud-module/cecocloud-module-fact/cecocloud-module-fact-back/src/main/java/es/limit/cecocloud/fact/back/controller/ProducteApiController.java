@@ -35,8 +35,8 @@ public class ProducteApiController extends AbstractIdentificableWithIdentificado
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void completeDtoWithSession(Producte dto, Object userSession, boolean isNew) {
-		super.completeDtoWithSession(dto, userSession, isNew);
+	protected void processDto(HttpServletRequest request, Producte dto, Object userSession, boolean isNew) {
+		super.processDto(request, dto, userSession, isNew);
 		dto.setEmpresa(
 				AbstractIdentificableWithIdentificadorAndEmpresaApiController.getEmpresaGenericReferenceFromSession(
 						empresaService,

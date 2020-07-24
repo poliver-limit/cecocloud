@@ -52,7 +52,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 	}
 
 	@Override
-	protected void completeDtoWithSession(Marcatge dto, Object userSession, boolean isNew) {
+	protected void processDto(HttpServletRequest request, Marcatge dto, Object userSession, boolean isNew) {
 		ProfileResourcePermissions resourcePermissions = getResourcePermissions();
 		// - Quan cream un nou marcatge sempre es configura l'operari de l'usuari actual.
 		// - Quan es guarda/modifica un marcatge només es força l'operari de l'usuari actual
@@ -68,6 +68,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 				dto.setOperariEmpresa(null);
 			}
 		}
+		dto.setAdressaIp(request.getRemoteAddr());
 	}
 
 }

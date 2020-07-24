@@ -1,0 +1,79 @@
+databaseChangeLog:
+- changeSet:
+    id: 1595577702791-1
+    author: josepg (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: adressa_ip_pk
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: created_by
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: lastmod_by
+            type: VARCHAR(64)
+        - column:
+            name: lastmod_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: version
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: adressa
+            type: VARCHAR(15)
+        - column:
+            constraints:
+              nullable: false
+            name: empresa_id
+            type: BIGINT
+        tableName: tmar_adressa_ip
+- changeSet:
+    id: 1595577702791-2
+    author: josepg (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseTableName: tmar_adressa_ip
+        baseColumnNames: empresa_id
+        constraintName: adressaip_empresa_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: empresa
+        validate: true
+- changeSet:
+    id: 1595577702791-3
+    author: josepg (generated)
+    changes:
+    - renameTable:
+        newTableName:  tmar_marcatge
+        oldTableName:  marcatge
+- changeSet:
+    id: 1595577702791-4
+    author: josepg (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: adressa_ip
+            type: VARCHAR(15)
+            defaultValue: 0.0.0.0
+            constraints:
+                nullable: false
+        tableName: tmar_marcatge
