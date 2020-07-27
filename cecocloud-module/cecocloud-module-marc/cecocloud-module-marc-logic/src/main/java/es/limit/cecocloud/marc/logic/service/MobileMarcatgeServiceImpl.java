@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,8 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	private OperariEmpresaRepository operariEmpresaRepository;
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
+	@Autowired
+	private HttpServletRequest request;
 
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
@@ -73,6 +77,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			marcatge.setOrigen(MarcatgeOrigen.MOBIL);
 			marcatge.setLatitud(marcatgeMobil.getLatitud());
 			marcatge.setLongitud(marcatgeMobil.getLongitud());
+			marcatge.setAdressaIp(request.getRemoteAddr());
 			MarcatgeEntity entity = MarcatgeEntity.builder().
 					operariEmpresa(operariEmpresa).
 					embedded(marcatge).

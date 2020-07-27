@@ -41,7 +41,7 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 				OperariEmpresa operariEmpresa = operariEmpresaService.findByCurrentUserAndSession();
 				filtreOperari = "operariEmpresa.id==" + operariEmpresa.getId();
 			} catch (NoSuchElementException ex) {
-				// No s'ha trobat cap operari-empresa
+				filtreOperari = "operariEmpresa.id==-1";
 			}
 		}
 		return

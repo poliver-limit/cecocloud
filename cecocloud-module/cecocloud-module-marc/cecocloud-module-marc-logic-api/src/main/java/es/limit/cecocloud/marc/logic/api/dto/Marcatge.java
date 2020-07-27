@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Transient;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
@@ -19,6 +18,7 @@ import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.GeoPosition;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
+import es.limit.cecocloud.marc.logic.api.validation.MarcatgeAdressaIpAutoritzada;
 import es.limit.cecocloud.marc.logic.api.validation.MarcatgeData;
 import es.limit.cecocloud.marc.logic.api.validation.MarcatgeOperariValid;
 import lombok.Getter;
@@ -32,6 +32,7 @@ import lombok.Setter;
 @Getter @Setter
 @MarcatgeOperariValid
 @MarcatgeData
+@MarcatgeAdressaIpAutoritzada
 @RestapiResource(
 		descriptionField = "data",
 		resourceAccessConstraints = {
@@ -55,13 +56,12 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			type = RestapiFieldType.DATETIME,
 			timeShowSeconds = true,
 			datetimeLinkedWithCurrentTime = true)
-	private Date data;
+	private Date data = new Date();
 	@NotNull
 	@RestapiField(
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private MarcatgeOrigen origen = MarcatgeOrigen.CECOCLOUD;
-	@NotEmpty
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,

@@ -6,7 +6,6 @@ package es.limit.cecocloud.marc.logic.api.dto;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
@@ -31,12 +30,8 @@ import lombok.Setter;
 public class AdressaIp extends AbstractIdentificable<Long> {
 
 	@NotEmpty
-	@Size(max = 15)
-	@Pattern(regexp =
-			"^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$")
+	@Size(max = 40)
+	// @Pattern(regexp = "^(?>(?>([a-f0-9]{1,4})(?>:(?1)){7}|(?!(?:.*[a-f0-9](?>:|$)){8,})((?1)(?>:(?1)){0,6})?::(?2)?)|(?>(?>(?1)(?>:(?1)){5}:|(?!(?:.*[a-f0-9]:){6,})(?3)?::(?>((?1)(?>:(?1)){0,4}):)?)?(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(?>\\.(?4)){3}))$")
 	@RestapiField(
 			includeInQuickFilter = true,
 			filterAsSuggest = false)

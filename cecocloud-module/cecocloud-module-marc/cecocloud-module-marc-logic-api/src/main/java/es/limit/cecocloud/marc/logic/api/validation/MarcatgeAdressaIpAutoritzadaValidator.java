@@ -6,12 +6,15 @@ package es.limit.cecocloud.marc.logic.api.validation;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.acls.domain.BasePermission;
 
+import es.limit.base.boot.logic.api.service.PermissionService;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
 import es.limit.cecocloud.logic.api.service.OperariEmpresaService;
 import es.limit.cecocloud.marc.logic.api.dto.AdressaIp;
@@ -32,6 +35,10 @@ public class MarcatgeAdressaIpAutoritzadaValidator implements ConstraintValidato
 	private OperariEmpresaService operariEmpresaService;
 	@Autowired
 	private AdressaIpService adressaIpService;
+	@Autowired
+	private PermissionService permissionService;
+	@Autowired
+	private HttpServletRequest request;
 
 	@Override
 	public void initialize(MarcatgeAdressaIpAutoritzada constraintAnnotation) {
@@ -41,14 +48,18 @@ public class MarcatgeAdressaIpAutoritzadaValidator implements ConstraintValidato
 	public boolean isValid(
 			Marcatge marcatge,
 			ConstraintValidatorContext context) {
-		if (marcatge.getOperariEmpresa() != null) {
+		boolean hasAdminPermission = permissionService.checkPermissionForCurrentUser(
+				Marcatge.class,
+				new Long(0),
+				BasePermission.ADMINISTRATION);
+		if (!hasAdminPermission && marcatge.getOperariEmpresa() != null) {
 			OperariEmpresa operariEmpresa = operariEmpresaService.getOne(marcatge.getOperariEmpresa().getId());
 			List<AdressaIp> adreces = adressaIpService.findByQuickFilterAndRsqlQuery(
 					null,
-					"empresa.id==" + operariEmpresa.getId(),
+					"empresa.id==" + operariEmpresa.getEmpresa().getId(),
 					Sort.unsorted());
 			if (adreces != null && !adreces.isEmpty()) {
-				String marcatgeAdresaIp = marcatge.getAdressaIp();
+				String marcatgeAdresaIp = request.getRemoteAddr(); // marcatge.getAdressaIp();
 				Optional<AdressaIp> adressaTrobada = adreces.stream().filter(adressa -> marcatgeAdresaIp.equals(adressa.getAdressa())).findFirst();
 				return adressaTrobada.isPresent();
 			}

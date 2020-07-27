@@ -36,7 +36,7 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.data", column = @Column(name = "data", nullable = false)),
 	@AttributeOverride(name = "embedded.origen", column = @Column(name = "origen", nullable = false)),
-	@AttributeOverride(name = "embedded.adressaIp", column = @Column(name = "adressa_ip", length = 15, nullable = false)),
+	@AttributeOverride(name = "embedded.adressaIp", column = @Column(name = "adressa_ip", length = 40, nullable = false)),
 	@AttributeOverride(name = "embedded.latitud", column = @Column(name = "latitud", precision = 12, scale = 8)),
 	@AttributeOverride(name = "embedded.longitud", column = @Column(name = "longitud", precision = 12, scale = 8))
 })

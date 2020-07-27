@@ -37,7 +37,7 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: adressa
-            type: VARCHAR(15)
+            type: VARCHAR(40)
         - column:
             constraints:
               nullable: false
@@ -72,7 +72,7 @@ databaseChangeLog:
         columns:
         - column:
             name: adressa_ip
-            type: VARCHAR(15)
+            type: VARCHAR(40)
             defaultValue: 0.0.0.0
             constraints:
                 nullable: false

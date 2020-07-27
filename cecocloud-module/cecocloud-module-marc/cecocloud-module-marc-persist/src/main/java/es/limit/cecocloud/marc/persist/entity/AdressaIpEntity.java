@@ -35,7 +35,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "tmar_adressa_ip")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.adressa", column = @Column(name = "adressa", length = 15, nullable = false))
+	@AttributeOverride(name = "embedded.adressa", column = @Column(name = "adressa", length = 40, nullable = false))
 })
 public class AdressaIpEntity extends AbstractAuditableVersionableEntity<AdressaIp, Long> {
 
