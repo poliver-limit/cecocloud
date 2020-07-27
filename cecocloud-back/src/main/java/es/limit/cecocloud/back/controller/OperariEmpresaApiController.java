@@ -69,7 +69,7 @@ public class OperariEmpresaApiController extends AbstractIdentificableApiControl
 			rsqlFilter.append(((UserSession)userSession).getE());
 			if (operariEmpresaId != null) {
 				rsqlFilter.append(";id==");
-				rsqlFilter.append(operariEmpresa.getId());
+				rsqlFilter.append(operariEmpresaId);
 			}
 			return rsqlFilter.toString();
 		}
