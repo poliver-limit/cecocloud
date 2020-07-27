@@ -62,7 +62,7 @@ public class OperariEmpresaApiController extends AbstractIdentificableApiControl
 				} catch (NoSuchElementException ex) {
 					// No s'ha trobat cap operari-empresa
 				}
-				operariEmpresaId = (operariEmpresa != null) ? operariEmpresa.getId() : -1;
+				operariEmpresaId = (operariEmpresa != null) ? operariEmpresa.getId() : new Long(-1);
 			}
 			StringBuilder rsqlFilter = new StringBuilder();
 			rsqlFilter.append("empresa.id==");
