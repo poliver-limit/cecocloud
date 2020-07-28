@@ -55,7 +55,7 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@RestapiField(
 			type = RestapiFieldType.DATETIME,
 			timeShowSeconds = true,
-			datetimeLinkedWithCurrentTime = true)
+			datetimeLinkedWithCurrentTime = false)
 	private Date data = new Date();
 	@NotNull
 	@RestapiField(
