@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { BngFormBaseComponent, BngFormBaseField, BngRestapiProfile } from 'base-angular';
-import moment from 'moment';
+import * as moment from 'moment';
 
 import { MarcatgesService } from './marcatges.service';
 //import { OperarisEmpresesService } from './operaris-empreses.service';

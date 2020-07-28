@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { MarcatgesService } from './marcatges.service';
 
@@ -9,7 +9,7 @@ import { MarcatgesService } from './marcatges.service';
         [config]="datagridConfig"
         [restapiService]="marcatgesService"></bng-datagrid>`
 })
-export class MarcatgesGridComponent implements OnInit {
+export class MarcatgesGridComponent {
 
 	datagridConfig = {
 		columnFiltersEnabled: true,
@@ -31,9 +31,6 @@ export class MarcatgesGridComponent implements OnInit {
 			direction: 'desc'
 		}]
 	};
-
-	ngOnInit() {
-	}
 
 	constructor(
 		public marcatgesService: MarcatgesService) { }
