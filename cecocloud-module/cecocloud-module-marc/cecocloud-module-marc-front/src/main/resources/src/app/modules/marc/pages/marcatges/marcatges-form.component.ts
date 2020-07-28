@@ -19,7 +19,13 @@ import { MarcatgesService } from './marcatges.service';
 	<div style="display:flex">
 		<bng-custom-field name="operariEmpresa" style="width:50%;padding-right:2em"></bng-custom-field>
 	</div>
-	<bng-custom-field name="data" style="width:100%"></bng-custom-field>
+	<div style="display:flex">
+		<bng-custom-field name="data" style="width:calc(100%)"></bng-custom-field>
+		<button mat-icon-button *ngIf="dateShowLinkIcon" (click)="onDatetimeLinkButtonClick()" aria-label="Link with current time" style="margin-left: 6px;top:16px">
+        	<mat-icon *ngIf="dateLinkedWithCurrentTime">link</mat-icon>
+        	<mat-icon *ngIf="!dateLinkedWithCurrentTime">link_off</mat-icon>
+    	</button>
+	</div>
 	<div style="display:flex">
 		<bng-custom-field name="latitud" style="width:50%;padding-right:2em"></bng-custom-field>
 		<bng-custom-field name="longitud" style="width:50%"></bng-custom-field>
