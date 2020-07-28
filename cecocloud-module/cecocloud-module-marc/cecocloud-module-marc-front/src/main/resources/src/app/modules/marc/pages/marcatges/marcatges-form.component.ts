@@ -39,7 +39,9 @@ import { MarcatgesService } from './marcatges.service';
 })
 export class MarcatgesFormComponent extends BngFormBaseComponent implements OnInit {
 
-	isAdmin: boolean;
+	hasAdminPermission: boolean;
+	hasCreatePermission: boolean;
+	hasUpdatePermission: boolean;
 	longitud: number;
 	latitud: number;
 	showMap: boolean;
@@ -76,7 +78,7 @@ export class MarcatgesFormComponent extends BngFormBaseComponent implements OnIn
 			this.latitud = resource.latitud;
 			this.showMap = true;
 		}
-		if (this.isAdmin) {
+		if (this.hasAdminPermission && ((!this.id && this.hasCreatePermission) || (this.id && this.hasUpdatePermission))) {
 			this.dateShowLinkIcon = true;
 		}
 		if (!this.id) {
@@ -100,9 +102,13 @@ export class MarcatgesFormComponent extends BngFormBaseComponent implements OnIn
 		public marcatgesService: MarcatgesService) {
 		super(activatedRoute);
 		marcatgesService.whenReady().subscribe((marcatgesProfile: BngRestapiProfile) => {
-			this.isAdmin = marcatgesProfile.resource.hasAdminPermission;
+			this.hasAdminPermission = marcatgesProfile.resource.hasAdminPermission;
+			this.hasCreatePermission = marcatgesProfile.resource.hasCreatePermission;
+			this.hasUpdatePermission = marcatgesProfile.resource.hasUpdatePermission;
 		});
 		this.formConfig.readOnlyStateEnabled = false;
+		//this.formConfig.goToGridWhenSavedEnabled = true;
+		//this.formConfig.goToGridWhenSavedActive = true;
 	}
 
 }
