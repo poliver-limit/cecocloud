@@ -31,6 +31,10 @@ import lombok.Setter;
 )
 public class OperariEmpresa extends AbstractIdentificable<Long> {
 
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
 	public static final String FILTER_MARC_ALLOWED = "marc-allowed";
 
 	@NotNull

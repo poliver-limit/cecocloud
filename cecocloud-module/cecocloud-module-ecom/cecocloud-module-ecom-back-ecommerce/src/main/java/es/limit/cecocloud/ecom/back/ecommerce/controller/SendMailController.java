@@ -41,11 +41,11 @@ public class SendMailController {
     private static final String PASSWORD = "pekesita86";
 
     private static final String EMAIL_FROM = "marcserratomas@gmail.com";
-    private static final String EMAIL_TO = "mserra@limit.es";
+    /*private static final String EMAIL_TO = "mserra@limit.es";
     private static final String EMAIL_TO_CC = "";
 
     private static final String EMAIL_SUBJECT = "Test Send Email via SMTP (HTML)";
-    private static final String EMAIL_TEXT = "<h1>Hello Java Mail \n ABC123</h1>";
+    private static final String EMAIL_TEXT = "<h1>Hello Java Mail \n ABC123</h1>";*/
 	
 	public SendMailController() {
 

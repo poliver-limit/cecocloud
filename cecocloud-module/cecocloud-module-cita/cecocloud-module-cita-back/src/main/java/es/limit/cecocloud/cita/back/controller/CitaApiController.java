@@ -34,8 +34,8 @@ public class CitaApiController extends AbstractIdentificableWithIdentificadorApi
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void completeDtoWithSession(Cita dto, Object userSession, boolean isNew) {
-		super.completeDtoWithSession(dto, userSession, isNew);
+	protected void processDto(HttpServletRequest request, Cita dto, Object userSession, boolean isNew) {
+		super.processDto(request, dto, userSession, isNew);
 		dto.setEmpresa(
 				AbstractIdentificableWithIdentificadorAndEmpresaApiController.getEmpresaGenericReferenceFromSession(
 						empresaService,

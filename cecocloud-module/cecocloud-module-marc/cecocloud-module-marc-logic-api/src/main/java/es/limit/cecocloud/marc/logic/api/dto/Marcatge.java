@@ -18,6 +18,7 @@ import es.limit.base.boot.logic.api.dto.GenericReference;
 import es.limit.base.boot.logic.api.dto.GeoPosition;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.logic.api.dto.OperariEmpresa;
+import es.limit.cecocloud.marc.logic.api.validation.MarcatgeAdressaIpAutoritzada;
 import es.limit.cecocloud.marc.logic.api.validation.MarcatgeData;
 import es.limit.cecocloud.marc.logic.api.validation.MarcatgeOperariValid;
 import lombok.Getter;
@@ -31,6 +32,7 @@ import lombok.Setter;
 @Getter @Setter
 @MarcatgeOperariValid
 @MarcatgeData
+@MarcatgeAdressaIpAutoritzada
 @RestapiResource(
 		descriptionField = "data",
 		resourceAccessConstraints = {
@@ -46,14 +48,15 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			includeInQuickFilter = true,
-			lovNamedFilter = OperariEmpresa.FILTER_MARC_ALLOWED)
+			lovNamedFilter = OperariEmpresa.FILTER_MARC_ALLOWED,
+			filterAsSuggest = false)
 	private GenericReference<OperariEmpresa, Long> operariEmpresa;
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.DATETIME,
 			timeShowSeconds = true,
-			datetimeLinkedWithCurrentTime = true)
-	private Date data;
+			datetimeLinkedWithCurrentTime = false)
+	private Date data = new Date();
 	@NotNull
 	@RestapiField(
 			disabledForCreate = true,
@@ -62,12 +65,21 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private String adressaIp;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal latitud;
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
+			hiddenInLov = true,
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal longitud;

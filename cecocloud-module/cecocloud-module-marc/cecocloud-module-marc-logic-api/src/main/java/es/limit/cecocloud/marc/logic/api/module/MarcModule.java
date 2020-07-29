@@ -43,6 +43,7 @@ public class MarcModule {
 						Arrays.asList(),
 						Arrays.asList(
 								ExtendedPermission.READ,
+								ExtendedPermission.WRITE,
 								ExtendedPermission.CREATE,
 								ExtendedPermission.ADMINISTRATION),
 						null));

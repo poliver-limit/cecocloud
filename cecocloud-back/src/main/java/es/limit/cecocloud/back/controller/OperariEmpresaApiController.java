@@ -44,8 +44,6 @@ public class OperariEmpresaApiController extends AbstractIdentificableApiControl
 	@Override
 	protected String namedRsqlFilter(HttpServletRequest request, Object userSession, String filterName) {
 		if (OperariEmpresa.FILTER_MARC_ALLOWED.equals(filterName)) {
-			// Si l'usuari no és administrador de la funcionalitat de marcatges sempre retorna
-			// l'operari-empresa associat amb l'usuari actual.
 			OperariEmpresa operariEmpresa = null;
 			ProfileResourcePermissions resourcePermissions = null;
 			try {
@@ -55,16 +53,25 @@ public class OperariEmpresaApiController extends AbstractIdentificableApiControl
 			} catch (ClassNotFoundException ex) {
 				log.error("Error al obtenir els permisos dels marcatges", ex);
 			}
+			// Si l'usuari no és administrador de la funcionalitat de marcatges sempre retorna
+			// l'operari-empresa associat amb l'usuari actual.
+			Long operariEmpresaId = null;
 			if (resourcePermissions != null && !resourcePermissions.isHasAdminPermission()) {
 				try {
 					operariEmpresa = operariEmpresaService.findByCurrentUserAndSession();
 				} catch (NoSuchElementException ex) {
 					// No s'ha trobat cap operari-empresa
 				}
+				operariEmpresaId = (operariEmpresa != null) ? operariEmpresa.getId() : new Long(-1);
 			}
-			if (operariEmpresa != null) {
-				return "id==" + operariEmpresa.getId();
+			StringBuilder rsqlFilter = new StringBuilder();
+			rsqlFilter.append("empresa.id==");
+			rsqlFilter.append(((UserSession)userSession).getE());
+			if (operariEmpresaId != null) {
+				rsqlFilter.append(";id==");
+				rsqlFilter.append(operariEmpresaId);
 			}
+			return rsqlFilter.toString();
 		}
 		return null;
 	}

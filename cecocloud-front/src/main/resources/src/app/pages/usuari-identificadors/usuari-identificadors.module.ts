@@ -29,7 +29,7 @@ import { FuncionalitatsPermisosModule } from 'src/app/shared/funcionalitats-perm
 		MatTableModule,
 		FuncionalitatsPermisosModule,
 		RouterModule.forChild([
-			{ path: '', component: UsuariIdentificadorsGridComponent, canDeactivate: [BngFormExitGuard] },
+			{ path: '', component: UsuariIdentificadorsGridComponent },
 			{ path: 'update/:id', component: UsuariIdentificadorsFormComponent, canDeactivate: [BngFormExitGuard] }
 		])
 	],

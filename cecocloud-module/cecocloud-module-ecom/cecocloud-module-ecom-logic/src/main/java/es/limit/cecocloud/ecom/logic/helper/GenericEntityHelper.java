@@ -12,13 +12,11 @@ import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Caixa;
 import es.limit.cecocloud.ecom.logic.api.dto.Caixa.CaixaPk;
-import es.limit.cecocloud.ecom.logic.api.dto.Client;
 import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.Divisa;
 import es.limit.cecocloud.ecom.logic.api.dto.DocumentPagamentCobrament;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-import es.limit.cecocloud.ecom.logic.api.dto.Magatzem;
 import es.limit.cecocloud.ecom.logic.api.dto.Pais;
 import es.limit.cecocloud.ecom.logic.api.dto.Provincia;
 import es.limit.cecocloud.ecom.logic.api.dto.Provincia.ProvinciaPk;
@@ -28,24 +26,20 @@ import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.ecom.logic.api.dto.enums.TipusRegimEnumDto;
 import es.limit.cecocloud.ecom.logic.api.dto.enums.TipusVencimentEnumDto;
 import es.limit.cecocloud.ecom.persist.entity.CaixaEntity;
-import es.limit.cecocloud.ecom.persist.entity.ClientEntity;
 import es.limit.cecocloud.ecom.persist.entity.CodiPostalEntity;
 import es.limit.cecocloud.ecom.persist.entity.DivisaEntity;
 import es.limit.cecocloud.ecom.persist.entity.DocumentPagamentCobramentEntity;
 import es.limit.cecocloud.ecom.persist.entity.FamiliaClientEntity;
-import es.limit.cecocloud.ecom.persist.entity.MagatzemEntity;
 import es.limit.cecocloud.ecom.persist.entity.PaisEntity;
 import es.limit.cecocloud.ecom.persist.entity.ProvinciaEntity;
 import es.limit.cecocloud.ecom.persist.entity.RegimIvaEntity;
 import es.limit.cecocloud.ecom.persist.entity.TipusFacturacioEntity;
 import es.limit.cecocloud.ecom.persist.entity.TipusVencimentEntity;
 import es.limit.cecocloud.ecom.persist.repository.CaixaRepository;
-import es.limit.cecocloud.ecom.persist.repository.ClientRepository;
 import es.limit.cecocloud.ecom.persist.repository.CodiPostalRepository;
 import es.limit.cecocloud.ecom.persist.repository.DivisaRepository;
 import es.limit.cecocloud.ecom.persist.repository.DocumentPagamentCobramentRepository;
 import es.limit.cecocloud.ecom.persist.repository.FamiliaClientRepository;
-import es.limit.cecocloud.ecom.persist.repository.MagatzemRepository;
 import es.limit.cecocloud.ecom.persist.repository.PaisRepository;
 import es.limit.cecocloud.ecom.persist.repository.ProvinciaRepository;
 import es.limit.cecocloud.ecom.persist.repository.RegimIvaRepository;
@@ -89,8 +83,6 @@ public class GenericEntityHelper {
 	@Autowired
 	private DivisaRepository divisaRepository;
 	@Autowired
-	private ClientRepository clientRepository;
-	@Autowired
 	private FamiliaClientRepository familiaClientRepository;
 	@Autowired
 	private TipusFacturacioRepository tipusFacturacioRepository;
@@ -100,8 +92,6 @@ public class GenericEntityHelper {
 	private RegimIvaRepository regimIvaRepository;
 	@Autowired
 	private TipusVencimentRepository tipusVencimentRepository;
-	@Autowired
-	private MagatzemRepository magatzemRepository;
 	@Autowired
 	private CodiPostalRepository codiPostalRepository;
 	@Autowired

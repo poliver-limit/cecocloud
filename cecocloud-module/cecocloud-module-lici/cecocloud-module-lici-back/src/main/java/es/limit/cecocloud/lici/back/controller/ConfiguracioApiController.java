@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.lici.back.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +24,8 @@ import es.limit.cecocloud.logic.api.dto.UserSession;
 public class ConfiguracioApiController extends AbstractIdentificableApiController<Configuracio,Long> {
 
 	@Override
-	protected void completeDtoWithSession(Configuracio dto, Object userSession, boolean isNew) {
-		super.completeDtoWithSession(dto, userSession, isNew);
+	protected void processDto(HttpServletRequest request, Configuracio dto, Object userSession, boolean isNew) {
+		super.processDto(request, dto, userSession, isNew);
 		dto.setEmpresa(GenericReference.toGenericReference(((UserSession)userSession).getE()));
 	}
 

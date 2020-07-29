@@ -25,7 +25,7 @@ export class UsuariIdentificadorsGridComponent {
 	@ViewChild('datagrid') datagrid: BngDatagrid;
 
 	datagridConfig = {
-		columFiltersEnable: true
+		columnFiltersEnabled: true
 	};
 
 	onGridActionCreate() {
@@ -154,7 +154,7 @@ export class UsuariIdentificadorsAddDialog implements AfterViewInit {
 			finalize(() => {
 				this.isLoading = false;
 			})).subscribe((data: any) => {
-				if (data?.id) {
+				if (data && data.id) {
 					this.usuari = data;
 				}
 			});

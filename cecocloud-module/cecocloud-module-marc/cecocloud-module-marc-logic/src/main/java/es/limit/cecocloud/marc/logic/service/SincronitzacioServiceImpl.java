@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 	private OperariEmpresaRepository operariEmpresaRepository;
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
+	@Autowired
+	private HttpServletRequest request;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -123,6 +126,7 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 						embedded.setLatitud(marcatge.getLatitud());
 						embedded.setLongitud(marcatge.getLongitud());
 						embedded.setOrigen(MarcatgeOrigen.CECOGEST);
+						embedded.setAdressaIp(request.getRemoteAddr());
 						marcatgeRepository.save(
 								MarcatgeEntity.builder().
 								operariEmpresa(operariEmpresa.get()).

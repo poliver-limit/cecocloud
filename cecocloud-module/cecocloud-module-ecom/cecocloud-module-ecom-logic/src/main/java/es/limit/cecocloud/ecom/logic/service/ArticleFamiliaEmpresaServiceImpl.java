@@ -13,10 +13,8 @@ import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamiliaEmpresa.ArticleFamili
 import es.limit.cecocloud.ecom.logic.api.service.ArticleFamiliaEmpresaService;
 import es.limit.cecocloud.ecom.persist.entity.ArticleFamiliaEmpresaEntity;
 import es.limit.cecocloud.logic.api.dto.UserSession;
-import es.limit.cecocloud.persist.repository.EmpresaRepository;
-import es.limit.cecocloud.persist.repository.IdentificadorRepository;
-import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 
 /**
@@ -29,18 +27,16 @@ public class ArticleFamiliaEmpresaServiceImpl extends AbstractGenericCompositePk
 
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
-	
 	@Autowired
 	private IdentificadorRepository identificadorRepository;
-	
-	@Autowired
-	private EmpresaRepository empresaRepository;
-	
+//	@Autowired
+//	private EmpresaRepository empresaRepository;
+
 	@Override
 	protected ArticleFamiliaEmpresaPk getPkFromDto(ArticleFamiliaEmpresa dto) {
 		UserSession userSession = (UserSession)authenticationHelper.getSession();		
 		IdentificadorEntity identificador = identificadorRepository.getOne(userSession.getI());
-		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());	
+//		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());	
 		return new ArticleFamiliaEmpresaPk(
 				identificador.getEmbedded().getCodi(),		
 //				dto.getIdentificador().getId(),				
