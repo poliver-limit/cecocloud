@@ -1,5 +1,6 @@
 export const environment = {
-  production: true
+	recaptchaSiteKey: '6LerCLgZAAAAAJsdw7_4KOW0yAgQS0GjaeL5K8f-',
+	production: true
 };
 
 
