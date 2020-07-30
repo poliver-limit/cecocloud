@@ -43,6 +43,10 @@ public class InitialApiController {
 		  initialPropertiesResponse.setPuntVendaId(properties.getProperty("puntVendaId"));
 		  initialPropertiesResponse.setIdentificadorId(properties.getProperty("identificadorId"));
 		  initialPropertiesResponse.setEmpresaId(properties.getProperty("empresaId"));		
+		  initialPropertiesResponse.setMerchantCode(properties.getProperty("merchantCode"));		
+		  initialPropertiesResponse.setMerchantTerminal(properties.getProperty("merchantTerminal"));		
+		  initialPropertiesResponse.setPassword(properties.getProperty("password"));		
+		  initialPropertiesResponse.setCorreuContacte(properties.getProperty("correuContacte"));		
 		} catch (IOException e) {			
 			log.error("No s'ha trobat el fitxer: init.properties");
 			return ResponseEntity.notFound().build();
@@ -60,6 +64,10 @@ public class InitialApiController {
 		private String puntVendaId;
 		private String identificadorId;
 		private String empresaId;		
+		private String merchantCode;		
+		private String merchantTerminal;		
+		private String password;		
+		private String correuContacte;		
 
 	}
 
