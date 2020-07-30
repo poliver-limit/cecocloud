@@ -19,7 +19,7 @@ import { IdentificadorsPermissionService } from './identificadors-permission.ser
         BngModule,
         MaterialModule,
         RouterModule.forChild([
-            { path: '', component: IdentificadorComponent, canDeactivate: [BngFormExitGuard] }
+            { path: '', component: IdentificadorComponent }
         ])
     ],
     declarations: [
