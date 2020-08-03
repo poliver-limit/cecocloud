@@ -62,7 +62,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "art_pruiva", precision = 25, scale = 10)),
 	@AttributeOverride(name = "embedded.decimalsPreu", column = @Column(name = "art_decpru", nullable = false, length = 22, precision = 1, scale = 0)),
 	@AttributeOverride(name = "embedded.decimalsPreuIva", column = @Column(name = "art_decpruiva", length = 22, precision = 1, scale = 0)),	
-	@AttributeOverride(name = "embedded.rutaInforme", column = @Column(name = "art_rutinf", length = 1000)),
+//	@AttributeOverride(name = "embedded.rutaInforme", column = @Column(name = "art_rutinf", length = 1000)),
 	@AttributeOverride(name = "embedded.descripcioTipusUnitat", column = @Column(name = "art_tipuni", length = 4)),
 	@AttributeOverride(name = "embedded.titol", column = @Column(name = "art_tlt", length = 20)),
 	@AttributeOverride(name = "embedded.bloquejat", column = @Column(name = "art_blo", length = 1, nullable = false)),
@@ -179,6 +179,15 @@ public class ArticleEntity extends AbstractWithIdentificadorAuditableEntity<Arti
 	
 	@Formula(value ="(SELECT TCI.iva_pte FROM tcom_iva TCI left join tcom_art TCA on TCI.iva_idf_cod = TCA.art_idf_cod and TCI.iva_cod = TCA.art_iva_cod where TCA.art_cod = art_cod and TCA.art_idf_cod = art_idf_cod)")
 	private BigDecimal ivaValue;
+	
+	@Formula(value ="(SELECT TCAN.AIN_FITNOM FROM TCOM_AIN TCAN\r\n" + 
+			"left join TCOM_ART TCA on TCAN.ain_idf_cod = TCA.art_idf_cod and TCAN.ain_art_cod = TCA.art_cod\r\n" + 
+			"WHERE TCAN.AIN_ART_COD = art_cod and TCAN.AIN_IDF_COD = art_idf_cod AND TCAN.AIN_NUM = (\r\n" + 
+			"	SELECT min(TCAN2.AIN_NUM) FROM TCOM_AIN TCAN2\r\n" + 
+			"	left join TCOM_ART TCA2 on TCAN2.ain_idf_cod = TCA2.art_idf_cod and TCAN2.ain_art_cod = TCA2.art_cod	\r\n" + 
+			"	WHERE TCAN2.AIN_ART_COD = art_cod and TCAN2.AIN_IDF_COD = art_idf_cod\r\n" + 
+			"))")
+	private String rutaInforme;
 	
 	@Builder
 	public ArticleEntity(			
