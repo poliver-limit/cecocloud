@@ -63,7 +63,7 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 	private String descripcio;
 	
 	@NotNull(groups = { OnCreate.class })	
-	@Digits(integer = 15, fraction = 2)
+	@Digits(integer = 12, fraction = 5)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
