@@ -476,7 +476,7 @@
         lpr_art_cod varchar(15) not null,
         lpr_des varchar(4000) not null,
         lpr_fcs int4 not null,
-        lpr_pru numeric(17, 2) not null,
+        lpr_pru numeric(17, 5) not null,
         lpr_imp numeric(15, 2) not null,
         lpr_sync varchar(1),
         lpr_uni int4 not null,

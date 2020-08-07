@@ -1,8 +1,8 @@
-    create table paycomet_notification (
+create table paycomet_notification (
        order_number varchar(255) not null,
         account_code varchar(255) not null,
-        amount int4 not null,
-        amount_eur int4 not null,
+        amount float8 not null,
+        amount_eur float8 not null,
         auth_code varchar(255) not null,
         bank_date_time varchar(255) not null,
         bic_code varchar(255) not null,
