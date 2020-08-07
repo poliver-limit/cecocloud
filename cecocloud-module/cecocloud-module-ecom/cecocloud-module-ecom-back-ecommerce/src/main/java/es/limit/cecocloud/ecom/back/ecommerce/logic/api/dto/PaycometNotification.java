@@ -68,10 +68,10 @@ public class PaycometNotification {
 	private String Currency;
 	
 	@NotNull
-	private int Amount;
+	private double Amount;
 	
 	@NotNull
-	private int AmountEur;
+	private double AmountEur;
 	
 	@NotNull
 	@Size(max = 255)

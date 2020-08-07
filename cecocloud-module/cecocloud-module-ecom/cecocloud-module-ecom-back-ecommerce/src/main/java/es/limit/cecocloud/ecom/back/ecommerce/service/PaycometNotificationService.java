@@ -30,7 +30,7 @@ public class PaycometNotificationService  {
 	        // The hotel code must be unique..
 	        Optional<PaycometNotificationEntity> paycometNotificationEntity =this.repository.findById(dto.getOrder());
 	        if(paycometNotificationEntity.isPresent())
-	        	throw new EntityAlreadyExistsException();
+	        	throw new EntityAlreadyExistsException("La entidad ya existe");
 
 	        PaycometNotificationEntity dest = PaycometNotificationEntity.builder().embedded(dto).orderNumber(dto.getOrder()).build();
 	        repository.save(dest);
