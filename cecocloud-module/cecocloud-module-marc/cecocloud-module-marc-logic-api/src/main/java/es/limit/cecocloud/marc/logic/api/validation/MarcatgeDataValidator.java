@@ -10,6 +10,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,10 +22,10 @@ import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.service.MarcatgeService;
 
 /**
- * Validador de la data dels marcatges.
- * Es fan les següents validacions:
+ * Validador de la data dels marcatges. Es fan les següents validacions:
  * · Que la data sigui posterior a la del darrer marcatge del mateix operari.
- * · Que la no sigui posterior a la data actual (amb un marge de 5 minuts).
+ * · Que la data no sigui anterior o posterior a la data actual (amb un marge
+ *   de minuteMargin minuts).
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -34,6 +35,9 @@ public class MarcatgeDataValidator implements ConstraintValidator<MarcatgeData, 
 	private MarcatgeService marcatgeService;
 	@Autowired
 	private PermissionService permissionService;
+
+	@Value("${cecocloud.marca.minute.margin:5}")
+	private int minuteMargin;
 
 	@Override
 	public void initialize(MarcatgeData constraintAnnotation) {
@@ -62,9 +66,19 @@ public class MarcatgeDataValidator implements ConstraintValidator<MarcatgeData, 
 							return false;
 						}
 					}
-					Calendar dataLimit = Calendar.getInstance();
-					dataLimit.add(Calendar.MINUTE, 5);
-					if (marcatge.getData().after(dataLimit.getTime())) {
+					Calendar dataLimitAfter = Calendar.getInstance();
+					dataLimitAfter.add(Calendar.MINUTE, minuteMargin);
+					if (marcatge.getData().after(dataLimitAfter.getTime())) {
+						context.disableDefaultConstraintViolation();
+						context.buildConstraintViolationWithTemplate(
+				                "{cecocloud.validation.constraints.MarcatgeData.after.limit}").
+				        addPropertyNode("data").
+						addConstraintViolation();
+						return false;
+					}
+					Calendar dataLimitBefore = Calendar.getInstance();
+					dataLimitBefore.add(Calendar.MINUTE, -minuteMargin);
+					if (marcatge.getData().before(dataLimitBefore.getTime())) {
 						context.disableDefaultConstraintViolation();
 						context.buildConstraintViolationWithTemplate(
 				                "{cecocloud.validation.constraints.MarcatgeData.after.limit}").

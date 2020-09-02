@@ -26,7 +26,6 @@ import org.hibernate.annotations.NotFoundAction;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Albara;
 import es.limit.cecocloud.ecom.logic.api.dto.Albara.AlbaraPk;
-import es.limit.cecocloud.ecom.persist.entity.MagatzemPeriodeEntity;
 import es.limit.cecocloud.ecom.persist.entity.AlbaraEntity.AlbaraEntityListener;
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;

@@ -18,7 +18,6 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup;
 import es.limit.cecocloud.rrhh.logic.api.dto.SeccioGrup.SeccioGrupPk;
 import lombok.AccessLevel;

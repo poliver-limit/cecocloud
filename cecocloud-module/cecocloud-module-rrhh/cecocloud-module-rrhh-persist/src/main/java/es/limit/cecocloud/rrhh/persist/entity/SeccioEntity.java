@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.rrhh.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import lombok.AccessLevel;

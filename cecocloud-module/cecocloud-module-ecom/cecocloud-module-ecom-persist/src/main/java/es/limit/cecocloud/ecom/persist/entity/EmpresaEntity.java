@@ -28,7 +28,6 @@ import es.limit.cecocloud.ecom.persist.entity.EmpresaEntity.EmpresaEntityListene
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.ecom.persist.listener.EntityListenerUtil.PkBuilder;
 import es.limit.cecocloud.ecom.persist.repository.EmpresaRepository;
-import es.limit.cecocloud.ecom.persist.entity.DivisaEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -24,7 +24,6 @@ import org.hibernate.annotations.NotFoundAction;
 
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
-import es.limit.cecocloud.ecom.persist.entity.ClientEntity;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
 import lombok.Builder;

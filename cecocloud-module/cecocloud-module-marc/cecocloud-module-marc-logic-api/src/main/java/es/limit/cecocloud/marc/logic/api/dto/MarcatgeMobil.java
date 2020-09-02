@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import es.limit.cecocloud.marc.logic.api.validation.MarcatgeMobilData;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
+@MarcatgeMobilData
 public class MarcatgeMobil {
 
 	@NotNull
