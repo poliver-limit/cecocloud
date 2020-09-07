@@ -65,14 +65,14 @@ public class Article extends AbstractIdentificableWithIdentificadorAndCodi<Strin
 	@NotNull(groups = {OnCreate.class})
 	@Digits(integer = 15, fraction = 10)
 	@RestapiField(			
-			hiddenInGrid = false,
+			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)	
 	private BigDecimal pvp;
 
 	@Digits(integer = 15, fraction = 10)
 	@RestapiField(			
-			hiddenInGrid = true,
+			hiddenInGrid = false,
 			hiddenInLov = true,
 			sizeMax = 22)
 	private BigDecimal preuAmbIva;	
