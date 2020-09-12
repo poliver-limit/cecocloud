@@ -4,12 +4,12 @@
 package es.limit.cecocloud.ecom.back.ecommerce.controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -26,26 +26,19 @@ import com.sun.mail.smtp.SMTPTransport;
 
 import es.limit.cecocloud.ecom.back.ecommerce.logic.api.dto.Email;
 import es.limit.cecocloud.ecom.logic.api.module.EcomModuleConfig;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controlador per al servei REST de gestió de articles.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @RestController
-@RequestMapping(EcomModuleConfig.API_ECOMMERCE_PATH + "/sendMail")
+@RequestMapping(EcomModuleConfig.API_ECOMMERCE_PATH + "/sendEmail")
 public class SendMailController {
-	
-	private static final String SMTP_SERVER = "smtp.gmail.com";
-    private static final String USERNAME = "marcserratomas@gmail.com";
-    private static final String PASSWORD = "pekesita86";
 
-    private static final String EMAIL_FROM = "marcserratomas@gmail.com";
-    /*private static final String EMAIL_TO = "mserra@limit.es";
-    private static final String EMAIL_TO_CC = "";
-
-    private static final String EMAIL_SUBJECT = "Test Send Email via SMTP (HTML)";
-    private static final String EMAIL_TEXT = "<h1>Hello Java Mail \n ABC123</h1>";*/
+    private static final String EMAIL_FROM = "limit@limit.es";
 	
 	public SendMailController() {
 
@@ -55,46 +48,60 @@ public class SendMailController {
 	value = "/send",
 	produces = "application/json")
 	public void sendEmail(@RequestBody final Email email) {
-	     
-		 Properties prop = System.getProperties();
-	        prop.put("mail.smtp.auth", "true"); 
-	        prop.put("mail.smtp.starttls.enable", "true");
-//	        prop.put("mail.smtp.port", "465");  
-//	        prop.put("mail.debug", "true");  
-//	        prop.put("mail.smtp.socketFactory.port", "465");  
-//	        prop.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
-//	        prop.put("mail.smtp.socketFactory.fallback", "false");  
+		    
+		String username = "", password = "", auth = "", starttls = "", host= "", port = "", ssl = "";
+		
+		Properties properties = new Properties();
+		try {
+		  properties.load(new FileInputStream("init.properties"));
+		  username = properties.getProperty("mail.username");
+		  password = properties.getProperty("mail.password");
+		  auth = properties.getProperty("mail.smtp.auth");
+		  starttls = properties.getProperty("mail.smtp.starttls.enable");
+		  host = properties.getProperty("mail.smtp.host");
+		  port = properties.getProperty("mail.smtp.port");
+		  ssl = properties.getProperty("mail.smtp.ssl.trust");
+		} catch (IOException e) {			
+			log.error("No s'ha trobat el fitxer: init.properties");			
+		}
+		  
+		Properties prop = System.getProperties();
 
-	        Session session = Session.getInstance(prop, null);
-	        Message msg = new MimeMessage(session);
+		prop.put("mail.smtp.auth", auth); 
+		prop.put("mail.smtp.starttls.enable", starttls);
+		prop.put("mail.smtp.host", host);
+		prop.put("mail.smtp.port", port);
+		prop.put("mail.smtp.ssl.trust", ssl);
+		
+        Session session = Session.getInstance(prop, null);
+	    Message msg = new MimeMessage(session);
 
-	        try {
-	        		
-	            msg.setFrom(new InternetAddress(email.getFrom()!=null?email.getFrom():EMAIL_FROM));
+	    try {
+	    	
+	    	msg.setFrom(new InternetAddress(username!=null?username:EMAIL_FROM));
+	    	msg.setRecipients(Message.RecipientType.TO,
+	        InternetAddress.parse(email.getTo(), false));
+	    	msg.setSubject(email.getSubject());
 
-	            msg.setRecipients(Message.RecipientType.TO,
-	                    InternetAddress.parse(email.getTo(), false));
+			// TEXT email	    	
+	    	if (email.getHtmlBody()) {
+	    		msg.setContent(email.getBody(), "text/html; charset=UTF-8");
+	    	} else {
+	    		msg.setText(email.getBody());
+	    	}	        
+	        
+//	    	msg.setDataHandler(new DataHandler(new HTMLDataSource(email.getBody())));
+			SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
 
-	            msg.setSubject(email.getSubject());
+			// connect
+			t.connect(host, username, password);
+			
+			// send
+	        t.sendMessage(msg, msg.getAllRecipients());
 
-				// TEXT email
-	            //msg.setText(EMAIL_TEXT);
+	        System.out.println("Response: " + t.getLastServerResponse());
 
-				// HTML email
-	            msg.setDataHandler(new DataHandler(new HTMLDataSource(email.getBody())));
-
-
-				SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
-
-				// connect
-	            t.connect(SMTP_SERVER, USERNAME, PASSWORD);
-
-				// send
-	            t.sendMessage(msg, msg.getAllRecipients());
-
-	            System.out.println("Response: " + t.getLastServerResponse());
-
-	            t.close();
+	        t.close();
 
 	        } catch (MessagingException e) {
 	            e.printStackTrace();

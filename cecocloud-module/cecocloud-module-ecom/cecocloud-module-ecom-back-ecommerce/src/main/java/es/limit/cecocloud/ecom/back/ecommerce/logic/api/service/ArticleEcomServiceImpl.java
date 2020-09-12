@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.limit.cecocloud.ecom.logic.api.service;
+package es.limit.cecocloud.ecom.back.ecommerce.logic.api.service;
 
 import java.util.List;
 
@@ -13,10 +13,6 @@ import es.limit.cecocloud.ecom.logic.api.dto.Article;
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
-public interface ArticleService extends GenericCompositePkService<Article> {
+public interface ArticleEcomServiceImpl extends GenericCompositePkService<Article> {
 	
-	public List<Article> getArticlesActius();
-	
-	public Article getArticle();
-
 }

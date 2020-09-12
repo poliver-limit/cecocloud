@@ -162,6 +162,7 @@ public abstract class AbstractIdentificableEcomApiController<D extends Identific
 			@RequestParam(value = "namedFilter", required = false) final String[] namedFilters,
 			@RequestParam(value = "quickFilter", required = false) final String quickFilter,
 			@RequestParam(value = "query", required = false) final String query,
+			@RequestParam(value = "lang", required = false) final String idiomaCodi,
 			final Pageable pageable,
 			final Sort sort) {
 		log.debug("Consultant entitats amb filtre i paginació (" +
@@ -405,7 +406,7 @@ public abstract class AbstractIdentificableEcomApiController<D extends Identific
 	}
 	protected Link getApiLink() {
 		Long ti = System.currentTimeMillis();
-		Link link = linkTo(methodOn(getClass()).find(null, null, null, null, null, null)).withRel(LinkRelation.of("api"));
+		Link link = linkTo(methodOn(getClass()).find(null, null, null, null, null, null, null)).withRel(LinkRelation.of("api"));
 		Long tf = System.currentTimeMillis();
 		log.trace("Temps getApiLink: " + (tf - ti) + "ms");
 		log.trace("Link: " + link);

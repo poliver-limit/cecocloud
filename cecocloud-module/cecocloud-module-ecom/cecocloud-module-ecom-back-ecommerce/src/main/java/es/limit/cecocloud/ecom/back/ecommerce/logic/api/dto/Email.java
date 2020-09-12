@@ -36,6 +36,9 @@ public class Email {
 	@Size(max = 255)
 	protected String to_cc;
 	
+	@NotNull	
+	protected Boolean htmlBody;
+	
 		
 
 }
