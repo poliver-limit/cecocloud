@@ -316,16 +316,19 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private Date dataInici;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = false,
 			hiddenInLov = true)
 	private Date dataFi;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Date dataFiPrevist;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -346,12 +349,15 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private Date dataRecepcioFinal;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Date dataIniciGarantia;
 	
 	@RestapiField(
+			disabledForCreate = true,
+			disabledForUpdate = true,
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private Date dataFinalGarantia;
@@ -366,6 +372,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInLov = true)
 	private Date dataFormalitzacio;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -424,6 +431,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@Convert(converter = AlbaraClientPreuConverter.class)
 	private AlbaraClientPreuEnumDto albaransClientPreu;	
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
@@ -473,6 +481,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@Convert(converter = StringBooleanConverter.class)
 	private Boolean estudiSumarValoracioEnExces = false;
 	
+	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true)
