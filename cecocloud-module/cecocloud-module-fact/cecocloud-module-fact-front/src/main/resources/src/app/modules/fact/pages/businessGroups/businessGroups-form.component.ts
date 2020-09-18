@@ -2,25 +2,24 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
 
-import { ParametersService } from './parameters.service';
+import { BusinessGroupsService } from './businessGroups.service';
 
-// mirror
 @Component( {
     template: `
     <bng-form
         bng-form-mant
         [config]="formConfig"
-        [restapiService]="parametersService"></bng-form>
+        [restapiService]="businessGroupsService"></bng-form>
 `
 } )
-export class ParametersFormComponent extends BngFormBaseComponent {
+export class BusinessGroupsFormComponent extends BngFormBaseComponent {
 
     formConfig: BngFormConfig = {
     }
 
     constructor(
 		activatedRoute: ActivatedRoute,
-        public parametersService: ParametersService ) {
+        public businessGroupsService: BusinessGroupsService ) {
 			super(activatedRoute);
 		}
 }

@@ -50,6 +50,11 @@ export class AppService {
 			route: '/fact/articlesModel'
 		}, {
 			icon: 'room',
+			label: 'Business groups',
+			labelKey: 'app.menu.fact.businessGroups',
+			route: '/fact/businessGroups'
+		}, {
+			icon: 'room',
 			label: 'Codis postals',
 			labelKey: 'app.menu.fact.codisPostal',
 			route: '/fact/codisPostal'
