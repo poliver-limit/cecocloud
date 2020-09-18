@@ -48,6 +48,7 @@ import es.limit.cecocloud.fact.logic.api.dto.OficinaBancaria;
 import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
 import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
+import es.limit.cecocloud.fact.logic.api.dto.Parameter;
 import es.limit.cecocloud.fact.logic.api.dto.Partida;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Pressupost;
@@ -488,6 +489,14 @@ public class FactModuleRegister {
 					"Paisos per Nif",
 					PaisNif.class,
 					Arrays.asList()));
+		funcionalitats.put(
+				"FAC_PARAM",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PARAM",
+						FuncionalitatTipus.MANTENIMENT,
+						"Parametres",
+						Parameter.class,
+						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_PARTID",
 				new FuncionalitatCodiFontImpl(

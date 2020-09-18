@@ -120,6 +120,11 @@ export class AppService {
 			route: '/fact/paisos'
 		}, {
 			icon: 'room',
+			label: 'Parameters',
+			labelKey: 'app.menu.fact.parameters',
+			route: '/fact/parameters'
+		}, {
+			icon: 'room',
 			label: 'Peus de document',
 			labelKey: 'app.menu.fact.peusDocument',
 			route: '/fact/peusDocument'
