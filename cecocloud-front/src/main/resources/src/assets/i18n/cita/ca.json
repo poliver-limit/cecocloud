@@ -1,1 +1,64 @@
-../../../../../../../../cecocloud-module/cecocloud-module-cita/cecocloud-module-cita-front/src/main/resources/src/assets/i18n/ca.json
+{
+	"app.menu.cita.cites": "Cites",
+	"app.menu.cita.puntsVenda": "Punts de venda",
+	"app.menu.cita.grupFestius": "Grups de festius",
+	"app.menu.cita.horaris": "Horaris",
+
+	"resource.puntVenda": "Punt de venda",
+	"resource.puntVenda.plural": "Punts de venda",
+	"resource.puntVenda.field.codi": "Codi",
+	"resource.puntVenda.field.nom": "Nom",
+	"resource.puntVenda.field.citaActiva": "Cites actives?",
+	"resource.puntVenda.field.citaIntervalMinuts": "Interval minuts",
+	"resource.puntVenda.field.citaNumPlaces": "Núm. places",
+	"resource.puntVenda.field.festiuGrup": "Grup de festius",
+
+	"resource.festiuGrup": "Grup de festius",
+	"resource.festiuGrup.plural": "Grups de festius",
+	"resource.festiuGrup.field.codi": "Codi",
+	"resource.festiuGrup.field.nom": "Nom",
+
+	"resource.festiu": "Festiu",
+	"resource.festiu.plural": "Festius",
+	"resource.festiu.field.nom": "Nom",
+	"resource.festiu.field.diaMes": "Dia i mes",
+	"resource.festiu.field.any": "Any",
+
+	"resource.horari": "Horari",
+	"resource.horari.plural": "Horaris",
+	"resource.horari.field.codi": "Codi",
+	"resource.horari.field.nom": "Nom",
+	"resource.horari.field.dataInici": "Data inici",
+	"resource.horari.field.dataFi": "Data fi",
+
+	"resource.horariInterval": "Interval horari",
+	"resource.horariInterval.plural": "Intervals horaris",
+	"resource.horariInterval.field.diaSetmana": "Dia de la setmana",
+	"resource.horariInterval.field.horaInici": "Hora inici",
+	"resource.horariInterval.field.horaFi": "Hora fi",
+
+	"resource.puntVendaHorari": "Horari",
+	"resource.puntVendaHorari.plural": "Horaris",
+	"resource.puntVendaHorari.field.puntVenda": "Punt de venda",
+	"resource.puntVendaHorari.field.horari": "Horari",
+
+	"resource.cita": "Cita",
+	"resource.cita.plural": "Cites",
+	"resource.cita.field.codi": "Codi",
+	"resource.cita.field.nom": "Nom",
+	"resource.cita.field.llinatges": "Llinatges",
+	"resource.cita.field.telefon": "Telèfon",
+	"resource.cita.field.email": "Correu-e",
+	"resource.cita.field.anulacioData": "Data d'anul·lació",
+
+	"page.cita.calendari.add.dialog.titol": "Nova cita",
+	"page.cita.calendari.add.dialog.tancar": "Tancar",
+
+	"page.cita.calendari.detail.dialog.titol": "Detalls de la cita",
+	"page.cita.calendari.detail.dialog.cancelada": "Cancel·lada",
+	"page.cita.calendari.detail.dialog.cancelacio.data": "cancel·lada el",
+	"page.cita.calendari.detail.dialog.tancar": "Tancar",
+	"page.cita.calendari.detail.dialog.anular": "Cancel·lar",
+	"page.cita.calendari.detail.dialog.anular.confirm": "Estau segur de que voleu cancel·lar aquesta cita?"
+
+}

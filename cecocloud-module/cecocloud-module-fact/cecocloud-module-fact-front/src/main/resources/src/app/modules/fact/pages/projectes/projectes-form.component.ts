@@ -55,6 +55,34 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		formGroup.get('dataFi').valueChanges.subscribe(val => {				
 			formGroup.get('dataIniciGarantia').setValue(val);
 	 	})
+	
+		formGroup.get('mesosGarantia').valueChanges.subscribe(val => {
+			var campDataIniciGarantia = formGroup.get('dataIniciGarantia');
+			if (campDataIniciGarantia!=undefined) {
+				var mesos = val;
+				var dataIniciGarantia = new Date (campDataIniciGarantia.value);
+				dataIniciGarantia.setMonth(dataIniciGarantia.getMonth() + mesos%12);
+				var anys = Math.trunc(mesos/12);				
+				dataIniciGarantia.setFullYear(dataIniciGarantia.getFullYear()+anys);
+				var dataFinalGarantiaSt = dataIniciGarantia.getFullYear() + "/" + (dataIniciGarantia.getMonth()+1) + "/" + dataIniciGarantia.getDate();
+				var dataFinalGarantia = new Date(dataFinalGarantiaSt);
+				formGroup.get('dataFinalGarantia').setValue(dataFinalGarantia);
+			}	
+		})
+		
+		formGroup.get('dataIniciGarantia').valueChanges.subscribe(val => {			
+			var campMesos = formGroup.get('mesosGarantia');
+			if (campMesos!=undefined) {
+				var mesos = campMesos.value;
+				var dataIniciGarantia = new Date (val);
+				dataIniciGarantia.setMonth(dataIniciGarantia.getMonth() + mesos%12);
+				var anys = Math.trunc(mesos/12);				
+				dataIniciGarantia.setFullYear(dataIniciGarantia.getFullYear()+anys);
+				var dataFinalGarantiaSt = dataIniciGarantia.getFullYear() + "/" + (dataIniciGarantia.getMonth()+1) + "/" + dataIniciGarantia.getDate();
+				var dataFinalGarantia = new Date(dataFinalGarantiaSt);
+				formGroup.get('dataFinalGarantia').setValue(dataFinalGarantia);
+			}	
+		})
 		
 //		this.form.getInputField('client').setCustomFilter('nomComercial=ic=C*');
 		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));			
