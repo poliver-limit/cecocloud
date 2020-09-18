@@ -51,11 +51,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "aap_apl", length = 4, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.valorPercentual", column = @Column(name = "aap_percen")),
 	@AttributeOverride(name = "embedded.codiProjecteAap", column = @Column(name = "aap_codapl", length = 100, nullable = false)),
-	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "aap_obs", length = 1000)),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "aap_usucre")),
-	@AttributeOverride(name = "createdDate", column = @Column(name = "aap_datcre")),
-	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "aap_usumod")),
-	@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "aap_datmod"))
+	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "aap_obs", length = 1000))
+
 })
 
 @AssociationOverrides({
@@ -66,7 +63,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(name = "rges_aap_idf_fk"))
 })
-public class ProjecteAplicacioEntity extends AbstractWithIdentificadorAuditableEntity<ProjecteAplicacio, ProjecteAplicacioPk> {
+public class ProjecteAplicacioEntity extends AbstractWithIdentificadorEntity<ProjecteAplicacio, ProjecteAplicacioPk> {
 
 	@Embedded
 	protected ProjecteAplicacio embedded;

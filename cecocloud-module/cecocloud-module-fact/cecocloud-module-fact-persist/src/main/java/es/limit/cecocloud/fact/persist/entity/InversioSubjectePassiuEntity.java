@@ -51,9 +51,7 @@ import lombok.Setter;
 		@AttributeOverride(name = "id.proveidorCodi", column = @Column(name = "ppj_pro_cod", length = 6)),	
 		
 		@AttributeOverride(name = "createdBy", column = @Column(name = "ppj_usucre")),
-		@AttributeOverride(name = "createdDate", column = @Column(name = "ppj_datcre")),
-		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ppj_usumod")),
-		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ppj_datmod")) 
+		@AttributeOverride(name = "createdDate", column = @Column(name = "ppj_datcre"))
 })
 
 @AssociationOverrides({ 
@@ -64,7 +62,7 @@ import lombok.Setter;
 					foreignKey = @ForeignKey(name = "rges_ppj_idf_fk"))
 })
 
-public class InversioSubjectePassiuEntity extends AbstractWithIdentificadorAuditableEntity<InversioSubjectePassiu, InversioSubjectePassiuPk> {
+public class InversioSubjectePassiuEntity extends AbstractWithIdentificadorAuditableOnCreateEntity<InversioSubjectePassiu, InversioSubjectePassiuPk> {
 
 	@Embedded
 	protected InversioSubjectePassiu embedded;

@@ -52,9 +52,7 @@ import lombok.Setter;
 		@AttributeOverride(name = "id.proveidorCodi", column = @Column(name = "vpp_pro_cod", length = 6)),	
 		
 		@AttributeOverride(name = "createdBy", column = @Column(name = "vpp_usucre")),
-		@AttributeOverride(name = "createdDate", column = @Column(name = "vpp_datcre")),
-		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "vpp_usumod")),
-		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "vpp_datmod")) 
+		@AttributeOverride(name = "createdDate", column = @Column(name = "vpp_datcre"))
 })
 
 @AssociationOverrides({ 
@@ -65,7 +63,7 @@ import lombok.Setter;
 					foreignKey = @ForeignKey(name = "rges_vpp_idf_fk"))
 })
 
-public class ProveidorVencimentEntity extends AbstractWithIdentificadorAuditableEntity<ProveidorVenciment, ProveidorVencimentPk> {
+public class ProveidorVencimentEntity extends AbstractWithIdentificadorAuditableOnCreateEntity<ProveidorVenciment, ProveidorVencimentPk> {
 
 	@Embedded
 	protected ProveidorVenciment embedded;
