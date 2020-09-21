@@ -64,6 +64,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/bancs/bancs.module').then(m => m.BancsModule)	
 				
 			}, {
+				path: 'businessGroups',
+				loadChildren: () => import('./pages/businessGroups/businessGroups.module').then(m => m.BusinessGroupsModule)	
+				
+			}, {
 				path: 'capitols',
 				loadChildren: () => import('./pages/capitols/capitols.module').then(m => m.CapitolsModule)		
 							
@@ -582,6 +586,12 @@ export class FactModule {
 							labelKey: 'funcionalitat.menu.t-auxiliars',
 							items: [
 								{
+									icon: 'room',
+									label: 'Grups d"empreses (pels llistats)',
+									labelKey: 'app.menu.fact.businessGroups',
+									route: '/fact/businessGroups',
+									resource: 'FAC_BUSGRO'
+								}, {
 									icon: 'room',
 									label: 'Empreses (Facturació)',
 									labelKey: 'app.menu.fact.empreses',
