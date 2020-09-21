@@ -370,13 +370,13 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 //						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "etp_idf_cod", insertable = false, updatable = false),
 //						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "etp_emp_cod", insertable = false, updatable = false),
 //						@JoinColumn(name = "prj_num", referencedColumnName = "etp_prj_num", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_etp_cod001", referencedColumnName = "etp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_etp_cod003", referencedColumnName = "etp_cod", insertable = false, updatable = false),
 //						@JoinColumn(name = "prj_num", referencedColumnName = "etp_num", insertable = false, updatable = false) // Revisar si cal un prj_etp_num
 //			},
-//			foreignKey = @ForeignKey(name = "prj_etp_cod001_fk"))
-//	private ProjecteEstudiEntity projecteEstudi001;
-//	@Column(name = "prj_etp_cod001", length = 4)
-//	private String projecteEstudiCodi001;
+//			foreignKey = @ForeignKey(name = "prj_etp_cod003_fk"))
+//	private ProjecteEstudiEntity projecteEstudi003;
+//	@Column(name = "prj_etp_cod003", length = 4)
+//	private String projecteEstudiCodi003;
 	//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////		
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
