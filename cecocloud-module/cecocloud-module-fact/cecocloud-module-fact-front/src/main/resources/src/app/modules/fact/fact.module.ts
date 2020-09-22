@@ -195,6 +195,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/pressupostos/pressupostos.module').then(m => m.PressupostosModule)
 
 			}, {
+				path: 'preusPerZona',
+				loadChildren: () => import('./pages/preusPerZona/preusPerZona.module').then(m => m.PreusPerZonaModule)
+				
+			}, {
 				path: 'productes',
 				loadChildren: () => import('./pages/productes/productes.module').then(m => m.ProductesModule)	
 					
@@ -625,6 +629,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.paisos',
 									route: '/fact/paisos',
 									resource: 'FAC_PAIS'
+								}, {
+									icon: 'room',
+									label: 'Preus per zona',
+									labelKey: 'app.menu.fact.preusPerZona',
+									route: '/fact/preusPerZona',
+									resource: 'FAC_PREZON'
 								}, {
 									icon: 'room',
 									label: 'Províncies',

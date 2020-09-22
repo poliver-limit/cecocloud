@@ -140,6 +140,11 @@ export class AppService {
 			route: '/fact/peusDocument'
 		}, {
 			icon: 'room',
+			label: 'Preus per zona',
+			labelKey: 'app.menu.fact.preusPerZona',
+			route: '/fact/preusPerZona'
+		}, {
+			icon: 'room',
 			label: 'Projectes',
 			labelKey: 'app.menu.fact.projectes',
 			route: '/fact/projectes'
