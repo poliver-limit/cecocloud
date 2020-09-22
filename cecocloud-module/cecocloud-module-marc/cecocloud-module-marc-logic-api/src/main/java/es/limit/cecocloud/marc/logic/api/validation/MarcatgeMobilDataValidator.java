@@ -32,25 +32,27 @@ public class MarcatgeMobilDataValidator implements ConstraintValidator<MarcatgeM
 	public boolean isValid(
 			MarcatgeMobil marcatge,
 			ConstraintValidatorContext context) {
-		Calendar dataLimitAfter = Calendar.getInstance();
-		dataLimitAfter.add(Calendar.MINUTE, minuteMargin);
-		if (marcatge.getData().after(dataLimitAfter.getTime())) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(
-	                "{cecocloud.validation.constraints.MarcatgeDataMobil.out.of.limit}").
-	        addPropertyNode("data").
-			addConstraintViolation();
-			return false;
-		}
-		Calendar dataLimitBefore = Calendar.getInstance();
-		dataLimitBefore.add(Calendar.MINUTE, -minuteMargin);
-		if (marcatge.getData().before(dataLimitBefore.getTime())) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(
-	                "{cecocloud.validation.constraints.MarcatgeDataMobil.out.of.limit}").
-	        addPropertyNode("data").
-			addConstraintViolation();
-			return false;
+		if (!marcatge.isOffline()) {
+			Calendar dataLimitAfter = Calendar.getInstance();
+			dataLimitAfter.add(Calendar.MINUTE, minuteMargin);
+			if (marcatge.getData().after(dataLimitAfter.getTime())) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(
+						"{cecocloud.validation.constraints.MarcatgeDataMobil.out.of.limit}").
+				addPropertyNode("data").
+				addConstraintViolation();
+				return false;
+			}
+			Calendar dataLimitBefore = Calendar.getInstance();
+			dataLimitBefore.add(Calendar.MINUTE, -minuteMargin);
+			if (marcatge.getData().before(dataLimitBefore.getTime())) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(
+						"{cecocloud.validation.constraints.MarcatgeDataMobil.out.of.limit}").
+				addPropertyNode("data").
+				addConstraintViolation();
+				return false;
+			}
 		}
 		return true;
 	}

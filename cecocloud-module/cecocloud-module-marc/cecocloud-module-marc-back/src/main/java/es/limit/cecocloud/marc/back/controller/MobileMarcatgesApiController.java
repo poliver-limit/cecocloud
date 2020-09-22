@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.limit.cecocloud.marc.logic.api.dto.AcumulatInfo;
+import es.limit.cecocloud.marc.logic.api.dto.AcumulatMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
@@ -64,6 +66,16 @@ public class MobileMarcatgesApiController {
 			HttpServletRequest request) {
 		log.debug("Consulta d'empreses disponibles");
 		return ResponseEntity.ok(mobileMarcatgeService.empresesFindDisponiblesPerUsuariActual());
+	}
+
+	@GetMapping(
+			produces = "application/json")
+	public ResponseEntity<AcumulatInfo> acumulatFind(
+			HttpServletRequest request,
+			@Valid final AcumulatMobilConsulta consulta) {
+		log.debug("Consulta d'acumulats(" +
+				"consulta=" + consulta + ")");
+		return ResponseEntity.ok(mobileMarcatgeService.acumulatFind(consulta));
 	}
 
 }

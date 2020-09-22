@@ -73,14 +73,14 @@ public class EmpresaEntity extends AbstractAuditableVersionableEntity<Empresa, L
 	protected Set<OperariEmpresaEntity> operariEmpreses;
 
 	@Builder
-    public EmpresaEntity(
-    		Empresa embedded,
-    		IdentificadorEntity identificador,
-    		EmpresaEntity empresaComptable) {
-        this.embedded = embedded;
-        this.identificador = identificador;
-        this.empresaComptable = empresaComptable;
-    }
+	public EmpresaEntity(
+			Empresa embedded,
+			IdentificadorEntity identificador,
+			EmpresaEntity empresaComptable) {
+		this.embedded = embedded;
+		this.identificador = identificador;
+		this.empresaComptable = empresaComptable;
+	}
 
 	@Override
 	public void update(Empresa embedded) {

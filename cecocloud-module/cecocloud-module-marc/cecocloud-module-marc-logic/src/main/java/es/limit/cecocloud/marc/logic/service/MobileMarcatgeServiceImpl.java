@@ -16,13 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
+import es.limit.cecocloud.marc.logic.api.dto.AcumulatInfo;
+import es.limit.cecocloud.marc.logic.api.dto.AcumulatMobilConsulta;
+import es.limit.cecocloud.marc.logic.api.dto.Configuracio;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.service.MobileMarcatgeService;
+import es.limit.cecocloud.marc.logic.helper.MarcatgeHelper;
+import es.limit.cecocloud.marc.persist.entity.ConfiguracioEntity;
+import es.limit.cecocloud.marc.persist.entity.LlocFeinaEntity;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
+import es.limit.cecocloud.marc.persist.repository.ConfiguracioRepository;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.IdentificadorEntity;
@@ -35,7 +42,8 @@ import es.limit.cecocloud.persist.repository.OperariRepository;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Implementació del servei encarregat de generar tokens JWT.
+ * Implementació del servei encarregat de processar els marcatges fets des de
+ * l'app mòbil.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -54,10 +62,14 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	@Autowired
 	private MarcatgeRepository marcatgeRepository;
 	@Autowired
+	private ConfiguracioRepository configuracioRepository;
+	@Autowired
 	private HttpServletRequest request;
 
 	@Autowired
 	private AuthenticationHelper authenticationHelper;
+	@Autowired
+	private MarcatgeHelper marcatgeHelper;
 
 	@Override
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
@@ -77,9 +89,14 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			marcatge.setOrigen(MarcatgeOrigen.MOBIL);
 			marcatge.setLatitud(marcatgeMobil.getLatitud());
 			marcatge.setLongitud(marcatgeMobil.getLongitud());
+			marcatge.setPrecisio(marcatgeMobil.getPrecisio());
+			marcatge.setForaLinia(marcatgeMobil.isOffline());
 			marcatge.setAdressaIp(request.getRemoteAddr());
+			LlocFeinaEntity llocFeina = marcatgeHelper.calcularForaLlocFeina(marcatge, operariEmpresa);
+			marcatgeHelper.calcularValidesa(marcatge, empresa.get());
 			MarcatgeEntity entity = MarcatgeEntity.builder().
 					operariEmpresa(operariEmpresa).
+					llocFeina(llocFeina).
 					embedded(marcatge).
 					build();
 			return toMarcatgeMobil(
@@ -124,9 +141,32 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			empresaSync.setCodi(empresa.getEmbedded().getCodi());
 			empresaSync.setNom(empresa.getEmbedded().getNom());
 			empresaSync.setNif(empresa.getEmbedded().getNif());
+			Optional<ConfiguracioEntity> configuracioEntity = configuracioRepository.findByEmpresa(empresa);
+			Configuracio configuracio = configuracioEntity.isPresent() ? configuracioEntity.get().getEmbedded() : null;
+			boolean offlinePermes = false;
+			if (configuracio != null && configuracio.getOfflinePermes() != null && configuracio.getOfflinePermes()) {
+				offlinePermes = true;
+			}
+			empresaSync.setOfflinePermes(offlinePermes);
+			boolean mostrarTempsAcumulat = false;
+			if (configuracio != null && configuracio.getMostrarTempsAcumulat() != null && configuracio.getMostrarTempsAcumulat()) {
+				mostrarTempsAcumulat = true;
+			}
+			empresaSync.setMostrarTempsAcumulat(mostrarTempsAcumulat);
 			resposta.add(empresaSync);
 		}
 		return resposta;
+	}
+
+	@Override
+	public AcumulatInfo acumulatFind(AcumulatMobilConsulta consulta) {
+		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(
+				consulta.getIdentificadorCodi());
+		Optional<EmpresaEntity> empresa = empresaRepository.findByIdentificadorAndEmbeddedCodi(
+				identificador.get(),
+				consulta.getEmpresaCodi());
+		OperariEmpresaEntity operariEmpresa = getOperariEmpresaPerMarcatge(empresa.get());
+		return marcatgeHelper.getAcumulatsEnData(operariEmpresa, consulta.getData());
 	}
 
 	private OperariEmpresaEntity getOperariEmpresaPerMarcatge(EmpresaEntity empresa) {
@@ -151,6 +191,8 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		marcatgeMobil.setData(marcatge.getEmbedded().getData());
 		marcatgeMobil.setLatitud(marcatge.getEmbedded().getLatitud());
 		marcatgeMobil.setLongitud(marcatge.getEmbedded().getLongitud());
+		marcatgeMobil.setPrecisio(marcatge.getEmbedded().getPrecisio());
+		marcatgeMobil.setOffline(marcatge.getEmbedded().isForaLinia());
 		return marcatgeMobil;
 	}
 
