@@ -17,7 +17,10 @@ import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFontImpl;
 import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
+import es.limit.cecocloud.marc.logic.api.dto.Configuracio;
+import es.limit.cecocloud.marc.logic.api.dto.LlocFeina;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
+import es.limit.cecocloud.marc.logic.api.dto.OperariEmpresaLlocFeina;
 
 /**
  * Configuració del mòdul de marcatges.
@@ -33,6 +36,30 @@ public class MarcModule {
 
 	static {
 		funcionalitats = new HashMap<String, FuncionalitatCodiFont>();
+		funcionalitats.put(
+				"MAR_CONFIG",
+				new FuncionalitatCodiFontImpl(
+						"MAR_CONFIG",
+						FuncionalitatTipus.MANTENIMENT,
+						"Configuracions",
+						Configuracio.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"MAR_LLOCFEINA",
+				new FuncionalitatCodiFontImpl(
+						"MAR_LLOCFEINA",
+						FuncionalitatTipus.MANTENIMENT,
+						"Llocs de feina",
+						LlocFeina.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"MAR_OPEEMPLLOCF",
+				new FuncionalitatCodiFontImpl(
+						"MAR_OPEEMPLLOCF",
+						FuncionalitatTipus.MANTENIMENT,
+						"Lloc de feina associats a operari-empresa",
+						OperariEmpresaLlocFeina.class,
+						Arrays.asList(LlocFeina.class)));
 		funcionalitats.put(
 				"MAR_MARCAT",
 				new FuncionalitatCodiFontImpl(

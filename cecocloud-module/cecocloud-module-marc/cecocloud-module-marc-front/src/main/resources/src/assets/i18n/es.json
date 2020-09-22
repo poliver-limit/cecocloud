@@ -2,6 +2,8 @@
 
 	"app.menu.marc.operaris": "Operarios",
 	"app.menu.marc.marcatges": "Marcajes",
+	"app.menu.marc.configuracions": "Configuración",
+	"app.menu.marc.llocFeina": "Lugares de trabajo",
 
 	"resource.marcatge": "Marcaje",
 	"resource.marcatge.plural": "Marcajes",
@@ -13,6 +15,28 @@
 	"resource.marcatge.field.ubicacio": "Ubicación",
 	"resource.marcatge.enum.origen.MOBIL": "Móvil",
 	"resource.marcatge.enum.origen.CECOGEST": "Cecogest",
-	"resource.marcatge.enum.origen.CECOCLOUD": "Cecocloud"
+	"resource.marcatge.enum.origen.CECOCLOUD": "Cecocloud",
+
+	"resource.configuracio": "Configuración",
+	"resource.configuracio.plural": "Configuraciones",
+	"resource.configuracio.field.intervalValidacio": "Diferencia de tiempo para considerar el marcaje vàlido (en minutos)",
+	"resource.configuracio.field.distanciaMaxima": "Distancia máxima para considerar el marcaje fuera del puesto de trabajo (en metros)",
+	"resource.configuracio.field.offlinePermes": "Marcajes fuera de línea permitidos",
+	"resource.configuracio.field.validacioOfflineAutomatica": "Validación automática de marcajes fuera de línea",
+	"resource.configuracio.field.mostrarTempsAcumulat": "Mostrar tiempo acumulado en la app móvil",
+	"resource.configuracio.field.maxDistanciaInterval": "Distancia máxima entre dos marcajes pera considerarlos intervalo (en minutos)",
+
+	"resource.llocFeina": "Lugar de trabajo",
+	"resource.llocFeina.plural": "Lugares de trabajo",
+	"resource.llocFeina.field.nom": "Nombre",
+	"resource.llocFeina.field.adressa": "Dirección",
+	"resource.llocFeina.field.adrecesIpPermeses": "Direcciones IP permitidas",
+	"resource.llocFeina.field.latitud": "Latitud",
+	"resource.llocFeina.field.longitud": "Longitud",
+	"resource.llocFeina.field.distanciaMaxima": "Distancia máxima al lugar de trabajo",
+
+	"resource.operariEmpresaLlocFeina": "Operario del lugar de trabajo",
+	"resource.operariEmpresaLlocFeina.plural": "Operarios del lugar de trabajo",
+	"resource.operariEmpresaLlocFeina.field.operariEmpresa": "Operario"
 
 }

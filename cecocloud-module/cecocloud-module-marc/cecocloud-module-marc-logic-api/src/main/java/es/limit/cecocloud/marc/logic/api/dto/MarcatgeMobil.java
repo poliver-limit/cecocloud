@@ -30,5 +30,7 @@ public class MarcatgeMobil {
 	private Date dataCreacio;
 	private BigDecimal latitud;
 	private BigDecimal longitud;
+	private BigDecimal precisio;
+	private boolean offline;
 
 }

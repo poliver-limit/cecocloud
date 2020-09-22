@@ -5,6 +5,8 @@ package es.limit.cecocloud.marc.logic.api.service;
 
 import java.util.List;
 
+import es.limit.cecocloud.marc.logic.api.dto.AcumulatInfo;
+import es.limit.cecocloud.marc.logic.api.dto.AcumulatMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobil;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeMobilConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
@@ -41,5 +43,14 @@ public interface MobileMarcatgeService {
 	 * @return la llista d'empreses.
 	 */
 	public List<SincronitzacioEmpresa> empresesFindDisponiblesPerUsuariActual();
+
+	/**
+	 * Consulta els temps acumulats en una data concreta.
+	 * 
+	 * @param consulta
+	 *            paràmetres de la consulta.
+	 * @return la informació dels acumulats.
+	 */
+	public AcumulatInfo acumulatFind(AcumulatMobilConsulta consulta);
 
 }

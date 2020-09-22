@@ -18,5 +18,7 @@ public class SincronitzacioEmpresa extends es.limit.cecocloud.logic.api.dto.Sinc
 
 	@NotNull
 	private String identificadorCodi;
+	private boolean offlinePermes;
+	private boolean mostrarTempsAcumulat;
 
 }

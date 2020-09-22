@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 import es.limit.base.boot.logic.api.annotation.RestapiField;
@@ -69,6 +70,7 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private String adressaIp;
+	@Digits(integer = 4, fraction = 8)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
@@ -76,6 +78,7 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal latitud;
+	@Digits(integer = 4, fraction = 8)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,
@@ -83,6 +86,81 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal longitud;
+	@Digits(integer = 4, fraction = 8)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private BigDecimal precisio;
+	@RestapiField(
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private boolean foraLinia;
+	@RestapiField(
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private boolean validat;
+	@RestapiField(
+			hiddenInForm = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private boolean llocFeinaFora;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			includeInQuickFilter = false)
+	private GenericReference<Marcatge, Long> intervalAnterior;
+	@Digits(integer = 10, fraction = 2)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private BigDecimal intervalDuracio;
+	@Digits(integer = 10, fraction = 2)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private BigDecimal acumulatAny;
+	@Digits(integer = 10, fraction = 2)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private BigDecimal acumulatMes;
+	@Digits(integer = 10, fraction = 2)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private BigDecimal acumulatDia;
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			includeInQuickFilter = false)
+	private GenericReference<LlocFeina, Long> llocFeina;
 
 	@Transient
 	@RestapiField(

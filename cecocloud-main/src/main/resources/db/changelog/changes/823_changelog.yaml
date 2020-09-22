@@ -1,0 +1,348 @@
+databaseChangeLog:
+- changeSet:
+    id: 1600078637740-1
+    author: josepg
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: rmar_config_pk
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: created_by
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: lastmod_by
+            type: VARCHAR(64)
+        - column:
+            name: lastmod_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: version
+            type: BIGINT
+        - column:
+            name: intval
+            type: INT
+        - column:
+            name: dismax
+            type: INT
+        - column:
+            name: offper
+            type: BOOLEAN
+        - column:
+            name: valaut
+            type: BOOLEAN
+        - column:
+            name: motacu
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: empresa_id
+            type: BIGINT
+        tableName: tmar_config
+    - addForeignKeyConstraint:
+        baseColumnNames: empresa_id
+        baseTableName: tmar_config
+        constraintName: rmar_config_empresa_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: empresa
+        validate: true
+- changeSet:
+    id: 1600078637740-2
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: precisio
+            type: NUMERIC
+        - column:
+            name: fora_linia
+            type: BOOLEAN
+        - column:
+            name: lloc_fora
+            type: BOOLEAN
+        - column:
+            name: validat
+            type: BOOLEAN
+        - column:
+            name: interval_duracio
+            type: NUMERIC
+        - column:
+            name: interval_anterior_id
+            type: BIGINT
+        tableName: tmar_marcatge
+    - addForeignKeyConstraint:
+        baseColumnNames: interval_anterior_id
+        baseTableName: tmar_marcatge
+        constraintName: rmar_marcatge_anterior_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: tmar_marcatge
+        validate: true
+    - dropForeignKeyConstraint:
+        baseTableName: tmar_marcatge
+        constraintName: marcatge_operariemp_fk
+    - addForeignKeyConstraint:
+        baseColumnNames: operariemp_id
+        baseTableName: tmar_marcatge
+        constraintName: rmar_marcatge_operariemp_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: operari_empresa
+        validate: true
+- changeSet:
+    id: 1600078637740-3
+    author: josepg
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: rmar_lloc_feina_pk
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: created_by
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: lastmod_by
+            type: VARCHAR(64)
+        - column:
+            name: lastmod_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: version
+            type: BIGINT
+        - column:
+            name: nom
+            type: VARCHAR(100)
+            constraints:
+                nullable: false
+        - column:
+            name: adressa
+            type: VARCHAR(200)
+        - column:
+            name: latitud
+            type: NUMERIC
+            constraints:
+                nullable: false
+        - column:
+            name: longitud
+            type: NUMERIC
+            constraints:
+                nullable: false
+        - column:
+            constraints:
+              nullable: false
+            name: empresa_id
+            type: BIGINT
+        tableName: tmar_lloc_feina
+    - addForeignKeyConstraint:
+        baseColumnNames: empresa_id
+        baseTableName: tmar_lloc_feina
+        constraintName: rmar_lloc_feina_empresa_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: empresa
+        validate: true
+- changeSet:
+    id: 1600078637740-4
+    author: josepg
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: id
+            type: BIGINT
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: rmar_operariemp_llocfeina_pk
+        - column:
+            constraints:
+              nullable: false
+            name: created_by
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: lastmod_by
+            type: VARCHAR(64)
+        - column:
+            name: lastmod_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: version
+            type: BIGINT
+        - column:
+            name: operari_empresa_id
+            type: BIGINT
+            constraints:
+              nullable: false
+        - column:
+            name: lloc_feina_id
+            type: BIGINT
+            constraints:
+              nullable: false
+        tableName: tmar_operariemp_llocfeina
+    - addUniqueConstraint:
+        columnNames: operari_empresa_id, lloc_feina_id
+        constraintName: rmar_opeempllocf_uk
+        tableName: tmar_operariemp_llocfeina
+    - addForeignKeyConstraint:
+        baseColumnNames: operari_empresa_id
+        baseTableName: tmar_operariemp_llocfeina
+        constraintName: rmar_opeempllocf_opeemp_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: operari_empresa
+        validate: true
+    - addForeignKeyConstraint:
+        baseColumnNames: lloc_feina_id
+        baseTableName: tmar_operariemp_llocfeina
+        constraintName: rmar_opeempllocf_llocfeina_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: tmar_lloc_feina
+        validate: true
+- changeSet:
+    id: 1600078637740-5
+    author: josepg
+    dbms: oracle
+    changes:
+    - addNotNullConstraint:
+        columnName: fora_linia
+        tableName: tmar_marcatge
+        defaultNullValue: 0
+    - addNotNullConstraint:
+        columnName: validat
+        tableName: tmar_marcatge
+        defaultNullValue: 0
+    - addNotNullConstraint:
+        columnName: lloc_fora
+        tableName: tmar_marcatge
+        defaultNullValue: 0
+- changeSet:
+    id: 1600078637740-6
+    author: josepg
+    dbms: postgresql
+    changes:
+    - addNotNullConstraint:
+        columnName: fora_linia
+        tableName: tmar_marcatge
+        defaultNullValue: false
+    - addNotNullConstraint:
+        columnName: validat
+        tableName: tmar_marcatge
+        defaultNullValue: false
+    - addNotNullConstraint:
+        columnName: lloc_fora
+        tableName: tmar_marcatge
+        defaultNullValue: false
+- changeSet:
+    id: 1600078637740-7
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: distancia_max
+            type: INT
+        - column:
+            name: adrsip_perm
+            type: VARCHAR(200)
+        tableName: tmar_lloc_feina
+    - addNotNullConstraint:
+        columnName: distancia_max
+        tableName: tmar_lloc_feina
+        defaultNullValue: 10
+    - dropColumn:
+        columnName: dismax
+        tableName: tmar_config
+- changeSet:
+    id: 1600078637740-8
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: lloc_feina_id
+            type: BIGINT
+        tableName: tmar_marcatge
+    - addForeignKeyConstraint:
+        baseColumnNames: lloc_feina_id
+        baseTableName: tmar_marcatge
+        constraintName: rmar_marcatge_llocfeina_fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: tmar_lloc_feina
+        validate: true
+- changeSet:
+    id: 1600078637740-9
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: maxdin
+            type: INT
+        tableName: tmar_config
+    - renameColumn:
+        oldColumnName: valaut
+        newColumnName: vofaut
+        tableName: tmar_config
+- changeSet:
+    id: 1600078637740-10
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: acumulat_any
+            type: DECIMAL(12,2)
+        - column:
+            name: acumulat_mes
+            type: DECIMAL(12,2)
+        - column:
+            name: acumulat_dia
+            type: DECIMAL(12,2)
+        tableName: tmar_marcatge

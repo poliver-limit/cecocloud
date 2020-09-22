@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.limit.base.boot.persist.entity.AbstractAuditableVersionableEntity;
-import es.limit.cecocloud.marc.logic.api.dto.AdressaIp;
+import es.limit.cecocloud.marc.logic.api.dto.Configuracio;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,40 +24,43 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Entitat de base de dades que representa una adressa IP per a restringir la
- * creació/modificació de marcatges.
+ * Classe de model de dades que conté la configuració del mòdul de marcatges.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity
-@Table(name = "tmar_adressa_ip")
+@Entity(name = "marcConfiguracioEntity")
+@Table(name = "tmar_config")
 @AttributeOverrides({
-	@AttributeOverride(name = "embedded.adressa", column = @Column(name = "adressa", length = 40, nullable = false))
+	@AttributeOverride(name = "embedded.intervalValidacio", column = @Column(name = "intval")),
+	@AttributeOverride(name = "embedded.offlinePermes", column = @Column(name = "offper")),
+	@AttributeOverride(name = "embedded.validacioOfflineAutomatica", column = @Column(name = "vofaut")),
+	@AttributeOverride(name = "embedded.mostrarTempsAcumulat", column = @Column(name = "motacu")),
+	@AttributeOverride(name = "embedded.maxDistanciaInterval", column = @Column(name = "maxdin"))
 })
-public class AdressaIpEntity extends AbstractAuditableVersionableEntity<AdressaIp, Long> {
+public class ConfiguracioEntity extends AbstractAuditableVersionableEntity<Configuracio, Long> {
 
 	@Embedded
-	protected AdressaIp embedded;
+	protected Configuracio embedded;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "empresa_id",
-			foreignKey = @ForeignKey(name = "adressaip_empresa_fk"))
+			foreignKey = @ForeignKey(name = "configuracio_empresa_fk"))
 	protected EmpresaEntity empresa;
 
 	@Builder
-	public AdressaIpEntity(
-			AdressaIp embedded,
+	public ConfiguracioEntity(
+			Configuracio embedded,
 			EmpresaEntity empresa) {
 		this.embedded = embedded;
 		this.empresa = empresa;
 	}
 
 	@Override
-	public void update(AdressaIp embedded) {
+	public void update(Configuracio embedded) {
 		this.embedded = embedded;
 	}
 	public void updateEmpresa(EmpresaEntity empresa) {

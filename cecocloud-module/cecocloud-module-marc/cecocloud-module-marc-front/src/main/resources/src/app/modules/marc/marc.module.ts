@@ -11,12 +11,15 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 		RouterModule.forChild([{
 			path: 'marc',
 			canActivate: [BngAuthGuard, SelectedEmpresaGuard],
-			children: [{/*
-				path: '',
-				loadChildren: () => import('./pages/index/index-marc.module').then(m => m.IndexMarcModule)
-			}, {*/
+			children: [{
 				path: 'marcatges',
 				loadChildren: () => import('./pages/marcatges/marcatges.module').then(m => m.MarcatgesModule)
+			}, {
+				path: 'configuracions',
+				loadChildren: () => import('./pages/configuracions/configuracions.module').then(m => m.ConfiguracionsModule)
+			}, {
+				path: 'llocFeina',
+				loadChildren: () => import('./pages/llocFeina/llocFeina.module').then(m => m.LlocFeinaModule)
 			}, {
 				path: '**',
 				redirectTo: 'marcatges'
@@ -32,17 +35,24 @@ export class MarcModule {
 			icon: 'touch_app',
 			label: 'Marcatges',
 			menuItems: [{
+				icon: 'settings',
+				label: 'Configuració',
+				labelKey: 'app.menu.marc.configuracions',
+				route: '/marc/configuracions',
+				resource: 'MAR_CONFIG'
+			}, {
+				icon: 'apartment',
+				label: 'Configuració',
+				labelKey: 'app.menu.marc.llocFeina',
+				route: '/marc/llocFeina',
+				resource: 'MAR_LLOCFEINA'
+			}, {
 				icon: 'timer',
 				label: 'Marcatges',
 				labelKey: 'app.menu.marc.marcatges',
 				route: '/marc/marcatges',
 				resource: 'MAR_MARCAT'
-			}/*, {
-				icon: 'description',
-				label: 'Informe',
-				route: '/marc/informe',
-				resource: 'MAR_REPORT'
-			}*/]
+			}]
 		});
 	}
 
