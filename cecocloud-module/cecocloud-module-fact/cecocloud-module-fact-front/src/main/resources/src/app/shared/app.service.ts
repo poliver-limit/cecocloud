@@ -95,6 +95,11 @@ export class AppService {
 			route: '/fact/finalFactures'
 		}, {
 			icon: 'room',
+			label: 'Groups',
+			labelKey: 'app.menu.fact.groups',
+			route: '/fact/groups'
+		}, {
+			icon: 'room',
 			label: 'Idiomes',
 			labelKey: 'app.menu.fact.idiomes',
 			route: '/fact/idiomes'

@@ -38,6 +38,7 @@ import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaCost;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaProveidor;
 import es.limit.cecocloud.fact.logic.api.dto.FinalFactura;
+import es.limit.cecocloud.fact.logic.api.dto.Group;
 import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
 import es.limit.cecocloud.fact.logic.api.dto.Idioma;
 import es.limit.cecocloud.fact.logic.api.dto.InversioSubjectePassiu;
@@ -389,6 +390,14 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Final factures",
 						FinalFactura.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_GRO",
+				new FuncionalitatCodiFontImpl(
+						"FAC_GRO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Grups",
+						Group.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_HISRSP",

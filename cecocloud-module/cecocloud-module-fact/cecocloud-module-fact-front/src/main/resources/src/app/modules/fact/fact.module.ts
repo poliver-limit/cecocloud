@@ -132,6 +132,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/finalFactures/finalFactures.module').then(m => m.FinalFacturesModule)
 				
 			}, {
+				path: 'groups',
+				loadChildren: () => import('./pages/groups/groups.module').then(m => m.GroupsModule)	
+				
+			}, {
 				path: 'historicsResponsables',
 				loadChildren: () => import('./pages/historicsResponsables/historicsResponsables.module').then(m => m.HistoricsResponsablesModule)
 
@@ -603,6 +607,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.departaments',
 									route: '/fact/departaments',
 									resource: 'FAC_DEPART'
+								}, {
+									icon: 'room',
+									label: 'Grups',
+									labelKey: 'app.menu.fact.groups',
+									route: '/fact/groups',
+									resource: 'FAC_GRO'
 								}, {
 									icon: 'room',
 									label: 'Parameters',
