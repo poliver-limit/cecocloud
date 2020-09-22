@@ -78,11 +78,11 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 	@Modifying
 	@Query(
 			"update " +
-			"    Marcatge m" +
+			"    MarcatgeEntity m " +
 			"set " +
-			"    m.acumulatAny = null, " +
-			"    m.acumulatMes = null, " +
-			"    m.acumulatDia = null " +
+			"    m.embedded.acumulatAny = null, " +
+			"    m.embedded.acumulatMes = null, " +
+			"    m.embedded.acumulatDia = null " +
 			"where " +
 			"    m.operariEmpresa = :operariEmpresa " +
 			"and m.embedded.data >= :dataInici " +
@@ -99,9 +99,9 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 
 	@Query(
 			"select " +
-			"    sum(m.intervalDuracio) " +
+			"    sum(m.embedded.intervalDuracio) " +
 			"from " +
-			"    Marcatge m" +
+			"    MarcatgeEntity m " +
 			"where " +
 			"    m.operariEmpresa = :operariEmpresa " +
 			"and m.embedded.data >= :dataInici " +

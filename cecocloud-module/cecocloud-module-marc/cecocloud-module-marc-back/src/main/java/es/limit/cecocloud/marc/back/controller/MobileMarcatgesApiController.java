@@ -69,6 +69,7 @@ public class MobileMarcatgesApiController {
 	}
 
 	@GetMapping(
+			path = "/acumulats",
 			produces = "application/json")
 	public ResponseEntity<AcumulatInfo> acumulatFind(
 			HttpServletRequest request,
