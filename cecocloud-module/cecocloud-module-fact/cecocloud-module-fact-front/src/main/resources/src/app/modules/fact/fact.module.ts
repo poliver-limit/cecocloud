@@ -64,6 +64,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/bancs/bancs.module').then(m => m.BancsModule)	
 				
 			}, {
+				path: 'businessGroups',
+				loadChildren: () => import('./pages/businessGroups/businessGroups.module').then(m => m.BusinessGroupsModule)	
+				
+			}, {
 				path: 'capitols',
 				loadChildren: () => import('./pages/capitols/capitols.module').then(m => m.CapitolsModule)		
 							
@@ -174,6 +178,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: 'partides',
 				loadChildren: () => import('./pages/partides/partides.module').then(m => m.PartidesModule)
 				
+			}, {
+				path: 'parameters',
+				loadChildren: () => import('./pages/parameters/parameters.module').then(m => m.ParametersModule)
+
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)
@@ -579,6 +587,12 @@ export class FactModule {
 							items: [
 								{
 									icon: 'room',
+									label: 'Grups d"empreses (pels llistats)',
+									labelKey: 'app.menu.fact.businessGroups',
+									route: '/fact/businessGroups',
+									resource: 'FAC_BUSGRO'
+								}, {
+									icon: 'room',
 									label: 'Empreses (Facturació)',
 									labelKey: 'app.menu.fact.empreses',
 									route: '/fact/empreses',
@@ -589,12 +603,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.departaments',
 									route: '/fact/departaments',
 									resource: 'FAC_DEPART'
-//								}, {
-//									icon: 'room',
-//									label: 'DepartamentsClient',
-//									labelKey: 'app.menu.fact.departamentsClient',
-//									route: '/fact/departamentsClient',
-//									resource: 'FAC_DEPCLI'
+								}, {
+									icon: 'room',
+									label: 'Parameters',
+									labelKey: 'app.menu.fact.parameters',
+									route: '/fact/parameters',
+									resource: 'FAC_PARAM'
 								}, {
 									icon: 'room',
 									label: 'Països',

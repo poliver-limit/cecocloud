@@ -20,6 +20,7 @@ import es.limit.cecocloud.fact.logic.api.dto.ArticleGamma;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleModel;
 import es.limit.cecocloud.fact.logic.api.dto.Banc;
+import es.limit.cecocloud.fact.logic.api.dto.BusinessGroup;
 import es.limit.cecocloud.fact.logic.api.dto.Caixa;
 import es.limit.cecocloud.fact.logic.api.dto.Capitol;
 import es.limit.cecocloud.fact.logic.api.dto.ClasseRetencio;
@@ -48,6 +49,7 @@ import es.limit.cecocloud.fact.logic.api.dto.OficinaBancaria;
 import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
 import es.limit.cecocloud.fact.logic.api.dto.Pais;
 import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
+import es.limit.cecocloud.fact.logic.api.dto.Parameter;
 import es.limit.cecocloud.fact.logic.api.dto.Partida;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Pressupost;
@@ -209,6 +211,14 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Bancs",
 						Banc.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_BUSGRO",
+				new FuncionalitatCodiFontImpl(
+						"FAC_BUSGRO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Grups d'empreses",
+						BusinessGroup.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_CAPITO",
@@ -488,6 +498,14 @@ public class FactModuleRegister {
 					"Paisos per Nif",
 					PaisNif.class,
 					Arrays.asList()));
+		funcionalitats.put(
+				"FAC_PARAM",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PARAM",
+						FuncionalitatTipus.MANTENIMENT,
+						"Parametres",
+						Parameter.class,
+						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_PARTID",
 				new FuncionalitatCodiFontImpl(

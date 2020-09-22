@@ -42,9 +42,9 @@
     <mat-tab label="{{'resource.projecte.field.titolDatesProjecte'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTabDatesProjecte"></ng-container>
     </mat-tab>    
-<!--     <mat-tab label="{{'resource.projecte.field.titolMes'|translate}}"> -->
-<!--       <ng-container *ngTemplateOutlet="fieldsTabMes"></ng-container> -->
-<!--     </mat-tab> -->
+    <mat-tab label="{{'resource.projecte.field.titolMes'|translate}}">
+      <ng-container *ngTemplateOutlet="fieldsTabMes"></ng-container>
+    </mat-tab>
     <mat-tab [disabled]="!modificant" label="{{'resource.projecte.field.titolProjectePressupost'|translate}}">
       <ng-container *ngTemplateOutlet="projectesPressupostTab"></ng-container>
     </mat-tab>    

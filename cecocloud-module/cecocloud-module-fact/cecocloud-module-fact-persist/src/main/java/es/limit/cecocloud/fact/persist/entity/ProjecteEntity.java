@@ -42,65 +42,79 @@ import lombok.Setter;
 @AttributeOverrides({
 		@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "prj_idf_cod", length = 4)),
 		@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "prj_emp_cod", length = 4, insertable = false, updatable = false)),
-		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_num", length = 6)), // prj_num
+		@AttributeOverride(name = "id.codi", column = @Column(name = "prj_num", length = 6)), // prj_num		
+		
 		@AttributeOverride(name = "embedded.codi", column = @Column(name = "prj_num", length = 6, insertable = false, updatable = false)),		
 		@AttributeOverride(name = "embedded.nom", column = @Column(name = "prj_nom", length = 250, nullable = false)),
-		@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "prj_descur", length = 60)),
+		@AttributeOverride(name = "embedded.divisaValorEuros", column = @Column(name = "prj_valdiveur", length = 22, precision = 15, scale = 8)),
 		@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "prj_des", length = 1000)),
-		@AttributeOverride(name = "embedded.referencia", column = @Column(name = "prj_ref", length = 20)),
-		@AttributeOverride(name = "embedded.observacions", column = @Column(name = "prj_obs", length = 1000)),
-//		@AttributeOverride(name = "embedded.codiAlternatiu", column = @Column(name = "prj_ali", length = 35)),
-		@AttributeOverride(name = "embedded.responsable", column = @Column(name = "prj_res", length = 60)),
-		@AttributeOverride(name = "embedded.contactePersona", column = @Column(name = "prj_percon", length = 60)),
-		@AttributeOverride(name = "embedded.contacteTelefon", column = @Column(name = "prj_telcon", length = 30)),
-		@AttributeOverride(name = "embedded.adreca", column = @Column(name = "prj_dir", length = 200)),
-		@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "prj_pob", length = 100)),
-		@AttributeOverride(name = "embedded.tecnologies", column = @Column(name = "prj_tec", length = 2000)),
-		@AttributeOverride(name = "embedded.estat", column = @Column(name = "prj_est")),
 		@AttributeOverride(name = "embedded.dataInici", column = @Column(name = "prj_datini")),
 		@AttributeOverride(name = "embedded.dataFi", column = @Column(name = "prj_datfin")),
-		@AttributeOverride(name = "embedded.dataFiPrevist", column = @Column(name = "prj_datfinprt")),
+		@AttributeOverride(name = "embedded.responsable", column = @Column(name = "prj_res", length = 60)),
+		@AttributeOverride(name = "embedded.valorEstimat", column = @Column(name = "prj_valetm", length = 22, precision = 15, scale = 3)),
+		@AttributeOverride(name = "embedded.observacions", column = @Column(name = "prj_obs", length = 1000)),
 		@AttributeOverride(name = "embedded.dataAdjudicacio", column = @Column(name = "prj_diaadj")),
 		@AttributeOverride(name = "embedded.dataExecucio", column = @Column(name = "prj_plaeje")),
 		@AttributeOverride(name = "embedded.dataRecepcioProvisional", column = @Column(name = "prj_diarebpvi")),
-		@AttributeOverride(name = "embedded.dataRecepcioFinal", column = @Column(name = "prj_diarebfin")),
-		@AttributeOverride(name = "embedded.dataIniciGarantia", column = @Column(name = "prj_datgar")),
-		@AttributeOverride(name = "embedded.dataFinalGarantia", column = @Column(name = "prj_datfingar")),
-		@AttributeOverride(name = "embedded.dataDevolucioAval", column = @Column(name = "prj_diadevava")),
-		@AttributeOverride(name = "embedded.dataFormalitzacio", column = @Column(name = "prj_datfmz")),
-		@AttributeOverride(name = "embedded.horesEquiv", column = @Column(name = "prj_horequ")),
-		@AttributeOverride(name = "embedded.horesEquivConstruccio", column = @Column(name = "prj_horeqc")),
-		@AttributeOverride(name = "embedded.horesEquivGarantia", column = @Column(name = "prj_horeqg")),
-		@AttributeOverride(name = "embedded.percentExecucioLliure", column = @Column(name = "prj_pteeje")),
-		@AttributeOverride(name = "embedded.percentExecucioConstruccio", column = @Column(name = "prj_pteejc")),
-		@AttributeOverride(name = "embedded.percentExecucioGarantia", column = @Column(name = "prj_pteejg")),
-//		@AttributeOverride(name = "embedded.divisaValorEuros", column = @Column(name = "prj_valdiveur")),
-		@AttributeOverride(name = "embedded.valorEstimat", column = @Column(name = "prj_valetm")),
-		@AttributeOverride(name = "embedded.importFianca", column = @Column(name = "prj_impfia")),
+		@AttributeOverride(name = "embedded.importFianca", column = @Column(name = "prj_impfia", length = 22, precision = 15, scale = 3)),
 		@AttributeOverride(name = "embedded.dipositFianca", column = @Column(name = "prj_dipfia", length = 250)),
+		@AttributeOverride(name = "embedded.dataDevolucioAval", column = @Column(name = "prj_diadevava")),
+		@AttributeOverride(name = "embedded.dataRecepcioFinal", column = @Column(name = "prj_diarebfin")),
 		@AttributeOverride(name = "embedded.direccioTecnica", column = @Column(name = "prj_dirtec", length = 60)),
+		@AttributeOverride(name = "embedded.codiAlternatiu", column = @Column(name = "prj_ali", length = 35)),
+		@AttributeOverride(name = "embedded.estat", column = @Column(name = "prj_est", length = 22, precision = 1)),
 		@AttributeOverride(name = "embedded.albaransClientCrear", column = @Column(name = "prj_crealbcli", length = 1)),
-		@AttributeOverride(name = "embedded.albaransClientPreu", column = @Column(name = "prj_prualbcli")),
-		@AttributeOverride(name = "embedded.tipusExecucio", column = @Column(name = "prj_tipeje")),
-		@AttributeOverride(name = "embedded.albaransClientProjecteTipus", column = @Column(name = "prj_tip")),
+		@AttributeOverride(name = "embedded.albaransClientPreu", column = @Column(name = "prj_prualbcli", length = 22, precision = 1)),
+		@AttributeOverride(name = "embedded.albaransClientProjecteTipus", column = @Column(name = "prj_tip", length = 22, precision = 1)),
 		@AttributeOverride(name = "embedded.dietes", column = @Column(name = "prj_dta", length = 1)),
-		@AttributeOverride(name = "embedded.plusPerillositat", column = @Column(name = "prj_plspel", length = 1)),
-		@AttributeOverride(name = "embedded.controlarCostos", column = @Column(name = "prj_crlcos", length = 1)),
-		@AttributeOverride(name = "embedded.exportarMobil", column = @Column(name = "prj_pda", length = 1)),
-		@AttributeOverride(name = "embedded.preuMigFacturacio", column = @Column(name = "prj_prumigfac", length = 1)),
-		@AttributeOverride(name = "embedded.multiclient", column = @Column(name = "prj_mulcli", length = 1)),
-		@AttributeOverride(name = "embedded.horesCami", column = @Column(name = "prj_horrut")),
-		@AttributeOverride(name = "embedded.estudiDespesesGenerals", column = @Column(name = "prj_gstgen")),
-		@AttributeOverride(name = "embedded.estudiBaixaPercent", column = @Column(name = "prj_baj")),
-		@AttributeOverride(name = "embedded.estudiTasaPercent", column = @Column(name = "prj_tas")),
-		@AttributeOverride(name = "embedded.estudiSumarValoracioEnExces", column = @Column(name = "prj_valexc", length = 1)),
-		@AttributeOverride(name = "embedded.mesosGarantia", column = @Column(name = "prj_mesgar")),
-		@AttributeOverride(name = "embedded.tipusInversio", column = @Column(name = "prj_tipinv", length = 1)),
-		@AttributeOverride(name = "embedded.tipusObra", column = @Column(name = "prj_tipobr", length = 1)),		
-		@AttributeOverride(name = "embedded.retencioPercent", column = @Column(name = "prj_ret")),
-		@AttributeOverride(name = "embedded.retencioTipus", column = @Column(name = "prj_tipret", length = 1)),
 		@AttributeOverride(name = "embedded.comptabilitatCodiProjecte", column = @Column(name = "prj_codcmp", length = 4)),
+		@AttributeOverride(name = "embedded.retencioTipus", column = @Column(name = "prj_tipret", length = 1)),
+		@AttributeOverride(name = "embedded.retencioPercent", column = @Column(name = "prj_ret", length = 22, precision = 5, scale = 2)),
+		@AttributeOverride(name = "embedded.referencia", column = @Column(name = "prj_ref", length = 20)),
+		@AttributeOverride(name = "embedded.plusPerillositat", column = @Column(name = "prj_plspel", length = 1)),
+		@AttributeOverride(name = "embedded.estudiDespesesGenerals", column = @Column(name = "prj_gstgen",  length = 22, precision = 15, scale = 2)),
+		@AttributeOverride(name = "embedded.estudiBaixaPercent", column = @Column(name = "prj_baj", length = 22, precision = 15, scale = 8)),
+		@AttributeOverride(name = "embedded.estudiTasaPercent", column = @Column(name = "prj_tas", length = 22, precision = 5, scale = 2)),
+		@AttributeOverride(name = "embedded.contactePersona", column = @Column(name = "prj_percon", length = 60)),
+		@AttributeOverride(name = "embedded.contacteTelefon", column = @Column(name = "prj_telcon", length = 30)),
+		@AttributeOverride(name = "embedded.estudiSumarValoracioEnExces", column = @Column(name = "prj_valexc", length = 1)),	
+		@AttributeOverride(name = "embedded.dataFiPrevist", column = @Column(name = "prj_datfinprt")),
+		@AttributeOverride(name = "embedded.mesosGarantia", column = @Column(name = "prj_mesgar", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.percentExecucioLliure", column = @Column(name = "prj_pteeje", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.horesEquiv", column = @Column(name = "prj_horequ", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.percentExecucioConstruccio", column = @Column(name = "prj_pteejc", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.horesEquivConstruccio", column = @Column(name = "prj_horeqc", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.percentExecucioGarantia", column = @Column(name = "prj_pteejg", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.horesEquivGarantia", column = @Column(name = "prj_horeqg", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.tipusInversio", column = @Column(name = "prj_tipinv", length = 1)),
+		@AttributeOverride(name = "embedded.tipusObra", column = @Column(name = "prj_tipobr", length = 1)),
+		@AttributeOverride(name = "embedded.controlarCostos", column = @Column(name = "prj_crlcos", length = 1)),
+		@AttributeOverride(name = "embedded.horesCami", column = @Column(name = "prj_horrut", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.adreca", column = @Column(name = "prj_dir", length = 200)),
+		@AttributeOverride(name = "embedded.poblacio", column = @Column(name = "prj_pob", length = 100)),
+		@AttributeOverride(name = "embedded.dataIniciGarantia", column = @Column(name = "prj_datgar")),
+		@AttributeOverride(name = "embedded.multiclient", column = @Column(name = "prj_mulcli", length = 1)),
+		@AttributeOverride(name = "embedded.dataFinalGarantia", column = @Column(name = "prj_datfingar")),
+		@AttributeOverride(name = "embedded.tipusExecucio", column = @Column(name = "prj_tipeje", length = 22, precision = 1)),
+		@AttributeOverride(name = "embedded.preuMigFacturacio", column = @Column(name = "prj_prumigfac", length = 22, precision = 15, scale = 2)),
+		@AttributeOverride(name = "embedded.dataFormalitzacio", column = @Column(name = "prj_datfmz")),
+		@AttributeOverride(name = "embedded.tecnologies", column = @Column(name = "prj_tec", length = 3000)),		
+		@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "prj_descur", length = 500)),
+		@AttributeOverride(name = "embedded.exportarMobil", column = @Column(name = "prj_pda", length = 1)),	
 		
+		//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////
+		@AttributeOverride(name = "embedded.dricmp", column = @Column(name = "prj_dricmp", length = 2)),
+		@AttributeOverride(name = "embedded.dricmp002", column = @Column(name = "prj_dricmp002", length = 2)),
+		@AttributeOverride(name = "embedded.kmt", column = @Column(name = "prj_kmt", length = 22, precision = 5, scale = 2)),	
+		@AttributeOverride(name = "embedded.pteinccstmo", column = @Column(name = "prj_pteinccstmo", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.pteinccstmaq", column = @Column(name = "prj_pteinccstmaq", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.impfixmo", column = @Column(name = "prj_impfixmo", length = 22, precision = 18, scale = 4)),
+		@AttributeOverride(name = "embedded.impfixmaq", column = @Column(name = "prj_impfixmaq", length = 22, precision = 18, scale = 4)),		
+		@AttributeOverride(name = "embedded.idfProjecteJira", column = @Column(name = "prj_jiridf", length = 10)),
+		@AttributeOverride(name = "embedded.tipges", column = @Column(name = "prj_tipges", length = 1)),
+		@AttributeOverride(name = "embedded.cpa", column = @Column(name = "prj_cpa", length = 1)),			
+		//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////		
+
 		@AttributeOverride(name = "createdBy", column = @Column(name = "prj_usucre")),
 		@AttributeOverride(name = "createdDate", column = @Column(name = "prj_datcre")),
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "prj_usumod")),
@@ -118,7 +132,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@Embedded
 	protected Projecte embedded;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
@@ -143,85 +157,6 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sec_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sec_emp_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_sec_cod", referencedColumnName = "sec_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "prj_sec_cod_fk"))
-	private SeccioEntity seccio;
-	@Column(name = "prj_sec_cod", length = 4)
-	private String seccioCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "tpj_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_tpj_cod", referencedColumnName = "tpj_cod", insertable = false, updatable = false) 
-			},
-			foreignKey = @ForeignKey(name = "prj_tpj_cod_fk"))
-	private ProjecteTipusEntity projecteTipus;
-	@Column(name = "prj_tpj_cod", length = 6)
-	private String projecteTipusCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ope_cod", referencedColumnName = "ope_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "prj_ope_cod_fk"))
-	private OperariEntity operariResponsable;
-	@Column(name = "prj_ope_cod", length = 6)
-	private String operariResponsableCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ope_codcgr", referencedColumnName = "ope_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "prj_ope_codcgr_fk"))
-	private OperariEntity operariCapGrup;
-	@Column(name = "prj_ope_codcgr", length = 6)
-	private String operariCapGrupCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ope_enccod", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
-			},
-			foreignKey = @ForeignKey(name = "prj_ope_enccod_fk"))
-	private OperariEntity operariEncarregat;
-	@Column(name = "prj_ope_enccod", length = 6)
-	private String operariEncarregatCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ope_codadm", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
-			},
-			foreignKey = @ForeignKey(name = "prj_ope_codadm_fk"))
-	private OperariEntity operariAdministratiu;
-	@Column(name = "prj_ope_codadm", length = 6)
-	private String operariAdministratiuCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ser_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "ser_emp_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ser_cod", referencedColumnName = "ser_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "prj_ser_cod_fk"))
-	private SerieVendaEntity serie;
-	@Column(name = "prj_ser_cod", length = 2)
-	private String serieCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
 						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "cli_idf_cod", insertable = false, updatable = false),
 						@JoinColumn(name = "prj_cli_cod", referencedColumnName = "cli_cod", insertable = false, updatable = false) 
 			},
@@ -229,19 +164,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	private ClientEntity client;
 	@Column(name = "prj_cli_cod", length = 6)
 	private String clientCodi;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "scl_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_cli_cod", referencedColumnName = "scl_cli_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_scl_cod", referencedColumnName = "scl_cod", insertable = false, updatable = false)
-			},
-			foreignKey = @ForeignKey(name = "prj_scl_cod_fk"))
-	private SubClientEntity subClient;
-	@Column(name = "prj_scl_cod", length = 6)
-	private String subClientCodi;
-
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -253,18 +176,52 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	private ClientAdresaEntity clientAdresa;
 	@Column(name = "prj_acc_cod", length = 4)
 	private String clientAdresaCodi;
-
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "scl_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_cli_cod", referencedColumnName = "scl_cli_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_scl_cod", referencedColumnName = "scl_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "prj_cpo_cod_fk"))
-	private CodiPostalEntity codiPostal;
-	@Column(name = "prj_cpo_cod", length = 8)
-	private String codiPostalCodi;
-
+			foreignKey = @ForeignKey(name = "prj_scl_cod_fk"))
+	private SubClientEntity subClient;
+	@Column(name = "prj_scl_cod", length = 4)
+	private String subClientCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ffa_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_ffa_cod", referencedColumnName = "ffa_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_ffa_cod_fk"))
+	private FinalFacturaEntity finalFactura;
+	@Column(name = "prj_ffa_cod", length = 6)
+	private String finalFacturaCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "tpj_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_tpj_cod", referencedColumnName = "tpj_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_tpj_cod_fk"))
+	private ProjecteTipusEntity projecteTipus;
+	@Column(name = "prj_tpj_cod", length = 6)
+	private String projecteTipusCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_ope_cod", referencedColumnName = "ope_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "prj_ope_cod_fk"))
+	private OperariEntity operariResponsable;
+	@Column(name = "prj_ope_cod", length = 6)
+	private String operariResponsableCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -275,30 +232,30 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	private ClasseRetencioEntity retencioClasse;
 	@Column(name = "prj_clr_cod", length = 4)
 	private String retencioClasseCodi;
-
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ane_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "ane_emp_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ane_cod", referencedColumnName = "ane_cod", insertable = false, updatable = false) 
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_ope_enccod", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
 			},
-			foreignKey = @ForeignKey(name = "prj_ane_cod_fk"))
-	private AreaNegociEntity areaNegoci;
-	@Column(name = "prj_ane_cod", length = 4)
-	private String areaNegociCodi;
-
+			foreignKey = @ForeignKey(name = "prj_ope_enccod_fk"))
+	private OperariEntity operariEncarregat;
+	@Column(name = "prj_ope_enccod", length = 6)
+	private String operariEncarregatCodi;	
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "mag_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_mag_cod", referencedColumnName = "mag_cod", insertable = false, updatable = false) 
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ser_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "ser_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_ser_cod", referencedColumnName = "ser_cod", insertable = false, updatable = false)
 			},
-			foreignKey = @ForeignKey(name = "prj_mag_cod_fk"))
-	private MagatzemEntity magatzem;
-	@Column(name = "prj_mag_cod", length = 4)
-	private String magatzemCodi;
-
+			foreignKey = @ForeignKey(name = "prj_ser_cod_fk"))
+	private SerieVendaEntity serie;
+	@Column(name = "prj_ser_cod", length = 2)
+	private String serieCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -309,18 +266,130 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	private ZonaEntity zona;
 	@Column(name = "prj_zon_cod", length = 4)
 	private String zonaCodi;
-
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ffa_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_ffa_cod", referencedColumnName = "ffa_cod", insertable = false, updatable = false) 
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_ope_codcgr", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
 			},
-			foreignKey = @ForeignKey(name = "prj_ffa_cod_fk"))
-	private FinalFacturaEntity finalFactura;
-	@Column(name = "prj_ffa_cod", length = 4)
-	private String finalFacturaCodi;
-
+			foreignKey = @ForeignKey(name = "prj_ope_codcgr_fk"))
+	private OperariEntity operariCapGrup;
+	@Column(name = "prj_ope_codcgr", length = 6)
+	private String operariCapGrupCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ope_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_ope_codadm", referencedColumnName = "ope_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_ope_codadm_fk"))
+	private OperariEntity operariAdministratiu;
+	@Column(name = "prj_ope_codadm", length = 6)
+	private String operariAdministratiuCodi;
+	
+	
+	//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////	
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sei_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sei_emp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_sei_codinv", referencedColumnName = "sei_cod", insertable = false, updatable = false)						 
+//			},
+//			foreignKey = @ForeignKey(name = "prj_sei_codinv_fk"))
+//	private SerieSubjectePassiuEntity serieSubjectePassiu;
+//	@Column(name = "prj_sei_codinv", length = 2)
+//	private String serieSubjectePassiuCodi;
+//	
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "apl_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_apl_ref", referencedColumnName = "apl_ref", insertable = false, updatable = false) 
+//			},
+//			foreignKey = @ForeignKey(name = "prj_apl_ref_fk"))
+//	private ProducteEntity producte;
+//	@Column(name = "prj_apl_ref", length = 22)
+//	private String producteReferencia;
+//	
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "art_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_art_cod001", referencedColumnName = "art_cod", insertable = false, updatable = false)												 
+//			},
+//			foreignKey = @ForeignKey(name = "prj_art_cod001_fk"))
+//	private ArticleEntity article001;
+//	@Column(name = "prj_art_cod001", length = 15)
+//	private String article001Codi;
+//	
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "art_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_art_cod002", referencedColumnName = "art_cod", insertable = false, updatable = false)												 
+//			},
+//			foreignKey = @ForeignKey(name = "prj_art_cod002_fk"))
+//	private ArticleEntity article002;
+//	@Column(name = "prj_art_cod002", length = 15)
+//	private String article002Codi;
+//	
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "etp_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "etp_emp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_prj_num", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_etp_cod001", referencedColumnName = "etp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_num", insertable = false, updatable = false) // Revisar si cal un prj_etp_num
+//			},
+//			foreignKey = @ForeignKey(name = "prj_etp_cod001_fk"))
+//	private ProjecteEstudiEntity projecteEstudi001;
+//	@Column(name = "prj_etp_cod001", length = 4)
+//	private String projecteEstudiCodi001;
+//	
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "etp_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "etp_emp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_prj_num", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_etp_cod002", referencedColumnName = "etp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_num", insertable = false, updatable = false) // Revisar si cal un prj_etp_num
+//			},
+//			foreignKey = @ForeignKey(name = "prj_etp_cod002_fk"))
+//	private ProjecteEstudiEntity projecteEstudi002;
+//	@Column(name = "prj_etp_cod002", length = 4)
+//	private String projecteEstudiCodi002;
+//	
+//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+//	@JoinColumns(
+//			value = {
+//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "etp_idf_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "etp_emp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_prj_num", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_etp_cod003", referencedColumnName = "etp_cod", insertable = false, updatable = false),
+//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_num", insertable = false, updatable = false) // Revisar si cal un prj_etp_num
+//			},
+//			foreignKey = @ForeignKey(name = "prj_etp_cod003_fk"))
+//	private ProjecteEstudiEntity projecteEstudi003;
+//	@Column(name = "prj_etp_cod003", length = 4)
+//	private String projecteEstudiCodi003;
+	//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////		
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "rgi_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_rgi_codinv", referencedColumnName = "rgi_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_rgi_codinv_fk"))
+	private RegimIvaEntity regimIva;
+	@Column(name = "prj_rgi_codinv", length = 2)
+	private String regimIvaCodi;
+	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -335,13 +404,105 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "rgi_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_rgi_codinv", referencedColumnName = "rgi_cod", insertable = false, updatable = false) 
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "ane_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "ane_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_ane_cod", referencedColumnName = "ane_cod", insertable = false, updatable = false) 
 			},
-			foreignKey = @ForeignKey(name = "prj_rgi_codinv_fk"))
-	private RegimIvaEntity regimIva;
-	@Column(name = "prj_rgi_codinv", length = 2)
-	private String regimIvaCodi;
+			foreignKey = @ForeignKey(name = "prj_ane_cod_fk"))
+	private AreaNegociEntity areaNegoci;
+	@Column(name = "prj_ane_cod", length = 4)
+	private String areaNegociCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "cpo_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_cpo_cod", referencedColumnName = "cpo_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "prj_cpo_cod_fk"))
+	private CodiPostalEntity codiPostal;
+	@Column(name = "prj_cpo_cod", length = 8)
+	private String codiPostalCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "mag_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_mag_cod", referencedColumnName = "mag_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_mag_cod_fk"))
+	private MagatzemEntity magatzem;
+	@Column(name = "prj_mag_cod", length = 4)
+	private String magatzemCodi;
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sec_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sec_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_sec_cod", referencedColumnName = "sec_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "prj_sec_cod_fk"))
+	private SeccioEntity seccio;
+	@Column(name = "prj_sec_cod", length = 2)
+	private String seccioCodi;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(

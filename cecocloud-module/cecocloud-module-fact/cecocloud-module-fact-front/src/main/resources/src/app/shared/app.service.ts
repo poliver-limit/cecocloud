@@ -50,6 +50,11 @@ export class AppService {
 			route: '/fact/articlesModel'
 		}, {
 			icon: 'room',
+			label: 'Business groups',
+			labelKey: 'app.menu.fact.businessGroups',
+			route: '/fact/businessGroups'
+		}, {
+			icon: 'room',
 			label: 'Codis postals',
 			labelKey: 'app.menu.fact.codisPostal',
 			route: '/fact/codisPostal'
@@ -118,6 +123,11 @@ export class AppService {
 			label: 'Països',
 			labelKey: 'app.menu.fact.paisos',
 			route: '/fact/paisos'
+		}, {
+			icon: 'room',
+			label: 'Parameters',
+			labelKey: 'app.menu.fact.parameters',
+			route: '/fact/parameters'
 		}, {
 			icon: 'room',
 			label: 'Peus de document',
