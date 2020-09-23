@@ -85,7 +85,7 @@ public class ArticleApiController<D extends Identificable<ID>, ID extends Serial
 		
 		for (int i=0;i<midaLlista;i++) {
 			Article article = articleList.get(i);
-			article.setDescripcio(this.getTraducció(article, idiomaCodi));
+			article.setDescripcioCurta(this.getTraducció(article, idiomaCodi));
 		}		
 		
 		long queryTime = System.currentTimeMillis() - t0;
@@ -111,21 +111,24 @@ public class ArticleApiController<D extends Identificable<ID>, ID extends Serial
 			@PathVariable String articleId
 			) {
 		Article article =((ArticleService)getService()).getOne(articleId);				
-		article.setDescripcio(this.getTraducció(article, idiomaCodi));
+		article.setDescripcioCurta(this.getTraducció(article, idiomaCodi));
 		return ResponseEntity.ok(
 				toResource(article, getResourceLinks(article.getId())));
 	}
 	
 	private String getTraducció(Article article, String codiIdioma) {		
 
-		String traduccio = article.getDescripcio();
+		String traduccio = article.getDescripcioCurta();
+		if (traduccio==null||traduccio.equals("")) {
+			traduccio = article.getDescripcio();
+		}
 		if ((!codiIdioma.equals("null"))&&(codiIdioma!=null)) {
 			List<Idioma> idiomaList = idiomaService.findByQuickFilterAndRsqlQuery(null,"codiIso=ic='"+codiIdioma+"'",Sort.unsorted());
 			Idioma idioma = idiomaList.get(0);
 //			Idioma idioma = idiomaService.findOneByRsqlQuery("codiIso=ic='"+codiIdioma+"'");		
 			if (idioma!=null) {
 				ArticleTraduccio articleTraduccio = articleTraduccioService.findOneByRsqlQuery("idioma.codi=="+idioma.getCodi()+";article.codi==" + article.getCodi());
-				if (articleTraduccio!=null) {
+				if ((articleTraduccio!=null)&&(!articleTraduccio.equals(""))) {
 					traduccio = articleTraduccio.getDescripcio();
 				}
 			}

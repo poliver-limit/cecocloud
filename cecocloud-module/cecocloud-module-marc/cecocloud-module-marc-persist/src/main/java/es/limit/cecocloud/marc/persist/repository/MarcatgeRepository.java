@@ -3,9 +3,11 @@
  */
 package es.limit.cecocloud.marc.persist.repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -63,5 +65,50 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 	MarcatgeEntity findByOperariEmpresaAndEmbeddedData(
 			OperariEmpresaEntity operariEmpresa,
 			Date data);
+
+	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataLessThanOrderByEmbeddedDataDesc(
+			OperariEmpresaEntity operariEmpresa,
+			Date data);
+
+	List<MarcatgeEntity> findByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndIdNotOrderByEmbeddedDataAsc(
+			OperariEmpresaEntity operariEmpresa,
+			Date data,
+			Long id);
+
+	@Modifying
+	@Query(
+			"update " +
+			"    MarcatgeEntity m " +
+			"set " +
+			"    m.embedded.acumulatAny = null, " +
+			"    m.embedded.acumulatMes = null, " +
+			"    m.embedded.acumulatDia = null " +
+			"where " +
+			"    m.operariEmpresa = :operariEmpresa " +
+			"and m.embedded.data >= :dataInici " +
+			"and m.embedded.data <= :dataFi")
+	void netejarAcumulatsEntreDates(
+			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
+			@Param("dataInici") Date dataInici,
+			@Param("dataFi") Date dataFi);
+
+	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataBetweenOrderByEmbeddedDataDesc(
+			OperariEmpresaEntity operariEmpresa,
+			@Param("dataInici") Date dataInici,
+			@Param("dataFi") Date dataFi);
+
+	@Query(
+			"select " +
+			"    sum(m.embedded.intervalDuracio) " +
+			"from " +
+			"    MarcatgeEntity m " +
+			"where " +
+			"    m.operariEmpresa = :operariEmpresa " +
+			"and m.embedded.data >= :dataInici " +
+			"and m.embedded.data <= :dataFi")
+	BigDecimal acumulatEntreDates(
+			OperariEmpresaEntity operariEmpresa,
+			@Param("dataInici") Date dataInici,
+			@Param("dataFi") Date dataFi);
 
 }

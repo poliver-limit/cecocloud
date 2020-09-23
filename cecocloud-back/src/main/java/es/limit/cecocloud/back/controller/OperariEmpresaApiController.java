@@ -72,6 +72,11 @@ public class OperariEmpresaApiController extends AbstractIdentificableApiControl
 				rsqlFilter.append(operariEmpresaId);
 			}
 			return rsqlFilter.toString();
+		} else if (OperariEmpresa.FILTER_LLOC_FEINA_EMPRESA.equals(filterName)) {
+			StringBuilder rsqlFilter = new StringBuilder();
+			rsqlFilter.append("empresa.id==");
+			rsqlFilter.append(((UserSession)userSession).getE());
+			return rsqlFilter.toString();
 		}
 		return null;
 	}

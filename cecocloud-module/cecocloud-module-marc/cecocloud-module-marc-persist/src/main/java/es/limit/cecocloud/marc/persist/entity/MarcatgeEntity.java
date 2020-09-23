@@ -38,25 +38,48 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.origen", column = @Column(name = "origen", nullable = false)),
 	@AttributeOverride(name = "embedded.adressaIp", column = @Column(name = "adressa_ip", length = 40, nullable = false)),
 	@AttributeOverride(name = "embedded.latitud", column = @Column(name = "latitud", precision = 12, scale = 8)),
-	@AttributeOverride(name = "embedded.longitud", column = @Column(name = "longitud", precision = 12, scale = 8))
+	@AttributeOverride(name = "embedded.longitud", column = @Column(name = "longitud", precision = 12, scale = 8)),
+	@AttributeOverride(name = "embedded.precisio", column = @Column(name = "precisio", precision = 12, scale = 8)),
+	@AttributeOverride(name = "embedded.foraLinia", column = @Column(name = "fora_linia")),
+	@AttributeOverride(name = "embedded.validat", column = @Column(name = "validat")),
+	@AttributeOverride(name = "embedded.llocFeinaFora", column = @Column(name = "lloc_fora")),
+	@AttributeOverride(name = "embedded.intervalDuracio", column = @Column(name = "interval_duracio", precision = 12, scale = 2)),
+	@AttributeOverride(name = "embedded.acumulatAny", column = @Column(name = "acumulat_any", precision = 12, scale = 2)),
+	@AttributeOverride(name = "embedded.acumulatMes", column = @Column(name = "acumulat_mes", precision = 12, scale = 2)),
+	@AttributeOverride(name = "embedded.acumulatDia", column = @Column(name = "acumulat_dia", precision = 12, scale = 2))
 })
 public class MarcatgeEntity extends AbstractAuditableVersionableEntity<Marcatge, Long> {
 
 	@Embedded
 	protected Marcatge embedded;
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "operariemp_id",
-			foreignKey = @ForeignKey(name = "marcatge_operariemp_fk"))
+			foreignKey = @ForeignKey(name = "rmar_marcatge_operariemp_fk"))
 	protected OperariEmpresaEntity operariEmpresa;
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "interval_anterior_id",
+			foreignKey = @ForeignKey(name = "rmar_marcatge_anterior_fk"))
+	protected MarcatgeEntity intervalAnterior;
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "lloc_feina_id",
+			foreignKey = @ForeignKey(name = "rmar_marcatge_llocfeina_fk"))
+	protected LlocFeinaEntity llocFeina;
 
 	@Builder
-    public MarcatgeEntity(
-    		Marcatge embedded,
-    		OperariEmpresaEntity operariEmpresa) {
-        this.embedded = embedded;
+	public MarcatgeEntity(
+			Marcatge embedded,
+			OperariEmpresaEntity operariEmpresa,
+			MarcatgeEntity intervalAnterior,
+			LlocFeinaEntity llocFeina) {
+		this.embedded = embedded;
 		this.operariEmpresa = operariEmpresa;
-    }
+		this.intervalAnterior = intervalAnterior;
+		this.llocFeina = llocFeina;
+	}
 
 	@Override
 	public void update(Marcatge embedded) {
@@ -64,6 +87,12 @@ public class MarcatgeEntity extends AbstractAuditableVersionableEntity<Marcatge,
 	}
 	public void updateOperariEmpresa(OperariEmpresaEntity operariEmpresa) {
 		this.operariEmpresa = operariEmpresa;
+	}
+	public void updateIntervalAnterior(MarcatgeEntity intervalAnterior) {
+		this.intervalAnterior = intervalAnterior;
+	}
+	public void updateLlocFeina(LlocFeinaEntity llocFeina) {
+		this.llocFeina = llocFeina;
 	}
 
 }

@@ -36,6 +36,11 @@ public class OperariEmpresa extends AbstractIdentificable<Long> {
 			hiddenInForm = true,
 			hiddenInLov = true)
 	public static final String FILTER_MARC_ALLOWED = "marc-allowed";
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true)
+	public static final String FILTER_LLOC_FEINA_EMPRESA = "lloc-feina-empresa";
 
 	@NotNull
 	@Transient

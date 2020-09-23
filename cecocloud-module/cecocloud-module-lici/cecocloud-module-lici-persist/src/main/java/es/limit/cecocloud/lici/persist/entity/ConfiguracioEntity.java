@@ -31,7 +31,7 @@ import lombok.Setter;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Entity
+@Entity(name = "liciConfiguracioEntity")
 @Table(name = "tlic_config")
 @AttributeOverrides({
 	@AttributeOverride(name = "embedded.sincronitzacioActiva", column = @Column(name = "sinact", nullable = false)),
