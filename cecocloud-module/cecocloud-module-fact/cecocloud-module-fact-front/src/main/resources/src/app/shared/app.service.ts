@@ -15,6 +15,11 @@ export class AppService {
 			route: '/fact/albarans'
 		}, {
 			icon: 'room',
+			label: 'Altres aplicacions',
+			labelKey: 'app.menu.fact.altresAplicacions',
+			route: '/fact/altresAplicacions'
+		}, {
+			icon: 'room',
 			label: 'Àrea negocis',
 			labelKey: 'app.menu.fact.areaNegocis',
 			route: '/fact/areaNegocis'

@@ -24,6 +24,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
 
 			}, {
+				path: 'altresAplicacions',
+				loadChildren: () => import('./pages/altresAplicacions/altresAplicacions.module').then(m => m.AltresAplicacionsModule)
+
+			}, {
 				path: 'aplicadors',
 				loadChildren: () => import('./pages/aplicadors/aplicadors.module').then(m => m.AplicadorsModule)
 
@@ -599,6 +603,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.businessGroups',
 									route: '/fact/businessGroups',
 									resource: 'FAC_BUSGRO'
+								}, {
+									icon: 'room',
+									label: 'Altres aplicacions',
+									labelKey: 'app.menu.fact.altresAplicacions',
+									route: '/fact/altresAplicacions',
+									resource: 'FAC_ALTAPL'
 								}, {
 									icon: 'room',
 									label: 'Empreses (Facturació)',

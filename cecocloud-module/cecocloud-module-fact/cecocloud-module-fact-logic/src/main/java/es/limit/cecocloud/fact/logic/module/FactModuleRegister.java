@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.fact.logic.api.dto.Albara;
+import es.limit.cecocloud.fact.logic.api.dto.AltresAplicacions;
 import es.limit.cecocloud.fact.logic.api.dto.Aplicador;
 import es.limit.cecocloud.fact.logic.api.dto.AplicadorClient;
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci;
@@ -125,6 +126,15 @@ public class FactModuleRegister {
 						"Albarans",
 						Albara.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_ALTAPL",
+				new FuncionalitatCodiFontImpl(
+						"FAC_ALTAPL",
+						FuncionalitatTipus.MANTENIMENT,
+						"Altres aplicacions",
+						AltresAplicacions.class,
+						Arrays.asList(
+								Transportista.class)));
 		funcionalitats.put(
 				"FAC_APLICA",
 				new FuncionalitatCodiFontImpl(
