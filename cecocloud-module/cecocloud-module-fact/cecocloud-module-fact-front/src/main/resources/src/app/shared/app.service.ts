@@ -15,6 +15,11 @@ export class AppService {
 			route: '/fact/albarans'
 		}, {
 			icon: 'room',
+			label: 'Altres aplicacions',
+			labelKey: 'app.menu.fact.altresAplicacions',
+			route: '/fact/altresAplicacions'
+		}, {
+			icon: 'room',
 			label: 'Àrea negocis',
 			labelKey: 'app.menu.fact.areaNegocis',
 			route: '/fact/areaNegocis'
@@ -95,6 +100,11 @@ export class AppService {
 			route: '/fact/finalFactures'
 		}, {
 			icon: 'room',
+			label: 'Groups',
+			labelKey: 'app.menu.fact.groups',
+			route: '/fact/groups'
+		}, {
+			icon: 'room',
 			label: 'Idiomes',
 			labelKey: 'app.menu.fact.idiomes',
 			route: '/fact/idiomes'
@@ -133,6 +143,11 @@ export class AppService {
 			label: 'Peus de document',
 			labelKey: 'app.menu.fact.peusDocument',
 			route: '/fact/peusDocument'
+		}, {
+			icon: 'room',
+			label: 'Preus per zona',
+			labelKey: 'app.menu.fact.preusPerZona',
+			route: '/fact/preusPerZona'
 		}, {
 			icon: 'room',
 			label: 'Projectes',

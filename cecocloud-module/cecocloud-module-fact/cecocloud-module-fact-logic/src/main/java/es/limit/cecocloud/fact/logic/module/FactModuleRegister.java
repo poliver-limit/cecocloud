@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import es.limit.cecocloud.fact.logic.api.dto.Albara;
+import es.limit.cecocloud.fact.logic.api.dto.AltresAplicacions;
 import es.limit.cecocloud.fact.logic.api.dto.Aplicador;
 import es.limit.cecocloud.fact.logic.api.dto.AplicadorClient;
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci;
@@ -38,6 +39,7 @@ import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaCost;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaProveidor;
 import es.limit.cecocloud.fact.logic.api.dto.FinalFactura;
+import es.limit.cecocloud.fact.logic.api.dto.Group;
 import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
 import es.limit.cecocloud.fact.logic.api.dto.Idioma;
 import es.limit.cecocloud.fact.logic.api.dto.InversioSubjectePassiu;
@@ -53,6 +55,7 @@ import es.limit.cecocloud.fact.logic.api.dto.Parameter;
 import es.limit.cecocloud.fact.logic.api.dto.Partida;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Pressupost;
+import es.limit.cecocloud.fact.logic.api.dto.PreuPerZona;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteAplicacio;
@@ -123,6 +126,15 @@ public class FactModuleRegister {
 						"Albarans",
 						Albara.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_ALTAPL",
+				new FuncionalitatCodiFontImpl(
+						"FAC_ALTAPL",
+						FuncionalitatTipus.MANTENIMENT,
+						"Altres aplicacions",
+						AltresAplicacions.class,
+						Arrays.asList(
+								Transportista.class)));
 		funcionalitats.put(
 				"FAC_APLICA",
 				new FuncionalitatCodiFontImpl(
@@ -391,6 +403,14 @@ public class FactModuleRegister {
 						FinalFactura.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_GRO",
+				new FuncionalitatCodiFontImpl(
+						"FAC_GRO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Grups",
+						Group.class,
+						Arrays.asList()));
+		funcionalitats.put(
 				"FAC_HISRSP",
 				new FuncionalitatCodiFontImpl(
 						"FAC_HISRSP",
@@ -530,6 +550,16 @@ public class FactModuleRegister {
 						"Pressupostos",
 						Pressupost.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_PREZON",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PREZON",
+						FuncionalitatTipus.MANTENIMENT,
+						"Preus per zona",
+						PreuPerZona.class,
+						Arrays.asList(
+								Zona.class,
+								Transportista.class)));
 		funcionalitats.put(
 				"FAC_PROD",
 				new FuncionalitatCodiFontImpl(

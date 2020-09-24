@@ -24,6 +24,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/albarans/albarans.module').then(m => m.AlbaransModule)
 
 			}, {
+				path: 'altresAplicacions',
+				loadChildren: () => import('./pages/altresAplicacions/altresAplicacions.module').then(m => m.AltresAplicacionsModule)
+
+			}, {
 				path: 'aplicadors',
 				loadChildren: () => import('./pages/aplicadors/aplicadors.module').then(m => m.AplicadorsModule)
 
@@ -132,6 +136,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/finalFactures/finalFactures.module').then(m => m.FinalFacturesModule)
 				
 			}, {
+				path: 'groups',
+				loadChildren: () => import('./pages/groups/groups.module').then(m => m.GroupsModule)	
+				
+			}, {
 				path: 'historicsResponsables',
 				loadChildren: () => import('./pages/historicsResponsables/historicsResponsables.module').then(m => m.HistoricsResponsablesModule)
 
@@ -190,6 +198,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: 'pressupostos',
 				loadChildren: () => import('./pages/pressupostos/pressupostos.module').then(m => m.PressupostosModule)
 
+			}, {
+				path: 'preusPerZona',
+				loadChildren: () => import('./pages/preusPerZona/preusPerZona.module').then(m => m.PreusPerZonaModule)
+				
 			}, {
 				path: 'productes',
 				loadChildren: () => import('./pages/productes/productes.module').then(m => m.ProductesModule)	
@@ -593,6 +605,12 @@ export class FactModule {
 									resource: 'FAC_BUSGRO'
 								}, {
 									icon: 'room',
+									label: 'Altres aplicacions',
+									labelKey: 'app.menu.fact.altresAplicacions',
+									route: '/fact/altresAplicacions',
+									resource: 'FAC_ALTAPL'
+								}, {
+									icon: 'room',
 									label: 'Empreses (Facturació)',
 									labelKey: 'app.menu.fact.empreses',
 									route: '/fact/empreses',
@@ -605,6 +623,12 @@ export class FactModule {
 									resource: 'FAC_DEPART'
 								}, {
 									icon: 'room',
+									label: 'Grups',
+									labelKey: 'app.menu.fact.groups',
+									route: '/fact/groups',
+									resource: 'FAC_GRO'
+								}, {
+									icon: 'room',
 									label: 'Parameters',
 									labelKey: 'app.menu.fact.parameters',
 									route: '/fact/parameters',
@@ -615,6 +639,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.paisos',
 									route: '/fact/paisos',
 									resource: 'FAC_PAIS'
+								}, {
+									icon: 'room',
+									label: 'Preus per zona',
+									labelKey: 'app.menu.fact.preusPerZona',
+									route: '/fact/preusPerZona',
+									resource: 'FAC_PREZON'
 								}, {
 									icon: 'room',
 									label: 'Províncies',
