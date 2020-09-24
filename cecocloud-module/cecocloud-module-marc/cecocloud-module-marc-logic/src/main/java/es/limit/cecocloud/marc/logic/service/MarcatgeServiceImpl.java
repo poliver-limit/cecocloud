@@ -11,7 +11,6 @@ import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.service.MarcatgeService;
 import es.limit.cecocloud.marc.logic.helper.MarcatgeHelper;
-import es.limit.cecocloud.marc.persist.entity.LlocFeinaEntity;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
@@ -44,29 +43,12 @@ public class MarcatgeServiceImpl extends AbstractGenericServiceImpl<Marcatge, Ma
 
 	@Override
 	protected void afterCreate(MarcatgeEntity entity, Marcatge dto) {
-		processarCanviMarcatges(entity, dto, true);
+		marcatgeHelper.processarCanviMarcatges(entity, dto.getData(), true);
 	}
 
 	@Override
 	protected void afterUpdate(MarcatgeEntity entity, Marcatge dto) {
-		processarCanviMarcatges(entity, dto, false);
-	}
-
-	private void processarCanviMarcatges(
-			MarcatgeEntity entity,
-			Marcatge dto,
-			boolean calcularValidesa) {
-		OperariEmpresaEntity operariEmpresa = entity.getOperariEmpresa();
-		LlocFeinaEntity llocFeina = marcatgeHelper.calcularForaLlocFeina(dto, operariEmpresa);
-		if (calcularValidesa) {
-			marcatgeHelper.calcularValidesa(dto, operariEmpresa.getEmpresa());
-		}
-		entity.updateLlocFeina(llocFeina);
-		marcatgeHelper.recalcularIntervals(
-				dto.getData(),
-				entity,
-				operariEmpresa);
-		marcatgeHelper.recalcularAcumulatsAnyActual(operariEmpresa);
+		marcatgeHelper.processarCanviMarcatges(entity, dto.getData(), false);
 	}
 
 }

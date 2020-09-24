@@ -34,6 +34,7 @@ public class CecocloudApp {
 				CecocloudApp.class,
 				args);
 	}
+
 	// Filtre per a processar les capçaleres HTTP X-Forwarded-* i permetre que Spring
 	// Data REST generi correctament els links dels recursos quan l'aplicació està
 	// desplegada darrera un proxy HTTP.

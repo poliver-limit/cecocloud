@@ -255,7 +255,7 @@ databaseChangeLog:
     - addNotNullConstraint:
         columnName: validat
         tableName: tmar_marcatge
-        defaultNullValue: 0
+        defaultNullValue: 1
     - addNotNullConstraint:
         columnName: lloc_fora
         tableName: tmar_marcatge
@@ -272,7 +272,7 @@ databaseChangeLog:
     - addNotNullConstraint:
         columnName: validat
         tableName: tmar_marcatge
-        defaultNullValue: false
+        defaultNullValue: true
     - addNotNullConstraint:
         columnName: lloc_fora
         tableName: tmar_marcatge

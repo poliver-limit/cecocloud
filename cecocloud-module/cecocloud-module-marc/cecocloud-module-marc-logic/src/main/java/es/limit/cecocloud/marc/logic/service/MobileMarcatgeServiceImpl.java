@@ -27,7 +27,6 @@ import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioEmpresa;
 import es.limit.cecocloud.marc.logic.api.service.MobileMarcatgeService;
 import es.limit.cecocloud.marc.logic.helper.MarcatgeHelper;
 import es.limit.cecocloud.marc.persist.entity.ConfiguracioEntity;
-import es.limit.cecocloud.marc.persist.entity.LlocFeinaEntity;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.marc.persist.repository.ConfiguracioRepository;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
@@ -92,13 +91,14 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 			marcatge.setPrecisio(marcatgeMobil.getPrecisio());
 			marcatge.setForaLinia(marcatgeMobil.isOffline());
 			marcatge.setAdressaIp(request.getRemoteAddr());
-			LlocFeinaEntity llocFeina = marcatgeHelper.calcularForaLlocFeina(marcatge, operariEmpresa);
-			marcatgeHelper.calcularValidesa(marcatge, empresa.get());
 			MarcatgeEntity entity = MarcatgeEntity.builder().
 					operariEmpresa(operariEmpresa).
-					llocFeina(llocFeina).
 					embedded(marcatge).
 					build();
+			marcatgeHelper.processarCanviMarcatges(
+					entity,
+					marcatgeMobil.getData(),
+					true);
 			return toMarcatgeMobil(
 					marcatgeMobil.getIdentificadorCodi(),
 					marcatgeMobil.getEmpresaCodi(),
@@ -193,6 +193,9 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		marcatgeMobil.setLongitud(marcatge.getEmbedded().getLongitud());
 		marcatgeMobil.setPrecisio(marcatge.getEmbedded().getPrecisio());
 		marcatgeMobil.setOffline(marcatge.getEmbedded().isForaLinia());
+		marcatgeMobil.setOffline(marcatge.getEmbedded().isForaLinia());
+		marcatgeMobil.setLlocFeinaFora(marcatge.getEmbedded().isLlocFeinaFora());
+		marcatgeMobil.setValidat(marcatge.getEmbedded().isValidat());
 		return marcatgeMobil;
 	}
 

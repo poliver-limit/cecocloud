@@ -6,6 +6,7 @@ package es.limit.cecocloud.marc.persist.repository;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
@@ -25,7 +26,8 @@ public interface LlocFeinaRepository extends BaseRepository<LlocFeinaEntity, Lon
 			"from" +
 			"    OperariEmpresaLlocFeinaEntity oellf " +
 			"where " +
-			"    oellf.operariEmpresa = : operariEmpresa")
-	Set<LlocFeinaEntity> findByOperariEmpresa(OperariEmpresaEntity operariEmpresa);
+			"    oellf.operariEmpresa = :operariEmpresa")
+	Set<LlocFeinaEntity> findByOperariEmpresa(
+			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa);
 
 }

@@ -32,5 +32,7 @@ public class MarcatgeMobil {
 	private BigDecimal longitud;
 	private BigDecimal precisio;
 	private boolean offline;
+	private boolean llocFeinaFora;
+	private boolean validat;
 
 }

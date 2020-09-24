@@ -66,14 +66,35 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			OperariEmpresaEntity operariEmpresa,
 			Date data);
 
-	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataLessThanOrderByEmbeddedDataDesc(
-			OperariEmpresaEntity operariEmpresa,
-			Date data);
+	/*@Query(	"from" +
+			"    MarcatgeEntity m " +
+			"where " +
+			"    m.operariEmpresa = :operariEmpresa " +
+			"and m.embedded.data >= :dataInici " +
+			"and m.embedded.data <= :dataFi " +
+			"and m.embedded.validat = true " +
+			"order by " +
+			"    m.embedded.data desc")*/
+	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
+			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
+			@Param("dataInici") Date dataInici,
+			@Param("dataFi") Date dataFi);
 
-	List<MarcatgeEntity> findByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndIdNotOrderByEmbeddedDataAsc(
-			OperariEmpresaEntity operariEmpresa,
-			Date data,
-			Long id);
+	/*@Query(	"from" +
+			"    MarcatgeEntity m " +
+			"where " +
+			"    m.operariEmpresa = :operariEmpresa " +
+			"and m.embedded.data >= :dataInici " +
+			"and m.embedded.data <= :dataFi " +
+			"and m.embedded.validat = true " +
+			"and m.id <> :id " +
+			"order by " +
+			"    m.embedded.data asc")*/
+	List<MarcatgeEntity> findByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanEqualAndEmbeddedValidatTrueAndIdNotOrderByEmbeddedDataAsc(
+			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
+			@Param("dataInici") Date dataInici,
+			@Param("dataFi") Date dataFi,
+			@Param("id") Long id);
 
 	@Modifying
 	@Query(
@@ -92,7 +113,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("dataInici") Date dataInici,
 			@Param("dataFi") Date dataFi);
 
-	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataBetweenOrderByEmbeddedDataDesc(
+	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataBetweenAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
 			OperariEmpresaEntity operariEmpresa,
 			@Param("dataInici") Date dataInici,
 			@Param("dataFi") Date dataFi);
