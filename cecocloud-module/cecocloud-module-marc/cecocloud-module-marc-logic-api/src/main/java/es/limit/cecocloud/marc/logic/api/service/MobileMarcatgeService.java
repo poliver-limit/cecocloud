@@ -45,7 +45,8 @@ public interface MobileMarcatgeService {
 	public List<SincronitzacioEmpresa> empresesFindDisponiblesPerUsuariActual();
 
 	/**
-	 * Consulta els temps acumulats en una data concreta.
+	 * Consulta els temps acumulats en una data concreta. Les unitats dels
+	 * acumulats son segons.
 	 * 
 	 * @param consulta
 	 *            paràmetres de la consulta.

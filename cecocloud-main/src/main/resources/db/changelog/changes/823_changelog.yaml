@@ -346,3 +346,13 @@ databaseChangeLog:
             name: acumulat_dia
             type: DECIMAL(12,2)
         tableName: tmar_marcatge
+- changeSet:
+    id: 1600078637740-11
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: interval_obert
+            type: BOOLEAN
+        tableName: tmar_marcatge

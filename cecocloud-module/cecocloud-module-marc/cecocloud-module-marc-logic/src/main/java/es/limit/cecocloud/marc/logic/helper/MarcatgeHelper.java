@@ -198,9 +198,6 @@ public class MarcatgeHelper {
 			Optional<ConfiguracioEntity> configuracioEntity = configuracioRepository.findByEmpresa(operariEmpresa.getEmpresa());
 			Configuracio configuracio = configuracioEntity.isPresent() ? configuracioEntity.get().getEmbedded() : null;
 			Integer maxDistanciaInterval = configuracio != null ? configuracio.getMaxDistanciaInterval() : null;
-			// 1.- Cercam el marcatge just anterior al marcatge del qual hem de recalcular
-			// pista: select marcatges where data < dataCalculada order by data desc limit 1;
-			// a on dataCalculada = min(dataOriginal, marcatgeModificat.data);
 			Date marcatgeModificatData = marcatgeModificat.getEmbedded().getData();
 			Date dataIniciAny = getCalendarDataInici(marcatgeModificatData, true).getTime();
 			Date dataFiAny = getCalendarDataFi(marcatgeModificatData, true).getTime();
@@ -209,11 +206,15 @@ public class MarcatgeHelper {
 					operariEmpresa,
 					false);
 			if (darrerMarcatgeAnyActual != null) {
+				// 1.- Cercam el marcatge just anterior al marcatge del qual hem de recalcular
+				// pista: select marcatges where data < dataCalculada order by data desc limit 1;
+				// a on dataCalculada = min(dataOriginal, marcatgeModificat.data);
 				if (	darrerMarcatgeAnyActual.getEmbedded().getAcumulatAny() == null && 
 						darrerMarcatgeAnyActual.getEmbedded().getAcumulatMes() == null && 
 						darrerMarcatgeAnyActual.getEmbedded().getAcumulatDia() == null) {
-					// Si l'any actual no te cap interval calculat força el valor de la data
-					// calculada a l'inici de l'any.
+					// Si l'any actual no te cap interval calculat posa el valor de la data
+					// calculada a l'inici de l'any per a forçar el càlcul de tots els
+					// intervals de l'any del marcatge.
 					dataCalculada = dataIniciAny;
 				}
 				MarcatgeEntity marcatgeAnterior = marcatgeRepository.findFirstByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
@@ -234,6 +235,7 @@ public class MarcatgeHelper {
 				// 3.- Recórrer els marcatges recalculant els intervals
 				MarcatgeEntity intervalAnterior = (marcatgeAnterior != null && marcatgeAnterior.getIntervalAnterior() == null) ? marcatgeAnterior : null;
 				if (!marcatges.isEmpty()) {
+					boolean marcatgeModificatProcessat = false;
 					for (MarcatgeEntity marcatge: marcatges) {
 						// Revisam el lloc en la llista de marcatges a on aniria el marcatgeModificat
 						// i el processam com si estigués a dins la llista.
@@ -242,11 +244,25 @@ public class MarcatgeHelper {
 									intervalAnterior,
 									marcatgeModificat,
 									maxDistanciaInterval);
+							marcatgeModificatProcessat = true;
 						}
 						intervalAnterior = recalcularIntervalRetornantIntervalAnterior(
 								intervalAnterior,
-								marcatgeModificat,
+								marcatge,
 								maxDistanciaInterval);
+					}
+					// Miram si ja hem processat el marcatgeModificat amb la llista de marcatges
+					if (!marcatgeModificatProcessat) {
+						// Si no miram si el darrer marcatge de la llista és un interval obert
+						MarcatgeEntity darrer = marcatges.get(marcatges.size() - 1);
+						if (darrer.getIntervalAnterior() == null) {
+							if (dataEntreMarcatges(marcatgeModificatData, darrer, null)) {
+								recalcularIntervalRetornantIntervalAnterior(
+										darrer,
+										marcatgeModificat,
+										maxDistanciaInterval);
+							}
+						}
 					}
 				} else {
 					if (dataEntreMarcatges(marcatgeModificatData, intervalAnterior, marcatgeModificat)) {
@@ -267,6 +283,25 @@ public class MarcatgeHelper {
 		}
 	}
 
+	private boolean dataEntreMarcatges(
+			Date data,
+			MarcatgeEntity marcatge1,
+			MarcatgeEntity marcatge2) {
+		Date data1 = marcatge1 != null ? marcatge1.getEmbedded().getData() : null;
+		Date data2 = marcatge2 != null ? marcatge2.getEmbedded().getData() : null;
+		boolean resultat;
+		if (data1 != null && data2 == null) {
+			resultat = data.equals(data1) || data.after(data1);
+		} else if (data1 == null && data2 != null) {
+			resultat = data.before(data2) || data.equals(data2);
+		} else if (data1 != null && data2 != null) {
+			resultat = data.equals(data1) || (data.after(data1) && data.before(data2)) || data.equals(data2);
+		} else {
+			resultat = true;
+		}
+		return resultat;
+	}
+
 	private MarcatgeEntity recalcularIntervalRetornantIntervalAnterior(
 			MarcatgeEntity intervalAnterior,
 			MarcatgeEntity marcatge,
@@ -283,6 +318,8 @@ public class MarcatgeHelper {
 				long diferenciaSegons = diferenciaMilisegons / 1000;
 				marcatge.getEmbedded().setIntervalDuracio(new BigDecimal(diferenciaSegons));
 				return null;
+			} else {
+				marcatge.getEmbedded().setIntervalObert(true);
 			}
 		}
 		return marcatge;
@@ -401,19 +438,6 @@ public class MarcatgeHelper {
 		return Math.sqrt(distance);
 	}
 
-	private boolean dataEntreMarcatges(
-			Date data,
-			MarcatgeEntity marcatge1,
-			MarcatgeEntity marcatge2) {
-		Date data2 = marcatge2.getEmbedded().getData();
-		if (marcatge1 == null) {
-			return data.before(data2) || data.equals(data2);
-		} else {
-			Date data1 = marcatge1.getEmbedded().getData();
-			return data.after(data1) && data.before(data2) || data.equals(data1) || data.equals(data2);
-		}
-	}
-
 	private boolean ipAddressMatches(String ipAddress, String subnet) {
 	    IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(subnet);
 	    return ipAddressMatcher.matches(ipAddress);
@@ -465,46 +489,24 @@ public class MarcatgeHelper {
 		return dataFi;
 	}
 
-	/* Propostes de SQL per a calcular intervals. Problema: no hi ha forma de tenir en compte
-	els intervals que queden oberts.
-
-	- Solució SQL postgresql:
-	SELECT
-	    int1.id,
-	    int1.operari_id,
-	    int1.data,
-	    int2.data,
-	    int2.data - int1.data temps
-	from (
-	select sq2.id, sq2.operari_id, sq2.data, sq2.seq from (select sq1.id, sq1.operari_id, sq1.data, row_number() over() seq, mod(row_number() over(), 2) odd from (
-	select id, operari_id, data from marcatge where operari_id = 3 order by data) sq1) sq2
-	where odd = 1) int1, (
-	select sq2.id, sq2.operari_id, sq2.data, sq2.seq from (select sq1.id, sq1.operari_id, sq1.data, row_number() over() seq, mod(row_number() over(), 2) odd from (
-	select id, operari_id, data from marcatge where operari_id = 3 order by data) sq1 WHERE id <> 3) sq2
-	where odd = 1) int2
-	where int1.seq = int2.seq;
-	
-	- Solució SQL oracle:
-	SELECT
-	    int1.id,
-	    int1.operariemp_id,
-	    int1.DATA,
-	    int2.DATA,
-	    (int2.DATA - int1.data) AS temps,
-	    extract(day from (int2.DATA - int1.data)) dies,
-	    extract(hour from (int2.DATA - int1.data)) hores,
-	    extract(minute from (int2.DATA - int1.data)) minuts,
-	    extract(second from (int2.DATA - int1.data)) segons
-	FROM (
-	SELECT id, operariemp_id, DATA, seq FROM (
-	SELECT id, operariemp_id, data, rownum seq, MOD(rownum, 2) odd FROM (
-	select id, operariemp_id, data from cecocloud.tmar_marcatge where operariemp_id = 123983 order by DATA))
-	WHERE odd = 1) int1, (
-	SELECT id, operariemp_id, DATA, seq FROM (
-	SELECT id, operariemp_id, data, rownum seq, MOD(rownum, 2) odd FROM (
-	select id, operariemp_id, data from cecocloud.tmar_marcatge where operariemp_id = 123983 order by DATA) WHERE id <> 124015)
-	WHERE odd = 1) int2
-	WHERE int1.seq = int2.seq;
-	*/
-
+	/*
+	- Consulta intervals:
+	SELECT 
+		CASE M.INTERVAL_OBERT WHEN 1 THEN M.DATA ELSE M2.DATA END DATA_INICI,
+		CASE M.INTERVAL_OBERT WHEN 1 THEN NULL ELSE M.DATA END DATA_FI,
+		M.INTERVAL_OBERT, 
+		M.INTERVAL_DURACIO, 
+		M.FORA_LINIA, 
+		M.LLOC_FORA, 
+		M.VALIDAT 
+	FROM 
+		CECOCLOUD.TMAR_MARCATGE M,
+		CECOCLOUD.TMAR_MARCATGE M2
+	WHERE 
+		M.OPERARIEMP_ID = 230046
+	AND (M.INTERVAL_ANTERIOR_ID IS NOT NULL OR M.INTERVAL_OBERT = 1)
+	AND M.INTERVAL_ANTERIOR_ID = M2.ID(+)
+	ORDER BY
+		M.DATA ASC;
+	 */
 }

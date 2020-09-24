@@ -127,6 +127,13 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal intervalDuracio;
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private Boolean intervalObert;
 	@Digits(integer = 10, fraction = 2)
 	@RestapiField(
 			hiddenInGrid = true,

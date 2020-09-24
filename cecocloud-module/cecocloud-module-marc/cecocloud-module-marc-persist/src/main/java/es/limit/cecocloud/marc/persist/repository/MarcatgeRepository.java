@@ -71,14 +71,14 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"where " +
 			"    m.operariEmpresa = :operariEmpresa " +
 			"and m.embedded.data >= :dataInici " +
-			"and m.embedded.data <= :dataFi " +
+			"and m.embedded.data < :dataCalculada " +
 			"and m.embedded.validat = true " +
 			"order by " +
 			"    m.embedded.data desc")*/
 	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
 			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
 			@Param("dataInici") Date dataInici,
-			@Param("dataFi") Date dataFi);
+			@Param("dataCalculada") Date dataCalculada);
 
 	/*@Query(	"from" +
 			"    MarcatgeEntity m " +
