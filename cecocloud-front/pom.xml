@@ -18,7 +18,7 @@
 				<file>
 					<exists>skip_npm</exists>
 				</file>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<skip.npm>true</skip.npm>
