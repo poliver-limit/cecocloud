@@ -94,21 +94,9 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal precisio;
-	@RestapiField(
-			hiddenInForm = true,
-			disabledForCreate = true,
-			disabledForUpdate = true)
 	private boolean foraLinia;
-	@RestapiField(
-			hiddenInForm = true,
-			disabledForCreate = true,
-			disabledForUpdate = true)
-	private boolean validat;
-	@RestapiField(
-			hiddenInForm = true,
-			disabledForCreate = true,
-			disabledForUpdate = true)
 	private boolean llocFeinaFora;
+	private boolean validat;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
@@ -161,11 +149,7 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
-			hiddenInForm = true,
 			hiddenInLov = true,
-			disabledForCreate = true,
-			disabledForUpdate = true,
 			includeInQuickFilter = false)
 	private GenericReference<LlocFeina, Long> llocFeina;
 
