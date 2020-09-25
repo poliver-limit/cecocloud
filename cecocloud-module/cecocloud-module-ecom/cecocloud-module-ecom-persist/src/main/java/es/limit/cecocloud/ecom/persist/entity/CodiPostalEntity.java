@@ -75,6 +75,9 @@ public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<C
 	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(cpo.cpo_pob,' - '),cpo.cpo_mun),' - '),cpo.cpo_cod) FROM tcom_cpo cpo where cpo.cpo_cod = cpo_cod and cpo.cpo_idf_cod = cpo_idf_cod)")	
 	private String poblacioMunicipiCodiTxt;
 	
+	@Formula(value="(SELECT CONCAT(CONCAT(cpo.cpo_pob,' - '),cpo.cpo_cod) FROM tcom_cpo cpo where cpo.cpo_cod = cpo_cod and cpo.cpo_idf_cod = cpo_idf_cod)")	
+	private String poblacioCodiTxt;
+	
 	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(cpo.cpo_cod,' '),cpo.cpo_pob),' ('),prv.prv_nom),')')\r\n" + 
 			"FROM tcom_cpo cpo\r\n" + 
 			"LEFT JOIN tcom_prv prv on (cpo.cpo_prv_cod = prv.prv_cod AND cpo.cpo_idf_cod = prv.prv_idf_cod AND cpo.cpo_pas_cod = prv.prv_pas_cod)\r\n" + 

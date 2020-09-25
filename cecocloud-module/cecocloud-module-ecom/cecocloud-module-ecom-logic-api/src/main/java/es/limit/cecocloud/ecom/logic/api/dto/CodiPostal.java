@@ -95,6 +95,12 @@ public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<St
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true)
+	private String poblacioCodiTxt;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
 	private String codiPoblacioProvinciaTxt;
 
 }
