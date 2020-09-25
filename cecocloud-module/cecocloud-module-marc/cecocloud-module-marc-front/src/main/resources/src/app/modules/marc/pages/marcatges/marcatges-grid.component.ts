@@ -22,6 +22,13 @@ export class MarcatgesGridComponent implements OnInit {
 		}, {
 			field: 'ubicacio',
 			sortable: false
+		}, {
+			field: 'validat',
+			width: 1,
+			cellRenderer: function(params) {
+				let rgbColor = params.value ? '#b0ffb0' : '#ffb0b0';
+				return '<div style="text-align:center;background-color:' + rgbColor + '">' + params.valueFormatted + '</div>';
+			}
 		}],
 		sort: [{
 			fieldName: 'operariEmpresa',

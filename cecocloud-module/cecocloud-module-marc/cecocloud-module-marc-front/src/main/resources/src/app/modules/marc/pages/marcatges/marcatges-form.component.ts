@@ -31,6 +31,9 @@ import { MarcatgesService } from './marcatges.service';
 		<bng-custom-field name="longitud" style="width:50%"></bng-custom-field>
 	</div>
 	<bng-custom-field name="origen" style="width:100%"></bng-custom-field>
+	<bng-custom-field name="llocFeinaFora" style="width:100%"></bng-custom-field>
+	<bng-custom-field name="foraLinia" style="width:100%"></bng-custom-field>
+	<bng-custom-field name="validat" style="width:100%"></bng-custom-field>
 	<map *ngIf="showMap"
 		[longitude]="longitud"
 		[latitude]="latitud"></map>
