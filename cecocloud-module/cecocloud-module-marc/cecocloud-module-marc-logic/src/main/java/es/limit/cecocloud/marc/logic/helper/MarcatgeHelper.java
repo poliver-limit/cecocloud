@@ -174,6 +174,7 @@ public class MarcatgeHelper {
 			validat = false;
 		}
 		marcatgeEntity.getEmbedded().setValidat(validat);
+		marcatgeEntity.getEmbedded().setValidatData(new Date());
 	}
 
 	/**
@@ -317,8 +318,11 @@ public class MarcatgeHelper {
 				marcatge.updateIntervalAnterior(intervalAnterior);
 				long diferenciaSegons = diferenciaMilisegons / 1000;
 				marcatge.getEmbedded().setIntervalDuracio(new BigDecimal(diferenciaSegons));
+				marcatge.getEmbedded().setIntervalObert(false);
 				return null;
 			} else {
+				marcatge.updateIntervalAnterior(null);
+				marcatge.getEmbedded().setIntervalDuracio(null);
 				marcatge.getEmbedded().setIntervalObert(true);
 			}
 		}
@@ -490,7 +494,12 @@ public class MarcatgeHelper {
 	}
 
 	/*
-	- Consulta intervals:
+	-- Netejar intervals:
+	UPDATE
+		CECOCLOUD.TMAR_MARCATGE
+	SET INTERVAL_DURACIO = NULL, INTERVAL_ANTERIOR_ID = NULL, INTERVAL_OBERT = NULL;
+	
+	-- Consulta intervals:
 	SELECT 
 		CASE M.INTERVAL_OBERT WHEN 1 THEN M.DATA ELSE M2.DATA END DATA_INICI,
 		CASE M.INTERVAL_OBERT WHEN 1 THEN NULL ELSE M.DATA END DATA_FI,
@@ -508,19 +517,25 @@ public class MarcatgeHelper {
 	AND M.INTERVAL_ANTERIOR_ID = M2.ID(+)
 	ORDER BY
 		M.DATA ASC;
-
-	- Consulta id operari-empresa
+	
+	--Consulta id operari-empresa
 	SELECT
-	    OEM.ID
+		OEM.ID,
+		OPE.CODI,
+		USU.CODI,
+		USU.NOM,
+		USU.LLINATGES
 	FROM
-	    CECOCLOUD.OPERARI_EMPRESA OEM,
-	    CECOCLOUD.OPERARI OPE,
-	    CECOCLOUD.EMPRESA EMP,
-	    CECOCLOUD.IDENTIFICADOR IDE
+		CECOCLOUD.OPERARI_EMPRESA OEM,
+		CECOCLOUD.OPERARI OPE,
+		CECOCLOUD.EMPRESA EMP,
+		CECOCLOUD.IDENTIFICADOR IDE,
+		CECOCLOUD.USUARI USU
 	WHERE
-	    OEM.OPERARI_ID = OPE.ID
+		OEM.OPERARI_ID = OPE.ID
 	AND OEM.EMPRESA_ID = EMP.ID
 	AND EMP.IDENTIFICADOR_ID = IDE.ID
+	AND OPE.USUARI_ID = USU.ID
 	AND IDE.CODI = 'LIM' -- Limit
 	AND EMP.CODI = 'PRO2' -- Limit Tecnologies
 	AND OPE.CODI = '000001';

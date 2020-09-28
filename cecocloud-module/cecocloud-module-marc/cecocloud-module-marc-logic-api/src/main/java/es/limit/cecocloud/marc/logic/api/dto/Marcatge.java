@@ -97,6 +97,14 @@ public class Marcatge extends AbstractIdentificable<Long> {
 	private boolean foraLinia;
 	private boolean llocFeinaFora;
 	private boolean validat;
+	@RestapiField(
+			type = RestapiFieldType.DATETIME,
+			hiddenInGrid = true,
+			hiddenInForm = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private Date validatData;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

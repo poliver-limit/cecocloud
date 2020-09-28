@@ -3,9 +3,12 @@
  */
 package es.limit.cecocloud.marc.logic.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.limit.base.boot.logic.api.annotation.RestapiResourcePermission;
 import es.limit.base.boot.logic.helper.ConversionHelper;
 import es.limit.base.boot.logic.service.AbstractGenericServiceImpl;
 import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
@@ -42,13 +45,45 @@ public class MarcatgeServiceImpl extends AbstractGenericServiceImpl<Marcatge, Ma
 	}
 
 	@Override
+	protected void beforeCreate(MarcatgeEntity entity, Marcatge dto) {
+		// No es permet forçar la validesa del marcatge validat si l'usuari no és administrador
+		boolean hasAdminPermission = checkResourcePermission(RestapiResourcePermission.ADMIN);
+		if (!hasAdminPermission) {
+			dto.setValidat(false);
+			dto.setValidatData(null);
+		}
+	}
+	@Override
 	protected void afterCreate(MarcatgeEntity entity, Marcatge dto) {
-		marcatgeHelper.processarCanviMarcatges(entity, dto.getData(), true);
+		marcatgeHelper.processarCanviMarcatges(
+				entity,
+				dto.getData(),
+				true);
 	}
 
 	@Override
+	protected void beforeUpdate(MarcatgeEntity entity, Marcatge dto) {
+		boolean hasAdminPermission = checkResourcePermission(RestapiResourcePermission.ADMIN);
+		// No es permet validar el marcatge si:
+		//   a) L'usuari no és administrador
+		//   b) El marcatge ja era vàlid. Si permetem validar en aquest cas ens pot fer
+		//      desastres en la sincronització.
+		if (!hasAdminPermission || entity.getEmbedded().isValidat()) {
+			dto.setValidat(entity.getEmbedded().isValidat());
+			dto.setValidatData(entity.getEmbedded().getValidatData());
+		}
+		// Si es canvia el marcatge de no validat a validat posam la data actual com a
+		// la data de la validació.
+		if (!entity.getEmbedded().isValidat() && dto.isValidat()) {
+			dto.setValidatData(new Date());
+		}
+	}
+	@Override
 	protected void afterUpdate(MarcatgeEntity entity, Marcatge dto) {
-		marcatgeHelper.processarCanviMarcatges(entity, dto.getData(), false);
+		marcatgeHelper.processarCanviMarcatges(
+				entity,
+				dto.getData(),
+				false);
 	}
 
 }
