@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.limit.base.boot.logic.helper.AuthenticationHelper;
 import es.limit.cecocloud.marc.logic.api.dto.AcumulatInfo;
@@ -71,6 +72,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	private MarcatgeHelper marcatgeHelper;
 
 	@Override
+	@Transactional
 	public MarcatgeMobil create(MarcatgeMobil marcatgeMobil) {
 		if (marcatgeMobil.getIdentificadorCodi() != null && marcatgeMobil.getEmpresaCodi() != null) {
 			Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(
@@ -109,6 +111,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<MarcatgeMobil> find(MarcatgeMobilConsulta consulta) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(
 				consulta.getIdentificadorCodi());
@@ -131,6 +134,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<SincronitzacioEmpresa> empresesFindDisponiblesPerUsuariActual() {
 		List<EmpresaEntity> empreses = operariEmpresaRepository.findByOperariUsuariEmbeddedCodiAndEmpresaEmbeddedActivaTrue(
 				authenticationHelper.getPrincipalName());
@@ -159,6 +163,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public AcumulatInfo acumulatFind(AcumulatMobilConsulta consulta) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(
 				consulta.getIdentificadorCodi());
