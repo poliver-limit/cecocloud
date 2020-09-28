@@ -43,6 +43,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.foraLinia", column = @Column(name = "fora_linia")),
 	@AttributeOverride(name = "embedded.llocFeinaFora", column = @Column(name = "lloc_fora")),
 	@AttributeOverride(name = "embedded.validat", column = @Column(name = "validat")),
+	@AttributeOverride(name = "embedded.validatData", column = @Column(name = "validat_data")),
 	@AttributeOverride(name = "embedded.intervalDuracio", column = @Column(name = "interval_duracio", precision = 12, scale = 2)),
 	@AttributeOverride(name = "embedded.intervalObert", column = @Column(name = "interval_obert")),
 	@AttributeOverride(name = "embedded.acumulatAny", column = @Column(name = "acumulat_any", precision = 12, scale = 2)),

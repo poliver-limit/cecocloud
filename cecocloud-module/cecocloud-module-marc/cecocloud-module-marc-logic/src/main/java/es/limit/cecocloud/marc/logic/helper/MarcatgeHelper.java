@@ -174,6 +174,7 @@ public class MarcatgeHelper {
 			validat = false;
 		}
 		marcatgeEntity.getEmbedded().setValidat(validat);
+		marcatgeEntity.getEmbedded().setValidatData(new Date());
 	}
 
 	/**
@@ -317,8 +318,11 @@ public class MarcatgeHelper {
 				marcatge.updateIntervalAnterior(intervalAnterior);
 				long diferenciaSegons = diferenciaMilisegons / 1000;
 				marcatge.getEmbedded().setIntervalDuracio(new BigDecimal(diferenciaSegons));
+				marcatge.getEmbedded().setIntervalObert(false);
 				return null;
 			} else {
+				marcatge.updateIntervalAnterior(null);
+				marcatge.getEmbedded().setIntervalDuracio(null);
 				marcatge.getEmbedded().setIntervalObert(true);
 			}
 		}

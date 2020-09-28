@@ -356,3 +356,13 @@ databaseChangeLog:
             name: interval_obert
             type: BOOLEAN
         tableName: tmar_marcatge
+- changeSet:
+    id: 1600078637740-12
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: validat_data
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: tmar_marcatge
