@@ -80,20 +80,21 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("dataInici") Date dataInici,
 			@Param("dataCalculada") Date dataCalculada);
 
-	/*@Query(	"from" +
+	@Query(	"from" +
 			"    MarcatgeEntity m " +
 			"where " +
 			"    m.operariEmpresa = :operariEmpresa " +
 			"and m.embedded.data >= :dataInici " +
 			"and m.embedded.data <= :dataFi " +
 			"and m.embedded.validat = true " +
-			"and m.id <> :id " +
+			"and (:esNullId = true or m.id <> :id) " +
 			"order by " +
-			"    m.embedded.data asc")*/
-	List<MarcatgeEntity> findByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanEqualAndEmbeddedValidatTrueAndIdNotOrderByEmbeddedDataAsc(
+			"    m.embedded.data asc")
+	List<MarcatgeEntity> findByOperariEmpresaAndBetweenDatesExcludingIdOrderByEmbeddedDataAsc(
 			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
 			@Param("dataInici") Date dataInici,
 			@Param("dataFi") Date dataFi,
+			@Param("esNullId") boolean esNullId,
 			@Param("id") Long id);
 
 	@Modifying

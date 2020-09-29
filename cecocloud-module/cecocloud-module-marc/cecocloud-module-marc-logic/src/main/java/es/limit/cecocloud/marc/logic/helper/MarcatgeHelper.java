@@ -25,12 +25,14 @@ import es.limit.cecocloud.marc.persist.repository.LlocFeinaRepository;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
 import es.limit.cecocloud.persist.entity.OperariEmpresaEntity;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Funcionalitat comuna pels marcatges.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
+@Slf4j
 @Component
 public class MarcatgeHelper {
 
@@ -45,12 +47,16 @@ public class MarcatgeHelper {
 			MarcatgeEntity entity,
 			Date dataOriginal,
 			boolean calcularValidesa) {
+		log.debug("Processant canvis en el marcatge (" +
+				"entity=" + entity + ", " +
+				"dataOriginal=" + dataOriginal + ", " +
+				"calcularValidesa=" + calcularValidesa + ")");
 		OperariEmpresaEntity operariEmpresa = entity.getOperariEmpresa();
-		LlocFeinaEntity llocFeina = calcularForaLlocFeina(entity, operariEmpresa);
 		if (calcularValidesa) {
+			LlocFeinaEntity llocFeina = calcularForaLlocFeina(entity, operariEmpresa);
 			calcularValidesa(entity, operariEmpresa.getEmpresa());
+			entity.updateLlocFeina(llocFeina);
 		}
-		entity.updateLlocFeina(llocFeina);
 		recalcularIntervals(
 				dataOriginal,
 				entity,
@@ -118,6 +124,7 @@ public class MarcatgeHelper {
 	private LlocFeinaEntity calcularForaLlocFeina(
 			MarcatgeEntity marcatgeEntity,
 			OperariEmpresaEntity operariEmpresa) {
+		log.debug("Cercant lloc de feina pel marcatge (marcatgeEntity=" + marcatgeEntity + ")");
 		Marcatge marcatge = marcatgeEntity.getEmbedded();
 		Set<LlocFeinaEntity> llocsFeina = llocFeinaRepository.findByOperariEmpresa(operariEmpresa);
 		boolean llocFeinaFora;
@@ -125,9 +132,14 @@ public class MarcatgeHelper {
 		if (llocsFeina != null && !llocsFeina.isEmpty()) {
 			llocFeina = llocFeinaAmbAdressaIp(marcatge.getAdressaIp(), operariEmpresa);
 			if (llocFeina != null) {
+				log.debug("Marcatge considerat dins el lloc de feina " +
+						"per coincidència de l'adreça IP (" +
+						"adressaIp=" + marcatge.getAdressaIp() + ", " +
+						"llocFeina=" + llocFeina + ", " +
+						"marcatgeEntity=" + marcatgeEntity + ")");
 				llocFeinaFora = false;
 			} else if (marcatge.getLatitud() != null && marcatge.getLongitud() != null) {
-				llocFeina = llocFeinaAmbPosicio(marcatge, operariEmpresa);
+				llocFeina = llocFeinaAmbPosicioMesPropera(marcatge, operariEmpresa);
 				double distanciaMaxima = llocFeina.getEmbedded().getDistanciaMaxima();
 				double distancia = distanciaLatitudLongitud(
 						marcatge.getLatitud().doubleValue(),
@@ -137,10 +149,26 @@ public class MarcatgeHelper {
 						llocFeina.getEmbedded().getLongitud().doubleValue(),
 						0);
 				llocFeinaFora = distancia > distanciaMaxima;
+				if (llocFeinaFora) {
+					log.debug("Marcatge considerat fora del lloc de feina més proper (" +
+							"llocFeina=" + llocFeina + ", " +
+							"distancia=" + distancia + ", " +
+							"distanciaMaxima=" + distanciaMaxima + ", " +
+							"marcatgeEntity=" + marcatgeEntity + ")");
+				} else {
+					log.debug("Marcatge considerat a dins el lloc de feina més proper (" +
+							"llocFeina=" + llocFeina + ", " +
+							"distancia=" + distancia + ", " +
+							"distanciaMaxima=" + distanciaMaxima + ", " +
+							"marcatgeEntity=" + marcatgeEntity + ")");
+				}
 			} else {
 				llocFeinaFora = true;
 			}
 		} else {
+			log.debug("Marcatge considerat dins el lloc de feina " +
+					"perquè l'operari no te llocs de feina assignats (" +
+					"marcatgeEntity=" + marcatgeEntity + ")");
 			llocFeinaFora = false;
 		}
 		marcatge.setLlocFeinaFora(llocFeinaFora);
@@ -161,20 +189,33 @@ public class MarcatgeHelper {
 			EmpresaEntity empresa) {
 		Optional<ConfiguracioEntity> configuracioEntity = configuracioRepository.findByEmpresa(empresa);
 		Configuracio configuracio = configuracioEntity.isPresent() ? configuracioEntity.get().getEmbedded() : null;
-		// Valida el marcatge si la configuració te habilitada la validació automàtica de marcatges fora de línia
-		boolean validat = true;
+		// Mira si el marcatge és invàlid per fora de línia
+		boolean invalidForaLinia = false;
 		if (marcatgeEntity.getEmbedded().isForaLinia()) {
-			validat = false;
+			invalidForaLinia = true;
+			// Si la configuració te habilitada la validació automàtica de marcatges fora de línia
+			// aleshores el marcatge és vàlid maldament sigui fora de línia.
 			if (configuracio != null && configuracio.getValidacioOfflineAutomatica() != null && configuracio.getValidacioOfflineAutomatica()) {
-				validat = true;
+				invalidForaLinia = false;
 			}
 		}
-		// Els marcatges fets fora del lloc de feina es consideren no vàlids 
-		if (marcatgeEntity.getEmbedded().isLlocFeinaFora()) {
-			validat = false;
+		// Mira si el marcatge és invàlid per fora del lloc de feina
+		boolean invalidForaLlocFeina = marcatgeEntity.getEmbedded().isLlocFeinaFora();
+		// Per a que el marcatge sigui vàlid no ha de ser fora de línia ni fora del lloc
+		// de feina.
+		boolean validat = !invalidForaLinia && !invalidForaLlocFeina;
+		if (validat) {
+			log.debug("Marcatge considerat vàlid (marcatgeEntity=" + marcatgeEntity + ")");
+		} else {
+			log.debug("Marcatge considerat invàlid (" +
+					"marcatgeEntity=" + marcatgeEntity + ", " +
+					"invalidForaLinia=" + invalidForaLinia + ", " +
+					"invalidForaLlocFeina=" + invalidForaLlocFeina + ")");
 		}
 		marcatgeEntity.getEmbedded().setValidat(validat);
-		marcatgeEntity.getEmbedded().setValidatData(new Date());
+		if (validat) {
+			marcatgeEntity.getEmbedded().setValidatData(new Date());
+		}
 	}
 
 	/**
@@ -196,13 +237,16 @@ public class MarcatgeHelper {
 			OperariEmpresaEntity operariEmpresa) {
 		// Només recalcula els intervals si el marcatge modificat és vàlid.
 		if (marcatgeModificat.getEmbedded().isValidat()) {
+			Date marcatgeModificatData = marcatgeModificat.getEmbedded().getData();
+			log.debug("Recalculant intervals canvis en el marcatge (" +
+					"marcatgeModificat=" + marcatgeModificatData + ", " +
+					"operariEmpresa=" + operariEmpresa + ", " +
+					"dataOriginal=" + dataOriginal + ")");
 			Optional<ConfiguracioEntity> configuracioEntity = configuracioRepository.findByEmpresa(operariEmpresa.getEmpresa());
 			Configuracio configuracio = configuracioEntity.isPresent() ? configuracioEntity.get().getEmbedded() : null;
 			Integer maxDistanciaInterval = configuracio != null ? configuracio.getMaxDistanciaInterval() : null;
-			Date marcatgeModificatData = marcatgeModificat.getEmbedded().getData();
 			Date dataIniciAny = getCalendarDataInici(marcatgeModificatData, true).getTime();
 			Date dataFiAny = getCalendarDataFi(marcatgeModificatData, true).getTime();
-			Date dataCalculada = dataOriginal.before(marcatgeModificatData) ? dataOriginal : marcatgeModificatData;
 			MarcatgeEntity darrerMarcatgeAnyActual = getDarrerMarcatgeValidAnyActual(
 					operariEmpresa,
 					false);
@@ -210,32 +254,46 @@ public class MarcatgeHelper {
 				// 1.- Cercam el marcatge just anterior al marcatge del qual hem de recalcular
 				// pista: select marcatges where data < dataCalculada order by data desc limit 1;
 				// a on dataCalculada = min(dataOriginal, marcatgeModificat.data);
-				if (	darrerMarcatgeAnyActual.getEmbedded().getAcumulatAny() == null && 
-						darrerMarcatgeAnyActual.getEmbedded().getAcumulatMes() == null && 
-						darrerMarcatgeAnyActual.getEmbedded().getAcumulatDia() == null) {
-					// Si l'any actual no te cap interval calculat posa el valor de la data
-					// calculada a l'inici de l'any per a forçar el càlcul de tots els
-					// intervals de l'any del marcatge.
+				Date dataCalculada = dataOriginal.before(marcatgeModificatData) ? dataOriginal : marcatgeModificatData;
+				BigDecimal acumulatAny = marcatgeRepository.acumulatEntreDates(
+						operariEmpresa,
+						dataIniciAny,
+						dataFiAny);
+				// Si l'any actual no te cap interval calculat posa el valor de la data
+				// calculada a l'inici de l'any per a forçar el càlcul de tots els
+				// intervals de l'any del marcatge.
+				if (acumulatAny == null || acumulatAny.intValue() == 0) {
 					dataCalculada = dataIniciAny;
 				}
 				MarcatgeEntity marcatgeAnterior = marcatgeRepository.findFirstByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
 						operariEmpresa,
 						dataIniciAny,
 						dataCalculada);
+				log.debug("Marcatge anterior en l'any actual (" +
+						"marcatgeModificat=" + marcatgeModificatData + ", " +
+						"operariEmpresa=" + operariEmpresa + ", " +
+						"marcatgeAnterior=" + marcatgeAnterior + ")");
 				// 2.- Obtenim la llista de marcatges amb data entre marcatgeAnterior.data i dataFiAny
 				// eliminant el marcatgeModificat.
 				// pista: select marcatges where data >= marcatgeAnterior.data and validat = true and id<>marcatgeModificat.id order by data asc;
 				// El marcatge modificat s'ha d'eliminar perquè la consulta retornarà
 				// el marcatge que hi ha a la base de dades i no el modificat i això
 				// trastocaria el càlcul d'intervals.
-				List<MarcatgeEntity> marcatges = marcatgeRepository.findByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanEqualAndEmbeddedValidatTrueAndIdNotOrderByEmbeddedDataAsc(
+				List<MarcatgeEntity> marcatges = marcatgeRepository.findByOperariEmpresaAndBetweenDatesExcludingIdOrderByEmbeddedDataAsc(
 						operariEmpresa,
 						dataCalculada,
 						dataFiAny,
+						marcatgeModificat.getId() == null,
 						marcatgeModificat.getId());
 				// 3.- Recórrer els marcatges recalculant els intervals
 				MarcatgeEntity intervalAnterior = (marcatgeAnterior != null && marcatgeAnterior.getIntervalAnterior() == null) ? marcatgeAnterior : null;
 				if (!marcatges.isEmpty()) {
+					log.debug("Recalculant intervals dels marcatges entre dates (" +
+							"marcatgeModificat=" + marcatgeModificatData + ", " +
+							"operariEmpresa=" + operariEmpresa + ", " +
+							"dataInici=" + dataCalculada + ", " +
+							"dataFi=" + dataFiAny + ", " +
+							"count=" + marcatges.size() + ")");
 					boolean marcatgeModificatProcessat = false;
 					for (MarcatgeEntity marcatge: marcatges) {
 						// Revisam el lloc en la llista de marcatges a on aniria el marcatgeModificat
@@ -266,14 +324,23 @@ public class MarcatgeHelper {
 						}
 					}
 				} else {
+					log.debug("No s'han trobat marcatges en l'interval, recalculant només l'interval del marcatge actual (" +
+							"marcatgeModificat=" + marcatgeModificatData + ", " +
+							"operariEmpresa=" + operariEmpresa + ", " +
+							"dataInici=" + dataCalculada + ", " +
+							"dataFi=" + dataFiAny + ", " +
+							"count=" + marcatges.size() + ")");
 					if (dataEntreMarcatges(marcatgeModificatData, intervalAnterior, marcatgeModificat)) {
-						intervalAnterior = recalcularIntervalRetornantIntervalAnterior(
+						recalcularIntervalRetornantIntervalAnterior(
 								intervalAnterior,
 								marcatgeModificat,
 								maxDistanciaInterval);
 					}
 				}
 			} else {
+				log.debug("Detectat primer marcatge de l'any actual, no recalculam cap interval (" +
+						"marcatgeModificat=" + marcatgeModificatData + ", " +
+						"operariEmpresa=" + operariEmpresa + ")");
 				// TODO tractar el primer marcatge de l'any.
 				// Per a que tot quadri l'any anterior ha d'acabar amb un
 				// interval tancat. Si l'any anterior acaba amb un marcatge
@@ -304,27 +371,45 @@ public class MarcatgeHelper {
 	}
 
 	private MarcatgeEntity recalcularIntervalRetornantIntervalAnterior(
-			MarcatgeEntity intervalAnterior,
+			MarcatgeEntity marcatgeIntervalAnterior,
 			MarcatgeEntity marcatge,
 			Integer maxDistanciaInterval) {
-		if (intervalAnterior != null) {
+		Date marcatgeData = marcatge.getEmbedded().getData();
+		Date intervalAnteriorData = (marcatgeIntervalAnterior != null) ? marcatgeIntervalAnterior.getEmbedded().getData() : null;
+		log.debug("Revisant interval pel marcatge (" +
+				"marcatgeIntervalAnterior=" + intervalAnteriorData + ", " +
+				"marcatge=" + marcatgeData + ", " +
+				"maxDistanciaInterval=" + maxDistanciaInterval + ")");
+		if (marcatgeIntervalAnterior != null) {
 			boolean diferenciaMassaGrossa = false;
-			long diferenciaMilisegons = Math.abs(marcatge.getEmbedded().getData().getTime() - intervalAnterior.getEmbedded().getData().getTime());
+			long diferenciaMilisegons = Math.abs(marcatgeData.getTime() - intervalAnteriorData.getTime());
 			if (maxDistanciaInterval != null) {
 				double diferenciaMinuts = diferenciaMilisegons / (double)60000;
 				diferenciaMassaGrossa = diferenciaMinuts > (double)maxDistanciaInterval;
 			}
 			if (!diferenciaMassaGrossa) {
-				marcatge.updateIntervalAnterior(intervalAnterior);
+				marcatge.updateIntervalAnterior(marcatgeIntervalAnterior);
 				long diferenciaSegons = diferenciaMilisegons / 1000;
 				marcatge.getEmbedded().setIntervalDuracio(new BigDecimal(diferenciaSegons));
 				marcatge.getEmbedded().setIntervalObert(false);
+				log.debug("Nou interval tancat (" +
+						"marcatgeIntervalAnterior=" + intervalAnteriorData + ", " +
+						"marcatge=" + marcatgeData + ", " +
+						"diferenciaSegons=" + diferenciaSegons + ")");
 				return null;
 			} else {
+				marcatgeIntervalAnterior.getEmbedded().setIntervalDuracio(null);
+				marcatgeIntervalAnterior.getEmbedded().setIntervalObert(true);
 				marcatge.updateIntervalAnterior(null);
 				marcatge.getEmbedded().setIntervalDuracio(null);
-				marcatge.getEmbedded().setIntervalObert(true);
+				marcatge.getEmbedded().setIntervalObert(false);
+				log.debug("Nou interval obert (" +
+						"marcatgeIntervalAnterior=" + intervalAnteriorData + ")");
 			}
+		} else {
+			marcatge.updateIntervalAnterior(null);
+			marcatge.getEmbedded().setIntervalDuracio(null);
+			marcatge.getEmbedded().setIntervalObert(false);
 		}
 		return marcatge;
 	}
@@ -335,7 +420,7 @@ public class MarcatgeHelper {
 	 * @param operariEmpresa la informació de l'operari-empresa.
 	 */
 	private void recalcularAcumulatsAnyActual(OperariEmpresaEntity operariEmpresa) {
-		MarcatgeEntity darrerMarcatgeAnyActual = getDarrerMarcatgeValidAnyActual(
+		/*MarcatgeEntity darrerMarcatgeAnyActual = getDarrerMarcatgeValidAnyActual(
 				operariEmpresa,
 				true);
 		AcumulatInfo acumulatInfo = getAcumulatsEnData(
@@ -346,7 +431,7 @@ public class MarcatgeHelper {
 		darrerMarcatgeAnyActual.getEmbedded().setAcumulatMes(
 				acumulatInfo.getAcumulatMes());
 		darrerMarcatgeAnyActual.getEmbedded().setAcumulatDia(
-				acumulatInfo.getAcumulatDia());
+				acumulatInfo.getAcumulatDia());*/
 	}
 
 	private LlocFeinaEntity llocFeinaAmbAdressaIp(
@@ -383,7 +468,7 @@ public class MarcatgeHelper {
 	 * @param operariEmpresa la informació de l'operari-empresa.
 	 * @return el lloc de feina més a prop o null si no n'hi ha cap de definit.
 	 */
-	private LlocFeinaEntity llocFeinaAmbPosicio(
+	private LlocFeinaEntity llocFeinaAmbPosicioMesPropera(
 			Marcatge marcatge,
 			OperariEmpresaEntity operariEmpresa) {
 		LlocFeinaEntity llocFeinaMesAprop = null;
