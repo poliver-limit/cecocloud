@@ -82,7 +82,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 					marcatgeMobil.getEmpresaCodi());
 			OperariEmpresaEntity operariEmpresa = getOperariEmpresaPerMarcatge(empresa.get());
 			log.info("Rebut marcatge de l'app mòbil (" +
-					"operari=" + operariEmpresa.getEmbedded().getDescription() + ", " +
+					"operariEmpresa=" + operariEmpresa.getEmbedded() + ", " +
 					"data=" + marcatgeMobil.getData() + ", " +
 					"dataActual=" + new Date() + ")");
 			Marcatge marcatge = new Marcatge();

@@ -366,3 +366,13 @@ databaseChangeLog:
             name: validat_data
             type: TIMESTAMP WITHOUT TIME ZONE
         tableName: tmar_marcatge
+- changeSet:
+    id: 1600078637740-13
+    author: josepg
+    changes:
+    - dropNotNullConstraint:
+        columnName: latitud
+        tableName: tmar_lloc_feina
+    - dropNotNullConstraint:
+        columnName: longitud
+        tableName: tmar_lloc_feina
