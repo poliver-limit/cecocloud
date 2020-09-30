@@ -9,13 +9,15 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { AltresAplicacionsGridComponent } from './altresAplicacions-grid.component';
 import { AltresAplicacionsFormComponent } from './altresAplicacions-form.component';
 import { AltresAplicacionsService } from './altresAplicacions.service';
+import { TransportistesFormModule } from '../transportistes/transportistes-form.module';
 
 @NgModule( {
     imports: [
         CommonModule,
 		TranslateModule,
 		BngModule,
-		MaterialModule,
+        MaterialModule,
+        TransportistesFormModule,
         RouterModule.forChild( [
             { path: '', component: AltresAplicacionsGridComponent },
             { path: 'create', component: AltresAplicacionsFormComponent, canDeactivate: [BngFormExitGuard] },

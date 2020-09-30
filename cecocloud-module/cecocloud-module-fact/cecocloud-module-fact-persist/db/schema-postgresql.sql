@@ -173,6 +173,21 @@ create table tges_aap (
         cce_cteven varchar(10),
         primary key (cce_cli_cod, cce_emp_cod, cce_idf_cod)
     );
+    
+    create table tges_cfg (
+       cfg_cod varchar(22) not null,
+        cfg_idf_cod varchar(4) not null,
+        cfg_usucre varchar(255),
+        cfg_datcre timestamp,
+        cfg_usumod varchar(255),
+        cfg_datmod timestamp,
+        cfg_cls varchar(1),
+        cfg_des varchar(30) not null,
+        cfg_nom varchar(30) not null,
+        cfg_subtip varchar(30),
+        cfg_tip varchar(2) not null,
+        primary key (cfg_cod, cfg_idf_cod)
+    );
 
     create table tges_cli (
        cli_cod varchar(6) not null,
@@ -494,6 +509,17 @@ create table tges_aap (
         dpg_rgi_cod varchar(255),
         primary key (dpg_cod, dpg_idf_cod)
     );
+    
+    create table tges_emg (
+       emg_emp_cod varchar(4) not null,
+        emg_gru_cod varchar(4) not null,
+        emg_idf_cod varchar(4) not null,
+        emg_usucre varchar(255),
+        emg_datcre timestamp,
+        emg_usumod varchar(255),
+        emg_datmod timestamp,
+        primary key (emg_emp_cod, emg_gru_cod, emg_idf_cod)
+    );
 
     create table tges_emp (
        emp_cod varchar(4) not null,
@@ -648,6 +674,17 @@ create table tges_aap (
         gma_des varchar(30) not null,
         primary key (gma_cod, gma_idf_cod)
     );
+    
+    create table tges_gre (
+       gre_emp_cod varchar(4) not null,
+        gre_grp_cod varchar(4) not null,
+        gre_idf_cod varchar(4) not null,
+        gre_usucre varchar(255),
+        gre_datcre timestamp,
+        gre_usumod varchar(255),
+        gre_datmod timestamp,
+        primary key (gre_emp_cod, gre_grp_cod, gre_idf_cod)
+    );
 
     create table tges_grp (
        grp_cod varchar(4) not null,
@@ -724,6 +761,23 @@ create table tges_aap (
         iva_req numeric(19, 2) not null,
         iva_txt varchar(6),
         primary key (iva_cod, iva_idf_cod)
+    );
+    
+    create table tges_lff (
+       lff_ffa_cod varchar(4) not null,
+        lff_ord numeric(19, 2) not null,
+        lff_idf_cod varchar(4) not null,
+        lff_usucre varchar(255),
+        lff_datcre timestamp,
+        lff_usumod varchar(255),
+        lff_datmod timestamp,
+        lff_apltot varchar(1) not null,
+        lff_cncfac varchar(1),
+        lff_fml varchar(255),
+        lff_impfac varchar(1),
+        lff_prn varchar(1) not null,
+        lff_nom varchar(60) not null,
+        primary key (lff_ffa_cod, lff_ord, lff_idf_cod)
     );
 
     create table tges_mag (
@@ -889,6 +943,21 @@ create table tges_aap (
         pas_nif varchar(2),
         pas_nom varchar(30) not null,
         primary key (pas_cod, pas_idf_cod)
+    );
+    
+    create table tges_pbu (
+       pbu_gma_cod varchar(4) not null,
+        pbu_tra_cod varchar(15) not null,
+        pbu_idf_cod varchar(4) not null,
+        pbu_usucre varchar(255),
+        pbu_datcre timestamp,
+        pbu_usumod varchar(255),
+        pbu_datmod timestamp,
+        pbu_pru001 numeric(17, 5),
+        pbu_pru002 numeric(17, 5),
+        pbu_pru003 numeric(17, 5),
+        pbu_pru004 numeric(17, 5),
+        primary key (pbu_gma_cod, pbu_tra_cod, pbu_idf_cod)
     );
 
     create table tges_pda (
@@ -1614,6 +1683,17 @@ create table tges_aap (
         ubi_des varchar(30),
         primary key (ubi_mag_cod, ubi_cod, ubi_idf_cod)
     );
+    
+    create table tges_usg (
+       usg_gru_cod varchar(4) not null,
+        usg_usu_cod varchar(30) not null,
+        usg_idf_cod varchar(4) not null,
+        usg_usucre varchar(255),
+        usg_datcre timestamp,
+        usg_usumod varchar(255),
+        usg_datmod timestamp,
+        primary key (usg_gru_cod, usg_usu_cod, usg_idf_cod)
+    );
 
     create table tges_vpp (
        vpp_emp_cod varchar(4) not null,
@@ -1657,6 +1737,7 @@ create index iges_cap_emp_fk on tges_cap (cap_idf_cod, cap_emp_cod);
 create index iges_cap_pre_fk on tges_cap (cap_idf_cod, cap_emp_cod, cap_pre_cod);
 create index iges_cbc_idf_fk on tges_cbc (cbc_idf_cod);
 create index iges_cce_idf_fk on tges_cce (cce_idf_cod);
+create index iges_cfg_idf_fk on tges_cfg (cfg_idf_cod);
 create index iges_cli_idf_fk on tges_cli (cli_idf_cod);
 
     alter table tges_clm 
@@ -1683,6 +1764,7 @@ create index iges_dpc_idf_fk on tges_dpc (dpc_idf_cod);
     alter table tges_dpc 
        add constraint irges_dpc_pk unique (dpc_idf_cod, dpc_cod);
 create index iges_dpg_idf_fk on tges_dpg (dpg_idf_cod);
+create index iges_emg_idf_fk on tges_emg (emg_idf_cod);
 create index iges_emp_idf_fk on tges_emp (emp_idf_cod);
 create index iges_fae_idf_fk on tges_fae (fae_idf_cod);
 
@@ -1694,6 +1776,7 @@ create index iges_ffa_idf_fk on tges_ffa (ffa_idf_cod);
 create index iges_fmc_idf_fk on tges_fmc (fmc_idf_cod);
 create index iges_fpr_idf_fk on tges_fpr (fpr_idf_cod);
 create index iges_gma_idf_fk on tges_gma (gma_idf_cod);
+create index iges_gre_idf_fk on tges_gre (gre_idf_cod);
 create index iges_grp_idf_fk on tges_grp (grp_idf_cod);
 create index iges_gru_idf_fk on tges_gru (gru_idf_cod);
 create index iges_hop_emp_fk on tges_hop (hop_idf_cod, hop_emp_cod);
@@ -1701,6 +1784,7 @@ create index iges_hop_prj_fk on tges_hop (hop_idf_cod, hop_prj_num);
 create index iges_hop_ope_fk on tges_hop (hop_idf_cod, hop_ope_cod);
 create index iges_idi_idf_fk on tges_idi (idi_idf_cod);
 create index iges_iva_idf_fk on tges_iva (iva_idf_cod);
+create index iges_lff_idf_fk on tges_lff (lff_idf_cod);
 create index iges_mag_idf_fk on tges_mag (mag_idf_cod);
 create index iges_man_idf_fk on tges_man (man_idf_cod);
 create index iges_mca_idf_fk on tges_mca (mca_idf_cod);
@@ -1713,6 +1797,7 @@ create index iges_ofb_idf_fk on tges_ofb (ofb_idf_cod);
 create index iges_org_idf_fk on tges_org (org_idf_cod);
 create index iges_par_idf_fk on tges_par (par_idf_cod);
 create index iges_pas_idf_fk on tges_pas (pas_idf_cod);
+create index iges_pbu_idf_fk on tges_pbu (pbu_idf_cod);
 create index iges_pda_emp_fk on tges_pda (pda_idf_cod, pda_emp_cod);
 create index iges_pda_pre_fk on tges_pda (pda_idf_cod, pda_emp_cod, pda_pre_cod);
 create index iges_pda_cap_fk on tges_pda (pda_idf_cod, pda_emp_cod, pda_pre_cod, pda_cap_cod);
@@ -1793,6 +1878,7 @@ create index iges_uba_idf_fk on tges_uba (uba_idf_cod);
     alter table tges_uba 
        add constraint irges_uba_pk unique (uba_idf_cod);
 create index iges_ubi_idf_fk on tges_ubi (ubi_idf_cod);
+create index iges_usg_idf_fk on tges_usg (usg_idf_cod);
 
     alter table tges_ubi 
        add constraint irges_ubi_pk unique (ubi_idf_cod, ubi_cod);
@@ -2189,6 +2275,16 @@ alter table tges_aap
        add constraint rges_dpg_rgi_fk 
        foreign key (dpg_rgi_cod, dpg_idf_cod) 
        references tges_rgi;
+       
+    alter table tges_emg 
+       add constraint rges_emg_emp_fk 
+       foreign key (emg_emp_cod, emg_idf_cod) 
+       references tges_emp;
+
+    alter table tges_emg 
+       add constraint rges_emg_gru_fk 
+       foreign key (emg_gru_cod, emg_idf_cod) 
+       references tges_gru;
 
     alter table tges_emp 
        add constraint rges_emp_cpo_fk 
@@ -2239,6 +2335,16 @@ alter table tges_aap
        add constraint fmc_tri_cod_fk 
        foreign key (fmc_tri_cod, fmc_idf_cod) 
        references tges_tri;
+       
+    alter table tges_gre 
+       add constraint rges_gre_emp_fk 
+       foreign key (gre_emp_cod, gre_idf_cod) 
+       references tges_emp;
+
+    alter table tges_gre 
+       add constraint rges_gre_gru_fk 
+       foreign key (gre_grp_cod, gre_idf_cod) 
+       references tges_grp;
 
     alter table tges_hop 
        add constraint rges_hop_emp_fk 
@@ -2254,6 +2360,11 @@ alter table tges_aap
        add constraint rges_hop_prj_fk 
        foreign key (hop_emp_cod, hop_prj_num, hop_idf_cod) 
        references tges_prj;
+       
+    alter table tges_lff 
+       add constraint rges_lff_ffa_fk 
+       foreign key (lff_ffa_cod, lff_idf_cod) 
+       references tges_ffa;
 
     alter table tges_mag 
        add constraint rges_mag_cpo_fk 
@@ -2294,6 +2405,16 @@ alter table tges_aap
        add constraint rges_pas_idf_fk 
        foreign key (pas_idf_cod) 
        references trhu_idf;
+       
+    alter table tges_pbu 
+       add constraint rges_pbu_gma_fk 
+       foreign key (pbu_gma_cod, pbu_idf_cod) 
+       references tges_gma;
+
+    alter table tges_pbu 
+       add constraint rges_pbu_tra_fk 
+       foreign key (pbu_tra_cod, pbu_idf_cod) 
+       references tges_tra;
 
     alter table tges_pda 
        add constraint rges_pda_cap_fk 
@@ -2804,6 +2925,11 @@ alter table tges_aap
        add constraint rges_ubi_mag_fk 
        foreign key (ubi_mag_cod, ubi_idf_cod) 
        references tges_mag;
+       
+    alter table tges_usg 
+       add constraint rges_usg_gru_fk 
+       foreign key (usg_gru_cod, usg_idf_cod) 
+       references tges_gru;
 
     alter table tges_vpp 
        add constraint rges_vpp_emp_fk 

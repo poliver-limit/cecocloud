@@ -44,6 +44,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "id.codi", column = @Column(name = "gma_cod", length = 4)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "gma_cod", length = 4, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "gma_des", length = 30, nullable = false)),
+	@AttributeOverride(name = "embedded.prupes", column = @Column(name = "gma_prupes", length = 22, precision = 8, scale = 4)),
 	@AttributeOverride(name = "createdBy", column = @Column(name = "gma_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "gma_datcre")),
 	@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "gma_usumod")),
