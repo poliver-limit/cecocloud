@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormBaseComponent } from 'base-angular';
 
 import { PreusPerZonaService } from './preusPerZona.service';
+import { ZonesFormComponent } from '../zones/zones-form.component'
+import { TransportistesFormComponent } from '../transportistes/transportistes-form.component'
 
 @Component( {
     template: `
@@ -11,12 +14,17 @@ import { PreusPerZonaService } from './preusPerZona.service';
         [restapiService]="preusPerZonaService"></bng-form>
 `
 } )
-export class PreusPerZonaFormComponent {
+export class PreusPerZonaFormComponent extends BngFormBaseComponent{
 
-    formConfig: BngFormConfig = {
-    }
 
     constructor(
-        public preusPerZonaService: PreusPerZonaService ) { }
+		activatedRoute: ActivatedRoute,
+        public preusPerZonaService: PreusPerZonaService) {
+		super(activatedRoute);
+		this.setConfigExternalFormComponents([
+            { resourceName: 'zona', component: ZonesFormComponent },
+            { resourceName: 'transportista', component: TransportistesFormComponent }
+		]);
+	}
 
 }

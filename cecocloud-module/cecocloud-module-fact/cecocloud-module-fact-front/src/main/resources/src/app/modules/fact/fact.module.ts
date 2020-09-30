@@ -100,6 +100,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/codisPostal/codisPostal.module').then(m => m.CodisPostalModule)
 
 			}, {
+				path: 'configuracionsImpressos',
+				loadChildren: () => import('./pages/configuracionsImpressos/configuracionsImpressos.module').then(m => m.ConfiguracionsImpressosModule)
+
+			}, {
 				path: 'departaments',
 				loadChildren: () => import('./pages/departaments/departaments.module').then(m => m.DepartamentsModule)
 
@@ -118,6 +122,14 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'empreses',
 				loadChildren: () => import('./pages/empresesFact/empresesFact.module').then(m => m.EmpresesFactModule)
+
+			}, {
+				path: 'empresesGrup',
+				loadChildren: () => import('./pages/empresesGrup/empresesGrup.module').then(m => m.EmpresesGrupModule)
+
+			}, {
+				path: 'empresesGrupEmpreses',
+				loadChildren: () => import('./pages/empresesGrupEmpreses/empresesGrupEmpreses.module').then(m => m.EmpresesGrupEmpresesModule)
 
 			}, {
 				path: 'familiesClient',
@@ -154,6 +166,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'ives',
 				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule)
+
+			}, {
+				path: 'liniesFullFeina',
+				loadChildren: () => import('./pages/liniesFullFeina/liniesFullFeina.module').then(m => m.LiniesFullFeinaModule)
 
 			}, {
 				path: 'magatzems',
@@ -198,6 +214,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: 'pressupostos',
 				loadChildren: () => import('./pages/pressupostos/pressupostos.module').then(m => m.PressupostosModule)
 
+			}, {
+				path: 'preusPerGamma',
+				loadChildren: () => import('./pages/preusPerGamma/preusPerGamma.module').then(m => m.PreusPerGammaModule)
+				
 			}, {
 				path: 'preusPerZona',
 				loadChildren: () => import('./pages/preusPerZona/preusPerZona.module').then(m => m.PreusPerZonaModule)
@@ -344,6 +364,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'unitatsTipus',
 				loadChildren: () => import('./pages/unitatsTipus/unitatsTipus.module').then(m => m.UnitatsTipusModule)
+
+			}, {
+				path: 'usuarisGrup',
+				loadChildren: () => import('./pages/usuarisGrup/usuarisGrup.module').then(m => m.UsuarisGrupModule)
 
 			}, {
 				path: 'vehicles',
@@ -611,10 +635,28 @@ export class FactModule {
 									resource: 'FAC_ALTAPL'
 								}, {
 									icon: 'room',
+									label: 'Configuracions de impressos',
+									labelKey: 'app.menu.fact.configuracionsImpressos',
+									route: '/fact/configuracionsImpressos',
+									resource: 'FAC_CONIMP'
+								}, {
+									icon: 'room',
 									label: 'Empreses (Facturació)',
 									labelKey: 'app.menu.fact.empreses',
 									route: '/fact/empreses',
 									resource: 'FAC_EMPRES'
+								}, {
+									icon: 'room',
+									label: 'Empreses del grup',
+									labelKey: 'app.menu.fact.empresesGrup',
+									route: '/fact/empresesGrup',
+									resource: 'FAC_EMPGRU'
+								}, {
+									icon: 'room',
+									label: 'Empreses del grup de empreses',
+									labelKey: 'app.menu.fact.empresesGrupEmpreses',
+									route: '/fact/empresesGrupEmpreses',
+									resource: 'FAC_EMPGRUEMP'
 								}, {
 									icon: 'room',
 									label: 'Departaments',
@@ -629,6 +671,12 @@ export class FactModule {
 									resource: 'FAC_GRO'
 								}, {
 									icon: 'room',
+									label: 'Linies full feina',
+									labelKey: 'app.menu.fact.liniesFullFeina',
+									route: '/fact/liniesFullFeina',
+									resource: 'FAC_LIFUFE'
+								}, {
+									icon: 'room',
 									label: 'Parameters',
 									labelKey: 'app.menu.fact.parameters',
 									route: '/fact/parameters',
@@ -639,6 +687,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.paisos',
 									route: '/fact/paisos',
 									resource: 'FAC_PAIS'
+								}, {
+									icon: 'room',
+									label: 'Preus per gamma',
+									labelKey: 'app.menu.fact.preusPerGamma',
+									route: '/fact/preusPerGamma',
+									resource: 'FAC_PREGMA'
 								}, {
 									icon: 'room',
 									label: 'Preus per zona',
@@ -705,6 +759,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.transportistes',
 									route: '/fact/transportistes',
 									resource: 'FAC_TRANSP'
+								}, {
+									icon: 'room',
+									label: 'Usuaris del grup',
+									labelKey: 'app.menu.fact.usuarisGrup',
+									route: '/fact/usuarisGrup',
+									resource: 'FAC_USUGRU'
 								}, {
 									icon: 'room',
 									label: 'Vehicles',

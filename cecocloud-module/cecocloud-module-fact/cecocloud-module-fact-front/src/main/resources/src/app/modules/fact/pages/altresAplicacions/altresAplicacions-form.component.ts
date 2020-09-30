@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { BngFormConfig } from 'base-angular';
+import { ActivatedRoute } from '@angular/router';
+import { BngFormBaseComponent } from 'base-angular';
 
 import { AltresAplicacionsService } from './altresAplicacions.service';
+import { TransportistesFormComponent } from '../transportistes/transportistes-form.component'
 
 @Component( {
     template: `
@@ -11,12 +13,14 @@ import { AltresAplicacionsService } from './altresAplicacions.service';
         [restapiService]="altresAplicacionsService"></bng-form>
 `
 } )
-export class AltresAplicacionsFormComponent {
-
-    formConfig: BngFormConfig = {
-    }
+export class AltresAplicacionsFormComponent extends BngFormBaseComponent{
 
     constructor(
-        public altresAplicacionsService: AltresAplicacionsService ) { }
+        activatedRoute: ActivatedRoute,
+        public altresAplicacionsService: AltresAplicacionsService ) { super(activatedRoute);
+            this.setConfigExternalFormComponents([
+                { resourceName: 'transportista', component: TransportistesFormComponent }
+            ]);
+        }
 
 }

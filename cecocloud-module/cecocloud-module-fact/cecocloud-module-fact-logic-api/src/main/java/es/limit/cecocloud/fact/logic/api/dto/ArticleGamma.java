@@ -3,6 +3,9 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import java.math.BigDecimal;
+
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,5 +38,12 @@ public class ArticleGamma extends AbstractIdentificableWithIdentificadorAndCodi<
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String descripcio;
+	
+	@NotNull
+	@Size(max = 22)
+	@Digits(integer = 8, fraction = 4)
+	@RestapiField(
+			includeInQuickFilter = true)
+	private BigDecimal prupes;
 
 }
