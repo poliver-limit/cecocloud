@@ -30,6 +30,7 @@
 	"app.menu.ecom.magatzemsPeriode": "Magatzems període",
 	"app.menu.ecom.paisos": "Països",
 	"app.menu.ecom.paisosNif": "Països NIF",
+	"app.menu.ecom.parameters": "Paràmetres",
 	"app.menu.ecom.peusDocument": "Peus de document",
 	"app.menu.ecom.pressupostos": "Pressupostos",
 	"app.menu.ecom.pressupostosLinia": "Pressupost linies",
@@ -269,6 +270,12 @@
 	"resource.pais.field.importRepartiment": "Import repartiment",
 	"resource.pais.field.importMinimRepartiment": "Import mínim repartiment",
 	"resource.pais.field.importCompraNoPreuRepartiment": "Import compra que no suposa preu repartiment",
+	
+	"resource.parameter" : "Paràmetre",	
+	"resource.parameter.plural" : "Paràmetres",
+	"resource.parameter.field.codi": "Codi",
+	"resource.parameter.field.value": "Valor",
+	"resource.parameter.field.description": "Descripció",
 	
 	"resource.pressupost" : "Pressupost",	
 	"resource.pressupost.plural" : "Pressupostos",
