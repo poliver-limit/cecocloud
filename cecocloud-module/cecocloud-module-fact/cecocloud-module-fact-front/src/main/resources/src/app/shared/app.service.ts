@@ -65,6 +65,11 @@ export class AppService {
 			route: '/fact/codisPostal'
 		}, {
 			icon: 'room',
+			label: 'Configuracions de impressos',
+			labelKey: 'app.menu.fact.configuracionsImpressos',
+			route: '/fact/configuracionsImpressos'
+		}, {
+			icon: 'room',
 			label: 'Departaments',
 			labelKey: 'app.menu.fact.departaments',
 			route: '/fact/departaments'
@@ -83,6 +88,16 @@ export class AppService {
 			label: 'Empreses (Facturació)',
 			labelKey: 'app.menu.fact.empreses',
 			route: '/fact/empreses'
+		}, {
+			icon: 'room',
+			label: 'Empreses del grup',
+			labelKey: 'app.menu.fact.empresesGrup',
+			route: '/fact/empresesGrup'
+		}, {
+			icon: 'room',
+			label: 'Empreses del grup de empreses',
+			labelKey: 'app.menu.fact.empresesGrupEmpreses',
+			route: '/fact/empresesGrupEmpreses'
 		}, {
 			icon: 'room',
 			label: 'Famílies cost',
@@ -115,6 +130,11 @@ export class AppService {
 			route: '/fact/ives'
 		}, {
 			icon: 'room',
+			label: 'Linies full feina',
+			labelKey: 'app.menu.fact.liniesFullFeina',
+			route: '/fact/liniesFullFeina'
+		}, {
+			icon: 'room',
 			label: 'Magatzems',
 			labelKey: 'app.menu.fact.magatzems',
 			route: '/fact/magatzems'
@@ -143,6 +163,11 @@ export class AppService {
 			label: 'Peus de document',
 			labelKey: 'app.menu.fact.peusDocument',
 			route: '/fact/peusDocument'
+		}, {
+			icon: 'room',
+			label: 'Preus per gamma',
+			labelKey: 'app.menu.fact.preusPerGamma',
+			route: '/fact/preusPerGamma'
 		}, {
 			icon: 'room',
 			label: 'Preus per zona',
@@ -268,6 +293,11 @@ export class AppService {
 			label: 'Unitats tipus',
 			labelKey: 'app.menu.fact.',
 			route: '/fact/unitatsTipus'
+		}, {
+			icon: 'room',
+			label: 'Usuaris del grup',
+			labelKey: 'app.menu.fact.usuarisGrup',
+			route: '/fact/usuarisGrup'
 		}, {
 			icon: 'room',
 			label: 'Vehicles',

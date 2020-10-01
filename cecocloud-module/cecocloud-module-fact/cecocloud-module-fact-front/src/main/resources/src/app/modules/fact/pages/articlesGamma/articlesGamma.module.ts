@@ -23,8 +23,7 @@ import { ArticlesGammaService } from './articlesGamma.service';
         ] )
     ],
     declarations: [
-        ArticlesGammaGridComponent,
-        ArticlesGammaFormComponent
+        ArticlesGammaGridComponent
     ],
     providers: [
         ArticlesGammaService

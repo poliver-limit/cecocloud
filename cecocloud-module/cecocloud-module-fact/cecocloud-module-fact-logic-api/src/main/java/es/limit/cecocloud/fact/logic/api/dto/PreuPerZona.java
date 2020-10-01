@@ -56,7 +56,9 @@ public class PreuPerZona extends AbstractIdentificableWithIdentificador<PreuPerZ
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
-			disabledForCreate = false)	
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;
 	
 	@Transient
@@ -66,7 +68,9 @@ public class PreuPerZona extends AbstractIdentificableWithIdentificador<PreuPerZ
 			hiddenInGrid = false,
 			hiddenInForm = false,
 			disabledForUpdate = true,
-			disabledForCreate = false)	
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Transportista, WithIdentificadorAndCodiPk<String>> transportista;
 	
 	@Transient

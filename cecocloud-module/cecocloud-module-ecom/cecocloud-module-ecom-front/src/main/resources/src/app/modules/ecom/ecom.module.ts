@@ -141,7 +141,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'paisosNif',
 				loadChildren: () => import('./pages/paisosNif/paisosNif.module').then(m => m.PaisosNifModule)
-					
+			}, {
+				path: 'parameters',
+				loadChildren: () => import('./pages/parameters/parameters.module').then(m => m.ParametersModule)
+				
 			}, {
 				path: 'peusDocument',
 				loadChildren: () => import('./pages/peusDocument/peusDocument.module').then(m => m.PeusDocumentModule)					
@@ -564,6 +567,12 @@ export class EcomModule {
 							labelKey: 'app.menu.ecom.paisosNif',
 							route: '/ecom/paisosNif',
 							resource: 'COM_PAINIF'
+						}, {
+								icon: 'room',
+								label: 'Parameters (eCommerce)',
+								labelKey: 'app.menu.ecom.parameters',
+								route: '/ecom/parameters',
+								resource: 'COM_PARAM'
 						}, {									
 							icon: 'room',
 							label: 'Provincies (eCommerce)',

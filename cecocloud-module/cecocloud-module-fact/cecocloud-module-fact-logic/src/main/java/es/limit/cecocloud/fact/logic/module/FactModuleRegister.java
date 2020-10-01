@@ -30,11 +30,14 @@ import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa;
 import es.limit.cecocloud.fact.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.fact.logic.api.dto.CompteComptableEmpresa;
 import es.limit.cecocloud.fact.logic.api.dto.CompteCorrentEmpresa;
+import es.limit.cecocloud.fact.logic.api.dto.ConfiguracioImpressos;
 import es.limit.cecocloud.fact.logic.api.dto.Departament;
 import es.limit.cecocloud.fact.logic.api.dto.DepartamentClient;
 import es.limit.cecocloud.fact.logic.api.dto.Divisa;
 import es.limit.cecocloud.fact.logic.api.dto.DocumentPagamentCobrament;
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
+import es.limit.cecocloud.fact.logic.api.dto.EmpresaGrup;
+import es.limit.cecocloud.fact.logic.api.dto.EmpresaGrupEmpreses;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaCost;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaProveidor;
@@ -44,6 +47,7 @@ import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
 import es.limit.cecocloud.fact.logic.api.dto.Idioma;
 import es.limit.cecocloud.fact.logic.api.dto.InversioSubjectePassiu;
 import es.limit.cecocloud.fact.logic.api.dto.Iva;
+import es.limit.cecocloud.fact.logic.api.dto.LiniaFullFeina;
 import es.limit.cecocloud.fact.logic.api.dto.Magatzem;
 import es.limit.cecocloud.fact.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.fact.logic.api.dto.NaturalesaPagamentCobrament;
@@ -55,6 +59,7 @@ import es.limit.cecocloud.fact.logic.api.dto.Parameter;
 import es.limit.cecocloud.fact.logic.api.dto.Partida;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Pressupost;
+import es.limit.cecocloud.fact.logic.api.dto.PreuPerGamma;
 import es.limit.cecocloud.fact.logic.api.dto.PreuPerZona;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
@@ -92,6 +97,7 @@ import es.limit.cecocloud.fact.logic.api.dto.Transportista;
 import es.limit.cecocloud.fact.logic.api.dto.Ubicacio;
 import es.limit.cecocloud.fact.logic.api.dto.UbicacioArticle;
 import es.limit.cecocloud.fact.logic.api.dto.UnitatTipus;
+import es.limit.cecocloud.fact.logic.api.dto.UsuariGrup;
 import es.limit.cecocloud.fact.logic.api.dto.Vehicle;
 import es.limit.cecocloud.fact.logic.api.dto.Zona;
 import es.limit.cecocloud.fact.logic.service.EmpresaIdentificadorSyncServiceImpl;
@@ -293,6 +299,14 @@ public class FactModuleRegister {
 								CodiPostal.class, 
 								SubClient.class)));
 		funcionalitats.put(
+				"FAC_CONIMP",
+				new FuncionalitatCodiFontImpl(
+						"FAC_CONIMP",
+						FuncionalitatTipus.MANTENIMENT,
+						"Configuracio d'impressos",
+						ConfiguracioImpressos.class,
+						Arrays.asList()));
+		funcionalitats.put(
 				"FAC_CP",
 				new FuncionalitatCodiFontImpl(
 						"FAC_CP",
@@ -371,6 +385,26 @@ public class FactModuleRegister {
 								Divisa.class, 
 								Magatzem.class)));
 		funcionalitats.put(
+				"FAC_EMPGRU",
+				new FuncionalitatCodiFontImpl(
+						"FAC_EMPGRU",
+						FuncionalitatTipus.MANTENIMENT,
+						"Empreses del grup",
+						EmpresaGrup.class,
+						Arrays.asList(
+								Group.class,
+								Empresa.class)));
+		funcionalitats.put(
+				"FAC_EMPGRUEMP",
+				new FuncionalitatCodiFontImpl(
+						"FAC_EMPGRUEMP",
+						FuncionalitatTipus.MANTENIMENT,
+						"Empreses del grup de empreses",
+						EmpresaGrupEmpreses.class,
+						Arrays.asList(
+								BusinessGroup.class,
+								Empresa.class)));
+		funcionalitats.put(
 				"FAC_FAMCLI",
 				new FuncionalitatCodiFontImpl(
 						"FAC_FAMCLI",
@@ -448,6 +482,15 @@ public class FactModuleRegister {
 						"Iva",
 						Iva.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_LIFUFE",
+				new FuncionalitatCodiFontImpl(
+						"FAC_LIFUFE",
+						FuncionalitatTipus.MANTENIMENT,
+						"Linias full feina",
+						LiniaFullFeina.class,
+						Arrays.asList(
+								FinalFactura.class)));
 		funcionalitats.put(
 				"FAC_MAGATZ",
 				new FuncionalitatCodiFontImpl(
@@ -550,6 +593,16 @@ public class FactModuleRegister {
 						"Pressupostos",
 						Pressupost.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_PREGMA",
+				new FuncionalitatCodiFontImpl(
+						"FAC_PREGMA",
+						FuncionalitatTipus.MANTENIMENT,
+						"Preus per gamma",
+						PreuPerGamma.class,
+						Arrays.asList(
+								ArticleGamma.class,
+								Transportista.class)));
 		funcionalitats.put(
 				"FAC_PREZON",
 				new FuncionalitatCodiFontImpl(
@@ -917,6 +970,15 @@ public class FactModuleRegister {
 						"Unitats tipus",
 						UnitatTipus.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_USUGRU",
+				new FuncionalitatCodiFontImpl(
+						"FAC_USUGRU",
+						FuncionalitatTipus.MANTENIMENT,
+						"Usuaris del grup",
+						UsuariGrup.class,
+						Arrays.asList(
+								Group.class)));
 		funcionalitats.put(
 				"FAC_VEHICL",
 				new FuncionalitatCodiFontImpl(

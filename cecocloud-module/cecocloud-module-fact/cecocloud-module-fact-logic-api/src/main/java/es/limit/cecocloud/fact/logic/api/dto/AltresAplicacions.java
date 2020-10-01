@@ -33,23 +33,28 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "nom"
 )
-@PrimaryKeyNotExists(fields = {"transportista"}, groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"transportista","codi","aplicacio"}, groups = { OnCreate.class })
 public class AltresAplicacions extends AbstractIdentificableWithIdentificador<AltresAplicacionsPk> {
 
 	@NotNull(groups = {OnCreate.class})
 	@Size(max = 20)
 	@RestapiField(
-			disabledForUpdate = true,
 			toUpperCase = true,
-			includeInQuickFilter = true)
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)
 	private String codi;
 	
 	@NotNull
 	@Size(max = 22)
 	@Digits(integer = 3, fraction = 0)
 	@RestapiField(
+			hiddenInGrid = true,
+			disabledForUpdate = true,
+			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInGrid = true)
+			hiddenInLov = true)
 	private BigDecimal aplicacio;
 	
 	@Size(max = 1000)
@@ -65,7 +70,9 @@ public class AltresAplicacions extends AbstractIdentificableWithIdentificador<Al
 			hiddenInGrid = false,
 			hiddenInForm = false,
 			disabledForUpdate = true,
-			disabledForCreate = false)	
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Transportista, WithIdentificadorAndCodiPk<String>> transportista;
 	
 	@NoArgsConstructor
