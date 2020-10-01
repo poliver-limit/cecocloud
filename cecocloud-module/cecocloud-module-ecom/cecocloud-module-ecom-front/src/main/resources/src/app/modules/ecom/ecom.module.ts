@@ -68,6 +68,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/caixesMoviment/caixesMoviment.module').then(m => m.CaixesMovimentModule)
 				
 			}, {
+				path: 'categoriesTraduccio',
+				loadChildren: () => import('./pages/categoriesTraduccio/categoriesTraduccio.module').then(m => m.CategoriesTraduccioModule)
+				
+			}, {
 				path: 'clients',
 				loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule)
 				
@@ -529,6 +533,12 @@ export class EcomModule {
 					labelKey: 'funcionalitat.menu.gestio-ecommerce',
 					items: [
 						{
+							icon: 'room',
+							label: 'Categories traduccio',
+							labelKey: 'app.menu.ecom.categoriesTraduccio',
+							route: '/ecom/categoriesTraduccio',
+							resource: 'COM_CATTRA'
+						}, {
 							icon: 'room',
 							label: 'Codis postals (eCommerce)',
 							labelKey: 'app.menu.ecom.codisPostal',

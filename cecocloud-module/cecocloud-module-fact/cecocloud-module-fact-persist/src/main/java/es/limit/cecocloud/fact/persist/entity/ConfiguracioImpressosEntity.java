@@ -7,13 +7,16 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.ConfiguracioImpressos;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,10 +33,10 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(
-		name = "tges_cfg",
+		name = "tges_cfg_rep",
 		indexes = {
 				@Index(name = "iges_cfg_idf_fk", columnList = "cfg_idf_cod"),
-				@Index(name = "irges_cfg_pk", columnList = "cfg_idf_cod,cfg_cod", unique = true)
+				@Index(name = "irges_cfg_pk", columnList = "cfg_idf_cod, cfg_emp_cod, cfg_ser_cod, cfg_cls, cfg_tip, cfg_subtip", unique = true)
 		}
 		
 )
@@ -67,15 +70,38 @@ public class ConfiguracioImpressosEntity extends AbstractWithIdentificadorAudita
 
 	@Embedded
 	protected ConfiguracioImpressos embedded;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "cfg_idf_cod", referencedColumnName = "emp_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "cfg_emp_cod", referencedColumnName = "emp_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_cfg_emp_fk"))			
+	protected EmpresaEntity empresa;	
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+					@JoinColumn(name = "cfg_idf_cod", referencedColumnName = "ser_idf_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "cfg_ser_cod", referencedColumnName = "ser_cod", insertable = false, updatable = false),
+					@JoinColumn(name = "cfg_emp_cod", referencedColumnName = "ser_emp_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "rges_cfg_ser_fk"))			
+	protected SerieVendaEntity serie;	
 
 	@Builder
 	public ConfiguracioImpressosEntity(
 			WithIdentificadorAndCodiPk<String> pk,
 			ConfiguracioImpressos embedded,
-			IdentificadorEntity identificador) {
+			IdentificadorEntity identificador,
+			EmpresaEntity empresa,
+			SerieVendaEntity serie) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
+		this.empresa = empresa;
+		this.serie = serie;
 	}
 
 	@Override

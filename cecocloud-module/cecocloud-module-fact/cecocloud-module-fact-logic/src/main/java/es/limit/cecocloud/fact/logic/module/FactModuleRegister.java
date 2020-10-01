@@ -305,7 +305,9 @@ public class FactModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Configuracio d'impressos",
 						ConfiguracioImpressos.class,
-						Arrays.asList()));
+						Arrays.asList(
+								Empresa.class, 
+								SerieVenda.class)));
 		funcionalitats.put(
 				"FAC_CP",
 				new FuncionalitatCodiFontImpl(
@@ -612,7 +614,8 @@ public class FactModuleRegister {
 						PreuPerZona.class,
 						Arrays.asList(
 								Zona.class,
-								Transportista.class)));
+								Transportista.class,
+								Divisa.class)));
 		funcionalitats.put(
 				"FAC_PROD",
 				new FuncionalitatCodiFontImpl(

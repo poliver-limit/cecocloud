@@ -61,7 +61,9 @@ public class ConfiguracioImpressos extends AbstractIdentificableWithIdentificado
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
-			disabledForCreate = false)	
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
 	@Transient
@@ -69,7 +71,9 @@ public class ConfiguracioImpressos extends AbstractIdentificableWithIdentificado
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
-			disabledForCreate = false)	
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;
 	
 	@Size(max = 1)

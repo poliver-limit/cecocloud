@@ -15,35 +15,32 @@ import es.limit.cecocloud.ecom.logic.api.dto.Article;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamilia;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleFamiliaEmpresa;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleGamma;
+import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleModel;
-import es.limit.cecocloud.ecom.logic.api.dto.ArticleInformacio;
 import es.limit.cecocloud.ecom.logic.api.dto.ArticleTraduccio;
 import es.limit.cecocloud.ecom.logic.api.dto.Bestreta;
-import es.limit.cecocloud.ecom.logic.api.dto.Iva;
-import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
 import es.limit.cecocloud.ecom.logic.api.dto.Caixa;
 import es.limit.cecocloud.ecom.logic.api.dto.CaixaMoviment;
+import es.limit.cecocloud.ecom.logic.api.dto.CategoriaTraduccio;
 import es.limit.cecocloud.ecom.logic.api.dto.Client;
+import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.Departament;
 import es.limit.cecocloud.ecom.logic.api.dto.Divisa;
 import es.limit.cecocloud.ecom.logic.api.dto.DocumentPagamentCobrament;
 import es.limit.cecocloud.ecom.logic.api.dto.Empresa;
 import es.limit.cecocloud.ecom.logic.api.dto.Factura;
 import es.limit.cecocloud.ecom.logic.api.dto.FacturaBase;
-import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
-import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
-import es.limit.cecocloud.ecom.logic.api.dto.TipusRisc;
-import es.limit.cecocloud.ecom.logic.api.dto.TipusUnitat;
-import es.limit.cecocloud.ecom.logic.api.dto.CodiPostal;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.ecom.logic.api.dto.FamiliaProveidor;
+import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
+import es.limit.cecocloud.ecom.logic.api.dto.Iva;
 import es.limit.cecocloud.ecom.logic.api.dto.Magatzem;
 import es.limit.cecocloud.ecom.logic.api.dto.MagatzemArticle;
 import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.ecom.logic.api.dto.NaturalesaPagamentCobrament;
-import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import es.limit.cecocloud.ecom.logic.api.dto.Pais;
+import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
 import es.limit.cecocloud.ecom.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia;
@@ -54,7 +51,10 @@ import es.limit.cecocloud.ecom.logic.api.dto.RegimIva;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieCompra;
 import es.limit.cecocloud.ecom.logic.api.dto.SerieVenda;
 import es.limit.cecocloud.ecom.logic.api.dto.Stock;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusAdresa;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusFacturacio;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusRisc;
+import es.limit.cecocloud.ecom.logic.api.dto.TipusUnitat;
 import es.limit.cecocloud.ecom.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.ecom.logic.api.dto.Transportista;
 import es.limit.cecocloud.ecom.logic.api.dto.Vehicle;
@@ -67,6 +67,7 @@ import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFontImpl;
 import es.limit.cecocloud.logic.api.module.Modul;
 import es.limit.cecocloud.logic.api.module.ModuleInfo;
 import es.limit.cecocloud.logic.api.module.Modules;
+import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 
 /**
  * Registre del mòdul de ecommerce.
@@ -226,6 +227,19 @@ public class EcomModuleRegister {
 								Divisa.class,
 								DocumentPagamentCobrament.class,
 								Pressupost.class)));
+		funcionalitats.put(
+				"COM_CATTRA",
+				new FuncionalitatCodiFontImpl(
+						"COM_CATTRA",
+						FuncionalitatTipus.MANTENIMENT,
+						"Categories traduccio",
+						CategoriaTraduccio.class,
+						Arrays.asList(
+								Idioma.class,
+								ArticleFamilia.class,
+								ArticleGamma.class,
+								ArticleModel.class,
+								ArticleMarca.class)));
 		funcionalitats.put(
 				"COM_CPO",
 				new FuncionalitatCodiFontImpl(
