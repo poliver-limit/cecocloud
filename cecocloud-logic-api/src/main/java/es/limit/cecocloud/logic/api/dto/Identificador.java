@@ -30,24 +30,24 @@ import lombok.Setter;
 @Getter @Setter
 @RestapiResource(
 		descriptionField = "descripcio",
-				resourceAccessConstraints = {
-						@RestapiResourceAccessConstraint(
-								type = RestapiPermissionConstraintType.AUTHORITY,
-								authoritiesWithPermissions = {
-										@RestapiAuthoritiesWithPermission(permission = "READ", authorities = {Authority.ADMIN}),
-										@RestapiAuthoritiesWithPermission(permission = "WRITE", authorities = {Authority.ADMIN}),
-										@RestapiAuthoritiesWithPermission(permission = "CREATE", authorities = {Authority.ADMIN}),
-										@RestapiAuthoritiesWithPermission(permission = "DELETE", authorities = {Authority.ADMIN})
-								},
-								mandatory = false),
-						@RestapiResourceAccessConstraint(
-								type = RestapiPermissionConstraintType.ACL_ID, 
-								resourceClass = "es.limit.cecocloud.logic.api.dto.Identificador",
-								resourceSessionField = "i",
-								resourcePermission = "ADMINISTRATION",
-								resourceActionsAllowed = {"READ", "UPDATE"},
-								mandatory = false)
-				}
+		resourceAccessConstraints = {
+				@RestapiResourceAccessConstraint(
+						type = RestapiPermissionConstraintType.AUTHORITY,
+						authoritiesWithPermissions = {
+								@RestapiAuthoritiesWithPermission(permission = "READ", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "WRITE", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "CREATE", authorities = {Authority.ADMIN}),
+								@RestapiAuthoritiesWithPermission(permission = "DELETE", authorities = {Authority.ADMIN})
+						},
+						mandatory = false),
+				@RestapiResourceAccessConstraint(
+						type = RestapiPermissionConstraintType.ACL_ID, 
+						resourceClass = "es.limit.cecocloud.logic.api.dto.Identificador",
+						resourceSessionField = "i",
+						resourcePermission = "ADMINISTRATION",
+						resourceActionsAllowed = {"READ", "UPDATE"},
+						mandatory = false)
+		}
 )
 public class Identificador extends AbstractIdentificable<Long> {
 
