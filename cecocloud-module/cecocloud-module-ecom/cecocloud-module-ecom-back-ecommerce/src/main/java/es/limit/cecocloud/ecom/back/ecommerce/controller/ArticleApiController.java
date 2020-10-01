@@ -80,13 +80,15 @@ public class ArticleApiController<D extends Identificable<ID>, ID extends Serial
 				pageable,
 				sort);
 		
+		// INICI INTERCEPTOR
 		List<Article> articleList = pagina.getContent(); 
 		int midaLlista = articleList.size();
 		
 		for (int i=0;i<midaLlista;i++) {
 			Article article = articleList.get(i);
 			article.setDescripcioCurta(this.getTraducció(article, idiomaCodi));
-		}		
+		}				
+		// FINAL INTERCEPTOR
 		
 		long queryTime = System.currentTimeMillis() - t0;
 		log.trace("\ttemps de consulta: " + queryTime + "ms");
