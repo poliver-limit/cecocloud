@@ -298,14 +298,16 @@ public class FactModuleRegister {
 								Client.class, 
 								CodiPostal.class, 
 								SubClient.class)));
-//		funcionalitats.put(
-//				"FAC_CONIMP",
-//				new FuncionalitatCodiFontImpl(
-//						"FAC_CONIMP",
-//						FuncionalitatTipus.MANTENIMENT,
-//						"Configuracio d'impressos",
-//						ConfiguracioImpressos.class,
-//						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_CONIMP",
+				new FuncionalitatCodiFontImpl(
+						"FAC_CONIMP",
+						FuncionalitatTipus.MANTENIMENT,
+						"Configuracio d'impressos",
+						ConfiguracioImpressos.class,
+						Arrays.asList(
+								Empresa.class, 
+								SerieVenda.class)));
 		funcionalitats.put(
 				"FAC_CP",
 				new FuncionalitatCodiFontImpl(

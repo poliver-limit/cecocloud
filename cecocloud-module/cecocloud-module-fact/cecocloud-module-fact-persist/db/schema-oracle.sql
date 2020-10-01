@@ -174,7 +174,7 @@ create table tges_aap (
         primary key (cce_cli_cod, cce_emp_cod, cce_idf_cod)
     );
     
-    create table tges_cfg (
+    create table tges_cfg_rep (
        cfg_cod varchar2(22 char) not null,
         cfg_idf_cod varchar2(4 char) not null,
         cfg_usucre varchar2(255 char),
@@ -186,6 +186,8 @@ create table tges_aap (
         cfg_nom varchar2(30 char) not null,
         cfg_subtip varchar2(30 char),
         cfg_tip varchar2(2 char) not null,
+        cfg_emp_cod varchar2(4 char),
+        cfg_ser_cod varchar2(2 char),
         primary key (cfg_cod, cfg_idf_cod)
     );
 
@@ -1736,7 +1738,7 @@ create index iges_ban_idf_fk on tges_ban (ban_idf_cod);
 create index iges_cap_emp_fk on tges_cap (cap_idf_cod, cap_emp_cod);
 create index iges_cap_pre_fk on tges_cap (cap_idf_cod, cap_emp_cod, cap_pre_cod);
 create index iges_cbc_idf_fk on tges_cbc (cbc_idf_cod);
-create index iges_cce_idf_fk on tges_cce (cce_idf_cod);
+create index iges_cfg_idf_fk on tges_cfg_rep (cfg_idf_cod);
 create index iges_cfg_idf_fk on tges_cfg (cfg_idf_cod);
 create index iges_cli_idf_fk on tges_cli (cli_idf_cod);
 
@@ -2040,6 +2042,19 @@ alter table tges_aap
        add constraint rges_cce_emp_fk 
        foreign key (cce_emp_cod, cce_idf_cod) 
        references tges_emp;
+       
+    alter table tges_cfg_rep 
+       add constraint irges_cfg_pk unique (cfg_idf_cod, cfg_emp_cod, cfg_ser_cod, cfg_cls, cfg_tip, cfg_subtip);
+       
+	alter table tges_cfg_rep 
+       add constraint rges_cfg_emp_fk 
+       foreign key (cfg_emp_cod, cfg_idf_cod) 
+       references tges_emp;
+
+    alter table tges_cfg_rep 
+       add constraint rges_cfg_ser_fk 
+       foreign key (cfg_emp_cod, cfg_ser_cod, cfg_idf_cod) 
+       references tges_ser;
 
     alter table tges_cli 
        add constraint cli_acc_cod_fk 
