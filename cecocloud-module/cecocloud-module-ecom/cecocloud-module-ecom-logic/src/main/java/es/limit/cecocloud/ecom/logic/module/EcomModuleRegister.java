@@ -41,6 +41,7 @@ import es.limit.cecocloud.ecom.logic.api.dto.MagatzemPeriode;
 import es.limit.cecocloud.ecom.logic.api.dto.NaturalesaPagamentCobrament;
 import es.limit.cecocloud.ecom.logic.api.dto.Pais;
 import es.limit.cecocloud.ecom.logic.api.dto.PaisNif;
+import es.limit.cecocloud.ecom.logic.api.dto.Parameter;
 import es.limit.cecocloud.ecom.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia;
@@ -430,6 +431,14 @@ public class EcomModuleRegister {
 						FuncionalitatTipus.MANTENIMENT,
 						"Països Nif (eCommerce)",
 						PaisNif.class,
+						Arrays.asList()));
+		funcionalitats.put(
+				"COM_PARAM",
+				new FuncionalitatCodiFontImpl(
+						"COM_PARAM",
+						FuncionalitatTipus.MANTENIMENT,
+						"Parametres",
+						Parameter.class,
 						Arrays.asList()));
 		funcionalitats.put(
 				"COM_PED",

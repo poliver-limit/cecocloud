@@ -380,6 +380,7 @@
     "funcionalitat.COM_PMG": "Almacenes periodo",
     "funcionalitat.COM_PAI": "Paises",
     "funcionalitat.COM_PAINIF": "Paises NIF",
+    "funcionalitat.COM_PAR": "Parámetros",
     "funcionalitat.COM_PED": "Piés de documento",
     "funcionalitat.COM_PRE": "Presupuestos",
     "funcionalitat.COM_PRO": "Proveedores",
@@ -396,4 +397,5 @@
     "funcionalitat.COM_TVE": "Tipos de vencimientos",
     "funcionalitat.COM_VEN": "Vencimientos",
     "funcionalitat.COM_VCX": "Vencimientos pagados"
+
 }
