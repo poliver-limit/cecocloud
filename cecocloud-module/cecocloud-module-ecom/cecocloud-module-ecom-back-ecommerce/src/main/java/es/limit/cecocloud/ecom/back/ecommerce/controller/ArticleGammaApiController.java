@@ -16,41 +16,39 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.limit.base.boot.logic.api.dto.Identificable;
-import es.limit.cecocloud.ecom.logic.api.dto.Article;
-import es.limit.cecocloud.ecom.logic.api.dto.ArticleTraduccio;
+import es.limit.cecocloud.ecom.logic.api.dto.ArticleGamma;
+import es.limit.cecocloud.ecom.logic.api.dto.CategoriaTraduccio;
 import es.limit.cecocloud.ecom.logic.api.dto.Idioma;
 import es.limit.cecocloud.ecom.logic.api.module.EcomModuleConfig;
-import es.limit.cecocloud.ecom.logic.api.service.ArticleService;
-import es.limit.cecocloud.ecom.logic.api.service.ArticleTraduccioService;
+import es.limit.cecocloud.ecom.logic.api.service.CategoriaTraduccioService;
 import es.limit.cecocloud.ecom.logic.api.service.IdiomaService;
 import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * Controlador per al servei REST de gestió de articles.
+ * Controlador per al servei REST de gestió de articlesGamma.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Slf4j
-@RestController("ecomArticleEcommerceController")
-@RequestMapping(EcomModuleConfig.API_ECOMMERCE_PATH + "/articles")
-public class ArticleApiController<D extends Identificable<ID>, ID extends Serializable> extends AbstractIdentificableWithIdentificadorApiController<Article> {
+@RestController("ecomArticleGammaEcommerceController")
+@RequestMapping(EcomModuleConfig.API_ECOMMERCE_PATH + "/articlesGamma")
+public class ArticleGammaApiController<D extends Identificable<ID>, ID extends Serializable> extends AbstractIdentificableWithIdentificadorApiController<ArticleGamma> {
 	
 	@Autowired
-	ArticleTraduccioService articleTraduccioService;
+	CategoriaTraduccioService categoriaTraduccioService;
 	
 	@Autowired
 	IdiomaService idiomaService;
 	
 	@GetMapping(
 			produces = "application/json")
-	public ResponseEntity<PagedModel<EntityModel<Article>>> find(
+	public ResponseEntity<PagedModel<EntityModel<ArticleGamma>>> find(
 			HttpServletRequest request,
 			@RequestParam(value = "namedFilter", required = false) final String[] namedFilters,
 			@RequestParam(value = "quickFilter", required = false) final String quickFilter,
@@ -74,26 +72,26 @@ public class ArticleApiController<D extends Identificable<ID>, ID extends Serial
 		long queryBuildTime = System.currentTimeMillis() - t0;
 		log.trace("\ttemps de càlcul de la consulta RSQL: " + queryBuildTime + "ms");
 		t0 = System.currentTimeMillis();
-		Page<Article> pagina = getService().findPageByQuickFilterAndRsqlQuery(
+		Page<ArticleGamma> pagina = getService().findPageByQuickFilterAndRsqlQuery(
 				quickFilter,
 				rsqlQuery,
 				pageable,
 				sort);
 		
 		// INICI INTERCEPTOR
-		List<Article> articleList = pagina.getContent(); 
-		int midaLlista = articleList.size();
+		List<ArticleGamma> articleGammaList = pagina.getContent(); 
+		int midaLlista = articleGammaList.size();
 		
 		for (int i=0;i<midaLlista;i++) {
-			Article article = articleList.get(i);
-			article.setDescripcioCurta(this.getTraduccio(article, idiomaCodi));
+			ArticleGamma articleGamma = articleGammaList.get(i);//			
+			articleGamma.setDescripcio(this.getTraduccio(articleGamma, idiomaCodi));
 		}				
 		// FINAL INTERCEPTOR
 		
 		long queryTime = System.currentTimeMillis() - t0;
 		log.trace("\ttemps de consulta: " + queryTime + "ms");
 		t0 = System.currentTimeMillis();
-		ResponseEntity<PagedModel<EntityModel<Article>>> response = ResponseEntity.ok(
+		ResponseEntity<PagedModel<EntityModel<ArticleGamma>>> response = ResponseEntity.ok(
 				toPagedResources(
 						pagina,
 						getClass(),
@@ -104,57 +102,23 @@ public class ArticleApiController<D extends Identificable<ID>, ID extends Serial
 		log.trace("\\ttemps total:" + totalTime + "ms");
 		return response;
 	}
-	
-	@GetMapping(value = "/detail/{articleId}",
-			produces = "application/json")
-	public ResponseEntity<EntityModel<Article>> article(
-			HttpServletRequest request,
-			@RequestParam(value = "lang", required = false) final String idiomaCodi,
-			@PathVariable String articleId
-			) {
-		Article article =((ArticleService)getService()).getOne(articleId);				
-		article.setDescripcioCurta(this.getTraduccio(article, idiomaCodi));
-		return ResponseEntity.ok(
-				toResource(article, getResourceLinks(article.getId())));
-	}
-	
-	private String getTraduccio(Article article, String codiIdioma) {		
+		
+	private String getTraduccio(ArticleGamma articleGamma, String codiIdioma) {		
 
-		String traduccio = article.getDescripcioCurta();
-		if (traduccio==null||traduccio.equals("")) {
-			traduccio = article.getDescripcio();
-		}
+		String traduccio = articleGamma.getDescripcio();
+		
 		if ((!codiIdioma.equals("null"))&&(codiIdioma!=null)) {
 			List<Idioma> idiomaList = idiomaService.findByQuickFilterAndRsqlQuery(null,"codiIso=ic='"+codiIdioma+"'",Sort.unsorted());
 			Idioma idioma = idiomaList.get(0);
-//			Idioma idioma = idiomaService.findOneByRsqlQuery("codiIso=ic='"+codiIdioma+"'");		
 			if (idioma!=null) {
-				ArticleTraduccio articleTraduccio = articleTraduccioService.findOneByRsqlQuery("idioma.codi=="+idioma.getCodi()+";article.codi==" + article.getCodi());
-				if ((articleTraduccio!=null)&&(!articleTraduccio.equals(""))) {
-					traduccio = articleTraduccio.getDescripcio();
+				CategoriaTraduccio categoriaTraduccio = categoriaTraduccioService.findOneByRsqlQuery("idioma.codi=="+idioma.getCodi()+";gamma.codi==" + articleGamma.getCodi());
+				if ((categoriaTraduccio!=null)&&(!categoriaTraduccio.equals(""))) {
+					traduccio = categoriaTraduccio.getDescripcio();
 				}
 			}
 		}		
 		return traduccio;
 		
 	}
-	
-//	@GetMapping(
-//			value = "/search/email/{email}",
-//			produces = "application/json")
-//	public ResponseEntity<EntityModel<Article>> getByEmail(
-//			HttpServletRequest request,
-//			@PathVariable final String email) {
-//		log.debug("Obtenint usuari per email (email=" + email + ")");
-//		try {
-//			List<Article> usuari = getService().findPageByQuickFilterAndRsqlQuery("email==\"" + email + "\";actiu==true");
-//			if (usuari == null)
-//				return ResponseEntity.noContent().build();
-//			return ResponseEntity.ok(
-//					toResource(usuari, getResourceLinks(usuari.getId())));
-//		} catch (NonUniqueResultException ex) {
-//			return ResponseEntity.notFound().build();
-//		}
-//	}
 
 }
