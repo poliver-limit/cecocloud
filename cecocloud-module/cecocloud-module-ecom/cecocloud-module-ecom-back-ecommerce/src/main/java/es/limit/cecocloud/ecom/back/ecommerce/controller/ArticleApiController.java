@@ -129,7 +129,7 @@ public class ArticleApiController<D extends Identificable<ID>, ID extends Serial
 			Idioma idioma = idiomaList.get(0);
 //			Idioma idioma = idiomaService.findOneByRsqlQuery("codiIso=ic='"+codiIdioma+"'");		
 			if (idioma!=null) {
-				ArticleTraduccio articleTraduccio = articleTraduccioService.findOneByRsqlQuery("idioma.codi=="+idioma.getCodi()+";article.codi==" + article.getCodi());
+				ArticleTraduccio articleTraduccio = articleTraduccioService.findOneByRsqlQuery("idioma.codiIso=="+idioma.getCodiIso()+";article.codi==" + article.getCodi());
 				if ((articleTraduccio!=null)&&(!articleTraduccio.equals(""))) {
 					traduccio = articleTraduccio.getDescripcio();
 				}

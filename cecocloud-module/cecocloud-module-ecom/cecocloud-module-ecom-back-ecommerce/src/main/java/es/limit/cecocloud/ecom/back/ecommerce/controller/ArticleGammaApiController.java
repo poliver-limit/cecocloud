@@ -111,7 +111,7 @@ public class ArticleGammaApiController<D extends Identificable<ID>, ID extends S
 			List<Idioma> idiomaList = idiomaService.findByQuickFilterAndRsqlQuery(null,"codiIso=ic='"+codiIdioma+"'",Sort.unsorted());
 			Idioma idioma = idiomaList.get(0);
 			if (idioma!=null) {
-				CategoriaTraduccio categoriaTraduccio = categoriaTraduccioService.findOneByRsqlQuery("idioma.codi=="+idioma.getCodi()+";gamma.codi==" + articleGamma.getCodi());
+				CategoriaTraduccio categoriaTraduccio = categoriaTraduccioService.findOneByRsqlQuery("idioma.codiIso=="+idioma.getCodiIso()+";gamma.codi==" + articleGamma.getCodi());
 				if ((categoriaTraduccio!=null)&&(!categoriaTraduccio.equals(""))) {
 					traduccio = categoriaTraduccio.getDescripcio();
 				}
