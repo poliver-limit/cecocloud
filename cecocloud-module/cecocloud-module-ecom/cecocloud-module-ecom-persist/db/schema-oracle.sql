@@ -1,4 +1,4 @@
-    create table tcom_ain (
+create table tcom_ain (
        ain_art_cod varchar2(15 char) not null,
         ain_num number(10,0) not null,
         ain_idf_cod varchar2(4 char) not null,
@@ -104,7 +104,6 @@
         art_tipuni varchar2(4 char),
         art_pruiva number(25,10),
         art_pvp number(25,10) not null,
-        art_rutinf varchar2(1000 char),
         art_tlt varchar2(20 char),
         art_far_cod varchar2(6 char) not null,
         art_gma_cod varchar2(6 char),
@@ -229,6 +228,22 @@
         primary key (dep_emp_cod, dep_cod, dep_idf_cod)
     );
 
+    create table tcom_did (
+       did_seq number(10,0) not null,
+        did_idf_cod varchar2(4 char) not null,
+        did_usucre varchar2(255 char),
+        did_datcre timestamp,
+        did_usumod varchar2(255 char),
+        did_datmod timestamp,
+        did_des varchar2(2000 char) not null,
+        did_far_cod varchar2(6 char),
+        did_gma_cod varchar2(6 char),
+        did_idi_cod varchar2(4 char),
+        did_mca_cod varchar2(6 char),
+        did_mod_cod varchar2(6 char),
+        primary key (did_seq, did_idf_cod)
+    );
+
     create table tcom_div (
        div_cod varchar2(4 char) not null,
         div_idf_cod varchar2(4 char) not null,
@@ -240,7 +255,7 @@
         div_codcmp varchar2(255 char),
         div_decimp number(10,0) not null,
         div_decpru number(10,0) not null,
-        div_iso varchar2(3 char) not null,
+        div_iso varchar2(3 char),
         div_nom varchar2(30 char) not null,
         div_valdiveur number(15,8) not null,
         primary key (div_cod, div_idf_cod)
@@ -608,6 +623,18 @@
         npg_des varchar2(30 char) not null,
         npg_obs varchar2(1000 char) not null,
         primary key (npg_cod, npg_idf_cod)
+    );
+
+    create table tcom_par (
+       par_cod varchar2(15 char) not null,
+        par_idf_cod varchar2(4 char) not null,
+        par_usucre varchar2(255 char),
+        par_datcre timestamp,
+        par_usumod varchar2(255 char),
+        par_datmod timestamp,
+        par_des varchar2(1000 char) not null,
+        par_val varchar2(4000 char) not null,
+        primary key (par_cod, par_idf_cod)
     );
 
     create table tcom_pas (
@@ -1093,8 +1120,8 @@
         ven_valdiveur number(15,8) not null,
         primary key (ven_emp_cod, ven_fac_cls, ven_fac_num, ven_num, ven_ser_cod, ven_idf_cod)
     );
-
-create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
+    
+   create index icom_ain_art_fk on tcom_ain (ain_idf_cod, ain_art_cod, ain_num);
 create index icom_alb_idf_fk on tcom_alb (alb_idf_cod);
 create index icom_apc_idf_fk on tcom_apc (apc_idf_cod);
 create index icom_apc_emp_fk on tcom_apc (apc_emp_cod);
@@ -1115,6 +1142,7 @@ create index icom_dep_idf_fk on tcom_dep (dep_idf_cod);
 
     alter table tcom_dep 
        add constraint ircom_dep_pk unique (dep_idf_cod, dep_cod);
+create index icom_did_idf_fk on tcom_did (did_idf_cod);
 create index icom_div_idf_fk on tcom_div (div_idf_cod);
 create index icom_dpg_idf_fk on tcom_dpg (dpg_idf_cod);
 create index icom_emp_idf_fk on tcom_emp (emp_idf_cod);
@@ -1141,6 +1169,7 @@ create index icom_mdc_cxa_fk on tcom_mdc (mdc_cxa_cod);
 create index icom_mod_idf_fk on tcom_mod (mod_idf_cod);
 create index icom_mtr_idf_fk on tcom_mtr (mtr_idf_cod);
 create index icom_npg_idf_fk on tcom_npg (npg_idf_cod);
+create index icom_par_idf_fk on tcom_par (par_idf_cod);
 create index icom_pas_idf_fk on tcom_pas (pas_idf_cod);
 create index icom_ped_idf_fk on tcom_ped (ped_idf_cod);
 
@@ -1175,8 +1204,8 @@ create index icom_ven_emp_fk on tcom_ven (ven_emp_cod);
 create index icom_ven_ser_fk on tcom_ven (ven_ser_cod);
 create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
 
-    alter table tcom_ain 
-       add constraint rges_ain_art_fk 
+alter table tcom_ain 
+       add constraint rcom_ain_art_fk 
        foreign key (ain_art_cod, ain_idf_cod) 
        references tcom_art;
 
@@ -1420,6 +1449,31 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        foreign key (dep_emp_cod, dep_idf_cod) 
        references tcom_emp;
 
+    alter table tcom_did 
+       add constraint rcom_did_far_fk 
+       foreign key (did_far_cod, did_idf_cod) 
+       references tcom_far;
+
+    alter table tcom_did 
+       add constraint rcom_did_gma_fk 
+       foreign key (did_gma_cod, did_idf_cod) 
+       references tcom_gma;
+
+    alter table tcom_did 
+       add constraint rcom_did_idi_fk 
+       foreign key (did_idi_cod, did_idf_cod) 
+       references tcom_idi;
+
+    alter table tcom_did 
+       add constraint rcom_did_mca_fk 
+       foreign key (did_mca_cod, did_idf_cod) 
+       references tcom_mca;
+
+    alter table tcom_did 
+       add constraint rcom_did_mod_fk 
+       foreign key (did_mod_cod, did_idf_cod) 
+       references tcom_mod;
+
     alter table tcom_dpg 
        add constraint rcom_dpg_iva_fk 
        foreign key (dpg_iva_cod, dpg_idf_cod) 
@@ -1436,7 +1490,7 @@ create index icom_ven_fac_fk on tcom_ven (ven_fac_cls, ven_fac_num);
        references tcom_rgi;
 
     alter table tcom_emp 
-       add constraint rges_emp_div_fk 
+       add constraint rcom_emp_div_fk 
        foreign key (emp_div_cod, emp_idf_cod) 
        references tcom_div;
 
