@@ -38,6 +38,7 @@ import es.limit.cecocloud.fact.logic.api.dto.DocumentPagamentCobrament;
 import es.limit.cecocloud.fact.logic.api.dto.Empresa;
 import es.limit.cecocloud.fact.logic.api.dto.EmpresaGrup;
 import es.limit.cecocloud.fact.logic.api.dto.EmpresaGrupEmpreses;
+import es.limit.cecocloud.fact.logic.api.dto.EstudiProjecte;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaCost;
 import es.limit.cecocloud.fact.logic.api.dto.FamiliaProveidor;
@@ -405,6 +406,17 @@ public class FactModuleRegister {
 						EmpresaGrupEmpreses.class,
 						Arrays.asList(
 								BusinessGroup.class,
+								Empresa.class)));
+		funcionalitats.put(
+				"FAC_ESTPRO",
+				new FuncionalitatCodiFontImpl(
+						"FAC_ESTPRO",
+						FuncionalitatTipus.MANTENIMENT,
+						"Estudis projecte",
+						EstudiProjecte.class,
+						Arrays.asList(
+								Divisa.class,
+								Projecte.class,
 								Empresa.class)));
 		funcionalitats.put(
 				"FAC_FAMCLI",

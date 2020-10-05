@@ -132,6 +132,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/empresesGrupEmpreses/empresesGrupEmpreses.module').then(m => m.EmpresesGrupEmpresesModule)
 
 			}, {
+				path: 'estudisProjecte',
+				loadChildren: () => import('./pages/estudisProjecte/estudisProjecte.module').then(m => m.EstudisProjecteModule)
+
+			}, {
 				path: 'familiesClient',
 				loadChildren: () => import('./pages/familiesClient/familiesClient.module').then(m => m.FamiliesClientModule)
 
@@ -651,6 +655,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.empresesGrup',
 									route: '/fact/empresesGrup',
 									resource: 'FAC_EMPGRU'
+								}, {
+									icon: 'room',
+									label: 'Estudis projecte',
+									labelKey: 'app.menu.fact.estudisProjecte',
+									route: '/fact/estudisProjecte',
+									resource: 'FAC_ESTPRO'
 								}, {
 									icon: 'room',
 									label: 'Empreses del grup de empreses',
