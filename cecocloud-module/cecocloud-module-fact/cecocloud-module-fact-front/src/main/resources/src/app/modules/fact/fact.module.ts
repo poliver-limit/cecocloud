@@ -219,6 +219,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/pressupostos/pressupostos.module').then(m => m.PressupostosModule)
 
 			}, {
+				path: 'pressupostosLinia',
+				loadChildren: () => import('./pages/pressupostosLinia/pressupostosLinia.module').then(m => m.PressupostosLiniaModule)
+					
+			}, {
 				path: 'preusPerGamma',
 				loadChildren: () => import('./pages/preusPerGamma/preusPerGamma.module').then(m => m.PreusPerGammaModule)
 				
@@ -364,6 +368,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'ubicacionsArticle',
 				loadChildren: () => import('./pages/ubicacionsArticle/ubicacionsArticle.module').then(m => m.UbicacionsArticleModule)
+
+			}, {
+				path: 'unitatsControlEstudi',
+				loadChildren: () => import('./pages/unitatsControlEstudi/unitatsControlEstudi.module').then(m => m.UnitatsControlEstudiModule)
 
 			}, {
 				path: 'unitatsTipus',
@@ -769,6 +777,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.transportistes',
 									route: '/fact/transportistes',
 									resource: 'FAC_TRANSP'
+								}, {
+									icon: 'room',
+									label: 'Unitats control estudi',
+									labelKey: 'app.menu.fact.unitatsControlEstudi',
+									route: '/fact/unitatsControlEstudi',
+									resource: 'FAC_UNICONEST'
 								}, {
 									icon: 'room',
 									label: 'Usuaris del grup',

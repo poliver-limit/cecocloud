@@ -295,6 +295,11 @@ export class AppService {
 			route: '/fact/ubicacionsArticle'
 		}, {
 			icon: 'room',
+			label: 'Unitats control estudi',
+			labelKey: 'app.menu.fact.',
+			route: '/fact/unitatsControlEstudi'
+		}, {
+			icon: 'room',
 			label: 'Unitats tipus',
 			labelKey: 'app.menu.fact.',
 			route: '/fact/unitatsTipus'

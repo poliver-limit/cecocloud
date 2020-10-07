@@ -60,6 +60,7 @@ import es.limit.cecocloud.fact.logic.api.dto.Parameter;
 import es.limit.cecocloud.fact.logic.api.dto.Partida;
 import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
 import es.limit.cecocloud.fact.logic.api.dto.Pressupost;
+import es.limit.cecocloud.fact.logic.api.dto.PressupostLinia;
 import es.limit.cecocloud.fact.logic.api.dto.PreuPerGamma;
 import es.limit.cecocloud.fact.logic.api.dto.PreuPerZona;
 import es.limit.cecocloud.fact.logic.api.dto.Producte;
@@ -97,6 +98,7 @@ import es.limit.cecocloud.fact.logic.api.dto.TipusVenciment;
 import es.limit.cecocloud.fact.logic.api.dto.Transportista;
 import es.limit.cecocloud.fact.logic.api.dto.Ubicacio;
 import es.limit.cecocloud.fact.logic.api.dto.UbicacioArticle;
+import es.limit.cecocloud.fact.logic.api.dto.UnitatControlEstudi;
 import es.limit.cecocloud.fact.logic.api.dto.UnitatTipus;
 import es.limit.cecocloud.fact.logic.api.dto.UsuariGrup;
 import es.limit.cecocloud.fact.logic.api.dto.Vehicle;
@@ -608,6 +610,17 @@ public class FactModuleRegister {
 						Pressupost.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_LPR",
+				new FuncionalitatCodiFontImpl(
+						"FAC_LPR",
+						FuncionalitatTipus.MANTENIMENT,
+						"Pressupostos Linies",
+						PressupostLinia.class,
+						Arrays.asList(
+								Empresa.class,
+								Pressupost.class,
+								Article.class)));
+		funcionalitats.put(
 				"FAC_PREGMA",
 				new FuncionalitatCodiFontImpl(
 						"FAC_PREGMA",
@@ -977,6 +990,17 @@ public class FactModuleRegister {
 								Ubicacio.class,
 								Article.class,
 								Magatzem.class)));
+		funcionalitats.put(
+				"FAC_UNICONEST",
+				new FuncionalitatCodiFontImpl(
+						"FAC_UNICONEST",
+						FuncionalitatTipus.MANTENIMENT,
+						"Unitats control estudi",
+						UnitatControlEstudi.class,
+						Arrays.asList(
+								Empresa.class,
+								Projecte.class,
+								EstudiProjecte.class)));
 		funcionalitats.put(
 				"FAC_UNITIP",
 				new FuncionalitatCodiFontImpl(
