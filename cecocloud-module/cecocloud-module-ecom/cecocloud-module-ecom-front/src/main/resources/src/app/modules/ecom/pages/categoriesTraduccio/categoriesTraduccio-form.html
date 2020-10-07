@@ -1,0 +1,56 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="categoriesTraduccioService"
+  (resourceLoad)="onResourceLoad($event)"  
+  (formGroupChange)="onFormGroupChange($event)"
+>
+
+<ng-container *ngTemplateOutlet="dadesGenerals"></ng-container>
+<ng-container *ngTemplateOutlet="categories"></ng-container>
+
+<ng-template #dadesGenerals>
+	
+	  	<div style="display: flex">
+	      <div style="width: 100%; padding-right: 1em">
+	        <bng-custom-field name="idioma"></bng-custom-field>
+	      </div>   	
+	    </div>
+	        
+	    <div style="display: flex">
+	      <div style="width: 100%; padding-right: 1em">
+	        <bng-custom-field name="descripcio"></bng-custom-field>
+	      </div>   	
+	    </div>
+	    
+</ng-template>
+
+<ng-template #categories>
+	
+	  	<div [style.display]="this.activarFamilia?'flex':'none'">
+	      <div style="width: 100%; padding-right: 1em">
+	        <bng-custom-field name="familia"></bng-custom-field>
+	      </div>   	
+	    </div>
+	        
+	    <div [style.display]="this.activarMarca?'flex':'none'">
+	      <div style="width: 100%; padding-right: 1em">
+	        <bng-custom-field name="marca"></bng-custom-field>
+	      </div>   	
+	    </div>
+	    
+	    <div [style.display]="this.activarModel?'flex':'none'">
+	      <div style="width: 100%; padding-right: 1em">
+	        <bng-custom-field name="model"></bng-custom-field>
+	      </div>   	
+	    </div>
+	        
+	    <div [style.display]="this.activarGamma?'flex':'none'">
+	      <div style="width: 100%; padding-right: 1em">
+	        <bng-custom-field name="gamma"></bng-custom-field>
+	      </div>   	
+	    </div> 
+	    
+</ng-template>	
+	
+</bng-form>

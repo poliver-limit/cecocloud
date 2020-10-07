@@ -111,7 +111,19 @@ public class ArticleMarcaApiController<D extends Identificable<ID>, ID extends S
 			List<Idioma> idiomaList = idiomaService.findByQuickFilterAndRsqlQuery(null,"codiIso=ic='"+codiIdioma+"'",Sort.unsorted());
 			Idioma idioma = idiomaList.get(0);
 			if (idioma!=null) {
-				CategoriaTraduccio categoriaTraduccio = categoriaTraduccioService.findOneByRsqlQuery("idioma.codiIso=="+idioma.getCodiIso()+";marca.codi==" + articleMarca.getCodi());
+//				CategoriaTraduccio categoriaTraduccio = categoriaTraduccioService.findOneByRsqlQuery("idioma.codiIso=="+idioma.getCodiIso()+";marca.codi==" + articleMarca.getCodi());
+				
+				Page<CategoriaTraduccio> categoriaTraduccioPage = categoriaTraduccioService.findPageByQuickFilterAndRsqlQuery(
+						null,
+						"idioma.codiIso=="+idioma.getCodiIso()+";marca.codi==" + articleMarca.getCodi(),
+						Pageable.unpaged(),
+						Sort.unsorted());
+				List<CategoriaTraduccio> categoriaTraduccioList = categoriaTraduccioPage.getContent();
+				CategoriaTraduccio categoriaTraduccio = null;
+				if (categoriaTraduccioList.size()!=0) {
+					categoriaTraduccio = categoriaTraduccioList.get(0);
+				}
+				
 				if ((categoriaTraduccio!=null)&&(!categoriaTraduccio.equals(""))) {
 					traduccio = categoriaTraduccio.getDescripcio();
 				}
