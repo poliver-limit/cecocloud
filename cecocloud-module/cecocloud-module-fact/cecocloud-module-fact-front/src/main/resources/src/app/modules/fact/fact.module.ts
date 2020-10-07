@@ -172,6 +172,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/ives/ives.module').then(m => m.IvesModule)
 
 			}, {
+				path: 'liniesEstudi',
+				loadChildren: () => import('./pages/liniesEstudi/liniesEstudi.module').then(m => m.LiniesEstudiModule)
+
+			}, {
 				path: 'liniesFullFeina',
 				loadChildren: () => import('./pages/liniesFullFeina/liniesFullFeina.module').then(m => m.LiniesFullFeinaModule)
 
@@ -687,6 +691,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.groups',
 									route: '/fact/groups',
 									resource: 'FAC_GRO'
+								}, {
+									icon: 'room',
+									label: 'Linies estudi',
+									labelKey: 'app.menu.fact.liniesEstudi',
+									route: '/fact/liniesEstudi',
+									resource: 'FAC_LINEST'
 								}, {
 									icon: 'room',
 									label: 'Linies full feina',

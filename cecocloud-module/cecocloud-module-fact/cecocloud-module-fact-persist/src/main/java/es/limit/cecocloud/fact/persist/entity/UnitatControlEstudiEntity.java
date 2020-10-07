@@ -101,7 +101,7 @@ public class UnitatControlEstudiEntity extends AbstractWithIdentificadorAuditabl
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "uce_idf_cod", referencedColumnName = "prj_idf_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "uce_prj_cod", referencedColumnName = "prj_num", insertable = false, updatable = false),
+					@JoinColumn(name = "uce_prj_num", referencedColumnName = "prj_num", insertable = false, updatable = false),
 					@JoinColumn(name = "uce_emp_cod", referencedColumnName = "prj_emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_uce_prj_fk"))

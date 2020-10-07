@@ -135,6 +135,11 @@ export class AppService {
 			route: '/fact/ives'
 		}, {
 			icon: 'room',
+			label: 'Linies estudi',
+			labelKey: 'app.menu.fact.liniesEstudi',
+			route: '/fact/liniesEstudi'
+		}, {
+			icon: 'room',
 			label: 'Linies full feina',
 			labelKey: 'app.menu.fact.liniesFullFeina',
 			route: '/fact/liniesFullFeina'

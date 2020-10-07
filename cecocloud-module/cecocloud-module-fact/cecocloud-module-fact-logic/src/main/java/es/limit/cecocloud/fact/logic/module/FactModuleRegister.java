@@ -48,6 +48,7 @@ import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
 import es.limit.cecocloud.fact.logic.api.dto.Idioma;
 import es.limit.cecocloud.fact.logic.api.dto.InversioSubjectePassiu;
 import es.limit.cecocloud.fact.logic.api.dto.Iva;
+import es.limit.cecocloud.fact.logic.api.dto.LiniaEstudi;
 import es.limit.cecocloud.fact.logic.api.dto.LiniaFullFeina;
 import es.limit.cecocloud.fact.logic.api.dto.Magatzem;
 import es.limit.cecocloud.fact.logic.api.dto.MagatzemPeriode;
@@ -499,11 +500,22 @@ public class FactModuleRegister {
 						Iva.class,
 						Arrays.asList()));
 		funcionalitats.put(
+				"FAC_LINEST",
+				new FuncionalitatCodiFontImpl(
+						"FAC_LINEST",
+						FuncionalitatTipus.MANTENIMENT,
+						"Linies estudi",
+						LiniaEstudi.class,
+						Arrays.asList(
+								Empresa.class,
+								Projecte.class,
+								EstudiProjecte.class)));
+		funcionalitats.put(
 				"FAC_LIFUFE",
 				new FuncionalitatCodiFontImpl(
 						"FAC_LIFUFE",
 						FuncionalitatTipus.MANTENIMENT,
-						"Linias full feina",
+						"Linies full feina",
 						LiniaFullFeina.class,
 						Arrays.asList(
 								FinalFactura.class)));

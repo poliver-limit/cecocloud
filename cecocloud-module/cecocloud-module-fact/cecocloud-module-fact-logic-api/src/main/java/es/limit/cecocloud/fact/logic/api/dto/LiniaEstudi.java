@@ -19,6 +19,9 @@ import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
 import es.limit.cecocloud.fact.logic.api.dto.EstudiProjecte.EstudiProjectePk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
+import es.limit.cecocloud.fact.logic.api.dto.LiniaEstudi.LiniaEstudiPk;
+import es.limit.cecocloud.fact.logic.api.dto.Pressupost.PressupostPk;
+import es.limit.cecocloud.fact.logic.api.dto.PressupostLinia.PressupostLiniaPk;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
 import es.limit.cecocloud.fact.logic.api.dto.UnitatControlEstudi.UnitatControlEstudiPk;
 import lombok.AllArgsConstructor;
@@ -28,7 +31,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO amb informació d'UnitatControlEstudi.
+ * DTO amb informació d'LiniaEstudi.
  * 
  * @author Limit Tecnologies <limit@limit.es>
  */
@@ -37,9 +40,8 @@ import lombok.Setter;
 		descriptionField = "descripcio"
 )
 @PrimaryKeyNotExists(fields = {"empresa","estudiProjecteCodi","estudiProjecteNum","projecteNum","sequencia"}, groups = { OnCreate.class })
-public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<UnitatControlEstudiPk> {
+public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEstudiPk> {
 
-	@NotNull(groups = {OnCreate.class})
 	@Size(max = 30)
 	@RestapiField(
 			toUpperCase = true,
@@ -67,29 +69,38 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 			sizeMax = 22)
 	private BigDecimal easSequencia;
 	
-	@Digits(integer = 15, fraction = 2)
+	@Digits(integer = 10, fraction = 0)
 	@RestapiField(
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
-	private BigDecimal prodAnterior;
+	private BigDecimal seqPae;
 	
-	@Digits(integer = 15, fraction = 2)
+	@Digits(integer = 15, fraction = 3)
 	@RestapiField(
 			includeInQuickFilter = true,
 			sizeMax = 22)
-	private BigDecimal prodActual;
+	private BigDecimal unitatsPress;
+	
+	@Digits(integer = 15, fraction = 3)
+	@RestapiField(
+			includeInQuickFilter = true,
+			sizeMax = 22)
+	private BigDecimal unitatsAnterior;
+	
+	@Digits(integer = 15, fraction = 3)
+	@RestapiField(
+			includeInQuickFilter = true,
+			sizeMax = 22)
+	private BigDecimal unitatsActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeAnterior;
-	
-	@Digits(integer = 15, fraction = 2)
-	@RestapiField(
-			includeInQuickFilter = true,
-			sizeMax = 22)
-	private BigDecimal costeActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
@@ -118,7 +129,6 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 	@Size(max = 22)
 	@Digits(integer = 3, fraction = 0)
 	@RestapiField(
-			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			hiddenInLov = true)
 	private BigDecimal numOrigen;
@@ -129,12 +139,55 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 			hiddenInGrid = true)
 	private String codInt;
 	
-	@Size(max = 250)
+	@NotNull
+	@Size(max = 2000)
 	@RestapiField(
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
 	private String descripcio;
 	
+	@NotNull
+	@Size(max = 128)
+	@RestapiField(
+			includeInQuickFilter = true,
+			hiddenInGrid = true)
+	private String descripcioReduc;
+	
+	@NotNull
+	@Digits(integer = 15, fraction = 3)
+	@RestapiField(
+			disabledForCreate = false,
+			disabledForUpdate = true,
+			toUpperCase = true,
+			includeInQuickFilter = true,
+			sizeMax = 22)
+	private BigDecimal unitats;
+	
+	@NotNull
+	@Digits(integer = 17, fraction = 5)
+	@RestapiField(
+			disabledForCreate = false,
+			disabledForUpdate = true,
+			toUpperCase = true,
+			includeInQuickFilter = true,
+			sizeMax = 22)
+	private BigDecimal preu;
+	
+	@NotNull
+	@Digits(integer = 17, fraction = 5)
+	@RestapiField(
+			disabledForCreate = false,
+			disabledForUpdate = true,
+			toUpperCase = true,
+			includeInQuickFilter = true,
+			sizeMax = 22)
+	private BigDecimal costUni;
+	
+	@Size(max = 30)
+	@RestapiField(
+			includeInQuickFilter = true,
+			hiddenInGrid = true)
+	private String referencia;
 	
 	@Transient
 	@NotNull(groups = { OnCreate.class })
@@ -184,18 +237,74 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<EstudiProjecte, EstudiProjectePk> estudiProjecteNum;
 	
+	@Transient
+	@NotNull(groups = { OnCreate.class })
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = false,
+			hiddenInForm = false,
+			disabledForCreate = true,
+			disabledForUpdate = true,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<UnitatControlEstudi, UnitatControlEstudiPk> uceSequencia;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = false,
+			hiddenInForm = false,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> articulo;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = false,
+			hiddenInForm = false,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<UnitatTipus, WithIdentificadorAndCodiPk<String>> unitatTipus;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = false,
+			hiddenInForm = false,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<Pressupost, PressupostPk> pressupost;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = false,
+			hiddenInForm = false,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)	
+	private GenericReferenceWithCompositePk<PressupostLinia, PressupostLiniaPk> pressupostNumero;
+	
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)
 	@Getter @Setter
 	@SuppressWarnings("serial")
-	public static class UnitatControlEstudiPk extends WithIdentificadorPk {
+	public static class LiniaEstudiPk extends WithIdentificadorPk {
 		private String empresaCodi;
 		private Integer sequencia;
 		private String projecteNum;
 		private String estudiProjecteCodi;
 		private BigDecimal estudiProjecteNum;
-		public UnitatControlEstudiPk(
+		public LiniaEstudiPk(
 				String identificadorCodi,
 				String empresaCodi,
 				String projecteNum,
