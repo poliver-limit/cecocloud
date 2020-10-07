@@ -78,6 +78,10 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.contactePersona", column = @Column(name = "prj_percon", length = 60)),
 		@AttributeOverride(name = "embedded.contacteTelefon", column = @Column(name = "prj_telcon", length = 30)),
 		@AttributeOverride(name = "embedded.estudiSumarValoracioEnExces", column = @Column(name = "prj_valexc", length = 1)),	
+		//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////
+		@AttributeOverride(name = "embedded.dricmp", column = @Column(name = "prj_dricmp", length = 2)),
+		@AttributeOverride(name = "embedded.dricmp002", column = @Column(name = "prj_dricmp002", length = 2)),
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		@AttributeOverride(name = "embedded.dataFiPrevist", column = @Column(name = "prj_datfinprt")),
 		@AttributeOverride(name = "embedded.mesosGarantia", column = @Column(name = "prj_mesgar", length = 22, precision = 7, scale = 2)),
 		@AttributeOverride(name = "embedded.percentExecucioLliure", column = @Column(name = "prj_pteeje", length = 22, precision = 7, scale = 2)),
@@ -95,25 +99,40 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.dataIniciGarantia", column = @Column(name = "prj_datgar")),
 		@AttributeOverride(name = "embedded.multiclient", column = @Column(name = "prj_mulcli", length = 1)),
 		@AttributeOverride(name = "embedded.dataFinalGarantia", column = @Column(name = "prj_datfingar")),
+		////////////////////////////////////NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR //////////////////////////////////////////////////////////////
+		@AttributeOverride(name = "embedded.kmt", column = @Column(name = "prj_kmt", length = 22, precision = 5, scale = 2)),	
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		@AttributeOverride(name = "embedded.tipusExecucio", column = @Column(name = "prj_tipeje", length = 22, precision = 1)),
 		@AttributeOverride(name = "embedded.preuMigFacturacio", column = @Column(name = "prj_prumigfac", length = 22, precision = 15, scale = 2)),
 		@AttributeOverride(name = "embedded.dataFormalitzacio", column = @Column(name = "prj_datfmz")),
 		@AttributeOverride(name = "embedded.tecnologies", column = @Column(name = "prj_tec", length = 3000)),		
 		@AttributeOverride(name = "embedded.descripcioCurta", column = @Column(name = "prj_descur", length = 500)),
-		@AttributeOverride(name = "embedded.exportarMobil", column = @Column(name = "prj_pda", length = 1)),	
-		
-		//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////
-		@AttributeOverride(name = "embedded.dricmp", column = @Column(name = "prj_dricmp", length = 2)),
-		@AttributeOverride(name = "embedded.dricmp002", column = @Column(name = "prj_dricmp002", length = 2)),
-		@AttributeOverride(name = "embedded.kmt", column = @Column(name = "prj_kmt", length = 22, precision = 5, scale = 2)),	
+		//////////////////////////////////NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR ////////////////////////////////////////////////////////////////		
 		@AttributeOverride(name = "embedded.pteinccstmo", column = @Column(name = "prj_pteinccstmo", length = 22, precision = 7, scale = 2)),
 		@AttributeOverride(name = "embedded.pteinccstmaq", column = @Column(name = "prj_pteinccstmaq", length = 22, precision = 7, scale = 2)),
 		@AttributeOverride(name = "embedded.impfixmo", column = @Column(name = "prj_impfixmo", length = 22, precision = 18, scale = 4)),
 		@AttributeOverride(name = "embedded.impfixmaq", column = @Column(name = "prj_impfixmaq", length = 22, precision = 18, scale = 4)),		
-		@AttributeOverride(name = "embedded.idfProjecteJira", column = @Column(name = "prj_jiridf", length = 10)),
-		@AttributeOverride(name = "embedded.tipges", column = @Column(name = "prj_tipges", length = 1)),
-		@AttributeOverride(name = "embedded.cpa", column = @Column(name = "prj_cpa", length = 1)),			
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		@AttributeOverride(name = "embedded.exportarMobil", column = @Column(name = "prj_pda", length = 1)),		
 		//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////		
+		@AttributeOverride(name = "embedded.idfProjecteJira", column = @Column(name = "prj_jiridf", length = 10)),
+		@AttributeOverride(name = "embedded.tipusGestio", column = @Column(name = "prj_tipges", length = 1)),
+		@AttributeOverride(name = "embedded.cpa", column = @Column(name = "prj_cpa", length = 1)),			
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		//////////////////////////////////// REFERIDES A CODIS PERÒ SENSE SER RELACIO  A TAULES /////////////////////////////////////////////////////////
+		@AttributeOverride(name = "embedded.articleCodi001", column = @Column(name = "prj_art_cod001", length = 15)),
+		@AttributeOverride(name = "embedded.articleCodi002", column = @Column(name = "prj_art_cod002", length = 15)),		
+		@AttributeOverride(name = "embedded.estudiCodi001", column = @Column(name = "prj_etp_cod001", length = 4)),
+		@AttributeOverride(name = "embedded.estudiCodi002", column = @Column(name = "prj_etp_cod002", length = 4)),
+		@AttributeOverride(name = "embedded.estudiCodi003", column = @Column(name = "prj_etp_cod003", length = 4)),		
+		@AttributeOverride(name = "embedded.unitatControlEstudiCodi001", column = @Column(name = "prj_uce_cod001", length = 30)),
+		@AttributeOverride(name = "embedded.unitatControlEstudiCodi002", column = @Column(name = "prj_uce_cod002", length = 30)),
+		@AttributeOverride(name = "embedded.unitatControlEstudiCodi003", column = @Column(name = "prj_uce_cod003", length = 30)),		
+		@AttributeOverride(name = "embedded.estudiLiniaCodi001", column = @Column(name = "prj_les_cod001", length = 30)),
+		@AttributeOverride(name = "embedded.estudiLiniaCodi002", column = @Column(name = "prj_les_cod002", length = 30)),
+		@AttributeOverride(name = "embedded.estudiLiniaCodi003", column = @Column(name = "prj_les_cod003", length = 30)),
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		@AttributeOverride(name = "createdBy", column = @Column(name = "prj_usucre")),
 		@AttributeOverride(name = "createdDate", column = @Column(name = "prj_datcre")),
@@ -140,10 +159,8 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			},
 			foreignKey = @ForeignKey(name = "prj_emp_cod_fk"))
 	private EmpresaEntity empresa;
-	@Column(name = "prj_emp_cod", length = 4, insertable = false, updatable = false)
-	private String empresaCodi;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "div_idf_cod", insertable = false, updatable = false),
@@ -229,9 +246,9 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 						@JoinColumn(name = "prj_clr_cod", referencedColumnName = "clr_cod", insertable = false, updatable = false) 
 			},
 			foreignKey = @ForeignKey(name = "prj_clr_cod_fk"))
-	private ClasseRetencioEntity retencioClasse;
+	private ClasseRetencioEntity classeRetencio;
 	@Column(name = "prj_clr_cod", length = 4)
-	private String retencioClasseCodi;
+	private String classeRetencioCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -289,96 +306,6 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@Column(name = "prj_ope_codadm", length = 6)
 	private String operariAdministratiuCodi;
 	
-	
-	//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sei_idf_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sei_emp_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_sei_codinv", referencedColumnName = "sei_cod", insertable = false, updatable = false)						 
-//			},
-//			foreignKey = @ForeignKey(name = "prj_sei_codinv_fk"))
-//	private SerieSubjectePassiuEntity serieSubjectePassiu;
-//	@Column(name = "prj_sei_codinv", length = 2)
-//	private String serieSubjectePassiuCodi;
-//	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "apl_idf_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_apl_ref", referencedColumnName = "apl_ref", insertable = false, updatable = false) 
-//			},
-//			foreignKey = @ForeignKey(name = "prj_apl_ref_fk"))
-//	private ProducteEntity producte;
-//	@Column(name = "prj_apl_ref", length = 22)
-//	private String producteReferencia;
-//	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "art_idf_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_art_cod001", referencedColumnName = "art_cod", insertable = false, updatable = false)												 
-//			},
-//			foreignKey = @ForeignKey(name = "prj_art_cod001_fk"))
-//	private ArticleEntity article001;
-//	@Column(name = "prj_art_cod001", length = 15)
-//	private String article001Codi;
-//	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "art_idf_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_art_cod002", referencedColumnName = "art_cod", insertable = false, updatable = false)												 
-//			},
-//			foreignKey = @ForeignKey(name = "prj_art_cod002_fk"))
-//	private ArticleEntity article002;
-//	@Column(name = "prj_art_cod002", length = 15)
-//	private String article002Codi;
-//	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "etp_idf_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "etp_emp_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_prj_num", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_etp_cod001", referencedColumnName = "etp_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_num", insertable = false, updatable = false) // Revisar si cal un prj_etp_num
-//			},
-//			foreignKey = @ForeignKey(name = "prj_etp_cod001_fk"))
-//	private ProjecteEstudiEntity projecteEstudi001;
-//	@Column(name = "prj_etp_cod001", length = 4)
-//	private String projecteEstudiCodi001;
-//	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "etp_idf_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "etp_emp_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_prj_num", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_etp_cod002", referencedColumnName = "etp_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_num", insertable = false, updatable = false) // Revisar si cal un prj_etp_num
-//			},
-//			foreignKey = @ForeignKey(name = "prj_etp_cod002_fk"))
-//	private ProjecteEstudiEntity projecteEstudi002;
-//	@Column(name = "prj_etp_cod002", length = 4)
-//	private String projecteEstudiCodi002;
-//	
-//	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-//	@JoinColumns(
-//			value = {
-//						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "etp_idf_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "etp_emp_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_prj_num", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_etp_cod003", referencedColumnName = "etp_cod", insertable = false, updatable = false),
-//						@JoinColumn(name = "prj_num", referencedColumnName = "etp_num", insertable = false, updatable = false) // Revisar si cal un prj_etp_num
-//			},
-//			foreignKey = @ForeignKey(name = "prj_etp_cod003_fk"))
-//	private ProjecteEstudiEntity projecteEstudi003;
-//	@Column(name = "prj_etp_cod003", length = 4)
-//	private String projecteEstudiCodi003;
-	//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////		
-	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -389,6 +316,18 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	private RegimIvaEntity regimIva;
 	@Column(name = "prj_rgi_codinv", length = 2)
 	private String regimIvaCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sei_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sei_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_sei_codinv", referencedColumnName = "sei_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_sei_codinv_fk"))
+	private SerieIntracomunitariaEntity serieIntracomunitaria;
+	@Column(name = "prj_sei_codinv", length = 2)
+	private String serieIntracomunitariaCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -435,18 +374,18 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@Column(name = "prj_mag_cod", length = 4)
 	private String magatzemCodi;
 	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
+	//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "apl_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_apl_ref", referencedColumnName = "apl_ref", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "prj_apl_ref_fk"))
+	private ProducteEntity producte;
+	@Column(name = "prj_apl_ref", length = 22)
+	private Integer producteReferencia;
+		
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
@@ -458,129 +397,67 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	private SeccioEntity seccio;
 	@Column(name = "prj_sec_cod", length = 2)
 	private String seccioCodi;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumns(
-			value = {
-						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "sei_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "sei_emp_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "prj_sei_codinv", referencedColumnName = "sei_cod", insertable = false, updatable = false) 
-			},
-			foreignKey = @ForeignKey(name = "prj_sei_codinv_fk"))
-	private SerieIntracomunitariaEntity serieIntracomunitaria;
-	@Column(name = "prj_sei_codinv", length = 4)
-	private String serieIntracomunitariaCodi;
 	
 	@Builder
 	public ProjecteEntity(ProjectePk pk, 
 			Projecte embedded, 
 			IdentificadorEntity identificador, 
-			EmpresaEntity empresa,
+			EmpresaEntity empresa,			
 			DivisaEntity divisa, 
-			SeccioEntity seccio,
+			ClientEntity client,
+			ClientAdresaEntity clientAdresa,
+			SubClientEntity subClient, 
+			FinalFacturaEntity finalFactura,
 			ProjecteTipusEntity projecteTipus, 
 			OperariEntity operariResponsable,
-			OperariEntity operariCapGrup, 
+			ClasseRetencioEntity classeRetencio,
 			OperariEntity operariEncarregat, 
-			OperariEntity operariAdministratiu,
 			SerieVendaEntity serie, 
-			ClientEntity client,
-			SubClientEntity subClient, 
-			ClientAdresaEntity clientAdresa,
-			CodiPostalEntity codiPostal, 
-			ClasseRetencioEntity retencioClasse, 
-			AreaNegociEntity areaNegoci,
-			MagatzemEntity magatzem, 
 			ZonaEntity zona, 
-			FinalFacturaEntity finalFactura,
-			IvaEntity iva,
+			OperariEntity operariCapGrup,			
+			OperariEntity operariAdministratiu,
 			RegimIvaEntity regimIva,
-			SerieIntracomunitariaEntity serieIntracomunitaria) {
+			SerieIntracomunitariaEntity serieIntracomunitaria,
+			IvaEntity iva,
+			AreaNegociEntity areaNegoci,			
+			CodiPostalEntity codiPostal,			
+			MagatzemEntity magatzem, 
+			ProducteEntity producte,			
+			SeccioEntity seccio
+			) {
 		
 		setId(pk);
 		
 		this.embedded = embedded;
-		this.identificador = identificador;
+		this.identificador = identificador;		
+		this.empresa = empresa;
 		
-		updateEmpresa(empresa);
 		updateDivisa(divisa);
-		updateSeccio(seccio);
+		updateClient(client);
+		updateClientAdresa(clientAdresa);
+		updateSubClient(subClient);
+		updateFinalFactura(finalFactura);
 		updateProjecteTipus(projecteTipus);
 		updateOperariResponsable(operariResponsable);
-		updateOperariCapGrup(operariCapGrup);
+		updateClasseRetencio(classeRetencio);
 		updateOperariEncarregat(operariEncarregat);
-		updateOperariAdministratiu(operariAdministratiu);
 		updateSerie(serie);
-		updateClient(client);
-		updateSubClient(subClient);
-		updateClientAdresa(clientAdresa);
-		updateCodiPostal(codiPostal);
-		updateRetencioClasse(retencioClasse);
-		updateAreaNegoci(areaNegoci);
-		updateMagatzem(magatzem);
 		updateZona(zona);
-		updateFinalFactura(finalFactura);
-		
-		updateIva(iva);
+		updateOperariCapGrup(operariCapGrup);		
+		updateOperariAdministratiu(operariAdministratiu);
 		updateRegimIva(regimIva);
 		updateSerieIntracomunitaria(serieIntracomunitaria);
+		updateIva(iva);
+		updateAreaNegoci(areaNegoci);
+		updateCodiPostal(codiPostal);		
+		updateMagatzem(magatzem);
+		updateProducte(producte);	
+		updateSeccio(seccio);
 	}
 
 	@Override
 	public void update(Projecte embedded) {
 		this.embedded = embedded;
-	}
-
-	public void updateEmpresa(EmpresaEntity empresa) {
-		this.empresa = empresa;
-		if (empresa != null) {
-			this.empresaCodi = empresa.getId().getCodi();
-		}
 	}
 
 	public void updateDivisa(DivisaEntity divisa) {
@@ -667,10 +544,10 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		}
 	}
 
-	public void updateRetencioClasse(ClasseRetencioEntity retencioClasse) {
-		this.retencioClasse = retencioClasse;
-		if (retencioClasse != null) {
-			this.retencioClasseCodi = retencioClasse.getId().getCodi();
+	public void updateClasseRetencio(ClasseRetencioEntity classeRetencio) {
+		this.classeRetencio = classeRetencio;
+		if (classeRetencio != null) {
+			this.classeRetencioCodi = classeRetencio.getId().getCodi();
 		}
 	}
 
@@ -720,6 +597,13 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		this.serieIntracomunitaria = serieIntracomunitaria;
 		if (serieIntracomunitaria != null) {
 			this.serieIntracomunitariaCodi = serieIntracomunitaria.getId().getCodi();
+		}
+	}
+	
+	public void updateProducte(ProducteEntity producte) {
+		this.producte = producte;
+		if (producte != null) {
+			this.producteReferencia = producte.getId().getReferencia();
 		}
 	}
 }

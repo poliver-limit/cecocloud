@@ -245,28 +245,29 @@ export class EcomModule {
 							resource: 'COM_ARTICL'
 						}, {
 							icon: 'room',
+							label: 'Articles informació',
+							labelKey: 'app.menu.ecom.articlesInformacio',
+							route: '/ecom/articlesInformacio',
+							resource: 'COM_AINART'
+						}, {
+							icon: 'room',
+							label: 'Articles traducció (eCommerce)',
+							labelKey: 'app.menu.ecom.articlesTraduccio',
+							route: '/ecom/articlesTraduccio',
+							resource: 'COM_TRDART'
+						}, {
+							icon: 'room',
 							label: 'Articles família',
 							labelKey: 'app.menu.ecom.articlesFamilia',
 							route: '/ecom/articlesFamilia',
 							resource: 'COM_FAMART'
-						}, {							
-							icon: 'room',
-							label: 'Articles família empresa',
-							labelKey: 'app.menu.ecom.articlesFamiliaEmpresa',
-							route: '/ecom/articlesFamiliaEmpresa',
-							resource: 'COM_EMFART'
 						}, {
 							icon: 'room',
 							label: 'Articles gamma',
 							labelKey: 'app.menu.ecom.articlesGamma',
 							route: '/ecom/articlesGamma',
 							resource: 'COM_GAMART'
-						}, {
-							icon: 'room',
-							label: 'Articles informació',
-							labelKey: 'app.menu.ecom.articlesInformacio',
-							route: '/ecom/articlesInformacio',
-							resource: 'COM_AINART'
+					
 						}, {
 							icon: 'room',
 							label: 'Articles marca',
@@ -281,10 +282,16 @@ export class EcomModule {
 							resource: 'COM_MODART'
 						}, {
 							icon: 'room',
-							label: 'Articles traducció (eCommerce)',
-							labelKey: 'app.menu.ecom.articlesTraduccio',
-							route: '/ecom/articlesTraduccio',
-							resource: 'COM_TRDART'
+							label: 'Categories traduccio',
+							labelKey: 'app.menu.ecom.categoriesTraduccio',
+							route: '/ecom/categoriesTraduccio',
+							resource: 'COM_CATTRA'						
+//						}, {							
+//							icon: 'room',
+//							label: 'Articles família empresa',
+//							labelKey: 'app.menu.ecom.articlesFamiliaEmpresa',
+//							route: '/ecom/articlesFamiliaEmpresa',
+//							resource: 'COM_EMFART'
 						}
 					]
 				}
@@ -536,12 +543,6 @@ export class EcomModule {
 					labelKey: 'funcionalitat.menu.gestio-ecommerce',
 					items: [
 						{
-							icon: 'room',
-							label: 'Categories traduccio',
-							labelKey: 'app.menu.ecom.categoriesTraduccio',
-							route: '/ecom/categoriesTraduccio',
-							resource: 'COM_CATTRA'
-						}, {
 							icon: 'room',
 							label: 'Codis postals (eCommerce)',
 							labelKey: 'app.menu.ecom.codisPostal',

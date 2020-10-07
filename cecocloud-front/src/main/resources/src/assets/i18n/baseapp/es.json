@@ -110,6 +110,7 @@
 	"error.validation.constraint.MarcatgeData": "Fecha incorrecta",
 	"error.validation.constraint.UsuariEmailNotExists": "Ya existe otro usuario con la misma dirección de correo",
 	"error.validation.constraint.PrimaryKeyNotExists": "Ya existe otro registro con el mismo valor",
+	"error.validation.constraint.CategoriaTraduccioNotExists": "Esta categoría ya está traducida en el idioma escogido",
 
 	"resource.usuari": "Usuario",
 	"resource.usuari.plural": "Usuarios",
