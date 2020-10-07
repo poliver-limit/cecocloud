@@ -36,6 +36,14 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 		includeInQuickFilter = true)
 	private Integer codi;
 	
+	@RestapiField(
+			disabledForCreate = true, 
+			disabledForUpdate = true, 
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			sizeMax = 22)
+	private int numero;
+	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,

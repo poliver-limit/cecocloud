@@ -47,8 +47,6 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "cfg_cod", length = 22, precision = 10, scale = 0, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.tipo", column = @Column(name = "cfg_tip", length = 2, nullable = false)),
 	@AttributeOverride(name = "embedded.nom", column = @Column(name = "cfg_nom", length = 30, nullable = false)),
-	@AttributeOverride(name = "embedded.empresa", column = @Column(name = "cfg_emp_cod", length = 4)),
-	@AttributeOverride(name = "embedded.serie", column = @Column(name = "cfg_ser_cod", length = 2)),
 	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "cfg_des", length = 30, nullable = false)),
 	@AttributeOverride(name = "embedded.cls", column = @Column(name = "cfg_cls", length = 1)),
 	@AttributeOverride(name = "embedded.subtipo", column = @Column(name = "cfg_subtip", length = 30)),

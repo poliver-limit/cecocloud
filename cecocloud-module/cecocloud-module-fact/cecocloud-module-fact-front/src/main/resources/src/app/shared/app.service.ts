@@ -100,6 +100,11 @@ export class AppService {
 			route: '/fact/empresesGrupEmpreses'
 		}, {
 			icon: 'room',
+			label: 'Estudis projecte',
+			labelKey: 'app.menu.fact.estudisProjecte',
+			route: '/fact/estudisProjecte'
+		}, {
+			icon: 'room',
 			label: 'Famílies cost',
 			labelKey: 'app.menu.fact.familiesCost',
 			route: '/fact/familiesCost'
@@ -288,6 +293,11 @@ export class AppService {
 			label: 'Ubicacions articles',
 			labelKey: 'app.menu.fact.ubicacionsArticle',
 			route: '/fact/ubicacionsArticle'
+		}, {
+			icon: 'room',
+			label: 'Unitats control estudi',
+			labelKey: 'app.menu.fact.',
+			route: '/fact/unitatsControlEstudi'
 		}, {
 			icon: 'room',
 			label: 'Unitats tipus',

@@ -132,6 +132,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/empresesGrupEmpreses/empresesGrupEmpreses.module').then(m => m.EmpresesGrupEmpresesModule)
 
 			}, {
+				path: 'estudisProjecte',
+				loadChildren: () => import('./pages/estudisProjecte/estudisProjecte.module').then(m => m.EstudisProjecteModule)
+
+			}, {
 				path: 'familiesClient',
 				loadChildren: () => import('./pages/familiesClient/familiesClient.module').then(m => m.FamiliesClientModule)
 
@@ -214,6 +218,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				path: 'pressupostos',
 				loadChildren: () => import('./pages/pressupostos/pressupostos.module').then(m => m.PressupostosModule)
 
+			}, {
+				path: 'pressupostosLinia',
+				loadChildren: () => import('./pages/pressupostosLinia/pressupostosLinia.module').then(m => m.PressupostosLiniaModule)
+					
 			}, {
 				path: 'preusPerGamma',
 				loadChildren: () => import('./pages/preusPerGamma/preusPerGamma.module').then(m => m.PreusPerGammaModule)
@@ -360,6 +368,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 			}, {
 				path: 'ubicacionsArticle',
 				loadChildren: () => import('./pages/ubicacionsArticle/ubicacionsArticle.module').then(m => m.UbicacionsArticleModule)
+
+			}, {
+				path: 'unitatsControlEstudi',
+				loadChildren: () => import('./pages/unitatsControlEstudi/unitatsControlEstudi.module').then(m => m.UnitatsControlEstudiModule)
 
 			}, {
 				path: 'unitatsTipus',
@@ -653,6 +665,12 @@ export class FactModule {
 									resource: 'FAC_EMPGRU'
 								}, {
 									icon: 'room',
+									label: 'Estudis projecte',
+									labelKey: 'app.menu.fact.estudisProjecte',
+									route: '/fact/estudisProjecte',
+									resource: 'FAC_ESTPRO'
+								}, {
+									icon: 'room',
 									label: 'Empreses del grup de empreses',
 									labelKey: 'app.menu.fact.empresesGrupEmpreses',
 									route: '/fact/empresesGrupEmpreses',
@@ -759,6 +777,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.transportistes',
 									route: '/fact/transportistes',
 									resource: 'FAC_TRANSP'
+								}, {
+									icon: 'room',
+									label: 'Unitats control estudi',
+									labelKey: 'app.menu.fact.unitatsControlEstudi',
+									route: '/fact/unitatsControlEstudi',
+									resource: 'FAC_UNICONEST'
 								}, {
 									icon: 'room',
 									label: 'Usuaris del grup',
