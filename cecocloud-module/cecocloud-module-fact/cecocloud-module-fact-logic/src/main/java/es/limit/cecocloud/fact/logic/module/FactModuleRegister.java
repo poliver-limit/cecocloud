@@ -52,6 +52,7 @@ import es.limit.cecocloud.fact.logic.api.dto.LiniaEstudi;
 import es.limit.cecocloud.fact.logic.api.dto.LiniaFullFeina;
 import es.limit.cecocloud.fact.logic.api.dto.Magatzem;
 import es.limit.cecocloud.fact.logic.api.dto.MagatzemPeriode;
+import es.limit.cecocloud.fact.logic.api.dto.MantenimentDeTipus;
 import es.limit.cecocloud.fact.logic.api.dto.NaturalesaPagamentCobrament;
 import es.limit.cecocloud.fact.logic.api.dto.OficinaBancaria;
 import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
@@ -1030,6 +1031,14 @@ public class FactModuleRegister {
 						UsuariGrup.class,
 						Arrays.asList(
 								Group.class)));
+		funcionalitats.put(
+				"FAC_VAD",
+				new FuncionalitatCodiFontImpl(
+						"FAC_VAD",
+						FuncionalitatTipus.MANTENIMENT,
+						"Manteniments de tipus",
+						MantenimentDeTipus.class,
+						Arrays.asList()));
 		funcionalitats.put(
 				"FAC_VEHICL",
 				new FuncionalitatCodiFontImpl(

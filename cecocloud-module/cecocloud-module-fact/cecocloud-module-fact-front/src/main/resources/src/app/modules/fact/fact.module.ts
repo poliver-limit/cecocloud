@@ -386,6 +386,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/usuarisGrup/usuarisGrup.module').then(m => m.UsuarisGrupModule)
 
 			}, {
+				path: 'mantenimentsDeTipus',
+				loadChildren: () => import('./pages/mantenimentsDeTipus/mantenimentsDeTipus.module').then(m => m.MantenimentsDeTipusModule)
+
+			}, {
 				path: 'vehicles',
 				loadChildren: () => import('./pages/vehicles/vehicles.module').then(m => m.VehiclesModule)
 
@@ -799,6 +803,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.usuarisGrup',
 									route: '/fact/usuarisGrup',
 									resource: 'FAC_USUGRU'
+								}, {
+									icon: 'room',
+									label: 'MantenimentsDeTipus',
+									labelKey: 'app.menu.fact.mantenimentsDeTipus',
+									route: '/fact/mantenimentsDeTipus',
+									resource: 'FAC_VAD'
 								}, {
 									icon: 'room',
 									label: 'Vehicles',

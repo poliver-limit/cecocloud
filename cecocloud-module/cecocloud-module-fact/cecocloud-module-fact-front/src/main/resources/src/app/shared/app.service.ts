@@ -315,6 +315,11 @@ export class AppService {
 			route: '/fact/usuarisGrup'
 		}, {
 			icon: 'room',
+			label: 'VADs',
+			labelKey: 'app.menu.fact.mantenimentsDeTipus',
+			route: '/fact/mantenimentsDeTipus'
+		}, {
+			icon: 'room',
 			label: 'Vehicles',
 			labelKey: 'app.menu.fact.vehicles',
 			route: '/fact/vehicles'
