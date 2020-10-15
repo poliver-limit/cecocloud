@@ -162,7 +162,8 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 //			synchronized(sem) {
 				num = EntityListenerUtil.getSeguentNumComptador(
 						pressupostLinia.getIdentificador().getId(),
-						"TGES_LPR_"+numeroPressupost);
+						"TGES_LPR_"+numeroPressupost,
+						null);
 //			}
 			pressupostLinia.getEmbedded().setNumero(num);		
 			pressupostLinia.getId().setNumero(num);

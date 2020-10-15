@@ -904,6 +904,7 @@
     "resource.projecte.field.nom": "Nombre",
     "resource.projecte.field.divisa": "Divisa",
     "resource.projecte.field.descripcio": "Descripción",
+    "resource.projecte.field.descripcioCurta": "Descripción breve",
     "resource.projecte.field.referencia": "Referencia",
     "resource.projecte.field.observacions": "Observaciones",
     "resource.projecte.field.codiAlternatiu": "Código alternativo",

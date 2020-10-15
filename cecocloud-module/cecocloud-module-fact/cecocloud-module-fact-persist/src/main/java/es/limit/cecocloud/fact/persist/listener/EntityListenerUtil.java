@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import es.limit.base.boot.logic.api.dto.CompositePk;
 import es.limit.cecocloud.fact.persist.entity.ComptadorEntity;
+import es.limit.cecocloud.fact.persist.entity.ProjecteEntity;
 import es.limit.cecocloud.fact.persist.repository.ComptadorRepository;
 import es.limit.cecocloud.logic.api.dto.Comptador;
 import es.limit.cecocloud.logic.api.dto.Comptador.ComptadorPk;
@@ -36,7 +37,8 @@ public class EntityListenerUtil extends es.limit.cecocloud.persist.listener.Enti
 	 */
 	public static int getSeguentNumComptador(
 			String identificadorCodi,
-			String comptadorCodi) {
+			String comptadorCodi,
+			String comptadorCodi2) {
 		ComptadorPk comptadorPk = new ComptadorPk(identificadorCodi, comptadorCodi);
 		ComptadorRepository comptadorRepository = getBean(ComptadorRepository.class);
 		Optional<ComptadorEntity> comptadorEntity = comptadorRepository.findById(comptadorPk);
@@ -45,15 +47,20 @@ public class EntityListenerUtil extends es.limit.cecocloud.persist.listener.Enti
 			valor = comptadorEntity.get().getEmbedded().getDarrerValor() + 1;
 			comptadorEntity.get().getEmbedded().setDarrerValor(valor);
 		} else {
-			Comptador comptador = new Comptador();
-			comptador.setCodi(comptadorCodi);
-			comptador.setDarrerValor(1);
-			comptadorRepository.save(
-					ComptadorEntity.builder().
-					pk(comptadorPk).
-					embedded(comptador).
-					build());
-			valor = 1;
+			
+			if (comptadorCodi2==null) {			
+				Comptador comptador = new Comptador();
+				comptador.setCodi(comptadorCodi);
+				comptador.setDarrerValor(1);
+				comptadorRepository.save(
+						ComptadorEntity.builder().
+						pk(comptadorPk).
+						embedded(comptador).
+						build());
+				valor = 1;
+			} else {
+				valor = getSeguentNumComptador(identificadorCodi,comptadorCodi2,null);
+			}
 		}
 		return valor;
 	}
@@ -82,6 +89,7 @@ public class EntityListenerUtil extends es.limit.cecocloud.persist.listener.Enti
 	public static <PK extends CompositePk> int getSeguentNumComptadorComprovantPk(
 			String identificadorCodi,
 			String comptadorCodi,
+			String comptadorCodi2,
 			PkBuilder<PK> pkBuilder,
 			JpaRepository<?, PK> entityRepository) {
 		int seq;
@@ -89,10 +97,40 @@ public class EntityListenerUtil extends es.limit.cecocloud.persist.listener.Enti
 		do {
 			seq = EntityListenerUtil.getSeguentNumComptador(
 					identificadorCodi,
-					comptadorCodi);
+					comptadorCodi,
+					comptadorCodi2);
 			pk = pkBuilder.build(seq);
 		} while (entityRepository.findById(pk).isPresent());
 		return seq;
+	}
+	
+	public static <PK extends CompositePk> int getSeguentNumComptadorComprovantPkAmbZeros(
+			String identificadorCodi,
+			String comptadorCodi,
+			String comptadorCodi2,
+			PkBuilder<PK> pkBuilder,
+			JpaRepository<?, PK> entityRepository,
+			int tamanyCodi) {
+		int seq;
+		PK pk;
+		do {
+			seq = EntityListenerUtil.getSeguentNumComptador(
+					identificadorCodi,
+					comptadorCodi,
+					comptadorCodi2);
+			String codiST = afegirZerosAlCodi(seq, tamanyCodi);
+			pk = pkBuilder.build(codiST);
+		} while (entityRepository.findById(pk).isPresent());
+		return seq;
+	}
+	
+	public static String afegirZerosAlCodi(int codi, int tamanyCodi) {						
+			return addZeros(codi, tamanyCodi);
+			
+	}
+	
+	public static String addZeros(int codi, int tamanyCodi) {
+		return String.format("%0"+String.valueOf(tamanyCodi)+"d", codi).toString();	
 	}
 
 	/**
@@ -106,6 +144,9 @@ public class EntityListenerUtil extends es.limit.cecocloud.persist.listener.Enti
 	 */
 	public static abstract class PkBuilder<PK extends CompositePk> {
 		public abstract PK build(int seq);
+		public abstract PK build(String seq);		
 	}
+	
+	
 
 }

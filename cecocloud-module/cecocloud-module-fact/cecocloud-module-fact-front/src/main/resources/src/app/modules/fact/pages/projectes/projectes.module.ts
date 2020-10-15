@@ -34,6 +34,14 @@ import { ClientsAdresaFormModule } from '../clientsAdresa/clientsAdresa-form.mod
 import { CodisPostalFormModule } from '../codisPostal/codisPostal-form.module'
 import { ZonesFormModule } from '../zones/zones-form.module'
 
+import { ProjectesFormModule } from './projectes-form.module';
+
+// Per poder recuperar l'empresa de la sessió:
+import { BngAuthService } from 'base-angular';
+import { EmpresesService } from '../../../../pages/empreses/empreses.service';
+import { EmpresesFactService } from '../empresesFact/empresesFact.service';
+import { DivisesService } from '../divises/divises.service';
+
 @NgModule( {
     imports: [
         CommonModule,
@@ -57,6 +65,8 @@ import { ZonesFormModule } from '../zones/zones-form.module'
 		ClientsAdresaFormModule,
 		CodisPostalFormModule,
 		ZonesFormModule,
+		
+		ProjectesFormModule,
 
         RouterModule.forChild( [
             { path: '', component: ProjectesGridComponent },
@@ -65,8 +75,8 @@ import { ZonesFormModule } from '../zones/zones-form.module'
         ] )
     ],
     declarations: [
-        ProjectesGridComponent,
-        ProjectesFormComponent
+        ProjectesGridComponent
+//        ,ProjectesFormComponent
     ],
     providers: [
         ProjectesService,

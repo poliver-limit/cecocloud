@@ -841,10 +841,15 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 				int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
 						client.getId().getIdentificadorCodi(),
 						"TGES_CLI",
+						null,
 						new PkBuilder<WithIdentificadorAndCodiPk<String>>() {
 							@Override
 							public WithIdentificadorAndCodiPk<String> build(int seq) {
 								return new WithIdentificadorAndCodiPk<String>(client.getId().getIdentificadorCodi(), Integer.toString(seq));
+							}
+							@Override
+							public WithIdentificadorAndCodiPk<String> build(String seq) {
+								return new WithIdentificadorAndCodiPk<String>(client.getId().getIdentificadorCodi(), seq);
 							}
 						},
 						EntityListenerUtil.getBean(ClientRepository.class));

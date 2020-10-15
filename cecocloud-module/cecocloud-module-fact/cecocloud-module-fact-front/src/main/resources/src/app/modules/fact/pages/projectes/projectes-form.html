@@ -19,13 +19,13 @@
 
   <mat-tab-group>
     <mat-tab label="{{'resource.projecte.field.titolDadesProjecte'|translate}}">
-      <ng-container *ngTemplateOutlet="fieldsTab1"></ng-container>
+      <ng-container *ngTemplateOutlet="dadesDelProjecteTab"></ng-container>
     </mat-tab>
     <mat-tab label="{{'resource.projecte.field.titolDadesClient'|translate}}">
-      <ng-container *ngTemplateOutlet="fieldsTab2"></ng-container>
+      <ng-container *ngTemplateOutlet="dadesDelClientTab"></ng-container>
     </mat-tab>
     <mat-tab label="{{'resource.projecte.field.titolDadesTecniques'|translate}}">
-      <ng-container *ngTemplateOutlet="fieldsTab3"></ng-container>
+      <ng-container *ngTemplateOutlet="dadesTecniquesTab"></ng-container>
     </mat-tab>
     <mat-tab label="{{'resource.projecte.field.titolPartesTreball'|translate}}">
       <ng-container *ngTemplateOutlet="fieldsTabPartesTreball"></ng-container>
@@ -82,7 +82,7 @@
 <!--   </ng-template> -->
 
 <!--   <ng-template #fieldsCard1> -->
-	<ng-template #fieldsTab1>
+	<ng-template #dadesDelProjecteTab>
 	    <div style="display: flex">
 	      <div style="width: 50%; padding-right: 1em">
 	        <bng-custom-field name="serie"></bng-custom-field>
@@ -96,6 +96,11 @@
 	        <bng-custom-field name="codiAlternatiu"></bng-custom-field>
 	      </div>
 	    </div>-->
+	    <div style="display: flex">
+	      <div style="width: 100%; padding-right: 1em">
+	        <bng-custom-field name="descripcioCurta"></bng-custom-field>
+	      </div>
+	    </div>
 	    <div style="display: flex">
 	      <div style="width: 100%; padding-right: 1em">
 	        <bng-custom-field name="descripcio"></bng-custom-field>
@@ -131,7 +136,7 @@
 	</ng-template>
 
 <!--   <ng-template #fieldsCard2> -->
-	<ng-template #fieldsTab2>
+	<ng-template #dadesDelClientTab>
 	    <div style="display: flex">
 	      <div style="width: 50%; padding-right: 1em">
 	        <bng-custom-field name="client"></bng-custom-field>
@@ -163,7 +168,7 @@
 <!--   </ng-template> -->
 
 <!--   <ng-template #fieldsCard3> -->
-	<ng-template #fieldsTab3> 
+	<ng-template #dadesTecniquesTab> 
 	    <div style="display: flex">
 	      <div style="width: 50%; padding-right: 1em">
 	        <bng-custom-field name="direccioTecnica"></bng-custom-field>

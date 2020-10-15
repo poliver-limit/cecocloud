@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
+import java.util.regex.Pattern;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -10,16 +12,23 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
+import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
+import es.limit.cecocloud.fact.persist.entity.ProjecteEntity.ProjecteEntityListener;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
+import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.fact.persist.repository.ProjecteRepository;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import es.limit.cecocloud.rrhh.persist.entity.SeccioEntity;
 import lombok.AccessLevel;
@@ -145,7 +154,7 @@ import lombok.Setter;
 									@JoinColumn(name = "prj_idf_cod", insertable = false, updatable = false) }, 
 					foreignKey = @ForeignKey(name = "rges_prj_idf_fk")) 
 })
-
+@EntityListeners({ProjecteEntityListener.class})
 public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Projecte, ProjectePk> {
 
 	@Embedded
@@ -426,12 +435,13 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			SeccioEntity seccio
 			) {
 		
-		setId(pk);
+		setId(pk);		
 		
 		this.embedded = embedded;
 		this.identificador = identificador;		
 		this.empresa = empresa;
 		
+//		afegirZerosAlCodi(this);	
 		updateDivisa(divisa);
 		updateClient(client);
 		updateClientAdresa(clientAdresa);
@@ -606,4 +616,67 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			this.producteReferencia = producte.getId().getReferencia();
 		}
 	}
+	
+	public static class ProjecteEntityListener {
+		@PrePersist
+		public void calcular(ProjecteEntity projecte) {
+			
+			int tamanyCodi = 6;
+			
+			String codi = projecte.getEmbedded().getCodi();			
+			String codiEmpresa = projecte.getId().getEmpresaCodi();
+			if (codi == null || codi.isEmpty()) {
+				int num = EntityListenerUtil.getSeguentNumComptadorComprovantPkAmbZeros(
+						projecte.getId().getIdentificadorCodi(),
+						codiEmpresa+"_TGES_PRJ",
+						"TGES_PRJ",
+						new PkBuilder<ProjectePk>() {
+							@Override
+							public ProjectePk build(int num) {
+								return new ProjectePk(projecte.getId().getIdentificadorCodi(), projecte.getId().getEmpresaCodi(), Integer.toString(num));
+							}
+							@Override
+							public ProjectePk build(String num) {
+								return new ProjectePk(projecte.getId().getIdentificadorCodi(), projecte.getId().getEmpresaCodi(), num);
+							}	
+						},
+						EntityListenerUtil.getBean(ProjecteRepository.class),
+						tamanyCodi);
+				String seqST = addZeros(num, tamanyCodi);
+				projecte.getEmbedded().setCodi(seqST);
+				projecte.getId().setCodi(seqST);
+			} else {
+				afegirZerosAlCodi(projecte, tamanyCodi);
+//				if (isNumeric(codi)) {					
+//					codi = addZeros(Integer.parseInt(codi), 6);
+//					projecte.getEmbedded().setCodi(codi);
+//					projecte.getId().setCodi(codi);
+//				}
+			}
+		}
+	}
+	
+	private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+	 
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false; 
+	    }
+	    return pattern.matcher(strNum).matches();
+	}
+	
+	public static void afegirZerosAlCodi(ProjecteEntity projecte, int tamanyCodi) {
+		
+		String codi = projecte.getEmbedded().getCodi();
+		if (isNumeric(codi)) {					
+			codi = addZeros(Integer.parseInt(codi), tamanyCodi);
+			projecte.getEmbedded().setCodi(codi);
+			projecte.getId().setCodi(codi);
+		}		
+	}
+	
+	public static String addZeros(int codi, int tamanyCodi) {
+		return String.format("%0"+String.valueOf(tamanyCodi)+"d", codi).toString();	
+	}
+	
 }

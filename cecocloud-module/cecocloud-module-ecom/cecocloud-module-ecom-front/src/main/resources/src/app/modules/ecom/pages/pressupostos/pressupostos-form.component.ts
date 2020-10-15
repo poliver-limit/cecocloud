@@ -32,18 +32,23 @@ export class PressupostosFormComponent extends BngFormBaseComponent {
 
 	pressupostosLiniaDatagridConfig: BngDatagridConfig = {
 		mode: 'form',		
-		columns: [ {
-			field: 'unitats'
-		}, {
+		columns: [
+		   {			
 			field: 'article'
 		}, {
 			field: 'descripcio'
+		}, {
+			field: 'factorConversioSortides'
 		}, {
 			field: 'preu'
 		}, {
 			field: 'preuAmbIva'
 		}, {
-			field: 'factorConversioSortides'		
+			field: 'unitats'
+		}, {
+			field: 'preuTotalLinia'
+		}, {
+			field: 'preuTotalLiniaAmbIva'
 		}]
 	};    
 	

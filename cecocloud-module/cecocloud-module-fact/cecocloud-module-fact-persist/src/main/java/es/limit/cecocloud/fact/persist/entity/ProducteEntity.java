@@ -137,10 +137,15 @@ public class ProducteEntity extends AbstractWithIdentificadorEntity<Producte, Pr
 			int seq = EntityListenerUtil.getSeguentNumComptadorComprovantPk(
 					producte.getId().getIdentificadorCodi(),
 					"TGES_APL",
+					null,
 					new PkBuilder<ProductePk>() {
 						@Override
 						public ProductePk build(int seq) {
 							return new ProductePk(producte.getId().getIdentificadorCodi(), seq);
+						}
+						@Override
+						public ProductePk build(String seq) {
+							return new ProductePk(producte.getId().getIdentificadorCodi(), Integer.parseInt(seq));
 						}
 					},
 					EntityListenerUtil.getBean(ProducteRepository.class));

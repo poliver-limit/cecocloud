@@ -171,7 +171,8 @@ public class CitaEntity extends AbstractWithIdentificadorAuditableEntity<Cita, C
 		public void calcular(CitaEntity cita) throws NoSuchAlgorithmException {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					cita.getId().getIdentificadorCodi(),
-					"TCEC_CIT");
+					"TCEC_CIT",
+					null);
 			cita.getId().setSequencia(seq);
 			cita.getEmbedded().setCodi(fromPkToCodi(cita.getId()));
 		}

@@ -151,7 +151,8 @@ public class UnitatControlEstudiEntity extends AbstractWithIdentificadorAuditabl
 		public void calcular(UnitatControlEstudiEntity unitat) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					unitat.getIdentificador().getId(),
-					"TGES_UCE");
+					"TGES_UCE",
+					null);
 			unitat.getEmbedded().setSequencia(seq);
 			unitat.getId().setSequencia(seq);
 		}

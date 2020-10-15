@@ -18,7 +18,7 @@ import es.limit.base.boot.logic.api.annotation.RestapiResource;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExistsWithZeros;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientPreuConverter;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientProjecteTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.ProjecteEstatConverter;
@@ -59,18 +59,18 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@PrimaryKeyNotExistsWithZeros(numZeros = 6, fields = "codi", groups = { OnCreate.class })
 @RestapiResource(
 		descriptionField = "nom"
 )
 public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk> {	
-	@NotNull(groups = {OnCreate.class})
+//	@NotNull(groups = {OnCreate.class})
 	@Size(max = 6)
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
-	private String codi;
+	public String codi;
 	
 	@NotNull
 	@Size(max = 250)

@@ -106,7 +106,8 @@ public class HorariIntervalEntity extends AbstractWithIdentificadorAuditableEnti
 		public void calcular(HorariIntervalEntity horariInterval) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					horariInterval.getIdentificador().getId(),
-					"TCEC_HOI");
+					"TCEC_HOI",
+					null);
 			horariInterval.getEmbedded().setSequencia(seq);
 			horariInterval.getId().setSequencia(seq);
 		}
