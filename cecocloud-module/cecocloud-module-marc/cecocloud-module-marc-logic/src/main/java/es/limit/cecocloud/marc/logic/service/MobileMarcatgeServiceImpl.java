@@ -201,6 +201,10 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		marcatgeMobil.setOffline(marcatge.getEmbedded().isForaLinia());
 		marcatgeMobil.setLlocFeinaFora(marcatge.getEmbedded().isLlocFeinaFora());
 		marcatgeMobil.setValidat(marcatge.getEmbedded().isValidat());
+		marcatgeMobil.setIntervalDuracio(marcatge.getEmbedded().getIntervalDuracio());
+		boolean intervalObert = (marcatge.getEmbedded().getIntervalObert() != null) ? marcatge.getEmbedded().getIntervalObert() : false;
+		marcatgeMobil.setIntervalObert(intervalObert);
+		marcatgeMobil.setIntervalFinal(marcatge.getEmbedded().getIntervalAnterior() != null);
 		return marcatgeMobil;
 	}
 

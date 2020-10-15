@@ -34,5 +34,8 @@ public class MarcatgeMobil {
 	private boolean offline;
 	private boolean llocFeinaFora;
 	private boolean validat;
+	private BigDecimal intervalDuracio;
+	private boolean intervalObert;
+	private boolean intervalFinal;
 
 }
