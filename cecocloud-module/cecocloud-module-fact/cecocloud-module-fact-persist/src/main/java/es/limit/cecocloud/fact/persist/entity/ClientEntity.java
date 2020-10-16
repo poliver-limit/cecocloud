@@ -23,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -521,6 +522,9 @@ public class ClientEntity extends AbstractWithIdentificadorAuditableEntity<Clien
 	private CodiPostalEntity codiPostalUnitatTramitadora;
 	@Column(name = "cli_cpo_codunitrm", length = 8)
 	private String codiPostalUnitatTramitadoraCodi;	
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(cli.cli_nomcom,' - '),cli.cli_cod),' - '),cli.cli_ali),' - '),cli.cli_domfis),' - '),cli.cli_tel) FROM tges_cli cli where cli.cli_cod = cli_cod and cli.cli_idf_cod = cli_idf_cod)")
+	private String descNomComCodi;
 
 	@Builder
 	public ClientEntity(

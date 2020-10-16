@@ -33,6 +33,12 @@ public class Proveidor extends AbstractIdentificableWithIdentificadorAndCodi<Str
 			includeInQuickFilter = true)
 	private String codi;
 	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descCodiNom;
+	
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 40)

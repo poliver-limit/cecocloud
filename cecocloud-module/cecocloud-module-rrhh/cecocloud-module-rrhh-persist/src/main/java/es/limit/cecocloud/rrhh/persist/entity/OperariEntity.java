@@ -350,6 +350,18 @@ public class OperariEntity extends AbstractWithIdentificadorAuditableEntity<Oper
 	protected HorariEntity horariCod003;	
 	@Column(name ="ope_hor_cod003", length = 4)
 	private String horariCod003Codi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(ope.ope_nom,' - '),ope.ope_cod) FROM trhu_ope ope where ope.ope_cod = ope_cod and ope.ope_idf_cod = ope_idf_cod)")
+	private String descOpeNomCodi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(ope.ope_nom,' - '),ope.ope_cod) FROM trhu_ope ope where ope.ope_cod = ope_cod and ope.ope_idf_cod = ope_idf_cod)")
+	private String descOpeCapNomCodi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(ope.ope_nom,' - '),ope.ope_cod) FROM trhu_ope ope where ope.ope_cod = ope_cod and ope.ope_idf_cod = ope_idf_cod)")
+	private String descOpeEncNomCodi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(ope.ope_nom,' - '),ope.ope_cod) FROM trhu_ope ope where ope.ope_cod = ope_cod and ope.ope_idf_cod = ope_idf_cod)")
+	private String descOpeAdmNomCodi;
 
 	@Builder
 	public OperariEntity(

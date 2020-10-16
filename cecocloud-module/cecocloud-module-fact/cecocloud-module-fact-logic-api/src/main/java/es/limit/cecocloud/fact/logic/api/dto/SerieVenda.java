@@ -51,6 +51,12 @@ public class SerieVenda extends AbstractIdentificableWithIdentificador<SerieVend
 	@Size(max = 30)
 	private String descripcio;
 	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descSerieNomCodi;
+	
 	@NotNull
 	@RestapiField(
 			hiddenInGrid = true,

@@ -60,6 +60,12 @@ public class SubClient extends AbstractIdentificableWithIdentificador<SubClientP
 	private String nom;
 	
 	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descSubcliNomCodi;
+	
+	@Transient
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,

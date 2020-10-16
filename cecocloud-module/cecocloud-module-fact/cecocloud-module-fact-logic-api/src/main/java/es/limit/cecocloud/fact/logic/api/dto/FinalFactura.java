@@ -4,6 +4,7 @@
 package es.limit.cecocloud.fact.logic.api.dto;
 
 import javax.persistence.Convert;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -37,6 +38,12 @@ public class FinalFactura extends AbstractIdentificableWithIdentificadorAndCodi<
 	@RestapiField(
 			includeInQuickFilter = true)
 	private String nom;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descFinalNomCodi;
 	
 	@Size(max = 1000)
 	@RestapiField(

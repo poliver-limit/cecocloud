@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -17,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Formula;
 
 import es.limit.cecocloud.fact.logic.api.dto.SubClient;
 import es.limit.cecocloud.fact.logic.api.dto.SubClient.SubClientPk;
@@ -281,6 +285,9 @@ public class SubClientEntity extends AbstractWithIdentificadorAuditableEntity<Su
 	private ClientAdresaEntity adresaComercialClient;
 	@Column(name = "scl_acc_cod", length = 4)
 	private String adresaComercialClientCodi;	
+	//INNER
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(scl.scl_nom,' - '),scl.scl_cod),' - '),scl.scl_dom),' - '),scl.scl_cpo_cod) FROM tges_scl scl INNER JOIN tges_cli cli ON scl.scl_idf_cod = cli.cli_idf_cod where scl.scl_cod = scl_cod and scl.scl_idf_cod = scl_idf_cod and scl.scl_cli_cod = scl_cli_cod)")
+	private String descSubcliNomCodi;
 	
 	
 	@Builder

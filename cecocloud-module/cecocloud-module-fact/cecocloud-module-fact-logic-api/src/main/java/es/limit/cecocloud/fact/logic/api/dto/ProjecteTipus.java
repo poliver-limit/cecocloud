@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.logic.api.dto;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,4 +33,10 @@ public class ProjecteTipus extends AbstractIdentificableWithIdentificadorAndCodi
 	@Size(max = 30)
 	@RestapiField(hiddenInGrid = true, hiddenInLov = true)
 	private String descripcio;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descNomCodi;
 }

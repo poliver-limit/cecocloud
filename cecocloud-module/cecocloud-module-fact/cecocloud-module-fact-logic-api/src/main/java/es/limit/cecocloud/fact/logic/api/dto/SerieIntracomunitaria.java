@@ -44,6 +44,12 @@ public class SerieIntracomunitaria extends AbstractIdentificableWithIdentificado
 		includeInQuickFilter = true)
 	private String codi;
 	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descSerieNomCodi;
+	
 	@NotNull
 	@RestapiField(includeInQuickFilter = true)
 	@Size(max = 60)

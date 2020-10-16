@@ -5,8 +5,11 @@ package es.limit.cecocloud.fact.logic.api.dto;
 
 import javax.persistence.Transient;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.ProveidorVenciment.ProveidorVencimentPk;
@@ -54,7 +57,14 @@ public class ProveidorVenciment extends AbstractIdentificableWithIdentificador<P
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = false,			
-			disabledForUpdate = true			
+			disabledForUpdate = true,
+			lovDescriptionField = "descCodiNom",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nomComercial",
+							direction = Direction.ASC
+							)
+					}			
 			)
 	private GenericReferenceWithCompositePk<Proveidor, WithIdentificadorAndCodiPk<String>> proveidor;
 	

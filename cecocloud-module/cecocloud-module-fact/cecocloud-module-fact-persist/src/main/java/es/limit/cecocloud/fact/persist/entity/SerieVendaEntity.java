@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.SerieVenda;
 import es.limit.cecocloud.fact.logic.api.dto.SerieVenda.SerieVendaPk;
 import lombok.AccessLevel;
@@ -164,6 +166,9 @@ public class SerieVendaEntity extends AbstractWithIdentificadorAuditableEntity<S
 	protected DepartamentEntity departament;
 	@Column(name = "ser_dep_cod", length = 4)
 	private String departamentCodi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(ser.ser_cod,' - '),ser.ser_des),' - '),ser.ser_dia001),' - '),ser.ser_dia002) FROM tges_ser ser where ser.ser_cod = ser_cod and ser.ser_idf_cod = ser_idf_cod and ser.ser_emp_cod = ser_emp_cod)")
+	private String descSerieNomCodi;
 	
 	@Builder
 	public SerieVendaEntity(

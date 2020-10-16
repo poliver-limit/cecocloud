@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.SerieIntracomunitaria;
 import es.limit.cecocloud.fact.logic.api.dto.SerieIntracomunitaria.SerieIntracomunitariaPk;
 import lombok.AccessLevel;
@@ -78,6 +80,9 @@ public class SerieIntracomunitariaEntity extends AbstractWithIdentificadorEntity
 				},
 				foreignKey = @ForeignKey(name = "rges_sei_emp_fk"))
 	protected EmpresaEntity empresa;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(sei.sei_cod,' - '),sei.sei_des),' - '),sei.sei_dia001),' - '),sei.sei_dia002) FROM tges_sei sei where sei.sei_cod = sei_cod and sei.sei_idf_cod = sei_idf_cod and sei.sei_emp_cod = sei_emp_cod)")
+	private String descSerieNomCodi;
 	
 	@Builder
 	public SerieIntracomunitariaEntity(
