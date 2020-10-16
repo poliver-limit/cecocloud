@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.Divisa;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -66,6 +68,9 @@ public class DivisaEntity extends AbstractWithIdentificadorAuditableEntity<Divis
 
 	@Embedded
 	protected Divisa embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(div.div_cod,' - '),div.div_nom),' - '),div.div_valdiveur) FROM tges_div div where div.div_cod = div_cod and div.div_idf_cod = div_idf_cod)")
+	private String descDivisaNomCodi;
 
 	@Builder
 	public DivisaEntity(

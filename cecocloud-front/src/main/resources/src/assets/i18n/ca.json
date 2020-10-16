@@ -273,6 +273,7 @@
     "funcionalitat.FAC_IDIOMA": "Idiomes",
     "funcionalitat.FAC_INVSBPS": "Inversions subjectes passius",
     "funcionalitat.FAC_IVA": "Ivas",
+    "funcionalitat.FAC_LINEST": "Linias estudi",
     "funcionalitat.FAC_LIFUFE": "Linias full feina",
     "funcionalitat.FAC_LPR": "Pressupostos linies",
     "funcionalitat.FAC_MAGATZ": "Magatzems",
@@ -322,6 +323,7 @@
     "funcionalitat.FAC_UNICONEST": "Unitats control estudi",
     "funcionalitat.FAC_UNITIP": "Tipus d'unitats",
     "funcionalitat.FAC_USUGRU": "Usuaris del grup",
+    "funcionalitat.FAC_VAD": "Manteniments de tipus",
     "funcionalitat.FAC_VEHICL": "Vehicles",
     "funcionalitat.FAC_ZONA": "Zones",
 

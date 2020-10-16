@@ -266,6 +266,7 @@
     "funcionalitat.FAC_IDIOMA": "Idiomas",
     "funcionalitat.FAC_INVSBPS": "Inversiones sujetos pasivos",
     "funcionalitat.FAC_IVA": "Ivas",
+    "funcionalitat.FAC_LINEST": "Lineas estudio",
     "funcionalitat.FAC_LIFUFE": "Lineas hoja trabajo",
     "funcionalitat.FAC_LPR": "Líneas de presupuesto",
     "funcionalitat.FAC_MAGATZ": "Almacenes",
@@ -315,6 +316,7 @@
     "funcionalitat.FAC_UNICONEST": "Unidades control estudio",
     "funcionalitat.FAC_UNITIP": "Tipos de unitades",
     "funcionalitat.FAC_USUGRU": "Usuarios del grupo",
+    "funcionalitat.FAC_VAD": "Mantenimientos de tipos",
     "funcionalitat.FAC_VEHICL": "Vehiculos",
     "funcionalitat.FAC_ZONA": "Zonas",
 

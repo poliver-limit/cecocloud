@@ -135,6 +135,11 @@ export class AppService {
 			route: '/fact/ives'
 		}, {
 			icon: 'room',
+			label: 'Linies estudi',
+			labelKey: 'app.menu.fact.liniesEstudi',
+			route: '/fact/liniesEstudi'
+		}, {
+			icon: 'room',
 			label: 'Linies full feina',
 			labelKey: 'app.menu.fact.liniesFullFeina',
 			route: '/fact/liniesFullFeina'
@@ -308,6 +313,11 @@ export class AppService {
 			label: 'Usuaris del grup',
 			labelKey: 'app.menu.fact.usuarisGrup',
 			route: '/fact/usuarisGrup'
+		}, {
+			icon: 'room',
+			label: 'VADs',
+			labelKey: 'app.menu.fact.mantenimentsDeTipus',
+			route: '/fact/mantenimentsDeTipus'
 		}, {
 			icon: 'room',
 			label: 'Vehicles',

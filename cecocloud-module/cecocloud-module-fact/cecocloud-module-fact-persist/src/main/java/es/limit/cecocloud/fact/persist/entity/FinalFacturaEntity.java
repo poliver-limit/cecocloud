@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.FinalFactura;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -63,6 +65,9 @@ public class FinalFacturaEntity extends AbstractWithIdentificadorAuditableEntity
 
 	@Embedded
 	protected FinalFactura embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(ffa.ffa_cod,' - '),ffa.ffa_nom) FROM tges_ffa ffa where ffa.ffa_cod = ffa_cod and ffa.ffa_idf_cod = ffa_idf_cod)")
+	private String descFinalNomCodi;
 
 	@Builder
 	public FinalFacturaEntity(

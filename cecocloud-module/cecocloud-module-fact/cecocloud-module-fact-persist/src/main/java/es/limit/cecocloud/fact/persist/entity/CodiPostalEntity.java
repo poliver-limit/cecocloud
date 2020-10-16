@@ -98,6 +98,9 @@ public class CodiPostalEntity extends AbstractWithIdentificadorAuditableEntity<C
 	protected ProvinciaEntity provincia;
 	@Column(name = "cpo_prv_cod", length = 4, nullable = false)
 	private String provinciaCodi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(cpo.cpo_pob,' - '),cpo.cpo_cod),' - '),cpo.cpo_mun) FROM tges_cpo cpo where cpo.cpo_cod = cpo_cod and cpo.cpo_idf_cod = cpo_idf_cod)")
+	private String descPostNomCodi;
 
 	@Builder
 	public CodiPostalEntity(

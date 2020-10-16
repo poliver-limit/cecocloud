@@ -69,72 +69,48 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal prodAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal prodActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeRealAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeRealActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal importeImputadoAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
-			disabledForCreate = true,
-			disabledForUpdate = true,
-			toUpperCase = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal importeImputadoActual;
@@ -143,8 +119,6 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 	@Digits(integer = 3, fraction = 0)
 	@RestapiField(
 			hiddenInGrid = true,
-			disabledForUpdate = true,
-			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)
 	private BigDecimal numOrigen;

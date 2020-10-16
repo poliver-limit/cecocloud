@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.Proveidor;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -140,6 +142,9 @@ public class ProveidorEntity extends AbstractWithIdentificadorAuditableEntity<Pr
 	private FamiliaProveidorEntity familiaProveidor;
 	@Column(name = "pro_fpr_cod", length = 4, nullable = false)
 	private String familiaProveidorCodi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(pro.pro_nomcom,' - '),pro.pro_cod),' - '),pro.pro_nomfis) FROM tges_pro pro where pro.pro_cod = pro_cod and pro.pro_idf_cod = pro_idf_cod)")
+	private String descCodiNom;
 
 	@Builder
 	public ProveidorEntity(

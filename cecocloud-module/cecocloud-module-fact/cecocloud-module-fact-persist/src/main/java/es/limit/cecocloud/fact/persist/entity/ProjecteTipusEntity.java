@@ -15,6 +15,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import lombok.AccessLevel;
@@ -62,6 +64,9 @@ public class ProjecteTipusEntity extends AbstractWithIdentificadorAuditableEntit
 
 	@Embedded
 	protected ProjecteTipus embedded;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(tpj.tpj_nom,' - '),tpj.tpj_cod) FROM tges_tpj tpj where tpj.tpj_cod = tpj_cod and tpj.tpj_idf_cod = tpj_idf_cod)")
+	private String descNomCodi;
 
 	@Builder
 	public ProjecteTipusEntity(

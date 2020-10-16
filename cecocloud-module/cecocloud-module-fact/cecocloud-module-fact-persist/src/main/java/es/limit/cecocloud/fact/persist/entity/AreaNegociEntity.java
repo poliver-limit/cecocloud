@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci;
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci.AreaNegociPk;
 import lombok.AccessLevel;
@@ -85,6 +87,9 @@ public class AreaNegociEntity extends AbstractWithIdentificadorAuditableEntity<A
 				},
 				foreignKey = @ForeignKey(name = "rges_ane_emp_fk"))
 	protected EmpresaEntity empresa;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(ane.ane_nom,' - '),ane.ane_cod) FROM tges_ane ane where ane.ane_cod = ane_cod and ane.ane_idf_cod = ane_idf_cod)")
+	private String descAreNomCodi;
 	
 	@Builder
 	public AreaNegociEntity(

@@ -6,8 +6,11 @@ package es.limit.cecocloud.fact.logic.api.dto;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
@@ -74,12 +77,26 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 	
 	@Transient	
 	@RestapiField(
-			type = RestapiFieldType.LOV)
+			type = RestapiFieldType.LOV,
+			lovDescriptionField = "descCodiDesc",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Partida, PartidaPk> partida;	
 	
 	@Transient	
 	@RestapiField(
-			type = RestapiFieldType.LOV)
+			type = RestapiFieldType.LOV,
+			lovDescriptionField = "descCodiDesc",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Capitol, CapitolPk> capitol;
 	
 	@Size(max = 1000)

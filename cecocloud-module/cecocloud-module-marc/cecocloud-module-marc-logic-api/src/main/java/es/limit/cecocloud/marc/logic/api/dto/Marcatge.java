@@ -86,7 +86,7 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private BigDecimal longitud;
-	@Digits(integer = 4, fraction = 8)
+	//@Digits(integer = 4, fraction = 8)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInForm = true,

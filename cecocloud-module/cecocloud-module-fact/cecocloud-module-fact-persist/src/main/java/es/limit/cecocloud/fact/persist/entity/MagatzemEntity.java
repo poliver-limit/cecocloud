@@ -105,6 +105,9 @@ public class MagatzemEntity extends AbstractWithIdentificadorAuditableEntity<Mag
 	
 	@Formula(value="( SELECT r.pmg_diaini FROM tges_pmg r WHERE r.pmg_diaini = (SELECT MAX(r2.pmg_diaini) FROM tges_pmg r2 ))")
 	private String periodeActualData;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(mag.mag_nom,' - '),mag.mag_cod) FROM tges_mag mag where mag.mag_cod = mag_cod and mag.mag_idf_cod = mag_idf_cod)")
+	private String descMagatzemNomCodi;
 
 	@Builder
 	public MagatzemEntity(

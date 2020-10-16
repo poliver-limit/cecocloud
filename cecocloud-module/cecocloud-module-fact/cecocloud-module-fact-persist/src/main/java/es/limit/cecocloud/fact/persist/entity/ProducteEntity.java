@@ -97,6 +97,7 @@ public class ProducteEntity extends AbstractWithIdentificadorEntity<Producte, Pr
 	private ProducteEntity producte;
 	@Column(name = "apl_apl_ref")
 	private Integer producteRef;
+	
 
 	@Builder
 	public ProducteEntity(
