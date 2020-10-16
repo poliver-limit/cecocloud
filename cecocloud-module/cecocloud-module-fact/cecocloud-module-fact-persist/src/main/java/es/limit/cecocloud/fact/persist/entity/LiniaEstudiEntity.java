@@ -221,7 +221,8 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 		public void calcular(LiniaEstudiEntity unitat) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					unitat.getIdentificador().getId(),
-					"TGES_UCE");
+					"TGES_UCE",
+					null);
 			unitat.getEmbedded().setSequencia(seq);
 			unitat.getId().setSequencia(seq);
 		}
