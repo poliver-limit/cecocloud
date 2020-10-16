@@ -296,8 +296,6 @@
     "resource.pressupost.field.data": "Fecha",
     "resource.pressupost.field.dataInici": "Fecha inicial",
     "resource.pressupost.field.observacions": "Observaciones",
-    "resource.pressupost.field.preu": "Precio",
-    "resource.pressupost.field.preuAmbIva": "Importe",
     "resource.pressupost.field.serieVenda": "Serie de venta",
     "resource.pressupost.field.client": "Cliente",
     "resource.pressupost.field.iva": "I.V.A.",

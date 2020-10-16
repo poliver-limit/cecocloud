@@ -295,8 +295,6 @@
     "resource.pressupost.field.data": "Data",
     "resource.pressupost.field.dataInici": "Data inicial",
     "resource.pressupost.field.observacions": "Observacions",
-    "resource.pressupost.field.preu": "Preu",
-    "resource.pressupost.field.preuAmbIva": "Import",
     "resource.pressupost.field.serieVenda": "Sèrie de venda",
     "resource.pressupost.field.client": "Client",
     "resource.pressupost.field.iva": "I.V.A.",
