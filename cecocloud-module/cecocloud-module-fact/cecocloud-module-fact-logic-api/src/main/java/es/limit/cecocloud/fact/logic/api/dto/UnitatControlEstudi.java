@@ -36,7 +36,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-@PrimaryKeyNotExists(fields = {"empresa","estudiProjecteCodi","estudiProjecteNum","projecteNum","sequencia"}, groups = { OnCreate.class })
+//@PrimaryKeyNotExists(fields = {"empresa","estudiProjecteCodi","estudiProjecteNum","projecteCodi","sequencia"}, groups = { OnCreate.class })
 public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<UnitatControlEstudiPk> {
 
 	@NotNull(groups = {OnCreate.class})
@@ -57,6 +57,35 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private Integer sequencia;
+	
+	@NotNull
+	@Size(max = 6)
+	@RestapiField(
+			disabledForUpdate = true,
+			toUpperCase = true,
+			includeInQuickFilter = true)
+	public String projecteCodi;
+	
+	@NotNull(groups = {OnCreate.class})
+	@Size(max = 4)
+	@RestapiField(
+			toUpperCase = true,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)
+	private String estudiProjecteCodi;
+	
+	@NotNull
+	@Size(max = 22)
+	@Digits(integer = 3, fraction = 0)
+	@RestapiField(
+			hiddenInGrid = true,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)
+	private int estudiProjecteNum;
 	
 	@Digits(integer = 10, fraction = 0)
 	@RestapiField(
@@ -158,7 +187,7 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecteNum;
+	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
 	
 	@Transient
 	@NotNull(groups = { OnCreate.class })
@@ -170,19 +199,7 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<EstudiProjecte, EstudiProjectePk> estudiProjecteCodi;
-	
-	@Transient
-	@NotNull(groups = { OnCreate.class })
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = false,
-			hiddenInForm = false,
-			disabledForUpdate = true,
-			disabledForCreate = false,
-			includeInQuickFilter = true,
-			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<EstudiProjecte, EstudiProjectePk> estudiProjecteNum;
+	private GenericReferenceWithCompositePk<EstudiProjecte, EstudiProjectePk> estudiProjecte;	
 	
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -192,20 +209,20 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 	public static class UnitatControlEstudiPk extends WithIdentificadorPk {
 		private String empresaCodi;
 		private Integer sequencia;
-		private String projecteNum;
+		private String projecteCodi;
 		private String estudiProjecteCodi;
-		private BigDecimal estudiProjecteNum;
+		private int estudiProjecteNum;
 		public UnitatControlEstudiPk(
 				String identificadorCodi,
 				String empresaCodi,
-				String projecteNum,
+				String projecteCodi,
 				String estudiProjecteCodi,
-				BigDecimal estudiProjecteNum,
+				int estudiProjecteNum,
 				Integer sequencia) {
 			super(identificadorCodi);
 			this.empresaCodi = empresaCodi;
 			this.sequencia = sequencia;
-			this.projecteNum = projecteNum;
+			this.projecteCodi = projecteCodi;
 			this.estudiProjecteCodi = estudiProjecteCodi;
 			this.estudiProjecteNum = estudiProjecteNum;
 			

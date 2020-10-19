@@ -39,7 +39,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-@PrimaryKeyNotExists(fields = {"empresa","estudiProjecteCodi","estudiProjecteNum","projecteNum","sequencia"}, groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"empresa","estudiProjecteCodi","estudiProjecteNum","projecteCodi","sequencia"}, groups = { OnCreate.class })
 public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEstudiPk> {
 
 	@Size(max = 30)
@@ -59,6 +59,35 @@ public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEst
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private Integer sequencia;
+	
+	@NotNull
+	@Size(max = 6)
+	@RestapiField(
+			disabledForUpdate = true,
+			toUpperCase = true,
+			includeInQuickFilter = true)
+	public String projecteCodi;
+	
+	@NotNull(groups = {OnCreate.class})
+	@Size(max = 4)
+	@RestapiField(
+			toUpperCase = true,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)
+	private String estudiProjecteCodi;
+	
+	@NotNull
+	@Size(max = 22)
+	@Digits(integer = 3, fraction = 0)
+	@RestapiField(
+			hiddenInGrid = true,
+			disabledForUpdate = true,
+			disabledForCreate = false,
+			includeInQuickFilter = true,
+			hiddenInLov = true)
+	private int estudiProjecteNum;
 	
 	@Digits(integer = 10, fraction = 0)
 	@RestapiField(
@@ -211,7 +240,7 @@ public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEst
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecteNum;
+	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
 	
 	@Transient
 	@NotNull(groups = { OnCreate.class })
@@ -223,19 +252,7 @@ public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEst
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<EstudiProjecte, EstudiProjectePk> estudiProjecteCodi;
-	
-	@Transient
-	@NotNull(groups = { OnCreate.class })
-	@RestapiField(
-			type = RestapiFieldType.LOV,
-			hiddenInGrid = false,
-			hiddenInForm = false,
-			disabledForUpdate = true,
-			disabledForCreate = false,
-			includeInQuickFilter = true,
-			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<EstudiProjecte, EstudiProjectePk> estudiProjecteNum;
+	private GenericReferenceWithCompositePk<EstudiProjecte, EstudiProjectePk> estudiProjecte;
 	
 	@Transient
 	@NotNull(groups = { OnCreate.class })
@@ -247,7 +264,7 @@ public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEst
 			disabledForUpdate = true,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<UnitatControlEstudi, UnitatControlEstudiPk> uceSequencia;
+	private GenericReferenceWithCompositePk<UnitatControlEstudi, UnitatControlEstudiPk> unitatControlEstudi;
 	
 	@Transient
 	@RestapiField(
@@ -258,7 +275,7 @@ public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEst
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> articulo;
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> article;
 	
 	@Transient
 	@RestapiField(
@@ -291,7 +308,7 @@ public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEst
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<PressupostLinia, PressupostLiniaPk> pressupostNumero;
+	private GenericReferenceWithCompositePk<PressupostLinia, PressupostLiniaPk> pressupostLinia;
 	
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -301,23 +318,23 @@ public class LiniaEstudi extends AbstractIdentificableWithIdentificador<LiniaEst
 	public static class LiniaEstudiPk extends WithIdentificadorPk {
 		private String empresaCodi;
 		private Integer sequencia;
-		private String projecteNum;
+		private String projecteCodi;
 		private String estudiProjecteCodi;
-		private BigDecimal estudiProjecteNum;
+		private int estudiProjecteNum;
 		public LiniaEstudiPk(
 				String identificadorCodi,
 				String empresaCodi,
-				String projecteNum,
+				Integer sequencia,
+				String projecteCodi,
 				String estudiProjecteCodi,
-				BigDecimal estudiProjecteNum,
-				Integer sequencia) {
+				int estudiProjecteNum
+				) {
 			super(identificadorCodi);
 			this.empresaCodi = empresaCodi;
 			this.sequencia = sequencia;
-			this.projecteNum = projecteNum;
+			this.projecteCodi = projecteCodi;
 			this.estudiProjecteCodi = estudiProjecteCodi;
-			this.estudiProjecteNum = estudiProjecteNum;
-			
+			this.estudiProjecteNum = estudiProjecteNum;			
 		}
 	}
 

@@ -42,7 +42,7 @@ public class EstudiProjecteServiceImpl extends AbstractGenericCompositePkService
 				identificador.getEmbedded().getCodi(),
 				empresa.getEmbedded().getCodi(),
 				dto.getNumero(),
-				dto.getProjecteNum().getPk().getCodi(),
+				dto.getProjecte().getPk().getCodi(),
 				dto.getCodi());
 	}
 

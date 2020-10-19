@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import es.limit.cecocloud.fact.persist.entity.PressupostLiniaEntity;
 import es.limit.cecocloud.fact.logic.api.dto.LiniaEstudi;
 import es.limit.cecocloud.fact.logic.api.dto.LiniaEstudi.LiniaEstudiPk;
 import es.limit.cecocloud.fact.persist.entity.LiniaEstudiEntity.LiniaEstudiEntityListener;
@@ -49,11 +50,14 @@ import lombok.Setter;
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "les_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "les_emp_cod", length = 4)),	
-	@AttributeOverride(name = "id.projecteNum", column = @Column(name = "les_prj_num", length = 6)),	
+	@AttributeOverride(name = "id.projecteCodi", column = @Column(name = "les_prj_num", length = 6)),	
 	@AttributeOverride(name = "id.estudiProjecteCodi", column = @Column(name = "les_etp_cod", length = 4)),	
 	@AttributeOverride(name = "id.estudiProjecteNum", column = @Column(name = "les_etp_num", length = 22, precision = 3)),	
 	@AttributeOverride(name = "id.sequencia", column = @Column(name = "les_seq", length = 22, precision = 10)),	
 	
+	@AttributeOverride(name = "embedded.projecteCodi", column = @Column(name = "les_prj_num", length = 6, insertable = false, updatable = false)),	
+	@AttributeOverride(name = "embedded.estudiProjecteCodi", column = @Column(name = "les_etp_cod", length = 4, insertable = false, updatable = false)),	
+	@AttributeOverride(name = "embedded.estudiProjecteNum", column = @Column(name = "les_etp_num", length = 22, precision = 3, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "les_seq", length = 22, precision = 10, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "les_cod", length = 30, nullable = false, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.easSequencia", column = @Column(name = "les_eas_seq", length = 22, precision = 10)),	
@@ -113,7 +117,7 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 					@JoinColumn(name = "les_emp_cod", referencedColumnName = "prj_emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_les_prj_fk"))
-	protected ProjecteEntity projecteNum;
+	protected ProjecteEntity projecte;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -125,22 +129,22 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 					@JoinColumn(name = "les_etp_num", referencedColumnName = "etp_num", insertable = false, updatable = false),
 			},
 			foreignKey = @ForeignKey(name = "rges_les_etp_fk"))
-	protected EstudiProjecteEntity estudiProjecteCodi, estudiProjecteNum;
+	protected EstudiProjecteEntity estudiProjecte;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
 			value = {
 					@JoinColumn(name = "les_idf_cod", referencedColumnName = "uce_idf_cod", insertable = false, updatable = false),
-					@JoinColumn(name = "les_uce_seq", referencedColumnName = "uce_seq", insertable = false, updatable = false),
 					@JoinColumn(name = "les_emp_cod", referencedColumnName = "uce_emp_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "les_prj_num", referencedColumnName = "uce_prj_num", insertable = false, updatable = false),
 					@JoinColumn(name = "les_etp_cod", referencedColumnName = "uce_etp_cod", insertable = false, updatable = false),
 					@JoinColumn(name = "les_etp_num", referencedColumnName = "uce_etp_num", insertable = false, updatable = false),
+					@JoinColumn(name = "les_uce_seq", referencedColumnName = "uce_seq", insertable = false, updatable = false)					
 			},
 			foreignKey = @ForeignKey(name = "rges_les_uce_fk"))
-	protected UnitatControlEstudiEntity uceSeq;
+	protected UnitatControlEstudiEntity unitatControlEstudi;
 	@Column(name = "les_uce_seq", length = 22, nullable = false)
-	private String uceSequencia;
+	private Integer unitatControlEstudiSequencia;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -149,9 +153,9 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 					@JoinColumn(name = "les_art_cod", referencedColumnName = "art_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_les_art_fk"))
-	protected ArticleEntity articulo;
+	protected ArticleEntity article;
 	@Column(name = "les_art_cod", length = 15, nullable = false)
-	private String articuloCodi;
+	private String articleCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -174,7 +178,7 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 			foreignKey = @ForeignKey(name = "rges_les_pre_fk"))
 	protected PressupostEntity pressupost;
 	@Column(name = "les_pre_cod", length = 22, nullable = false)
-	private String pressupostCodi;
+	private Integer pressupostCodi;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -185,9 +189,9 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 					@JoinColumn(name = "les_pre_cod", referencedColumnName = "lpr_pre_cod", insertable = false, updatable = false),
 			},
 			foreignKey = @ForeignKey(name = "rges_les_lpr_fk"))
-	protected PressupostLiniaEntity pressupostNumero;
+	protected PressupostLiniaEntity pressupostLinia;
 	@Column(name = "les_lpr_num", length = 22, nullable = false)
-	private String pressupostLiniaNumero;
+	private Integer pressupostLiniaNumero;
 	
 	@Builder
 	public LiniaEstudiEntity(
@@ -195,18 +199,28 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 			LiniaEstudi embedded,
 			IdentificadorEntity identificador,
 			EmpresaEntity empresa,
-			ProjecteEntity projecteNum,
-			EstudiProjecteEntity estudiProjecteCodi,
-			EstudiProjecteEntity estudiProjecteNum) {
+			ProjecteEntity projecte,
+			EstudiProjecteEntity estudiProjecte,
+			UnitatControlEstudiEntity unitatControlEstudi,
+			ArticleEntity article,
+			UnitatTipusEntity unitatTipus,
+			PressupostEntity pressupost,
+			PressupostLiniaEntity pressupostLinia
+			) {
 		
 		setId(pk);
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.empresa = empresa;
-		this.projecteNum = projecteNum;
-		this.estudiProjecteCodi = estudiProjecteCodi;
-		this.estudiProjecteNum = estudiProjecteNum;
+		this.projecte = projecte;
+		this.estudiProjecte = estudiProjecte;		
+		
+		this.updateUnitatControlEstudi(unitatControlEstudi);
+		this.updateArticle(article);
+		this.updateUnitatTipus(unitatTipus);
+		this.updatePressupost(pressupost);
+		this.updatePressupostLinia(pressupostLinia);		
 	}
 
 	@Override
@@ -214,18 +228,54 @@ public class LiniaEstudiEntity extends AbstractWithIdentificadorAuditableEntity<
 		this.embedded = embedded;
 	}
 	
-	
-	// Generem un comptador diferent per a cada unitat
-	public static class LiniaEstudiEntityListener {
-		@PrePersist
-		public void calcular(LiniaEstudiEntity unitat) {
-			int seq = EntityListenerUtil.getSeguentNumComptador(
-					unitat.getIdentificador().getId(),
-					"TGES_UCE",
-					null);
-			unitat.getEmbedded().setSequencia(seq);
-			unitat.getId().setSequencia(seq);
+	public void updateUnitatControlEstudi(UnitatControlEstudiEntity unitatControlEstudi) {
+		this.unitatControlEstudi = unitatControlEstudi;
+		if (unitatControlEstudi != null) {
+			this.unitatControlEstudiSequencia = unitatControlEstudi.getId().getSequencia();
 		}
 	}
-
+	
+	public void updateArticle(ArticleEntity article) {
+		this.article = article;
+		if (article != null) {
+			this.articleCodi = article.getId().getCodi();
+		}
+	}
+	
+	public void updateUnitatTipus(UnitatTipusEntity unitatTipus) {
+		this.unitatTipus = unitatTipus;
+		if (unitatTipus != null) {
+			this.unitatTipusCodi = unitatTipus.getId().getCodi();
+		}
+	}
+	
+	public void updatePressupostLinia(PressupostLiniaEntity pressupostLinia) {
+		this.pressupostLinia = pressupostLinia;
+		if (pressupostLinia != null) {
+			this.pressupostLiniaNumero = pressupostLinia.getId().getNumero();			
+		}
+	}
+	
+	public void updatePressupost(PressupostEntity pressupost) {
+		this.pressupost = pressupost;
+		if (pressupost != null) {
+			this.pressupostCodi = pressupost.getId().getCodi();
+		}
+	}
+	
+	// Generem un comptador diferent per a cada unitat
+	public static class LiniaEstudiEntityListener {	
+		@PrePersist
+		public synchronized void calcular(LiniaEstudiEntity liniaEstudi) {
+			int numeroEstudi = liniaEstudi.getEstudiProjecte().getEmbedded().getNumero();
+			int num = 0;
+				num = EntityListenerUtil.getSeguentNumComptador(
+						liniaEstudi.getIdentificador().getId(),
+						"TGES_LES_"+numeroEstudi,
+						null);
+			liniaEstudi.getEmbedded().setSequencia(num);		
+			liniaEstudi.getId().setSequencia(num);
+		}
+	}	
+	
 }

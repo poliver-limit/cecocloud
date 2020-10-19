@@ -37,10 +37,10 @@ public class LiniaEstudiServiceImpl extends AbstractGenericCompositePkServiceImp
 		return new LiniaEstudiPk(
 				identificador.getEmbedded().getCodi(),	
 				dto.getEmpresa().getPk().getCodi(),
-				dto.getProjecteNum().getPk().getCodi(),
-				dto.getEstudiProjecteCodi().getPk().getCodi(),
-				dto.getEstudiProjecteNum().getPk().getNumero(),
-				dto.getSequencia()
+				dto.getSequencia(),
+				dto.getProjecte().getPk().getCodi(),
+				dto.getEstudiProjecte().getPk().getCodi(),
+				dto.getEstudiProjecte().getPk().getNumero()				
 		);
 	}
 

@@ -35,7 +35,7 @@ import lombok.Setter;
 @RestapiResource(
 		descriptionField = "descripcio"
 )
-@PrimaryKeyNotExists(fields = {"empresa","codi","projecteNum","numero"}, groups = { OnCreate.class })
+@PrimaryKeyNotExists(fields = {"empresa","codi","projecteCodi","numero"}, groups = { OnCreate.class })
 public class EstudiProjecte extends AbstractIdentificableWithIdentificador<EstudiProjectePk> {
 
 	@NotNull(groups = {OnCreate.class})
@@ -57,7 +57,7 @@ public class EstudiProjecte extends AbstractIdentificableWithIdentificador<Estud
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)
-	private BigDecimal numero;
+	private int numero;
 	
 	@NotNull
 	@Size(max = 7)
@@ -188,7 +188,7 @@ public class EstudiProjecte extends AbstractIdentificableWithIdentificador<Estud
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
-	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecteNum;
+	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
 	
 	@Transient
 	@NotNull(groups = { OnCreate.class })
@@ -209,18 +209,18 @@ public class EstudiProjecte extends AbstractIdentificableWithIdentificador<Estud
 	@SuppressWarnings("serial")
 	public static class EstudiProjectePk extends WithIdentificadorAndCodiPk<String> {
 		private String empresaCodi;
-		private BigDecimal numero;
-		private String projecteNum;
+		private int numero;
+		private String projecteCodi;
 		public EstudiProjectePk(
 				String identificadorCodi,
 				String empresaCodi,
-				BigDecimal numero,
-				String projecteNum,
+				int numero,
+				String projecteCodi,
 				String codi) {
 			super(identificadorCodi, codi);
 			this.empresaCodi = empresaCodi;
 			this.numero = numero;
-			this.projecteNum = projecteNum;
+			this.projecteCodi = projecteCodi;
 		}
 	}
 
