@@ -204,7 +204,7 @@ public class MobileMarcatgeServiceImpl implements MobileMarcatgeService {
 		marcatgeMobil.setIntervalDuracio(marcatge.getEmbedded().getIntervalDuracio());
 		boolean intervalObert = (marcatge.getEmbedded().getIntervalObert() != null) ? marcatge.getEmbedded().getIntervalObert() : false;
 		marcatgeMobil.setIntervalObert(intervalObert);
-		marcatgeMobil.setIntervalFinal(marcatge.getEmbedded().getIntervalAnterior() != null);
+		marcatgeMobil.setIntervalFinal(marcatge.getEmbedded().getIntervalDuracio() != null);
 		return marcatgeMobil;
 	}
 
