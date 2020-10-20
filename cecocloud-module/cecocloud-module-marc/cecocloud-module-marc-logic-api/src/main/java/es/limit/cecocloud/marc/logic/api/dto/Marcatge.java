@@ -130,30 +130,6 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			disabledForCreate = true,
 			disabledForUpdate = true)
 	private Boolean intervalObert;
-	@Digits(integer = 10, fraction = 2)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true,
-			disabledForCreate = true,
-			disabledForUpdate = true)
-	private BigDecimal acumulatAny;
-	@Digits(integer = 10, fraction = 2)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true,
-			disabledForCreate = true,
-			disabledForUpdate = true)
-	private BigDecimal acumulatMes;
-	@Digits(integer = 10, fraction = 2)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true,
-			hiddenInLov = true,
-			disabledForCreate = true,
-			disabledForUpdate = true)
-	private BigDecimal acumulatDia;
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
