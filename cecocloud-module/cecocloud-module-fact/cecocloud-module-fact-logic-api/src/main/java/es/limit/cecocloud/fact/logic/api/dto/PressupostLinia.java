@@ -97,10 +97,10 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
+			disabledForCreate = false,
 			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true)
+			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Pressupost, PressupostPk> pressupost;
 	
 	@NotNull(groups = { OnCreate.class })

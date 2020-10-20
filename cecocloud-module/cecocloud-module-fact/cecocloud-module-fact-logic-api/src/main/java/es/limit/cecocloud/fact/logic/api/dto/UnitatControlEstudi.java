@@ -58,37 +58,38 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 			sizeMax = 22)
 	private Integer sequencia;
 	
-	@NotNull
-	@Size(max = 6)
-	@RestapiField(
-			disabledForUpdate = true,
-			toUpperCase = true,
-			includeInQuickFilter = true)
-	public String projecteCodi;
-	
-	@NotNull(groups = {OnCreate.class})
-	@Size(max = 4)
-	@RestapiField(
-			toUpperCase = true,
-			disabledForUpdate = true,
-			disabledForCreate = false,
-			includeInQuickFilter = true,
-			hiddenInLov = true)
-	private String estudiProjecteCodi;
-	
-	@NotNull
-	@Size(max = 22)
-	@Digits(integer = 3, fraction = 0)
-	@RestapiField(
-			hiddenInGrid = true,
-			disabledForUpdate = true,
-			disabledForCreate = false,
-			includeInQuickFilter = true,
-			hiddenInLov = true)
-	private int estudiProjecteNum;
+//	@NotNull
+//	@Size(max = 6)
+//	@RestapiField(
+//			disabledForUpdate = true,
+//			toUpperCase = true,
+//			includeInQuickFilter = true)
+//	public String projecteCodi;
+//	
+//	@NotNull(groups = {OnCreate.class})
+//	@Size(max = 4)
+//	@RestapiField(
+//			toUpperCase = true,
+//			disabledForUpdate = true,
+//			disabledForCreate = false,
+//			includeInQuickFilter = true,
+//			hiddenInLov = true)
+//	private String estudiProjecteCodi;
+//	
+//	@NotNull
+//	@Size(max = 22)
+//	@Digits(integer = 3, fraction = 0)
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			disabledForUpdate = true,
+//			disabledForCreate = false,
+//			includeInQuickFilter = true,
+//			hiddenInLov = true)
+//	private int estudiProjecteNum;
 	
 	@Digits(integer = 10, fraction = 0)
 	@RestapiField(
+			hiddenInGrid = true,
 			disabledForCreate = true,
 			disabledForUpdate = true,
 			toUpperCase = true,
@@ -98,58 +99,66 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal prodAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal prodActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeRealAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal costeRealActual;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
 	private BigDecimal importeImputadoAnterior;
 	
 	@Digits(integer = 15, fraction = 2)
 	@RestapiField(
+			hiddenInGrid = true,
 			includeInQuickFilter = true,
 			sizeMax = 22)
-	private BigDecimal importeImputadoActual;
+	private BigDecimal importeImputadoActual;	
 	
-	@Size(max = 22)
 	@Digits(integer = 3, fraction = 0)
 	@RestapiField(
 			hiddenInGrid = true,
 			includeInQuickFilter = true,
-			hiddenInLov = true)
+			hiddenInLov = true,
+			sizeMax = 22)
 	private BigDecimal numOrigen;
 	
 	@Size(max = 30)
@@ -165,12 +174,11 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 	private String descripcio;
 	
 	
-	@Transient
-	@NotNull(groups = { OnCreate.class })
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = false,
-			hiddenInForm = false,
+			hiddenInGrid = true,
+			hiddenInForm = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
