@@ -34,6 +34,12 @@ public class CodiPostal extends AbstractIdentificableWithIdentificadorAndCodi<St
 			includeInQuickFilter = true)
 	private String codi;
 	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descPostNomCodi;
+	
 	@NotNull
 	@Size(max = 30)
 	@RestapiField(

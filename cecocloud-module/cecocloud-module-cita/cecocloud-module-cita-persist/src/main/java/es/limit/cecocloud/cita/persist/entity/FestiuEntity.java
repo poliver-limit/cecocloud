@@ -106,7 +106,8 @@ public class FestiuEntity extends AbstractWithIdentificadorAuditableEntity<Festi
 		public void calcular(FestiuEntity festiu) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					festiu.getIdentificador().getId(),
-					"TCEC_FES");
+					"TCEC_FES",
+					null);
 			festiu.getEmbedded().setSequencia(seq);
 			festiu.getId().setSequencia(seq);
 		}

@@ -43,17 +43,20 @@ import lombok.Setter;
 		name = "tges_uce",
 		indexes = {
 				@Index(name = "irges_uce_pk", columnList = "uce_idf_cod,uce_emp_cod,uce_prj_num,uce_etp_cod,uce_etp_num,uce_cod", unique = true),
-				@Index(name = "iges_uce_idf_fk", columnList = "uce_idf_cod"),
+				@Index(name = "iges_uce_idf_fk", columnList = "uce_idf_cod")
 		}
 )
 @AttributeOverrides({
 	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "uce_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "uce_emp_cod", length = 4)),	
-	@AttributeOverride(name = "id.projecteNum", column = @Column(name = "uce_prj_num", length = 6)),	
+	@AttributeOverride(name = "id.projecteCodi", column = @Column(name = "uce_prj_num", length = 6)),	
 	@AttributeOverride(name = "id.estudiProjecteCodi", column = @Column(name = "uce_etp_cod", length = 4)),	
 	@AttributeOverride(name = "id.estudiProjecteNum", column = @Column(name = "uce_etp_num", length = 22, precision = 3)),	
 	@AttributeOverride(name = "id.sequencia", column = @Column(name = "uce_seq", length = 22, precision = 10)),	
 	
+	@AttributeOverride(name = "embedded.projecteCodi", column = @Column(name = "uce_prj_num", length = 6, insertable = false, updatable = false)),	
+	@AttributeOverride(name = "embedded.estudiProjecteCodi", column = @Column(name = "uce_etp_cod", length = 4, insertable = false, updatable = false)),	
+	@AttributeOverride(name = "embedded.estudiProjecteNum", column = @Column(name = "uce_etp_num", length = 22, precision = 3, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.sequencia", column = @Column(name = "uce_seq", length = 22, precision = 10, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "uce_cod", length = 30, nullable = false, insertable = false, updatable = false)),	
 	@AttributeOverride(name = "embedded.easSequencia", column = @Column(name = "uce_eas_seq", length = 22, precision = 10)),	
@@ -105,7 +108,7 @@ public class UnitatControlEstudiEntity extends AbstractWithIdentificadorAuditabl
 					@JoinColumn(name = "uce_emp_cod", referencedColumnName = "prj_emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_uce_prj_fk"))
-	protected ProjecteEntity projecteNum;
+	protected ProjecteEntity projecte;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumns(
@@ -117,7 +120,7 @@ public class UnitatControlEstudiEntity extends AbstractWithIdentificadorAuditabl
 					@JoinColumn(name = "uce_etp_num", referencedColumnName = "etp_num", insertable = false, updatable = false),
 			},
 			foreignKey = @ForeignKey(name = "rges_uce_etp_fk"))
-	protected EstudiProjecteEntity estudiProjecteCodi, estudiProjecteNum;
+	protected EstudiProjecteEntity estudiProjecte;
 	
 	@Builder
 	public UnitatControlEstudiEntity(
@@ -125,18 +128,18 @@ public class UnitatControlEstudiEntity extends AbstractWithIdentificadorAuditabl
 			UnitatControlEstudi embedded,
 			IdentificadorEntity identificador,
 			EmpresaEntity empresa,
-			ProjecteEntity projecteNum,
-			EstudiProjecteEntity estudiProjecteCodi,
-			EstudiProjecteEntity estudiProjecteNum) {
+			ProjecteEntity projecte,
+			EstudiProjecteEntity estudiProjecte
+			) {
 		
 		setId(pk);
 		
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.empresa = empresa;
-		this.projecteNum = projecteNum;
-		this.estudiProjecteCodi = estudiProjecteCodi;
-		this.estudiProjecteNum = estudiProjecteNum;
+		this.projecte = projecte;
+		this.estudiProjecte = estudiProjecte;
+		
 	}
 
 	@Override
@@ -151,7 +154,8 @@ public class UnitatControlEstudiEntity extends AbstractWithIdentificadorAuditabl
 		public void calcular(UnitatControlEstudiEntity unitat) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					unitat.getIdentificador().getId(),
-					"TGES_UCE");
+					"TGES_UCE",
+					null);
 			unitat.getEmbedded().setSequencia(seq);
 			unitat.getId().setSequencia(seq);
 		}

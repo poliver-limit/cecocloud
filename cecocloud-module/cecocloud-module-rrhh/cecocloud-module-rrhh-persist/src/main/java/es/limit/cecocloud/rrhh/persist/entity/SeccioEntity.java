@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio;
 import es.limit.cecocloud.rrhh.logic.api.dto.Seccio.SeccioPk;
 import lombok.AccessLevel;
@@ -97,6 +99,9 @@ public class SeccioEntity extends AbstractWithIdentificadorAuditableEntity<Secci
 	protected SeccioGrupEntity seccioGrup;	
 	@Column(name = "sec_gse_cod", length = 4)
 	private String seccioGrupCodi;
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(sec.sec_nom,' - '),sec.sec_cod) FROM trhu_sec sec where sec.sec_cod = sec_cod and sec.sec_idf_cod = sec_idf_cod and sec.sec_emp_cod = sec_emp_cod)")
+	private String descSeccComCodi;
 
 	@Builder
 	public SeccioEntity(

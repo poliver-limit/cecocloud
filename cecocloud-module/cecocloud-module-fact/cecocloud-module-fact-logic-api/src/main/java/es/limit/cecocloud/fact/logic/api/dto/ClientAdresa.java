@@ -45,6 +45,13 @@ public class ClientAdresa extends AbstractIdentificableWithIdentificador<ClientA
 	@Size(max = 30)
 	private String domicili;
 	
+//	@Transient
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInForm = true)
+//	private String descCliAdreComCodi;
+// DECLARACION COMENTADA -> FRAN TIENES LOS @FORMULA COMENTADOS. EL HIBERNATE BUSCA ESTE CAMPO EN BASE DE DATOS!!!
+	
 	@NotNull
 	@RestapiField(
 			includeInQuickFilter = true)

@@ -41,6 +41,12 @@ public class Magatzem extends AbstractIdentificableWithIdentificadorAndCodi<Stri
 	@Size(max = 30)
 	private String nom;
 	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descMagatzemNomCodi;
+	
 	@NotNull
 	@Size(max = 60)
 	@RestapiField(

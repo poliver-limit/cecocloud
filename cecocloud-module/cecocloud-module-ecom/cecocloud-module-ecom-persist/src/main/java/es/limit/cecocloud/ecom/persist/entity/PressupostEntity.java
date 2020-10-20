@@ -59,8 +59,8 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.estat", column = @Column(name = "pre_est", length = 1)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "pre_obs", length = 2000)),
 	@AttributeOverride(name = "embedded.versio", column = @Column(name = "pre_ver", nullable = false, length = 22, precision = 2, scale = 0)),	
-	@AttributeOverride(name = "embedded.preu", column = @Column(name = "pre_pru", precision = 15, scale = 8)),
-	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "pre_pruiva", precision = 15, scale = 8)),
+//	@AttributeOverride(name = "embedded.preu", column = @Column(name = "pre_pru", precision = 15, scale = 8)),
+//	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "pre_pruiva", precision = 15, scale = 8)),
 	
 	@AttributeOverride(name = "embedded.sync", column = @Column(name = "pre_sync", length = 1)),	
 	// Dades extres pel client no registrat:

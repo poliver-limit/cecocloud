@@ -140,7 +140,8 @@ public class HistoricResponsableEntity extends AbstractWithIdentificadorAuditabl
 		public void calcular(HistoricResponsableEntity historicResponsable) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					historicResponsable.getIdentificador().getId(),
-					"TGES_HOP");
+					"TGES_HOP",
+					null);
 			historicResponsable.getEmbedded().setSequencia(seq);
 			historicResponsable.getId().setSequencia(seq);
 		}

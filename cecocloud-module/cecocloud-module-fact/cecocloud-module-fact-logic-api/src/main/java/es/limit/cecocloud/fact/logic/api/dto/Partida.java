@@ -42,6 +42,12 @@ public class Partida extends AbstractIdentificableWithIdentificador<PartidaPk> {
 	
 	@Transient
 	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descCodiDesc;
+	
+	@Transient
+	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForCreate = true,
 			disabledForUpdate = true,

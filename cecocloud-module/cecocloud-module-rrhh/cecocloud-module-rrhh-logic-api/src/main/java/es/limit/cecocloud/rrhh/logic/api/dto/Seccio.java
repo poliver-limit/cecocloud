@@ -46,6 +46,12 @@ public class Seccio extends AbstractIdentificableWithIdentificador<SeccioPk> {
 	@RestapiField(includeInQuickFilter = true)
 	private String nom;
 	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descSeccComCodi;
+	
 	@Size(max = 10)
 	@RestapiField(hiddenInGrid = true, hiddenInForm = true)
 	private String compteSous;

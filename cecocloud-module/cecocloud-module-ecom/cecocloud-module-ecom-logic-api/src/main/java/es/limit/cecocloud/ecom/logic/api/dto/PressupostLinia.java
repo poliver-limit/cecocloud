@@ -5,7 +5,7 @@ package es.limit.cecocloud.ecom.logic.api.dto;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Convert;
+
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -18,7 +18,6 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.ecom.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.ecom.logic.api.dto.PressupostLinia.PressupostLiniaPk;
-import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.ecom.logic.api.dto.Pressupost.PressupostPk;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -63,14 +62,6 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 	private String descripcio;
 	
 	@NotNull(groups = { OnCreate.class })	
-	@Digits(integer = 12, fraction = 5)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true,
-			sizeMax = 22)
-	private BigDecimal preu;
-	
-	@NotNull(groups = { OnCreate.class })	
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
@@ -78,12 +69,34 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 	private Integer factorConversioSortides;
 	
 	@NotNull(groups = { OnCreate.class })	
+	@Digits(integer = 12, fraction = 5)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal preu;	
+	
+	@Digits(integer = 11, fraction = 4)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal preuAmbIva;
+	
+	@NotNull(groups = { OnCreate.class })	
 	@Digits(integer = 13, fraction = 2)
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
-	private BigDecimal preuAmbIva;	
+	private BigDecimal preuTotalLinia;	
+		
+	@Digits(integer = 11, fraction = 4)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal preuTotalLiniaAmbIva;
 	
 	@Transient
 	@RestapiField(
@@ -111,11 +124,16 @@ public class PressupostLinia extends AbstractIdentificableWithIdentificador<Pres
 			disabledForUpdate = true,
 			hiddenInGrid = false,
 			hiddenInForm = false)
-	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> article;
+	private GenericReferenceWithCompositePk<Article, WithIdentificadorAndCodiPk<String>> article;	
 	
-	@RestapiField(hiddenInGrid = true, hiddenInForm = true, hiddenInLov = true)
-	@Convert(converter = StringBooleanConverter.class)
-	private Boolean sync = false;	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = true,
+			hiddenInGrid = false,
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 
 	@NoArgsConstructor
 	@AllArgsConstructor

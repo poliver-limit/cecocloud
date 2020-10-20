@@ -91,6 +91,7 @@
     "app.menu.fact.unitatsControlEstudi": "Unitats control estudi",
     "app.menu.fact.unitatsTipus": "Tipus d'unitats",
     "app.menu.fact.usuarisGrup": "Usuaris del grup",
+    "app.menu.fact.vads": "VADs",
     "app.menu.fact.vehicles": "Vehicles",
     "app.menu.fact.zones": "Zones",
 
@@ -928,6 +929,7 @@
     "resource.projecte.field.nom": "Nom",
     "resource.projecte.field.divisa": "Divisa",
     "resource.projecte.field.descripcio": "Descripció",
+    "resource.projecte.field.descripcioCurta": "Descripció breu",
     "resource.projecte.field.referencia": "Referencia",
     "resource.projecte.field.observacions": "Observacions",
     "resource.projecte.field.codiAlternatiu": "Códi alternatiu",

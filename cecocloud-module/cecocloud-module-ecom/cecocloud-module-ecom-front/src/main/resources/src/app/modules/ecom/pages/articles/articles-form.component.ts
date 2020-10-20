@@ -34,6 +34,7 @@ export class ArticlesFormComponent extends BngFormBaseComponent {
 	
 	iva: any;
 	
+	
 	empresaEcom: any;
 	
 	formGroup: FormGroup;

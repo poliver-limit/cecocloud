@@ -37,9 +37,9 @@ public class UnitatControlEstudiServiceImpl extends AbstractGenericCompositePkSe
 		return new UnitatControlEstudiPk(
 				identificador.getEmbedded().getCodi(),	
 				dto.getEmpresa().getPk().getCodi(),
-				dto.getProjecteNum().getPk().getCodi(),
-				dto.getEstudiProjecteCodi().getPk().getCodi(),
-				dto.getEstudiProjecteNum().getPk().getNumero(),
+				dto.getProjecte().getPk().getCodi(),
+				dto.getEstudiProjecte().getPk().getCodi(),
+				dto.getEstudiProjecte().getPk().getNumero(),
 				dto.getSequencia()
 		);
 	}

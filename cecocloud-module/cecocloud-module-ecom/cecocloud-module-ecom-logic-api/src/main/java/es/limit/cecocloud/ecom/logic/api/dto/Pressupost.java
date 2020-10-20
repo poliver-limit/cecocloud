@@ -102,17 +102,17 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInGrid = true)
 	private String observacions;	
 	
-	@Digits(integer = 7, fraction = 3)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private BigDecimal preu;
-	
-	@Digits(integer = 7, fraction = 3)
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInLov = true)
-	private BigDecimal preuAmbIva;
+//	@Digits(integer = 7, fraction = 3)
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInLov = true)
+//	private BigDecimal preu;
+//	
+//	@Digits(integer = 7, fraction = 3)
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInLov = true)
+//	private BigDecimal preuAmbIva;
 	
 	@Transient
 	@RestapiField(

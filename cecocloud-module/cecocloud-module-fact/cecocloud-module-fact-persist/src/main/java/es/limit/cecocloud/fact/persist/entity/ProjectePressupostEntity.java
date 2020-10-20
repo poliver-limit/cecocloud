@@ -197,7 +197,8 @@ public class ProjectePressupostEntity extends AbstractWithIdentificadorAuditable
 		public void calcular(ProjectePressupostEntity projectePressupost) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					projectePressupost.getIdentificador().getId(),
-					"TGES_PJP");
+					"TGES_PJP",
+					null);
 			projectePressupost.getEmbedded().setProjectePressupostCodi(seq);
 			projectePressupost.getId().setProjectePressupostCodi(seq);
 		}

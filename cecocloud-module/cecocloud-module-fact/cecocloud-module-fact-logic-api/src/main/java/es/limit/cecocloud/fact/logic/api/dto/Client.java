@@ -73,6 +73,12 @@ public class Client extends AbstractIdentificableWithIdentificadorAndCodi<String
 	@RestapiField(includeInQuickFilter = true, 	disabledForCreate = false, disabledForUpdate = true)
 	@Size(max = 40)
 	private String nomComercial;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String descNomComCodi;
 
 //	@Size(max = 1)
 	@NotNull

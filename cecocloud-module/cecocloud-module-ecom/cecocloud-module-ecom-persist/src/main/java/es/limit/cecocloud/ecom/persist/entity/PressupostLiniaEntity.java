@@ -57,12 +57,13 @@ import lombok.Setter;
 	
 	@AttributeOverride(name = "embedded.numero", column = @Column(name = "lpr_num", length = 22, precision = 10, insertable = false, updatable = false)),
 	@AttributeOverride(name = "embedded.unitats", column = @Column(name = "lpr_uni", length = 22, precision = 15, nullable = false)),
-	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "lpr_des", length = 4000, nullable = false)),
-	@AttributeOverride(name = "embedded.preu", column = @Column(name = "lpr_pru", length = 22, precision = 17, scale = 5, nullable = false)),
+	@AttributeOverride(name = "embedded.descripcio", column = @Column(name = "lpr_des", length = 4000, nullable = false)),	
 	@AttributeOverride(name = "embedded.factorConversioSortides", column = @Column(name = "lpr_fcs", length = 22, precision = 15, nullable = false)),
-	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "lpr_imp", length = 22, precision = 15, scale = 2, nullable = false)),
-	
-	@AttributeOverride(name = "embedded.sync", column = @Column(name = "lpr_sync", length = 1)),	
+	@AttributeOverride(name = "embedded.preu", column = @Column(name = "lpr_pru", length = 22, precision = 17, scale = 5, nullable = false)),
+//	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "lpr_imp", length = 22, precision = 15, scale = 2, nullable = false)),
+	@AttributeOverride(name = "embedded.preuAmbIva", column = @Column(name = "lpr_pruiva", length = 22, precision = 15, scale = 4)),
+	@AttributeOverride(name = "embedded.preuTotalLinia", column = @Column(name = "lpr_imp", length = 22, precision = 15, scale = 2, nullable = false)),
+	@AttributeOverride(name = "embedded.preuTotalLiniaAmbIva", column = @Column(name = "lpr_impiva", length = 22, precision = 15, scale = 4)),	
 	
 	@AttributeOverride(name = "createdBy", column = @Column(name = "lpr_usucre")),
 	@AttributeOverride(name = "createdDate", column = @Column(name = "lpr_datcre")),
@@ -113,6 +114,17 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 	@Column(name = "lpr_art_cod", length = 15, nullable = false)
 	private String articleCodi;
 	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+				value = {
+						@JoinColumn(name = "lpr_idf_cod", referencedColumnName = "iva_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "lpr_iva_cod", referencedColumnName = "iva_cod", insertable = false, updatable = false)						
+				},
+				foreignKey = @ForeignKey(name = "rcom_lpr_iva_fk"))
+	protected IvaEntity iva;
+	@Column(name = "lpr_iva_cod", length = 4)
+	private String ivaCodi;
+	
 	@Builder
 	public PressupostLiniaEntity(
 			PressupostLiniaPk pk,
@@ -120,7 +132,8 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 			IdentificadorEntity identificador,
 			EmpresaEntity empresa,
 			PressupostEntity pressupost,
-			ArticleEntity article
+			ArticleEntity article,
+			IvaEntity iva
 			) {
 		
 		setId(pk);
@@ -128,26 +141,26 @@ public class PressupostLiniaEntity extends AbstractWithIdentificadorAuditableEnt
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.empresa = empresa;
-		this.pressupost = pressupost;
+		this.pressupost = pressupost;		
 		
-		this.updateSync();
 		this.updateArticle(article);
+		this.updateIva(iva);
 			
 	}
 
 	@Override
 	public void update(PressupostLinia embedded) {
-		this.embedded = embedded;
-		this.updateSync();
+		this.embedded = embedded;		
 	}	
-	
-	public void updateSync() {
-		this.embedded.setSync(false);		
-	}
 	
 	public void updateArticle(ArticleEntity article) {
 		this.article = article;		
 		if (article!=null) this.articleCodi = article.getEmbedded().getCodi();
+	}
+	
+	public void updateIva(IvaEntity iva) {
+		this.iva = iva;		
+		if (iva!=null) this.ivaCodi = iva.getEmbedded().getCodi();
 	}
 	
 	

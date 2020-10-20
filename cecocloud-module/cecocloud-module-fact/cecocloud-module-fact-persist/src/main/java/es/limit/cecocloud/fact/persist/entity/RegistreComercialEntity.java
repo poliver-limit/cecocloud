@@ -151,7 +151,8 @@ public class RegistreComercialEntity extends AbstractWithIdentificadorAuditableE
 		public void calcular(RegistreComercialEntity registreComercial) {
 			int seq = EntityListenerUtil.getSeguentNumComptador(
 					registreComercial.getIdentificador().getId(),
-					"TGES_RGC");
+					"TGES_RGC",
+					null);
 			registreComercial.getEmbedded().setSequencia(seq);
 			registreComercial.getId().setSequencia(seq);
 		}

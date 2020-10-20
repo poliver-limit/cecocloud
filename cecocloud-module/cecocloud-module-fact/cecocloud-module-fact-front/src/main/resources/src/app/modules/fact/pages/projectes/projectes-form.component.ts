@@ -28,7 +28,14 @@ import { ZonesFormComponent } from '../zones/zones-form.component';
 import { FormGroup } from '@angular/forms';
 import { firstDateOlderThanSecondDate } from './first-date-older-than-second-date-validator';
 
+// Per poder recuperar l'empresa del modul amb l'empresa de la sessió:
+import { HalParam } from "@lagoshny/ngx-hal-client";
+import { BngAuthService } from 'base-angular';
+import { EmpresesService } from '../../../../pages/empreses/empreses.service';
+import { IdentificadorsService } from '../../../../pages/identificadors/identificadors.service';
+import { EmpresesFactService } from '../empresesFact/empresesFact.service';
 
+import { DivisesService } from '../divises/divises.service';
 
 @Component({
   templateUrl: 'projectes-form.html'
@@ -38,6 +45,10 @@ import { firstDateOlderThanSecondDate } from './first-date-older-than-second-dat
 export class ProjectesFormComponent extends BngFormBaseComponent {
 	
 	@ViewChild(BngForm) form: BngForm;
+	
+	empresaFact: any;	
+	divisa: any;	
+	formGroup: FormGroup;
 	
   	formConfig: BngFormConfig = {};
 
@@ -49,14 +60,18 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 	
 	public clientValue: string;
 	
+	public codiFormatat: string;
+	
 	onFormGroupChange(formGroup: FormGroup) {		
+		
+		this.formGroup = formGroup;
 		
 		// Inicialitzar la data inici de la garantia amb el valor introduït en la data de fi del projecte		
 		formGroup.get('dataFi').valueChanges.subscribe(val => {				
 			formGroup.get('dataIniciGarantia').setValue(val);
-	 	})
+	 	})	
 	
-		formGroup.get('mesosGarantia').valueChanges.subscribe(val => {
+		formGroup.get('mesosGarantia').valueChanges.subscribe(val => {			
 			var campDataIniciGarantia = formGroup.get('dataIniciGarantia');
 			if (campDataIniciGarantia!=undefined) {
 				var mesos = val;
@@ -102,7 +117,7 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 //	ngOnInit() {
 //		debugger;
 //	}
-
+	
 	projecte: any;
 	
 	projectesPressupostDatagridConfig: BngDatagridConfig = {        
@@ -151,7 +166,12 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		public projectesAplicacioService: ProjectesAplicacioService,
 		public inversionsSubjectePassiuService: InversionsSubjectePassiuService,
 		public proveidorsVencimentService: ProveidorsVencimentService,
-		public historicsResponsablesService: HistoricsResponsablesService) {
+		public historicsResponsablesService: HistoricsResponsablesService,
+		public bngAuthService: BngAuthService,
+		public empresesService: EmpresesService,
+		public identificadorsService: IdentificadorsService,
+		public empresesFactService: EmpresesFactService,
+		public divisesService: DivisesService) {
 			super(activatedRoute);			
 			this.setConfigExternalFormComponents([
 				{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },
@@ -171,45 +191,99 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 			activatedRoute.params.subscribe((params) => {				
 				if (params.id) {
 					this.modificant = true;					
-					};
-					this.projectesPressupostDatagridConfig.fixedRowData = {
-						projecte: {
-							id: params.id,
-							description: undefined
-						}
-					};
-					this.projectesTarifaProveidorDatagridConfig.fixedRowData = {
-						projecte: {
-							id: params.id,
-							description: undefined
-						}
-					};
-					this.projectesAplicacioDatagridConfig.fixedRowData = {
-						projecte: {
-							id: params.id,
-							description: undefined
-						}
-					};					
-					this.inversionsSubjectePassiuDatagridConfig.fixedRowData = {
-						projecte: {
-							id: params.id,
-							description: undefined
-						}
-					};
-					this.proveidorsVencimentDatagridConfig.fixedRowData = {
-						projecte: {
-							id: params.id,
-							description: undefined
-						}
-					};
-					this.historicsResponsablesDatagridConfig.fixedRowData = {
-						projecte: {
-							id: params.id,
-							description: undefined
-						}
-					};
-				})
-			}
-			
+				} else {
+					var session = this.bngAuthService.getSession();
+					var empresaId = session.e;
+					var identificadorId = session.i;
+					this.empresesService.whenReady().subscribe(serveiEmpreses => {						
+						const requestEmpresaParams: HalParam[] = [];
+	 					requestEmpresaParams.push({
+	 						key: "query",
+	 						value: "id=='"+empresaId+"'"
+	 					});
+						this.empresesService.getAll({ params: requestEmpresaParams }).subscribe(empreses => {							
+							this.identificadorsService.whenReady().subscribe(serveiIdentificadors => {								
+								const requestIdentificadorParams: HalParam[] = [];
+ 								requestIdentificadorParams.push({
+ 									key: "query",
+ 									value: "id=='"+identificadorId+"'"
+ 								});
+								this.identificadorsService.getAll({ params: requestIdentificadorParams }).subscribe(identificadors => {									
+									var empresaSessio : any;
+									var identificadorSessio : any;
+									empresaSessio = empreses[0];								
+									identificadorSessio = identificadors[0];
+									var empresaCodi = empresaSessio.codi;
+									var identificadorCodi = identificadorSessio.codi;
+								
+									this.empresesFactService.whenReady().subscribe(serveiFactEmpreses => {										
+										const requestEmpresaFactParams: HalParam[] = [];
+										requestEmpresaFactParams.push({
+				 							key: "query",
+				 							value: "codi=='"+empresaCodi+"';identificador.codi=='"+identificadorCodi+"'"
+				 						});
+										this.empresesFactService.getAll({ params: requestEmpresaFactParams }).subscribe(empresesFact => {											
+											this.empresaFact = empresesFact[0];
+											this.divisesService.whenReady().subscribe(serveiDivises => {
+												var divisaId = this.empresaFact.divisa.id;
+												divisesService.get(divisaId).subscribe(divisa => {	
+													this.divisa = divisa;												
+													var pk = { codi: this.divisa.codi, identificadorCodi : this.divisa.identificador.id};
+													var value = { description: this.divisa.nom, id: this.divisa.id, pk: pk};
+													this.formGroup.get("divisa").setValue(value);													
+												});
+											});										
+										});
+									});							
+								});
+							});						
+						})
+					})
+				}
+				
+				this.projectesPressupostDatagridConfig.fixedRowData = {
+					projecte: {
+						id: params.id,
+						description: undefined
+					}
+				};
+				
+				this.projectesTarifaProveidorDatagridConfig.fixedRowData = {
+					projecte: {
+						id: params.id,
+						description: undefined
+					}
+				};
+				
+				this.projectesAplicacioDatagridConfig.fixedRowData = {
+					projecte: {
+						id: params.id,
+						description: undefined
+					}
+				};
+									
+				this.inversionsSubjectePassiuDatagridConfig.fixedRowData = {
+					projecte: {
+						id: params.id,
+						description: undefined
+					}
+				};
+				
+				this.proveidorsVencimentDatagridConfig.fixedRowData = {
+					projecte: {
+						id: params.id,
+						description: undefined
+					}
+				};
+				
+				this.historicsResponsablesDatagridConfig.fixedRowData = {
+					projecte: {
+						id: params.id,
+						description: undefined
+					}
+				};
+				
+			})
 		}
+	}
 

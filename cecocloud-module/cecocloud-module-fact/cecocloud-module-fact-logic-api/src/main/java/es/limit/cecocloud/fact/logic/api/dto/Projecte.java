@@ -13,12 +13,15 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import es.limit.base.boot.logic.api.annotation.RestapiField;
 import es.limit.base.boot.logic.api.annotation.RestapiResource;
+import es.limit.base.boot.logic.api.annotation.RestapiSort;
 import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
-import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
+import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExistsWithZeros;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientPreuConverter;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientProjecteTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.ProjecteEstatConverter;
@@ -59,18 +62,18 @@ import lombok.Setter;
  * @author Limit Tecnologies <limit@limit.es>
  */
 @Getter @Setter
-@PrimaryKeyNotExists(fields = "codi", groups = { OnCreate.class })
+@PrimaryKeyNotExistsWithZeros(numZeros = 6, fields = "codi", groups = { OnCreate.class })
 @RestapiResource(
 		descriptionField = "nom"
 )
 public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk> {	
-	@NotNull(groups = {OnCreate.class})
+//	@NotNull(groups = {OnCreate.class})
 	@Size(max = 6)
 	@RestapiField(
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
-	private String codi;
+	public String codi;
 	
 	@NotNull
 	@Size(max = 250)
@@ -561,120 +564,252 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@NotNull
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true
-			)
+			hiddenInGrid = true,
+			lovDescriptionField = "descDivisaNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Divisa, WithIdentificadorAndCodiPk<String>> divisa;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = false)
+			hiddenInGrid = false,
+			lovDescriptionField = "descNomComCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nomComercial",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Client, WithIdentificadorAndCodiPk<String>> client;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descCliAdreComCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> clientAdresa;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descSubcliNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<SubClient, SubClientPk> subClient;	
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descFinalNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<FinalFactura, WithIdentificadorAndCodiPk<String>> finalFactura;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descNomCodi",
+					lovSortFields =  {
+							@RestapiSort(
+									field = "nom",
+									direction = Direction.ASC
+									)
+							})
 	private GenericReferenceWithCompositePk<ProjecteTipus, WithIdentificadorAndCodiPk<String>> projecteTipus;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			lovNamedFilter = Operari.FILTER_ACTIU)
+			lovNamedFilter = Operari.FILTER_ACTIU,
+			lovDescriptionField = "descOpeNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariResponsable;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descripcioCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "des",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<ClasseRetencio, WithIdentificadorAndCodiPk<String>> classeRetencio;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			lovNamedFilter = Operari.FILTER_ACTIU)
+			lovNamedFilter = Operari.FILTER_ACTIU,
+			lovDescriptionField = "descOpeEncNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariEncarregat;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descSerieNomCodi",
+					lovSortFields =  {
+							@RestapiSort(
+									field = "codi",
+									direction = Direction.ASC
+									)
+							})
 	private GenericReferenceWithCompositePk<SerieVenda, SerieVendaPk> serie;	
 
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "nomCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Zona, WithIdentificadorAndCodiPk<String>> zona;	
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			lovNamedFilter = Operari.FILTER_ACTIU)
+			lovNamedFilter = Operari.FILTER_ACTIU,
+			lovDescriptionField = "descOpeCapNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariCapGrup;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			lovNamedFilter = Operari.FILTER_ACTIU_ADO)
+			lovNamedFilter = Operari.FILTER_ACTIU_ADO,
+			lovDescriptionField = "descOpeAdmNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Operari, es.limit.cecocloud.rrhh.logic.api.dto.AbstractIdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk<String>> operariAdministratiu;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descripcioCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "descripcio",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<RegimIva, WithIdentificadorAndCodiPk<String>> regimIva;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descSerieNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<SerieIntracomunitaria, SerieIntracomunitariaPk> serieIntracomunitaria;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descripcioPercentatgeCodiTxt",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Iva, WithIdentificadorAndCodiPk<String>> iva;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descAreNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<AreaNegoci, AreaNegociPk> areaNegoci;	
 
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descPostNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "poblacio",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<CodiPostal, WithIdentificadorAndCodiPk<String>> codiPostal;
 	
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true)
+			hiddenInGrid = true,
+			lovDescriptionField = "descMagatzemNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
 	@Transient
@@ -687,8 +822,14 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true
-			)
+			hiddenInGrid = true,
+			lovDescriptionField = "descSeccNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Seccio, SeccioPk> seccio;
 		
 	@NoArgsConstructor
