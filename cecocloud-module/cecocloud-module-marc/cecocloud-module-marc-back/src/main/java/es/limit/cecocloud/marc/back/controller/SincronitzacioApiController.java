@@ -45,14 +45,23 @@ public class SincronitzacioApiController {
 			@Valid final SincronitzacioMarcatgesConsulta consulta) {
 		log.debug("Consulta de marcatges (" +
 				"consulta=" + consulta + ")");
+		Boolean validat;
+		if (consulta.getValidat() != null) {
+			validat = consulta.getValidat();
+		} else {
+			validat = new Boolean(true);
+		}
 		return ResponseEntity.ok(
 				sincronitzacioService.marcatgeFind(
 						consulta.getIdentificadorCodi(),
 						consulta.getEmpresaCodi(),
 						consulta.getDataInici(),
 						consulta.getDataFi(),
+						consulta.getValidatDataInici(),
+						consulta.getValidatDataFi(),
 						consulta.getIdInici(),
-						consulta.getIdFi()));
+						consulta.getIdFi(),
+						validat));
 	}
 
 	@PostMapping(

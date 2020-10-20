@@ -45,10 +45,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.validat", column = @Column(name = "validat")),
 	@AttributeOverride(name = "embedded.validatData", column = @Column(name = "validat_data")),
 	@AttributeOverride(name = "embedded.intervalDuracio", column = @Column(name = "interval_duracio", precision = 12, scale = 2)),
-	@AttributeOverride(name = "embedded.intervalObert", column = @Column(name = "interval_obert")),
-	@AttributeOverride(name = "embedded.acumulatAny", column = @Column(name = "acumulat_any", precision = 12, scale = 2)),
-	@AttributeOverride(name = "embedded.acumulatMes", column = @Column(name = "acumulat_mes", precision = 12, scale = 2)),
-	@AttributeOverride(name = "embedded.acumulatDia", column = @Column(name = "acumulat_dia", precision = 12, scale = 2))
+	@AttributeOverride(name = "embedded.intervalObert", column = @Column(name = "interval_obert"))
 })
 public class MarcatgeEntity extends AbstractAuditableVersionableEntity<Marcatge, Long> {
 
