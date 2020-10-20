@@ -245,6 +245,11 @@ export class AppService {
 			route: '/fact/subvencions'
 		}, {
 			icon: 'room',
+			label: 'Tallers',
+			labelKey: 'app.menu.fact.tallers',
+			route: '/fact/tallers'
+		}, {
+			icon: 'room',
 			label: 'Tarifes',
 			labelKey: 'app.menu.fact.tarifes',
 			route: '/fact/tarifes'

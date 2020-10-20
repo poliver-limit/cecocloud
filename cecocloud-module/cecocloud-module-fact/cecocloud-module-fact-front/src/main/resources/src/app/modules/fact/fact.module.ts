@@ -326,6 +326,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/tarifesProveidor/tarifesProveidor.module').then(m => m.TarifesProveidorModule)
 
 			}, {
+				path: 'tallers',
+				loadChildren: () => import('./pages/tallers/tallers.module').then(m => m.TallersModule)
+				
+			}, {
 				path: 'tarifesDescompte',
 				loadChildren: () => import('./pages/tarifesDescompte/tarifesDescompte.module').then(m => m.TarifesDescompteModule)
 
@@ -785,6 +789,12 @@ export class FactModule {
 //									labelKey: 'app.menu.fact.comptesComptablesEmpresa',
 //									route: '/fact/comptesComptablesEmpresa',
 //									resource: 'FAC_EMPCCM'
+								}, {
+									icon: 'room',
+									label: 'Tallers',
+									labelKey: 'app.menu.fact.tallers',
+									route: '/fact/tallers',
+									resource: 'FAC_TAL'
 								}, {
 									icon: 'room',
 									label: 'Transportistes',

@@ -86,6 +86,7 @@ import es.limit.cecocloud.fact.logic.api.dto.SituacioComercial;
 import es.limit.cecocloud.fact.logic.api.dto.SituacioInicial;
 import es.limit.cecocloud.fact.logic.api.dto.SubClient;
 import es.limit.cecocloud.fact.logic.api.dto.Subvencio;
+import es.limit.cecocloud.fact.logic.api.dto.Taller;
 import es.limit.cecocloud.fact.logic.api.dto.Tarifa;
 import es.limit.cecocloud.fact.logic.api.dto.TarifaDescompte;
 import es.limit.cecocloud.fact.logic.api.dto.TarifaProveidor;
@@ -883,6 +884,17 @@ public class FactModuleRegister {
 						"Subvencions",
 						Subvencio.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_TAL",
+				new FuncionalitatCodiFontImpl(
+						"FAC_TAL",
+						FuncionalitatTipus.MANTENIMENT,
+						"Tallers",
+						Taller.class,
+						Arrays.asList(
+								Empresa.class,
+								Magatzem.class,
+								Projecte.class)));
 		funcionalitats.put(
 				"FAC_TARIFA",
 				new FuncionalitatCodiFontImpl(
