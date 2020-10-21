@@ -376,3 +376,16 @@ databaseChangeLog:
     - dropNotNullConstraint:
         columnName: longitud
         tableName: tmar_lloc_feina
+- changeSet:
+    id: 1600078637740-14
+    author: josepg
+    changes:
+    - dropColumn:
+        columnName: acumulat_any
+        tableName: tmar_marcatge
+    - dropColumn:
+        columnName: acumulat_mes
+        tableName: tmar_marcatge
+    - dropColumn:
+        columnName: acumulat_dia
+        tableName: tmar_marcatge

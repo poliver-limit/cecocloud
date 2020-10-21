@@ -30,8 +30,11 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"and m.operariEmpresa.empresa in (:empreses) " +
 			"and (:esNullDataInici = true or m.createdDate >= :dataInici) " +
 			"and (:esNullDataFi = true or m.createdDate <= :dataFi) " +
+			"and (:esNullValidatDataInici = true or m.validatData >= :validatDataInici) " +
+			"and (:esNullValidatDataFi = true or m.validatData <= :validatDataFi) " +
 			"and (:esNullIdInici = true or m.id >= :idInici) " +
 			"and (:esNullIdFi = true or m.id <= :idFi) " +
+			"and (:esNullValidat = true or m.validat = :validat) " +
 			"order by " +
 			"    m.operariEmpresa.empresa.embedded.codi asc, " +
 			"    m.id asc")
@@ -41,10 +44,16 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("dataInici") Date dataInici,
 			@Param("esNullDataFi") boolean esNullDataFi,
 			@Param("dataFi") Date dataFi,
+			@Param("esNullValidatDataInici") boolean esNullValidatDataInici,
+			@Param("validatDataInici") Date validatDataInici,
+			@Param("esNullValidatDataFi") boolean esNullValidatDataFi,
+			@Param("validatDataFi") Date validatDataFi,
 			@Param("esNullIdInici") boolean esNullIdInici,
 			@Param("idInici") Long idInici,
 			@Param("esNullIdFi") boolean esNullIdFi,
-			@Param("idFi") Long idFi);
+			@Param("idFi") Long idFi,
+			@Param("esNullValidat") boolean esNullvalidat,
+			@Param("validat") Boolean validat);
 
 	@Query(	"from" +
 			"    MarcatgeEntity m " +

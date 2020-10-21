@@ -8,7 +8,7 @@ export class PressupostLinia extends RestapiResource {}
 export class PressupostosLiniaService extends BngRestapiService<PressupostLinia> {
 
     constructor( injector: Injector ) {
-        super( PressupostLinia, 'pressupostLinia', injector, 'ecom' );
+        super( PressupostLinia, 'pressupostLinia', injector, 'fact' );
     }
 
 }

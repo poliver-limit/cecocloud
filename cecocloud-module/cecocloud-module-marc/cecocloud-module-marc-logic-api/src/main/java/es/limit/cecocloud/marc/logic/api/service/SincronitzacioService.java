@@ -28,10 +28,16 @@ public interface SincronitzacioService {
 	 *            data inicial per a la consulta (opcional).
 	 * @param dataFi
 	 *            data final per a la consulta (opcional).
+	 * @param validatDataInici
+	 *            data de validació inicial per a la consulta (opcional).
+	 * @param validatDataFi
+	 *            data de validació final per a la consulta (opcional).
 	 * @param idInici
 	 *            id inicial per a la consulta (opcional).
 	 * @param idFi
 	 *            id final per a la consulta (opcional).
+	 * @param validat
+	 *            marcatge vàlid o invàlid (opcional).
 	 * @return la llista de marcatges.
 	 */
 	public List<SincronitzacioMarcatge> marcatgeFind(
@@ -39,8 +45,11 @@ public interface SincronitzacioService {
 			String empresaCodi,
 			Date dataInici,
 			Date dataFi,
+			Date validatDataInici,
+			Date validatDataFi,
 			Long idInici,
-			Long idFi);
+			Long idFi,
+			Boolean validat);
 
 	/**
 	 * Crea els marcatges de cecogest a dins CECOCLOUD.

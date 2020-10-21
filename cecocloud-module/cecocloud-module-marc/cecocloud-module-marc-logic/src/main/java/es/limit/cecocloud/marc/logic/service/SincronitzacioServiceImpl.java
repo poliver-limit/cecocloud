@@ -22,6 +22,7 @@ import es.limit.cecocloud.marc.logic.api.dto.Marcatge;
 import es.limit.cecocloud.marc.logic.api.dto.MarcatgeOrigen;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marc.logic.api.service.SincronitzacioService;
+import es.limit.cecocloud.marc.logic.helper.MarcatgeHelper;
 import es.limit.cecocloud.marc.persist.entity.MarcatgeEntity;
 import es.limit.cecocloud.marc.persist.repository.MarcatgeRepository;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
@@ -43,6 +44,8 @@ import es.limit.cecocloud.persist.repository.OperariRepository;
 public class SincronitzacioServiceImpl implements SincronitzacioService {
 
 	@Autowired
+	private MarcatgeHelper marcatgeHelper;
+	@Autowired
 	private IdentificadorRepository identificadorRepository;
 	@Autowired
 	private OperariRepository operariRepository;
@@ -62,8 +65,11 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			String empresaCodi,
 			Date dataInici,
 			Date dataFi,
+			Date validatDataInici,
+			Date validatDataFi,
 			Long idInici,
-			Long idFi) {
+			Long idFi,
+			Boolean validat) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(identificadorCodi);
 		if (identificador.isPresent()) {
 			List<SincronitzacioMarcatge> resposta = new ArrayList<SincronitzacioMarcatge>();
@@ -75,10 +81,16 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 						dataInici,
 						dataFi == null,
 						dataFi,
+						validatDataInici == null,
+						validatDataInici,
+						validatDataFi == null,
+						validatDataFi,
 						idInici == null,
 						idInici,
 						idFi == null,
-						idFi);
+						idFi,
+						validat == null,
+						validat);
 				for (MarcatgeEntity marcatge: marcatges) {
 					SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
 					sm.setId(marcatge.getId());
@@ -127,12 +139,20 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 						embedded.setLongitud(marcatge.getLongitud());
 						embedded.setOrigen(MarcatgeOrigen.CECOGEST);
 						embedded.setAdressaIp(request.getRemoteAddr());
-						marcatgeRepository.save(
+						embedded.setValidat(true);
+						embedded.setValidatData(new Date());
+						embedded.setForaLinia(false);
+						embedded.setLlocFeinaFora(false);
+						MarcatgeEntity marcatgeCreat = marcatgeRepository.save(
 								MarcatgeEntity.builder().
 								operariEmpresa(operariEmpresa.get()).
 								embedded(embedded).
 								build());
 						createCount++;
+						marcatgeHelper.processarCanviMarcatges(
+								marcatgeCreat,
+								marcatge.getData(),
+								false);
 					}
 				}
 			}

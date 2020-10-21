@@ -30,7 +30,12 @@ public class SincronitzacioMarcatgesConsulta {
 	private Date dataInici;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date dataFi;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date validatDataInici;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date validatDataFi;
 	private Long idInici;
 	private Long idFi;
+	private Boolean validat;
 
 }

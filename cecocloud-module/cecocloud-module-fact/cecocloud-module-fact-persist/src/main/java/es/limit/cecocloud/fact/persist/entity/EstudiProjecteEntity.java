@@ -111,7 +111,7 @@ public class EstudiProjecteEntity extends AbstractWithIdentificadorAuditableEnti
 					@JoinColumn(name = "etp_emp_cod", referencedColumnName = "prj_emp_cod", insertable = false, updatable = false)
 			},
 			foreignKey = @ForeignKey(name = "rges_etp_prj_fk"))
-	private ProjecteEntity projecteNum;
+	private ProjecteEntity projecte;
 
 	@Builder
 	public EstudiProjecteEntity(
@@ -120,12 +120,12 @@ public class EstudiProjecteEntity extends AbstractWithIdentificadorAuditableEnti
 			IdentificadorEntity identificador,
 			EmpresaEntity empresa,
 			DivisaEntity divisa,
-			ProjecteEntity projecteNum) {
+			ProjecteEntity projecte) {
 		setId(pk);
 		this.embedded = embedded;
 		this.identificador = identificador;
 		this.empresa = empresa;
-		this.projecteNum = projecteNum;
+		this.projecte = projecte;
 		updateDivisa(divisa);
 	}
 
