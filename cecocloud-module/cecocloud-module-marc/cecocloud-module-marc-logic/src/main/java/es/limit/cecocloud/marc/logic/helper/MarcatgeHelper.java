@@ -537,10 +537,10 @@ public class MarcatgeHelper {
 			boolean netejarAcumulats) {
 		Calendar iniciAny = getCalendarDataInici(null, true);
 		Calendar fiAny = getCalendarDataFi(null, true);
-		marcatgeRepository.netejarAcumulatsEntreDates(
+		/*marcatgeRepository.netejarAcumulatsEntreDates(
 				operariEmpresa,
 				iniciAny.getTime(),
-				fiAny.getTime());
+				fiAny.getTime());*/
 		return marcatgeRepository.findFirstByOperariEmpresaAndEmbeddedDataBetweenAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
 				operariEmpresa,
 				iniciAny.getTime(),

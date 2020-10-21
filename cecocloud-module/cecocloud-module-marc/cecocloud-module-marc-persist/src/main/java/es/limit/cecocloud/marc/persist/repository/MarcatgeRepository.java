@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -30,11 +29,11 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"and m.operariEmpresa.empresa in (:empreses) " +
 			"and (:esNullDataInici = true or m.createdDate >= :dataInici) " +
 			"and (:esNullDataFi = true or m.createdDate <= :dataFi) " +
-			"and (:esNullValidatDataInici = true or m.validatData >= :validatDataInici) " +
-			"and (:esNullValidatDataFi = true or m.validatData <= :validatDataFi) " +
+			"and (:esNullValidatDataInici = true or m.embedded.validatData >= :validatDataInici) " +
+			"and (:esNullValidatDataFi = true or m.embedded.validatData <= :validatDataFi) " +
 			"and (:esNullIdInici = true or m.id >= :idInici) " +
 			"and (:esNullIdFi = true or m.id <= :idFi) " +
-			"and (:esNullValidat = true or m.validat = :validat) " +
+			"and (:esNullValidat = true or m.embedded.validat = :validat) " +
 			"order by " +
 			"    m.operariEmpresa.empresa.embedded.codi asc, " +
 			"    m.id asc")
@@ -106,7 +105,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("esNullId") boolean esNullId,
 			@Param("id") Long id);
 
-	@Modifying
+	/*@Modifying
 	@Query(
 			"update " +
 			"    MarcatgeEntity m " +
@@ -121,7 +120,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 	void netejarAcumulatsEntreDates(
 			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
 			@Param("dataInici") Date dataInici,
-			@Param("dataFi") Date dataFi);
+			@Param("dataFi") Date dataFi);*/
 
 	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataBetweenAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
 			OperariEmpresaEntity operariEmpresa,
