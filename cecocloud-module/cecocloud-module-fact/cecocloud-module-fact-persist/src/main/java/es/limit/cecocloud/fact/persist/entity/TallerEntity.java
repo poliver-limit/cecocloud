@@ -53,7 +53,7 @@ import lombok.Setter;
 	@AttributeOverride(name = "embedded.col", column = @Column(name = "tal_col", length = 15)),
 	@AttributeOverride(name = "embedded.diaOberta", column = @Column(name = "tal_diaobe", length = 22, precision = 3)),
 	@AttributeOverride(name = "embedded.diaSensa", column = @Column(name = "tal_diasen", length = 22, precision = 3)),
-	@AttributeOverride(name = "embedded.percControl", column = @Column(name = "tal_diaobe", length = 22, precision = 5, scale = 2)),
+	@AttributeOverride(name = "embedded.percControl", column = @Column(name = "tal_ptecrl", length = 22, precision = 5, scale = 2)),
 	@AttributeOverride(name = "embedded.observacions", column = @Column(name = "tal_obs", length = 1000)),
 	@AttributeOverride(name = "embedded.ana", column = @Column(name = "tal_ana", length = 1)),
 	@AttributeOverride(name = "embedded.ctecmpexi", column = @Column(name = "tal_ctecmpexi", length = 10)),
@@ -103,7 +103,8 @@ public class TallerEntity extends AbstractWithIdentificadorAuditableEntity<Talle
 	@JoinColumns(
 				value = {
 						@JoinColumn(name = "tal_idf_cod", referencedColumnName = "prj_idf_cod", insertable = false, updatable = false),
-						@JoinColumn(name = "tal_prj_cod", referencedColumnName = "prj_cod", insertable = false, updatable = false)
+						@JoinColumn(name = "tal_emp_cod", referencedColumnName = "prj_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "tal_prj_num", referencedColumnName = "prj_num", insertable = false, updatable = false)
 				},
 				foreignKey = @ForeignKey(name = "rges_tal_prj_fk"))
 	protected ProjecteEntity projecte;

@@ -16,7 +16,6 @@ import es.limit.base.boot.logic.api.dto.GenericReferenceWithCompositePk;
 import es.limit.base.boot.logic.api.dto.Identificable.OnCreate;
 import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExists;
-import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificador.WithIdentificadorPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
 import es.limit.cecocloud.fact.logic.api.dto.Taller.TallerPk;
@@ -61,7 +60,6 @@ public class Taller extends AbstractIdentificableWithIdentificador<TallerPk> {
 			hiddenInGrid = true)
 	private String col;
 	
-	@NotNull
 	@Digits(integer = 3, fraction = 0)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -69,7 +67,6 @@ public class Taller extends AbstractIdentificableWithIdentificador<TallerPk> {
 			sizeMax = 22)
 	private BigDecimal diaOberta;	
 	
-	@NotNull
 	@Digits(integer = 3, fraction = 0)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -77,7 +74,6 @@ public class Taller extends AbstractIdentificableWithIdentificador<TallerPk> {
 			sizeMax = 22)
 	private BigDecimal diaSensa;	
 	
-	@NotNull
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(			
 			hiddenInGrid = true,
@@ -116,34 +112,32 @@ public class Taller extends AbstractIdentificableWithIdentificador<TallerPk> {
 	private String prjnumtlr;
 	
 	@Transient
-	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInLov = true)	
+			hiddenInLov = true,
+			hiddenInForm = true)	
 	private GenericReferenceWithCompositePk<Empresa, WithIdentificadorAndCodiPk<String>> empresa;
 	
 	@Transient
-	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = false,
 			hiddenInForm = false,
-			disabledForUpdate = true,
+			disabledForUpdate = false,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	
 	private GenericReferenceWithCompositePk<Magatzem, WithIdentificadorAndCodiPk<String>> magatzem;
 	
 	@Transient
-	@NotNull(groups = { OnCreate.class })
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = false,
 			hiddenInForm = false,
-			disabledForUpdate = true,
+			disabledForUpdate = false,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)	

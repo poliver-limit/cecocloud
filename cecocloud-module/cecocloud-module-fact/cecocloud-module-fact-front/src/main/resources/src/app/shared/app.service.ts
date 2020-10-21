@@ -55,6 +55,11 @@ export class AppService {
 			route: '/fact/articlesModel'
 		}, {
 			icon: 'room',
+			label: 'Avaries',
+			labelKey: 'app.menu.fact.avaries',
+			route: '/fact/avaries'
+		}, {
+			icon: 'room',
 			label: 'Business groups',
 			labelKey: 'app.menu.fact.businessGroups',
 			route: '/fact/businessGroups'

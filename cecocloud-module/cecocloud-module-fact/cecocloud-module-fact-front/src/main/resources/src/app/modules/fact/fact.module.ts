@@ -64,6 +64,10 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/articlesModel/articlesModel.module').then(m => m.ArticlesModelModule)
 
 			}, {
+				path: 'avaries',
+				loadChildren: () => import('./pages/avaries/avaries.module').then(m => m.AvariesModule)
+
+			}, {
 				path: 'bancs',
 				loadChildren: () => import('./pages/bancs/bancs.module').then(m => m.BancsModule)	
 				
@@ -657,6 +661,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.altresAplicacions',
 									route: '/fact/altresAplicacions',
 									resource: 'FAC_ALTAPL'
+								}, {
+									icon: 'room',
+									label: 'Avaries',
+									labelKey: 'app.menu.fact.avaries',
+									route: '/fact/avaries',
+									resource: 'FAC_AVARIA'
 								}, {
 									icon: 'room',
 									label: 'Configuracions de impressos',

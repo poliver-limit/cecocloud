@@ -20,6 +20,7 @@ import es.limit.cecocloud.fact.logic.api.dto.ArticleFamiliaEmpresa;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleGamma;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleMarca;
 import es.limit.cecocloud.fact.logic.api.dto.ArticleModel;
+import es.limit.cecocloud.fact.logic.api.dto.Avaria;
 import es.limit.cecocloud.fact.logic.api.dto.Banc;
 import es.limit.cecocloud.fact.logic.api.dto.BusinessGroup;
 import es.limit.cecocloud.fact.logic.api.dto.Caixa;
@@ -228,6 +229,28 @@ public class FactModuleRegister {
 						"Articles model",
 						ArticleModel.class,
 						Arrays.asList()));
+		funcionalitats.put(
+				"FAC_AVARIA",
+				new FuncionalitatCodiFontImpl(
+						"FAC_AVARIA",
+						FuncionalitatTipus.MANTENIMENT,
+						"Avaries",
+						Avaria.class,
+						Arrays.asList(
+								Empresa.class, 
+								es.limit.cecocloud.rrhh.logic.api.dto.Operari.class,
+								Pressupost.class, 
+								CodiPostal.class, 
+								SubClient.class, 
+								Client.class, 
+								Taller.class, 
+								Projecte.class, 
+								Albara.class, 
+								MantenimentDeTipus.class,
+								TipusVenciment.class,
+								ClientAdresa.class,
+								DocumentPagamentCobrament.class,
+								SerieVenda.class)));
 		funcionalitats.put(
 				"FAC_BANCS",
 				new FuncionalitatCodiFontImpl(

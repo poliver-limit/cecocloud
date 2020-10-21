@@ -87,6 +87,7 @@ public class UnitatControlEstudi extends AbstractIdentificableWithIdentificador<
 //			hiddenInLov = true)
 //	private int estudiProjecteNum;
 	
+	// Este BigDecimal es una conexión con TGES_EAS, de momento se entrará manualmente.
 	@Digits(integer = 10, fraction = 0)
 	@RestapiField(
 			hiddenInGrid = true,
