@@ -48,28 +48,26 @@ public class EstudiProjecte extends AbstractIdentificableWithIdentificador<Estud
 			hiddenInLov = true)
 	private String codi;
 	
-	@NotNull
-	@Size(max = 22)
+	@NotNull	
 	@Digits(integer = 3, fraction = 0)
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInLov = true)
+			hiddenInLov = true,
+			sizeMax = 22)
 	private int numero;
 	
-	@NotNull
-	@Size(max = 7)
+	@NotNull	
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
 			hiddenInLov = true)
-	private Date diaInici;
+	private Date diaInici;	
 	
-	@Size(max = 7)
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
@@ -78,15 +76,15 @@ public class EstudiProjecte extends AbstractIdentificableWithIdentificador<Estud
 			hiddenInLov = true)
 	private Date diaFi;
 	
-	@NotNull
-	@Size(max = 22)
+	@NotNull	
 	@Digits(integer = 15, fraction = 8)
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInLov = true)
+			hiddenInLov = true,
+			sizeMax = 22)
 	private BigDecimal valDivEur;
 	
 	@Size(max = 1000)
@@ -112,46 +110,46 @@ public class EstudiProjecte extends AbstractIdentificableWithIdentificador<Estud
 	@RestapiField(
 			includeInQuickFilter = true,
 			hiddenInGrid = true)
-	private String revisioEstudi;
+	private String revisioEstudi;	
 	
-	@Size(max = 22)
 	@Digits(integer = 15, fraction = 3)
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInLov = true)
-	private BigDecimal despesesFinanceres;
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal despesesFinanceres;	
 	
-	@Size(max = 22)
-	@Digits(integer = 0, fraction = 127)
+//	@Digits(integer = 0, fraction = 127)
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInLov = true)
-	private BigDecimal tip;
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal tip;	
 	
-	@Size(max = 22)
-	@Digits(integer = 0, fraction = 127)
+//	@Digits(integer = 0, fraction = 127)
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInLov = true)
-	private BigDecimal estimacionTramite;
+			hiddenInLov = true,
+			sizeMax = 22)
+	private BigDecimal estimacionTramite;	
 	
-	@Size(max = 22)
 	@Digits(integer = 15, fraction = 3)
 	@RestapiField(
 			hiddenInGrid = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,
-			hiddenInLov = true)
+			hiddenInLov = true,
+			sizeMax = 22)
 	private BigDecimal magatzemManual;
 	
 	@Size(max = 1)
@@ -166,12 +164,11 @@ public class EstudiProjecte extends AbstractIdentificableWithIdentificador<Estud
 			hiddenInGrid = true)
 	private String revisatCapGrup;
 	
-	@Transient
-	@NotNull(groups = { OnCreate.class })
+	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = false,
-			hiddenInForm = false,
+			hiddenInGrid = true,
+			hiddenInForm = true,
 			disabledForUpdate = true,
 			disabledForCreate = false,
 			includeInQuickFilter = true,

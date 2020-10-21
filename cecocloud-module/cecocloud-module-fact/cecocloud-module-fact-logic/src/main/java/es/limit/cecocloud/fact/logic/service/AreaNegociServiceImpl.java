@@ -23,7 +23,8 @@ public class AreaNegociServiceImpl extends AbstractGenericCompositePkServiceImpl
 	protected AreaNegociPk getPkFromDto(AreaNegoci dto) {
 		return new AreaNegociPk(
 				dto.getIdentificador().getId(),				
-				dto.getCodi(),
-				dto.getEmpresa().getId());
+				dto.getEmpresa().getPk().getCodi(),
+				dto.getCodi()
+				);
 	}
 }
