@@ -1,0 +1,41 @@
+<bng-datagrid
+	bng-datagrid-mant
+    [config]="datagridConfig"
+	[externalFilter]="externalFilter"
+    [restapiService]="projectesService">
+	
+	<bng-form bng-form-mant	[config]="formConfig" [restapiService]="projectesService" (formGroupChange)="onFormGroupChange($event)" (resourceLoad)="onResourceLoad($event)" >
+		<div style="margin-top: 5px; margin-bottom: 5px; margin-right: 50px; margin-left: 50px;">
+			<div class="mainFilters">
+				<div style="display: flex;">
+					<div style="width: 25%; padding-right: 1em">
+			    		<bng-custom-field name="codi"></bng-custom-field>
+			   		</div>	
+			   		<div style="width: 75%; padding-right: 1em">
+						<bng-custom-field name="nom"></bng-custom-field>
+					</div>	   		
+				</div>		
+				<div style="display: flex;">
+					<div style="width: 50%; padding-right: 1em">
+						<bng-custom-field name="client"></bng-custom-field>
+					</div>
+					<div style="width: 25%; padding-right: 1em">
+			    		<bng-custom-field name="projecteTipus"></bng-custom-field>
+			   		</div>
+					<div style="width: 25%; padding-right: 1em">
+			    		<bng-custom-field name="estat"></bng-custom-field>
+			   		</div>				
+				</div>
+			</div>			
+			<div style="display: flex; margin-bottom:10px; margin-top:20px; padding-right: 20px; padding-left: 20px; text-align:center;">			
+				<div style="width: 85%; display: inline-block;"></div>
+				<div style="width: 15%; display: flex; float: left;">
+					<button  mat-raised-button (click)="cleanFilters($event)">{{'filters.cleanFilters' | translate}}</button>		
+					<div style="width: 10px; display: inline-block;"></div>
+					<button  mat-raised-button (click)="toFilter($event)">{{'filters.filter' | translate}}</button>
+				</div>
+			</div>			
+		</div>
+	</bng-form>	
+	<br/><hr/><br/>
+</bng-datagrid>`
