@@ -112,11 +112,13 @@ public class ClientAdresaEntity extends AbstractWithIdentificadorAuditableEntity
 	private SubClientEntity subClient;
 	@Column(name = "acc_scl_cod")
 	private String subClientCodi;
-	//INNER
-	//@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(acc.acc_cod,' - '),acc.acc_dom),' - '),acc.acc_tel),' - '),acc.acc_cpo_cod),' - '),cpo.cpo_pob) FROM tges_acc acc INNER JOIN tges_cpo cpo INNER JOIN tges_cli cli where acc.acc_idf_cod = acc_idf_cod and acc.acc_cli_cod = acc_cli_cod and acc.acc_idf_cod = cpo.cpo_idf_cod and acc.acc_cpo_cod = cpo.cpo_cod and cli.cli_idf_cod = acc.acc_idf_cod and cli.cli_cod = acc.acc_cli_cod)")
-	//@Formula(value ="(SELECT TCI.iva_pte FROM tcom_iva TCI left join tcom_art TCA on TCI.iva_idf_cod = TCA.art_idf_cod and TCI.iva_cod = TCA.art_iva_cod where TCA.art_cod = art_cod and TCA.art_idf_cod = art_idf_cod)")
-//	private String descCliAdreComCodi;
-	// DECLARACION COMENTADA -> FRAN TIENES LOS @FORMULA COMENTADOS. EL HIBERNATE BUSCA ESTE CAMPO EN BASE DE DATOS!!!
+	
+	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(acc.acc_cod,' - '),acc.acc_dom),' - '),acc.acc_tel),' - '),acc.acc_cpo_cod),' - '),cpo.cpo_pob) \r\n" + 
+			"FROM tges_acc acc \r\n" + 
+			"INNER JOIN tges_cpo cpo on acc.acc_cpo_cod = cpo.cpo_cod and acc.acc_idf_cod = cpo.cpo_idf_cod\r\n" + 
+			"INNER JOIN tges_cli cli on acc.acc_cli_cod = cli.cli_cod and acc.acc_idf_cod = cli.cli_idf_cod\r\n" + 
+			"where acc.acc_idf_cod = acc_idf_cod and acc.acc_idf_cod = cpo.cpo_idf_cod and acc.acc_cpo_cod = cpo.cpo_cod)")
+	private String descCliAdreComCodi;
 	
 
 	@Builder
