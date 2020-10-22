@@ -823,7 +823,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			type = RestapiFieldType.LOV,
 			hiddenInGrid = true,
-			lovDescriptionField = "descSeccNomCodi",
+			lovDescriptionField = "descSeccComCodi",
 			lovSortFields =  {
 					@RestapiSort(
 							field = "nom",
