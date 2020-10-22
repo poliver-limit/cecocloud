@@ -27,7 +27,9 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 			}, {
 				field: 'estat'			
 			}, {
-				field: 'projecteTipus'
+				field: 'dataInici'
+			}, {
+				field: 'dataFi'
 			}]
 	};
 	
@@ -110,13 +112,44 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 		}		
 	}
 
+	onCodiBlur(event: any) {
+		var codiValue: any = this.formGroup.get('codi').value;
+		if (!isNaN(codiValue)) {
+			var newValue = this.zfill(codiValue,6);
+			this.formGroup.get('codi').setValue(newValue);		
+		} 	
+	}
+	
+	zfill(number, width): string {
+    	var numberOutput = Math.abs(number); /* Valor absoluto del número */
+    	var length = number.toString().length; /* Largo del número */ 
+    	var zero = "0"; /* String de cero */  
+    
+    	if (width <= length) {
+        	if (number < 0) {
+				return ("-" + numberOutput.toString()); 
+        	} else {
+            	return numberOutput.toString(); 
+        	}
+    	} else {
+        	if (number < 0) {
+            	return ("-" + (zero.repeat(width - length)) + numberOutput.toString()); 
+        	} else {
+            	return ((zero.repeat(width - length)) + numberOutput.toString()); 
+        	}
+    	}
+	}
+	
     ngOnInit() {		
     }
 
+	onNomBlur (event: any) {			
+		this.formGroup.get('nom').setErrors(null);		
+	}
+	
 	onFormGroupChange(formGroup: FormGroup) {
 				
-		this.formGroup = formGroup;
-		
+		this.formGroup = formGroup;				
 		this.formGroup.get('nom').valueChanges.subscribe(val => {			
 			this.formGroup.get('nom').setErrors(null);
 		})
