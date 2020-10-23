@@ -4,7 +4,7 @@
 	[externalFilter]="externalFilter"
     [restapiService]="projectesService">
 	
-	<bng-form bng-form-mant	[config]="formConfig" [restapiService]="projectesService" (formGroupChange)="onFormGroupChange($event)" (resourceLoad)="onResourceLoad($event)" >
+	<bng-form bng-form-mant	#formulari [config]="formConfig" [restapiService]="projectesService" (formGroupChange)="onFormGroupChange($event)" (resourceLoad)="onResourceLoad($event)" >
 		<div style="margin-top: 5px; margin-bottom: 5px; margin-right: 50px; margin-left: 50px;">
 			<div class="mainFilters">
 				<div style="display: flex;">
