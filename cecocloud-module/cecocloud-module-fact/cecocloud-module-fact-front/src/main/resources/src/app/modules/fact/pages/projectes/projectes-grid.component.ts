@@ -118,8 +118,10 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 	onCodiBlur(event: any) {		
 		var codiValue: any = this.formGroup.get('codi').value;
 		if (!isNaN(codiValue)) {
-			var newValue = this.zfill(codiValue,6);
-			this.formGroup.get('codi').setValue(newValue);		
+			if (codiValue!='') {
+				var newValue = this.zfill(codiValue,6);
+				this.formGroup.get('codi').setValue(newValue);
+			}		
 		} 	
 	}
 	
