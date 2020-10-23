@@ -61,6 +61,11 @@ export class MarcatgesFormComponent extends BngFormBaseComponent implements OnIn
 			}
 		}, 1000);
 	}
+	ngOnDestroy() {
+		if (this.eachSecondIntervalId) {
+			clearInterval(this.eachSecondIntervalId);
+		}
+	}
 
 	onFormGroupChange(formGroup: FormGroup) {
 		this.formGroup = formGroup;
