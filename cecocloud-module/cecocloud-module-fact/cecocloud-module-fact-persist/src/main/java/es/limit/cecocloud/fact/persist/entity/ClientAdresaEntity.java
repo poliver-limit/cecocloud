@@ -115,9 +115,9 @@ public class ClientAdresaEntity extends AbstractWithIdentificadorAuditableEntity
 	
 	@Formula(value="(SELECT CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(acc.acc_cod,' - '),acc.acc_dom),' - '),acc.acc_tel),' - '),acc.acc_cpo_cod),' - '),cpo.cpo_pob) \r\n" + 
 			"FROM tges_acc acc \r\n" + 
-			"INNER JOIN tges_cpo cpo on acc.acc_cpo_cod = cpo.cpo_cod and acc.acc_idf_cod = cpo.cpo_idf_cod\r\n" + 
-			"INNER JOIN tges_cli cli on acc.acc_cli_cod = cli.cli_cod and acc.acc_idf_cod = cli.cli_idf_cod\r\n" + 
-			"where acc.acc_idf_cod = acc_idf_cod and acc.acc_idf_cod = cpo.cpo_idf_cod and acc.acc_cpo_cod = cpo.cpo_cod)")
+			"LEFT JOIN tges_cpo cpo on acc.acc_cpo_cod = cpo.cpo_cod and acc.acc_idf_cod = cpo.cpo_idf_cod\r\n" + 
+			"LEFT JOIN tges_cli cli on acc.acc_cli_cod = cli.cli_cod and acc.acc_idf_cod = cli.cli_idf_cod\r\n" + 
+			"where acc.acc_idf_cod = acc_idf_cod and acc.acc_cli_cod = acc_cli_cod and acc.acc_cod = acc_cod)")
 	private String descCliAdreComCodi;
 	
 
