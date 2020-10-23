@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BngFormConfig, BngFormBaseComponent } from 'base-angular';
+import { ViewChild } from "@angular/core";
+import { BngForm, BngFormConfig, BngFormBaseComponent } from 'base-angular';
 import { ProjectesService } from './projectes.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +12,8 @@ import { ProjectesTipusService } from '../projectesTipus/projectesTipus.service'
 } )
 export class ProjectesGridComponent extends BngFormBaseComponent implements OnInit {
 
+	@ViewChild('formulari') form: BngForm;
+	
 	client: any;
 	projecteTipus: any;
 	
@@ -35,7 +38,7 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 	
 	formConfig: BngFormConfig = {
 		mode: 'headless',
-		readOnlyStateEnabled: false
+//		readOnlyStateEnabled: false
     }
 
 	formGroup: FormGroup;
@@ -112,7 +115,7 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 		}		
 	}
 
-	onCodiBlur(event: any) {
+	onCodiBlur(event: any) {		
 		var codiValue: any = this.formGroup.get('codi').value;
 		if (!isNaN(codiValue)) {
 			var newValue = this.zfill(codiValue,6);
@@ -147,8 +150,7 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 		this.formGroup.get('nom').setErrors(null);		
 	}
 	
-	onFormGroupChange(formGroup: FormGroup) {
-				
+	onFormGroupChange(formGroup: FormGroup) {		
 		this.formGroup = formGroup;				
 		this.formGroup.get('nom').valueChanges.subscribe(val => {			
 			this.formGroup.get('nom').setErrors(null);
