@@ -61,6 +61,7 @@ export class AppComponent {
 		const routerUrl = this.router.url.substring(1);
 		const module = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
 		const allowedModules = this.moduleService.getAllowedModuleItems().map(modul => modul.code);
+		console.log('>>> getModuleFromUrl', routerUrl, module, this.moduleService.getAllowedModuleItems())
 		if (allowedModules.includes(module)) {
 			return module;
 		}
@@ -120,18 +121,7 @@ export class AppComponent {
 		// Configura el menu inicial al carregar l'aplicació
 		this.router.events.subscribe((event) => {
 			if (!this.initialMenuSelected && event instanceof NavigationEnd) {
-				let menu: BngMenu = this.appService.getCurrentRouteMenu();
-				this.menuService.setActiveMenu(menu);
-
-				// Si ja obtenir el mòdul, filtram el menu
-				const modul = this.getModuleFromUrl();
-				if (modul != null) {
-					this.usuariIdentificadorEmpresaService.getAllowedFuncionalitats(modul).subscribe((funcionalitats: string[]) => {
-						let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
-						this.menuService.setActiveMenu(filteredMenu);
-					});
-				}
-				this.initialMenuSelected = true;
+				this.appService.setCurrentRouteActiveMenu();
 			}
 		});
 	}
