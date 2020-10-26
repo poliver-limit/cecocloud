@@ -24,6 +24,7 @@ public class SincronitzacioMarcatgesConsulta {
 	@NotNull
 	@Size(max = 4)
 	private String identificadorCodi;
+	@NotNull
 	@Size(max = 4)
 	private String empresaCodi;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -37,5 +38,6 @@ public class SincronitzacioMarcatgesConsulta {
 	private Long idInici;
 	private Long idFi;
 	private Boolean validat;
+	private Boolean traspassat;
 
 }

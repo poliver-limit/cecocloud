@@ -124,6 +124,10 @@ export class AppComponent {
 				this.appService.setCurrentRouteActiveMenu();
 			}
 		});
+		// Força a recalcular el menu actual si canvien els mòduls permesos
+		this.moduleService.getAllowedModuleItemsChangeSubject().subscribe(() => {
+			this.appService.setCurrentRouteActiveMenu();
+		});
 	}
 
 }

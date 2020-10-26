@@ -129,18 +129,7 @@ export class AppService {
 			}
 			this.menuService.setActiveMenu(this.adminIdentificadorMenu);
 		} else {
-			let routerUrl = this.router.url.substring(1);
-			let module: string = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
-			let menu: BngMenu = this.getModuleMenu(module);
-			this.moduleService.getAllowedModuleItemsChangeSubject().subscribe((modules: BngAppModule[]) => {
-				const allowedModules = modules.map(modul => modul.code);
-				if (allowedModules.includes(module)) {
-					this.usuariIdentificadorEmpresaService.getAllowedFuncionalitats(module).subscribe((funcionalitats: string[]) => {
-						let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
-						this.menuService.setActiveMenu(filteredMenu);
-					});
-				}
-			});
+			this.findAndSetActiveMenuFromRouterUrl(this.moduleService.getAllowedModuleItems());
 		}
 	}
 
@@ -159,6 +148,19 @@ export class AppService {
 	private registerGlobalMenus() {
 		this.menuService.registerGlobal('admin', this.adminMenu);
 		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);
+	}
+
+	private findAndSetActiveMenuFromRouterUrl(allowedModules: BngAppModule[]) {
+		let routerUrl = this.router.url.substring(1);
+		let moduleCode: string = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+		let menu: BngMenu = this.getModuleMenu(moduleCode);
+		const allowedModulesCodes = allowedModules.map(modul => modul.code);
+		if (allowedModulesCodes.includes(moduleCode)) {
+			this.usuariIdentificadorEmpresaService.getAllowedFuncionalitats(moduleCode).subscribe((funcionalitats: string[]) => {
+				let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
+				this.menuService.setActiveMenu(filteredMenu);
+			});
+		}
 	}
 
 	private filterMenuFuncionalitatsPermeses(menu: BngMenu, funcionalitats: string[]): BngMenu {
