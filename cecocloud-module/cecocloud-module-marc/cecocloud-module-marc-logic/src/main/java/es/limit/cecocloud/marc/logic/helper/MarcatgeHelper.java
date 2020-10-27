@@ -124,8 +124,12 @@ public class MarcatgeHelper {
 	private LlocFeinaEntity calcularForaLlocFeina(
 			MarcatgeEntity marcatgeEntity,
 			OperariEmpresaEntity operariEmpresa) {
-		log.debug("Cercant lloc de feina pel marcatge (marcatgeEntity=" + marcatgeEntity + ")");
 		Marcatge marcatge = marcatgeEntity.getEmbedded();
+		log.debug("Cercant lloc de feina pel marcatge (" +
+				"marcatge=" + marcatge + ", " +
+				"operariEmpresa=" + operariEmpresa + ", " +
+				"operariEmpresaId=" + operariEmpresa.getId() + ", " +
+				"adressaIp=" + marcatge.getAdressaIp() + ")");
 		Set<LlocFeinaEntity> llocsFeina = llocFeinaRepository.findByOperariEmpresa(operariEmpresa);
 		boolean llocFeinaFora;
 		LlocFeinaEntity llocFeina = null;
@@ -163,6 +167,8 @@ public class MarcatgeHelper {
 							"marcatgeEntity=" + marcatgeEntity + ")");
 				}
 			} else {
+				log.debug("Marcatge considerat fora del lloc de feina perquè no s'ha especificat posició (" +
+						"marcatgeEntity=" + marcatgeEntity + ")");
 				llocFeinaFora = true;
 			}
 		} else {
