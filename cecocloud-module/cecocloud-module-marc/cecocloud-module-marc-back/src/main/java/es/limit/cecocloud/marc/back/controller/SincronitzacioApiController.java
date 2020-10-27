@@ -57,7 +57,7 @@ public class SincronitzacioApiController {
 						consulta.getIdInici(),
 						consulta.getIdFi(),
 						(consulta.getValidat() != null) ? consulta.getValidat() : true,
-						(consulta.getTraspassat() != null) ? consulta.getTraspassat() : true));
+						consulta.getTraspassat()));
 	}
 
 	@PostMapping(
