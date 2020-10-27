@@ -528,8 +528,12 @@ public class MarcatgeHelper {
 	}
 
 	private boolean ipAddressMatches(String ipAddress, String subnet) {
-	    IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(subnet);
-	    return ipAddressMatcher.matches(ipAddress);
+		if (!subnet.isEmpty()) {
+			IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(subnet);
+			return ipAddressMatcher.matches(ipAddress);
+		} else {
+			return false;
+		}
 	}
 
 	private MarcatgeEntity getDarrerMarcatgeValidAnyActual(
