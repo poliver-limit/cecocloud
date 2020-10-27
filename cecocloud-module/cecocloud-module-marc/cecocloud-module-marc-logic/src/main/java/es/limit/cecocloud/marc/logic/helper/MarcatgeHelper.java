@@ -138,7 +138,8 @@ public class MarcatgeHelper {
 						"per coincidència de l'adreça IP (" +
 						"adressaIp=" + marcatge.getAdressaIp() + ", " +
 						"llocFeina=" + llocFeina + ", " +
-						"marcatgeEntity=" + marcatgeEntity + ")");
+						"marcatge=" + marcatge + ", " +
+						"operariEmpresa=" + operariEmpresa + ")");
 				llocFeinaFora = false;
 			} else if (marcatge.getLatitud() != null && marcatge.getLongitud() != null) {
 				llocFeina = llocFeinaAmbPosicioMesPropera(marcatge, operariEmpresa);
@@ -151,28 +152,23 @@ public class MarcatgeHelper {
 						llocFeina.getEmbedded().getLongitud().doubleValue(),
 						0);
 				llocFeinaFora = distancia > distanciaMaxima;
-				if (llocFeinaFora) {
-					log.debug("Marcatge considerat fora del lloc de feina més proper (" +
-							"llocFeina=" + llocFeina + ", " +
-							"distancia=" + distancia + ", " +
-							"distanciaMaxima=" + distanciaMaxima + ", " +
-							"marcatgeEntity=" + marcatgeEntity + ")");
-				} else {
-					log.debug("Marcatge considerat a dins el lloc de feina més proper (" +
-							"llocFeina=" + llocFeina + ", " +
-							"distancia=" + distancia + ", " +
-							"distanciaMaxima=" + distanciaMaxima + ", " +
-							"marcatgeEntity=" + marcatgeEntity + ")");
-				}
+				log.debug("Marcatge considerat " + (llocFeinaFora ? "fora" : "dins") + " del lloc de feina més proper (" +
+						"llocFeina=" + llocFeina + ", " +
+						"distancia=" + distancia + ", " +
+						"distanciaMaxima=" + distanciaMaxima + ", " +
+						"marcatge=" + marcatge + ", " +
+						"operariEmpresa=" + operariEmpresa + ")");
 			} else {
 				log.debug("Marcatge considerat fora del lloc de feina perquè no s'ha especificat posició (" +
-						"marcatgeEntity=" + marcatgeEntity + ")");
+						"marcatge=" + marcatge + ", " +
+						"operariEmpresa=" + operariEmpresa + ")");
 				llocFeinaFora = true;
 			}
 		} else {
 			log.debug("Marcatge considerat dins el lloc de feina " +
 					"perquè l'operari no te llocs de feina assignats (" +
-					"marcatgeEntity=" + marcatgeEntity + ")");
+					"marcatge=" + marcatge + ", " +
+					"operariEmpresa=" + operariEmpresa + ")");
 			llocFeinaFora = false;
 		}
 		marcatge.setLlocFeinaFora(llocFeinaFora);
