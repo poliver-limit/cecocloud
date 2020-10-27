@@ -127,9 +127,7 @@ public class MarcatgeHelper {
 		Marcatge marcatge = marcatgeEntity.getEmbedded();
 		log.debug("Cercant lloc de feina pel marcatge (" +
 				"marcatge=" + marcatge + ", " +
-				"operariEmpresa=" + operariEmpresa + ", " +
-				"operariEmpresaId=" + operariEmpresa.getId() + ", " +
-				"adressaIp=" + marcatge.getAdressaIp() + ")");
+				"operariEmpresa=" + operariEmpresa + ")");
 		Set<LlocFeinaEntity> llocsFeina = llocFeinaRepository.findByOperariEmpresa(operariEmpresa);
 		boolean llocFeinaFora;
 		LlocFeinaEntity llocFeina = null;
