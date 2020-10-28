@@ -36,6 +36,11 @@ import { IdentificadorsService } from '../../../../pages/identificadors/identifi
 import { EmpresesFactService } from '../empresesFact/empresesFact.service';
 
 import { DivisesService } from '../divises/divises.service';
+import { ClientsService } from '../clients/clients.service';
+import { CodisPostalService } from '../codisPostal/codisPostal.service';
+
+import { preumigfacturacioNotEmptyValidator } from './preumigfacturacio-not-empty-validator';
+import { nomNotEmptyValidator } from './nom-not-empty-validator';
 
 @Component({
   templateUrl: 'projectes-form.html'
@@ -47,7 +52,10 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 	@ViewChild(BngForm) form: BngForm;
 	
 	empresaFact: any;	
-	divisa: any;	
+	divisa: any;
+	client: any;	
+	codiPostal: any;
+		
 	formGroup: FormGroup;
 	
   	formConfig: BngFormConfig = {};
@@ -55,6 +63,12 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 	errorMessages: BngFormErrorMessages = {
 		secondDateOlder: {
 			messageKey: 'resource.projecte.error.secondDateOlder'		
+		},
+		preumigfacturacioNotEmpty: {
+			messageKey: 'resource.projecte.error.preumigfacturacioNotEmpty'
+		},
+		nomNotEmpty: {
+			messageKey: 'resource.projecte.error.nomNotEmpty'
 		}
 	}
 	
@@ -65,6 +79,12 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 	onFormGroupChange(formGroup: FormGroup) {		
 		
 		this.formGroup = formGroup;
+		formGroup.get('horesEquiv').valueChanges.subscribe(val => {			
+			formGroup.setValidators(nomNotEmptyValidator('nom','nom'));
+		})
+		formGroup.get('tipusExecucio').valueChanges.subscribe(val => {			
+			formGroup.setValidators(preumigfacturacioNotEmptyValidator('tipusExecucio','preuMigFacturacio'));
+		})
 		
 		// Inicialitzar la data inici de la garantia amb el valor introduït en la data de fi del projecte		
 		formGroup.get('dataFi').valueChanges.subscribe(val => {				
@@ -97,20 +117,61 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 				var dataFinalGarantia = new Date(dataFinalGarantiaSt);
 				formGroup.get('dataFinalGarantia').setValue(dataFinalGarantia);
 			}	
+		})		
+
+		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));
+
+		formGroup.get('codiPostal').valueChanges.subscribe(val => {
+			if (val!=undefined) {				
+				this.codisPostalService.whenReady().subscribe(serveiCodisPostal => {
+					var codiPostalId = val.id;
+					this.codisPostalService.get(codiPostalId).subscribe(codiPostal => {							
+						this.codiPostal = codiPostal;
+						var poblacioField: any = this.form.getInputField('poblacio');
+						if (poblacioField!=undefined) {			
+							poblacioField.formControl.setValue(this.codiPostal.poblacio);
+						}							
+					})
+				})
+			} else {
+				var poblacioField: any = this.form.getInputField('poblacio');
+				if (poblacioField!=undefined) {			
+					poblacioField.formControl.setValue(null);
+				}	
+			}
 		})
-		
-//		this.form.getInputField('client').setCustomFilter('nomComercial=ic=C*');
-		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));			
-		formGroup.valueChanges.subscribe(val => {
-//			console.log(clientValue);			
-		})	
-//		this.form.formGroup.get('descripcio').valueChanges.subscribe(val => {
-//			debugger;
-////			me.form.getInputField('client').setCustomFilter('nomComercial=ic=C*');
-//		})
-		formGroup.get('client').valueChanges.subscribe(val => {	
-			debugger;		
-//			this.form.getInputField('subClient').setCustomFilter('client.codi==1');
+						
+			
+		formGroup.get('client').valueChanges.subscribe(val => {			
+			if (val!=undefined) {				
+				this.clientsService.whenReady().subscribe(serveiClients => {
+						var clientId = val.id;
+						this.clientsService.get(clientId).subscribe(client => {							
+							this.client = client;
+							
+							var subClientField: any = this.form.getInputField('subClient');
+							if (subClientField!=undefined) {			
+								subClientField.setCustomFilter('client.codi=='+this.client.codi);	
+							}
+							
+							var clientAdresaField: any = this.form.getInputField('clientAdresa');
+							if (clientAdresaField!=undefined) {			
+								clientAdresaField.setCustomFilter('client.codi=='+this.client.codi);	
+							}
+																						
+						});
+					});				
+			} else {
+				var subClientField: any = this.form.getInputField('subClient');
+					if (subClientField!=undefined) {		
+						subClientField.formControl.setValue(null)							
+					}
+					
+					var clientAdresaField: any = this.form.getInputField('clientAdresa');
+					if (clientAdresaField!=undefined) {			
+						clientAdresaField.formControl.setValue(null)
+					}
+			}
 		})
 	}
 	
@@ -122,9 +183,6 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 //		debugger;
 //	}
 	
-	onSubclientClick(event: any) {
-		debugger;
-	}
 	
 	projecte: any;
 	
@@ -179,7 +237,9 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		public empresesService: EmpresesService,
 		public identificadorsService: IdentificadorsService,
 		public empresesFactService: EmpresesFactService,
-		public divisesService: DivisesService) {
+		public divisesService: DivisesService,
+		public clientsService: ClientsService,
+		public codisPostalService: CodisPostalService) {
 			super(activatedRoute);			
 			this.setConfigExternalFormComponents([
 				{ resourceName: 'serieVenda', component: SeriesVendaFormComponent },

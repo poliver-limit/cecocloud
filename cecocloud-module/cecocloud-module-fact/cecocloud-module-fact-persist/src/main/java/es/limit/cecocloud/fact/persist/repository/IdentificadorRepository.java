@@ -3,6 +3,8 @@
  */
 package es.limit.cecocloud.fact.persist.repository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import es.limit.base.boot.persist.repository.BaseRepository;
@@ -15,4 +17,5 @@ import es.limit.cecocloud.fact.persist.entity.IdentificadorEntity;
  */
 @Repository("factIdentificadorRepository")
 public interface IdentificadorRepository extends BaseRepository<IdentificadorEntity, String> {
+	Optional<IdentificadorEntity> findByEmbeddedCodi(String codi);
 }

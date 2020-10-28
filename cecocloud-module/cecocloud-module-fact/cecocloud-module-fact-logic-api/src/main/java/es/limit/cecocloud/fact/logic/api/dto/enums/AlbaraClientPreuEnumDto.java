@@ -34,9 +34,9 @@ import es.limit.cecocloud.logic.api.converter.ConvertedEnumInterface;
 public enum AlbaraClientPreuEnumDto implements ConvertedEnumInterface<Integer>{
 
 	/** Albarà de proveidor amb descompte = 1 */
-	ALBARA_PROVEIDOR_AMB_DTE(1),
+	ALBARA_PROVEIDOR_SENSE_DTE(1),
 	/** Albarà de proveidor sense descompte = 2 */
-	ALBARA_PROVEIDOR_SENSE_DTE(2),
+	ALBARA_PROVEIDOR_AMB_DTE(2),
 	/** Tarifa de client = 3 */
 	TARIFA_CLIENT(3);
 
