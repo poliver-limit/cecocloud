@@ -136,6 +136,7 @@ public class Marcatge extends AbstractIdentificable<Long> {
 			hiddenInLov = true,
 			includeInQuickFilter = false)
 	private GenericReference<LlocFeina, Long> llocFeina;
+	private boolean traspassat;
 
 	@Transient
 	@RestapiField(

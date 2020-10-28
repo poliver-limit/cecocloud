@@ -24,26 +24,27 @@ import es.limit.base.boot.logic.api.dto.ProfileResourceField.RestapiFieldType;
 import es.limit.base.boot.logic.api.validation.PrimaryKeyNotExistsWithZeros;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientPreuConverter;
 import es.limit.cecocloud.fact.logic.api.converter.AlbaraClientProjecteTipusConverter;
-import es.limit.cecocloud.fact.logic.api.converter.ProjecteEstatConverter;
-import es.limit.cecocloud.fact.logic.api.converter.RetencioTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.InversioTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.ObraTipusConverter;
+import es.limit.cecocloud.fact.logic.api.converter.ProjecteEstatConverter;
+import es.limit.cecocloud.fact.logic.api.converter.RetencioTipusConverter;
 import es.limit.cecocloud.fact.logic.api.converter.TipusExecucioConverter;
 import es.limit.cecocloud.fact.logic.api.converter.TipusGestioConverter;
 import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci.AreaNegociPk;
 import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
+import es.limit.cecocloud.fact.logic.api.dto.Expedient.ExpedientPk;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
-import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
-import es.limit.cecocloud.fact.logic.api.dto.SerieVenda.SerieVendaPk;
 import es.limit.cecocloud.fact.logic.api.dto.Producte.ProductePk;
+import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
 import es.limit.cecocloud.fact.logic.api.dto.SerieIntracomunitaria.SerieIntracomunitariaPk;
+import es.limit.cecocloud.fact.logic.api.dto.SerieVenda.SerieVendaPk;
 import es.limit.cecocloud.fact.logic.api.dto.SubClient.SubClientPk;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientPreuEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.AlbaraClientProjecteTipusEnumDto;
-import es.limit.cecocloud.fact.logic.api.dto.enums.ProjecteEstatEnumDto;
-import es.limit.cecocloud.fact.logic.api.dto.enums.RetencioTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.InversioTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.ObraTipusEnumDto;
+import es.limit.cecocloud.fact.logic.api.dto.enums.ProjecteEstatEnumDto;
+import es.limit.cecocloud.fact.logic.api.dto.enums.RetencioTipusEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusExecucioEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.enums.TipusGestioEnumDto;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
@@ -552,6 +553,22 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true,
 			hiddenInLov = true)
 	private String estudiLiniaCodi003;
+	
+	@Size(max = 64)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private String createdBy;
+	
+	@Size(max = 64)
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true)
+	private String createdDate;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@Transient	
@@ -831,6 +848,19 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 							)
 					})
 	private GenericReferenceWithCompositePk<Seccio, SeccioPk> seccio;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "descExpNomCodi",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "nom",
+							direction = Direction.ASC
+							)
+					})
+	private GenericReferenceWithCompositePk<Expedient, ExpedientPk> expedient;
 		
 	@NoArgsConstructor
 	@AllArgsConstructor

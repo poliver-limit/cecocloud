@@ -69,7 +69,8 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 			Date validatDataFi,
 			Long idInici,
 			Long idFi,
-			Boolean validat) {
+			Boolean validat,
+			Boolean traspassat) {
 		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(identificadorCodi);
 		if (identificador.isPresent()) {
 			List<SincronitzacioMarcatge> resposta = new ArrayList<SincronitzacioMarcatge>();
@@ -90,7 +91,9 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 						idFi == null,
 						idFi,
 						validat == null,
-						validat);
+						validat,
+						traspassat == null,
+						traspassat);
 				for (MarcatgeEntity marcatge: marcatges) {
 					SincronitzacioMarcatge sm = new SincronitzacioMarcatge();
 					sm.setId(marcatge.getId());
@@ -163,6 +166,24 @@ public class SincronitzacioServiceImpl implements SincronitzacioService {
 					0);
 		} else {
 			throw new EntityNotFoundException("IdentificadorEntity#codi=" + identificadorCodi);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void marcarTraspassat(
+			String identificadorCodi,
+			String empresaCodi,
+			List<Long> ids) {
+		Optional<IdentificadorEntity> identificador = identificadorRepository.findByEmbeddedCodi(identificadorCodi);
+		Optional<EmpresaEntity> empresa = empresaRepository.findByIdentificadorAndEmbeddedCodi(
+				identificador.get(),
+				empresaCodi);
+		if (ids != null && !ids.isEmpty()) {
+			marcatgeRepository.updateSetTraspassatByIdIn(
+					true,
+					empresa.get(),
+					ids);
 		}
 	}
 

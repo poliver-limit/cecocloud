@@ -124,8 +124,10 @@ public class MarcatgeHelper {
 	private LlocFeinaEntity calcularForaLlocFeina(
 			MarcatgeEntity marcatgeEntity,
 			OperariEmpresaEntity operariEmpresa) {
-		log.debug("Cercant lloc de feina pel marcatge (marcatgeEntity=" + marcatgeEntity + ")");
 		Marcatge marcatge = marcatgeEntity.getEmbedded();
+		log.debug("Cercant lloc de feina pel marcatge (" +
+				"marcatge=" + marcatge + ", " +
+				"operariEmpresa=" + operariEmpresa + ")");
 		Set<LlocFeinaEntity> llocsFeina = llocFeinaRepository.findByOperariEmpresa(operariEmpresa);
 		boolean llocFeinaFora;
 		LlocFeinaEntity llocFeina = null;
@@ -136,7 +138,8 @@ public class MarcatgeHelper {
 						"per coincidència de l'adreça IP (" +
 						"adressaIp=" + marcatge.getAdressaIp() + ", " +
 						"llocFeina=" + llocFeina + ", " +
-						"marcatgeEntity=" + marcatgeEntity + ")");
+						"marcatge=" + marcatge + ", " +
+						"operariEmpresa=" + operariEmpresa + ")");
 				llocFeinaFora = false;
 			} else if (marcatge.getLatitud() != null && marcatge.getLongitud() != null) {
 				llocFeina = llocFeinaAmbPosicioMesPropera(marcatge, operariEmpresa);
@@ -149,26 +152,23 @@ public class MarcatgeHelper {
 						llocFeina.getEmbedded().getLongitud().doubleValue(),
 						0);
 				llocFeinaFora = distancia > distanciaMaxima;
-				if (llocFeinaFora) {
-					log.debug("Marcatge considerat fora del lloc de feina més proper (" +
-							"llocFeina=" + llocFeina + ", " +
-							"distancia=" + distancia + ", " +
-							"distanciaMaxima=" + distanciaMaxima + ", " +
-							"marcatgeEntity=" + marcatgeEntity + ")");
-				} else {
-					log.debug("Marcatge considerat a dins el lloc de feina més proper (" +
-							"llocFeina=" + llocFeina + ", " +
-							"distancia=" + distancia + ", " +
-							"distanciaMaxima=" + distanciaMaxima + ", " +
-							"marcatgeEntity=" + marcatgeEntity + ")");
-				}
+				log.debug("Marcatge considerat " + (llocFeinaFora ? "fora" : "dins") + " del lloc de feina més proper (" +
+						"llocFeina=" + llocFeina + ", " +
+						"distancia=" + distancia + ", " +
+						"distanciaMaxima=" + distanciaMaxima + ", " +
+						"marcatge=" + marcatge + ", " +
+						"operariEmpresa=" + operariEmpresa + ")");
 			} else {
+				log.debug("Marcatge considerat fora del lloc de feina perquè no s'ha especificat posició (" +
+						"marcatge=" + marcatge + ", " +
+						"operariEmpresa=" + operariEmpresa + ")");
 				llocFeinaFora = true;
 			}
 		} else {
 			log.debug("Marcatge considerat dins el lloc de feina " +
 					"perquè l'operari no te llocs de feina assignats (" +
-					"marcatgeEntity=" + marcatgeEntity + ")");
+					"marcatge=" + marcatge + ", " +
+					"operariEmpresa=" + operariEmpresa + ")");
 			llocFeinaFora = false;
 		}
 		marcatge.setLlocFeinaFora(llocFeinaFora);
@@ -528,8 +528,12 @@ public class MarcatgeHelper {
 	}
 
 	private boolean ipAddressMatches(String ipAddress, String subnet) {
-	    IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(subnet);
-	    return ipAddressMatcher.matches(ipAddress);
+		if (!subnet.isEmpty()) {
+			IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(subnet);
+			return ipAddressMatcher.matches(ipAddress);
+		} else {
+			return false;
+		}
 	}
 
 	private MarcatgeEntity getDarrerMarcatgeValidAnyActual(

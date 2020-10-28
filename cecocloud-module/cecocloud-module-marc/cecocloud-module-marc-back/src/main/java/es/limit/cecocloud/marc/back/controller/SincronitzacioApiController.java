@@ -20,6 +20,7 @@ import es.limit.cecocloud.logic.api.dto.SincronitzacioResposta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatge;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatgesConsulta;
 import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatgesEnviament;
+import es.limit.cecocloud.marc.logic.api.dto.SincronitzacioMarcatgesUpdateTraspassat;
 import es.limit.cecocloud.marc.logic.api.module.MarcModule;
 import es.limit.cecocloud.marc.logic.api.service.SincronitzacioService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,12 +46,6 @@ public class SincronitzacioApiController {
 			@Valid final SincronitzacioMarcatgesConsulta consulta) {
 		log.debug("Consulta de marcatges (" +
 				"consulta=" + consulta + ")");
-		Boolean validat;
-		if (consulta.getValidat() != null) {
-			validat = consulta.getValidat();
-		} else {
-			validat = new Boolean(true);
-		}
 		return ResponseEntity.ok(
 				sincronitzacioService.marcatgeFind(
 						consulta.getIdentificadorCodi(),
@@ -61,7 +56,8 @@ public class SincronitzacioApiController {
 						consulta.getValidatDataFi(),
 						consulta.getIdInici(),
 						consulta.getIdFi(),
-						validat));
+						(consulta.getValidat() != null) ? consulta.getValidat() : true,
+						consulta.getTraspassat()));
 	}
 
 	@PostMapping(
@@ -76,6 +72,21 @@ public class SincronitzacioApiController {
 				sincronitzacioService.marcatgeCreate(
 						marcatges.getIdentificadorCodi(),
 						marcatges.getMarcatges()));
+	}
+
+	@PostMapping(
+			path = "/marcatges/marcarTraspassat",
+			produces = "application/json")
+	public ResponseEntity<?> sincronitzarMarcatges(
+			HttpServletRequest request,
+			@RequestBody @Valid final SincronitzacioMarcatgesUpdateTraspassat update) {
+		log.debug("Marcar marcatges com a traspassats (" +
+				"update=" + update + ")");
+		sincronitzacioService.marcarTraspassat(
+				update.getIdentificadorCodi(),
+				update.getEmpresaCodi(),
+				update.getIds());
+		return ResponseEntity.ok().build();
 	}
 
 }
