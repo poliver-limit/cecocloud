@@ -136,8 +136,8 @@ import { SelectedEmpresaGuard } from '../../shared/selected-empresa.guard';
 				loadChildren: () => import('./pages/empresesGrupEmpreses/empresesGrupEmpreses.module').then(m => m.EmpresesGrupEmpresesModule)
 
 			}, {
-				path: 'estudisProjecte',
-				loadChildren: () => import('./pages/estudisProjecte/estudisProjecte.module').then(m => m.EstudisProjecteModule)
+				path: 'expedients',
+				loadChildren: () => import('./pages/expedients/expedients.module').then(m => m.ExpedientsModule)
 
 			}, {
 				path: 'familiesClient',
@@ -697,6 +697,12 @@ export class FactModule {
 									labelKey: 'app.menu.fact.empresesGrupEmpreses',
 									route: '/fact/empresesGrupEmpreses',
 									resource: 'FAC_EMPGRUEMP'
+								}, {
+									icon: 'room',
+									label: 'Expedients',
+									labelKey: 'app.menu.fact.expedients',
+									route: '/fact/expedients',
+									resource: 'FAC_EXPED'
 								}, {
 									icon: 'room',
 									label: 'Departaments',

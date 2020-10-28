@@ -9,104 +9,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import es.limit.cecocloud.fact.logic.api.dto.Albara;
-import es.limit.cecocloud.fact.logic.api.dto.AltresAplicacions;
-import es.limit.cecocloud.fact.logic.api.dto.Aplicador;
-import es.limit.cecocloud.fact.logic.api.dto.AplicadorClient;
-import es.limit.cecocloud.fact.logic.api.dto.AreaNegoci;
-import es.limit.cecocloud.fact.logic.api.dto.Article;
-import es.limit.cecocloud.fact.logic.api.dto.ArticleFamilia;
-import es.limit.cecocloud.fact.logic.api.dto.ArticleFamiliaEmpresa;
-import es.limit.cecocloud.fact.logic.api.dto.ArticleGamma;
-import es.limit.cecocloud.fact.logic.api.dto.ArticleMarca;
-import es.limit.cecocloud.fact.logic.api.dto.ArticleModel;
-import es.limit.cecocloud.fact.logic.api.dto.Avaria;
-import es.limit.cecocloud.fact.logic.api.dto.Banc;
-import es.limit.cecocloud.fact.logic.api.dto.BusinessGroup;
-import es.limit.cecocloud.fact.logic.api.dto.Caixa;
-import es.limit.cecocloud.fact.logic.api.dto.Capitol;
-import es.limit.cecocloud.fact.logic.api.dto.ClasseRetencio;
-import es.limit.cecocloud.fact.logic.api.dto.Client;
-import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa;
-import es.limit.cecocloud.fact.logic.api.dto.CodiPostal;
-import es.limit.cecocloud.fact.logic.api.dto.CompteComptableEmpresa;
-import es.limit.cecocloud.fact.logic.api.dto.CompteCorrentEmpresa;
-import es.limit.cecocloud.fact.logic.api.dto.ConfiguracioImpressos;
-import es.limit.cecocloud.fact.logic.api.dto.Departament;
-import es.limit.cecocloud.fact.logic.api.dto.DepartamentClient;
-import es.limit.cecocloud.fact.logic.api.dto.Divisa;
-import es.limit.cecocloud.fact.logic.api.dto.DocumentPagamentCobrament;
-import es.limit.cecocloud.fact.logic.api.dto.Empresa;
-import es.limit.cecocloud.fact.logic.api.dto.EmpresaGrup;
-import es.limit.cecocloud.fact.logic.api.dto.EmpresaGrupEmpreses;
-import es.limit.cecocloud.fact.logic.api.dto.EstudiProjecte;
-import es.limit.cecocloud.fact.logic.api.dto.FamiliaClient;
-import es.limit.cecocloud.fact.logic.api.dto.FamiliaCost;
-import es.limit.cecocloud.fact.logic.api.dto.FamiliaProveidor;
-import es.limit.cecocloud.fact.logic.api.dto.FinalFactura;
-import es.limit.cecocloud.fact.logic.api.dto.Group;
-import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
-import es.limit.cecocloud.fact.logic.api.dto.Idioma;
-import es.limit.cecocloud.fact.logic.api.dto.InversioSubjectePassiu;
-import es.limit.cecocloud.fact.logic.api.dto.Iva;
-import es.limit.cecocloud.fact.logic.api.dto.LiniaEstudi;
-import es.limit.cecocloud.fact.logic.api.dto.LiniaFullFeina;
-import es.limit.cecocloud.fact.logic.api.dto.Magatzem;
-import es.limit.cecocloud.fact.logic.api.dto.MagatzemPeriode;
-import es.limit.cecocloud.fact.logic.api.dto.MantenimentDeTipus;
-import es.limit.cecocloud.fact.logic.api.dto.NaturalesaPagamentCobrament;
-import es.limit.cecocloud.fact.logic.api.dto.OficinaBancaria;
-import es.limit.cecocloud.fact.logic.api.dto.Organitzacio;
-import es.limit.cecocloud.fact.logic.api.dto.Pais;
-import es.limit.cecocloud.fact.logic.api.dto.PaisNif;
-import es.limit.cecocloud.fact.logic.api.dto.Parameter;
-import es.limit.cecocloud.fact.logic.api.dto.Partida;
-import es.limit.cecocloud.fact.logic.api.dto.PeuDocument;
-import es.limit.cecocloud.fact.logic.api.dto.Pressupost;
-import es.limit.cecocloud.fact.logic.api.dto.PressupostLinia;
-import es.limit.cecocloud.fact.logic.api.dto.PreuPerGamma;
-import es.limit.cecocloud.fact.logic.api.dto.PreuPerZona;
-import es.limit.cecocloud.fact.logic.api.dto.Producte;
-import es.limit.cecocloud.fact.logic.api.dto.Projecte;
-import es.limit.cecocloud.fact.logic.api.dto.ProjecteAplicacio;
-import es.limit.cecocloud.fact.logic.api.dto.ProjectePressupost;
-import es.limit.cecocloud.fact.logic.api.dto.ProjecteTarifaProveidor;
-import es.limit.cecocloud.fact.logic.api.dto.ProjecteTipus;
-import es.limit.cecocloud.fact.logic.api.dto.Proveidor;
-import es.limit.cecocloud.fact.logic.api.dto.ProveidorVenciment;
-import es.limit.cecocloud.fact.logic.api.dto.Provincia;
-import es.limit.cecocloud.fact.logic.api.dto.PuntVenda;
-import es.limit.cecocloud.fact.logic.api.dto.Rappel;
-import es.limit.cecocloud.fact.logic.api.dto.RegimIva;
-import es.limit.cecocloud.fact.logic.api.dto.RegistreComercial;
-import es.limit.cecocloud.fact.logic.api.dto.SeccioEmpresa;
-import es.limit.cecocloud.fact.logic.api.dto.SerieCompra;
-import es.limit.cecocloud.fact.logic.api.dto.SerieIntracomunitaria;
-import es.limit.cecocloud.fact.logic.api.dto.SerieVenda;
-import es.limit.cecocloud.fact.logic.api.dto.SituacioComercial;
-import es.limit.cecocloud.fact.logic.api.dto.SituacioInicial;
-import es.limit.cecocloud.fact.logic.api.dto.SubClient;
-import es.limit.cecocloud.fact.logic.api.dto.Subvencio;
-import es.limit.cecocloud.fact.logic.api.dto.Taller;
-import es.limit.cecocloud.fact.logic.api.dto.Tarifa;
-import es.limit.cecocloud.fact.logic.api.dto.TarifaDescompte;
-import es.limit.cecocloud.fact.logic.api.dto.TarifaProveidor;
-import es.limit.cecocloud.fact.logic.api.dto.TipusAdresa;
-import es.limit.cecocloud.fact.logic.api.dto.TipusClient;
-import es.limit.cecocloud.fact.logic.api.dto.TipusComissio;
-import es.limit.cecocloud.fact.logic.api.dto.TipusFacturacio;
-import es.limit.cecocloud.fact.logic.api.dto.TipusIncidenciaFactura;
-import es.limit.cecocloud.fact.logic.api.dto.TipusProveidorClient;
-import es.limit.cecocloud.fact.logic.api.dto.TipusRisc;
-import es.limit.cecocloud.fact.logic.api.dto.TipusVenciment;
-import es.limit.cecocloud.fact.logic.api.dto.Transportista;
-import es.limit.cecocloud.fact.logic.api.dto.Ubicacio;
-import es.limit.cecocloud.fact.logic.api.dto.UbicacioArticle;
-import es.limit.cecocloud.fact.logic.api.dto.UnitatControlEstudi;
-import es.limit.cecocloud.fact.logic.api.dto.UnitatTipus;
-import es.limit.cecocloud.fact.logic.api.dto.UsuariGrup;
-import es.limit.cecocloud.fact.logic.api.dto.Vehicle;
-import es.limit.cecocloud.fact.logic.api.dto.Zona;
+import es.limit.cecocloud.fact.logic.api.dto.*;
 import es.limit.cecocloud.fact.logic.service.EmpresaIdentificadorSyncServiceImpl;
 import es.limit.cecocloud.logic.api.dto.FuncionalitatTipus;
 import es.limit.cecocloud.logic.api.module.FuncionalitatCodiFont;
@@ -447,6 +350,15 @@ public class FactModuleRegister {
 								Projecte.class,
 								Empresa.class)));
 		funcionalitats.put(
+				"FAC_EXPED",
+				new FuncionalitatCodiFontImpl(
+						"FAC_EXPED",
+						FuncionalitatTipus.MANTENIMENT,
+						"Expedients",
+						Expedient.class,
+						Arrays.asList(
+								Empresa.class)));
+		funcionalitats.put(
 				"FAC_FAMCLI",
 				new FuncionalitatCodiFontImpl(
 						"FAC_FAMCLI",
@@ -715,7 +627,8 @@ public class FactModuleRegister {
 								ProjecteAplicacio.class,
 								InversioSubjectePassiu.class,
 								ProveidorVenciment.class,
-								HistoricResponsable.class)));
+								HistoricResponsable.class,
+								Expedient.class)));
 		funcionalitats.put(
 				"FAC_PROAAP",
 				new FuncionalitatCodiFontImpl(

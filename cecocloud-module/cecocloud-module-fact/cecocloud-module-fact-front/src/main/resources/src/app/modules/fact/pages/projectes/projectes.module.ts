@@ -33,6 +33,7 @@ import { SubClientsFormModule } from '../subClients/subClients-form.module'
 import { ClientsAdresaFormModule } from '../clientsAdresa/clientsAdresa-form.module'
 import { CodisPostalFormModule } from '../codisPostal/codisPostal-form.module'
 import { ZonesFormModule } from '../zones/zones-form.module'
+import { ExpedientsFormModule } from '../expedients/expedients-form.module'
 
 import { ProjectesFormModule } from './projectes-form.module';
 
@@ -65,6 +66,7 @@ import { DivisesService } from '../divises/divises.service';
 		ClientsAdresaFormModule,
 		CodisPostalFormModule,
 		ZonesFormModule,
+		ExpedientsFormModule,
 		
 		ProjectesFormModule,
 
