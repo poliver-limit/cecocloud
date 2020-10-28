@@ -38,6 +38,8 @@ public interface SincronitzacioService {
 	 *            id final per a la consulta (opcional).
 	 * @param validat
 	 *            marcatge vàlid o invàlid (opcional).
+	 * @param traspassat
+	 *            marcatge traspassat (opcional).
 	 * @return la llista de marcatges.
 	 */
 	public List<SincronitzacioMarcatge> marcatgeFind(
@@ -49,7 +51,8 @@ public interface SincronitzacioService {
 			Date validatDataFi,
 			Long idInici,
 			Long idFi,
-			Boolean validat);
+			Boolean validat,
+			Boolean traspassat);
 
 	/**
 	 * Crea els marcatges de cecogest a dins CECOCLOUD.
@@ -64,5 +67,20 @@ public interface SincronitzacioService {
 	public SincronitzacioResposta marcatgeCreate(
 			String identificadorCodi,
 			List<SincronitzacioMarcatge> marcatges);
+
+	/**
+	 * Marca els marcatges amb id inclòs a dins la llista com a traspassats.
+	 * 
+	 * @param identificadorCodi
+	 *            codi de l'identificador.
+	 * @param empresaCodi
+	 *            codi de l'empresa (opcional).
+	 * @param ids
+	 *            La llista d'ids dels marcatges per marcar com a traspassats.
+	 */
+	public void marcarTraspassat(
+			String identificadorCodi,
+			String empresaCodi,
+			List<Long> ids);
 
 }

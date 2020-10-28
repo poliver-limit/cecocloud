@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -34,6 +35,7 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"and (:esNullIdInici = true or m.id >= :idInici) " +
 			"and (:esNullIdFi = true or m.id <= :idFi) " +
 			"and (:esNullValidat = true or m.embedded.validat = :validat) " +
+			"and (:esNullTraspassat = true or m.embedded.traspassat = :traspassat) " +
 			"order by " +
 			"    m.operariEmpresa.empresa.embedded.codi asc, " +
 			"    m.id asc")
@@ -52,7 +54,9 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("esNullIdFi") boolean esNullIdFi,
 			@Param("idFi") Long idFi,
 			@Param("esNullValidat") boolean esNullvalidat,
-			@Param("validat") Boolean validat);
+			@Param("validat") Boolean validat,
+			@Param("esNullTraspassat") boolean esNullTraspassat,
+			@Param("traspassat") Boolean traspassat);
 
 	@Query(	"from" +
 			"    MarcatgeEntity m " +
@@ -74,15 +78,6 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			OperariEmpresaEntity operariEmpresa,
 			Date data);
 
-	/*@Query(	"from" +
-			"    MarcatgeEntity m " +
-			"where " +
-			"    m.operariEmpresa = :operariEmpresa " +
-			"and m.embedded.data >= :dataInici " +
-			"and m.embedded.data < :dataCalculada " +
-			"and m.embedded.validat = true " +
-			"order by " +
-			"    m.embedded.data desc")*/
 	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataGreaterThanEqualAndEmbeddedDataLessThanAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
 			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
 			@Param("dataInici") Date dataInici,
@@ -105,27 +100,10 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			@Param("esNullId") boolean esNullId,
 			@Param("id") Long id);
 
-	/*@Modifying
-	@Query(
-			"update " +
-			"    MarcatgeEntity m " +
-			"set " +
-			"    m.embedded.acumulatAny = null, " +
-			"    m.embedded.acumulatMes = null, " +
-			"    m.embedded.acumulatDia = null " +
-			"where " +
-			"    m.operariEmpresa = :operariEmpresa " +
-			"and m.embedded.data >= :dataInici " +
-			"and m.embedded.data <= :dataFi")
-	void netejarAcumulatsEntreDates(
-			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
-			@Param("dataInici") Date dataInici,
-			@Param("dataFi") Date dataFi);*/
-
 	MarcatgeEntity findFirstByOperariEmpresaAndEmbeddedDataBetweenAndEmbeddedValidatTrueOrderByEmbeddedDataDesc(
 			OperariEmpresaEntity operariEmpresa,
-			@Param("dataInici") Date dataInici,
-			@Param("dataFi") Date dataFi);
+			Date dataInici,
+			Date dataFi);
 
 	@Query(
 			"select " +
@@ -137,8 +115,22 @@ public interface MarcatgeRepository extends BaseRepository<MarcatgeEntity, Long>
 			"and m.embedded.data >= :dataInici " +
 			"and m.embedded.data <= :dataFi")
 	BigDecimal acumulatEntreDates(
-			OperariEmpresaEntity operariEmpresa,
+			@Param("operariEmpresa") OperariEmpresaEntity operariEmpresa,
 			@Param("dataInici") Date dataInici,
 			@Param("dataFi") Date dataFi);
+
+	@Modifying
+	@Query(
+			"update " +
+			"    MarcatgeEntity m " +
+			"set " +
+			"    m.embedded.traspassat = :traspassat " +
+			"where " +
+			"    m.id in (" +
+			"    select m2.id from MarcatgeEntity m2 where m2.operariEmpresa.empresa = :empresa and m2.id in (:ids))")
+	int updateSetTraspassatByIdIn(
+			@Param("traspassat") boolean traspassat,
+			@Param("empresa") EmpresaEntity empresa,
+			@Param("ids") List<Long> ids);
 
 }

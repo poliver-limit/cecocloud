@@ -389,3 +389,29 @@ databaseChangeLog:
     - dropColumn:
         columnName: acumulat_dia
         tableName: tmar_marcatge
+- changeSet:
+    id: 1600078637740-15
+    author: josepg
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: operariemp_id
+        indexName: imar_mar_opeemp
+        tableName: tmar_marcatge
+- changeSet:
+    id: 1600078637740-16
+    author: josepg
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: traspassat
+            type: BOOLEAN
+        tableName: tmar_marcatge
+    - update:
+        columns:
+        - column:
+            name: traspassat
+            valueBoolean: false
+        tableName: tmar_marcatge

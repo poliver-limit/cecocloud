@@ -36,7 +36,8 @@ import { MarcatgesService } from './marcatges.service';
 	<bng-custom-field *ngIf="id || hasAdminPermission" name="validat" style="width:100%"></bng-custom-field>
 	<map *ngIf="showMap"
 		[longitude]="longitud"
-		[latitude]="latitud"></map>
+		[latitude]="latitud"
+		[precision]="precisio"></map>
 </bng-form>
 `
 })
@@ -47,6 +48,7 @@ export class MarcatgesFormComponent extends BngFormBaseComponent implements OnIn
 	hasUpdatePermission: boolean;
 	longitud: number;
 	latitud: number;
+	precisio: number;
 	showMap: boolean;
 	formGroup: FormGroup;
 	dataField: BngFormBaseField;
@@ -60,6 +62,11 @@ export class MarcatgesFormComponent extends BngFormBaseComponent implements OnIn
 				this.formGroup.get('data').setValue(moment());
 			}
 		}, 1000);
+	}
+	ngOnDestroy() {
+		if (this.eachSecondIntervalId) {
+			clearInterval(this.eachSecondIntervalId);
+		}
 	}
 
 	onFormGroupChange(formGroup: FormGroup) {
@@ -79,6 +86,7 @@ export class MarcatgesFormComponent extends BngFormBaseComponent implements OnIn
 		if (resource.ubicacio) {
 			this.longitud = resource.longitud;
 			this.latitud = resource.latitud;
+			this.precisio = resource.precisio;
 			this.showMap = true;
 		}
 		if (this.hasAdminPermission && ((!this.id && this.hasCreatePermission) || (this.id && this.hasUpdatePermission))) {

@@ -68,7 +68,11 @@ public class MarcatgeApiController extends AbstractIdentificableApiController<Ma
 				dto.setOperariEmpresa(null);
 			}
 		}
-		dto.setAdressaIp(request.getRemoteAddr());
+		String remoteAddr = request.getHeader("X-Forwarded-For");
+        if (remoteAddr == null || remoteAddr.isEmpty()) {
+            remoteAddr = request.getRemoteAddr();
+        }
+		dto.setAdressaIp(remoteAddr);
 	}
 
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BngAuthService, BngMenuService, BngModuleService, BngMenu, BngAppModule } from 'base-angular';
 
 import { IdentificadorsService } from '../pages/identificadors/identificadors.service';
+import { UsuariIdentificadorEmpresaService } from './selector-identificador-empresa/usuari-identificador-empresa.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -92,7 +93,7 @@ export class AppService {
 		return this.adminIdentificadorMenu;
 	}
 
-	public getCurrentRouteMenu(): BngMenu {
+	public setCurrentRouteActiveMenu() {
 		let found: boolean = false;
 		if (this.router.url.startsWith('/admin-app')) {
 			found = true;
@@ -104,7 +105,7 @@ export class AppService {
 			});
 		}
 		if (found) {
-			return this.adminMenu;
+			this.menuService.setActiveMenu(this.adminMenu);
 		} else {
 			found = false;
 			if (this.router.url.startsWith('/admin-identificador')) {
@@ -126,11 +127,9 @@ export class AppService {
 					});
 				});
 			}
-			return this.adminIdentificadorMenu;
+			this.menuService.setActiveMenu(this.adminIdentificadorMenu);
 		} else {
-			let routerUrl = this.router.url.substring(1);
-			let modul = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
-			return this.getModuleMenu(modul);
+			this.findAndSetActiveMenuFromRouterUrl(this.moduleService.getAllowedModuleItems());
 		}
 	}
 
@@ -146,67 +145,54 @@ export class AppService {
 		}
 	}
 
-	// public isCurrentRooteAdmin(): boolean {
-	// 	let adminRoute = false
-
-	// 	const routerUrl = this.router.url.substring(1);
-	// 	const seccio = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
-	// 	// Menu admin
-	// 	for (let item of this.adminMenu.items) {
-	// 		if (item.route === ("/" + seccio))
-	// 			return true;
-	// 	}
-	// 	// Menu admin-identificador
-	// 	for (let item of this.adminIdentificadorMenu.items) {
-	// 		if (item.route === ("/" + seccio))
-	// 			return true;
-	// 	}
-	// 	return false;
-	// }
-
 	private registerGlobalMenus() {
 		this.menuService.registerGlobal('admin', this.adminMenu);
 		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);
 	}
 
-	/*private registerAvailableModules() {
-		this.moduleService.register({
-			code: 'comp',
-			icon: 'assessment',
-			label: 'Comptabilitat'
-		});
-		this.moduleService.register({
-			code: 'rrmm',
-			icon: 'commute',
-			label: 'Recursos de maquinària'
-		});
-		this.moduleService.register({
-			code: 'banc',
-			icon: 'account_balance',
-			label: 'Gestió bancària'
-		});
-		this.moduleService.register({
-			code: 'lici',
-			icon: 'work',
-			label: 'Licitacions'
-		});
-		this.moduleService.register({
-			code: 'comd',
-			icon: 'touch_app',
-			label: 'Comandes'
-		});
-		this.moduleService.refreshAllowedModuleItems();
-	}*/
+	private findAndSetActiveMenuFromRouterUrl(allowedModules: BngAppModule[]) {
+		let routerUrl = this.router.url.substring(1);
+		let moduleCode: string = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+		let menu: BngMenu = this.getModuleMenu(moduleCode);
+		const allowedModulesCodes = allowedModules.map(modul => modul.code);
+		if (allowedModulesCodes.includes(moduleCode)) {
+			this.usuariIdentificadorEmpresaService.getAllowedFuncionalitats(moduleCode).subscribe((funcionalitats: string[]) => {
+				let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
+				this.menuService.setActiveMenu(filteredMenu);
+			});
+		}
+	}
+
+	private filterMenuFuncionalitatsPermeses(menu: BngMenu, funcionalitats: string[]): BngMenu {
+		let menuFiltrat: BngMenu;
+		if (menu.items && menu.items.length) {
+			let childMenuFiltrat: BngMenu[] = [];
+			for (let item of menu.items) {
+				let subMenu = this.filterMenuFuncionalitatsPermeses(item, funcionalitats);
+				if (subMenu != null) {
+					childMenuFiltrat.push(subMenu);
+				}
+			}
+			if (childMenuFiltrat != null && childMenuFiltrat.length > 0) {
+				menuFiltrat = menu;
+				menuFiltrat.items = childMenuFiltrat;
+			}
+		} else {
+			if (menu.resource != null && funcionalitats.includes(menu.resource)) {
+				menuFiltrat = menu;
+			}
+		}
+		return menuFiltrat;
+	}
 
 	constructor(
 		private router: Router,
 		private authService: BngAuthService,
 		private menuService: BngMenuService,
 		private moduleService: BngModuleService,
-		private identificadorsService: IdentificadorsService) {
+		private identificadorsService: IdentificadorsService,
+		private usuariIdentificadorEmpresaService: UsuariIdentificadorEmpresaService) {
 		this.registerGlobalMenus();
-		//this.registerAvailableModules();
-		//this.menuService.setActiveGlobalMenu('admin');
 	}
 
 }

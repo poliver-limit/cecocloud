@@ -12,6 +12,22 @@ import { OperariEmpresaLlocFeinaService } from './operariEmpresaLlocFeina.servic
 	[config]="formConfig"
 	[restapiService]="llocFeinaService"
 	(resourceLoad)="onResourceLoad($event)">
+	<bng-custom-field name="nom"></bng-custom-field>
+	<bng-custom-field name="adressa"></bng-custom-field>
+	<div style="display:flex">
+		<div [ngStyle]="{'width': (showMap ? '50%' : '100%')}" style="padding-right:2em">
+			<bng-custom-field name="adrecesIpPermeses"></bng-custom-field>
+			<bng-custom-field name="latitud"></bng-custom-field>
+			<bng-custom-field name="longitud"></bng-custom-field>
+			<bng-custom-field name="distanciaMaxima"></bng-custom-field>
+		</div>
+		<div *ngIf="showMap" style="width:50%">
+			<map
+				[longitude]="longitud"
+				[latitude]="latitud"
+				[precision]="distanciaMaxima"></map>
+		</div>
+	</div>
 	<ng-container *ngIf="id">
 		<mat-tab-group>
 			<mat-tab label="{{'resource.operariEmpresaLlocFeina.plural' | translate}}">
@@ -29,6 +45,10 @@ import { OperariEmpresaLlocFeinaService } from './operariEmpresaLlocFeina.servic
 })
 export class LlocFeinaFormComponent extends BngFormBaseComponent {
 
+	latitud: number;
+	longitud: number;
+	distanciaMaxima: number;
+	showMap: boolean;
 	showGrid: boolean;
 
 	operariEmpresaLlocFeinaDatagridConfig: BngDatagridConfig = {
@@ -40,6 +60,12 @@ export class LlocFeinaFormComponent extends BngFormBaseComponent {
 	};
 
 	onResourceLoad(llocFeina: any) {
+		if (llocFeina.latitud && llocFeina.longitud) {
+			this.latitud = llocFeina.latitud;
+			this.longitud = llocFeina.longitud;
+			this.distanciaMaxima = llocFeina.distanciaMaxima;
+			this.showMap = true;
+		}
 		this.operariEmpresaLlocFeinaDatagridConfig.fixedFilter = 'llocFeina.id==' + llocFeina.id;
 		this.showGrid = true;
 	}

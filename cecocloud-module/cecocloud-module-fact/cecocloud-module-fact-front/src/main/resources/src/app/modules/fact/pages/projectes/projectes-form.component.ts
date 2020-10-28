@@ -109,6 +109,10 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 //			debugger;
 ////			me.form.getInputField('client').setCustomFilter('nomComercial=ic=C*');
 //		})
+		formGroup.get('client').valueChanges.subscribe(val => {	
+			debugger;		
+//			this.form.getInputField('subClient').setCustomFilter('client.codi==1');
+		})
 	}
 	
 //	onResourceLoad(event: any) {
@@ -118,6 +122,10 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 //	ngOnInit() {
 //		debugger;
 //	}
+	
+	onSubclientClick(event: any) {
+		debugger;
+	}
 	
 	projecte: any;
 	
