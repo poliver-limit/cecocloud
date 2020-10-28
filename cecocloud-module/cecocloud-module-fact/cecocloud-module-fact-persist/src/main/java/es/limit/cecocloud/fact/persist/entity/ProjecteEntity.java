@@ -23,7 +23,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
-import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
 import es.limit.cecocloud.fact.persist.entity.ProjecteEntity.ProjecteEntityListener;
 import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
@@ -121,6 +120,9 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.pteinccstmaq", column = @Column(name = "prj_pteinccstmaq", length = 22, precision = 7, scale = 2)),
 		@AttributeOverride(name = "embedded.impfixmo", column = @Column(name = "prj_impfixmo", length = 22, precision = 18, scale = 4)),
 		@AttributeOverride(name = "embedded.impfixmaq", column = @Column(name = "prj_impfixmaq", length = 22, precision = 18, scale = 4)),		
+		
+		//@AttributeOverride(name = "embedded.producteReferencia", column = @Column(name = "prj_apl_ref", length = 22, insertable = false, updatable = false)),
+		//@AttributeOverride(name = "embedded.expedientCodi", column = @Column(name = "prj_exd_cod", length = 4, insertable = false, updatable = false)),
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		@AttributeOverride(name = "embedded.exportarMobil", column = @Column(name = "prj_pda", length = 1)),		
 		//////////////////////////////////// NO IMPLEMENTADES PER L'ANTERIOR DESENVOLUPADOR /////////////////////////////////////////////////////////////		
@@ -143,6 +145,9 @@ import lombok.Setter;
 		@AttributeOverride(name = "embedded.estudiLiniaCodi003", column = @Column(name = "prj_les_cod003", length = 30)),
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		@AttributeOverride(name = "embedded.createdBy", column = @Column(name = "prj_usucre", length = 64, insertable = false, updatable = false)),
+		@AttributeOverride(name = "embedded.createdDate", column = @Column(name = "prj_datcre", length = 64, insertable = false, updatable = false)),
+		
 		@AttributeOverride(name = "createdBy", column = @Column(name = "prj_usucre")),
 		@AttributeOverride(name = "createdDate", column = @Column(name = "prj_datcre")),
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "prj_usumod")),
@@ -407,6 +412,18 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 	@Column(name = "prj_sec_cod", length = 2)
 	private String seccioCodi;
 	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "prj_idf_cod", referencedColumnName = "exd_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_emp_cod", referencedColumnName = "exd_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "prj_exd_cod", referencedColumnName = "exd_cod", insertable = false, updatable = false)
+			},
+			foreignKey = @ForeignKey(name = "prj_exd_cod_fk"))
+	private ExpedientEntity expedient;
+	@Column(name = "prj_exd_cod", length = 4)
+	private String expedientCodi;
+	
 	@Builder
 	public ProjecteEntity(ProjectePk pk, 
 			Projecte embedded, 
@@ -432,7 +449,8 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 			CodiPostalEntity codiPostal,			
 			MagatzemEntity magatzem, 
 			ProducteEntity producte,			
-			SeccioEntity seccio
+			SeccioEntity seccio,
+			ExpedientEntity expedient
 			) {
 		
 		setId(pk);		
@@ -463,6 +481,7 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		updateMagatzem(magatzem);
 		updateProducte(producte);	
 		updateSeccio(seccio);
+		updateExpedient(expedient);
 	}
 
 	@Override
@@ -614,6 +633,13 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		this.producte = producte;
 		if (producte != null) {
 			this.producteReferencia = producte.getId().getReferencia();
+		}
+	}
+	
+	public void updateExpedient(ExpedientEntity expedient) {
+		this.expedient = expedient;
+		if (expedient != null) {
+			this.expedientCodi = expedient.getId().getCodi();
 		}
 	}
 	

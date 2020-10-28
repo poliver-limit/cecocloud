@@ -36,6 +36,7 @@ import { IdentificadorsService } from '../../../../pages/identificadors/identifi
 import { EmpresesFactService } from '../empresesFact/empresesFact.service';
 
 import { DivisesService } from '../divises/divises.service';
+import { ExpedientsFormComponent } from '../expedients/expedients-form.component';
 
 @Component({
   templateUrl: 'projectes-form.html'
@@ -185,7 +186,8 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 				{ resourceName: 'subClient', component: SubClientsFormComponent },
 				{ resourceName: 'clientAdresa', component: ClientsAdresaFormComponent },
 				{ resourceName: 'codiPostal', component: CodisPostalFormComponent },
-				{ resourceName: 'zona', component: ZonesFormComponent }
+				{ resourceName: 'zona', component: ZonesFormComponent },
+				{ resourceName: 'expedient', component: ExpedientsFormComponent }
 			])
 			
 			activatedRoute.params.subscribe((params) => {				
