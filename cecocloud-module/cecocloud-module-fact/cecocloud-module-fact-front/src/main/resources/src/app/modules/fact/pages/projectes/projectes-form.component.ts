@@ -83,9 +83,13 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 	onFormGroupChange(formGroup: FormGroup) {		
 		
 		this.formGroup = formGroup;
+		
+		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));
+		
 		formGroup.get('horesEquiv').valueChanges.subscribe(val => {			
 			formGroup.setValidators(nomNotEmptyValidator('nom','nom'));
 		})
+		
 		formGroup.get('tipusExecucio').valueChanges.subscribe(val => {			
 			formGroup.setValidators(preumigfacturacioNotEmptyValidator('tipusExecucio','preuMigFacturacio'));
 		})
@@ -123,8 +127,6 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 			}	
 		})		
 
-		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));
-
 		formGroup.get('codiPostal').valueChanges.subscribe(val => {
 			if (val!=undefined) {				
 				this.codisPostalService.whenReady().subscribe(serveiCodisPostal => {
@@ -143,8 +145,7 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 					poblacioField.formControl.setValue(null);
 				}	
 			}
-		})
-						
+		})						
 			
 		formGroup.get('client').valueChanges.subscribe(val => {			
 			if (val!=undefined) {				
@@ -177,6 +178,66 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 					}
 			}
 		})
+		
+		formGroup.get('horesEquivGarantia').valueChanges.subscribe(val => {		
+			this.calcularHoresEquivalencia();
+			this.calcularPercentatgeExecucio();
+		});
+		
+		formGroup.get('horesEquivConstruccio').valueChanges.subscribe(val => {		
+			this.calcularHoresEquivalencia();
+			this.calcularPercentatgeExecucio();	
+		});
+		
+		formGroup.get('percentExecucioGarantia').valueChanges.subscribe(val => {			
+			this.calcularPercentatgeExecucio();
+		})			
+			
+		formGroup.get('percentExecucioConstruccio').valueChanges.subscribe(val => {			
+			this.calcularPercentatgeExecucio();
+		})
+		
+	}
+	
+	calcularHoresEquivalencia(): void {
+			
+		var horesEquiv:number = 0;			
+		var horesEquivGarantia:number = this.formGroup.get('horesEquivGarantia').value;	
+		var horesEquivConstruccio:number = this.formGroup.get('horesEquivConstruccio').value;			
+		if ((horesEquivGarantia!=undefined) || (horesEquivConstruccio!=undefined)) {
+			if (horesEquivConstruccio==undefined) horesEquivConstruccio = 0;
+			if (horesEquivGarantia==undefined) horesEquivGarantia = 0;	
+			horesEquiv = Number(horesEquivConstruccio)+Number(horesEquivGarantia);				
+		}			
+		this.formGroup.get('horesEquiv').setValue(horesEquiv);
+	}
+	
+	calcularPercentatgeExecucio(): void {
+		
+		var percentExecucioGarantia:number = this.formGroup.get('percentExecucioGarantia').value;
+		var percentExecucioConstruccio:number = this.formGroup.get('percentExecucioConstruccio').value;
+		var horesEquivConstruccio:number = this.formGroup.get('horesEquivConstruccio').value;
+		var horesEquivGarantia:number = this.formGroup.get('horesEquivGarantia').value;
+		var horesEquiv: number = this.formGroup.get('horesEquiv').value;	
+		if (horesEquivConstruccio==undefined) horesEquivConstruccio = 0;
+		if (horesEquivGarantia==undefined) horesEquivGarantia = 0;			
+		if (percentExecucioGarantia==undefined) percentExecucioGarantia = 0;
+		if (percentExecucioConstruccio==undefined) percentExecucioConstruccio = 0;
+		var percentExecucioLliure:number = 0;
+		
+		if ((horesEquiv!=undefined)&&(horesEquiv!=0)) {
+			percentExecucioLliure = (
+										(
+											((Number(percentExecucioConstruccio)/100)*Number(horesEquivConstruccio))+
+									    	((Number(percentExecucioGarantia)/100)*Number(horesEquivGarantia))
+										) /
+										(
+											(horesEquiv)
+										)
+									) * 100;
+			this.formGroup.get('percentExecucioLliure').setValue(percentExecucioLliure);	
+		}	
+		
 	}
 	
 //	onResourceLoad(event: any) {

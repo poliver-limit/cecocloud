@@ -305,6 +305,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(
+			disabledForCreate = true,
+			disabledForUpdate = true,
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
@@ -313,6 +315,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(
+			disabledForCreate = true,
+			disabledForUpdate = true,
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
