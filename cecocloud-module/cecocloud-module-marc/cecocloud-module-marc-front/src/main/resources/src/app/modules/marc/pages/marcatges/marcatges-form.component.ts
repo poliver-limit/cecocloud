@@ -20,7 +20,7 @@ import { MarcatgesService } from './marcatges.service';
 	(resourceLoad)="onResourceLoad($event)">
 	<mat-card *ngIf="id && marcatge && hasAdminPermission" color="primary" [ngStyle]="{'background-color': marcatge.validat ? '#ddddff' : '#ffdddd', 'margin-bottom': '.6em'}">
 		<mat-card-header>
-			<div mat-card-avatar style="position:relative;top:.4em;"><mat-icon *ngIf="marcatge.validat">info</mat-icon><mat-icon *ngIf="!marcatge.validat">warning</mat-icon></div>
+			<div mat-card-avatar style="position:relative;top:.4em;"><mat-icon *ngIf="marcatge.validat" style="color:#3240a2;position:relative;top:2px;left:6px;">info</mat-icon><mat-icon *ngIf="!marcatge.validat" style="color:#bb3333;position:relative;top:2px;left:6px;">warning</mat-icon></div>
 			<mat-card-title style="position:relative;top:.4em">{{marcatge.validat ? ('page.marcatge.title.detalls'| translate) : ('page.marcatge.title.no.validat' | translate)}}</mat-card-title>
 			<div style="flex-grow:1"></div>
 			<button *ngIf="!marcatge.validat" mat-flat-button (click)="onValidateButtonClick()" color="accent" style="transform: scale(0.9);"><mat-icon>done</mat-icon> {{'page.marcatge.button.validar' | translate}}</button>
@@ -59,7 +59,7 @@ import { MarcatgesService } from './marcatges.service';
 		<bng-custom-field name="longitud" style="width:50%"></bng-custom-field>
 	</div>
 	<bng-custom-field name="origen" style="width:100%"></bng-custom-field>
-	<mat-card *ngIf="marcatge && marcatge.ubicacio" color="primary">
+	<mat-card *ngIf="marcatge && marcatge.ubicacio" color="primary" style="background-color:#eee">
 		<mat-card-header>
 			<div mat-card-avatar style="position:relative;top:.4em;"><mat-icon>place</mat-icon></div>
 			<mat-card-title style="position:relative;top:.2em;">{{'page.marcatge.title.ubicacio' | translate}}</mat-card-title>
