@@ -984,7 +984,7 @@
     "resource.projecte.field.estudiSumarValoracioEnExces": "Estudio suma valoración en exceso",
     "resource.projecte.field.mesosGarantia": "Meses garantía",
     "resource.projecte.field.tipusInversio": "Tipo de inversión",
-    "resource.projecte.field.retencioClasse": "Clase de retención",
+    "resource.projecte.field.classeRetencio": "Clase de retención",
     "resource.projecte.field.retencioPercent": "Tanto por ciento de retención",
     "resource.projecte.field.retencioTipus": "Tipo de retención",
     "resource.projecte.field.comptabilitatCodiProjecte": "Código de contabilidad del proyecto",
@@ -1041,12 +1041,26 @@
     "resource.projecte.field.titolHistoricResponsable": "Histórico responsables",
 
     "resource.projecte.error.secondDateOlder": "La fecha inicial no puede ser posterior a la final",
-
+    "resource.projecte.error.preumigfacturacioNotEmpty": "El tipo de ejecución escogido hace obligatorio informar este campo",
+	"resource.projecte.error.nomNotEmpty": "Este campo es obligatorio",
+	
     "resource.projecte.enum.estat.ADJUDICAT": "Adjudicada",
     "resource.projecte.enum.estat.RECEPCIO_PROV": "Recepción provisional",
     "resource.projecte.enum.estat.RECEPCIO_FINAL": "Recepción final",
     "resource.projecte.enum.estat.TANCAT": "Cerrada",
     "resource.projecte.enum.estat.EXECUCIO": "En ejecución",
+    
+    "resource.projecte.enum.albaransClientPreu.ALBARA_PROVEIDOR_AMB_DTE": "Precio alb. prov. con dte.",
+    "resource.projecte.enum.albaransClientPreu.ALBARA_PROVEIDOR_SENSE_DTE": "Precio alb. prov. sin dte.",
+    "resource.projecte.enum.albaransClientPreu.TARIFA_CLIENT": "Precio tarifa de cliente",
+    
+    "resource.projecte.enum.albaransClientProjecteTipus.PRESSUPOST": "Presupuesto",
+    "resource.projecte.enum.albaransClientProjecteTipus.ADMINISTRACIO": "Administración",
+    "resource.projecte.enum.albaransClientProjecteTipus.MEDICIO": "Medición",
+    
+    "resource.projecte.enum.retencioTipus.SOBRE_BASE_IMP": "Sobre base imponible",
+    "resource.projecte.enum.retencioTipus.SOBRE_BASE_AMB_IVA": "Sobre base + I.V.A.",
+    "resource.projecte.enum.retencioTipus.ABANS_BASE_IMP": "Antes base imponible",
 
     "resource.projecteTarifaProveidor": "Proyecto / Tarifa proveedor",
     "resource.projecteTarifaProveidor.plural": "Proyectos / Tarifas proveedor",

@@ -20,7 +20,8 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 	externalFilter: string;
 	
 	datagridConfig = {        
-        columnFiltersEnabled: false,
+        columnFiltersEnabled: true,
+		paginationEnabled: true,		
 		columns: [{
 				field: 'codi'
 			}, {
@@ -65,13 +66,13 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 	generateSimpleFilters (filterNames: string[]) {		
 		
 		filterNames.forEach (filterName => {
-			var filter = this.formGroup.get(filterName).value;
+			var filter = this.formGroup.get(filterName).value;			
 			if ((filter!=undefined)&&(filter!='')) {					
 				if (this.externalFilter != undefined) {
 					this.externalFilter = this.externalFilter + ";";
-					this.externalFilter = this.externalFilter + filterName + "==" + filter;
+					this.externalFilter = this.externalFilter + filterName + "=ic=" + filter;
 				} else {
-					this.externalFilter = filterName + "==" + filter;	
+					this.externalFilter = filterName + "=ic=" + filter;	
 				}				
 			}	
 		})	
@@ -160,6 +161,7 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 	}
 	
 	onResourceLoad(event: any) {		
+		this.externalFilter = "codi==--1";
 	}		
 	
 
@@ -168,7 +170,7 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
         public projectesService: ProjectesService,
 		public clientsService: ClientsService,
 		public projectesTipusService: ProjectesTipusService ) {
-			super(activatedRoute);			
+			super(activatedRoute);				
  		}
 
 }

@@ -74,9 +74,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
-	public String codi;
+	public String codi;	
 	
-	@NotNull
 	@Size(max = 250)
 	@RestapiField(			
 			hiddenInLov = true)
@@ -178,6 +177,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	private String codiAlternatiu;
 	
 	@RestapiField(
+			dynamicEnumCode = "PRJ_LSTEST",
 			hiddenInGrid = false,
 			hiddenInLov = true)
 	@Convert(converter = ProjecteEstatConverter.class)
@@ -305,6 +305,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(
+			disabledForCreate = true,
+			disabledForUpdate = true,
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			disabledForCreate = true,
@@ -315,6 +317,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(
+			disabledForCreate = true,
+			disabledForUpdate = true,
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			disabledForCreate = true,
