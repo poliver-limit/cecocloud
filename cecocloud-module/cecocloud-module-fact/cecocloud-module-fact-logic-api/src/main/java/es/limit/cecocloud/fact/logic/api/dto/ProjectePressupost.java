@@ -77,26 +77,28 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 	
 	@Transient	
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovDescriptionField = "descCodiDesc",
-			lovSortFields =  {
-					@RestapiSort(
-							field = "codi",
-							direction = Direction.ASC
-							)
-					})
+			type = RestapiFieldType.LOV)
+//			,
+//			lovDescriptionField = "descCodiDesc",
+//			lovSortFields =  {
+//					@RestapiSort(
+//							field = "codi",
+//							direction = Direction.ASC
+//							)
+//					})
 	private GenericReferenceWithCompositePk<Partida, PartidaPk> partida;	
 	
 	@Transient	
 	@RestapiField(
-			type = RestapiFieldType.LOV,
-			lovDescriptionField = "descCodiDesc",
-			lovSortFields =  {
-					@RestapiSort(
-							field = "codi",
-							direction = Direction.ASC
-							)
-					})
+			type = RestapiFieldType.LOV)
+//	,
+//			lovDescriptionField = "descCodiDesc",
+//			lovSortFields =  {
+//					@RestapiSort(
+//							field = "codi",
+//							direction = Direction.ASC
+//							)
+//					})
 	private GenericReferenceWithCompositePk<Capitol, CapitolPk> capitol;
 	
 	@Size(max = 1000)

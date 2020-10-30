@@ -3,6 +3,7 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
+import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 import javax.persistence.AssociationOverride;
@@ -92,8 +93,8 @@ import lombok.Setter;
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		@AttributeOverride(name = "embedded.dataFiPrevist", column = @Column(name = "prj_datfinprt")),
 		@AttributeOverride(name = "embedded.mesosGarantia", column = @Column(name = "prj_mesgar", length = 22, precision = 7, scale = 2)),
-		@AttributeOverride(name = "embedded.percentExecucioLliure", column = @Column(name = "prj_pteeje", length = 22, precision = 7, scale = 2)),
-		@AttributeOverride(name = "embedded.horesEquiv", column = @Column(name = "prj_horequ", length = 22, precision = 7, scale = 2)),
+		@AttributeOverride(name = "embedded.percentExecucioLliure", column = @Column(name = "prj_pteeje", length = 22, precision = 7, scale = 2, insertable = false, updatable = false)),
+		@AttributeOverride(name = "embedded.horesEquiv", column = @Column(name = "prj_horequ", length = 22, precision = 7, scale = 2, insertable = false, updatable = false)),
 		@AttributeOverride(name = "embedded.percentExecucioConstruccio", column = @Column(name = "prj_pteejc", length = 22, precision = 7, scale = 2)),
 		@AttributeOverride(name = "embedded.horesEquivConstruccio", column = @Column(name = "prj_horeqc", length = 22, precision = 7, scale = 2)),
 		@AttributeOverride(name = "embedded.percentExecucioGarantia", column = @Column(name = "prj_pteejg", length = 22, precision = 7, scale = 2)),
@@ -673,6 +674,8 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 				projecte.getId().setCodi(seqST);
 			} else {
 				afegirZerosAlCodi(projecte, tamanyCodi);
+//				calcHoresEquiv(projecte);
+//				calcPercExec(projecte);
 //				if (isNumeric(codi)) {					
 //					codi = addZeros(Integer.parseInt(codi), 6);
 //					projecte.getEmbedded().setCodi(codi);
@@ -705,4 +708,44 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 		return String.format("%0"+String.valueOf(tamanyCodi)+"d", codi).toString();	
 	}
 	
+//	public static void calcPercExec(ProjecteEntity projecte) {
+//		BigDecimal horesEquiv = projecte.getEmbedded().getHoresEquiv();
+//		BigDecimal horesCons = projecte.getEmbedded().getHoresEquivConstruccio();
+//		BigDecimal horesGaran = projecte.getEmbedded().getHoresEquivGarantia();
+//		
+//		BigDecimal percCons = projecte.getEmbedded().getPercentExecucioConstruccio();
+//		BigDecimal percGaran = projecte.getEmbedded().getPercentExecucioGarantia();
+//		BigDecimal percLLiu = projecte.getEmbedded().getPercentExecucioLliure();
+//		
+//		BigDecimal percLLiuCons = BigDecimal.ZERO;
+//		BigDecimal percLLiuGaran = BigDecimal.ZERO;
+//		BigDecimal cent = new BigDecimal(100);
+//		
+//		if(horesEquiv != BigDecimal.ZERO) {
+//			percLLiuCons = ((percCons != null) ? percCons : BigDecimal.ZERO).divide(cent);
+//			percLLiuCons.multiply((horesCons != null) ? horesCons : BigDecimal.ZERO);
+//			
+//			percLLiuGaran = ((percGaran != null) ? percGaran : BigDecimal.ZERO).divide(cent);
+//			percLLiuGaran.multiply((horesGaran != null) ? horesGaran : BigDecimal.ZERO);
+//			
+//			percLLiu = percLLiuCons.add(percLLiuGaran);
+//			percLLiu.divide(horesEquiv);
+//			percLLiu.multiply(cent);
+//			
+//			projecte.getEmbedded().setPercentExecucioLliure(percLLiu);
+//		}
+//	}
+//	
+//	public static void calcHoresEquiv(ProjecteEntity projecte) {
+//		BigDecimal horesCons = projecte.getEmbedded().getHoresEquivConstruccio();
+//		BigDecimal horesGaran = projecte.getEmbedded().getHoresEquivGarantia();
+//		BigDecimal horesEquiv = projecte.getEmbedded().getHoresEquiv();
+//		
+//		if(horesCons != null || horesGaran != null) {
+//			horesEquiv = (horesCons != null) ? horesCons : BigDecimal.ZERO;
+//			horesEquiv.add((horesGaran != null) ? horesGaran : BigDecimal.ZERO);
+//		}
+//		
+//		projecte.getEmbedded().setHoresEquiv(horesEquiv);
+//	}
 }

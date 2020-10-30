@@ -92,8 +92,8 @@ public class CapitolEntity extends AbstractWithIdentificadorAuditableEntity<Capi
 				foreignKey = @ForeignKey(name = "rges_cap_pre_fk"))
 	protected PressupostEntity pressupost;
 	
-	@Formula(value="(SELECT CONCAT(CONCAT(cap.cap_cod,' - '),cap.cap_des) FROM tges_cap cap where cap.cap_cod = cap_cod and cap.cap_idf_cod = cap_idf_cod and cap.cap_emp_cod = cap_emp_cod and cap.cap_pre_cod = cap_pre_cod)")
-	private String descCodiDesc;
+//	@Formula(value="(SELECT CONCAT(CONCAT(cap.cap_cod,' - '),cap.cap_des) FROM tges_cap cap where cap.cap_cod = cap_cod and cap.cap_idf_cod = cap_idf_cod and cap.cap_emp_cod = cap_emp_cod and cap.cap_pre_cod = cap_pre_cod)")
+//	private String descCodiDesc;
 	
 	@Builder
 	public CapitolEntity(

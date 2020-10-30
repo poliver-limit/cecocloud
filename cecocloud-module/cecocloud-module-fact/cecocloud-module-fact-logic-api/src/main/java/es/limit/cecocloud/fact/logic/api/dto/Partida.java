@@ -40,11 +40,11 @@ public class Partida extends AbstractIdentificableWithIdentificador<PartidaPk> {
 		includeInQuickFilter = true)
 	private String codi;
 	
-	@Transient
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true)
-	private String descCodiDesc;
+//	@Transient
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInForm = true)
+//	private String descCodiDesc;
 	
 	@Transient
 	@RestapiField(

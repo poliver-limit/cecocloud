@@ -23,8 +23,8 @@ public class TarifaProveidorServiceImpl extends AbstractGenericCompositePkServic
 	@Override
 	protected TarifaProveidorPk getPkFromDto(TarifaProveidor dto) {			
 		return new TarifaProveidorPk(
-				dto.getIdentificador().getId(),				
-				"100", // Recuperar codi del proveïdor
+				dto.getIdentificador().getId(),		
+				dto.getProveidor().getPk().getCodi(),				
 				dto.getCodi());
 	}
 

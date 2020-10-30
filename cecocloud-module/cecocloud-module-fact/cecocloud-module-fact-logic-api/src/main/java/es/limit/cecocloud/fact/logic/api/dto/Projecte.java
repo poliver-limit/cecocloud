@@ -307,6 +307,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
 			sizeMax = 22)
 	private BigDecimal percentExecucioLliure;
 	
@@ -315,6 +317,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 	@RestapiField(
 			hiddenInGrid = true,
 			hiddenInLov = true,
+			disabledForCreate = true,
+			disabledForUpdate = true,
 			sizeMax = 22)
 	private BigDecimal horesEquiv;
 	

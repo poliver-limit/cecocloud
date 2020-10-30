@@ -41,10 +41,10 @@ public class TarifaProveidor extends AbstractIdentificableWithIdentificador<Tari
 	@Transient
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
+			disabledForCreate = false,
 			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true)
+			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<Proveidor, WithIdentificadorAndCodiPk<String>> proveidor;
 
 	@NoArgsConstructor

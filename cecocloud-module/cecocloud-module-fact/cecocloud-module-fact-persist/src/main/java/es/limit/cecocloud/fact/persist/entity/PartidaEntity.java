@@ -105,8 +105,8 @@ public class PartidaEntity extends AbstractWithIdentificadorAuditableEntity<Part
 				foreignKey = @ForeignKey(name = "rges_pda_cap_fk"))
 	protected CapitolEntity capitol;
 	
-	@Formula(value="(SELECT CONCAT(CONCAT(pda.pda_cod,' - '),pda.pda_des) FROM tges_pda pda where pda.pda_cod = pda_cod and pda.pda_idf_cod = pda_idf_cod and pda.pda_emp_cod = pda_emp_cod and pda.pda_pre_cod = pda_pre_cod and pda.pda_cap_cod = pda_cap_cod)")
-	private String descCodiDesc;
+//	@Formula(value="(SELECT CONCAT(CONCAT(pda.pda_cod,' - '),pda.pda_des) FROM tges_pda pda where pda.pda_cod = pda_cod and pda.pda_idf_cod = pda_idf_cod and pda.pda_emp_cod = pda_emp_cod and pda.pda_pre_cod = pda_pre_cod and pda.pda_cap_cod = pda_cap_cod)")
+//	private String descCodiDesc;
 	
 	@Builder
 	public PartidaEntity(

@@ -14,7 +14,9 @@ import es.limit.cecocloud.fact.logic.api.service.PartidaService;
 import es.limit.cecocloud.fact.persist.entity.PartidaEntity;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 /**
  * Implementació del servei de gestió de Partida.
@@ -30,15 +32,19 @@ public class PartidaServiceImpl extends AbstractGenericCompositePkServiceImpl<Pa
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	
+	@Autowired
+	private IdentificadorRepository identificadorRepository;
+	
 	@Override
 	protected PartidaPk getPkFromDto(Partida dto) {
 		UserSession userSession = (UserSession)authenticationHelper.getSession();		
 		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());	
+		IdentificadorEntity identificador = identificadorRepository.getOne(userSession.getI());
 		return new PartidaPk(
-				dto.getIdentificador().getId(),				
-				empresa.getEmbedded().getCodi(),
-				100, // Recuperar el codi del Pressupost
-				"100", // Recuperar el codi del Capitol
+				//dto.getIdentificador().getId(),				
+				identificador.getEmbedded().getCodi(),	empresa.getEmbedded().getCodi(),
+				dto.getPressupost().getPk().getCodi(),
+				dto.getCapitol().getPk().getCodi(),
 				dto.getCodi());
 	}
 

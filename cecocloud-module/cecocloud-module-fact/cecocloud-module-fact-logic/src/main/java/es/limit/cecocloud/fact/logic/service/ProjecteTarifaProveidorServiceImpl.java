@@ -41,7 +41,7 @@ public class ProjecteTarifaProveidorServiceImpl extends AbstractGenericComposite
 		return new ProjecteTarifaProveidorPk(
 				identificador.getEmbedded().getCodi(),				
 				empresa.getEmbedded().getCodi(),
-				"100", // TO DO: RECUPERAR EL PROJECTE
+				dto.getProjecte().getPk().getCodi(),
 				dto.getProveidor().getPk().getCodi(),
 				dto.getTarifaProveidor().getPk().getCodi());
 	}
