@@ -13,10 +13,16 @@
 	"resource.marcatge.field.latitud": "Latitud",
 	"resource.marcatge.field.longitud": "Longitud",
 	"resource.marcatge.field.ubicacio": "Ubicación",
+	"resource.marcatge.field.precisio": "Precisión",
+	"resource.marcatge.field.adressaIp": "Dirección IP",
 	"resource.marcatge.field.foraLinia": "Fuera de línea",
 	"resource.marcatge.field.llocFeinaFora": "Fuera del lugar de trabajo",
 	"resource.marcatge.field.llocFeina": "Lugar de trabajo",
 	"resource.marcatge.field.validat": "Validado",
+	"resource.marcatge.field.validatData": "Fecha de validación",
+	"resource.marcatge.field.traspassat": "Traspasado",
+	"resource.marcatge.field.intervalObert": "Intervalo abierto",
+	"resource.marcatge.field.intervalDuracio": "Duración del intervalo",
 	"resource.marcatge.enum.origen.MOBIL": "Móvil",
 	"resource.marcatge.enum.origen.CECOGEST": "Cecogest",
 	"resource.marcatge.enum.origen.CECOCLOUD": "Cecocloud",
@@ -41,6 +47,14 @@
 
 	"resource.operariEmpresaLlocFeina": "Operario del lugar de trabajo",
 	"resource.operariEmpresaLlocFeina.plural": "Operarios del lugar de trabajo",
-	"resource.operariEmpresaLlocFeina.field.operariEmpresa": "Operario"
+	"resource.operariEmpresaLlocFeina.field.operariEmpresa": "Operario",
+
+	"page.marcatge.title.detalls": "Información detallada del marcaje",
+	"page.marcatge.title.no.validat": "Marcaje no validado",
+	"page.marcatge.info.no.validat": "Estos son los motivos por los que el marcaje no ha sido considerado vàlido:",
+	"page.marcatge.title.ubicacio": "Ubicación",
+	"page.marcatge.button.validar": "Validar",
+	"page.marcatge.accio.validar.confirm": "¿Está usted seguro de que desea validar este marcaje?",
+	"page.marcatge.accio.validar.ok": "El marcaje se ha validado correctamente"
 
 }

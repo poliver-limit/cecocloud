@@ -13,10 +13,16 @@
 	"resource.marcatge.field.latitud": "Latitud",
 	"resource.marcatge.field.longitud": "Longitud",
 	"resource.marcatge.field.ubicacio": "Ubicació",
+	"resource.marcatge.field.precisio": "Precisió",
+	"resource.marcatge.field.adressaIp": "Adreça IP",
 	"resource.marcatge.field.foraLinia": "Fora de línia",
 	"resource.marcatge.field.llocFeinaFora": "Fora del lloc de feina",
 	"resource.marcatge.field.validat": "Validat",
+	"resource.marcatge.field.validatData": "Data de validació",
 	"resource.marcatge.field.llocFeina": "Lloc de feina",
+	"resource.marcatge.field.traspassat": "Traspassat",
+	"resource.marcatge.field.intervalObert": "Interval obert",
+	"resource.marcatge.field.intervalDuracio": "Duració de l'interval",
 	"resource.marcatge.enum.origen.MOBIL": "Mòbil",
 	"resource.marcatge.enum.origen.CECOGEST": "Cecogest",
 	"resource.marcatge.enum.origen.CECOCLOUD": "Cecocloud",
@@ -41,6 +47,14 @@
 
 	"resource.operariEmpresaLlocFeina": "Operari del lloc de feina",
 	"resource.operariEmpresaLlocFeina.plural": "Operaris del lloc de feina",
-	"resource.operariEmpresaLlocFeina.field.operariEmpresa": "Operari"
+	"resource.operariEmpresaLlocFeina.field.operariEmpresa": "Operari",
+
+	"page.marcatge.title.detalls": "Informació detallada del marcatge",
+	"page.marcatge.title.no.validat": "Marcatge no validat",
+	"page.marcatge.info.no.validat": "Aquests son els motius pels quals el marcatge no ha estat considerat vàlid:",
+	"page.marcatge.title.ubicacio": "Ubicació",
+	"page.marcatge.accio.validar": "Validar",
+	"page.marcatge.accio.validar.confirm": "Estau segur que voleu validar aquest marcatge?",
+	"page.marcatge.accio.validar.ok": "El marcatge s'ha validat correctament"
 
 }
