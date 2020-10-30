@@ -20,7 +20,8 @@ export class ProjectesGridComponent extends BngFormBaseComponent implements OnIn
 	externalFilter: string;
 	
 	datagridConfig = {        
-        columnFiltersEnabled: false,
+        columnFiltersEnabled: true,
+		paginationEnabled: true,		
 		columns: [{
 				field: 'codi'
 			}, {
