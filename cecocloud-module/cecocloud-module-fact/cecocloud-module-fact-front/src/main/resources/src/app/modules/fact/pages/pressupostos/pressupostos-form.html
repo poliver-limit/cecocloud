@@ -1,0 +1,89 @@
+<bng-form
+  bng-form-mant
+  [config]="formConfig"
+  [restapiService]="pressupostosService"
+  (formGroupChange)="onFormGroupChange($event)"
+  (resourceLoad)="onResourceLoad($event)"  
+>
+	<mat-tab-group animationDuration="0">    
+	    <mat-tab label="{{'resource.pressupost.field.titolGeneral'|translate}}">
+	      <ng-container *ngTemplateOutlet="pressupostTab"></ng-container>
+	    </mat-tab>  	
+	</mat-tab-group>
+	
+	<ng-template #pressupostTab>
+		<mat-card>
+			<mat-card-content>
+				<ng-container *ngTemplateOutlet="dadesGeneralsTemplate"></ng-container>
+			</mat-card-content>
+		</mat-card>	
+	</ng-template>	
+	
+	<ng-template #dadesGeneralsTemplate>
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="codi"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="numero"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="versio"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="data"></bng-custom-field>
+		  </div>
+		</div>	
+	 	<div style="display: flex">	 	 
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="nomClient"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="client"></bng-custom-field>
+		  </div>
+		   <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="subClient"></bng-custom-field>
+		  </div>
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="operari"></bng-custom-field>
+		  </div>
+		</div>		
+		<div style="display: flex">
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="estat"></bng-custom-field>
+		  </div>	
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="codiPostal"></bng-custom-field>
+		  </div>  
+		  <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="divisa"></bng-custom-field>
+		  </div>	
+		   <div style="width: 25%; padding-right: 1em">
+		    <bng-custom-field name="serieVenda"></bng-custom-field>
+		  </div>	
+	  	</div>	  
+		<div style="display: flex">
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="classe"></bng-custom-field>
+		  </div>
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="valorDivisaEuros"></bng-custom-field>
+		  </div>  
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="referencia"></bng-custom-field>
+		  </div>
+		</div>	  
+		<div style="display: flex">
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="desglose"></bng-custom-field>
+		  </div> 
+		  <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="certificacioOrigen"></bng-custom-field>
+		  </div>
+		   <div style="width: 33%; padding-right: 1em">
+		    <bng-custom-field name="seguimentRecepcioMaterial"></bng-custom-field>
+		  </div>	  
+		</div>
+	</ng-template>
+    		
+</bng-form>
