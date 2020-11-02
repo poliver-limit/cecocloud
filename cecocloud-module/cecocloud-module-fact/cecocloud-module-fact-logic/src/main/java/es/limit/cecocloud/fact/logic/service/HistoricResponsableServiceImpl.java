@@ -14,7 +14,9 @@ import es.limit.cecocloud.fact.logic.api.service.HistoricResponsableService;
 import es.limit.cecocloud.fact.persist.entity.HistoricResponsableEntity;
 import es.limit.cecocloud.logic.api.dto.UserSession;
 import es.limit.cecocloud.persist.entity.EmpresaEntity;
+import es.limit.cecocloud.persist.entity.IdentificadorEntity;
 import es.limit.cecocloud.persist.repository.EmpresaRepository;
+import es.limit.cecocloud.persist.repository.IdentificadorRepository;
 
 /**
  * Implementació del servei de gestió de històrics responsables
@@ -29,15 +31,20 @@ public class HistoricResponsableServiceImpl extends AbstractGenericCompositePkSe
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
+	
+	@Autowired
+	private IdentificadorRepository identificadorRepository;
 
 	@Override
 	protected HistoricResponsablePk getPkFromDto(HistoricResponsable dto) {
 		UserSession userSession = (UserSession)authenticationHelper.getSession();
 		EmpresaEntity empresa = empresaRepository.getOne(userSession.getE());
+		IdentificadorEntity identificador = identificadorRepository.getOne(userSession.getI());
 		return new HistoricResponsablePk(
-				dto.getIdentificador().getId(),
+				//dto.getIdentificador().getId(),
+				identificador.getEmbedded().getCodi(),			
 				empresa.getEmbedded().getCodi(),
-				"100", // TO DO: RECUPERAR EL PROJECTE
+				dto.getProjecte().getPk().getCodi(),
 				dto.getSequencia());
 	}
 
