@@ -141,6 +141,9 @@ public class ProjectePressupostEntity extends AbstractWithIdentificadorAuditable
 	protected CapitolEntity capitol;
 	@Column(name = "pjp_cap_cod", length = 6)
 	private String capitolCodi;
+	
+	// Segons funcional de Vendes: "No incloure el camp Capitol, pjp_cpp_cod"
+	// Aquest camp existeix, actualment, al model de dades de Cecogest
 
 	@Builder
 	public ProjectePressupostEntity(
