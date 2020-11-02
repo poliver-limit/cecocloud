@@ -8,9 +8,12 @@ import { MaterialModule } from '../../../../shared/material.module';
 
 import { PressupostosGridComponent } from './pressupostos-grid.component';
 import { PressupostosFormComponent } from './pressupostos-form.component';
+
 import { PressupostosService } from './pressupostos.service';
 
 import { PressupostosFormModule } from './pressupostos-form.module';
+
+import { PressupostosLiniaService } from '../pressupostosLinia/pressupostosLinia.service';
 
 @NgModule( {
     imports: [
@@ -29,7 +32,9 @@ import { PressupostosFormModule } from './pressupostos-form.module';
         PressupostosGridComponent        
     ],
     providers: [
-        PressupostosService
+        PressupostosService,
+
+		PressupostosLiniaService
     ]
 } )
 export class PressupostosModule {}

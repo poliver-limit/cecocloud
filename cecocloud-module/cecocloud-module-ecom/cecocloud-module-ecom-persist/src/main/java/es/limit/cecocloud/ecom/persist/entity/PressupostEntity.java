@@ -48,7 +48,7 @@ import lombok.Setter;
 		}
 )
 @AttributeOverrides({
-	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pre_idf_cod", length = 22)),
+	@AttributeOverride(name = "id.identificadorCodi", column = @Column(name = "pre_idf_cod", length = 4)),
 	@AttributeOverride(name = "id.empresaCodi", column = @Column(name = "pre_emp_cod", length = 4)),
 	@AttributeOverride(name = "id.codi", column = @Column(name = "pre_cod", length = 22, precision = 10)),
 	@AttributeOverride(name = "embedded.codi", column = @Column(name = "pre_cod", insertable = false, updatable = false, length = 22)),
@@ -311,7 +311,7 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.identificador = identificador;
 		this.empresa = empresa;		
 		
-		this.updateSync();
+//		this.updateSync();
 		this.updateNumeroPressupost(serieVenda);
 		this.updateSerieVenda(serieVenda);		
 		this.updateClient(client);
@@ -334,12 +334,12 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Override
 	public void update(Pressupost embedded) {
 		this.embedded = embedded;
-		this.updateSync();
+//		this.updateSync();
 	}	
 	
-	public void updateSync() {
-		this.embedded.setSync(false);		
-	}
+//	public void updateSync() {
+//		this.embedded.setSync(false);		
+//	}
 	
 	public void updateNumeroPressupost(SerieVendaEntity serieVenda) {
 		

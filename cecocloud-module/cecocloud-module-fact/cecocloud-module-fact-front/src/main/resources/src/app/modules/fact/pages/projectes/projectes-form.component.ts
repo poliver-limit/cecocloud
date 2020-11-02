@@ -86,7 +86,8 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		
 		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));
 		
-		formGroup.get('horesEquiv').valueChanges.subscribe(val => {			
+		formGroup.get('horesEquiv').valueChanges.subscribe(val => {		
+			debugger;	
 			formGroup.setValidators(nomNotEmptyValidator('nom','nom'));
 		})
 		

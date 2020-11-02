@@ -309,8 +309,6 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			disabledForUpdate = true,
 			hiddenInGrid = true,
 			hiddenInLov = true,
-			disabledForCreate = true,
-			disabledForUpdate = true,
 			sizeMax = 22)
 	private BigDecimal percentExecucioLliure;
 	
@@ -321,8 +319,6 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			disabledForUpdate = true,
 			hiddenInGrid = true,
 			hiddenInLov = true,
-			disabledForCreate = true,
-			disabledForUpdate = true,
 			sizeMax = 22)
 	private BigDecimal horesEquiv;
 	
