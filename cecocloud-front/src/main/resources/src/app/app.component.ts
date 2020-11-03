@@ -57,15 +57,14 @@ export class AppComponent {
 		this.router.navigate(['/identificador']);
 	}
 
-	private getModuleFromUrl(): string {
+	/*private getModuleFromUrl(): string {
 		const routerUrl = this.router.url.substring(1);
 		const module = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
 		const allowedModules = this.moduleService.getAllowedModuleItems().map(modul => modul.code);
-		console.log('>>> getModuleFromUrl', routerUrl, module, this.moduleService.getAllowedModuleItems())
 		if (allowedModules.includes(module)) {
 			return module;
 		}
-	}
+	}*/
 
 	private filterMenuFuncionalitatsPermeses(menu: BngMenu, funcionalitats: string[]): BngMenu {
 		let menuFiltrat: BngMenu;

@@ -117,19 +117,32 @@ export class AppService {
 					}
 				});
 			}
-		}
-		if (found) {
-			let session: any = this.authService.getSession();
-			if (session) {
-				this.identificadorsService.whenReady().subscribe(() => {
-					this.identificadorsService.get(session.i).subscribe((resposta: any) => {
-						this.adminIdentificadorMenu.label = resposta.descripcio;
+			if (found) {
+				let session: any = this.authService.getSession();
+				if (session) {
+					this.identificadorsService.whenReady().subscribe(() => {
+						this.identificadorsService.get(session.i).subscribe((resposta: any) => {
+							this.adminIdentificadorMenu.label = resposta.descripcio;
+						});
 					});
-				});
+				}
+				this.menuService.setActiveMenu(this.adminIdentificadorMenu);
+			} else {
+				this.findAndSetActiveMenuFromRouterUrl(this.moduleService.getAllowedModuleItems());
 			}
-			this.menuService.setActiveMenu(this.adminIdentificadorMenu);
-		} else {
-			this.findAndSetActiveMenuFromRouterUrl(this.moduleService.getAllowedModuleItems());
+		}
+	}
+
+	private findAndSetActiveMenuFromRouterUrl(allowedModules: BngAppModule[]) {
+		let routerUrl = this.router.url.substring(1);
+		let moduleCode: string = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
+		let menu: BngMenu = this.getModuleMenu(moduleCode);
+		const allowedModulesCodes = allowedModules.map(modul => modul.code);
+		if (allowedModulesCodes.includes(moduleCode)) {
+			this.usuariIdentificadorEmpresaService.getAllowedFuncionalitats(moduleCode).subscribe((funcionalitats: string[]) => {
+				let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
+				this.menuService.setActiveMenu(filteredMenu);
+			});
 		}
 	}
 
@@ -148,19 +161,6 @@ export class AppService {
 	private registerGlobalMenus() {
 		this.menuService.registerGlobal('admin', this.adminMenu);
 		this.menuService.registerGlobal('admin-idf', this.adminIdentificadorMenu);
-	}
-
-	private findAndSetActiveMenuFromRouterUrl(allowedModules: BngAppModule[]) {
-		let routerUrl = this.router.url.substring(1);
-		let moduleCode: string = (routerUrl.indexOf("/") != -1) ? routerUrl.substring(0, routerUrl.indexOf("/")) : routerUrl;
-		let menu: BngMenu = this.getModuleMenu(moduleCode);
-		const allowedModulesCodes = allowedModules.map(modul => modul.code);
-		if (allowedModulesCodes.includes(moduleCode)) {
-			this.usuariIdentificadorEmpresaService.getAllowedFuncionalitats(moduleCode).subscribe((funcionalitats: string[]) => {
-				let filteredMenu = this.filterMenuFuncionalitatsPermeses(menu, funcionalitats);
-				this.menuService.setActiveMenu(filteredMenu);
-			});
-		}
 	}
 
 	private filterMenuFuncionalitatsPermeses(menu: BngMenu, funcionalitats: string[]): BngMenu {
