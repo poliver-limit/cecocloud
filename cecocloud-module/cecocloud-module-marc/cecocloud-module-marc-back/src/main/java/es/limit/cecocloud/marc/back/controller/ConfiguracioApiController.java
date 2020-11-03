@@ -24,6 +24,12 @@ import es.limit.cecocloud.marc.logic.api.module.MarcModule;
 public class ConfiguracioApiController extends AbstractIdentificableApiController<Configuracio, Long> {
 
 	@Override
+	protected String additionalRsqlFilter(HttpServletRequest request, Object userSession) {
+		return	"empresa.id==" + ((UserSession)userSession).getE() + ";" +
+				"empresa.identificador.id==" + ((UserSession)userSession).getI();
+	}
+
+	@Override
 	protected void processDto(HttpServletRequest request, Configuracio dto, Object userSession, boolean isNew) {
 		super.processDto(request, dto, userSession, isNew);
 		dto.setEmpresa(GenericReference.toGenericReference(((UserSession)userSession).getE()));
