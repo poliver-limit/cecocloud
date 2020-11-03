@@ -908,8 +908,8 @@
     "resource.projecteAplicacio": "Proyecto otras aplicaciones",
     "resource.projecteAplicacio.plural": "Proyectos otras aplicaciones",
     "resource.projecteAplicacio.field.codi": "Aplicación",
-    "resource.projecteAplicacio.field.valorPercentual": "Valor porcentual",
-    "resource.projecteAplicacio.field.codiProjecteAap": "Código proyecto/aplicación",
+    "resource.projecteAplicacio.field.valorPercentual": "%",
+    "resource.projecteAplicacio.field.codiProjecteAap": "Código proyecto otras aplicaciones",
     "resource.projecteAplicacio.field.observacions": "Observaciones",
     "resource.projecteAplicacio.field.identificador": "Identificador",
 

@@ -270,7 +270,20 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
     };
 
 	projectesAplicacioDatagridConfig: BngDatagridConfig = {        
-		mode: 'form'
+		mode: 'form',
+		columns: [{
+			field: 'codi',
+			width: 60
+		}, {
+			field: 'codiProjecteAap',
+			width: 120
+		}, {
+			field: 'valorPercentual',
+			width: 20			
+		}, {
+			field: 'observacions',
+			width: 110
+		}]
     };
 
 	inversionsSubjectePassiuDatagridConfig: BngDatagridConfig = {        

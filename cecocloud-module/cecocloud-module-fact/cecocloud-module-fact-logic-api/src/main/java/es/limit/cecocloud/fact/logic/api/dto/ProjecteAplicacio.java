@@ -36,6 +36,7 @@ public class ProjecteAplicacio extends AbstractIdentificableWithIdentificador<Pr
 	
 	@NotNull	
 	@RestapiField(
+			dynamicEnumCode = "P_LSTAPL",
 			disabledForUpdate = true,
 			toUpperCase = true,
 			includeInQuickFilter = true)
@@ -74,7 +75,7 @@ public class ProjecteAplicacio extends AbstractIdentificableWithIdentificador<Pr
 			disabledForCreate = true,
 			hiddenInGrid = true,
 			disabledForUpdate = true,
-			hiddenInForm = true
+			hiddenInForm = false
 			)
 	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
 	
