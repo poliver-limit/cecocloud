@@ -86,8 +86,7 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		
 		formGroup.setValidators(firstDateOlderThanSecondDate('dataInici','dataFi'));
 		
-		formGroup.get('horesEquiv').valueChanges.subscribe(val => {		
-			debugger;	
+		formGroup.get('horesEquiv').valueChanges.subscribe(val => {			
 			formGroup.setValidators(nomNotEmptyValidator('nom','nom'));
 		})
 		
@@ -155,8 +154,8 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 						this.clientsService.get(clientId).subscribe(client => {							
 							this.client = client;
 							
-							var subClientField: any = this.form.getInputField('subClient');
-							if (subClientField!=undefined) {			
+							var subClientField: any = this.form.getInputField('subClient');							
+							if (subClientField!=undefined) {								
 								subClientField.setCustomFilter('client.codi=='+this.client.codi);	
 							}
 							
@@ -167,7 +166,7 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 																						
 						});
 					});				
-			} else {
+			} else {				
 				var subClientField: any = this.form.getInputField('subClient');
 					if (subClientField!=undefined) {		
 						subClientField.formControl.setValue(null)							
@@ -241,19 +240,29 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		
 	}
 	
-//	onResourceLoad(event: any) {
-////		debugger;
-//	}
-	
-//	ngOnInit() {
-//		debugger;
-//	}
-	
+	ngOnInit() {		
+	}	
 	
 	projecte: any;
 	
 	projectesPressupostDatagridConfig: BngDatagridConfig = {        
-		mode: 'form'
+		mode: 'form',		
+		columns: [{
+			field: 'pressupost',
+			width: 150
+		}, {
+			field: 'capitol',
+			width: 20
+		}, {
+			field: 'partida',
+			width: 20			
+		}, {
+			field: 'import',
+			width: 20
+		}, {
+			field: 'observacions',
+			width: 100
+		}]
     };
 
 	projectesTarifaProveidorDatagridConfig: BngDatagridConfig = {        
@@ -276,7 +285,7 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		mode: 'form'
     };
 
-	onResourceLoad(projecte: any) {
+	onResourceLoad(projecte: any) {		
 		this.projecte = projecte;		
 		this.projectesPressupostDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;		
 		this.projectesTarifaProveidorDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi;

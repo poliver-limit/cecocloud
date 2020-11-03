@@ -214,11 +214,11 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			"	)\r\n" + 
 			"AND (\r\n" + 
 			"		(\r\n" + 
-			"			(select par.par_val from tges_par par where par.par_idf_cod = 'LIM' and par.par_cod = 'ALB_PREACCCLI') = 'S'\r\n" + 
+			"			(select par.par_val from tges_par par where par.par_idf_cod = pre_idf_cod and par.par_cod = 'ALB_PREACCCLI') = 'S'\r\n" + 
 			"			AND (pre.pre_est = 'A' OR pre.pre_est = 'E')\r\n" + 
 			"		)\r\n" + 
 			"		OR (\r\n" + 
-			"			(select par.par_val from tges_par par where par.par_idf_cod = 'LIM' and par.par_cod = 'ALB_PREACCCLI') = 'N'\r\n" + 
+			"			(select par.par_val from tges_par par where par.par_idf_cod = pre_idf_cod and par.par_cod = 'ALB_PREACCCLI') = 'N'\r\n" + 
 			"			AND pre.pre_est = 'A'\r\n" + 
 			"			)\r\n" + 
 			"	)\r\n" + 
