@@ -310,9 +310,8 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
-	private BigDecimal percentExecucioLliure;
+	private BigDecimal percentExecucioLliure;	
 	
-	@NotNull
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(
 			disabledForCreate = true,
@@ -320,7 +319,7 @@ public class Projecte extends AbstractIdentificableWithIdentificador<ProjectePk>
 			hiddenInGrid = true,
 			hiddenInLov = true,
 			sizeMax = 22)
-	private BigDecimal horesEquiv;
+	private BigDecimal horesEquiv = new BigDecimal(0);
 	
 	@Digits(integer = 5, fraction = 2)
 	@RestapiField(
