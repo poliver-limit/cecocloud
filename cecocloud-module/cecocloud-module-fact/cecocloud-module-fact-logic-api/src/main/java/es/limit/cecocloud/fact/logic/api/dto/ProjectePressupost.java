@@ -4,6 +4,7 @@
 package es.limit.cecocloud.fact.logic.api.dto;
 
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.domain.Sort.Direction;
@@ -40,7 +41,7 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 
 	@RestapiField(
 			disabledForUpdate = true,
-			disabledForCreate= true,
+			disabledForCreate= false,
 			toUpperCase = true,			
 			includeInQuickFilter = true)
 	private Integer projectePressupostCodi;
@@ -67,12 +68,20 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 			disabledForCreate = false,
 			disabledForUpdate = true,
 			hiddenInGrid = true,
-			hiddenInForm = true)
-	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;	
 	
 	@Transient	
 	@RestapiField(
-			type = RestapiFieldType.LOV)
+			type = RestapiFieldType.LOV,
+			hiddenInGrid = true,
+			lovDescriptionField = "resumPressupost",
+			lovSortFields =  {
+					@RestapiSort(
+							field = "codi",
+							direction = Direction.ASC
+							)
+					})
 	private GenericReferenceWithCompositePk<Pressupost, PressupostPk> pressupost;
 	
 	@Transient	

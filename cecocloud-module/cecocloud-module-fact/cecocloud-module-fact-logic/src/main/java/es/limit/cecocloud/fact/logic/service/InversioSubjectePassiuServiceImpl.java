@@ -41,7 +41,7 @@ public class InversioSubjectePassiuServiceImpl extends AbstractGenericCompositeP
 		return new InversioSubjectePassiuPk(
 				identificador.getEmbedded().getCodi(),				
 				empresa.getEmbedded().getCodi(),
-				"100", // TO DO: RECUPERAR EL PROJECTE
+				dto.getProjecte().getPk().getCodi(),
 				dto.getProveidor().getPk().getCodi());
 	}
 

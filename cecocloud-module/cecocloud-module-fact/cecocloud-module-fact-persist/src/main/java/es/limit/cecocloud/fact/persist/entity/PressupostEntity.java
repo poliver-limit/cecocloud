@@ -18,6 +18,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import es.limit.cecocloud.fact.persist.entity.ClientEntity;
 import es.limit.cecocloud.fact.persist.entity.CodiPostalEntity;
 import es.limit.cecocloud.fact.persist.entity.DivisaEntity;
@@ -159,6 +161,75 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Column(name = "pre_scl_cod", length = 4)
 	private String subClientCodi;
 	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "prj_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "pre_emp_cod", referencedColumnName = "prj_emp_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "pre_prj_num", referencedColumnName = "prj_num", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "rges_pre_prj_fk"))
+	private ProjecteEntity projecte;
+	@Column(name = "pre_prj_num", length = 6, nullable = false)
+	private String projecteCodi;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumns(
+			value = {
+						@JoinColumn(name = "pre_idf_cod", referencedColumnName = "acc_idf_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "pre_cli_cod", referencedColumnName = "acc_cli_cod", insertable = false, updatable = false),
+						@JoinColumn(name = "pre_acc_cod", referencedColumnName = "acc_cod", insertable = false, updatable = false) 
+			},
+			foreignKey = @ForeignKey(name = "rges_pre_acc_fk"))
+	private ClientAdresaEntity clientAdresa;
+	@Column(name = "pre_acc_cod", length = 4, nullable = false)
+	private String clientAdresaCodi;
+	
+	@Formula(value="(select 'Pre: ' || pre.PRE_SER_COD || '/' || pre.PRE_NUM || '/' || pre.PRE_VER || ' Ref: ' || pre.pre_ref || ' Est: '\r\n" + 
+			"|| case pre.pre_est\r\n" + 
+			"		when 'P' then 'Pediente'\r\n" + 
+			"		when 'A' then 'Aceptado'\r\n" + 
+			"		when 'C' then 'Cerrado'\r\n" + 
+			"		when 'Z' then 'Aplazado'\r\n" + 
+			"		when 'N' then 'No aceptado'\r\n" + 
+			"	end ||\r\n" + 
+			"	' ' || ' Dat: ' || pre.pre_dia || ' Client: ' || pre.pre_nomcli || ' (' || pre.pre_cli_cod || ') SbClient: ' || scl.scl_nom || ' (' || pre.pre_scl_cod || ')' \r\n" + 
+			"FROM TGES_PRE pre\r\n" + 
+			"left JOIN TGES_SCL scl on pre.pre_scl_cod = scl.scl_cod\r\n" + 
+			"left join TGES_PRJ prj on pre.pre_prj_num = prj.prj_num\r\n" + 
+			"where pre.pre_idf_cod = pre_idf_cod \r\n" + 
+			"AND pre.pre_emp_cod = pre_emp_cod \r\n" +
+			"AND pre.pre_cod = pre_cod \r\n" +
+			"AND (\r\n" + 
+			"	(pre.pre_cli_cod = prj.prj_cli_cod AND prj.prj_cli_cod IS NOT NULL)\r\n" + 
+			"	OR prj.prj_cli_cod IS null\r\n" + 
+			"	) \r\n" + 
+			"AND (\r\n" + 
+			"	prj.prj_scl_cod IS null\r\n" + 
+			"	OR (pre.pre_scl_cod = prj.prj_scl_cod AND prj.prj_scl_cod IS NOT NULL)\r\n" + 
+			"	) \r\n" + 
+			"AND (\r\n" + 
+			"	prj.prj_acc_cod IS null\r\n" + 
+			"	OR (pre.pre_acc_cod = prj.prj_acc_cod AND prj.prj_acc_cod IS NOT NULL)\r\n" + 
+			"	)\r\n" + 
+			"AND (\r\n" + 
+			"		(\r\n" + 
+			"			(select par.par_val from tges_par par where par.par_idf_cod = 'LIM' and par.par_cod = 'ALB_PREACCCLI') = 'S'\r\n" + 
+			"			AND (pre.pre_est = 'A' OR pre.pre_est = 'E')\r\n" + 
+			"		)\r\n" + 
+			"		OR (\r\n" + 
+			"			(select par.par_val from tges_par par where par.par_idf_cod = 'LIM' and par.par_cod = 'ALB_PREACCCLI') = 'N'\r\n" + 
+			"			AND pre.pre_est = 'A'\r\n" + 
+			"			)\r\n" + 
+			"	)\r\n" + 
+			"AND (\r\n" + 
+			"	pre.pre_idf_cod = scl.scl_idf_cod\r\n" + 
+			"	AND pre.pre_cli_cod = scl.scl_cli_cod \r\n" + 
+			"	AND pre.pre_scl_cod = scl.scl_cod\r\n" + 
+			"	)\r\n" + 
+			"ORDER BY pre.pre_ser_cod, pre.pre_num, pre.pre_ver)")
+	private String resumPressupost;
+	
 	@Builder
 	public PressupostEntity(
 			PressupostPk pk,
@@ -170,7 +241,9 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 			DivisaEntity divisa,
 			ClientEntity client,
 			CodiPostalEntity codiPostal,
-			SubClientEntity subClient
+			SubClientEntity subClient,
+			ProjecteEntity projecte,
+			ClientAdresaEntity clientAdresa
 			) {
 		
 		setId(pk);
@@ -184,7 +257,9 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.updateDivisa(divisa);
 		this.updateClient(client);
 		this.updateCodiPostal(codiPostal);
-		this.updateSubClient(subClient);	
+		this.updateSubClient(subClient);
+		this.updateProjecte(projecte);
+		this.updateClientAdresa(clientAdresa);
 			
 	}
 
@@ -232,6 +307,20 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 		this.subClient = subClient;
 		if (subClient != null) {
 			this.subClientCodi = subClient.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateProjecte(ProjecteEntity projecte) {
+		this.projecte = projecte;
+		if (projecte != null) {
+			this.projecteCodi = projecte.getEmbedded().getCodi();
+		}
+	}
+	
+	public void updateClientAdresa(ClientAdresaEntity clientAdresa) {
+		this.clientAdresa = clientAdresa;
+		if (clientAdresa != null) {
+			this.clientAdresaCodi = clientAdresa.getEmbedded().getCodi();
 		}
 	}
 

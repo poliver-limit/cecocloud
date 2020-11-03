@@ -26,6 +26,8 @@ import es.limit.cecocloud.fact.logic.api.dto.enums.PressupostEstatEnumDto;
 import es.limit.cecocloud.fact.logic.api.dto.IdentificableWithIdentificadorAndCodi.WithIdentificadorAndCodiPk;
 import es.limit.cecocloud.fact.logic.api.dto.Pressupost.PressupostPk;
 import es.limit.cecocloud.fact.logic.api.dto.SubClient.SubClientPk;
+import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
+import es.limit.cecocloud.fact.logic.api.dto.ClientAdresa.ClientAdresaPk;
 import es.limit.cecocloud.logic.api.converter.StringBooleanConverter;
 import es.limit.cecocloud.rrhh.logic.api.dto.Operari;
 import lombok.AllArgsConstructor;
@@ -191,6 +193,30 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<SubClient, SubClientPk> subClient;
 
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInGrid = false,
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
+	
+	@Transient
+	@RestapiField(
+			type = RestapiFieldType.LOV,
+			disabledForCreate = false,
+			disabledForUpdate = false,
+			hiddenInGrid = false,
+			hiddenInForm = false)
+	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> clientAdresa;
+	
+	@Transient
+	@RestapiField(
+			hiddenInGrid = true,
+			hiddenInForm = true)
+	private String resumPressupost;
+	
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@EqualsAndHashCode(callSuper = true)

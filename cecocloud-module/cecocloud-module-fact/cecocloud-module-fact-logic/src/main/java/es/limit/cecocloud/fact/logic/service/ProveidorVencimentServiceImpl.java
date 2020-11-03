@@ -41,7 +41,7 @@ public class ProveidorVencimentServiceImpl extends AbstractGenericCompositePkSer
 		return new ProveidorVencimentPk(
 				identificador.getEmbedded().getCodi(),				
 				empresa.getEmbedded().getCodi(),
-				"100", // TO DO: RECUPERAR EL PROJECTE
+				dto.getProjecte().getPk().getCodi(),
 				dto.getProveidor().getPk().getCodi());
 	}
 
