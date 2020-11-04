@@ -3,7 +3,7 @@
  */
 package es.limit.cecocloud.fact.persist.entity;
 
-import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import javax.persistence.AssociationOverride;
@@ -23,11 +23,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
+import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable.HistoricResponsablePk;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte;
 import es.limit.cecocloud.fact.logic.api.dto.Projecte.ProjectePk;
+import es.limit.cecocloud.fact.logic.api.dto.enums.OperariTipusEnumDto;
 import es.limit.cecocloud.fact.persist.entity.ProjecteEntity.ProjecteEntityListener;
 import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil.PkBuilder;
+import es.limit.cecocloud.fact.persist.repository.HistoricResponsableRepository;
 import es.limit.cecocloud.fact.persist.repository.ProjecteRepository;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import es.limit.cecocloud.rrhh.persist.entity.SeccioEntity;
@@ -682,7 +686,77 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 //					projecte.getId().setCodi(codi);
 //				}
 			}
+			
+			
+			String operariResponsableCodi = projecte.getOperariResponsableCodi();
+			String operariCapGrupCodi = projecte.getOperariCapGrupCodi();
+			String operariEncarregatCodi = projecte.getOperariEncarregatCodi();
+			String operariAdministratiuCodi = projecte.getOperariAdministratiuCodi();
+			
+			String identificadorCodi = projecte.getId().getIdentificadorCodi();
+			
+			HistoricResponsablePk historicResponsablePk = new HistoricResponsablePk(identificadorCodi, codiEmpresa, codi, null); //Falta la sequencia
+			HistoricResponsableRepository historicResponsableRepository = EntityListenerUtil.getBean(HistoricResponsableRepository.class);
+			Optional<HistoricResponsableEntity> historicResponsableEntity = historicResponsableRepository.findById(historicResponsablePk);
+
+			if(!historicResponsableEntity.isPresent() && operariResponsableCodi != null) {
+				HistoricResponsable historicResponsable = new HistoricResponsable();
+				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
+				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
+				historicResponsable.getPk().setProjecteNumero(codi);
+				historicResponsable.setTipusOperari(OperariTipusEnumDto.RESPONSABLE);
+				historicResponsable.getOperari().setCode(operariResponsableCodi);
+				historicResponsableRepository.save(
+						HistoricResponsableEntity.builder().
+						pk(historicResponsablePk).
+						embedded(historicResponsable).
+						build());
+			}
+			
+			if(!historicResponsableEntity.isPresent() && operariCapGrupCodi != null) {
+				HistoricResponsable historicResponsable = new HistoricResponsable();
+				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
+				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
+				historicResponsable.getPk().setProjecteNumero(codi);
+				historicResponsable.setTipusOperari(OperariTipusEnumDto.CAPGRUP);
+				historicResponsable.getOperari().setCode(operariCapGrupCodi);
+				historicResponsableRepository.save(
+						HistoricResponsableEntity.builder().
+						pk(historicResponsablePk).
+						embedded(historicResponsable).
+						build());		
+			}
+			
+			if(!historicResponsableEntity.isPresent() && operariEncarregatCodi != null) {
+				HistoricResponsable historicResponsable = new HistoricResponsable();
+				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
+				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
+				historicResponsable.getPk().setProjecteNumero(codi);
+				historicResponsable.setTipusOperari(OperariTipusEnumDto.ENCARREGAT);
+				historicResponsable.getOperari().setCode(operariEncarregatCodi);
+				historicResponsableRepository.save(
+						HistoricResponsableEntity.builder().
+						pk(historicResponsablePk).
+						embedded(historicResponsable).
+						build());
+			}
+			
+			if(!historicResponsableEntity.isPresent() && operariAdministratiuCodi != null) {
+				HistoricResponsable historicResponsable = new HistoricResponsable();
+				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
+				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
+				historicResponsable.getPk().setProjecteNumero(codi);
+				historicResponsable.setTipusOperari(OperariTipusEnumDto.ADMINISTRATIU);
+				historicResponsable.getOperari().setCode(operariAdministratiuCodi);
+				historicResponsableRepository.save(
+						HistoricResponsableEntity.builder().
+						pk(historicResponsablePk).
+						embedded(historicResponsable).
+						build());
+			}
+			
 		}
+		
 	}
 	
 	private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
