@@ -38,6 +38,7 @@ import { EmpresesFactService } from '../empresesFact/empresesFact.service';
 import { DivisesService } from '../divises/divises.service';
 
 import { ClientsService } from '../clients/clients.service';
+import { SubClientsService } from '../subClients/subClients.service';
 import { CodisPostalService } from '../codisPostal/codisPostal.service';
 
 import { preumigfacturacioNotEmptyValidator } from './preumigfacturacio-not-empty-validator';
@@ -59,6 +60,8 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 	divisa: any;
 	client: any;	
 	codiPostal: any;
+	
+	resource: any; // Per evitar el bug "unknown"
 		
 	formGroup: FormGroup;
 	
@@ -152,15 +155,35 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 				this.clientsService.whenReady().subscribe(serveiClients => {
 						var clientId = val.id;
 						this.clientsService.get(clientId).subscribe(client => {							
-							this.client = client;
+							this.client = client;							
 							
-							var subClientField: any = this.form.getInputField('subClient');							
-							if (subClientField!=undefined) {								
-								subClientField.setCustomFilter('client.codi=='+this.client.codi);	
+							var subClientField: any = this.form.getInputField('subClient');													
+							if (subClientField!=undefined) {	
+								
+								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
+								this.resource = 	subClientField.restapiLovField.restapiService.resource;
+								if (this.resource == 'unknown') {						
+									console.log("subClientField.restapiLovField.restapiService.resource: " + this.resource);									
+									subClientField.restapiLovField.restapiService.resource = "fact/subClients";
+									console.log("Interceptat i arreglat!");
+								}
+								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
+								
+								subClientField.setCustomFilter('client.codi=='+this.client.codi);															
 							}
 							
 							var clientAdresaField: any = this.form.getInputField('clientAdresa');
 							if (clientAdresaField!=undefined) {			
+								
+								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
+								this.resource = clientAdresaField.restapiLovField.restapiService.resource;
+								if (this.resource == 'unknown') {						
+									console.log("clientAdresaField.restapiLovField.restapiService.resource: " + this.resource);									
+									clientAdresaField.restapiLovField.restapiService.resource = "fact/clientsAdresa";
+									console.log("Interceptat i arreglat!");
+								}
+								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
+													
 								clientAdresaField.setCustomFilter('client.codi=='+this.client.codi);	
 							}
 																						
@@ -327,6 +350,7 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 		public empresesFactService: EmpresesFactService,
 		public divisesService: DivisesService,
 		public clientsService: ClientsService,
+		public subClientsService: SubClientsService,
 		public codisPostalService: CodisPostalService) {
 			super(activatedRoute);			
 			this.setConfigExternalFormComponents([

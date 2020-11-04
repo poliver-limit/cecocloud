@@ -73,14 +73,16 @@ public class ProjectePressupost extends AbstractIdentificableWithIdentificador<P
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			hiddenInGrid = true,
-			lovDescriptionField = "resumPressupost",
-			lovSortFields =  {
-					@RestapiSort(
-							field = "codi",
-							direction = Direction.ASC
-							)
-					})
+			hiddenInGrid = true
+//			,
+//			lovDescriptionField = "resumPressupost",
+//			lovSortFields =  {
+//					@RestapiSort(
+//							field = "codi",
+//							direction = Direction.ASC
+//					)
+//			}
+	)
 	private GenericReferenceWithCompositePk<Pressupost, PressupostPk> pressupost;
 	
 	@Transient	

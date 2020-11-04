@@ -185,50 +185,50 @@ public class PressupostEntity extends AbstractWithIdentificadorAuditableEntity<P
 	@Column(name = "pre_acc_cod", length = 4, nullable = false)
 	private String clientAdresaCodi;
 	
-	@Formula(value="(select 'Pre: ' || pre.PRE_SER_COD || '/' || pre.PRE_NUM || '/' || pre.PRE_VER || ' Ref: ' || pre.pre_ref || ' Est: '\r\n" + 
-			"|| case pre.pre_est\r\n" + 
-			"		when 'P' then 'Pediente'\r\n" + 
-			"		when 'A' then 'Aceptado'\r\n" + 
-			"		when 'C' then 'Cerrado'\r\n" + 
-			"		when 'Z' then 'Aplazado'\r\n" + 
-			"		when 'N' then 'No aceptado'\r\n" + 
-			"	end ||\r\n" + 
-			"	' ' || ' Dat: ' || pre.pre_dia || ' Client: ' || pre.pre_nomcli || ' (' || pre.pre_cli_cod || ') SbClient: ' || scl.scl_nom || ' (' || pre.pre_scl_cod || ')' \r\n" + 
-			"FROM TGES_PRE pre\r\n" + 
-			"left JOIN TGES_SCL scl on pre.pre_scl_cod = scl.scl_cod\r\n" + 
-			"left join TGES_PRJ prj on pre.pre_prj_num = prj.prj_num\r\n" + 
-			"where pre.pre_idf_cod = pre_idf_cod \r\n" + 
-			"AND pre.pre_emp_cod = pre_emp_cod \r\n" +
-			"AND pre.pre_cod = pre_cod \r\n" +
-			"AND (\r\n" + 
-			"	(pre.pre_cli_cod = prj.prj_cli_cod AND prj.prj_cli_cod IS NOT NULL)\r\n" + 
-			"	OR prj.prj_cli_cod IS null\r\n" + 
-			"	) \r\n" + 
-			"AND (\r\n" + 
-			"	prj.prj_scl_cod IS null\r\n" + 
-			"	OR (pre.pre_scl_cod = prj.prj_scl_cod AND prj.prj_scl_cod IS NOT NULL)\r\n" + 
-			"	) \r\n" + 
-			"AND (\r\n" + 
-			"	prj.prj_acc_cod IS null\r\n" + 
-			"	OR (pre.pre_acc_cod = prj.prj_acc_cod AND prj.prj_acc_cod IS NOT NULL)\r\n" + 
-			"	)\r\n" + 
-			"AND (\r\n" + 
-			"		(\r\n" + 
-			"			(select par.par_val from tges_par par where par.par_idf_cod = pre_idf_cod and par.par_cod = 'ALB_PREACCCLI') = 'S'\r\n" + 
-			"			AND (pre.pre_est = 'A' OR pre.pre_est = 'E')\r\n" + 
-			"		)\r\n" + 
-			"		OR (\r\n" + 
-			"			(select par.par_val from tges_par par where par.par_idf_cod = pre_idf_cod and par.par_cod = 'ALB_PREACCCLI') = 'N'\r\n" + 
-			"			AND pre.pre_est = 'A'\r\n" + 
-			"			)\r\n" + 
-			"	)\r\n" + 
-			"AND (\r\n" + 
-			"	pre.pre_idf_cod = scl.scl_idf_cod\r\n" + 
-			"	AND pre.pre_cli_cod = scl.scl_cli_cod \r\n" + 
-			"	AND pre.pre_scl_cod = scl.scl_cod\r\n" + 
-			"	)\r\n" + 
-			"ORDER BY pre.pre_ser_cod, pre.pre_num, pre.pre_ver)")
-	private String resumPressupost;
+//	@Formula(value="(select 'Pre: ' || pre.PRE_SER_COD || '/' || pre.PRE_NUM || '/' || pre.PRE_VER || ' Ref: ' || pre.pre_ref || ' Est: '\r\n" + 
+//			"|| case pre.pre_est\r\n" + 
+//			"		when 'P' then 'Pediente'\r\n" + 
+//			"		when 'A' then 'Aceptado'\r\n" + 
+//			"		when 'C' then 'Cerrado'\r\n" + 
+//			"		when 'Z' then 'Aplazado'\r\n" + 
+//			"		when 'N' then 'No aceptado'\r\n" + 
+//			"	end ||\r\n" + 
+//			"	' ' || ' Dat: ' || pre.pre_dia || ' Client: ' || pre.pre_nomcli || ' (' || pre.pre_cli_cod || ') SbClient: ' || scl.scl_nom || ' (' || pre.pre_scl_cod || ')' \r\n" + 
+//			"FROM TGES_PRE pre\r\n" + 
+//			"left JOIN TGES_SCL scl on pre.pre_scl_cod = scl.scl_cod\r\n" + 
+//			"left join TGES_PRJ prj on pre.pre_prj_num = prj.prj_num\r\n" + 
+//			"where pre.pre_idf_cod = pre_idf_cod \r\n" + 
+//			"AND pre.pre_emp_cod = pre_emp_cod \r\n" +
+//			"AND pre.pre_cod = pre_cod \r\n" +
+//			"AND (\r\n" + 
+//			"	(pre.pre_cli_cod = prj.prj_cli_cod AND prj.prj_cli_cod IS NOT NULL)\r\n" + 
+//			"	OR prj.prj_cli_cod IS null\r\n" + 
+//			"	) \r\n" + 
+//			"AND (\r\n" + 
+//			"	prj.prj_scl_cod IS null\r\n" + 
+//			"	OR (pre.pre_scl_cod = prj.prj_scl_cod AND prj.prj_scl_cod IS NOT NULL)\r\n" + 
+//			"	) \r\n" + 
+//			"AND (\r\n" + 
+//			"	prj.prj_acc_cod IS null\r\n" + 
+//			"	OR (pre.pre_acc_cod = prj.prj_acc_cod AND prj.prj_acc_cod IS NOT NULL)\r\n" + 
+//			"	)\r\n" + 
+//			"AND (\r\n" + 
+//			"		(\r\n" + 
+//			"			(select par.par_val from tges_par par where par.par_idf_cod = pre_idf_cod and par.par_cod = 'ALB_PREACCCLI') = 'S'\r\n" + 
+//			"			AND (pre.pre_est = 'A' OR pre.pre_est = 'E')\r\n" + 
+//			"		)\r\n" + 
+//			"		OR (\r\n" + 
+//			"			(select par.par_val from tges_par par where par.par_idf_cod = pre_idf_cod and par.par_cod = 'ALB_PREACCCLI') = 'N'\r\n" + 
+//			"			AND pre.pre_est = 'A'\r\n" + 
+//			"			)\r\n" + 
+//			"	)\r\n" + 
+//			"AND (\r\n" + 
+//			"	pre.pre_idf_cod = scl.scl_idf_cod\r\n" + 
+//			"	AND pre.pre_cli_cod = scl.scl_cli_cod \r\n" + 
+//			"	AND pre.pre_scl_cod = scl.scl_cod\r\n" + 
+//			"	)\r\n" + 
+//			"ORDER BY pre.pre_ser_cod, pre.pre_num, pre.pre_ver)")
+//	private String resumPressupost;
 	
 	@Builder
 	public PressupostEntity(

@@ -211,11 +211,11 @@ public class Pressupost extends AbstractIdentificableWithIdentificador<Pressupos
 			hiddenInForm = false)
 	private GenericReferenceWithCompositePk<ClientAdresa, ClientAdresaPk> clientAdresa;
 	
-	@Transient
-	@RestapiField(
-			hiddenInGrid = true,
-			hiddenInForm = true)
-	private String resumPressupost;
+//	@Transient
+//	@RestapiField(
+//			hiddenInGrid = true,
+//			hiddenInForm = true)
+//	private String resumPressupost;
 	
 	@NoArgsConstructor
 	@AllArgsConstructor
