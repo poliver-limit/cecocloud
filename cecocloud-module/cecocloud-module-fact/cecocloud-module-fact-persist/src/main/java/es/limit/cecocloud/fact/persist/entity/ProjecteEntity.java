@@ -687,73 +687,47 @@ public class ProjecteEntity extends AbstractWithIdentificadorAuditableEntity<Pro
 //				}
 			}
 			
-			
 			String operariResponsableCodi = projecte.getOperariResponsableCodi();
 			String operariCapGrupCodi = projecte.getOperariCapGrupCodi();
 			String operariEncarregatCodi = projecte.getOperariEncarregatCodi();
-			String operariAdministratiuCodi = projecte.getOperariAdministratiuCodi();
+			String operariAdministratiuCodi = projecte.getOperariAdministratiuCodi();			
+			String identificadorCodi = projecte.getId().getIdentificadorCodi();			
 			
-			String identificadorCodi = projecte.getId().getIdentificadorCodi();
-			
-			HistoricResponsablePk historicResponsablePk = new HistoricResponsablePk(identificadorCodi, codiEmpresa, codi, null); //Falta la sequencia
-			HistoricResponsableRepository historicResponsableRepository = EntityListenerUtil.getBean(HistoricResponsableRepository.class);
-			Optional<HistoricResponsableEntity> historicResponsableEntity = historicResponsableRepository.findById(historicResponsablePk);
-
-			if(!historicResponsableEntity.isPresent() && operariResponsableCodi != null) {
+			if ((operariResponsableCodi != null)||(operariCapGrupCodi != null)||(operariEncarregatCodi != null)||(operariAdministratiuCodi!=null)) {
+				HistoricResponsablePk historicResponsablePk = new HistoricResponsablePk(identificadorCodi, codiEmpresa, codi, null);
+				HistoricResponsableRepository historicResponsableRepository = EntityListenerUtil.getBean(HistoricResponsableRepository.class);
 				HistoricResponsable historicResponsable = new HistoricResponsable();
+				historicResponsable.setPk(historicResponsablePk);
 				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
 				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
 				historicResponsable.getPk().setProjecteNumero(codi);
-				historicResponsable.setTipusOperari(OperariTipusEnumDto.RESPONSABLE);
-				historicResponsable.getOperari().setCode(operariResponsableCodi);
-				historicResponsableRepository.save(
-						HistoricResponsableEntity.builder().
-						pk(historicResponsablePk).
-						embedded(historicResponsable).
-						build());
-			}
-			
-			if(!historicResponsableEntity.isPresent() && operariCapGrupCodi != null) {
-				HistoricResponsable historicResponsable = new HistoricResponsable();
-				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
-				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
-				historicResponsable.getPk().setProjecteNumero(codi);
-				historicResponsable.setTipusOperari(OperariTipusEnumDto.CAPGRUP);
-				historicResponsable.getOperari().setCode(operariCapGrupCodi);
+				
+				if(operariResponsableCodi != null) {
+					historicResponsable.setTipusOperari(OperariTipusEnumDto.RESPONSABLE);
+					historicResponsable.setOperari(projecte.getEmbedded().getOperariResponsable());
+				}
+				
+				if(operariCapGrupCodi != null) {
+					historicResponsable.setTipusOperari(OperariTipusEnumDto.CAPGRUP);
+					historicResponsable.getOperari().setCode(operariCapGrupCodi);
+				}
+				
+				if(operariAdministratiuCodi != null) {
+					historicResponsable.setTipusOperari(OperariTipusEnumDto.ENCARREGAT);
+					historicResponsable.getOperari().setCode(operariEncarregatCodi);
+				}
+				
+				if(operariAdministratiuCodi != null) {
+					historicResponsable.setTipusOperari(OperariTipusEnumDto.ADMINISTRATIU);
+					historicResponsable.getOperari().setCode(operariAdministratiuCodi);
+				}
+				
 				historicResponsableRepository.save(
 						HistoricResponsableEntity.builder().
 						pk(historicResponsablePk).
 						embedded(historicResponsable).
 						build());		
-			}
-			
-			if(!historicResponsableEntity.isPresent() && operariEncarregatCodi != null) {
-				HistoricResponsable historicResponsable = new HistoricResponsable();
-				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
-				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
-				historicResponsable.getPk().setProjecteNumero(codi);
-				historicResponsable.setTipusOperari(OperariTipusEnumDto.ENCARREGAT);
-				historicResponsable.getOperari().setCode(operariEncarregatCodi);
-				historicResponsableRepository.save(
-						HistoricResponsableEntity.builder().
-						pk(historicResponsablePk).
-						embedded(historicResponsable).
-						build());
-			}
-			
-			if(!historicResponsableEntity.isPresent() && operariAdministratiuCodi != null) {
-				HistoricResponsable historicResponsable = new HistoricResponsable();
-				historicResponsable.getPk().setIdentificadorCodi(identificadorCodi);
-				historicResponsable.getPk().setEmpresaCodi(codiEmpresa);
-				historicResponsable.getPk().setProjecteNumero(codi);
-				historicResponsable.setTipusOperari(OperariTipusEnumDto.ADMINISTRATIU);
-				historicResponsable.getOperari().setCode(operariAdministratiuCodi);
-				historicResponsableRepository.save(
-						HistoricResponsableEntity.builder().
-						pk(historicResponsablePk).
-						embedded(historicResponsable).
-						build());
-			}
+			}		
 			
 		}
 		

@@ -76,10 +76,10 @@ public class HistoricResponsable extends AbstractIdentificableWithIdentificador<
 	@Transient	
 	@RestapiField(
 			type = RestapiFieldType.LOV,
-			disabledForCreate = true,
+			disabledForCreate = false,
 			hiddenInGrid = true,
 			disabledForUpdate = true,
-			hiddenInForm = true
+			hiddenInForm = false
 			)
 	private GenericReferenceWithCompositePk<Projecte, ProjectePk> projecte;
 	

@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable;
 import es.limit.cecocloud.fact.logic.api.dto.HistoricResponsable.HistoricResponsablePk;
-import es.limit.cecocloud.fact.persist.entity.HistoricResponsableEntity.HistoricResponsableEntityListener;
+//import es.limit.cecocloud.fact.persist.entity.HistoricResponsableEntity.HistoricResponsableEntityListener;
 import es.limit.cecocloud.fact.persist.listener.EntityListenerUtil;
 import es.limit.cecocloud.rrhh.persist.entity.OperariEntity;
 import lombok.AccessLevel;
@@ -72,7 +72,7 @@ import lombok.Setter;
 			},
 			foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 })
-@EntityListeners({HistoricResponsableEntityListener.class})
+//@EntityListeners({HistoricResponsableEntityListener.class})
 public class HistoricResponsableEntity extends AbstractWithIdentificadorAuditableEntity<HistoricResponsable, HistoricResponsablePk> {
 
 	@Embedded
@@ -120,7 +120,10 @@ public class HistoricResponsableEntity extends AbstractWithIdentificadorAuditabl
 		this.identificador = identificador;
 		this.empresa = empresa;
 		this.projecte = projecte;
-		this.updateOperari(operari);
+		this.updateOperari(operari);		
+		
+		this.actualizameLaRef(this);
+		
 	}
 
 	@Override
@@ -135,16 +138,26 @@ public class HistoricResponsableEntity extends AbstractWithIdentificadorAuditabl
 		}
 	}
 
-	public static class HistoricResponsableEntityListener {
-		@PrePersist
-		public void calcular(HistoricResponsableEntity historicResponsable) {
-			int seq = EntityListenerUtil.getSeguentNumComptador(
-					historicResponsable.getIdentificador().getId(),
-					"TGES_HOP",
-					null);
-			historicResponsable.getEmbedded().setSequencia(seq);
-			historicResponsable.getId().setSequencia(seq);
-		}
+//	public static class HistoricResponsableEntityListener {
+//		@PrePersist
+//		public void calcular(HistoricResponsableEntity historicResponsable) {
+//			int seq = EntityListenerUtil.getSeguentNumComptador(
+//					historicResponsable.getIdentificador().getId(),
+//					"TGES_HOP",
+//					null);
+//			historicResponsable.getEmbedded().setSequencia(seq);
+//			historicResponsable.getId().setSequencia(seq);
+//		}
+//	}
+	
+
+	public void actualizameLaRef(HistoricResponsableEntity historicResponsableEntity) {
+		int seq = EntityListenerUtil.getSeguentNumComptador(
+				historicResponsableEntity.getIdentificador().getId(), //Aquí tira un NPE
+				"TGES_HOP",
+				null);
+		historicResponsableEntity.getEmbedded().setSequencia(seq);
+		historicResponsableEntity.getId().setSequencia(seq);
 	}
 
 }
