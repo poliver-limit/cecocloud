@@ -23,6 +23,8 @@ export class PressupostosFormComponent extends BngFormBaseComponent {
 
 	@ViewChild(BngForm) form: BngForm;
 	
+	resource: any; // Per evitar el bug "unknown"
+	
 	formGroup: FormGroup;
 	
 	client: any;
@@ -81,12 +83,31 @@ export class PressupostosFormComponent extends BngFormBaseComponent {
 							this.client = client;
 							
 							var subClientField: any = this.form.getInputField('subClient');
-							if (subClientField!=undefined) {			
+							if (subClientField!=undefined) {
+								
+								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
+								this.resource = 	subClientField.restapiLovField.restapiService.resource;
+								if (this.resource == 'unknown') {						
+									console.log("subClientField.restapiLovField.restapiService.resource: " + this.resource);									
+									subClientField.restapiLovField.restapiService.resource = "fact/subClients";
+									console.log("Interceptat i arreglat!");
+								}
+											
 								subClientField.setCustomFilter('client.codi=='+this.client.codi);	
 							}
 							
 							var clientAdresaField: any = this.form.getInputField('clientAdresa');
-							if (clientAdresaField!=undefined) {			
+							if (clientAdresaField!=undefined) {	
+								
+								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
+								this.resource = clientAdresaField.restapiLovField.restapiService.resource;
+								if (this.resource == 'unknown') {						
+									console.log("clientAdresaField.restapiLovField.restapiService.resource: " + this.resource);									
+									clientAdresaField.restapiLovField.restapiService.resource = "fact/clientsAdresa";
+									console.log("Interceptat i arreglat!");
+								}
+								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
+										
 								clientAdresaField.setCustomFilter('client.codi=='+this.client.codi);	
 							}
 																						

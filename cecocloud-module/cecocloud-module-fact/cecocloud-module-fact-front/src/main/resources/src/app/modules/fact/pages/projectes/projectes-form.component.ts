@@ -185,8 +185,10 @@ export class ProjectesFormComponent extends BngFormBaseComponent {
 								// Tall de codi per solventar bug "unknown" ///////////////////////////////////////////
 													
 								clientAdresaField.setCustomFilter('client.codi=='+this.client.codi);	
-							}
-																						
+							}								
+							
+							this.projectesPressupostDatagridConfig.fixedFilter = 'projecte.codi==' + this.projecte.codi + '&client.codi==' + this.client.codi;
+																								
 						});
 					});				
 			} else {				
